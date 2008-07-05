@@ -1,0 +1,6 @@
+"EXITING"   = "Disconnected";
+"WAIT"      = "Waiting for Server Response";
+"SLEEP"     = "Waiting for Demon Process";
+"AUTH"      = "Authorizing";
+"CONNECTED" = "Connected";
+"Details…" = "Details…";

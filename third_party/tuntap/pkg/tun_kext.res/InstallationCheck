@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# find out about the OS X minor version
+minor_vers=`sw_vers -productVersion | sed -e 's/^10\.\([0-9]\{1,\}\)\(\..*\)\{0,1\}$/\1/'`
+
+if test "$minor_vers" != "4"; then
+	exit 112
+fi
+
+exit 0

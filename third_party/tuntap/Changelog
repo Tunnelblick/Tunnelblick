@@ -1,0 +1,55 @@
+
+May 17, 2005:
+ o Initial Tiger port. We now have KPI-style interfaces. I guess the Tiger
+   version is little slower than the Panther version because of all the
+   wrapping and hiding in the kernel.
+ o The kernel extensions moved to /Library/Extensions. That is the place where
+   non-Apple kexts are supposed to live.
+
+April 21, 2005:
+ o I added support in tun for AF prepending like some BSDs do. Thanks to Dennis
+   kSchneider for mailing the initial patch. You can also set the value of
+   AF_INET6 to be used.
+ o I finally found that major bug causing crashes (especially on multiprocessor
+   machines). It also caused a memory leak (lost mbufs), and might have caused
+   performance/througput/data-loss problems. Everyone is recommended to upgrade.
+
+April 6, 2005:
+ o I rewrote the common part concerning the tun and tap initialization and
+   cleanup. This should make the code more maintainable (less duplication).
+ o The devices now reinitialize to the state they were started in when they
+   are closed by an application. This concerns IP addresses for example.
+ o I changed the package building system to use PackageMaker.app in batch
+   mode. The packages also check for version 10.3 now, so nobody should be
+   able to install tun/tap on 10.2 using installer packages. Furthermore I
+   have sprinkled some warnings telling you not to use tun/tap on SMP machines
+   over the installation process ;-)
+ o Some minor locking fixes.
+
+November 19, 2004:
+ o Jamie Wood reported that the packet queue in the driver could be considered
+   empty even if there were packets in it. This was probably caused by a
+   synchronization problem that should be fixed now. People encountering
+   timeouts etc. should try the new version.
+ o I finally implemented support for changing the interface MTU. The driver
+   enforces the MTU when writing packets to the character device now. However,
+   packets coming from the kernel are not checked.
+
+September 9, 2004:
+ o Marcello Teodori told me that the tun driver wasn't working with openvpn.
+   The problem was the fcntl call, fixed that. Should work now. Thanks
+   Marcello!
+ o changed the tun driver not to prepend the address family field before each
+   and every packet (which is the behaviour of OpenBSD). As there is currently
+   only IPv4 and IPv6 support there is no problem with the standard tun
+   approach used on other OSes. This should make the driver much more
+   compatible.
+ o Did a script and makefile support so that the installer packages can now be 
+   built from the command prompt. Unfortunately this might break things
+   someday as I am not using the 'official' way to build the packages
+ o Cleaned up installer packages a little.
+
+August 24, 2004:
+ o initial version put online
+ o basic tun/tap support, tap working with qemu
+

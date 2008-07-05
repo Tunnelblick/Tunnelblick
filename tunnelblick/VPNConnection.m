@@ -1,0 +1,481 @@
+//
+//  VPNConnection.m
+//  Tunnelblick
+//
+//  Created by Angelo Laub on 6/4/05.
+//  Copyright 2005 __MyCompanyName__. All rights reserved.
+//
+
+#import "VPNConnection.h"
+
+
+NSString* local(const NSString* theString)
+{
+    return NSLocalizedString(theString, nil);
+}
+
+
+@implementation VPNConnection
+
+-(id) initWithConfig:(NSString *)inConfig
+{	
+    if (self = [super init]) {
+        configPath = [inConfig retain];
+        portNumber = 0;
+		connectedSinceDate = [[NSDate alloc] init];
+        //myLogController = [[LogController alloc] initWithSender:self]; 
+        lastState = @"EXITING";
+		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
+    }
+    return self;
+}
+
+-(void) setConfigPath:(NSString *)inPath 
+{
+    if (inPath!=configPath) {
+	[configPath release];
+	configPath = [inPath retain];
+    }
+}
+
+-(void)setPort:(unsigned int)inPort 
+{
+	portNumber = inPort;
+}
+
+-(unsigned int)port 
+{
+    return portNumber;
+}
+
+- (void) setManagementSocket: (NetSocket*) socket
+{
+    [socket retain];
+    [managementSocket autorelease];
+    managementSocket = socket;
+    [managementSocket setDelegate: self];    
+}
+
+- (void) dealloc
+{
+    [logStorage release];
+    [self disconnect:self];
+    [self setManagementSocket: nil];
+    
+    [managementSocket release];
+    //[myLogController release];
+    [lastState release];
+    [myMenu release];	
+    [configPath release];
+    [super dealloc];
+}
+
+
+- (IBAction) connect: (id) sender
+{
+	NSString *path = [NSString stringWithFormat:@"%@/Library/openvpn/%@",NSHomeDirectory(),[self configPath]];
+	if ([self configNeedsRepair:path]) {
+		if([self repairConfigPermissions:path] != errAuthorizationSuccess) {
+			// user clicked on cancel, so do nothing
+			NSLog(@"Connect: Authorization failed.");
+			return;
+		}
+	}
+	if([self configNeedsRepair:path]) {
+		NSLog(@"Repairing permissions of config file %@ failed. Not starting.",path);
+	} else {
+		NSParameterAssert(managementSocket == nil);
+		NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+														 ofType: nil];
+		[self setPort:[self getFreePort]];
+		NSTask* task = [[[NSTask alloc] init] autorelease];
+		//    NSPipe* pipe = [NSPipe pipe];
+		[task setLaunchPath: path]; 
+		//	NSString *fullConfigPath = [NSHomeDirectory() stringByAppendingFormat:@"/Library/openvpn/%@",configPath];
+		
+		NSString *portString = [NSString stringWithFormat:@"%d",portNumber];
+		NSArray *arguments;
+		
+		NSString *key = [[self configName] stringByAppendingString:@"useDNS"];
+		if([[NSUserDefaults standardUserDefaults] boolForKey:key]) {
+			arguments = [NSArray arrayWithObjects:configPath,portString,@"1",nil];
+		} else {
+			arguments = [NSArray arrayWithObjects:configPath,portString,@"0",nil];
+		}
+		
+		
+		
+		[task setArguments:arguments];
+		NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
+		[task setCurrentDirectoryPath:openvpnDirectory];
+		//    [task setStandardError: pipe];
+		[task launch];
+		[task waitUntilExit];
+		
+		[self setState: @"SLEEP"];
+		
+		//sleep(1);
+		[self connectToManagementSocket];
+		// Wait some time for the demon to start up before connecting to the management interface:
+		//[NSTimer scheduledTimerWithTimeInterval: 3.0 target: self selector: @selector(connectToManagementSocket) userInfo: nil repeats: NO];
+	}
+}
+
+- (NSDate *)connectedSinceDate {
+    return [[connectedSinceDate retain] autorelease];
+}
+
+- (void)setConnectedSinceDate:(NSDate *)value {
+    if (connectedSinceDate != value) {
+        [connectedSinceDate release];
+        connectedSinceDate = [value copy];
+    }
+}
+
+
+
+- (IBAction) toggle: (id) sender
+{
+	if (![self isDisconnected]) {
+		[self disconnect: sender];
+	} else {
+		[self connect: sender];
+	}
+}
+
+
+- (NSString*) configPath
+{
+    return [[configPath retain] autorelease];
+}
+
+- (NSString*) configName
+{
+    [[[self configPath] lastPathComponent] stringByDeletingPathExtension];
+}
+
+- (void) connectToManagementSocket
+{
+    [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
+}
+
+- (void) disconnect: (id)sender 
+{
+    if([managementSocket isConnected])
+    {
+        [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
+    }
+    [[NSApp delegate] removeConnection:self];
+    [managementSocket close]; [managementSocket setDelegate: nil];
+    [managementSocket release]; managementSocket = nil;
+    
+    [self setState:@"EXITING"];
+    
+}
+
+
+
+
+
+
+
+- (void) netsocketConnected: (NetSocket*) socket
+{
+    
+    NSParameterAssert(socket == managementSocket);
+    
+    if (NSDebugEnabled) NSLog(@"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
+    
+    NS_DURING {
+        [managementSocket writeString: @"state on\r\n" encoding: NSASCIIStringEncoding];    
+        [managementSocket writeString: @"log on\r\n" encoding: NSASCIIStringEncoding];
+        [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+    } NS_HANDLER {
+        NSLog(@"Exception caught while writing to socket: %@\n", localException);
+    }
+    NS_ENDHANDLER
+    
+}
+
+
+
+- (void) processLine: (NSString*) line
+{
+    if ([line hasPrefix: @">"]) {
+		//NSArray* logEntry = [readString componentsSeparatedByString: @","];
+        if (NSDebugEnabled) NSLog(@">openvpn: '%@'", line);
+        
+        NSRange separatorRange = [line rangeOfString: @":"];
+        if (separatorRange.length) {
+            NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
+            NSString* command = [line substringWithRange: commandRange];
+            NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
+			//NSLog(@"Found command '%@' with parameters: %@", command, parameterString);
+            
+            if ([command isEqualToString: @"STATE"]) {
+                
+                NSArray* parameters = [parameterString componentsSeparatedByString: @","];
+                
+                NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+                NSString* state = [parameters objectAtIndex: 1];
+                
+                if (NSDebugEnabled) NSLog(@"State is '%@'", state);
+                [self setState: state];
+				NSDate *now = [[NSDate alloc] init];
+				
+                if([state isEqualToString: @"RECONNECTING"]) {
+                    [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+                } else if ([state isEqualToString: @"CONNECTED"]) {
+                    [[NSApp delegate] addConnection:self];
+					[self setConnectedSinceDate:now];
+                }
+            } else if ([command isEqualToString: @"PASSWORD"]) {
+				// Found password request from server:
+                
+                
+				// Find out wether the server wants a private key or user/auth:
+                if ([line rangeOfString: @"Need \'Private Key\'"].length) {
+					[myAuthAgent setAuthMode:@"privateKey"];
+					[myAuthAgent performAuthentication];
+					// Server wants a private key:
+                    NSString *myPassphrase = [myAuthAgent passphrase];
+					if(myPassphrase){
+						[managementSocket writeString: [NSString stringWithFormat: @"password \"Private Key\" \"%@\"\r\n",myPassphrase] encoding:NSISOLatin1StringEncoding]; 
+					} else {
+						[self disconnect:self];
+					}
+					
+					
+                }
+                else if ([line rangeOfString: @"Failed"].length) {
+                    //NSLog(@"Passphrase verification failed.\n");
+                    [self disconnect:nil];
+                    [NSApp activateIgnoringOtherApps:YES];
+					[myAuthAgent deletePassphraseFromKeychain];
+                    NSRunAlertPanel(local(@"Passphrase verification failed."),local(@"Please try again"),local(@"Okay"),nil,nil);
+                    
+                    [self connect:nil];
+                }
+                else if ([line rangeOfString: @"Auth"].length) { // Server wants user/auth:
+                    if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
+                    [myAuthAgent setAuthMode:@"password"];
+
+					[myAuthAgent performAuthentication];
+					NSString *myPassword = [myAuthAgent password];
+					NSString *myUsername = [myAuthAgent username];
+					if(myUsername && myPassword){
+						[managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n",myUsername] encoding:NSISOLatin1StringEncoding];
+						[managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n",myPassword] encoding:NSISOLatin1StringEncoding];
+					} else {
+						[self disconnect:self];
+					}
+					
+                } 
+                
+                
+            } else if ([command isEqualToString:@"LOG"]) {
+                NSArray* parameters = [parameterString componentsSeparatedByString: @","];
+                
+                NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+                NSString* logLine = [parameters objectAtIndex: 2];
+                [self addToLog:logLine atDate:date];
+            } 
+        }
+    }
+}
+	
+
+
+
+-(void)addToLog:(NSString *)text atDate:(NSCalendarDate *)date {
+	//[logText appendFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],text];
+    NSString *dateText = [NSString stringWithFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],text];
+
+    
+    [[self logStorage] appendAttributedString: [[[NSAttributedString alloc] initWithString: dateText] autorelease]];
+    //NSLog(@"Log now: \n%@", [logStorage string]);
+}
+
+- (void) netsocket: (NetSocket*) socket dataAvailable: (unsigned) inAmount
+{
+    NSParameterAssert(socket == managementSocket);
+    NSString* line;
+    
+    while (line = [socket readLine]) {
+        // Can we get blocked here?
+        //NSLog(@">>> %@", line);
+        if ([line length]) {
+            [self performSelectorOnMainThread: @selector(processLine:) 
+                                   withObject: line 
+                                waitUntilDone: NO];
+        }
+    }
+}
+
+- (void) netsocketDisconnected: (NetSocket*) inSocket
+{
+    if (inSocket==managementSocket) {
+        [self setManagementSocket: nil];
+    }
+    if (NSDebugEnabled) NSLog(@"Socket disconnected...\n");
+	//[self performSelectorOnMainThread:@selector(disconnect:) withObject:nil waitUntilDone:NO];
+    [self disconnect:self];
+}
+
+-(void)setMenu:(NSMenu *)inMenu 
+{
+    [myMenu release];
+    myMenu = [inMenu retain];
+}
+
+- (NSString*) state
+{
+    return lastState;
+}
+
+- (void) setDelegate: (id) newDelegate
+{
+    delegate = newDelegate;
+}
+
+-(BOOL) isConnected
+{
+    return [[self state] isEqualToString:@"CONNECTED"];
+}
+-(BOOL) isDisconnected 
+{
+    return [[self state] isEqualToString:@"EXITING"];
+}
+
+- (void) setState: (NSString*) newState
+	// Be sure to call this in main thread only
+{
+    [newState retain];
+    [lastState release];
+    lastState = newState;
+    [[NSApp delegate] performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
+//    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    
+    [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
+}
+
+- (NSTextStorage*) logStorage 
+/*" Returns all collected log messages for the reciever. "*/
+{
+    if (!logStorage) {
+        logStorage = [[NSTextStorage alloc] init];
+    }
+    return logStorage;
+}
+
+//- (IBAction) updateUI
+//{
+//    NSString *myState = [@"OpenVPN: " stringByAppendingString: NSLocalizedString(lastState, @"")];
+//    [[myMenu itemAtIndex:0] setTitle:myState];
+//}
+
+- (unsigned int) getFreePort
+{
+	unsigned int resultPort = 1336; // start port	
+	int fd = socket(AF_INET, SOCK_STREAM, 0);
+	int result = 0;
+	
+	do {		
+		struct sockaddr_in address;
+		int len = sizeof(struct sockaddr_in);
+		resultPort++;
+		
+		address.sin_len = len;
+		address.sin_family = AF_INET;
+		address.sin_port = htons(resultPort);
+		address.sin_addr.s_addr = htonl(0x7f000001); // 127.0.0.1, localhost
+		
+		memset(address.sin_zero,0,sizeof(address.sin_zero));
+		
+		result = bind(fd, (struct sockaddr *)&address,sizeof(address));
+		
+	} while (result!=0);
+	
+	close(fd);
+	
+	return resultPort;
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)anItem 
+{
+    SEL action = [anItem action];
+	
+    if (action == @selector(toggle:)) 
+    {
+        VPNConnection *connection = [anItem target];
+        
+        // setting menu item's state:
+        int state = NSMixedState;
+        
+        if ([connection isConnected]) 
+        {
+            state = NSOnState;
+        } 
+        else if ([connection isDisconnected]) 
+        {
+            state = NSOffState;
+        }
+        
+        [anItem setState:state];
+        
+        // setting menu command title depending on current status:
+        NSString *commandString; 
+        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = local(@"Disconnect");
+        else commandString = local(@"Connect");
+        
+        NSString *itemTitle = [NSString stringWithFormat:@"%@ '%@'", commandString, [connection configName]];
+        [anItem setTitle:itemTitle]; 
+	}
+	return YES;
+}
+
+-(BOOL)configNeedsRepair:(NSString *)configFile 
+{
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:configFile traverseLink:YES];
+	unsigned long perms = [fileAttributes filePosixPermissions];
+	NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+	NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
+	
+	if ( (![octalString isEqualToString:@"644"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
+		NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair...\n",configFile,octalString,fileOwner);
+		return YES;
+	}
+	return NO;
+}
+-(OSStatus)repairConfigPermissions:(NSString *)configFile
+{
+	AuthorizationRef authRef = [NSApplication getAuthorizationRef];
+	
+	NSString *helper = @"/bin/chmod";
+	NSArray *arguments = [NSArray arrayWithObjects:@"644",configFile,nil];
+	[NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+	
+	helper = @"/usr/sbin/chown";
+	arguments = [NSArray arrayWithObjects:@"root:wheel",configFile,nil];
+	
+	OSStatus status;
+	int i = 0;
+	int maxtries = 5;
+	for (i=0; i <= maxtries; i++) {
+		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+		if(status != errAuthorizationSuccess) goto exit;
+		sleep(1);
+		if(![self configNeedsRepair:configFile]) {
+			break;
+		}
+	}
+	
+	
+exit:
+	AuthorizationFree (authRef, kAuthorizationFlagDefaults);	
+	return status;
+}
+
+
+@end
