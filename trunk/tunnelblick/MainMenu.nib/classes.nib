@@ -1,0 +1,42 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {clearLog = id; }; 
+            CLASS = LogController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {logTextView = NSTextView; logWindow = NSWindow; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                addConnection = id; 
+                clearLog = id; 
+                connect = id; 
+                disconnect = id; 
+                editConfig = id; 
+                openLogWindow = id; 
+                quit = id; 
+                removeConnection = id; 
+            }; 
+            CLASS = MenuController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectButton = NSButton; 
+                disconnectButton = NSButton; 
+                logWindow = NSWindow; 
+                myVPNMenu = id; 
+                statusMenuItem = NSMenuItem; 
+                tabView = NSTabView; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {connect = id; disconnect = id; quit = id; terminate = id; }; 
+            CLASS = VPNConnector; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

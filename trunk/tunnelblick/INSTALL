@@ -1,0 +1,30 @@
+Building Tunnelblick is easy.
+
+Get the source from svn:
+
+	svn checkout svn://tunnelblick.net/openvpngui
+
+Or ensure you have the most up to date source:
+
+	svn update svn://tunnelblick.net/openvpngui
+
+Build it:
+
+	cd openvpngui/trunk/
+	make	
+
+Install it from your terminal::
+
+	open Tunnelblick-Universal-svn-bleeding-edge.dmg
+	cp /Volumes/tunnelblick/Tunnelblick.app /Applications/
+
+You can also easily install it from the Finder. Do so by opening the disk image and dragging the Tunnelblick application into the Applications folder.
+
+And as usual, you can clean up the source tree after you're done. Don't forget to save the resulting disk image - this will erase it:
+
+	make clean
+
+
+Having trouble with your build process? See the FAQ file!
+
+Have a question or a problem? Let us know! info@tunnelblick.net

@@ -1,0 +1,19 @@
+
+tun/tap driver installer
+========================
+
+Read this if you have downloaded the installer packages file. It consists of
+several installer packages:
+
+tuntap_installer.mpkg	a metapackage that allows you to install the other
+			packets in one simple step. Most users just want to run
+			this one.
+tap_kext.pkg		contains the ethertap kernel extension
+tun_kext.pkg		contains the IP tunnel kernel extension
+startup_item.pkg	contains a StartupItem that will load the extension at
+			boot time
+
+I have made seperate packages so you can choose to install only parts. This is
+also possible from tuntap.mpkg, click the 'Custom installation' button in the
+installer dialog.
+
