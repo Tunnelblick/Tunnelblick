@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# old versions resided in /System/Library, remove.
-rm -r /System/Library/StartupItems/tap
-rm -r /System/Library/StartupItems/tun
-
-# exit successfully
-exit 0
-
