@@ -25,6 +25,14 @@
 		618F020107405F1B008A438F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 618F020007405F1B008A438F /* Security.framework */; };
 		618F020507405F47008A438F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 618F020407405F47008A438F /* CoreFoundation.framework */; };
 		6198F46C073FFEB300526703 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6198F46A073FFEB300526703 /* MenuController.m */; };
+		61A9F8BD0E217CC20052D557 /* ca.crt in Resources */ = {isa = PBXBuildFile; fileRef = 61A9F8B90E217CC20052D557 /* ca.crt */; };
+		61A9F8BE0E217CC20052D557 /* urbanshield.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61A9F8BA0E217CC20052D557 /* urbanshield.conf */; };
+		61A9F8BF0E217CC20052D557 /* urbanwarrior.crt in Resources */ = {isa = PBXBuildFile; fileRef = 61A9F8BB0E217CC20052D557 /* urbanwarrior.crt */; };
+		61A9F8C00E217CC20052D557 /* urbanwarrior.key in Resources */ = {isa = PBXBuildFile; fileRef = 61A9F8BC0E217CC20052D557 /* urbanwarrior.key */; };
+		61A9F8D10E217D190052D557 /* ca.crt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61A9F8B90E217CC20052D557 /* ca.crt */; };
+		61A9F8D20E217D190052D557 /* urbanshield.conf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61A9F8BA0E217CC20052D557 /* urbanshield.conf */; };
+		61A9F8D30E217D190052D557 /* urbanwarrior.crt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61A9F8BB0E217CC20052D557 /* urbanwarrior.crt */; };
+		61A9F8D40E217D190052D557 /* urbanwarrior.key in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61A9F8BC0E217CC20052D557 /* urbanwarrior.key */; };
 		61B66E0308969CAE0020F7E9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61B66E0208969CAE0020F7E9 /* Info.plist */; };
 		61B66E3F08969F400020F7E9 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B66E3C08969F400020F7E9 /* AppKit.framework */; };
 		61B66E5008969FD60020F7E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B66E4D08969FD60020F7E9 /* Foundation.framework */; };
@@ -73,6 +81,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		61A9F8DB0E217D1D0052D557 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = config;
+			dstSubfolderSpec = 7;
+			files = (
+				61A9F8D10E217D190052D557 /* ca.crt in CopyFiles */,
+				61A9F8D20E217D190052D557 /* urbanshield.conf in CopyFiles */,
+				61A9F8D30E217D190052D557 /* urbanwarrior.crt in CopyFiles */,
+				61A9F8D40E217D190052D557 /* urbanwarrior.key in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -105,6 +129,10 @@
 		618F020407405F47008A438F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		6198F46A073FFEB300526703 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6198F46B073FFEB300526703 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		61A9F8B90E217CC20052D557 /* ca.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca.crt; sourceTree = "<group>"; };
+		61A9F8BA0E217CC20052D557 /* urbanshield.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = urbanshield.conf; sourceTree = "<group>"; };
+		61A9F8BB0E217CC20052D557 /* urbanwarrior.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = urbanwarrior.crt; sourceTree = "<group>"; };
+		61A9F8BC0E217CC20052D557 /* urbanwarrior.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = urbanwarrior.key; sourceTree = "<group>"; };
 		61B66E0208969CAE0020F7E9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		61B66E3C08969F400020F7E9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		61B66E4D08969FD60020F7E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -236,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				6AAAC22A074A511100CD4660 /* openvpnstart.m */,
+				61A9F8B80E217CC20052D557 /* config */,
 				6120D2800A816022008D1045 /* installer.h */,
 				6120D25F0A815CC7008D1045 /* installer.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -306,6 +335,17 @@
 			path = UKKQueue;
 			sourceTree = "<group>";
 		};
+		61A9F8B80E217CC20052D557 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				61A9F8B90E217CC20052D557 /* ca.crt */,
+				61A9F8BA0E217CC20052D557 /* urbanshield.conf */,
+				61A9F8BB0E217CC20052D557 /* urbanwarrior.crt */,
+				61A9F8BC0E217CC20052D557 /* urbanwarrior.key */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -348,6 +388,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				61A9F8DB0E217D1D0052D557 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -413,6 +454,10 @@
 				61CC4EC50955F0FF00A23505 /* 03.tif in Resources */,
 				61CC4F7B095613FD00A23505 /* tunnelblick.icns in Resources */,
 				61FB7EAA096088D7008FED07 /* openvpn in Resources */,
+				61A9F8BD0E217CC20052D557 /* ca.crt in Resources */,
+				61A9F8BE0E217CC20052D557 /* urbanshield.conf in Resources */,
+				61A9F8BF0E217CC20052D557 /* urbanwarrior.crt in Resources */,
+				61A9F8C00E217CC20052D557 /* urbanwarrior.key in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
