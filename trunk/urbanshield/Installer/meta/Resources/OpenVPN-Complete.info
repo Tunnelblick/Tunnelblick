@@ -1,0 +1,18 @@
+Title OpenVPN-Complete
+Version 0.1
+Description TUN/TAP Driver
+OpenVPN
+OpenVPN-GUI
+DefaultLocation /
+DeleteWarning 
+
+### Package Flags
+
+NeedsAuthorization NO
+Required NO
+Relocatable NO
+RequiresReboot NO
+UseUserMask NO
+OverwritePermissions NO
+InstallFat NO
+RootVolumeOnly NO
