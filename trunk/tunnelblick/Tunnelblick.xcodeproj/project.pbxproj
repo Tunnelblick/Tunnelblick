@@ -1623,6 +1623,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				61BC4D930E2FA26E00F24255 /* CopyFiles */,
+				610AEAE70E2FE63900EA3C79 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1696,6 +1697,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		610AEAE70E2FE63900EA3C79 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TMPDMG=build/Release/Tunnelblick\nmkdir -p $TMPDMG\ncp -rv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\n# Here's where we'll make the dmg\nhdiutil create -srcfolder $TMPDMG Tunnelblick.dmg";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		61BC4BBE0E2F9FE900F24255 /* Sources */ = {
