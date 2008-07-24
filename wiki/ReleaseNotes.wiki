@@ -2,9 +2,9 @@
 
 = 3.0b9 =
 
-* Fixed the crash on Leopard
-* Fixes the slow shutdown issue
-* Updated to the new tun/tap drivers
-* Auto-Update Capability using Sparkle
+  * Fixed the crash on Leopard
+  * Fixes the slow shutdown issue
+  * Updated to the new tun/tap drivers
+  * Auto-Update Capability using Sparkle
 
 Please test especially on PowerPC and Tiger as I don't have access to a Tiger/PPC machine right now.
