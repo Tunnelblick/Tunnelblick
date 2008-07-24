@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		616A49190E38D0DE00477476 /* tap.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A49090E38D0D400477476 /* tap.kext */; };
+		616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A490A0E38D0D400477476 /* tun.kext */; };
 		61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B660E2F9EBC00F24255 /* VPNConnection.m */; };
 		61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */; };
 		61BC4B7B0E2F9EBC00F24255 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B6A0E2F9EBC00F24255 /* MenuController.m */; };
@@ -30,18 +32,6 @@
 		61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61BC4BC10E2F9FE900F24255 /* openvpnstart */; };
 		61BC4DB30E2FA3C300F24255 /* LogWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB10E2FA3C300F24255 /* LogWindow.nib */; };
 		61BC4DB40E2FA3C300F24255 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB20E2FA3C300F24255 /* MainMenu.nib */; };
-		61BC4DF20E2FA57700F24255 /* lock.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DDB0E2FA55E00F24255 /* lock.cc */; };
-		61BC4DF40E2FA57700F24255 /* tuntap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DED0E2FA55F00F24255 /* tuntap.cc */; };
-		61BC4DF60E2FA57700F24255 /* tuntap_mgr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DEF0E2FA55F00F24255 /* tuntap_mgr.cc */; };
-		61BC4DF90E2FA58700F24255 /* lock.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DDB0E2FA55E00F24255 /* lock.cc */; };
-		61BC4DFB0E2FA58700F24255 /* tuntap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DED0E2FA55F00F24255 /* tuntap.cc */; };
-		61BC4DFD0E2FA58700F24255 /* tuntap_mgr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DEF0E2FA55F00F24255 /* tuntap_mgr.cc */; };
-		61BC4E000E2FA59700F24255 /* tap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DE20E2FA55F00F24255 /* tap.cc */; };
-		61BC4E030E2FA5AA00F24255 /* tun.cc in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DE80E2FA55F00F24255 /* tun.cc */; };
-		61BC4E050E2FA5AA00F24255 /* tun_inet6_proto.c in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DEA0E2FA55F00F24255 /* tun_inet6_proto.c */; };
-		61BC4E060E2FA5AA00F24255 /* tun_inet_proto.c in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4DEB0E2FA55F00F24255 /* tun_inet_proto.c */; };
-		61BC4E490E2FA77600F24255 /* tun.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61BC4E430E2FA76D00F24255 /* tun.kext */; };
-		61BC4E4A0E2FA77B00F24255 /* tap.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61BC4E3D0E2FA75C00F24255 /* tap.kext */; };
 		61BC4E6F0E2FA8A900F24255 /* 00_closed.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E690E2FA8A200F24255 /* 00_closed.tif */; };
 		61BC4E700E2FA8A900F24255 /* 01.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6A0E2FA8A200F24255 /* 01.tif */; };
 		61BC4E710E2FA8A900F24255 /* 02.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6B0E2FA8A200F24255 /* 02.tif */; };
@@ -250,20 +240,6 @@
 			remoteGlobalIDString = 61BC4D6A0E2FA06900F24255;
 			remoteInfo = installer;
 		};
-		61BC4E4D0E2FA7C300F24255 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 61BC4DC80E2FA51E00F24255;
-			remoteInfo = tun;
-		};
-		61BC4E4F0E2FA7C300F24255 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 61BC4DD10E2FA52900F24255;
-			remoteInfo = tap;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -273,8 +249,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				61BC4E4A0E2FA77B00F24255 /* tap.kext in CopyFiles */,
-				61BC4E490E2FA77600F24255 /* tun.kext in CopyFiles */,
+				616A49190E38D0DE00477476 /* tap.kext in CopyFiles */,
+				616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */,
 				61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */,
 				61BC4DAB0E2FA33C00F24255 /* installer in CopyFiles */,
 				61BC4D940E2FA27700F24255 /* openvpn in CopyFiles */,
@@ -291,6 +267,9 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tunnelblick_Prefix.pch; sourceTree = "<group>"; };
+		616A44E10E38CAA700477476 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = /System/Library/Frameworks/Kernel.framework; sourceTree = "<absolute>"; };
+		616A49090E38D0D400477476 /* tap.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tap.kext; path = ../third_party/tuntap/tap.kext; sourceTree = SOURCE_ROOT; };
+		616A490A0E38D0D400477476 /* tun.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tun.kext; path = ../third_party/tuntap/tun.kext; sourceTree = SOURCE_ROOT; };
 		61BC4B650E2F9EBC00F24255 /* VPNConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNConnection.h; sourceTree = "<group>"; };
 		61BC4B660E2F9EBC00F24255 /* VPNConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNConnection.m; sourceTree = "<group>"; };
 		61BC4B670E2F9EBC00F24255 /* openvpnstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = openvpnstart.m; sourceTree = "<group>"; };
@@ -326,31 +305,8 @@
 		61BC4D9D0E2FA2F300F24255 /* installer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = installer.m; sourceTree = "<group>"; };
 		61BC4DB10E2FA3C300F24255 /* LogWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LogWindow.nib; sourceTree = "<group>"; };
 		61BC4DB20E2FA3C300F24255 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
-		61BC4DC90E2FA51E00F24255 /* tun.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tun.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4DCA0E2FA51E00F24255 /* tun-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tun-Info.plist"; sourceTree = "<group>"; };
-		61BC4DD20E2FA52900F24255 /* tap.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tap.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4DD30E2FA52900F24255 /* tap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tap-Info.plist"; sourceTree = "<group>"; };
-		61BC4DDA0E2FA55E00F24255 /* ifaddr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifaddr.h; sourceTree = "<group>"; };
-		61BC4DDB0E2FA55E00F24255 /* lock.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lock.cc; sourceTree = "<group>"; };
-		61BC4DDC0E2FA55E00F24255 /* lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lock.h; sourceTree = "<group>"; };
-		61BC4DDD0E2FA55F00F24255 /* tags */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tags; sourceTree = "<group>"; };
-		61BC4DE00E2FA55F00F24255 /* kmod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kmod.cc; sourceTree = "<group>"; };
-		61BC4DE10E2FA55F00F24255 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		61BC4DE20E2FA55F00F24255 /* tap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tap.cc; sourceTree = "<group>"; };
-		61BC4DE30E2FA55F00F24255 /* tap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tap.h; sourceTree = "<group>"; };
-		61BC4DE60E2FA55F00F24255 /* kmod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kmod.cc; sourceTree = "<group>"; };
-		61BC4DE70E2FA55F00F24255 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		61BC4DE80E2FA55F00F24255 /* tun.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tun.cc; sourceTree = "<group>"; };
-		61BC4DE90E2FA55F00F24255 /* tun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tun.h; sourceTree = "<group>"; };
-		61BC4DEA0E2FA55F00F24255 /* tun_inet6_proto.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tun_inet6_proto.c; sourceTree = "<group>"; };
-		61BC4DEB0E2FA55F00F24255 /* tun_inet_proto.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tun_inet_proto.c; sourceTree = "<group>"; };
-		61BC4DEC0E2FA55F00F24255 /* tun_ioctls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tun_ioctls.h; sourceTree = "<group>"; };
-		61BC4DED0E2FA55F00F24255 /* tuntap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tuntap.cc; sourceTree = "<group>"; };
-		61BC4DEE0E2FA55F00F24255 /* tuntap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuntap.h; sourceTree = "<group>"; };
-		61BC4DEF0E2FA55F00F24255 /* tuntap_mgr.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tuntap_mgr.cc; sourceTree = "<group>"; };
-		61BC4DF00E2FA55F00F24255 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
-		61BC4E3D0E2FA75C00F24255 /* tap.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tap.kext; path = build/Release/tap.kext; sourceTree = "<group>"; };
-		61BC4E430E2FA76D00F24255 /* tun.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tun.kext; path = build/Release/tun.kext; sourceTree = "<group>"; };
 		61BC4E690E2FA8A200F24255 /* 00_closed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 00_closed.tif; sourceTree = "<group>"; };
 		61BC4E6A0E2FA8A200F24255 /* 01.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 01.tif; sourceTree = "<group>"; };
 		61BC4E6B0E2FA8A200F24255 /* 02.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 02.tif; sourceTree = "<group>"; };
@@ -359,8 +315,6 @@
 		61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		61BC4E770E2FA8D000F24255 /* client.down.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.osx.sh; sourceTree = "<group>"; };
 		61BC4E780E2FA8D000F24255 /* client.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.osx.sh; sourceTree = "<group>"; };
-		61F1CAEB0E2FAF6A008D999E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		61F1CAEC0E2FAF90008D999E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61FB78AA0E25615100F04F35 /* liblzo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblzo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		61FB78B00E25617700F04F35 /* aclocal.m4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = aclocal.m4; sourceTree = "<group>"; };
 		61FB78B10E25617700F04F35 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
@@ -740,20 +694,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		61BC4DC70E2FA51E00F24255 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		61BC4DD00E2FA52900F24255 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		61FB78A80E25615100F04F35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -836,8 +776,6 @@
 				61FB79DE0E2561B500F04F35 /* openvpn */,
 				61BC4BC10E2F9FE900F24255 /* openvpnstart */,
 				61BC4D6B0E2FA06900F24255 /* installer */,
-				61BC4DC90E2FA51E00F24255 /* tun.kext */,
-				61BC4DD20E2FA52900F24255 /* tap.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -845,9 +783,9 @@
 		29B97314FDCFA39411CA2CEA /* Tunnelblick */ = {
 			isa = PBXGroup;
 			children = (
-				61BC4E430E2FA76D00F24255 /* tun.kext */,
-				61BC4E3D0E2FA75C00F24255 /* tap.kext */,
-				61BC4DD90E2FA55E00F24255 /* tuntap */,
+				616A49090E38D0D400477476 /* tap.kext */,
+				616A490A0E38D0D400477476 /* tun.kext */,
+				616A44E10E38CAA700477476 /* Kernel.framework */,
 				61BC4D880E2FA20800F24255 /* CoreFoundation.framework */,
 				61BC4D890E2FA20800F24255 /* Security.framework */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
@@ -914,51 +852,6 @@
 				61BC4B900E2F9EDA00F24255 /* UKMainThreadProxy.m */,
 			);
 			path = UKKQueue;
-			sourceTree = "<group>";
-		};
-		61BC4DD90E2FA55E00F24255 /* tuntap */ = {
-			isa = PBXGroup;
-			children = (
-				61BC4DDA0E2FA55E00F24255 /* ifaddr.h */,
-				61BC4DDB0E2FA55E00F24255 /* lock.cc */,
-				61BC4DDC0E2FA55E00F24255 /* lock.h */,
-				61BC4DDD0E2FA55F00F24255 /* tags */,
-				61BC4DDE0E2FA55F00F24255 /* tap */,
-				61BC4DE40E2FA55F00F24255 /* tun */,
-				61BC4DED0E2FA55F00F24255 /* tuntap.cc */,
-				61BC4DEE0E2FA55F00F24255 /* tuntap.h */,
-				61BC4DEF0E2FA55F00F24255 /* tuntap_mgr.cc */,
-				61BC4DF00E2FA55F00F24255 /* util.h */,
-			);
-			name = tuntap;
-			path = src;
-			sourceTree = "<group>";
-		};
-		61BC4DDE0E2FA55F00F24255 /* tap */ = {
-			isa = PBXGroup;
-			children = (
-				61F1CAEC0E2FAF90008D999E /* Info.plist */,
-				61BC4DE00E2FA55F00F24255 /* kmod.cc */,
-				61BC4DE10E2FA55F00F24255 /* Makefile */,
-				61BC4DE20E2FA55F00F24255 /* tap.cc */,
-				61BC4DE30E2FA55F00F24255 /* tap.h */,
-			);
-			path = tap;
-			sourceTree = "<group>";
-		};
-		61BC4DE40E2FA55F00F24255 /* tun */ = {
-			isa = PBXGroup;
-			children = (
-				61F1CAEB0E2FAF6A008D999E /* Info.plist */,
-				61BC4DE60E2FA55F00F24255 /* kmod.cc */,
-				61BC4DE70E2FA55F00F24255 /* Makefile */,
-				61BC4DE80E2FA55F00F24255 /* tun.cc */,
-				61BC4DE90E2FA55F00F24255 /* tun.h */,
-				61BC4DEA0E2FA55F00F24255 /* tun_inet6_proto.c */,
-				61BC4DEB0E2FA55F00F24255 /* tun_inet_proto.c */,
-				61BC4DEC0E2FA55F00F24255 /* tun_ioctls.h */,
-			);
-			path = tun;
 			sourceTree = "<group>";
 		};
 		61FB78AF0E25617700F04F35 /* lzo-2.02 */ = {
@@ -1547,40 +1440,6 @@
 			productReference = 61BC4D6B0E2FA06900F24255 /* installer */;
 			productType = "com.apple.product-type.tool";
 		};
-		61BC4DC80E2FA51E00F24255 /* tun */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 61BC4DCD0E2FA51E00F24255 /* Build configuration list for PBXNativeTarget "tun" */;
-			buildPhases = (
-				61BC4DC50E2FA51E00F24255 /* Sources */,
-				61BC4DC60E2FA51E00F24255 /* Resources */,
-				61BC4DC70E2FA51E00F24255 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = tun;
-			productName = tun;
-			productReference = 61BC4DC90E2FA51E00F24255 /* tun.kext */;
-			productType = "com.apple.product-type.kernel-extension";
-		};
-		61BC4DD10E2FA52900F24255 /* tap */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 61BC4DD60E2FA52A00F24255 /* Build configuration list for PBXNativeTarget "tap" */;
-			buildPhases = (
-				61BC4DCE0E2FA52900F24255 /* Sources */,
-				61BC4DCF0E2FA52900F24255 /* Resources */,
-				61BC4DD00E2FA52900F24255 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = tap;
-			productName = tap;
-			productReference = 61BC4DD20E2FA52900F24255 /* tap.kext */;
-			productType = "com.apple.product-type.kernel-extension";
-		};
 		61FB78A90E25615100F04F35 /* lzo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61FB79D90E25617800F04F35 /* Build configuration list for PBXNativeTarget "lzo" */;
@@ -1619,6 +1478,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Tunnelblick" */;
 			buildPhases = (
+				616A49200E38D17500477476 /* ShellScript */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
@@ -1631,8 +1491,6 @@
 				61BC4B460E2F9E4B00F24255 /* PBXTargetDependency */,
 				61BC4D960E2FA28700F24255 /* PBXTargetDependency */,
 				61BC4D980E2FA28700F24255 /* PBXTargetDependency */,
-				61BC4E4E0E2FA7C300F24255 /* PBXTargetDependency */,
-				61BC4E500E2FA7C300F24255 /* PBXTargetDependency */,
 			);
 			name = Tunnelblick;
 			productInstallPath = "$(HOME)/Applications";
@@ -1657,27 +1515,11 @@
 				61FB79DD0E2561B500F04F35 /* openvpn */,
 				61BC4BC00E2F9FE900F24255 /* openvpnstart */,
 				61BC4D6A0E2FA06900F24255 /* installer */,
-				61BC4DC80E2FA51E00F24255 /* tun */,
-				61BC4DD10E2FA52900F24255 /* tap */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		61BC4DC60E2FA51E00F24255 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		61BC4DCF0E2FA52900F24255 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1710,7 +1552,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TMPDMG=build/Release/Tunnelblick\nmkdir -p $TMPDMG\ncp -rv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\n# Here's where we'll make the dmg\nhdiutil create -srcfolder $TMPDMG Tunnelblick.dmg";
+			shellScript = "TMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\ncp -rv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\n# Here's where we'll make the dmg\nhdiutil create -srcfolder $TMPDMG build/Release/Tunnelblick.dmg";
+		};
+		616A49200E38D17500477476 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "BUILDDIR=../third_party/tuntap/\ncd $BUILDDIR\nmake clean\nmake";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1728,30 +1583,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		61BC4DC50E2FA51E00F24255 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				61BC4E030E2FA5AA00F24255 /* tun.cc in Sources */,
-				61BC4E050E2FA5AA00F24255 /* tun_inet6_proto.c in Sources */,
-				61BC4E060E2FA5AA00F24255 /* tun_inet_proto.c in Sources */,
-				61BC4DF20E2FA57700F24255 /* lock.cc in Sources */,
-				61BC4DF40E2FA57700F24255 /* tuntap.cc in Sources */,
-				61BC4DF60E2FA57700F24255 /* tuntap_mgr.cc in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		61BC4DCE0E2FA52900F24255 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				61BC4E000E2FA59700F24255 /* tap.cc in Sources */,
-				61BC4DF90E2FA58700F24255 /* lock.cc in Sources */,
-				61BC4DFB0E2FA58700F24255 /* tuntap.cc in Sources */,
-				61BC4DFD0E2FA58700F24255 /* tuntap_mgr.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1928,16 +1759,6 @@
 			target = 61BC4D6A0E2FA06900F24255 /* installer */;
 			targetProxy = 61BC4D970E2FA28700F24255 /* PBXContainerItemProxy */;
 		};
-		61BC4E4E0E2FA7C300F24255 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 61BC4DC80E2FA51E00F24255 /* tun */;
-			targetProxy = 61BC4E4D0E2FA7C300F24255 /* PBXContainerItemProxy */;
-		};
-		61BC4E500E2FA7C300F24255 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 61BC4DD10E2FA52900F24255 /* tap */;
-			targetProxy = 61BC4E4F0E2FA7C300F24255 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2006,93 +1827,6 @@
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		61BC4DCB0E2FA51E00F24255 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "tun-Info.plist";
-				INSTALL_PATH = "$(SYSTEM_LIBRARY_DIR)/Extensions";
-				MODULE_NAME = com.yourcompany.kext.tun;
-				MODULE_START = tun_start;
-				MODULE_STOP = tun_stop;
-				MODULE_VERSION = 1.0.0d1;
-				PREBINDING = NO;
-				PRODUCT_NAME = tun;
-				WRAPPER_EXTENSION = kext;
-				ZERO_LINK = NO;
-			};
-			name = Debug;
-		};
-		61BC4DCC0E2FA51E00F24255 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				INFOPLIST_FILE = "tun-Info.plist";
-				INSTALL_PATH = "$(SYSTEM_LIBRARY_DIR)/Extensions";
-				MODULE_NAME = com.yourcompany.kext.tun;
-				MODULE_START = tun_start;
-				MODULE_STOP = tun_stop;
-				MODULE_VERSION = 1.0.0d1;
-				OTHER_CFLAGS = (
-					"-DTAP_KEXT_VERSION=23",
-					"-DTUNTAP_VERSION=23",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = tun;
-				WRAPPER_EXTENSION = kext;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		61BC4DD40E2FA52A00F24255 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = "tap-Info.plist";
-				INSTALL_PATH = "$(SYSTEM_LIBRARY_DIR)/Extensions";
-				MODULE_NAME = com.yourcompany.kext.tap;
-				MODULE_START = tap_start;
-				MODULE_STOP = tap_stop;
-				MODULE_VERSION = 1.0.0d1;
-				PREBINDING = NO;
-				PRODUCT_NAME = tap;
-				WRAPPER_EXTENSION = kext;
-				ZERO_LINK = NO;
-			};
-			name = Debug;
-		};
-		61BC4DD50E2FA52A00F24255 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				INFOPLIST_FILE = "tap-Info.plist";
-				INSTALL_PATH = "$(SYSTEM_LIBRARY_DIR)/Extensions";
-				MODULE_NAME = com.yourcompany.kext.tap;
-				MODULE_START = tap_start;
-				MODULE_STOP = tap_stop;
-				MODULE_VERSION = 1.0.0d1;
-				OTHER_CFLAGS = "-DTUNTAP_VERSION=23";
-				PREBINDING = NO;
-				PRODUCT_NAME = tap;
-				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -2265,24 +1999,6 @@
 			buildConfigurations = (
 				61BC4D6D0E2FA06900F24255 /* Debug */,
 				61BC4D6E0E2FA06900F24255 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		61BC4DCD0E2FA51E00F24255 /* Build configuration list for PBXNativeTarget "tun" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				61BC4DCB0E2FA51E00F24255 /* Debug */,
-				61BC4DCC0E2FA51E00F24255 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		61BC4DD60E2FA52A00F24255 /* Build configuration list for PBXNativeTarget "tap" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				61BC4DD40E2FA52A00F24255 /* Debug */,
-				61BC4DD50E2FA52A00F24255 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
