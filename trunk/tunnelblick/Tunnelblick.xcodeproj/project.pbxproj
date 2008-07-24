@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
+		61492D3B0E38ED3900BC9C3F /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
 		616A49190E38D0DE00477476 /* tap.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A49090E38D0D400477476 /* tap.kext */; };
 		616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A490A0E38D0D400477476 /* tun.kext */; };
 		61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B660E2F9EBC00F24255 /* VPNConnection.m */; };
@@ -257,6 +259,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61C8B0AB0E38E3C100696EE9 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				61492D3B0E38ED3900BC9C3F /* Sparkle.framework in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +280,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tunnelblick_Prefix.pch; sourceTree = "<group>"; };
+		61492D370E38ED3400BC9C3F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		616A44E10E38CAA700477476 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = /System/Library/Frameworks/Kernel.framework; sourceTree = "<absolute>"; };
 		616A49090E38D0D400477476 /* tap.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tap.kext; path = ../third_party/tuntap/tap.kext; sourceTree = SOURCE_ROOT; };
 		616A490A0E38D0D400477476 /* tun.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tun.kext; path = ../third_party/tuntap/tun.kext; sourceTree = SOURCE_ROOT; };
@@ -716,6 +730,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */,
 				61BC4D8B0E2FA20800F24255 /* Security.framework in Frameworks */,
+				61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +798,7 @@
 		29B97314FDCFA39411CA2CEA /* Tunnelblick */ = {
 			isa = PBXGroup;
 			children = (
+				61492D370E38ED3400BC9C3F /* Sparkle.framework */,
 				616A49090E38D0D400477476 /* tap.kext */,
 				616A490A0E38D0D400477476 /* tun.kext */,
 				616A44E10E38CAA700477476 /* Kernel.framework */,
@@ -1483,6 +1499,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				61BC4D930E2FA26E00F24255 /* CopyFiles */,
+				61C8B0AB0E38E3C100696EE9 /* Copy Files */,
 				610AEAE70E2FE63900EA3C79 /* ShellScript */,
 			);
 			buildRules = (
@@ -1552,7 +1569,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\ncp -rv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\n# Here's where we'll make the dmg\nhdiutil create -srcfolder $TMPDMG build/Release/Tunnelblick.dmg";
+			shellScript = "TMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\nmv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\n# Here's where we'll make the dmg\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -srcfolder $TMPDMG build/Release/Tunnelblick.dmg";
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1930,6 +1947,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1948,6 +1969,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
