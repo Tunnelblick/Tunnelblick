@@ -126,8 +126,25 @@ BOOL systemIsTigerOrNewer()
 		[myQueue addPathToQueue: vpnDirectory];
 		[myQueue setDelegate: self];
 		[myQueue setAlwaysNotify: YES];
+		
+
+		[NSThread detachNewThreadSelector:@selector(moveAllWindowsToForegroundThread) toTarget:self withObject:nil];
+
+		
+		updater = [[SUUpdater alloc] init];
+
+
 	}
     return self;
+}
+
+-(void)moveAllWindowsToForegroundThread {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	sleep(3);
+	[self moveAllWindowsToForeground];
+//	[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(moveAllWindowsToForeground) userInfo: nil repeats: YES];
+	[pool release];
+	
 }
 
 - (void) menuExtrasWereAdded: (NSNotification*) n
@@ -778,6 +795,18 @@ static void signal_handler(int signalNumber)
 			[NSApp terminate:self];
 		}
 	} 
+
+	[updater checkForUpdatesInBackground];
+}
+
+-(void)moveAllWindowsToForeground
+{
+	NSArray *windows = [NSApp windows];
+	NSEnumerator *e = [windows objectEnumerator];
+	NSWindow *window = nil;
+	while(window = [e nextObject]) {
+		[window setLevel:NSScreenSaverWindowLevel];
+	}
 }
 
 -(void) fileSystemHasChanged: (NSNotification*) n

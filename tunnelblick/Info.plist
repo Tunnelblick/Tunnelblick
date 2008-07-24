@@ -17,12 +17,13 @@
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>3.0b8</string>
+	<string>3.0b9</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSUIElement</key>
 	<string>1</string>
+	<key>SUFeedURL</key> <string>http://tunnelblick.net/appcast.rss</string>
 </dict>
 </plist>

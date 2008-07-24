@@ -37,6 +37,7 @@
 #include <Security/AuthorizationTags.h>
 #import <sys/types.h>
 #import <sys/stat.h>
+#import <Sparkle/SUUpdater.h>
 
 int connectStatus;
 void executeAuthorized(NSString *toolPath,NSArray *arguments,AuthorizationRef myAuthorizationRef);
@@ -69,6 +70,7 @@ BOOL needsRepair(void);
     IBOutlet NSButton *connectButton, *disconnectButton, *editButton, *clearButton, *autoLaunchCheckbox, *useNameserverCheckbox;
     IBOutlet NSTabView *tabView;
 	int numberOfConfigs, oldNumberOfConfigs;
+	SUUpdater *updater;
 }
 
 - (NSArray *)myConfigArray;
