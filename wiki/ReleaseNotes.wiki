@@ -1,4 +1,5 @@
 #summary Release Notes
+#labels Featured
 
 = 3.0b9 =
 
