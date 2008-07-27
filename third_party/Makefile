@@ -55,7 +55,7 @@ openvpn::
 
 openvpn-clean:
 	$(MAKE) -C openvpn/ clean
-	rm openvpn/openvpn_tblk_*
+	rm -f openvpn/openvpn_tblk_*
 
 .PHONY : tuntap
 
