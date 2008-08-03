@@ -40,6 +40,10 @@ NSString* local(const NSString* theString)
     return self;
 }
 
+-(NSString *) description
+{
+	return [NSString stringWithFormat:@"VPN Connection %@", configPath];
+}
 -(void) setConfigPath:(NSString *)inPath 
 {
     if (inPath!=configPath) {
@@ -169,7 +173,7 @@ NSString* local(const NSString* theString)
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
 }
 
-- (void) disconnect: (id)sender 
+- disconnect: (id)sender 
 {
     if([managementSocket isConnected])
     {
@@ -198,7 +202,7 @@ NSString* local(const NSString* theString)
     
     NS_DURING {
         [managementSocket writeString: @"state on\r\n" encoding: NSASCIIStringEncoding];    
-        [managementSocket writeString: @"log on\r\n" encoding: NSASCIIStringEncoding];
+        [managementSocket writeString: @"log on all\r\n" encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
     } NS_HANDLER {
         NSLog(@"Exception caught while writing to socket: %@\n", localException);
@@ -211,7 +215,17 @@ NSString* local(const NSString* theString)
 
 - (void) processLine: (NSString*) line
 {
-    if ([line hasPrefix: @">"]) {
+	
+	/* Additional Output, so it's probably a good idea to write this into the log
+	   this happens e.g. with buffered log messages after saying log on all
+	 */
+    if (![line hasPrefix: @">"]) {
+		NSArray* parameters = [line componentsSeparatedByString: @","];
+		NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+		NSString* logLine = [parameters objectAtIndex: 2];
+		[self addToLog:logLine atDate:date];
+		return;
+	} 
 		//NSArray* logEntry = [readString componentsSeparatedByString: @","];
         if (NSDebugEnabled) NSLog(@">openvpn: '%@'", line);
         
@@ -285,12 +299,11 @@ NSString* local(const NSString* theString)
                 
             } else if ([command isEqualToString:@"LOG"]) {
                 NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-                
-                NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-                NSString* logLine = [parameters objectAtIndex: 2];
-                [self addToLog:logLine atDate:date];
+				NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+				NSString* logLine = [parameters objectAtIndex: 2];
+				[self addToLog:logLine atDate:date];
             } 
-        }
+        
     }
 }
 	
