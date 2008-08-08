@@ -222,7 +222,7 @@ NSString* local(const NSString* theString)
     if (![line hasPrefix: @">"]) {
 		NSArray* parameters = [line componentsSeparatedByString: @","];
 		NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-		NSString* logLine = [parameters objectAtIndex: 2];
+		NSString* logLine = [parameters lastObject];
 		[self addToLog:logLine atDate:date];
 		return;
 	} 
@@ -300,7 +300,7 @@ NSString* local(const NSString* theString)
             } else if ([command isEqualToString:@"LOG"]) {
                 NSArray* parameters = [parameterString componentsSeparatedByString: @","];
 				NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-				NSString* logLine = [parameters objectAtIndex: 2];
+				NSString* logLine = [parameters lastObject];
 				[self addToLog:logLine atDate:date];
             } 
         
