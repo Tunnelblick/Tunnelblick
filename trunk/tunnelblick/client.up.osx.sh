@@ -35,7 +35,7 @@ let nOptionIndex++
 done
 
 # set domain to a default value when no domain is being transmitted
-if [ "$domain" -eq "" ]; then
+if [ "$domain" == "" ]; then
 	domain="openvpn"
 fi
 
