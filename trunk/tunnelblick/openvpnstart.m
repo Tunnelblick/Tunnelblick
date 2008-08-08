@@ -78,6 +78,7 @@ int main(int argc, char** argv)
 					 @"--management-hold", 
 					 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d",port],  
 					 @"--config", configPath,
+					 @"--script-security", @"2", // allow us to call the up and down scripts
 					 nil];
 	} else {
 		arguments = [NSArray arrayWithObjects: 
