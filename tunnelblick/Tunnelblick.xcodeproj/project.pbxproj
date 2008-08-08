@@ -1289,7 +1289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BUILDDIR=../third_party/\ncd $BUILDDIR\nmake clean\nmake";
+			shellScript = "BUILDDIR=../third_party/\ncd $BUILDDIR\n\nif [ -e built ]; then\n\texit 0\nfi\n\nmake clean\nmake\n\ntouch built";
 		};
 /* End PBXShellScriptBuildPhase section */
 
