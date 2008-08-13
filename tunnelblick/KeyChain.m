@@ -32,14 +32,7 @@
     }
     return self;
 }
--(id) initWithService:(NSString *)sName
-{
-	if (sName == nil) return nil;
-    if (self = [super init]) {
-        serviceName = [sName retain];
-    }
-    return self;
-}
+
 - (NSString *)accountName {
     return [[accountName retain] autorelease];
 }
@@ -116,6 +109,5 @@
                                                       &itemRef               
                                                       );
 	if(status1 == noErr) SecKeychainItemDelete(itemRef);
-	//SecKeychainItemFreeContent(NULL,passData);
 }
 @end

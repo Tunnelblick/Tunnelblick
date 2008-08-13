@@ -284,7 +284,7 @@
 		if([authMode isEqualToString:@"privateKey"]) {
 			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
 		} else {
-			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth"];
+			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username];
 		}
     }
 }
