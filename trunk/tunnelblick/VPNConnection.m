@@ -110,12 +110,11 @@ NSString* local(const NSString* theString)
 		NSString *portString = [NSString stringWithFormat:@"%d",portNumber];
 		NSArray *arguments;
 		
-		NSString *key = [[self configName] stringByAppendingString:@"useDNS"];
-		if([[NSUserDefaults standardUserDefaults] boolForKey:key]) {
-			arguments = [NSArray arrayWithObjects:configPath,portString,@"1",nil];
-		} else {
-			arguments = [NSArray arrayWithObjects:configPath,portString,@"0",nil];
+		NSString *useDNS = @"0";
+		if(useDNSStatus(self)) {
+			useDNS = @"1";
 		}
+		arguments = [NSArray arrayWithObjects:configPath, portString, useDNS, nil];
 		
 		
 		

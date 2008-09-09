@@ -301,8 +301,8 @@ BOOL systemIsTigerOrNewer()
 		[autoLaunchCheckbox setState:NSOffState];
 	}
 	
-	NSString *key = [[connection configName] stringByAppendingString:@"useDNS"];
-	if([[NSUserDefaults standardUserDefaults] boolForKey:key]) {
+	BOOL lol = useDNSStatus(connection);
+	if(lol) {
 		[useNameserverCheckbox setState:NSOnState];
 	} else {
 		[useNameserverCheckbox setState:NSOffState];
@@ -718,14 +718,6 @@ BOOL systemIsTigerOrNewer()
 	return [[NSUserDefaults standardUserDefaults] boolForKey:autoConnectKey];
 }
 
-
--(BOOL)getCurrentUseDNSSetting
-{
-	VPNConnection *connection = [self selectedConnection];
-	NSString *key = [[connection configName] stringByAppendingString:@"useDNS"];
-	return [[NSUserDefaults standardUserDefaults] boolForKey:key];
-}
-
 - (void) setState: (NSString*) newState
 	// Be sure to call this in main thread only
 {
@@ -789,7 +781,7 @@ static void signal_handler(int signalNumber)
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	[NSApp callDelegateOnNetworkChange: YES];
-    [self installSignalHandler];    
+    //[self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
 	if(needsRepair()){
