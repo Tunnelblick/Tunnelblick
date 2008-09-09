@@ -65,7 +65,8 @@ BOOL systemIsTigerOrNewer()
 -(id) init
 {	
     if (self = [super init]) {
-        
+        [self dmgCheck];
+		
         errorImage = [[NSImage imageNamed: @"error.tif"] retain];
         mainImage = [[NSImage imageNamed: @"00_closed.tif"] retain];
         connectedImage = [[NSImage imageNamed: @"connected.png"] retain];
@@ -791,6 +792,18 @@ static void signal_handler(int signalNumber)
 	} 
 
 	[updater checkForUpdatesInBackground];
+}
+
+-(void) dmgCheck
+{
+	NSString *path = [[NSBundle mainBundle] bundlePath];
+	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
+		NSPanel *panel = NSGetAlertPanel(@"You're trying to launch Tunnelblick from the disk image",@"Please copy Tunnelblick.app to your Harddisk before launching it.",@"Okay",nil,nil);
+		[panel setLevel:NSStatusWindowLevel];
+		[panel makeKeyAndOrderFront:nil];
+		[NSApp runModalForWindow:panel];
+		exit(2);
+	}
 }
 
 -(void)moveAllWindowsToForeground
