@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 	if( atoi(argv[3]) == 1 ) useScripts = TRUE; 
 	
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	NSArray* arguments;
+	NSMutableArray* arguments;
 	NSString *pathExtension = [NSString stringWithUTF8String:argv[1]];
 	execpath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
 	NSString* directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
@@ -68,28 +68,29 @@ int main(int argc, char** argv)
 	// security: convert to int so we can be sure it's a number
 	int port = atoi(argv[2]);
 	
+	// default arguments to openvpn command line
+	arguments = [NSMutableArray arrayWithObjects:
+					@"--management-query-passwords",  
+					@"--cd", directoryPath, 
+					@"--daemon", 
+					@"--management-hold", 
+					@"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d",port],  
+					@"--config", configPath,
+					@"--script-security", @"2", // allow us to call the up and down scripts or scripts defined in config
+					nil
+				];
+	
+	// conditionally push additional arguments to array
 	if(useScripts) {
-		arguments = [NSArray arrayWithObjects: 
-					 @"--management-query-passwords",  
-					 @"--cd", directoryPath, 
-					 @"--daemon", 
-					 @"--up", upscriptPath,
-					 @"--down", downscriptPath, 
-					 @"--management-hold", 
-					 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d",port],  
-					 @"--config", configPath,
-					 @"--script-security", @"2", // allow us to call the up and down scripts
-					 nil];
-	} else {
-		arguments = [NSArray arrayWithObjects: 
-					 @"--management-query-passwords",  
-					 @"--cd", directoryPath, 
-					 @"--daemon", 
-					 @"--management-hold", 
-					 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d",port],  
-					 @"--config", configPath,
-					 nil];
+		[arguments addObjectsFromArray:
+			[NSArray arrayWithObjects:
+				@"--up", upscriptPath,
+				@"--down", downscriptPath,
+				nil
+			]
+		];
 	}
+	
 	loadKexts();
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	
