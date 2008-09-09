@@ -27,6 +27,7 @@
 #import "NSApplication+LoginItem.h"
 #import <Foundation/NSDebug.h>
 #import "AuthAgent.h"
+#import "helper.h"
 
 @interface VPNConnection : NSObject {
 	NSString *configPath;

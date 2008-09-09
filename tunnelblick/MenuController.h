@@ -40,6 +40,7 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <Sparkle/SUUpdater.h>
+#import "helper.h"
 
 int connectStatus;
 void executeAuthorized(NSString *toolPath,NSArray *arguments,AuthorizationRef myAuthorizationRef);
