@@ -24,34 +24,54 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <unistd.h>
+#import <signal.h>
 
 int loadKexts();
 
 BOOL configNeedsRepair(void);
-
+int startVPN(NSString *pathExtension, NSString *execpath, int port, BOOL useScripts);
+void killVPN(pid_t pid);
 NSString *execpath;
 NSString* configPath;
 int main(int argc, char** argv)
 {
     
-	if(argc != 4) {
-		printf("Wrong number of arguments.\nUsage: ./openvpnstart configName managementPort\n");
+	if(argc < 3) {
+		fprintf(stdout, "Usage: ./openvpnstart command configName managementPort useScripts\n");
 		exit(0);
 	}
 	
-	if(strlen(argv[2]) > 5 ){
-		printf("Port number too big.\n");
-		exit(0);
-	} 
-	
-	
-	BOOL useScripts = FALSE;
-	if( atoi(argv[3]) == 1 ) useScripts = TRUE; 
-	
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+
+	
+	char *command = argv[1];
+	if(strcmp(command, "kill") == 0) {
+		pid_t pid = (pid_t) atoi(argv[2]);
+		killVPN(pid);
+	} else if(strcmp(command, "start") == 0) {
+		NSString *pathExtension = [NSString stringWithUTF8String:argv[2]];
+		NSString *execpath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+		if(strlen(argv[3]) > 5 ){
+			fprintf(stdout, "Port number too big.\n");
+			exit(0);
+		} 		
+		int port = atoi(argv[3]);
+		BOOL useScripts = FALSE;
+		if( atoi(argv[4]) == 1 ) useScripts = TRUE;
+		startVPN(pathExtension, execpath, port, useScripts);
+	}
+	
+	
+	
+	[pool release];
+	return 0;
+}
+
+int startVPN(NSString *pathExtension, NSString *execpath, int port, BOOL useScripts) {
+
 	NSMutableArray* arguments;
-	NSString *pathExtension = [NSString stringWithUTF8String:argv[1]];
-	execpath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+	
+	
 	NSString* directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
 	configPath = [directoryPath stringByAppendingPathComponent:pathExtension];
 	NSString* openvpnPath = [execpath stringByAppendingPathComponent: @"openvpn"];
@@ -65,30 +85,27 @@ int main(int argc, char** argv)
 		exit(2);
 	}
 	
-	// security: convert to int so we can be sure it's a number
-	int port = atoi(argv[2]);
-	
 	// default arguments to openvpn command line
 	arguments = [NSMutableArray arrayWithObjects:
-					@"--management-query-passwords",  
-					@"--cd", directoryPath, 
-					@"--daemon", 
-					@"--management-hold", 
-					@"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d",port],  
-					@"--config", configPath,
-					@"--script-security", @"2", // allow us to call the up and down scripts or scripts defined in config
-					nil
-				];
+				 @"--management-query-passwords",  
+				 @"--cd", directoryPath, 
+				 @"--daemon", 
+				 @"--management-hold", 
+				 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d",port],  
+				 @"--config", configPath,
+				 @"--script-security", @"2", // allow us to call the up and down scripts or scripts defined in config
+				 nil
+				 ];
 	
 	// conditionally push additional arguments to array
 	if(useScripts) {
 		[arguments addObjectsFromArray:
-			[NSArray arrayWithObjects:
-				@"--up", upscriptPath,
-				@"--down", downscriptPath,
-				nil
-			]
-		];
+		 [NSArray arrayWithObjects:
+		  @"--up", upscriptPath,
+		  @"--down", downscriptPath,
+		  nil
+		  ]
+		 ];
 	}
 	
 	loadKexts();
@@ -103,9 +120,14 @@ int main(int argc, char** argv)
 	[task waitUntilExit];
 	[upscriptPath release];
 	[downscriptPath release];
-	[pool release];
 	
-	return 0;
+	
+}
+
+void killVPN(pid_t pid) 
+{
+	setuid(0);
+	kill(pid, SIGTERM);
 }
 
 int loadKexts() {

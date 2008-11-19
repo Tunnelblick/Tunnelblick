@@ -32,6 +32,7 @@ NSString* local(const NSString* theString)
     if (self = [super init]) {
         configPath = [inConfig retain];
         portNumber = 0;
+		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
         //myLogController = [[LogController alloc] initWithSender:self]; 
         lastState = @"EXITING";
@@ -103,9 +104,7 @@ NSString* local(const NSString* theString)
 														 ofType: nil];
 		[self setPort:[self getFreePort]];
 		NSTask* task = [[[NSTask alloc] init] autorelease];
-		//    NSPipe* pipe = [NSPipe pipe];
 		[task setLaunchPath: path]; 
-		//	NSString *fullConfigPath = [NSHomeDirectory() stringByAppendingFormat:@"/Library/openvpn/%@",configPath];
 		
 		NSString *portString = [NSString stringWithFormat:@"%d",portNumber];
 		NSArray *arguments;
@@ -114,17 +113,16 @@ NSString* local(const NSString* theString)
 		if(useDNSStatus(self)) {
 			useDNS = @"1";
 		}
-		arguments = [NSArray arrayWithObjects:configPath, portString, useDNS, nil];
+		arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, nil];
 		
 		
 		
 		[task setArguments:arguments];
 		NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
 		[task setCurrentDirectoryPath:openvpnDirectory];
-		//    [task setStandardError: pipe];
 		[task launch];
 		[task waitUntilExit];
-		
+				
 		[self setState: @"SLEEP"];
 		
 		//sleep(1);
@@ -133,6 +131,7 @@ NSString* local(const NSString* theString)
 		//[NSTimer scheduledTimerWithTimeInterval: 3.0 target: self selector: @selector(connectToManagementSocket) userInfo: nil repeats: NO];
 	}
 }
+
 
 - (NSDate *)connectedSinceDate {
     return [[connectedSinceDate retain] autorelease];
@@ -174,10 +173,15 @@ NSString* local(const NSString* theString)
 
 - disconnect: (id)sender 
 {
-    if([managementSocket isConnected])
-    {
-        [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
-    }
+	if(pid > 0) {
+		[self killProcess];	
+	}
+	else {
+		if([managementSocket isConnected])
+		{
+			[managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
+		}		
+	}
     [[NSApp delegate] removeConnection:self];
     [managementSocket close]; [managementSocket setDelegate: nil];
     [managementSocket release]; managementSocket = nil;
@@ -188,7 +192,22 @@ NSString* local(const NSString* theString)
 
 
 
-
+-(void)killProcess 
+{
+	NSParameterAssert(pid > 0);
+	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+													 ofType: nil];
+	NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: path]; 
+	NSString *pidString = [NSString stringWithFormat:@"%d", pid];
+	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
+	[task setArguments:arguments];
+	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
+	[task setCurrentDirectoryPath:openvpnDirectory];
+	[task launch];
+	[task waitUntilExit];
+	pid = 0;
+}
 
 
 
@@ -200,6 +219,7 @@ NSString* local(const NSString* theString)
     if (NSDebugEnabled) NSLog(@"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
     NS_DURING {
+		[managementSocket writeString: @"pid\r\n" encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"state on\r\n" encoding: NSASCIIStringEncoding];    
         [managementSocket writeString: @"log on all\r\n" encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
@@ -210,19 +230,35 @@ NSString* local(const NSString* theString)
     
 }
 
+-(void)setPIDFromLine:(NSString *)line 
+{
+	if([line rangeOfString: @"SUCCESS: pid="].length) {
+		@try {
+			NSArray* parameters = [line componentsSeparatedByString: @"="];
+			NSString *pidString = [parameters lastObject];
+			pid = atoi([pidString cString]);			
+		} @catch(NSException *exception) {
+			pid = 0;
+		}
+	}
+}
 
 
 - (void) processLine: (NSString*) line
 {
-	
 	/* Additional Output, so it's probably a good idea to write this into the log
 	   this happens e.g. with buffered log messages after saying log on all
 	 */
     if (![line hasPrefix: @">"]) {
-		NSArray* parameters = [line componentsSeparatedByString: @","];
-		NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-		NSString* logLine = [parameters lastObject];
-		[self addToLog:logLine atDate:date];
+		[self setPIDFromLine:line];
+		@try {
+			NSArray* parameters = [line componentsSeparatedByString: @","];
+			NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+			NSString* logLine = [parameters lastObject];
+			[self addToLog:logLine atDate:date];
+		} @catch (NSException *exception) {
+			
+		}
 		return;
 	} 
 		//NSArray* logEntry = [readString componentsSeparatedByString: @","];
