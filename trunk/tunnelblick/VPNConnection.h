@@ -38,9 +38,10 @@
 	NSDate *connectedSinceDate;
 	NSMenu *myMenu;
 	
-        NSTextStorage* logStorage;
-        id delegate;
-		AuthAgent *myAuthAgent;
+	NSTextStorage* logStorage;
+	id delegate;
+	AuthAgent *myAuthAgent;
+	pid_t pid;
 }
 
 -(id) initWithConfig:(NSString *)inConfig;
