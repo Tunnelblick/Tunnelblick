@@ -683,12 +683,18 @@ BOOL systemIsTigerOrNewer()
 }
 
 - (void) applicationWillTerminate: (NSNotification*) notification 
+{	
+    if (NSDebugEnabled) NSLog(@"App will terminate...\n");
+	[self cleanup];
+}
+
+-(void)cleanup 
 {
 	[NSApp callDelegateOnNetworkChange: NO];
-	
-    if (NSDebugEnabled) NSLog(@"App will terminate...\n");
 	[self tabView:tabView shouldSelectTabViewItem: [tabView selectedTabViewItem]];
 	[self killAllConnections];
+	[[NSStatusBar systemStatusBar] removeStatusItem:theItem];
+	
 }
 
 -(void)saveUseNameserverCheckboxState:(BOOL)inBool
@@ -751,7 +757,7 @@ static void signal_handler(int signalNumber)
         [[NSApp delegate] resetActiveConnections];
     } else  {
         printf("Received fatal signal. Cleaning up...\n");
-        [[NSApp delegate] killAllConnections];
+        [[NSApp delegate] cleanup];
         exit(0);	
     }
 }
@@ -782,11 +788,11 @@ static void signal_handler(int signalNumber)
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	[NSApp callDelegateOnNetworkChange: NO];
-    //[self installSignalHandler];    
+    [self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
 	if(needsRepair()){
-		if ([self repairPermissions] != errAuthorizationSuccess) {
+		if ([self repairPermissions] != TRUE) {
 			[NSApp terminate:self];
 		}
 	} 
@@ -826,7 +832,7 @@ static void signal_handler(int signalNumber)
 	[self fileSystemHasChanged: nil];
 }
 
--(void)repairPermissions
+-(BOOL)repairPermissions
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	NSString *installer = [thisBundle pathForResource:@"installer" ofType:nil];
@@ -834,7 +840,7 @@ static void signal_handler(int signalNumber)
 	AuthorizationRef authRef= [NSApplication getAuthorizationRef];
 	
 	if(authRef == nil)
-		return;
+		return FALSE;
 	
 	while(needsRepair()) {
 		NSLog(@"Repairing Application...\n");
@@ -842,6 +848,7 @@ static void signal_handler(int signalNumber)
 		sleep(1);
 	}
 	AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+	return TRUE;
 }
 
 
