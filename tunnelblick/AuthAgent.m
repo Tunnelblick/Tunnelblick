@@ -18,6 +18,12 @@
 
 #import "AuthAgent.h"
 
+NSString *escaped(NSString *string) {
+	string = [[string mutableCopy] autorelease];
+	[string replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[string replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	return string;
+}
 
 @implementation AuthAgent
 
@@ -238,12 +244,10 @@
 		authArray = [self getAuth];
 
 	if([authArray count]) {                
-		NSMutableString *username = [[authArray objectAtIndex:0] mutableCopy];
-		NSMutableString *passwd = [[authArray objectAtIndex:1] mutableCopy];
-//		[username replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [username length])];
-//		[passwd replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [passwd length])];
-		[self setUsername:username];
-		[self setPassword:passwd];
+		NSString *username = [authArray objectAtIndex:0];
+		NSString *passwd = [authArray objectAtIndex:1];
+		[self setUsername:escaped(username)];
+		[self setPassword:escaped(passwd)];
 
 	}
 	else {
@@ -254,15 +258,14 @@
 	if (NSDebugEnabled) NSLog(@"Server wants private key passphrase.");
 	id keyChainManager = [[[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]] autorelease];
 	
-	NSMutableString *passphrase = [[keyChainManager password] mutableCopy];
+	NSString *passphrase = [keyChainManager password];
 	if (passphrase == nil) {
 		if (NSDebugEnabled) NSLog(@"Passphrase not set, setting...\n");
 		do {
-			passphrase = [[self authenticate] mutableCopy];
+			passphrase = [self authenticate];
 		} while([passphrase isEqualToString:@""]);
 	}
-//	[passphrase replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [passphrase length])];
-	[self setPassphrase:passphrase];
+	[self setPassphrase:escaped(passphrase)];
 }
 
 -(void)performAuthentication
