@@ -812,7 +812,7 @@ static void signal_handler(int signalNumber)
 	NSEnumerator *e = [windows objectEnumerator];
 	NSWindow *window = nil;
 	while(window = [e nextObject]) {
-		[window setLevel:NSScreenSaverWindowLevel];
+		[window setLevel:NSStatusWindowLevel];
 	}
 }
 
