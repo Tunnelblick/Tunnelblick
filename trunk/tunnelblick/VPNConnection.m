@@ -164,7 +164,7 @@ NSString* local(const NSString* theString)
 
 - (NSString*) configName
 {
-    [[[self configPath] lastPathComponent] stringByDeletingPathExtension];
+    return [[[[[self configPath] lastPathComponent] stringByDeletingPathExtension] retain] autorelease];
 }
 
 - (void) connectToManagementSocket
