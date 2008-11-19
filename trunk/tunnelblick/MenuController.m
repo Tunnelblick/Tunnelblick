@@ -781,7 +781,7 @@ static void signal_handler(int signalNumber)
 }
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
-	[NSApp callDelegateOnNetworkChange: YES];
+	[NSApp callDelegateOnNetworkChange: NO];
     //[self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
