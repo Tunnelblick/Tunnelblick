@@ -10,14 +10,14 @@
 		6140EF9A0E3C334E00C5B93A /* openvpn in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6140EF990E3C334800C5B93A /* openvpn */; };
 		61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
 		61492D3B0E38ED3900BC9C3F /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
+		615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74860ED3A4C2007F6F0A /* English.lproj */; };
+		615F748F0ED3A4E5007F6F0A /* French.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F748C0ED3A4E5007F6F0A /* French.lproj */; };
+		615F74990ED3A4FA007F6F0A /* German.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74900ED3A4FA007F6F0A /* German.lproj */; };
+		615F749A0ED3A4FA007F6F0A /* Japanese.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74930ED3A4FA007F6F0A /* Japanese.lproj */; };
+		615F749B0ED3A4FA007F6F0A /* Korean.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74960ED3A4FA007F6F0A /* Korean.lproj */; };
 		6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6165CC8B0E9072A5007312DC /* RouteManager.m */; };
 		616A49190E38D0DE00477476 /* tap.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A49090E38D0D400477476 /* tap.kext */; };
 		616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A490A0E38D0D400477476 /* tun.kext */; };
-		6175ACAA0ED39EF000742D42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6175ACA80ED39EF000742D42 /* Localizable.strings */; };
-		6175ACB00ED39F3400742D42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6175ACAE0ED39F3400742D42 /* Localizable.strings */; };
-		6175ACBC0ED39F5200742D42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6175ACB40ED39F5200742D42 /* Localizable.strings */; };
-		6175ACBD0ED39F5200742D42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6175ACB70ED39F5200742D42 /* Localizable.strings */; };
-		6175ACBE0ED39F5200742D42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6175ACBA0ED39F5200742D42 /* Localizable.strings */; };
 		6185E7400E76045D0009C2FD /* helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6185E73F0E76045D0009C2FD /* helper.m */; };
 		61BC4B780E2F9EBC00F24255 /* VPNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B660E2F9EBC00F24255 /* VPNConnection.m */; };
 		61BC4B7A0E2F9EBC00F24255 /* NSArray+cArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */; };
@@ -110,16 +110,16 @@
 		32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tunnelblick_Prefix.pch; sourceTree = "<group>"; };
 		6140EF990E3C334800C5B93A /* openvpn */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = openvpn; path = ../third_party/openvpn/openvpn; sourceTree = SOURCE_ROOT; };
 		61492D370E38ED3400BC9C3F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/Sparkle.framework; sourceTree = SOURCE_ROOT; };
+		615F74860ED3A4C2007F6F0A /* English.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = English.lproj; sourceTree = "<group>"; };
+		615F748C0ED3A4E5007F6F0A /* French.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = French.lproj; sourceTree = "<group>"; };
+		615F74900ED3A4FA007F6F0A /* German.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = German.lproj; sourceTree = "<group>"; };
+		615F74930ED3A4FA007F6F0A /* Japanese.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Japanese.lproj; sourceTree = "<group>"; };
+		615F74960ED3A4FA007F6F0A /* Korean.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Korean.lproj; sourceTree = "<group>"; };
 		6165CC8A0E9072A5007312DC /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
 		6165CC8B0E9072A5007312DC /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
 		616A44E10E38CAA700477476 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = /System/Library/Frameworks/Kernel.framework; sourceTree = "<absolute>"; };
 		616A49090E38D0D400477476 /* tap.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tap.kext; path = ../third_party/tuntap/tap.kext; sourceTree = SOURCE_ROOT; };
 		616A490A0E38D0D400477476 /* tun.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; name = tun.kext; path = ../third_party/tuntap/tun.kext; sourceTree = SOURCE_ROOT; };
-		6175ACA90ED39EF000742D42 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6175ACAF0ED39F3400742D42 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = Localizable.strings; sourceTree = "<group>"; };
-		6175ACB50ED39F5200742D42 /* German */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = German; path = Localizable.strings; sourceTree = "<group>"; };
-		6175ACB80ED39F5200742D42 /* Japanese */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Japanese; path = Localizable.strings; sourceTree = "<group>"; };
-		6175ACBB0ED39F5200742D42 /* Korean */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Korean; path = Localizable.strings; sourceTree = "<group>"; };
 		6185E73E0E76045D0009C2FD /* helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
 		6185E73F0E76045D0009C2FD /* helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helper.m; sourceTree = "<group>"; };
 		61BC4B650E2F9EBC00F24255 /* VPNConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNConnection.h; sourceTree = "<group>"; };
@@ -620,11 +620,6 @@
 		29B97314FDCFA39411CA2CEA /* Tunnelblick */ = {
 			isa = PBXGroup;
 			children = (
-				6175ACB30ED39F5200742D42 /* German.lproj */,
-				6175ACB60ED39F5200742D42 /* Japanese.lproj */,
-				6175ACB90ED39F5200742D42 /* Korean.lproj */,
-				6175ACAD0ED39F3400742D42 /* French.lproj */,
-				6175ACA80ED39EF000742D42 /* Localizable.strings */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
 				61492D370E38ED3400BC9C3F /* Sparkle.framework */,
 				616A49090E38D0D400477476 /* tap.kext */,
@@ -663,6 +658,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				615F74900ED3A4FA007F6F0A /* German.lproj */,
+				615F74930ED3A4FA007F6F0A /* Japanese.lproj */,
+				615F74960ED3A4FA007F6F0A /* Korean.lproj */,
+				615F748C0ED3A4E5007F6F0A /* French.lproj */,
+				615F74860ED3A4C2007F6F0A /* English.lproj */,
 				61BC4E690E2FA8A200F24255 /* 00_closed.tif */,
 				61BC4E6A0E2FA8A200F24255 /* 01.tif */,
 				61BC4E6B0E2FA8A200F24255 /* 02.tif */,
@@ -684,38 +684,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6175ACAD0ED39F3400742D42 /* French.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				6175ACAE0ED39F3400742D42 /* Localizable.strings */,
-			);
-			path = French.lproj;
-			sourceTree = "<group>";
-		};
-		6175ACB30ED39F5200742D42 /* German.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				6175ACB40ED39F5200742D42 /* Localizable.strings */,
-			);
-			path = German.lproj;
-			sourceTree = "<group>";
-		};
-		6175ACB60ED39F5200742D42 /* Japanese.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				6175ACB70ED39F5200742D42 /* Localizable.strings */,
-			);
-			path = Japanese.lproj;
-			sourceTree = "<group>";
-		};
-		6175ACB90ED39F5200742D42 /* Korean.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				6175ACBA0ED39F5200742D42 /* Localizable.strings */,
-			);
-			path = Korean.lproj;
 			sourceTree = "<group>";
 		};
 		61BC4B880E2F9EDA00F24255 /* UKKQueue */ = {
@@ -1327,11 +1295,11 @@
 				61BC4DB30E2FA3C300F24255 /* LogWindow.nib in Resources */,
 				61BC4DB40E2FA3C300F24255 /* MainMenu.nib in Resources */,
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
-				6175ACAA0ED39EF000742D42 /* Localizable.strings in Resources */,
-				6175ACB00ED39F3400742D42 /* Localizable.strings in Resources */,
-				6175ACBC0ED39F5200742D42 /* Localizable.strings in Resources */,
-				6175ACBD0ED39F5200742D42 /* Localizable.strings in Resources */,
-				6175ACBE0ED39F5200742D42 /* Localizable.strings in Resources */,
+				615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */,
+				615F748F0ED3A4E5007F6F0A /* French.lproj in Resources */,
+				615F74990ED3A4FA007F6F0A /* German.lproj in Resources */,
+				615F749A0ED3A4FA007F6F0A /* Japanese.lproj in Resources */,
+				615F749B0ED3A4FA007F6F0A /* Korean.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1427,46 +1395,6 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6175ACA80ED39EF000742D42 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6175ACA90ED39EF000742D42 /* English */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		6175ACAE0ED39F3400742D42 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6175ACAF0ED39F3400742D42 /* French */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		6175ACB40ED39F5200742D42 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6175ACB50ED39F5200742D42 /* German */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		6175ACB70ED39F5200742D42 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6175ACB80ED39F5200742D42 /* Japanese */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		6175ACBA0ED39F5200742D42 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6175ACBB0ED39F5200742D42 /* Korean */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
