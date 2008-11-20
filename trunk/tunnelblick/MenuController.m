@@ -577,6 +577,8 @@ BOOL systemIsTigerOrNewer()
 	[editButton setTitle:local([editButton title])];
 	[connectButton setTitle:local([connectButton title])];
 	[disconnectButton setTitle:local([disconnectButton title])];
+	[useNameserverCheckbox setTitle:local([useNameserverCheckbox title])];
+	[autoLaunchCheckbox setTitle:local([autoLaunchCheckbox title])];
 
     [logWindow makeKeyAndOrderFront: self];
     [logWindow orderFrontRegardless];

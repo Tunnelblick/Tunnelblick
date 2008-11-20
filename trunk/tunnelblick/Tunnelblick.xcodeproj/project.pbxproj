@@ -208,6 +208,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				61BC4D9C0E2FA2F300F24255 /* installer.h */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
@@ -238,6 +239,10 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				61492D370E38ED3400BC9C3F /* Sparkle.framework */,
+				616A44E10E38CAA700477476 /* Kernel.framework */,
+				61BC4D880E2FA20800F24255 /* CoreFoundation.framework */,
+				61BC4D890E2FA20800F24255 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -266,14 +271,6 @@
 		29B97314FDCFA39411CA2CEA /* Tunnelblick */ = {
 			isa = PBXGroup;
 			children = (
-				61F294A50ED389520097DE94 /* openvpn.conf */,
-				61492D370E38ED3400BC9C3F /* Sparkle.framework */,
-				616A49090E38D0D400477476 /* tap.kext */,
-				616A490A0E38D0D400477476 /* tun.kext */,
-				616A44E10E38CAA700477476 /* Kernel.framework */,
-				61BC4D880E2FA20800F24255 /* CoreFoundation.framework */,
-				61BC4D890E2FA20800F24255 /* Security.framework */,
-				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -290,6 +287,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				61F294A50ED389520097DE94 /* openvpn.conf */,
 				6140EF990E3C334800C5B93A /* openvpn */,
 				61BC4E770E2FA8D000F24255 /* client.down.osx.sh */,
 				61BC4E780E2FA8D000F24255 /* client.up.osx.sh */,
@@ -302,6 +300,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				616A49090E38D0D400477476 /* tap.kext */,
+				616A490A0E38D0D400477476 /* tun.kext */,
 				61C03B960ED4E42A00175F22 /* Norwegian.lproj */,
 				615F74900ED3A4FA007F6F0A /* German.lproj */,
 				615F74930ED3A4FA007F6F0A /* Japanese.lproj */,
