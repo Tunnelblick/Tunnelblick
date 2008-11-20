@@ -806,7 +806,7 @@ static void signal_handler(int signalNumber)
 {
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		NSPanel *panel = NSGetAlertPanel(@"You're trying to launch Tunnelblick from the disk image",@"Please copy Tunnelblick.app to your Harddisk before launching it.",@"Okay",nil,nil);
+		NSPanel *panel = NSGetAlertPanel(local(@"You're trying to launch Tunnelblick from the disk image"),local(@"Please copy Tunnelblick.app to your Harddisk before launching it."),local(@"Okay"),nil,nil);
 		[panel setLevel:NSStatusWindowLevel];
 		[panel makeKeyAndOrderFront:nil];
 		[NSApp runModalForWindow:panel];
