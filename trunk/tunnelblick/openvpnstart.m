@@ -33,6 +33,7 @@ int startVPN(NSString *pathExtension, NSString *execpath, int port, BOOL useScri
 void killVPN(pid_t pid);
 NSString *execpath;
 NSString* configPath;
+
 int main(int argc, char** argv)
 {
     
@@ -50,7 +51,7 @@ int main(int argc, char** argv)
 		killVPN(pid);
 	} else if(strcmp(command, "start") == 0) {
 		NSString *pathExtension = [NSString stringWithUTF8String:argv[2]];
-		NSString *execpath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+		execpath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
 		if(strlen(argv[3]) > 5 ){
 			fprintf(stdout, "Port number too big.\n");
 			exit(0);
