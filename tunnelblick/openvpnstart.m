@@ -24,6 +24,7 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <unistd.h>
+#import <sys/sysctl.h>
 #import <signal.h>
 
 int loadKexts();
@@ -31,6 +32,7 @@ int loadKexts();
 BOOL configNeedsRepair(void);
 int startVPN(NSString *pathExtension, NSString *execpath, int port, BOOL useScripts);
 void killVPN(pid_t pid);
+BOOL isOpenVPN(pid_t pid);
 NSString *execpath;
 NSString* configPath;
 
@@ -127,8 +129,45 @@ int startVPN(NSString *pathExtension, NSString *execpath, int port, BOOL useScri
 
 void killVPN(pid_t pid) 
 {
-	setuid(0);
-	kill(pid, SIGTERM);
+	/* only allow to kill openvpn processes */
+	if(isOpenVPN(pid)) {
+		setuid(0);
+		kill(pid, SIGTERM);		
+	}
+}
+
+BOOL isOpenVPN(pid_t pid) 
+{
+	BOOL is_openvpn = FALSE;
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    struct kinfo_proc* info;
+	size_t length;
+    int count, i;
+    
+    int level = 3;
+    
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return;
+    if (!(info = NSZoneMalloc(NULL, length))) return;
+    if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
+        NSZoneFree(NULL, info);
+        return;
+    }
+    
+    count = length / sizeof(struct kinfo_proc);
+    for (i = 0; i < count; i++) {
+        char* process_name = info[i].kp_proc.p_comm;
+        pid_t thisPid = info[i].kp_proc.p_pid;
+        if (pid == thisPid) {
+			if (strcmp(process_name, "openvpn")==0) {
+				is_openvpn = TRUE;
+			} else {
+				is_openvpn = FALSE;
+			}
+			break;
+		}
+    }    
+    NSZoneFree(NULL, info);
+	return is_openvpn;
 }
 
 int loadKexts() {
