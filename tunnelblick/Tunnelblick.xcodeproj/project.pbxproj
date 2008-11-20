@@ -49,6 +49,7 @@
 		61BC4E740E2FA8A900F24255 /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */; };
 		61BC4E790E2FA8D600F24255 /* client.down.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E770E2FA8D000F24255 /* client.down.osx.sh */; };
 		61BC4E7A0E2FA8D600F24255 /* client.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E780E2FA8D000F24255 /* client.up.osx.sh */; };
+		61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* Norwegian.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -167,6 +168,7 @@
 		61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		61BC4E770E2FA8D000F24255 /* client.down.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.osx.sh; sourceTree = "<group>"; };
 		61BC4E780E2FA8D000F24255 /* client.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.osx.sh; sourceTree = "<group>"; };
+		61C03B960ED4E42A00175F22 /* Norwegian.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Norwegian.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -300,6 +302,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				61C03B960ED4E42A00175F22 /* Norwegian.lproj */,
 				615F74900ED3A4FA007F6F0A /* German.lproj */,
 				615F74930ED3A4FA007F6F0A /* Japanese.lproj */,
 				615F74960ED3A4FA007F6F0A /* Korean.lproj */,
@@ -450,6 +453,7 @@
 				615F74990ED3A4FA007F6F0A /* German.lproj in Resources */,
 				615F749A0ED3A4FA007F6F0A /* Japanese.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* Korean.lproj in Resources */,
+				61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
