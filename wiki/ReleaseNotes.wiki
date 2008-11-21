@@ -3,6 +3,7 @@
 
 = 3.0b10 =
   
+  * fix linking problem that resulted in lzo compression not working on PowerPC 
   * prevent user from launching tunnelblick directly from the dmg
   * remove experimental status from 'Set Nameserver' and make it the default
   * upgrade to OpenVPN 2.1_rc15
