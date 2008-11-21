@@ -12,3 +12,7 @@ OpenVPN needs root privileges because it needs to modify network settings like c
 
 =Why does Tunnelblick changes the ownership of the configuration files to root?=
 This is a security issue. OpenVPN config files allow you to specify up/down scripts which will be executed with root privileges every time a VPN connection is started or stopped. If the configuration files were owned by the local user, anyone could execute arbitrary code as root by inserting an 'up' directive to the config file and pointing it to a (malicious) shell script. Therefore, on the first run, Tunnelblick changes the ownership of the config file to root, so it is protected against unnoticed and possibly malicious changes.
+
+=Halp! My routes are not restored when closing my VPN connection. What happen?=
+You are most probably using the 'user' or 'group' directive in your OpenVPN client configuration file. If you use it, the OpenVPN process will drop privileges after startup which is nice as additional security measure. However, OpenVPN needs root privileges for restoring the route back to their original state. In short: don't use it.
+
