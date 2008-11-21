@@ -621,6 +621,19 @@ BOOL systemIsTigerOrNewer()
     }
 }
 
+-(void)killAllOpenVPN 
+{
+	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+													 ofType: nil];
+	NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: path]; 
+	
+	NSArray *arguments = [NSArray arrayWithObjects:@"killall", nil];
+	[task setArguments:arguments];
+	[task launch];
+	[task waitUntilExit];
+}
+
 -(void)resetActiveConnections {
 	VPNConnection *connection;
 	NSEnumerator* e = [connectionArray objectEnumerator];
@@ -695,8 +708,8 @@ BOOL systemIsTigerOrNewer()
 	[NSApp callDelegateOnNetworkChange: NO];
 	[self tabView:tabView shouldSelectTabViewItem: [tabView selectedTabViewItem]];
 	[self killAllConnections];
+	[self killAllOpenVPN];
 	[[NSStatusBar systemStatusBar] removeStatusItem:theItem];
-	
 }
 
 -(void)saveUseNameserverCheckboxState:(BOOL)inBool

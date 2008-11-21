@@ -39,7 +39,7 @@ NSString* configPath;
 int main(int argc, char** argv)
 {
     
-	if(argc < 3) {
+	if(argc < 2) {
 		fprintf(stdout, "Usage: ./openvpnstart command configName managementPort useScripts\n");
 		exit(0);
 	}
@@ -51,6 +51,8 @@ int main(int argc, char** argv)
 	if(strcmp(command, "kill") == 0) {
 		pid_t pid = (pid_t) atoi(argv[2]);
 		killVPN(pid);
+	} else if(strcmp(command, "killall") == 0) {
+		killall_openvpn();
 	} else if(strcmp(command, "start") == 0) {
 		NSString *pathExtension = [NSString stringWithUTF8String:argv[2]];
 		execpath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
@@ -127,6 +129,25 @@ int startVPN(NSString *pathExtension, NSString *execpath, int port, BOOL useScri
 	
 }
 
+
+static void processes(struct kinfo_proc **procs, int *number) {
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    struct kinfo_proc* info;
+	size_t length;
+    int count, i;
+    
+    int level = 3;
+    
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return;
+    if (!(info = malloc(length))) return;
+    if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
+        free(info);
+        return;
+    }
+	*procs = info;
+	*number = length / sizeof(struct kinfo_proc);
+}
+
 void killVPN(pid_t pid) 
 {
 	/* only allow to kill openvpn processes */
@@ -139,21 +160,9 @@ void killVPN(pid_t pid)
 BOOL isOpenVPN(pid_t pid) 
 {
 	BOOL is_openvpn = FALSE;
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
-    struct kinfo_proc* info;
-	size_t length;
-    int count, i;
-    
-    int level = 3;
-    
-    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return;
-    if (!(info = NSZoneMalloc(NULL, length))) return;
-    if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
-        NSZoneFree(NULL, info);
-        return;
-    }
-    
-    count = length / sizeof(struct kinfo_proc);
+	int count = 0, i = 0;
+	struct kinfo_proc *info = NULL; 
+	processes(&info, &count);
     for (i = 0; i < count; i++) {
         char* process_name = info[i].kp_proc.p_comm;
         pid_t thisPid = info[i].kp_proc.p_pid;
@@ -166,8 +175,23 @@ BOOL isOpenVPN(pid_t pid)
 			break;
 		}
     }    
-    NSZoneFree(NULL, info);
+    free(info);
 	return is_openvpn;
+}
+
+void killall_openvpn()
+{
+	int count = 0, i = 0;
+	struct kinfo_proc *info = NULL; 
+	processes(&info, &count);
+	for (i = 0; i < count; i++) {
+		char* process_name = info[i].kp_proc.p_comm;
+		pid_t pid = info[i].kp_proc.p_pid;
+		if(strcmp(process_name, "openvpn") == 0) {
+			kill(pid, SIGTERM);
+		}		
+	}
+	free(info);
 }
 
 int loadKexts() {
