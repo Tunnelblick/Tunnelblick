@@ -475,7 +475,10 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction) clearLog: (id) sender
 {
-    [[self selectedLogView] setString: @""];
+	NSString * versionInfo = [NSString stringWithFormat:@"Tunnelblick version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+	NSCalendarDate* date = [NSCalendarDate date];
+	NSString *dateText = [NSString stringWithFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],versionInfo];
+	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
 }
 
 //-(void)addText:(NSString *)text
