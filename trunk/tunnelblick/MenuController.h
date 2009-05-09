@@ -110,7 +110,6 @@ BOOL needsRepair(void);
 -(void)removeConnection:(id)sender;
 - (IBAction) validateLogButtons;
 - (VPNConnection*) selectedConnection;
-- (BOOL)windowShouldClose:(id)sender;
 // from LogController
 - (IBAction)clearLog:(id)sender;
 -(void)addText:(NSString *)text;

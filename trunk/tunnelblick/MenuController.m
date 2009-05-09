@@ -688,7 +688,6 @@ BOOL systemIsTigerOrNewer()
 -(void)cleanup 
 {
 	[NSApp callDelegateOnNetworkChange: NO];
-	[self tabView:tabView shouldSelectTabViewItem: [tabView selectedTabViewItem]];
 	[self killAllConnections];
 	[self killAllOpenVPN];
 	[[NSStatusBar systemStatusBar] removeStatusItem:theItem];
@@ -779,7 +778,6 @@ static void signal_handler(int signalNumber)
 }
 - (BOOL)windowShouldClose:(id)sender
 {
-	[self tabView:tabView shouldSelectTabViewItem:[tabView selectedTabViewItem]];
 	//[logWindow dealloc];
 }
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
