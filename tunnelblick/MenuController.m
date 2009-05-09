@@ -451,21 +451,6 @@ BOOL systemIsTigerOrNewer()
 	
     [self validateLogButtons];
 }
-- (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem
-{
-	if([autoLaunchCheckbox state] == NSOnState)	{
-		[self saveAutoLaunchCheckboxState:TRUE];
-	} else {
-		[self saveAutoLaunchCheckboxState:FALSE];
-	}
-	
-	if ([useNameserverCheckbox state] == NSOnState) {
-		[self saveUseNameserverCheckboxState:TRUE];
-	} else {
-		[self saveUseNameserverCheckboxState:FALSE];
-	}
-}
-
 - (void) textStorageDidProcessEditing: (NSNotification*) aNotification
 {
     NSNotification *notification = [NSNotification notificationWithName: @"LogDidChange" 
@@ -518,24 +503,11 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction)connect:(id)sender
 {
-	VPNConnection *connection = [self selectedConnection];
-	NSString *path = [NSString stringWithFormat:@"%@/Library/openvn/%@",NSHomeDirectory(),[connection configPath]];
-	if ([useNameserverCheckbox state] == NSOnState) {
-		[self saveUseNameserverCheckboxState:TRUE];
-	} else {
-		[self saveUseNameserverCheckboxState:FALSE];
-	}	
-	[connection connect: sender]; 
-	
+	[[self selectedConnection] connect: sender]; 
 }
 
 - (IBAction)disconnect:(id)sender
 {
-	if ([useNameserverCheckbox state] == NSOnState) {
-		[self saveUseNameserverCheckboxState:TRUE];
-	} else {
-		[self saveUseNameserverCheckboxState:FALSE];
-	}
     [[self selectedConnection] disconnect: sender];      
 }
 
