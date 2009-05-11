@@ -35,9 +35,6 @@ NSString* local(const NSString* theString)
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
         //myLogController = [[LogController alloc] initWithSender:self]; 
-		NSString * versionInfo = [NSString stringWithFormat:@"Tunnelblick version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
-		NSCalendarDate* date = [NSCalendarDate date];
-		[self addToLog:versionInfo atDate:date];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
     }
