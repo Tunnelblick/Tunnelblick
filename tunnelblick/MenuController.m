@@ -475,10 +475,7 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction) clearLog: (id) sender
 {
-	NSString * versionInfo = [NSString stringWithFormat:@"Tunnelblick version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
-	NSCalendarDate* date = [NSCalendarDate date];
-	NSString *dateText = [NSString stringWithFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],versionInfo];
-	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
+    [[self selectedLogView] setString: @""];
 }
 
 //-(void)addText:(NSString *)text
@@ -535,19 +532,12 @@ BOOL systemIsTigerOrNewer()
 		[initialItem setIdentifier: [connection configPath]];
 		[initialItem setLabel: [connection configName]];
 		
-		int curTabIndex = 0;
-		[tabView selectTabViewItemAtIndex:0];
-		BOOL haveOpenConnection = ! [connection isDisconnected];
 		while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
 			NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
 			[newItem setIdentifier: [connection configPath]];
 			[newItem setLabel: [connection configName]];
 			[tabView addTabViewItem: newItem];
-			++curTabIndex;
-			if (  ( ! haveOpenConnection ) && ( ! [connection isDisconnected] )  ) {
-				[tabView selectTabViewItemAtIndex:curTabIndex];
-				haveOpenConnection = YES;
-			}
+			
 		}
 	}
 	[self tabView:tabView didSelectTabViewItem:initialItem];
@@ -775,10 +765,6 @@ static void signal_handler(int signalNumber)
         sigaction(SIGPIPE, &action, NULL)) {
         NSLog(@"Warning: setting signal handler failed: %s", strerror(errno));
     }	
-}
-- (BOOL)windowShouldClose:(id)sender
-{
-	//[logWindow dealloc];
 }
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
