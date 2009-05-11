@@ -532,12 +532,19 @@ BOOL systemIsTigerOrNewer()
 		[initialItem setIdentifier: [connection configPath]];
 		[initialItem setLabel: [connection configName]];
 		
+		int curTabIndex = 0;
+		[tabView selectTabViewItemAtIndex:0];
+		BOOL haveOpenConnection = ! [connection isDisconnected];
 		while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
 			NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
 			[newItem setIdentifier: [connection configPath]];
 			[newItem setLabel: [connection configName]];
 			[tabView addTabViewItem: newItem];
-			
+			++curTabIndex;
+			if (  ( ! haveOpenConnection ) && ( ! [connection isDisconnected] )  ) {
+				[tabView selectTabViewItemAtIndex:curTabIndex];
+				haveOpenConnection = YES;
+			}
 		}
 	}
 	[self tabView:tabView didSelectTabViewItem:initialItem];
