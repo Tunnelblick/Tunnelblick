@@ -91,48 +91,68 @@ NSString* local(const NSString* theString)
 
 - (IBAction) connect: (id) sender
 {
-	NSString *path = [NSString stringWithFormat:@"%@/Library/openvpn/%@",NSHomeDirectory(),[self configPath]];
-	if ([self configNeedsRepair:path]) {
-		if([self repairConfigPermissions:path] != errAuthorizationSuccess) {
+	NSString *cfgPath = [NSString stringWithFormat:@"%@/Library/openvpn/%@",NSHomeDirectory(),[self configPath]];
+	if ([self configNeedsRepair:cfgPath]) {
+		if([self repairConfigPermissions:cfgPath] != errAuthorizationSuccess) {
 			// user clicked on cancel, so do nothing
 			NSLog(@"Connect: Authorization failed.");
 			return;
 		}
 	}
-	if([self configNeedsRepair:path]) {
-		NSLog(@"Repairing permissions of config file %@ failed. Not starting.",path);
-	} else {
-		NSParameterAssert(managementSocket == nil);
-		NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
-														 ofType: nil];
-		[self setPort:[self getFreePort]];
-		NSTask* task = [[[NSTask alloc] init] autorelease];
-		[task setLaunchPath: path]; 
+	if([self configNeedsRepair:cfgPath]) {
+
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert addButtonWithTitle:local(@"Connect once")];
+		[alert addButtonWithTitle:local(@"Cancel")];
+		[alert addButtonWithTitle:[NSString stringWithFormat:local(@"Always allow %@ to connect"),[self configName]]];
+		[alert setMessageText:local(@"Connect even though configuration file is not secure?")];
+		[alert setInformativeText:[NSString stringWithFormat:local(@"%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?"), cfgPath]];
+		[alert setAlertStyle:NSWarningAlertStyle];
+		[[alert window] setFloatingPanel:YES];
+
+		int alertValue = [alert runModal];
+		[alert release];
 		
-		NSString *portString = [NSString stringWithFormat:@"%d",portNumber];
-		NSArray *arguments;
-		
-		NSString *useDNS = @"0";
-		if(useDNSStatus(self)) {
-			useDNS = @"1";
+		if (alertValue == NSAlertSecondButtonReturn) {		//Cancel
+			NSLog(@"Connect: User cancelled connect because configuration file %@ is not secure.",cfgPath);
+			return;
 		}
-		arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, nil];
-		
-		
-		
-		[task setArguments:arguments];
-		NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
-		[task setCurrentDirectoryPath:openvpnDirectory];
-		[task launch];
-		[task waitUntilExit];
-				
-		[self setState: @"SLEEP"];
-		
-		//sleep(1);
-		[self connectToManagementSocket];
-		// Wait some time for the demon to start up before connecting to the management interface:
-		//[NSTimer scheduledTimerWithTimeInterval: 3.0 target: self selector: @selector(connectToManagementSocket) userInfo: nil repeats: NO];
+		if (alertValue == NSAlertThirdButtonReturn) {		//Connect always - set a per-connection preference, then fall through to connect
+			NSString* ignoreConfOwnerOrPermissionErrorKey = [[self configName] stringByAppendingString: @"IgnoreConfOwnerOrPermissionError"];
+			[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: YES] forKey: ignoreConfOwnerOrPermissionErrorKey];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+		}
+															//Connect once -- just fall through to connect
 	}
+
+	NSParameterAssert(managementSocket == nil);
+	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+													 ofType: nil];
+	[self setPort:[self getFreePort]];
+	NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: path]; 
+		
+	NSString *portString = [NSString stringWithFormat:@"%d",portNumber];
+	NSArray *arguments;
+		
+	NSString *useDNS = @"0";
+	if(useDNSStatus(self)) {
+		useDNS = @"1";
+	}
+	arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, nil];
+		
+	[task setArguments:arguments];
+	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
+	[task setCurrentDirectoryPath:openvpnDirectory];
+	[task launch];
+	[task waitUntilExit];
+
+	[self setState: @"SLEEP"];
+
+	//sleep(1);
+	[self connectToManagementSocket];
+	// Wait some time for the demon to start up before connecting to the management interface:
+	//[NSTimer scheduledTimerWithTimeInterval: 3.0 target: self selector: @selector(connectToManagementSocket) userInfo: nil repeats: NO];
 }
 
 
@@ -497,6 +517,11 @@ NSString* local(const NSString* theString)
 
 -(BOOL)configNeedsRepair:(NSString *)configFile 
 {
+	NSString* ignoreConfOwnerOrPermissionErrorKey = [[self configName] stringByAppendingString: @"IgnoreConfOwnerOrPermissionError"];
+	if (  [[NSUserDefaults standardUserDefaults] boolForKey:ignoreConfOwnerOrPermissionErrorKey]  ) {
+		return NO;
+	}
+	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:configFile traverseLink:YES];
 	unsigned long perms = [fileAttributes filePosixPermissions];
