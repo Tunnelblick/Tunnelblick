@@ -565,7 +565,7 @@ BOOL systemIsTigerOrNewer()
     [logWindow makeKeyAndOrderFront: self];
     [logWindow orderFrontRegardless];
 	//[logWindow setLevel:NSStatusWindowLevel];
-    
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
 - (void) dealloc
