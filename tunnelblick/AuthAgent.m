@@ -17,7 +17,6 @@
  */
 
 #import "AuthAgent.h"
-#import "helper.h"
 
 NSString *escaped(NSString *string) {
 	string = [[string mutableCopy] autorelease];
@@ -295,7 +294,31 @@ NSString *escaped(NSString *string) {
 
 -(void)deletePassphraseFromKeychain 
 {
+	if (keyChainManager == nil) {
+		if([authMode isEqualToString:@"privateKey"]) {
+			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
+		} else {
+			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username];
+		}
+	}
+
 	[keyChainManager deletePassword];
 }
 
+-(BOOL) keychainHasPassphrase
+{
+	if (keyChainManager == nil) {
+		if([authMode isEqualToString:@"privateKey"]) {
+			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
+		} else {
+			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username];
+		}
+	}
+
+	if ([keyChainManager password] == nil) {
+		return NO;
+	} else {
+		return YES;
+	}
+}
 @end
