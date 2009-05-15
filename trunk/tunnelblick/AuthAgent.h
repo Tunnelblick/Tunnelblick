@@ -37,7 +37,6 @@
 -(void)performPrivateKeyAuthentication;
 -(NSString *)authenticate:(id)keyChainManager;
 -(NSArray *)getAuth;
--(BOOL) keychainHasPassphrase;
 - (NSString *)authMode;
 - (void)setAuthMode:(NSString *)value;
 - (NSString *)username;
