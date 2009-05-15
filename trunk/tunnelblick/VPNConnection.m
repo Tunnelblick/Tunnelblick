@@ -17,13 +17,7 @@
  */
 
 #import "VPNConnection.h"
-
-
-NSString* local(const NSString* theString)
-{
-    return NSLocalizedString(theString, nil);
-}
-
+#import "helper.h"
 
 @implementation VPNConnection
 

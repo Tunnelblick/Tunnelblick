@@ -17,6 +17,7 @@
  */
 
 #import "AuthAgent.h"
+#import "helper.h"
 
 NSString *escaped(NSString *string) {
 	string = [[string mutableCopy] autorelease];

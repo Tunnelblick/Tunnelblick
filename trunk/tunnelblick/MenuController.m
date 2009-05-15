@@ -22,7 +22,7 @@
 
 #import "MenuController.h"
 #import "NSApplication+NetworkNotifications.h"
-
+#import "helper.h"
 
 #define NSAppKitVersionNumber10_0 577
 #define NSAppKitVersionNumber10_1 620
@@ -565,7 +565,7 @@ BOOL systemIsTigerOrNewer()
     [logWindow makeKeyAndOrderFront: self];
     [logWindow orderFrontRegardless];
 	//[logWindow setLevel:NSStatusWindowLevel];
-    [NSApp activateIgnoringOtherApps:YES];
+    
 }
 
 - (void) dealloc

@@ -32,3 +32,10 @@ BOOL useDNSStatus(id connection)
 
 	return useDNS;
 }
+
+NSString* local(const NSString* theString)
+{
+    return NSLocalizedString(theString, nil);
+}
+
+
