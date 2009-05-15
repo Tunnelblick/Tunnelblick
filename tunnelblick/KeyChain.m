@@ -93,7 +93,7 @@
     
     return(status);
 }
--(void)deletePassword;
+-(void)deletePassword
 {
 	SecKeychainItemRef itemRef;
     const char* service   = [serviceName UTF8String];
