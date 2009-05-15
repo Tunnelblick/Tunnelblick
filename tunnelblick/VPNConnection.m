@@ -17,13 +17,7 @@
  */
 
 #import "VPNConnection.h"
-
-
-NSString* local(const NSString* theString)
-{
-    return NSLocalizedString(theString, nil);
-}
-
+#import "helper.h"
 
 @implementation VPNConnection
 
@@ -333,19 +327,10 @@ NSString* local(const NSString* theString)
                     //NSLog(@"Passphrase verification failed.\n");
                     [self disconnect:nil];
                     [NSApp activateIgnoringOtherApps:YES];
-					id buttonWithDifferentCredentials = nil;
-                    if ([myAuthAgent keychainHasPassphrase]) {
-						buttonWithDifferentCredentials = local(@"Try again with different credentials");
-					}
-					int alertVal = NSRunAlertPanel(local(@"Verification failed."),
-												   local(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server."),
-												   local(@"Try again"),buttonWithDifferentCredentials,local(@"Cancel"));
-					if (alertVal == NSAlertAlternateReturn) {
-						[myAuthAgent deletePassphraseFromKeychain];
-					}
-					if (  (alertVal == NSAlertAlternateReturn) || (alertVal == NSAlertDefaultReturn)  ) {	// i.e., not Other (Cancel) or Error returns
-						[self connect:nil];
-					}
+					[myAuthAgent deletePassphraseFromKeychain];
+                    NSRunAlertPanel(local(@"Passphrase verification failed."),local(@"Please try again"),local(@"Okay"),nil,nil);
+                    
+                    [self connect:nil];
                 }
                 else if ([line rangeOfString: @"Auth"].length) { // Server wants user/auth:
                     if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
