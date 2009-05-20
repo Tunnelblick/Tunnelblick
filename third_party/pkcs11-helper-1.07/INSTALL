@@ -1,0 +1,74 @@
+pkcs11-helper -- PKCS#11 simplification.
+
+Copyright (c) 2005-2007 Alon Bar-Lev <alon.barlev@gmail.com>
+
+POSIX
+	Dependencies:
+	        dl
+		threading: (Optional)
+			pthread (nptl)
+		engine-crypt: (Optional, usually must choose)
+			OpenSSL>=0.9.7 || GNUTLS>=1.4.4
+		openssl: (Optional)
+			OpenSSL>=0.9.7
+		doc: (Optional)
+			doxygen>=1.4
+
+	Build:
+		$ ./configure
+		$ make
+		$ make install
+
+Cross-MinGW32
+	Dependencies:
+		man2html
+		openssl: (Optional)
+			OpenSSL>=0.9.7
+		doc: (Optional)
+			doxygen>=1.4
+
+	Build:
+		w32root=/tmp/w32root
+
+		Without openssl engine:
+			./configure \
+				--prefix=/ --host=mingw32 \
+				--disable-openssl \
+				--disable-crypto-engine-openssl \
+				--disable-crypto-engine-gnutls
+		With openssl engine:
+			./configure --prefix=/ --host=mingw32 \
+				--disable-crypto-engine-gnutls \
+				--disable-crypto-engine-nss \
+				PKG_CONFIG=true \
+				OPENSSL_CFLAGS="-I${w32root}/include" \
+				OPENSSL_LIBS="-L${w32root}/lib -lcrypto"
+											
+		make
+		make install DESTDIR="${w32root}"
+
+	Create Microsoft LIB file (Optional):
+		[[Must use Microsoft lib utility]]
+		lib /def:libpkcs11-helper-1.dll.def \
+			/name:libpkcs11-helper-1.dll \
+			/out:pkcs11-helper.dll.lib
+
+Native-Cygwin
+	Dependencies:
+		Same as Cross-MinGW32
+
+	Build:
+		Same as Cross-MinGW32, replace --host=mingw32 with --with-cygwin-native.
+
+Visual Studio
+	Dependencies:
+		None.
+
+	Build:
+		Without openssl engine:
+			cd lib
+			nmake -f Makefile.w32-vc
+		With openssl engine:
+			cd lib
+			nmake -f Makefile.w32-vc OPENSSL=1 OPENSSL_HOME=<location of openssl>
+

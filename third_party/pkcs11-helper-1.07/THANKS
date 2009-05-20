@@ -1,0 +1,32 @@
+
+James Yonan
+ - Supported the initial development of pkcs11-helper as
+   part of OpenVPN.
+ - Provided the user base to work with.
+
+Brad Hards
+ - For his help in getting pkcs11-helper into QCA.
+
+Justin Karneges
+ - For integrating qca-pkcs11 into QCA.
+ - For a lot of patience for my crazy requirements from QCA.
+
+Zeljko Vrba
+ - pkcs11-helper was improved as a result of our work on
+   gnupg-pkcs11-scd project.
+ - Some bug fixes.
+
+Andreas Jellinghaus
+ - For setting up the infrastructure required in OpenSC project.
+ - For helping in the complex task of licenses.
+
+Eddy Nigg
+ - For maintaining RPM support.
+
+Sandro Wefel
+ - For maintaining Debian packaging.
+
+Apologies to anyone I have missed.
+
+Alon Bar-Lev <alon.barlev@gmail.com>
+

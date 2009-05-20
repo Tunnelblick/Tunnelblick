@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/class/autotools.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+DEB_CONFIGURE_EXTRA_FLAGS := --enable-doc --docdir=${prefix}/usr/share/doc/libpkcs11-helper1-dev 
+
+DEB_INSTALL_DOCS_ALL := README AUTHORS THANKS
+
+DEB_DH_INSTALL_ARGS := --sourcedir=debian/tmp
+
