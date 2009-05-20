@@ -1,0 +1,33 @@
+pkcs11-helper -- PKCS#11 simplification.
+
+Copyright (c) 2005-2008 Alon Bar-Lev <alon.barlev@gmail.com>
+
+ABOUT
+	PKCS#11 is published standard. PKCS#11 is the de-facto standard to access cryptographic
+	devices.
+
+	pkcs11-helper is a library that simplifies the interaction with PKCS#11
+	providers for end-user applications.
+
+FEATURES
+	pkcs11-helper allows using multiple PKCS#11 providers at the same time, enumerating 
+	available token certificates, or selecting a certificate directly by serialized id,
+	handling card removal and card insert events, handling card re-insert to a different
+	slot, supporting session expiration and much more all using a simple API.
+
+	pkcs11-helper is not designed to manage card content, since object attributes
+	are usually vendor specific, and 99% of application need to access
+	existing objects in order to perform signature and decryption.
+
+COMPATIBILITY
+	- The pkcs11-helper library is available in POSIX and WIN32 compliant systems.
+
+	- The pkcs11-helper library should work with almost any PKCS#11 provider, since it
+	  uses the minimum required features of the PKCS#11 standard.
+
+SUPPORT
+	http://www.opensc-project.org
+
+AUTHORS
+	Alon Bar-Lev <alon.barlev@gmail.com>
+

@@ -308,20 +308,24 @@
             } else if ([command isEqualToString: @"PASSWORD"]) {
 				// Found password request from server:
                 
-                
-				// Find out wether the server wants a private key or user/auth:
-                if ([line rangeOfString: @"Need \'Private Key\'"].length) {
+                // Find out wether the server wants a private key or user/auth:
+				
+				NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
+				NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
+                if (pwrange_need.length && pwrange_password.length) {
+					// NSRange tokenNameRange = NSMakeRange(pwrange_need.length, [parameterString length] - pwrange_password.location + 1);
+					NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
+					NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
+					if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
 					[myAuthAgent setAuthMode:@"privateKey"];
 					[myAuthAgent performAuthentication];
 					// Server wants a private key:
                     NSString *myPassphrase = [myAuthAgent passphrase];
 					if(myPassphrase){
-						[managementSocket writeString: [NSString stringWithFormat: @"password \"Private Key\" \"%@\"\r\n",myPassphrase] encoding:NSISOLatin1StringEncoding]; 
+						[managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, myPassphrase] encoding:NSISOLatin1StringEncoding]; 
 					} else {
 						[self disconnect:self];
 					}
-					
-					
                 }
                 else if ([line rangeOfString: @"Failed"].length) {
                     //NSLog(@"Passphrase verification failed.\n");
@@ -355,15 +359,30 @@
 						[self disconnect:self];
 					}
 					
-                } 
-                
+                }
                 
             } else if ([command isEqualToString:@"LOG"]) {
                 NSArray* parameters = [parameterString componentsSeparatedByString: @","];
 				NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
 				NSString* logLine = [parameters lastObject];
 				[self addToLog:logLine atDate:date];
-            } 
+            }
+			else if ([command isEqualToString:@"NEED-OK"]) {
+				// NEED-OK: MSG:Please insert TOKEN
+				NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
+				NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
+				if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
+					if (NSDebugEnabled) NSLog(@"Server wants token.");
+					int needButtonReturn = NSRunAlertPanel(tokenName,local(@"Please insert token"),local(@"Okay"),local(@"Cancel"),nil);
+					if (needButtonReturn == NSAlertDefaultReturn) {
+						if (NSDebugEnabled) NSLog(@"Write need ok.");
+						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSISOLatin1StringEncoding];
+					} else {
+						if (NSDebugEnabled) NSLog(@"Write need cancel.");
+						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' cancel\r\n"] encoding:NSISOLatin1StringEncoding];
+					}
+				}
+			}
         
     }
 }
