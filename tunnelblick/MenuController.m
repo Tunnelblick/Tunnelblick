@@ -643,7 +643,7 @@ BOOL systemIsTigerOrNewer()
 	
 	if([[self getConfigs] count] == 0) { // if there are no config files, create a default one
 		[NSApp activateIgnoringOtherApps:YES];
-        if(NSRunCriticalAlertPanel(local(@"Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to 'Library/openvpn/'."), local(@"You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace."),local(@"Quit"),local(@"Continue"),nil) == NSAlertDefaultReturn) {
+        if(NSRunCriticalAlertPanel(local(@"Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~/Library/openvpn/'."), local(@"You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace."),local(@"Quit"),local(@"Continue"),nil) == NSAlertDefaultReturn) {
             exit (1);
         }
         else {
