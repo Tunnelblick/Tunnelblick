@@ -133,7 +133,10 @@
 	if(useDNSStatus(self)) {
 		useDNS = @"1";
 	}
-	arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, nil];
+    
+    NSString *skipCheck = @"1"; //Don't repeat check of config file; we already checked it above and either it's OK or user said to skip the check
+    
+	arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, skipCheck, nil];
 		
 	[task setArguments:arguments];
 	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
