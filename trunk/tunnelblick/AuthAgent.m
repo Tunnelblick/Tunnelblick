@@ -101,10 +101,8 @@ NSString *escaped(NSString *string) {
     NSString *isSetKey = [NSString stringWithFormat:@"%@-usernameIsSet",[self configName]];
 	NSString *usernameKey = [NSString stringWithFormat:@"%@-authUsername",[self configName]];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:isSetKey]) { // see if we have set a username and keychain item earlier
-        
-        
 		username =[[NSUserDefaults standardUserDefaults] objectForKey:usernameKey];
-		KeyChain *myChainManager = [[[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username] autorelease];
+		KeyChain *myChainManager = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username] autorelease];
 		[keyChainManager setAccountName:username];
         passwd = [myChainManager password];
         if(!passwd) {  // password was deleted in keychain so get it anew
@@ -168,7 +166,7 @@ NSString *escaped(NSString *string) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:isSetKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            KeyChain *keyChainManager = [[[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username] autorelease];
+            KeyChain *keyChainManager = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username] autorelease];
             if([keyChainManager setPassword:passwd] != 0)
             {
                 fprintf(stderr,"Storing in Keychain was unsuccessful\n");
@@ -178,9 +176,6 @@ NSString *escaped(NSString *string) {
     }
     
     if([username length] > 0 && [passwd length] > 0) {
-        
-        
-        
         array = [NSArray arrayWithObjects:username,passwd,nil];
 		//CFRelease(notification);
         return array;
@@ -288,7 +283,7 @@ NSString *escaped(NSString *string) {
 		if([authMode isEqualToString:@"privateKey"]) {
 			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
 		} else {
-			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username];
+			keyChainManager = [[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username];
 		}
     }
 }
@@ -299,7 +294,7 @@ NSString *escaped(NSString *string) {
 		if([authMode isEqualToString:@"privateKey"]) {
 			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
 		} else {
-			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username];
+			keyChainManager = [[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username];
 		}
 	}
 
@@ -312,7 +307,7 @@ NSString *escaped(NSString *string) {
 		if([authMode isEqualToString:@"privateKey"]) {
 			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
 		} else {
-			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN-Auth" withAccountName:username];
+			keyChainManager = [[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username];
 		}
 	}
 
