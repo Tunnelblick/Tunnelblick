@@ -479,7 +479,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\nmv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\n# Here's where we'll make the dmg\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -scrub -srcfolder $TMPDMG build/Release/Tunnelblick.dmg";
+			shellScript = "TMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\nmv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\ncp using-tunnelblick.html \"$TMPDMG/Using Tunnelblick.html\"\nmkdir $TMPDMG/using-tunnelblick-files\ncp using-tunnelblick-files/* $TMPDMG/using-tunnelblick-files\n# Here's where we'll make the dmg\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -scrub -srcfolder $TMPDMG build/Release/Tunnelblick.dmg";
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
