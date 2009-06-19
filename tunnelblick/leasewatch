@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Quick check - is the configuration there?
+if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
+	# Configuration isn't there, so we forget it
+	exit 0
+fi
+
+PROCESS="$( (/usr/sbin/scutil | grep -i 'PID' | awk '{ print $3 }') <<-EOF
+	open
+	show State:/Network/OpenVPN
+	quit
+EOF)"
+
+# If we have a process, then we check the DNS status...
+if (( M=${PROCESS:-0} )) ; then
+	# What's the correct DNS info?
+	DNS_GOOD="$(/usr/sbin/scutil <<-EOF
+		open
+		show State:/Network/OpenVPN/DNS
+		quit
+	EOF)"
+	# What's the current DNS info?
+	DNS_NOW="$(/usr/sbin/scutil <<-EOF
+		open
+		show State:/Network/Global/DNS
+		quit
+	EOF)"
+
+	# Do they match?  If not, then fix that by firing off a restart signal to the VPN... alternatively,
+	# we could re-set this ourselves manually but the USR1 signal gives us the ability to restart the
+	# VPN in case of a line crash or circuit change or something like that.
+	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] ; then
+		# This will help us figure out if OpenVPN is active or not.  If not (i.e. PROCESS
+		# is either not a number or is empty) then we do nothing.  Else, we instruct the VPN
+		# to reconfigure itself
+		kill -USR1 ${PROCESS}
+	fi
+fi
