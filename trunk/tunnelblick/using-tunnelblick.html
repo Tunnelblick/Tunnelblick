@@ -1,0 +1,266 @@
+<html><body>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/tb-logo.png" border="0"></p>
+Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN
+open-source program, which maintains VPN "tunnels". It provides
+easy-to-use control of OpenVPN server and/or client connections. It is
+written in Cocoa, runs on OS X Tiger (10.4) and Leopard (10.5), and
+comes as a ready to use application with all necessary binaries and
+drivers, including OpenVPN. Tunnelblick is free software licensed under
+the <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="nofollow">GNU General Public License (GPL) Version 2</a>.<br>
+<br>
+For more information, including wikis and a discussion group, see the <a href="http://code.google.com/p/tunnelblick/">Tunnelblick home page</a>.<br>
+<br>
+This document describes how to use Tunnelblick version 3.0b11 and was last modified 2009-06-19.<br>
+The most recent version of this document is kept at <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
+<br>
+This document contains the following sections:<br>
+<ul><li><a href="#installing" rel="nofollow">Installing Tunnelblick</a></li>
+<li><a href="#updating" rel="nofollow">Updating Tunnelblick</a></li>
+<li><a href="#uninstalling" rel="nofollow">Uninstalling Tunnelblick</a></li>
+<li><a href="#filelocations" rel="nofollow">File Locations</a></li>
+<li><a href="#thefirst" rel="nofollow">The First Time Tunnelblick is Run</a></li>
+<li><a href="#normal" rel="nofollow">Normal Tunnelblick Operation</a></li>
+<li><a href="#using" rel="nofollow">Using More Than One VPN Connection</a></li>
+<li><a href="#details" rel="nofollow">Details... Window</a></li>
+<li><a href="#autostart" rel="nofollow">Automatically Starting Tunnelblick on Login</a></li>
+<li><a href="#autoopen" rel="nofollow">Automatically Opening a VPN Connection when Tunnelblick Starts</a></li>
+<li><a href="#command" rel="nofollow">Command-line Interface</a></li></ul>
+<br>
+<b><a name="installing" rel="nofollow">INSTALLING TUNNELBLICK</a></b><br>
+To install Tunnelblick, first download it from the featured downloads on the <a href="http://code.google.com/p/tunnelblick/downloads/list" rel="nofollow">Downloads page</a>, then double-click the downloaded .dmg file. A new window similar to the following will appear:<br>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-dmg.png" border="0"></p>
+<br>
+<br>
+Drag Tunnelblick.app (which may be labeled "Tunnelblick" without the
+".app") and drop it on the shortcut to the Applications folder. This
+will copy the application from the .dmg into the Applications folder.
+You may then close the window and eject the "Tunnelblick" disk icon.<br>
+<br>
+There is no need to install OpenVPN separately - the Tunnelblick
+application contains both the Tunnelblick GUI and OpenVPN. See the
+Tunnelblick release notes to determine the version of OpenVPN included
+with the version of Tunnelblick that you are using.<br>
+<br>
+If you wish Tunnelblick to appear in the Dock, navigate to Applications, and drag and drop Tunnelblick to the Dock.<br>
+<br>
+<b><a name="updating" rel="nofollow">UPDATING TUNNELBLICK</a></b><br>
+Tunnelblick will automatically check for updates and give you the option to install updated versions of the program.<br>
+<br>
+<b><a name="uninstalling" rel="nofollow">UNINSTALLING TUNNELBLICK</a><br>
+</b>To uninstall Tunnelblick, move Tunnelblick.app from the
+Applications folder to the Trash. Other than the preferences and
+configuration files described in "File Locations", below, there are no
+other files installed - OpenVPN and the tun/tap kernel extensions are
+contained within the Tunnelblick.app package and are loaded only when
+needed directly from there.<br>
+<br>
+<b><a name="filelocations" rel="nofollow">FILE LOCATIONS</a><br>
+</b>Tunnelblick preferences are contained in
+~/Library/Preferences/com.openvpn.tunnelblick.plist. OpenVPN
+configuration, key, and certificate files are stored in
+~/Library/openvpn. Since these files are all located in the user's
+Library folder, each user of a computer must set them up separately.
+(The "~" indicates your home directory.)<br>
+<br>
+Within the Tunnelblick.app application, client up/down scripts are
+located in Tunnelblick.app/Contents/Resources (see the "Set Nameserver"
+checkbox in "Details... Window", below). To access
+Tunnelblick.app/Contents in the Finder, control-click Tunnelblick.app
+in the Applications folder, then click on "Show Package Contents".<br>
+<br>
+<b><a name="thefirst" rel="nofollow">THE FIRST TIME TUNNELBLICK IS RUN</a><br>
+</b>The first time Tunnelblick is run on a particular computer, it will display the following screen:<br>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-password.png" border="0"></p>
+<br>
+<br>
+Please enter the name and password of a computer administrator.
+Tunnelblick's imbedded OpenVPN needs root privileges because it needs
+to modify network settings by configuring new network devices,
+changing routes, and adding and removing nameservers. Because we don't
+want you to enter your administrator account name and password every
+time you start a VPN connection, Tunnelblick comes with a setuid root
+binary that allows it to do exactly one thing: start a VPN connection
+with super user rights. Tunnelblick needs your administrator account
+name password only on its first start after installation, so it can
+create this setuid root binary.<br>
+<br>
+The following screen will also be displayed:<br>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-check.png" border="0"></p>
+<br>
+Specify whether or not you wish to have Tunnelblick check for updates.
+If an update is available, you will be given a choice to install the
+update or not.<br>
+<br>
+The first time Tunnelblick is run on each login account, it will display the following screen:<br>
+<br>
+<div style="text-align: left;"><img src="using-tunnelblick-files/using-tunnelblick-welcome.png" border="0"></div>
+<p style="clear: both; text-align: left;"></p>
+<br>
+If you click "Quit", Tunnelblick will quit without doing anything. If
+you click "Continue", Tunnelblick will create and save an example
+OpenVPN configuration file, ~/Library/openvpn/openvpn.conf, and then
+open it in TextEdit for you to modify. If you have an OpenVPN
+configuration file that you are supposed to use, copy its contents (replacing the default contents),
+paste them into this file, save, and exit TextEdit. Your configuration
+(named "openvpn.conf") is all set. Tunnelblick changes the ownership of
+the OpenVPN configuration file to root, so it is protected against
+unnoticed and possibly malicious changes.<br>
+<br>
+If you have received key files or certificate files together with your
+personal configuration file, please make sure to put them in
+~/Library/openvpn/. OpenVPN will try to locate the key files in this
+directory, unless the paths to them are specified in the configuration
+file in absolute terms.<br>
+<br>
+<b><a name="normal" rel="nofollow">NORMAL TUNNELBLICK OPERATION</a><br>
+</b>Once Tunnelblick has been started, you control it from the icon in
+the menu bar at the top of your screen between the time and the
+Spotlight icon. When no VPN connection is active, the icon is dark,
+indicating a closed tunnel:<br>
+<p style="text-align: left; clear: both;"></p>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-closed.png" border="0"></p>
+<br>
+<br>
+If you click on the icon, you'll see a drop down menu similar to the following:<br>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-menu.png" border="0"></p>
+<br>
+There will be a "Connect" menu item for each .conf file in
+~/Library/openvpn/. Click on one to establish the corresponding
+pre-configured VPN connection. To illustrate the connection being
+established, three dots will appear in the menu item, and the
+Tunnelblick icon will darken and lighten repeatedly. When the connection
+was successfully created, the icon will change to show an open tunnel:<br>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-open.png" border="0"></p>
+<br>
+You may be asked for a passphrase or username/password combination if
+key/certificate files are not being used. You can save your passphrase
+or password in Apple's Keychain by checking the appropriate checkbox. <br>
+<br>
+The connection will be active as long as you do not end it or log out.
+Putting your computer to sleep or losing contact with the server (by lack
+of wlan signal, for example) will make Tunnelblick periodically try to
+re-establish the connection.<br>
+<br>
+If a connection error occurs, or in the unlikely event of an interface
+crash, Tunnelblick will terminate the VPN tunnel and record the error
+in your computer's syslog.<br>
+<br>
+Use "Disconnect" from the drop-down menu to end the VPN connection. Use
+"Quit" to end the connection and quit the program and prevent
+Tunnelblick from starting itself at your next login at your computer.
+If "Quit" is not used (for example, if you use log out or shut
+down the computer or use command-Q to quit Tunnelblick while displaying the
+"Details" window), then Tunnelblick will be started automatically upon
+login.<br>
+<br>
+<b><a name="using" rel="nofollow">USING MORE THAN ONE VPN CONNECTION</a></b><br>
+You can put more than one .conf file together with its key and/or
+certificate files into the ~/Library/openvpn directory. Tunnelblick
+interprets each .conf file in the ~/Library/openvpn directory as a
+configuration file for a different connection; each of the connections
+will be available in the drop down menu.<br>
+<br>
+<b><a name="details" rel="nofollow">DETAILS... WINDOW</a></b><br>
+Click on "Details..." to obtain details for all connections (open or closed). A window similar to the following will appear:<br>
+<br>
+<p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-details.png" border="0"></p>
+<br>
+There will be a tab for each connection (i.e., each .conf file),
+whether the connection is open or closed. Each tab contains a pane with
+the OpenVPN log for the connection and two checkboxes that provide
+options for that connection:<br><ul><li>"Automatically
+connect on launch" causes the connection to be opened when Tunnelblick
+is launched (started). "Automatically connect on launch" is unchecked
+by default.<br><br></li><li>"Set Nameserver" causes scripts to be run
+before a connection is opened and after the connection is closed. The
+scripts, client.up.osx.sh and client.down.osx.sh, save and restore DNS
+nameserver information. They are located in the Tunnelblick application
+package at Tunnelblick.app/Contents/Resources. "Set Nameserver" is
+checked by default.</li></ul>
+In addition, the Details window contains four buttons:<br>
+<ul><li>"Clear Log" clears the OpenVPN log for the connection being displayed.<br><br></li>
+<li>"Edit Configuration" opens the .conf file containing the OpenVPN configuration for the connection being displayed in TextEdit.<br><br></li>
+<li>"Connect" opens the connection being displayed.<br><br></li><li>"Disconnect" closes the connection being displayed.</li></ul>
+<b><a name="autostart" rel="nofollow">AUTOMATICALLY STARTING TUNNELBLICK UPON LOGIN</a></b><br>
+Tunnelblick was designed as a persistent menu icon that survives
+reboots. To this end, it inserts itself into the login items when it is
+started and only removes itself from the login items when you choose
+Quit from the menu. So if you just log out or shut down your computer,
+the next time you log in, Tunnelblick will automatically start. If you
+do not want Tunnelblick to start automatically, quit Tunnelblick before
+you log out or shut down. <br>
+<br>
+<b><a name="autoopen" rel="nofollow">AUTOMATICALLY OPENING A VPN CONNECTION WHEN TUNNELBLICK STARTS</a></b><br>
+You can specify that a connection automatically be opened when
+Tunnelblick starts by putting a check in the "Automatically connect on
+launch" checkbox for that connection. The checkbox is located on the
+connection's tab in the "Details" window. <br>
+<br>
+<b><a name="command" rel="nofollow">COMMAND-LINE INTERFACE</a></b><br>
+Tunnelblick also contains openvpnstart, an OS X command line interface
+to OpenVPN which provides a scriptable way to create and destroy
+OpenVPN tunnels. openvpnstart is located in
+Tunnelblick.app/Contents/Resources.<br>
+<table>
+  <tr>
+    <td colspan="3">openvpnstart &nbsp;&nbsp;start &nbsp;&nbsp;<em>conf&#8209;path</em> &nbsp;&nbsp;<em>port</em> &nbsp;&nbsp;[&nbsp;<em>use&#8209;scripts</em> &nbsp;&nbsp;[&nbsp;<em>skip&#8209;check</em>&nbsp;] &nbsp;&nbsp;]</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2">Creates an OpenVPN connection.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top"><em>conf&#8209;path</em></td>
+    <td>is the path to the .conf file which describes the connection.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top"><em>port</em></td>
+    <td>is the port to use when creating the connection.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top"><em>use&#8209;scripts</em></td>
+    <td>is 1 to indicate that the "client.up.osx.sh" and "client.down.osx.sh" scripts should be called before the connection is created and after it is destroyed, respectively.<br>
+        A 0 (the default) indicates the scripts should not be called.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top"><em>skip&#8209;check</em></td>
+    <td>is 1 to indicate that the check of permissions on the configuration file should be skipped.<br>
+        A 0 (the default) indicates the permissions should be checked (for greater security).</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="3">openvpnstart &nbsp;&nbsp;kill &nbsp;&nbsp;<em>process&#8209;id</em></td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2">Destroys an OpenVPN connection.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top"><em>process&#8209;id</em></td>
+    <td>is the process number of the OpenVPN process which is managing the connection that should be destroyed.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="3">openvpnstart &nbsp;&nbsp;killall</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2">Destroys all OpenVPN connections.</td>
+  </tr>
+</table>
+</body></html>
