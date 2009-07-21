@@ -149,6 +149,7 @@ void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipCheck)
 		 [NSArray arrayWithObjects:
 		  @"--up", upscriptPath,
 		  @"--down", downscriptPath,
+          @"--up-restart",
 		  nil
 		 ]
 		];
