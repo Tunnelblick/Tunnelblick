@@ -10,13 +10,14 @@ the <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="nofollow">GNU Genera
 <br>
 For more information, including wikis and a discussion group, see the <a href="http://code.google.com/p/tunnelblick/">Tunnelblick home page</a>.<br>
 <br>
-This document describes how to use Tunnelblick version 3.0b11 and was last modified 2009-06-19.<br>
-The most recent version of this document is kept at <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
+This document describes how to use Tunnelblick version 3.0b12 and was last modified 2009-07-22.<br>
+The most recently released version of this document is kept at <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
 <br>
 This document contains the following sections:<br>
 <ul><li><a href="#installing" rel="nofollow">Installing Tunnelblick</a></li>
 <li><a href="#updating" rel="nofollow">Updating Tunnelblick</a></li>
 <li><a href="#uninstalling" rel="nofollow">Uninstalling Tunnelblick</a></li>
+<li><a href="#configfiles" rel="nofollow">Configuration Files</a></li>
 <li><a href="#filelocations" rel="nofollow">File Locations</a></li>
 <li><a href="#thefirst" rel="nofollow">The First Time Tunnelblick is Run</a></li>
 <li><a href="#normal" rel="nofollow">Normal Tunnelblick Operation</a></li>
@@ -55,11 +56,28 @@ other files installed - OpenVPN and the tun/tap kernel extensions are
 contained within the Tunnelblick.app package and are loaded only when
 needed directly from there.<br>
 <br>
+<b><a name="configfiles" rel="nofollow">CONFIGURATION FILES</a><br>
+</b>Each tunnel to be opened by Tunnelblick needs an OpenVPN configuration file. Tunnelblick considers any file 
+located in ~/Library/openvpn with an extension of .conf or .ovpn to be a configuration file, and presents 
+each file as a potential "connection". Usually these configuration files will be supplied to you. Refer to 
+the <a href="http://openvpn.net/index.php/open-source/documentation.html?Itemid=79">OpenVPN documentation</a> 
+for details about what the configuration file should contain. (Note that the some OpenVPN options 
+are available only on Windows; others are not available on Windows.)<br>
+<br>
+If Tunnelblick's "Set Nameserver" option is used:<br>
+<ul>
+  <li>Any "up" or "down" options in the configuration file will be ignored.</li>
+  <li>If any "user" or "group" options appear in the configuration file, DNS settings will not be restored when a tunnel is disconnected.</li>
+</ul>
+<br>
 <b><a name="filelocations" rel="nofollow">FILE LOCATIONS</a><br>
 </b>Tunnelblick preferences are contained in
-~/Library/Preferences/com.openvpn.tunnelblick.plist. OpenVPN
-configuration, key, and certificate files are stored in
-~/Library/openvpn. Since these files are all located in the user's
+~/Library/Preferences/com.openvpn.tunnelblick.plist.<br>
+<br>
+OpenVPN configuration, key, and certificate files are stored in
+~/Library/openvpn.<br>
+<br>
+Since these files are all located in the user's
 Library folder, each user of a computer must set them up separately.
 (The "~" indicates your home directory.)<br>
 <br>
@@ -94,7 +112,8 @@ Specify whether or not you wish to have Tunnelblick check for updates.
 If an update is available, you will be given a choice to install the
 update or not.<br>
 <br>
-The first time Tunnelblick is run on each login account, it will display the following screen:<br>
+The first time Tunnelblick is run on each login account (when there are no configuration files in
+~/Library/openvpn), it will display the following screen:<br>
 <br>
 <div style="text-align: left;"><img src="using-tunnelblick-files/using-tunnelblick-welcome.png" border="0"></div>
 <p style="clear: both; text-align: left;"></p>
@@ -129,7 +148,7 @@ If you click on the icon, you'll see a drop down menu similar to the following:<
 <br>
 <p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-menu.png" border="0"></p>
 <br>
-There will be a "Connect" menu item for each .conf file in
+There will be a "Connect" menu item for each .ovpn or .conf file in
 ~/Library/openvpn/. Click on one to establish the corresponding
 pre-configured VPN connection. To illustrate the connection being
 established, three dots will appear in the menu item, and the
@@ -160,9 +179,9 @@ down the computer or use command-Q to quit Tunnelblick while displaying the
 login.<br>
 <br>
 <b><a name="using" rel="nofollow">USING MORE THAN ONE VPN CONNECTION</a></b><br>
-You can put more than one .conf file together with its key and/or
+You can put more than one .ovpn or .conf file together with its key and/or
 certificate files into the ~/Library/openvpn directory. Tunnelblick
-interprets each .conf file in the ~/Library/openvpn directory as a
+interprets each .ovpn or .conf file in the ~/Library/openvpn directory as a
 configuration file for a different connection; each of the connections
 will be available in the drop down menu.<br>
 <br>
@@ -171,7 +190,7 @@ Click on "Details..." to obtain details for all connections (open or closed). A 
 <br>
 <p style="text-align: left; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-details.png" border="0"></p>
 <br>
-There will be a tab for each connection (i.e., each .conf file),
+There will be a tab for each connection (i.e., each .ovpn or .conf file),
 whether the connection is open or closed. Each tab contains a pane with
 the OpenVPN log for the connection and two checkboxes that provide
 options for that connection:<br><ul><li>"Automatically
@@ -185,7 +204,7 @@ package at Tunnelblick.app/Contents/Resources. "Set Nameserver" is
 checked by default.</li></ul>
 In addition, the Details window contains four buttons:<br>
 <ul><li>"Clear Log" clears the OpenVPN log for the connection being displayed.<br><br></li>
-<li>"Edit Configuration" opens the .conf file containing the OpenVPN configuration for the connection being displayed in TextEdit.<br><br></li>
+<li>"Edit Configuration" opens the configuration file containing the OpenVPN configuration for the connection being displayed in TextEdit.<br><br></li>
 <li>"Connect" opens the connection being displayed.<br><br></li><li>"Disconnect" closes the connection being displayed.</li></ul>
 <b><a name="autostart" rel="nofollow">AUTOMATICALLY STARTING TUNNELBLICK UPON LOGIN</a></b><br>
 Tunnelblick was designed as a persistent menu icon that survives
@@ -218,7 +237,7 @@ Tunnelblick.app/Contents/Resources.<br>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td valign="top"><em>conf&#8209;path</em></td>
-    <td>is the path to the .conf file which describes the connection.</td>
+    <td>is the path to the .ovpn or .conf file which describes the connection.</td>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
