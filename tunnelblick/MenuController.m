@@ -79,7 +79,6 @@ BOOL systemIsTigerOrNewer()
 		[NSApp setDelegate:self];
 		
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
-        myConfigArray = [[self getConfigs] retain]; // get array with all openvpn configs
         myVPNConnectionArray = [[[NSMutableArray alloc] init] retain];
         userDefaults = [[NSMutableDictionary alloc] init];
         
@@ -169,7 +168,6 @@ BOOL systemIsTigerOrNewer()
 
 - (void) awakeFromNib
 {
-    //[self configError];
 	[self createDefaultConfig];
 	[self initialiseAnim];
 }
@@ -209,8 +207,13 @@ BOOL systemIsTigerOrNewer()
 	statusMenuItem = [[NSMenuItem alloc] init];
 	[myVPNMenu addItem:statusMenuItem];
 	[myVPNMenu addItem:[NSMenuItem separatorItem]];
-	NSArray *configArray = [[self getConfigs] sortedArrayUsingSelector:@selector(compare:)];
-	NSEnumerator *m = [configArray objectEnumerator];
+
+	[myConfigArray release];
+    myConfigArray = [[[self getConfigs] sortedArrayUsingSelector:@selector(compare:)] retain];
+    [myConfigModDatesArray release];
+    myConfigModDatesArray = [[self getModDates:myConfigArray] retain];
+    
+	NSEnumerator *m = [myConfigArray objectEnumerator];
 	NSString *configString;
     int i = 2; // we start at MenuItem #2
 	
@@ -259,8 +262,17 @@ BOOL systemIsTigerOrNewer()
 	//[theItem retain];
     [self updateUI];
     
-	// Put all available configs into the menu:
-    [self updateMenu];
+	// If any config files were changed/added/deleted, update the menu
+    // We don't do it UNLESS files were changed/added/deleted because all connections are reset when the menu is updated.
+    // activateStatusMenu is called whenever anything changes in the config directory, even the file-accessed date,
+    // so a backup of the directory, for example, would cause disconnects if we always updated the menu.
+    NSArray * curConfigsArray = [[self getConfigs] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray * curModDatesArray = [self getModDates:curConfigsArray];
+    
+    if ( ! (   [myConfigArray isEqualToArray:curConfigsArray]
+            && [myConfigModDatesArray isEqualToArray:curModDatesArray]  )  ) {
+        [self updateMenu];
+    }
 }
 
 - (void)connectionStateDidChange:(id)connection
@@ -285,6 +297,25 @@ BOOL systemIsTigerOrNewer()
 			//if(NSDebugEnabled) NSLog(@"Object: %@ atIndex: %d\n",file,i);
 			i++;
         }
+    }
+    return array;
+}
+
+// Returns an array of modification date strings
+// Each entry in the array is the modification date of the file in the corresponding entry in fileArray
+-(NSArray *)getModDates:(NSArray *)fileArray {
+    int i;
+    NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
+    NSString *file;
+    NSString *cfgDirSlash = [NSHomeDirectory() stringByAppendingString: @"/Library/openvpn/"];
+    NSString *filePath;
+    NSDate *modDate;
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+    for (i=0; i<[fileArray count]; i++) {
+		file = [fileArray objectAtIndex:i];
+        filePath = [cfgDirSlash stringByAppendingString:file];
+        modDate = [[fileManager fileAttributesAtPath:filePath traverseLink:YES] fileModificationDate];
+        [array insertObject:[modDate description] atIndex:i];
     }
     return array;
 }
@@ -322,8 +353,6 @@ BOOL systemIsTigerOrNewer()
 		//NSLog(@"configName: %@\nconnectionState: %@\n",[myConnection configName],[myConnection state]);
 		NSString *label = [NSString stringWithFormat:@"%@ (%@)",[myConnection configName],local([myConnection state])];
 		[[tabView tabViewItemAtIndex:i] setLabel:label];
-		
-		NSString *autoConnectKey = [[myConnection configName] stringByAppendingString:@"autoConnect"];
 		i++;
 	}
 }
@@ -482,11 +511,6 @@ BOOL systemIsTigerOrNewer()
 	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
 }
 
-//-(void)addText:(NSString *)text
-//{
-//    [[self selectedLogView] insertText: text];
-//}
-	
 - (VPNConnection*) selectedConnection
 	/*" Returns the connection associated with the currently selected log tab or nil on error. "*/
 {
