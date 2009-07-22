@@ -271,6 +271,7 @@ BOOL systemIsTigerOrNewer()
     
     if ( ! (   [myConfigArray isEqualToArray:curConfigsArray]
             && [myConfigModDatesArray isEqualToArray:curModDatesArray]  )  ) {
+        NSLog(@"One or more configuration files were changed, added, or deleted. All connections will be closed.\n");
         [self updateMenu];
     }
 }
@@ -310,12 +311,18 @@ BOOL systemIsTigerOrNewer()
     NSString *cfgDirSlash = [NSHomeDirectory() stringByAppendingString: @"/Library/openvpn/"];
     NSString *filePath;
     NSDate *modDate;
+    NSString *modDateS;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
     for (i=0; i<[fileArray count]; i++) {
 		file = [fileArray objectAtIndex:i];
         filePath = [cfgDirSlash stringByAppendingString:file];
         modDate = [[fileManager fileAttributesAtPath:filePath traverseLink:YES] fileModificationDate];
-        [array insertObject:[modDate description] atIndex:i];
+        if (modDate == nil) {
+            modDateS = @"";
+        } else if (   (modDateS = [modDate description]) == nil  )  {
+            modDateS = @"";
+        }
+        [array insertObject:modDateS atIndex:i];
     }
     return array;
 }
@@ -427,34 +434,27 @@ BOOL systemIsTigerOrNewer()
 				
 			case 3:
 				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage2 waitUntilDone:YES];
-				
 				break;
 				
 			case 4:
 				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage3 waitUntilDone:YES];
-				
 				break;
 				
 			case 5:
 				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:connectedImage waitUntilDone:YES];
-				
 				break;
 				
 			case 6:
 				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage3 waitUntilDone:YES];
-				
 				break;
 				
 			case 7:
 				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage2 waitUntilDone:YES];
-				
 				break;
 				
 			case 8:
 				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage1 waitUntilDone:YES];
-				
 				break;
-				
 				
 			default:
 				NSLog(@"Unknown progress mark %f selected by Tunnelblick animation", progress);
