@@ -65,7 +65,8 @@ BOOL needsRepair(void);
     NSMutableArray *connectionArray, *activeConnections, *connectionsToRestore;
     NSMutableDictionary *myVPNConnectionDictionary;
     NSString* lastState;
-    NSArray *myConfigArray; 
+    NSArray *myConfigArray;
+    NSArray *myConfigModDatesArray;
 	NSMutableArray *myVPNConnectionArray;
     NSAnimation *theAnim;
     // from LogController
@@ -76,45 +77,41 @@ BOOL needsRepair(void);
 	SUUpdater *updater;
 }
 
-- (NSArray *)myConfigArray;
-
-
-
 - (NSTextView*) selectedLogView;
 
 - (void)activateStatusMenu;
 -(void)addConnection:(id)sender;
 
-- (void) updateUI;
+- (void)updateUI;
 - (IBAction)connect:(id)sender;
-- (void)connectionError;
 - (IBAction)disconnect:(id)sender;
-- (void) configError;
 -(NSArray *)getConfigs;
+-(NSArray *)getModDates:(NSArray *)fileArray;
 - (void) setState: (NSString*) newState;
 - (IBAction) editConfig:(id)sender;
-- (BOOL)validateMenuItem:(NSMenuItem*)anItem;
 //-(NSString *)authenticate:keyChainManager;
 - (IBAction) quit: (id) sender;
 //-(void)setLogController:(id)controller withID:(NSNumber *)inID;
 //-(id)logControllerwithID:(NSNumber *)inID;
 -(void)killAllConnections;
 - (IBAction) openLogWindow: (id) sender;
-- (IBAction) validateLogButtons: (id) sender;
 -(void)updateTabLabels;
 -(void)saveAutoLaunchCheckboxState:(BOOL)inBool;
 -(IBAction) nameserverPrefButtonWasClicked: (id) sender;
 -(IBAction) autoLaunchPrefButtonWasClicked: (id) sender;
 -(BOOL)getCurrentAutoLaunchSetting;
--(void)showAnimation;
 -(void)removeConnection:(id)sender;
 - (IBAction) validateLogButtons;
 - (VPNConnection*) selectedConnection;
 // from LogController
 - (IBAction)clearLog:(id)sender;
--(void)addText:(NSString *)text;
--(void)setVisible:(BOOL)isVisible;
 -(void)fileSystemHasChanged:(NSNotification *)n;
 -(void) kqueue: (UKKQueue*)kq receivedNotification: (NSString*)nm forFile: (NSString*)fpath;
--(void)executeWithPrivileges:(NSString *)toolPath withArguments:(NSArray *)arguments;
+-(void) dmgCheck;
+-(void) updateMenu;
+-(void)moveAllWindowsToForeground;
+-(void)createDefaultConfig;
+-(void)initialiseAnim;
+-(void)cleanup;
+-(BOOL)repairPermissions;
 @end
