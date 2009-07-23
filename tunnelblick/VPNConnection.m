@@ -273,8 +273,13 @@
 		[self setPIDFromLine:line];
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @","];
-			NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-			NSString* logLine = [parameters lastObject];
+            NSCalendarDate* date;
+            if ( [[parameters objectAtIndex: 0] intValue] == 0) {
+                date = [NSCalendarDate date];
+            } else {
+                date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+            }
+            NSString* logLine = [parameters lastObject];
 			[self addToLog:logLine atDate:date];
 		} @catch (NSException *exception) {
 			
@@ -365,7 +370,12 @@
                 
             } else if ([command isEqualToString:@"LOG"]) {
                 NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-				NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+                NSCalendarDate* date;
+                if ( [[parameters objectAtIndex: 0] intValue] == 0) {
+                    date = [NSCalendarDate date];
+                } else {
+                    date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+                }
 				NSString* logLine = [parameters lastObject];
 				[self addToLog:logLine atDate:date];
             }
@@ -393,12 +403,8 @@
 
 
 -(void)addToLog:(NSString *)text atDate:(NSCalendarDate *)date {
-	//[logText appendFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],text];
-    NSString *dateText = [NSString stringWithFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],text];
-
-    
+    NSString *dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],text];
     [[self logStorage] appendAttributedString: [[[NSAttributedString alloc] initWithString: dateText] autorelease]];
-    //NSLog(@"Log now: \n%@", [logStorage string]);
 }
 
 - (void) netsocket: (NetSocket*) socket dataAvailable: (unsigned) inAmount
