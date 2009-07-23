@@ -26,7 +26,6 @@
 -(const char **) cArray 
 {
 	int i=0;
-	int size = 0;
 	int count = [self count];
 	const char **myCArray = calloc(count + 1, sizeof(char *));
 	for(i=0;i < count;i++) {

@@ -505,7 +505,7 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction) clearLog: (id) sender
 {
-	NSString * versionInfo = [NSString stringWithFormat:@"Tunnelblick version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+	NSString * versionInfo = [NSString stringWithFormat:local(@"Tunnelblick version %@"),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 	NSCalendarDate* date = [NSCalendarDate date];
 	NSString *dateText = [NSString stringWithFormat:@"%@: %@\n",[date descriptionWithCalendarFormat:@"%a %m/%d/%y %I:%M %p"],versionInfo];
 	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
@@ -820,7 +820,7 @@ static void signal_handler(int signalNumber)
 {
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		NSPanel *panel = NSGetAlertPanel(local(@"You're trying to launch Tunnelblick from the disk image"),local(@"Please copy Tunnelblick.app to your Harddisk before launching it."),local(@"Okay"),nil,nil);
+		NSPanel *panel = NSGetAlertPanel(local(@"You're trying to launch Tunnelblick from the disk image"),local(@"Please copy Tunnelblick.app to your Harddisk before launching it."),local(@"Cancel"),nil,nil);
 		[panel setLevel:NSStatusWindowLevel];
 		[panel makeKeyAndOrderFront:nil];
 		[NSApp runModalForWindow:panel];
@@ -947,7 +947,7 @@ BOOL needsRepair()
 }
 int runUnrecoverableErrorPanel(void) 
 {
-	NSPanel *panel = NSGetAlertPanel(@"Tunnelblick Error",@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy.",@"Download",@"Quit",nil);
+	NSPanel *panel = NSGetAlertPanel(local(@"Tunnelblick Error"),local(@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy."),local(@"Download"),local(@"Quit"),nil);
 	[panel setLevel:NSStatusWindowLevel];
 	[panel makeKeyAndOrderFront:nil];
 	if( [NSApp runModalForWindow:panel] != NSAlertDefaultReturn ) {

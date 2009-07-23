@@ -30,52 +30,43 @@
 #import "helper.h"
 
 @interface VPNConnection : NSObject {
-	NSString *configPath;
-	unsigned int portNumber;
-	NetSocket *managementSocket;
-//	LogController *myLogController;
-	NSString* lastState;
-	NSDate *connectedSinceDate;
-	NSMenu *myMenu;
-	
-	NSTextStorage* logStorage;
-	id delegate;
-	AuthAgent *myAuthAgent;
-	pid_t pid;
+	NSString      * configPath;
+	NSDate        * connectedSinceDate;
+	id              delegate;
+	NSString      * lastState;
+	NSTextStorage * logStorage;
+	NetSocket     * managementSocket;
+	AuthAgent     * myAuthAgent;
+	NSMenu        * myMenu;
+	pid_t           pid;
+	unsigned int    portNumber;
 }
 
--(id) initWithConfig:(NSString *)inConfig;
-
-- (void) setManagementSocket: (NetSocket*) socket;
-- (IBAction) connect: (id) sender;
-//- (IBAction) viewLog: (id) sender;
-- (NSTextStorage*) logStorage;
-- (void) setDelegate: (id) newDelegate;
-- (NSString*) state;
-
-- (void) connectToManagementSocket;
-- (IBAction) disconnect: (id) sender;
-- (IBAction) toggle: (id) sender;
--(BOOL) isDisconnected ;
-
-- (void) netsocketConnected: (NetSocket*) socket;
-- (void) processLine: (NSString*) line;
-- (void) netsocket: (NetSocket*) socket dataAvailable: (unsigned) inAmount;
-- (void) netsocketDisconnected: (NetSocket*) inSocket;
-- (void) setState: (NSString*) newState;
--(void)addToLog:(NSString *)text atDate:(NSCalendarDate *)date;
--(void)setMenu:(NSMenu *)inMenu;
-- (NSString*) configPath;
-- (NSString*) configName;
-- (NSDate *)connectedSinceDate;
-- (void)setConnectedSinceDate:(NSDate *)value;
-
-
-
-
-
-//- (IBAction) updateUI;
-
-- (unsigned int) getFreePort;
+-(void)             addToLog:                   (NSString *) text           atDate:         (NSCalendarDate *) date;
+-(NSString*)        configName;
+-(BOOL)             configNeedsRepair:          (NSString *) configFile;
+-(NSString*)        configPath;
+-(IBAction)         connect:                    (id) sender;
+-(NSDate *)         connectedSinceDate;
+-(void)             connectToManagementSocket;
+-(IBAction)         disconnect:                 (id) sender;
+-(unsigned int)     getFreePort;
+-(id)               initWithConfig:             (NSString *) inConfig;
+-(BOOL)             isConnected;
+-(BOOL)             isDisconnected;
+-(void)             killProcess;
+-(NSTextStorage*)   logStorage;
+-(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned) inAmount;
+-(void)             netsocketConnected:         (NetSocket *)   socket;
+-(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
+-(void)             processLine:                (NSString *)    line;
+-(OSStatus)         repairConfigPermissions:    (NSString *)    configFile;
+-(void)             setConnectedSinceDate:      (NSDate *)      value;
+-(void)             setDelegate:                (id)            newDelegate;
+-(void)             setManagementSocket:        (NetSocket *)   socket;
+-(void)             setMenu:                    (NSMenu *)      inMenu;
+-(void)             setState:                   (NSString *)    newState;
+-(NSString*)        state;
+-(IBAction)         toggle:                     (id)            sender;
 
 @end

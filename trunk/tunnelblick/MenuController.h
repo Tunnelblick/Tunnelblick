@@ -50,68 +50,71 @@ BOOL needsRepair(void);
 
 @interface MenuController : NSObject
 {
-    IBOutlet NSMenuItem *statusMenuItem;
-    IBOutlet id myVPNMenu;
-	
-	NSMenuItem *detailsItem, *quitItem;
-	NSUserDefaults  *appDefaults;
-    NSMutableDictionary *userDefaults;
-    NSStatusItem *theItem; 
-    NSImage *mainImage, *transitionalImage0, *transitionalImage1, *transitionalImage2, *transitionalImage3;
-    NSImage *connectedImage;
-    NSImage *errorImage;
-    NSImage *transitionalImage;
-    //LogController *myLogController;
-    NSMutableArray *connectionArray, *activeConnections, *connectionsToRestore;
-    NSMutableDictionary *myVPNConnectionDictionary;
-    NSString* lastState;
-    NSArray *myConfigArray;
-    NSArray *myConfigModDatesArray;
-	NSMutableArray *myVPNConnectionArray;
-    NSAnimation *theAnim;
-    // from LogController
-    IBOutlet NSWindow *logWindow;
-    IBOutlet NSButton *connectButton, *disconnectButton, *editButton, *clearButton, *autoLaunchCheckbox, *useNameserverCheckbox;
-    IBOutlet NSTabView *tabView;
-	int numberOfConfigs, oldNumberOfConfigs;
-	SUUpdater *updater;
+    NSImage                 * connectedImage;
+    NSImage                 * errorImage;
+    NSImage                 * mainImage, *transitionalImage0, *transitionalImage1, *transitionalImage2, *transitionalImage3;
+    NSImage                 * transitionalImage;
+
+    IBOutlet NSButton       * autoLaunchCheckbox;
+    IBOutlet NSButton       * clearButton;
+    IBOutlet NSButton       * connectButton;
+    IBOutlet NSButton       * disconnectButton;
+    IBOutlet NSButton       * editButton;
+    IBOutlet NSButton       * useNameserverCheckbox;
+
+    NSMutableArray          * activeConnections;
+	NSUserDefaults          * appDefaults;
+    NSMutableArray          * connectionArray; 
+    NSMutableArray          * connectionsToRestore;
+	NSMenuItem              * detailsItem;
+    NSString                * lastState;
+    IBOutlet NSWindow       * logWindow;
+    NSArray                 * myConfigArray;
+    NSArray                 * myConfigModDatesArray;
+	NSMutableArray          * myVPNConnectionArray;
+    NSMutableDictionary     * myVPNConnectionDictionary;
+    IBOutlet id               myVPNMenu;
+	int                       numberOfConfigs;
+    int                       oldNumberOfConfigs;
+    NSMenuItem              * quitItem;
+    IBOutlet NSMenuItem     * statusMenuItem;
+    IBOutlet NSTabView      * tabView;
+    NSAnimation             * theAnim;
+    NSStatusItem            * theItem; 
+	SUUpdater               * updater;
+    NSMutableDictionary     * userDefaults;
 }
 
-- (NSTextView*) selectedLogView;
+-(void)             activateStatusMenu;
+-(IBAction)         autoLaunchPrefButtonWasClicked: (id) sender;
+-(void)             addConnection:                  (id) sender;
+-(void)             cleanup;
+-(IBAction)         clearLog:                       (id) sender;
+-(IBAction)         connect:                        (id) sender;
+-(void)             createDefaultConfig;
+-(IBAction)         disconnect:                     (id) sender;
+-(void)             dmgCheck;
+-(IBAction)         editConfig:                     (id) sender;
+-(void)             fileSystemHasChanged:           (NSNotification *) n;
+-(NSArray *)        getConfigs;
+-(BOOL)             getCurrentAutoLaunchSetting;
+-(NSArray *)        getModDates:                    (NSArray *) fileArray;
+-(void)             initialiseAnim;
+-(void)             killAllConnections;
+-(void)             kqueue:                         (UKKQueue*) kq      receivedNotification: (NSString*) nm        forFile: (NSString*) fpath;
+-(void)             moveAllWindowsToForeground;
+-(IBAction)         nameserverPrefButtonWasClicked: (id) sender;
+-(IBAction)         openLogWindow:                  (id) sender;
+-(IBAction)         quit:                           (id) sender;
+-(void)             removeConnection:               (id) sender;
+-(BOOL)             repairPermissions;
+-(void)             saveAutoLaunchCheckboxState:    (BOOL) inBool;
+-(VPNConnection*)   selectedConnection;
+-(NSTextView*)      selectedLogView;
+-(void)             setState:                       (NSString*) newState;
+-(void)             updateMenu;
+-(void)             updateTabLabels;
+-(void)             updateUI;
+-(IBAction)         validateLogButtons;
 
-- (void)activateStatusMenu;
--(void)addConnection:(id)sender;
-
-- (void)updateUI;
-- (IBAction)connect:(id)sender;
-- (IBAction)disconnect:(id)sender;
--(NSArray *)getConfigs;
--(NSArray *)getModDates:(NSArray *)fileArray;
-- (void) setState: (NSString*) newState;
-- (IBAction) editConfig:(id)sender;
-//-(NSString *)authenticate:keyChainManager;
-- (IBAction) quit: (id) sender;
-//-(void)setLogController:(id)controller withID:(NSNumber *)inID;
-//-(id)logControllerwithID:(NSNumber *)inID;
--(void)killAllConnections;
-- (IBAction) openLogWindow: (id) sender;
--(void)updateTabLabels;
--(void)saveAutoLaunchCheckboxState:(BOOL)inBool;
--(IBAction) nameserverPrefButtonWasClicked: (id) sender;
--(IBAction) autoLaunchPrefButtonWasClicked: (id) sender;
--(BOOL)getCurrentAutoLaunchSetting;
--(void)removeConnection:(id)sender;
-- (IBAction) validateLogButtons;
-- (VPNConnection*) selectedConnection;
-// from LogController
-- (IBAction)clearLog:(id)sender;
--(void)fileSystemHasChanged:(NSNotification *)n;
--(void) kqueue: (UKKQueue*)kq receivedNotification: (NSString*)nm forFile: (NSString*)fpath;
--(void) dmgCheck;
--(void) updateMenu;
--(void)moveAllWindowsToForeground;
--(void)createDefaultConfig;
--(void)initialiseAnim;
--(void)cleanup;
--(BOOL)repairPermissions;
 @end
