@@ -22,40 +22,36 @@
 #import <Foundation/NSDebug.h>
 
 @interface AuthAgent : NSObject {
-	NSString *authMode;
-	BOOL defaultIsSetKey;
-	NSString *username;
-	NSString *password;
-	NSString *passphrase;
-	NSString *configName;
-	KeyChain *keyChainManager;
+	NSString * authMode;
+	NSString * configName;
+	BOOL       defaultIsSetKey;
+	KeyChain * keyChainManager;
+	NSString * passphrase;
+	NSString * password;
+	NSString * username;
 }
--(id) initWithConfigName:(NSString *)inConfigName;
--(void)deletePassphraseFromKeychain;
--(void)performAuthentication;
--(void)performPasswordAuthentication;
--(void)performPrivateKeyAuthentication;
--(NSString *)authenticate:(id)keyChainManager;
--(NSArray *)getAuth;
--(BOOL) keychainHasPassphrase;
-- (NSString *)authMode;
-- (void)setAuthMode:(NSString *)value;
-- (NSString *)username;
-- (void)setUsername:(NSString *)value;
 
-- (NSString *)username;
-- (void)setUsername:(NSString *)value;
+-(NSString *)   authMode;
+-(void)         setAuthMode:                        (NSString *)value;
 
-- (NSString *)password;
-- (void)setPassword:(NSString *)value;
+-(NSString *)   configName;
+-(void)         setConfigName:                      (NSString *)value;
 
-- (NSString *)passphrase;
-- (void)setPassphrase:(NSString *)value;
+-(NSString *)   passphrase;
+-(void)         setPassphrase:                      (NSString *)value;
 
-- (NSString *)configName;
-- (void)setConfigName:(NSString *)value;
+-(NSString *)   password;
+-(void)         setPassword:                        (NSString *)value;
 
+-(NSString *)   username;
+-(void)         setUsername:                        (NSString *)value;
 
-
+-(void)         deletePassphraseFromKeychain;
+-(NSArray *)    getAuth;
+-(id)           initWithConfigName:                 (NSString *)inConfigName;
+-(void)         performAuthentication;
+-(void)         performPasswordAuthentication;
+-(void)         performPrivateKeyAuthentication;
+-(BOOL)         keychainHasPassphrase;
 
 @end

@@ -152,7 +152,6 @@
 	char *myToolPath = [toolPath UTF8String];
 	char **myArguments = [arguments cArray];
 	OSStatus myStatus;
-	FILE *myCommunicationsPipe = NULL;
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
 	// 13
 	myStatus = AuthorizationExecuteWithPrivileges

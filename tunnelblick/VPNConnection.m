@@ -29,7 +29,7 @@
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
         //myLogController = [[LogController alloc] initWithSender:self]; 
-		NSString * versionInfo = [NSString stringWithFormat:@"Tunnelblick version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+		NSString * versionInfo = [NSString stringWithFormat:local(@"Tunnelblick version %@"),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 		NSCalendarDate* date = [NSCalendarDate date];
 		[self addToLog:versionInfo atDate:date];
         lastState = @"EXITING";
@@ -191,7 +191,7 @@
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
 }
 
-- disconnect: (id)sender 
+- (IBAction) disconnect: (id)sender 
 {
 	if(pid > 0) {
 		[self killProcess];	
@@ -295,7 +295,6 @@
                 
                 NSArray* parameters = [parameterString componentsSeparatedByString: @","];
                 
-                NSCalendarDate* date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
                 NSString* state = [parameters objectAtIndex: 1];
                 
                 if (NSDebugEnabled) NSLog(@"State is '%@'", state);
@@ -376,7 +375,7 @@
 				NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
 				if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
 					if (NSDebugEnabled) NSLog(@"Server wants token.");
-					int needButtonReturn = NSRunAlertPanel(tokenName,local(@"Please insert token"),local(@"Okay"),local(@"Cancel"),nil);
+					int needButtonReturn = NSRunAlertPanel(tokenName,local(@"Please insert token"),local(@"OK"),local(@"Cancel"),nil);
 					if (needButtonReturn == NSAlertDefaultReturn) {
 						if (NSDebugEnabled) NSLog(@"Write need ok.");
 						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSISOLatin1StringEncoding];

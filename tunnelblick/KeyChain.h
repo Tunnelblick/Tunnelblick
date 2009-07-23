@@ -24,16 +24,15 @@
 
 
 @interface KeyChain : NSObject {
-    NSString* serviceName;
-    NSString* accountName;	
+    NSString  * accountName;	
+    NSString  * serviceName;
 }
 
--(id) initWithService:(NSString *)serviceName
-      withAccountName:(NSString *)accountName;
-- (NSString *)password;
-- (int)setPassword:(NSString *)password;
-- (NSString *)accountName;
-- (void)setAccountName:(NSString *)value;
-
+-(NSString *)   accountName;
+-(void)         deletePassword;
+-(id)           initWithService:    (NSString *) serviceName    withAccountName: (NSString *) accountName;
+-(NSString *)   password;
+-(void)         setAccountName:     (NSString *) value;
+-(int)          setPassword:        (NSString *) password;
 
 @end

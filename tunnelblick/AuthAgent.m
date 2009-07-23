@@ -20,10 +20,10 @@
 #import "helper.h"
 
 NSString *escaped(NSString *string) {
-	string = [[string mutableCopy] autorelease];
-	[string replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
-	[string replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
-	return string;
+	NSMutableString * stringOut = [[string mutableCopy] autorelease];
+	[stringOut replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	return stringOut;
 }
 
 @implementation AuthAgent
@@ -46,12 +46,9 @@ NSString *escaped(NSString *string) {
     NSString *question = local(@"Please enter OpenVPN passphrase.");
     [dict setObject:local(@"Passphrase") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    
-    
     [dict setObject:local(@"Add Passphrase To Apple Keychain") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
-    
     [dict setObject:@"" forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [dict setObject:local(@"Ok") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    [dict setObject:local(@"OK") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [dict setObject:local(@"Cancel") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
     SInt32 error;
     CFUserNotificationRef notification = CFUserNotificationCreate(NULL, 30, CFUserNotificationSecureTextField(0), &error, (CFDictionaryRef)dict);
@@ -83,7 +80,7 @@ NSString *escaped(NSString *string) {
 
 -(NSArray *)getAuth
 {
-    NSString* username = nil;
+    NSString* usernameLocal = nil;
     NSString* passwd = nil;
     NSArray *array =[NSArray array];
 				/* Dictionary for the panel.  */
@@ -91,19 +88,16 @@ NSString *escaped(NSString *string) {
     NSString *question = local(@"Please enter OpenVPN username/password combination.");
     [dict setObject:local(@"Passphrase") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    
-    
     [dict setObject:local(@"Add Passphrase To Apple Keychain") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
-    
     [dict setObject:[NSArray arrayWithObjects:local(@"Username:"),local(@"Password:"),nil] forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [dict setObject:local(@"Ok") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    [dict setObject:local(@"OK") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [dict setObject:local(@"Cancel") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
     NSString *isSetKey = [NSString stringWithFormat:@"%@-usernameIsSet",[self configName]];
 	NSString *usernameKey = [NSString stringWithFormat:@"%@-authUsername",[self configName]];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:isSetKey]) { // see if we have set a username and keychain item earlier
-		username =[[NSUserDefaults standardUserDefaults] objectForKey:usernameKey];
-		KeyChain *myChainManager = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username] autorelease];
-		[keyChainManager setAccountName:username];
+		usernameLocal =[[NSUserDefaults standardUserDefaults] objectForKey:usernameKey];
+		KeyChain *myChainManager = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:usernameLocal] autorelease];
+		[keyChainManager setAccountName:usernameLocal];
         passwd = [myChainManager password];
         if(!passwd) {  // password was deleted in keychain so get it anew
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:isSetKey];
@@ -122,15 +116,15 @@ NSString *escaped(NSString *string) {
             }
             /* Get the passphrase from the textfield. */
             passwd = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 1) retain] autorelease];
-            username = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey,	0) retain] autorelease];
+            usernameLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey,	0) retain] autorelease];
             if((response & CFUserNotificationCheckBoxChecked(0))) // if checkbox is checked, store in keychain
             {
                 /* write authusername to user defaults */
-                [[NSUserDefaults standardUserDefaults] setObject:username forKey:usernameKey];
+                [[NSUserDefaults standardUserDefaults] setObject:usernameLocal forKey:usernameKey];
                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:isSetKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                [keyChainManager setAccountName:username];
+                [keyChainManager setAccountName:usernameLocal];
                 if([keyChainManager setPassword:passwd] != 0)
                 {
                     fprintf(stderr,"Storing in Keychain was unsuccessful\n");
@@ -158,16 +152,16 @@ NSString *escaped(NSString *string) {
         }
         /* Get the passphrase from the textfield. */
         passwd = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 1) retain] autorelease];
-        username = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey,	0) retain] autorelease];
+        usernameLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey,	0) retain] autorelease];
         if((response & CFUserNotificationCheckBoxChecked(0))) // if checkbox is checked, store in keychain
         {
             /* write authusername to user defaults */
-            [[NSUserDefaults standardUserDefaults] setObject:username forKey:usernameKey];
+            [[NSUserDefaults standardUserDefaults] setObject:usernameLocal forKey:usernameKey];
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:isSetKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            KeyChain *keyChainManager = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username] autorelease];
-            if([keyChainManager setPassword:passwd] != 0)
+            KeyChain *keyChainManagerLocal = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:usernameLocal] autorelease];
+            if([keyChainManagerLocal setPassword:passwd] != 0)
             {
                 fprintf(stderr,"Storing in Keychain was unsuccessful\n");
             }
@@ -175,8 +169,8 @@ NSString *escaped(NSString *string) {
         }
     }
     
-    if([username length] > 0 && [passwd length] > 0) {
-        array = [NSArray arrayWithObjects:username,passwd,nil];
+    if([usernameLocal length] > 0 && [passwd length] > 0) {
+        array = [NSArray arrayWithObjects:usernameLocal,passwd,nil];
 		//CFRelease(notification);
         return array;
     }
@@ -240,9 +234,9 @@ NSString *escaped(NSString *string) {
 		authArray = [self getAuth];
 
 	if([authArray count]) {                
-		NSString *username = [authArray objectAtIndex:0];
+		NSString *usernameLocal = [authArray objectAtIndex:0];
 		NSString *passwd = [authArray objectAtIndex:1];
-		[self setUsername:escaped(username)];
+		[self setUsername:escaped(usernameLocal)];
 		[self setPassword:escaped(passwd)];
 
 	}
@@ -252,16 +246,16 @@ NSString *escaped(NSString *string) {
 }
 -(void)performPrivateKeyAuthentication {
 	if (NSDebugEnabled) NSLog(@"Server wants private key passphrase.");
-	id keyChainManager = [[[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]] autorelease];
+	id keyChainManagerLocal = [[[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]] autorelease];
 	
-	NSString *passphrase = [keyChainManager password];
-	if (passphrase == nil) {
+	NSString *passphraseLocal = [keyChainManagerLocal password];
+	if (passphraseLocal == nil) {
 		if (NSDebugEnabled) NSLog(@"Passphrase not set, setting...\n");
 		do {
-			passphrase = [self authenticate];
-		} while([passphrase isEqualToString:@""]);
+			passphraseLocal = [self authenticate];
+		} while([passphraseLocal isEqualToString:@""]);
 	}
-	[self setPassphrase:escaped(passphrase)];
+	[self setPassphrase:escaped(passphraseLocal)];
 }
 
 -(void)performAuthentication
