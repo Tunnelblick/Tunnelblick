@@ -51,6 +51,7 @@
 		61BC4E7A0E2FA8D600F24255 /* client.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E780E2FA8D000F24255 /* client.up.osx.sh */; };
 		61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* Norwegian.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
+		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -172,6 +173,8 @@
 		61BC4E780E2FA8D000F24255 /* client.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.osx.sh; sourceTree = "<group>"; };
 		61C03B960ED4E42A00175F22 /* Norwegian.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Norwegian.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
+		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
+		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -213,6 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
+				6337527B101A1EBD00775AA2 /* TBTextView.h */,
+				6337527C101A1EBD00775AA2 /* TBTextView.m */,
 				61BC4D9C0E2FA2F300F24255 /* installer.h */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
@@ -532,6 +537,7 @@
 				61BC4B940E2F9EDA00F24255 /* UKMainThreadProxy.m in Sources */,
 				6185E7400E76045D0009C2FD /* helper.m in Sources */,
 				6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */,
+				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

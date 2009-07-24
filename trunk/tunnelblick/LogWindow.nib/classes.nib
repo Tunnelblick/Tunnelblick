@@ -82,6 +82,14 @@
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>TBTextView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTextView</string>
+		</dict>
 	</array>
 	<key>IBVersion</key>
 	<string>1</string>
