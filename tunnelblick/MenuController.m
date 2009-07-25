@@ -130,12 +130,9 @@ BOOL systemIsTigerOrNewer()
 		[myQueue setDelegate: self];
 		[myQueue setAlwaysNotify: YES];
 		
-
 		[NSThread detachNewThreadSelector:@selector(moveAllWindowsToForegroundThread) toTarget:self withObject:nil];
-
 		
 		updater = [[SUUpdater alloc] init];
-
 
 	}
     return self;
@@ -355,10 +352,39 @@ BOOL systemIsTigerOrNewer()
 	NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
 	NSEnumerator *connectionEnumerator = [myConnectionArray objectEnumerator];
 	VPNConnection *myConnection;
+
+    // Get preferences for showing duration times
+    BOOL showAllDurations = FALSE;
+    BOOL showConnectedDurations = TRUE;
+    id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showAllDurations"];
+    if(tmp != nil) {
+        showAllDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showAllDurations"];
+    }
+    tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"];
+    if(tmp != nil) {
+        showConnectedDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showConnectedDurations"];
+    }
+        
 	int i = 0;
 	while(myConnection = [connectionEnumerator nextObject]) {
 		//NSLog(@"configName: %@\nconnectionState: %@\n",[myConnection configName],[myConnection state]);
-		NSString *label = [NSString stringWithFormat:@"%@ (%@)",[myConnection configName],local([myConnection state])];
+        NSString * cState = [myConnection state];
+        NSString * cTimeS = @"";
+
+        // Get connection duration if preferences say to 
+        if (    showAllDurations ||  (  showConnectedDurations && [cState isEqualToString: @"CONNECTED"]  )    ) {
+            NSDate * csd = [myConnection connectedSinceDate];
+            NSTimeInterval ti = [csd timeIntervalSinceNow];
+            long cTimeL = (long) round(-ti);
+            if ( cTimeL >= 0 ) {
+                if ( cTimeL < 3600 ) {
+                    cTimeS = [NSString stringWithFormat:@" %li:%02li", cTimeL/60, cTimeL%60];
+                } else {
+                    cTimeS = [NSString stringWithFormat:@" %li:%02li:%02li", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
+                }
+            }
+        }
+		NSString *label = [NSString stringWithFormat:@"%@ (%@%@)",[myConnection configName],local(cState), cTimeS];
 		[[tabView tabViewItemAtIndex:i] setLabel:label];
 		i++;
 	}
@@ -542,10 +568,27 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction) openLogWindow: (id) sender
 {
-	//	if (!logWindow) {
-	//[logWindow close];
-	[logWindow dealloc];
-	[NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
+	if (logWindow != nil) {
+        [logWindow performClose:nil];
+        [logWindow autorelease];
+    }
+    
+    [NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
+
+    // Set the window's size and position from preferences (saved when window is closed)
+    // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
+    NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrameVersion"];
+    if (tmp != nil) {
+        if (  [tbVersion isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrameVersion"]]    ) {
+            tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrame"];
+            if(tmp != nil) {
+                NSString * frame = [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrame"];
+                [logWindow setFrameFromString:frame];
+            }
+        }
+    }
+
 	[logWindow setDelegate:self];
 	VPNConnection *myConnection = [self selectedConnection];
 	NSTextStorage* store = [myConnection logStorage];
@@ -578,6 +621,26 @@ BOOL systemIsTigerOrNewer()
 	[self tabView:tabView didSelectTabViewItem:initialItem];
 	[self validateLogButtons];
 	[self updateTabLabels];
+    
+    // Set up a timer to update the tab labels with connections' duration times
+    BOOL showAllDurations = FALSE;
+    BOOL showConnectedDurations = TRUE;
+    tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showAllDurations"];
+    if(tmp != nil) {
+        showAllDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showAllDurations"];
+    }
+    tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"];
+    if(tmp != nil) {
+        showConnectedDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showConnectedDurations"];
+    }
+    
+    if (    (showDurationsTimer == nil)  && (showAllDurations || showConnectedDurations)    ) {
+        showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                               target:self
+                                                             selector:@selector(updateTabLabels)
+                                                             userInfo:nil
+                                                              repeats:YES] retain];
+    }
 	
 	// Localize Buttons
 	[clearButton setTitle:local([clearButton title])];
@@ -589,8 +652,43 @@ BOOL systemIsTigerOrNewer()
 
     [logWindow makeKeyAndOrderFront: self];
     [logWindow orderFrontRegardless];
-	//[logWindow setLevel:NSStatusWindowLevel];
     [NSApp activateIgnoringOtherApps:YES];
+}
+
+// Invoked when the Details... window (logWindow) will close
+- (void)windowWillClose:(NSNotification *)n
+{
+    // Stop and release the timer used to update the duration displays
+    if (showDurationsTimer != nil) {
+        if ( [n object] == logWindow ) {
+            [showDurationsTimer invalidate];
+            [showDurationsTimer release];
+            showDurationsTimer = nil;
+        }
+    }
+
+    // Save the window's size and position in the preferences and save the TB version that saved them, BUT ONLY IF anything has changed
+    NSString * frame = [logWindow stringWithSavedFrame];
+    NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    BOOL saveIt = TRUE;
+    id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrame"];
+    if(tmp != nil) {
+        tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrameVersion"];
+        if (tmp != nil) {
+            if (  [tbVersion isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrameVersion"]]    ) {
+                if (   [frame isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrame"]]    ) {
+                    saveIt = FALSE;
+                }
+            }
+        }
+    }
+    
+    if (saveIt) {
+        [[NSUserDefaults standardUserDefaults] setObject: frame forKey: @"detailsWindowFrame"];
+        [[NSUserDefaults standardUserDefaults] setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+                                                  forKey: @"detailsWindowFrameVersion"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void) dealloc

@@ -77,6 +77,7 @@ BOOL needsRepair(void);
 	int                       numberOfConfigs;
     int                       oldNumberOfConfigs;
     NSMenuItem              * quitItem;
+    NSTimer                 * showDurationsTimer;           //Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
     IBOutlet NSMenuItem     * statusMenuItem;
     IBOutlet NSTabView      * tabView;
     NSAnimation             * theAnim;
