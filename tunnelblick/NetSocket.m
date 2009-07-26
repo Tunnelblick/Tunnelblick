@@ -635,7 +635,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 {
 	CFSocketNativeHandle	nativeSocket;
 	struct sockaddr_in	address;
-	int						addressLength = sizeof( address );
+	socklen_t				addressLength = sizeof( address );
 	
 	// Get the native socket
 	nativeSocket = [self nativeSocketHandle];
@@ -654,7 +654,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 {
 	CFSocketNativeHandle	nativeSocket;
 	struct sockaddr_in	address;
-	int						addressLength = sizeof( address );
+	socklen_t					addressLength = sizeof( address );
 	
 	// Get the native socket
 	nativeSocket = [self nativeSocketHandle];
@@ -673,7 +673,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 {
 	CFSocketNativeHandle	nativeSocket;
 	struct sockaddr_in	address;
-	int						addressLength = sizeof( address );
+	socklen_t					addressLength = sizeof( address );
 	
 	// Get the native socket
 	nativeSocket = [self nativeSocketHandle];
@@ -692,7 +692,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 {
 	CFSocketNativeHandle	nativeSocket;
 	struct sockaddr_in	address;
-	int						addressLength = sizeof( address );
+	socklen_t					addressLength = sizeof( address );
 	
 	// Get the native socket
 	nativeSocket = [self nativeSocketHandle];
@@ -888,7 +888,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	CFSocketNativeHandle	nativeSocket;
 	struct sockaddr_in	socketAddress;
 	NetSocket*				netsocket;
-	int						socketAddressSize;
+	socklen_t				socketAddressSize;
 	int						socketDescriptor;
 	
 	// Get the native socket

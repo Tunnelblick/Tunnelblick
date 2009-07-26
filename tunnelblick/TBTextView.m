@@ -64,6 +64,27 @@
             [super selectAll:nil];
             return YES;
             
+        } else if (  [c isEqual: @"m"]  ) {     // Command-M - Miniaturize
+            NSArray *windows = [NSApp windows];
+            NSEnumerator *e = [windows objectEnumerator];
+            NSWindow *window = nil;
+            while(window = [e nextObject]) {
+                if (  [[window title] isEqualToString:@"OpenVPN Log Output - Tunnelblick"]  ) {
+                    [window miniaturize:nil];
+                    return YES;
+                }
+            }
+            
+        } else if (  [c isEqual: @"w"]  ) {     // Command-W - Close window
+            NSArray *windows = [NSApp windows];
+            NSEnumerator *e = [windows objectEnumerator];
+            NSWindow *window = nil;
+            while(window = [e nextObject]) {
+                if (  [[window title] isEqualToString:@"OpenVPN Log Output - Tunnelblick"]  ) {
+                    [window performClose:nil ];
+                    return YES;
+                }
+            }
         }
     }
 

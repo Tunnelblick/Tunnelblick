@@ -282,7 +282,6 @@ BOOL systemIsTigerOrNewer()
 	}	
 }
 
-
 -(NSArray *)getConfigs {
     int i = 0;  	
     NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
@@ -658,36 +657,36 @@ BOOL systemIsTigerOrNewer()
 // Invoked when the Details... window (logWindow) will close
 - (void)windowWillClose:(NSNotification *)n
 {
-    // Stop and release the timer used to update the duration displays
-    if (showDurationsTimer != nil) {
-        if ( [n object] == logWindow ) {
+    if ( [n object] == logWindow ) {
+        // Stop and release the timer used to update the duration displays
+        if (showDurationsTimer != nil) {
             [showDurationsTimer invalidate];
             [showDurationsTimer release];
             showDurationsTimer = nil;
         }
-    }
 
-    // Save the window's size and position in the preferences and save the TB version that saved them, BUT ONLY IF anything has changed
-    NSString * frame = [logWindow stringWithSavedFrame];
-    NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    BOOL saveIt = TRUE;
-    id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrame"];
-    if(tmp != nil) {
-        tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrameVersion"];
-        if (tmp != nil) {
-            if (  [tbVersion isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrameVersion"]]    ) {
-                if (   [frame isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrame"]]    ) {
-                    saveIt = FALSE;
+        // Save the window's size and position in the preferences and save the TB version that saved them, BUT ONLY IF anything has changed
+        NSString * frame = [logWindow stringWithSavedFrame];
+        NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+        BOOL saveIt = TRUE;
+        id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrame"];
+        if(tmp != nil) {
+            tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrameVersion"];
+            if (tmp != nil) {
+                if (  [tbVersion isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrameVersion"]]    ) {
+                    if (   [frame isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrame"]]    ) {
+                        saveIt = FALSE;
+                    }
                 }
             }
         }
-    }
-    
-    if (saveIt) {
-        [[NSUserDefaults standardUserDefaults] setObject: frame forKey: @"detailsWindowFrame"];
-        [[NSUserDefaults standardUserDefaults] setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-                                                  forKey: @"detailsWindowFrameVersion"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        if (saveIt) {
+            [[NSUserDefaults standardUserDefaults] setObject: frame forKey: @"detailsWindowFrame"];
+            [[NSUserDefaults standardUserDefaults] setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+                                                      forKey: @"detailsWindowFrameVersion"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
 }
 
