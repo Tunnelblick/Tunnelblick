@@ -35,7 +35,7 @@ BOOL useDNSStatus(id connection)
 
 NSString* local(const NSString* theString)
 {
-    return NSLocalizedString(theString, nil);
+    return NSLocalizedString( (NSString *) theString, nil);
 }
 
 
