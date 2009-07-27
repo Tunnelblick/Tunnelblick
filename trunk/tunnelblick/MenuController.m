@@ -567,9 +567,10 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction) openLogWindow: (id) sender
 {
-	if (logWindow != nil) {
-        [logWindow performClose:nil];
-        [logWindow autorelease];
+    if (logWindow != nil) {
+        [logWindow makeKeyAndOrderFront: self];
+        [NSApp activateIgnoringOtherApps:YES];
+        return;
     }
     
     [NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
