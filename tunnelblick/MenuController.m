@@ -650,7 +650,6 @@ BOOL systemIsTigerOrNewer()
 	[autoLaunchCheckbox setTitle:local([autoLaunchCheckbox title])];
 
     [logWindow makeKeyAndOrderFront: self];
-    [logWindow orderFrontRegardless];
     [NSApp activateIgnoringOtherApps:YES];
 }
 
