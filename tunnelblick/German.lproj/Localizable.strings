@@ -1,6 +1,6 @@
 "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?" = "%@ ist nicht sicher und Tunnelblick kann dies nicht ändern. Trotzdem verbinden?";
 "AUTH"   = "Autorisieren";
-"About Tunnelblick..." = "Über Tunnelblick…"
+"About Tunnelblick..." = "Über Tunnelblick…";
 "Add Passphrase To Apple Keychain" = "Passphrase dem Schlüsselbund hinzufügen";
 "Always allow %@ to connect" = "Erlaube %@ immer zu verbinden";
 "Automatically connect on launch" = "Automatisch beim Programmstart verbinden";
@@ -11,7 +11,7 @@
 "Connect once" = "Einmal verbinden";
 "Connect"= "Verbinden";
 "Continue" = "Fortsetzen";
-"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub und anderen. Alle Rechte vorbehalten."
+"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub und anderen. Alle Rechte vorbehalten.";
 "Details..." = "Details...";
 "Disconnect" = "Trennen";
 "Download" = "Download";
@@ -38,7 +38,7 @@
 "Tunnelblick version %@" = "Tunnelblick Version %@";
 "Username:" = "Benutzername";
 "Verification failed." = "Verifizierung fehlgeschlagen";
-"Version %@" = "Version %@"
+"Version %@" = "Version %@";
 "WAIT"   = "Auf Server-Antwort warten"; // translate "Waiting for Server Response"!
 "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'." = "Willkommen zu OpenVPN unter Mac OS X: Bitte kopiere Sie Ihre Konfigurationsdatei (z.B.: openvpn.conf) nach '~Library/openvpn/'.";
 "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "Sie können auch fortsetzen und Tunnelblick wird eine Beispiel Konfigurationsdatei an der richtigen Stelle anlegen. Diese  können Sie dann später anpassen oder ersetzen.";
