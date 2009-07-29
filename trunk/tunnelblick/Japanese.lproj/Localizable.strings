@@ -1,6 +1,6 @@
     "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?" = "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?";
 "AUTH"       = "許可中";
-    "About Tunnelblick..." = "About Tunnelblick…"
+    "About Tunnelblick..." = "About Tunnelblick…";
 "Add Passphrase To Apple Keychain" = "パスフレーズをキーチェインに加える";
     "Always allow %@ to connect" = "Always allow %@ to connect";
     "Automatically connect on launch" = "Automatically connect on launch";
@@ -11,7 +11,7 @@
     "Connect once" = "Connect once";
 "Connect"    = "接続";
 "Continue" = "続ける";
-    "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved."
+    "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.";
     "Details..." = "Details...";
 "Disconnect" = "切断";
     "Download" = "Download";
@@ -38,7 +38,7 @@
     "Tunnelblick version %@" = "Tunnelblick version %@";
 "Username:" = "ユーザー名";
     "Verification failed." = "Verification failed.";
-    "Version %@" = "Version %@"
+    "Version %@" = "Version %@";
 "WAIT"       = "サーバーの返事を待っています"; // translate "Waiting for Server Response"!
     "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'." = "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'.";
     "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace.";
