@@ -1,5 +1,6 @@
 "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?" = "%@은(는) 안전하지 않고 Tunnelblick이 안전하게 만들 수 없습니다. 그래도 연결하겠습니까?";
 "AUTH" = "인증 중...";
+"About Tunnelblick..." = "Tunnelblick 정보"
 "Add Passphrase To Apple Keychain" = "암호를 키체인에 저장";
 "Always allow %@ to connect" = "항상 %@로 연결 허용";
 "Automatically connect on launch" = "실행 시 자동 연결";
@@ -10,6 +11,7 @@
 "Connect once" = "한번만 연결";
 "Connect" = "연결";
 "Continue" = "계속";
+"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved."
 "Details..." = "상세보기…";
 "Disconnect" = "연결 해제";
 "Download" = "다운로드";
@@ -36,6 +38,7 @@
 "Tunnelblick version %@" = "Tunnelblick 버전 %@";
 "Username:" = "사용자 계정:";
 "Verification failed." = "검증 실패.";
+"Version %@" = "버전 %@"
 "WAIT" = "연결 중...";
 "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~/Library/openvpn/'." = "Mac OS X용 OpenVPN 사용을 환영합니다: 설정 파일(예 openvpn.conf)은 '~/Library/openvpn/'에 있어야 합니다.";
 "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "계속을 선택하면 Tunnelblick이 예제 설정 파일을 생성합니다. 그리고 이 파일을 수정할 수 있습니다.";
