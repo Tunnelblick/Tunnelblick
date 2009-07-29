@@ -42,5 +42,4 @@
 "WAIT"       = "サーバーの返事を待っています"; // translate "Waiting for Server Response"!
     "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'." = "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'.";
     "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace.";
-    "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace.";
     "You're trying to launch Tunnelblick from the disk image" = "You're trying to launch Tunnelblick from the disk image";
