@@ -62,6 +62,7 @@ BOOL needsRepair(void);
     IBOutlet NSButton       * editButton;
     IBOutlet NSButton       * useNameserverCheckbox;
 
+    NSMenuItem              * aboutItem;
     NSMutableArray          * activeConnections;
 	NSUserDefaults          * appDefaults;
     NSMutableArray          * connectionArray; 

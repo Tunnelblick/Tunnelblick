@@ -92,6 +92,11 @@ BOOL systemIsTigerOrNewer()
 		[detailsItem setTarget: self];
 		[detailsItem setAction: @selector(openLogWindow:)];
 		
+		aboutItem = [[NSMenuItem alloc] init];
+		[aboutItem setTitle: @"About Tunnelblick..."];
+		[aboutItem setTarget: self];
+		[aboutItem setAction: @selector(openAboutWindow:)];
+		
 		quitItem = [[NSMenuItem alloc] init];
 		[quitItem setTitle: @"Quit"]; 
 		[quitItem setTarget: self];
@@ -242,6 +247,7 @@ BOOL systemIsTigerOrNewer()
 	
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
 	[myVPNMenu addItem: detailsItem];
+	[myVPNMenu addItem: aboutItem];
 	[myVPNMenu addItem: quitItem];
     
     // Localize all menu items:
@@ -690,6 +696,36 @@ BOOL systemIsTigerOrNewer()
     }
 }
 
+
+- (IBAction) openAboutWindow: (id) sender
+// Uses the "...WithOptions" version of orderFrontStandardAboutPanel so all localization can be in Localizable.strings files
+{
+    NSImage  * appIcon      = [NSImage imageNamed:@"tunnelblick.icns"];
+    NSString * appName      = @"Tunnelblick";
+    NSString * appVersion   = [NSString stringWithFormat:local(@"Version %d"), 3];
+    NSString * version      = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    
+    NSString * html         = @"<html><body><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><body></html>";
+    NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
+    NSMutableAttributedString * credits = [[[NSAttributedString alloc] init] autorelease];
+    [credits initWithHTML:data documentAttributes:NULL];
+
+    NSString * copyright    = local(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.");
+
+    NSDictionary * aboutPanelDict;
+    aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                      appIcon, @"ApplicationIcon",
+                      appName, @"ApplicationName",
+                      appVersion, @"ApplicationVersion",
+                      version, @"Version",
+                      credits, @"Credits",
+                      copyright, @"Copyright",
+                      nil];
+                    
+    [NSApp orderFrontStandardAboutPanelWithOptions:aboutPanelDict];
+    [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
+
+}
 - (void) dealloc
 {
     [lastState release];
