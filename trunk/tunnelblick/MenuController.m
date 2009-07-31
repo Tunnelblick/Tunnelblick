@@ -130,11 +130,13 @@ BOOL systemIsTigerOrNewer()
 		
 		NSString* vpnDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"];
 		
-		UKKQueue* myQueue = [UKKQueue sharedQueue];
-		[myQueue addPathToQueue: vpnDirectory];
-		[myQueue setDelegate: self];
-		[myQueue setAlwaysNotify: YES];
-		
+        if (  [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
+            UKKQueue* myQueue = [UKKQueue sharedQueue];
+            [myQueue addPathToQueue: vpnDirectory];
+            [myQueue setDelegate: self];
+            [myQueue setAlwaysNotify: YES];
+		}
+        
 		[NSThread detachNewThreadSelector:@selector(moveAllWindowsToForegroundThread) toTarget:self withObject:nil];
 		
 		updater = [[SUUpdater alloc] init];
