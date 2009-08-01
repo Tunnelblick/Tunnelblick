@@ -19,4 +19,3 @@
 #import "VPNConnection.h"
 
 BOOL useDNSStatus(id connection);
-NSString* local(const NSString* theString);
