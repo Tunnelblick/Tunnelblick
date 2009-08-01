@@ -1,6 +1,6 @@
     "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?" = "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?";
 "AUTH"       = "Autoriserer";
-     "About Tunnelblick..." = "About Tunnelblick…";
+     "About..." = "About…";
 "Add Passphrase To Apple Keychain" = "Legg passordet til i nøkkelringen";
     "Always allow %@ to connect" = "Always allow %@ to connect";
 "Automatically connect on launch" = "Koble til automatisk ved oppstart";
@@ -19,14 +19,14 @@
 "Edit configuration" = "Editere innstillinger";
     "It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy." = "It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy.";
 "OK"		= "OK";
-"OpenVPN: %d connections active." = "OpenVPN: %d aktive oppkoblinger";
-"OpenVPN: 1 connection active." = "OpenVPN: 1 aktiv oppkobling";
+"Tunnelblick: %d connections active." = "Tunnelblick: %d aktive oppkoblinger";
+"Tunnelblick: 1 connection active." = "Tunnelblick: 1 aktiv oppkobling";
 "Passphrase verification failed." = "Verfiseringen av passordet ditt feilet.";
 "Passphrase" = "Passord";
 "Password:" = "Passord:";
     "Please copy Tunnelblick.app to your Harddisk before launching it." = "Please copy Tunnelblick.app to your Harddisk before launching it.";
-"Please enter OpenVPN passphrase." = "Skriv in ditt passord.";
-"Please enter OpenVPN username/password combination." = "Skriv inn ditt brukernavn og passord.";
+"Please enter VPN passphrase." = "Skriv in ditt passord.";
+"Please enter VPN username/password combination." = "Skriv inn ditt brukernavn og passord.";
     "Please insert token" = "Please insert token";
 "Quit"       = "Avslutte";
 "SLEEP"      = "Venter på svar fra applikasjonen";
@@ -40,6 +40,6 @@
     "Verification failed." = "Verification failed.";
     "Version %@" = "Version %@";
 "WAIT"       = "Venter på svar fra serveren";
-    "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'." = "Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'.";
-"You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "Hvis du fortsetter vil Tunnelblick lage en konfig-fil for deg. Denne kan du endre på eller erstatte.";
+    "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~Library/openvpn/'.";
+"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace." = "Hvis du fortsetter vil Tunnelblick lage en konfig-fil for deg. Denne kan du endre på eller erstatte.";
     "You're trying to launch Tunnelblick from the disk image" = "You're trying to launch Tunnelblick from the disk image";
