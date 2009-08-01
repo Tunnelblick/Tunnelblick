@@ -11,7 +11,7 @@ the <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="nofollow">GNU Genera
 For more information, including wikis and a discussion group, see the <a href="http://code.google.com/p/tunnelblick/">Tunnelblick 
 home page</a>.<br>
 <br>
-This document describes how to use Tunnelblick version 3.0b12 and was last modified 2009-07-27.<br>
+This document describes how to use Tunnelblick version 3.0b12 and was last modified 2009-07-31.<br>
 The latest version of this document is 
 <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
 <br>
@@ -84,6 +84,8 @@ If Tunnelblick's &ldquo;Set nameserver&rdquo; option is used:<br>
 OpenVPN configuration files are stored in ~/Library/openvpn. Usually the key and certificate files are stored there, too.<br>
 <br>
 Since these files are all located in the user's Library folder, they must be set up separately for each user.<br>
+<br>
+<em>Note: At present, Tunnelblick does not work if the home folder is on a network volume.</em><br> 
 <br>
 Within the Tunnelblick.app application, client up/down scripts are
 located in Tunnelblick.app/Contents/Resources (see the &ldquo;Set nameserver&rdquo;
@@ -300,10 +302,10 @@ Tunnelblick uses the following preferences for each user:<br>
 <tr valign="top"><td>showConnectedDurations</td><td>If set, causes Tunnelblick to show a timer for all connections that are open. The default is set, so connection durations are shown.</td></tr>
 <tr valign="top"><td>detailsWindowFrame</td><td>The size and position of the &ldquo;OpenVPN log&rdquo; window when it was last closed.</td></tr>
 <tr valign="top"><td>detailsWindowFrameVersion</td><td>The version of Tunnelblick that saved the detailsWindowFrame preference.</td></tr>
+<tr valign="top"><td>doNotMonitorConfigurationFolder</td><td>If set, Tunnelblick will not monitor changes to ~/Library/openvpn.</td></tr>
 <tr valign="top"><td colspan="2">&nbsp<br>&nbsp<br>For each configuration file in ~/Library/openvpn, the following two preferences may appear:</td></tr>
 <tr valign="top"><td>ZZZuseDNS<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Set nameserver&rdquo; checkbox. The default is set.</td></tr>
 <tr valign="top"><td>ZZZautoConnect<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Automatically connect on launch&rdquo; checkbox. The default is cleared.</td></tr>
-<tr valign="top"><td colspan="2">&nbsp<br>&nbsp<br>Additional preferences are used to store usernames at the user's request. (The corresponding passwords are stored in the KeyChain.)</td></tr>
 </table>
 <br>
 <b><a name="command" rel="nofollow">COMMAND-LINE INTERFACE</a></b><br>
