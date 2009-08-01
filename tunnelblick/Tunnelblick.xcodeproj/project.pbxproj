@@ -41,17 +41,13 @@
 		61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61BC4BC10E2F9FE900F24255 /* openvpnstart */; };
 		61BC4DB30E2FA3C300F24255 /* LogWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB10E2FA3C300F24255 /* LogWindow.nib */; };
 		61BC4DB40E2FA3C300F24255 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB20E2FA3C300F24255 /* MainMenu.nib */; };
-		61BC4E6F0E2FA8A900F24255 /* 00_closed.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E690E2FA8A200F24255 /* 00_closed.tif */; };
-		61BC4E700E2FA8A900F24255 /* 01.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6A0E2FA8A200F24255 /* 01.tif */; };
-		61BC4E710E2FA8A900F24255 /* 02.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6B0E2FA8A200F24255 /* 02.tif */; };
-		61BC4E720E2FA8A900F24255 /* 03.tif in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6C0E2FA8A200F24255 /* 03.tif */; };
-		61BC4E730E2FA8A900F24255 /* connected.png in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6D0E2FA8A200F24255 /* connected.png */; };
 		61BC4E740E2FA8A900F24255 /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */; };
 		61BC4E790E2FA8D600F24255 /* client.down.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E770E2FA8D000F24255 /* client.down.osx.sh */; };
 		61BC4E7A0E2FA8D600F24255 /* client.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E780E2FA8D000F24255 /* client.up.osx.sh */; };
 		61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* Norwegian.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
+		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -163,11 +159,6 @@
 		61BC4DB20E2FA3C300F24255 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
 		61BC4DCA0E2FA51E00F24255 /* tun-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tun-Info.plist"; sourceTree = "<group>"; };
 		61BC4DD30E2FA52900F24255 /* tap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tap-Info.plist"; sourceTree = "<group>"; };
-		61BC4E690E2FA8A200F24255 /* 00_closed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 00_closed.tif; sourceTree = "<group>"; };
-		61BC4E6A0E2FA8A200F24255 /* 01.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 01.tif; sourceTree = "<group>"; };
-		61BC4E6B0E2FA8A200F24255 /* 02.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 02.tif; sourceTree = "<group>"; };
-		61BC4E6C0E2FA8A200F24255 /* 03.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = 03.tif; sourceTree = "<group>"; };
-		61BC4E6D0E2FA8A200F24255 /* connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connected.png; sourceTree = "<group>"; };
 		61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		61BC4E770E2FA8D000F24255 /* client.down.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.osx.sh; sourceTree = "<group>"; };
 		61BC4E780E2FA8D000F24255 /* client.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.osx.sh; sourceTree = "<group>"; };
@@ -175,6 +166,7 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
+		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -309,6 +301,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				63C043DC1023660900E6C1D0 /* IconSets */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
 				616A49090E38D0D400477476 /* tap.kext */,
@@ -319,11 +312,6 @@
 				615F74960ED3A4FA007F6F0A /* Korean.lproj */,
 				615F748C0ED3A4E5007F6F0A /* French.lproj */,
 				615F74860ED3A4C2007F6F0A /* English.lproj */,
-				61BC4E690E2FA8A200F24255 /* 00_closed.tif */,
-				61BC4E6A0E2FA8A200F24255 /* 01.tif */,
-				61BC4E6B0E2FA8A200F24255 /* 02.tif */,
-				61BC4E6C0E2FA8A200F24255 /* 03.tif */,
-				61BC4E6D0E2FA8A200F24255 /* connected.png */,
 				61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */,
 				61BC4DB10E2FA3C300F24255 /* LogWindow.nib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.nib */,
@@ -449,11 +437,6 @@
 			files = (
 				61BC4E790E2FA8D600F24255 /* client.down.osx.sh in Resources */,
 				61BC4E7A0E2FA8D600F24255 /* client.up.osx.sh in Resources */,
-				61BC4E6F0E2FA8A900F24255 /* 00_closed.tif in Resources */,
-				61BC4E700E2FA8A900F24255 /* 01.tif in Resources */,
-				61BC4E710E2FA8A900F24255 /* 02.tif in Resources */,
-				61BC4E720E2FA8A900F24255 /* 03.tif in Resources */,
-				61BC4E730E2FA8A900F24255 /* connected.png in Resources */,
 				61BC4E740E2FA8A900F24255 /* tunnelblick.icns in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				61BC4DB30E2FA3C300F24255 /* LogWindow.nib in Resources */,
@@ -467,6 +450,7 @@
 				61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */,
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */,
+				63C043E61023660900E6C1D0 /* IconSets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
