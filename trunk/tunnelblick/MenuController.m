@@ -68,25 +68,18 @@ BOOL systemIsTigerOrNewer()
     if (self = [super init]) {
         [self dmgCheck];
 		
-        errorImage = [[NSImage imageNamed: @"error.tif"] retain];
-        mainImage = [[NSImage imageNamed: @"00_closed.tif"] retain];
-        connectedImage = [[NSImage imageNamed: @"connected.png"] retain];
-        
-		
-		transitionalImage1 = [[NSImage imageNamed: @"01.tif"] retain];
-		transitionalImage2 = [[NSImage imageNamed: @"02.tif"] retain];
-		transitionalImage3 = [[NSImage imageNamed: @"03.tif"] retain];
 		[NSApp setDelegate:self];
 		
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         myVPNConnectionArray = [[[NSMutableArray alloc] init] retain];
-        userDefaults = [[NSMutableDictionary alloc] init];
-        
         connectionArray = [[[NSMutableArray alloc] init] retain];
+ 
+        userDefaults = [[NSMutableDictionary alloc] init];
         appDefaults = [NSUserDefaults standardUserDefaults];
         [appDefaults registerDefaults:userDefaults];
-		
-		
+
+        [self loadMenuIconSet];
+
 		detailsItem = [[NSMenuItem alloc] init];
 		[detailsItem setTitle: @"Details..."];
 		[detailsItem setTarget: self];
@@ -176,22 +169,75 @@ BOOL systemIsTigerOrNewer()
 	[self initialiseAnim];
 }
 
+- (void) loadMenuIconSet
+{
+    NSString *menuIconSet = [[NSUserDefaults standardUserDefaults] stringForKey:@"menuIconSet"];
+    if (  menuIconSet == nil  ) {
+        menuIconSet = @"TunnelBlick.TBMenuIcons";
+    }
+
+    int nFrames = 0;
+    int i=0;
+    NSString *file;
+    NSString *fullPath;
+    NSString *confDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent:menuIconSet];
+    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: confDir];
+    NSArray *allObjects = [dirEnum allObjects];
+    
+    animImages = [[NSMutableArray alloc] init];
+
+    for(i=0;i<[allObjects count];i++) {
+        file = [allObjects objectAtIndex:i];
+        fullPath = [confDir stringByAppendingPathComponent:file];
+        
+        if ([[file pathExtension] isEqualToString: @"png"]) {
+            NSString *name = [[file lastPathComponent] stringByDeletingPathExtension];
+
+            if(         [name isEqualToString:@"closed"]) {
+                mainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+            
+            } else if(  [name isEqualToString:@"open"]) {
+                connectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+            
+            } else {
+                if(  [[file lastPathComponent] isEqualToString:@"0.png"]) {  //[name intValue] returns 0 on failure, so make sure we find the first frame
+                    nFrames++;
+                } else if(  [name intValue] > 0) {
+                    nFrames++;
+                }
+            }
+        }
+    }
+
+    NSFileManager * fileMgr = [[NSFileManager alloc] init];     // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
+                                                                // (won't necessarily find all files, but won't try to load files that don't exist)
+    for(i=0;i<nFrames;i++) {
+        fullPath = [confDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", i]];
+        if ([fileMgr fileExistsAtPath:fullPath]) {
+            NSImage *frame = [[NSImage alloc] initWithContentsOfFile:fullPath];
+            [animImages addObject:frame];
+            [frame release];
+        }
+    }
+    
+    [fileMgr release];
+
+}
+
 - (void) initialiseAnim
 {
-	NSAnimationProgress progMarks[] = {
-		1.0/8.0, 2.0/8.0, 3.0/8.0, 4.0/8.0, 5.0/8.0, 6.0/8.0, 7.0/8.0, 8.0/8.0
-	};
-	
-	int i, count = 8;
+    int i;
 	// theAnim is an NSAnimation instance variable
 	theAnim = [[NSAnimation alloc] initWithDuration:2.0
-									 animationCurve:NSAnimationLinear];
-	[theAnim setFrameRate:8.0];
+                                     animationCurve:NSAnimationLinear];
+	[theAnim setFrameRate:7.0];
 	[theAnim setDelegate:self];
 	
-	for (i=0; i<count; i++)
-		[theAnim addProgressMark:progMarks[i]];
-	
+    for (i=1; i<=[animImages count]; i++)
+    {
+        NSAnimationProgress p = ((float)i)/((float)[animImages count]);
+        [theAnim addProgressMark:p];
+    }
 	[theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
 }
 
@@ -422,16 +468,18 @@ BOOL systemIsTigerOrNewer()
 		}
 	} else
 	{
+        //we have a new connection, or error, so stop animating and show the correct icon
 		if ([theAnim isAnimating])
 		{
 			[theAnim stopAnimation];
 		}
+        
+        if (connectionNumber > 0 ) {
+            [theItem setImage: connectedImage];
+        } else {
+            [theItem setImage: mainImage];
+        }
 	}
-	if (connectionNumber > 0 ) {
-		[theItem setImage: connectedImage];
-	} else {
-		[theItem setImage: mainImage];
-	} 
 }
 
 - (void)animationDidEnd:(NSAnimation*)animation
@@ -441,57 +489,13 @@ BOOL systemIsTigerOrNewer()
 		// NSLog(@"Starting Animation (2)");
 		[theAnim startAnimation];
 	}
-	if ([connectionArray count] > 0 ) {
-        [theItem setImage: connectedImage];
-    } else {
-        [theItem setImage: mainImage];
-    }
 }
 
-- (void)animation:(NSAnimation *)animation
-            didReachProgressMark:(NSAnimationProgress)progress
+- (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
 	if (animation == theAnim)
 	{
-		// NSLog(@"progress is %f %i", progress, lround(progress * 8));
-		// Do an effect appropriate to progress mark.
-		switch(lround(progress * 8))
-		{
-			case 1:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:mainImage waitUntilDone:YES];
-				break;
-				
-			case 2:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage1 waitUntilDone:YES];
-				break;
-				
-			case 3:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage2 waitUntilDone:YES];
-				break;
-				
-			case 4:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage3 waitUntilDone:YES];
-				break;
-				
-			case 5:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:connectedImage waitUntilDone:YES];
-				break;
-				
-			case 6:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage3 waitUntilDone:YES];
-				break;
-				
-			case 7:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage2 waitUntilDone:YES];
-				break;
-				
-			case 8:
-				[theItem performSelectorOnMainThread:@selector(setImage:) withObject:transitionalImage1 waitUntilDone:YES];
-				break;
-				
-			default:
-				NSLog(@"Unknown progress mark %f selected by Tunnelblick animation", progress);
-		}
+        [theItem performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -743,8 +747,6 @@ BOOL systemIsTigerOrNewer()
     
     [mainImage release];
     [connectedImage release];
-    [errorImage release];
-    [transitionalImage release];
     [connectionArray release];
     
     
@@ -805,8 +807,8 @@ BOOL systemIsTigerOrNewer()
         if(NSRunCriticalAlertPanel(local(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'."),
                                    local(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace."),
                                    local(@"Quit"),
-                                   local(@"Continue")
-                                   ,nil) == NSAlertDefaultReturn) {
+                                   local(@"Continue"),
+                                   nil) == NSAlertDefaultReturn) {
             exit (1);
         }
         else {

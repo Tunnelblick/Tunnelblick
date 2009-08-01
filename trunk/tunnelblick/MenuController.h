@@ -50,17 +50,17 @@ BOOL needsRepair(void);
 
 @interface MenuController : NSObject
 {
-    NSImage                 * connectedImage;
-    NSImage                 * errorImage;
-    NSImage                 * mainImage, *transitionalImage0, *transitionalImage1, *transitionalImage2, *transitionalImage3;
-    NSImage                 * transitionalImage;
-
     IBOutlet NSButton       * autoLaunchCheckbox;
     IBOutlet NSButton       * clearButton;
     IBOutlet NSButton       * connectButton;
     IBOutlet NSButton       * disconnectButton;
     IBOutlet NSButton       * editButton;
     IBOutlet NSButton       * useNameserverCheckbox;
+
+    NSMutableArray          * animImages;
+    int                       animNumFrames;
+    NSImage                 * connectedImage;
+    NSImage                 * mainImage;
 
     NSMenuItem              * aboutItem;
     NSMutableArray          * activeConnections;
@@ -104,6 +104,7 @@ BOOL needsRepair(void);
 -(void)             initialiseAnim;
 -(void)             killAllConnections;
 -(void)             kqueue:                         (UKKQueue*) kq      receivedNotification: (NSString*) nm        forFile: (NSString*) fpath;
+-(void)             loadMenuIconSet;
 -(void)             moveAllWindowsToForeground;
 -(IBAction)         nameserverPrefButtonWasClicked: (id) sender;
 -(IBAction)         openLogWindow:                  (id) sender;
