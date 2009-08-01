@@ -93,7 +93,7 @@ BOOL systemIsTigerOrNewer()
 		[detailsItem setAction: @selector(openLogWindow:)];
 		
 		aboutItem = [[NSMenuItem alloc] init];
-		[aboutItem setTitle: @"About Tunnelblick..."];
+		[aboutItem setTitle: @"About..."];
 		[aboutItem setTarget: self];
 		[aboutItem setAction: @selector(openAboutWindow:)];
 		
@@ -403,9 +403,9 @@ BOOL systemIsTigerOrNewer()
 	unsigned connectionNumber = [connectionArray count];
 	NSString *myState;
 	if(connectionNumber == 1) {
-		myState = local(@"OpenVPN: 1 connection active.");
+		myState = local(@"Tunnelblick: 1 connection active.");
 	} else {
-		myState = [NSString stringWithFormat:local(@"OpenVPN: %d connections active."),connectionNumber];
+		myState = [NSString stringWithFormat:local(@"Tunnelblick: %d connections active."),connectionNumber];
 	}
 	
     [statusMenuItem setTitle: myState];
@@ -802,7 +802,11 @@ BOOL systemIsTigerOrNewer()
 	
 	if([[self getConfigs] count] == 0) { // if there are no config files, create a default one
 		[NSApp activateIgnoringOtherApps:YES];
-        if(NSRunCriticalAlertPanel(local(@"Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~/Library/openvpn/'."), local(@"You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace."),local(@"Quit"),local(@"Continue"),nil) == NSAlertDefaultReturn) {
+        if(NSRunCriticalAlertPanel(local(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'."),
+                                   local(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace."),
+                                   local(@"Quit"),
+                                   local(@"Continue")
+                                   ,nil) == NSAlertDefaultReturn) {
             exit (1);
         }
         else {

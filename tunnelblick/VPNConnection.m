@@ -479,12 +479,6 @@
     return logStorage;
 }
 
-//- (IBAction) updateUI
-//{
-//    NSString *myState = [@"OpenVPN: " stringByAppendingString: NSLocalizedString(lastState, @"")];
-//    [[myMenu itemAtIndex:0] setTitle:myState];
-//}
-
 - (unsigned int) getFreePort
 {
 	unsigned int resultPort = 1336; // start port	

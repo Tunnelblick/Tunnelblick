@@ -43,7 +43,7 @@ NSString *escaped(NSString *string) {
     
     /* Dictionary for the panel.  */
     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-    NSString *question = local(@"Please enter OpenVPN passphrase.");
+    NSString *question = local(@"Please enter VPN passphrase.");
     [dict setObject:local(@"Passphrase") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
     [dict setObject:local(@"Add Passphrase To Apple Keychain") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
@@ -85,7 +85,7 @@ NSString *escaped(NSString *string) {
     NSArray *array =[NSArray array];
 				/* Dictionary for the panel.  */
     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-    NSString *question = local(@"Please enter OpenVPN username/password combination.");
+    NSString *question = local(@"Please enter VPN username/password combination.");
     [dict setObject:local(@"Passphrase") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
     [dict setObject:local(@"Add Passphrase To Apple Keychain") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];

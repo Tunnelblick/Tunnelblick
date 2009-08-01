@@ -1,6 +1,6 @@
 "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?" = "%@은(는) 안전하지 않고 Tunnelblick이 안전하게 만들 수 없습니다. 그래도 연결하겠습니까?";
-"AUTH" = "인증 중...";
-"About Tunnelblick..." = "Tunnelblick 정보";
+"AUTH" = "인증 중";
+"About..." = "정보…";
 "Add Passphrase To Apple Keychain" = "암호를 키체인에 저장";
 "Always allow %@ to connect" = "항상 %@로 연결 허용";
 "Automatically connect on launch" = "실행 시 자동 연결";
@@ -19,14 +19,14 @@
 "Edit configuration" = "구성 편집";
 "It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy." = "Tunnelblick을 재 설치해야할 것 같습니다. Tunnelblick을 휴지통으로 옮기고 새로운 복사본을 다운로드하세요.";
 "OK" = "확인";
-"OpenVPN: %d connections active." = "OpenVPN: %d개 활성 연결.";
-"OpenVPN: 1 connection active." = "OpenVPN: 1개 활성 연결.";
+"Tunnelblick: %d connections active." = "Tunnelblick: %d개 활성 연결.";
+"Tunnelblick: 1 connection active." = "Tunnelblick: 1개 활성 연결.";
 "Passphrase verification failed." = "암호가 일치하지 않습니다.";
 "Passphrase" = "암호";
 "Password:" = "암호:";
 "Please copy Tunnelblick.app to your Harddisk before launching it." = "실행하기 전에 하드디스크로 Tunnelblick.app를 복사하세요.";
-"Please enter OpenVPN passphrase." = "OpenVPN 암호를 입력하세요.";
-"Please enter OpenVPN username/password combination." = "OpenVPN 사용자 계정과 암호를 입력하세요.";
+"Please enter VPN passphrase." = "VPN 암호를 입력하세요.";
+"Please enter VPN username/password combination." = "VPN 사용자 계정과 암호를 입력하세요.";
 "Please insert token" = "토큰을 입력하세요";
 "Quit" = "종료";
 "SLEEP" = "대기 중...";
@@ -40,6 +40,6 @@
 "Verification failed." = "검증 실패.";
 "Version %@" = "버전 %@";
 "WAIT" = "연결 중...";
-"Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~/Library/openvpn/'." = "Mac OS X용 OpenVPN 사용을 환영합니다: 설정 파일(예 openvpn.conf)은 '~/Library/openvpn/'에 있어야 합니다.";
-"You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "계속을 선택하면 Tunnelblick이 예제 설정 파일을 생성합니다. 그리고 이 파일을 수정할 수 있습니다.";
+"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Mac OS X용 Tunnelblick 사용을 환영합니다: 설정 파일(예 openvpn.conf)은 '~/Library/openvpn/'에 있어야 합니다.";
+"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace." = "계속을 선택하면 Tunnelblick이 예제 설정 파일을 생성합니다. 그리고 이 파일을 수정할 수 있습니다.";
 "You're trying to launch Tunnelblick from the disk image" = "디스크 이미지에서 Tunnelblick을 실행하려고 합니다";

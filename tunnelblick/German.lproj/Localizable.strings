@@ -1,6 +1,6 @@
 "%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?" = "%@ ist nicht sicher und Tunnelblick kann dies nicht ändern. Trotzdem verbinden?";
 "AUTH"   = "Autorisieren";
-"About Tunnelblick..." = "Über Tunnelblick…";
+"About..." = "Über…";
 "Add Passphrase To Apple Keychain" = "Passphrase dem Schlüsselbund hinzufügen";
 "Always allow %@ to connect" = "Erlaube %@ immer zu verbinden";
 "Automatically connect on launch" = "Automatisch beim Programmstart verbinden";
@@ -19,14 +19,14 @@
 "Edit configuration" = "Konfiguration bearbeiten";
 "It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy." = "Es scheint, als ob Sie Tunnelblick erneut installieren müssen. Bitte verschieben Sie Tunnelblick in den Papierkorb und laden Sie eine neue Version herunter.";
 "OK" = "OK";
-"OpenVPN: %d connections active." = "OpenVPN: %d Verbindungen aktiv.";
-"OpenVPN: 1 connection active." = "OpenVPN: 1 Verbindung aktiv."; // translate "OpenVPN: Eine Verbindung aktiv." might also work
+"Tunnelblick: %d connections active." = "Tunnelblick: %d Verbindungen aktiv.";
+"Tunnelblick: 1 connection active." = "Tunnelblick: 1 Verbindung aktiv."; // translate "Tunnelblick: Eine Verbindung aktiv." might also work
 "Passphrase verification failed." = "Sie haben die Passphrase falsch eingegeben.";
 "Passphrase" = "Passphrase";
 "Password:" = "Passwort:";
 "Please copy Tunnelblick.app to your Harddisk before launching it." = "Bitte kopieren Sie Tunnelblick vor dem Ausführen auf Ihre Festplatte.";
-"Please enter OpenVPN passphrase." = "Bitte geben Sie Ihre OpenVPN Passphrase ein.";
-"Please enter OpenVPN username/password combination." = "Bitte geben Sie Ihre OpenVPN Benutzername/Passwort Kombination ein.";
+"Please enter VPN passphrase." = "Bitte geben Sie Ihre VPN Passphrase ein.";
+"Please enter VPN username/password combination." = "Bitte geben Sie Ihre VPN Benutzername/Passwort Kombination ein.";
 "Please insert token" = "Bitte Token einfügen";
 "Quit"   = "Beenden";
 "SLEEP"  = "Auf Dämon-Prozess warten"; // translate "Waiting for Demon Process"!
@@ -40,6 +40,6 @@
 "Verification failed." = "Verifizierung fehlgeschlagen";
 "Version %@" = "Version %@";
 "WAIT"   = "Auf Server-Antwort warten"; // translate "Waiting for Server Response"!
-"Welcome to OpenVPN on Mac OS X: Please put your config file (e.g. openvpn.conf) to '~Library/openvpn/'." = "Willkommen zu OpenVPN unter Mac OS X: Bitte kopiere Sie Ihre Konfigurationsdatei (z.B.: openvpn.conf) nach '~Library/openvpn/'.";
-"You can also continue and Tunnelblick will create an example config at the right place that you can customize or replace." = "Sie können auch fortsetzen und Tunnelblick wird eine Beispiel Konfigurationsdatei an der richtigen Stelle anlegen. Diese  können Sie dann später anpassen oder ersetzen.";
+"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~Library/openvpn/'." = "Willkommen zu Tunnelblick unter Mac OS X: Bitte kopiere Sie Ihre Konfigurationsdatei (z.B.: openvpn.conf) nach '~Library/openvpn/'.";
+"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace." = "Sie können auch fortsetzen und Tunnelblick wird eine Beispiel Konfigurationsdatei an der richtigen Stelle anlegen. Diese  können Sie dann später anpassen oder ersetzen.";
 "You're trying to launch Tunnelblick from the disk image" = "Sie versuchen Tunnelblick aus dem disk image auszuführen";
