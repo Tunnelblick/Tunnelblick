@@ -43,13 +43,13 @@ NSString *escaped(NSString *string) {
     
     /* Dictionary for the panel.  */
     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-    NSString *question = local(@"Please enter VPN passphrase.");
-    [dict setObject:local(@"Passphrase") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+    NSString *question = NSLocalizedString(@"Please enter VPN passphrase.", nil);
+    [dict setObject:NSLocalizedString(@"Passphrase", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [dict setObject:local(@"Add Passphrase To Apple Keychain") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    [dict setObject:NSLocalizedString(@"Add Passphrase To Apple Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
     [dict setObject:@"" forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [dict setObject:local(@"OK") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-    [dict setObject:local(@"Cancel") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
+    [dict setObject:NSLocalizedString(@"OK", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
     SInt32 error;
     CFUserNotificationRef notification = CFUserNotificationCreate(NULL, 30, CFUserNotificationSecureTextField(0), &error, (CFDictionaryRef)dict);
     CFOptionFlags response;
@@ -85,13 +85,13 @@ NSString *escaped(NSString *string) {
     NSArray *array =[NSArray array];
 				/* Dictionary for the panel.  */
     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-    NSString *question = local(@"Please enter VPN username/password combination.");
-    [dict setObject:local(@"Passphrase") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+    NSString *question = NSLocalizedString(@"Please enter VPN username/password combination.", nil);
+    [dict setObject:NSLocalizedString(@"Passphrase", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [dict setObject:local(@"Add Passphrase To Apple Keychain") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
-    [dict setObject:[NSArray arrayWithObjects:local(@"Username:"),local(@"Password:"),nil] forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [dict setObject:local(@"OK") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-    [dict setObject:local(@"Cancel") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
+    [dict setObject:NSLocalizedString(@"Add Passphrase To Apple Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", nil),NSLocalizedString(@"Password:", nil),nil] forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
+    [dict setObject:NSLocalizedString(@"OK", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
     NSString *isSetKey = [NSString stringWithFormat:@"%@-usernameIsSet",[self configName]];
 	NSString *usernameKey = [NSString stringWithFormat:@"%@-authUsername",[self configName]];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:isSetKey]) { // see if we have set a username and keychain item earlier

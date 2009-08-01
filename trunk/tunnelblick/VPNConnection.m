@@ -29,7 +29,7 @@
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
         //myLogController = [[LogController alloc] initWithSender:self]; 
-		NSString * versionInfo = [NSString stringWithFormat:local(@"Tunnelblick version %@"),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+		NSString * versionInfo = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick version %@", nil),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 		NSCalendarDate* date = [NSCalendarDate date];
 		[self addToLog:versionInfo atDate:date];
         lastState = @"EXITING";
@@ -96,11 +96,11 @@
 	if([self configNeedsRepair:cfgPath]) {
 
 		NSAlert *alert = [[NSAlert alloc] init];
-		[alert addButtonWithTitle:local(@"Connect once")];
-		[alert addButtonWithTitle:local(@"Cancel")];
-		[alert addButtonWithTitle:[NSString stringWithFormat:local(@"Always allow %@ to connect"),[self configName]]];
-		[alert setMessageText:local(@"Connect even though configuration file is not secure?")];
-		[alert setInformativeText:[NSString stringWithFormat:local(@"%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?"), cfgPath]];
+		[alert addButtonWithTitle:NSLocalizedString(@"Connect once", nil)];
+		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+		[alert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Always allow %@ to connect", nil),[self configName]]];
+		[alert setMessageText:NSLocalizedString(@"Connect even though configuration file is not secure?", nil)];
+		[alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?", nil), cfgPath]];
 		[alert setAlertStyle:NSWarningAlertStyle];
 		[[alert window] setFloatingPanel:YES];
 
@@ -340,11 +340,11 @@
                     [NSApp activateIgnoringOtherApps:YES];
 					id buttonWithDifferentCredentials = nil;
                     if ([myAuthAgent keychainHasPassphrase]) {
-						buttonWithDifferentCredentials = local(@"Try again with different credentials");
+						buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", nil);
 					}
-					int alertVal = NSRunAlertPanel(local(@"Verification failed."),
-												   local(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server."),
-												   local(@"Try again"),buttonWithDifferentCredentials,local(@"Cancel"));
+					int alertVal = NSRunAlertPanel(NSLocalizedString(@"Verification failed.", nil),
+												   NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", nil),
+												   NSLocalizedString(@"Try again", nil),buttonWithDifferentCredentials,NSLocalizedString(@"Cancel", nil));
 					if (alertVal == NSAlertAlternateReturn) {
 						[myAuthAgent deletePassphraseFromKeychain];
 					}
@@ -385,7 +385,7 @@
 				NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
 				if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
 					if (NSDebugEnabled) NSLog(@"Server wants token.");
-					int needButtonReturn = NSRunAlertPanel(tokenName,local(@"Please insert token"),local(@"OK"),local(@"Cancel"),nil);
+					int needButtonReturn = NSRunAlertPanel(tokenName,NSLocalizedString(@"Please insert token", nil),NSLocalizedString(@"OK", nil),NSLocalizedString(@"Cancel", nil),nil);
 					if (needButtonReturn == NSAlertDefaultReturn) {
 						if (NSDebugEnabled) NSLog(@"Write need ok.");
 						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSISOLatin1StringEncoding];
@@ -530,8 +530,8 @@
         
         // setting menu command title depending on current status:
         NSString *commandString; 
-        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = local(@"Disconnect");
-        else commandString = local(@"Connect");
+        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", nil);
+        else commandString = NSLocalizedString(@"Connect", nil);
         
         NSString *itemTitle = [NSString stringWithFormat:@"%@ '%@'", commandString, [connection configName]];
         [anItem setTitle:itemTitle]; 

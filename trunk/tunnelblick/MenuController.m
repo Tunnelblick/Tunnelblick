@@ -306,7 +306,7 @@ BOOL systemIsTigerOrNewer()
     
     while (item = [e nextObject]) 
     {
-        [item setTitle:local([item title])];
+        [item setTitle:NSLocalizedString([item title], nil)];
     }
 }
 
@@ -439,7 +439,7 @@ BOOL systemIsTigerOrNewer()
                 }
             }
         }
-		NSString *label = [NSString stringWithFormat:@"%@ (%@%@)",[myConnection configName],local(cState), cTimeS];
+		NSString *label = [NSString stringWithFormat:@"%@ (%@%@)",[myConnection configName], NSLocalizedString(cState, nil), cTimeS];
 		[[tabView tabViewItemAtIndex:i] setLabel:label];
 		i++;
 	}
@@ -451,9 +451,9 @@ BOOL systemIsTigerOrNewer()
 	unsigned connectionNumber = [connectionArray count];
 	NSString *myState;
 	if(connectionNumber == 1) {
-		myState = local(@"Tunnelblick: 1 connection active.");
+		myState = NSLocalizedString(@"Tunnelblick: 1 connection active.", nil);
 	} else {
-		myState = [NSString stringWithFormat:local(@"Tunnelblick: %d connections active."),connectionNumber];
+		myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: %d connections active.", nil),connectionNumber];
 	}
 	
     [statusMenuItem setTitle: myState];
@@ -544,7 +544,7 @@ BOOL systemIsTigerOrNewer()
 
 - (IBAction) clearLog: (id) sender
 {
-	NSString * versionInfo = [NSString stringWithFormat:local(@"Tunnelblick version %@"),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+	NSString * versionInfo = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick version %@", nil),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 	NSCalendarDate* date = [NSCalendarDate date];
 	NSString *dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],versionInfo];
 	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
@@ -657,12 +657,12 @@ BOOL systemIsTigerOrNewer()
     }
 	
 	// Localize Buttons
-	[clearButton setTitle:local([clearButton title])];
-	[editButton setTitle:local([editButton title])];
-	[connectButton setTitle:local([connectButton title])];
-	[disconnectButton setTitle:local([disconnectButton title])];
-	[useNameserverCheckbox setTitle:local([useNameserverCheckbox title])];
-	[autoLaunchCheckbox setTitle:local([autoLaunchCheckbox title])];
+	[clearButton setTitle:NSLocalizedString([clearButton title], nil)];
+	[editButton setTitle:NSLocalizedString([editButton title], nil)];
+	[connectButton setTitle:NSLocalizedString([connectButton title], nil)];
+	[disconnectButton setTitle:NSLocalizedString([disconnectButton title], nil)];
+	[useNameserverCheckbox setTitle:NSLocalizedString([useNameserverCheckbox title], nil)];
+	[autoLaunchCheckbox setTitle:NSLocalizedString([autoLaunchCheckbox title], nil)];
 
     [logWindow makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
@@ -710,7 +710,7 @@ BOOL systemIsTigerOrNewer()
 {
     NSImage  * appIcon      = [NSImage imageNamed:@"tunnelblick.icns"];
     NSString * appName      = @"Tunnelblick";
-    NSString * appVersion   = [NSString stringWithFormat:local(@"Version %d"), 3];
+    NSString * appVersion   = [NSString stringWithFormat:NSLocalizedString(@"Version %d", nil), 3];
     NSString * version      = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     
     NSString * html         = @"<html><body><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><body></html>";
@@ -718,7 +718,7 @@ BOOL systemIsTigerOrNewer()
     NSMutableAttributedString * credits = [[[NSAttributedString alloc] init] autorelease];
     [credits initWithHTML:data documentAttributes:NULL];
 
-    NSString * copyright    = local(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.");
+    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.", nil);
 
     NSDictionary * aboutPanelDict;
     aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -806,10 +806,10 @@ BOOL systemIsTigerOrNewer()
 	
 	if([[self getConfigs] count] == 0) { // if there are no config files, create a default one
 		[NSApp activateIgnoringOtherApps:YES];
-        if(NSRunCriticalAlertPanel(local(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'."),
-                                   local(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace."),
-                                   local(@"Quit"),
-                                   local(@"Continue"),
+        if(NSRunCriticalAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.", nil),
+                                   NSLocalizedString(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace.", nil),
+                                   NSLocalizedString(@"Quit", nil),
+                                   NSLocalizedString(@"Continue", nil),
                                    nil) == NSAlertDefaultReturn) {
             exit (1);
         }
@@ -963,7 +963,7 @@ static void signal_handler(int signalNumber)
 {
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		NSPanel *panel = NSGetAlertPanel(local(@"You're trying to launch Tunnelblick from the disk image"),local(@"Please copy Tunnelblick.app to your Harddisk before launching it."),local(@"Cancel"),nil,nil);
+		NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"You're trying to launch Tunnelblick from the disk image", nil),NSLocalizedString(@"Please copy Tunnelblick.app to your Harddisk before launching it.", nil),NSLocalizedString(@"Cancel", nil),nil,nil);
 		[panel setLevel:NSStatusWindowLevel];
 		[panel makeKeyAndOrderFront:nil];
 		[NSApp runModalForWindow:panel];
@@ -1090,7 +1090,11 @@ BOOL needsRepair()
 }
 int runUnrecoverableErrorPanel(void) 
 {
-	NSPanel *panel = NSGetAlertPanel(local(@"Tunnelblick Error"),local(@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy."),local(@"Download"),local(@"Quit"),nil);
+	NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"Tunnelblick Error", nil),
+                                     NSLocalizedString(@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy.", nil),
+                                     NSLocalizedString(@"Download", nil),
+                                     NSLocalizedString(@"Quit", nil),
+                                     nil);
 	[panel setLevel:NSStatusWindowLevel];
 	[panel makeKeyAndOrderFront:nil];
 	if( [NSApp runModalForWindow:panel] != NSAlertDefaultReturn ) {
