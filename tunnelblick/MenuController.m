@@ -295,7 +295,9 @@ BOOL systemIsTigerOrNewer()
 	
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
 	[myVPNMenu addItem: detailsItem];
+	[myVPNMenu addItem: [NSMenuItem separatorItem]];
 	[myVPNMenu addItem: aboutItem];
+	[myVPNMenu addItem: [NSMenuItem separatorItem]];
 	[myVPNMenu addItem: quitItem];
     
     // Localize all menu items:
