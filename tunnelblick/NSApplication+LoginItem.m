@@ -18,10 +18,12 @@
 //  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
+#import <AppKit/AppKit.h>
+#import <sys/sysctl.h>
+#import <sys/types.h>
+#import <signal.h>
 #import "NSApplication+LoginItem.h"
-#include <sys/sysctl.h>
-#include <sys/types.h>
-#include <signal.h>
+#import "NSArray+cArray.h"
 
 @implementation NSApplication (LoginItem)
 

@@ -18,7 +18,6 @@
 //  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
-#import <AppKit/AppKit.h>
 #import <Security/Security.h>
 
 @interface NSApplication (LoginItem)

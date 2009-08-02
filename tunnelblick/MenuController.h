@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004 Angelo Laub
+ * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -20,27 +20,9 @@
 /* MenuController */
 
 #import <Cocoa/Cocoa.h>
-#import <signal.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <stdlib.h>
-#include <errno.h>
-#import <CoreFoundation/CoreFoundation.h>
-#import <Security/Security.h>
-#import <CoreServices/CoreServices.h>
-#import "KeyChain.h"
-#import "NetSocket.h"
-#import "NSApplication+LoginItem.h"
-#import "NSArray+cArray.h"
-#import <Foundation/NSDebug.h>
-#import "VPNConnection.h"
-#import "UKKQueue/UKKQueue.h"
-#include <Security/Authorization.h>
-#include <Security/AuthorizationTags.h>
-#import <sys/types.h>
-#import <sys/stat.h>
 #import <Sparkle/SUUpdater.h>
-#import "helper.h"
+#import "UKKQueue/UKKQueue.h"
+#import "VPNConnection.h"
 
 int connectStatus;
 void executeAuthorized(NSString *toolPath,NSArray *arguments,AuthorizationRef myAuthorizationRef);
