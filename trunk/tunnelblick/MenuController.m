@@ -2,7 +2,8 @@
  * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen <dirk@objectpark.org>, 
  *                  Jens Ohlig, 
- *                  Waldemar Brodkorb
+ *                  Waldemar Brodkorb,
+ *                  Jonathan K. Bullard
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -42,16 +43,62 @@
 #import "helper.h"
 
 
-#define NSAppKitVersionNumber10_0 577
-#define NSAppKitVersionNumber10_1 620
-#define NSAppKitVersionNumber10_2 663
-#define NSAppKitVersionNumber10_3 743
+// *******************************************************************************************************************
+// Start of code from http://www.cocoadev.com/index.pl?DeterminingOSVersion
 
+@interface NSApplication (SystemVersion)
 
+- (void)getSystemVersionMajor:(unsigned *)major
+                        minor:(unsigned *)minor
+                       bugFix:(unsigned *)bugFix;
 
-BOOL systemIsTigerOrNewer()
+@end
+
+@implementation NSApplication (SystemVersion)
+
+- (void)getSystemVersionMajor:(unsigned *)major
+                        minor:(unsigned *)minor
+                       bugFix:(unsigned *)bugFix;
 {
-    return (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_3) ;
+    OSErr err;
+    SInt32 systemVersion, versionMajor, versionMinor, versionBugFix;
+    if ((err = Gestalt(gestaltSystemVersion, &systemVersion)) != noErr) goto fail;
+    if (systemVersion < 0x1040)
+    {
+        if (major) *major = ((systemVersion & 0xF000) >> 12) * 10 +
+            ((systemVersion & 0x0F00) >> 8);
+        if (minor) *minor = (systemVersion & 0x00F0) >> 4;
+        if (bugFix) *bugFix = (systemVersion & 0x000F);
+    }
+    else
+    {
+        if ((err = Gestalt(gestaltSystemVersionMajor, &versionMajor)) != noErr) goto fail;
+        if ((err = Gestalt(gestaltSystemVersionMinor, &versionMinor)) != noErr) goto fail;
+        if ((err = Gestalt(gestaltSystemVersionBugFix, &versionBugFix)) != noErr) goto fail;
+        if (major) *major = versionMajor;
+        if (minor) *minor = versionMinor;
+        if (bugFix) *bugFix = versionBugFix;
+    }
+    
+    return;
+    
+fail:
+    NSLog(@"Unable to obtain system version: %ld", (long)err);
+    if (major) *major = 10;
+    if (minor) *minor = 0;
+    if (bugFix) *bugFix = 0;
+}
+
+@end
+
+// End of code from http://www.cocoadev.com/index.pl?DeterminingOSVersion
+// *******************************************************************************************************************
+
+BOOL runningOnTigerOrNewer()
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ( (major > 10) || (minor > 2) );
 }
 
 @interface NSStatusBar (NSStatusBar_Private)
@@ -62,23 +109,39 @@ BOOL systemIsTigerOrNewer()
 
 @implementation MenuController
 
+// Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
+// By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
+// Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
 - (void) createStatusItem
 {
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
-	int priority = INT32_MAX;
-	if (systemIsTigerOrNewer()) {
-		priority = MIN(priority, 2147483646); // found by experimenting - dirk
-	}
-	
-	if (!theItem) {
-		theItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain];
-		//theItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: 0] retain];
-	}
-	// Dirk: For Tiger and up, re-insert item to place it correctly.
-	if ([bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]) {
-		[bar removeStatusItem: theItem];
-		[bar _insertStatusItem: theItem withPriority: priority];
-	}	
+
+	if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
+        && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
+        && (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
+       ) {
+        // Force icon to the right in Status Bar
+        int priority = INT32_MAX;
+        if (  runningOnTigerOrNewer()  ) {
+            priority = MIN(priority, 2147483646); // found by experimenting - dirk
+        }
+        
+        if ( ! theItem  ) {
+            if (  ! ( theItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
+                NSLog(@"Can't insert icon in Status Bar");
+            }
+        }
+        // Re-insert item to place it correctly, to the left of SpotLight
+        [bar removeStatusItem: theItem];
+        [bar _insertStatusItem: theItem withPriority: priority];
+    } else {
+        // Standard placement of icon in Status Bar
+        if (  ! theItem  ) {
+            if (  ! (theItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
+                NSLog(@"Can't insert icon in Status Bar");
+            }
+        }
+    }
 }
 
 -(id) init
