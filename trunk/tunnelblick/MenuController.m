@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004 Angelo Laub
+ * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen <dirk@objectpark.org>, 
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
@@ -21,7 +21,24 @@
 
 
 #import "MenuController.h"
+#import <CoreFoundation/CoreFoundation.h>
+#import <signal.h>
+#import <sys/types.h>
+#import <sys/socket.h>
+#import <stdlib.h>
+#import <errno.h>
+#import <Security/Security.h>
+#import <CoreServices/CoreServices.h>
+#import <Foundation/NSDebug.h>
+#import <Security/Authorization.h>
+#import <Security/AuthorizationTags.h>
+#import <sys/types.h>
+#import <sys/stat.h>
+#import "KeyChain.h"
+#import "NetSocket.h"
+#import "NSApplication+LoginItem.h"
 #import "NSApplication+NetworkNotifications.h"
+#import "NSArray+cArray.h"
 #import "helper.h"
 
 
@@ -39,6 +56,7 @@ BOOL systemIsTigerOrNewer()
 
 @interface NSStatusBar (NSStatusBar_Private)
 - (id)_statusItemWithLength:(float)l withPriority:(int)p;
+- (id)_insertStatusItem:(NSStatusItem *)i withPriority:(int)p;
 @end
 
 
