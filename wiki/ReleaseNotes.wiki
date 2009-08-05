@@ -1,9 +1,9 @@
 #summary Release Notes - Tunnelblick v 3.0b12
 #labels Phase-Deploy,Featured
 
-PLEASE DO discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a lot of members who might be able to help!
+*PLEASE DO* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a lot of members who might be able to help!
 
-PLEASE DO NOT post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+*PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
 
 = 3.0b12 (2009-08-05) =
 
