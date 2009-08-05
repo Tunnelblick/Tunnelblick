@@ -151,6 +151,12 @@ BOOL runningOnTigerOrNewer()
 		
 		[NSApp setDelegate:self];
 		
+        if(needsRepair()){
+            if ([self repairPermissions] != TRUE) {
+                [NSApp terminate:self];
+            }
+        } 
+                
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         myVPNConnectionArray = [[[NSMutableArray alloc] init] retain];
         connectionArray = [[[NSMutableArray alloc] init] retain];
@@ -625,9 +631,12 @@ BOOL runningOnTigerOrNewer()
 
 - (IBAction) clearLog: (id) sender
 {
-	NSString * versionInfo = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick version %@", nil),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 	NSCalendarDate* date = [NSCalendarDate date];
-	NSString *dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],versionInfo];
+	NSString *dateText = [NSString stringWithFormat:@"%@ %@; %@\n",
+                          [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],
+                          tunnelblickVersion(),
+                          openVPNVersion()
+                         ];
 	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
 }
 
@@ -791,10 +800,12 @@ BOOL runningOnTigerOrNewer()
 {
     NSImage  * appIcon      = [NSImage imageNamed:@"tunnelblick.icns"];
     NSString * appName      = @"Tunnelblick";
-    NSString * appVersion   = [NSString stringWithFormat:NSLocalizedString(@"Version %d", nil), 3];
-    NSString * version      = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    
-    NSString * html         = @"<html><body><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a><body></html>";
+    NSString * appVersion   = tunnelblickVersion();
+    NSString * version      = @"";
+    NSString * html         = [NSString stringWithFormat:@"%@%@%@",
+                               @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
+                               openVPNVersion(),
+                               @"</div><br><br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></center><body></html>"];
     NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
     NSMutableAttributedString * credits = [[[NSAttributedString alloc] init] autorelease];
     [credits initWithHTML:data documentAttributes:NULL];
@@ -813,7 +824,6 @@ BOOL runningOnTigerOrNewer()
                     
     [NSApp orderFrontStandardAboutPanelWithOptions:aboutPanelDict];
     [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
-
 }
 - (void) dealloc
 {
@@ -911,11 +921,11 @@ BOOL runningOnTigerOrNewer()
 	NSString *configPath = [connection configPath];
     if(configPath == nil) configPath = @"/openvpn.conf";
 	
-	//	NSString *helper = @"/usr/sbin/chown";
+	//	NSString *openvpnstart = @"/usr/sbin/chown";
 	//	NSString *userString = [NSString stringWithFormat:@"%d",getuid()];
 	//	NSArray *arguments = [NSArray arrayWithObjects:userString,configPath,nil];
 	//	AuthorizationRef authRef = [NSApplication getAuthorizationRef];
-	//	[NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+	//	[NSApplication executeAuthorized:openvpnstart withArguments:arguments withAuthorizationRef:authRef];
 	//	AuthorizationFree(authRef,kAuthorizationFlagDefaults);
 	
     [[NSWorkspace sharedWorkspace] openFile:[directoryPath stringByAppendingPathComponent:configPath] withApplication:@"TextEdit"];
@@ -1031,12 +1041,6 @@ static void signal_handler(int signalNumber)
     [self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
-	if(needsRepair()){
-		if ([self repairPermissions] != TRUE) {
-			[NSApp terminate:self];
-		}
-	} 
-
 	[updater checkForUpdatesInBackground];
 }
 
@@ -1097,7 +1101,7 @@ static void signal_handler(int signalNumber)
 BOOL needsRepair() 
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
-	NSString *helperPath = [thisBundle pathForResource:@"openvpnstart" ofType:nil];
+	NSString *openvpnstartPath = [thisBundle pathForResource:@"openvpnstart" ofType:nil];
 	NSString *tunPath = [thisBundle pathForResource:@"tun.kext" ofType:nil];
 	NSString *tapPath = [thisBundle pathForResource:@"tap.kext" ofType:nil];
 	
@@ -1106,8 +1110,8 @@ BOOL needsRepair()
 	NSString *openvpnPath = [thisBundle pathForResource:@"openvpn" ofType:nil];
 	
 	
-	// check setuid helper
-	const char *path = [helperPath UTF8String];
+	// check setuid openvpnstart
+	const char *path = [openvpnstartPath UTF8String];
     struct stat sb;
 	if(stat(path,&sb)) runUnrecoverableErrorPanel();
 	
@@ -1115,7 +1119,7 @@ BOOL needsRepair()
 					  && (sb.st_mode & S_IXUSR) // owner may execute it
 					  && (sb.st_uid == 0) // is owned by root
 					  )) {
-		NSLog(@"openvpnstart helper has missing set uid bit");
+		NSLog(@"openvpnstart has missing set uid bit");
 		return YES;		
 	}
 	
@@ -1145,7 +1149,7 @@ BOOL needsRepair()
 		unsigned long perms = [fileAttributes filePosixPermissions];
 		NSString *octalString = [NSString stringWithFormat:@"%o",perms];
 		if ( (![octalString isEqualToString:@"755"])  ) {
-			NSLog(@"File %@ has permissions: %@ and needs repair...\n",currentPath,octalString);
+			NSLog(@"File %@ has permissions: %@ and needs repair...\n",file,octalString);
 			return YES;
 		}
 	}
@@ -1203,6 +1207,5 @@ int runUnrecoverableErrorPanel(void)
 		[self saveUseNameserverCheckboxState:FALSE];
 	}
 }
-
 
 @end
