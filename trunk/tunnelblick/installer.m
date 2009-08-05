@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2004 Angelo Laub
+ *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	NSString *tunExecutable = [tunPath stringByAppendingPathComponent:@"/Contents/MacOS/tun"];
 	NSString *tapExecutable = [tapPath stringByAppendingPathComponent:@"/Contents/MacOS/tap"];
 
-	NSString *helperPath = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
+	NSString *openvpnstartPath = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
 	NSString *openvpnPath = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
 	
 	runTask(
@@ -37,26 +37,22 @@ int main(int argc, char *argv[])
 			[NSArray arrayWithObjects:@"-R",@"root:wheel",thisBundle,nil]
 			);
 
-	
 	runTask(
 			@"/bin/chmod",
-			[NSArray arrayWithObjects:@"-R",@"755",tunPath,tapPath,nil]
+			[NSArray arrayWithObjects:@"-R", @"755",tunPath,tapPath,nil]
 			);
 	
 	runTask(
 			@"/bin/chmod",
-			[NSArray arrayWithObjects:@"744",
-				tunExecutable,
-				tapExecutable,
-				helperPath,
-				openvpnPath,
-				nil]
+			[NSArray arrayWithObjects:@"744", tunExecutable, tapExecutable, openvpnstartPath, openvpnPath, nil]
 			);
+    
 	runTask(
 			@"/bin/chmod",
-			[NSArray arrayWithObjects:@"4111",helperPath,nil]
+			[NSArray arrayWithObjects:@"4111",openvpnstartPath,nil]
 			);
-	[pool release];
+	
+    [pool release];
 	return 0;
 }
 
@@ -69,7 +65,7 @@ void runTask(NSString *launchPath,NSArray *arguments)
 	NS_DURING {
 		[task launch];
 	} NS_HANDLER {
-		NSLog(@"Exception raised while executing helper %@: %@",launchPath, localException);
+		NSLog(@"Exception raised while executing openvpnstart %@: %@",launchPath, localException);
 		exit(EXIT_FAILURE);
 	}
     NS_ENDHANDLER

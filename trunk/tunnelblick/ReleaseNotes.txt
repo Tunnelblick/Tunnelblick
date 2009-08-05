@@ -1,0 +1,72 @@
+#summary Release Notes - Tunnelblick v 3.0b12
+
+PLEASE DO discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a lot of members who might be able to help!
+PLEASE DO NOT post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+
+= 3.0b12 (2009-08-05) =
+
+  * Fixed issues where DNS settings were not saved properly, and when DHCP is renewed (contributed by Diego Rivera)
+  * Added support for PKCS#11 and Security Tokens, e.g. Aladdin eToken (contributed by Xaver Loppenstedt)
+  * Additional Korean and German translations (contributed by Markus Schneider and Kyoungmin Kim)
+  * Animation improvements, including the ability to have "icon sets" (contributed by Raal Goff). Note: the user interface for this feature is not included yet
+  * Fixed issue with "Set nameserver" and "Auto connect on launch" checkboxes being cleared on quit if the "OpenVPN Log" window was never displayed
+  * Fixed issue which caused disconnects when any file in ~/Library/openvpn was accessed (for example, by backup software). (Note that changing, adding, or deleting any configuration files will close all open connections)
+  * Fixed issue which didn't allow configuration files with owners other than root and/or permissions other than 0744 if the user gives permission. This makes possible home folders on NTFS or FAT volumes.
+  * Fixed issue with failed authentication: now handled gracefully: allows cancel or retry. If credentials are stored in the KeyChain, also allows retry with new credentials (by deleting the old credentials before the retry)
+  * Fixed issue with multiple connections with same username; separate passwords are now kept for each username
+  * Fixed issue in dialog about configuration files - the correct path is now shown: "~/Library" instead of "/Library"
+  * Command-C, Command-X, Command-V (copy, cut, paste) and Command-A, Command-M, Command-W, and Command-Q (select all, minimize to the Dock, close window, and quit Tunnelblick) now work properly from the "OpenVPN Log" window
+  * Fixed issue which caused invalid dates/times to appear in the OpenVPN Log
+  * Shows connection duration in "OpenVPN Log" window's tabs
+  * Fixed issue which caused the "OpenVPN Log" window to remain underneath other windows when the "Details..." menu item is clicked
+  * Added date/time and Tunnelblick and OpenVPN version info at the beginning of the OpenVPN Log and whenever it is cleared
+  * Saves and restores "OpenVPN Log" window size and position
+  * Internationalized date/time displayed in the OpenVPN Log, including seconds
+  * Fixed bug which caused Japanese localization to fail
+  * Displays tab for the left-most established connection when the "OpenVPN Log" window is first displayed. If no established connection exists, displays the left-most tab
+  * Added the "Using Tunnelblick.html" document to the installation disk image
+  * Added preference, "doNotMonitorConfigurationFolder" (default = False) to disable monitoring of the configuration folder for changes to the configuration files
+  * Added preference, "placeIconInStandardPositionInStatusBar" (default = False) to have the Tunnelblick icon placed normally in the Status Bar -- to the left of other items (contributed by Raal Goff and Michael Schloh von Bennewitz) 
+  * Added an "About" window that displays a link to the website, Tunnelblick version and build numbers, and the OpenVPN version number, which is dynamically extracted from the openvpn program (and thus always reports the version of OpenVPN which is actually being used).
+  * Fixed issue which caused Tunnelblick to pass the "script-security 2" arguments to OpenVPN even if a version of OpenVPN which doesn't support that argument is being used
+  * openvpnstart enhancements:
+      * The "Set nameserver" argument is now optional and defaults to 0 (NO)
+      * Optional argument skips test of the security of the configuration file. It defaults to 0 (NO), so the test IS performed
+      * Optional argument skips passing the "script-security 2" arguments to OpenVPN.
+      * Improved error checking and reporting
+      * Displays usage instructions if invoked with no arguments
+      * Fixed program crashes caused by improper syntax
+      * "killall" command shows # of openvpn processes killed if non-zero
+
+Known Issues:
+  * Home folders cannot reside on remote volumes (AFS, NFS, etc.)
+  * French, Japanese, and Norwegian localization is not complete.
+  * The standard scripts that "Set nameserver" uses handle DNS for the most common DHCP setups. You must use custom scripts to do anything else. The standard scripts:
+      * Do not support multiple simultaneous connections
+      * Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously)
+      * Do not remove manual DNS entries (i.e., the manual nameserver will continue to be used even when the tunnel is open even if the OpenVPN "redirect-gateway" option is specified)
+
+= 3.0b10 =
+  
+  * fix linking problem that resulted in lzo compression not working on PowerPC 
+  * prevent user from launching tunnelblick directly from the dmg
+  * remove experimental status from 'Set Nameserver' and make it the default
+  * upgrade to OpenVPN 2.1_rc15
+  * let buffered openvpn log messages appear in the GUI log
+  * possible fix for the crash if password is mistyped when using username/password authentication
+  * add version number to plist file
+  * don't restart connections on NetworkDidChange notification. fixes issue where existing connections would be reset when starting multiple simultaneous vpn connections.
+  * always use --script-security 2 so users are allowed to supply custom up/down scripts. needed for OpenVPN 2.1
+  * add missing example config file
+  * properly escape special chars in username or password/passphrase before passing them over to the management interface. fixes issue where the password/passphrase was not accepted when it contained backslashes or " chars.
+  * use NSStatusWindowLevel for notification windows. fixes issue that Tunnelblick icon remained visible in spaces or fullscreen mode of some apps.
+  * increase robustness when killing openvpn children by explicitly sending the SIGTERM to the process id instead of just sending "signal SIGTERM" over the management socket
+  * kill all openvpn processes on quit. fixes a rare condition where openvpn processes would be left over on Tunnelblick  quit
+  * Add German, French, Japanese, Korean and Norwegian translations
+  
+= 3.0b9 =
+
+  * Fixed the crash on Leopard
+  * Fixes the slow shutdown issue
+  * Updated to the new tun/tap drivers
+  * Auto-Update Capability using Sparkle

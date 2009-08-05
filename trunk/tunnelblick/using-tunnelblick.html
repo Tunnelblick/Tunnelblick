@@ -11,7 +11,7 @@ the <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="nofollow">GNU Genera
 For more information, including wikis and a discussion group, see the <a href="http://code.google.com/p/tunnelblick/">Tunnelblick 
 home page</a>.<br>
 <br>
-This document describes how to use Tunnelblick version 3.0b12 and was last modified 2009-07-31.<br>
+This document describes how to use Tunnelblick version 3.0b12 and was last modified 2009-08-04.<br>
 The latest version of this document is 
 <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
 <br>
@@ -225,8 +225,8 @@ to the dock, close the window, and quit the program.<br>
 <br>
 <b><a name="about" rel="nofollow">THE &ldquo;ABOUT TUNNELBLICK&rdquo; WINDOW</a></b><br>
 Click on the Tunnelblick icon in the menu bar at the top of your screen between the time and the Spotlight,
-then click on &ldquo;About Tunnelblick&hellip;&rdquo; to open a window with information about the version of Tunnelblick 
-that is running and a link to the Tunnelblick website.<br>
+then click on &ldquo;About Tunnelblick&hellip;&rdquo; to open a window with information about the versions of 
+Tunnelblick and OpenVPN that are running and a link to the Tunnelblick website.<br>
 <br>
 <b><a name="DNS" rel="nofollow">DNS SETTINGS</a></b><br>
 Tunnelblick is set up for easy use when connecting to a VPN exclusively. That is, when you wish all
@@ -303,6 +303,7 @@ Tunnelblick uses the following preferences for each user:<br>
 <tr valign="top"><td>detailsWindowFrame</td><td>The size and position of the &ldquo;OpenVPN log&rdquo; window when it was last closed.</td></tr>
 <tr valign="top"><td>detailsWindowFrameVersion</td><td>The version of Tunnelblick that saved the detailsWindowFrame preference.</td></tr>
 <tr valign="top"><td>doNotMonitorConfigurationFolder</td><td>If set, Tunnelblick will not monitor changes to ~/Library/openvpn.</td></tr>
+<tr valign="top"><td>placeIconInStandardPositionInStatusBar</td><td>If set, Tunnelblick will place the icon in the standard position in the Status Bar, to the left of all other icons. If cleared and the system supports it, an undocumented system method is used to force the icon to be immediately to the right of the Spotlight icon.</td></tr>
 <tr valign="top"><td colspan="2">&nbsp<br>&nbsp<br>For each configuration file in ~/Library/openvpn, the following two preferences may appear:</td></tr>
 <tr valign="top"><td>ZZZuseDNS<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Set nameserver&rdquo; checkbox. The default is set.</td></tr>
 <tr valign="top"><td>ZZZautoConnect<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Automatically connect on launch&rdquo; checkbox. The default is cleared.</td></tr>
@@ -315,7 +316,7 @@ OpenVPN tunnels. openvpnstart is located in
 Tunnelblick.app/Contents/Resources.<br>
 <table>
   <tr>
-    <td colspan="3">openvpnstart &nbsp;&nbsp;start &nbsp;&nbsp;<em>conf&#8209;path</em> &nbsp;&nbsp;<em>port</em> &nbsp;&nbsp;[&nbsp;<em>use&#8209;scripts</em> &nbsp;&nbsp;[&nbsp;<em>skip&#8209;check</em>&nbsp;] &nbsp;&nbsp;]</td>
+    <td colspan="3">openvpnstart &nbsp;&nbsp;start &nbsp;&nbsp;<em>conf&#8209;path</em> &nbsp;&nbsp;<em>port</em> &nbsp;&nbsp;[&nbsp;<em>use&#8209;scripts</em> &nbsp;&nbsp;[&nbsp;<em>skip&#8209;check</em>&nbsp;[&nbsp;<em>skip&#8209;script&#8209;security</em>&nbsp;] &nbsp;&nbsp;] &nbsp;&nbsp;]</td>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -344,6 +345,13 @@ Tunnelblick.app/Contents/Resources.<br>
     	the configuration file is not on a volume with Unix or OS X permissions.)<br>
         0 (the default) indicates the permissions should be checked (for greater security).</td>
   </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td valign="top"><em>skip&#8209;script&#8209;security</em></td>
+    <td>is 1 to indicate that the "--script-security 2" arguments should not be sent to OpenVPN.<br>
+        0 (the default) indicates the arguments should be sent. ("--script-security 2" is available
+        only on OpenVPN versions 2.1_rc9 and later.)</td>
+  </tr>
 </table>
 
 <table>
@@ -352,7 +360,7 @@ Tunnelblick.app/Contents/Resources.<br>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan="2">Destroys an OpenVPN connection.</td>
+    <td colspan="2">Destroys an OpenVPN process (and closes any open connection it is managing).</td>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -367,7 +375,17 @@ Tunnelblick.app/Contents/Resources.<br>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan="2">Destroys all OpenVPN connections.</td>
+    <td colspan="2">Destroys all OpenVPN processes (if any) and closes any open connections. If any processes are destroyed, a message with the number destroyed is placed in the Console Log.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="3">openvpnstart &nbsp;&nbsp;OpenVPNInfo</td>
+  </tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2">Invokes OpenVPN with no arguments, resulting in a message containing OpenVPN version and usage information.</td>
   </tr>
 </table>
 </body></html>

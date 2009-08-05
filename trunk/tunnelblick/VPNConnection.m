@@ -37,9 +37,8 @@
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
         //myLogController = [[LogController alloc] initWithSender:self]; 
-		NSString * versionInfo = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick version %@", nil),[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 		NSCalendarDate* date = [NSCalendarDate date];
-		[self addToLog:versionInfo atDate:date];
+		[self addToLog:[NSString stringWithFormat:@"%@; %@", tunnelblickVersion(), openVPNVersion()] atDate:date];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
     }
@@ -144,7 +143,31 @@
     
     NSString *skipCheck = @"1"; //Don't repeat check of config file; we already checked it above and either it's OK or user said to skip the check
     
-	arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, skipCheck, nil];
+    // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
+    
+    NSDictionary * vers = getOpenVPNVersion();
+    int intMajor =  [[vers objectForKey:@"major"]  intValue];
+    int intMinor =  [[vers objectForKey:@"minor"]  intValue];
+    int intSuffix = [[vers objectForKey:@"suffix"] intValue];
+    
+	NSString *skipScrSec =@"1";
+    if ( intMajor == 2 ) {
+        if ( intMinor == 1 ) {
+            if (  [[vers objectForKey:@"preSuffix"] isEqualToString:@"_rc"] ) {
+                if ( intSuffix > 8 ) {
+                    skipScrSec = @"0";
+                }
+            } else {
+                skipScrSec = @"0";
+            }
+        } else if ( intMinor > 1 ) {
+            skipScrSec = @"0";
+        }
+    } else if ( intMajor > 2 ) {
+        skipScrSec = @"0";
+    }
+    
+    arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, skipCheck, skipScrSec, nil];
 		
 	[task setArguments:arguments];
 	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
