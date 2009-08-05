@@ -2,7 +2,7 @@
 #labels Featured,Phase-Deploy
 
 =Where is the documentation?=
-The newest disk images (version 3.0b12 and later) include release notes and an HTML document, "Using Tunnelblick", which provide extensive documentation on using Tunnelblick
+The newest disk images (version 3.0b12 and later) include release notes and an HTML document, "Using Tunnelblick", which provide extensive documentation on using Tunnelblick.
 
 =How do I install Tunnelblick?=
 Download the latest disk image from the featured downloads section on the project page. Mount it and drag the Tunnelblick.app icon to the shortcut to the Applications folder, or any other location on your local hard disk.
