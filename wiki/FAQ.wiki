@@ -19,5 +19,8 @@ This is a security issue. OpenVPN config files allow you to specify up/down scri
 =Help! My routes are not restored when closing my VPN connection. What is happening?=
 You are most probably using the 'user' or 'group' directive in your OpenVPN client configuration file. If you use it, the OpenVPN process will drop privileges after startup which is nice as additional security measure. However, OpenVPN needs root privileges for restoring the route back to their original state. In short: don't use it.
 
+=Why does Tunnelblick use OpenVPN version 2.1, which is not an official release?=
+Tunnelblick uses OpenVPN version 2.1, instead of version 2.0.9, which is the latest official release, because that is the version recommended by the OpenVPN core team.
+
 =Where can I go if my question is not answered here?=
 Go to the Tunnelblick Discussion Group, http://groups.google.com/group/tunnelblick-discuss.
