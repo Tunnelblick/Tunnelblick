@@ -1,11 +1,11 @@
-#summary Release Notes - Tunnelblick v 3.0b12
+#summary Release Notes - Tunnelblick v 3.0b14
 #labels Phase-Deploy,Featured
 
 *PLEASE DO* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a lot of members who might be able to help!
 
 *PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
 
-= 3.0b12 (2009-08-05) =
+= 3.0b14 (2009-08-10) =
 
   * Fixed issues where DNS settings were not saved properly, and when DHCP is renewed (contributed by Diego Rivera)
   * Added support for PKCS#11 and Security Tokens, e.g. Aladdin eToken (contributed by Xaver Loppenstedt)
@@ -13,7 +13,6 @@
   * Animation improvements, including the ability to have "icon sets" (contributed by Raal Goff). Note: the user interface for this feature is not included yet
   * Fixed issue with "Set nameserver" and "Auto connect on launch" checkboxes being cleared on quit if the "OpenVPN Log" window was never displayed
   * Fixed issue which caused disconnects when any file in ~/Library/openvpn was accessed (for example, by backup software). (Note that changing, adding, or deleting any configuration files will close all open connections)
-  * Fixed issue which didn't allow configuration files with owners other than root and/or permissions other than 0744 if the user gives permission. This makes possible home folders on NTFS or FAT volumes.
   * Fixed issue with failed authentication: now handled gracefully: allows cancel or retry. If credentials are stored in the KeyChain, also allows retry with new credentials (by deleting the old credentials before the retry)
   * Fixed issue with multiple connections with same username; separate passwords are now kept for each username
   * Fixed issue in dialog about configuration files - the correct path is now shown: "~/Library" instead of "/Library"
@@ -33,7 +32,6 @@
   * Fixed issue which caused Tunnelblick to pass the "script-security 2" arguments to OpenVPN even if a version of OpenVPN which doesn't support that argument is being used
   * openvpnstart enhancements:
       * The "Set nameserver" argument is now optional and defaults to 0 (NO)
-      * Optional argument skips test of the security of the configuration file. It defaults to 0 (NO), so the test IS performed
       * Optional argument skips passing the "script-security 2" arguments to OpenVPN.
       * Improved error checking and reporting
       * Displays usage instructions if invoked with no arguments
