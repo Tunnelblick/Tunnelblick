@@ -100,32 +100,12 @@
 			return;
 		}
 	}
-	if([self configNeedsRepair:cfgPath]) {
 
-		NSAlert *alert = [[NSAlert alloc] init];
-		[alert addButtonWithTitle:NSLocalizedString(@"Connect once", nil)];
-		[alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-		[alert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Always allow %@ to connect", nil),[self configName]]];
-		[alert setMessageText:NSLocalizedString(@"Connect even though configuration file is not secure?", nil)];
-		[alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is not secure and Tunnelblick cannot make it secure. Connect anyway?", nil), cfgPath]];
-		[alert setAlertStyle:NSWarningAlertStyle];
-		[[alert window] setFloatingPanel:YES];
-
-		int alertValue = [alert runModal];
-		[alert release];
-		
-		if (alertValue == NSAlertSecondButtonReturn) {		//Cancel
-			NSLog(@"Connect: User cancelled connect because configuration file %@ is not secure.",cfgPath);
-			return;
-		}
-		if (alertValue == NSAlertThirdButtonReturn) {		//Connect always - set a per-connection preference, then fall through to connect
-			NSString* ignoreConfOwnerOrPermissionErrorKey = [[self configName] stringByAppendingString: @"IgnoreConfOwnerOrPermissionError"];
-			[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: YES] forKey: ignoreConfOwnerOrPermissionErrorKey];
-			[[NSUserDefaults standardUserDefaults] synchronize];
-		}
-															//Connect once -- just fall through to connect
-	}
-
+    if([self configNeedsRepair:cfgPath]) {
+		NSLog(@"Repairing permissions of config file %@ failed. Not starting.",cfgPath);
+        return;
+    }
+    
 	NSParameterAssert(managementSocket == nil);
 	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
 													 ofType: nil];
@@ -140,8 +120,6 @@
 	if(useDNSStatus(self)) {
 		useDNS = @"1";
 	}
-    
-    NSString *skipCheck = @"1"; //Don't repeat check of config file; we already checked it above and either it's OK or user said to skip the check
     
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     
@@ -167,7 +145,7 @@
         skipScrSec = @"0";
     }
     
-    arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, skipCheck, skipScrSec, nil];
+    arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, skipScrSec, nil];
 		
 	[task setArguments:arguments];
 	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
@@ -572,11 +550,6 @@
 
 -(BOOL)configNeedsRepair:(NSString *)configFile 
 {
-	NSString* ignoreConfOwnerOrPermissionErrorKey = [[self configName] stringByAppendingString: @"IgnoreConfOwnerOrPermissionError"];
-	if (  [[NSUserDefaults standardUserDefaults] boolForKey:ignoreConfOwnerOrPermissionErrorKey]  ) {
-		return NO;
-	}
-	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:configFile traverseLink:YES];
 	unsigned long perms = [fileAttributes filePosixPermissions];
