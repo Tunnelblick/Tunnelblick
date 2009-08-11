@@ -25,7 +25,7 @@
 #import <sys/sysctl.h>
 #import <signal.h>
 
-void	startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipCheck, BOOL skipScrSec);	//Tries to start an openvpn connection. May complain and exit if can't become root
+void	startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec);	//Tries to start an openvpn connection. May complain and exit if can't become root
 void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
@@ -74,15 +74,14 @@ int main(int argc, char* argv[])
 				syntaxError = FALSE;
 			}
 		} else if( strcmp(command, "start") == 0 ) {
-			if (  (argc > 3) && (argc < 8)  ) {
+			if (  (argc > 3) && (argc < 7)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
 				if(strlen(argv[3]) < 6 ) {
 					unsigned int port = atoi(argv[3]);
 					if (port<=65535) {
 						BOOL useScripts = FALSE; if( (argc > 4) && (atoi(argv[4]) == 1) ) useScripts = TRUE;
-						BOOL skipCheck  = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipCheck  = TRUE;
-						BOOL skipScrSec = FALSE; if( (argc > 6) && (atoi(argv[6]) == 1) ) skipScrSec = TRUE;
-						startVPN(configFile, port, useScripts, skipCheck, skipScrSec);
+						BOOL skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
+						startVPN(configFile, port, useScripts, skipScrSec);
 						syntaxError = FALSE;
 					}
 				}
@@ -96,7 +95,7 @@ int main(int argc, char* argv[])
 				"\t./openvpnstart OpenVPNInfo\n"
 				"\t./openvpnstart killall\n"
 				"\t./openvpnstart kill   processId\n"
-				"\t./openvpnstart start  configName  mgtPort  [useScripts  [skipCheck  [skipScrSec]  ]  ]\n\n"
+				"\t./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec]  ]\n\n"
 				
 				"Where:\n"
 				"\tprocessId  is the process ID of the openvpn process to kill\n"
@@ -104,10 +103,9 @@ int main(int argc, char* argv[])
 				"\tmgtPort    is the port number (0-65535) to use for managing the connection\n"
 				"\tuseScripts is 1 to run the client.up.osx.sh script before connecting, and client.down.osx.sh after disconnecting\n"
 				"\t           (The scripts are in Tunnelblick.app/Contents/Resources/)\n"
-				"\tskipCheck  is 1 to skip checking ownership and permissions of the configuration file\n"
                 "\tskipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n\n"
 				
-				"useScripts, skipCheck, and skipScrSec each default to 0.\n\n"
+				"useScripts and skipScrSec each default to 0.\n\n"
 				
 				"The normal return code is 0. If an error occurs a message is sent to stderr and a code of 2 is returned.\n\n"
 				
@@ -124,7 +122,7 @@ int main(int argc, char* argv[])
 }
 
 //Tries to start an openvpn connection -- no indication of failure. May complain and exit if can't become root
-void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipCheck, BOOL skipScrSec)
+void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec)
 {
 	NSString*			directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
     configPath		= [directoryPath stringByAppendingPathComponent:configFile];
@@ -134,11 +132,9 @@ void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipCheck, B
 	[upscriptPath replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [upscriptPath length])];
 	[downscriptPath replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [downscriptPath length])];
 	
-	if ( ! skipCheck ) {
-		if(configNeedsRepair()) {
-			[pool drain];
-			exit(2);
-		}
+	if(configNeedsRepair()) {
+		[pool drain];
+		exit(2);
 	}
 	
 	// default arguments to openvpn command line
@@ -348,8 +344,7 @@ BOOL configNeedsRepair(void)
 	
 	if ( (![octalString isEqualToString:@"644"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
 		NSString* errMsg = [NSString stringWithFormat:@"Error: File %@ is owned by %@ and has permissions %@\n"
-							"Configuration files must be owned by root:wheel with permissions 0644\n"
-							"To skip this check, use 'skipCheck' -- type './openvpnstart' (with no arguments) for details)\n",
+							"Configuration files must be owned by root:wheel with permissions 0644\n",
 							configPath, fileOwner, octalString];
 		fprintf(stderr, [errMsg UTF8String]);
 		[pool drain];

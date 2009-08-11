@@ -11,7 +11,7 @@ the <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="nofollow">GNU Genera
 For more information, including wikis and a discussion group, see the <a href="http://code.google.com/p/tunnelblick/">Tunnelblick 
 home page</a>.<br>
 <br>
-This document describes how to use Tunnelblick version 3.0b12 and was last modified 2009-08-04.<br>
+This document describes how to use Tunnelblick version 3.0b14 and was last modified 2009-08-10.<br>
 The latest version of this document is 
 <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
 <br>
@@ -214,7 +214,7 @@ scripts must be used for this purpose.</li></ul>
 In addition, the &ldquo;OpenVPN Log&rdquo; window contains four buttons:<br>
 <ul><li>&ldquo;Clear log&rdquo; clears the OpenVPN Log for the connection being displayed.<br><br></li>
 <li>&ldquo;Edit configuration&rdquo; starts TextEdit with the configuration file containing the OpenVPN configuration 
-for the connection being displayed so it can be edited. Since configuration files are usually owned by 
+for the connection being displayed so it can be edited. Since configuration files are owned by 
 root/wheel, they may only be edited by computer administrators.<br><br></li>
 <li>&ldquo;Connect&rdquo; opens the connection being displayed.<br><br></li>
 <li>&ldquo;Disconnect&rdquo; closes the connection being displayed.</li></ul>
@@ -316,7 +316,7 @@ OpenVPN tunnels. openvpnstart is located in
 Tunnelblick.app/Contents/Resources.<br>
 <table>
   <tr>
-    <td colspan="3">openvpnstart &nbsp;&nbsp;start &nbsp;&nbsp;<em>conf&#8209;path</em> &nbsp;&nbsp;<em>port</em> &nbsp;&nbsp;[&nbsp;<em>use&#8209;scripts</em> &nbsp;&nbsp;[&nbsp;<em>skip&#8209;check</em>&nbsp;[&nbsp;<em>skip&#8209;script&#8209;security</em>&nbsp;] &nbsp;&nbsp;] &nbsp;&nbsp;]</td>
+    <td colspan="3">openvpnstart &nbsp;&nbsp;start &nbsp;&nbsp;<em>conf&#8209;path</em> &nbsp;&nbsp;<em>port</em> &nbsp;&nbsp;[&nbsp;<em>use&#8209;scripts</em> &nbsp;&nbsp;[&nbsp;<em>skip&#8209;script&#8209;security</em>&nbsp;] &nbsp;&nbsp;]</td>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -337,13 +337,6 @@ Tunnelblick.app/Contents/Resources.<br>
     <td valign="top"><em>use&#8209;scripts</em></td>
     <td>is 1 to indicate that the &ldquo;client.up.osx.sh&rdquo; and &ldquo;client.down.osx.sh&rdquo; scripts should be called before the connection is created and after it is destroyed, respectively.<br>
         0 (the default) indicates the scripts should not be called.</td>
-  </tr>
-  <tr>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td valign="top"><em>skip&#8209;check</em></td>
-    <td>is 1 to indicate that the check of permissions on the configuration file should be skipped. (Can be used if 
-    	the configuration file is not on a volume with Unix or OS X permissions.)<br>
-        0 (the default) indicates the permissions should be checked (for greater security).</td>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
