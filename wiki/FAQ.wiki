@@ -1,6 +1,22 @@
 #summary Frequently Asked Questions (Answered)
 #labels Featured,Phase-Deploy
 
+[# Where is the documentation?]
+
+[# How do I install Tunnelblick?]
+
+[# How do I uninstall Tunnelblick?]
+
+[# Why does Tunnelblick need root privileges?]
+
+[# Why does Tunnelblick change the ownership of the configuration files to root?]
+
+[# Help! My routes are not restored when closing my VPN connection. What is happening?]
+
+[# Why does Tunnelblick use OpenVPN version 2.1, which is not an official release?]
+
+[# Where can I go if my question is not answered here?]
+
 =Where is the documentation?=
 The newest disk images (version 3.0b12 and later) include release notes and an HTML document, "Using Tunnelblick", which provide extensive documentation on using Tunnelblick. This document and others are also available on the Tunnelblick Discussion Group, http://groups.google.com/group/tunnelblick-discuss, in the "Pages" section.
 
