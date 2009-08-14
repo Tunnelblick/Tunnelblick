@@ -1,9 +1,9 @@
 #summary Frequently Asked Questions (Answered)
 #labels Featured,Phase-Deploy
 
-[# Where is the documentation?]
+[#Where is the documentation?]
 
-[# How do I install Tunnelblick?]
+[#How do I install Tunnelblick?]
 
 [# How do I uninstall Tunnelblick?]
 
