@@ -1,7 +1,21 @@
-#summary Release Notes - Tunnelblick v 3.0b14
+#summary Release Notes - Tunnelblick v 3.0b16
 
 PLEASE DO discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a lot of members who might be able to help!
 PLEASE DO NOT post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+
+= 3.0b16 (2009-08-22) =
+
+  * Upgraded to OpenVPN version 2.1_rc19
+  * Additional French translations (contributed by Oliver Hill)
+  * An entry is appended to the OpenVPN Log window if OpenVPN returns with an error code. (This typically happens when there is an error in the configuration file.)
+
+Known Issues:
+  * Home folders cannot reside on remote volumes (AFS, NFS, etc.)
+  * Japanese and Norwegian localization is not complete.
+  * The standard scripts that "Set nameserver" uses handle DNS for the most common DHCP setups. You must use custom scripts to do anything else. The standard scripts:
+      * Do not support multiple simultaneous connections
+      * Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously)
+      * Do not remove manual DNS entries (i.e., the manual nameserver will continue to be used even when the tunnel is open even if the OpenVPN "redirect-gateway" option is specified)
 
 = 3.0b14 (2009-08-10) =
 
