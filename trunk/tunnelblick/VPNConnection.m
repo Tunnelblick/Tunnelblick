@@ -26,6 +26,7 @@
 #import "NetSocket+Text.h"
 #import "NSApplication+LoginItem.h"
 #import "helper.h"
+#import "MenuController.h"
 
 @implementation VPNConnection
 
@@ -152,7 +153,12 @@
 	[task setCurrentDirectoryPath:openvpnDirectory];
 	[task launch];
 	[task waitUntilExit];
-
+    
+    int status = [task terminationStatus];
+    if (  status != 0  ) {
+        [self addToLog:[NSString stringWithFormat:NSLocalizedString(@"openvpnstart returned error #%d. Possible error in configuration file. The System Log may have details.", nil), status] atDate:[NSCalendarDate date]];
+    }
+    
 	[self setState: @"SLEEP"];
 
 	//sleep(1);
