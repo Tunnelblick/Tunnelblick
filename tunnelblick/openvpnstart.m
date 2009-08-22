@@ -25,7 +25,7 @@
 #import <sys/sysctl.h>
 #import <signal.h>
 
-void	startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec);	//Tries to start an openvpn connection. May complain and exit if can't become root
+int     startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec);	//Tries to start an openvpn connection. May complain and exit if can't become root
 void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
     pool = [[NSAutoreleasePool alloc] init];
 	
 	BOOL	syntaxError	= TRUE;
-    
+    int     retCode = 0;
     execPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
 	
     if (argc > 1) {
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 					if (port<=65535) {
 						BOOL useScripts = FALSE; if( (argc > 4) && (atoi(argv[4]) == 1) ) useScripts = TRUE;
 						BOOL skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
-						startVPN(configFile, port, useScripts, skipScrSec);
+						retCode = startVPN(configFile, port, useScripts, skipScrSec);
 						syntaxError = FALSE;
 					}
 				}
@@ -114,15 +114,15 @@ int main(int argc, char* argv[])
 				"Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n"
 				);
 		[pool drain];
-		exit(2);
+		exit(2000);
 	}
 	
 	[pool drain];
-	exit(0);
+	exit(retCode);
 }
 
 //Tries to start an openvpn connection -- no indication of failure. May complain and exit if can't become root
-void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec)
+int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec)
 {
 	NSString*			directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
     configPath		= [directoryPath stringByAppendingPathComponent:configFile];
@@ -134,7 +134,7 @@ void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec)
 	
 	if(configNeedsRepair()) {
 		[pool drain];
-		exit(2);
+		exit(3000);
 	}
 	
 	// default arguments to openvpn command line
@@ -177,6 +177,14 @@ void startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec)
     
 	[upscriptPath release];
 	[downscriptPath release];
+
+    int retCode = [task terminationStatus];
+    if (  retCode != 0  ) {
+ 		fprintf(stderr, "Error: openvpn returned %d\n", retCode);
+		[pool drain];
+		exit(retCode);
+    }
+    return 0;
 }
 
 //Starts OpenVPN with no arguments, to obtain version and usage info. May complain and exit if can't become root
@@ -205,12 +213,12 @@ void killOneOpenvpn(pid_t pid)
 		if (didnotKill) {
 			fprintf(stderr, "Error: Unable to kill openvpn process %d\n", pid);
 			[pool drain];
-			exit(2);
+			exit(4000);
 		}
 	} else {
 		fprintf(stderr, "Error: Process %d is not an openvpn process\n", pid);
 		[pool drain];
-		exit(2);
+		exit(5000);
 	}
 }
 
@@ -247,7 +255,7 @@ int killAllOpenvpn(void)
 	if (nNotKilled) {
 		// An error message for each openvpn process that wasn't killed has already been output
 		[pool drain];
-		exit(2);
+		exit(6000);
 	}
 	
 	return(nKilled);
@@ -278,7 +286,7 @@ void becomeRoot(void)
 			fprintf(stderr, "Error: Unable to become root\n"
 							"You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
 			[pool drain];
-			exit(2);
+			exit(7000);
 		}
 	}
 }
@@ -335,7 +343,7 @@ BOOL configNeedsRepair(void)
 	if (fileAttributes == nil) {
 		fprintf(stderr, "Error: %s does not exist\n", [configPath UTF8String]);
 		[pool drain];
-		exit(2);
+		exit(8000);
 	}
 	
 	unsigned long	perms			= [fileAttributes filePosixPermissions];
@@ -348,7 +356,7 @@ BOOL configNeedsRepair(void)
 							configPath, fileOwner, octalString];
 		fprintf(stderr, [errMsg UTF8String]);
 		[pool drain];
-		exit(2);
+		exit(9000);
 	}
 	return NO;
 }
