@@ -11,7 +11,7 @@ the <a href="http://www.gnu.org/licenses/gpl-2.0.html" rel="nofollow">GNU Genera
 For more information, including wikis and a discussion group, see the <a href="http://code.google.com/p/tunnelblick/">Tunnelblick 
 home page</a>.<br>
 <br>
-This document describes how to use Tunnelblick version 3.0b14 and was last modified 2009-08-10.<br>
+This document describes how to use Tunnelblick version 3.0b14 and was last modified 2009-08-22.<br>
 The latest version of this document is 
 <a href="http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick">http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick</a>.<br>
 <br>
@@ -50,7 +50,7 @@ You may then close the window and eject the &ldquo;Tunnelblick&rdquo; disk icon.
 <br>
 There is no need to install OpenVPN separately - the Tunnelblick
 application contains both the Tunnelblick GUI and OpenVPN. See the
-Tunnelblick release notes to determine the version of OpenVPN included
+Tunnelblick release notes (or click "About&hellip;" in Tunnelblick) to determine the version of OpenVPN included
 with the version of Tunnelblick that you are using.<br>
 <br>
 If you wish Tunnelblick to appear in the Dock, navigate to Applications, and drag and drop Tunnelblick to the Dock.<br>
@@ -144,7 +144,7 @@ update or not.<br>
 <br>
 <b><a name="normal" rel="nofollow">NORMAL TUNNELBLICK OPERATION</a><br>
 </b>Once Tunnelblick has been started, you control it from the icon in
-the menu bar at the top of your screen between the time and the
+the Status Bar at the top of your screen. The Tunnelblick icon is usually placed between the time and the
 Spotlight icon. When no VPN connection is active, the icon is dark,
 indicating a closed tunnel:<br>
 <p style="text-align: left; clear: both;"></p>
@@ -179,18 +179,17 @@ crash, Tunnelblick will terminate the VPN tunnel and record the error
 in your computer's syslog.<br>
 <br>
 Use &ldquo;Disconnect&rdquo; from the drop-down menu to close the VPN connection. Use
-&ldquo;Quit&rdquo; to close the connection and quit the program and prevent
+&ldquo;Quit&rdquo; to close all open connections and quit the program and prevent
 Tunnelblick from starting itself at your next login at your computer.
 If Tunnelblick is running when you logout (or your computer crashes, or is shut down or restarted), 
 then Tunnelblick will be started automatically upon login. To stop Tunnelblick from being 
 started automatically upon login, be sure to quit Tunnelblick before logging out, either
-by using the &ldquo;Quit&rdquo; command, or by using Command-Q (Apple-Q) when the &ldquo;OpenVPN Log&rdquo; window is active. (Don't confuse this automatic 
+by using the &ldquo;Quit&rdquo; command, or by using Command-Q (Apple-Q) when the &ldquo;OpenVPN Log&rdquo; or &ldquo;About&hellip;&rdquo; window is active. (Don't confuse this automatic 
 launch of Tunnelblick upon login with the &ldquo;Automatically connect on launch&rdquo; option, which 
-causes a connection to be established when Tunnelblick is started, with this automatic launch
-of Tunnelblick itself upon login.)<br>
+causes a connection to be established when Tunnelblick is started.)<br>
 <br>
 <b><a name="details" rel="nofollow">THE &ldquo;OPENVPN LOG&rdquo; WINDOW</a></b><br>
-Click on the Tunnelblick icon in the menu bar at the top of your screen between the time and the Spotlight
+Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon
 then click on &ldquo;Details&hellip;&rdquo; to obtain details for all connections (open or closed). A window similar to the following will appear:<br>
 <br>
 <p style="text-align: center; clear: both;"><img src="using-tunnelblick-files/using-tunnelblick-details.png" border="0"></p>
@@ -224,7 +223,7 @@ Command-Q to select all the text in the log that is currently being displayed, m
 to the dock, close the window, and quit the program.<br>
 <br>
 <b><a name="about" rel="nofollow">THE &ldquo;ABOUT TUNNELBLICK&rdquo; WINDOW</a></b><br>
-Click on the Tunnelblick icon in the menu bar at the top of your screen between the time and the Spotlight,
+Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon,
 then click on &ldquo;About Tunnelblick&hellip;&rdquo; to open a window with information about the versions of 
 Tunnelblick and OpenVPN that are running and a link to the Tunnelblick website.<br>
 <br>
@@ -296,14 +295,14 @@ Tunnelblick uses the following preferences for each user:<br>
 <table border="1">
 <tr valign="top"><td>SUEnableAutomaticChecks</td><td>If set, causes Tunnelblick to check for updates periodically. This is set or cleared depending on the user's response the second time Tunnelblick is run.</td></tr>
 <tr valign="top"><td>SUSendProfileInfo</td><td>Set if the user agreed to send anonymous information about the system configuration to Tunnelblick. The default is cleared.</td></tr>
-<tr valign="top"><td>SUHasLaunchedBefore</td><td>Set if Tunnelblick has been run for this user and &ldquo;SUEnableAutomaticChecks&rdquo; has been set or cleared.</td></tr>
+<tr valign="top"><td>SUHasLaunchedBefore</td><td>Set if Tunnelblick has been run for this user. (The "Check for updates automatically" question is asked only the <em>second</em> time Tunnelblick is run.)</td></tr>
 <tr valign="top"><td>SULastCheckTime</td><td>The date and time Tunnelblick last checked for updates.</td></tr>
 <tr valign="top"><td>showAllDurations</td><td>If set, causes Tunnelblick to show a timer for all connections, open and closed. The default is cleared, so all durations are not shown.</td></tr>
 <tr valign="top"><td>showConnectedDurations</td><td>If set, causes Tunnelblick to show a timer for all connections that are open. The default is set, so connection durations are shown.</td></tr>
 <tr valign="top"><td>detailsWindowFrame</td><td>The size and position of the &ldquo;OpenVPN log&rdquo; window when it was last closed.</td></tr>
 <tr valign="top"><td>detailsWindowFrameVersion</td><td>The version of Tunnelblick that saved the detailsWindowFrame preference.</td></tr>
 <tr valign="top"><td>doNotMonitorConfigurationFolder</td><td>If set, Tunnelblick will not monitor changes to ~/Library/openvpn.</td></tr>
-<tr valign="top"><td>placeIconInStandardPositionInStatusBar</td><td>If set, Tunnelblick will place the icon in the standard position in the Status Bar, to the left of all other icons. If cleared and the system supports it, an undocumented system method is used to force the icon to be immediately to the right of the Spotlight icon.</td></tr>
+<tr valign="top"><td>placeIconInStandardPositionInStatusBar</td><td>If set, Tunnelblick will place the icon in the standard position in the Status Bar, to the left of all other icons. If cleared and the system supports it, an undocumented system method is used to force the icon to be between the time and the Spotlight icon.</td></tr>
 <tr valign="top"><td colspan="2">&nbsp<br>&nbsp<br>For each configuration file in ~/Library/openvpn, the following two preferences may appear:</td></tr>
 <tr valign="top"><td>ZZZuseDNS<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Set nameserver&rdquo; checkbox. The default is set.</td></tr>
 <tr valign="top"><td>ZZZautoConnect<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Automatically connect on launch&rdquo; checkbox. The default is cleared.</td></tr>
