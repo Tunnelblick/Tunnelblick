@@ -1,4 +1,6 @@
-#How to build Tunnelblick from the source code
+#summary How to build Tunnelblick from the source code
+
+=How to build Tunnelblick from the source code=
 
 ==Introduction==
 
