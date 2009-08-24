@@ -8,7 +8,9 @@ Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and o
 For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
 This document describes how to use Tunnelblick version 3.0b14 and was last modified 2009-08-24.
-The latest version of this document is at [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick].
+
+The latest versions of this document and related documents including release notes, FAQ, and instructions 
+for building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
 This document contains the following sections:
 
@@ -189,5 +191,3 @@ Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVP
 
 *openvpnstart   OpenVPNInfo*
       	Invokes OpenVPN with no arguments, resulting in a the output of OpenVPN version and usage information.
-
-
