@@ -86,9 +86,9 @@ NSString *escaped(NSString *string) {
 				/* Dictionary for the panel.  */
     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
     NSString *question = NSLocalizedString(@"Please enter VPN username/password combination.", nil);
-    [dict setObject:NSLocalizedString(@"Passphrase", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+    [dict setObject:NSLocalizedString(@"Username and password", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [dict setObject:NSLocalizedString(@"Add Passphrase To Apple Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    [dict setObject:NSLocalizedString(@"Add username and password To Apple Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
     [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", nil),NSLocalizedString(@"Password:", nil),nil] forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
     [dict setObject:NSLocalizedString(@"OK", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
