@@ -47,6 +47,7 @@
 		61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* Norwegian.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
+		6391992510449804001FA1BC /* Spanish.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* Spanish.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
@@ -166,6 +167,7 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
+		6391992210449804001FA1BC /* Spanish.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Spanish.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
 				616A49090E38D0D400477476 /* tap.kext */,
 				616A490A0E38D0D400477476 /* tun.kext */,
+				6391992210449804001FA1BC /* Spanish.lproj */,
 				61C03B960ED4E42A00175F22 /* Norwegian.lproj */,
 				615F74900ED3A4FA007F6F0A /* German.lproj */,
 				615F74930ED3A4FA007F6F0A /* Japanese.lproj */,
@@ -418,6 +421,7 @@
 				French,
 				German,
 				Korean,
+				Spanish,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Tunnelblick */;
 			projectDirPath = "";
@@ -451,6 +455,7 @@
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
+				6391992510449804001FA1BC /* Spanish.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,7 @@
 "AUTH"       = "Autoriserer";
      "About..." = "About…";
 "Add Passphrase To Apple Keychain" = "Legg passordet til i nøkkelringen";
+    "Add username and password to Apple Keychain" = "Add username and password to Apple Keychain";
     "Always allow %@ to connect" = "Always allow %@ to connect";
 "Automatically connect on launch" = "Koble til automatisk ved oppstart";
 "CONNECTED"  = "Tilkoblet";
@@ -37,6 +38,7 @@
     "Tunnelblick Error" = "Tunnelblick Error";
     "Tunnelblick version %@" = "Tunnelblick version %@";
 "Username:" = "Brukernavn";
+    "Username and password" = "Username and password";
     "Verification failed." = "Verification failed.";
     "Version %@" = "Version %@";
 "WAIT"       = "Venter på svar fra serveren";

@@ -2,6 +2,7 @@
 "AUTH" = "인증 중";
 "About..." = "정보…";
 "Add Passphrase To Apple Keychain" = "암호를 키체인에 저장";
+"Add username and password to Apple Keychain" = "사용자 계정과 암호를 키체인에 저장";
 "Always allow %@ to connect" = "항상 %@로 연결 허용";
 "Automatically connect on launch" = "실행 시 자동 연결";
 "CONNECTED" = "연결 됨";
@@ -37,6 +38,7 @@
 "Tunnelblick Error" = "Tunnelblick 오류";
 "Tunnelblick version %@" = "Tunnelblick 버전 %@";
 "Username:" = "사용자 계정:";
+"Username and password" = "사용자 계정과 암호";
 "Verification failed." = "검증 실패.";
 "Version %@" = "버전 %@";
 "WAIT" = "연결 중...";

@@ -2,6 +2,7 @@
 "AUTH"      = "Authorizing";
 "About..." = "About…";
 "Add Passphrase To Apple Keychain" = "Add Passphrase To Apple Keychain";
+"Add username and password to Apple Keychain" = "Add username and password to Apple Keychain";
 "Always allow %@ to connect" = "Always allow %@ to connect";
 "Automatically connect on launch" = "Automatically connect on launch";
 "CONNECTED" = "Connected";
@@ -37,6 +38,7 @@
 "Tunnelblick Error" = "Tunnelblick Error";
 "Tunnelblick version %@" = "Tunnelblick version %@";
 "Username:" = "Username:";
+"Username and password" = "Username and password";
 "Verification failed." = "Verification failed.";
 "Version %@" = "Version %@";
 "WAIT"      = "Waiting for Server Response";

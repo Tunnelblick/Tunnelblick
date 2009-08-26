@@ -2,6 +2,7 @@
 "AUTH"       = "Authentification…";
 "About..." = "À propos…";
 "Add Passphrase To Apple Keychain" = "Enregistrer dans le Trousseau d’accès";
+"Add username and password to Apple Keychain" = "Enregistrer nom d'usager et mot de passe dans le Trousseau d’accès";
 "Always allow %@ to connect" = "Toujours permettre %@ de se connecter";
 "Automatically connect on launch" = "Se connecter au lancement";
 "CONNECTED"  = "Connecté";
@@ -37,6 +38,7 @@
 "Tunnelblick Error" = "Erreur Tunnelblick";
 "Tunnelblick version %@" = "Tunnelblick version %@";
 "Username:" = "Nom d'usager:";
+"Username and password" = "Nom d'usager et mot de passe";
 "Verification failed." = "Echec de la vérification.";
 "Version %@" = "Version %@";
 "WAIT"       = "Attente du serveur…";

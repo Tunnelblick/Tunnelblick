@@ -2,6 +2,7 @@
 "AUTH"   = "Autorisieren";
 "About..." = "Über…";
 "Add Passphrase To Apple Keychain" = "Passphrase dem Schlüsselbund hinzufügen";
+"Add username and password to Apple Keychain" = "Benutzername und Passwort dem Apple Schlüsselbund hinzufügen";
 "Always allow %@ to connect" = "Erlaube %@ immer zu verbinden";
 "Automatically connect on launch" = "Automatisch beim Programmstart verbinden";
 "CONNECTED"  = "Verbunden";
@@ -37,6 +38,7 @@
 "Tunnelblick Error" = "Tunnelblick Fehler";
 "Tunnelblick version %@" = "Tunnelblick Version %@";
 "Username:" = "Benutzername";
+"Username and password" = "Benutzername und Passwort";
 "Verification failed." = "Verifizierung fehlgeschlagen";
 "Version %@" = "Version %@";
 "WAIT"   = "Auf Server-Antwort warten"; // translate "Waiting for Server Response"!
