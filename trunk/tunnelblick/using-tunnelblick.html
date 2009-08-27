@@ -303,7 +303,7 @@ Tunnelblick uses the following preferences for each user:<br>
 <tr valign="top"><td>showConnectedDurations</td><td>If set, causes Tunnelblick to show a timer for all connections that are open. The default is set, so connection durations are shown.</td></tr>
 <tr valign="top"><td>detailsWindowFrame</td><td>The size and position of the &ldquo;OpenVPN log&rdquo; window when it was last closed.</td></tr>
 <tr valign="top"><td>detailsWindowFrameVersion</td><td>The version of Tunnelblick that saved the detailsWindowFrame preference.</td></tr>
-<tr valign="top"><td>doNotMonitorConfigurationFolder</td><td>If set, Tunnelblick will not monitor changes to ~/Library/openvpn.</td></tr>
+<tr valign="top"><td>doNotMonitorConfigurationFolder</td><td>If set, Tunnelblick will not monitor changes to ~/Library/openvpn, which means that you will have to shut down and restart Tunnelblick for new configuration files to be recognized. This is recommended only for network volumes.</td></tr>
 <tr valign="top"><td>placeIconInStandardPositionInStatusBar</td><td>If set, Tunnelblick will place the icon in the standard position in the Status Bar, to the left of all other icons. If cleared and the system supports it, an undocumented system method is used to force the icon to be between the time and the Spotlight icon.</td></tr>
 <tr valign="top"><td colspan="2">&nbsp<br>&nbsp<br>For each configuration file in ~/Library/openvpn, the following two preferences may appear:</td></tr>
 <tr valign="top"><td>ZZZuseDNS<br>(&ldquo;ZZZ&rdquo; is the name of the configuration file.)</td><td>Corresponds to the configuration's &ldquo;Set nameserver&rdquo; checkbox. The default is set.</td></tr>
@@ -369,7 +369,7 @@ Tunnelblick.app/Contents/Resources.<br>
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan="2">Destroys all OpenVPN processes (if any) and closes any open connections. If any processes are destroyed, a message with the number destroyed is placed in the Console Log.</td>
+    <td colspan="2">Destroys all OpenVPN processes (if any) and closes any open connections. If more than one process is destroyed, a message with the number destroyed is placed in the Console Log.</td>
   </tr>
 </table>
 
