@@ -162,7 +162,7 @@ showAllDurations	If set, causes Tunnelblick to show a timer for all connections,
 showConnectedDurations	If set, causes Tunnelblick to show a timer for all connections that are open. The default is set, so connection durations are shown.
 detailsWindowFrame	The size and position of the “OpenVPN log” window when it was last closed.
 detailsWindowFrameVersion	The version of Tunnelblick that saved the detailsWindowFrame preference.
-doNotMonitorConfigurationFolder	If set, Tunnelblick will not monitor changes to ~/Library/openvpn.
+doNotMonitorConfigurationFolder	If set, Tunnelblick will not monitor changes to ~/Library/openvpn, which means that you will have to shut down and restart Tunnelblick for new configuration files to be recognized. This is recommended only for network volumes.
 placeIconInStandardPositionInStatusBar	If set, Tunnelblick will place the icon in the standard position in the Status Bar, to the left of all other icons. If cleared and the system supports it, an undocumented system method is used to force the icon to be between the time and the Spotlight icon.
  
  
@@ -176,18 +176,18 @@ ZZZautoConnect
 Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources.
 
 *openvpnstart   start   conf‑path   port   [ use‑scripts   [ skip‑script‑security ]   ]*
-      	Creates an OpenVPN connection.
+     Creates an OpenVPN connection.
       	* *conf‑path* is the path to the .ovpn or .conf file which describes the connection.
       	* *port* is the port to use when creating the connection.
       	* *use‑scripts* is 1 to indicate that the “client.up.osx.sh” and “client.down.osx.sh” scripts should be called before the connection is created and after it is destroyed, respectively. 0 (the default) indicates the scripts should not be called.
       	* *skip‑script‑security* is 1 to indicate that the "--script-security 2" arguments should not be sent to OpenVPN. 0 (the default) indicates the arguments should be sent. ("--script-security 2" is available only on OpenVPN versions 2.1_rc9 and later.)
 
 *openvpnstart   kill   process‑id*
-      	Destroys an OpenVPN process (and closes any open connection it is managing).
-      	process‑id 	is the process number of the OpenVPN process which is managing the connection that should be destroyed.
+     Destroys an OpenVPN process (and closes any open connection it is managing).
+      	* *process‑id* 	is the process number of the OpenVPN process which is managing the connection that should be destroyed.
 
 *openvpnstart   killall*
-      	Destroys all OpenVPN processes (if any) and closes any open connections. If any processes are destroyed, a message with the number destroyed is output.
+     Destroys all OpenVPN processes (if any) and closes any open connections. If more than one processe is destroyed, a message with the number destroyed is output.
 
 *openvpnstart   OpenVPNInfo*
-      	Invokes OpenVPN with no arguments, resulting in a the output of OpenVPN version and usage information.
+     Invokes OpenVPN with no arguments, resulting in a the output of OpenVPN version and usage information.
