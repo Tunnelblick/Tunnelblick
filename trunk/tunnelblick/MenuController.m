@@ -210,7 +210,7 @@ BOOL runningOnTigerOrNewer()
 		
 		NSString* vpnDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"];
 		
-        if (  [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
+        if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
             UKKQueue* myQueue = [UKKQueue sharedQueue];
             [myQueue addPathToQueue: vpnDirectory];
             [myQueue setDelegate: self];
@@ -332,7 +332,7 @@ BOOL runningOnTigerOrNewer()
 {	
     [theItem setHighlightMode:YES];
     [theItem setMenu:nil];
-	[myVPNMenu dealloc]; myVPNMenu = nil;
+	[myVPNMenu release]; myVPNMenu = nil;
 	[[myVPNConnectionDictionary allValues] makeObjectsPerformSelector:@selector(disconnect:) withObject:self];
 	[myVPNConnectionDictionary removeAllObjects];
 	
@@ -827,21 +827,26 @@ BOOL runningOnTigerOrNewer()
 }
 - (void) dealloc
 {
+    [animImages release];
+    [connectedImage release];
+    [mainImage release];
+
+    [aboutItem release];
+    [connectionArray release];
+    [connectionsToRestore release];
+    [detailsItem release];
     [lastState release];
-    [theItem release];
     [myConfigArray release];
-    
-#warning todo: release non-IB ivars here!
+    [myVPNConnectionArray release];
+    [myVPNConnectionDictionary release];
+    [quitItem release];
+    [showDurationsTimer release];
     [statusMenuItem release];
     [myVPNMenu release];
+    [theAnim release];
+    [theItem release];
+    [updater release];
     [userDefaults release];
-    [appDefaults release];
-    [theItem release]; 
-    
-    [mainImage release];
-    [connectedImage release];
-    [connectionArray release];
-    
     
     [super dealloc];
 }

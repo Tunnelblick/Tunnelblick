@@ -37,7 +37,6 @@
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
-        //myLogController = [[LogController alloc] initWithSender:self]; 
 		NSCalendarDate* date = [NSCalendarDate date];
 		[self addToLog:[NSString stringWithFormat:@"%@; %@", tunnelblickVersion(), openVPNVersion()] atDate:date];
         lastState = @"EXITING";
@@ -83,10 +82,10 @@
     [self setManagementSocket: nil];
     
     [managementSocket release];
-    //[myLogController release];
     [lastState release];
-    [myMenu release];	
     [configPath release];
+    [connectedSinceDate release];
+    [myAuthAgent release];
     [super dealloc];
 }
 
@@ -180,7 +179,6 @@
 }
 
 
-
 - (IBAction) toggle: (id) sender
 {
 	if (![self isDisconnected]) {
@@ -271,7 +269,7 @@
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @"="];
 			NSString *pidString = [parameters lastObject];
-			pid = atoi([pidString cString]);			
+			pid = atoi([pidString UTF8String]);			
 		} @catch(NSException *exception) {
 			pid = 0;
 		}
@@ -446,12 +444,6 @@
     if (NSDebugEnabled) NSLog(@"Socket disconnected...\n");
 	//[self performSelectorOnMainThread:@selector(disconnect:) withObject:nil waitUntilDone:NO];
     [self disconnect:self];
-}
-
--(void)setMenu:(NSMenu *)inMenu 
-{
-    [myMenu release];
-    myMenu = [inMenu retain];
 }
 
 - (NSString*) state
