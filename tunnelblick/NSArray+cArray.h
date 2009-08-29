@@ -22,6 +22,6 @@
 
 @interface NSArray (cArray)
 
-- (const char **) cArray;
+- (char **) cArray;
 
 @end

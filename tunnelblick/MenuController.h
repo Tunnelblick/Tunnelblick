@@ -37,6 +37,8 @@ BOOL needsRepair(void);
     IBOutlet NSButton       * connectButton;
     IBOutlet NSButton       * disconnectButton;
     IBOutlet NSButton       * editButton;
+    IBOutlet NSWindow       * logWindow;
+    IBOutlet NSTabView      * tabView;
     IBOutlet NSButton       * useNameserverCheckbox;
 
     NSMutableArray          * animImages;
@@ -45,13 +47,11 @@ BOOL needsRepair(void);
     NSImage                 * mainImage;
 
     NSMenuItem              * aboutItem;
-    NSMutableArray          * activeConnections;
 	NSUserDefaults          * appDefaults;
     NSMutableArray          * connectionArray; 
     NSMutableArray          * connectionsToRestore;
 	NSMenuItem              * detailsItem;
     NSString                * lastState;
-    IBOutlet NSWindow       * logWindow;
     NSArray                 * myConfigArray;
     NSArray                 * myConfigModDatesArray;
 	NSMutableArray          * myVPNConnectionArray;
@@ -62,7 +62,6 @@ BOOL needsRepair(void);
     NSMenuItem              * quitItem;
     NSTimer                 * showDurationsTimer;           //Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
     IBOutlet NSMenuItem     * statusMenuItem;
-    IBOutlet NSTabView      * tabView;
     NSAnimation             * theAnim;
     NSStatusItem            * theItem; 
 	SUUpdater               * updater;

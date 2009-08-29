@@ -151,7 +151,7 @@
 	return myAuthorizationRef;
 }
 +(OSStatus) executeAuthorized:(NSString *)toolPath withArguments:(NSArray *)arguments withAuthorizationRef:(AuthorizationRef) myAuthorizationRef {
-	char *myToolPath = [toolPath UTF8String];
+	const char * myToolPath = [toolPath UTF8String];
 	char **myArguments = [arguments cArray];
 	OSStatus myStatus;
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;

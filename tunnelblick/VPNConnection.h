@@ -23,43 +23,44 @@
 #import "AuthAgent.h"
 
 @interface VPNConnection : NSObject {
-	NSString      * configPath;
-	NSDate        * connectedSinceDate;
+	NSString      * configPath;         // This contains the filename and extension (not the full path) of the configuration file
+	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
-	NSString      * lastState;
-	NSTextStorage * logStorage;
-	NetSocket     * managementSocket;
+	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
+	NSTextStorage * logStorage;         // nil, or contains entire log (or that part of log since it was cleared)
+	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
-	NSMenu        * myMenu;
-	pid_t           pid;
-	unsigned int    portNumber;
+	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
+	unsigned int    portNumber;         // 0, or port number used to connect to management socket
 }
 
--(void)             addToLog:                   (NSString *) text           atDate:         (NSCalendarDate *) date;
+// Used exernally (outside of VPNConnection):
 -(NSString*)        configName;
--(BOOL)             configNeedsRepair:          (NSString *) configFile;
 -(NSString*)        configPath;
--(IBAction)         connect:                    (id) sender;
 -(NSDate *)         connectedSinceDate;
--(void)             connectToManagementSocket;
+-(IBAction)         connect:                    (id) sender;
 -(IBAction)         disconnect:                 (id) sender;
--(unsigned int)     getFreePort;
--(id)               initWithConfig:             (NSString *) inConfig;
+-(id)               initWithConfig:             (NSString *)    inConfig;
 -(BOOL)             isConnected;
 -(BOOL)             isDisconnected;
--(void)             killProcess;
 -(NSTextStorage*)   logStorage;
 -(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned) inAmount;
 -(void)             netsocketConnected:         (NetSocket *)   socket;
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
--(void)             processLine:                (NSString *)    line;
--(OSStatus)         repairConfigPermissions:    (NSString *)    configFile;
--(void)             setConnectedSinceDate:      (NSDate *)      value;
 -(void)             setDelegate:                (id)            newDelegate;
--(void)             setManagementSocket:        (NetSocket *)   socket;
--(void)             setMenu:                    (NSMenu *)      inMenu;
 -(void)             setState:                   (NSString *)    newState;
 -(NSString*)        state;
 -(IBAction)         toggle:                     (id)            sender;
+
+// Used internally (only by VPNConnection):
+-(void)             addToLog:                   (NSString *)    text           atDate:         (NSCalendarDate *) date;
+-(BOOL)             configNeedsRepair:          (NSString *)    configFile;
+-(void)             connectToManagementSocket;
+-(unsigned int)     getFreePort;
+-(void)             killProcess;
+-(void)             processLine:                (NSString *)    line;
+-(OSStatus)         repairConfigPermissions:    (NSString *)    configFile;
+-(void)             setConnectedSinceDate:      (NSDate *)      value;
+-(void)             setManagementSocket:        (NetSocket *)   socket;
 
 @end

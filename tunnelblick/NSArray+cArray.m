@@ -23,11 +23,11 @@
 @implementation NSArray (cArray)
 
 /* returns an array of character pointers that is guaranteed to be NULL terminated */
--(const char **) cArray 
+-(char **) cArray 
 {
 	int i=0;
 	int count = [self count];
-	const char **myCArray = calloc(count + 1, sizeof(char *));
+	char **myCArray = calloc(count + 1, sizeof(char *));
 	for(i=0;i < count;i++) {
 		const char *string = [[self objectAtIndex:i] UTF8String];
 		if(!string)

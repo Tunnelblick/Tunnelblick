@@ -360,7 +360,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 		return NO;
 
 	// Get host information
-	socketHost = gethostbyname( [inHostname cString] );
+	socketHost = gethostbyname( [inHostname UTF8String] );
 	if( !socketHost )
 		return NO;
 	
