@@ -495,18 +495,6 @@ BOOL runningOnTigerOrNewer()
 	NSEnumerator *connectionEnumerator = [myConnectionArray objectEnumerator];
 	VPNConnection *myConnection;
 
-    // Get preferences for showing duration times
-    BOOL showAllDurations = FALSE;
-    BOOL showConnectedDurations = TRUE;
-    id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showAllDurations"];
-    if(tmp != nil) {
-        showAllDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showAllDurations"];
-    }
-    tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"];
-    if(tmp != nil) {
-        showConnectedDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showConnectedDurations"];
-    }
-        
 	int i = 0;
 	while(myConnection = [connectionEnumerator nextObject]) {
 		//NSLog(@"configName: %@\nconnectionState: %@\n",[myConnection configName],[myConnection state]);
@@ -514,7 +502,8 @@ BOOL runningOnTigerOrNewer()
         NSString * cTimeS = @"";
 
         // Get connection duration if preferences say to 
-        if (    showAllDurations ||  (  showConnectedDurations && [cState isEqualToString: @"CONNECTED"]  )    ) {
+        if (    [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"]
+             && [cState isEqualToString: @"CONNECTED"]    ) {
             NSDate * csd = [myConnection connectedSinceDate];
             NSTimeInterval ti = [csd timeIntervalSinceNow];
             long cTimeL = (long) round(-ti);
@@ -727,18 +716,7 @@ BOOL runningOnTigerOrNewer()
 	[self updateTabLabels];
     
     // Set up a timer to update the tab labels with connections' duration times
-    BOOL showAllDurations = FALSE;
-    BOOL showConnectedDurations = TRUE;
-    tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showAllDurations"];
-    if(tmp != nil) {
-        showAllDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showAllDurations"];
-    }
-    tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"];
-    if(tmp != nil) {
-        showConnectedDurations = [[NSUserDefaults standardUserDefaults] boolForKey:@"showConnectedDurations"];
-    }
-    
-    if (    (showDurationsTimer == nil)  && (showAllDurations || showConnectedDurations)    ) {
+    if (    (showDurationsTimer == nil)  && [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"]    ) {
         showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
                                                                target:self
                                                              selector:@selector(updateTabLabels)
