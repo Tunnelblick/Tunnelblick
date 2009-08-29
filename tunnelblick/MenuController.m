@@ -39,7 +39,6 @@
 #import "NetSocket.h"
 #import "NSApplication+LoginItem.h"
 #import "NSApplication+NetworkNotifications.h"
-#import "NSArray+cArray.h"
 #import "helper.h"
 
 
@@ -184,7 +183,7 @@ BOOL runningOnTigerOrNewer()
         
 		[self createStatusItem];
 		
-		[self updateMenu];
+		[self createMenu];
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         [[NSNotificationCenter defaultCenter] addObserver: self 
@@ -328,7 +327,8 @@ BOOL runningOnTigerOrNewer()
 	[theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
 }
 
--(void) updateMenu 
+// Initial creation of the menu
+-(void) createMenu 
 {	
     [theItem setHighlightMode:YES];
     [theItem setMenu:nil];
@@ -344,11 +344,9 @@ BOOL runningOnTigerOrNewer()
 	statusMenuItem = [[NSMenuItem alloc] init];
 	[myVPNMenu addItem:statusMenuItem];
 	[myVPNMenu addItem:[NSMenuItem separatorItem]];
-
+    
 	[myConfigArray release];
-    myConfigArray = [[[self getConfigs] sortedArrayUsingSelector:@selector(compare:)] retain];
-    [myConfigModDatesArray release];
-    myConfigModDatesArray = [[self getModDates:myConfigArray] retain];
+    myConfigArray = [[[[self getConfigs] sortedArrayUsingSelector:@selector(compare:)] mutableCopy] retain];
     
 	NSEnumerator *m = [myConfigArray objectEnumerator];
 	NSString *configString;
@@ -397,23 +395,93 @@ BOOL runningOnTigerOrNewer()
     }
 }
 
+
+// If any new config files have been added, add each to the menu and add tabs for each to the Log window.
+// If any config files have been deleted, remove them from the menu and remove their tabs in the Log window
+-(void) updateMenuAndLogWindow 
+{	
+    NSArray * curConfigsArray = [[self getConfigs] sortedArrayUsingSelector:@selector(compare:)];
+	NSEnumerator *m = [curConfigsArray objectEnumerator];
+	NSString *configString;
+    
+    BOOL needToUpdateLogWindow = FALSE;
+
+    // First add the new ones
+    while (configString = [m nextObject]) {
+        if (  [myConfigArray indexOfObject:configString] == NSNotFound  ) {
+            
+            // Add new config to myVPNConnectionDictionary
+            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString];
+            [myConnection setState:@"EXITING"];
+            [myConnection setDelegate:self];
+            [myVPNConnectionDictionary setObject: myConnection forKey:configString];
+            
+            // Add new config to myConfigArray and the menu, keeping myConfigArray sorted
+            // Note: The item's title will be set on demand in -validateMenuItem
+            NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
+            [connectionItem setTarget:myConnection]; 
+            [connectionItem setAction:@selector(toggle:)];
+            int i;
+            for (i=0; i<[myConfigArray count]; i++) {
+                if (  [[myConfigArray objectAtIndex:i] isGreaterThan:configString]  ) {
+                    break;
+                }
+            }
+            [myConfigArray insertObject:configString atIndex:i];
+            [myVPNMenu insertItem:connectionItem atIndex:i+2];  // Note: first item is status, second is a separator
+            
+            needToUpdateLogWindow = TRUE;
+        }
+    }
+    
+    // Now remove the ones that have been deleted
+    m = [myConfigArray objectEnumerator];
+    while (configString = [m nextObject]) {
+        if (  [curConfigsArray indexOfObject:configString] == NSNotFound  ) {
+            
+            // Disconnect first if necessary
+            VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey:configString];
+            if (  ! [[myConnection state] isEqualTo:@"EXITING"]  ) {
+                [myConnection disconnect:self];
+                NSAlert * alert = [[NSAlert alloc] init];
+                NSString * msg1 = NSLocalizedString(@"'%@' has been disconnected", nil);
+                NSString * msg2 = NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", nil);
+                [alert setMessageText:[NSString stringWithFormat:msg1, [myConnection configName]]];
+                [alert setInformativeText:[NSString stringWithFormat:msg2, [myConnection configName]]];
+                [alert runModal];
+            }
+
+            [[myVPNConnectionDictionary objectForKey:configString] release];
+            
+            [myVPNConnectionDictionary removeObjectForKey:configString];
+            
+            // Remove config from myConfigArray and the menu
+            int i = [myConfigArray indexOfObject:configString];
+            [myConfigArray removeObjectAtIndex:i];
+            [myVPNMenu removeItemAtIndex:i+2];  // Note: first item is status, second is a separator
+            
+            needToUpdateLogWindow = TRUE;
+        }
+    }
+    
+    // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
+    BOOL logWindowWasOpen = logWindowIsOpen;
+    if (  logWindowIsOpen  ) {
+        NSNotification * notif = [NSNotification notificationWithName:@"com.openvpn.tunnelblick.closingLogWindow" object:logWindow];
+        [self windowWillClose:notif];
+        [logWindow release];
+        logWindow = nil;
+    }
+    if (  logWindowWasOpen  ) {
+        [self openLogWindow:self];
+    }
+
+}
+
 - (void)activateStatusMenu
 {
-	//[theItem retain];
     [self updateUI];
-    
-	// If any config files were changed/added/deleted, update the menu
-    // We don't do it UNLESS files were changed/added/deleted because all connections are reset when the menu is updated.
-    // activateStatusMenu is called whenever anything changes in the config directory, even the file-accessed date,
-    // so a backup of the directory, for example, would cause disconnects if we always updated the menu.
-    NSArray * curConfigsArray = [[self getConfigs] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray * curModDatesArray = [self getModDates:curConfigsArray];
-    
-    if ( ! (   [myConfigArray isEqualToArray:curConfigsArray]
-            && [myConfigModDatesArray isEqualToArray:curModDatesArray]  )  ) {
-        NSLog(@"One or more configuration files were changed, added, or deleted. All connections will be closed.\n");
-        [self updateMenu];
-    }
+    [self updateMenuAndLogWindow];
 }
 
 - (void)connectionStateDidChange:(id)connection
@@ -425,7 +493,7 @@ BOOL runningOnTigerOrNewer()
 	}	
 }
 
--(NSArray *)getConfigs {
+-(NSMutableArray *)getConfigs {
     int i = 0;  	
     NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
     NSString *file;
@@ -437,31 +505,6 @@ BOOL runningOnTigerOrNewer()
 			//if(NSDebugEnabled) NSLog(@"Object: %@ atIndex: %d\n",file,i);
 			i++;
         }
-    }
-    return array;
-}
-
-// Returns an array of modification date strings
-// Each entry in the array is the modification date of the file in the corresponding entry in fileArray
--(NSArray *)getModDates:(NSArray *)fileArray {
-    int i;
-    NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
-    NSString *file;
-    NSString *cfgDirSlash = [NSHomeDirectory() stringByAppendingString: @"/Library/openvpn/"];
-    NSString *filePath;
-    NSDate *modDate;
-    NSString *modDateS;
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    for (i=0; i<[fileArray count]; i++) {
-		file = [fileArray objectAtIndex:i];
-        filePath = [cfgDirSlash stringByAppendingString:file];
-        modDate = [[fileManager fileAttributesAtPath:filePath traverseLink:YES] fileModificationDate];
-        if (modDate == nil) {
-            modDateS = @"";
-        } else if (   (modDateS = [modDate description]) == nil  )  {
-            modDateS = @"";
-        }
-        [array insertObject:modDateS atIndex:i];
     }
     return array;
 }
@@ -734,6 +777,7 @@ BOOL runningOnTigerOrNewer()
 
     [logWindow makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
+    logWindowIsOpen = TRUE;
 }
 
 // Invoked when the Details... window (logWindow) will close
@@ -769,6 +813,7 @@ BOOL runningOnTigerOrNewer()
                                                       forKey: @"detailsWindowFrameVersion"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
+        logWindowIsOpen = FALSE;
     }
 }
 
@@ -817,15 +862,15 @@ BOOL runningOnTigerOrNewer()
     [myConfigArray release];
     [myVPNConnectionArray release];
     [myVPNConnectionDictionary release];
+    [myVPNMenu release];
     [quitItem release];
     [showDurationsTimer release];
     [statusMenuItem release];
-    [myVPNMenu release];
     [theAnim release];
-    [theItem release];
+    [theItem release]; 
     [updater release];
     [userDefaults release];
-    
+
     [super dealloc];
 }
 
