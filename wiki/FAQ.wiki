@@ -4,6 +4,13 @@
 =Where is the documentation?=
 The newest disk images (version 3.0b12 and later) include release notes and an HTML document, "Using Tunnelblick", which provide extensive documentation on using Tunnelblick. This document and others are also available on the Tunnelblick Discussion Group, http://groups.google.com/group/tunnelblick-discuss, in the "Pages" section.
 
+=Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Intel? PowerPC?=
+Tunnelblick works on Snow Leopard's 32-bit kernel (which is the default boot kernel except for Snow Leopard Server). Because it contains 32-bit kernel extensions, it does not work with Snow Leopard's 64-bit kernel. At this time there is estimate as to when a 64-bit version of Tunnelblick will be available.
+
+Tunnelblick works on Leopard (OS X 10.5) and Tiger (OS X 10.4).
+
+Tunnelblick is a Universal 32-bit application, so it works on both Intel and PowerPC Macs.
+
 =How do I install Tunnelblick?=
 Download the latest disk image from the featured downloads section on the project page. Mount it and drag the Tunnelblick.app icon to the shortcut to the Applications folder, or any other location on your local hard disk.
 
