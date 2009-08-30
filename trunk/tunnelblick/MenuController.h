@@ -86,7 +86,6 @@ BOOL needsRepair(void);
 -(void)             killAllConnections;
 -(void)             kqueue:                         (UKKQueue*) kq      receivedNotification: (NSString*) nm        forFile: (NSString*) fpath;
 -(void)             loadMenuIconSet;
--(void)             moveAllWindowsToForeground;
 -(IBAction)         nameserverPrefButtonWasClicked: (id) sender;
 -(IBAction)         openLogWindow:                  (id) sender;
 -(IBAction)         quit:                           (id) sender;
