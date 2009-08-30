@@ -464,18 +464,18 @@ BOOL runningOnTigerOrNewer()
         }
     }
     
-    // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
-    BOOL logWindowWasOpen = logWindowIsOpen;
-    if (  logWindowIsOpen  ) {
-        NSNotification * notif = [NSNotification notificationWithName:@"com.openvpn.tunnelblick.closingLogWindow" object:logWindow];
-        [self windowWillClose:notif];
-        [logWindow release];
-        logWindow = nil;
+    if (  needToUpdateLogWindow  ) {
+        // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
+        BOOL logWindowWasOpen = logWindowIsOpen;
+        if (  logWindowIsOpen  ) {
+            [logWindow close];
+            [logWindow release];
+            logWindow = nil;
+        }
+        if (  logWindowWasOpen  ) {
+            [self openLogWindow:self];
+        }
     }
-    if (  logWindowWasOpen  ) {
-        [self openLogWindow:self];
-    }
-
 }
 
 - (void)activateStatusMenu

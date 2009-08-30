@@ -1,6 +1,6 @@
 /*
  *  Created by Angelo Laub on 7/5/06
- *  Copyright (c) 2004 Angelo Laub
+ *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
