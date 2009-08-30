@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2005 Angelo Laub
+ *  Copyright (c) 2005, 2006, 2007, 2008, 2009 Angelo Laub
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -46,7 +46,7 @@ NSString *escaped(NSString *string) {
     NSString *question = NSLocalizedString(@"Please enter VPN passphrase.", nil);
     [dict setObject:NSLocalizedString(@"Passphrase", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [dict setObject:NSLocalizedString(@"Add Passphrase To Apple Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    [dict setObject:NSLocalizedString(@"Save in Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
     [dict setObject:@"" forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
     [dict setObject:NSLocalizedString(@"OK", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
@@ -68,6 +68,7 @@ NSString *escaped(NSString *string) {
     
     if((response & CFUserNotificationCheckBoxChecked(0)))
     {
+        [self loadKeyChainManager];
         if([keyChainManager setPassword:passwd] != 0)
         {
             fprintf(stderr,"Storing in Keychain was unsuccessful\n");
@@ -88,7 +89,7 @@ NSString *escaped(NSString *string) {
     NSString *question = NSLocalizedString(@"Please enter VPN username/password combination.", nil);
     [dict setObject:NSLocalizedString(@"Username and password", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [dict setObject:NSLocalizedString(@"Add username and password To Apple Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    [dict setObject:NSLocalizedString(@"Save in Keychain", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
     [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", nil),NSLocalizedString(@"Password:", nil),nil] forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
     [dict setObject:NSLocalizedString(@"OK", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
@@ -96,9 +97,9 @@ NSString *escaped(NSString *string) {
 	NSString *usernameKey = [NSString stringWithFormat:@"%@-authUsername",[self configName]];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:isSetKey]) { // see if we have set a username and keychain item earlier
 		usernameLocal =[[NSUserDefaults standardUserDefaults] objectForKey:usernameKey];
-		KeyChain *myChainManager = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:usernameLocal] autorelease];
+        [self loadKeyChainManager];
 		[keyChainManager setAccountName:usernameLocal];
-        passwd = [myChainManager password];
+        passwd = [keyChainManager password];
         if(!passwd) {  // password was deleted in keychain so get it anew
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:isSetKey];
             SInt32 error;
@@ -160,8 +161,8 @@ NSString *escaped(NSString *string) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:isSetKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            KeyChain *keyChainManagerLocal = [[[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:usernameLocal] autorelease];
-            if([keyChainManagerLocal setPassword:passwd] != 0)
+            [self loadKeyChainManager];
+            if([keyChainManager setPassword:passwd] != 0)
             {
                 fprintf(stderr,"Storing in Keychain was unsuccessful\n");
             }
@@ -246,9 +247,9 @@ NSString *escaped(NSString *string) {
 }
 -(void)performPrivateKeyAuthentication {
 	if (NSDebugEnabled) NSLog(@"Server wants private key passphrase.");
-	id keyChainManagerLocal = [[[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]] autorelease];
+	[self loadKeyChainManager];
 	
-	NSString *passphraseLocal = [keyChainManagerLocal password];
+	NSString *passphraseLocal = [keyChainManager password];
 	if (passphraseLocal == nil) {
 		if (NSDebugEnabled) NSLog(@"Passphrase not set, setting...\n");
 		do {
@@ -274,41 +275,38 @@ NSString *escaped(NSString *string) {
     if (authMode != value) {
         [authMode release];
         authMode = [value copy];
-		if([authMode isEqualToString:@"privateKey"]) {
-			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
-		} else {
-			keyChainManager = [[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username];
-		}
+        [keyChainManager release];
+        keyChainManager = nil;
+        [self loadKeyChainManager];
     }
 }
 
 -(void)deletePassphraseFromKeychain 
 {
-	if (keyChainManager == nil) {
-		if([authMode isEqualToString:@"privateKey"]) {
-			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
-		} else {
-			keyChainManager = [[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username];
-		}
-	}
+	[self loadKeyChainManager];
 
 	[keyChainManager deletePassword];
 }
 
 -(BOOL) keychainHasPassphrase
 {
+	[self loadKeyChainManager];
+
+	if ([keyChainManager password] == nil) {
+		return NO;
+	} else {
+		return YES;
+	}
+}
+
+-(void) loadKeyChainManager
+{
 	if (keyChainManager == nil) {
 		if([authMode isEqualToString:@"privateKey"]) {
 			keyChainManager = [[KeyChain alloc] initWithService:@"OpenVPN" withAccountName:[@"OpenVPN-" stringByAppendingString:[self configName]]];
 		} else {
 			keyChainManager = [[KeyChain alloc] initWithService:[@"OpenVPN-Auth-" stringByAppendingString:[self configName]] withAccountName:username];
 		}
-	}
-
-	if ([keyChainManager password] == nil) {
-		return NO;
-	} else {
-		return YES;
 	}
 }
 @end
