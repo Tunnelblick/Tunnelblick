@@ -31,7 +31,7 @@
 "Please enter VPN username/password combination." = "Bitte geben Sie Ihre VPN Benutzername/Passwort Kombination ein.";
 "Please insert token" = "Bitte Token einfügen";
 "Quit"   = "Beenden";
-"RECONNECTING" = "Stelle Verbindung erneut her…"
+"RECONNECTING" = "Stelle Verbindung erneut her…";
 "SLEEP"  = "Auf Dämon-Prozess warten"; // translate "Waiting for Demon Process"!
 "Save in Keychain" = "Im Schlüsselbund sichern";
 "Set nameserver" = "Nameserver festlegen";
