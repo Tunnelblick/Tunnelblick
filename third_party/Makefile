@@ -3,7 +3,7 @@
 
 # Both lzo and openvpn should be built universally
 
-LZO_DIR=lzo-2.02
+LZO_DIR=lzo-2.03
 PKCS11_DIR=pkcs11-helper-1.07
 
 all: tuntap lzo openvpn
