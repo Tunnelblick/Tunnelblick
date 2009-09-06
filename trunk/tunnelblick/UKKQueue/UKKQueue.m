@@ -6,9 +6,12 @@
     
 	AUTHORS:	M. Uli Kusterer - UK
     
-    LICENSES:   GPL, Modified BSD
+    LICENSES:   MIT License
 
 	REVISIONS:
+		2006-03-13	UK	Clarified license, streamlined UKFileWatcher stuff,
+						Changed notifications to be useful and turned off by
+						default some deprecated stuff.
         2004-12-28  UK  Several threading fixes.
 		2003-12-21	UK	Created.
    ========================================================================== */
@@ -46,6 +49,14 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 
 @implementation UKKQueue
 
+// Deprecated:
+#if UKKQUEUE_OLD_SINGLETON_ACCESSOR_NAME
++(UKKQueue*) sharedQueue
+{
+	return [self sharedFileWatcher];
+}
+#endif
+
 // -----------------------------------------------------------------------------
 //  sharedQueue:
 //		Returns a singleton queue object. In many apps (especially those that
@@ -56,10 +67,11 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 //      independently.
 //
 //	REVISIONS:
+//		2006-03-13	UK	Renamed from sharedQueue.
 //      2005-07-02  UK  Created.
 // -----------------------------------------------------------------------------
 
-+(UKKQueue*) sharedQueue
++(id) sharedFileWatcher
 {
     AT_SYNCHRONIZED( self )
     {
@@ -192,10 +204,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 
 -(void) addPathToQueue: (NSString*)path
 {
-	[self addPathToQueue: path notifyingAbout: UKKQueueNotifyAboutRename
-												| UKKQueueNotifyAboutWrite
-												| UKKQueueNotifyAboutDelete
-												| UKKQueueNotifyAboutAttributeChange];
+	[self addPath: path];
 }
 
 
@@ -349,20 +358,22 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 						//NSLog(@"UKKQueue: Detected file change: %@", fpath);
 						[[NSWorkspace sharedWorkspace] noteFileSystemChanged: fpath];
 						
+						//NSLog(@"ev.flags = %u",ev.fflags);	// DEBUG ONLY!
+						
 						if( (ev.fflags & NOTE_RENAME) == NOTE_RENAME )
-							[self postNotification: UKKQueueFileRenamedNotification forFile: fpath];
+							[self postNotification: UKFileWatcherRenameNotification forFile: fpath];
 						if( (ev.fflags & NOTE_WRITE) == NOTE_WRITE )
-							[self postNotification: UKKQueueFileWrittenToNotification forFile: fpath];
+							[self postNotification: UKFileWatcherWriteNotification forFile: fpath];
 						if( (ev.fflags & NOTE_DELETE) == NOTE_DELETE )
-							[self postNotification: UKKQueueFileDeletedNotification forFile: fpath];
+							[self postNotification: UKFileWatcherDeleteNotification forFile: fpath];
 						if( (ev.fflags & NOTE_ATTRIB) == NOTE_ATTRIB )
-							[self postNotification: UKKQueueFileAttributesChangedNotification forFile: fpath];
+							[self postNotification: UKFileWatcherAttributeChangeNotification forFile: fpath];
 						if( (ev.fflags & NOTE_EXTEND) == NOTE_EXTEND )
-							[self postNotification: UKKQueueFileSizeIncreasedNotification forFile: fpath];
+							[self postNotification: UKFileWatcherSizeIncreaseNotification forFile: fpath];
 						if( (ev.fflags & NOTE_LINK) == NOTE_LINK )
-							[self postNotification: UKKQueueFileLinkCountChangedNotification forFile: fpath];
+							[self postNotification: UKFileWatcherLinkCountChangeNotification forFile: fpath];
 						if( (ev.fflags & NOTE_REVOKE) == NOTE_REVOKE )
-							[self postNotification: UKKQueueFileAccessRevocationNotification forFile: fpath];
+							[self postNotification: UKFileWatcherAccessRevocationNotification forFile: fpath];
 					}
 				}
 			}
@@ -410,8 +421,14 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
     }
 	
 	if( !delegateProxy || alwaysNotify )
+	{
+		#if UKKQUEUE_SEND_STUPID_NOTIFICATIONS
 		[[[NSWorkspace sharedWorkspace] notificationCenter] postNotificationName: nm object: fp];
-	//NSLog(@"Notification: %@ (%@)", nm, fp);
+		#else
+		[[[NSWorkspace sharedWorkspace] notificationCenter] postNotificationName: nm object: self
+																userInfo: [NSDictionary dictionaryWithObjectsAndKeys: fp, @"path", nil]];
+		#endif
+	}
 }
 
 -(id)	delegate
