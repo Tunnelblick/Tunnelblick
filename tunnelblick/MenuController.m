@@ -210,7 +210,7 @@ BOOL runningOnTigerOrNewer()
 		NSString* vpnDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"];
 		
         if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
-            UKKQueue* myQueue = [UKKQueue sharedQueue];
+            UKKQueue* myQueue = [UKKQueue sharedFileWatcher];
             [myQueue addPathToQueue: vpnDirectory];
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
@@ -1078,7 +1078,7 @@ static void signal_handler(int signalNumber)
 	if(NSDebugEnabled) NSLog(@"FileSystem has changed.");
 	[self performSelectorOnMainThread: @selector(activateStatusMenu) withObject: nil waitUntilDone: YES];
 }
--(void) kqueue: (UKKQueue*) kq receivedNotification: (NSString*) nm forFile: (NSString*) fpath {
+-(void) watcher: (UKKQueue*) kq receivedNotification: (NSString*) nm forPath: (NSString*) fpath {
 	
 	[self fileSystemHasChanged: nil];
 }

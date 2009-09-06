@@ -84,7 +84,7 @@ BOOL needsRepair(void);
 -(BOOL)             getCurrentAutoLaunchSetting;
 -(void)             initialiseAnim;
 -(void)             killAllConnections;
--(void)             kqueue:                         (UKKQueue*) kq      receivedNotification: (NSString*) nm        forFile: (NSString*) fpath;
+-(void)             watcher:                         (UKKQueue*) kq      receivedNotification: (NSString*) nm        forPath: (NSString*) fpath;
 -(void)             loadMenuIconSet;
 -(IBAction)         nameserverPrefButtonWasClicked: (id) sender;
 -(IBAction)         openLogWindow:                  (id) sender;

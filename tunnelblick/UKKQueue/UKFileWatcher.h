@@ -6,9 +6,10 @@
     
 	AUTHORS:	M. Uli Kusterer - UK
     
-    LICENSES:   GPL, Modified BSD
+    LICENSES:   MIT License
 
 	REVISIONS:
+		2006-03-13	UK	Moved notification constants to .m file.
 		2005-02-25	UK	Created.
    ========================================================================== */
 
@@ -25,6 +26,8 @@
 // -----------------------------------------------------------------------------
 
 @protocol UKFileWatcher
+
+// +(id) sharedFileWatcher;			// Singleton accessor. Not officially part of the protocol, but use this name if you provide a singleton.
 
 -(void) addPath: (NSString*)path;
 -(void) removePath: (NSString*)path;
@@ -46,12 +49,14 @@
 
 
 // Notifications this sends:
-//  (object is the file path registered with, and these are sent via the workspace notification center)
-#define UKFileWatcherRenameNotification				@"UKKQueueFileRenamedNotification"
-#define UKFileWatcherWriteNotification              @"UKKQueueFileWrittenToNotification"
-#define UKFileWatcherDeleteNotification				@"UKKQueueFileDeletedNotification"
-#define UKFileWatcherAttributeChangeNotification    @"UKKQueueFileAttributesChangedNotification"
-#define UKFileWatcherSizeIncreaseNotification		@"UKKQueueFileSizeIncreasedNotification"
-#define UKFileWatcherLinkCountChangeNotification	@"UKKQueueFileLinkCountChangedNotification"
-#define UKFileWatcherAccessRevocationNotification	@"UKKQueueFileAccessRevocationNotification"
+/*  object			= the file watcher object
+	userInfo.path	= file path watched
+	These notifications are sent via the NSWorkspace notification center */
+extern NSString* UKFileWatcherRenameNotification;
+extern NSString* UKFileWatcherWriteNotification;
+extern NSString* UKFileWatcherDeleteNotification;
+extern NSString* UKFileWatcherAttributeChangeNotification;
+extern NSString* UKFileWatcherSizeIncreaseNotification;
+extern NSString* UKFileWatcherLinkCountChangeNotification;
+extern NSString* UKFileWatcherAccessRevocationNotification;
 
