@@ -119,7 +119,10 @@
 	NSString *useDNS = @"0";
 	if(useDNSStatus(self)) {
 		useDNS = @"1";
-	}
+        usedSetNameserver = TRUE;
+	} else {
+        usedSetNameserver = FALSE;
+    }
     
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     
@@ -176,6 +179,10 @@
         [connectedSinceDate release];
         connectedSinceDate = [value copy];
     }
+}
+
+- (BOOL) usedSetNameserver {
+    return usedSetNameserver;
 }
 
 

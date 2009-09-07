@@ -32,6 +32,7 @@
 	AuthAgent     * myAuthAgent;
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
+    BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
 }
 
 // Used exernally (outside of VPNConnection):
@@ -51,6 +52,7 @@
 -(void)             setState:                   (NSString *)    newState;
 -(NSString*)        state;
 -(IBAction)         toggle:                     (id)            sender;
+-(BOOL)             usedSetNameserver;
 
 // Used internally (only by VPNConnection):
 -(void)             addToLog:                   (NSString *)    text           atDate:         (NSCalendarDate *) date;

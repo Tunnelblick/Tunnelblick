@@ -54,7 +54,6 @@ BOOL needsRepair(void);
     NSString                * lastState;
     BOOL                      logWindowIsOpen;
     NSMutableArray          * myConfigArray;
-	NSMutableArray          * myVPNConnectionArray;
     NSMutableDictionary     * myVPNConnectionDictionary;
     IBOutlet id               myVPNMenu;
 	int                       numberOfConfigs;
