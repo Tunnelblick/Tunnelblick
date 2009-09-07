@@ -157,7 +157,6 @@ BOOL runningOnTigerOrNewer()
         } 
                 
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
-        myVPNConnectionArray = [[[NSMutableArray alloc] init] retain];
         connectionArray = [[[NSMutableArray alloc] init] retain];
  
         userDefaults = [[NSMutableDictionary alloc] init];
@@ -677,11 +676,55 @@ BOOL runningOnTigerOrNewer()
 }
 
 
-
-
 - (IBAction)connect:(id)sender
 {
-	[[self selectedConnection] connect: sender]; 
+    if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
+        // Count the total number of connections and what their "Set nameserver" status was at the time of connection
+        int numConnections = 1;
+        int numConnectionsWithSetNameserver = 0;
+        if (  useDNSStatus([self selectedConnection])  ) {
+            numConnectionsWithSetNameserver = 1;
+        }
+        VPNConnection * connection;
+        NSEnumerator* e = [myVPNConnectionDictionary objectEnumerator];
+        while (connection = [e nextObject]) {
+            if (  ! [[connection state] isEqualToString:@"EXITING"]  ) {
+                numConnections++;
+                if (  [connection usedSetNameserver]  ) {
+                    numConnectionsWithSetNameserver++;
+                }
+            }
+        }
+    
+        if (  numConnections != 1  ) {
+            // Dictionary for the panel -- can't use NSPanel because the Tiger version of NSPanel doesn't support "Don't show this message again" checkbox
+            NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+            NSString *question = [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", nil), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ];
+            [dict setObject:NSLocalizedString(@"Do you wish to connect?", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+            [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
+            [dict setObject:NSLocalizedString(@"Do not warn about this again", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+            [dict setObject:NSLocalizedString(@"Connect", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+            [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
+            SInt32 error;
+            CFUserNotificationRef notification = CFUserNotificationCreate(NULL, 30, CFUserNotificationSecureTextField(0), &error, (CFDictionaryRef)dict);
+            CFOptionFlags response;
+            // If we couldn't receive a response, don't connect
+            if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
+                return;
+            }
+            // If user clicked Cancel, don't connect
+            if((response & 0x3) != kCFUserNotificationDefaultResponse) {
+                return;
+            }
+            // If user checked the "Do not warn... again" checbox, set a preference
+            if((response & CFUserNotificationCheckBoxChecked(0))) {
+                [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"skipWarningAboutSimultaneousConnections"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+    }
+    
+    [[self selectedConnection] connect: sender]; 
 }
 
 - (IBAction)disconnect:(id)sender
@@ -849,7 +892,6 @@ BOOL runningOnTigerOrNewer()
     [detailsItem release];
     [lastState release];
     [myConfigArray release];
-    [myVPNConnectionArray release];
     [myVPNConnectionDictionary release];
     [myVPNMenu release];
     [quitItem release];
