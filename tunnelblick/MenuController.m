@@ -1135,12 +1135,19 @@ static void signal_handler(int signalNumber)
 	if(authRef == nil)
 		return FALSE;
 	
-	while(needsRepair()) {
+    int i = 5;
+	while(  needsRepair()  && (i-- > 0)  ) {
 		NSLog(@"Repairing Application...\n");
 		[NSApplication executeAuthorized:installer withArguments:nil withAuthorizationRef:authRef];
 		sleep(1);
 	}
 	AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+
+    if ( needsRepair()  ) {
+        NSLog(@"Unable to repair ownership and/or permissions or set uid bit in five attempts");
+        return FALSE;
+    }
+    
 	return TRUE;
 }
 
@@ -1150,16 +1157,14 @@ static void signal_handler(int signalNumber)
 BOOL needsRepair() 
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
-	NSString *openvpnstartPath = [thisBundle pathForResource:@"openvpnstart" ofType:nil];
-	NSString *tunPath = [thisBundle pathForResource:@"tun.kext" ofType:nil];
-	NSString *tapPath = [thisBundle pathForResource:@"tap.kext" ofType:nil];
 	
-	NSString *tunExecutable = [tunPath stringByAppendingPathComponent:@"/Contents/MacOS/tun"];
-	NSString *tapExecutable = [tapPath stringByAppendingPathComponent:@"/Contents/MacOS/tap"];
-	NSString *openvpnPath = [thisBundle pathForResource:@"openvpn" ofType:nil];
+	NSString *openvpnstartPath = [thisBundle pathForResource:@"openvpnstart"       ofType:nil];
+	NSString *openvpnPath      = [thisBundle pathForResource:@"openvpn"            ofType:nil];
+	NSString *leasewatchPath   = [thisBundle pathForResource:@"leasewatch"         ofType:nil];
+	NSString *clientUpPath     = [thisBundle pathForResource:@"client.up.osx.sh"   ofType:nil];
+	NSString *clientDownPath   = [thisBundle pathForResource:@"client.down.osx.sh" ofType:nil];
 	
-	
-	// check setuid openvpnstart
+	// check openvpnstart owned by root, set uid, owner may execute
 	const char *path = [openvpnstartPath UTF8String];
     struct stat sb;
 	if(stat(path,&sb)) runUnrecoverableErrorPanel();
@@ -1168,12 +1173,12 @@ BOOL needsRepair()
 					  && (sb.st_mode & S_IXUSR) // owner may execute it
 					  && (sb.st_uid == 0) // is owned by root
 					  )) {
-		NSLog(@"openvpnstart has missing set uid bit");
+		NSLog(@"openvpnstart has missing set uid bit, is not owned by root, or owner can't execute it");
 		return YES;		
 	}
 	
-	// check files which should be only accessible by root
-	NSArray *inaccessibleObjects = [NSArray arrayWithObjects:tunExecutable,tapExecutable,openvpnPath,nil];
+	// check files which should be only writable by root
+	NSArray *inaccessibleObjects = [NSArray arrayWithObjects:openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil];
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -1189,19 +1194,6 @@ BOOL needsRepair()
 		}
 	}
 	
-	// check tun and tap driver packages
-	NSArray *filesToCheck = [NSArray arrayWithObjects:tunPath,tapPath,nil];
-	NSEnumerator *enumerator = [filesToCheck objectEnumerator];
-	NSString *file;
-	while(file = [enumerator nextObject]) {
-		NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:file traverseLink:YES];
-		unsigned long perms = [fileAttributes filePosixPermissions];
-		NSString *octalString = [NSString stringWithFormat:@"%o",perms];
-		if ( (![octalString isEqualToString:@"755"])  ) {
-			NSLog(@"File %@ has permissions: %@ and needs repair...\n",file,octalString);
-			return YES;
-		}
-	}
 	return NO;
 }
 
