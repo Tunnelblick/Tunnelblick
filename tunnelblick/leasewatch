@@ -27,10 +27,23 @@ if (( M=${PROCESS:-0} )) ; then
 		quit
 	EOF)"
 
+	# What's the correct WINS info?
+        WINS_GOOD="$(/usr/sbin/scutil <<-EOF
+		open
+		show State:/Network/OpenVPN/SMB
+		quit
+        EOF)"
+	# What's the current WINS info?
+	WINS_NOW="$(/usr/sbin/scutil <<-EOF
+		open
+		show State:/Network/Global/SMB
+		quit
+	EOF)"
+
 	# Do they match?  If not, then fix that by firing off a restart signal to the VPN... alternatively,
 	# we could re-set this ourselves manually but the USR1 signal gives us the ability to restart the
 	# VPN in case of a line crash or circuit change or something like that.
-	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] ; then
+	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] || [ "${WINS_GOOD}" != "${WINS_NOW}" ] ; then
 		# This will help us figure out if OpenVPN is active or not.  If not (i.e. PROCESS
 		# is either not a number or is empty) then we do nothing.  Else, we instruct the VPN
 		# to reconfigure itself

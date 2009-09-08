@@ -20,6 +20,7 @@ scutil <<- EOF
 	open
 	get State:/Network/OpenVPN/OldDNS
 	set State:/Network/Service/${PSID}/DNS
+	remove State:/Network/Service/${PSID}/SMB
 	remove State:/Network/OpenVPN/OldDNS
 	remove State:/Network/OpenVPN/DNS
 	remove State:/Network/OpenVPN
