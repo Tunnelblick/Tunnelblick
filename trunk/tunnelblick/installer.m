@@ -21,16 +21,14 @@
 int main(int argc, char *argv[]) 
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+
 	NSString *thisBundle = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
 	
-	NSString *tunPath = [thisBundle stringByAppendingPathComponent:@"/tun.kext"];
-	NSString *tapPath = [thisBundle stringByAppendingPathComponent:@"/tap.kext"];
-
-	NSString *tunExecutable = [tunPath stringByAppendingPathComponent:@"/Contents/MacOS/tun"];
-	NSString *tapExecutable = [tapPath stringByAppendingPathComponent:@"/Contents/MacOS/tap"];
-
 	NSString *openvpnstartPath = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
-	NSString *openvpnPath = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
+	NSString *openvpnPath      = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
+	NSString *leasewatchPath   = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
+	NSString *clientUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
+	NSString *clientDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
 	
 	runTask(
 			@"/usr/sbin/chown",
@@ -39,19 +37,14 @@ int main(int argc, char *argv[])
 
 	runTask(
 			@"/bin/chmod",
-			[NSArray arrayWithObjects:@"-R", @"755",tunPath,tapPath,nil]
-			);
-	
-	runTask(
-			@"/bin/chmod",
-			[NSArray arrayWithObjects:@"744", tunExecutable, tapExecutable, openvpnstartPath, openvpnPath, nil]
-			);
-    
-	runTask(
-			@"/bin/chmod",
 			[NSArray arrayWithObjects:@"4111",openvpnstartPath,nil]
 			);
 	
+	runTask(
+			@"/bin/chmod",
+			[NSArray arrayWithObjects:@"744", openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil]
+			);
+    
     [pool release];
 	return 0;
 }
@@ -65,7 +58,7 @@ void runTask(NSString *launchPath,NSArray *arguments)
 	NS_DURING {
 		[task launch];
 	} NS_HANDLER {
-		NSLog(@"Exception raised while executing openvpnstart %@: %@",launchPath, localException);
+		NSLog(@"Exception raised while executing installer %@: %@(%@)",launchPath, arguments, localException);
 		exit(EXIT_FAILURE);
 	}
     NS_ENDHANDLER
