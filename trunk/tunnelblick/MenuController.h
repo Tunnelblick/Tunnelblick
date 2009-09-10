@@ -85,6 +85,7 @@ BOOL needsRepair(void);
 -(void)             killAllConnections;
 -(void)             watcher:                         (UKKQueue*) kq      receivedNotification: (NSString*) nm        forPath: (NSString*) fpath;
 -(void)             loadMenuIconSet;
+-(void)             moveSoftwareUpdateWindowToForeground;
 -(IBAction)         nameserverPrefButtonWasClicked: (id) sender;
 -(IBAction)         openLogWindow:                  (id) sender;
 -(IBAction)         quit:                           (id) sender;
