@@ -215,17 +215,28 @@ BOOL runningOnTigerOrNewer()
             [myQueue setAlwaysNotify: YES];
 		}
         
-		updater = [[SUUpdater alloc] init];
+		[NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
+		
+        updater = [[SUUpdater alloc] init];
 
 	}
     return self;
 }
 
+-(void)moveSoftwareUpdateWindowToForegroundThread
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    sleep(3);
+    [self moveSoftwareUpdateWindowToForeground];
+    //	[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(moveSoftwareUpdateWindowToForeground) userInfo: nil repeats: YES];
+    [pool release];
+}
+
+
 - (void) menuExtrasWereAdded: (NSNotification*) n
 {
 	[self createStatusItem];
 }
-
 
 
 - (IBAction) quit: (id) sender
@@ -1113,6 +1124,18 @@ static void signal_handler(int signalNumber)
 		[NSApp runModalForWindow:panel];
 		exit(2);
 	}
+}
+
+-(void)moveSoftwareUpdateWindowToForeground
+{
+    NSArray *windows = [NSApp windows];
+    NSEnumerator *e = [windows objectEnumerator];
+    NSWindow *window = nil;
+    while(window = [e nextObject]) {
+    	if (  [[window title] isEqualToString:@"Software Update"]  ) {
+            [window setLevel:NSStatusWindowLevel];
+        }
+    }
 }
 
 -(void) fileSystemHasChanged: (NSNotification*) n
