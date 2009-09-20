@@ -448,6 +448,7 @@ BOOL runningOnTigerOrNewer()
                 [alert setMessageText:[NSString stringWithFormat:msg1, [myConnection configName]]];
                 [alert setInformativeText:[NSString stringWithFormat:msg2, [myConnection configName]]];
                 [alert runModal];
+                [alert release];
             }
 
             [[myVPNConnectionDictionary objectForKey:configString] release];
