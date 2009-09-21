@@ -27,6 +27,8 @@
 #import "NSApplication+LoginItem.h"
 #import "helper.h"
 #import "MenuController.h"
+#include <sys/param.h>
+#include <sys/mount.h>
 
 @implementation VPNConnection
 
@@ -92,20 +94,13 @@
 
 - (IBAction) connect: (id) sender
 {
-	NSString *cfgPath = [NSString stringWithFormat:@"%@/Library/openvpn/%@",NSHomeDirectory(),[self configPath]];
-	if ([self configNeedsRepair:cfgPath]) {
-		if([self repairConfigPermissions:cfgPath] != errAuthorizationSuccess) {
-			// user clicked on cancel, so do nothing
-			NSLog(@"Connect: Authorization failed.");
-			return;
-		}
-	}
+	NSString *cfgPath = [NSString stringWithFormat:@"%@/Library/openvpn/%@", NSHomeDirectory(), [self configPath]];
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), [self configPath]];
 
-    if([self configNeedsRepair:cfgPath]) {
-		NSLog(@"Repairing permissions of config file %@ failed. Not starting.",cfgPath);
+    if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
         return;
     }
-    
+
 	NSParameterAssert(managementSocket == nil);
 	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
 													 ofType: nil];
@@ -123,7 +118,12 @@
 	} else {
         usedSetNameserver = FALSE;
     }
-    
+
+    NSString *altCfgLoc = @"0";
+    if ( [cfgPath isEqualToString:altPath] ) {
+        altCfgLoc = @"1";
+    }
+
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     
     NSDictionary * vers = getOpenVPNVersion();
@@ -148,7 +148,7 @@
         skipScrSec = @"0";
     }
     
-    arguments = [NSArray arrayWithObjects:@"start", configPath, portString, useDNS, skipScrSec, nil];
+    arguments = [NSArray arrayWithObjects:@"start", [self configPath], portString, useDNS, skipScrSec, altCfgLoc, nil];
 		
 	[task setArguments:arguments];
 	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
@@ -562,39 +562,279 @@
 	NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
 	
 	if ( (![octalString isEqualToString:@"644"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
-		NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair...\n",configFile,octalString,fileOwner);
+		NSLog(@"Configuration file %@ has permissions: 0%@, is owned by %@ and needs repair...\n",configFile,octalString,fileOwner);
 		return YES;
 	}
 	return NO;
 }
--(OSStatus)repairConfigPermissions:(NSString *)configFile
+
+// Given paths to the regular config in ~/Library/openvpn, and an alternate config in /Library/Tunnelblick/<username>/
+// Returns the path to use, or nil if can't use either one
+-(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {
-	AuthorizationRef authRef = [NSApplication getAuthorizationRef];
+    if (  ! [self configNeedsRepair:cfgPath]  ) {                                                       // If config doesn't need repair
+        if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"]  ) {  // And not using shadow configuration files
+            return cfgPath;                                                                             // Then use it
+        }
+    }
+    
+    // Repair the configuration file or use the alternate
+    AuthorizationRef authRef;
+    if (    ! ( [self onRemoteVolume:cfgPath]
+             || [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"] )    ) {
+        // Config is on non-remote volume and we are not supposed to use a shadow configuration file
+        authRef = [NSApplication getAuthorizationRef];                                  // Try to repair regular config
+        if ( authRef == nil ) {
+            //NSLog(@"Not connecting: Authorization cancelled by user.");
+            AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
+            return nil;
+        }
+        if( ! [self repairConfigPermissions:cfgPath usingAuth:authRef] ) {
+            AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+            return nil;
+        }
+        AuthorizationFree(authRef, kAuthorizationFlagDefaults);                         // Repair worked, so return the regular conf
+        return cfgPath;
+    } else {
+        // Config is on remote volume or we should use a shadow configuration file
+        NSFileManager * fMgr = [NSFileManager defaultManager];                          // See if alt config exists
+        if ( [fMgr fileExistsAtPath:altCfgPath] ) {
+            // Alt config exists
+            if ( [fMgr contentsEqualAtPath:cfgPath andPath:altCfgPath] ) {              // See if files are the same
+                // Alt config exists and is the same as regular config
+                if ( [self configNeedsRepair:altCfgPath] ) {                            // Check ownership/permissions
+                    // Alt config needs repair
+                    authRef = [NSApplication getAuthorizationRef];                      // Repair if necessary
+                    if ( authRef == nil ) {
+                        //NSLog(@"Not connecting: Authorization cancelled by user.");
+                        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                        return nil;
+                    }
+                    if(  ! [self repairConfigPermissions:altCfgPath usingAuth:authRef]  ) {
+                        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                        return nil;                                                     // Couldn't repair alt file
+                    }
+                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                }
+                return altCfgPath;                                                      // Return the alt config
+            } else {
+                // Alt config exists but is different
+                authRef = [NSApplication getAuthorizationRef];                          // Overwrite it with the standard one and set ownership & permissions
+                if ( authRef == nil ) {
+                    //NSLog(@"Not connecting: Authorization cancelled by user.");
+                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
+                    return nil;
+                }
+                if ( [self copyFile:cfgPath toFile:altCfgPath usingAuth:authRef] ) {
+                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                    return altCfgPath;                                                  // And return the alt config
+                } else {
+                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);             // Couldn't overwrite alt file with regular one
+                    return nil;
+                }
+            }
+        } else {
+            // Alt config doesn't exist. We must create it (and maybe the folders that it is in)
+            NSString * libTbUserFolderPath = [altCfgPath          stringByDeletingLastPathComponent];   // Assumes alt config is in /Library/Tunnelblick/<username>/
+            NSString * libTbFolderPath     = [libTbUserFolderPath stringByDeletingLastPathComponent];
+            NSAssert([[libTbFolderPath stringByDeletingLastPathComponent] isEqualToString:@"/Library"], @"altCfgPath is not in /Library/xxx/yyy/");
+
+            if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"]  ) {
+                // Get user's permission to proceed
+                NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", nil);
+                int alertVal = NSRunAlertPanel(NSLocalizedString(@"Create local copy of configuration file?", nil),
+                                               [NSString stringWithFormat:longMsg, cfgPath, libTbUserFolderPath],
+                                               NSLocalizedString(@"Create copy", nil),nil,NSLocalizedString(@"Cancel", nil));
+                if (  alertVal == NSAlertOtherReturn  ) {                                       // Cancel
+                    return nil;
+                }
+            }
+
+            authRef = [NSApplication getAuthorizationRef];                                      // Create folders if they don't exist:
+            if ( authRef == nil ) {
+                //NSLog(@"Not connecting: Authorization cancelled by user.");
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
+                return nil;
+            }
+            if ( ! [self makeSureFolderExistsAtPath:libTbFolderPath usingAuth:authRef] ) {      //        /Library/Tunnelblick
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                return nil;
+            }
+            if ( ! [self makeSureFolderExistsAtPath:libTbUserFolderPath usingAuth:authRef] ) {  //       /Library/Tunnelblick/<username>
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                return nil;
+            }
+            if ( [self copyFile:cfgPath toFile:altCfgPath usingAuth:authRef] ) {                // Copy the config to the alt config
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                return altCfgPath;                                                              // Return the alt config
+            }
+            AuthorizationFree(authRef, kAuthorizationFlagDefaults);                             // Couldn't make alt file
+            return nil;
+        }
+    }
+}
+
+// Returns TRUE if a file is on a remote volume or statfs on it fails, FALSE otherwise
+-(BOOL) onRemoteVolume:(NSString *)cfgPath
+{
+    const char * fileName = [cfgPath UTF8String];
+    struct statfs stats_buf;
+    int status;
+
+    if (  0 == (status = statfs(fileName, &stats_buf))  ) {
+        if (  (stats_buf.f_flags & MNT_LOCAL) == MNT_LOCAL  ) {
+            return FALSE;
+        }
+    } else {
+        NSLog(@"statfs returned error %d; treating %@ as if it were on a remote volume", status, cfgPath);
+    }
+    return TRUE;   // Network volume or error accessing the file's data.
+}
+
+// Copies a config file and sets ownership and permissions
+// Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
+-(BOOL) copyFile:(NSString *)source toFile: (NSString *) target usingAuth: (AuthorizationRef) authRef
+{
+    NSFileManager * fMgr;
+	int i;
+	int maxtries = 5;
+    
+	// Copy the file
+    NSString *helper = @"/bin/cp";
+	NSArray *arguments = [NSArray arrayWithObjects:@"-f", @"-p", source, target, nil];
 	
-	NSString *helper = @"/bin/chmod";
-	NSArray *arguments = [NSArray arrayWithObjects:@"644",configFile,nil];
-	[NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-	
-	helper = @"/usr/sbin/chown";
-	arguments = [NSArray arrayWithObjects:@"root:wheel",configFile,nil];
-	
+	for (i=0; i <= maxtries; i++) {
+        [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+        fMgr = [NSFileManager defaultManager];
+        if ( [fMgr contentsEqualAtPath:source andPath:target] ) {
+            break;
+        }
+        sleep(1);
+    }
+    if ( ! [fMgr contentsEqualAtPath:source andPath:target] ) {
+        NSLog(@"Tunnelblick could not copy the config file %@ to the alternate local location %@ in %d attempts.", source, target, maxtries);
+        NSRunAlertPanel(NSLocalizedString(@"Not connecting", nil),
+                        NSLocalizedString(@"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.", nil),
+                        NSLocalizedString(@"OK", nil), nil, nil);
+        return FALSE;
+    }
+
+    // Make sure the file is unlocked (if not, can't change ownership)
+    NSDictionary * curAttributes;
+    NSDictionary * newAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:NSFileImmutable];
+    
+	for (i=0; i <= maxtries; i++) {
+        curAttributes = [fMgr fileAttributesAtPath:target traverseLink:NO];
+        if (  [curAttributes objectForKey:NSFileImmutable] == nil  ) {
+            break;
+        }
+        [fMgr changeFileAttributes:newAttributes atPath:target];
+        sleep(1);
+    }
+    if (  [curAttributes objectForKey:NSFileImmutable] != nil  ) {
+         NSLog(@"Unlocking alternate configuration file %@ failed in %d attempts", target, maxtries);
+    }
+    
+    // Set the file's ownership and permissions
+    if (  [self configNeedsRepair:target]  ) {
+        if (  ! [self repairConfigPermissions:target usingAuth:authRef]  ) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+// If the specified folder doesn't exist, uses root to create it so it is owned by root:wheel and has permissions 0755.
+// If the folder exists, ownership doesn't matter (as long as we can read/execute it).
+// Returns TRUE if the folder already existed or was created successfully, returns FALSE otherwise, having already output an error message to the console log.
+-(BOOL) makeSureFolderExistsAtPath:(NSString *)folderPath usingAuth: (AuthorizationRef) authRef
+{
+	NSFileManager * fMgr = [NSFileManager defaultManager];
+    BOOL isDir;
+
+    if (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  ) {
+        return TRUE;
+    }
+    
+    NSString *helper = @"/bin/mkdir";
+	NSArray *arguments = [NSArray arrayWithObjects:folderPath, nil];
+    OSStatus status;
+	int i = 0;
+	int maxtries = 5;
+    
+	for (i=0; i <= maxtries; i++) {
+		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+		if (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  ) {
+			break;
+		}
+		sleep(1);
+	}
+
+    if (    ! (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  )    ) {
+        NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration in %d attempts. OSStatus %ld.", folderPath, maxtries, status);
+        NSRunAlertPanel(NSLocalizedString(@"Not connecting", nil),
+                        NSLocalizedString(@"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.", nil),
+                        NSLocalizedString(@"OK", nil), nil, nil);
+        return FALSE;
+    }
+    return TRUE;
+}
+
+// Attempts to set ownership/permissions on a config file to root/0644
+// Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
+-(BOOL)repairConfigPermissions:(NSString *)configFilePath usingAuth:(AuthorizationRef)authRef
+{
 	OSStatus status;
 	int i = 0;
 	int maxtries = 5;
+	NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSDictionary * fileAttributes;
+    unsigned long perms;
+	NSString * octalString;
+    NSNumber * fileOwner;
+	
+	// Try to set permissions
+	NSString * helper = @"/bin/chmod";
+	NSArray * arguments = [NSArray arrayWithObjects:@"644", configFilePath, nil];
 	for (i=0; i <= maxtries; i++) {
 		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-		if(status != errAuthorizationSuccess) goto exit;
+        fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+        perms = [fileAttributes filePosixPermissions];
+        octalString = [NSString stringWithFormat:@"%lo",perms];
+        if (  [octalString isEqualToString:@"644"]  ) {
+            break;
+        }
 		sleep(1);
-		if(![self configNeedsRepair:configFile]) {
-			break;
-		}
 	}
-	
-	
-exit:
-	AuthorizationFree (authRef, kAuthorizationFlagDefaults);	
-	return status;
+    if (  ! [octalString isEqualToString:@"644"]  ) {
+         NSLog(@"Unable to change permissions of configuration file %@ from 0%@ to 0644 in %d attempts; OSStatus = @ld", configFilePath, octalString, maxtries, status);
+    }
+    
+	// Try to set ownership
+    helper = @"/usr/sbin/chown";
+	arguments = [NSArray arrayWithObjects:@"root:wheel", configFilePath, nil];
+
+	for (i=0; i <= maxtries; i++) {
+		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+        fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+        fileOwner = [fileAttributes fileOwnerAccountID];
+        if (  [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
+            break;
+        }
+		sleep(1);
+	}
+    if (  ! [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
+        NSLog(@"Unable to change ownership of configuration file %@ from %@ to 0 in %d attempts. OSStatus = @ld", configFilePath, fileOwner, maxtries, status);
+    }
+    
+    if (  [self configNeedsRepair:configFilePath]  ) {
+        NSRunAlertPanel(NSLocalizedString(@"Not connecting", nil),
+                        NSLocalizedString(@"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.", nil),
+                        NSLocalizedString(@"OK", nil), nil, nil);
+        return NO;
+    }
+    
+    return YES;
 }
 
-
-@end
+    @end

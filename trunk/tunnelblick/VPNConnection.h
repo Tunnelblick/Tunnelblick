@@ -23,7 +23,7 @@
 #import "AuthAgent.h"
 
 @interface VPNConnection : NSObject {
-	NSString      * configPath;         // This contains the filename and extension (not the full path) of the configuration file
+	NSString      * configPath;         // This contains the filename and extension (NOT THE FULL PATH) of the configuration file
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
@@ -55,13 +55,17 @@
 -(BOOL)             usedSetNameserver;
 
 // Used internally (only by VPNConnection):
--(void)             addToLog:                   (NSString *)    text           atDate:         (NSCalendarDate *) date;
+-(void)             addToLog:                   (NSString *)    text            atDate:     (NSCalendarDate *)      date;
 -(BOOL)             configNeedsRepair:          (NSString *)    configFile;
 -(void)             connectToManagementSocket;
+-(BOOL)             copyFile:                   (NSString *)    source          toFile:     (NSString *)            target      usingAuth:  (AuthorizationRef)  authRef;
+-(BOOL)             makeSureFolderExistsAtPath: (NSString *)    folderPath      usingAuth:  (AuthorizationRef)      authRef;
+-(NSString *)       getConfigToUse:             (NSString *)    cfgPath         orAlt:      (NSString *)            altCfgPath;
 -(unsigned int)     getFreePort;
 -(void)             killProcess;
+-(BOOL)             onRemoteVolume:             (NSString *)    cfgPath;
 -(void)             processLine:                (NSString *)    line;
--(OSStatus)         repairConfigPermissions:    (NSString *)    configFile;
+-(BOOL)             repairConfigPermissions:    (NSString *)    configFile      usingAuth:  (AuthorizationRef) authRef;
 -(void)             setConnectedSinceDate:      (NSDate *)      value;
 -(void)             setManagementSocket:        (NetSocket *)   socket;
 
