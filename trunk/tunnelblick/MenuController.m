@@ -811,18 +811,44 @@ BOOL runningOnTigerOrNewer()
                                                               repeats:YES] retain];
     }
 	
-	// Localize Buttons
-	[clearButton setTitle:NSLocalizedString([clearButton title], nil)];
-	[editButton setTitle:NSLocalizedString([editButton title], nil)];
-	[connectButton setTitle:NSLocalizedString([connectButton title], nil)];
-	[disconnectButton setTitle:NSLocalizedString([disconnectButton title], nil)];
-	[useNameserverCheckbox setTitle:NSLocalizedString([useNameserverCheckbox title], nil)];
-	[autoLaunchCheckbox setTitle:NSLocalizedString([autoLaunchCheckbox title], nil)];
+	// Localize buttons and checkboxes
+    [self localizeControl:clearButton            shiftRight:editButton       shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:editButton             shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:connectButton          shiftRight:nil              shiftLeft:disconnectButton  shiftSelfLeft:YES];
+    [self localizeControl:disconnectButton       shiftRight:nil              shiftLeft:nil               shiftSelfLeft:YES];
+    [self localizeControl:useNameserverCheckbox  shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:autoLaunchCheckbox     shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
 
     [logWindow makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
     logWindowIsOpen = TRUE;
 }
+
+// Localizes a control, optionally shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
+- (void)localizeControl:(NSButton*) button shiftRight:(NSButton*) buttonToRight shiftLeft:(NSButton* ) buttonToLeft shiftSelfLeft:(BOOL)shiftSelfLeft
+{
+    NSRect oldRect = [button frame];
+	[button setTitle:NSLocalizedString([button title], nil)];
+    [button sizeToFit];
+    NSRect newRect = [button frame];
+    float widthChange = newRect.size.width - oldRect.size.width;
+    if (shiftSelfLeft) {
+        NSRect oldPos = [button frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [button setFrame:oldPos];
+    }
+    if (buttonToRight) {
+        NSRect oldPos = [buttonToRight frame];
+        oldPos.origin.x = oldPos.origin.x + widthChange;
+        [buttonToRight setFrame:oldPos];
+    }
+    if (buttonToLeft) {
+        NSRect oldPos = [buttonToLeft frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [buttonToLeft setFrame:oldPos];
+    }
+}
+
 
 // Invoked when the Details... window (logWindow) will close
 - (void)windowWillClose:(NSNotification *)n
