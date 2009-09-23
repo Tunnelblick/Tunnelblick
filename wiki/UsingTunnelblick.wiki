@@ -216,7 +216,7 @@ True if the username associated with the configuration has been set.
 ==COMMAND-LINE INTERFACE==
 Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources.
 
-*openvpnstart   start   conf‑path   port   [ use‑scripts   [ skip‑script‑security [ use-alt-config ]   ]   ]*
+*openvpnstart   start   conf‑path   port  ` [` use‑scripts  ` [` skip‑script‑security `[` use-alt-config `]`   `]`   `]`*
      Creates an OpenVPN connection.
       	* *conf‑path* is the path to the .ovpn or .conf file which describes the connection.
       	* *port* is the port to use when creating the connection.
