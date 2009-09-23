@@ -5,10 +5,13 @@
 "AUTH"   = "Autorisieren…";
 "About..." = "Über…";
 "Always allow %@ to connect" = "Erlaube %@ immer zu verbinden";
+"Auto connect" = "Automatisch verbinden";
 "Automatically connect on launch" = "Automatisch beim Programmstart verbinden";
 "CONNECTED"  = "Verbunden";
 "Cancel" = "Abbrechen";
+"Check for updates..." = "Nach Updates suchen…";
 "Clear log" = "Log löschen";
+"Configurations" = "Einstellungen";
 "Connect even though configuration file is not secure?" = "Verbinden, obwohl die Konfigurationsdatei nicht sicher ist?";
 "Connect once" = "Einmal verbinden";
 "Connect"= "Verbinden";
@@ -16,11 +19,14 @@
 "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub und andere. Alle Rechte vorbehalten.";
 "Details..." = "Details...";
 "Disconnect" = "Trennen";
+"Do not warn about this again" = "Nicht erneut hinweisen";
+"Do you wish to connect?" = "Möchten Sie eine Verbindung herstellen?";
 "Download" = "Download";
 "EXITING"= "Getrennt"; // translate "Disconnected"!
 "Edit configuration" = "Konfiguration bearbeiten";
 "GET_CONFIG" = "Lade Konfiguration…";
 "It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy." = "Es scheint, als ob Sie Tunnelblick erneut installieren müssen. Bitte verschieben Sie Tunnelblick in den Papierkorb und laden Sie eine neue Version herunter.";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Mehrere Verbindungen würden gleichzeitig hergestellt (%d mit 'Nameserver festlegen', %d ohne 'Nameserver festlegen').";
 "OK" = "OK";
 "openvpnstart returned error #%d. Possible error in configuration file. The System Log may have details." = "Openvpnstart hat mit Fehler #%d geantwortet. Möglicherweise besteht ein Fehler in der Konfigurationsdatei. Das System Log hat unter Umständen Details dazu gespeichert.";
 "Passphrase verification failed." = "Sie haben die Passphrase falsch eingegeben.";
@@ -32,7 +38,7 @@
 "Please insert token" = "Bitte Token einfügen";
 "Quit"   = "Beenden";
 "RECONNECTING" = "Stelle Verbindung erneut her…";
-"SLEEP"  = "Auf Dämon-Prozess warten"; // translate "Waiting for Demon Process"!
+"SLEEP" = "Warten auf Dämon-Prozess…"; // translate "Waiting for Demon Process"!
 "Save in Keychain" = "Im Schlüsselbund sichern";
 "Set nameserver" = "Nameserver festlegen";
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Die Zugangsdaten (Passphrase oder Benutzername/Passwort wurden vom remote VPN server nicht akzeptiert.";
@@ -47,7 +53,7 @@
 "Username and password" = "Benutzername und Passwort";
 "Verification failed." = "Verifizierung fehlgeschlagen";
 "Version %@" = "Version %@";
-"WAIT"   = "Auf Server-Antwort warten…"; // translate "Waiting for Server Response"!
+"WAIT" = "Warten auf Server-Antwort…"; // translate "Waiting for Server Response"!
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~Library/openvpn/'." = "Willkommen zu Tunnelblick unter Mac OS X: Bitte kopiere Sie Ihre Konfigurationsdatei (z.B.: openvpn.conf) nach '~Library/openvpn/'.";
 "You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace." = "Sie können auch fortsetzen und Tunnelblick wird eine Beispiel Konfigurationsdatei an der richtigen Stelle anlegen. Diese  können Sie dann später anpassen oder ersetzen.";
 "You're trying to launch Tunnelblick from the disk image" = "Sie versuchen Tunnelblick aus dem disk image auszuführen";
