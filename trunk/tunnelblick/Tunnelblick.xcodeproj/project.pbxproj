@@ -476,7 +476,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION = \"Release\" ]; then\nTMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\nmv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\ncp ReleaseNotes.txt $TMPDMG\nmkdir \"$TMPDMG/Using Tunnelblick\"\ncp using-tunnelblick.html \"$TMPDMG/Using Tunnelblick/Using Tunnelblick.html\"\nmkdir \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\ncp using-tunnelblick-files/* \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\n# Here's where we'll make the dmg\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -scrub -srcfolder $TMPDMG build/Release/Tunnelblick.dmg\nfi";
+			shellScript = "if [ $CONFIGURATION = \"Release\" ]; then\nTMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\nmv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\ncp ReleaseNotes.html $TMPDMG\nmkdir \"$TMPDMG/Using Tunnelblick\"\ncp using-tunnelblick.html \"$TMPDMG/Using Tunnelblick/Using Tunnelblick.html\"\nmkdir \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\ncp using-tunnelblick-files/* \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\n# Here's where we'll make the dmg\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -scrub -srcfolder $TMPDMG build/Release/Tunnelblick.dmg\nfi";
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
