@@ -222,7 +222,7 @@ Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVP
       	* *port* is the port to use when creating the connection.
       	* *use‑scripts* is 1 to indicate that the “client.up.osx.sh” and “client.down.osx.sh” scripts should be called before the connection is created and after it is destroyed, respectively. 0 (the default) indicates the scripts should not be called.
       	* *skip‑script‑security* is 1 to indicate that the "--script-security 2" arguments should not be sent to OpenVPN. 0 (the default) indicates the arguments should be sent. ("--script-security 2" is available only on OpenVPN versions 2.1_rc9 and later.)
-        * *use-alt-config* is 1 to indicate that the configuration file to be used is located in the alternate location, the /Library/Tunnelblick/username folder. Certificates and keys are always assumed to be located in the normal configuration folder, ~/Library/openvpn.
+      	* *use-alt-config* is 1 to indicate that the configuration file to be used is located in the alternate location, the /Library/Tunnelblick/username folder. Certificates and keys are always assumed to be located in the normal configuration folder, ~/Library/openvpn.
         
 *openvpnstart   kill   process‑id*
      Destroys an OpenVPN process (and closes any open connection it is managing).
