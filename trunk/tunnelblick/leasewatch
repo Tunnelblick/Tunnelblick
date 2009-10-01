@@ -6,11 +6,30 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	exit 0
 fi
 
-PROCESS="$( (/usr/sbin/scutil | grep -i 'PID' | awk '{ print $3 }') <<-EOF
+OPENVPN_CONFIG="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN
 	quit
 EOF)"
+
+PROCESS="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
+CONNECTION="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*Connection :' | sed -e 's/^.*: //g')"
+USER="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*User :' | sed -e 's/^.*: //g')"
+
+if [ -n "${USER}" ] ; then
+	LOG_DIR="$(eval echo ~${USER}/Library/openvpn)"
+else
+	LOG_DIR="/tmp"
+fi
+
+if [ -d "${LOG_DIR}" ] ; then
+	LOG_DIR="/tmp"
+fi
+
+if [ -z "${CONNECTION}" ] ; then
+	CONNECTION="Tunnelblick-Leasewatch"
+fi
+LOG_FILE="${LOG_DIR}/${CONNECTION}.log"
 
 # If we have a process, then we check the DNS status...
 if (( M=${PROCESS:-0} )) ; then
@@ -43,10 +62,36 @@ if (( M=${PROCESS:-0} )) ; then
 	# Do they match?  If not, then fix that by firing off a restart signal to the VPN... alternatively,
 	# we could re-set this ourselves manually but the USR1 signal gives us the ability to restart the
 	# VPN in case of a line crash or circuit change or something like that.
-	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] || [ "${WINS_GOOD}" != "${WINS_NOW}" ] ; then
-		# This will help us figure out if OpenVPN is active or not.  If not (i.e. PROCESS
-		# is either not a number or is empty) then we do nothing.  Else, we instruct the VPN
-		# to reconfigure itself
+	RESTART="false"
+	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] ; then
+		RESTART="true"
+		# Echo information on the reason the link was re-set
+		cat <<-EOF >> "${LOG_FILE}"
+			$(date): DNS configuration has changed:
+			--- BEGIN "GOOD" DNS CFG ---
+			${DNS_GOOD}
+			---- END "GOOD" DNS CFG ----
+			--- BEGIN CURRENT DNS CFG ---
+			${DNS_NOW}
+			---- END CURRENT DNS CFG ----
+		EOF
+	fi
+	if [ "${WINS_GOOD}" != "${WINS_NOW}" ] ; then
+		RESTART="true"
+		# Echo information on the reason the link was re-set
+		cat <<-EOF >> "${LOG_FILE}"
+			$(date): WINS configuration has changed:
+			--- BEGIN "GOOD" WINS CFG ---
+			${WINS_GOOD}
+			---- END "GOOD" WINS CFG ----
+			--- BEGIN CURRENT WINS CFG ---
+			${WINS_NOW}
+			---- END CURRENT WINS CFG ----
+		EOF
+	fi
+
+	if ${RESTART} ; then
+		echo "$(date): Sending USR1 to OpenVPN PID ${PROCESS}" >> "${LOG_FILE}"
 		kill -USR1 ${PROCESS}
 	fi
 fi
