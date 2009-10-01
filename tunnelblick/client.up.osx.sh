@@ -9,6 +9,19 @@ if [ "$foreign_option_1" == "" ]; then
 	exit 0
 fi
 
+OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
+
+case "${OSVER}" in
+	10.4 | 10.5 )
+		LEOPARD=""
+		SNOW_LEOPARD="#"
+		;;
+	10.6 )
+		LEOPARD="#"
+		SNOW_LEOPARD=""
+		;;
+esac
+
 nOptionIndex=1
 nNameServerIndex=1
 nWINSServerIndex=1
@@ -155,29 +168,33 @@ scutil <<- EOF
 
 	# Second, initialize the new map
 	d.init
-	d.add DomainName ${domain}
+	${LEOPARD}d.add DomainName ${domain}
 	${NO_DNS}d.add ServerAddresses * ${vDNS[*]}
 	${NO_SEARCH}d.add SearchDomains * ${SEARCH_DOMAIN}
+	${SNOW_LEOPARD}d.add DomainName ${domain}
 	set State:/Network/Service/${PSID}/DNS
 
 	# Third, initialize the WINS map
 	d.init
-	${NO_WG}d.add Workgroup ${workgroup}
+	${LEOPARD}${NO_WG}d.add Workgroup ${workgroup}
 	${NO_WINS}d.add WINSAddresses * ${vWINS[*]}
+	${SNOW_LEOPARD}${NO_WG}d.add Workgroup ${workgroup}
 	set State:/Network/Service/${PSID}/SMB
 
 	# Now, initialize the map that will be compared against the system-generated map
 	# which means that we will have to aggregate configurations of statically-configured
 	# nameservers, and statically-configured search domains
 	d.init
-	d.add DomainName ${domain}
+	${LEOPARD}d.add DomainName ${domain}
 	${AGG_DNS}d.add ServerAddresses * ${STATIC_DNS} ${vDNS[*]}
 	${AGG_SEARCH}d.add SearchDomains * ${STATIC_SEARCH} ${SEARCH_DOMAIN}
+	${SNOW_LEOPARD}d.add DomainName ${domain}
 	set State:/Network/OpenVPN/DNS
 
 	d.init
-	${NO_WG}d.add Workgroup ${workgroup}
+	${LEOPARD}${NO_WG}d.add Workgroup ${workgroup}
 	${AGG_WINS}d.add WINSAddresses * ${STATIC_WINS} ${vWINS[*]}
+	${SNOW_LEOPARD}${NO_WG}d.add Workgroup ${workgroup}
 	set State:/Network/OpenVPN/SMB
 
 	# We're done
