@@ -41,64 +41,69 @@ BOOL needsRepair(void);
     IBOutlet NSTabView      * tabView;
     IBOutlet NSButton       * useNameserverCheckbox;
 
-    NSMutableArray          * animImages;
-    int                       animNumFrames;
-    NSImage                 * connectedImage;
-    NSImage                 * mainImage;
+    NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
+    int                       animNumFrames;                // # of images
+    NSImage                 * connectedImage;               // Image to display when one or more connections are active
+    NSImage                 * mainImage;                    // Image to display when there are no connections active
 
-    NSMenuItem              * aboutItem;
-	NSUserDefaults          * appDefaults;
-    NSMutableArray          * connectionArray; 
-    NSMutableArray          * connectionsToRestore;
-	NSMenuItem              * detailsItem;
-    NSString                * lastState;
-    BOOL                      logWindowIsOpen;
-    NSMutableArray          * myConfigArray;
-    NSMutableDictionary     * myVPNConnectionDictionary;
-    IBOutlet id               myVPNMenu;
-	int                       numberOfConfigs;
-    int                       oldNumberOfConfigs;
-    NSMenuItem              * quitItem;
-    NSTimer                 * showDurationsTimer;           //Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
-    IBOutlet NSMenuItem     * statusMenuItem;
-    NSAnimation             * theAnim;
-    NSStatusItem            * theItem; 
-	SUUpdater               * updater;
-    NSMutableDictionary     * userDefaults;
+    NSMenuItem              * aboutItem;                    // "About..." item for menu
+	NSUserDefaults          * appDefaults;                  // Standard shared user defaults
+    NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
+    NSMutableArray          * connectionsToRestore;         // VPNConnections to be restored when awaken from sleep
+	NSMenuItem              * detailsItem;                  // "Details..." item for menu
+    NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
+    BOOL                      logWindowIsOpen;              // Indicates if OpenVPN Log window is being displayed
+    NSMutableArray          * myConfigArray;                // Sorted list of all configuration filenames including .ovnp or .conf extensions
+    NSMutableDictionary     * myVPNConnectionDictionary;    // List of all configurations and corresponding VPNConnections
+                                                            // Key is the configuration filename including extension, object is the VPNConnection object for the configuration
+    IBOutlet id               myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
+    NSMenuItem              * quitItem;                     // "Quit..." item for menu
+    NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
+    IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
+    NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
+    NSStatusItem            * theItem;                      // Our place in the Status Bar
+	SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
+    NSMutableDictionary     * userDefaults;                 // Empty dictionary used to set standard user defaults
 }
 
+-(IBAction)         autoLaunchPrefButtonWasClicked: (id)                sender;
+-(IBAction)         clearLog:                       (id)                sender;
+-(IBAction)         connect:                        (id)                sender;
+-(IBAction)         disconnect:                     (id)                sender;
+-(IBAction)         editConfig:                     (id)                sender;
+-(IBAction)         nameserverPrefButtonWasClicked: (id)                sender;
+-(IBAction)         openLogWindow:                  (id)                sender;
+-(IBAction)         quit:                           (id)                sender;
+
 -(void)             activateStatusMenu;
--(IBAction)         autoLaunchPrefButtonWasClicked: (id) sender;
--(void)             addConnection:                  (id) sender;
+-(void)             addConnection:                  (id)                sender;
 -(void)             cleanup;
--(IBAction)         clearLog:                       (id) sender;
--(IBAction)         connect:                        (id) sender;
 -(void)             createDefaultConfig;
 -(void)             createMenu;
--(IBAction)         disconnect:                     (id) sender;
 -(void)             dmgCheck;
--(IBAction)         editConfig:                     (id) sender;
--(void)             fileSystemHasChanged:           (NSNotification *) n;
+-(void)             fileSystemHasChanged:           (NSNotification *)  n;
 -(NSMutableArray *) getConfigs;
 -(BOOL)             getCurrentAutoLaunchSetting;
 -(void)             initialiseAnim;
 -(void)             killAllConnections;
--(void)             watcher:                        (UKKQueue*) kq      receivedNotification:   (NSString*) nm              forPath:        (NSString*) fpath;
 -(void)             loadMenuIconSet;
--(void)             localizeControl:                 (NSButton*)  button shiftRight:             (NSButton*) buttonToRight   shiftLeft:      (NSButton*) buttonToLeft  shiftSelfLeft: (BOOL) shiftSelfLeft;
+-(void)             localizeControl:                (NSButton *)        button       
+                    shiftRight:                     (NSButton *)        buttonToRight
+                    shiftLeft:                      (NSButton *)        buttonToLeft
+                    shiftSelfLeft:                  (BOOL)              shiftSelfLeft;
 -(void)             moveSoftwareUpdateWindowToForeground;
--(IBAction)         nameserverPrefButtonWasClicked: (id) sender;
--(IBAction)         openLogWindow:                  (id) sender;
--(IBAction)         quit:                           (id) sender;
--(void)             removeConnection:               (id) sender;
+-(void)             removeConnection:               (id)                sender;
 -(BOOL)             repairPermissions;
--(void)             saveAutoLaunchCheckboxState:    (BOOL) inBool;
--(VPNConnection*)   selectedConnection;
--(NSTextView*)      selectedLogView;
--(void)             setState:                       (NSString*) newState;
+-(void)             saveAutoLaunchCheckboxState:    (BOOL)              inBool;
+-(VPNConnection *)  selectedConnection;
+-(NSTextView *)     selectedLogView;
+-(void)             setState:                       (NSString *)        newState;
 -(void)             updateMenuAndLogWindow;
 -(void)             updateTabLabels;
 -(void)             updateUI;
 -(IBAction)         validateLogButtons;
+-(void)             watcher:                        (UKKQueue *)        kq
+                    receivedNotification:           (NSString *)        nm
+                    forPath:                        (NSString *)        fpath;
 
 @end
