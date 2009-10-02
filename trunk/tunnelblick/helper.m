@@ -80,11 +80,14 @@ NSDictionary * getOpenVPNVersion(void)
     
     NSData * data = [file readDataToEndOfFile];
     
+    [task release];
+    
     NSString * string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
     
     // Now extract the version. String should look like "OpenVPN <version> <more-stuff>" with a spaces on the left and right of the version
     
     NSArray * arr = [string componentsSeparatedByString:@" "];
+    [string release];
     string = @"Unknown";
     if (  [arr count] > 1  ) {
         if (  [[arr objectAtIndex:0] isEqual:@"OpenVPN"]  ) {

@@ -451,8 +451,6 @@ BOOL runningOnTigerOrNewer()
                 [alert release];
             }
 
-            [[myVPNConnectionDictionary objectForKey:configString] release];
-            
             [myVPNConnectionDictionary removeObjectForKey:configString];
             
             // Remove config from myConfigArray and the menu
@@ -722,10 +720,12 @@ BOOL runningOnTigerOrNewer()
             CFOptionFlags response;
             // If we couldn't receive a response, don't connect
             if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
+                CFRelease(notification);
                 return;
             }
             // If user clicked Cancel, don't connect
             if((response & 0x3) != kCFUserNotificationDefaultResponse) {
+                CFRelease(notification);
                 return;
             }
             // If user checked the "Do not warn... again" checbox, set a preference
@@ -733,6 +733,7 @@ BOOL runningOnTigerOrNewer()
                 [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"skipWarningAboutSimultaneousConnections"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
+            CFRelease(notification);
         }
     }
     
@@ -778,26 +779,27 @@ BOOL runningOnTigerOrNewer()
 	//id test = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
 	NSTabViewItem* initialItem;
 	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
-	if (connection) {
-		initialItem = [tabView tabViewItemAtIndex: 0];
-		[initialItem setIdentifier: [connection configPath]];
-		[initialItem setLabel: [connection configName]];
-		
-		int curTabIndex = 0;
-		[tabView selectTabViewItemAtIndex:0];
-		BOOL haveOpenConnection = ! [connection isDisconnected];
-		while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
-			NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
-			[newItem setIdentifier: [connection configPath]];
-			[newItem setLabel: [connection configName]];
-			[tabView addTabViewItem: newItem];
-			++curTabIndex;
-			if (  ( ! haveOpenConnection ) && ( ! [connection isDisconnected] )  ) {
-				[tabView selectTabViewItemAtIndex:curTabIndex];
-				haveOpenConnection = YES;
-			}
-		}
-	}
+    NSAssert(connection, @"myVPNConnectionsDictionary is empty; Tunnelblick must have at least one configuration");
+
+    initialItem = [tabView tabViewItemAtIndex: 0];
+    [initialItem setIdentifier: [connection configPath]];
+    [initialItem setLabel: [connection configName]];
+    
+    int curTabIndex = 0;
+    [tabView selectTabViewItemAtIndex:0];
+    BOOL haveOpenConnection = ! [connection isDisconnected];
+    while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
+        NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
+        [newItem setIdentifier: [connection configPath]];
+        [newItem setLabel: [connection configName]];
+        [tabView addTabViewItem: newItem];
+        [newItem release];
+        ++curTabIndex;
+        if (  ( ! haveOpenConnection ) && ( ! [connection isDisconnected] )  ) {
+            [tabView selectTabViewItemAtIndex:curTabIndex];
+            haveOpenConnection = YES;
+        }
+    }
 	[self tabView:tabView didSelectTabViewItem:initialItem];
 	[self validateLogButtons];
 	[self updateTabLabels];
@@ -895,13 +897,13 @@ BOOL runningOnTigerOrNewer()
     NSString * appName      = @"Tunnelblick";
     NSString * appVersion   = tunnelblickVersion();
     NSString * version      = @"";
+
     NSString * html         = [NSString stringWithFormat:@"%@%@%@",
                                @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
                                openVPNVersion(),
                                @"</div><br><br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></center><body></html>"];
     NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
-    NSMutableAttributedString * credits = [[[NSAttributedString alloc] init] autorelease];
-    [credits initWithHTML:data documentAttributes:NULL];
+    NSAttributedString * credits = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
 
     NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.", nil);
 
