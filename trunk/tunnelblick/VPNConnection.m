@@ -40,7 +40,7 @@
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
 		NSCalendarDate* date = [NSCalendarDate date];
-		[self addToLog:[NSString stringWithFormat:@"%@; %@", tunnelblickVersion(), openVPNVersion()] atDate:date];
+		[self addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@", tunnelblickVersion(), openVPNVersion()] atDate:date];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
     }
@@ -148,8 +148,11 @@
         skipScrSec = @"0";
     }
     
+    NSPipe * pipe = [[NSPipe alloc] init];
+    [task setStandardError: pipe];
+    
     arguments = [NSArray arrayWithObjects:@"start", [self configPath], portString, useDNS, skipScrSec, altCfgLoc, nil];
-		
+    
 	[task setArguments:arguments];
 	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
 	[task setCurrentDirectoryPath:openvpnDirectory];
@@ -157,12 +160,26 @@
 	[task waitUntilExit];
     
     int status = [task terminationStatus];
+    
     if (  status != 0  ) {
-        [self addToLog:[NSString stringWithFormat:NSLocalizedString(@"openvpnstart returned error #%d. Possible error in configuration file. The System Log may have details.", nil), status] atDate:[NSCalendarDate date]];
+        NSString * openvpnstartOutput;
+        if (  status == 240  ) {
+            openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
+        } else {
+            NSFileHandle * file = [pipe fileHandleForReading];
+            NSData * data = [file readDataToEndOfFile];
+            openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+            openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+        
+        [self addToLog:[NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", nil), status, openvpnstartOutput]
+                atDate:[NSCalendarDate date]];
     }
     
+    [pipe release];
+    
 	[self setState: @"SLEEP"];
-
+    
 	//sleep(1);
 	[self connectToManagementSocket];
 	// Wait some time for the demon to start up before connecting to the management interface:

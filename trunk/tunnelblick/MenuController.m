@@ -662,7 +662,7 @@ BOOL runningOnTigerOrNewer()
 - (IBAction) clearLog: (id) sender
 {
 	NSCalendarDate* date = [NSCalendarDate date];
-	NSString *dateText = [NSString stringWithFormat:@"%@ %@; %@\n",
+	NSString *dateText = [NSString stringWithFormat:@"%@ *Tunnelblick: %@; %@\n",
                           [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],
                           tunnelblickVersion(),
                           openVPNVersion()
