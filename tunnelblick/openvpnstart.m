@@ -35,6 +35,7 @@ void	loadKexts			(void);			//Tries to load kexts -- no indication of failure. Ma
 void	becomeRoot			(void);			//Returns as root, having setuid(0) if necessary; complains and exits if can't become root
 
 void	getProcesses		(struct kinfo_proc** procs, int* number);	//Fills in process information
+BOOL    processExists       (pid_t pid);    //Returns TRUE if the process exists
 BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn")
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
 
@@ -116,7 +117,7 @@ int main(int argc, char* argv[])
 				"Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n"
 				);
 		[pool drain];
-		exit(2000);
+		exit(240);      // This exit code (240) is used in the VPNConnection connect: method to inhibit display of this long syntax error message
 	}
 	
 	[pool drain];
@@ -141,7 +142,7 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, B
     
 	if(configNeedsRepair()) {
 		[pool drain];
-		exit(3000);
+		exit(241);
 	}
 	
 	// default arguments to openvpn command line
@@ -187,9 +188,13 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, B
 
     int retCode = [task terminationStatus];
     if (  retCode != 0  ) {
- 		fprintf(stderr, "Error: openvpn returned %d\n", retCode);
-		[pool drain];
-		exit(retCode);
+        if (  retCode != 1  ) {
+            fprintf(stderr, "Error: OpenVPN returned with status %d\n", retCode);
+        } else {
+            fprintf(stderr, "Error: OpenVPN returned with status %d. Possible error in configuration file. See \"All Messages\" in Console for details\n", retCode);
+        }
+        [pool drain];
+		exit(242);
     }
     return 0;
 }
@@ -214,18 +219,24 @@ void killOneOpenvpn(pid_t pid)
 {
 	int didnotKill;
 	
+    if (  ! processExists(pid)  ) {
+        fprintf(stderr, "Error: Process %d does not exist\n", pid);
+        [pool drain];
+        exit(243);
+    }
+        
 	if(isOpenvpn(pid)) {
 		becomeRoot();
 		didnotKill = kill(pid, SIGTERM);
 		if (didnotKill) {
 			fprintf(stderr, "Error: Unable to kill openvpn process %d\n", pid);
 			[pool drain];
-			exit(4000);
+			exit(244);
 		}
 	} else {
 		fprintf(stderr, "Error: Process %d is not an openvpn process\n", pid);
 		[pool drain];
-		exit(5000);
+		exit(245);
 	}
 }
 
@@ -262,19 +273,19 @@ int killAllOpenvpn(void)
 	if (nNotKilled) {
 		// An error message for each openvpn process that wasn't killed has already been output
 		[pool drain];
-		exit(6000);
+		exit(246);
 	}
 	
 	return(nKilled);
 }
 
-//Tries to load kexts -- no indication of failure. May complain and exit if can't become root
+//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void loadKexts(void)
 {
 	NSString*	tapPath		= [execPath stringByAppendingPathComponent: @"tap.kext"];
 	NSString*	tunPath		= [execPath stringByAppendingPathComponent: @"tun.kext"];
 	NSTask*		task		= [[[NSTask alloc] init] autorelease];
-	NSArray*	arguments	= [NSArray arrayWithObjects:tapPath, tunPath, nil];
+	NSArray*	arguments	= [NSArray arrayWithObjects:@"-q", tapPath, tunPath, nil];
 	
 	[task setLaunchPath:@"/sbin/kextload"];
 	
@@ -283,6 +294,13 @@ void loadKexts(void)
 	becomeRoot();
 	[task launch];
 	[task waitUntilExit];
+
+    int status = [task terminationStatus];
+    if (  status != 0  ) {
+        fprintf(stderr, "Error: Unable to load tun and tap kexts. Status = %d\n", status);
+        [pool drain];
+        exit(247);
+    }
 }
 
 //Returns as root, having setuid(0) if necessary; complains and exits if can't become root
@@ -293,7 +311,7 @@ void becomeRoot(void)
 			fprintf(stderr, "Error: Unable to become root\n"
 							"You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
 			[pool drain];
-			exit(7000);
+			exit(248);
 		}
 	}
 }
@@ -341,6 +359,26 @@ BOOL isOpenvpn(pid_t pid)
 	return is_openvpn;
 }
 
+//Returns TRUE if process exists, otherwise returns FALSE
+BOOL processExists(pid_t pid)
+{
+	BOOL				does_exist	= FALSE;
+	int					count		= 0,
+	i			= 0;
+	struct kinfo_proc*	info		= NULL;
+	
+	getProcesses(&info, &count);
+    for (i = 0; i < count; i++) {
+        pid_t thisPid = info[i].kp_proc.p_pid;
+        if (pid == thisPid) {
+				does_exist = TRUE;
+            break;
+        }
+    }    
+    free(info);
+	return does_exist;
+}
+
 //Returns NO if configuration file is secure, otherwise complains and exits
 BOOL configNeedsRepair(void)
 {
@@ -350,7 +388,7 @@ BOOL configNeedsRepair(void)
 	if (fileAttributes == nil) {
 		fprintf(stderr, "Error: %s does not exist\n", [configPath UTF8String]);
 		[pool drain];
-		exit(8000);
+		exit(249);
 	}
 	
 	unsigned long	perms			= [fileAttributes filePosixPermissions];
@@ -363,7 +401,7 @@ BOOL configNeedsRepair(void)
 							configPath, fileOwner, octalString];
 		fprintf(stderr, [errMsg UTF8String]);
 		[pool drain];
-		exit(9000);
+		exit(250);
 	}
 	return NO;
 }
