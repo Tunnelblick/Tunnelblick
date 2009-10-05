@@ -130,14 +130,26 @@ You may use the standard keyboard shortcuts in the "OpenVPN Log" window: Command
 ==THE “ABOUT TUNNELBLICK” WINDOW==
 Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon, then click on “About Tunnelblick…” to open a window with information about the versions of Tunnelblick and OpenVPN that are running and a link to the Tunnelblick website.
 
-==DNS SETTINGS AND THE "SET NAMESERVER" CHECKBOX==
-If you are using DHCP, wish to use DNS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS settings to your client, put a check in the "Set nameserver" checkbox. (This is the situation for most users.)
+==THE "SET NAMESERVER" CHECKBOX AND DNS & WINS SETTINGS==
+If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, put a check in the "Set nameserver" checkbox. (This is the situation for most users.)
 
-If you are using DHCP, wish to use your original DNS server when connected, and the VPN server you are connecting to does not "push" DNS settings to your client, un-check the "Set nameserver" checkbox.
+If you are using DHCP, wish to use your original DNS and WINS servers when connected, and the VPN server you are connecting to does not "push" DNS or WINS settings to your client, un-check the "Set nameserver" checkbox.
 
-If you are using manual DNS settings and wish to continue using them when connected, un-check the "Set nameserver" checkbox.
+If you are using manual settings, different versions of OS X behave differently. This is due to a change in network behavior in Snow Leopard and is beyond the scope of this project to fix.
 
-Otherwise (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and un-check the "Set nameserver" checkbox.
+If you're using Leopard (10.5) or Tiger (10.4), then it is possible to use the VPN-server-supplied DNS and WINS settings *in addition to* your manual settings by checking the "Set nameserver" box. However, your manual settings will always take precedence over any VPN server-supplied settings.  If "Set nameserver" is un-checked, you will continue to use only your manually-configured settings and any VPN server-supplied settings will be ignored.
+
+If you are using Snow Leopard (10.6), then your manually-configured DNS and WINS settings will *always* be used, and no aggregation of configurations will be performed.
+
+ * If you set your DNS servers manually, then regardless of the state of the "Set nameserver" box, your manual DNS servers will always be the only ones used.
+
+ * If you set your Search Domain(s) manually, then regardless of the state of the "Set nameserver" box, your manual Search Domains will always be the only ones used.
+
+ * If you set your WINS servers manually, then regardless of the state of the "Set nameserver" box, your manual WINS servers will always be the only ones used.
+
+ * Each of these settings is independent of the others: if "Set nameserver" is checked, those settings not configured manually will be replaced by the settings obtained from the VPN server.  If "Set nameserver" is not checked, then as with Leopard/Tiger, no DNS/WINS settings will be applied.
+
+*If your situation is not described above* (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and un-check the "Set nameserver" checkbox.
 
 ==USING MORE THAN ONE VPN CONNECTION==
 You can put more than one .ovpn or .conf file together with its key and/or certificate files into the ~/Library/openvpn folder. Tunnelblick interprets each .ovpn or .conf file in the ~/Library/openvpn folder as a configuration file for a different connection; each of the connections will be available in the drop down menu and shown as a separate tab in the “OpenVPN Log” window.
