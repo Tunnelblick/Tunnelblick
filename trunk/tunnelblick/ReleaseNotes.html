@@ -1,17 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html><head>
- <title>Release Notes - Tunnelblick v 3.0b18</title>
-</head>
-<body>
- <div id="wikiheader" style="margin-bottom: 1em;">
-  <span style="font-size: 120%; font-weight: bold;">ReleaseNotes</span>
-  &nbsp;
-  <div style="font-style: italic; margin-top: 3px;">Release Notes - Tunnelblick v 3.0b18</div>
- </div>
+ <title>Release Notes - Tunnelblick v 3.0b20</title>
+ <span style="font-size: 120%; font-weight: bold;">ReleaseNotes</span>
+ <div style="font-style: italic; margin-top: 3px;">Release Notes - Tunnelblick v 3.0b20</div>
  <p>The latest version of these release notes is located at <a href="http://code.google.com/p/tunnelblick/wiki/ReleaseNotes" rel="nofollow">http://code.google.com/p/tunnelblick/wiki/ReleaseNotes</a>. </p><p><strong>PLEASE DO</strong> discuss any problems on the <a href="http://groups.google.com/group/tunnelblick-discuss" rel="nofollow">Tunnelblick Discussion List</a>
 before initiating an Issue. Issues are usually only looked at by the
 developers; the Discussion List has a broader audience of members who
-might be able to help! </p><p><strong>PLEASE DO NOT</strong> post comments at the bottom of this page (except comments about these Release Notes, of course). Use the <a href="http://groups.google.com/group/tunnelblick-discuss" rel="nofollow">Tunnelblick Discussion List</a> instead. </p><p>For more information, see the <a href="http://code.google.com/p/tunnelblick" rel="nofollow">Tunnelblick website</a>. </p><h2><a name="3.0b18_(2009-09-23)">3.0b18 (2009-09-23)</a></h2><ul><li><a name="3.0b18_(2009-09-23)">Implements
+might be able to help! </p><p><strong>PLEASE DO NOT</strong> post comments at the bottom of this page (except comments about these Release Notes, of course). Use the <a href="http://groups.google.com/group/tunnelblick-discuss" rel="nofollow">Tunnelblick Discussion List</a> instead. </p><p>For more information, see the <a href="http://code.google.com/p/tunnelblick" rel="nofollow">Tunnelblick website</a>. </p><h2><a name="3.0b20_(2009-10-09)">3.0b20 (2009-10-09)</a></h2><ul><li><a name="3.0b20_(2009-10-09)">Fixes issues with "Set nameserver" on Snow Leopard. </a></li><li><a name="3.0b20_(2009-10-09)">Inhibits console message that tun and tap are already loaded. </a></li><li><a name="3.0b20_(2009-10-09)">Sends details of some error messages to the OpenVPN log window instead of the Console log. </a></li><li><a name="3.0b20_(2009-10-09)">Prefixes all non-OpenVPN messages in the log window with "<tt>*</tt>Tunnelblick:". </a></li></ul><p><a name="3.0b20_(2009-10-09)">Known Issues: </a></p><ul><li><a name="3.0b20_(2009-10-09)">Does not work under Snow Leopard when booted into 64-bit mode. (Works when booted into 32-bit mode.) </a></li><li><a name="3.0b20_(2009-10-09)">The
+"--redirect-gateway" OpenVPN option fails silently, causing incorrect
+routing, if no flags are specified (which is a syntax error).
+Previously, a flag of "def1" was assumed. </a></li><li><a name="3.0b20_(2009-10-09)">Localization is not complete. </a></li><li><a name="3.0b20_(2009-10-09)">The
+standard scripts that "Set nameserver" uses handle DNS for most common
+setups. You must use custom scripts to do anything else. See the </a><a href="http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick" rel="nofollow">"Using Tunnelblick" wiki</a> for details. </li></ul><h2><a name="3.0b18_(2009-09-23)">3.0b18 (2009-09-23)</a></h2><ul><li><a name="3.0b18_(2009-09-23)">Implements
 different behavior when configuration files change: when a
 configuration file is added, all connections are maintained. When a
 configuration file is deleted, only the corresponding connection is
@@ -58,46 +58,40 @@ accessed (for example, by backup software). (Note that changing,
 adding, or deleting any configuration files will close all open
 connections) </a></li><li><a name="3.0b14_(2009-08-10)">Fixed issue
 with failed authentication: now handled gracefully: allows cancel or
-retry. If credentials are stored in the KeyChain, also allows retry
-with new credentials (by deleting the old credentials before the retry)
-</a></li><li><a name="3.0b14_(2009-08-10)">Fixed issue with multiple connections with same username; separate passwords are now kept for each username </a></li><li><a name="3.0b14_(2009-08-10)">Fixed issue in dialog about configuration files - the correct path is now shown: "~/Library" instead of "/Library" </a></li><li><a name="3.0b14_(2009-08-10)">Command-C,
+retry. If credentials are stored in the KeyChain</a><a href="http://code.google.com/p/tunnelblick/w/edit/KeyChain">?</a>, also allows retry with new credentials (by deleting the old credentials before the retry) </li><li>Fixed issue with multiple connections with same username; separate passwords are now kept for each username </li><li>Fixed issue in dialog about configuration files - the correct path is now shown: "~/Library" instead of "/Library" </li><li>Command-C,
 Command-X, Command-V (copy, cut, paste) and Command-A, Command-M,
 Command-W, and Command-Q (select all, minimize to the Dock, close
 window, and quit Tunnelblick) now work properly from the "OpenVPN Log"
-window </a></li><li><a name="3.0b14_(2009-08-10)">Fixed issue which caused invalid dates/times to appear in the OpenVPN Log </a></li><li><a name="3.0b14_(2009-08-10)">Shows connection duration in "OpenVPN Log" window's tabs </a></li><li><a name="3.0b14_(2009-08-10)">Fixed issue which caused the "OpenVPN Log" window to remain underneath other windows when the "Details..." menu item is clicked </a></li><li><a name="3.0b14_(2009-08-10)">Added date/time and Tunnelblick and OpenVPN version info at the beginning of the OpenVPN Log and whenever it is cleared </a></li><li><a name="3.0b14_(2009-08-10)">Saves and restores "OpenVPN Log" window size and position </a></li><li><a name="3.0b14_(2009-08-10)">Internationalized date/time displayed in the OpenVPN Log, including seconds </a></li><li><a name="3.0b14_(2009-08-10)">Fixed bug which caused Japanese localization to fail </a></li><li><a name="3.0b14_(2009-08-10)">Displays
+window </li><li>Fixed issue which caused invalid dates/times to appear in the OpenVPN Log </li><li>Shows connection duration in "OpenVPN Log" window's tabs </li><li>Fixed issue which caused the "OpenVPN Log" window to remain underneath other windows when the "Details..." menu item is clicked </li><li>Added date/time and Tunnelblick and OpenVPN version info at the beginning of the OpenVPN Log and whenever it is cleared </li><li>Saves and restores "OpenVPN Log" window size and position </li><li>Internationalized date/time displayed in the OpenVPN Log, including seconds </li><li>Fixed bug which caused Japanese localization to fail </li><li>Displays
 tab for the left-most established connection when the "OpenVPN Log"
 window is first displayed. If no established connection exists,
-displays the left-most tab </a></li><li><a name="3.0b14_(2009-08-10)">Added the "Using Tunnelblick.html" document to the installation disk image </a></li><li><a name="3.0b14_(2009-08-10)">Added
+displays the left-most tab </li><li>Added the "Using Tunnelblick.html" document to the installation disk image </li><li>Added
 preference, "doNotMonitorConfigurationFolder" (default = False) to
 disable monitoring of the configuration folder for changes to the
-configuration files </a></li><li><a name="3.0b14_(2009-08-10)">Added
-preference, "placeIconInStandardPositionInStatusBar" (default = False)
-to have the Tunnelblick icon placed normally in the Status Bar -- to
-the left of other items (contributed by Raal Goff and Michael Schloh
-von Bennewitz) </a></li><li><a name="3.0b14_(2009-08-10)">Added an
-"About" window that displays a link to the website, Tunnelblick version
-and build numbers, and the OpenVPN version number, which is dynamically
-extracted from the openvpn program (and thus always reports the version
-of OpenVPN which is actually being used). </a></li><li><a name="3.0b14_(2009-08-10)">Fixed
+configuration files </li><li>Added preference,
+"placeIconInStandardPositionInStatusBar" (default = False) to have the
+Tunnelblick icon placed normally in the Status Bar -- to the left of
+other items (contributed by Raal Goff and Michael Schloh von Bennewitz)
+</li><li>Added an "About" window that displays a link to the website,
+Tunnelblick version and build numbers, and the OpenVPN version number,
+which is dynamically extracted from the openvpn program (and thus
+always reports the version of OpenVPN which is actually being used). </li><li>Fixed
 issue which caused Tunnelblick to pass the "script-security 2"
 arguments to OpenVPN even if a version of OpenVPN which doesn't support
-that argument is being used </a></li><li><a name="3.0b14_(2009-08-10)">openvpnstart enhancements: </a></li><ul><li><a name="3.0b14_(2009-08-10)">The "Set nameserver" argument is now optional and defaults to 0 (NO) </a></li><li><a name="3.0b14_(2009-08-10)">Optional argument skips passing the "script-security 2" arguments to OpenVPN. </a></li><li><a name="3.0b14_(2009-08-10)">Improved error checking and reporting </a></li><li><a name="3.0b14_(2009-08-10)">Displays usage instructions if invoked with no arguments </a></li><li><a name="3.0b14_(2009-08-10)">Fixed program crashes caused by improper syntax </a></li><li><a name="3.0b14_(2009-08-10)">"killall" command shows # of openvpn processes killed if non-zero </a></li></ul></ul><p><a name="3.0b14_(2009-08-10)">Known Issues: </a></p><ul><li><a name="3.0b14_(2009-08-10)">Home folders cannot reside on remote volumes (AFS, NFS, etc.) </a></li><li><a name="3.0b14_(2009-08-10)">French, Japanese, and Norwegian localization is not complete. </a></li><li><a name="3.0b14_(2009-08-10)">The
+that argument is being used </li><li>openvpnstart enhancements: </li><ul><li>The "Set nameserver" argument is now optional and defaults to 0 (NO) </li><li>Optional argument skips passing the "script-security 2" arguments to OpenVPN. </li><li>Improved error checking and reporting </li><li>Displays usage instructions if invoked with no arguments </li><li>Fixed program crashes caused by improper syntax </li><li>"killall" command shows # of openvpn processes killed if non-zero </li></ul></ul><p>Known Issues: </p><ul><li>Home folders cannot reside on remote volumes (AFS, NFS, etc.) </li><li>French, Japanese, and Norwegian localization is not complete. </li><li>The
 standard scripts that "Set nameserver" uses handle DNS for the most
 common DHCP setups. You must use custom scripts to do anything else.
-The standard scripts: </a></li><ul><li><a name="3.0b14_(2009-08-10)">Do not support multiple simultaneous connections </a></li><li><a name="3.0b14_(2009-08-10)">Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously) </a></li><li><a name="3.0b14_(2009-08-10)">Do
+The standard scripts: </li><ul><li>Do not support multiple simultaneous connections </li><li>Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously) </li><li>Do
 not remove manual DNS entries (i.e., the manual nameserver will
 continue to be used even when the tunnel is open even if the OpenVPN
-"redirect-gateway" option is specified) </a></li></ul></ul><h2><a name="3.0b10">3.0b10</a></h2><p><a name="3.0b10">   </a></p><ul><li><a name="3.0b10">fix linking problem that resulted in lzo compression not working on PowerPC  </a></li><li><a name="3.0b10">prevent user from launching tunnelblick directly from the dmg </a></li><li><a name="3.0b10">remove experimental status from 'Set Nameserver' and make it the default </a></li><li><a name="3.0b10">upgrade to OpenVPN 2.1_rc15 </a></li><li><a name="3.0b10">let buffered openvpn log messages appear in the GUI log </a></li><li><a name="3.0b10">possible fix for the crash if password is mistyped when using username/password authentication </a></li><li><a name="3.0b10">add version number to plist file </a></li><li><a name="3.0b10">don't
-restart connections on NetworkDidChange notification. fixes issue where
-existing connections would be reset when starting multiple simultaneous
-vpn connections. </a></li><li><a name="3.0b10">always use --script-security 2 so users are allowed to supply custom up/down scripts. needed for OpenVPN 2.1 </a></li><li><a name="3.0b10">add missing example config file </a></li><li><a name="3.0b10">properly
+"redirect-gateway" option is specified) </li></ul></ul><h2><a name="3.0b10">3.0b10</a></h2><p><a name="3.0b10">   </a></p><ul><li><a name="3.0b10">fix linking problem that resulted in lzo compression not working on PowerPC  </a></li><li><a name="3.0b10">prevent user from launching tunnelblick directly from the dmg </a></li><li><a name="3.0b10">remove experimental status from 'Set Nameserver' and make it the default </a></li><li><a name="3.0b10">upgrade to OpenVPN 2.1_rc15 </a></li><li><a name="3.0b10">let buffered openvpn log messages appear in the GUI log </a></li><li><a name="3.0b10">possible fix for the crash if password is mistyped when using username/password authentication </a></li><li><a name="3.0b10">add version number to plist file </a></li><li><a name="3.0b10">don't restart connections on NetworkDidChange</a><a href="http://code.google.com/p/tunnelblick/w/edit/NetworkDidChange">?</a> notification. fixes issue where existing connections would be reset when starting multiple simultaneous vpn connections. </li><li>always use --script-security 2 so users are allowed to supply custom up/down scripts. needed for OpenVPN 2.1 </li><li>add missing example config file </li><li>properly
 escape special chars in username or password/passphrase before passing
 them over to the management interface. fixes issue where the
 password/passphrase was not accepted when it contained backslashes or "
-chars. </a></li><li><a name="3.0b10">use NSStatusWindowLevel for
-notification windows. fixes issue that Tunnelblick icon remained
-visible in spaces or fullscreen mode of some apps. </a></li><li><a name="3.0b10">increase
-robustness when killing openvpn children by explicitly sending the
-SIGTERM to the process id instead of just sending "signal SIGTERM" over
-the management socket </a></li><li><a name="3.0b10">kill all openvpn processes on quit. fixes a rare condition where openvpn processes would be left over on Tunnelblick  quit </a></li><li><a name="3.0b10">Add German, French, Japanese, Korean and Norwegian translations </a></li></ul><a name="3.0b10">   </a><h2><a name="3.0b9">3.0b9</a></h2><ul><li><a name="3.0b9">Fixed the crash on Leopard </a></li><li><a name="3.0b9">Fixes the slow shutdown issue </a></li><li><a name="3.0b9">Updated to the new tun/tap drivers </a></li><li><a name="3.0b9">Auto-Update Capability using Sparkle </a></li></ul>
- </body></html>
+chars. </li><li>use NSStatusWindowLevel for notification windows.
+fixes issue that Tunnelblick icon remained visible in spaces or
+fullscreen mode of some apps. </li><li>increase robustness when
+killing openvpn children by explicitly sending the SIGTERM to the
+process id instead of just sending "signal SIGTERM" over the management
+socket </li><li>kill all openvpn processes on quit. fixes a rare condition where openvpn processes would be left over on Tunnelblick  quit </li><li>Add German, French, Japanese, Korean and Norwegian translations </li></ul>   <h2><a name="3.0b9">3.0b9</a></h2><ul><li><a name="3.0b9">Fixed the crash on Leopard </a></li><li><a name="3.0b9">Fixes the slow shutdown issue </a></li><li><a name="3.0b9">Updated to the new tun/tap drivers </a></li><li><a name="3.0b9">Auto-Update Capability using Sparkle </a></li></ul>
+</body></html>
