@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 trap "" TSTP
 trap "" HUP
 trap "" INT
