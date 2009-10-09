@@ -1,4 +1,4 @@
-#!/bin/bash -e -TEx
+#!/bin/bash -e
 trap "" TSTP
 trap "" HUP
 trap "" INT

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
