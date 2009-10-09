@@ -1,4 +1,4 @@
-#summary Release Notes - Tunnelblick v 3.0b18
+#summary Release Notes - Tunnelblick v 3.0b20
 #labels Phase-Deploy,Featured
 
 The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
@@ -8,6 +8,18 @@ The latest version of these release notes is located at http://code.google.com/p
 *PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
+
+==3.0b20 (2009-10-09)==
+  * Fixes issues with "Set nameserver" on Snow Leopard.
+  * Inhibits console message that tun and tap are already loaded.
+  * Sends details of some error messages to the OpenVPN log window instead of the Console log.
+  * Prefixes all non-OpenVPN messages in the log window with "`*`Tunnelblick:".
+
+Known Issues:
+  * Does not work under Snow Leopard when booted into 64-bit mode. (Works when booted into 32-bit mode.)
+  * The "--redirect-gateway" OpenVPN option fails silently, causing incorrect routing, if no flags are specified (which is a syntax error). Previously, a flag of "def1" was assumed.
+  * Localization is not complete.
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick "Using Tunnelblick" wiki] for details.
 
 ==3.0b18 (2009-09-23)==
   * Implements different behavior when configuration files change: when a configuration file is added, all connections are maintained. When a configuration file is deleted, only the corresponding connection is disconnected (and an alert window is displayed). In either case, the menu and Log window reflect the change immediately without restarting Tunnelblick. Changes to a configuration file's contents or metadata are ignored (but will be used the next time a connection is attempted).
