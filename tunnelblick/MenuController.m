@@ -462,14 +462,35 @@ BOOL runningOnTigerOrNewer()
         }
     }
     
+    // If there aren't ANY config files, let the user quit or create and edit a sample configuration file.
+    if (  [myConfigArray count] == 0  ) {
+        int button = NSRunCriticalAlertPanel(NSLocalizedString(@"Install and edit sample configuration file?", @"Window title"),
+                                             NSLocalizedString(@"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick.", @"Window message"),
+                                             NSLocalizedString(@"Quit", @"Button"), // Default button
+                                             NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
+                                             nil);
+        
+        if (  button == NSAlertDefaultReturn  ) {
+            [NSApp setAutoLaunchOnLogin: NO];
+            [NSApp terminate: nil];
+        }
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
+        NSString *confResource = [[NSBundle mainBundle] pathForResource: @"openvpn"
+                                                                 ofType: @"conf"];
+
+        [fileManager createDirectoryAtPath:directoryPath attributes:nil];
+        [fileManager copyPath:confResource toPath:[directoryPath stringByAppendingPathComponent:@"/openvpn.conf"] handler:nil];
+        [self editConfig:self];
+    }
+    
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
         BOOL logWindowWasOpen = logWindowIsOpen;
-        if (  logWindowIsOpen  ) {
-            [logWindow close];
-            [logWindow release];
-            logWindow = nil;
-        }
+        [logWindow close];
+        [logWindow release];
+        logWindow = nil;
         if (  logWindowWasOpen  ) {
             [self openLogWindow:self];
         }
@@ -1001,7 +1022,8 @@ BOOL runningOnTigerOrNewer()
                                    NSLocalizedString(@"Quit", nil),
                                    NSLocalizedString(@"Continue", nil),
                                    nil) == NSAlertDefaultReturn) {
-            exit (1);
+            [NSApp setAutoLaunchOnLogin: NO];
+            [NSApp terminate: nil];
         }
         else {
 			[fileManager createDirectoryAtPath:directoryPath attributes:nil];
@@ -1111,6 +1133,7 @@ static void signal_handler(int signalNumber)
         [[NSApp delegate] resetActiveConnections];
     } else  {
         printf("Received fatal signal. Cleaning up...\n");
+        [NSApp setAutoLaunchOnLogin: NO];
         [[NSApp delegate] cleanup];
         exit(0);	
     }
@@ -1151,7 +1174,8 @@ static void signal_handler(int signalNumber)
 		[panel setLevel:NSStatusWindowLevel];
 		[panel makeKeyAndOrderFront:nil];
 		[NSApp runModalForWindow:panel];
-		exit(2);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
 	}
 }
 
@@ -1275,6 +1299,7 @@ int runUnrecoverableErrorPanel(void)
                                      nil);
 	[panel setLevel:NSStatusWindowLevel];
 	[panel makeKeyAndOrderFront:nil];
+    [NSApp setAutoLaunchOnLogin: NO];
 	if( [NSApp runModalForWindow:panel] != NSAlertDefaultReturn ) {
 		exit(2);
 	} else {
