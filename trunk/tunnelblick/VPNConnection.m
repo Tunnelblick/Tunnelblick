@@ -30,6 +30,24 @@
 #include <sys/param.h>
 #include <sys/mount.h>
 
+@interface VPNConnection()          // PRIVATE METHODS
+
+-(void)             addToLog:                   (NSString *)    text            atDate:     (NSCalendarDate *)      date;
+-(BOOL)             configNeedsRepair:          (NSString *)    configFile;
+-(void)             connectToManagementSocket;
+-(BOOL)             copyFile:                   (NSString *)    source          toFile:     (NSString *)            target      usingAuth:  (AuthorizationRef)  authRef;
+-(BOOL)             makeSureFolderExistsAtPath: (NSString *)    folderPath      usingAuth:  (AuthorizationRef)      authRef;
+-(NSString *)       getConfigToUse:             (NSString *)    cfgPath         orAlt:      (NSString *)            altCfgPath;
+-(unsigned int)     getFreePort;
+-(void)             killProcess;
+-(BOOL)             onRemoteVolume:             (NSString *)    cfgPath;
+-(void)             processLine:                (NSString *)    line;
+-(BOOL)             repairConfigPermissions:    (NSString *)    configFile      usingAuth:  (AuthorizationRef) authRef;
+-(void)             setConnectedSinceDate:      (NSDate *)      value;
+-(void)             setManagementSocket:        (NetSocket *)   socket;
+
+@end
+
 @implementation VPNConnection
 
 -(id) initWithConfig:(NSString *)inConfig
@@ -101,6 +119,8 @@
         return;
     }
 
+    ignoreOnePasswordRequest = NO;
+    
 	NSParameterAssert(managementSocket == nil);
 	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
 													 ofType: nil];
@@ -172,7 +192,7 @@
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
-        [self addToLog:[NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", nil), status, openvpnstartOutput]
+        [self addToLog:[NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]
                 atDate:[NSCalendarDate date]];
     }
     
@@ -261,9 +281,9 @@
 	[task setArguments:arguments];
 	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
 	[task setCurrentDirectoryPath:openvpnDirectory];
+	pid = 0;
 	[task launch];
 	[task waitUntilExit];
-	pid = 0;
 }
 
 
@@ -341,15 +361,20 @@
                 
                 if (NSDebugEnabled) NSLog(@"State is '%@'", state);
                 [self setState: state];
-				NSDate *now = [[NSDate alloc] init];
-				
                 if([state isEqualToString: @"RECONNECTING"]) {
                     [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
                 } else if ([state isEqualToString: @"CONNECTED"]) {
+                    NSDate *now = [[NSDate alloc] init];
                     [[NSApp delegate] addConnection:self];
 					[self setConnectedSinceDate:now];
+                    [now release];
                 }
             } else if ([command isEqualToString: @"PASSWORD"]) {
+                if (  ignoreOnePasswordRequest  ) {
+                    ignoreOnePasswordRequest = NO;
+                    [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Ignoring server request \"%@\"", line] atDate:[NSCalendarDate date]];
+                    return;
+                }
 				// Found password request from server:
                 
                 // Find out wether the server wants a private key or user/auth:
@@ -366,24 +391,27 @@
 					// Server wants a private key:
                     NSString *myPassphrase = [myAuthAgent passphrase];
 					if(myPassphrase){
-						[managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, myPassphrase] encoding:NSISOLatin1StringEncoding]; 
+						[managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
 					} else {
 						[self disconnect:self];
 					}
                 }
                 else if ([line rangeOfString: @"Failed"].length) {
-                    //NSLog(@"Passphrase verification failed.\n");
+                    if (NSDebugEnabled) NSLog(@"Passphrase verification failed.\n");
+                    ignoreOnePasswordRequest = YES;
                     [self disconnect:nil];
                     [NSApp activateIgnoringOtherApps:YES];
 					id buttonWithDifferentCredentials = nil;
-                    if ([myAuthAgent keychainHasPassphrase]) {
-						buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", nil);
+                    if ([myAuthAgent keychainHasCredentials]) {
+						buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
 					}
-					int alertVal = NSRunAlertPanel(NSLocalizedString(@"Verification failed.", nil),
-												   NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", nil),
-												   NSLocalizedString(@"Try again", nil),buttonWithDifferentCredentials,NSLocalizedString(@"Cancel", nil));
+					int alertVal = NSRunAlertPanel(NSLocalizedString(@"Verification failed.", @"Window title"),
+                                                           NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
+                                                           NSLocalizedString(@"Try again", @"Button"),
+                                                           buttonWithDifferentCredentials,
+                                                           NSLocalizedString(@"Cancel", @"Button"));
 					if (alertVal == NSAlertAlternateReturn) {
-						[myAuthAgent deletePassphraseFromKeychain];
+						[myAuthAgent deleteCredentialsFromKeychain];
 					}
 					if (  (alertVal == NSAlertAlternateReturn) || (alertVal == NSAlertDefaultReturn)  ) {	// i.e., not Other (Cancel) or Error returns
 						[self connect:nil];
@@ -397,8 +425,8 @@
 					NSString *myPassword = [myAuthAgent password];
 					NSString *myUsername = [myAuthAgent username];
 					if(myUsername && myPassword){
-						[managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n",myUsername] encoding:NSISOLatin1StringEncoding];
-						[managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n",myPassword] encoding:NSISOLatin1StringEncoding];
+						[managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
+						[managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
 					} else {
 						[self disconnect:self];
 					}
@@ -422,7 +450,11 @@
 				NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
 				if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
 					if (NSDebugEnabled) NSLog(@"Server wants token.");
-					int needButtonReturn = NSRunAlertPanel(tokenName,NSLocalizedString(@"Please insert token", nil),NSLocalizedString(@"OK", nil),NSLocalizedString(@"Cancel", nil),nil);
+					int needButtonReturn = NSRunAlertPanel(tokenName,
+                                                           NSLocalizedString(@"Please insert token", @"Window text"),
+                                                           NSLocalizedString(@"OK", @"Button"),
+                                                           NSLocalizedString(@"Cancel", @"Button"),
+                                                           nil);
 					if (needButtonReturn == NSAlertDefaultReturn) {
 						if (NSDebugEnabled) NSLog(@"Write need ok.");
 						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSISOLatin1StringEncoding];
@@ -561,8 +593,8 @@
         
         // setting menu command title depending on current status:
         NSString *commandString; 
-        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", nil);
-        else commandString = NSLocalizedString(@"Connect", nil);
+        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", @"Button");
+        else commandString = NSLocalizedString(@"Connect", @"Button");
         
         NSString *itemTitle = [NSString stringWithFormat:@"%@ '%@'", commandString, [connection configName]];
         [anItem setTitle:itemTitle]; 
@@ -658,10 +690,12 @@
 
             if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"]  ) {
                 // Get user's permission to proceed
-                NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", nil);
-                int alertVal = NSRunAlertPanel(NSLocalizedString(@"Create local copy of configuration file?", nil),
+                NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
+                int alertVal = NSRunAlertPanel(NSLocalizedString(@"Create local copy of configuration file?", @"Window title"),
                                                [NSString stringWithFormat:longMsg, cfgPath, libTbUserFolderPath],
-                                               NSLocalizedString(@"Create copy", nil),nil,NSLocalizedString(@"Cancel", nil));
+                                               NSLocalizedString(@"Create copy", @"Button"),
+                                               nil,
+                                               NSLocalizedString(@"Cancel", @"Button"));
                 if (  alertVal == NSAlertOtherReturn  ) {                                       // Cancel
                     return nil;
                 }
@@ -730,9 +764,11 @@
     }
     if ( ! [fMgr contentsEqualAtPath:source andPath:target] ) {
         NSLog(@"Tunnelblick could not copy the config file %@ to the alternate local location %@ in %d attempts.", source, target, maxtries);
-        NSRunAlertPanel(NSLocalizedString(@"Not connecting", nil),
-                        NSLocalizedString(@"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
+                        NSLocalizedString(@"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.", @"Window text"),
+                        NSLocalizedString(@"OK", @"Button"),
+                        nil,
+                        nil);
         return FALSE;
     }
 
@@ -789,9 +825,11 @@
 
     if (    ! (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  )    ) {
         NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration in %d attempts. OSStatus %ld.", folderPath, maxtries, status);
-        NSRunAlertPanel(NSLocalizedString(@"Not connecting", nil),
-                        NSLocalizedString(@"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
+                        NSLocalizedString(@"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.", @"Window text"),
+                        NSLocalizedString(@"OK", @"Button"),
+                        nil,
+                        nil);
         return FALSE;
     }
     return TRUE;
@@ -845,9 +883,11 @@
     }
     
     if (  [self configNeedsRepair:configFilePath]  ) {
-        NSRunAlertPanel(NSLocalizedString(@"Not connecting", nil),
-                        NSLocalizedString(@"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.", nil),
-                        NSLocalizedString(@"OK", nil), nil, nil);
+        NSRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
+                        NSLocalizedString(@"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.", @"Window text"),
+                        NSLocalizedString(@"OK", @"Button"),
+                        nil,
+                        nil);
         return NO;
     }
     

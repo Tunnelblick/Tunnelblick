@@ -18,6 +18,7 @@
 
 #import "VPNConnection.h"
 
+NSString     * escaped              (NSString *string);
 NSDictionary * getOpenVPNVersion    (void);
 NSString     * openVPNVersion       (void);
 NSDictionary * parseVersion         (NSString * string);

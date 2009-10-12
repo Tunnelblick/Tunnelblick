@@ -19,6 +19,14 @@
 
 #include "helper.h"
 
+// Returns an escaped version of a string so it can be sent over the management interface
+NSString *escaped(NSString *string) {
+	NSMutableString * stringOut = [[string mutableCopy] autorelease];
+	[stringOut replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	return stringOut;
+}
+
 BOOL useDNSStatus(id connection)
 {
 	static BOOL useDNS = FALSE;
