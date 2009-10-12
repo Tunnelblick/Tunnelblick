@@ -443,8 +443,8 @@ BOOL runningOnTigerOrNewer()
             if (  ! [[myConnection state] isEqualTo:@"EXITING"]  ) {
                 [myConnection disconnect:self];
                 NSAlert * alert = [[NSAlert alloc] init];
-                NSString * msg1 = NSLocalizedString(@"'%@' has been disconnected", nil);
-                NSString * msg2 = NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", nil);
+                NSString * msg1 = NSLocalizedString(@"'%@' has been disconnected", @"Window title");
+                NSString * msg2 = NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text");
                 [alert setMessageText:[NSString stringWithFormat:msg1, [myConnection configName]]];
                 [alert setInformativeText:[NSString stringWithFormat:msg2, [myConnection configName]]];
                 [alert runModal];
@@ -589,9 +589,9 @@ BOOL runningOnTigerOrNewer()
 	unsigned connectionNumber = [connectionArray count];
 	NSString *myState;
 	if(connectionNumber == 1) {
-		myState = NSLocalizedString(@"Tunnelblick: 1 connection active.", nil);
+		myState = NSLocalizedString(@"Tunnelblick: 1 connection active.", @"Status message");
 	} else {
-		myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: %d connections active.", nil),connectionNumber];
+		myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: %d connections active.", @"Status message"),connectionNumber];
 	}
 	
     [statusMenuItem setTitle: myState];
@@ -730,12 +730,12 @@ BOOL runningOnTigerOrNewer()
         if (  numConnections != 1  ) {
             // Dictionary for the panel -- can't use NSPanel because the Tiger version of NSPanel doesn't support "Don't show this message again" checkbox
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-            NSString *question = [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", nil), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ];
-            [dict setObject:NSLocalizedString(@"Do you wish to connect?", nil) forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+            NSString *question = [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ];
+            [dict setObject:NSLocalizedString(@"Do you wish to connect?", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
             [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-            [dict setObject:NSLocalizedString(@"Do not warn about this again", nil) forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
-            [dict setObject:NSLocalizedString(@"Connect", nil) forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-            [dict setObject:NSLocalizedString(@"Cancel", nil) forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
+            [dict setObject:NSLocalizedString(@"Do not warn about this again", @"Checkbox name") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+            [dict setObject:NSLocalizedString(@"Connect", @"Button") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+            [dict setObject:NSLocalizedString(@"Cancel", @"Button") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
             SInt32 error;
             CFUserNotificationRef notification = CFUserNotificationCreate(NULL, 30, CFUserNotificationSecureTextField(0), &error, (CFDictionaryRef)dict);
             CFOptionFlags response;
@@ -926,7 +926,7 @@ BOOL runningOnTigerOrNewer()
     NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
     NSAttributedString * credits = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
 
-    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.", nil);
+    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.", @"Window text");
 
     NSDictionary * aboutPanelDict;
     aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1017,10 +1017,10 @@ BOOL runningOnTigerOrNewer()
 	
 	if([[self getConfigs] count] == 0) { // if there are no config files, create a default one
 		[NSApp activateIgnoringOtherApps:YES];
-        if(NSRunCriticalAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.", nil),
-                                   NSLocalizedString(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace.", nil),
-                                   NSLocalizedString(@"Quit", nil),
-                                   NSLocalizedString(@"Continue", nil),
+        if(NSRunCriticalAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.", @"Window title"),
+                                   NSLocalizedString(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace.", @"Window text"),
+                                   NSLocalizedString(@"Quit", @"Button"),
+                                   NSLocalizedString(@"Continue", @"Button"),
                                    nil) == NSAlertDefaultReturn) {
             [NSApp setAutoLaunchOnLogin: NO];
             [NSApp terminate: nil];
@@ -1170,7 +1170,11 @@ static void signal_handler(int signalNumber)
 {
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"You're trying to launch Tunnelblick from the disk image", nil),NSLocalizedString(@"Please copy Tunnelblick.app to your Harddisk before launching it.", nil),NSLocalizedString(@"Cancel", nil),nil,nil);
+		NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"You're trying to launch Tunnelblick from the disk image", @"Window title"),
+                                         NSLocalizedString(@"Please copy Tunnelblick.app to your Harddisk before launching it.", @"Window text"),
+                                         NSLocalizedString(@"Cancel", @"Button"),
+                                         nil,
+                                         nil);
 		[panel setLevel:NSStatusWindowLevel];
 		[panel makeKeyAndOrderFront:nil];
 		[NSApp runModalForWindow:panel];
@@ -1292,10 +1296,10 @@ BOOL needsRepair()
 }
 int runUnrecoverableErrorPanel(void) 
 {
-	NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"Tunnelblick Error", nil),
-                                     NSLocalizedString(@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy.", nil),
-                                     NSLocalizedString(@"Download", nil),
-                                     NSLocalizedString(@"Quit", nil),
+	NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                                     NSLocalizedString(@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy.", @"Window text"),
+                                     NSLocalizedString(@"Download", @"Button"),
+                                     NSLocalizedString(@"Quit", @"Button"),
                                      nil);
 	[panel setLevel:NSStatusWindowLevel];
 	[panel makeKeyAndOrderFront:nil];

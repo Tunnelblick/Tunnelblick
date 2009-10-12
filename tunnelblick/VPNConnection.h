@@ -33,9 +33,20 @@
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
+    
+    // The following flag is used to avoid a race condition: when a bad passphrase or username/password is used, OpenVPN responds with two
+    // messages: a "failed" message and a new "password" request. When we get the "failed" request, we kill the connection.
+    // Sometimes the new "password" request is queued up before we kill the connection, so we get both messages, but other
+    // times the connection is killed before the new "password" request is queued, so we only get the "failed" request.
+    // When this boolean is TRUE, we discard one "password" message and set it to FALSE.
+    // This boolean is set TRUE when a "failed" message is received, so we will ignore the new "password" request if it arrives.
+    // It is set FALSE when we do a "connect:", so any normal (not after failure) "password" message is processed.
+    BOOL       ignoreOnePasswordRequest;
 }
 
-// Used exernally (outside of VPNConnection):
+// PUBLIC METHODS:
+// (Private method interfaces are in VPNConnection.m)
+
 -(NSString*)        configName;
 -(NSString*)        configPath;
 -(NSDate *)         connectedSinceDate;
@@ -53,20 +64,5 @@
 -(NSString*)        state;
 -(IBAction)         toggle:                     (id)            sender;
 -(BOOL)             usedSetNameserver;
-
-// Used internally (only by VPNConnection):
--(void)             addToLog:                   (NSString *)    text            atDate:     (NSCalendarDate *)      date;
--(BOOL)             configNeedsRepair:          (NSString *)    configFile;
--(void)             connectToManagementSocket;
--(BOOL)             copyFile:                   (NSString *)    source          toFile:     (NSString *)            target      usingAuth:  (AuthorizationRef)  authRef;
--(BOOL)             makeSureFolderExistsAtPath: (NSString *)    folderPath      usingAuth:  (AuthorizationRef)      authRef;
--(NSString *)       getConfigToUse:             (NSString *)    cfgPath         orAlt:      (NSString *)            altCfgPath;
--(unsigned int)     getFreePort;
--(void)             killProcess;
--(BOOL)             onRemoteVolume:             (NSString *)    cfgPath;
--(void)             processLine:                (NSString *)    line;
--(BOOL)             repairConfigPermissions:    (NSString *)    configFile      usingAuth:  (AuthorizationRef) authRef;
--(void)             setConnectedSinceDate:      (NSDate *)      value;
--(void)             setManagementSocket:        (NetSocket *)   socket;
 
 @end
