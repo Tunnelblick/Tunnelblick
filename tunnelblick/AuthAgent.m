@@ -87,7 +87,9 @@
     
     /* Dictionary for the panel.  */
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
-    [dict setObject:NSLocalizedString(@"Passphrase", @"Window title")                   forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+    [dict setObject:[NSString stringWithFormat:@"%@: %@",
+                     [self configName],
+                     NSLocalizedString(@"Passphrase", @"Window title")]                 forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:NSLocalizedString(@"Please enter VPN passphrase.", @"Window text")  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
     [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")            forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
     [dict setObject:@""                                                                 forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
@@ -164,7 +166,9 @@
         // Ask for username and password
 
         NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
-        [dict setObject:NSLocalizedString(@"Username and password", @"Window title")                            forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+        [dict setObject:[NSString stringWithFormat:@"%@: %@",
+                         [self configName],
+                         NSLocalizedString(@"Username and password", @"Window title")]                          forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
         [dict setObject:NSLocalizedString(@"Please enter VPN username/password combination.", @"Window text")   forKey:(NSString *)kCFUserNotificationAlertMessageKey];
         [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")                                forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
         [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", @"Textbox name"),

@@ -190,3 +190,74 @@ NSRange rangeOfDigits(NSString * s)
         }
     }
 }
+
+// Takes the same arguments as, and is similar to, NSRunAlertPanel
+// DOES NOT BEHAVE IDENTICALLY to NSRunAlertPanel:
+//   * Stays on top of other windows
+//   * Blocks the runloop
+//   * Displays the Tunnelblick icon
+//   * If title is nil, "Alert" will be used.
+//   * If defaultButtonLabel is nil, "OK" will be used.
+
+int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLabel, NSString * alternateButtonLabel, NSString * otherButtonLabel)
+{
+    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                  msg,  kCFUserNotificationAlertMessageKey,
+                                  [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
+                                        kCFUserNotificationIconURLKey,
+                                  nil];
+    if ( title ) {
+        [dict setObject: title
+                 forKey: (NSString *)kCFUserNotificationAlertHeaderKey];
+    } else {
+        [dict setObject: NSLocalizedString(@"Alert", @"Window title")
+                 forKey: (NSString *)kCFUserNotificationAlertHeaderKey];
+    }
+    
+    if ( defaultButtonLabel ) {
+        [dict setObject: defaultButtonLabel
+                 forKey: (NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    } else {
+        [dict setObject: NSLocalizedString(@"OK", @"Button")
+                 forKey: (NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    }
+    
+    if ( alternateButtonLabel ) {
+        [dict setObject: alternateButtonLabel
+                 forKey: (NSString *)kCFUserNotificationAlternateButtonTitleKey];
+    }
+    
+    if ( otherButtonLabel ) {
+        [dict setObject: otherButtonLabel
+                 forKey: (NSString *)kCFUserNotificationOtherButtonTitleKey];
+    }
+    
+    SInt32 error;
+    CFUserNotificationRef notification;
+    CFOptionFlags response;
+    
+    notification = CFUserNotificationCreate(NULL, 0, 0, &error, (CFDictionaryRef) dict);
+    
+    if(  error || CFUserNotificationReceiveResponse(notification, 0, &response)  ) {
+        CFRelease(notification);
+        [dict release];
+        return NSAlertErrorReturn;     // Couldn't receive a response
+    }
+    
+    CFRelease(notification);
+    [dict release];
+    
+    switch (response & 0x3) {
+        case kCFUserNotificationDefaultResponse:
+            return NSAlertDefaultReturn;
+            
+        case kCFUserNotificationAlternateResponse:
+            return NSAlertAlternateReturn;
+            
+        case kCFUserNotificationOtherResponse:
+            return NSAlertOtherReturn;
+            
+        default:
+            return NSAlertErrorReturn;
+    }
+}
