@@ -23,5 +23,10 @@ NSDictionary * getOpenVPNVersion    (void);
 NSString     * openVPNVersion       (void);
 NSDictionary * parseVersion         (NSString * string);
 NSRange        rangeOfDigits        (NSString * s);
+int            TBRunAlertPanel      (NSString * title,
+                                     NSString * msg,
+                                     NSString * defaultButtonLabel,
+                                     NSString * alternateButtonLabel,
+                                     NSString * otherButtonLabel);
 NSString     * tunnelblickVersion   (void);
 BOOL           useDNSStatus         (id connection);

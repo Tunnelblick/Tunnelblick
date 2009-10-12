@@ -405,11 +405,13 @@
                     if ([myAuthAgent keychainHasCredentials]) {
 						buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
 					}
-					int alertVal = NSRunAlertPanel(NSLocalizedString(@"Verification failed.", @"Window title"),
-                                                           NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
-                                                           NSLocalizedString(@"Try again", @"Button"),
-                                                           buttonWithDifferentCredentials,
-                                                           NSLocalizedString(@"Cancel", @"Button"));
+					int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                                              [self configName],
+                                                                              NSLocalizedString(@"Authentication failed", @"Window title")],
+                                                    NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
+                                                    NSLocalizedString(@"Try again", @"Button"),
+                                                    buttonWithDifferentCredentials,
+                                                    NSLocalizedString(@"Cancel", @"Button"));
 					if (alertVal == NSAlertAlternateReturn) {
 						[myAuthAgent deleteCredentialsFromKeychain];
 					}
@@ -450,9 +452,11 @@
 				NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
 				if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
 					if (NSDebugEnabled) NSLog(@"Server wants token.");
-					int needButtonReturn = NSRunAlertPanel(tokenName,
-                                                           NSLocalizedString(@"Please insert token", @"Window text"),
-                                                           NSLocalizedString(@"OK", @"Button"),
+					int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                                                      [self configName],
+                                                                                      NSLocalizedString(@"Please insert token", @"Window title")],
+                                                           [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
+                                                           nil,
                                                            NSLocalizedString(@"Cancel", @"Button"),
                                                            nil);
 					if (needButtonReturn == NSAlertDefaultReturn) {
@@ -691,7 +695,9 @@
             if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"]  ) {
                 // Get user's permission to proceed
                 NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
-                int alertVal = NSRunAlertPanel(NSLocalizedString(@"Create local copy of configuration file?", @"Window title"),
+                int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                                          [self configName],
+                                                                          NSLocalizedString(@"Create local copy of configuration file?", @"Window title")],
                                                [NSString stringWithFormat:longMsg, cfgPath, libTbUserFolderPath],
                                                NSLocalizedString(@"Create copy", @"Button"),
                                                nil,
@@ -764,11 +770,13 @@
     }
     if ( ! [fMgr contentsEqualAtPath:source andPath:target] ) {
         NSLog(@"Tunnelblick could not copy the config file %@ to the alternate local location %@ in %d attempts.", source, target, maxtries);
-        NSRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
-                        NSLocalizedString(@"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.", @"Window text"),
-                        NSLocalizedString(@"OK", @"Button"),
-                        nil,
-                        nil);
+    TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                               [self configName],
+                                               NSLocalizedString(@"Not connecting", @"Window title")],
+                    NSLocalizedString(@"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.", @"Window text"),
+                    nil,
+                    nil,
+                    nil);
         return FALSE;
     }
 
@@ -825,9 +833,11 @@
 
     if (    ! (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  )    ) {
         NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration in %d attempts. OSStatus %ld.", folderPath, maxtries, status);
-        NSRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
+        TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                    [self configName],
+                                                    NSLocalizedString(@"Not connecting", @"Window title")],
                         NSLocalizedString(@"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.", @"Window text"),
-                        NSLocalizedString(@"OK", @"Button"),
+                        nil,
                         nil,
                         nil);
         return FALSE;
@@ -883,9 +893,11 @@
     }
     
     if (  [self configNeedsRepair:configFilePath]  ) {
-        NSRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
+        TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                   [self configName],
+                                                   NSLocalizedString(@"Not connecting", @"Window title")],
                         NSLocalizedString(@"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.", @"Window text"),
-                        NSLocalizedString(@"OK", @"Button"),
+                        nil,
                         nil,
                         nil);
         return NO;

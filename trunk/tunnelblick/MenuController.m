@@ -464,11 +464,11 @@ BOOL runningOnTigerOrNewer()
     
     // If there aren't ANY config files, let the user quit or create and edit a sample configuration file.
     if (  [myConfigArray count] == 0  ) {
-        int button = NSRunCriticalAlertPanel(NSLocalizedString(@"Install and edit sample configuration file?", @"Window title"),
-                                             NSLocalizedString(@"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick.", @"Window message"),
-                                             NSLocalizedString(@"Quit", @"Button"), // Default button
-                                             NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
-                                             nil);
+        int button = TBRunAlertPanel(NSLocalizedString(@"Install and edit sample configuration file?", @"Window title"),
+                                     NSLocalizedString(@"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick.", @"Window message"),
+                                     NSLocalizedString(@"Quit", @"Button"), // Default button
+                                     NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
+                                     nil);
         
         if (  button == NSAlertDefaultReturn  ) {
             [NSApp setAutoLaunchOnLogin: NO];
@@ -1017,11 +1017,11 @@ BOOL runningOnTigerOrNewer()
 	
 	if([[self getConfigs] count] == 0) { // if there are no config files, create a default one
 		[NSApp activateIgnoringOtherApps:YES];
-        if(NSRunCriticalAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.", @"Window title"),
-                                   NSLocalizedString(@"You can also continue and Tunnelblick will create an example configuration file at the right place that you can customize or replace.", @"Window text"),
-                                   NSLocalizedString(@"Quit", @"Button"),
-                                   NSLocalizedString(@"Continue", @"Button"),
-                                   nil) == NSAlertDefaultReturn) {
+        if(TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.", @"Window title"),
+                           NSLocalizedString(@"You can also continue and Tunnelblick will create an example configuration file there that you can customize or replace.", @"Window text"),
+                           NSLocalizedString(@"Quit", @"Button"),
+                           NSLocalizedString(@"Continue", @"Button"),
+                           nil) == NSAlertDefaultReturn) {
             [NSApp setAutoLaunchOnLogin: NO];
             [NSApp terminate: nil];
         }
@@ -1170,14 +1170,11 @@ static void signal_handler(int signalNumber)
 {
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"You're trying to launch Tunnelblick from the disk image", @"Window title"),
-                                         NSLocalizedString(@"Please copy Tunnelblick.app to your Harddisk before launching it.", @"Window text"),
-                                         NSLocalizedString(@"Cancel", @"Button"),
-                                         nil,
-                                         nil);
-		[panel setLevel:NSStatusWindowLevel];
-		[panel makeKeyAndOrderFront:nil];
-		[NSApp runModalForWindow:panel];
+		TBRunAlertPanel(NSLocalizedString(@"You're trying to launch Tunnelblick from the disk image", @"Window title"),
+                        NSLocalizedString(@"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.", @"Window text"),
+                        NSLocalizedString(@"Cancel", @"Button"),
+                        nil,
+                        nil);
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
 	}
@@ -1247,8 +1244,10 @@ BOOL needsRepair()
 	// check openvpnstart owned by root, set uid, owner may execute
 	const char *path = [openvpnstartPath UTF8String];
     struct stat sb;
-	if(stat(path,&sb)) runUnrecoverableErrorPanel();
-	
+	if(stat(path,&sb)) {
+        runUnrecoverableErrorPanel(@"Unable to determine status of \"openvpnstart\"");
+	}
+    
 	if (!(			  (sb.st_mode & S_ISUID) // set uid bit is set
 					  && (sb.st_mode & S_IXUSR) // owner may execute it
 					  && (sb.st_uid == 0) // is owned by root
@@ -1294,22 +1293,18 @@ BOOL needsRepair()
 		[connection connect:self];
 	}
 }
-int runUnrecoverableErrorPanel(void) 
+int runUnrecoverableErrorPanel(msg) 
 {
-	NSPanel *panel = NSGetAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                                     NSLocalizedString(@"It seems like you need to reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy.", @"Window text"),
-                                     NSLocalizedString(@"Download", @"Button"),
-                                     NSLocalizedString(@"Quit", @"Button"),
-                                     nil);
-	[panel setLevel:NSStatusWindowLevel];
-	[panel makeKeyAndOrderFront:nil];
-    [NSApp setAutoLaunchOnLogin: NO];
-	if( [NSApp runModalForWindow:panel] != NSAlertDefaultReturn ) {
-		exit(2);
-	} else {
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@", @"Window text"),
+                                                                               msg],
+                                 NSLocalizedString(@"Download", @"Button"),
+                                 NSLocalizedString(@"Quit", @"Button"),
+                                 nil);
+	if( result == NSAlertDefaultReturn ) {
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://tunnelblick.net/"]];
-		exit(2);
 	}
+    exit(2);
 }
 
 -(IBAction) autoLaunchPrefButtonWasClicked: (id) sender
