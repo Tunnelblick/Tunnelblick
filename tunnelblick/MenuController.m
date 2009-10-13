@@ -220,6 +220,20 @@ BOOL runningOnTigerOrNewer()
         updater = [[SUUpdater alloc] init];
 
 	}
+
+    // Process "Automatically connect on launch" checkboxes
+	NSString * configFilename;
+    VPNConnection * myConnection;
+	NSEnumerator * m = [myConfigArray objectEnumerator];
+    while (configFilename = [m nextObject]) {
+        myConnection = [myVPNConnectionDictionary objectForKey: configFilename];
+        if([[NSUserDefaults standardUserDefaults] boolForKey: [[myConnection configName] stringByAppendingString: @"autoConnect"]]) {
+            if(![myConnection isConnected]) {
+                [myConnection connect:self];
+            }
+        }
+    }
+
     return self;
 }
 
@@ -359,13 +373,6 @@ BOOL runningOnTigerOrNewer()
 		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString]; // initialize VPN Connection with config	
 		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
-        
-        // handle autoconnection:
-		NSString *autoConnectKey = [[myConnection configName] stringByAppendingString: @"autoConnect"];
-		if([[NSUserDefaults standardUserDefaults] boolForKey:autoConnectKey]) 
-        {
-			if(![myConnection isConnected]) [myConnection connect:self];
-        }
         
 		[myVPNConnectionDictionary setObject: myConnection forKey:configString];
 		
