@@ -261,3 +261,29 @@ int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLa
             return NSAlertErrorReturn;
     }
 }
+
+// This method is never invoked. It is a place to put strings which are used in the .nib or come from OpenVPN
+// They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.
+void localizableStrings(void)
+{
+    // These strings come from the .nib
+    NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title");
+    NSLocalizedString(@"Clear log",                         @"Button");
+    NSLocalizedString(@"Edit configuration",                @"Button");
+    NSLocalizedString(@"Connect",                           @"Button");
+    NSLocalizedString(@"Disconnect",                        @"Button");
+    NSLocalizedString(@"Automatically connect on launch",   @"Checkbox name");
+    NSLocalizedString(@"Set nameserver",                    @"Checkbox name");
+    
+    // These strings come from OpenVPN and indicate the status of a connection
+    NSLocalizedString(@"ADD_ROUTES",    @"Connection status");
+    NSLocalizedString(@"ASSIGN_IP",     @"Connection status");
+    NSLocalizedString(@"AUTH",          @"Connection status");
+    NSLocalizedString(@"CONNECTED",     @"Connection status");
+    NSLocalizedString(@"CONNECTING",    @"Connection status");
+    NSLocalizedString(@"EXITING",       @"Connection status");
+    NSLocalizedString(@"GET_CONFIG",    @"Connection status");
+    NSLocalizedString(@"RECONNECTING",  @"Connection status");
+    NSLocalizedString(@"SLEEP",         @"Connection status");
+    NSLocalizedString(@"WAIT",          @"Connection status");
+}
