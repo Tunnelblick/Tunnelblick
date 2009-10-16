@@ -166,17 +166,17 @@ BOOL runningOnTigerOrNewer()
         [self loadMenuIconSet];
 
 		detailsItem = [[NSMenuItem alloc] init];
-		[detailsItem setTitle: @"Details..."];
+		[detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
 		[detailsItem setTarget: self];
 		[detailsItem setAction: @selector(openLogWindow:)];
 		
 		aboutItem = [[NSMenuItem alloc] init];
-		[aboutItem setTitle: @"About..."];
+		[aboutItem setTitle: NSLocalizedString(@"About...", @"Menu item")];
 		[aboutItem setTarget: self];
 		[aboutItem setAction: @selector(openAboutWindow:)];
 		
 		quitItem = [[NSMenuItem alloc] init];
-		[quitItem setTitle: @"Quit"]; 
+		[quitItem setTitle: NSLocalizedString(@"Quit", @"Menu item")];
 		[quitItem setTarget: self];
 		[quitItem setAction: @selector(quit:)];
         
@@ -376,7 +376,7 @@ BOOL runningOnTigerOrNewer()
         
 		[myVPNConnectionDictionary setObject: myConnection forKey:configString];
 		
-        // Note: The item's title will be set on demand in -validateMenuItem
+        // Note: The item's title will be set on demand in VPNConnection's -validateMenuItem
 		[connectionItem setTarget:myConnection]; 
 		[connectionItem setAction:@selector(toggle:)];
 		
@@ -390,15 +390,6 @@ BOOL runningOnTigerOrNewer()
 	[myVPNMenu addItem: aboutItem];
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
 	[myVPNMenu addItem: quitItem];
-    
-    // Localize all menu items:
-    NSMenuItem *item;
-    NSEnumerator *e = [[myVPNMenu itemArray] objectEnumerator];
-    
-    while (item = [e nextObject]) 
-    {
-        [item setTitle:NSLocalizedString([item title], nil)];
-    }
 }
 
 
@@ -423,7 +414,7 @@ BOOL runningOnTigerOrNewer()
             [myVPNConnectionDictionary setObject: myConnection forKey:configString];
             
             // Add new config to myConfigArray and the menu, keeping myConfigArray sorted
-            // Note: The item's title will be set on demand in -validateMenuItem
+            // Note: The item's title will be set on demand in VPNConnection's -validateMenuItem
             NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
             [connectionItem setTarget:myConnection]; 
             [connectionItem setAction:@selector(toggle:)];
@@ -1177,7 +1168,7 @@ static void signal_handler(int signalNumber)
 {
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		TBRunAlertPanel(NSLocalizedString(@"You're trying to launch Tunnelblick from the disk image", @"Window title"),
+		TBRunAlertPanel(NSLocalizedString(@"You are trying to launch Tunnelblick from the disk image", @"Window title"),
                         NSLocalizedString(@"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.", @"Window text"),
                         NSLocalizedString(@"Cancel", @"Button"),
                         nil,

@@ -69,7 +69,7 @@
             NSEnumerator *e = [windows objectEnumerator];
             NSWindow *window = nil;
             while(window = [e nextObject]) {
-                if (  [[window title] isEqualToString:@"OpenVPN Log Output - Tunnelblick"]  ) {
+                if (  [[window title] isEqualToString:NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title")]  ) {
                     [window miniaturize:nil];
                     return YES;
                 }
@@ -80,7 +80,7 @@
             NSEnumerator *e = [windows objectEnumerator];
             NSWindow *window = nil;
             while(window = [e nextObject]) {
-                if (  [[window title] isEqualToString:@"OpenVPN Log Output - Tunnelblick"]  ) {
+                if (  [[window title] isEqualToString:NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title")]  ) {
                     [window performClose:nil ];
                     return YES;
                 }

@@ -1,53 +1,17 @@
-/* Window title */
-"'%@' has been disconnected" = "'%@' has been disconnected";
-
 /* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
-
-/* Menu item */
-"About..." = "About...";
-
-/* Connection status */
-"ADD_ROUTES" = "ADD_ROUTES";
 
 /* Window title */
 "Alert" = "Alert";
 
-/* Connection status */
-"ASSIGN_IP" = "ASSIGN_IP";
-
-/* Connection status */
-"AUTH" = "AUTH";
-
 /* Window title */
 "Authentication failed" = "Authentication failed";
-
-/* Checkbox name */
-"Automatically connect on launch" = "Automatically connect on launch";
-
-/* Button */
-"Cancel" = "Cancel";
-
-/* Button */
-"Clear log" = "Clear log";
-
-/* Window text */
-"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
-
-/* Button */
-"Connect" = "Connect";
-
-/* Connection status */
-"CONNECTED" = "CONNECTED";
 
 /* Connection status */
 "CONNECTING" = "CONNECTING";
 
-/* Button */
-"Continue" = "Continue";
-
 /* Window text */
-"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.";
+"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
 
 /* Button */
 "Create copy" = "Create copy";
@@ -55,29 +19,11 @@
 /* Window title */
 "Create local copy of configuration file?" = "Create local copy of configuration file?";
 
-/* Menu item */
-"Details..." = "Details...";
-
-/* Button */
-"Disconnect" = "Disconnect";
-
 /* Checkbox name */
 "Do not warn about this again" = "Do not warn about this again";
 
 /* Window title */
 "Do you wish to connect?" = "Do you wish to connect?";
-
-/* Button */
-"Download" = "Download";
-
-/* Button */
-"Edit configuration" = "Edit configuration";
-
-/* Connection status */
-"EXITING" = "EXITING";
-
-/* Connection status */
-"GET_CONFIG" = "GET_CONFIG";
 
 /* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -91,63 +37,20 @@
 /* Window title */
 "Not connecting" = "Not connecting";
 
-/* Button */
-"OK" = "OK";
-
 /* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
-
-/* Window title */
-"Passphrase" = "Passphrase";
-
-/* Textbox name */
-"Password:" = "Password:";
 
 /* Window text */
 "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.";
 
 /* Window text */
-"Please enter VPN passphrase." = "Please enter VPN passphrase.";
-
-/* Window text */
-"Please enter VPN username/password combination." = "Please enter VPN username/password combination.";
-
-/* Window title */
-"Please insert token" = "Please insert token";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
-
-/* Menu item
-   Button */
-"Quit" = "Quit";
-
-/* Connection status */
-"RECONNECTING" = "RECONNECTING";
-
-/* Checkbox text */
-"Save in Keychain" = "Save in Keychain";
-
-/* Checkbox name */
-"Set nameserver" = "Set nameserver";
-
-/* Connection status */
-"SLEEP" = "SLEEP";
-
-/* Window text */
-"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "The credentials (passphrase or username/password) were not accepted by the remote VPN server.";
 
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
-
-/* Button */
-"Try again" = "Try again";
-
-/* Button */
-"Try again with different credentials" = "Try again with different credentials";
 
 /* Window text */
 "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
@@ -157,27 +60,6 @@
 
 /* Window text */
 "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.";
-
-/* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
-
-/* Window text */
-"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
-
-/* Status message */
-"Tunnelblick: %d connections active." = "Tunnelblick: %d connections active.";
-
-/* Status message */
-"Tunnelblick: 1 connection active." = "Tunnelblick: 1 connection active.";
-
-/* Window title */
-"Username and password" = "Username and password";
-
-/* Textbox name */
-"Username:" = "Username:";
-
-/* Connection status */
-"WAIT" = "WAIT";
 
 /* Window title */
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";
