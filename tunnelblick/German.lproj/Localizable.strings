@@ -5,13 +5,13 @@
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
 /* Connection status */
-"ADD_ROUTES" = "Füge Routen hinzu…";
+"ADD_ROUTES" = "Füge Routen hinzu";
 
 /* Connection status */
-"ASSIGN_IP" = "Weise die IP Adresse zu…";
+"ASSIGN_IP" = "Weise die IP Adresse zu";
 
 /* Connection status */
-"AUTH"   = "Autorisieren…";
+"AUTH"   = "Autorisieren";
 
 /* Menu item */
 "About..." = "Über…";
@@ -29,7 +29,7 @@
 "CONNECTED"  = "Verbunden";
 
 /* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "CONNECTING";
+"CONNECTING" = "Connecting";
 
 /* Button */
 "Cancel" = "Abbrechen";
@@ -56,7 +56,7 @@
 "Create local copy of configuration file?" = "Create local copy of configuration file?";
 
 /* Menu item */
-"Details..." = "Details...";
+"Details..." = "Details…";
 
 /* Button */
 "Disconnect" = "Trennen";
@@ -77,7 +77,7 @@
 "Edit configuration" = "Konfiguration bearbeiten";
 
 /* Connection status */
-"GET_CONFIG" = "Lade Konfiguration…";
+"GET_CONFIG" = "Lade Konfiguration";
 
 /* NEEDS TRANSLATION *//* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -123,10 +123,10 @@
 "Quit"   = "Beenden";
 
 /* Connection status */
-"RECONNECTING" = "Stelle Verbindung erneut her…";
+"RECONNECTING" = "Stelle Verbindung erneut her";
 
 /* Connection status */
-"SLEEP" = "Warten auf Dämon-Prozess…"; // translate "Waiting for Demon Process"!
+"SLEEP" = "Warten auf Dämon-Prozess"; // translate "Waiting for Demon Process"!
 
 /* Checkbox text */
 "Save in Keychain" = "Im Schlüsselbund sichern";
@@ -177,7 +177,7 @@
 "Username:" = "Benutzername";
 
 /* Connection status */
-"WAIT" = "Warten auf Server-Antwort…"; // translate "Waiting for Server Response"!
+"WAIT" = "Warten auf Server-Antwort";   // Please translate "Waiting for Server Response"
 
 /* NEEDS TRANSLATION *//* Window title */
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";

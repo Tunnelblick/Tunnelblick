@@ -29,7 +29,7 @@
 "CONNECTED" = "연결 됨";
 
 /* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "CONNECTING";
+"CONNECTING" = "Connecting";
 
 /* Button */
 "Cancel" = "취소";
@@ -126,7 +126,7 @@
 "RECONNECTING" = "다시연결 중";
 
 /* Connection status */
-"SLEEP" = "대기 중...";
+"SLEEP" = "대기 중";       // Please translate "Waiting for daemon process
 
 /* Checkbox text */
 "Save in Keychain" = "키체인에 저장";
@@ -177,7 +177,7 @@
 "Username:" = "사용자 계정:";
 
 /* Connection status */
-"WAIT" = "연결 중...";
+"WAIT" = "연결 중";   // Please translate "Waiting for Server Response"
 
 /* Window title */
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Mac OS X용 Tunnelblick 사용을 환영합니다: 설정 파일(예 openvpn.conf)은 '~/Library/openvpn/'에 있어야 합니다.";

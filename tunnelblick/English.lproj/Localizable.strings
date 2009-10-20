@@ -5,19 +5,19 @@
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
 /* Menu item */
-"About..." = "About...";
+"About..." = "About…";
 
 /* Connection status */
-"ADD_ROUTES" = "ADD_ROUTES";
+"ADD_ROUTES" = "Adding routes";
 
 /* Window title */
 "Alert" = "Alert";
 
 /* Connection status */
-"ASSIGN_IP" = "ASSIGN_IP";
+"ASSIGN_IP" = "Assigning IP address";
 
 /* Connection status */
-"AUTH" = "AUTH";
+"AUTH" = "Authorizing";
 
 /* Window title */
 "Authentication failed" = "Authentication failed";
@@ -38,7 +38,7 @@
 "Connect" = "Connect";
 
 /* Connection status */
-"CONNECTED" = "CONNECTED";
+"CONNECTED" = "Connected";
 
 /* Connection status */
 "CONNECTING" = "CONNECTING";
@@ -56,7 +56,7 @@
 "Create local copy of configuration file?" = "Create local copy of configuration file?";
 
 /* Menu item */
-"Details..." = "Details...";
+"Details..." = "Details…";
 
 /* Button */
 "Disconnect" = "Disconnect";
@@ -74,10 +74,10 @@
 "Edit configuration" = "Edit configuration";
 
 /* Connection status */
-"EXITING" = "EXITING";
+"EXITING" = "Disconnected";     // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "GET_CONFIG";
+"GET_CONFIG" = "Getting configuration";
 
 /* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -123,7 +123,7 @@
 "Quit" = "Quit";
 
 /* Connection status */
-"RECONNECTING" = "RECONNECTING";
+"RECONNECTING" = "Reconnecting";
 
 /* Checkbox text */
 "Save in Keychain" = "Save in Keychain";
@@ -132,7 +132,7 @@
 "Set nameserver" = "Set nameserver";
 
 /* Connection status */
-"SLEEP" = "SLEEP";
+"SLEEP" = "Waiting for Daemon Process";   // Please translate "Waiting for daemon process"
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "The credentials (passphrase or username/password) were not accepted by the remote VPN server.";
@@ -177,7 +177,7 @@
 "Username:" = "Username:";
 
 /* Connection status */
-"WAIT" = "WAIT";
+"WAIT" = "Waiting for server response";   // Please translate "Waiting for Server Response"
 
 /* Window title */
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";
