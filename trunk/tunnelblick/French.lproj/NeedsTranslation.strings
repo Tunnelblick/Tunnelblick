@@ -8,7 +8,7 @@
 "Authentication failed" = "Authentication failed";
 
 /* Connection status */
-"CONNECTING" = "CONNECTING";
+"CONNECTING" = "Connecting";
 
 /* Window text */
 "Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
@@ -45,6 +45,9 @@
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+
+/* Connection status */
+"SLEEP"      = "En veille";     // Please translate "Waiting for Daemon process"
 
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";

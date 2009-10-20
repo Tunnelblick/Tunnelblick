@@ -1,19 +1,19 @@
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* NEEDS TRANSLATION *//* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
-/* Connection status */
+/* NEEDS TRANSLATION *//* Connection status */
 "ADD_ROUTES" = "Adding routes";
 
-/* Connection status */
+/* NEEDS TRANSLATION *//* Connection status */
 "ASSIGN_IP" = "Assigning IP address";
 
 /* Connection status */
 "AUTH"  = "許可中";
 
-/* Menu item */
+/* NEEDS TRANSLATION *//* Menu item */
 "About..." = "About…";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -22,19 +22,19 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Authentication failed" = "Authentication failed";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Automatically connect on launch" = "Automatically connect on launch";
 
 /* Connection status */
 "CONNECTED" = "接続完了";
 
 /* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "CONNECTING";
+"CONNECTING" = "Connecting";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Cancel"	= "Cancel";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Clear log" = "Clear log";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -46,7 +46,7 @@
 /* Button */
 "Continue" = "続ける";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -55,7 +55,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Create local copy of configuration file?" = "Create local copy of configuration file?";
 
-/* Menu item */
+/* NEEDS TRANSLATION *//* Menu item */
 "Details..." = "Details…";
 
 /* Button */
@@ -67,7 +67,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Do you wish to connect?" = "Do you wish to connect?";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Download" = "Download";
 
 /* Connection status */
@@ -76,7 +76,7 @@
 /* Button */
 "Edit configuration" = "環境設定ファイルの編集";
 
-/* Connection status */
+/* NEEDS TRANSLATION *//* Connection status */
 "GET_CONFIG" = "Getting configuration";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -115,26 +115,26 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Please insert token" = "Please insert token";
 
 /* Menu item
    Button */
 "Quit"   = "終了";
 
-/* Connection status */
+/* NEEDS TRANSLATION *//* Connection status */
 "RECONNECTING" = "Reconnecting";
 
 /* Connection status */
 "SLEEP" = "デーモンプロセスを待っています";
 
-/* Checkbox text */
+/* NEEDS TRANSLATION *//* Checkbox text */
 "Save in Keychain" = "Save in Keychain";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Set nameserver" = "Set nameserver";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "The credentials (passphrase or username/password) were not accepted by the remote VPN server.";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -143,13 +143,13 @@
 /* NEEDS TRANSLATION *//* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Try again with different credentials" = "Try again with different credentials";
 
 /* Button */
 "Try again" = "もう一度入力してみて下さい。";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick Error" = "Tunnelblick Error";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -161,23 +161,23 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
-/* Status message */
+/* NEEDS TRANSLATION *//* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d connections active.";
 
-/* Status message */
+/* NEEDS TRANSLATION *//* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 connection active.";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Username and password" = "Username and password";
 
 /* Textbox name */
 "Username:" = "ユーザー名";
 
 /* Connection status */
-"WAIT"  = "サーバーの返事を待っています";
+"WAIT"  = "サーバーの返事を待っています";   // Please translate "Waiting for Server Response"
 
 /* NEEDS TRANSLATION *//* Window title */
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";
@@ -193,4 +193,3 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";
-

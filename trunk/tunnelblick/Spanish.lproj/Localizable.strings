@@ -5,16 +5,16 @@
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
 /* Connection status */
-"ADD_ROUTES" = "Agregando rutas…";
+"ADD_ROUTES" = "Agregando rutas";
 
 /* Connection status */
-"ASSIGN_IP" = "Asignando dirección IP…";
+"ASSIGN_IP" = "Asignando dirección IP";
 
 /* Connection status */
-"AUTH"      = "Autorizando…";
+"AUTH"      = "Autorizando";
 
 /* Menu item */
-"About..." = "Sobre_";
+"About..." = "Sobre…";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Alert" = "Alert";
@@ -29,7 +29,7 @@
 "CONNECTED" = "Conectado";
 
 /* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "CONNECTING";
+"CONNECTING" = "Connecting";
 
 /* Button */
 "Cancel" = "Cancelar";
@@ -77,7 +77,7 @@
 "Edit configuration" = "Editar configuración";
 
 /* Connection status */
-"GET_CONFIG" = "Cargando configuración…";
+"GET_CONFIG" = "Cargando configuración";
 
 /* NEEDS TRANSLATION *//* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -123,10 +123,10 @@
 "Quit"       = "Salir";
 
 /* Connection status */
-"RECONNECTING" = "Reconectando…";
+"RECONNECTING" = "Reconectando";
 
 /* Connection status */
-"SLEEP"     = "Esperando al proceso servidor…";
+"SLEEP"     = "Esperando al proceso servidor";   // Please translate "Waiting for daemon process"
 
 /* Checkbox text */
 "Save in Keychain" = "Guardar en Llaveros";
@@ -177,7 +177,7 @@
 "Username:" = "Usuario:";
 
 /* Connection status */
-"WAIT"      = "Esperando Respuesta del Servidor…";
+"WAIT"      = "Esperando Respuesta del Servidor";   // Please translate "Waiting for Server Response"
 
 /* NEEDS TRANSLATION *//* Window title */
 "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";
