@@ -264,7 +264,8 @@ BOOL runningOnTigerOrNewer()
 
 - (void) awakeFromNib
 {
-	[self createDefaultConfig];
+	[self createDefaultConfigUsingTitle:NSLocalizedString(@"Welcome to Tunnelblick", @"Window title") 
+							 andMessage:NSLocalizedString(@"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.", @"Window text")];
 	[self initialiseAnim];
 }
 
@@ -431,7 +432,7 @@ BOOL runningOnTigerOrNewer()
         }
     }
     
-    // Now remove the ones that have been deleted
+    // Remove the ones that have been deleted
     m = [myConfigArray objectEnumerator];
     while (configString = [m nextObject]) {
         if (  [curConfigsArray indexOfObject:configString] == NSNotFound  ) {
@@ -460,28 +461,9 @@ BOOL runningOnTigerOrNewer()
         }
     }
     
-    // If there aren't ANY config files, let the user quit or create and edit a sample configuration file.
-    if (  [myConfigArray count] == 0  ) {
-        int button = TBRunAlertPanel(NSLocalizedString(@"Install and edit sample configuration file?", @"Window title"),
-                                     NSLocalizedString(@"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick.", @"Window message"),
-                                     NSLocalizedString(@"Quit", @"Button"), // Default button
-                                     NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
-                                     nil);
-        
-        if (  button == NSAlertDefaultReturn  ) {
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate: nil];
-        }
-
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-        NSString *confResource = [[NSBundle mainBundle] pathForResource: @"openvpn"
-                                                                 ofType: @"conf"];
-
-        [fileManager createDirectoryAtPath:directoryPath attributes:nil];
-        [fileManager copyPath:confResource toPath:[directoryPath stringByAppendingPathComponent:@"/openvpn.conf"] handler:nil];
-        [self editConfig:self];
-    }
+	// If there aren't any configuration files left, deal with that
+	[self createDefaultConfigUsingTitle: NSLocalizedString(@"Install and edit sample configuration file?", @"Window title")
+							 andMessage: NSLocalizedString(@"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.", @"Window text")];
     
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
@@ -916,15 +898,26 @@ BOOL runningOnTigerOrNewer()
     NSString * appName      = @"Tunnelblick";
     NSString * appVersion   = tunnelblickVersion();
     NSString * version      = @"";
-
-    NSString * html         = [NSString stringWithFormat:@"%@%@%@",
+	
+    NSString * basedOnHtml  = @"<br><br>";
+	NSString * htmlFromFile = [NSString stringWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html"]
+																				  encoding:NSASCIIStringEncoding
+																				     error:NULL];
+    if (  htmlFromFile  ) {
+        basedOnHtml  = NSLocalizedString(@"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
+    } else {
+        htmlFromFile = @"<br><br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+    }
+    NSString * html         = [NSString stringWithFormat:@"%@%@%@%@%@",
                                @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
                                openVPNVersion(),
-                               @"</div><br><br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></center><body></html>"];
+							   htmlFromFile,
+                               basedOnHtml,
+							   @"</div></center><body></html>"];
     NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
     NSAttributedString * credits = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
 
-    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.", @"Window text");
+    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 Angelo Laub and others. All rights reserved.", @"Window text");
 
     NSDictionary * aboutPanelDict;
     aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1006,31 +999,96 @@ BOOL runningOnTigerOrNewer()
 	}
 }
 
--(void)createDefaultConfig 
+// If there aren't ANY config files in ~/Library/openvpn
+// then if there is only one config file in Resources
+//      then let the user either quit or create and edit a sample configuration file
+//      else copy all .crt and .key files and all of the .conf files except openvpn.conf to ~/Library/openvpn without user interaction
+// else do nothing
+-(void)createDefaultConfigUsingTitle:(NSString *) ttl andMessage:(NSString *) msg 
 {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-	NSString *confResource = [[NSBundle mainBundle] pathForResource: @"openvpn" 
-															 ofType: @"conf"];
-	
-	if([[self getConfigs] count] == 0) { // if there are no config files, create a default one
-		[NSApp activateIgnoringOtherApps:YES];
-        if(TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.", @"Window title"),
-                           NSLocalizedString(@"You can also continue and Tunnelblick will create an example configuration file there that you can customize or replace.", @"Window text"),
-                           NSLocalizedString(@"Quit", @"Button"),
-                           NSLocalizedString(@"Continue", @"Button"),
-                           nil) == NSAlertDefaultReturn) {
+    if (  [[self getConfigs] count] != 0  ) {
+        return;
+    }
+    
+    NSFileManager  * fileManager     = [NSFileManager defaultManager];
+    NSString       * directoryPath   = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
+    NSString       * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
+                                                                    ofType: @"conf"];
+    NSMutableArray * filesToCopy     = [NSMutableArray arrayWithCapacity:20];
+    BOOL             editAfter       = FALSE;
+    int i;
+
+    NSArray        * ovpnFiles = [[NSBundle mainBundle] pathsForResourcesOfType: @"ovpn" inDirectory: @""];
+    
+    if (  [ovpnFiles count] == 0  ) {
+        int button = TBRunAlertPanel(ttl,
+                                     msg,
+                                     NSLocalizedString(@"Quit", @"Button"), // Default button
+                                     NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
+                                     nil);
+        
+        if (  button == NSAlertDefaultReturn  ) {
             [NSApp setAutoLaunchOnLogin: NO];
             [NSApp terminate: nil];
         }
-        else {
-			[fileManager createDirectoryAtPath:directoryPath attributes:nil];
-			[fileManager copyPath:confResource toPath:[directoryPath stringByAppendingPathComponent:@"/openvpn.conf"] handler:nil];
-            [self editConfig:self];
+        editAfter = TRUE;
+        [filesToCopy addObject: openvpnConfPath];
+    } else {
+        // Copy all .ovpn, .crt, and .key files without user interaction
+        for (i=0; i<[ovpnFiles count]; i++) {
+            [filesToCopy addObject: [ovpnFiles objectAtIndex: i]];
         }
-		
-		
-	}
+        
+        NSArray * crtFiles = [[NSBundle mainBundle] pathsForResourcesOfType: @"crt" inDirectory: @""];
+        for (i=0; i<[crtFiles count]; i++) {
+            [filesToCopy addObject: [crtFiles objectAtIndex: i]];
+        }
+        
+        NSArray * keyFiles = [[NSBundle mainBundle] pathsForResourcesOfType: @"key" inDirectory: @""];
+        for (i=0; i<[keyFiles count]; i++) {
+            [filesToCopy addObject: [keyFiles objectAtIndex: i]];
+        }
+    }
+    
+    if (  [filesToCopy count] != 0  ) {
+        [fileManager createDirectoryAtPath:directoryPath attributes:nil];
+    }
+    
+    NSString * filesThatDidNotCopy = @"";
+    
+    for (i=0; i<[filesToCopy count]; i++) {
+        NSString * filePath = [filesToCopy objectAtIndex: i];
+        NSLog(@"Installing %@ to ~/Library/openvpn/", [filePath lastPathComponent ]);
+        if (  ! [self forceCopyFile: filePath toDir: directoryPath]  ) {
+            [filesThatDidNotCopy stringByAppendingString: [@"\n" stringByAppendingString: [filePath lastPathComponent]]];
+        }
+    }
+    
+    if (  [filesThatDidNotCopy length] != 0  ) {
+        NSLog(@"Installation failed. Not able to copy the following files:%@", filesThatDidNotCopy);
+        TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
+                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the following files to ~/Library/openvpn:%@", @"Window text"), filesThatDidNotCopy],
+                        nil,
+                        nil,
+                        nil);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
+    
+    if (  editAfter  ) {
+        [[NSWorkspace sharedWorkspace] openFile:openvpnConfPath withApplication:@"TextEdit"];
+    }
+}
+
+// Copy a file, forcing its deletion if it already exists and returning YES if it copied, NO if it didn't copy
+-(BOOL)forceCopyFile:(NSString *) source toDir: (NSString *) target
+{
+	NSFileManager * fMgr = [NSFileManager defaultManager];
+	NSString      * targetFile = [target stringByAppendingPathComponent: [source lastPathComponent]];
+
+	[fMgr removeFileAtPath: targetFile handler: nil];
+	
+	return [fMgr copyPath: source toPath: targetFile handler: nil];
 }
 
 -(IBAction)editConfig:(id)sender
@@ -1039,17 +1097,8 @@ BOOL runningOnTigerOrNewer()
     NSString *directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
 	NSString *configPath = [connection configPath];
     if(configPath == nil) configPath = @"/openvpn.conf";
-	
-	//	NSString *openvpnstart = @"/usr/sbin/chown";
-	//	NSString *userString = [NSString stringWithFormat:@"%d",getuid()];
-	//	NSArray *arguments = [NSArray arrayWithObjects:userString,configPath,nil];
-	//	AuthorizationRef authRef = [NSApplication getAuthorizationRef];
-	//	[NSApplication executeAuthorized:openvpnstart withArguments:arguments withAuthorizationRef:authRef];
-	//	AuthorizationFree(authRef,kAuthorizationFlagDefaults);
-	
     [[NSWorkspace sharedWorkspace] openFile:[directoryPath stringByAppendingPathComponent:configPath] withApplication:@"TextEdit"];
 }
-
 
 - (void) networkConfigurationDidChange
 {

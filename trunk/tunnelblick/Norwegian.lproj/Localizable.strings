@@ -4,6 +4,9 @@
 /* NEEDS TRANSLATION *//* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
+/* NEEDS TRANSLATION *//* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
 /* Connection status */
 "ADD_ROUTES" = "Adding routes";
 
@@ -47,7 +50,7 @@
 "Continue" = "Fortsett";
 
 /* Window text */
-"Copyright © 2004-2009 by Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 by Angelo Laub and others. All rights reserved.";
+"Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub and others. All rights reserved.";
 
 /* NEEDS TRANSLATION *//* Button */
 "Create copy" = "Create copy";
@@ -84,6 +87,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Install and edit sample configuration file?" = "Install and edit sample configuration file?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Installation failed" = "Installation failed";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
@@ -143,6 +149,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+
 /* Button */
 "Try again with different credentials" = "Try again with different credentials";
 
@@ -154,6 +163,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not copy the following files to ~/Library/openvpn:%@" = "Tunnelblick could not copy the following files to ~/Library/openvpn:%@";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
@@ -180,16 +192,13 @@
 "WAIT"  = "Venter på svar fra serveren";   // Please translate "Waiting for Server Response"
 
 /* NEEDS TRANSLATION *//* Window title */
-"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";
+"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
 "You are trying to launch Tunnelblick from the disk image" = "You are trying to launch Tunnelblick from the disk image";
 
 /* NEEDS TRANSLATION *//* Window text */
-"You can also continue and Tunnelblick will create an example configuration file there that you can customize or replace." = "You can also continue and Tunnelblick will create an example configuration file there that you can customize or replace.";
-
-/* NEEDS TRANSLATION *//* Window message */
-"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick." = "You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick.";
+"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";

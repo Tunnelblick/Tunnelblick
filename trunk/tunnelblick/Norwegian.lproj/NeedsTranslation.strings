@@ -1,6 +1,9 @@
 /* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
+/* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
 /* Window title */
 "Alert" = "Alert";
 
@@ -31,6 +34,9 @@
 /* Window title */
 "Install and edit sample configuration file?" = "Install and edit sample configuration file?";
 
+/* Window title */
+"Installation failed" = "Installation failed";
+
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
 
@@ -53,7 +59,13 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
 
 /* Window text */
+"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+
+/* Window text */
 "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+
+/* Window text */
+"Tunnelblick could not copy the following files to ~/Library/openvpn:%@" = "Tunnelblick could not copy the following files to ~/Library/openvpn:%@";
 
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
@@ -62,16 +74,13 @@
 "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.";
 
 /* Window title */
-"Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'." = "Welcome to Tunnelblick on Mac OS X: Please put your configuration file (e.g. openvpn.conf) in '~/Library/openvpn/'.";
+"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
 
 /* Window title */
 "You are trying to launch Tunnelblick from the disk image" = "You are trying to launch Tunnelblick from the disk image";
 
 /* Window text */
-"You can also continue and Tunnelblick will create an example configuration file there that you can customize or replace." = "You can also continue and Tunnelblick will create an example configuration file there that you can customize or replace.";
-
-/* Window message */
-"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick." = "You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick.";
+"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
 
 /* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";
