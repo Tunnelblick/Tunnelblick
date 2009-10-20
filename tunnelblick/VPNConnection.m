@@ -400,7 +400,6 @@
                     if (NSDebugEnabled) NSLog(@"Passphrase verification failed.\n");
                     ignoreOnePasswordRequest = YES;
                     [self disconnect:nil];
-                    [NSApp activateIgnoringOtherApps:YES];
 					id buttonWithDifferentCredentials = nil;
                     if ([myAuthAgent keychainHasCredentials]) {
 						buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");

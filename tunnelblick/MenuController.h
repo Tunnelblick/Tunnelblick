@@ -78,10 +78,13 @@ BOOL needsRepair(void);
 -(void)             activateStatusMenu;
 -(void)             addConnection:                  (id)                sender;
 -(void)             cleanup;
--(void)             createDefaultConfig;
+-(void)             createDefaultConfigUsingTitle:  (NSString *)        ttl
+                                       andMessage:  (NSString *)        msg;
 -(void)             createMenu;
 -(void)             dmgCheck;
 -(void)             fileSystemHasChanged:           (NSNotification *)  n;
+-(BOOL)             forceCopyFile:                  (NSString *)        source
+                            toDir:                  (NSString *)        target;
 -(NSMutableArray *) getConfigs;
 -(BOOL)             getCurrentAutoLaunchSetting;
 -(void)             initialiseAnim;

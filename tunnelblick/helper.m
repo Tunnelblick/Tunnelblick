@@ -236,6 +236,7 @@ int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLa
     CFUserNotificationRef notification;
     CFOptionFlags response;
     
+    [NSApp activateIgnoringOtherApps:YES];
     notification = CFUserNotificationCreate(NULL, 0, 0, &error, (CFDictionaryRef) dict);
     
     if(  error || CFUserNotificationReceiveResponse(notification, 0, &response)  ) {
