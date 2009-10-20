@@ -140,6 +140,9 @@
         if([passphraseKeychain setPassword:passphraseLocal] != 0) {
             NSLog(@"Could not store passphrase in Keychain");
         }
+        [[NSUserDefaults standardUserDefaults] setBool: YES forKey: passphrasePreferenceKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
     }
     
     CFRelease(notification);
