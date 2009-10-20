@@ -786,13 +786,13 @@
     
 	for (i=0; i <= maxtries; i++) {
         curAttributes = [fMgr fileAttributesAtPath:target traverseLink:NO];
-        if (  [curAttributes objectForKey:NSFileImmutable] == nil  ) {
+        if (  ! [curAttributes fileIsImmutable]  ) {
             break;
         }
         [fMgr changeFileAttributes:newAttributes atPath:target];
         sleep(1);
     }
-    if (  [curAttributes objectForKey:NSFileImmutable] != nil  ) {
+    if (  [curAttributes fileIsImmutable]  ) {
          NSLog(@"Unlocking alternate configuration file %@ failed in %d attempts", target, maxtries);
     }
     
