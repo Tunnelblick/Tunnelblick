@@ -1060,7 +1060,7 @@ BOOL runningOnTigerOrNewer()
         NSString * filePath = [filesToCopy objectAtIndex: i];
         NSLog(@"Installing %@ to ~/Library/openvpn/", [filePath lastPathComponent ]);
         if (  ! [self forceCopyFile: filePath toDir: directoryPath]  ) {
-            [filesThatDidNotCopy stringByAppendingString: [@"\n" stringByAppendingString: [filePath lastPathComponent]]];
+            filesThatDidNotCopy = [NSString stringWithFormat:@"%@\n%@", filesThatDidNotCopy, [filePath lastPathComponent]];
         }
     }
     
