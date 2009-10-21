@@ -17,6 +17,7 @@
  */
 
 #include "installer.h"
+#include <unistd.h> 
 
 int main(int argc, char *argv[]) 
 {
@@ -29,12 +30,38 @@ int main(int argc, char *argv[])
 	NSString *leasewatchPath   = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
 	NSString *clientUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
 	NSString *clientDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
-	
+    
+    // After we set ownership of everything to root:wheel, we must restore the original ownership of .key and .crt files
+    // so they can be copied to ~/Library/openvpn. Their permissions usually set to owner=r/w, others=none, so to copy them
+    // in createDefaultConfig..., which runs as the user, the owner must be the user, not root
+    
+    // Construct an array with args to chown for the restore. First arg is user:group
+    uid_t usr = getuid();
+    gid_t grp = getgid();
+    NSMutableArray *restoreArgs = [NSMutableArray arrayWithObject: [NSString stringWithFormat:@"%d:%d", usr, grp]];
+    
+    //The rest of the args to chown are paths to all of the .crt and .key files in Resources
+    NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: thisBundle];
+    int i;
+    for (i=0; i<[dirContents count]; i++) {
+        NSString * file = [dirContents objectAtIndex: i];
+        if ( [[file pathExtension] isEqualToString:@"crt"] || [[file pathExtension] isEqualToString:@"key"]  ) {
+            [restoreArgs addObject:[thisBundle stringByAppendingPathComponent: file]];
+        }
+    }
+
 	runTask(
 			@"/usr/sbin/chown",
 			[NSArray arrayWithObjects:@"-R",@"root:wheel",thisBundle,nil]
 			);
 
+    if (  [restoreArgs count] > 1  ) {
+        runTask(
+                @"/usr/sbin/chown",
+                restoreArgs
+                );
+    }
+        
 	runTask(
 			@"/bin/chmod",
 			[NSArray arrayWithObjects:@"4111",openvpnstartPath,nil]
