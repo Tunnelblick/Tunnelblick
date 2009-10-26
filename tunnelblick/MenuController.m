@@ -108,41 +108,6 @@ BOOL runningOnTigerOrNewer()
 
 @implementation MenuController
 
-// Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
-// By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
-// Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
-- (void) createStatusItem
-{
-	NSStatusBar *bar = [NSStatusBar systemStatusBar];
-
-	if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
-        && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
-        && (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
-       ) {
-        // Force icon to the right in Status Bar
-        int priority = INT32_MAX;
-        if (  runningOnTigerOrNewer()  ) {
-            priority = MIN(priority, 2147483646); // found by experimenting - dirk
-        }
-        
-        if ( ! theItem  ) {
-            if (  ! ( theItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
-                NSLog(@"Can't insert icon in Status Bar");
-            }
-        }
-        // Re-insert item to place it correctly, to the left of SpotLight
-        [bar removeStatusItem: theItem];
-        [bar _insertStatusItem: theItem withPriority: priority];
-    } else {
-        // Standard placement of icon in Status Bar
-        if (  ! theItem  ) {
-            if (  ! (theItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-                NSLog(@"Can't insert icon in Status Bar");
-            }
-        }
-    }
-}
-
 -(id) init
 {	
     if (self = [super init]) {
@@ -150,12 +115,54 @@ BOOL runningOnTigerOrNewer()
 		
 		[NSApp setDelegate:self];
 		
-        if(needsRepair()){
-            if ([self repairPermissions] != TRUE) {
+        // Backup/restore Resources/Deploy and/or repair ownership and permissions if necessary
+        NSFileManager * fMgr             = [NSFileManager defaultManager];
+        NSString      * deployDirPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+        NSString      * deployBackupPath = [[[[@"/Library/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
+                                              stringByDeletingLastPathComponent]
+                                             stringByAppendingPathComponent: @"TunnelblickBackup"]
+                                            stringByAppendingPathComponent: @"Deploy"];
+        BOOL isDir;
+        
+        BOOL haveDeploy = [fMgr fileExistsAtPath: deployDirPath    isDirectory: &isDir] && isDir;
+        BOOL haveBackup = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
+        if (  haveDeploy || haveBackup || needsInstallation()  ) {
+            BOOL restore = FALSE;
+            if ( haveBackup && ( ! haveDeploy) ) {
+                int response = TBRunAlertPanel(NSLocalizedString(@"Restore Configuration Settings from Backup?", @"Window title"),
+                                               NSLocalizedString(@"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?", @"Window text"),
+                                               NSLocalizedString(@"Restore", @"Button"),        // Default Button
+                                               NSLocalizedString(@"Do Not Restore", @"Button"), // Alternate Button
+                                               nil);
+                if (  response == NSAlertDefaultReturn ) {
+                    restore = TRUE;
+                }
+            }
+            
+            if ([self runInstaller: restore] != TRUE) {     // installer also backs up and restores Resources/Deploy
                 [NSApp terminate:self];
             }
-        } 
-                
+        }
+        
+        // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
+        //    set configDirIsDeploy TRUE and set configDirPath to point to it
+        // Otherwise set configDirIsDeploy FALSE and set configDirPath to point to ~/Library/openvpn
+        configDirIsDeploy = FALSE;
+        configDirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"] copy];
+        
+        if (  [fMgr fileExistsAtPath: deployDirPath isDirectory: &isDir] && isDir ) {
+            NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];
+            int i;
+            for (i=0; i<[dirContents count]; i++) {
+                NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
+                if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
+                    configDirIsDeploy = TRUE;
+                    configDirPath = [deployDirPath copy];
+                    break;
+                }
+            }
+		}
+        
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
  
@@ -206,11 +213,11 @@ BOOL runningOnTigerOrNewer()
 																   name: @"NSWorkspaceDidWakeNotification"
 																 object:nil];
 		
-		NSString* vpnDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"];
-		
-        if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
+        if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]
+           && ! configDirIsDeploy
+           ) {
             UKKQueue* myQueue = [UKKQueue sharedFileWatcher];
-            [myQueue addPathToQueue: vpnDirectory];
+            [myQueue addPathToQueue: configDirPath];
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
 		}
@@ -222,11 +229,11 @@ BOOL runningOnTigerOrNewer()
 	}
 
     // Process "Automatically connect on launch" checkboxes
-	NSString * configFilename;
+	NSString * filename;
     VPNConnection * myConnection;
 	NSEnumerator * m = [myConfigArray objectEnumerator];
-    while (configFilename = [m nextObject]) {
-        myConnection = [myVPNConnectionDictionary objectForKey: configFilename];
+    while (filename = [m nextObject]) {
+        myConnection = [myVPNConnectionDictionary objectForKey: filename];
         if([[NSUserDefaults standardUserDefaults] boolForKey: [[myConnection configName] stringByAppendingString: @"autoConnect"]]) {
             if(![myConnection isConnected]) {
                 [myConnection connect:self];
@@ -235,6 +242,41 @@ BOOL runningOnTigerOrNewer()
     }
 
     return self;
+}
+
+// Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
+// By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
+// Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
+- (void) createStatusItem
+{
+	NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    
+	if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
+        && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
+        && (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
+        ) {
+        // Force icon to the right in Status Bar
+        int priority = INT32_MAX;
+        if (  runningOnTigerOrNewer()  ) {
+            priority = MIN(priority, 2147483646); // found by experimenting - dirk
+        }
+        
+        if ( ! theItem  ) {
+            if (  ! ( theItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
+                NSLog(@"Can't insert icon in Status Bar");
+            }
+        }
+        // Re-insert item to place it correctly, to the left of SpotLight
+        [bar removeStatusItem: theItem];
+        [bar _insertStatusItem: theItem withPriority: priority];
+    } else {
+        // Standard placement of icon in Status Bar
+        if (  ! theItem  ) {
+            if (  ! (theItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
+                NSLog(@"Can't insert icon in Status Bar");
+            }
+        }
+    }
 }
 
 -(void)moveSoftwareUpdateWindowToForegroundThread
@@ -371,7 +413,9 @@ BOOL runningOnTigerOrNewer()
 		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
 		
         // configure connection object:
-		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString]; // initialize VPN Connection with config	
+		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString
+                                                                inDirectory: configDirPath
+                                                                 isInDeploy: configDirIsDeploy]; // initialize VPN Connection with config	
 		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
         
@@ -409,7 +453,9 @@ BOOL runningOnTigerOrNewer()
         if (  [myConfigArray indexOfObject:configString] == NSNotFound  ) {
             
             // Add new config to myVPNConnectionDictionary
-            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString];
+            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString
+                                                                    inDirectory: configDirPath
+                                                                     isInDeploy: configDirIsDeploy];
             [myConnection setState:@"EXITING"];
             [myConnection setDelegate:self];
             [myVPNConnectionDictionary setObject: myConnection forKey:configString];
@@ -496,8 +542,7 @@ BOOL runningOnTigerOrNewer()
     int i = 0;  	
     NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
     NSString *file;
-    NSString *confDir = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/openvpn"];
-    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: confDir];
+    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: configDirPath];
     while (file = [dirEnum nextObject]) {
         if ([[file pathExtension] isEqualToString: @"conf"] || [[file pathExtension] isEqualToString: @"ovpn"]) {
 			[array insertObject:file atIndex:i];
@@ -663,10 +708,11 @@ BOOL runningOnTigerOrNewer()
 - (IBAction) clearLog: (id) sender
 {
 	NSCalendarDate* date = [NSCalendarDate date];
-	NSString *dateText = [NSString stringWithFormat:@"%@ *Tunnelblick: %@; %@\n",
+	NSString *dateText = [NSString stringWithFormat:@"%@ *Tunnelblick: %@; %@%@\n",
                           [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],
                           tunnelblickVersion(),
-                          openVPNVersion()
+                          openVPNVersion(),
+                          configDirIsDeploy ? @"; configuration from Deploy" : @""
                          ];
 	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
 }
@@ -678,8 +724,8 @@ BOOL runningOnTigerOrNewer()
 		[tabView selectFirstTabViewItem: nil];
 	}
 	
-    NSString* configPath = [[tabView selectedTabViewItem] identifier];
-	VPNConnection* connection = [myVPNConnectionDictionary objectForKey:configPath];
+    NSString* configFilename = [[tabView selectedTabViewItem] identifier];
+	VPNConnection* connection = [myVPNConnectionDictionary objectForKey:configFilename];
 	NSArray *allConnections = [myVPNConnectionDictionary allValues];
 	if(connection) return connection;
 	else if([allConnections count]) return [allConnections objectAtIndex:0] ; 
@@ -783,7 +829,7 @@ BOOL runningOnTigerOrNewer()
     NSAssert(connection, @"myVPNConnectionsDictionary is empty; Tunnelblick must have at least one configuration");
 
     initialItem = [tabView tabViewItemAtIndex: 0];
-    [initialItem setIdentifier: [connection configPath]];
+    [initialItem setIdentifier: [connection configFilename]];
     [initialItem setLabel: [connection configName]];
     
     int curTabIndex = 0;
@@ -791,7 +837,7 @@ BOOL runningOnTigerOrNewer()
     BOOL haveOpenConnection = ! [connection isDisconnected];
     while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
         NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
-        [newItem setIdentifier: [connection configPath]];
+        [newItem setIdentifier: [connection configFilename]];
         [newItem setLabel: [connection configName]];
         [tabView addTabViewItem: newItem];
         [newItem release];
@@ -900,9 +946,11 @@ BOOL runningOnTigerOrNewer()
     NSString * version      = @"";
 	
     NSString * basedOnHtml  = @"<br><br>";
-	NSString * htmlFromFile = [NSString stringWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html"]
-																				  encoding:NSASCIIStringEncoding
-																				     error:NULL];
+    // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html" inDirectory: @"Deploy"] doesn't work -- it is apparently cached by OS X.
+    // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
+    // The workaround is to create the path "by hand" and use that.
+    NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/Deploy/about.html"];
+	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
     if (  htmlFromFile  ) {
         basedOnHtml  = NSLocalizedString(@"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
     } else {
@@ -939,6 +987,7 @@ BOOL runningOnTigerOrNewer()
     [mainImage release];
 
     [aboutItem release];
+    [updater release];
     [connectionArray release];
     [connectionsToRestore release];
     [detailsItem release];
@@ -951,7 +1000,7 @@ BOOL runningOnTigerOrNewer()
     [statusMenuItem release];
     [theAnim release];
     [theItem release]; 
-    [updater release];
+    [configDirPath release];
     [userDefaults release];
 
     [super dealloc];
@@ -999,10 +1048,8 @@ BOOL runningOnTigerOrNewer()
 	}
 }
 
-// If there aren't ANY config files in ~/Library/openvpn
-// then if there is only one config file in Resources
-//      then let the user either quit or create and edit a sample configuration file
-//      else copy all .crt and .key files and all of the .conf files except openvpn.conf to ~/Library/openvpn without user interaction
+// If there aren't ANY config files in the config folder 
+// then let the user either quit or create and edit a sample configuration file
 // else do nothing
 -(void)createDefaultConfigUsingTitle:(NSString *) ttl andMessage:(NSString *) msg 
 {
@@ -1011,63 +1058,27 @@ BOOL runningOnTigerOrNewer()
     }
     
     NSFileManager  * fileManager     = [NSFileManager defaultManager];
-    NSString       * directoryPath   = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
     NSString       * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
                                                                     ofType: @"conf"];
-    NSMutableArray * filesToCopy     = [NSMutableArray arrayWithCapacity:20];
-    BOOL             editAfter       = FALSE;
-    int i;
 
-    NSArray        * ovpnFiles = [[NSBundle mainBundle] pathsForResourcesOfType: @"ovpn" inDirectory: @""];
+    int button = TBRunAlertPanel(ttl,
+                                 msg,
+                                 NSLocalizedString(@"Quit", @"Button"), // Default button
+                                 NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
+                                 nil);
     
-    if (  [ovpnFiles count] == 0  ) {
-        int button = TBRunAlertPanel(ttl,
-                                     msg,
-                                     NSLocalizedString(@"Quit", @"Button"), // Default button
-                                     NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
-                                     nil);
-        
-        if (  button == NSAlertDefaultReturn  ) {
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate: nil];
-        }
-        editAfter = TRUE;
-        [filesToCopy addObject: openvpnConfPath];
-    } else {
-        // Copy all .ovpn, .crt, and .key files without user interaction
-        for (i=0; i<[ovpnFiles count]; i++) {
-            [filesToCopy addObject: [ovpnFiles objectAtIndex: i]];
-        }
-        
-        NSArray * crtFiles = [[NSBundle mainBundle] pathsForResourcesOfType: @"crt" inDirectory: @""];
-        for (i=0; i<[crtFiles count]; i++) {
-            [filesToCopy addObject: [crtFiles objectAtIndex: i]];
-        }
-        
-        NSArray * keyFiles = [[NSBundle mainBundle] pathsForResourcesOfType: @"key" inDirectory: @""];
-        for (i=0; i<[keyFiles count]; i++) {
-            [filesToCopy addObject: [keyFiles objectAtIndex: i]];
-        }
+    if (  button == NSAlertDefaultReturn  ) {
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
     }
+
+    [fileManager createDirectoryAtPath: configDirPath attributes:nil];
     
-    if (  [filesToCopy count] != 0  ) {
-        [fileManager createDirectoryAtPath:directoryPath attributes:nil];
-    }
-    
-    NSString * filesThatDidNotCopy = @"";
-    
-    for (i=0; i<[filesToCopy count]; i++) {
-        NSString * filePath = [filesToCopy objectAtIndex: i];
-        NSLog(@"Installing %@ to ~/Library/openvpn/", [filePath lastPathComponent ]);
-        if (  ! [self forceCopyFile: filePath toDir: directoryPath]  ) {
-            filesThatDidNotCopy = [NSString stringWithFormat:@"%@\n%@", filesThatDidNotCopy, [filePath lastPathComponent]];
-        }
-    }
-    
-    if (  [filesThatDidNotCopy length] != 0  ) {
-        NSLog(@"Installation failed. Not able to copy the following files:%@", filesThatDidNotCopy);
+    NSLog(@"Installing %@ to %@", [openvpnConfPath lastPathComponent], configDirPath);
+    if (  ! [fileManager copyPath: openvpnConfPath toPath: [configDirPath stringByAppendingPathComponent:@"openvpn.conf"] handler: nil]  ) {
+        NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", configDirPath);
         TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the following files to ~/Library/openvpn:%@", @"Window text"), filesThatDidNotCopy],
+                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"), configDirPath],
                         nil,
                         nil,
                         nil);
@@ -1075,29 +1086,15 @@ BOOL runningOnTigerOrNewer()
         [NSApp terminate: nil];
     }
     
-    if (  editAfter  ) {
-        [[NSWorkspace sharedWorkspace] openFile:openvpnConfPath withApplication:@"TextEdit"];
-    }
-}
-
-// Copy a file, forcing its deletion if it already exists and returning YES if it copied, NO if it didn't copy
--(BOOL)forceCopyFile:(NSString *) source toDir: (NSString *) target
-{
-	NSFileManager * fMgr = [NSFileManager defaultManager];
-	NSString      * targetFile = [target stringByAppendingPathComponent: [source lastPathComponent]];
-
-	[fMgr removeFileAtPath: targetFile handler: nil];
-	
-	return [fMgr copyPath: source toPath: targetFile handler: nil];
+    [[NSWorkspace sharedWorkspace] openFile:openvpnConfPath withApplication:@"TextEdit"];
 }
 
 -(IBAction)editConfig:(id)sender
 {
 	VPNConnection *connection = [self selectedConnection];
-    NSString *directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-	NSString *configPath = [connection configPath];
-    if(configPath == nil) configPath = @"/openvpn.conf";
-    [[NSWorkspace sharedWorkspace] openFile:[directoryPath stringByAppendingPathComponent:configPath] withApplication:@"TextEdit"];
+	NSString *configFilename = [connection configFilename];
+    if(configFilename == nil) configFilename = @"/openvpn.conf";
+    [[NSWorkspace sharedWorkspace] openFile:[configDirPath stringByAppendingPathComponent: configFilename] withApplication: @"TextEdit"];
 }
 
 - (void) networkConfigurationDidChange
@@ -1249,36 +1246,76 @@ static void signal_handler(int signalNumber)
 	[self fileSystemHasChanged: nil];
 }
 
--(BOOL)repairPermissions
+// Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files
+// restore should be TRUE if the user agreed to restore Resources/Deploy from its backup
+// Returns TRUE if ran successfully, FALSE if failed
+-(BOOL)runInstaller: (BOOL) restore
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	NSString *installer = [thisBundle pathForResource:@"installer" ofType:nil];
-	
-	AuthorizationRef authRef= [NSApplication getAuthorizationRef];
-	
-	if(authRef == nil)
-		return FALSE;
-	
-    int i = 5;
-	while(  needsRepair()  && (i-- > 0)  ) {
-		NSLog(@"Repairing Application...\n");
-		[NSApplication executeAuthorized:installer withArguments:nil withAuthorizationRef:authRef];
-		sleep(1);
-	}
-	AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+	AuthorizationRef authRef;
+    int status;
 
-    if ( needsRepair()  ) {
-        NSLog(@"Unable to repair ownership and/or permissions or set uid bit in five attempts");
+    NSArray * args = nil;
+    if (  restore  ) {
+        args = [NSArray arrayWithObject: @"1"];
+    } else {
+        args = [NSArray arrayWithObject: @"0"];
+    }
+
+    // See if installer is owned by root, owner may execute, and is set uid
+	const char *path = [installer UTF8String];
+    struct stat sb;
+	if(stat(path,&sb)) {
+        runUnrecoverableErrorPanel(@"Unable to determine status of \"installer\"");
+	}
+    
+	if (!(   (sb.st_mode & S_ISUID)             // set uid bit is set
+          && (sb.st_mode & S_IXUSR)             // owner may execute it
+          && (sb.st_uid == 0)                   // is owned by root
+          )) {
+
+        // Need to get an AuthorizationRef and use executeAuthorized to run the installer
+        authRef= [NSApplication getAuthorizationRef];
+        if(authRef == nil)
+            return FALSE;
+        
+        int i = 5;
+        do {
+            // NSLog(@"Attempting installation...\n");
+            [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
+            sleep(1);
+        } while (  needsInstallation()  && (i-- > 0)  );
+        
+        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+        status = 0;
+    } else {
+
+        // installer is owned by root, executable by owner, and is setuid, so we can just call it as a task without getting an AuthorizationRef
+        NSTask* task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath: installer];
+        [task setArguments: args];
+        [task launch];
+        [task waitUntilExit];
+        status = [task terminationStatus];
+    }
+
+    if (  (status != 0) || needsInstallation()  ) {
+        NSLog(@"Installation or Repair Failed");
+        TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
+                        NSLocalizedString(@"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
+                        nil,
+                        nil,
+                        nil);
         return FALSE;
     }
     
-	return TRUE;
+    // NSLog(@"Installation succeeded");
+    return TRUE;
 }
 
-
-
-
-BOOL needsRepair() 
+// Checks ownership and permissions of critical files. Returns YES if need to run the installer to repair them, else returns NO.
+BOOL needsInstallation() 
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	
@@ -1307,20 +1344,51 @@ BOOL needsRepair()
 	NSArray *inaccessibleObjects = [NSArray arrayWithObjects:openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil];
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
-	NSFileManager *fileManager = [NSFileManager defaultManager];
 	while(currentPath = [e nextObject]) {
-		NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:currentPath traverseLink:YES];
-		unsigned long perms = [fileAttributes filePosixPermissions];
-		NSString *octalString = [NSString stringWithFormat:@"%o",perms];
-		NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
-		
-		if ( (![octalString isEqualToString:@"744"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
-			NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair...\n",currentPath,octalString,fileOwner);
-			return YES;
-		}
+        if (  ! isOwnedByRootAndHasPermissions(currentPath, @"744")  ) {
+            return YES;
+        }
 	}
-	
+    
+    // check permissions of files in Resources/Deploy (if any)        
+    NSString * deployDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+    NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];
+    int i;
+    for (i=0; i<[dirContents count]; i++) {
+        NSString * file = [dirContents objectAtIndex: i];
+        NSString * filePath = [deployDirPath stringByAppendingPathComponent: file];
+        NSString * ext  = [file pathExtension];
+        if ( [ext isEqualToString:@"crt"] || [ext isEqualToString:@"key"]  ) {
+            if (  ! isOwnedByRootAndHasPermissions(filePath, @"600")  ) {
+                return YES;
+            }
+        } else if ( [ext isEqualToString:@"sh"]  ) {
+            if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
+                return YES;
+            }
+        } else { // including .conf and .ovpn
+            if (  ! isOwnedByRootAndHasPermissions(filePath, @"644")  ) {
+                return YES;
+            }
+        }
+    }
 	return NO;
+}
+
+BOOL isOwnedByRootAndHasPermissions(NSString * fPath, NSString * permsShouldHave)
+{
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:fPath traverseLink:YES];
+    unsigned long perms = [fileAttributes filePosixPermissions];
+    NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+    NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
+    
+    if (  [octalString isEqualToString: permsShouldHave] && [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
+        return YES;
+    }
+    
+    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair\n",fPath,octalString,fileOwner);
+    return NO;
 }
 
 -(void)willGoToSleep

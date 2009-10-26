@@ -64,6 +64,9 @@
 /* Button */
 "Disconnect" = "Disconnect";
 
+/* Button */
+"Do Not Restore" = "Do Not Restore";
+
 /* Checkbox name */
 "Do not warn about this again" = "Do not warn about this again";
 
@@ -90,6 +93,9 @@
 
 /* Window title */
 "Installation failed" = "Installation failed";
+
+/* Window title */
+"Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
@@ -131,6 +137,12 @@
 /* Connection status */
 "RECONNECTING" = "Reconnecting";
 
+/* Button */
+"Restore" = "Restore";
+
+/* Window title */
+"Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
+
 /* Checkbox text */
 "Save in Keychain" = "Save in Keychain";
 
@@ -144,6 +156,9 @@
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "The credentials (passphrase or username/password) were not accepted by the remote VPN server.";
 
 /* Window text */
+"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+
+/* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
 /* Window text */
@@ -151,6 +166,9 @@
 
 /* Window text */
 "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+
+/* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?" = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?";
 
 /* Button */
 "Try again" = "Try again";
@@ -162,7 +180,7 @@
 "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not copy the following files to ~/Library/openvpn:%@" = "Tunnelblick could not copy the following files to ~/Library/openvpn:%@";
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
 
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";

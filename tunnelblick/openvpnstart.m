@@ -25,7 +25,7 @@
 #import <sys/sysctl.h>
 #import <signal.h>
 
-int     startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, BOOL altCfgLoc);	//Tries to start an openvpn connection. May complain and exit if can't become root
+int     startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode);	//Tries to start an openvpn connection. May complain and exit if can't become root
 void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
@@ -40,7 +40,7 @@ BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
 
 NSString*					execPath;		//Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
-NSString*					configPath;		//Path to configuration file (in ~/Library/openvpn/ or /Library/Tunnelblick/<username>/)
+NSString*			        configPath;		//Path to configuration file (in ~/Library/openvpn/ or /Library/Tunnelblick/<username>/) or Resources/Deploy
 NSAutoreleasePool*			pool;
 
 int main(int argc, char* argv[])
@@ -82,9 +82,11 @@ int main(int argc, char* argv[])
 					if (port<=65535) {
 						BOOL useScripts = FALSE; if( (argc > 4) && (atoi(argv[4]) == 1) ) useScripts = TRUE;
 						BOOL skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
-						BOOL altCfgLoc  = FALSE; if( (argc > 6) && (atoi(argv[6]) == 1) ) altCfgLoc  = TRUE;
-						retCode = startVPN(configFile, port, useScripts, skipScrSec, altCfgLoc);
-						syntaxError = FALSE;
+						int  cfgLocCode = 0;     if( (argc > 6) )                         cfgLocCode  = atoi(argv[6]);
+						if (cfgLocCode < 3) {
+                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode);
+                            syntaxError = FALSE;
+                        }
 					}
 				}
 			}
@@ -97,7 +99,7 @@ int main(int argc, char* argv[])
 				"\t./openvpnstart OpenVPNInfo\n"
 				"\t./openvpnstart killall\n"
 				"\t./openvpnstart kill   processId\n"
-				"\t./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [altCfgLoc]  ]  ]\n\n"
+				"\t./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode]  ]  ]\n\n"
 				
 				"Where:\n"
 				"\tprocessId  is the process ID of the openvpn process to kill\n"
@@ -106,9 +108,11 @@ int main(int argc, char* argv[])
 				"\tuseScripts is 1 to run the client.up.osx.sh script before connecting, and client.down.osx.sh after disconnecting\n"
 				"\t           (The scripts are in Tunnelblick.app/Contents/Resources/)\n"
                 "\tskipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n"
-                "\taltCfgLoc  is 1 to use the alternate configuration folder (\\Library\\Tunnelblick\\<username>)\n\n"
+                "\tcfgLocCode is 0 to use the standard configuration folder (~/Library/openvpn),\n"
+                "\t           or 1 to use the alternate configuration folder (/Library/Tunnelblick/<username>),\n"
+                "\t           or 2 to use the Resources/Deploy folder of the application as the configuration folder.\n\n"
 				
-				"useScripts, skipScrSec, and altCfgLoc each default to 0.\n\n"
+				"useScripts, skipScrSec, and cfgLocCode each default to 0.\n\n"
 				
 				"The normal return code is 0. If an error occurs a message is sent to stderr and a code of 2 is returned.\n\n"
 				
@@ -125,22 +129,35 @@ int main(int argc, char* argv[])
 }
 
 //Tries to start an openvpn connection -- no indication of failure. May complain and exit if can't become root
-int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, BOOL altCfgLoc)
+int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode)
 {
-	NSString*			directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
-	NSString*			openvpnPath		= [execPath stringByAppendingPathComponent: @"openvpn"];
-	NSMutableString*	upscriptPath	= [[execPath stringByAppendingPathComponent: @"client.up.osx.sh"] mutableCopy];
-	NSMutableString*	downscriptPath	= [[execPath stringByAppendingPathComponent: @"client.down.osx.sh"] mutableCopy];
-	[upscriptPath replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [upscriptPath length])];
-	[downscriptPath replaceOccurrencesOfString:@" " withString:@"\\ " options:NSLiteralSearch range:NSMakeRange(0, [downscriptPath length])];
+	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
+	NSString*	openvpnPath		= [execPath stringByAppendingPathComponent: @"openvpn"];
+	NSString*	upscriptPath	= [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
+	NSString*	downscriptPath	= [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
+    NSString*   deployDirPath   = [execPath stringByAppendingPathComponent: @"Deploy"];
 
-	if (altCfgLoc) {
-        configPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), configFile];
-    } else {
-        configPath = [directoryPath stringByAppendingPathComponent:configFile];
+	switch (cfgLocCode) {
+        case 0:
+            configPath = [directoryPath stringByAppendingPathComponent:configFile];
+            break;
+            
+        case 1:
+            configPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), configFile];
+            break;
+            
+        case 2:
+            configPath = [deployDirPath stringByAppendingPathComponent:configFile];
+            directoryPath = deployDirPath;
+            break;
+            
+        default:
+            NSLog(@"Tunnelblick internal error: invalid cfgLocCode in startVPN()");
+            exit(251);
+            break;
     }
-    
-	if(configNeedsRepair()) {
+
+    if(configNeedsRepair()) {
 		[pool drain];
 		exit(241);
 	}
@@ -183,9 +200,6 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, B
 	[task launch];
 	[task waitUntilExit];
     
-	[upscriptPath release];
-	[downscriptPath release];
-
     int retCode = [task terminationStatus];
     if (  retCode != 0  ) {
         if (  retCode != 1  ) {

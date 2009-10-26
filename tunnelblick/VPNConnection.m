@@ -50,15 +50,21 @@
 
 @implementation VPNConnection
 
--(id) initWithConfig:(NSString *)inConfig
+-(id) initWithConfig:(NSString *)inConfig inDirectory: (NSString *) inDir isInDeploy: (BOOL) inDeploy
 {	
     if (self = [super init]) {
-        configPath = [inConfig retain];
+        configFilename = [inConfig copy];
+        configDirPath = [inDir copy];
+        configDirIsDeploy = inDeploy;
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
 		NSCalendarDate* date = [NSCalendarDate date];
-		[self addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@", tunnelblickVersion(), openVPNVersion()] atDate:date];
+		[self addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@%@",
+                        tunnelblickVersion(),
+                        openVPNVersion(),
+                        configDirIsDeploy ? @"; configuration from Deploy" : @""
+         ] atDate:date];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
     }
@@ -67,13 +73,14 @@
 
 -(NSString *) description
 {
-	return [NSString stringWithFormat:@"VPN Connection %@", configPath];
+	return [NSString stringWithFormat:@"VPN Connection %@", configFilename];
 }
--(void) setConfigPath:(NSString *)inPath 
+
+-(void) setConfigFilename:(NSString *)inName 
 {
-    if (inPath!=configPath) {
-	[configPath release];
-	configPath = [inPath retain];
+    if (inName!=configFilename) {
+	[configFilename release];
+	configFilename = [inName retain];
     }
 }
 
@@ -103,7 +110,8 @@
     
     [managementSocket release];
     [lastState release];
-    [configPath release];
+    [configFilename release];
+    [configDirPath release];
     [connectedSinceDate release];
     [myAuthAgent release];
     [super dealloc];
@@ -112,8 +120,8 @@
 
 - (IBAction) connect: (id) sender
 {
-	NSString *cfgPath = [NSString stringWithFormat:@"%@/Library/openvpn/%@", NSHomeDirectory(), [self configPath]];
-    NSString *altPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), [self configPath]];
+	NSString *cfgPath = [configDirPath stringByAppendingPathComponent: [self configFilename]];
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), [self configFilename]];
 
     if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
         return;
@@ -142,6 +150,8 @@
     NSString *altCfgLoc = @"0";
     if ( [cfgPath isEqualToString:altPath] ) {
         altCfgLoc = @"1";
+    } else if (  configDirIsDeploy  ) {
+        altCfgLoc = @"2";
     }
 
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
@@ -171,11 +181,10 @@
     NSPipe * pipe = [[NSPipe alloc] init];
     [task setStandardError: pipe];
     
-    arguments = [NSArray arrayWithObjects:@"start", [self configPath], portString, useDNS, skipScrSec, altCfgLoc, nil];
+    arguments = [NSArray arrayWithObjects:@"start", [self configFilename], portString, useDNS, skipScrSec, altCfgLoc, nil];
     
 	[task setArguments:arguments];
-	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
-	[task setCurrentDirectoryPath:openvpnDirectory];
+	[task setCurrentDirectoryPath: configDirPath];
 	[task launch];
 	[task waitUntilExit];
     
@@ -233,14 +242,14 @@
 }
 
 
-- (NSString*) configPath
+- (NSString*) configFilename
 {
-    return [[configPath retain] autorelease];
+    return [[configFilename retain] autorelease];
 }
 
 - (NSString*) configName
 {
-    return [[[[[self configPath] lastPathComponent] stringByDeletingPathExtension] retain] autorelease];
+    return [[[[self configFilename] stringByDeletingPathExtension] retain] autorelease];
 }
 
 - (void) connectToManagementSocket
@@ -279,8 +288,7 @@
 	NSString *pidString = [NSString stringWithFormat:@"%d", pid];
 	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
 	[task setArguments:arguments];
-	NSString *openvpnDirectory = [NSString stringWithFormat:@"%@/Library/openvpn",NSHomeDirectory()];
-	[task setCurrentDirectoryPath:openvpnDirectory];
+	[task setCurrentDirectoryPath: configDirPath];
 	pid = 0;
 	[task launch];
 	[task waitUntilExit];
@@ -620,7 +628,7 @@
 	return NO;
 }
 
-// Given paths to the regular config in ~/Library/openvpn, and an alternate config in /Library/Tunnelblick/<username>/
+// Given paths to the regular config in ~/Library/openvpn or /Resources/Deploy, and an alternate config in /Library/Tunnelblick/<username>/
 // Returns the path to use, or nil if can't use either one
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {

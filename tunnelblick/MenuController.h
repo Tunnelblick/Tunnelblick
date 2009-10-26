@@ -28,7 +28,9 @@ int connectStatus;
 void executeAuthorized(NSString *toolPath,NSArray *arguments,AuthorizationRef myAuthorizationRef);
 
 @class NetSocket;
-BOOL needsRepair(void);
+BOOL needsInstallation();
+BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave);
+
 
 @interface MenuController : NSObject
 {
@@ -43,6 +45,8 @@ BOOL needsRepair(void);
 
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
     int                       animNumFrames;                // # of images
+    BOOL                      configDirIsDeploy;            // Indicates that configDirPath is /Resources/Deploy
+    NSString                * configDirPath;                // Path to folder that has configuration files
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
@@ -81,10 +85,9 @@ BOOL needsRepair(void);
 -(void)             createDefaultConfigUsingTitle:  (NSString *)        ttl
                                        andMessage:  (NSString *)        msg;
 -(void)             createMenu;
+-(void)             createStatusItem;
 -(void)             dmgCheck;
 -(void)             fileSystemHasChanged:           (NSNotification *)  n;
--(BOOL)             forceCopyFile:                  (NSString *)        source
-                            toDir:                  (NSString *)        target;
 -(NSMutableArray *) getConfigs;
 -(BOOL)             getCurrentAutoLaunchSetting;
 -(void)             initialiseAnim;
@@ -96,7 +99,7 @@ BOOL needsRepair(void);
                     shiftSelfLeft:                  (BOOL)              shiftSelfLeft;
 -(void)             moveSoftwareUpdateWindowToForeground;
 -(void)             removeConnection:               (id)                sender;
--(BOOL)             repairPermissions;
+-(BOOL)             runInstaller:                   (BOOL)              restore;
 -(void)             saveAutoLaunchCheckboxState:    (BOOL)              inBool;
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
