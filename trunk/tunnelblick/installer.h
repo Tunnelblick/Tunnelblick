@@ -19,3 +19,4 @@
 #import <Foundation/Foundation.h>
 
 void runTask(NSString *launchPath,NSArray *arguments);
+void createDir(NSString * d);

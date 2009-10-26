@@ -23,6 +23,9 @@
 "Create local copy of configuration file?" = "Create local copy of configuration file?";
 
 /* Button */
+"Do Not Restore" = "Do Not Restore";
+
+/* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
 
 /* Window title */
@@ -30,6 +33,9 @@
 
 /* Window title */
 "Installation failed" = "Installation failed";
+
+/* Window title */
+"Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* Window title */
 "Not connecting" = "Not connecting";
@@ -43,6 +49,15 @@
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
+/* Window title */
+"Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
+
+/* Button */
+"Restore" = "Restore";
+
+/* Window text */
+"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
@@ -53,10 +68,13 @@
 "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
 
 /* Window text */
-"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?" = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?";
 
 /* Window text */
-"Tunnelblick could not copy the following files to ~/Library/openvpn:%@" = "Tunnelblick could not copy the following files to ~/Library/openvpn:%@";
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
+
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";

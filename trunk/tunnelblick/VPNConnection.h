@@ -23,7 +23,9 @@
 #import "AuthAgent.h"
 
 @interface VPNConnection : NSObject {
-	NSString      * configPath;         // This contains the filename and extension (NOT THE FULL PATH) of the configuration file
+    BOOL            configDirIsDeploy;  // Indicates that configDirPath is /Resources/Deploy
+    NSString      * configDirPath;      // Path to folder that has configuration files
+	NSString      * configFilename;     // This contains the filename and extension of the configuration file
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
@@ -48,15 +50,17 @@
 // (Private method interfaces are in VPNConnection.m)
 
 -(NSString*)        configName;
--(NSString*)        configPath;
+-(NSString*)        configFilename;
 -(NSDate *)         connectedSinceDate;
 -(IBAction)         connect:                    (id) sender;
 -(IBAction)         disconnect:                 (id) sender;
--(id)               initWithConfig:             (NSString *)    inConfig;
+-(id)               initWithConfig:             (NSString *)    inConfig
+                       inDirectory:             (NSString *)    inDir
+                        isInDeploy:             (BOOL)          inDeploy;
 -(BOOL)             isConnected;
 -(BOOL)             isDisconnected;
 -(NSTextStorage*)   logStorage;
--(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned) inAmount;
+-(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned)      inAmount;
 -(void)             netsocketConnected:         (NetSocket *)   socket;
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
 -(void)             setDelegate:                (id)            newDelegate;

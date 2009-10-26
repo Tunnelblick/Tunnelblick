@@ -64,6 +64,9 @@
 /* Button */
 "Disconnect" = "연결 해제";
 
+/* NEEDS TRANSLATION *//* Button */
+"Do Not Restore" = "Do Not Restore";
+
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not warn about this again" = "Do not warn about this again";
 
@@ -90,6 +93,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Installation failed" = "Installation failed";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
@@ -131,6 +137,12 @@
 /* Connection status */
 "RECONNECTING" = "다시연결 중";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Restore" = "Restore";
+
 /* Connection status */
 "SLEEP" = "대기 중";       // Please translate "Waiting for daemon process
 
@@ -144,6 +156,9 @@
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "외부 VPN 서버가 인증 (암호 또는 사용자 계정과 암호)을 수락하지 않았습니다.";
 
 /* NEEDS TRANSLATION *//* Window text */
+"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -151,6 +166,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?" = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?";
 
 /* Button */
 "Try again with different credentials" = "다른 인증으로 재 시도";
@@ -162,10 +180,10 @@
 "Tunnelblick Error" = "Tunnelblick 오류";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the following files to ~/Library/openvpn:%@" = "Tunnelblick could not copy the following files to ~/Library/openvpn:%@";
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";

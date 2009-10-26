@@ -64,6 +64,9 @@
 /* Button */
 "Disconnect" = "Déconnecter";
 
+/* NEEDS TRANSLATION *//* Button */
+"Do Not Restore" = "Do Not Restore";
+
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not warn about this again" = "Do not warn about this again";
 
@@ -90,6 +93,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Installation failed" = "Installation failed";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
@@ -131,6 +137,12 @@
 /* Connection status */
 "RECONNECTING" = "Rebranche";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Restore" = "Restore";
+
 /* NEEDS TRANSLATION *//* Connection status */
 "SLEEP"      = "En veille";     // Please translate "Waiting for Daemon process"
 
@@ -144,6 +156,9 @@
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Votre identité (clef privée ou usager/mot de passe) a été refusée par le serveur VPN distant.";
 
 /* NEEDS TRANSLATION *//* Window text */
+"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -151,6 +166,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?" = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?";
 
 /* Button */
 "Try again with different credentials" = "Réessayez avec une identité différente";
@@ -162,10 +180,10 @@
 "Tunnelblick Error" = "Erreur Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the following files to ~/Library/openvpn:%@" = "Tunnelblick could not copy the following files to ~/Library/openvpn:%@";
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
