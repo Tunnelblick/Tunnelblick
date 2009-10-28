@@ -51,7 +51,6 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
     NSMenuItem              * aboutItem;                    // "About..." item for menu
-	NSUserDefaults          * appDefaults;                  // Standard shared user defaults
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
     NSMutableArray          * connectionsToRestore;         // VPNConnections to be restored when awaken from sleep
 	NSMenuItem              * detailsItem;                  // "Details..." item for menu
@@ -67,7 +66,6 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
     NSStatusItem            * theItem;                      // Our place in the Status Bar
 	SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
-    NSMutableDictionary     * userDefaults;                 // Empty dictionary used to set standard user defaults
 }
 
 -(IBAction)         autoLaunchPrefButtonWasClicked: (id)                sender;

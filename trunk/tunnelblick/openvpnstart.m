@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 				
 				"Where:\n"
 				"\tprocessId  is the process ID of the openvpn process to kill\n"
-				"\tconfigName is the name of the configuration file (which must be in ~/Library/openvpn)\n"
+				"\tconfigName is the name of the configuration file\n"
 				"\tmgtPort    is the port number (0-65535) to use for managing the connection\n"
 				"\tuseScripts is 1 to run the client.up.osx.sh script before connecting, and client.down.osx.sh after disconnecting\n"
 				"\t           (The scripts are in Tunnelblick.app/Contents/Resources/)\n"

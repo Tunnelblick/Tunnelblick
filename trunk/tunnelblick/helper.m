@@ -17,7 +17,12 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include "TBUserDefaults.h"
 #include "helper.h"
+
+// This file contains global variables and common routines
+
+TBUserDefaults * gTbDefaults;
 
 // Returns an escaped version of a string so it can be sent over the management interface
 NSString *escaped(NSString *string) {
@@ -31,12 +36,12 @@ BOOL useDNSStatus(id connection)
 {
 	static BOOL useDNS = FALSE;
 	NSString *key = [[connection configName] stringByAppendingString:@"useDNS"];
-	id status = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	id status = [gTbDefaults objectForKey:key];
 	
 	if(status == nil) { // nothing is set, use default value
 		useDNS = TRUE;
 	} else {
-		useDNS = [[NSUserDefaults standardUserDefaults] boolForKey:key];
+		useDNS = [gTbDefaults boolForKey:key];
 	}
 
 	return useDNS;

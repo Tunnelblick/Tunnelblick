@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     
 	NSString      * thisBundle       = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
 	NSString      * deployPath       = [thisBundle stringByAppendingPathComponent:@"Deploy"];
-    NSString      * deployBackupPath = [[[[[[@"/Library/Tunnelblick/Backup" stringByAppendingPathComponent: thisBundle]
+    NSString      * deployBackupPath = [[[[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: thisBundle]
                                             stringByDeletingLastPathComponent]
                                            stringByDeletingLastPathComponent]
                                           stringByDeletingLastPathComponent]
