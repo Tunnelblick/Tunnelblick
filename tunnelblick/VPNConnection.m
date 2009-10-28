@@ -27,8 +27,11 @@
 #import "NSApplication+LoginItem.h"
 #import "helper.h"
 #import "MenuController.h"
+#import "TBUserDefaults.h"
 #include <sys/param.h>
 #include <sys/mount.h>
+
+extern TBUserDefaults  * gTbDefaults;
 
 @interface VPNConnection()          // PRIVATE METHODS
 
@@ -633,7 +636,7 @@
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {
     if (  ! [self configNeedsRepair:cfgPath]  ) {                                                       // If config doesn't need repair
-        if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"]  ) {  // And not using shadow configuration files
+        if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {  // And not using shadow configuration files
             return cfgPath;                                                                             // Then use it
         }
     }
@@ -641,7 +644,7 @@
     // Repair the configuration file or use the alternate
     AuthorizationRef authRef;
     if (    ! ( [self onRemoteVolume:cfgPath]
-             || [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"] )    ) {
+             || [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )    ) {
         // Config is on non-remote volume and we are not supposed to use a shadow configuration file
         authRef = [NSApplication getAuthorizationRef];                                  // Try to repair regular config
         if ( authRef == nil ) {
@@ -699,7 +702,7 @@
             NSString * libTbFolderPath     = [libTbUserFolderPath stringByDeletingLastPathComponent];
             NSAssert([[libTbFolderPath stringByDeletingLastPathComponent] isEqualToString:@"/Library"], @"altCfgPath is not in /Library/xxx/yyy/");
 
-            if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"useShadowConfigurationFiles"]  ) {
+            if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {
                 // Get user's permission to proceed
                 NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",

@@ -40,7 +40,9 @@
 #import "NSApplication+LoginItem.h"
 #import "NSApplication+NetworkNotifications.h"
 #import "helper.h"
+#import "TBUserDefaults.h"
 
+extern TBUserDefaults  * gTbDefaults;
 
 // *******************************************************************************************************************
 // Start of code from http://www.cocoadev.com/index.pl?DeterminingOSVersion
@@ -118,7 +120,7 @@ BOOL runningOnTigerOrNewer()
         // Backup/restore Resources/Deploy and/or repair ownership and permissions if necessary
         NSFileManager * fMgr             = [NSFileManager defaultManager];
         NSString      * deployDirPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
-        NSString      * deployBackupPath = [[[[@"/Library/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
+        NSString      * deployBackupPath = [[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
                                               stringByDeletingLastPathComponent]
                                              stringByAppendingPathComponent: @"TunnelblickBackup"]
                                             stringByAppendingPathComponent: @"Deploy"];
@@ -166,9 +168,11 @@ BOOL runningOnTigerOrNewer()
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
  
-        userDefaults = [[NSMutableDictionary alloc] init];
-        appDefaults = [NSUserDefaults standardUserDefaults];
-        [appDefaults registerDefaults:userDefaults];
+        if (  configDirIsDeploy  ) {
+            gTbDefaults = [[TBUserDefaults alloc] initWithDeployPath: configDirPath];  // If we aur using Deploy, override prefs that are in Deploy/forcedPreferences.plist
+        } else {
+            gTbDefaults = [[TBUserDefaults alloc] initWithDeployPath: nil];            // Otherwise, just use standard preferences but with canChangeValueForKey: method
+        }
 
         [self loadMenuIconSet];
 
@@ -213,7 +217,7 @@ BOOL runningOnTigerOrNewer()
 																   name: @"NSWorkspaceDidWakeNotification"
 																 object:nil];
 		
-        if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"doNotMonitorConfigurationFolder"]
+        if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]
            && ! configDirIsDeploy
            ) {
             UKKQueue* myQueue = [UKKQueue sharedFileWatcher];
@@ -234,7 +238,7 @@ BOOL runningOnTigerOrNewer()
 	NSEnumerator * m = [myConfigArray objectEnumerator];
     while (filename = [m nextObject]) {
         myConnection = [myVPNConnectionDictionary objectForKey: filename];
-        if([[NSUserDefaults standardUserDefaults] boolForKey: [[myConnection configName] stringByAppendingString: @"autoConnect"]]) {
+        if([gTbDefaults boolForKey: [[myConnection configName] stringByAppendingString: @"autoConnect"]]) {
             if(![myConnection isConnected]) {
                 [myConnection connect:self];
             }
@@ -253,7 +257,7 @@ BOOL runningOnTigerOrNewer()
     
 	if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
         && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
-        && (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
+        && (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
         ) {
         // Force icon to the right in Status Bar
         int priority = INT32_MAX;
@@ -313,7 +317,7 @@ BOOL runningOnTigerOrNewer()
 
 - (void) loadMenuIconSet
 {
-    NSString *menuIconSet = [[NSUserDefaults standardUserDefaults] stringForKey:@"menuIconSet"];
+    NSString *menuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
     if (  menuIconSet == nil  ) {
         menuIconSet = @"TunnelBlick.TBMenuIcons";
     }
@@ -559,16 +563,26 @@ BOOL runningOnTigerOrNewer()
     VPNConnection* connection = [self selectedConnection];
     [connectButton setEnabled:[connection isDisconnected]];
     [disconnectButton setEnabled:(![connection isDisconnected])];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+
 	NSString *autoConnectKey = [[connection configName] stringByAppendingString:@"autoConnect"];
-	if([[NSUserDefaults standardUserDefaults] boolForKey:autoConnectKey]) {
+    if (  [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
+        [autoLaunchCheckbox setEnabled: YES];
+    } else {
+        [autoLaunchCheckbox setEnabled: NO];
+    }
+	if([gTbDefaults boolForKey:autoConnectKey]) {
 		[autoLaunchCheckbox setState:NSOnState];
 	} else {
 		[autoLaunchCheckbox setState:NSOffState];
 	}
 	
-	BOOL lol = useDNSStatus(connection);
-	if(lol) {
+	NSString *useDNSKey = [[connection configName] stringByAppendingString:@"useDNS"];
+    if (  [gTbDefaults canChangeValueForKey: useDNSKey]  ) {
+        [useNameserverCheckbox setEnabled: YES];
+    } else {
+        [useNameserverCheckbox setEnabled: NO];
+	}
+	if(  useDNSStatus(connection)  ) {
 		[useNameserverCheckbox setState:NSOnState];
 	} else {
 		[useNameserverCheckbox setState:NSOffState];
@@ -589,7 +603,7 @@ BOOL runningOnTigerOrNewer()
         NSString * cTimeS = @"";
 
         // Get connection duration if preferences say to 
-        if (    [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"]
+        if (    [gTbDefaults boolForKey:@"showConnectedDurations"]
              && [cState isEqualToString: @"CONNECTED"]    ) {
             NSDate * csd = [myConnection connectedSinceDate];
             NSTimeInterval ti = [csd timeIntervalSinceNow];
@@ -735,7 +749,7 @@ BOOL runningOnTigerOrNewer()
 
 - (IBAction)connect:(id)sender
 {
-    if (  ! [[NSUserDefaults standardUserDefaults] boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
+    if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
         // Count the total number of connections and what their "Set nameserver" status was at the time of connection
         int numConnections = 1;
         int numConnectionsWithSetNameserver = 0;
@@ -759,7 +773,9 @@ BOOL runningOnTigerOrNewer()
             NSString *question = [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ];
             [dict setObject:NSLocalizedString(@"Do you wish to connect?", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
             [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-            [dict setObject:NSLocalizedString(@"Do not warn about this again", @"Checkbox name") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+            if (  [gTbDefaults canChangeValueForKey: @"skipWarningAboutSimultaneousConnections"]  ) {
+                [dict setObject:NSLocalizedString(@"Do not warn about this again", @"Checkbox name") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+            }
             [dict setObject:NSLocalizedString(@"Connect", @"Button") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
             [dict setObject:NSLocalizedString(@"Cancel", @"Button") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
             SInt32 error;
@@ -776,10 +792,13 @@ BOOL runningOnTigerOrNewer()
                 return;
             }
             // If user checked the "Do not warn... again" checbox, set a preference
-            if((response & CFUserNotificationCheckBoxChecked(0))) {
-                [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"skipWarningAboutSimultaneousConnections"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+            if (  [gTbDefaults canChangeValueForKey: @"skipWarningAboutSimultaneousConnections"]  ) {
+                if((response & CFUserNotificationCheckBoxChecked(0))) {
+                    [gTbDefaults setBool:TRUE forKey:@"skipWarningAboutSimultaneousConnections"];
+                    [gTbDefaults synchronize];
+                }
             }
+
             CFRelease(notification);
         }
     }
@@ -806,14 +825,10 @@ BOOL runningOnTigerOrNewer()
     // Set the window's size and position from preferences (saved when window is closed)
     // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
     NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrameVersion"];
-    if (tmp != nil) {
-        if (  [tbVersion isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrameVersion"]]    ) {
-            tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrame"];
-            if(tmp != nil) {
-                NSString * frame = [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrame"];
-                [logWindow setFrameFromString:frame];
-            }
+    if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
+        NSString * frame = [gTbDefaults objectForKey: @"detailsWindowFrame"];
+        if (  frame != nil  ) {
+            [logWindow setFrameFromString:frame];
         }
     }
 
@@ -852,7 +867,7 @@ BOOL runningOnTigerOrNewer()
 	[self updateTabLabels];
     
     // Set up a timer to update the tab labels with connections' duration times
-    if (    (showDurationsTimer == nil)  && [[NSUserDefaults standardUserDefaults] objectForKey:@"showConnectedDurations"]    ) {
+    if (    (showDurationsTimer == nil)  && [gTbDefaults boolForKey:@"showConnectedDurations"]    ) {
         showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
                                                                target:self
                                                              selector:@selector(updateTabLabels)
@@ -914,23 +929,17 @@ BOOL runningOnTigerOrNewer()
         NSString * frame = [logWindow stringWithSavedFrame];
         NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
         BOOL saveIt = TRUE;
-        id tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrame"];
-        if(tmp != nil) {
-            tmp = [[NSUserDefaults standardUserDefaults] objectForKey:@"detailsWindowFrameVersion"];
-            if (tmp != nil) {
-                if (  [tbVersion isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrameVersion"]]    ) {
-                    if (   [frame isEqualToString: [[NSUserDefaults standardUserDefaults] stringForKey:@"detailsWindowFrame"]]    ) {
-                        saveIt = FALSE;
-                    }
-                }
+        if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
+            if (   [frame isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrame"]]    ) {
+                saveIt = FALSE;
             }
         }
 
         if (saveIt) {
-            [[NSUserDefaults standardUserDefaults] setObject: frame forKey: @"detailsWindowFrame"];
-            [[NSUserDefaults standardUserDefaults] setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-                                                      forKey: @"detailsWindowFrameVersion"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [gTbDefaults setObject: frame forKey: @"detailsWindowFrame"];
+            [gTbDefaults setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+                           forKey: @"detailsWindowFrameVersion"];
+            [gTbDefaults synchronize];
         }
         logWindowIsOpen = FALSE;
     }
@@ -986,6 +995,8 @@ BOOL runningOnTigerOrNewer()
     [connectedImage release];
     [mainImage release];
 
+    [gTbDefaults release];
+
     [aboutItem release];
     [updater release];
     [connectionArray release];
@@ -1001,7 +1012,6 @@ BOOL runningOnTigerOrNewer()
     [theAnim release];
     [theItem release]; 
     [configDirPath release];
-    [userDefaults release];
 
     [super dealloc];
 }
@@ -1122,8 +1132,8 @@ BOOL runningOnTigerOrNewer()
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
 		NSString* key = [[connection configName] stringByAppendingString: @"useDNS"];
-		[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: inBool] forKey: key];
-		[[NSUserDefaults standardUserDefaults] synchronize];
+		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: key];
+		[gTbDefaults synchronize];
 	}
 	
 }
@@ -1132,8 +1142,8 @@ BOOL runningOnTigerOrNewer()
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
 		NSString* autoConnectKey = [[connection configName] stringByAppendingString: @"autoConnect"];
-		[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: inBool] forKey: autoConnectKey];
-		[[NSUserDefaults standardUserDefaults] synchronize];
+		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: autoConnectKey];
+		[gTbDefaults synchronize];
 	}
 	
 }
@@ -1142,7 +1152,7 @@ BOOL runningOnTigerOrNewer()
 {
 	VPNConnection *connection = [self selectedConnection];
 	NSString *autoConnectKey = [[connection configName] stringByAppendingString:@"autoConnect"];
-	return [[NSUserDefaults standardUserDefaults] boolForKey:autoConnectKey];
+	return [gTbDefaults boolForKey:autoConnectKey];
 }
 
 - (void) setState: (NSString*) newState

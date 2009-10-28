@@ -19,6 +19,9 @@
 
 #import "AuthAgent.h"
 #import "helper.h"
+#import "TBUserDefaults.h"
+
+extern TBUserDefaults  * gTbDefaults;
 
 @interface AuthAgent()          // PRIVATE METHODS
 
@@ -91,7 +94,9 @@
                      [self configName],
                      NSLocalizedString(@"Passphrase", @"Window title")]                 forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:NSLocalizedString(@"Please enter VPN passphrase.", @"Window text")  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")            forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
+        [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")            forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+    }
     [dict setObject:@""                                                                 forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
     [dict setObject:NSLocalizedString(@"OK", @"Button")                                 forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [dict setObject:NSLocalizedString(@"Cancel", @"Button")                             forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
@@ -135,14 +140,15 @@
         passphraseLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0) retain] autorelease];
     } while(  [passphraseLocal length] == 0  );
         
-    if((response & CFUserNotificationCheckBoxChecked(0))) {
-        [passphraseKeychain deletePassword];
-        if([passphraseKeychain setPassword:passphraseLocal] != 0) {
-            NSLog(@"Could not store passphrase in Keychain");
+    if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
+        if((response & CFUserNotificationCheckBoxChecked(0))) {
+            [passphraseKeychain deletePassword];
+            if([passphraseKeychain setPassword:passphraseLocal] != 0) {
+                NSLog(@"Could not store passphrase in Keychain");
+            }
+            [gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
+            [gTbDefaults synchronize];
         }
-        [[NSUserDefaults standardUserDefaults] setBool: YES forKey: passphrasePreferenceKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
     }
     
     CFRelease(notification);
@@ -158,13 +164,13 @@
     NSString * usernameLocal = nil;
     NSString * passwordLocal = nil;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:usernamePreferenceKey]) { // Using this preference avoids accessing Keychain unless it has something
+    if (  [gTbDefaults boolForKey:usernamePreferenceKey] && [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) { // Using this preference avoids accessing Keychain unless it has something
         usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
         if ( usernameLocal ) {
             passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
         }
     }
-
+    
     if (    ! (  usernameLocal && passwordLocal && ([usernameLocal length] > 0) && ([passwordLocal length] > 0)  )    ) {
         // Ask for username and password
 
@@ -173,7 +179,9 @@
                          [self configName],
                          NSLocalizedString(@"Username and password", @"Window title")]                          forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
         [dict setObject:NSLocalizedString(@"Please enter VPN username/password combination.", @"Window text")   forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-        [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")                                forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+        if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
+            [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")                                forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+        }
         [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", @"Textbox name"),
                          NSLocalizedString(@"Password:", @"Textbox name"),
                          nil]                                                                                   forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
@@ -219,19 +227,21 @@
             passwordLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 1) retain] autorelease];
         } while (  [usernameLocal isEqualToString:@""] || [passwordLocal isEqualToString:@""]  );
             
-        if((response & CFUserNotificationCheckBoxChecked(0))) { // if checkbox is checked, store in keychain
-            [usernameKeychain deletePassword];
-            if (  [usernameKeychain setPassword:usernameLocal] != 0  ) {
-                NSLog(@"Could not save username in Keychain");
+        if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
+            if((response & CFUserNotificationCheckBoxChecked(0))) { // if checkbox is checked, store in keychain
+                [usernameKeychain deletePassword];
+                if (  [usernameKeychain setPassword:usernameLocal] != 0  ) {
+                    NSLog(@"Could not save username in Keychain");
+                }
+                [passwordKeychain deletePassword];
+                if (  [passwordKeychain setPassword:passwordLocal] != 0  ) {
+                    NSLog(@"Could not save password in Keychain");
+                }
+                [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
+                [gTbDefaults synchronize];
             }
-            [passwordKeychain deletePassword];
-            if (  [passwordKeychain setPassword:passwordLocal] != 0  ) {
-                NSLog(@"Could not save password in Keychain");
-            }
-            [[NSUserDefaults standardUserDefaults] setBool: YES forKey: usernamePreferenceKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
         }
-    
+            
         CFRelease(notification);
         [dict release];
     }
@@ -260,12 +270,9 @@
 {
     NSAssert1(  [authMode isEqualToString:@"privateKey"], @"Invalid authmode '%@' in performPrivateKeyAuthentication", [self authMode]);
     
-    NSString *passphraseLocal;
-    
-    if (  [[NSUserDefaults standardUserDefaults] boolForKey:passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
+    NSString *passphraseLocal = nil;
+    if (  [gTbDefaults boolForKey:passphrasePreferenceKey] && [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
         passphraseLocal = [passphraseKeychain password];
-    } else {
-        passphraseLocal = nil;
     }
     
     if (passphraseLocal == nil) {
@@ -290,18 +297,18 @@
 -(void)deleteCredentialsFromKeychain 
 {
     if (  [authMode isEqualToString: @"privateKey"]  ) {
-        if (  [[NSUserDefaults standardUserDefaults] boolForKey:passphrasePreferenceKey]  ) { // Delete saved privateKey from Keychain if it has been saved
+        if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) { // Delete saved privateKey from Keychain if it has been saved
             [passphraseKeychain deletePassword];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey: passphrasePreferenceKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [gTbDefaults removeObjectForKey: passphrasePreferenceKey];
+            [gTbDefaults synchronize];
         }
     }
     else if (  [authMode isEqualToString: @"password"]  ) {
-        if (  [[NSUserDefaults standardUserDefaults] boolForKey:usernamePreferenceKey]  ) { // Delete saved username and password from Keychain if they've been saved
+        if (  [gTbDefaults boolForKey:usernamePreferenceKey]  ) { // Delete saved username and password from Keychain if they've been saved
             [usernameKeychain deletePassword];
             [passwordKeychain deletePassword];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey: usernamePreferenceKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [gTbDefaults removeObjectForKey: usernamePreferenceKey];
+            [gTbDefaults synchronize];
         }
     }        
     else {
@@ -313,7 +320,7 @@
 -(BOOL) keychainHasCredentials
 {
     if (  [authMode isEqualToString: @"privateKey"]  ) {
-        if (  [[NSUserDefaults standardUserDefaults] boolForKey:passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
+        if (  [gTbDefaults boolForKey:passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
             NSString * passphraseLocal = [passphraseKeychain password];
             if (    passphraseLocal && ( [passphraseLocal length] > 0 )    ) {
                 return YES;
@@ -325,7 +332,7 @@
         }
     }
     else if (  [authMode isEqualToString: @"password"]  ) {
-        if (  [[NSUserDefaults standardUserDefaults] boolForKey:usernamePreferenceKey]  ) { // Get username and password from Keychain if they've been saved
+        if (  [gTbDefaults boolForKey:usernamePreferenceKey]  ) { // Get username and password from Keychain if they've been saved
             NSString * usernameLocal = [usernameKeychain password];
             NSString * passwordLocal = [passwordKeychain password];
             if (    usernameLocal && passwordLocal && ([usernameLocal length] > 0) && ([passwordLocal length] > 0)    ) {
