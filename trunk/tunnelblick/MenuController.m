@@ -159,6 +159,7 @@ BOOL runningOnTigerOrNewer()
                 NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
                 if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
                     configDirIsDeploy = TRUE;
+                    [configDirPath release];
                     configDirPath = [deployDirPath copy];
                     break;
                 }
