@@ -56,6 +56,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		ADB23E111099514400CC52D3 /* openvpn-down-root.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADB23E101099514400CC52D3 /* openvpn-down-root.so */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 			dstSubfolderSpec = 7;
 			files = (
 				6140EF9A0E3C334E00C5B93A /* openvpn in CopyFiles */,
+				ADB23E111099514400CC52D3 /* openvpn-down-root.so in CopyFiles */,
 				616A49190E38D0DE00477476 /* tap.kext in CopyFiles */,
 				616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */,
 				61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */,
@@ -178,6 +180,7 @@
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADB23E101099514400CC52D3 /* openvpn-down-root.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "openvpn-down-root.so"; path = "../third_party/openvpn/plugin/down-root/openvpn-down-root.so"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +302,7 @@
 			children = (
 				61F294A50ED389520097DE94 /* openvpn.conf */,
 				6140EF990E3C334800C5B93A /* openvpn */,
+				ADB23E101099514400CC52D3 /* openvpn-down-root.so */,
 				61BC4E770E2FA8D000F24255 /* client.down.osx.sh */,
 				61BC4E780E2FA8D000F24255 /* client.up.osx.sh */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,

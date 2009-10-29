@@ -1,6 +1,10 @@
 # This Makefile builds all the third_party code
 # It shouldn't be called by anything other than automated scripts
 
+CC=gcc-4.0
+MACOSX_DEPLOYMENT_TARGET=10.4
+SDKROOT=/Developer/SDKs/MacOSX10.4u.sdk
+
 # Both lzo and openvpn should be built universally
 
 LZO_DIR=lzo-2.03
@@ -14,7 +18,7 @@ pkcs11-helper::
 		cd $(PKCS11_DIR); \
 		echo Forcefully be clean; \
 		$(MAKE) clean; \
-		OPENSSL_LIBS="-lcrypto" CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -Os -mmacosx-version-min=10.4 -arch $$a" ./configure --enable-static --disable-dependency-tracking --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
+		OPENSSL_LIBS="-lcrypto" CC=$(CC) CFLAGS="-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET) -arch $$a" ./configure --enable-static --disable-dependency-tracking --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
 		echo Build PKCS11-Helper; \
 		$(MAKE); \
 		echo Install to third_party/$(PKCS11_DIR)/staging_$$a; \
@@ -31,7 +35,7 @@ lzo::
 		cd $(LZO_DIR); \
 		echo Forcefully be clean; \
 		$(MAKE) clean; \
-		CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -Os -mmacosx-version-min=10.4 -arch $$a" ./configure --disable-dependency-tracking --disable-asm --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
+		CC=$(CC) CFLAGS="-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET) -arch $$a" ./configure --disable-dependency-tracking --disable-asm --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
 		echo Build LZO; \
 		$(MAKE); \
 		echo Install to third_party/$(LZO_DIR)/staging_$$a; \
@@ -51,25 +55,37 @@ lzo-clean:
 	$(MAKE) -C $(LZO_DIR) clean
 	rm -rf $(LZO_DIR)/staging*
 
-openvpn: lzo pkcs11-helper
+openvpn-patch:
+	@cd openvpn; \
+	for patchfile in ../patches/openvpn/*.diff; do \
+		patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
+		if [ $$? == 0 ]; then \
+			patch -p0 -N -i $$patchfile; \
+		fi \
+	done
+
+openvpn: lzo pkcs11-helper openvpn-patch
 	@for a in ppc i686; do \
 		echo Configure OpenVPN for $$a; \
 		cd openvpn/; \
 		echo Forcefully be clean; \
 		$(MAKE) clean; \
 		autoreconf -i -v; \
-		LDFLAGS="-L../$(PKCS11_DIR)/staging/lib/" CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -Os -mmacosx-version-min=10.4 -arch $$a" ./configure --with-lzo-headers=../$(LZO_DIR)/staging/include/ --with-lzo-lib=../$(LZO_DIR)/staging/lib/ --with-pkcs11-helper-headers=../$(PKCS11_DIR)/staging/include/ --with-pkcs11-helper-libs=../$(PKCS11_DIR)/staging/lib/ --disable-dependency-tracking; \
+		CC=$(CC) LDFLAGS="-L../$(PKCS11_DIR)/staging/lib/" CFLAGS="-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET) -arch $$a" ./configure --with-lzo-headers=../$(LZO_DIR)/staging/include/ --with-lzo-lib=../$(LZO_DIR)/staging/lib/ --with-pkcs11-helper-headers=../$(PKCS11_DIR)/staging/include/ --with-pkcs11-helper-libs=../$(PKCS11_DIR)/staging/lib/ --disable-dependency-tracking; \
 		echo Build OpenVPN; \
 		$(MAKE); \
 		mv openvpn openvpn_tblk_$$a; \
 		cd ../; \
 	done
-		
-		# Use lipo to create a universal library
-		lipo openvpn/openvpn_tblk_* -create -output openvpn/openvpn
+	
+	$(MAKE) -C openvpn/plugin/down-root
+	
+	# Use lipo to create a universal library
+	lipo openvpn/openvpn_tblk_* -create -output openvpn/openvpn
 
 openvpn-clean:
 	$(MAKE) -C openvpn/ clean
+	$(MAKE) -C openvpn/plugin/down-root clean
 	rm -f openvpn/openvpn_tblk_*
 
 .PHONY : tuntap
