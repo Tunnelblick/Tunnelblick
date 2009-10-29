@@ -21,7 +21,7 @@
 
 @implementation TBUserDefaults
 
--(id) initWithDeployPath: (NSString *) deployPath
+-(TBUserDefaults *) initWithDefaultsDictionary: (NSDictionary *) inDict
 {
     if ( ! [super init] ) {
         return nil;
@@ -30,11 +30,7 @@
     userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults registerDefaults: [[NSMutableDictionary alloc] init]];
 
-    if (  deployPath  ) {
-        forcedDefaults = [[NSDictionary dictionaryWithContentsOfFile: [deployPath stringByAppendingPathComponent: @"forced-preferences.plist"]] copy];
-    } else {
-        forcedDefaults = nil;
-    }
+    forcedDefaults = [inDict copy];
 
     return self;
 }

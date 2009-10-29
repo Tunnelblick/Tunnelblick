@@ -29,6 +29,6 @@
 	<key>SUFeedURL</key>
 	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>Build</key>
-	<string>1225</string>
+	<string>1229</string>
 </dict>
 </plist>

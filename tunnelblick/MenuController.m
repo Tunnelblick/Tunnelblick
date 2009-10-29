@@ -164,16 +164,15 @@ BOOL runningOnTigerOrNewer()
                     break;
                 }
             }
-		}
+        }
+
+        // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
+        // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [configDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        gTbDefaults = [[TBUserDefaults alloc] initWithDefaultsDictionary: dict];
         
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
- 
-        if (  configDirIsDeploy  ) {
-            gTbDefaults = [[TBUserDefaults alloc] initWithDeployPath: configDirPath];  // If we aur using Deploy, override prefs that are in Deploy/forcedPreferences.plist
-        } else {
-            gTbDefaults = [[TBUserDefaults alloc] initWithDeployPath: nil];            // Otherwise, just use standard preferences but with canChangeValueForKey: method
-        }
 
         [self loadMenuIconSet];
 

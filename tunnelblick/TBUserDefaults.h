@@ -42,20 +42,19 @@
 
 }
 
--(id)           initWithDeployPath:     (NSString *)    deployPath;     // Sets up to override standard preferences with any in deployPath/forcedPreferences.plist
-                                                                        // (If deployPath is nil, standard user preferences will be used)
+-(TBUserDefaults *) initWithDefaultsDictionary: (NSDictionary *)    inDict;     // Sets up to override user's standard preferences (if nil, standard user's preferences will be used)
 
--(BOOL)         canChangeValueForKey:   (NSString *)    key;            // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
+-(BOOL)             canChangeValueForKey:   (NSString *)            key;        // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
 
 // These are just like the corresponding NSUserPreferences methods
--(BOOL)         boolForKey:             (NSString *)    key;
--(NSString *)   objectForKey:           (id)            key;
+-(BOOL)             boolForKey:             (NSString *)            key;
+-(NSString *)       objectForKey:           (id)                    key;
 
--(void)         setBool:                (BOOL)          value   forKey: (NSString *)    key;
--(void)         setObject:              (id)            value   forKey: (NSString *)    key;
+-(void)             setBool:                (BOOL)                  value   forKey: (NSString *)    key;
+-(void)             setObject:              (id)                    value   forKey: (NSString *)    key;
 
--(void)         removeObjectForKey:     (NSString *)    key;
+-(void)             removeObjectForKey:     (NSString *)            key;
 
--(void)         synchronize;
+-(void)             synchronize;
 
 @end
