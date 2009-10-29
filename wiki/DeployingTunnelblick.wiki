@@ -50,7 +50,7 @@ There are two exceptions to the way preferences in "forced-preferences.plist" ar
 To make a deployable version of Tunnelblick, you need whatever is required to connect to your VPN.
 
 To be more specific specific, you need:
-    * A copy of the Tunnelblick .dmg file. The latest version may be downloaded from [http://code.google.com/p/tunnelblick the Tunnelblick website].
+    * A copy of the Tunnelblick .dmg file with Tunnelblick version 3.0b22 or later. The latest version may be downloaded from [http://code.google.com/p/tunnelblick the Tunnelblick website].
     * One or more OpenVPN configuration files, with extensions of ".ovpn" or ".conf".
     * Certificate and key files for authentication.
     * Optional: shell script files, with extension ".sh", if you do not use Tunnelblick's "Set nameserver" feature. If you have shell files, they must have an extension of "sh"; otherwise they will not have execute permissions.
@@ -93,8 +93,6 @@ That's all. There is no step 2. Your .zip file has been created.
     # Select "Image Format: compressed", and "Encryption: none"
     # Click "Save"
 Within a few moments, your .dmg file will be created.
-
-
 
 
 
