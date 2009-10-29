@@ -17,7 +17,7 @@ This document contains the following sections:
 <wiki:toc max_depth="2" />
 
 ==WHAT IS A DEPLOYABLE VERSION?==
-A deployable version of Tunnelblick is a Tunnelblick.app which includes everything necessary to install and run Tunnelblick and connect to one or more VPNs. In particular, it includes one or more OpenVPN configuration files, and, usually, certificate and key files for authentication. It can also include shell scripts and text that will appear in Tunnelblick's "about" window, and can specify user preferences that are forced to particular values and are read-only.
+A deployable version of Tunnelblick is a Tunnelblick.app which includes everything necessary to install and run Tunnelblick and connect to one or more VPNs. In particular, it usually includes one or more OpenVPN configuration files, and, usually, certificate and key files for authentication. It can also include shell scripts and text that will appear in Tunnelblick's "about" window, and can specify user preferences that are forced to particular values and are read-only.
 
 ==HOW IT WORKS==
   * Each time Tunnelblick starts:
@@ -32,7 +32,7 @@ A deployable version of Tunnelblick is a Tunnelblick.app which includes everythi
     # If the Deploy folder exists (or has just been restored), a new backup of it is made. The backup is owned by root and has the same permissions as the original items in Deploy (as modified in 3, above).
   * If there is a Deploy folder and it contains one or more .conf or .ovpn files, Tunnelblick uses it, instead of ~/Library/openvpn, for configuration files (and, often, keys, certificates, and shell scripts, but whether the same folder is used for them depends on what is in the configuration file). The first line of the OpenVPN Log will contain the note "configuration from Deploy" if this is being done.
   * If the file Tunnelblick.app/Contents/Resources/about.html exists, its contents will replace the link to "http://code.google.com/p/tunnelblick" in Tunnelblick's "about" window. The content of about.html will be prefixed by `'<html><body><center><div style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px">'`, and followed by `'<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></div></center><body></html>'`. Note that there is only space for a couple of lines of text.
-  * If the Deploy folder is being used and the file Tunnelblick.app/Contents/Resources/Deploy/forced-preferences.plist exists, the preferences contained in it override any preferences the user has set. Since this file is read-only, the user cannot change these preferences, and corresponding preferences in in Tunnelblick's preferences stored in ~/Library/Preferences will be ignored. Also see "FORCED PREFERENCES EXCEPTIONS".
+  * Whether or not the Deploy folder is being used, if the file Tunnelblick.app/Contents/Resources/Deploy/forced-preferences.plist exists, the preferences contained in it override any preferences the user has set. Since this file is read-only, the user cannot change these preferences, and corresponding preferences in in Tunnelblick's preferences stored in ~/Library/Preferences will be ignored. Also see "FORCED PREFERENCES EXCEPTIONS".
 
 Backups of the Deploy folder are created in /Libary/Tunnelblick/Backup/A/B/C/D/E.../TunnelblickBackup, where "/A/B/C/D/E..." is the absolute path to Tunnelbick.app itself. For example, if Tunnelblick.app is located in /Applications, the Deploy backup would be stored in /Library/Tunnelblick/Backup/Applications/TunnelblickBackup. This allows each copy of Tunnelblick on a computer to have its own backup. Up to three backups are kept: the current and previous Deploy, and Deploy at the time Tunnelblick was first run from it's current location.
 
@@ -44,7 +44,7 @@ A version of Tunnelblick with a Deploy folder will work with Tunnelblick's stand
 ==FORCED PREFERENCES EXCEPTIONS==
 There are two exceptions to the way preferences in "forced-preferences.plist" are treated:
   * All preferences with a key beginning with "SU" are ignored. (This may change in the future for some of these preferences).
-  * The _`*`-keychainHasPrivateKey_ and _`*`-keychainHasUsernameAndPassword_ preferences (where "`*`" is the name of a configuration file) -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored. 
+  * The _`*`-keychainHasPrivateKey_ and _`*`-keychainHasUsernameAndPassword_ preferences (where "`*`" is the name of a configuration file) -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords for that configuration in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored. 
 
 ==WHAT IS NEEDED TO MAKE A DEPLOYABLE VERSION==
 To make a deployable version of Tunnelblick, you need whatever is required to connect to your VPN.
@@ -93,8 +93,6 @@ That's all. There is no step 2. Your .zip file has been created.
     # Select "Image Format: compressed", and "Encryption: none"
     # Click "Save"
 Within a few moments, your .dmg file will be created.
-
-
 
 
 
