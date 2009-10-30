@@ -883,6 +883,7 @@ BOOL runningOnTigerOrNewer()
     [self localizeControl:useNameserverCheckbox  shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
     [self localizeControl:autoLaunchCheckbox     shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
 
+    [logWindow display];
     [logWindow makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
     logWindowIsOpen = TRUE;
