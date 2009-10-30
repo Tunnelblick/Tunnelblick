@@ -11,12 +11,16 @@ As project developers and members make changes (bug fixes and improvements) to T
 
 Sometimes, especially when changes are extensive, a "beta", or testing, release is prepared and made available to everyone brave enough to try it. The beta version allows for more thorough testing by more people, and the beta label warns people that the version is not fully tested and that they should be careful using it.
 
-Because Tunnelblick is distributed using the "GPL" license, the source code itself is also available, including the source code for changes before they are incorporated into a release. That means that anyone with sufficient technical skills can create their own release and test it or use it as they see fit. Following are a brief instructions for doing that. These instructions are long because they are very detailed.
+Because Tunnelblick is distributed using the "GPL" license, the source code itself is also available, including the source code for changes before they are incorporated into a release. That means that anyone with sufficient technical skills can create their own release and test it or use it as they see fit. Following are a brief instructions for doing that.
+
+*These instructions are very long because they are very detailed.*
 
 ==PRELIMINARY STEPS==
-First, you need to be running Leopard (OS X 10.5.x). Although Tunnelblick will run on Tiger (OS X 10.4.x), it must be developed and compiled into a release on Leopard, because only Leopard supports the version of the development software, Xcode 3, that is required for developing Tunnelblick.
+First, as of Tunnelblick source code revision 232, you need to be running Snow Leopard (OS X 10.6.x). Although Tunnelblick will run on Tiger (OS X 10.4.x) and Leopard (OS X 10.5.x), it must be built (developed and compiled) into a release on Snow Leopard, because only Snow Leopard supports the 32/64-bit version tuntap, third-party software used by Tunnelblick to make network connections. The 32/64-bit version of tuntap is required to run Tunnelblick on Snow Leopard using the 64-bit kernel.
 
-Second, you must download and install Xcode 3.1.x if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is at least version 3.1.2.) If you don't have Xcode, download it from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a  955MB(!) disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions.
+(Prior to Tunnelblick source code revision 232, you needed to be running Leopard, and Xcode 3.1.1 or above. See "Building on Leopard", below.)
+
+Second, you must download and install Xcode 3.2.x if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is at least version 3.2.1.) If you don't have Xcode, download it from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions.
 
 ==DOWNLOAD THE SOURCE CODE==
 Third, you must download the Tunnelblick source code. Start a terminal session (double-click "Terminal" in the Applications folder). Type the following into the Terminal window: "cd " (without the quotes). That is, the letter c, the letter d, and a space. Open a new Finder window by clicking on Finder in the Dock. Navigate to the place you would like to save the Tunnelblick source code (your Documents folder, for example, or the Desktop) and then hold down the command key on the keyboard (the cloverleaf or apple key) and press the up-arrow key once. You now have a view of the folder which contains the folder you want to store the source code in (and it contains other things, too). Drag the folder in which you want to store the source code to the Terminal window, then let release it. The path to the folder you want to store the source code will be automatically typed for you! Click on the Terminal window, then press the "return" key. Click and drag the following line into the terminal window, too:
@@ -36,3 +40,10 @@ Finally! You are ready to build a release of Tunnelblick. In the "Build Results"
 Your release .dmg file is at tunnelblick-read-only/tunnelblick/build/Release/Tunnelblick.dmg. Double-click it and, in the resulting window, drag the Tunnelblick.app to the Applications shortcut to copy it to your Applications folder. Or see more detailed instructions for installing and using Tunnelblick in "Using Tunnelblick", which is contained in the .dmg file.
 
 Good luck!
+
+==BUILDING ON LEOPARD==
+It is possible to build versions of Tunnelblick prior to revision 232 on Leopard. The instructions above should be followed, except:
+  * Xcode 3.1.1 or higher is required.
+  * To download revision 231 (the last version which can be built on Leopard), use the following command instead of the command given above (note the change in boldface):
+
+      svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
