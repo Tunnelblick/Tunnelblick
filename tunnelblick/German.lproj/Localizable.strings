@@ -65,7 +65,7 @@
 "Disconnect" = "Trennen";
 
 /* NEEDS TRANSLATION *//* Button */
-"Do Not Restore" = "Do Not Restore";
+"Do not restore" = "Do not restore";
 
 /* Checkbox name */
 "Do not warn about this again" = "Nicht erneut hinweisen";
@@ -137,6 +137,9 @@
 /* Connection status */
 "RECONNECTING" = "Stelle Verbindung erneut her";
 
+/* NEEDS TRANSLATION *//* Button */
+"Remove backup and do not restore" = "Remove backup and do not restore";
+
 /* NEEDS TRANSLATION *//* Window title */
 "Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
 
@@ -156,7 +159,7 @@
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Die Zugangsdaten (Passphrase oder Benutzername/Passwort wurden vom remote VPN server nicht akzeptiert.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
@@ -168,7 +171,7 @@
 "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?" = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?";
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
 
 /* Button */
 "Try again with different credentials" = "Versuchen Sie es erneut mit anderen Zugangsdaten";
