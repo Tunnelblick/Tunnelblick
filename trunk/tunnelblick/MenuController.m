@@ -113,6 +113,7 @@ BOOL runningOnTigerOrNewer()
 -(id) init
 {	
     if (self = [super init]) {
+        
         [self dmgCheck];
 		
 		[NSApp setDelegate:self];
@@ -126,26 +127,32 @@ BOOL runningOnTigerOrNewer()
                                             stringByAppendingPathComponent: @"Deploy"];
         BOOL isDir;
         
-        BOOL haveDeploy = [fMgr fileExistsAtPath: deployDirPath    isDirectory: &isDir] && isDir;
-        BOOL haveBackup = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
-        if (  haveDeploy || haveBackup || needsInstallation()  ) {
-            BOOL restore = FALSE;
-            if ( haveBackup && ( ! haveDeploy) ) {
-                int response = TBRunAlertPanel(NSLocalizedString(@"Restore Configuration Settings from Backup?", @"Window title"),
-                                               NSLocalizedString(@"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?", @"Window text"),
-                                               NSLocalizedString(@"Restore", @"Button"),        // Default Button
-                                               NSLocalizedString(@"Do Not Restore", @"Button"), // Alternate Button
-                                               nil);
-                if (  response == NSAlertDefaultReturn ) {
-                    restore = TRUE;
-                }
-            }
-            
-            if ([self runInstaller: restore] != TRUE) {     // installer also backs up and restores Resources/Deploy
-                [NSApp terminate:self];
+        BOOL haveDeploy   = [fMgr fileExistsAtPath: deployDirPath    isDirectory: &isDir] && isDir;
+        BOOL haveBackup   = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
+        BOOL needsInstall = needsInstallation();
+
+        BOOL restore    = FALSE;   // Restore Resources/Deploy from backup
+        BOOL remove     = FALSE;   // Remove the backup of Resources/Deploy
+        if ( haveBackup && ( ! haveDeploy) ) {
+            int response = TBRunAlertPanel(NSLocalizedString(@"Restore Configuration Settings from Backup?", @"Window title"),
+                                           NSLocalizedString(@"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.", @"Window text"),
+                                           NSLocalizedString(@"Restore", @"Button"),        // Default Button
+                                           NSLocalizedString(@"Remove backup and do not restore", @"Button"), // Alternate Button
+                                           NSLocalizedString(@"Do not restore", @"Button")); // Other button
+            if (  response == NSAlertDefaultReturn ) {
+                restore = TRUE;
+            } else if (  response == NSAlertAlternateReturn ) {
+                remove = TRUE;
             }
         }
         
+        // The installer restores Resources/Deploy and/or removes its backups and/or repairs permissions, then backs up Resources/Deploy if it exists
+        if (  restore || remove || needsInstall  ) {
+            if (  ! [self runInstallerRestoreDeploy: restore repairApp: needsInstall removeBackup: remove]  ) {
+                [NSApp terminate:self];
+            }
+        }
+
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
         //    set configDirIsDeploy TRUE and set configDirPath to point to it
         // Otherwise set configDirIsDeploy FALSE and set configDirPath to point to ~/Library/openvpn
@@ -153,7 +160,7 @@ BOOL runningOnTigerOrNewer()
         configDirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"] copy];
         
         if (  [fMgr fileExistsAtPath: deployDirPath isDirectory: &isDir] && isDir ) {
-            NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];
+            NSArray *dirContents = [fMgr directoryContentsAtPath: deployDirPath];
             int i;
             for (i=0; i<[dirContents count]; i++) {
                 NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
@@ -246,6 +253,34 @@ BOOL runningOnTigerOrNewer()
     }
 
     return self;
+}
+
+- (void) dealloc
+{
+    [animImages release];
+    [connectedImage release];
+    [mainImage release];
+    
+    [gTbDefaults release];
+
+    [configDirPath release];
+    [connectionArray release];
+    [connectionsToRestore release];
+    [lastState release];
+    [myConfigArray release];
+    [myVPNConnectionDictionary release];
+    [myVPNMenu release];
+    [showDurationsTimer release];
+    [theAnim release];
+    [updater release];
+    
+    [aboutItem release];
+    [detailsItem release];
+    [quitItem release];
+    [statusMenuItem release];
+    [theItem release]; 
+    
+    [super dealloc];
 }
 
 // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
@@ -990,33 +1025,6 @@ BOOL runningOnTigerOrNewer()
     [NSApp orderFrontStandardAboutPanelWithOptions:aboutPanelDict];
     [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
 }
-- (void) dealloc
-{
-    [animImages release];
-    [connectedImage release];
-    [mainImage release];
-
-    [gTbDefaults release];
-
-    [aboutItem release];
-    [updater release];
-    [connectionArray release];
-    [connectionsToRestore release];
-    [detailsItem release];
-    [lastState release];
-    [myConfigArray release];
-    [myVPNConnectionDictionary release];
-    [myVPNMenu release];
-    [quitItem release];
-    [showDurationsTimer release];
-    [statusMenuItem release];
-    [theAnim release];
-    [theItem release]; 
-    [configDirPath release];
-
-    [super dealloc];
-}
-
 
 -(void)killAllConnections
 {
@@ -1125,7 +1133,9 @@ BOOL runningOnTigerOrNewer()
 	[NSApp callDelegateOnNetworkChange: NO];
 	[self killAllConnections];
 	[self killAllOpenVPN];
-	[[NSStatusBar systemStatusBar] removeStatusItem:theItem];
+	if (  theItem  ) {
+        [[NSStatusBar systemStatusBar] removeStatusItem:theItem];
+    }
 }
 
 -(void)saveUseNameserverCheckboxState:(BOOL)inBool
@@ -1258,63 +1268,51 @@ static void signal_handler(int signalNumber)
 }
 
 // Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files
-// restore should be TRUE if the user agreed to restore Resources/Deploy from its backup
+// restore      should be TRUE if the user agreed to restore Resources/Deploy from its backup
+// repairApp    should be TRUE if needsRepair() returned TRUE
+// removeBackup should be TRUE if the backup of Resources/Deploy should be removed
 // Returns TRUE if ran successfully, FALSE if failed
--(BOOL)runInstaller: (BOOL) restore
+-(BOOL) runInstallerRestoreDeploy: (BOOL) restore repairApp: (BOOL) repairIt removeBackup: (BOOL) removeBkup
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	NSString *installer = [thisBundle pathForResource:@"installer" ofType:nil];
 	AuthorizationRef authRef;
-    int status;
 
-    NSArray * args = nil;
+    NSMutableArray * args;
     if (  restore  ) {
-        args = [NSArray arrayWithObject: @"1"];
+        args = [NSMutableArray arrayWithObject: @"1"];
     } else {
-        args = [NSArray arrayWithObject: @"0"];
+        args = [NSMutableArray arrayWithObject: @"0"];
     }
-
-    // See if installer is owned by root, owner may execute, and is set uid
-	const char *path = [installer UTF8String];
-    struct stat sb;
-	if(stat(path,&sb)) {
-        runUnrecoverableErrorPanel(@"Unable to determine status of \"installer\"");
-	}
+    if (  repairIt  ) {
+        [args addObject:@"1"];
+    } else {
+        [args addObject:@"0"];
+    }
+    if (  removeBkup  ) {
+        [args addObject:@"1"];
+    } else {
+        [args addObject:@"0"];
+    }
     
-	if (!(   (sb.st_mode & S_ISUID)             // set uid bit is set
-          && (sb.st_mode & S_IXUSR)             // owner may execute it
-          && (sb.st_uid == 0)                   // is owned by root
-          )) {
-
-        // Need to get an AuthorizationRef and use executeAuthorized to run the installer
-        authRef= [NSApplication getAuthorizationRef];
-        if(authRef == nil)
-            return FALSE;
-        
-        int i = 5;
-        do {
-            // NSLog(@"Attempting installation...\n");
-            [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
-            sleep(1);
-        } while (  needsInstallation()  && (i-- > 0)  );
-        
-        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-        status = 0;
-    } else {
-
-        // installer is owned by root, executable by owner, and is setuid, so we can just call it as a task without getting an AuthorizationRef
-        NSTask* task = [[[NSTask alloc] init] autorelease];
-        [task setLaunchPath: installer];
-        [task setArguments: args];
-        [task launch];
-        [task waitUntilExit];
-        status = [task terminationStatus];
-    }
-
-    if (  (status != 0) || needsInstallation()  ) {
+    // Get an AuthorizationRef and use executeAuthorized to run the installer
+    authRef= [NSApplication getAuthorizationRef];
+    if(authRef == nil)
+        return FALSE;
+    
+    int i = 5;
+    do {
+        // NSLog(@"Attempting installation...\n");
+        [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
+        sleep(1);
+    } while (  needsInstallation()  && (i-- > 0)  );
+    
+    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+    
+    if (  needsInstallation()  ) {
         NSLog(@"Installation or Repair Failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
-                        NSLocalizedString(@"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
+                        NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
                         nil,
                         nil,
                         nil);
@@ -1330,6 +1328,7 @@ BOOL needsInstallation()
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	
+	NSString *installerPath    = [thisBundle pathForResource:@"intaller"           ofType:nil];
 	NSString *openvpnstartPath = [thisBundle pathForResource:@"openvpnstart"       ofType:nil];
 	NSString *openvpnPath      = [thisBundle pathForResource:@"openvpn"            ofType:nil];
 	NSString *leasewatchPath   = [thisBundle pathForResource:@"leasewatch"         ofType:nil];
@@ -1343,21 +1342,21 @@ BOOL needsInstallation()
         runUnrecoverableErrorPanel(@"Unable to determine status of \"openvpnstart\"");
 	}
     
-	if (!(			  (sb.st_mode & S_ISUID) // set uid bit is set
-					  && (sb.st_mode & S_IXUSR) // owner may execute it
-					  && (sb.st_uid == 0) // is owned by root
-					  )) {
+	if ( !( (sb.st_mode & S_ISUID) // set uid bit is set
+		 && (sb.st_mode & S_IXUSR) // owner may execute it
+		 && (sb.st_uid == 0) // is owned by root
+		)) {
 		NSLog(@"openvpnstart has missing set uid bit, is not owned by root, or owner can't execute it");
 		return YES;		
 	}
 	
 	// check files which should be only writable by root
-	NSArray *inaccessibleObjects = [NSArray arrayWithObjects:openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil];
+	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil];
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {
         if (  ! isOwnedByRootAndHasPermissions(currentPath, @"744")  ) {
-            return YES;
+            return YES; // NSLog already called
         }
 	}
     
@@ -1371,15 +1370,15 @@ BOOL needsInstallation()
         NSString * ext  = [file pathExtension];
         if ( [ext isEqualToString:@"crt"] || [ext isEqualToString:@"key"]  ) {
             if (  ! isOwnedByRootAndHasPermissions(filePath, @"600")  ) {
-                return YES;
+                return YES; // NSLog already called
             }
         } else if ( [ext isEqualToString:@"sh"]  ) {
             if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
-                return YES;
+                return YES; // NSLog already called
             }
         } else { // including .conf and .ovpn
             if (  ! isOwnedByRootAndHasPermissions(filePath, @"644")  ) {
-                return YES;
+                return YES; // NSLog already called
             }
         }
     }

@@ -19,28 +19,43 @@
 #include "installer.h"
 #include <unistd.h> 
 
-// This program takes one optional argument.
-// If there is an argument, and it is "1", the user has given permission to recover Deploy from the backup copy.
-// Otherwise, the user has NOT given such permission.
+// NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
+// This program takes three arguments that specify what it is to do:
+// If the first is  "1", the user has given permission to recover Deploy from the backup copy.
+// If the second is "1", the application's ownership/permissions should be repaired.
+// If the third  is "1", the Deploy backup will be removed.
 int main(int argc, char *argv[]) 
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
     
-	NSString      * thisBundle       = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
-	NSString      * deployPath       = [thisBundle stringByAppendingPathComponent:@"Deploy"];
-    NSString      * deployBackupPath = [[[[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: thisBundle]
-                                            stringByDeletingLastPathComponent]
-                                           stringByDeletingLastPathComponent]
+	NSString * thisBundle           = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+	NSString * deployPath           = [thisBundle stringByAppendingPathComponent:@"Deploy"];
+    NSString * deployBkupHolderPath = [[[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: thisBundle]
                                           stringByDeletingLastPathComponent]
-                                         stringByAppendingPathComponent: @"TunnelblickBackup"]
-                                        stringByAppendingPathComponent: @"Deploy"];
-    NSFileManager * fMgr             = [NSFileManager defaultManager];
+                                         stringByDeletingLastPathComponent]
+                                        stringByDeletingLastPathComponent]
+                                       stringByAppendingPathComponent: @"TunnelblickBackup"];
+    NSString * deployBackupPath     = [deployBkupHolderPath stringByAppendingPathComponent: @"Deploy"];
+    NSString * deployOrigBackupPath = [deployBkupHolderPath stringByAppendingPathComponent: @"OriginalDeploy"];
+    NSString * deployPrevBackupPath = [deployBkupHolderPath stringByAppendingPathComponent: @"PreviousDeploy"];
+    
+    NSFileManager * fMgr                 = [NSFileManager defaultManager];
     BOOL            isDir;
     
-    // If a backup of Resources/Deploy exists, and Resources/Deploy itself does not exist, then restore it from the backup if the user gave permission to do so
+    if (  argc != 4  ) {
+        NSLog(@"Tunnelblick Installer: Wrong number of arguments -- expected 3, given %d", argc-1);
+        exit(EXIT_FAILURE);
+    }
+    
+    BOOL okToRecover  = strcmp(argv[1], "1") == 0;
+    BOOL needToRepair = strcmp(argv[2], "1") == 0;
+    BOOL removeBackup = strcmp(argv[3], "1") == 0;
+    
+    // If a backup of Resources/Deploy exists, and Resources/Deploy itself does not exist
+    // Then restore it from the backup if the user gave permission to do so
     if (  [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir  ) {
         if (  ! (  [fMgr fileExistsAtPath: deployPath isDirectory: &isDir] && isDir  )  ) {
-            if (  (argc > 1)  && (strcmp(argv[1], "1") == 0)  ) {
+            if (  okToRecover  ) {
                 if (  ! [fMgr copyPath:deployBackupPath toPath: deployPath handler:nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", deployPath);
                     exit(EXIT_FAILURE);
@@ -51,74 +66,85 @@ int main(int argc, char *argv[])
         }
     }
     
-	NSString *installerPath    = [thisBundle stringByAppendingPathComponent:@"/installer"];
-	NSString *openvpnstartPath = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
-	NSString *openvpnPath      = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
-	NSString *leasewatchPath   = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
-	NSString *clientUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
-	NSString *clientDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
-    
-    // Create arrays of arguments for the chmod command to set permissions for files in /Resources/Deploy
-    // as follows: .crt and .key files are set to 600, shell files are set to 744, ana all other file are set to 644
-    NSMutableArray *chmod600Args = [NSMutableArray arrayWithObject: @"600"];
-    NSMutableArray *chmod644Args = [NSMutableArray arrayWithObject: @"644"];
-    NSMutableArray *chmod744Args = [NSMutableArray arrayWithObject: @"744"];
-    
-    NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployPath];
-    int i;
-    for (i=0; i<[dirContents count]; i++) {
-        NSString * file = [dirContents objectAtIndex: i];
-        NSString * ext  = [file pathExtension];
-        if ( [ext isEqualToString:@"crt"] || [ext  isEqualToString:@"key"]  ) {
-            [chmod600Args addObject:[deployPath stringByAppendingPathComponent: file]];
-        } else if ( [ext isEqualToString:@"sh"]  ) {
-            [chmod744Args addObject:[deployPath stringByAppendingPathComponent: file]];
-        } else {
-            [chmod644Args addObject:[deployPath stringByAppendingPathComponent: file]];
+    // If the backup of Deploy should be removed, first remove the folder that holds all
+    // three copies, then delete parent folders up the hierarchy if they are empty or only have .DS_Store
+    if (  removeBackup  ) {
+        if (  [fMgr fileExistsAtPath: deployBkupHolderPath isDirectory: &isDir] && isDir  ) {
+            if (  ! [fMgr removeFileAtPath: deployBkupHolderPath handler:nil]  ) {
+                NSLog(@"Tunnelblick Installer: Unable to remove %@", deployBkupHolderPath);
+                exit(EXIT_FAILURE);
+            }
+            NSString * curDir = [deployBkupHolderPath stringByDeletingLastPathComponent];
+            do
+            {   
+                if ( [fMgr fileExistsAtPath: curDir isDirectory: &isDir] && isDir  ) {
+                    NSArray * contents = [fMgr directoryContentsAtPath: curDir];
+                    if (  contents  ) {
+                        if (  ([contents count] == 0)
+                            || (  ([contents count] == 1) && [[contents objectAtIndex:0] isEqualToString:@".DS_Store"]  )
+                            ) {
+                            if (  ! [fMgr removeFileAtPath: curDir handler:nil]  ) {
+                                NSLog(@"Tunnelblick Installer: Unable to remove %@", curDir);
+                                exit(EXIT_FAILURE);
+                            }
+                        } else {
+                            break;
+                        }
+                        curDir = [curDir stringByDeletingLastPathComponent];
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } while (  [curDir length] != 0  );
         }
     }
     
-	runTask(@"/usr/sbin/chown",
-			[NSArray arrayWithObjects:@"-R",@"root:wheel",thisBundle,nil]
-			);
-    
-	runTask(@"/bin/chmod",
-			[NSArray arrayWithObjects: @"4111", openvpnstartPath, nil]
-			);
-	
-	runTask(@"/bin/chmod",
-			[NSArray arrayWithObjects:@"744", openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil]
-			);
-    
-	if ( [chmod600Args count] > 1  ) {
-        runTask(@"/bin/chmod",
-                chmod600Args
-                );
+    // If need to repair ownership and/or permissions, do so:
+    if ( needToRepair ) {
+        NSString *installerPath    = [thisBundle stringByAppendingPathComponent:@"/installer"];
+        NSString *openvpnstartPath = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
+        NSString *openvpnPath      = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
+        NSString *leasewatchPath   = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
+        NSString *clientUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
+        NSString *clientDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
+        
+        // Create arrays of arguments for the chmod command to set permissions for files in /Resources/Deploy
+        // as follows: .crt and .key files are set to 600, shell files are set to 744, ana all other file are set to 644
+        NSMutableArray *chmod600Args = [NSMutableArray arrayWithObject: @"600"];
+        NSMutableArray *chmod644Args = [NSMutableArray arrayWithObject: @"644"];
+        NSMutableArray *chmod744Args = [NSMutableArray arrayWithObject: @"744"];
+        
+        NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployPath];
+        int i;
+        for (i=0; i<[dirContents count]; i++) {
+            NSString * file = [dirContents objectAtIndex: i];
+            NSString * ext  = [file pathExtension];
+            if ( [ext isEqualToString:@"crt"] || [ext  isEqualToString:@"key"]  ) {
+                [chmod600Args addObject:[deployPath stringByAppendingPathComponent: file]];
+            } else if ( [ext isEqualToString:@"sh"]  ) {
+                [chmod744Args addObject:[deployPath stringByAppendingPathComponent: file]];
+            } else {
+                [chmod644Args addObject:[deployPath stringByAppendingPathComponent: file]];
+            }
+        }
+        
+        runTask(@"/usr/sbin/chown", [NSArray arrayWithObjects: @"-R", @"root:wheel", thisBundle, nil]);
+        
+        runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"4111", openvpnstartPath, nil]);
+        
+        runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"744", installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil]);
+        
+        if ( [chmod600Args count] > 1  ) { runTask(@"/bin/chmod", chmod600Args); }
+        if ( [chmod644Args count] > 1  ) { runTask(@"/bin/chmod", chmod644Args); }
+        if ( [chmod744Args count] > 1  ) { runTask(@"/bin/chmod", chmod744Args); }
     }
     
-	if ( [chmod644Args count] > 1  ) {
-        runTask(@"/bin/chmod",
-                chmod644Args
-                );
-    }
-    
-    if ( [chmod744Args count] > 1  ) {
-        runTask(@"/bin/chmod",
-                chmod744Args
-                );
-    }
-    
-    // We have protected everything. Give this installer suid.
-    runTask(@"/bin/chmod",
-			[NSArray arrayWithObjects: @"4111", installerPath, nil]
-			);
-	
-    // Backup Resources/Deploy if it exists, saving the first configuration and the two most recent
-    NSString * deployOrigBackupPath = [[deployBackupPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"OriginalDeploy"];
-    NSString * deployPrevBackupPath = [[deployBackupPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"PreviousDeploy"];
-    NSArray  * deployContents       = [fMgr directoryContentsAtPath:deployPath];
+    // If Resources/Deploy exists, back it up -- saving the first configuration and the two most recent
+    NSArray * deployContents = [fMgr directoryContentsAtPath:deployPath];
     if (  deployContents != nil  ) {
-        createDir([deployBackupPath stringByDeletingLastPathComponent]);                // If it doesn't exist, create the folder that holds the backup folders
+        createDir(deployBkupHolderPath);    // Create the folder that holds the backup folders if it doesn't already exist
         
         if (  ! (  [fMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir] && isDir  )  ) {
             if (  ! [fMgr copyPath:deployPath toPath: deployOrigBackupPath handler:nil]  ) {
@@ -127,8 +153,8 @@ int main(int argc, char *argv[])
             }
         }
         
-        [fMgr removeFileAtPath:deployPrevBackupPath handler:nil];                       // Ignore errors -- LastBackup may not exist yet
-        [fMgr movePath: deployBackupPath toPath: deployPrevBackupPath handler: nil];    // Make backup of previous. Ignore errors -- previous may not exist yet
+        [fMgr removeFileAtPath:deployPrevBackupPath handler:nil];                       // Make original backup. Ignore errors -- original backup may not exist yet
+        [fMgr movePath: deployBackupPath toPath: deployPrevBackupPath handler: nil];    // Make backup of previous backup. Ignore errors -- previous backup may not exist yet
         
         if (  ! [fMgr copyPath:deployPath toPath: deployBackupPath handler:nil]  ) {    // Make backup of current
             NSLog(@"Tunnelblick Installer: Unable to make backup of %@", deployPath);

@@ -97,7 +97,9 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                     shiftSelfLeft:                  (BOOL)              shiftSelfLeft;
 -(void)             moveSoftwareUpdateWindowToForeground;
 -(void)             removeConnection:               (id)                sender;
--(BOOL)             runInstaller:                   (BOOL)              restore;
+-(BOOL)             runInstallerRestoreDeploy:      (BOOL)              restore
+                                    repairApp:      (BOOL)              repairIt
+                                 removeBackup:      (BOOL)              removeBkup;
 -(void)             saveAutoLaunchCheckboxState:    (BOOL)              inBool;
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
