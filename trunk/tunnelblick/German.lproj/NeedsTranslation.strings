@@ -23,7 +23,7 @@
 "Create local copy of configuration file?" = "Create local copy of configuration file?";
 
 /* Button */
-"Do Not Restore" = "Do Not Restore";
+"Do not restore" = "Do not restore";
 
 /* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -49,6 +49,9 @@
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
+/* Button */
+"Remove backup and do not restore" = "Remove backup and do not restore";
+
 /* Window title */
 "Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
 
@@ -56,7 +59,7 @@
 "Restore" = "Restore";
 
 /* Window text */
-"The installation or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
@@ -68,7 +71,7 @@
 "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
 
 /* Window text */
-"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?" = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?";
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
 
 /* Window text */
 "Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
