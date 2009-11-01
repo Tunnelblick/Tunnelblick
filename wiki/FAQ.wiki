@@ -1,33 +1,42 @@
 #summary Frequently Asked Questions (Answered)
 #labels Featured,Phase-Deploy
 
-=Where is the documentation?=
-The newest disk images include release notes and an HTML document, "Using Tunnelblick", which provide extensive documentation on installing and using Tunnelblick. This document and others are also available in the Tunnelblick Wiki at http://code.google.com/p/tunnelblick/w/list.
+==Where is the documentation?==
+The Tunnelblick disk image includes an HTML document, "Using Tunnelblick", which provides extensive documentation on installing and using Tunnelblick. The most recent version of that document is available in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
-=Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Intel? PowerPC?=
-Tunnelblick works on Snow Leopard's 32-bit kernel (which is the default boot kernel except for Snow Leopard Server). Because it contains 32-bit kernel extensions, it does not work with Snow Leopard's 64-bit kernel. At this time there is estimate as to when a 64-bit version of Tunnelblick will be available.
+==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Intel? PowerPC?==
+Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
 
-Tunnelblick works on Leopard (OS X 10.5) and Tiger (OS X 10.4).
+==How do I install Tunnelblick?==
+Download the latest disk image from the featured downloads section on the project page. Double-click it and drag the Tunnelblick.app icon to the shortcut to the Applications folder, or to any other location on your local hard disk. More detailed instructions are in "Using Tunnelblick".
 
-Tunnelblick is a Universal 32-bit application, so it works on both Intel and PowerPC Macs.
+==How do I uninstall Tunnelblick?==
+Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see "Using Tunnelblick" for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
 
-=How do I install Tunnelblick?=
-Download the latest disk image from the featured downloads section on the project page. Double-click it and drag the Tunnelblick.app icon to the shortcut to the Applications folder, or to any other location on your local hard disk.
+==Why does Tunnelblick need root privileges?==
+Tunnelblick needs root privileges the first time it is run for two reasons:
+  # It modifies ownership and privileges on parts of Tunnelblick.app itself to make it secure; and
+  # It modifies its "openvpnstart" binary to run as root so it can start OpenVPN as root.
 
-=How do I uninstall Tunnelblick?=
-Simply move the Tunnelblick.app icon to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see "Using Tunnelblick" for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
+OpenVPN needs root privileges because it needs to modify network settings when configuring network devices, changing routes, and adding and removing nameservers. Because we don't want you to enter your computer administrator password every time you start a VPN connection, Tunnelblick comes with the "openvpnstart" setuid root binary that allows you to do exactly one thing: start a VPN connection with super user rights.
 
-=Why does Tunnelblick need root privileges?=
-OpenVPN needs root privileges because it needs to modify network settings when configuring network devices, changing routes, and adding and removing nameservers. Because we don't want you to enter your computer administrator password every time you start a VPN connection, Tunnelblick comes with a setuid root binary that allows you to do exactly one thing: start a VPN connection with super user rights. That's why Tunnelblick needs your computer administrator password on its first start after installation.
+Tunnelblick also needs root privileges to secure configuration files. If a configuration file is not owned by root, Tunnelblick asks for an administrator username/password so it can change the file's ownership to root before making a connection using that configuration file.
 
-=Why does Tunnelblick change the ownership of the configuration files to root?=
-This is a security issue. OpenVPN configuration files allow you to specify up/down scripts which will be executed with root privileges every time a VPN connection is started or stopped. If the configuration files were owned by the local user, anyone could execute arbitrary code as root by inserting an 'up' directive to the configuration file and pointing it to a (malicious) shell script. Therefore, on the first run, Tunnelblick changes the ownership of the configuration file to root, so it is protected against unnoticed and possibly malicious changes. Similarly, if new configuration files are added, Tunnelblick will ask for a computer administrator's password to change the ownership of the new file to root.
+==Why does Tunnelblick change the ownership of the configuration files to root?==
+This is a security issue. OpenVPN configuration files allow you to specify up/down scripts which will be executed with root privileges every time a VPN connection is started or stopped. If the configuration files were owned by the local user, anyone could execute arbitrary code as root by inserting an 'up' directive to the configuration file and pointing it to a (malicious) shell script. Therefore, when a configuration file is first used, Tunnelblick asks for a computer administrator's username and password and uses them to change the ownership of the configuration file to root, so it is protected against unnoticed and possibly malicious changes. If new configuration files are added, Tunnelblick will ask for a computer administrator's username and password to change the ownership of the new file to root before the first use of each new configuration file.
 
-=Help! My routes are not restored when closing my VPN connection. What is happening?=
-You are probably using the 'user' or 'group' directive in your OpenVPN client configuration file. If you use it, the OpenVPN process will drop privileges after startup which is nice as additional security measure. However, OpenVPN needs root privileges for restoring the route back to their original state. In short: don't use it.
+==Help! My routes are not restored when closing my VPN connection. What is happening?==
+You are probably using the 'user' or 'group' directive in your OpenVPN client configuration file. If you use it, the OpenVPN process will drop privileges after startup which is additional security measure. However, OpenVPN needs root privileges for restoring the route back to their original state. In short: don't use it.
 
-=Why does Tunnelblick use OpenVPN version 2.1, which is not an official release?=
+As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. It allows the use of 'user' and 'group' with by adding a line invoking the plugin in the configuration file. See "Using Tunnelblick" for details on how to do this.
+
+==Why does Tunnelblick use OpenVPN version 2.1, which is not an official release?==
 Tunnelblick uses OpenVPN version 2.1, instead of version 2.0.9, which is the latest official release, because that is the version recommended by the OpenVPN core team.
 
-=Where can I go if my question is not answered here?=
-Go to the Tunnelblick Discussion Group, http://groups.google.com/group/tunnelblick-discuss.
+==Where can I go if my question is not answered here?==
+Go to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+
+------------------
+
+==*PLEASE DO NOT POST COMMENTS OR QUESTIONS TO THIS FAQ UNLESS THEY RELATE TO THE FAQ ITSELF!==
+==FOR ANY OTHER QUESTIONS, ASK IN THE TUNNELBLICK DISCUSSION GROUP. THANK YOU.*==
