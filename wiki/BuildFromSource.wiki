@@ -35,7 +35,9 @@ Fourth, you should set up Xcode to create a "Release" build instead of a "Debug"
 ==BUILD A RELEASE==
 Finally! You are ready to build a release of Tunnelblick. In the "Build Results" window, click the "Build" button. The build process will start, and a series of status messages will be displayed. There should be no errors, but three warnings are normal, all complaining about "Object file compiled with -mlong-branch...". (These warnings come from a bug in Apple's Software Development Kit and can be ignored.) The build process may take several minutes, even on a relatively fast computer, so be patient. When the build is complete, "Build succeeded" will appear at the bottom of the Build Results window. (It takes another 30-60 seconds to finish creating the .dmg file after "Build succeeded" appears). You have made a Tunnelblick release!
 
-(At this point, you might want to make a copy of your current Tunnelblick.app in case the new one doesn't work for you.)
+If you have not installed Rosetta before starting the build, OS X will prompt you to do so. It may be necessary to redo the build in this case. Before you rebuild, delete the "tunnelblick-read-only/tunnelblick/build" folder and the "tunnelblick-read-only/third_party/built" document, to ensure a complete, clean, build.
+
+At this point, you might want to make a copy of your current Tunnelblick.app in case the new one doesn't work for you.
 
 Your release .dmg file is at tunnelblick-read-only/tunnelblick/build/Release/Tunnelblick.dmg. Double-click it and, in the resulting window, drag the Tunnelblick.app to the Applications shortcut to copy it to your Applications folder. Or see more detailed instructions for installing and using Tunnelblick in "Using Tunnelblick", which is contained in the .dmg file.
 
