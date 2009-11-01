@@ -124,7 +124,7 @@ extern TBUserDefaults  * gTbDefaults;
 - (IBAction) connect: (id) sender
 {
 	NSString *cfgPath = [configDirPath stringByAppendingPathComponent: [self configFilename]];
-    NSString *altPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), [self configFilename]];
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), [self configFilename]];
 
     if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
         return;
@@ -411,10 +411,12 @@ extern TBUserDefaults  * gTbDefaults;
                     if (NSDebugEnabled) NSLog(@"Passphrase verification failed.\n");
                     ignoreOnePasswordRequest = YES;
                     [self disconnect:nil];
-					id buttonWithDifferentCredentials = nil;
-                    if ([myAuthAgent keychainHasCredentials]) {
-						buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
-					}
+                    id buttonWithDifferentCredentials = nil;
+                    if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
+                        if ([myAuthAgent keychainHasCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
+                            buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
+                        }
+                    }
 					int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                                               [self configName],
                                                                               NSLocalizedString(@"Authentication failed", @"Window title")],
@@ -631,13 +633,13 @@ extern TBUserDefaults  * gTbDefaults;
 	return NO;
 }
 
-// Given paths to the regular config in ~/Library/openvpn or /Resources/Deploy, and an alternate config in /Library/Tunnelblick/<username>/
+// Given paths to the regular config in ~/Library/openvpn or /Resources/Deploy, and an alternate config in /Library/Application Support/Tunnelblick/Users/<username>/
 // Returns the path to use, or nil if can't use either one
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {
-    if (  ! [self configNeedsRepair:cfgPath]  ) {                                                       // If config doesn't need repair
+    if (  ! [self configNeedsRepair:cfgPath]  ) {                             // If config doesn't need repair
         if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {  // And not using shadow configuration files
-            return cfgPath;                                                                             // Then use it
+            return cfgPath;                                                   // Then use it
         }
     }
     
@@ -697,18 +699,20 @@ extern TBUserDefaults  * gTbDefaults;
                 }
             }
         } else {
-            // Alt config doesn't exist. We must create it (and maybe the folders that it is in)
-            NSString * libTbUserFolderPath = [altCfgPath          stringByDeletingLastPathComponent];   // Assumes alt config is in /Library/Tunnelblick/<username>/
-            NSString * libTbFolderPath     = [libTbUserFolderPath stringByDeletingLastPathComponent];
-            NSAssert([[libTbFolderPath stringByDeletingLastPathComponent] isEqualToString:@"/Library"], @"altCfgPath is not in /Library/xxx/yyy/");
-
+            // Alt config doesn't exist. We must create it (and maybe the folders that contain it)
+            // Assumes alt config is in /Library/Application Support/Tunnelblick/Users/<username>/xxx.conf
+            NSString * altCfgFolderPath  = [altCfgPath stringByDeletingLastPathComponent]; // Strip off xxx.conf to get path to folder that holds it
+            if (  ! [[altCfgFolderPath stringByDeletingLastPathComponent] isEqualToString:@"/Library/Application Support/Tunnelblick/Users"]  ) {
+                NSLog(@"altCfgPath\n%@\nmust be in\n/Library/Application Support/Tunnelblick/Users/<username>", altCfgFolderPath);
+                return nil;
+            }
             if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {
                 // Get user's permission to proceed
                 NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                                           [self configName],
                                                                           NSLocalizedString(@"Create local copy of configuration file?", @"Window title")],
-                                               [NSString stringWithFormat:longMsg, cfgPath, libTbUserFolderPath],
+                                               [NSString stringWithFormat:longMsg, cfgPath, altCfgFolderPath],
                                                NSLocalizedString(@"Create copy", @"Button"),
                                                nil,
                                                NSLocalizedString(@"Cancel", @"Button"));
@@ -723,11 +727,23 @@ extern TBUserDefaults  * gTbDefaults;
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
                 return nil;
             }
-            if ( ! [self makeSureFolderExistsAtPath:libTbFolderPath usingAuth:authRef] ) {      //        /Library/Tunnelblick
+            if ( ! [self makeSureFolderExistsAtPath:@"/Library" usingAuth:authRef] ) {
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                 return nil;
             }
-            if ( ! [self makeSureFolderExistsAtPath:libTbUserFolderPath usingAuth:authRef] ) {  //       /Library/Tunnelblick/<username>
+            if ( ! [self makeSureFolderExistsAtPath:@"/Library/Application Support" usingAuth:authRef] ) {
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                return nil;
+            }
+            if ( ! [self makeSureFolderExistsAtPath:@"/Library/Application Support/Tunnelblick" usingAuth:authRef] ) {
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                return nil;
+            }
+            if ( ! [self makeSureFolderExistsAtPath:@"/Library/Application Support/Tunnelblick/Users" usingAuth:authRef] ) {
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                return nil;
+            }
+            if ( ! [self makeSureFolderExistsAtPath:altCfgFolderPath usingAuth:authRef] ) {  //       /Library.../<username>
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                 return nil;
             }
@@ -835,10 +851,10 @@ extern TBUserDefaults  * gTbDefaults;
     
 	for (i=0; i <= maxtries; i++) {
 		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+		sleep(1);   // This is needed or the test in the next line fails for some reason!
 		if (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  ) {
 			break;
 		}
-		sleep(1);
 	}
 
     if (    ! (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  )    ) {

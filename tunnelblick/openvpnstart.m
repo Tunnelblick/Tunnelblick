@@ -40,7 +40,7 @@ BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
 
 NSString*					execPath;		//Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
-NSString*			        configPath;		//Path to configuration file (in ~/Library/openvpn/ or /Library/Tunnelblick/<username>/) or Resources/Deploy
+NSString*			        configPath;		//Path to configuration file (in ~/Library/openvpn/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
 NSAutoreleasePool*			pool;
 
 int main(int argc, char* argv[])
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 				"\t           (The scripts are in Tunnelblick.app/Contents/Resources/)\n"
                 "\tskipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n"
                 "\tcfgLocCode is 0 to use the standard configuration folder (~/Library/openvpn),\n"
-                "\t           or 1 to use the alternate configuration folder (/Library/Tunnelblick/<username>),\n"
+                "\t           or 1 to use the alternate configuration folder (/Library/Application Support/Tunnelblick/Users/<username>),\n"
                 "\t           or 2 to use the Resources/Deploy folder of the application as the configuration folder.\n\n"
 				
 				"useScripts, skipScrSec, and cfgLocCode each default to 0.\n\n"
@@ -143,7 +143,7 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, u
             break;
             
         case 1:
-            configPath = [NSString stringWithFormat:@"/Library/Tunnelblick/%@/%@", NSUserName(), configFile];
+            configPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), configFile];
             break;
             
         case 2:

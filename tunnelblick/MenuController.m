@@ -876,7 +876,10 @@ BOOL runningOnTigerOrNewer()
 	//id test = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
 	NSTabViewItem* initialItem;
 	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
-    NSAssert(connection, @"myVPNConnectionsDictionary is empty; Tunnelblick must have at least one configuration");
+    if (  ! connection  ) {
+        NSLog(@"myVPNConnectionsDictionary is empty; Tunnelblick must have at least one configuration");
+        [NSApp terminate: self];
+    }
 
     initialItem = [tabView tabViewItemAtIndex: 0];
     [initialItem setIdentifier: [connection configFilename]];

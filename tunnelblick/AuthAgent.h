@@ -57,6 +57,7 @@
 // PUBLIC METHODS:
 // (Private method interfaces are in AuthAgent.m)
 
+-(NSString *)   authMode;
 -(void)         setAuthMode:                        (NSString *)value;
 -(NSString *)   passphrase;
 -(NSString *)   password;
