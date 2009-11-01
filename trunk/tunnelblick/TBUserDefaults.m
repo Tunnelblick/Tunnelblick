@@ -94,9 +94,12 @@
 
 -(void) removeObjectForKey: (NSString *) key
 {
-    NSAssert( ! forcedDefaults, @"removeObjectForKey: invoked while using Resources/Deploy/forced-preferences.plist");
-    [userDefaults removeObjectForKey: key];
-    [userDefaults synchronize];
+    if (  forcedDefaults  ) {
+        NSLog(@"removeObjectForKey: invoked while using Resources/Deploy/forced-preferences.plist");
+    } else {
+        [userDefaults removeObjectForKey: key];
+        [userDefaults synchronize];
+    }
 }
 
 

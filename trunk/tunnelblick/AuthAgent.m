@@ -25,8 +25,6 @@ extern TBUserDefaults  * gTbDefaults;
 
 @interface AuthAgent()          // PRIVATE METHODS
 
--(NSString *)   authMode;
-
 -(NSString *)   configName;
 -(void)         setConfigName:                      (NSString *)value;
 
@@ -86,7 +84,10 @@ extern TBUserDefaults  * gTbDefaults;
 // Returns nil if user cancelled or other error occured
 -(NSString *)askForPrivateKey
 {
-    NSAssert1(  [authMode isEqualToString:@"privateKey"], @"Invalid authmode '%@' in askForPrivateKey", [self authMode]);
+    if (  ! [authMode isEqualToString:@"privateKey"]  ) {
+        NSLog(@"Invalid authmode '%@' in askForPrivateKey", [self authMode]);
+        return nil;
+    }
     
     /* Dictionary for the panel.  */
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
@@ -156,10 +157,14 @@ extern TBUserDefaults  * gTbDefaults;
     return passphraseLocal;
 }
 
-// Returns non-zero length username and non-zero length password obtained either from the Keychain or by asking the user
+// Returns an array with a non-zero length username and a non-zero length password obtained either from the Keychain or by asking the user
+// Returns nil if cancelled by user or error
 -(NSArray *)getUsernameAndPassword
 {
-    NSAssert1(  [authMode isEqualToString:@"password"], @"Invalid authmode '%@' in getUsernameAndPassword", [self authMode]);
+    if (  ! [authMode isEqualToString:@"password"]  ) {
+        NSLog(@"Invalid authmode '%@' in getUsernameAndPassword", [self authMode]);
+        return nil;
+    }
 
     NSString * usernameLocal = nil;
     NSString * passwordLocal = nil;
@@ -252,7 +257,13 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void)performPasswordAuthentication
 {
-    NSAssert1(  [authMode isEqualToString:@"password"], @"Invalid authmode '%@' in performPasswordAuthentication", [self authMode]);
+    [self setUsername:nil];
+    [self setPassword:nil];
+
+    if (  ! [authMode isEqualToString:@"password"]  ) {
+        NSLog(@"Invalid authmode '%@' in performPasswordAuthentication", [self authMode]);
+        return;
+    }
     
 	NSArray *authArray = [self getUsernameAndPassword];
 	if([authArray count]) {                
@@ -261,14 +272,13 @@ extern TBUserDefaults  * gTbDefaults;
 		[self setUsername:usernameLocal];
 		[self setPassword:passwordLocal];
 	}
-	else {
-        [self setUsername:nil];
-		[self setPassword:nil];
-	}
 }
 -(void)performPrivateKeyAuthentication
 {
-    NSAssert1(  [authMode isEqualToString:@"privateKey"], @"Invalid authmode '%@' in performPrivateKeyAuthentication", [self authMode]);
+    if (  ! [authMode isEqualToString:@"privateKey"]  ) {
+        NSLog(@"Invalid authmode '%@' in performPrivateKeyAuthentication", [self authMode]);
+        return;
+    }
     
     NSString *passphraseLocal = nil;
     if (  [gTbDefaults boolForKey:passphrasePreferenceKey] && [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) { // Get saved privateKey from Keychain if it has been saved
@@ -290,7 +300,7 @@ extern TBUserDefaults  * gTbDefaults;
         [self performPasswordAuthentication];
 	}
     else {
-        NSAssert1(FALSE, @"Invalid authMode '%@' in performAuthentication", [self authMode]);
+        NSLog(@"Invalid authMode '%@' in performAuthentication", [self authMode]);
     }
 }
 
@@ -312,9 +322,8 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }        
     else {
-        NSAssert1(FALSE, @"Invalid authMode '%@' in deleteCredentialsFromKeychain", [self authMode]);
+        NSLog(@"Invalid authMode '%@' in deleteCredentialsFromKeychain", [self authMode]);
     }
-    
 }
 
 -(BOOL) keychainHasCredentials
@@ -345,7 +354,7 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
 
-    NSAssert1(FALSE, @"Invalid authMode '%@' in keychainHasCredentials", [self authMode]);
+    NSLog(@"Invalid authMode '%@' in keychainHasCredentials", [self authMode]);
     return NO;
 }
 
