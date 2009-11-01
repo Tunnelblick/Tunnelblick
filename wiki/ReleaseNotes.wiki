@@ -1,4 +1,4 @@
-#summary Release Notes - Tunnelblick v 3.0b20
+#summary Release Notes - Tunnelblick v 3.0b22
 #labels Phase-Deploy,Featured
 
 The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
@@ -8,6 +8,20 @@ The latest version of these release notes is located at http://code.google.com/p
 *PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
+
+==3.0b22 (2009-11-01)==
+  * Includes OpenVPN version 2.1_rc20, which fixes problems with the "redirect-gateway" option.
+  * Includes the 32/64-bit version of tuntap, which fixes problems running Tunnelblick on Snow Leopard under the 64-bit kernel. Thanks to the tuntap project, to Mohammad A. Haque for Xcode help, and to Jean-Philippe Jung for testing.
+  * Stores username in Keychain instead of preferences.
+  * Stores shadow copies of configuration files in /Library/Application Support/Tunnelblick/Users/_username_ instead of /Library/Tunnelblick/_username_.
+  * Bug fixes: Fixes bugs that interfere with storage or retrieval of usernames and passwords. Adds new configs to OpenVPN Log window when it has been opened but is currently closed. Clears "Automatically launch Tunnelblick upon login" for error exits. Clean exit if 'running from .dmg' error. Fixes several memory and CF leaks. Fixes bug that caused attempt to kill openvpn process that had already been killed. Fixes potential problem detecting locked configuration files during shadow copying. Installer detects and reports errors making ownership and permission modifications.
+  * Enhancement: Creates openvpn-down-root.so and puts a copy of it in Tunnelblick.app/Contents/Resources, allowing use of OpenVPN 'user' and 'group' options by adding a line to the configuration file. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for details.
+  * Deployment enhancements: Several changes have been made which make it easy to create a customized version of Tunnelblick that can easily be deployed to multiple clients or installed once for all users of a computer. Configuration, key, and certificate files and up/down scripts can be put into a Deploy folder within Tunnelblick.app, and Tunnelblick will use them instead of using files in ~/Library/openvpn. These files are read-only, and, combined with read-only preference overrides, can create a tamper-proof application. Such deployed applications may be updated via the automatic update mechanism without losing the configuration information. Detailed information is available in the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick] wiki.
+  * Other enhancements: Clarifies language in a few places. Adds a specific error message if unrecoverable error. Warns if all config files removed and gives a choice of quitting or installing and editing a sample config file. Warns if zero-length passphrase, username, or password. Adds Tunnelblick icon and the configuration name to all applicable dialog windows. Puts dialogs on top of other windows. 
+
+Known Issues:
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick "Using Tunnelblick" wiki] for details.
+  * Localization is not complete.
 
 ==3.0b20 (2009-10-09)==
   * Fixes issues with "Set nameserver" on Snow Leopard.
