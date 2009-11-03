@@ -1,5 +1,5 @@
 #summary How to build Tunnelblick from the source code
-#labels Featured,Phase-Deploy
+#labels Phase-Deploy
 
 =How to build Tunnelblick from the source code=
 
