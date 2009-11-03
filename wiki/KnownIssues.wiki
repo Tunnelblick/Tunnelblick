@@ -1,4 +1,4 @@
-#summary Known issues
+#summary Known Issues
 #labels Featured,Phase-Deploy
 
 The following are known problems or limitations in Tunnelblick version 3.0b22 build 1246:
