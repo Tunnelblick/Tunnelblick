@@ -1,7 +1,6 @@
 #summary Known issues
 #labels Featured,Phase-Deploy
 
-==Known Issues==
 The following are known problems or limitations in Tunnelblick version 3.0b22 build 1246:
 
   * Usernames or passwords longer than 12 characters fail to authenticate on OS X 10.6 (Snow Leopard). This issue has been fixed in the trunk as r248, and will be incorporated into the next release of Tunnelblick.
