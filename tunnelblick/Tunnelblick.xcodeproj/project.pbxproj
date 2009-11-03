@@ -11,10 +11,10 @@
 		61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
 		61492D3B0E38ED3900BC9C3F /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
 		615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74860ED3A4C2007F6F0A /* English.lproj */; };
-		615F748F0ED3A4E5007F6F0A /* French.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F748C0ED3A4E5007F6F0A /* French.lproj */; };
-		615F74990ED3A4FA007F6F0A /* German.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74900ED3A4FA007F6F0A /* German.lproj */; };
-		615F749A0ED3A4FA007F6F0A /* Japanese.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74930ED3A4FA007F6F0A /* Japanese.lproj */; };
-		615F749B0ED3A4FA007F6F0A /* Korean.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74960ED3A4FA007F6F0A /* Korean.lproj */; };
+		615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F748C0ED3A4E5007F6F0A /* FR.lproj */; };
+		615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74900ED3A4FA007F6F0A /* DE.lproj */; };
+		615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74930ED3A4FA007F6F0A /* JA.lproj */; };
+		615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74960ED3A4FA007F6F0A /* KO.lproj */; };
 		6165CC8C0E9072A5007312DC /* RouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6165CC8B0E9072A5007312DC /* RouteManager.m */; };
 		616A49190E38D0DE00477476 /* tap.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A49090E38D0D400477476 /* tap.kext */; };
 		616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */ = {isa = PBXBuildFile; fileRef = 616A490A0E38D0D400477476 /* tun.kext */; };
@@ -44,12 +44,12 @@
 		61BC4E740E2FA8A900F24255 /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */; };
 		61BC4E790E2FA8D600F24255 /* client.down.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E770E2FA8D000F24255 /* client.down.osx.sh */; };
 		61BC4E7A0E2FA8D600F24255 /* client.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E780E2FA8D000F24255 /* client.up.osx.sh */; };
-		61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* Norwegian.lproj */; };
+		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
-		6391992510449804001FA1BC /* Spanish.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* Spanish.lproj */; };
+		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
@@ -116,10 +116,10 @@
 		6140EF990E3C334800C5B93A /* openvpn */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = openvpn; path = ../third_party/openvpn/openvpn; sourceTree = SOURCE_ROOT; };
 		61492D370E38ED3400BC9C3F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		615F74860ED3A4C2007F6F0A /* English.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = English.lproj; sourceTree = "<group>"; };
-		615F748C0ED3A4E5007F6F0A /* French.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = French.lproj; sourceTree = "<group>"; };
-		615F74900ED3A4FA007F6F0A /* German.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = German.lproj; sourceTree = "<group>"; };
-		615F74930ED3A4FA007F6F0A /* Japanese.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Japanese.lproj; sourceTree = "<group>"; };
-		615F74960ED3A4FA007F6F0A /* Korean.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Korean.lproj; sourceTree = "<group>"; };
+		615F748C0ED3A4E5007F6F0A /* FR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FR.lproj; sourceTree = "<group>"; };
+		615F74900ED3A4FA007F6F0A /* DE.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DE.lproj; sourceTree = "<group>"; };
+		615F74930ED3A4FA007F6F0A /* JA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = JA.lproj; sourceTree = "<group>"; };
+		615F74960ED3A4FA007F6F0A /* KO.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KO.lproj; sourceTree = "<group>"; };
 		6165CC8A0E9072A5007312DC /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
 		6165CC8B0E9072A5007312DC /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
 		616A44E10E38CAA700477476 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = /System/Library/Frameworks/Kernel.framework; sourceTree = "<absolute>"; };
@@ -167,14 +167,14 @@
 		61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		61BC4E770E2FA8D000F24255 /* client.down.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.osx.sh; sourceTree = "<group>"; };
 		61BC4E780E2FA8D000F24255 /* client.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.osx.sh; sourceTree = "<group>"; };
-		61C03B960ED4E42A00175F22 /* Norwegian.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Norwegian.lproj; sourceTree = "<group>"; };
+		61C03B960ED4E42A00175F22 /* NB.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NB.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
-		6391992210449804001FA1BC /* Spanish.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Spanish.lproj; sourceTree = "<group>"; };
+		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
@@ -319,12 +319,12 @@
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
 				616A49090E38D0D400477476 /* tap.kext */,
 				616A490A0E38D0D400477476 /* tun.kext */,
-				6391992210449804001FA1BC /* Spanish.lproj */,
-				61C03B960ED4E42A00175F22 /* Norwegian.lproj */,
-				615F74900ED3A4FA007F6F0A /* German.lproj */,
-				615F74930ED3A4FA007F6F0A /* Japanese.lproj */,
-				615F74960ED3A4FA007F6F0A /* Korean.lproj */,
-				615F748C0ED3A4E5007F6F0A /* French.lproj */,
+				6391992210449804001FA1BC /* ES.lproj */,
+				61C03B960ED4E42A00175F22 /* NB.lproj */,
+				615F74900ED3A4FA007F6F0A /* DE.lproj */,
+				615F74930ED3A4FA007F6F0A /* JA.lproj */,
+				615F74960ED3A4FA007F6F0A /* KO.lproj */,
+				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
 				615F74860ED3A4C2007F6F0A /* English.lproj */,
 				61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */,
 				61BC4DB10E2FA3C300F24255 /* LogWindow.nib */,
@@ -459,15 +459,15 @@
 				61BC4DB40E2FA3C300F24255 /* MainMenu.nib in Resources */,
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
 				615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */,
-				615F748F0ED3A4E5007F6F0A /* French.lproj in Resources */,
-				615F74990ED3A4FA007F6F0A /* German.lproj in Resources */,
-				615F749A0ED3A4FA007F6F0A /* Japanese.lproj in Resources */,
-				615F749B0ED3A4FA007F6F0A /* Korean.lproj in Resources */,
-				61C03B990ED4E42A00175F22 /* Norwegian.lproj in Resources */,
+				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
+				615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */,
+				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
+				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
+				61C03B990ED4E42A00175F22 /* NB.lproj in Resources */,
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
-				6391992510449804001FA1BC /* Spanish.lproj in Resources */,
+				6391992510449804001FA1BC /* ES.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
