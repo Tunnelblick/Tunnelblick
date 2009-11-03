@@ -428,6 +428,7 @@ extern TBUserDefaults  * gTbDefaults;
 						[myAuthAgent deleteCredentialsFromKeychain];
 					}
 					if (  (alertVal == NSAlertAlternateReturn) || (alertVal == NSAlertDefaultReturn)  ) {	// i.e., not Other (Cancel) or Error returns
+                        ignoreOnePasswordRequest = NO;
 						[self connect:nil];
 					}
                 }
