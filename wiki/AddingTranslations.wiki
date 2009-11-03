@@ -1,4 +1,4 @@
-#summary Adding additional language translations to Tunnelblick
+#summary Adding Additional Language Translations to Tunnelblick
 #labels Phase-Deploy
 
 http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
