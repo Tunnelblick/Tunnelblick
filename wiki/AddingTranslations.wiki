@@ -1,0 +1,100 @@
+#summary Adding additional language translations to Tunnelblick
+#labels Phase-Deploy
+
+http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
+
+Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
+
+*This document describes how to add additional language translations to Tunnelblick.*
+
+*This document may be obsolete!* The latest versions of this document and related documents including release notes, FAQ, and instructions 
+for building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
+
+This document contains the following sections:
+
+<wiki:toc max_depth="2" />
+
+==How Translations Work==
+Although some applications have elaborate structures to specify translations, Tunnelblick's is simple. Inside of Tunnelblick.app there is a folder for English, and a folder for each language that has been translated. Each language folder (except English) has as its name the ISO-639-2 two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. The one exception is English, which is named English.lproj. That is because Tunnelblick's original development language was English.
+
+Each of these folders contains a "Localizable.strings" file. These files contain a series of lines that look like this:
+
+{{{
+/`*` Button `*`/
+"Disconnect" = "Desconectar";
+}}}
+The first line, /`*` Button `*`/, is a hint about what the string is used for -- this one tells you that the string "Disconnect" is for a button. Other hints may indicate a string is for the title of a window, or the text of a window, or is a status  message from OpenVPN.
+
+The second line has two strings, separated by an equal sign and terminated by a semicolon. The first string is in the language that the application was developed in (English), and the second string is in the "target" language.
+
+In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
+
+*You can edit this file in TextEdit (but you need to open it in a special way, see below)* changing the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see below).
+
+==First Translation of a Language==
+If you are the first translator for a language, the file you have will use will be a copy of English.lproj/Localizable.strings. (Make your own copy if necessary.) The file will have lines such as the following:
+
+{{{
+/`*` Connection status `*`/
+"AUTH" = "Authorizing";
+
+/`*` Window title `*`/
+"Authentication failed" = "Authentication failed";
+
+/`*` Checkbox name `*`/
+"Automatically connect on launch" = "Automatically connect on launch";
+
+/`*` Button `*`/
+"Cancel" = "Cancel";
+}}}
+
+Notice that, in this file, both of the strings on each line are in English (sort of). The string "AUTH" is a string describing a connection's status -- what it is doing -- in this case, the status is something called "AUTH". The second string is the string as it should be displayed in English -- this is what you as translator are to replace. Note that for the other three examples, both strings are identical. That is more common. The program requests that the title of a window be "Authentication failed", for example, and, in English, that should be displayed as "Authentication failed".
+
+Translation consists of replacing the second string on each line with the target language's equivalent, using the hint on the line above the strings.
+
+==Editing or Adding Translations==
+If you are editing a file that has already been party or fully translated (perhaps fixing typos or translating new strings required by new Tunnelblick features), you will be editing the "Localizable.strings" file in one of the .lproj folders.
+
+"Localizable.strings" will have a "/`*` Needs Translation `*`/" comment before every line that appears to not have been translated. (A program we use to create these files decides that a line needs translating if the left-side and right-side strings are identical, which does not always mean they need translation, but is a reasonable guess.) You should remove the "/`*` Needs Translation `*`/" comments on any strings that you have translated.
+
+==Opening Localizable.strings Files in `TextEdit`==
+You can edit Localizable.strings files in TextEdit, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
+
+To open one of the .strings files in TextEdit:
+  # Open TextEdit, which is in /Applications
+  # Click "File", then "Open"
+  # Navigate to and select the .strings file you wish to edit
+  # At the bottom of the window to the right of "Plain Text Encoding", select "Unicode (UTF-8)
+  # At the bottom of the window, remove the check in the "Ignore rich text commands" checkbox if there is one
+  # Click the "Open" button
+
+Now you can edit the file. When you are done, be sure to save it. If you do a "Save As", be sure to save it as "Unicode (UTF-8)".
+
+Here is what the bottom of the "Open file" dialog window should look like when you click the "Open" button:
+
+http://groups.google.com/group/tunnelblick-discuss/web/add-translations-open-file-window.png
+
+==Adding Your Translations to Your Copy of Tunnelblick==
+*If you made the first translation of a language*, here's how to put your modified .strings file into your copy of Tunnelblick:
+  # Look up the ISO 632-2 two-character abbreviation for the language. You can do that at [http://www.loc.gov/standards/iso639-2/php/code_list.php]
+  # Create a folder on your Desktop named with the two-character abbreviation followed by ".lproj" (e.g., "CA.lproj" for Catalan/Valencian)
+  # Put the Localizable.strings file that you have modified in the folder
+  # Get a fresh copy of Tunnelblick (one that has never been used; copy from a downloaded disk image file if necessary) and put it on your Desktop
+  # Right-click on the Desktop "Tunnelblick.app" and click on "Show Package Contents". A new Finder window will appear
+  # Double-click on "Contents" in the new window. The window should now show several items
+  # Drag the folder you created in step 2, above, and drop it on "Resources"
+  # Close the Finder window
+
+You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
+
+*If you edited an existing translation*, here's how to put your modified .strings file into your copy of Tunnelblick:
+  # Put the Localizable.strings file that you have modified in the folder
+  # Get a fresh copy of Tunnelblick (one that has never been used; copy from a downloaded disk image file if necessary) and put it on your Desktop
+  # Right-click on the Desktop "Tunnelblick.app" and click on "Show Package Contents". A new Finder window will appear
+  # Double-click on "Contents" in the new window. The window should now show several items
+  # Double-click on "Resources". The window will now show several (different) items.
+  # Double-click on the .lproj folder of the language you have translated
+  # Drag the Localizable.strings file you have modified into the window. Tell Finder to replace the existing Localizable.strings file when you are asked
+  # Close the Finder window
+
+You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
