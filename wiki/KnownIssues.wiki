@@ -1,6 +1,10 @@
 #summary Known Issues
 #labels Featured,Phase-Deploy
 
+*PLEASE DO* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a broader audience of members who might be able to help!
+
+*PLEASE DO NOT* post comments at the bottom of this page. Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+
 The following are known problems or limitations in Tunnelblick version 3.0b22 build 1246:
 
   * Usernames or passwords longer than 12 characters fail to authenticate on OS X 10.6 (Snow Leopard). This issue has been fixed in the trunk as r248, and will be incorporated into the next release of Tunnelblick.
@@ -12,3 +16,8 @@ The following are known problems or limitations in Tunnelblick version 3.0b22 bu
   * Localization is not complete. We need additional translations to French, German, Japanese, Korean, Norwegian, and Spanish. If you can help with these or any other languages, please contact project commiter  [http://code.google.com/u/jkbullard/ Jon].
 
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick the Using Tunnelblick wiki] for details.
+
+
+-----
+
+*PLEASE DO NOT* post comments here. Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
