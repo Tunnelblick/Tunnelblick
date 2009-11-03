@@ -608,9 +608,10 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	if( ![self isConnected] )
 		return;
 	
-	// Create outgoing buffer if needed
-	if( !mOutgoingBuffer )
-		mOutgoingBuffer = [[NSMutableData alloc] initWithCapacity:inLength];
+	// Create or re-create an outgoing buffer of the correct length for this data.
+	if( mOutgoingBuffer )
+        [mOutgoingBuffer release];
+    mOutgoingBuffer = [[NSMutableData alloc] initWithCapacity:inLength];
 	
 	// Append specified bytes to our outgoing buffer
 	[mOutgoingBuffer appendBytes:inBytes length:inLength];
