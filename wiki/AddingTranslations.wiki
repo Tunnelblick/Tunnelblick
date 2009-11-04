@@ -17,6 +17,8 @@ This document contains the following sections:
 ==How Translations Work==
 Although some applications have elaborate structures to specify translations, Tunnelblick's is simple. Inside of Tunnelblick.app there is a folder for English, and a folder for each language that has been translated. Each language folder (except English) has as its name the ISO-639-2 two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. The one exception is English, which is named English.lproj. That is because Tunnelblick's original development language was English.
 
+NOTE: Prior to r255, which will be incorporated in Tunnelblick versions 3.0b24 and up, all .lproj folders had the English name of the language, instead of the ISO-632-2 two-letter abbreviation of the language.
+
 Each of these folders contains a "Localizable.strings" file. These files contain a series of lines that look like this:
 
 {{{
