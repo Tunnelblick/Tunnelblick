@@ -1,0 +1,225 @@
+/* Window title */
+"'%@' has been disconnected" = "'%@' s'ha desconnectat";
+
+/* OpenVPN Log message */
+"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart estat #%1$d: %2$@";
+
+/* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basat en Tunnelblick, programari lliure disponible a <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
+/* Connection status */
+"ADD_ROUTES" = "Afegint rutes";
+
+/* Menu item */
+"About..." = "Quant a…";
+
+/* Window title */
+"Alert" = "Atenció";
+
+/* Connection status */
+"ASSIGN_IP" = "Assignant adreça IP";
+
+/* Connection status */
+"AUTH" = "Autoritzant";
+
+/* Window title */
+"Authentication failed" = "L'autenticació ha fallat";
+
+/* Checkbox name */
+"Automatically connect on launch" = "Connectar automàticament a l'arrencada";
+
+/* Button */
+"Cancel" = "Cancel·lar";
+
+/* Button */
+"Clear log" = "Netejar missatges";
+
+/* Window text */
+"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "L'arxiu de configuració %1$@ es troba en un volum remot. Per motius de seguretat Tunnelblick necessita que els arxius de configuració es trobin en un volum local\n\nDesitges que Tunnelblick creï i utilitzi una còpia local de l'arxiu de configuració en %2$@?\n\n(Farà falta drets d'administració.)\n";
+
+/* Button */
+"Connect" = "Connectar";
+
+/* Connection status */
+"CONNECTED" = "Connectat";
+
+/* Connection status */
+"CONNECTING" = "Connectant";
+
+/* Button */
+"Continue" = "Continuar";
+
+/* Window text */
+"Copyright ¬© 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright ¬© 2004-2009 Angelo Laub i altres. Tots els drets reservats.";
+
+/* Button */
+"Create copy" = "Crear còpia";
+
+/* Window title */
+"Create local copy of configuration file?" = "Crear una còpia local de l'arxiu de configuració?";
+
+/* Menu item */
+"Details..." = "Detalls…";
+
+/* Button */
+"Disconnect" = "Desconnectar";
+
+/* Button */
+"Do not restore" = "No restaurar";
+
+/* Checkbox name */
+"Do not warn about this again" = "No m'avisis més sobre això";
+
+/* Window title */
+"Do you wish to connect?" = "Desitges desconnectar?";
+
+/* Button */
+"Download" = "Descarregar";
+
+/* Button */
+"Edit configuration" = "Editar la configuració";
+
+/* Connection status */
+"EXITING" = "Desconnectat";     // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "Obtenint la configuració";
+
+/* Button */
+"Install and edit sample configuration file" = "Instal·la i edita un arxiu de configuració de mostra";
+
+/* Window title */
+"Install and edit sample configuration file?" = "Instal·lar i editar un arxiu de configuració de mostra?";
+
+/* Window title */
+"Installation failed" = "La instal·lació ha fallat";
+
+/* Window title */
+"Installation or Repair Failed" = "La instal·lació o reparació ha fallat";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Es crearien múltiples connexions simultànies (%1$d amb 'Configurar el servidor de noms', %2$d sense 'Configurar el servidor de noms').";
+
+/* Window title */
+"Not connecting" = "No s'esta connectant";
+
+/* Button */
+"OK" = "D'acord";
+
+/* Window title */
+"OpenVPN Log Output - Tunnelblick" = "Missatges del Log de l'OpenVPN - Tunnelblick";
+
+/* Window title */
+"Passphrase" = "Mot clau";
+
+/* Textbox name */
+"Password:" = "Contrasenya:";
+
+/* Window text */
+"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Si us plau, còpia l'arxiu Tunnelblick.app a la carpeta \"/Applications\" del teu disc dur abans d'executar-lo.";
+
+/* Window text */
+"Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
+
+/* Window text */
+"Please enter VPN username/password combination." = "Si us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
+
+/* Window title */
+"Please insert token" = "Si us plau entra el token";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Si us plau entra el token \"%@\", i prem sobre \"D'acord\"";
+
+/* Menu item
+   Button */
+"Quit" = "Sortir";
+
+/* Connection status */
+"RECONNECTING" = "Reconnectant";
+
+/* Button */
+"Remove backup and do not restore" = "Eliminar còpia de seguretat i no restaurar";
+
+/* Button */
+"Restore" = "Restaurar";
+
+/* Window title */
+"Restore Configuration Settings from Backup?" = "Restaurar configuració des d'una còpia de seguretat?";
+
+/* Checkbox text */
+"Save in Keychain" = "Guardar en el gestor de claus";
+
+/* Checkbox name */
+"Set nameserver" = "Configurar el servidor de noms";
+
+/* Connection status */
+"SLEEP" = "Esperant el procés dimoni";   // Please translate "Waiting for daemon process"
+
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Les credencials (mot clau o nom d'usuari/contrasenya) no han estat acceptades pel servidor VPN remot.";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "La instal·lació, esborrat, recuperació o reparació d'un o més dels component de Tunnelblick ha fallat. Mira la Consola per obtenir més detalls.";
+
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "El mot clau no pot ser buit!\nSi us plau entra el mot clau de la connexió VPN.";
+
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari i la contrasenya no poden ser buits!\nSi us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
+
+/* Window text */
+"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "No hi ha arxius de configuració en '~/Library/openvpn/'. Desitges instal·lar i editar un arxiu de configuració de mostra? Si no, hauràs de sortir de Tunnelblick i posar un o més arxius de configuració en ~/Library/openvpn/.";
+
+/* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Aquesta còpia de Tunnelblick no té cap configuració establerta. Desitges restaurar la configuració d'una còpia de seguretat?\n\nFarà falta drets d'administració.";
+
+/* Button */
+"Try again" = "Provar de nou";
+
+/* Button */
+"Try again with different credentials" = "Provar de nou amb unes altres credencials";
+
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick no ha pogut copiar l'arxiu de configuració al lloc alternatiu local. Mira la Consola per obtenir més detalls.";
+
+/* Window text */
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick no ha pogut copiar openvpn.conf a %@";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick no ha pogut crear una carpeta pel lloc alternatiu de configuració. Mira la Consola per obtenir més detalls.";
+
+/* Window text */
+"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no ha pogut reparar el propietari i permisos de l'arxiu de configuració. Mira la Consola per obtenir més detalls.";
+
+/* Window title */
+"Tunnelblick Error" = "Error del Tunnelblick";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ha desconnectat '%@' perquè l'arxiu de configuració ha estat eliminat.";
+
+/* Status message */
+"Tunnelblick: %d connections active." = "Tunnelblick: %d connexions actives.";
+
+/* Status message */
+"Tunnelblick: 1 connection active." = "Tunnelblick: 1 connexió activa.";
+
+/* Window title */
+"Username and password" = "Nom d'usuari i contrasenya";
+
+/* Textbox name */
+"Username:" = "Nom d'usuari:";
+
+/* Connection status */
+"WAIT" = "Esperant resposta del servidor";   // Please translate "Waiting for Server Response"
+
+/* Window title */
+"Welcome to Tunnelblick" = "Benvingut a Tunnelblick";
+
+/* Window title */
+"You are trying to launch Tunnelblick from the disk image" = "Estàs intentat executar Tunnelblick des de la imatge de disc";
+
+/* Window text */
+"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "Has eliminat tots els arxius de configuració de ~/Library/openvpn. Desitges instal·lar i editar un arxiu de configuració de mostra? Si no, hauràs de sortir de Tunnelblick i posar un o més arxius de configuració en ~/Library/openvpn/.";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Has de tornar a instal·lar Tunnelblick. Si us plau mou Tunnelblick a la Paperera i descarrega una còpia nova. El problema ha estat:\n\n%@";
