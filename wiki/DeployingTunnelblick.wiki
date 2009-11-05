@@ -23,7 +23,7 @@ A deployable version of Tunnelblick is a Tunnelblick.app which includes everythi
   * Each time Tunnelblick starts:
     # If there is no Tunnelblick.app/Contents/Resources/Deploy folder, and there is a backup folder for it, and the user agrees, the Deploy folder is restored from the backup
     # If not already the owner, "root" is made the owner of everything in Tunnelblick.app, including the Deploy folder and its contents
-    # If not already set, the permissions of most items within Tunnelblick.app is set to "644" (root can read/write, everyone else can read), except
+    # If not already set, the permissions of most items within Tunnelblick.app are set to "644" (root can read/write, everyone else can read), except
       * The permissions of the standard up/down scripts, leasewatch, and openvpn are set to 744
       * The permissions of installer and openvpnstart are set to 4111
       * The permissions of the following files in Deploy are given different permissions:
@@ -96,4 +96,3 @@ That's all. There is no step 2. Your .zip file has been created.
     # Select "Image Format: compressed", and "Encryption: none"
     # Click "Save"
 Within a few moments, your .dmg file will be created.
-
