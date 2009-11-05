@@ -39,6 +39,8 @@ BOOL    processExists       (pid_t pid);    //Returns TRUE if the process exists
 BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn")
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
 
+NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put in a command line
+
 NSString*					execPath;		//Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
 NSString*			        configPath;		//Path to configuration file (in ~/Library/openvpn/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
 NSAutoreleasePool*			pool;
@@ -182,8 +184,8 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, u
     if(useScripts) {        // 'Set nameserver' specified, so use our standard scripts
 		[arguments addObjectsFromArray:
 		 [NSArray arrayWithObjects:
-		  @"--up", upscriptPath,
-		  @"--down", downscriptPath,
+		  @"--up", escaped(upscriptPath),
+		  @"--down", escaped(downscriptPath),
           @"--up-restart",
 		  nil
           ]
@@ -419,3 +421,10 @@ BOOL configNeedsRepair(void)
 	}
 	return NO;
 }
+
+// Returns an escaped version of a string so it can be put following an --up or --down option in the OpenVPN command line
+NSString *escaped(NSString *string)
+{
+	return [NSString stringWithFormat:@"\"%@\"", string];
+}
+
