@@ -1,11 +1,11 @@
 /* Window title */
 "'%@' has been disconnected" = "'%@' ha sido desconectado";
 
-/* NEEDS TRANSLATION *//* OpenVPN Log message */
-"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
+/* OpenVPN Log message */
+"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: estado de openvpnstart #%1$d: %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basado en Tunnelblick, un programa gratuito y libre disponible en <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Connection status */
 "ADD_ROUTES" = "Agregando rutas";
@@ -19,11 +19,11 @@
 /* Menu item */
 "About..." = "Sobre…";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Alert" = "Alert";
+/* Window title */
+"Alert" = "Alerta";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Authentication failed" = "Authentication failed";
+/* Window title */
+"Authentication failed" = "Error de Autenticación";
 
 /* Checkbox name */
 "Automatically connect on launch" = "Conectarse automáticamente al iniciar";
@@ -31,8 +31,8 @@
 /* Connection status */
 "CONNECTED" = "Conectado";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "Connecting";
+/* Connection status */
+"CONNECTING" = "CONECTANDO";
 
 /* Button */
 "Cancel" = "Cancelar";
@@ -40,8 +40,8 @@
 /* Button */
 "Clear log" = "Limpiar bitácoras";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
+/* Window text */
+"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "El archivo de configuración %1$@ esta en un disco remoto. Tunnelblick requiere que los archivos de configuración esten en un disco local por razones de seguridad\n\n¿Desea que Tunnelblick creé y use una copia local del archivo de configuración en %2$@?\n\n(Necesitará los credenciales de un administrador y su clave.)\n";
 
 /* Button */
 "Connect"    = "Conectar";
@@ -52,26 +52,26 @@
 /* Window text */
 "Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub y otros. Todos los derechos reservados.";
 
-/* NEEDS TRANSLATION *//* Button */
-"Create copy" = "Create copy";
+/* Button */
+"Create copy" = "Crear copia";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Create local copy of configuration file?" = "Create local copy of configuration file?";
+/* Window title */
+"Create local copy of configuration file?" = "¿Crear una copia local del archivo de configuración?";
 
 /* Menu item */
-"Details..." = "Detalles…";
+"Details..." = "Detalles...";
 
 /* Button */
 "Disconnect" = "Desconectar";
 
-/* NEEDS TRANSLATION *//* Button */
+/* Button */
 "Do not restore" = "Do not restore";
 
 /* Checkbox name */
 "Do not warn about this again" = "No me vuelva a advertir sobre esto";
 
 /* Window title */
-"Do you wish to connect?" = "Desea conectarse?";
+"Do you wish to connect?" = "¿Desea conectarse?";
 
 /* Button */
 "Download" = "Descargar";
@@ -85,29 +85,29 @@
 /* Connection status */
 "GET_CONFIG" = "Cargando configuración";
 
-/* NEEDS TRANSLATION *//* Button */
-"Install and edit sample configuration file" = "Install and edit sample configuration file";
+/* Button */
+"Install and edit sample configuration file" = "Instalar y editar un archivo de configuración ejemplo";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install and edit sample configuration file?" = "Install and edit sample configuration file?";
+/* Window title */
+"Install and edit sample configuration file?" = "¿Instalar y editar un archivo de configuración ejemplo?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation failed" = "Installation failed";
+/* Window title */
+"Installation failed" = "Installación fallida";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+/* Window title */
+"Installation or Repair Failed" = "Installación or Reparación Fallida";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "¿Múltiples conexiones simultáneas se crearían (%d con 'Usar DNS', %d sin 'Usar DNS').";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Not connecting" = "Not connecting";
+/* Window title */
+"Not connecting" = "No esta conectando";
 
 /* Button */
 "OK" = "OK";
 
-/* NEEDS TRANSLATION *//* Window title */
-"OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
+/* Window title */
+"OpenVPN Log Output - Tunnelblick" = "Bitácora de OpenVPN - Tunnelblick";
 
 /* Window title */
 "Passphrase" = "Clave secreta";
@@ -115,7 +115,7 @@
 /* Textbox name */
 "Password:" = "Clave:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* Window text */
 "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.";
 
 /* Window text */
@@ -124,8 +124,8 @@
 /* Window text */
 "Please enter VPN username/password combination." = "Por favor ingrese su combinación de usuario y clave para el VPN.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Por favor inserte el tóken \"%@\", y luego haga click en \"OK\"";
 
 /* Window title */
 "Please insert token" = "Por favor inserte el token";
@@ -137,14 +137,14 @@
 /* Connection status */
 "RECONNECTING" = "Reconectando";
 
-/* NEEDS TRANSLATION *//* Button */
-"Remove backup and do not restore" = "Remove backup and do not restore";
+/* Button */
+"Remove backup and do not restore" = "Eliminar el respaldo y no restaurar";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
+/* Window title */
+"Restore Configuration Settings from Backup?" = "¿Restaurar las Configuraciones desde el Respaldo?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Restore" = "Restore";
+/* Button */
+"Restore" = "Restaurar";
 
 /* Connection status */
 "SLEEP"     = "Esperando al proceso servidor";   // Please translate "Waiting for daemon process"
@@ -158,20 +158,20 @@
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Los credenciales (clave secreta o usuario/clave) no fueron aceptados por el servidor de VPN.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "La instalación, remoción, restauración o reparación de uno o más componentes de Tunnelblick ha fracasado.  Vea la Bitácora de Consola para más detalles.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "La Clave secreta no debe ser vacía!\nPor favor ingrese su Clave secreta del VPN.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El usuario y clave no deben estar vacíos!\nPor favor ingrese su combinación de usuario/clave para el VPN.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+/* Window text */
+"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "No hay archivos de configuración en '~/Library/openvpn/'. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/openvpn/.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
+/* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Esta copia de Tunnelblick no contiene ninguna configuración.  ¿Desea restaurar las configuraciones de la copia respaldo?\n\nNecesitará los credenciales de un usuario administrador y su clave.";
 
 /* Button */
 "Try again with different credentials" = "Inténtelo de nuevo con credenciales distintos";
@@ -182,17 +182,17 @@
 /* Window title */
 "Tunnelblick Error" = "Error de Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
+/* Window text */
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick no pudo copiar el archivo openvpn.conf a %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick no pudo copiar el archivo de configuración a la ubicación local alterna.  Vea la Bitácora de Consola para más detalles.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick no pudo crear un fichero para la configuración local alterna. Vea la Bitácora de Consola para más detalles.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no pudo reparar los permisos del archivo de configuración. Vea la Bitácora de Consola para más detalles.";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick se ha desconectado de '%@' porque su archivo de configuración ha sido borrado.";
@@ -212,15 +212,15 @@
 /* Connection status */
 "WAIT"      = "Esperando Respuesta del Servidor";   // Please translate "Waiting for Server Response"
 
-/* NEEDS TRANSLATION *//* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+/* Window title */
+"Welcome to Tunnelblick" = "Bienvenido a Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"You are trying to launch Tunnelblick from the disk image" = "You are trying to launch Tunnelblick from the disk image";
+/* Window title */
+"You are trying to launch Tunnelblick from the disk image" = "Está intentando ejecutar Tunnelblick desde la imágen de disco";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.";
+/* Window text */
+"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "Usted ha eliminado todos los archivos de configuración de ~/Library/openvpn. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/openvpn/.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Debe reinstalar Tunnelblick. Por favor mueva Tunnelblick al Basurero y descargue una copia nueva del instalador.  El error fue:\n\n%@";
 
