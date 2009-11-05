@@ -7,17 +7,19 @@
 
 The following are known problems or limitations in Tunnelblick version 3.0b22 build 1246:
 
-  * Usernames or passwords longer than 12 characters fail to authenticate on OS X 10.6 (Snow Leopard). This issue has been fixed in the trunk as r248, and will be incorporated into the next release of Tunnelblick.
-
-  * Under some circumstances, the 'Retry' button of an 'Authentication failed' dialog will act as a 'Cancel' button. This issue has been fixed in the trunk as r249, and will be incorporated into the next release of Tunnelblick.
-
-  * If there is a space character in the name of Tunnelblick.app, or in the path to it, connections with 'Set nameserver' checked will fail with a 'script failed: could not execute external program' error. This issue has been fixed in the trunk as r263, and will be incorporated into the next release of Tunnelblick.
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick the Using Tunnelblick wiki] for details.
 
   * When attempting to connect to a VPN, Tunnelblick may fail to load tun.kext and tap.kext. This can happen when another program, or another version of Tunnelblick, has loaded different versions of tun.kext and tap.kext. For example, the Cisco VPN client loads tun.kext and tap.kext at system startup (see [http://code.google.com/p/tunnelblick/issues/detail?id=18 Issue 18]), and they must be unloaded for Tunnelblick to work. Viscosity loads tun.kext and tap.kext when it is running. Until a fix for this problem is issued, this problem may be avoided by (for Cisco) using the procedure linked to in Issue 18, or (for Viscosity) by quitting Viscosity. If you have used one version of Tunnelblick and are trying a different version and this problem happens, it may be necessary to restart your computer to unload the tun.kext and tap.kext that the first version of Tunnelblick loaded.
 
-  * Localization is not complete. We need additional translations to French, German, Japanese, Korean, Norwegian, and Spanish. If you can help with these or any other languages, please contact project commiter  [http://code.google.com/u/jkbullard/ Jon].
+  * Usernames or passwords longer than 12 characters fail to authenticate on OS X 10.6 (Snow Leopard). This issue has been fixed in the trunk as r248, and the fix will be incorporated into the next release of Tunnelblick.
 
-  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick the Using Tunnelblick wiki] for details.
+  * Under some circumstances, the 'Retry' button of an 'Authentication failed' dialog will act as a 'Cancel' button. This issue has been fixed in the trunk as r249, and the fix will be incorporated into the next release of Tunnelblick.
+
+  * If there is a space character in the name of Tunnelblick.app, or in the path to it, connections with 'Set nameserver' checked will fail with a 'script failed: could not execute external program' error. This issue has been fixed in the trunk as r263, and the fix will be incorporated into the next release of Tunnelblick.
+
+  * Get Info on Tunnelblick.app displays incorrect copyright information. This issue has been fixed in the trunk as r259, and the fix will be incorporated into the next release of Tunnelblick.
+
+  * Localization is not complete. We need additional translations to French, German, Japanese, Korean, Norwegian, and Spanish. If you can help with these or any other languages, please contact project commiter  [http://code.google.com/u/jkbullard/ Jon].
 
 
 -----
