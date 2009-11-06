@@ -100,3 +100,16 @@ You're done. The copy of Tunnelblick.app on your Desktop now has your translatio
   # Close the Finder window
 
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
+
+==Weird Characters in the Strings==
+Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it. However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
+
+Here's an example: for English speakers, one of the distinctive features of the character Yoda in _Star Wars_ was the way he spoke -- he spoke backwards. For example, he would say "Hot the food is", when the usual way to express that in English is "The food is hot". If the line in Localizable.strings was
+{{{
+"The %@ is %@" = "The %1$@ is %2$@";
+}}}
+we would translate that into Yoda's English by changing it to
+{{{
+"The %@ is %@" = "%2$@ the %1$@ is"
+}}}
+(We'll ignore the fact that %@$@ needs to be capitalized because it now starts a sentence.)
