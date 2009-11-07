@@ -49,6 +49,8 @@
 // PUBLIC METHODS:
 // (Private method interfaces are in VPNConnection.m)
 
+-(void)             addToLog:                   (NSString *)        text
+                      atDate:                   (NSCalendarDate *)  date;
 -(NSString*)        configName;
 -(NSString*)        configFilename;
 -(NSDate *)         connectedSinceDate;

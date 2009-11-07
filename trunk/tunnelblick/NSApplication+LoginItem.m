@@ -127,7 +127,7 @@
     return [[self class] setAutoLaunchPath: itemPath onLogin: doAutoLaunch];
 }
 
-+(AuthorizationRef)getAuthorizationRef {
++(AuthorizationRef)getAuthorizationRef: msg {
 	OSStatus myStatus;
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
 	AuthorizationRef myAuthorizationRef;
