@@ -130,10 +130,14 @@ BOOL runningOnTigerOrNewer()
         BOOL haveDeploy   = [fMgr fileExistsAtPath: deployDirPath    isDirectory: &isDir] && isDir;
         BOOL haveBackup   = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
         BOOL needsInstall = needsInstallation();
-
-        BOOL restore    = FALSE;   // Restore Resources/Deploy from backup
         BOOL remove     = FALSE;   // Remove the backup of Resources/Deploy
+        BOOL restore    = FALSE;   // Restore Resources/Deploy from backup
+
         if ( haveBackup && ( ! haveDeploy) ) {
+            restore = TRUE;
+/* REMOVED FOR PRODUCTION. An end user should always restore from backup. We can't make this a preference since the preferences
+                           haven't been loaded yet because we don't know if we have a "forced-preferences.plist" file
+ 
             int response = TBRunAlertPanel(NSLocalizedString(@"Restore Configuration Settings from Backup?", @"Window title"),
                                            NSLocalizedString(@"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.", @"Window text"),
                                            NSLocalizedString(@"Restore", @"Button"),        // Default Button
@@ -144,8 +148,8 @@ BOOL runningOnTigerOrNewer()
             } else if (  response == NSAlertAlternateReturn ) {
                 remove = TRUE;
             }
+*/
         }
-        
         // The installer restores Resources/Deploy and/or removes its backups and/or repairs permissions, then backs up Resources/Deploy if it exists
         if (  restore || remove || needsInstall  ) {
             if (  ! [self runInstallerRestoreDeploy: restore repairApp: needsInstall removeBackup: remove]  ) {
@@ -224,9 +228,7 @@ BOOL runningOnTigerOrNewer()
 																   name: @"NSWorkspaceDidWakeNotification"
 																 object:nil];
 		
-        if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]
-           && ! configDirIsDeploy
-           ) {
+        if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
             UKKQueue* myQueue = [UKKQueue sharedFileWatcher];
             [myQueue addPathToQueue: configDirPath];
             [myQueue setDelegate: self];
@@ -585,7 +587,7 @@ BOOL runningOnTigerOrNewer()
     while (file = [dirEnum nextObject]) {
         if ([[file pathExtension] isEqualToString: @"conf"] || [[file pathExtension] isEqualToString: @"ovpn"]) {
 			[array insertObject:file atIndex:i];
-			//if(NSDebugEnabled) NSLog(@"Object: %@ atIndex: %d\n",file,i);
+			//if(NSDebugEnabled) NSLog(@"Object: %@ atIndex: %d",file,i);
 			i++;
         }
     }
@@ -599,6 +601,13 @@ BOOL runningOnTigerOrNewer()
     [connectButton setEnabled:[connection isDisconnected]];
     [disconnectButton setEnabled:(![connection isDisconnected])];
 
+	NSString *disableEditConfigKey = [[connection configName] stringByAppendingString:@"disableEditConfiguration"];
+    if (  [gTbDefaults boolForKey:disableEditConfigKey]  ) {
+        [editButton setEnabled: NO];
+    } else {
+        [editButton setEnabled: YES];
+    }
+    
 	NSString *autoConnectKey = [[connection configName] stringByAppendingString:@"autoConnect"];
     if (  [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
         [autoLaunchCheckbox setEnabled: YES];
@@ -633,7 +642,7 @@ BOOL runningOnTigerOrNewer()
 
 	int i = 0;
 	while(myConnection = [connectionEnumerator nextObject]) {
-		//NSLog(@"configName: %@\nconnectionState: %@\n",[myConnection configName],[myConnection state]);
+		//NSLog(@"configName: %@\nconnectionState: %@",[myConnection configName],[myConnection state]);
         NSString * cState = [myConnection state];
         NSString * cTimeS = @"";
 
@@ -756,14 +765,9 @@ BOOL runningOnTigerOrNewer()
 
 - (IBAction) clearLog: (id) sender
 {
-	NSCalendarDate* date = [NSCalendarDate date];
-	NSString *dateText = [NSString stringWithFormat:@"%@ *Tunnelblick: %@; %@%@\n",
-                          [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],
-                          tunnelblickVersion(),
-                          openVPNVersion(),
-                          configDirIsDeploy ? @"; configuration from Deploy" : @""
-                         ];
-	[[self selectedLogView] setString: [[[NSString alloc] initWithString: dateText] autorelease]];
+	[[self selectedLogView] setString: @""];
+    [[self selectedConnection] addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@", tunnelblickVersion(), openVPNVersion()]
+                                 atDate: nil];
 }
 
 - (VPNConnection*) selectedConnection
@@ -1036,7 +1040,7 @@ BOOL runningOnTigerOrNewer()
     
     while (connection = [e nextObject]) {
         [connection disconnect:self];
-		if(NSDebugEnabled) NSLog(@"Killing connection.\n");
+		if(NSDebugEnabled) NSLog(@"Killing connection");
     }
 }
 
@@ -1060,7 +1064,7 @@ BOOL runningOnTigerOrNewer()
 	while (connection = [e nextObject]) {
 		if (NSDebugEnabled) NSLog(@"Connection %@ is connected for %f seconds\n",[connection configName],[[connection connectedSinceDate] timeIntervalSinceNow]);
 		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
-			if (NSDebugEnabled) NSLog(@"Resetting connection: %@\n",[connection configName]);
+			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection configName]);
 			[connection disconnect:self];
 			[connection connect:self];
 		}
@@ -1127,7 +1131,7 @@ BOOL runningOnTigerOrNewer()
 
 - (void) applicationWillTerminate: (NSNotification*) notification 
 {	
-    if (NSDebugEnabled) NSLog(@"App will terminate...\n");
+    if (NSDebugEnabled) NSLog(@"App will terminate");
 	[self cleanup];
 }
 
@@ -1197,10 +1201,10 @@ static void signal_handler(int signalNumber)
     printf("signal %d caught!\n",signalNumber);
     
     if (signalNumber == SIGHUP) {
-        printf("SIGHUP received. Restarting active connections...\n");
+        printf("SIGHUP received. Restarting active connections\n");
         [[NSApp delegate] resetActiveConnections];
     } else  {
-        printf("Received fatal signal. Cleaning up...\n");
+        printf("Received fatal signal. Cleaning up\n");
         [NSApp setAutoLaunchOnLogin: NO];
         [[NSApp delegate] cleanup];
         exit(0);	
@@ -1281,31 +1285,38 @@ static void signal_handler(int signalNumber)
 	NSString *installer = [thisBundle pathForResource:@"installer" ofType:nil];
 	AuthorizationRef authRef;
 
-    NSMutableArray * args;
+    NSMutableArray * args = [[[NSMutableArray alloc] initWithCapacity:3] autorelease];
+    NSString * msg = @"Need to";
     if (  restore  ) {
-        args = [NSMutableArray arrayWithObject: @"1"];
+        [args addObject: @"1"];
+        msg = [msg stringByAppendingString:@" restore configuration(s) from backup;"];
     } else {
-        args = [NSMutableArray arrayWithObject: @"0"];
+        [args addObject: @"0"];
     }
     if (  repairIt  ) {
         [args addObject:@"1"];
+        msg = [msg stringByAppendingString:@" repair ownership/permissions of the program;"];
     } else {
         [args addObject:@"0"];
     }
     if (  removeBkup  ) {
         [args addObject:@"1"];
+        msg = [msg stringByAppendingString:@" remove backup of configuration(s);"];
     } else {
         [args addObject:@"0"];
     }
     
+    NSLog(msg);
+    
     // Get an AuthorizationRef and use executeAuthorized to run the installer
-    authRef= [NSApplication getAuthorizationRef];
-    if(authRef == nil)
+    authRef= [NSApplication getAuthorizationRef: msg];
+    if(authRef == nil) {
+        NSLog(@"Installation or repair cancelled");
         return FALSE;
+    }
     
     int i = 5;
     do {
-        // NSLog(@"Attempting installation...\n");
         [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
         sleep(1);
     } while (  needsInstallation()  && (i-- > 0)  );
@@ -1313,7 +1324,7 @@ static void signal_handler(int signalNumber)
     AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     
     if (  needsInstallation()  ) {
-        NSLog(@"Installation or Repair Failed");
+        NSLog(@"Installation or repair failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
                         NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
                         nil,
@@ -1322,7 +1333,7 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
-    // NSLog(@"Installation succeeded");
+    NSLog(@"Installation or repair succeded");
     return TRUE;
 }
 
@@ -1400,19 +1411,19 @@ BOOL isOwnedByRootAndHasPermissions(NSString * fPath, NSString * permsShouldHave
         return YES;
     }
     
-    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair\n",fPath,octalString,fileOwner);
+    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair",fPath,octalString,fileOwner);
     return NO;
 }
 
 -(void)willGoToSleep
 {
-	if(NSDebugEnabled) NSLog(@"Computer will go to sleep...\n");
+	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
 	[self killAllConnections];
 }
 -(void)wokeUpFromSleep 
 {
-	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep...\n");
+	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep");
 	
 	NSEnumerator *e = [connectionsToRestore objectEnumerator];
 	VPNConnection *connection;

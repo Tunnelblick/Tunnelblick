@@ -35,7 +35,6 @@ extern TBUserDefaults  * gTbDefaults;
 
 @interface VPNConnection()          // PRIVATE METHODS
 
--(void)             addToLog:                   (NSString *)    text            atDate:     (NSCalendarDate *)      date;
 -(BOOL)             configNeedsRepair:          (NSString *)    configFile;
 -(void)             connectToManagementSocket;
 -(BOOL)             copyFile:                   (NSString *)    source          toFile:     (NSString *)            target      usingAuth:  (AuthorizationRef)  authRef;
@@ -62,12 +61,8 @@ extern TBUserDefaults  * gTbDefaults;
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
-		NSCalendarDate* date = [NSCalendarDate date];
-		[self addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@%@",
-                        tunnelblickVersion(),
-                        openVPNVersion(),
-                        configDirIsDeploy ? @"; configuration from Deploy" : @""
-         ] atDate:date];
+		[self addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@", tunnelblickVersion(), openVPNVersion()]
+                atDate: nil];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
     }
@@ -186,6 +181,16 @@ extern TBUserDefaults  * gTbDefaults;
     
     arguments = [NSArray arrayWithObjects:@"start", [self configFilename], portString, useDNS, skipScrSec, altCfgLoc, nil];
     
+    NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@",
+                          configFilename,
+                          (  [altCfgLoc isEqualToString:@"1"]
+                           ? @" using shadow copy"
+                           : (  [altCfgLoc isEqualToString:@"2"]
+                              ? @" from Deploy"
+                              : @""  )  ),
+                          useDNS];
+    [self addToLog: logText atDate: nil];
+
 	[task setArguments:arguments];
 	[task setCurrentDirectoryPath: configDirPath];
 	[task launch];
@@ -204,8 +209,8 @@ extern TBUserDefaults  * gTbDefaults;
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
-        [self addToLog:[NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]
-                atDate:[NSCalendarDate date]];
+        [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]
+                atDate: nil];
     }
     
     [pipe release];
@@ -341,10 +346,8 @@ extern TBUserDefaults  * gTbDefaults;
 		[self setPIDFromLine:line];
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @","];
-            NSCalendarDate* date;
-            if ( [[parameters objectAtIndex: 0] intValue] == 0) {
-                date = [NSCalendarDate date];
-            } else {
+            NSCalendarDate* date = nil;
+            if ( [[parameters objectAtIndex: 0] intValue] != 0) {
                 date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
             }
             NSString* logLine = [parameters lastObject];
@@ -383,7 +386,7 @@ extern TBUserDefaults  * gTbDefaults;
             } else if ([command isEqualToString: @"PASSWORD"]) {
                 if (  ignoreOnePasswordRequest  ) {
                     ignoreOnePasswordRequest = NO;
-                    [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Ignoring server request \"%@\"", line] atDate:[NSCalendarDate date]];
+                    [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Ignoring server request \"%@\"", line] atDate: nil];
                     return;
                 }
 				// Found password request from server:
@@ -408,7 +411,7 @@ extern TBUserDefaults  * gTbDefaults;
 					}
                 }
                 else if ([line rangeOfString: @"Failed"].length) {
-                    if (NSDebugEnabled) NSLog(@"Passphrase verification failed.\n");
+                    if (NSDebugEnabled) NSLog(@"Passphrase verification failed");
                     ignoreOnePasswordRequest = YES;
                     [self disconnect:nil];
                     id buttonWithDifferentCredentials = nil;
@@ -450,10 +453,8 @@ extern TBUserDefaults  * gTbDefaults;
                 
             } else if ([command isEqualToString:@"LOG"]) {
                 NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-                NSCalendarDate* date;
-                if ( [[parameters objectAtIndex: 0] intValue] == 0) {
-                    date = [NSCalendarDate date];
-                } else {
+                NSCalendarDate* date = nil;
+                if ( [[parameters objectAtIndex: 0] intValue] != 0) {
                     date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
                 }
 				NSString* logLine = [parameters lastObject];
@@ -487,8 +488,11 @@ extern TBUserDefaults  * gTbDefaults;
 	
 
 
-
+// Adds a message to the OpenVPN Log with a specified date/time. If date/time is nil, current date/time is used
 -(void)addToLog:(NSString *)text atDate:(NSCalendarDate *)date {
+    if ( ! date ) {
+        date = [NSCalendarDate date];
+    }
     NSString *dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],text];
     [[self logStorage] appendAttributedString: [[[NSAttributedString alloc] initWithString: dateText] autorelease]];
 }
@@ -514,7 +518,7 @@ extern TBUserDefaults  * gTbDefaults;
     if (inSocket==managementSocket) {
         [self setManagementSocket: nil];
     }
-    if (NSDebugEnabled) NSLog(@"Socket disconnected...\n");
+    if (NSDebugEnabled) NSLog(@"Socket disconnected");
 	//[self performSelectorOnMainThread:@selector(disconnect:) withObject:nil waitUntilDone:NO];
     [self disconnect:self];
 }
@@ -628,7 +632,7 @@ extern TBUserDefaults  * gTbDefaults;
 	NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
 	
 	if ( (![octalString isEqualToString:@"644"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
-		NSLog(@"Configuration file %@ has permissions: 0%@, is owned by %@ and needs repair...\n",configFile,octalString,fileOwner);
+		// NSLog(@"Configuration file %@ has permissions: 0%@, is owned by %@ and needs repair",configFile,octalString,fileOwner);
 		return YES;
 	}
 	return NO;
@@ -649,9 +653,10 @@ extern TBUserDefaults  * gTbDefaults;
     if (    ! ( [self onRemoteVolume:cfgPath]
              || [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )    ) {
         // Config is on non-remote volume and we are not supposed to use a shadow configuration file
-        authRef = [NSApplication getAuthorizationRef];                                  // Try to repair regular config
+		NSLog( [NSString stringWithFormat: @"Configuration file %@ needs ownership/permissions repair", cfgPath]);
+        authRef = [NSApplication getAuthorizationRef: @"The configuration file needs ownership/permissions repair"]; // Try to repair regular config
         if ( authRef == nil ) {
-            //NSLog(@"Not connecting: Authorization cancelled by user.");
+            NSLog(@"Repair authorization cancelled by user");
             AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
             return nil;
         }
@@ -670,9 +675,10 @@ extern TBUserDefaults  * gTbDefaults;
                 // Alt config exists and is the same as regular config
                 if ( [self configNeedsRepair:altCfgPath] ) {                            // Check ownership/permissions
                     // Alt config needs repair
-                    authRef = [NSApplication getAuthorizationRef];                      // Repair if necessary
+                    NSLog(@"The shadow copy of configuration file %@ needs ownership/permissions repair", cfgPath);
+                    authRef = [NSApplication getAuthorizationRef: @"The shadow copy of the configuration file needs ownership/permissions repair"]; // Repair if necessary
                     if ( authRef == nil ) {
-                        //NSLog(@"Not connecting: Authorization cancelled by user.");
+                        NSLog(@"Repair authorization cancelled by user");
                         AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                         return nil;
                     }
@@ -685,9 +691,10 @@ extern TBUserDefaults  * gTbDefaults;
                 return altCfgPath;                                                      // Return the alt config
             } else {
                 // Alt config exists but is different
-                authRef = [NSApplication getAuthorizationRef];                          // Overwrite it with the standard one and set ownership & permissions
+                NSLog(@"The shadow copy of configuration file %@ needs to be updated from the original", cfgPath);
+                authRef = [NSApplication getAuthorizationRef: @"The shadow copy of the configuration file needs to be updated from the original"];// Overwrite it with the standard one and set ownership & permissions
                 if ( authRef == nil ) {
-                    //NSLog(@"Not connecting: Authorization cancelled by user.");
+                    NSLog(@"Authorization for update of shadow copy cancelled by user");
                     AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
                     return nil;
                 }
@@ -701,10 +708,12 @@ extern TBUserDefaults  * gTbDefaults;
             }
         } else {
             // Alt config doesn't exist. We must create it (and maybe the folders that contain it)
-            // Assumes alt config is in /Library/Application Support/Tunnelblick/Users/<username>/xxx.conf
+            NSLog(@"Creating shadow copy of configuration file %@", cfgPath);
+            
+            // Folder creation code below needs alt config to be in /Library/Application Support/Tunnelblick/Users/<username>/xxx.conf
             NSString * altCfgFolderPath  = [altCfgPath stringByDeletingLastPathComponent]; // Strip off xxx.conf to get path to folder that holds it
             if (  ! [[altCfgFolderPath stringByDeletingLastPathComponent] isEqualToString:@"/Library/Application Support/Tunnelblick/Users"]  ) {
-                NSLog(@"altCfgPath\n%@\nmust be in\n/Library/Application Support/Tunnelblick/Users/<username>", altCfgFolderPath);
+                NSLog(@"Internal Tunnelblick error: altCfgPath\n%@\nmust be in\n/Library/Application Support/Tunnelblick/Users/<username>", altCfgFolderPath);
                 return nil;
             }
             if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {
@@ -722,9 +731,9 @@ extern TBUserDefaults  * gTbDefaults;
                 }
             }
 
-            authRef = [NSApplication getAuthorizationRef];                                      // Create folders if they don't exist:
+            authRef = [NSApplication getAuthorizationRef: @"The shadow copy of the configuration file must be created"]; // Create folders if they don't exist:
             if ( authRef == nil ) {
-                //NSLog(@"Not connecting: Authorization cancelled by user.");
+                NSLog(@"Authorization to create a shadow copy of the configuration file cancelled by user.");
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
                 return nil;
             }
@@ -744,7 +753,7 @@ extern TBUserDefaults  * gTbDefaults;
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                 return nil;
             }
-            if ( ! [self makeSureFolderExistsAtPath:altCfgFolderPath usingAuth:authRef] ) {  //       /Library.../<username>
+            if ( ! [self makeSureFolderExistsAtPath:altCfgFolderPath usingAuth:authRef] ) {  //       /Library/.../<username>
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                 return nil;
             }
@@ -825,6 +834,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     // Set the file's ownership and permissions
     if (  [self configNeedsRepair:target]  ) {
+        NSLog(@"Shadow copy of configuration file %@ needs ownership/permissions repair", source);
         if (  ! [self repairConfigPermissions:target usingAuth:authRef]  ) {
             return FALSE;
         }
@@ -927,9 +937,11 @@ extern TBUserDefaults  * gTbDefaults;
                         nil,
                         nil,
                         nil);
+        NSLog(@"Could not repair ownership/permissions of configuration file %@", configFilePath);
         return NO;
     }
-    
+
+    NSLog(@"Repaired ownership/permissions of configuration file %@", configFilePath);
     return YES;
 }
 

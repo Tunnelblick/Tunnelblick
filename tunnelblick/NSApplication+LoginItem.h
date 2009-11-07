@@ -28,7 +28,7 @@
 
 - (BOOL) setAutoLaunchOnLogin: (BOOL) doAutoLaunch;
 
-+(AuthorizationRef)getAuthorizationRef;
++(AuthorizationRef)getAuthorizationRef: msg;
 
 +(OSStatus) executeAuthorized:(NSString *)toolPath withArguments:(NSArray *)arguments withAuthorizationRef:(AuthorizationRef) myAuthorizationRef;
 

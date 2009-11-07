@@ -61,7 +61,7 @@ static int qtoken = 0;
 												 &nf, 0, &qtoken);
 
 		if (status != NOTIFY_STATUS_OK) {
-			NSLog(@"Warning: notify_register_file_descriptor: registration failed (%u)\n", status);
+			NSLog(@"Warning: notify_register_file_descriptor: registration failed (%u)", status);
 		}
 		
 		netChangedNotificationHandle = [[NSFileHandle alloc] initWithFileDescriptor: nf];
