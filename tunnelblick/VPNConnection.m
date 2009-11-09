@@ -35,18 +35,23 @@ extern TBUserDefaults  * gTbDefaults;
 
 @interface VPNConnection()          // PRIVATE METHODS
 
--(BOOL)             configNeedsRepair:          (NSString *)    configFile;
+-(BOOL)             configNeedsRepair:          (NSString *)        configFile;
 -(void)             connectToManagementSocket;
--(BOOL)             copyFile:                   (NSString *)    source          toFile:     (NSString *)            target      usingAuth:  (AuthorizationRef)  authRef;
--(BOOL)             makeSureFolderExistsAtPath: (NSString *)    folderPath      usingAuth:  (AuthorizationRef)      authRef;
--(NSString *)       getConfigToUse:             (NSString *)    cfgPath         orAlt:      (NSString *)            altCfgPath;
+-(BOOL)             copyFile:                   (NSString *)        source
+                      toFile:                   (NSString *)        target
+                   usingAuth:                   (AuthorizationRef)  authRef;
+-(BOOL)             makeSureFolderExistsAtPath: (NSString *)        folderPath
+                                     usingAuth:  (AuthorizationRef) authRef;
+-(NSString *)       getConfigToUse:             (NSString *)        cfgPath
+                             orAlt:             (NSString *)        altCfgPath;
 -(unsigned int)     getFreePort;
--(void)             killProcess;
--(BOOL)             onRemoteVolume:             (NSString *)    cfgPath;
--(void)             processLine:                (NSString *)    line;
--(BOOL)             repairConfigPermissions:    (NSString *)    configFile      usingAuth:  (AuthorizationRef) authRef;
--(void)             setConnectedSinceDate:      (NSDate *)      value;
--(void)             setManagementSocket:        (NetSocket *)   socket;
+-(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
+-(BOOL)             onRemoteVolume:             (NSString *)        cfgPath;
+-(void)             processLine:                (NSString *)        line;
+-(BOOL)             repairConfigPermissions:    (NSString *)        configFile
+                                  usingAuth:    (AuthorizationRef)  authRef;
+-(void)             setConnectedSinceDate:      (NSDate *)          value;
+-(void)             setManagementSocket:        (NetSocket *)       socket;
 
 @end
 
@@ -102,11 +107,11 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (void) dealloc
 {
-    [logStorage release];
     [self disconnect:self];
-    [self setManagementSocket: nil];
-    
-    [managementSocket release];
+    [logStorage release];
+    [managementSocket close];
+    [managementSocket setDelegate: nil];
+    [managementSocket release]; 
     [lastState release];
     [configFilename release];
     [configDirPath release];
@@ -127,10 +132,14 @@ extern TBUserDefaults  * gTbDefaults;
 
     ignoreOnePasswordRequest = NO;
     
-	NSParameterAssert(managementSocket == nil);
 	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
 													 ofType: nil];
-	[self setPort:[self getFreePort]];
+    [managementSocket close];
+    [managementSocket setDelegate: nil];
+    [managementSocket release];
+    managementSocket = nil;
+    
+    [self setPort:[self getFreePort]];
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath: path]; 
 		
@@ -267,25 +276,33 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (IBAction) disconnect: (id)sender 
 {
+    pid_t savedPid = 0;
 	if(pid > 0) {
-		[self killProcess];	
-	}
-	else {
-		if([managementSocket isConnected])
-		{
+        savedPid = pid;
+		[self killProcess];
+	} else {
+		if([managementSocket isConnected]) {
 			[managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
-		}		
+		}
+        sleep(5);       // Wait five seconds for OpenVPN to disappear
 	}
-    [[NSApp delegate] removeConnection:self];
-    [managementSocket close]; [managementSocket setDelegate: nil];
-    [managementSocket release]; managementSocket = nil;
     
+    [[NSApp delegate] removeConnection:self];
     [self setState:@"EXITING"];
     
+    if (  savedPid != 0  ) {
+        [[NSApp delegate] waitUntilGone: savedPid];     // Wait until OpenVPN process is completely gone
+    }
+    
+    if (  ! [managementSocket peekData]  ) {
+        [managementSocket close]; [managementSocket setDelegate: nil];
+        [managementSocket release]; managementSocket = nil;
+    }
 }
 
 
 
+// Kills the OpenVPN process associated with this connection, if any
 -(void)killProcess 
 {
 	NSParameterAssert(pid > 0);
@@ -297,12 +314,11 @@ extern TBUserDefaults  * gTbDefaults;
 	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
 	[task setArguments:arguments];
 	[task setCurrentDirectoryPath: configDirPath];
-	pid = 0;
+    pid = 0;
 	[task launch];
 	[task waitUntilExit];
+    
 }
-
-
 
 - (void) netsocketConnected: (NetSocket*) socket
 {
@@ -382,6 +398,9 @@ extern TBUserDefaults  * gTbDefaults;
                     [[NSApp delegate] addConnection:self];
 					[self setConnectedSinceDate:now];
                     [now release];
+                } else if ([state isEqualToString: @"EXITING"]) {
+                    [managementSocket close]; [managementSocket setDelegate: nil];
+                    [managementSocket release]; managementSocket = nil;
                 }
             } else if ([command isEqualToString: @"PASSWORD"]) {
                 if (  ignoreOnePasswordRequest  ) {

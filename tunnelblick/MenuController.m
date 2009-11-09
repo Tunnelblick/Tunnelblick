@@ -33,6 +33,7 @@
 #import <Foundation/NSDebug.h>
 #import <Security/Authorization.h>
 #import <Security/AuthorizationTags.h>
+#import <sys/sysctl.h>
 #import <sys/types.h>
 #import <sys/stat.h>
 #import "KeyChain.h"
@@ -239,20 +240,22 @@ BOOL runningOnTigerOrNewer()
 		
         updater = [[SUUpdater alloc] init];
 
-	}
-
-    // Process "Automatically connect on launch" checkboxes
-	NSString * filename;
-    VPNConnection * myConnection;
-	NSEnumerator * m = [myConfigArray objectEnumerator];
-    while (filename = [m nextObject]) {
-        myConnection = [myVPNConnectionDictionary objectForKey: filename];
-        if([gTbDefaults boolForKey: [[myConnection configName] stringByAppendingString: @"autoConnect"]]) {
-            if(![myConnection isConnected]) {
-                [myConnection connect:self];
+        [self loadKexts];
+        
+        // Process "Automatically connect on launch" checkboxes
+        NSString * filename;
+        VPNConnection * myConnection;
+        NSEnumerator * m = [myConfigArray objectEnumerator];
+        while (filename = [m nextObject]) {
+            myConnection = [myVPNConnectionDictionary objectForKey: filename];
+            if([gTbDefaults boolForKey: [[myConnection configName] stringByAppendingString: @"autoConnect"]]) {
+                if(![myConnection isConnected]) {
+                    [myConnection connect:self];
+                }
             }
         }
-    }
+	}
+
 
     return self;
 }
@@ -1053,6 +1056,84 @@ BOOL runningOnTigerOrNewer()
 	
 	NSArray *arguments = [NSArray arrayWithObjects:@"killall", nil];
 	[task setArguments:arguments];
+    sleep(1);       //Give them a chance to end gracefully, first
+	[task launch];
+	[task waitUntilExit];
+}
+
+// Waits up to five seconds for a process to be gone
+// (Modified version of NSApplication+LoginItem's killOtherInstances)
+- (void) waitUntilGone: (pid_t) pid
+{
+    int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    struct kinfo_proc* info;
+    size_t length;
+    int count, i, j;
+    BOOL found;
+    
+    // KERN_PROC_ALL has 3 elements, all others have 4
+    int level = 3;
+
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
+        return;
+    }
+
+    for (j=0; j<6; j++) {   // Check six times, one second wait between each = five second maximum wait
+        
+        if (  j != 0  ) {       // Don't sleep first time through
+            sleep(1);
+        }
+        // Allocate memory for info structure:
+        if (!(info = NSZoneMalloc(NULL, length))) return;
+
+        if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
+            NSZoneFree(NULL, info);
+            return;
+        }
+        
+        // Calculate number of processes:
+        count = length / sizeof(struct kinfo_proc);
+        found = FALSE;
+        for (i = 0; i < count; i++) {
+            if (  info[i].kp_proc.p_pid == pid  ) {
+                found = TRUE;
+                break;
+            }
+            
+        }
+        NSZoneFree(NULL, info);
+        if (  ! found  ) {
+            break;
+        }
+    }
+    
+    if (  found  ) {
+        NSLog(@"Error: Timeout (5 seconds) waiting for OpenVPN process %d to terminate", pid);
+    }
+}
+
+-(void)loadKexts 
+{
+	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+													 ofType: nil];
+	NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: path]; 
+	
+	NSArray *arguments = [NSArray arrayWithObjects:@"loadKexts", nil];
+	[task setArguments:arguments];
+	[task launch];
+	[task waitUntilExit];
+}
+
+-(void)unloadKexts 
+{
+	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+													 ofType: nil];
+	NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: path]; 
+	
+	NSArray *arguments = [NSArray arrayWithObjects:@"unloadKexts", nil];
+	[task setArguments:arguments];
 	[task launch];
 	[task waitUntilExit];
 }
@@ -1139,7 +1220,8 @@ BOOL runningOnTigerOrNewer()
 {
 	[NSApp callDelegateOnNetworkChange: NO];
 	[self killAllConnections];
-	[self killAllOpenVPN];
+	[self killAllOpenVPN];  // Kill any OpenVPN processes that still exist
+    [self unloadKexts];     // Unload tun.kext and tap.kext
 	if (  theItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:theItem];
     }
@@ -1420,6 +1502,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString * fPath, NSString * permsShouldHave
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
 	[self killAllConnections];
+	[self killAllOpenVPN];  // Kill any OpenVPN processes that still exist
 }
 -(void)wokeUpFromSleep 
 {

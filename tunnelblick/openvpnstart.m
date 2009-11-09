@@ -25,13 +25,15 @@
 #import <sys/sysctl.h>
 #import <signal.h>
 
-int     startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode);	//Tries to start an openvpn connection. May complain and exit if can't become root
+int     startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode);    //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
 int		killAllOpenvpn		(void);			//Kills all openvpn processes and returns the number of processes that were killed. May complain and exit
+void    waitUntilAllGone    (void);         //Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 
-void	loadKexts			(void);			//Tries to load kexts -- no indication of failure. May complain and exit if can't become root
+void	loadKexts			(void);			//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
+void	unloadKexts			(void);			//Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
 void	becomeRoot			(void);			//Returns as root, having setuid(0) if necessary; complains and exits if can't become root
 
 void	getProcesses		(struct kinfo_proc** procs, int* number);	//Fills in process information
@@ -64,6 +66,18 @@ int main(int argc, char* argv[])
 				}
 				syntaxError = FALSE;
 			}
+		} else if( strcmp(command, "loadKexts") == 0 ) {
+			if (argc == 2) {
+                loadKexts();
+				syntaxError = FALSE;
+			}
+            
+		} else if( strcmp(command, "unloadKexts") == 0 ) {
+			if (argc == 2) {
+                unloadKexts();
+				syntaxError = FALSE;
+			}
+            
 		} else if( strcmp(command, "OpenVPNInfo") == 0 ) {
 			if (argc == 2) {
                 StartOpenVPNWithNoArgs();
@@ -99,6 +113,8 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "openvpnstart usage:\n\n"
 				
 				"\t./openvpnstart OpenVPNInfo\n"
+				"\t./openvpnstart loadKexts\n"
+				"\t./openvpnstart unloadKexts\n"
 				"\t./openvpnstart killall\n"
 				"\t./openvpnstart kill   processId\n"
 				"\t./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode]  ]  ]\n\n"
@@ -130,7 +146,7 @@ int main(int argc, char* argv[])
 	exit(retCode);
 }
 
-//Tries to start an openvpn connection -- no indication of failure. May complain and exit if can't become root
+//Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode)
 {
 	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
@@ -192,8 +208,8 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, u
          ];
 	}
     
-	loadKexts();
-	
+    loadKexts();
+    
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
 	[task setArguments:arguments];
@@ -286,6 +302,8 @@ int killAllOpenvpn(void)
 	
 	free(info);
 	
+    waitUntilAllGone();
+
 	if (nNotKilled) {
 		// An error message for each openvpn process that wasn't killed has already been output
 		[pool drain];
@@ -293,6 +311,46 @@ int killAllOpenvpn(void)
 	}
 	
 	return(nKilled);
+}
+
+//Waits until all OpenVPN processes are gone or five seconds, whichever comes first
+void waitUntilAllGone(void)
+{
+    int count   = 0,
+        i       = 0,
+        j       = 0;
+    
+    BOOL found  = FALSE;
+    
+	struct kinfo_proc*	info	= NULL;
+	
+    for (j=0; j<6; j++) {   // Try up to six times, with one second _between_ each try -- max five seconds total
+        
+        if (j != 0) {       // Don't sleep the first time through
+            sleep(1);
+        }
+        
+        getProcesses(&info, &count);
+        
+        found = FALSE;
+        for (i = 0; i < count; i++) {
+            char* process_name = info[i].kp_proc.p_comm;
+            if(strcmp(process_name, "openvpn") == 0) {
+                found = TRUE;
+                break;
+            }
+        }
+        
+        free(info);
+        
+        if (! found) {
+            break;
+        }
+    }
+    
+    if (found) {
+        fprintf(stderr, "Error: Timeout (5 seconds) waiting for openvpn process(es) to terminate\n");
+    }
 }
 
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
@@ -310,12 +368,36 @@ void loadKexts(void)
 	becomeRoot();
 	[task launch];
 	[task waitUntilExit];
-
+    
     int status = [task terminationStatus];
     if (  status != 0  ) {
         fprintf(stderr, "Error: Unable to load tun and tap kexts. Status = %d\n", status);
         [pool drain];
         exit(247);
+    }
+}
+
+//Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
+void unloadKexts(void)
+{
+	NSString*	tapPath		= [execPath stringByAppendingPathComponent: @"tap.kext"];
+	NSString*	tunPath		= [execPath stringByAppendingPathComponent: @"tun.kext"];
+	NSTask*		task		= [[[NSTask alloc] init] autorelease];
+	NSArray*	arguments	= [NSArray arrayWithObjects: tapPath, tunPath, nil];
+	
+	[task setLaunchPath:@"/sbin/kextunload"];
+	
+	[task setArguments:arguments];
+	
+	becomeRoot();
+	[task launch];
+	[task waitUntilExit];
+    
+    int status = [task terminationStatus];
+    if (  status != 0  ) {
+        fprintf(stderr, "Error: Unable to unload tun and tap kexts. Status = %d\n", status);
+        [pool drain];
+        exit(239);
     }
 }
 
