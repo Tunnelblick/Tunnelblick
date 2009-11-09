@@ -769,8 +769,14 @@ BOOL runningOnTigerOrNewer()
 - (IBAction) clearLog: (id) sender
 {
 	[[self selectedLogView] setString: @""];
-    [[self selectedConnection] addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@", tunnelblickVersion(), openVPNVersion()]
-                                 atDate: nil];
+    [[self selectedConnection] addToLog: [self openVPNLogHeader] atDate: nil];
+}
+
+- (NSString *) openVPNLogHeader
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@; %@", major, minor, bugFix, tunnelblickVersion(), openVPNVersion()]);
 }
 
 - (VPNConnection*) selectedConnection

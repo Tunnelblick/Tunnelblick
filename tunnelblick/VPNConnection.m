@@ -66,8 +66,7 @@ extern TBUserDefaults  * gTbDefaults;
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
-		[self addToLog:[NSString stringWithFormat:@"*Tunnelblick: %@; %@", tunnelblickVersion(), openVPNVersion()]
-                atDate: nil];
+		[self addToLog:[[NSApp delegate] openVPNLogHeader] atDate: nil];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
     }
