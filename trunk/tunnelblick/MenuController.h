@@ -90,6 +90,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(BOOL)             getCurrentAutoLaunchSetting;
 -(void)             initialiseAnim;
 -(void)             killAllConnections;
+-(void)             loadKexts; 
 -(void)             loadMenuIconSet;
 -(void)             localizeControl:                (NSButton *)        button       
                     shiftRight:                     (NSButton *)        buttonToRight
@@ -104,10 +105,12 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
 -(void)             setState:                       (NSString *)        newState;
+-(void)             unloadKexts; 
 -(void)             updateMenuAndLogWindow;
 -(void)             updateTabLabels;
 -(void)             updateUI;
 -(IBAction)         validateLogButtons;
+-(void)             waitUntilGone:                  (pid_t)             pid;
 -(void)             watcher:                        (UKKQueue *)        kq
                     receivedNotification:           (NSString *)        nm
                     forPath:                        (NSString *)        fpath;
