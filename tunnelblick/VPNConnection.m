@@ -147,7 +147,12 @@ extern TBUserDefaults  * gTbDefaults;
 		
 	NSString *useDNS = @"0";
 	if(useDNSStatus(self)) {
-		useDNS = @"1";
+        NSString * useDownRootPluginKey = [[[self configFilename] stringByDeletingPathExtension] stringByAppendingString: @"-useDownRootPlugin"];
+        if (  [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
+            useDNS = @"2";
+        } else {
+            useDNS = @"1";
+        }
         usedSetNameserver = TRUE;
 	} else {
         usedSetNameserver = FALSE;

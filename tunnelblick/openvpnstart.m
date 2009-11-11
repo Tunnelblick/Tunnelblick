@@ -25,7 +25,7 @@
 #import <sys/sysctl.h>
 #import <signal.h>
 
-int     startVPN			(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode);    //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
+int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode);    //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
@@ -96,9 +96,9 @@ int main(int argc, char* argv[])
 				if(strlen(argv[3]) < 6 ) {
 					unsigned int port = atoi(argv[3]);
 					if (port<=65535) {
-						BOOL useScripts = FALSE; if( (argc > 4) && (atoi(argv[4]) == 1) ) useScripts = TRUE;
-						BOOL skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
-						int  cfgLocCode = 0;     if( (argc > 6) )                         cfgLocCode  = atoi(argv[6]);
+						unsigned  useScripts = 0;     if(  argc > 4  )                         useScripts = atoi(argv[4]);
+						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
+						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						if (cfgLocCode < 3) {
                             retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode);
                             syntaxError = FALSE;
@@ -123,20 +123,30 @@ int main(int argc, char* argv[])
 				"\tprocessId  is the process ID of the openvpn process to kill\n"
 				"\tconfigName is the name of the configuration file\n"
 				"\tmgtPort    is the port number (0-65535) to use for managing the connection\n"
-				"\tuseScripts is 1 to run the client.up.osx.sh script before connecting, and client.down.osx.sh after disconnecting\n"
-				"\t           (The scripts are in Tunnelblick.app/Contents/Resources/)\n"
+				"\tuseScripts is 0 to not use scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
+                "\t           or 1 to run scripts before connecting and after disconnecting\n"
+				"\t                (The scripts are usually Tunnelblick.app/Contents/Resources/client.up.osx.sh & client.down.osx.sh, but see the cfgLocCode option)\n"
+                "\t           or 2 to run the scripts, and also use the 'openvpn-down-root.so' plugin\n"
                 "\tskipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n"
-                "\tcfgLocCode is 0 to use the standard configuration folder (~/Library/openvpn),\n"
-                "\t           or 1 to use the alternate configuration folder (/Library/Application Support/Tunnelblick/Users/<username>),\n"
-                "\t           or 2 to use the Resources/Deploy folder of the application as the configuration folder.\n\n"
-				
+                "\tcfgLocCode is 0 to use the standard folder (~/Library/openvpn) for configuration and other files,\n"
+                "\t           or 1 to use the alternate folder (/Library/Application Support/Tunnelblick/Users/<username>)\n"
+                "                  for configuration files and the standard folder for other files,\n"
+                "\t           or 2 to use the Resources/Deploy folder for configuration and other files,\n"
+                "\t                except that if Resources/Deploy contains only .conf, .ovpn, .up.sh, .down.sh and forced-preferences.plist files\n"
+                "\t                            then ~/Library/openvpn will be used for all other files (such as .crt and .key files)\n"
+                "\t                and If 'useScripts' is 1 or 2\n"
+                "\t                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
+                "\t                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n\n"
+
 				"useScripts, skipScrSec, and cfgLocCode each default to 0.\n\n"
 				
 				"The normal return code is 0. If an error occurs a message is sent to stderr and a code of 2 is returned.\n\n"
 				
 				"This executable must be in the same folder as openvpn, tap.kext, and tun.kext (and client.up.osx.sh and client.down.osx.sh if they are used).\n\n"
 				
-				"Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n"
+				"Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n\n"
+                
+                "For more information on using Resources/Deploy, see the Deployment wiki at http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick\n"
 				);
 		[pool drain];
 		exit(240);      // This exit code (240) is used in the VPNConnection connect: method to inhibit display of this long syntax error message
@@ -147,13 +157,16 @@ int main(int argc, char* argv[])
 }
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, unsigned cfgLocCode)
+int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode)
 {
 	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
 	NSString*	openvpnPath		= [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSString*	upscriptPath	= [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
 	NSString*	downscriptPath	= [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
+	NSString*	downRootPath	= [execPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
     NSString*   deployDirPath   = [execPath stringByAppendingPathComponent: @"Deploy"];
+
+    NSFileManager * fMgr = [NSFileManager defaultManager];
 
 	switch (cfgLocCode) {
         case 0:
@@ -166,13 +179,46 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, u
             
         case 2:
             configPath = [deployDirPath stringByAppendingPathComponent:configFile];
-            directoryPath = deployDirPath;
+
+            // If Deploy contains anything other than *.conf, *.ovpn, *.up.sh, *.down.sh, and forced-preferences.plist files
+            // Then use Deploy as the --cd directory
+            BOOL onlyThoseFiles = TRUE;   // Assume Deploy contains only those files
+            NSString *file;
+            NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployDirPath];
+            while (file = [dirEnum nextObject]) {
+                NSString * ext = [file pathExtension];
+                if (  [file isEqualToString:@"forced-preferences.plist"]  || [file isEqualToString:@".DS_Store"]  ) {
+                    // forced-preferences.plist and .DS_Store are OK
+                } else if (  [ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]  ) {
+                    // *.conf and *.ovpn are OK
+                } else {
+                    // Not forced-preferences.plist, .DS_Store, *.conf, or *.ovpn
+                    if (  [ext isEqualToString: @"sh"]  ) {
+                        NSString * secondExt = [[file stringByDeletingPathExtension] pathExtension];
+                        if (  [secondExt isEqualToString: @"up"] || [secondExt isEqualToString: @"down"]  ) {
+                            // *.up.sh and *.down.sh are OK
+                        } else {
+                            // *.sh file, but not *.up.sh or *.down.sh
+                            onlyThoseFiles = FALSE;
+                            break;
+                        }
+                    } else {
+                        // not forced-preferences.plist, .DS_Store, *.conf, *.ovpn, or *.sh -- probably *.crt or *.key
+                        onlyThoseFiles = FALSE;
+                        break;
+                    }
+                }
+            }
+
+            if (  ! onlyThoseFiles  ) {
+                directoryPath = deployDirPath;
+            }
             break;
             
         default:
-            NSLog(@"Tunnelblick internal error: invalid cfgLocCode in startVPN()");
-            exit(251);
-            break;
+            fprintf(stderr, "Syntax error: Invalid cfgLocCode (%d)\n", cfgLocCode);
+            [pool drain];
+            exit(238);
     }
 
     if(configNeedsRepair()) {
@@ -197,16 +243,42 @@ int startVPN(NSString* configFile, int port, BOOL useScripts, BOOL skipScrSec, u
 		[arguments addObjectsFromArray: [NSArray arrayWithObjects: @"--script-security", @"2", nil]];
     }
     
-    if(useScripts) {        // 'Set nameserver' specified, so use our standard scripts
-		[arguments addObjectsFromArray:
-		 [NSArray arrayWithObjects:
-		  @"--up", escaped(upscriptPath),
-		  @"--down", escaped(downscriptPath),
-          @"--up-restart",
-		  nil
-          ]
-         ];
-	}
+    if(  useScripts != 0  ) {  // 'Set nameserver' specified, so use our standard scripts or Deploy/<config>.up.sh and Deploy/<config>.down.sh
+        if (  cfgLocCode == 2  ) {
+            NSString * deployScriptPath = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
+            NSString * deployUpscriptPath   = [[deployScriptPath stringByAppendingPathExtension:@"up"]   stringByAppendingPathExtension:@"sh"];
+            NSString * deployDownscriptPath = [[deployScriptPath stringByAppendingPathExtension:@"down"] stringByAppendingPathExtension:@"sh"];
+            if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                upscriptPath = deployUpscriptPath;
+            }
+            if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                downscriptPath = deployDownscriptPath;
+            }
+        }
+        
+        if (  useScripts == 2  ) {
+            [arguments addObjectsFromArray: [NSArray arrayWithObjects:
+                                             @"--up", escaped(upscriptPath),
+                                             @"--plugin", downRootPath, escaped(downscriptPath),
+                                             @"--up-restart",
+                                             nil
+                                             ]
+             ];
+        } else if (  useScripts == 1  ) {
+            [arguments addObjectsFromArray: [NSArray arrayWithObjects:
+                                             @"--up", escaped(upscriptPath),
+                                             @"--down", escaped(downscriptPath),
+                                             @"--up-restart",
+                                             nil
+                                             ]
+             ];
+        } else {
+            fprintf(stderr, "Syntax error: Invalid useScripts parameter (%d)\n", useScripts);
+            [pool drain];
+            exit(251);
+            
+        }
+    }
     
     loadKexts();
     
@@ -364,7 +436,6 @@ void loadKexts(void)
 	[task setLaunchPath:@"/sbin/kextload"];
 	
 	[task setArguments:arguments];
-	
 	becomeRoot();
 	[task launch];
 	[task waitUntilExit];
