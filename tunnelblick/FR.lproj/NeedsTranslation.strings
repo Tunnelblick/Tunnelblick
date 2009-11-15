@@ -10,8 +10,17 @@
 /* Window title */
 "Authentication failed" = "Authentication failed";
 
+/* Menu item */
+"Automatically Check for Updates" = "Automatically Check for Updates";
+
 /* Connection status */
 "CONNECTING" = "Connecting";
+
+/* Menu item */
+"Check For Updates Now" = "Check For Updates Now";
+
+/* Window title */
+"Configuration Change" = "Configuration Change";
 
 /* Window text */
 "Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
@@ -43,6 +52,12 @@
 /* Window title */
 "Installation or Repair Failed" = "Installation or Repair Failed";
 
+/* Checkbox name */
+"Monitor connection" = "Monitor connection";
+
+/* Menu item */
+"Monitor the Configuration Folder" = "Monitor the Configuration Folder";
+
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
 
@@ -52,11 +67,20 @@
 /* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
 
+/* Menu item */
+"Options" = "Options";
+
+/* Menu item */
+"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+
 /* Window text */
 "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.";
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+
+/* Menu item */
+"Preferences" = "Preferences";
 
 /* Button */
 "Remove backup and do not restore" = "Remove backup and do not restore";
@@ -69,6 +93,27 @@
 
 /* Connection status */
 "SLEEP"      = "En veille";     // Please translate "Waiting for Daemon process"
+
+/* Menu item */
+"Send Anonymous System Information" = "Send Anonymous System Information";
+
+/* Menu item */
+"Show Connection Timers" = "Show Connection Timers";
+
+/* Menu item tooltip */
+"Takes effect at the next automatic update check" = "Takes effect at the next automatic update check";
+
+/* Menu item tooltip */
+"Takes effect immediately" = "Takes effect immediately";
+
+/* Menu item tooltip */
+"Takes effect the next time Tunnelblick is launched" = "Takes effect the next time Tunnelblick is launched";
+
+/* Menu item tooltip */
+"Takes effect with the next connection" = "Takes effect with the next connection";
+
+/* Window text */
+"The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
@@ -96,6 +141,12 @@
 
 /* Window text */
 "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.";
+
+/* Menu item */
+"Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
+
+/* Menu item */
+"Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";
 
 /* Window title */
 "Welcome to Tunnelblick" = "Welcome to Tunnelblick";

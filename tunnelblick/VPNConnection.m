@@ -164,7 +164,13 @@ extern TBUserDefaults  * gTbDefaults;
     } else if (  configDirIsDeploy  ) {
         altCfgLoc = @"2";
     }
-
+    
+    NSString * noMonitorKey = [[[self configFilename] stringByDeletingPathExtension] stringByAppendingString: @"-notMonitoringConnection"];
+    NSString * noMonitor = @"0";
+    if ( [gTbDefaults boolForKey: noMonitorKey] ) {
+        noMonitor = @"1";
+    }
+    
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     
     NSDictionary * vers = getOpenVPNVersion();
@@ -192,16 +198,20 @@ extern TBUserDefaults  * gTbDefaults;
     NSPipe * pipe = [[NSPipe alloc] init];
     [task setStandardError: pipe];
     
-    arguments = [NSArray arrayWithObjects:@"start", [self configFilename], portString, useDNS, skipScrSec, altCfgLoc, nil];
+    arguments = [NSArray arrayWithObjects:@"start", [self configFilename], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
     
-    NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@",
+    NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           configFilename,
                           (  [altCfgLoc isEqualToString:@"1"]
                            ? @" using shadow copy"
                            : (  [altCfgLoc isEqualToString:@"2"]
                               ? @" from Deploy"
                               : @""  )  ),
-                          useDNS];
+                          useDNS,
+                          (  [noMonitor isEqualToString:@"1"]
+                           ? @"; not monitoring connection"
+                           : @"; monitoring connection" )
+                          ];
     [self addToLog: logText atDate: nil];
 
 	[task setArguments:arguments];

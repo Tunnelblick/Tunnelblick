@@ -187,21 +187,6 @@ BOOL runningOnTigerOrNewer()
         connectionArray = [[[NSMutableArray alloc] init] retain];
 
         [self loadMenuIconSet];
-
-		detailsItem = [[NSMenuItem alloc] init];
-		[detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
-		[detailsItem setTarget: self];
-		[detailsItem setAction: @selector(openLogWindow:)];
-		
-		aboutItem = [[NSMenuItem alloc] init];
-		[aboutItem setTitle: NSLocalizedString(@"About...", @"Menu item")];
-		[aboutItem setTarget: self];
-		[aboutItem setAction: @selector(openAboutWindow:)];
-		
-		quitItem = [[NSMenuItem alloc] init];
-		[quitItem setTitle: NSLocalizedString(@"Quit", @"Menu item")];
-		[quitItem setTarget: self];
-		[quitItem setAction: @selector(quit:)];
         
 		[self createStatusItem];
 		
@@ -230,7 +215,7 @@ BOOL runningOnTigerOrNewer()
 																 object:nil];
 		
         if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
-            UKKQueue* myQueue = [UKKQueue sharedFileWatcher];
+            myQueue = [UKKQueue sharedFileWatcher];
             [myQueue addPathToQueue: configDirPath];
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
@@ -241,6 +226,14 @@ BOOL runningOnTigerOrNewer()
         updater = [[SUUpdater alloc] init];
 
         [self loadKexts];
+
+        // The following two lines work around a Sparkle Updater bug on Snow Leopard: the updater window doesn't appear.
+        // If we have a window of our own, the updater window appears. The window needn't be visible; it only needs to
+        // be loaded and the app needs to be activated for the updater window to appear. On Tiger and Leopard, it was
+        // sufficient to run moveSoftwareUpdateWindowToForeground (via a delayed thread), and that code is left in so
+        // Tiger and Leopard still show the update window. Presumably a newer version of Sparkle will fix this bug.
+        [NSBundle loadNibNamed: @"SplashWindow" owner: self];   // Loads, but does not display
+        [NSApp activateIgnoringOtherApps:YES];
         
         // Process "Automatically connect on launch" checkboxes
         NSString * filename;
@@ -280,6 +273,15 @@ BOOL runningOnTigerOrNewer()
     [updater release];
     
     [aboutItem release];
+    [checkForUpdatesNowItem release];
+    [reportAnonymousInfoItem release];
+    [autoCheckForUpdatesItem release];
+    [warnAboutSimultaneousItem release];
+    [useShadowCopiesItem release];
+    [monitorConfigurationDirItem release];
+    [putIconNearSpotlightItem release];
+    [optionsSubmenu release];
+    [optionsItem release];
     [detailsItem release];
     [quitItem release];
     [statusMenuItem release];
@@ -426,10 +428,132 @@ BOOL runningOnTigerOrNewer()
     }
 	[theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
 }
-
 // Initial creation of the menu
 -(void) createMenu 
 {	
+    if (  ! [gTbDefaults boolForKey:@"doNotShowOptionsSubmenu"]  ) {
+        preferencesTitleItem = [[NSMenuItem alloc] init];
+        [preferencesTitleItem setTitle: NSLocalizedString(@"Preferences", @"Menu item")];
+        [preferencesTitleItem setTarget: self];
+        [preferencesTitleItem setAction: @selector(togglePreferencesTitle:)];
+        
+        putIconNearSpotlightItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Place Icon Near the Spotlight Icon", @"Menu item")
+                                                         andAction: @selector(togglePlaceIconNearSpotlight:)
+                                                        andToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")
+                                                atIndentationLevel: 1
+                                                  andPreferenceKey: @"placeIconInStandardPositionInStatusBar"
+                                                           negated: YES];
+        
+        monitorConfigurationDirItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Monitor the Configuration Folder", @"Menu item")
+                                                            andAction: @selector(toggleMonitorConfigurationDir:)
+                                                           andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
+                                                   atIndentationLevel: 1
+                                                     andPreferenceKey: @"doNotMonitorConfigurationFolder"
+                                                              negated: YES];
+        
+        warnAboutSimultaneousItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Warn About Simultaneous Connections", @"Menu item")
+                                                          andAction: @selector(toggleWarnAboutSimultaneous:)
+                                                         andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
+                                                 atIndentationLevel: 1
+                                                   andPreferenceKey: @"skipWarningAboutSimultaneousConnections"
+                                                            negated: YES];
+        
+        showConnectedDurationsItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Show Connection Timers", @"Menu item")
+                                                          andAction: @selector(toggleConnectionTimers:)
+                                                         andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
+                                                 atIndentationLevel: 1
+                                                   andPreferenceKey: @"showConnectedDurations"
+                                                            negated: NO];
+        
+        useShadowCopiesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Shadow Copies of Configuration Files", @"Menu item")
+                                                    andAction: @selector(toggleUseShadowCopies:)
+                                                   andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
+                                           atIndentationLevel: 1
+                                             andPreferenceKey: @"useShadowConfigurationFiles"
+                                                      negated: NO];
+        
+        autoCheckForUpdatesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Automatically Check for Updates", @"Menu item")
+                                                        andAction: @selector(toggleAutoCheckForUpdates:)
+                                                       andToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")
+                                               atIndentationLevel: 1
+                                                 andPreferenceKey: @"SUEnableAutomaticChecks"
+                                                          negated: NO];
+        
+        reportAnonymousInfoItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Send Anonymous System Information", @"Menu item")
+                                                        andAction: @selector(toggleReportAnonymousInfo:)
+                                                       andToolTip: NSLocalizedString(@"Takes effect at the next automatic update check", @"Menu item tooltip")
+                                               atIndentationLevel: 2
+                                                 andPreferenceKey: @"SUEnableSystemProfiling"
+                                                          negated: NO];
+
+        if (  ! [gTbDefaults boolForKey:@"doNotShowCheckForUpdatesNowMenuItem"]  ) {
+            checkForUpdatesNowItem = [[NSMenuItem alloc] init];
+            [checkForUpdatesNowItem setTitle: NSLocalizedString(@"Check For Updates Now", @"Menu item")];
+            [checkForUpdatesNowItem setTarget: self];
+            [checkForUpdatesNowItem setAction: @selector(checkForUpdates:)];
+        }
+    }
+    
+    aboutItem = [[NSMenuItem alloc] init];
+    [aboutItem setTitle: NSLocalizedString(@"About...", @"Menu item")];
+    [aboutItem setTarget: self];
+    [aboutItem setAction: @selector(openAboutWindow:)];
+    
+    if (   putIconNearSpotlightItem
+        || monitorConfigurationDirItem
+        || showConnectedDurationsItem
+        || warnAboutSimultaneousItem
+        || useShadowCopiesItem
+        || autoCheckForUpdatesItem
+        || reportAnonymousInfoItem
+        || checkForUpdatesNowItem
+        ) {
+        optionsSubmenu = [[NSMenu alloc] initWithTitle:@"Options SubMenu Title"];
+        
+        if (  preferencesTitleItem              ) { [optionsSubmenu addItem: preferencesTitleItem           ]; }
+        if (  putIconNearSpotlightItem          ) { [optionsSubmenu addItem: putIconNearSpotlightItem       ]; }
+        if (  monitorConfigurationDirItem       ) { [optionsSubmenu addItem: monitorConfigurationDirItem    ]; }
+        if (  warnAboutSimultaneousItem         ) { [optionsSubmenu addItem: warnAboutSimultaneousItem      ]; }
+        if (  showConnectedDurationsItem        ) { [optionsSubmenu addItem: showConnectedDurationsItem     ]; }
+        if (  useShadowCopiesItem               ) { [optionsSubmenu addItem: useShadowCopiesItem            ]; }
+
+        if (   putIconNearSpotlightItem || monitorConfigurationDirItem || warnAboutSimultaneousItem || showConnectedDurationsItem || useShadowCopiesItem  ) {
+            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
+        }
+        
+        if (  autoCheckForUpdatesItem  ) { [optionsSubmenu addItem: autoCheckForUpdatesItem ]; }
+        if (  reportAnonymousInfoItem  ) { [optionsSubmenu addItem: reportAnonymousInfoItem ]; }
+        
+        if (  autoCheckForUpdatesItem || reportAnonymousInfoItem  ) {
+            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
+        }
+        
+        if (  checkForUpdatesNowItem  ) { [optionsSubmenu addItem: checkForUpdatesNowItem   ]; }
+
+        if (  checkForUpdatesNowItem && aboutItem  ) {
+            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
+        }
+        
+        if (  aboutItem  ) { [optionsSubmenu addItem: aboutItem]; }
+        
+        optionsItem = [[NSMenuItem alloc] init];
+        [optionsItem setTitle: NSLocalizedString(@"Options", @"Menu item")];
+        [optionsItem setSubmenu: optionsSubmenu];
+        
+    } else {
+        optionsItem = nil;
+    }
+    
+    detailsItem = [[NSMenuItem alloc] init];
+    [detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
+    [detailsItem setTarget: self];
+    [detailsItem setAction: @selector(openLogWindow:)];
+    
+    quitItem = [[NSMenuItem alloc] init];
+    [quitItem setTitle: NSLocalizedString(@"Quit", @"Menu item")];
+    [quitItem setTarget: self];
+    [quitItem setAction: @selector(quit:)];
+    
     [theItem setHighlightMode:YES];
     [theItem setMenu:nil];
 	[myVPNMenu release]; myVPNMenu = nil;
@@ -438,7 +562,6 @@ BOOL runningOnTigerOrNewer()
 	
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
-    
 	[theItem setMenu: myVPNMenu];
 	
 	statusMenuItem = [[NSMenuItem alloc] init];
@@ -472,15 +595,156 @@ BOOL runningOnTigerOrNewer()
 		[myVPNMenu insertItem:connectionItem atIndex:i];
 		i++;
 	}
-	
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
+    
+    if (  optionsItem  ) {
+        [myVPNMenu addItem: optionsItem];
+    } else {
+        [myVPNMenu addItem: aboutItem];
+    }
+    [myVPNMenu addItem: [NSMenuItem separatorItem]];
+
 	[myVPNMenu addItem: detailsItem];
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
-	[myVPNMenu addItem: aboutItem];
-	[myVPNMenu addItem: [NSMenuItem separatorItem]];
-	[myVPNMenu addItem: quitItem];
+	
+    [myVPNMenu addItem: quitItem];
+
 }
 
+-(NSMenuItem *)initPrefMenuItemWithTitle: (NSString *) title
+                               andAction: (SEL) action
+                              andToolTip: (NSString *) tip
+                      atIndentationLevel: (int) indentLevel
+                        andPreferenceKey: (NSString *) prefKey
+                                 negated: (BOOL) negatePref
+{
+    if (  [gTbDefaults canChangeValueForKey:prefKey] || ( ! [gTbDefaults boolForKey: @"doNotShowForcedPreferenceMenuItems"] )  ) {
+        NSMenuItem * item = [[NSMenuItem alloc] init];
+        [item setTitle:   title];
+        [item setTarget:  self];
+        [item setAction:  action];
+        [item setToolTip: tip];
+        [item setIndentationLevel: indentLevel];
+        [item setRepresentedObject: prefKey];
+        BOOL state = [gTbDefaults boolForKey:prefKey];
+        state = negatePref ? ! state : state;
+        if (  state  ) {
+            [item setState: NSOnState];
+        } else {
+            [item setState: NSOffState];
+        }
+        return item;
+    } else {
+        return nil;
+    }
+    
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)anItem 
+{
+    if (  [anItem action] == @selector(toggleReportAnonymousInfo:)  ) {
+        if (  ! [gTbDefaults boolForKey:@"SUEnableAutomaticChecks"]  ) {
+            [anItem setState: NSOffState];
+            return NO;
+        } else {
+            if (  ! [gTbDefaults boolForKey:@"SUEnableSystemProfiling"]  ) {
+                [anItem setState: NSOnState];
+            } else {
+                [anItem setState: NSOffState];
+            }
+        }
+    }
+    
+    if (  [anItem representedObject]  ) {
+        if (  ! [gTbDefaults canChangeValueForKey: [anItem representedObject]]  ) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
+-(void)togglePlaceIconNearSpotlight: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"placeIconInStandardPositionInStatusBar"];
+}
+
+-(void)toggleMonitorConfigurationDir: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"doNotMonitorConfigurationFolder"];
+    if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
+        if (  myQueue  ) {
+            [myQueue removePathFromQueue: configDirPath];
+        }
+    } else {
+        if ( myQueue  ) {
+            [myQueue addPathToQueue: configDirPath];
+            [self activateStatusMenu];
+        } else {
+            myQueue = [UKKQueue sharedFileWatcher];
+            [myQueue addPathToQueue: configDirPath];
+            [myQueue setDelegate: self];
+            [myQueue setAlwaysNotify: YES];
+            [self activateStatusMenu];
+        }
+    }
+}
+
+-(void)toggleWarnAboutSimultaneous: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"skipWarningAboutSimultaneousConnections"];
+}
+
+-(void)toggleConnectionTimers: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"showConnectedDurations"];
+    
+    if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+        // Now on, so it was off. Start the timer
+        if (  showDurationsTimer == nil  ) {
+            showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                                   target:self
+                                                                 selector:@selector(updateTabLabels)
+                                                                 userInfo:nil
+                                                                  repeats:YES] retain];
+        }
+    } else {
+        // Now off, so was on. Stop the timer
+        if (showDurationsTimer != nil) {
+            [showDurationsTimer invalidate];
+            [showDurationsTimer release];
+            showDurationsTimer = nil;
+        }
+    }
+    [self updateTabLabels];
+}
+
+-(void)toggleUseShadowCopies: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"useShadowConfigurationFiles"];
+}
+
+-(void)toggleAutoCheckForUpdates: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"SUEnableAutomaticChecks"];
+}
+
+-(void)toggleReportAnonymousInfo: (NSMenuItem *) item
+{
+    [self toggleMenuItem: item withPreferenceKey: @"SUSendProfileInfo"];
+}
+
+-(void)toggleMenuItem: (NSMenuItem *) item withPreferenceKey: (NSString *) prefKey
+{
+    [gTbDefaults setBool: ! [gTbDefaults boolForKey:prefKey] forKey:prefKey];
+    [gTbDefaults synchronize];
+    
+    if (  [item state] == NSOnState  ) {
+        [item setState: NSOffState];
+    } else {
+        [item setState:NSOnState];
+    }
+}
 
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
 // If any config files have been deleted, remove them from the menu and remove their tabs in the Log window
@@ -597,7 +861,7 @@ BOOL runningOnTigerOrNewer()
     return array;
 }
 
-- (IBAction)validateLogButtons
+-(void)validateLogButtons
 {
     //NSLog(@"validating log buttons");
     VPNConnection* connection = [self selectedConnection];
@@ -633,6 +897,18 @@ BOOL runningOnTigerOrNewer()
 		[useNameserverCheckbox setState:NSOnState];
 	} else {
 		[useNameserverCheckbox setState:NSOffState];
+	}
+	
+	NSString *notMonitorConnectionKey = [[connection configName] stringByAppendingString:@"-notMonitoringConnection"];
+    if (  [gTbDefaults canChangeValueForKey: notMonitorConnectionKey] && useDNSStatus(connection)  ) {
+        [monitorConnnectionCheckbox setEnabled: YES];
+    } else {
+        [monitorConnnectionCheckbox setEnabled: NO];
+	}
+	if(  ( ! [gTbDefaults boolForKey:notMonitorConnectionKey] ) && useDNSStatus(connection)  ) {
+		[monitorConnnectionCheckbox setState:NSOnState];
+	} else {
+		[monitorConnnectionCheckbox setState:NSOffState];
 	}
 }
 
@@ -860,6 +1136,12 @@ BOOL runningOnTigerOrNewer()
 }
 
 
+- (IBAction) checkForUpdates: (id) sender
+{
+    [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
+    [updater checkForUpdates: self];
+}
+
 - (IBAction) openLogWindow: (id) sender
 {
     if (logWindow != nil) {
@@ -927,12 +1209,13 @@ BOOL runningOnTigerOrNewer()
     }
 	
 	// Localize buttons and checkboxes
-    [self localizeControl:clearButton            shiftRight:editButton       shiftLeft:nil               shiftSelfLeft:NO ];
-    [self localizeControl:editButton             shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
-    [self localizeControl:connectButton          shiftRight:nil              shiftLeft:disconnectButton  shiftSelfLeft:YES];
-    [self localizeControl:disconnectButton       shiftRight:nil              shiftLeft:nil               shiftSelfLeft:YES];
-    [self localizeControl:useNameserverCheckbox  shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
-    [self localizeControl:autoLaunchCheckbox     shiftRight:nil              shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:clearButton                   shiftRight:editButton                   shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:editButton                    shiftRight:nil                          shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:connectButton                 shiftRight:nil                          shiftLeft:disconnectButton  shiftSelfLeft:YES];
+    [self localizeControl:disconnectButton              shiftRight:nil                          shiftLeft:nil               shiftSelfLeft:YES];
+    [self localizeControl:useNameserverCheckbox         shiftRight:monitorConnnectionCheckbox shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:monitorConnnectionCheckbox  shiftRight:nil                          shiftLeft:nil               shiftSelfLeft:NO ];
+    [self localizeControl:autoLaunchCheckbox            shiftRight:nil                          shiftLeft:nil               shiftSelfLeft:NO ];
 
     [logWindow display];
     [logWindow makeKeyAndOrderFront: self];
@@ -1233,6 +1516,19 @@ BOOL runningOnTigerOrNewer()
     }
 }
 
+-(void)saveMonitorConnectionCheckboxState:(BOOL)inBool
+{
+	VPNConnection* connection = [self selectedConnection];
+	if(connection != nil) {
+		NSString* key = [[connection configName] stringByAppendingString: @"-notMonitoringConnection"];
+		[gTbDefaults setObject: [NSNumber numberWithBool: ! inBool] forKey: key];
+		[gTbDefaults synchronize];
+        if (  ! [connection isDisconnected]  ) {
+            TBRunAlertPanel(@"Configuration Change", @"The change will take effect the next time you connect.", nil, nil, nil);
+        }
+	}
+	
+}
 -(void)saveUseNameserverCheckboxState:(BOOL)inBool
 {
 	VPNConnection* connection = [self selectedConnection];
@@ -1240,6 +1536,9 @@ BOOL runningOnTigerOrNewer()
 		NSString* key = [[connection configName] stringByAppendingString: @"useDNS"];
 		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: key];
 		[gTbDefaults synchronize];
+        if (  ! [connection isDisconnected]  ) {
+            TBRunAlertPanel(@"Configuration Change", @"The change will take effect the next time you connect.", nil, nil, nil);
+        }
 	}
 	
 }
@@ -1324,6 +1623,7 @@ static void signal_handler(int signalNumber)
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
 	[updater checkForUpdatesInBackground];
+    [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
 }
 
 -(void) dmgCheck
@@ -1347,7 +1647,9 @@ static void signal_handler(int signalNumber)
     NSWindow *window = nil;
     while(window = [e nextObject]) {
     	if (  [[window title] isEqualToString:@"Software Update"]  ) {
+            [window makeKeyAndOrderFront: self];
             [window setLevel:NSStatusWindowLevel];
+            [NSApp activateIgnoringOtherApps:YES]; // Force Software update window to front
         }
     }
 }
@@ -1550,6 +1852,16 @@ int runUnrecoverableErrorPanel(msg)
 		[self saveUseNameserverCheckboxState:TRUE];
 	} else {
 		[self saveUseNameserverCheckboxState:FALSE];
+	}
+    [self validateLogButtons];
+}
+
+-(IBAction) monitorConnectionPrefButtonWasClicked: (id) sender
+{
+	if([sender state]) {
+		[self saveMonitorConnectionCheckboxState:TRUE];
+	} else {
+		[self saveMonitorConnectionCheckboxState:FALSE];
 	}
 }
 
