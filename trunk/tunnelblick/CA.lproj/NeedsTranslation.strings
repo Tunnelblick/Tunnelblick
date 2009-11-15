@@ -7,6 +7,9 @@
 /* Window title */
 "Configuration Change" = "Configuration Change";
 
+/* Window text */
+"Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub and others. All rights reserved.";
+
 /* Checkbox name */
 "Monitor connection" = "Monitor connection";
 

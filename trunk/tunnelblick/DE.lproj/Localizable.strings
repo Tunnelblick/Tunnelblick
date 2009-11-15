@@ -25,6 +25,9 @@
 /* Window title */
 "Authentication failed" = "Authentifizierung gescheitert";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Automatically Check for Updates" = "Automatically Check for Updates";
+
 /* Checkbox name */
 "Automatically connect on launch" = "Automatisch beim Programmstart verbinden";
 
@@ -37,8 +40,14 @@
 /* Button */
 "Cancel" = "Abbrechen";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Check For Updates Now" = "Check For Updates Now";
+
 /* Button */
 "Clear log" = "Log löschen";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Configuration Change" = "Configuration Change";
 
 /* Window text */
 "Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Die Konfigurationsdatei %1$@ befindet sich auf einem entfernten Volumen. Tunnelblick benötigt die Konfigurationsdatei aus Sicherheitsgründen auf einem lokalen Volumen.\n\nMöchten Sie, das Tunnelblick eine lokale Kopie der Konfigurationsdatei in %2$@? erstellt und nutzt?\n\n(Sie benötigen einen Administratorzugang und Passwort.)\n";
@@ -97,6 +106,12 @@
 /* Window title */
 "Installation or Repair Failed" = "Installation oder Reparatur fehlgeschlagen";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Monitor connection" = "Monitor connection";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Monitor the Configuration Folder" = "Monitor the Configuration Folder";
+
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Mehrere Verbindungen würden gleichzeitig hergestellt (%d mit 'Nameserver festlegen', %d ohne 'Nameserver festlegen').";
 
@@ -109,11 +124,17 @@
 /* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Options" = "Options";
+
 /* Window title */
 "Passphrase" = "Passphrase";
 
 /* Textbox name */
 "Password:" = "Passwort:";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
 
 /* Window text */
 "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Bitte kopieren Sie Tunnelblick.app vor dem Ausführen in das \"/Programme\" Verzeichnis ihrer Festplatte.";
@@ -129,6 +150,9 @@
 
 /* Window title */
 "Please insert token" = "Bitte Token einfügen";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Preferences" = "Preferences";
 
 /* Menu item
    Button */
@@ -152,8 +176,29 @@
 /* Checkbox text */
 "Save in Keychain" = "Im Schlüsselbund sichern";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Send Anonymous System Information" = "Send Anonymous System Information";
+
 /* Checkbox name */
 "Set nameserver" = "Nameserver festlegen";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Show Connection Timers" = "Show Connection Timers";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect at the next automatic update check" = "Takes effect at the next automatic update check";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect immediately" = "Takes effect immediately";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect the next time Tunnelblick is launched" = "Takes effect the next time Tunnelblick is launched";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect with the next connection" = "Takes effect with the next connection";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Die Zugangsdaten (Passphrase oder Benutzername/Passwort wurden vom remote VPN server nicht akzeptiert.";
@@ -203,6 +248,9 @@
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 Verbindung aktiv."; // translate "Tunnelblick: Eine Verbindung aktiv." might also work
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
+
 /* Window title */
 "Username and password" = "Benutzername und Passwort";
 
@@ -211,6 +259,9 @@
 
 /* Connection status */
 "WAIT" = "Warten auf Server-Antwort";   // Please translate "Waiting for Server Response"
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";
 
 /* Window title */
 "Welcome to Tunnelblick" = "Willkommen zu Tunnelblick";

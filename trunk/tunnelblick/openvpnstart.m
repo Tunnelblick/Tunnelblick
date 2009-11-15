@@ -25,7 +25,9 @@
 #import <sys/sysctl.h>
 #import <signal.h>
 
-int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode);    //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
+//Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
+int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor);
+
 void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
@@ -91,7 +93,7 @@ int main(int argc, char* argv[])
 				syntaxError = FALSE;
 			}
 		} else if( strcmp(command, "start") == 0 ) {
-			if (  (argc > 3) && (argc < 8)  ) {
+			if (  (argc > 3) && (argc < 9)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
 				if(strlen(argv[3]) < 6 ) {
 					unsigned int port = atoi(argv[3]);
@@ -99,8 +101,9 @@ int main(int argc, char* argv[])
 						unsigned  useScripts = 0;     if(  argc > 4  )                         useScripts = atoi(argv[4]);
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
+						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor = TRUE;
 						if (cfgLocCode < 3) {
-                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode);
+                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor);
                             syntaxError = FALSE;
                         }
 					}
@@ -136,9 +139,11 @@ int main(int argc, char* argv[])
                 "\t                            then ~/Library/openvpn will be used for all other files (such as .crt and .key files)\n"
                 "\t                and If 'useScripts' is 1 or 2\n"
                 "\t                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
-                "\t                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n\n"
+                "\t                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n"
+                "\tnoMonitor  is 0 to monitor the connection for interface configuration changes\n"
+                "\t           or 1 to not monitor the connection for interface configuration changes\n\n"
 
-				"useScripts, skipScrSec, and cfgLocCode each default to 0.\n\n"
+				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n\n"
 				
 				"The normal return code is 0. If an error occurs a message is sent to stderr and a code of 2 is returned.\n\n"
 				
@@ -157,7 +162,7 @@ int main(int argc, char* argv[])
 }
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode)
+int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor)
 {
 	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
 	NSString*	openvpnPath		= [execPath stringByAppendingPathComponent: @"openvpn"];
@@ -165,6 +170,8 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 	NSString*	downscriptPath	= [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
 	NSString*	downRootPath	= [execPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
     NSString*   deployDirPath   = [execPath stringByAppendingPathComponent: @"Deploy"];
+	NSString*	upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
+	NSString*	downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"];
 
     NSFileManager * fMgr = [NSFileManager defaultManager];
 
@@ -248,26 +255,49 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             NSString * deployScriptPath = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
             NSString * deployUpscriptPath   = [[deployScriptPath stringByAppendingPathExtension:@"up"]   stringByAppendingPathExtension:@"sh"];
             NSString * deployDownscriptPath = [[deployScriptPath stringByAppendingPathExtension:@"down"] stringByAppendingPathExtension:@"sh"];
-            if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
-                upscriptPath = deployUpscriptPath;
+            NSString * deployUpscriptNoMonitorPath   = [[[deployScriptPath stringByAppendingPathExtension:@"nomonitor"]
+                                                         stringByAppendingPathExtension:@"up"] stringByAppendingPathExtension:@"sh"];
+            NSString * deployDownscriptNoMonitorPath = [[[deployScriptPath stringByAppendingPathExtension:@"nomonitor"]
+                                                         stringByAppendingPathExtension:@"down"] stringByAppendingPathExtension:@"sh"];
+            
+            if (  noMonitor  ) {
+                if (  [fMgr fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
+                    upscriptPath = deployUpscriptNoMonitorPath;
+                } else if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                    upscriptPath = deployUpscriptPath;
+                }
+                if (  [fMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
+                    downscriptPath = deployDownscriptNoMonitorPath;
+                } else if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                    downscriptPath = deployDownscriptPath;
+                }
+            } else {
+                if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                    upscriptPath = deployUpscriptPath;
+                }
+                if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                    downscriptPath = deployDownscriptPath;
+                }
             }
-            if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
-                downscriptPath = deployDownscriptPath;
+
+        } else {
+            if (  noMonitor  ) {
+                upscriptPath = upscriptNoMonitorPath;
+                downscriptPath = downscriptNoMonitorPath;
             }
         }
-        
         if (  useScripts == 2  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
                                              @"--up", escaped(upscriptPath),
-                                             @"--plugin", downRootPath, escaped(downscriptPath),
+                                             @"--plugin", downRootPath, escaped(downscriptPath),    // escaped because it is a shell command, not just a path
                                              @"--up-restart",
                                              nil
                                              ]
              ];
         } else if (  useScripts == 1  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                             @"--up", escaped(upscriptPath),
-                                             @"--down", escaped(downscriptPath),
+                                             @"--up", escaped(upscriptPath),        // escaped because it is a shell command, not just a path
+                                             @"--down", escaped(downscriptPath),    // escaped because it is a shell command, not just a path
                                              @"--up-restart",
                                              nil
                                              ]

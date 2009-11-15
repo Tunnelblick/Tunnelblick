@@ -280,6 +280,7 @@ void localizableStrings(void)
     NSLocalizedString(@"Disconnect",                        @"Button");
     NSLocalizedString(@"Automatically connect on launch",   @"Checkbox name");
     NSLocalizedString(@"Set nameserver",                    @"Checkbox name");
+    NSLocalizedString(@"Monitor connection",                @"Checkbox name");
     
     // These strings come from OpenVPN and indicate the status of a connection
     NSLocalizedString(@"ADD_ROUTES",    @"Connection status");

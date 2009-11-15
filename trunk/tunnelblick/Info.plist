@@ -17,7 +17,7 @@
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleShortVersionString</key>
-	<string>Tunnelblick 3.0b23</string>
+	<string>3.0b23</string>
 	<key>CFBundleVersion</key>
 	<string>3.0b23</string>
 	<key>NSMainNibFile</key>
@@ -29,6 +29,6 @@
 	<key>SUFeedURL</key>
 	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>Build</key>
-	<string>1275</string>
+	<string>1276</string>
 </dict>
 </plist>

@@ -47,8 +47,11 @@
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
+		634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
+		6388A0D210AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
+		638FA0DE10B0220500A03AD0 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 638FA0DD10B0220500A03AD0 /* SplashWindow.xib */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
@@ -172,9 +175,12 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
+		634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.up.osx.sh; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
+		6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.down.osx.sh; sourceTree = "<group>"; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
+		638FA0DD10B0220500A03AD0 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
@@ -295,6 +301,7 @@
 				61BC4DD30E2FA52900F24255 /* tap-Info.plist */,
 				6165CC8A0E9072A5007312DC /* RouteManager.h */,
 				6165CC8B0E9072A5007312DC /* RouteManager.m */,
+				638FA0DD10B0220500A03AD0 /* SplashWindow.xib */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";
@@ -316,6 +323,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */,
+				634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */,
 				63BF3E1010A2ED7F00AC8A59 /* CA.lproj */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
@@ -472,6 +481,9 @@
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
 				6391992510449804001FA1BC /* ES.lproj in Resources */,
 				63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */,
+				634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */,
+				6388A0D210AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh in Resources */,
+				638FA0DE10B0220500A03AD0 /* SplashWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

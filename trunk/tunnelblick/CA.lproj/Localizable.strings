@@ -10,35 +10,26 @@
 /* Connection status */
 "ADD_ROUTES" = "Afegint rutes";
 
-/* Menu item */
-"About..." = "Quant a…";
-
-/* Window title */
-"Alert" = "Atenció";
-
 /* Connection status */
 "ASSIGN_IP" = "Assignant adreça IP";
 
 /* Connection status */
 "AUTH" = "Autoritzant";
 
+/* Menu item */
+"About..." = "Quant a…";
+
+/* Window title */
+"Alert" = "Atenció";
+
 /* Window title */
 "Authentication failed" = "L'autenticació ha fallat";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Automatically Check for Updates" = "Automatically Check for Updates";
+
 /* Checkbox name */
 "Automatically connect on launch" = "Connectar automàticament a l'arrencada";
-
-/* Button */
-"Cancel" = "Cancel·lar";
-
-/* Button */
-"Clear log" = "Netejar missatges";
-
-/* Window text */
-"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "L'arxiu de configuració %1$@ es troba en un volum remot. Per motius de seguretat Tunnelblick necessita que els arxius de configuració es trobin en un volum local\n\nDesitges que Tunnelblick creï i utilitzi una còpia local de l'arxiu de configuració en %2$@?\n\n(Farà falta drets d'administració.)\n";
-
-/* Button */
-"Connect" = "Connectar";
 
 /* Connection status */
 "CONNECTED" = "Connectat";
@@ -47,10 +38,28 @@
 "CONNECTING" = "Connectant";
 
 /* Button */
-"Continue" = "Continuar";
+"Cancel" = "Cancel·lar";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Check For Updates Now" = "Check For Updates Now";
+
+/* Button */
+"Clear log" = "Netejar missatges";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Configuration Change" = "Configuration Change";
 
 /* Window text */
-"Copyright ¬© 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright ¬© 2004-2009 Angelo Laub i altres. Tots els drets reservats.";
+"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "L'arxiu de configuració %1$@ es troba en un volum remot. Per motius de seguretat Tunnelblick necessita que els arxius de configuració es trobin en un volum local\n\nDesitges que Tunnelblick creï i utilitzi una còpia local de l'arxiu de configuració en %2$@?\n\n(Farà falta drets d'administració.)\n";
+
+/* Button */
+"Connect" = "Connectar";
+
+/* Button */
+"Continue" = "Continuar";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub and others. All rights reserved.";
 
 /* Button */
 "Create copy" = "Crear còpia";
@@ -76,11 +85,11 @@
 /* Button */
 "Download" = "Descarregar";
 
-/* Button */
-"Edit configuration" = "Editar la configuració";
-
 /* Connection status */
 "EXITING" = "Desconnectat";     // Please translate "Disconnected"
+
+/* Button */
+"Edit configuration" = "Editar la configuració";
 
 /* Connection status */
 "GET_CONFIG" = "Obtenint la configuració";
@@ -97,6 +106,12 @@
 /* Window title */
 "Installation or Repair Failed" = "La instal·lació o reparació ha fallat";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Monitor connection" = "Monitor connection";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Monitor the Configuration Folder" = "Monitor the Configuration Folder";
+
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Es crearien múltiples connexions simultànies (%1$d amb 'Configurar el servidor de noms', %2$d sense 'Configurar el servidor de noms').";
 
@@ -109,11 +124,17 @@
 /* Window title */
 "OpenVPN Log Output - Tunnelblick" = "Missatges del Log de l'OpenVPN - Tunnelblick";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Options" = "Options";
+
 /* Window title */
 "Passphrase" = "Mot clau";
 
 /* Textbox name */
 "Password:" = "Contrasenya:";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
 
 /* Window text */
 "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Si us plau, còpia l'arxiu Tunnelblick.app a la carpeta \"/Applications\" del teu disc dur abans d'executar-lo.";
@@ -124,11 +145,14 @@
 /* Window text */
 "Please enter VPN username/password combination." = "Si us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
 
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Si us plau entra el token \"%@\", i prem sobre \"D'acord\"";
+
 /* Window title */
 "Please insert token" = "Si us plau entra el token";
 
-/* Window text */
-"Please insert token \"%@\", then click \"OK\"" = "Si us plau entra el token \"%@\", i prem sobre \"D'acord\"";
+/* NEEDS TRANSLATION *//* Menu item */
+"Preferences" = "Preferences";
 
 /* Menu item
    Button */
@@ -140,20 +164,41 @@
 /* Button */
 "Remove backup and do not restore" = "Eliminar còpia de seguretat i no restaurar";
 
+/* Window title */
+"Restore Configuration Settings from Backup?" = "Restaurar configuració des d'una còpia de seguretat?";
+
 /* Button */
 "Restore" = "Restaurar";
 
-/* Window title */
-"Restore Configuration Settings from Backup?" = "Restaurar configuració des d'una còpia de seguretat?";
+/* Connection status */
+"SLEEP" = "Esperant el procés dimoni";   // Please translate "Waiting for daemon process"
 
 /* Checkbox text */
 "Save in Keychain" = "Guardar en el gestor de claus";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Send Anonymous System Information" = "Send Anonymous System Information";
+
 /* Checkbox name */
 "Set nameserver" = "Configurar el servidor de noms";
 
-/* Connection status */
-"SLEEP" = "Esperant el procés dimoni";   // Please translate "Waiting for daemon process"
+/* NEEDS TRANSLATION *//* Menu item */
+"Show Connection Timers" = "Show Connection Timers";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect at the next automatic update check" = "Takes effect at the next automatic update check";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect immediately" = "Takes effect immediately";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect the next time Tunnelblick is launched" = "Takes effect the next time Tunnelblick is launched";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect with the next connection" = "Takes effect with the next connection";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Les credencials (mot clau o nom d'usuari/contrasenya) no han estat acceptades pel servidor VPN remot.";
@@ -174,25 +219,25 @@
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Aquesta còpia de Tunnelblick no té cap configuració establerta. Desitges restaurar la configuració d'una còpia de seguretat?\n\nFarà falta drets d'administració.";
 
 /* Button */
-"Try again" = "Provar de nou";
-
-/* Button */
 "Try again with different credentials" = "Provar de nou amb unes altres credencials";
 
-/* Window text */
-"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick no ha pogut copiar l'arxiu de configuració al lloc alternatiu local. Mira la Consola per obtenir més detalls.";
+/* Button */
+"Try again" = "Provar de nou";
+
+/* Window title */
+"Tunnelblick Error" = "Error del Tunnelblick";
 
 /* Window text */
 "Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick no ha pogut copiar openvpn.conf a %@";
+
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick no ha pogut copiar l'arxiu de configuració al lloc alternatiu local. Mira la Consola per obtenir més detalls.";
 
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick no ha pogut crear una carpeta pel lloc alternatiu de configuració. Mira la Consola per obtenir més detalls.";
 
 /* Window text */
 "Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no ha pogut reparar el propietari i permisos de l'arxiu de configuració. Mira la Consola per obtenir més detalls.";
-
-/* Window title */
-"Tunnelblick Error" = "Error del Tunnelblick";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ha desconnectat '%@' perquè l'arxiu de configuració ha estat eliminat.";
@@ -203,6 +248,9 @@
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 connexió activa.";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
+
 /* Window title */
 "Username and password" = "Nom d'usuari i contrasenya";
 
@@ -211,6 +259,9 @@
 
 /* Connection status */
 "WAIT" = "Esperant resposta del servidor";   // Please translate "Waiting for Server Response"
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";
 
 /* Window title */
 "Welcome to Tunnelblick" = "Benvingut a Tunnelblick";
