@@ -107,6 +107,12 @@
 "Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
+"Monitor DNS" = "Monitor DNS";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Monitor WINS" = "Monitor WINS";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Monitor connection" = "Monitor connection";
 
 /* NEEDS TRANSLATION *//* Menu item */
@@ -177,7 +183,7 @@
 "Save in Keychain" = "Enregistrer dans le Trousseau d’accès";
 
 /* NEEDS TRANSLATION *//* Menu item */
-"Send Anonymous System Information" = "Send Anonymous System Information";
+"Send Anonymous System Profile" = "Send Anonymous System Profile";
 
 /* Checkbox name */
 "Set nameserver" = "Utiliser DNS distant";
@@ -186,7 +192,7 @@
 "Show Connection Timers" = "Show Connection Timers";
 
 /* NEEDS TRANSLATION *//* Menu item tooltip */
-"Takes effect at the next automatic update check" = "Takes effect at the next automatic update check";
+"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
 /* NEEDS TRANSLATION *//* Menu item tooltip */
 "Takes effect immediately" = "Takes effect immediately";

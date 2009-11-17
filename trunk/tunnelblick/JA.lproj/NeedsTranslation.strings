@@ -86,6 +86,12 @@
 "Installation or Repair Failed" = "Installation or Repair Failed";
 
 /* Checkbox name */
+"Monitor DNS" = "Monitor DNS";
+
+/* Checkbox name */
+"Monitor WINS" = "Monitor WINS";
+
+/* Checkbox name */
 "Monitor connection" = "Monitor connection";
 
 /* Menu item */
@@ -134,7 +140,7 @@
 "Save in Keychain" = "Save in Keychain";
 
 /* Menu item */
-"Send Anonymous System Information" = "Send Anonymous System Information";
+"Send Anonymous System Profile" = "Send Anonymous System Profile";
 
 /* Checkbox name */
 "Set nameserver" = "Set nameserver";
@@ -143,7 +149,7 @@
 "Show Connection Timers" = "Show Connection Timers";
 
 /* Menu item tooltip */
-"Takes effect at the next automatic update check" = "Takes effect at the next automatic update check";
+"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
 /* Menu item tooltip */
 "Takes effect immediately" = "Takes effect immediately";

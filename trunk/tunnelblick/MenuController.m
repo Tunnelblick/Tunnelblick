@@ -479,11 +479,11 @@ BOOL runningOnTigerOrNewer()
                                                  andPreferenceKey: @"SUEnableAutomaticChecks"
                                                           negated: NO];
         
-        reportAnonymousInfoItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Send Anonymous System Information", @"Menu item")
+        reportAnonymousInfoItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Send Anonymous System Profile", @"Menu item")
                                                         andAction: @selector(toggleReportAnonymousInfo:)
-                                                       andToolTip: NSLocalizedString(@"Takes effect at the next automatic update check", @"Menu item tooltip")
-                                               atIndentationLevel: 2
-                                                 andPreferenceKey: @"SUEnableSystemProfiling"
+                                                       andToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")
+                                               atIndentationLevel: 1
+                                                 andPreferenceKey: @"SUSendProfileInfo"
                                                           negated: NO];
 
         if (  ! [gTbDefaults boolForKey:@"doNotShowCheckForUpdatesNowMenuItem"]  ) {
@@ -642,19 +642,55 @@ BOOL runningOnTigerOrNewer()
 
 - (BOOL)validateMenuItem:(NSMenuItem *)anItem 
 {
-    if (  [anItem action] == @selector(toggleReportAnonymousInfo:)  ) {
-        if (  ! [gTbDefaults boolForKey:@"SUEnableAutomaticChecks"]  ) {
-            [anItem setState: NSOffState];
-            return NO;
+    // We set the on/off state from the CURRENT preferences, not the preferences when launched.
+    // That is easier than setting the on/off state whenever we change a preference, and
+    // some preferences are changed by Sparkle, so we must set them here anyway
+    SEL act = [anItem action];
+    if (  act == @selector(togglePlaceIconNearSpotlight:)  ) {
+        if (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  ) {
+            [anItem setState: NSOnState];
         } else {
-            if (  ! [gTbDefaults boolForKey:@"SUEnableSystemProfiling"]  ) {
-                [anItem setState: NSOnState];
-            } else {
-                [anItem setState: NSOffState];
-            }
+            [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleMonitorConfigurationDir:)  ) {
+        if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
+            [anItem setState: NSOnState];
+        } else {
+            [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleWarnAboutSimultaneous:)  ) {
+        if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
+            [anItem setState: NSOnState];
+        } else {
+            [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleConnectionTimers:)  ) {
+        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+            [anItem setState: NSOnState];
+        } else {
+            [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleUseShadowCopies:)  ) {
+        if (  [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {
+            [anItem setState: NSOnState];
+        } else {
+            [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleAutoCheckForUpdates:)  ) {
+        if (  [gTbDefaults boolForKey:@"SUEnableAutomaticChecks"]  ) {
+            [anItem setState: NSOnState];
+        } else {
+            [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleReportAnonymousInfo:)  ) {
+        if (  [gTbDefaults boolForKey:@"SUSendProfileInfo"]  ) {
+            [anItem setState: NSOnState];
+        } else {
+            [anItem setState: NSOffState];
         }
     }
-    
+
+    // We store the preference key for a menu itme in the item's representedObject so we can do the following:
     if (  [anItem representedObject]  ) {
         if (  ! [gTbDefaults canChangeValueForKey: [anItem representedObject]]  ) {
             return NO;
@@ -1622,8 +1658,10 @@ static void signal_handler(int signalNumber)
     [self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
-	[updater checkForUpdatesInBackground];
-    [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
+    if (  [gTbDefaults boolForKey:@"SUEnableAutomaticChecks"]  ) {
+        [updater checkForUpdatesInBackground];
+        [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
+    }
 }
 
 -(void) dmgCheck
