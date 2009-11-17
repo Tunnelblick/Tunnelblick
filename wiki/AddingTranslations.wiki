@@ -112,4 +112,4 @@ we would translate that into Yoda's English by changing it to
 {{{
 "The %@ is %@" = "%2$@ the %1$@ is"
 }}}
-(We'll ignore the fact that %@$@ needs to be capitalized because it now starts a sentence.)
+(We'll ignore the fact that %2$@ needs to be capitalized because it now starts a sentence.)
