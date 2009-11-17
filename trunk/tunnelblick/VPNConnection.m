@@ -928,40 +928,47 @@ extern TBUserDefaults  * gTbDefaults;
 	NSString * octalString;
     NSNumber * fileOwner;
 	
-	// Try to set permissions
-	NSString * helper = @"/bin/chmod";
-	NSArray * arguments = [NSArray arrayWithObjects:@"644", configFilePath, nil];
-	for (i=0; i <= maxtries; i++) {
-		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-        fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
-        perms = [fileAttributes filePosixPermissions];
-        octalString = [NSString stringWithFormat:@"%lo",perms];
-        if (  [octalString isEqualToString:@"644"]  ) {
-            break;
-        }
-		sleep(1);
-	}
-    if (  ! [octalString isEqualToString:@"644"]  ) {
-         NSLog(@"Unable to change permissions of configuration file %@ from 0%@ to 0644 in %d attempts; OSStatus = @ld", configFilePath, octalString, maxtries, status);
-    }
-    
-	// Try to set ownership
-    helper = @"/usr/sbin/chown";
-	arguments = [NSArray arrayWithObjects:@"root:wheel", configFilePath, nil];
+    // Warn user if the file is locked
+    NSDictionary * curAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+    if (  [curAttributes fileIsImmutable]  ) {
+        NSLog(@"Configuration file needs repair but is locked: %@", configFilePath);
+    } else {
 
-	for (i=0; i <= maxtries; i++) {
-		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-        fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
-        fileOwner = [fileAttributes fileOwnerAccountID];
-        if (  [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
-            break;
+        // Try to set permissions
+        NSString * helper = @"/bin/chmod";
+        NSArray * arguments = [NSArray arrayWithObjects:@"644", configFilePath, nil];
+        for (i=0; i <= maxtries; i++) {
+            status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+            perms = [fileAttributes filePosixPermissions];
+            octalString = [NSString stringWithFormat:@"%lo",perms];
+            if (  [octalString isEqualToString:@"644"]  ) {
+                break;
+            }
+            sleep(1);
         }
-		sleep(1);
-	}
-    if (  ! [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
-        NSLog(@"Unable to change ownership of configuration file %@ from %@ to 0 in %d attempts. OSStatus = @ld", configFilePath, fileOwner, maxtries, status);
+        if (  ! [octalString isEqualToString:@"644"]  ) {
+            NSLog(@"Unable to change permissions of configuration file %@ from 0%@ to 0644 in %d attempts; OSStatus = @ld", configFilePath, octalString, maxtries, status);
+        }
+        
+        // Try to set ownership
+        helper = @"/usr/sbin/chown";
+        arguments = [NSArray arrayWithObjects:@"root:wheel", configFilePath, nil];
+        
+        for (i=0; i <= maxtries; i++) {
+            status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+            fileOwner = [fileAttributes fileOwnerAccountID];
+            if (  [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
+                break;
+            }
+            sleep(1);
+        }
+        if (  ! [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
+            NSLog(@"Unable to change ownership of configuration file %@ from %@ to 0 in %d attempts. OSStatus = @ld", configFilePath, fileOwner, maxtries, status);
+        }
     }
-    
+        
     if (  [self configNeedsRepair:configFilePath]  ) {
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                    [self configName],
