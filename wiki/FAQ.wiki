@@ -1,8 +1,10 @@
 #summary Frequently Asked Questions (Answered)
 #labels Featured,Phase-Deploy
 
+<wiki:toc max_depth="2" />
+
 ==Where is the documentation?==
-The Tunnelblick disk image includes an HTML document, "Using Tunnelblick", which provides extensive documentation on installing and using Tunnelblick. The most recent version of that document is available in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
+The Tunnelblick disk image includes an HTML document, "Using Tunnelblick", which provides extensive documentation on installing and using Tunnelblick. The most recent version of that document and several other documents are available in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
 ==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Intel? PowerPC?==
 Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
@@ -38,5 +40,5 @@ Go to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discus
 
 ------------------
 
-==*PLEASE DO NOT POST COMMENTS OR QUESTIONS TO THIS FAQ UNLESS THEY RELATE TO THE FAQ ITSELF!==
-==FOR ANY OTHER QUESTIONS, ASK IN THE TUNNELBLICK DISCUSSION GROUP. THANK YOU.*==
+===*PLEASE DO NOT POST COMMENTS OR QUESTIONS TO THIS FAQ UNLESS THEY RELATE TO THE FAQ ITSELF!===
+===FOR ANY OTHER QUESTIONS, ASK IN THE TUNNELBLICK DISCUSSION GROUP. THANK YOU.*===
