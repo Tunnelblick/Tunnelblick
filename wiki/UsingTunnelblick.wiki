@@ -45,6 +45,9 @@ If Tunnelblick's "Set nameserver” option is used:
     * If any "user” or "group” options appear in the configuration file, DNS settings will not be restored when a tunnel is disconnected.
 
 ==FILE LOCATIONS==
+
+*Note: All references to "Library" in Finder are translated to the language specified in System Preferences. In French, for example, "Library" appears in Finder as "Bibliothèque".*
+
 Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates your home folder.)
 
 OpenVPN configuration files are stored in ~/Library/openvpn. Usually the key and certificate files are stored there, too. Since these files are all located in the user's Library folder, they must be set up separately for each user.
