@@ -156,6 +156,10 @@ BOOL runningOnTigerOrNewer()
             if (  ! [self runInstallerRestoreDeploy: restore repairApp: needsInstall removeBackup: remove]  ) {
                 [NSApp terminate:self];
             }
+            if ( needsInstallation()  ) {
+                NSLog(@"Incorrect ownership or permissions on one or more files in the Deploy backup folder %@", deployBackupPath);
+                [NSApp terminate:self];
+            }
         }
 
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
@@ -1770,12 +1774,14 @@ BOOL needsInstallation()
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	
-	NSString *installerPath    = [thisBundle pathForResource:@"intaller"           ofType:nil];
-	NSString *openvpnstartPath = [thisBundle pathForResource:@"openvpnstart"       ofType:nil];
-	NSString *openvpnPath      = [thisBundle pathForResource:@"openvpn"            ofType:nil];
-	NSString *leasewatchPath   = [thisBundle pathForResource:@"leasewatch"         ofType:nil];
-	NSString *clientUpPath     = [thisBundle pathForResource:@"client.up.osx.sh"   ofType:nil];
-	NSString *clientDownPath   = [thisBundle pathForResource:@"client.down.osx.sh" ofType:nil];
+	NSString *installerPath         = [thisBundle pathForResource:@"intaller"                       ofType:nil];
+	NSString *openvpnstartPath      = [thisBundle pathForResource:@"openvpnstart"                   ofType:nil];
+	NSString *openvpnPath           = [thisBundle pathForResource:@"openvpn"                        ofType:nil];
+	NSString *leasewatchPath        = [thisBundle pathForResource:@"leasewatch"                     ofType:nil];
+	NSString *clientUpPath          = [thisBundle pathForResource:@"client.up.osx.sh"               ofType:nil];
+	NSString *clientDownPath        = [thisBundle pathForResource:@"client.down.osx.sh"             ofType:nil];
+	NSString *clientNoMonUpPath     = [thisBundle pathForResource:@"client.nomonitor.up.osx.sh"     ofType:nil];
+	NSString *clientNoMonDownPath   = [thisBundle pathForResource:@"client.nomonitor.down.osx.sh"   ofType:nil];
 	
 	// check openvpnstart owned by root, set uid, owner may execute
 	const char *path = [openvpnstartPath UTF8String];
@@ -1792,8 +1798,8 @@ BOOL needsInstallation()
 		return YES;		
 	}
 	
-	// check files which should be only writable by root
-	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil];
+	// check files which should be owned by root with 744 permissions
+	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {
@@ -1804,6 +1810,20 @@ BOOL needsInstallation()
     
     // check permissions of files in Resources/Deploy (if any)        
     NSString * deployDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+    if (  deployContentsOwnerOrPermissionsNeedRepair(deployDirPath)  ) {
+        return YES;
+    }
+    
+    // check permissions of files in the Deploy backup, also (if any)        
+    NSString * deployBackupPath = [[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
+                                     stringByDeletingLastPathComponent]
+                                    stringByAppendingPathComponent: @"TunnelblickBackup"]
+                                   stringByAppendingPathComponent: @"Deploy"];
+	return deployContentsOwnerOrPermissionsNeedRepair(deployBackupPath);
+}
+
+BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath)
+{
     NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];
     int i;
     for (i=0; i<[dirContents count]; i++) {
@@ -1824,9 +1844,8 @@ BOOL needsInstallation()
             }
         }
     }
-	return NO;
+    return NO;
 }
-
 BOOL isOwnedByRootAndHasPermissions(NSString * fPath, NSString * permsShouldHave)
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
