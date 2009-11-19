@@ -29,6 +29,7 @@ void executeAuthorized(NSString *toolPath,NSArray *arguments,AuthorizationRef my
 
 @class NetSocket;
 BOOL needsInstallation();
+BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath);
 BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave);
 
 

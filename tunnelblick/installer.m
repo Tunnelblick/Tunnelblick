@@ -103,12 +103,14 @@ int main(int argc, char *argv[])
     
     // If need to repair ownership and/or permissions, do so:
     if ( needToRepair ) {
-        NSString *installerPath    = [thisBundle stringByAppendingPathComponent:@"/installer"];
-        NSString *openvpnstartPath = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
-        NSString *openvpnPath      = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
-        NSString *leasewatchPath   = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
-        NSString *clientUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
-        NSString *clientDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
+        NSString *installerPath         = [thisBundle stringByAppendingPathComponent:@"/installer"];
+        NSString *openvpnstartPath      = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
+        NSString *openvpnPath           = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
+        NSString *leasewatchPath        = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
+        NSString *clientUpPath          = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
+        NSString *clientDownPath        = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
+        NSString *clientNoMonUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.up.osx.sh"];
+        NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.down.osx.sh"];
         
         // Create arrays of arguments for the chmod command to set permissions for files in /Resources/Deploy
         // as follows: .crt and .key files are set to 600, shell files are set to 744, ana all other file are set to 644
@@ -134,7 +136,7 @@ int main(int argc, char *argv[])
         
         runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"4111", openvpnstartPath, nil]);
         
-        runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"744", installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, nil]);
+        runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"744", installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil]);
         
         if ( [chmod600Args count] > 1  ) { runTask(@"/bin/chmod", chmod600Args); }
         if ( [chmod644Args count] > 1  ) { runTask(@"/bin/chmod", chmod644Args); }
