@@ -165,11 +165,11 @@ int main(int argc, char* argv[])
 int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor)
 {
 	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
-	NSString*	openvpnPath		= [execPath stringByAppendingPathComponent: @"openvpn"];
-	NSString*	upscriptPath	= [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
-	NSString*	downscriptPath	= [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
-	NSString*	downRootPath	= [execPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-    NSString*   deployDirPath   = [execPath stringByAppendingPathComponent: @"Deploy"];
+	NSString*	openvpnPath             = [execPath stringByAppendingPathComponent: @"openvpn"];
+	NSString*	upscriptPath            = [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
+	NSString*	downscriptPath          = [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
+	NSString*	downRootPath            = [execPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
+    NSString*   deployDirPath           = [execPath stringByAppendingPathComponent: @"Deploy"];
 	NSString*	upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
 	NSString*	downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"];
 
@@ -265,11 +265,15 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                     upscriptPath = deployUpscriptNoMonitorPath;
                 } else if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
+                } else {
+                    upscriptPath = upscriptNoMonitorPath;
                 }
                 if (  [fMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
                     downscriptPath = deployDownscriptNoMonitorPath;
                 } else if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
+                } else {
+                    downscriptPath = downscriptNoMonitorPath;
                 }
             } else {
                 if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
