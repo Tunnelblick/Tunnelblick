@@ -1662,10 +1662,8 @@ static void signal_handler(int signalNumber)
     [self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
-    if (  [gTbDefaults boolForKey:@"SUEnableAutomaticChecks"]  ) {
-        [updater checkForUpdatesInBackground];
-        [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
-    }
+    [updater checkForUpdatesInBackground];
+    [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
 }
 
 -(void) dmgCheck
