@@ -116,7 +116,9 @@ int main(int argc, char *argv[])
         // as follows: .crt and .key files are set to 600, shell files are set to 744, ana all other file are set to 644
         NSMutableArray *chmod600Args = [NSMutableArray arrayWithObject: @"600"];
         NSMutableArray *chmod644Args = [NSMutableArray arrayWithObject: @"644"];
-        NSMutableArray *chmod744Args = [NSMutableArray arrayWithObject: @"744"];
+        NSMutableArray *chmod744Args = [NSMutableArray arrayWithObjects: @"744",
+                                        installerPath, openvpnPath, leasewatchPath,
+                                        clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
         
         NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployPath];
         int i;
@@ -135,8 +137,6 @@ int main(int argc, char *argv[])
         runTask(@"/usr/sbin/chown", [NSArray arrayWithObjects: @"-R", @"root:wheel", thisBundle, nil]);
         
         runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"4111", openvpnstartPath, nil]);
-        
-        runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"744", installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil]);
         
         if ( [chmod600Args count] > 1  ) { runTask(@"/bin/chmod", chmod600Args); }
         if ( [chmod644Args count] > 1  ) { runTask(@"/bin/chmod", chmod644Args); }
