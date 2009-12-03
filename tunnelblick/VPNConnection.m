@@ -854,7 +854,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSDictionary * newAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:NSFileImmutable];
     
 	for (i=0; i <= maxtries; i++) {
-        curAttributes = [fMgr fileAttributesAtPath:target traverseLink:NO];
+        curAttributes = [fMgr fileAttributesAtPath:target traverseLink:YES];
         if (  ! [curAttributes fileIsImmutable]  ) {
             break;
         }
@@ -929,7 +929,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSNumber * fileOwner;
 	
     // Warn user if the file is locked
-    NSDictionary * curAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+    NSDictionary * curAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
     if (  [curAttributes fileIsImmutable]  ) {
         NSLog(@"Configuration file needs repair but is locked: %@", configFilePath);
     } else {
@@ -939,7 +939,7 @@ extern TBUserDefaults  * gTbDefaults;
         NSArray * arguments = [NSArray arrayWithObjects:@"644", configFilePath, nil];
         for (i=0; i <= maxtries; i++) {
             status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
             perms = [fileAttributes filePosixPermissions];
             octalString = [NSString stringWithFormat:@"%lo",perms];
             if (  [octalString isEqualToString:@"644"]  ) {
@@ -957,7 +957,7 @@ extern TBUserDefaults  * gTbDefaults;
         
         for (i=0; i <= maxtries; i++) {
             status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:NO];
+            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
             fileOwner = [fileAttributes fileOwnerAccountID];
             if (  [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
                 break;
