@@ -3,7 +3,7 @@
 
 http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
 
-This document describes how to create a deployable version of Tunnelblick and was last modified 2009-11-26.
+*This document describes how to create a deployable version of Tunnelblick and was last modified 2009-12-03. It reflects the behavior of Tunnelblick built from the r294 version of the Tunnelblick source code.*
 
 Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. It is written in Cocoa and runs on OS X Tiger (10.4), Leopard (10.5), and Snow Leopard (10.6). It comes as a ready to use Universal  application with all necessary binaries and drivers, including OpenVPN and tun/tap. Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
@@ -49,7 +49,7 @@ A version of Tunnelblick with a Deploy folder will work with Tunnelblick's stand
 
 ==FORCED PREFERENCES EXCEPTIONS==
 There are two exceptions to the way preferences in "forced-preferences.plist" are treated:
-  * All forced preferences with a key beginning with "SU" are ignored except for "SUEnableAutomaticChecks". These preferences are used privately by Sparkle Updater, and should not be used otherwise. Tunnelblick provides preferences that mirror most of the Sparkle preferences, and these can be forced.
+  * All forced preferences with a key beginning with "SU" are ignored. These preferences are used privately by Sparkle Updater, and should not be used otherwise. Tunnelblick will soon provide preferences that mirror most of Sparkle's preferences, and these will be able to be forced.
   * The _config-name_-keychainHasPrivateKey_ and _config-name_-keychainHasUsernameAndPassword_ preferences -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords for that configuration in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored. 
 
 ==UP AND DOWN SCRIPTS==
@@ -127,3 +127,7 @@ Within a few moments, your .dmg file will be created.
     * Clarified how the OpenVPN --cd option is set.
     * Fixed error describing permissions of installer.
     * Fixed several typos.
+  * 2009-12-03 (r295)
+    * Clarified that this document describes behavior of the current source code.
+    * Removed note saying that "SUEnableAutomaticChecks" can be forced.
+    * Clarified that Tunnelblick preferences that mirror Sparkle's preferences are not committed yet.
