@@ -184,7 +184,7 @@ BOOL runningOnTigerOrNewer()
 
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [configDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [deployDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         gTbDefaults = [[TBUserDefaults alloc] initWithDefaultsDictionary: dict];
         
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
