@@ -115,6 +115,8 @@ BOOL runningOnTigerOrNewer()
 {	
     if (self = [super init]) {
         
+        unloadKextsAtTermination = FALSE;
+        
         [self dmgCheck];
 		
 		[NSApp setDelegate:self];
