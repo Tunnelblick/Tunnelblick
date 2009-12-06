@@ -79,6 +79,8 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
     NSMutableArray          * connectionsToRestore;         // VPNConnections to be restored when awaken from sleep
     
+    BOOL                      unloadKextsAtTermination;     // Indicates tun/tap kexts should be unloaded at program termination
+    
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
     BOOL                      logWindowIsOpen;              // Indicates if OpenVPN Log window is being displayed

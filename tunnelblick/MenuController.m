@@ -1452,19 +1452,22 @@ BOOL runningOnTigerOrNewer()
 	[task setArguments:arguments];
 	[task launch];
 	[task waitUntilExit];
+    unloadKextsAtTermination = TRUE;    // Even if this load failed, the automatic load in openvpnstart may succeed, so we unload.
 }
 
 -(void)unloadKexts 
 {
-	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
-													 ofType: nil];
-	NSTask* task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath: path]; 
-	
-	NSArray *arguments = [NSArray arrayWithObjects:@"unloadKexts", nil];
-	[task setArguments:arguments];
-	[task launch];
-	[task waitUntilExit];
+    if (  unloadKextsAtTermination  ) {
+        NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+                                                         ofType: nil];
+        NSTask* task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath: path]; 
+        
+        NSArray *arguments = [NSArray arrayWithObjects:@"unloadKexts", nil];
+        [task setArguments:arguments];
+        [task launch];
+        [task waitUntilExit];
+    }
 }
 
 -(void)resetActiveConnections {
