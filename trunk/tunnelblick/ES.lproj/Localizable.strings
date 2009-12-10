@@ -219,7 +219,7 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El usuario y clave no deben estar vacíos!\nPor favor ingrese su combinación de usuario/clave para el VPN.";
 
 /* Window text */
-"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "No hay archivos de configuración en '~/Library/openvpn/'. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/openvpn/.";
+"There are no configuration files in '~/Library/Application Support/Tunnelblick/Configurations/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "No hay archivos de configuración en '~/Library/Application Support/Tunnelblick/Configurations/'. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/Application Support/Tunnelblick/Configurations/.";
 
 /* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Esta copia de Tunnelblick no contiene ninguna configuración.  ¿Desea restaurar las configuraciones de la copia respaldo?\n\nNecesitará los credenciales de un usuario administrador y su clave.";
@@ -230,8 +230,14 @@
 /* Button */
 "Try again" = "Intentar de nuevo";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+
 /* Window title */
 "Tunnelblick Error" = "Error de Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick no pudo copiar el archivo openvpn.conf a %@";
@@ -276,7 +282,7 @@
 "You are trying to launch Tunnelblick from the disk image" = "Está intentando ejecutar Tunnelblick desde la imágen de disco";
 
 /* Window text */
-"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "Usted ha eliminado todos los archivos de configuración de ~/Library/openvpn. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/openvpn/.";
+"You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "Usted ha eliminado todos los archivos de configuración de ~/Library/Application Support/Tunnelblick/Configurations. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/Application Support/Tunnelblick/Configurations/.";
 
 /* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Debe reinstalar Tunnelblick. Por favor mueva Tunnelblick al Basurero y descargue una copia nueva del instalador.  El error fue:\n\n%@";

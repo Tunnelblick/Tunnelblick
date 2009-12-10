@@ -24,11 +24,9 @@
 #import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
 
-int connectStatus;
-void executeAuthorized(NSString *toolPath,NSArray *arguments,AuthorizationRef myAuthorizationRef);
-
 @class NetSocket;
-BOOL needsInstallation();
+BOOL needsInstallation(void);
+void terminateBecauseOfBadConfiguration(void);
 BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath);
 BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave);
 

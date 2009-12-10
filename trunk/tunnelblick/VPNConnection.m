@@ -671,7 +671,7 @@ extern TBUserDefaults  * gTbDefaults;
 	return NO;
 }
 
-// Given paths to the regular config in ~/Library/openvpn or /Resources/Deploy, and an alternate config in /Library/Application Support/Tunnelblick/Users/<username>/
+// Given paths to the regular config in ~/Library/Application Support/Tunnelblick/Configurations or /Resources/Deploy, and an alternate config in /Library/Application Support/Tunnelblick/Users/<username>/
 // Returns the path to use, or nil if can't use either one
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {

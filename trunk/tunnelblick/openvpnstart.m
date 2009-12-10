@@ -46,7 +46,7 @@ BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, o
 NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 
 NSString*					execPath;		//Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
-NSString*			        configPath;		//Path to configuration file (in ~/Library/openvpn/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
+NSString*			        configPath;		//Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
 NSAutoreleasePool*			pool;
 
 int main(int argc, char* argv[])
@@ -131,12 +131,12 @@ int main(int argc, char* argv[])
 				"\t                (The scripts are usually Tunnelblick.app/Contents/Resources/client.up.osx.sh & client.down.osx.sh, but see the cfgLocCode option)\n"
                 "\t           or 2 to run the scripts, and also use the 'openvpn-down-root.so' plugin\n"
                 "\tskipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n"
-                "\tcfgLocCode is 0 to use the standard folder (~/Library/openvpn) for configuration and other files,\n"
+                "\tcfgLocCode is 0 to use the standard folder (~/Library/Application Support/Tunnelblick/Configurations) for configuration and other files,\n"
                 "\t           or 1 to use the alternate folder (/Library/Application Support/Tunnelblick/Users/<username>)\n"
                 "                  for configuration files and the standard folder for other files,\n"
                 "\t           or 2 to use the Resources/Deploy folder for configuration and other files,\n"
                 "\t                except that if Resources/Deploy contains only .conf, .ovpn, .up.sh, .down.sh and forced-preferences.plist files\n"
-                "\t                            then ~/Library/openvpn will be used for all other files (such as .crt and .key files)\n"
+                "\t                            then ~/Library/Application Support/Tunnelblick/Configurations will be used for all other files (such as .crt and .key files)\n"
                 "\t                and If 'useScripts' is 1 or 2\n"
                 "\t                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
                 "\t                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n"
@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor)
 {
-	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/openvpn"];
+	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
 	NSString*	openvpnPath             = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSString*	upscriptPath            = [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
 	NSString*	downscriptPath          = [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];

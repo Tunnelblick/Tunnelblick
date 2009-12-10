@@ -219,7 +219,7 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Der Nutzername und das Passwort dürfen nicht leer sein!\n Bitte geben Sie eine VPN Benutzername/Passwort Kombination ein.";
 
 /* Window text */
-"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "Es sind keine Konfigurationsdateien in '~/Library/openvpn/' vorhanden. Möchten Sie eine Beispiel-Konfigurationsdatei installieren und bearbeiten? Wenn nicht, müssen Sie Tunnelblick beenden und eine oder mehr Konfigurationsdateien nach ~/Library/openvpn/ kopieren.";
+"There are no configuration files in '~/Library/Application Support/Tunnelblick/Configurations/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "Es sind keine Konfigurationsdateien in '~/Library/Application Support/Tunnelblick/Configurations/' vorhanden. Möchten Sie eine Beispiel-Konfigurationsdatei installieren und bearbeiten? Wenn nicht, müssen Sie Tunnelblick beenden und eine oder mehr Konfigurationsdateien nach ~/Library/Application Support/Tunnelblick/Configurations/ kopieren.";
 
 /* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Diese Kopie von Tunnelblick enthält keine Einstellungen. Möchten Sie die Einstellungen aus der Sicherungskopie wiederherstellen?\n\n Ein Administrator Benutzername und Passwort wird benötigt.";
@@ -230,8 +230,14 @@
 /* Button */
 "Try again" = "Erneut versuchen";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Fehler";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick konnte openvpn.conf nicht nach %@ kopieren";
@@ -276,7 +282,7 @@
 "You are trying to launch Tunnelblick from the disk image" = "Sie versuchen Tunnelblick aus einem Disk Image zu öffnen";
 
 /* Window text */
-"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself." = "Sie haben alle Konfigurationsdateien aus ~/Library/openvpn entfernt. Möchten Sie eine Beispiel-Konfigurationsdatei installieren und bearbeiten? Wenn nicht, müssen Sie Tunnelblick beenden und eine oder mehr Konfigurationsdateien nach ~/Library/openvpn/ kopieren.";
+"You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "Sie haben alle Konfigurationsdateien aus ~/Library/Application Support/Tunnelblick/Configurations entfernt. Möchten Sie eine Beispiel-Konfigurationsdatei installieren und bearbeiten? Wenn nicht, müssen Sie Tunnelblick beenden und eine oder mehr Konfigurationsdateien nach ~/Library/Application Support/Tunnelblick/Configurations/ kopieren.";
 
 /* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Sie müssen Tunnelblick neu installieren. Bitte bewegen Sie Tunnelblick in den Papierkorb und laden eine neue Kopie herunter. Das Problem war:\n\n%@";
