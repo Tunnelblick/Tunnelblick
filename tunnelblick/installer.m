@@ -17,13 +17,16 @@
  */
 
 #include "installer.h"
-#include <unistd.h> 
+#include <unistd.h>
+//#include <sys/types.h>
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 // This program takes three arguments that specify what it is to do:
 // If the first is  "1", the user has given permission to recover Deploy from the backup copy.
-// If the second is "1", the application's ownership/permissions should be repaired.
+// If the second is "1", the application's ownership/permissions should be repaired and/or the configuration folder moved and
+//                       a symbolic link ~/Library/Application Support/Tunnelblick/Configurations created as ~/Library/openvpn
 // If the third  is "1", the Deploy backup will be removed.
+
 int main(int argc, char *argv[]) 
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -39,11 +42,19 @@ int main(int argc, char *argv[])
     NSString * deployOrigBackupPath = [deployBkupHolderPath stringByAppendingPathComponent: @"OriginalDeploy"];
     NSString * deployPrevBackupPath = [deployBkupHolderPath stringByAppendingPathComponent: @"PreviousDeploy"];
     
+    uid_t realUserID  = getuid();   // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as
+    gid_t realGroupID = getgid();
+
     NSFileManager * fMgr                 = [NSFileManager defaultManager];
     BOOL            isDir;
     
+    // We create this file to act as a flag that the installation failed. We delete it before a success return.
+    [fMgr createFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" contents: [NSData data] attributes: [NSDictionary dictionary]];
+    chown([@"/tmp/TunnelblickInstallationFailed.txt" UTF8String], realUserID, realGroupID);
+    
     if (  argc != 4  ) {
         NSLog(@"Tunnelblick Installer: Wrong number of arguments -- expected 3, given %d", argc-1);
+        [pool release];
         exit(EXIT_FAILURE);
     }
     
@@ -58,6 +69,7 @@ int main(int argc, char *argv[])
             if (  okToRecover  ) {
                 if (  ! [fMgr copyPath:deployBackupPath toPath: deployPath handler:nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", deployPath);
+                    [pool release];
                     exit(EXIT_FAILURE);
                 } else {
                     NSLog(@"Tunnelblick Installer: Restored %@ from backup", deployPath);
@@ -72,6 +84,7 @@ int main(int argc, char *argv[])
         if (  [fMgr fileExistsAtPath: deployBkupHolderPath isDirectory: &isDir] && isDir  ) {
             if (  ! [fMgr removeFileAtPath: deployBkupHolderPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to remove %@", deployBkupHolderPath);
+                [pool release];
                 exit(EXIT_FAILURE);
             }
             NSString * curDir = [deployBkupHolderPath stringByDeletingLastPathComponent];
@@ -85,6 +98,7 @@ int main(int argc, char *argv[])
                             ) {
                             if (  ! [fMgr removeFileAtPath: curDir handler:nil]  ) {
                                 NSLog(@"Tunnelblick Installer: Unable to remove %@", curDir);
+                                [pool release];
                                 exit(EXIT_FAILURE);
                             }
                         } else {
@@ -101,7 +115,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    // If need to repair ownership and/or permissions, do so:
+    // If need to repair ownership and/or permissions and/or move the configuration folder, do so:
     if ( needToRepair ) {
         NSString *installerPath         = [thisBundle stringByAppendingPathComponent:@"/installer"];
         NSString *openvpnstartPath      = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
@@ -141,6 +155,54 @@ int main(int argc, char *argv[])
         if ( [chmod600Args count] > 1  ) { runTask(@"/bin/chmod", chmod600Args); }
         if ( [chmod644Args count] > 1  ) { runTask(@"/bin/chmod", chmod644Args); }
         if ( [chmod744Args count] > 1  ) { runTask(@"/bin/chmod", chmod744Args); }
+        
+        // Move configuration folder to new place in file hierarchy if necessary
+        NSString * oldConfigDirPath       = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
+        NSString * newConfigDirHolderPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick"];
+        NSString * newConfigDirPath       = [newConfigDirHolderPath stringByAppendingPathComponent: @"Configurations"];
+        
+        if (  ! [fMgr fileExistsAtPath: newConfigDirHolderPath]  ) {
+            if (  ! [fMgr fileExistsAtPath: newConfigDirPath]  ) {
+                NSDictionary * fileAttributes = [fMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO]; // Want to see if it is a link, so traverseLink:NO
+                if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+                    if (  [fMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir] && isDir  ) {
+                        createDir(newConfigDirHolderPath);
+                        // Since we're running as root, owner of 'newConfigDirHolderPath' is root:wheel. Try to change to real user:group
+                        if (  0 != chown([newConfigDirHolderPath UTF8String], realUserID, realGroupID)  ) {
+                            NSLog(@"Tunnelblick Installer: Warning: Tried to change ownership of folder %@, returned status = %d", newConfigDirHolderPath, errno);
+                        }
+                        if (  [fMgr movePath: oldConfigDirPath toPath: newConfigDirPath handler: nil]  ) {
+                            if (  [fMgr createSymbolicLinkAtPath: oldConfigDirPath pathContent: newConfigDirPath]  ) {
+                                NSLog(@"Tunnelblick Installer: Successfully moved configuration folder %@ to %@ and created a symbolic link in its place.", oldConfigDirPath, newConfigDirPath);
+                                // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
+                                if (  0 != lchown([oldConfigDirPath UTF8String], realUserID, realGroupID)  ) {
+                                    NSLog(@"Tunnelblick Installer: Warning: Tried to change ownership of symbolic link %@, returned status = %d ", oldConfigDirPath, errno);
+                                }
+                            } else {
+                                NSLog(@"Tunnelblick Installer: Successfully moved configuration folder %@ to %@.", oldConfigDirPath, newConfigDirPath);
+                                NSLog(@"Tunnelblick Installer: Error: Unable to create symbolic link to %@ at %@", newConfigDirPath, oldConfigDirPath);
+                                [pool release];
+                                exit(EXIT_FAILURE);
+                            }
+                        } else {
+                            NSLog(@"Tunnelblick Installer: Error occurred while moving configuration folder %@ to %@", oldConfigDirPath, newConfigDirPath);
+                            [pool release];
+                            exit(EXIT_FAILURE);
+                        }
+                    } else {
+                        // oldConfigDirPath doesn't exist or isn't a folder, so we do nothing 
+                    }
+                    
+                } else {
+                    // oldConfigDirPath is a symbolic link, so we do nothing
+                }
+            } else {
+                // newConfigDirPath exists, so we do nothing
+            }
+            
+        } else {
+            // newConfigDirHolderPath exists, so we do nothing
+        }
     }
     
     // If Resources/Deploy exists, back it up -- saving the first configuration and the two most recent
@@ -151,6 +213,7 @@ int main(int argc, char *argv[])
         if (  ! (  [fMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir] && isDir  )  ) {
             if (  ! [fMgr copyPath:deployPath toPath: deployOrigBackupPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", deployPath);
+                [pool release];
                 exit(EXIT_FAILURE);
             }
         }
@@ -160,12 +223,16 @@ int main(int argc, char *argv[])
         
         if (  ! [fMgr copyPath:deployPath toPath: deployBackupPath handler:nil]  ) {    // Make backup of current
             NSLog(@"Tunnelblick Installer: Unable to make backup of %@", deployPath);
+            [pool release];
             exit(EXIT_FAILURE);
         }
     }
-	
+
+    // We remove this file to indicate that the installation succeeded because the return code doesn't propogate back to our caller
+    [fMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
+    
     [pool release];
-	return 0;
+    exit(EXIT_SUCCESS);
 }
 
 void runTask(NSString *launchPath,NSArray *arguments) 

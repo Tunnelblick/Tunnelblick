@@ -153,22 +153,21 @@ BOOL runningOnTigerOrNewer()
             }
 */
         }
-        // The installer restores Resources/Deploy and/or removes its backups and/or repairs permissions, then backs up Resources/Deploy if it exists
+        // The installer restores Resources/Deploy and/or removes its backups and/or repairs permissions,
+        // then moves the config folder if it hasn't already been moved, then backs up Resources/Deploy if it exists
         if (  restore || remove || needsInstall  ) {
             if (  ! [self runInstallerRestoreDeploy: restore repairApp: needsInstall removeBackup: remove]  ) {
-                [NSApp terminate:self];
-            }
-            if ( needsInstallation()  ) {
-                NSLog(@"Incorrect ownership or permissions on one or more files in the Deploy backup folder %@", deployBackupPath);
+                // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
+                [NSApp setAutoLaunchOnLogin: NO];
                 [NSApp terminate:self];
             }
         }
 
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
         //    set configDirIsDeploy TRUE and set configDirPath to point to it
-        // Otherwise set configDirIsDeploy FALSE and set configDirPath to point to ~/Library/openvpn
+        // Otherwise set configDirIsDeploy FALSE and set configDirPath to point to ~/Library/Application Support/Tunnelblick/Configurations
         configDirIsDeploy = FALSE;
-        configDirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn/"] copy];
+        configDirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
         
         if (  [fMgr fileExistsAtPath: deployDirPath isDirectory: &isDir] && isDir ) {
             NSArray *dirContents = [fMgr directoryContentsAtPath: deployDirPath];
@@ -359,7 +358,7 @@ BOOL runningOnTigerOrNewer()
 - (void) awakeFromNib
 {
 	[self createDefaultConfigUsingTitle:NSLocalizedString(@"Welcome to Tunnelblick", @"Window title") 
-							 andMessage:NSLocalizedString(@"There are no configuration files in '~/Library/openvpn/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.", @"Window text")];
+							 andMessage:NSLocalizedString(@"There are no configuration files in '~/Library/Application Support/Tunnelblick/Configurations/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself.", @"Window text")];
 	[self initialiseAnim];
 }
 
@@ -859,7 +858,7 @@ BOOL runningOnTigerOrNewer()
     
 	// If there aren't any configuration files left, deal with that
 	[self createDefaultConfigUsingTitle: NSLocalizedString(@"Install and edit sample configuration file?", @"Window title")
-							 andMessage: NSLocalizedString(@"You have removed all configuration files from ~/Library/openvpn. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/openvpn/ yourself.", @"Window text")];
+							 andMessage: NSLocalizedString(@"You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself.", @"Window text")];
     
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
@@ -1215,6 +1214,7 @@ BOOL runningOnTigerOrNewer()
 	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
     if (  ! connection  ) {
         NSLog(@"myVPNConnectionsDictionary is empty; Tunnelblick must have at least one configuration");
+        [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: self];
     }
 
@@ -1513,7 +1513,16 @@ BOOL runningOnTigerOrNewer()
         [NSApp terminate: nil];
     }
 
-    [fileManager createDirectoryAtPath: configDirPath attributes:nil];
+    NSString * parentPath = [configDirPath stringByDeletingLastPathComponent];
+    if (  ! [fileManager fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
+        if ( ! [fileManager createDirectoryAtPath: parentPath attributes:nil]  ) {
+            NSLog(@"Error creating %@", parentPath);
+        }
+    }
+    
+    if (  ! [fileManager createDirectoryAtPath: configDirPath attributes:nil]  ) {
+        NSLog(@"Error creating %@", configDirPath);
+    }
     
     NSLog(@"Installing %@ to %@", [openvpnConfPath lastPathComponent], configDirPath);
     if (  ! [fileManager copyPath: openvpnConfPath toPath: [configDirPath stringByAppendingPathComponent:@"openvpn.conf"] handler: nil]  ) {
@@ -1709,8 +1718,8 @@ static void signal_handler(int signalNumber)
 	[self fileSystemHasChanged: nil];
 }
 
-// Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files
-// restore      should be TRUE if the user agreed to restore Resources/Deploy from its backup
+// Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files and/or move the config folder
+// restore      should be TRUE if Resources/Deploy should be restored from its backup
 // repairApp    should be TRUE if needsRepair() returned TRUE
 // removeBackup should be TRUE if the backup of Resources/Deploy should be removed
 // Returns TRUE if ran successfully, FALSE if failed
@@ -1730,7 +1739,7 @@ static void signal_handler(int signalNumber)
     }
     if (  repairIt  ) {
         [args addObject:@"1"];
-        msg = [msg stringByAppendingString:@" repair ownership/permissions of the program;"];
+        msg = [msg stringByAppendingString:@" repair ownership/permissions of the program or move the configurations folder;"];
     } else {
         [args addObject:@"0"];
     }
@@ -1751,14 +1760,23 @@ static void signal_handler(int signalNumber)
     }
     
     int i = 5;
+    NSFileManager * fMgr = [NSFileManager defaultManager];
+    OSStatus status;
+    BOOL installFailed;
     do {
-        [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
-        sleep(1);
+        if (  i != 5  ) {
+            sleep(1);
+        }
+        status = [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
+        installFailed = [fMgr fileExistsAtPath: @"/tmp/TunnelblickInstallationFailed.txt"];
+        if (  installFailed  ) {
+            [fMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
+        }
     } while (  needsInstallation()  && (i-- > 0)  );
     
     AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     
-    if (  needsInstallation()  ) {
+    if (  (status != EXIT_SUCCESS) || installFailed || (  (i < 0) && needsInstallation()  )  ) {
         NSLog(@"Installation or repair failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
                         NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
@@ -1773,9 +1791,80 @@ static void signal_handler(int signalNumber)
 }
 
 // Checks ownership and permissions of critical files. Returns YES if need to run the installer to repair them, else returns NO.
-BOOL needsInstallation() 
+// Also returns YES if ~/Library/openvpn has NOT been moved to ~/Library/Application Support/Tunnelblick/Configurations (for 3.0b24)
+BOOL needsInstallation(void) 
 {
-	NSBundle *thisBundle = [NSBundle mainBundle];
+    // Check that the configuration folder has been moved. If not, return YES
+    NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
+    NSString * newParentDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick"];
+    NSString * newConfigDirPath = [newParentDirPath stringByAppendingPathComponent: @"Configurations"];
+    BOOL isDir;
+    BOOL newFolderExists = FALSE;
+    BOOL newParentExists = FALSE;
+    
+    NSFileManager * fMgr = [NSFileManager defaultManager];
+    
+    // Check ~/Library/Application Support/Tunnelblick/Configurations
+    if (  [fMgr fileExistsAtPath: newParentDirPath isDirectory: &isDir]  ) {
+        newParentExists = TRUE;
+        if (  isDir  ) {
+            if (  [fMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
+                if (  isDir  ) {
+                    newFolderExists = TRUE; // New folder exists, so we've already moved (check that's true below)
+                } else {
+                    NSLog(@"Error: %@ exists but is not a folder", newConfigDirPath);
+                    terminateBecauseOfBadConfiguration();
+                }
+            } else {
+                // New folder does not exist. That's OK if ~/Library/openvpn doesn't exist
+            }
+        } else {
+            NSLog(@"Error: %@ exists but is not a folder", newParentDirPath);
+            terminateBecauseOfBadConfiguration();
+        }
+    } else {
+        // New folder's holder does not exist, so we need to do the move only if ~Library/openvpn exists and is a folder (which we check for below)
+    }
+    
+    // If it exists, ~/Library/openvpn must either be a directory, or a symbolic link to ~/Library/Application Support/Tunnelblick/Configurations
+    NSDictionary * fileAttributes = [fMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+        if (  [fMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+            if (  isDir  ) {
+                if (  newFolderExists  ) {
+                    NSLog(@"Error: Both %@ and %@ exist and are folders, so %@ cannot be moved", oldConfigDirPath, newConfigDirPath, oldConfigDirPath);
+                    terminateBecauseOfBadConfiguration();
+                } else {
+                    if (  newParentExists  ) {
+                        NSLog(@"Error: %@ exists and is a folder, but %@ already exists, so %@ cannot be moved", oldConfigDirPath, newParentDirPath, oldConfigDirPath);
+                        terminateBecauseOfBadConfiguration();
+                    }
+                    return YES;  // old folder exists, but new one doesn't, so do the move
+                }
+            } else {
+                NSLog(@"Error: %@ exists but is not a symbolic link or a folder", oldConfigDirPath);
+                terminateBecauseOfBadConfiguration();
+            }
+        } else {
+            // ~/Library/openvpn does not exist, so we don't do the move (whether or not the new folder exists)
+        }
+    } else {
+        // ~/Library/openvpn is a symbolic link
+        if (  [[fMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
+            if (  newFolderExists  ) {
+                // ~/Library/openvpn is a symbolic link to ~/Library/Application Support/Tunnelblick/Configurations, which exists, so we've already done the move
+            } else {
+                NSLog(@"Error: %@ exists and is a symbolic link but its target, %@, does not exist", oldConfigDirPath, newConfigDirPath);
+                terminateBecauseOfBadConfiguration();
+            }
+        } else {
+            NSLog(@"Error: %@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
+            terminateBecauseOfBadConfiguration();
+        }
+    }
+    
+	// Check ownership and permissions on components of Tunnelblick.app
+    NSBundle *thisBundle = [NSBundle mainBundle];
 	
 	NSString *installerPath         = [thisBundle pathForResource:@"intaller"                       ofType:nil];
 	NSString *openvpnstartPath      = [thisBundle pathForResource:@"openvpnstart"                   ofType:nil];
@@ -1822,9 +1911,18 @@ BOOL needsInstallation()
                                      stringByDeletingLastPathComponent]
                                     stringByAppendingPathComponent: @"TunnelblickBackup"]
                                    stringByAppendingPathComponent: @"Deploy"];
+    
 	return deployContentsOwnerOrPermissionsNeedRepair(deployBackupPath);
 }
 
+void terminateBecauseOfBadConfiguration(void)
+{
+    TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Problem", @"Window title"),
+                    NSLocalizedString(@"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.", @"Window text"),
+                    nil, nil, nil);
+    [NSApp setAutoLaunchOnLogin: NO];
+    [NSApp terminate: nil];
+}
 BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath)
 {
     NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];

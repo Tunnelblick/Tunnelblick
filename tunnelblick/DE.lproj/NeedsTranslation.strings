@@ -49,6 +49,12 @@
 /* Window text */
 "The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
+/* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
+
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
 

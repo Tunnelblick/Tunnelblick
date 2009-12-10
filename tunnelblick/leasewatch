@@ -17,7 +17,7 @@ CONNECTION="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*Connection :' | s
 USER="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*User :' | sed -e 's/^.*: //g')"
 
 if [ -n "${USER}" ] ; then
-	LOG_DIR="$(eval echo ~${USER}/Library/openvpn)"
+	LOG_DIR="$(eval echo ~${USER}/Library/Application Support/Tunnelblick/Configurations)"
 else
 	LOG_DIR="/tmp"
 fi
