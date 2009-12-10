@@ -1925,18 +1925,20 @@ void terminateBecauseOfBadConfiguration(void)
 }
 BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath)
 {
+    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
     NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];
     int i;
+    
     for (i=0; i<[dirContents count]; i++) {
         NSString * file = [dirContents objectAtIndex: i];
         NSString * filePath = [deployDirPath stringByAppendingPathComponent: file];
         NSString * ext  = [file pathExtension];
-        if ( [ext isEqualToString:@"crt"] || [ext isEqualToString:@"key"]  ) {
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"600")  ) {
+        if ( [ext isEqualToString:@"sh"]  ) {
+            if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
                 return YES; // NSLog already called
             }
-        } else if ( [ext isEqualToString:@"sh"]  ) {
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
+        } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
+            if (  ! isOwnedByRootAndHasPermissions(filePath, @"600")  ) {
                 return YES; // NSLog already called
             }
         } else { // including .conf and .ovpn

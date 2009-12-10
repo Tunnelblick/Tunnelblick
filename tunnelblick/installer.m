@@ -133,16 +133,17 @@ int main(int argc, char *argv[])
         NSMutableArray *chmod744Args = [NSMutableArray arrayWithObjects: @"744",
                                         installerPath, openvpnPath, leasewatchPath,
                                         clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
+        NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
         
         NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployPath];
         int i;
         for (i=0; i<[dirContents count]; i++) {
             NSString * file = [dirContents objectAtIndex: i];
             NSString * ext  = [file pathExtension];
-            if ( [ext isEqualToString:@"crt"] || [ext  isEqualToString:@"key"]  ) {
-                [chmod600Args addObject:[deployPath stringByAppendingPathComponent: file]];
-            } else if ( [ext isEqualToString:@"sh"]  ) {
+            if ( [ext isEqualToString:@"sh"]  ) {
                 [chmod744Args addObject:[deployPath stringByAppendingPathComponent: file]];
+            } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
+                [chmod600Args addObject:[deployPath stringByAppendingPathComponent: file]];
             } else {
                 [chmod644Args addObject:[deployPath stringByAppendingPathComponent: file]];
             }
