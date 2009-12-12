@@ -17,9 +17,9 @@
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0b23</string>
+	<string>3.0b25</string>
 	<key>CFBundleVersion</key>
-	<string>3.0b23</string>
+	<string>3.0b25</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -31,6 +31,6 @@
 	<key>SUEnableSystemProfiling</key>
 	<string>YES</string>
 	<key>Build</key>
-	<string>1300</string>
+	<string>1301</string>
 </dict>
 </plist>
