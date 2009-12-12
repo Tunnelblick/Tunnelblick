@@ -1,5 +1,5 @@
 #summary Deploying Tunnelblick
-#labels Phase-Deploy,Featured
+#labels Phase-Deploy
 
 http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
 
