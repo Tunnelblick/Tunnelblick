@@ -1,5 +1,5 @@
 #summary Using Tunnelblick
-#labels Featured,Phase-Deploy
+#labels Deprecated,Phase-Deploy
 
 http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
 
