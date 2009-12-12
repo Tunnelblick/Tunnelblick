@@ -1,5 +1,5 @@
-#summary Release Notes - Tunnelblick v 3.0b22
-#labels Phase-Deploy,Featured
+#summary Release Notes - Tunnelblick v 3.0b24
+#labels Featured,Phase-Deploy
 
 The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
 
@@ -8,6 +8,34 @@ The latest version of these release notes is located at http://code.google.com/p
 *PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
+
+==3.0b24 (2009-11-15)==
+  * New 'Monitor connection' checkbox in the OpenVPN Log window (defaults to checked). When checked, Tunnelblick monitors connection interfaces as it has since 3.0b18. When unchecked, Tunnelblick ignores connection interface changes, as version 3.0b10 did. This allows more users to use the latest version (some users couldn't because of repeated restarts caused by Tunnelblick detecting connection interface changes). Please note that OpenVPN itself restarts connections under certain circumstances. New scripts are used when 'Monitor connection' is not checked and 'Set DNS' is checked: client.nomonitor.up.osx.sh and client.nomonitor.down.osx.sh.
+  * New 'Options' submenu has entries to change commonly used preferences, check for updates, and view the 'About…' window.
+  * Tun/tap kernel extensions are loaded when Tunnelblick launches and unloaded when Tunnelblick quits.
+  * Configuration and other files are now located in ~/Library/Application Support/Tunnelblick/Configurations to conform to OS X standards. The ~/Library/openvpn folder is moved to this new location automatically during the first launch of Tunnelblick after updating to 3.0b24, and is replaced by a symbolic link to the new location. For details see [http://groups.google.com/group/tunnelblick-discuss/t/d8f000d1e854b39d http://groups.google.com/group/tunnelblick-discuss/t/d8f000d1e854b39d].
+  * Adds Català (Catalan) localization, thanks to Aleix Dorca.
+  * Additional Español (Spanish) and Deutsch (German) localization, thanks to Diego Rivera and Markus Schneider, respectively.
+  * Adds OS X version information to the start of the OpenVPN Log.
+  * Adds configuration, 'Set nameserver', and 'Monitor connection' status to the OpenVPN Log before attempting to make a connection.
+  * Adds new Deployment features:
+    * Always restores the Resources/Deploy folder from a backup if it does not exist and a backup does. An entry is put in the Console Log, but no other user notification is made. (This happens after an auto-update without the Deploy folder.)
+    * Monitors Resources/Deploy (if it exists) for changes to configuration files.
+    * If Deploy contains only *.conf, *.oven, *.up.sh, *.down.sh, and forced-preferences.plist files, then the ~/Library/openvpn folder will be used for all other files (including other scripts).
+    * If 'Set nameserver' is checked and 'Monitor connection' is checked, then if Deploy/<config-name>.up.sh exists, it will be used instead of Resources/client.up.osx.sh, and if Deploy/<config-name>.down.sh exists, it will be used instead of Resources/client.down.osx.sh.
+    * If 'Set nameserver' is checked and 'Monitor connection' is _not_ checked, then if Deploy/<config-name>.nomonitor.up.sh exists, it will be used instead of Resources/client.nomonitor.up.osx.sh, and if Deploy/<config-name>.nomonitor.down.sh exists, it will be used instead of Resources/client.nomonitor.down.osx.sh.
+    * If 'Set nameserver' is checked, then if the '<config-name>-useDownRootPlugin' preference is true, then Resources/openvpn-down-root.so will be used as a plugin for OpenVPN.
+    * Sets owner to root:wheel and permissions to 600 for .cer, .crt, .der, .key, .p12, .p7b, .p7c, .pem, and .pfx files in the Deploy folder.
+  * Adds new per-configuration preferences:
+    * '_CONFIGNAME_disableEditConfiguration' is a boolean. If set, disables the 'Edit configuration' button. If cleared (the default), enables the button.
+    * '_CONFIGNAME_-notMonitoringConnection' is a boolean. If present, its value reflects/is used for the 'Monitor connection' checkbox. Default is set.
+    * '_CONFIGNAME_-useDownRootPlugin' is a boolean. If set, causes the 'openvpn-down-root.so' plugin to be loaded. If cleared (the default), the plugin is not loaded.
+  * Closing a connection, putting the computer to sleep, or quitting Tunnelblick may be delayed a few seconds while Tunnelblick waits for OpenVPN processes to terminate.
+  * Bug fixes: Fixes bug that sometimes caused authentication failures with usernames or passwords longer than 12 characters. Fixes bug that sometimes caused the 'Retry' button to be interpreted as 'Cancel' in the Authentication Failed dialog. Fixes bug that caused a connection attempt to fail with a 'script failed: could not execute external program' error if 'Set nameserver' is checked and there is a space character in the name of Tunnelblick.app or in the path to it. Fixes bug that caused 'Get Info' of Tunnelblick.app to show incorrect copyright information. Fixes bug that often caused loss of last few lines of OpenVPN Log before disconnecting. Fixes bug that sometimes caused problems restoring connections when awakening from sleep. Fixes bug that sometimes caused the Sparkle updater window to not appear on Snow Leopard. Fixes inconsistent logging of ownership/permissions repairs. Fixes bug that caused Tunnelblick to check for updates at launch even though preference to do so was cleared, not set. Fixes bug that ignored forced-preferences.plist when there was no configuration files in Deploy. Fixes bug with configuration files that are actually symbolic links. Fixes bug that didn't verify that ownership/permissions on Deploy contents copied correctly to backup. Complains with specific message in Console log if a configuration file needs repair but is locked. Fixes problems when a configuration file is a link.
+
+Known Issues:
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick the "Using Tunnelblick" wiki] for details.
+  * Localization is not complete.
 
 ==3.0b22 (2009-11-01)==
   * Includes OpenVPN version 2.1_rc20, which fixes problems with the "redirect-gateway" option.
@@ -138,3 +166,7 @@ Known Issues:
   * Fixes the slow shutdown issue
   * Updated to the new tun/tap drivers
   * Auto-Update Capability using Sparkle
+
+-----
+
+*PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.

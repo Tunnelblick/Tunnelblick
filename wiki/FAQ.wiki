@@ -10,10 +10,10 @@ The Tunnelblick disk image includes an HTML document, "Using Tunnelblick", which
 Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
 
 ==How do I install Tunnelblick?==
-Download the latest disk image from the featured downloads section on the project page. Double-click it and drag the Tunnelblick.app icon to the shortcut to the Applications folder, or to any other location on your local hard disk. More detailed instructions are in "Using Tunnelblick".
+Download the latest disk image from the featured downloads section on the project page. Double-click it and drag the Tunnelblick.app icon to the shortcut to the Applications folder, or to any other location on your local hard disk. More detailed instructions are in the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki.
 
 ==How do I uninstall Tunnelblick?==
-Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see "Using Tunnelblick" for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
+Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
 
 ==Why does Tunnelblick need root privileges?==
 Tunnelblick needs root privileges the first time it is run for two reasons:
@@ -27,10 +27,10 @@ Tunnelblick also needs root privileges to secure configuration files. If a confi
 ==Why does Tunnelblick change the ownership of the configuration files to root?==
 This is a security issue. OpenVPN configuration files allow you to specify up/down scripts which will be executed with root privileges every time a VPN connection is started or stopped. If the configuration files were owned by the local user, anyone could execute arbitrary code as root by inserting an 'up' directive to the configuration file and pointing it to a (malicious) shell script. Therefore, when a configuration file is first used, Tunnelblick asks for a computer administrator's username and password and uses them to change the ownership of the configuration file to root, so it is protected against unnoticed and possibly malicious changes. If new configuration files are added, Tunnelblick will ask for a computer administrator's username and password to change the ownership of the new file to root before the first use of each new configuration file.
 
-==Help! My routes are not restored when closing my VPN connection. What is happening?==
+==Why are routes not restored when closing my VPN connection?==
 You are probably using the 'user' or 'group' directive in your OpenVPN client configuration file. If you use it, the OpenVPN process will drop privileges after startup which is additional security measure. However, OpenVPN needs root privileges for restoring the route back to their original state. In short: don't use it.
 
-As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. It allows the use of 'user' and 'group' with by adding a line invoking the plugin in the configuration file. See "Using Tunnelblick" for details on how to do this.
+As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. Together with a per-configuration preference, this allows the use of 'user' and 'group'. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for details on how to do this.
 
 ==Why does Tunnelblick use OpenVPN version 2.1, which is not an official release?==
 Tunnelblick uses OpenVPN version 2.1, instead of version 2.0.9, which is the latest official release, because that is the version recommended by the OpenVPN core team.
