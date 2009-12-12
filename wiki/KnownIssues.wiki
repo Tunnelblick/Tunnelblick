@@ -1,5 +1,5 @@
 #summary Known Issues
-#labels Featured,Phase-Deploy
+#labels Phase-Deploy
 
 *THE LATEST VERSION OF THIS DOCUMENT* is at [http://code.google.com/p/tunnelblick/wiki/KnownIssues http://code.google.com/p/tunnelblick/wiki/KnownIssues].
 
@@ -15,7 +15,7 @@ The following are known problems or limitations in Tunnelblick version 3.0b24:
 {{{
   sudo /System/Library/StartupItems/CiscoTUN stop 
 }}}
-  * Localization is not complete. We need additional translations to Catalan, German, Spanish, French, Japanese, Korean, and Norwegian (Norsk BokmŒl). If you can help with these or any other languages, please contact project committer  [http://code.google.com/u/jkbullard/ Jon].
+  * Localization is not complete. We need additional translations to Catalan, German, Spanish, French, Japanese, Korean, and Norwegian (Norsk Bokmï¿½l). If you can help with these or any other languages, please contact project committer  [http://code.google.com/u/jkbullard/ Jon].
 
 -----
 
