@@ -9,7 +9,7 @@ The latest version of these release notes is located at http://code.google.com/p
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
 
-==3.0b24 (2009-11-15)==
+==3.0b24 (2009-12-12)==
   * New 'Monitor connection' checkbox in the OpenVPN Log window (defaults to checked). When checked, Tunnelblick monitors connection interfaces as it has since 3.0b18. When unchecked, Tunnelblick ignores connection interface changes, as version 3.0b10 did. This allows more users to use the latest version (some users couldn't because of repeated restarts caused by Tunnelblick detecting connection interface changes). Please note that OpenVPN itself restarts connections under certain circumstances. New scripts are used when 'Monitor connection' is not checked and 'Set DNS' is checked: client.nomonitor.up.osx.sh and client.nomonitor.down.osx.sh.
   * New 'Options' submenu has entries to change commonly used preferences, check for updates, and view the 'About…' window.
   * Tun/tap kernel extensions are loaded when Tunnelblick launches and unloaded when Tunnelblick quits.
