@@ -15,7 +15,10 @@ The following are known problems or limitations in Tunnelblick version 3.0b24:
 {{{
   sudo /System/Library/StartupItems/CiscoTUN stop 
 }}}
-  * Localization is not complete. We need additional translations to Catalan, German, Spanish, French, Japanese, Korean, and Norwegian (Norsk Bokm�l). If you can help with these or any other languages, please contact project committer  [http://code.google.com/u/jkbullard/ Jon].
+
+  * If "Set nameserver" is checked, all "up" and "down" options in the OpenVPN configuration file will be ignored. To work around this, include appropriate parts of the standard up/down scripts in your own scripts and do not check "Set nameserver". (The reason for this is that OpenVPN's "down-pre" option cannot be used with the standard "Set nameserver" down script, but may be used by custom scripts, so the two scripts cannot be used together.)
+ 
+  * Localization is not complete. We need additional translations to Catalan, German, Spanish, French, Japanese, Korean, and Norwegian (Norsk Bokmal). If you can help with these or any other languages, please contact project committer  [http://code.google.com/u/jkbullard/ Jon].
 
 -----
 
