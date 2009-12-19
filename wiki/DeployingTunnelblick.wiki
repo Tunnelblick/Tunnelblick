@@ -3,7 +3,7 @@
 
 http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
 
-*This document describes how to create a deployable version of Tunnelblick and was last modified 2009-12-03. It reflects the behavior of Tunnelblick built from the r294 version of the Tunnelblick source code.*
+*This document describes how to create a deployable version of Tunnelblick and was last modified 2009-12-19. It reflects the behavior of Tunnelblick built from the r313 version of the Tunnelblick source code.*
 
 Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. It is written in Cocoa and runs on OS X Tiger (10.4), Leopard (10.5), and Snow Leopard (10.6). It comes as a ready to use Universal  application with all necessary binaries and drivers, including OpenVPN and tun/tap. Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
@@ -27,11 +27,11 @@ A deployable version of Tunnelblick is a customized version of Tunnelblick.app w
       * The permissions of openvpnstart are set to 4111
       * The permissions of the standard up/down scripts, installer, leasewatch, and openvpn are set to 744
       * The permissions of the following files in Deploy are given different permissions:
-        * .crt and .key files are given permissions of "600" (root can read/write, nobody else can read)
+        *  .cer, .crt, .der, .key, .p12, .p7b, .p7c, .pem, and .pfx files are given permissions of "600" (root can read/write, nobody else can read)
         * .sh files are given permissions of "744" (root can read/write/execute, everyone else can read)
     # If any  ownerships or permissions were changed, or if the Deploy folder has just been restored, a new backup of the Deploy folder is made. The backup is owned by root and has the same permissions as the original items in Deploy (as modified in 3, above).
-  * If there is a Deploy folder and it contains one or more .conf or .ovpn files, Tunnelblick uses it, instead of ~/Library/openvpn, for configuration files (and, often, keys, certificates, and shell scripts, but whether the same folder is used for them depends on what is in the configuration file). When a connection is being attempted, the entry that Tunnelblick puts in the log will contain "from Deploy" if the Deploy folder is being used for configuration files.
-  * If the Deploy folder contains only `*`.conf, `*`.ovpn, `*`.up.sh, `*`.down.sh, and forced-preferences.plist files, then the ~/Library/openvpn folder will be used as the target of the OpenVPN --cd option, which means that files in ~/Library/openvpn may be specified in the configuration file without path information -- e.g., "key xxx.key".
+  * If there is a Deploy folder and it contains one or more .conf or .ovpn files, Tunnelblick uses it, instead of ~/Library/Application Support/Tunnelblick/Configurations, for configuration files (and, often, keys, certificates, and shell scripts, but whether the same folder is used for them depends on what is in the configuration file). When a connection is being attempted, the entry that Tunnelblick puts in the log will contain "from Deploy" if the Deploy folder is being used for configuration files.
+  * If the Deploy folder contains only `*`.conf, `*`.ovpn, `*`.up.sh, `*`.down.sh, and forced-preferences.plist files, then the ~/Library/Application Support/Tunnelblick/Configurations folder will be used as the target of the OpenVPN --cd option, which means that files in~/Library/Application Support/Tunnelblick/Configurations may be specified in the configuration file without path information -- e.g., "key xxx.key".
   * If the Deploy folder contains any other files, then the Deploy folder will be used as the target of the OpenVPN --cd option, which means that files in Deploy may be specified in the configuration file without path information -- e.g., "key xxx.key".
   * If the file Tunnelblick.app/Contents/Resources/about.html exists, its contents will replace the link to "http://code.google.com/p/tunnelblick" in Tunnelblick's "about" window. The content of about.html will be prefixed by `'<html><body><center><div style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px">'`, and followed by `'<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></div></center><body></html>'`. Note that there is only space for a couple of lines of text without causing scrollbars to be necessary.
   * Whether or not the Deploy folder is being used for configuration files, if the file Tunnelblick.app/Contents/Resources/Deploy/forced-preferences.plist exists, the preferences contained in it override any preferences the user has set. Since this file is read-only, the user cannot change these preferences, and corresponding preferences in Tunnelblick's preferences stored in ~/Library/Preferences will be ignored. The user's preferences are not modified. Also see "FORCED PREFERENCES EXCEPTIONS".
@@ -42,7 +42,7 @@ If Tunnelblick.app is moved, a new backup will be created for the new location t
 
 If Tunnelblick.app is renamed (which, depending on where it is stored, may not require an administrator's username/password), the backup mechanism still works normally. However, note that the updates will fail if the app has been renamed.
 
-If two copies of Tunnelblick.app exist within the same folder in the filesystem hierarchy (with different names), they will use the same backup. This could lead to problems if one uses Deploy and the other doesn't, or if the contents of the Deploy folders are not identical. One way to get this effect without this problem is to locate the Tunnelblick.apps in different folders, but put aliases to both of them in the same folder that is visible to the user. Again, two copies of Tunnelblick.app cannot be placed in the same folder without an administrator doing it, so this should not be a security risk.
+If two copies of Tunnelblick.app exist within the same folder in the filesystem hierarchy (with different names), they will use the same backup. This could lead to problems if one uses Deploy and the other doesn't, or if the contents of the Deploy folders are not identical. One way to have multiple Tunnelblicks in one folder without this problem is to locate the Tunnelblick.apps in different folders, but put aliases to both of them in the same folder that is visible to the user. Multiple copies of Tunnelblick.app cannot be placed in the same folder without an administrator doing it, so this should not be a security risk.
 
 ==WHAT ABOUT AUTOMATIC UPDATES?==
 A version of Tunnelblick with a Deploy folder will work with Tunnelblick's standard automatic update process. The automatic update replaces Tunnelblick.app with a new copy without the Deploy folder; however, when the updated program is first run, the the Deploy folder will be restored from the backup copy, and will then be used normally. Note: "about.html" is not included in standard Tunnelblick updates, so it will be lost when there is a standard update because it is not located in the Deploy folder.
@@ -53,12 +53,16 @@ There are two exceptions to the way preferences in "forced-preferences.plist" ar
   * The _config-name_-keychainHasPrivateKey_ and _config-name_-keychainHasUsernameAndPassword_ preferences -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords for that configuration in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored. 
 
 ==UP AND DOWN SCRIPTS==
-If "Set nameserver" is checked for the configuration, Tunnelblick.app starts OpenVPN with the "--up" and "--down" options specifying scripts to be run after the tunnel is established and before it is torn down. The standard scripts are Resources/client.up.osx.sh and Resources/client.down.osx.sh and are used for all connections. However, if Resources/Deploy/_config-name_.up.sh or .down.sh exist, each will be used instead of the corresponding standard script. (But if "_config-name_-notMonitoringConnection" is set (because "Monitor connection" not checked for the connection), then Resources/Deploy/_config-name_.nomonitor.up and/or down.sh will be used if each exists.)
+If "Set nameserver" is checked, Tunnelblick.app starts OpenVPN with the "--up" and "--down" options specifying scripts to be run after the tunnel is established and before it is torn down. The standard scripts are Resources/client.up.osx.sh and Resources/client.down.osx.sh.
+
+If "Monitor connection" is *not* checked, however, and Resources/Deploy/_config-name_.up.sh or .down.sh exist, each will be used instead of the corresponding standard script.
+
+If "Monitor connection" *is* checked, then Resources/Deploy/_config-name_.nomonitor.up and/or down.sh will be used if each exists, otherwise the standard Resources/client.nomonitor.up.osx.sh and Resources/client.nomonitor.down.osx.sh scripts will be used if they exist, otherwise the standard up and down scripts will be used.
 
 ==USING openvpn-down-root.so==
 Using a Deployed version of Tunnelblick allows you to use relative path references to openvpn-down-root.so in a configuration file instead of the absolute path references which were previously required. That means that moving Tunnelblick.app to another location does not cause errors.
 
-If a "_config-name_-useDownRootPlugin" preference exists (forced or otherwise), Tunnelblick will use the openvpn-down-root.so plugin. The down-script that it references will be Resources/Deploy/_config-name_.down.sh. (But if "_config-name_useDNS" is set and "_config-name_-notMonitoringConnection" is set (because "Set nameserver is checked and "Monitor connection" not checked for the connection), then Resources/Deploy/_config-name_.nomonitor.down.sh will be used if it exists.)
+If a "_config-name_-useDownRootPlugin" preference exists (forced or otherwise), Tunnelblick will use the openvpn-down-root.so plugin. The down-script that it references will be the script described  [#UP_AND_DOWN_SCRIPTS above].
 
 ==WHAT IS NEEDED TO MAKE A DEPLOYABLE VERSION==
 To make a deployable version of Tunnelblick, you need whatever is required to connect to your VPN.
@@ -90,7 +94,7 @@ However, *DO NOT RUN THIS COPY*. Instead, make a copy of it and use the copy. (W
 ==HOW TO *USE* A DEPLOYED VERSION==
 Using a deployed version of Tunnelblick is the same as using a non-deployed version, except:
   * You will not be asked for administrator credentials the first time you first connect to a VPN. (Because ownership and permissions on the configuration file(s) was secured the first time the deployed version of Tunnelblick was run on the computer.
-  * Anyone with access to a deployed version of Tunnelblick.app can connect to its VPN(s). For example, if a deployed version of Tunnelblick.app is placed in /Applications, it can be accessed by any user of the computer, without requiring administrator credentials to set up secure configuration files in ~/Library/openvpn -- because ~/Library/openvpn is not used and the configuration files are shared by all users with access to the application.
+  * Anyone with access to a deployed version of Tunnelblick.app can connect to its VPN(s). For example, if a deployed version of Tunnelblick.app is placed in /Applications, it can be accessed by any user of the computer, without requiring administrator credentials to set up secure configuration files in ~/Library/Application Support/Tunnelblick/Configurations -- because ~/Library/Application Support/Tunnelblick/Configurations is not used and the configuration files are shared by all users with access to the application.
 
 ==CREATING A .ZIP FILE FOR DEPLOYMENT==
 To create a .zip file of your new version of Tunnelblick:
@@ -131,3 +135,7 @@ Within a few moments, your .dmg file will be created.
     * Clarified that this document describes behavior of the current source code.
     * Removed note saying that "SUEnableAutomaticChecks" can be forced.
     * Clarified that Tunnelblick preferences that mirror Sparkle's preferences are not committed yet.
+  * 2009-12-19 (r314)
+    * Updated to reflect move from ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations.
+    * Rewrote "UP AND DOWN SCRIPTS" section.
+    * Listed additional extensions that get permissions of "600".
