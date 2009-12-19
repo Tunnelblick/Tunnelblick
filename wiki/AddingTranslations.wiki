@@ -22,16 +22,16 @@ NOTE: Prior to r255, which will be incorporated in Tunnelblick versions 3.0b24 a
 Each of these folders contains a "Localizable.strings" file. These files contain a series of lines that look like this:
 
 {{{
-/`*` Button `*`/
+/* Button */
 "Disconnect" = "Desconectar";
 }}}
 The first line, /`*` Button `*`/, is a hint about what the string is used for -- this one tells you that the string "Disconnect" is for a button. Other hints may indicate a string is for the title of a window, or the text of a window, or is a status  message from OpenVPN.
 
-The second line has two strings, separated by an equal sign and terminated by a semicolon. The first string is in the language that the application was developed in (English), and the second string is in the "target" language.
+The second line has two strings, separated by an equal sign and followed by a semicolon. The first string is in the language that the application was developed in (English), and the second string is in the "target" language.
 
 In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
 
-*You can edit this file in TextEdit (but you need to open it in a special way, see below)* changing the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see below).
+*You can edit this file in TextEdit (but you need to open it in a special way, see below)* change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see below).
 
 ==First Translation of a Language==
 If you are the first translator for a language, the file you have will use will be a copy of English.lproj/Localizable.strings. (Make your own copy if necessary.) The file will have lines such as the following:
@@ -50,7 +50,7 @@ If you are the first translator for a language, the file you have will use will 
 "Cancel" = "Cancel";
 }}}
 
-Notice that, in this file, both of the strings on each line are in English (sort of). The string "AUTH" is a string describing a connection's status -- what it is doing -- in this case, the status is something called "AUTH". The second string is the string as it should be displayed in English -- this is what you as translator are to replace. Note that for the other three examples, both strings are identical. That is more common. The program requests that the title of a window be "Authentication failed", for example, and, in English, that should be displayed as "Authentication failed".
+Notice that, in this file, both of the strings on each line are in English (sort of). The string "AUTH" is a string describing a connection's status -- what it is doing -- in this case, the status is something called "AUTH". The second string is the string as it should be displayed in English -- this is what you as translator are to replace. Note that for the last three examples, both strings are identical. That is more common. The program requests that the title of a window be "Authentication failed", for example, and, in English, that should be displayed as "Authentication failed".
 
 Translation consists of replacing the second string on each line with the target language's equivalent, using the hint on the line above the strings.
 
