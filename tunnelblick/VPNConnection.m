@@ -167,7 +167,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     NSString * noMonitorKey = [[[self configFilename] stringByDeletingPathExtension] stringByAppendingString: @"-notMonitoringConnection"];
     NSString * noMonitor = @"0";
-    if ( [gTbDefaults boolForKey: noMonitorKey] ) {
+    if (  [useDNS isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
         noMonitor = @"1";
     }
     
