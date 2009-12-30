@@ -1,7 +1,7 @@
 #summary Adding Additional Language Translations to Tunnelblick
 #labels Phase-Deploy
 
-https://tunnelblick-discuss.googlegroups.com/web/tb-logo.png?gda=y991Xj0AAADVQgPybVoDdkjSA0U14ywkEm9Pql-cJNS2nWybnTRrfIBzFSeFkNeIFx1-2nJrDdrlNv--OykrTYJH3lVGu2Z5
+http://tunnelblick-discuss.googlegroups.com/web/tb-logo.png?gda=y991Xj0AAADVQgPybVoDdkjSA0U14ywkEm9Pql-cJNS2nWybnTRrfIBzFSeFkNeIFx1-2nJrDdrlNv--OykrTYJH3lVGu2Z5
 
 Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
@@ -74,7 +74,7 @@ Now you can edit the file. When you are done, be sure to save it. If you do a "S
 
 Here is what the bottom of the "Open file" dialog window should look like when you click the "Open" button:
 
-https://tunnelblick-discuss.googlegroups.com/web/add-translations-open-file-window.png?gda=4jqTW1cAAADVQgPybVoDdkjSA0U14ywk_BVAdCKiMoncTpEXaIarzhOnNyGOrq4Mj_c6JQjursoenAryYyiYF7HXKAZo0RGXFXmOG-PcRnDCvNNomWfEhXleHbr-qQzBoYYWXY0JTQM
+http://tunnelblick-discuss.googlegroups.com/web/add-translations-open-file-window.png?gda=4jqTW1cAAADVQgPybVoDdkjSA0U14ywk_BVAdCKiMoncTpEXaIarzhOnNyGOrq4Mj_c6JQjursoenAryYyiYF7HXKAZo0RGXFXmOG-PcRnDCvNNomWfEhXleHbr-qQzBoYYWXY0JTQM
 
 ==Adding Your Translations to Your Copy of Tunnelblick==
 *If you made the first translation of a language*, here's how to put your modified .strings file into your copy of Tunnelblick:
