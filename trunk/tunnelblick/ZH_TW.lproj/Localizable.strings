@@ -1,0 +1,288 @@
+/* Window title */
+"'%@' has been disconnected" = "'%@' 已中斷連線";
+
+/* OpenVPN Log message */
+"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpn 啟動狀態 #%1$d: %2$@";
+
+/* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>建基於 Tunnelblick, 自由軟體由 <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 提供";
+
+/* Connection status */
+"ADD_ROUTES" = "設定路由中";
+
+/* Menu item */
+"About..." = "關於…";
+
+/* Window title */
+"Alert" = "警告";
+
+/* Connection status */
+"ASSIGN_IP" = "分配 IP 地址中";
+
+/* Connection status */
+"AUTH" = "認證中";
+
+/* Window title */
+"Authentication failed" = "認證失敗";
+
+/* Menu item */
+"Automatically Check for Updates" = "自動檢查更新";
+
+/* Checkbox name */
+"Automatically connect on launch" = "啟動時自動連線";
+
+/* Button */
+"Cancel" = "取消";
+
+/* Menu item */
+"Check For Updates Now" = "檢查更新";
+
+/* Button */
+"Clear log" = "清除日誌檔";
+
+/* Window title */
+"Configuration Change" = "更改設定";
+
+/* Window text */
+"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "設定檔 %1$@ 位於遠端卷宗內. 基於保安原因 Tunnelblick 要求將設定檔置於本地卷宗內\n\n要 Tunnelblick 為您創建及使用在 %2$@ 的本地設定檔嗎?\n\n(此動作需要管理員之名稱及密碼.)\n";
+
+/* Button */
+"Connect" = "連線";
+
+/* Connection status */
+"CONNECTED" = "已連線";
+
+/* Connection status */
+"CONNECTING" = "連線中";
+
+/* Button */
+"Continue" = "繼續";
+
+/* Window text */
+"Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "版權由 © 2004-2009 Angelo Laub and others 擁有. 仿版必究.";
+
+/* Button */
+"Create copy" = "制作拷貝";
+
+/* Window title */
+"Create local copy of configuration file?" = "創建本地設定檔?";
+
+/* Menu item */
+"Details..." = "詳情…";
+
+/* Button */
+"Disconnect" = "中斷連線";
+
+/* Button */
+"Do not restore" = "不回復";
+
+/* Checkbox name */
+"Do not warn about this again" = "停用此警告";
+
+/* Window title */
+"Do you wish to connect?" = "要再次連線嗎?";
+
+/* Button */
+"Download" = "下載";
+
+/* Button */
+"Edit configuration" = "編輯設定檔";
+
+/* Connection status */
+"EXITING" = "離線";     // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "獲取設定中";
+
+/* Button */
+"Install and edit sample configuration file" = "安裝及編輯範例設定檔";
+
+/* Window title */
+"Install and edit sample configuration file?" = "安裝及編輯範例設定檔嗎?";
+
+/* Window title */
+"Installation failed" = "安裝失敗";
+
+/* Window title */
+"Installation or Repair Failed" = "安裝或修復失敗";
+
+/* Checkbox name */
+"Monitor DNS" = "監察 DNS";
+
+/* Checkbox name */
+"Monitor WINS" = "監察 WINS";
+
+/* Checkbox name */
+"Monitor connection" = "監察連線";
+
+/* Menu item */
+"Monitor the Configuration Folder" = "監察設定資料夾";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "多重並行連線將被建立(%1$d 條連線已'設定域名服務器', %2$d 條連線未'設定域名服務器').";
+
+/* Window title */
+"Not connecting" = "未連線";
+
+/* Button */
+"OK" = "確定";
+
+/* Window title */
+"OpenVPN Log Output - Tunnelblick" = "OpenVPN 日誌記錄 - Tunnelblick";
+
+/* Menu item */
+"Options" = "選項";
+
+/* Window title */
+"Passphrase" = "口令";
+
+/* Textbox name */
+"Password:" = "密碼:";
+
+/* Menu item */
+"Place Icon Near the Spotlight Icon" = "將圖示置於 Spotlight 圖示旁";
+
+/* Window text */
+"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "啟動前請複制 Tunnelblick.app 至硬碟裏的 \"/Applications\" 檔案夾.";
+
+/* Window text */
+"Please enter VPN passphrase." = "請輸入 VPN 口令.";
+
+/* Window text */
+"Please enter VPN username/password combination." = "請輪入 VPN 用戶名/密碼組合.";
+
+/* Window title */
+"Please insert token" = "請輸入代號";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "請輸入代號 \"%@\", 再點選 \"確定\"";
+
+/* Menu item */
+"Preferences" = "喜好設定";
+
+/* Menu item
+   Button */
+"Quit" = "離開";
+
+/* Connection status */
+"RECONNECTING" = "重新連線";
+
+/* Button */
+"Remove backup and do not restore" = "清除備份及取消復原";
+
+/* Button */
+"Restore" = "回復";
+
+/* Window title */
+"Restore Configuration Settings from Backup?" = "從備份中復原設定檔嗎?";
+
+/* Checkbox text */
+"Save in Keychain" = "於 Keychain 內儲存";
+
+/* Menu item */
+"Send Anonymous System Profile" = "傳送匿名系統檔";
+
+/* Checkbox name */
+"Set nameserver" = "設定域名服務器";
+
+/* Menu item */
+"Show Connection Timers" = "顯示連線計時器";
+
+/* Connection status */
+"SLEEP" = "等待背影程序";   // Please translate "Waiting for daemon process"
+
+/* Menu item tooltip */
+"Takes effect at the next check for updates" = "將於下一次檢查更新時生效";
+
+/* Menu item tooltip */
+"Takes effect immediately" = "立即生效";
+
+/* Menu item tooltip */
+"Takes effect the next time Tunnelblick is launched" = "將於 Tunnelblick 下一次啟動時生效";
+
+/* Menu item tooltip */
+"Takes effect with the next connection" = "將於下一次連線時生效";
+
+/* Window text */
+"The change will take effect the next time you connect." = "新設定將於下次連線時生效.";
+
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "證書(口令或用戶名/密碼) 不獲遠端 VPN 伺股器接納.";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "安裝,移除,復原或修復 Tunnelblick 模組失敗. 詳情請查看控制台日誌.";
+
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "口令不能空白!\n請輸入 VPN 口令.";
+
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "用戶名及密碼不能空白!\n請輸入 VPN 用戶名／密碼組合.";
+
+/* Window text */
+"There are no configuration files in '~/Library/Application Support/Tunnelblick/Configurations/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "於 '~/Library/Application Support/Tunnelblick/Configurations/' 裏未能找到到設定檔. 您想安裝及編輯範本設定檔嗎? 如否, 請關閉 Tunnelblick 並自行將設定檔置於 ~/Library/Application Support/Tunnelblick/Configurations/ .";
+
+/* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "此版本之 Tunnelblick 並未包含任何設定項. 您想從備份中復原設定嗎?\n\n此動作需要用戶名及密碼.";
+
+/* Button */
+"Try again" = "重試";
+
+/* Button */
+"Try again with different credentials" = "以不同證書再嘗試";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick 設定錯誤";
+
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由於設定出現問題 Tunnelblick 未能啟動. 詳情請查看控制台日誌.";
+
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick 未能複制設定檔至交替的本地位置. 詳情請查看控制台日誌.";
+
+/* Window text */
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick 未能將 openvpn.conf 複制至 %@";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick 未能創建交替的本地設定檔之檔案夾. 詳情請查看控制台日誌.";
+
+/* Window text */
+"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick 未能修復設定檔之擁有者及使用權限. 詳情請查看控制台日誌.";
+
+/* Window title */
+"Tunnelblick Error" = "Tunnelblick 錯誤";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因設定檔被移除 '%@'將被設定為離線.";
+
+/* Status message */
+"Tunnelblick: %d connections active." = "Tunnelblick: %d 個有效連線.";
+
+/* Status message */
+"Tunnelblick: 1 connection active." = "Tunnelblick: 1 個有效連線.";
+
+/* Menu item */
+"Use Shadow Copies of Configuration Files" = "使用影子複本設定檔";
+
+/* Window title */
+"Username and password" = "用戶名及密碼";
+
+/* Textbox name */
+"Username:" = "用戶名:";
+
+/* Connection status */
+"WAIT" = "等待伺服器回應";   // Please translate "Waiting for Server Response"
+
+/* Menu item */
+"Warn About Simultaneous Connections" = "當同時連線時作出警告";
+
+/* Window title */
+"Welcome to Tunnelblick" = "歡迎使用 Tunnelblick";
+
+/* Window title */
+"You are trying to launch Tunnelblick from the disk image" = "你正從鏡象檔啟動 Tunnelblick";
+
+/* Window text */
+"You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "您需要由 ~/Library/Application Support/Tunnelblick/Configurations 移除所有設定檔. 您想安裝及編輯範本設定檔嗎? 如否, 請關閉 Tunnelblick 並自行將設定檔置於 ~/Library/Application Support/Tunnelblick/Configurations/ .";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "您必須重新安裝 Tunnelblick. 請將 Tunnelblick 移至垃圾筒並重新下載. 問題在於:\n\n%@";

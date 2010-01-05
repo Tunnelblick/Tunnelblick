@@ -48,6 +48,8 @@
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */; };
+		635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */; };
+		635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBE010F3B3E700BF529B /* ZH_TW.lproj */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		6388A0D210AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
@@ -176,6 +178,8 @@
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.up.osx.sh; sourceTree = "<group>"; };
+		635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_CN.lproj; sourceTree = "<group>"; };
+		635CBBE010F3B3E700BF529B /* ZH_TW.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_TW.lproj; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.down.osx.sh; sourceTree = "<group>"; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
+				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */,
 				634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
@@ -484,6 +490,8 @@
 				634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */,
 				6388A0D210AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh in Resources */,
 				638FA0DE10B0220500A03AD0 /* SplashWindow.xib in Resources */,
+				635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */,
+				635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
