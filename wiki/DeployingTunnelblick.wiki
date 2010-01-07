@@ -1,7 +1,7 @@
 #summary Deploying Tunnelblick
 #labels Phase-Deploy
 
-http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
+http://tunnelblick-discuss.googlegroups.com/web/tb-logo.png?gda=y991Xj0AAADVQgPybVoDdkjSA0U14ywkEm9Pql-cJNS2nWybnTRrfIBzFSeFkNeIFx1-2nJrDdrlNv--OykrTYJH3lVGu2Z5
 
 *This document describes how to create a deployable version of Tunnelblick and was last modified 2009-12-19. It reflects the behavior of Tunnelblick built from the r313 version of the Tunnelblick source code.*
 
@@ -141,3 +141,5 @@ Within a few moments, your .dmg file will be created.
     * Listed additional extensions that get permissions of "600".
   * 2010-01-07 (r319)
     * Added note that if configuration files are not in Deploy, forced preferences for them are not secure
+  * 2010-01-07 (r320)
+    * Fixed so logo image appears
