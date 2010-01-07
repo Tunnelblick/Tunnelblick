@@ -15,6 +15,11 @@ Download the latest disk image from the featured downloads section on the projec
 ==How do I uninstall Tunnelblick?==
 Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
 
+==How do I update Tunnelblick?==
+First, move your original Tunnelblick.app (in /Applications or wherever else it was installed) to a safe place so you can revert to using it if there is a problem with the updated version. (You will need an administrator username/password to do this if Tunnelblick has been run at least once.) Then install the updated version of Tunnelblick normally. All configurations and preferences from the original version will be used by the new version.
+
+When you are satisfied that the new version is working, you can trash the original.
+
 ==Why does Tunnelblick need root privileges?==
 Tunnelblick needs root privileges the first time it is run for two reasons:
   # It modifies ownership and privileges on parts of Tunnelblick.app itself to make it secure; and
