@@ -88,6 +88,8 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
 	
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
+    
+    BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
 }
 
 // Button and checkbox actions
