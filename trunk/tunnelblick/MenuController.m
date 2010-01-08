@@ -228,6 +228,8 @@ BOOL runningOnTigerOrNewer()
         
 		[NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
 		
+		userIsAnAdmin = isUserAnAdmin();
+		
         updater = [[SUUpdater alloc] init];
 
         [self loadKexts];

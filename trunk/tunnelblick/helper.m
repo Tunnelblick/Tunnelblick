@@ -268,6 +268,42 @@ int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLa
     }
 }
 
+BOOL isUserAnAdmin(void)
+{
+    //Launch "id -Gn" to get a list of names of the groups the user is a member of, and put the result into an NSString:
+    
+    NSTask * task = [[NSTask alloc] init];
+    
+    NSString * exePath = @"/usr/bin/id";
+    [task setLaunchPath: exePath];
+    
+    NSArray  *arguments = [NSArray arrayWithObjects: @"-Gn", nil];
+    [task setArguments: arguments];
+    
+    NSPipe * pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+    
+    NSFileHandle * file = [pipe fileHandleForReading];
+    
+    [task launch];
+    
+    NSData * data = [file readDataToEndOfFile];
+    
+    [task release];
+    
+    NSString * string1 = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    
+    // If the "admin" group appears, the user is a member of the "admin" group, so they are an admin.
+    // Group names don't include spaces and are separated by spaces, so this is easy. We just have to
+    // handle admin being at the start or end of the output by pre- and post-fixing a space.
+    
+    NSString * string2 = [NSString stringWithFormat:@" %@ ", [string1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    NSRange rng = [string2 rangeOfString:@" admin "];
+    [string1 release];
+    
+    return (rng.location != NSNotFound);
+}
+
 // This method is never invoked. It is a place to put strings which are used in the .nib or come from OpenVPN
 // They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.
 void localizableStrings(void)

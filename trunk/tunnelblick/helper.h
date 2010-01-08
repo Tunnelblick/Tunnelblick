@@ -30,3 +30,4 @@ int            TBRunAlertPanel      (NSString * title,
                                      NSString * otherButtonLabel);
 NSString     * tunnelblickVersion   (void);
 BOOL           useDNSStatus         (id connection);
+BOOL           isUserAnAdmin        (void);
