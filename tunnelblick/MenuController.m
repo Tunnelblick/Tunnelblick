@@ -1250,6 +1250,9 @@ BOOL runningOnTigerOrNewer()
                                                               repeats:YES] retain];
     }
 	
+    // Localize window title
+    [logWindow setTitle:NSLocalizedString([logWindow title], nil)];
+
 	// Localize buttons and checkboxes
     [self localizeControl:clearButton                   shiftRight:editButton                   shiftLeft:nil               shiftSelfLeft:NO ];
     [self localizeControl:editButton                    shiftRight:nil                          shiftLeft:nil               shiftSelfLeft:NO ];
