@@ -69,6 +69,7 @@
 -(void)             setState:                   (NSString *)    newState;
 -(NSString*)        state;
 -(IBAction)         toggle:                     (id)            sender;
+-(BOOL)             unprotectConfigurationFile: (NSString *)    configFilePath;
 -(BOOL)             usedSetNameserver;
 
 @end

@@ -22,6 +22,12 @@
 /* Window title */
 "Alert" = "Alerta";
 
+/* NEEDS TRANSLATION *//* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"All configuration files removed" = "All configuration files removed";
+
 /* Window title */
 "Authentication failed" = "Error de Autenticación";
 
@@ -50,7 +56,7 @@
 "Configuration Change" = "Configuration Change";
 
 /* Window text */
-"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "El archivo de configuración %1$@ esta en un disco remoto. Tunnelblick requiere que los archivos de configuración esten en un disco local por razones de seguridad\n\n¿Desea que Tunnelblick creé y use una copia local del archivo de configuración en %2$@?\n\n(Necesitará los credenciales de un administrador y su clave.)\n";
+"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "El archivo de configuración %1$@ esta en un disco remoto. Tunnelblick requiere que los archivos de configuración esten en un disco local por razones de seguridad\n\n¿Desea que Tunnelblick creé y use una copia local del archivo de configuración en %2$@?\n\n(Necesitará los credenciales de un administrador y su clave.)\n";
 
 /* Button */
 "Connect"    = "Conectar";
@@ -91,8 +97,17 @@
 /* Button */
 "Edit configuration" = "Editar configuración";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Examine the configuration file?" = "Examine the configuration file?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Examine" = "Examine";
+
 /* Connection status */
 "GET_CONFIG" = "Cargando configuración";
+
+/* NEEDS TRANSLATION *//* Window text */
+"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
 /* Button */
 "Install and edit sample configuration file" = "Instalar y editar un archivo de configuración ejemplo";
@@ -206,6 +221,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
+/* NEEDS TRANSLATION *//* Window title */
+"The configuration file is protected" = "The configuration file is protected";
+
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Los credenciales (clave secreta o usuario/clave) no fueron aceptados por el servidor de VPN.";
 
@@ -239,6 +257,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no pudo reparar los permisos del archivo de configuración. Vea la Bitácora de Consola para más detalles.";
+
 /* Window text */
 "Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick no pudo copiar el archivo openvpn.conf a %@";
 
@@ -249,16 +270,19 @@
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick no pudo crear un fichero para la configuración local alterna. Vea la Bitácora de Consola para más detalles.";
 
 /* Window text */
-"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no pudo reparar los permisos del archivo de configuración. Vea la Bitácora de Consola para más detalles.";
-
-/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick se ha desconectado de '%@' porque su archivo de configuración ha sido borrado.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d conexiones activas.";
 
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 conexion activa.";
+
+/* NEEDS TRANSLATION *//* Button */
+"Unprotect and Modify" = "Unprotect and Modify";
 
 /* NEEDS TRANSLATION *//* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
@@ -283,6 +307,12 @@
 
 /* Window text */
 "You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "Usted ha eliminado todos los archivos de configuración de ~/Library/Application Support/Tunnelblick/Configurations. ¿Desea instalar y editar un archivo de configuración ejemplo? De lo contrario, deberá salir de Tunnelblick y usted mismo agregar uno o más archivos de configuración en ~/Library/Application Support/Tunnelblick/Configurations/.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
 
 /* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Debe reinstalar Tunnelblick. Por favor mueva Tunnelblick al Basurero y descargue una copia nueva del instalador.  El error fue:\n\n%@";

@@ -4,15 +4,6 @@
 /* Window title */
 "All configuration files removed" = "All configuration files removed";
 
-/* Menu item */
-"Automatically Check for Updates" = "Automatically Check for Updates";
-
-/* Menu item */
-"Check For Updates Now" = "Check For Updates Now";
-
-/* Window title */
-"Configuration Change" = "Configuration Change";
-
 /* Window title */
 "Examine the configuration file?" = "Examine the configuration file?";
 
@@ -21,48 +12,6 @@
 
 /* Window text */
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
-
-/* Checkbox name */
-"Monitor DNS" = "Monitor DNS";
-
-/* Checkbox name */
-"Monitor WINS" = "Monitor WINS";
-
-/* Checkbox name */
-"Monitor connection" = "Monitor connection";
-
-/* Menu item */
-"Monitor the Configuration Folder" = "Monitor the Configuration Folder";
-
-/* Menu item */
-"Options" = "Options";
-
-/* Menu item */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
-
-/* Menu item */
-"Preferences" = "Preferences";
-
-/* Menu item */
-"Send Anonymous System Profile" = "Send Anonymous System Profile";
-
-/* Menu item */
-"Show Connection Timers" = "Show Connection Timers";
-
-/* Menu item tooltip */
-"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
-
-/* Menu item tooltip */
-"Takes effect immediately" = "Takes effect immediately";
-
-/* Menu item tooltip */
-"Takes effect the next time Tunnelblick is launched" = "Takes effect the next time Tunnelblick is launched";
-
-/* Menu item tooltip */
-"Takes effect with the next connection" = "Takes effect with the next connection";
-
-/* Window text */
-"The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
 /* Window title */
 "The configuration file is protected" = "The configuration file is protected";
@@ -74,19 +23,10 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick konnte nicht die Zugriffsberechtigungen für die Konfigurationsdatei reparieren. Bitte sehen Sie in das Console Log für weitere Details.";
-
-/* Window text */
 "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Button */
 "Unprotect and Modify" = "Unprotect and Modify";
-
-/* Menu item */
-"Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
-
-/* Menu item */
-"Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";
 
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";

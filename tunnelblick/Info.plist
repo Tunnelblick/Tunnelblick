@@ -29,8 +29,8 @@
 	<key>SUFeedURL</key>
 	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>SUEnableSystemProfiling</key>
-	<string>YES</string>
+	<true/>
 	<key>Build</key>
-	<string>1323</string>
+	<string>1324</string>
 </dict>
 </plist>

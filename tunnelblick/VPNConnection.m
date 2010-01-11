@@ -35,7 +35,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 @interface VPNConnection()          // PRIVATE METHODS
 
--(BOOL)             configNeedsRepair:          (NSString *)        configFile;
+-(BOOL)             configNotProtected:         (NSString *)        configFile;
 -(void)             connectToManagementSocket;
 -(BOOL)             copyFile:                   (NSString *)        source
                       toFile:                   (NSString *)        target
@@ -48,11 +48,15 @@ extern TBUserDefaults  * gTbDefaults;
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
 -(BOOL)             onRemoteVolume:             (NSString *)        cfgPath;
 -(void)             processLine:                (NSString *)        line;
--(BOOL)             repairConfigPermissions:    (NSString *)        configFile
-                                  usingAuth:    (AuthorizationRef)  authRef;
+-(BOOL)             protectConfigurationFile:   (NSString *)        configFile
+                                   usingAuth:   (AuthorizationRef)  authRef;
+-(BOOL)             setConfigurationFileAtPath: (NSString *)        configFilePath
+                                       toOwner: (int)               owner
+                                      andGroup: (int)               group
+                               withPermissions: (NSString *)        permissions
+                                     usingAuth: (AuthorizationRef) authRef;
 -(void)             setConnectedSinceDate:      (NSDate *)          value;
 -(void)             setManagementSocket:        (NetSocket *)       socket;
-
 @end
 
 @implementation VPNConnection
@@ -656,7 +660,7 @@ extern TBUserDefaults  * gTbDefaults;
 	return YES;
 }
 
--(BOOL)configNeedsRepair:(NSString *)configFile 
+-(BOOL)configNotProtected:(NSString *)configFile 
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:configFile traverseLink:YES];
@@ -675,7 +679,7 @@ extern TBUserDefaults  * gTbDefaults;
 // Returns the path to use, or nil if can't use either one
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {
-    if (  ! [self configNeedsRepair:cfgPath]  ) {                             // If config doesn't need repair
+    if (  ! [self configNotProtected:cfgPath]  ) {                             // If config doesn't need repair
         if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {  // And not using shadow configuration files
             return cfgPath;                                                   // Then use it
         }
@@ -693,7 +697,7 @@ extern TBUserDefaults  * gTbDefaults;
             AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
             return nil;
         }
-        if( ! [self repairConfigPermissions:cfgPath usingAuth:authRef] ) {
+        if( ! [self protectConfigurationFile:cfgPath usingAuth:authRef] ) {
             AuthorizationFree(authRef, kAuthorizationFlagDefaults);
             return nil;
         }
@@ -706,7 +710,7 @@ extern TBUserDefaults  * gTbDefaults;
             // Alt config exists
             if ( [fMgr contentsEqualAtPath:cfgPath andPath:altCfgPath] ) {              // See if files are the same
                 // Alt config exists and is the same as regular config
-                if ( [self configNeedsRepair:altCfgPath] ) {                            // Check ownership/permissions
+                if ( [self configNotProtected:altCfgPath] ) {                            // Check ownership/permissions
                     // Alt config needs repair
                     NSLog(@"The shadow copy of configuration file %@ needs ownership/permissions repair", cfgPath);
                     authRef = [NSApplication getAuthorizationRef: @"The shadow copy of the configuration file needs ownership/permissions repair"]; // Repair if necessary
@@ -715,7 +719,7 @@ extern TBUserDefaults  * gTbDefaults;
                         AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                         return nil;
                     }
-                    if(  ! [self repairConfigPermissions:altCfgPath usingAuth:authRef]  ) {
+                    if(  ! [self protectConfigurationFile:altCfgPath usingAuth:authRef]  ) {
                         AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                         return nil;                                                     // Couldn't repair alt file
                     }
@@ -751,7 +755,7 @@ extern TBUserDefaults  * gTbDefaults;
             }
             if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {
                 // Get user's permission to proceed
-                NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
+                NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                                           [self configName],
                                                                           NSLocalizedString(@"Create local copy of configuration file?", @"Window title")],
@@ -866,9 +870,9 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
     // Set the file's ownership and permissions
-    if (  [self configNeedsRepair:target]  ) {
+    if (  [self configNotProtected:target]  ) {
         NSLog(@"Shadow copy of configuration file %@ needs ownership/permissions repair", source);
-        if (  ! [self repairConfigPermissions:target usingAuth:authRef]  ) {
+        if (  ! [self protectConfigurationFile:target usingAuth:authRef]  ) {
             return FALSE;
         }
     }
@@ -915,73 +919,124 @@ extern TBUserDefaults  * gTbDefaults;
     return TRUE;
 }
 
-// Attempts to set ownership/permissions on a config file to root/0644
+// Attempts to set ownership/permissions on a config file to root:wheel/0644
 // Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
--(BOOL)repairConfigPermissions:(NSString *)configFilePath usingAuth:(AuthorizationRef)authRef
+-(BOOL)protectConfigurationFile:(NSString *) configFilePath usingAuth: (AuthorizationRef) authRef
 {
-	OSStatus status;
-	int i = 0;
-	int maxtries = 5;
-	NSFileManager * fileManager = [NSFileManager defaultManager];
-    NSDictionary * fileAttributes;
-    unsigned long perms;
-	NSString * octalString;
-    NSNumber * fileOwner;
-	
+    return [self setConfigurationFileAtPath: configFilePath
+                                    toOwner: 0
+                                   andGroup: 0
+                            withPermissions: @"644"
+                                  usingAuth: authRef];
+}
+
+// Sets ownership/permissions on a config file to the current user:group/0644 without using authorization
+// Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
+-(BOOL)unprotectConfigurationFile:(NSString *) configFilePath
+{
+    // Do it by replacing the root-owned file with a user-owned copy (keep root-owned file as a backup)
+    NSString * configBackupPath = [configFilePath stringByAppendingPathExtension:@"previous"];
+    NSString * configTempPath   = [configFilePath stringByAppendingPathExtension:@"temp"];
+    
+    NSFileManager * fMgr = [NSFileManager defaultManager];
+    
+    // Although the documentation for copyPath:toPath:handler: says that the file's ownership and permissions are copied, the ownership
+    // of a file owned by root is NOT copied. Instead, the owner is the currently logged-in user:group, which is *exactly* what we want!
+    [fMgr removeFileAtPath: configTempPath handler: nil];
+    if (  ! [fMgr copyPath: configFilePath toPath: configTempPath handler: nil]  ) {
+        NSLog(@"Unable to copy %@ to %@", configFilePath, configTempPath);
+        return FALSE;
+    }
+    
+    [fMgr removeFileAtPath: configBackupPath handler: nil];
+    if (  ! [fMgr movePath: configFilePath toPath: configBackupPath handler: nil]  ) {
+        NSLog(@"Unable to rename %@ to %@", configFilePath, configBackupPath);
+        return FALSE;
+    }
+    
+    if (  ! [fMgr movePath: configTempPath toPath: configFilePath handler: nil]  ) {
+        NSLog(@"Unable to rename %@ to %@", configTempPath, configFilePath);
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+// Sets ownership and permissions for a configuration file using an authorization
+-(BOOL)setConfigurationFileAtPath: (NSString *) configFilePath toOwner: (int) owner andGroup: (int) group withPermissions: (NSString *) permissions usingAuth: (AuthorizationRef) authRef
+{
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    BOOL failed = FALSE;
+
     // Warn user if the file is locked
     NSDictionary * curAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
     if (  [curAttributes fileIsImmutable]  ) {
-        NSLog(@"Configuration file needs repair but is locked: %@", configFilePath);
+        NSLog(@"Configuration file needs ownership and/or permissions change but is locked: %@", configFilePath);
     } else {
 
         // Try to set permissions
+        OSStatus status;
+        int i = 0;
+        int maxtries = 5;
+        NSDictionary * fileAttributes;
+        unsigned long perms;
+        NSString * octalString;
+        int fileOwner;
+        
         NSString * helper = @"/bin/chmod";
-        NSArray * arguments = [NSArray arrayWithObjects:@"644", configFilePath, nil];
+        NSArray * arguments = [NSArray arrayWithObjects: permissions, configFilePath, nil];
         for (i=0; i <= maxtries; i++) {
-            status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+            if (  i != 0  ) {
+                sleep(1);
+                status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+            }
             fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
             perms = [fileAttributes filePosixPermissions];
             octalString = [NSString stringWithFormat:@"%lo",perms];
-            if (  [octalString isEqualToString:@"644"]  ) {
+            if (  [octalString isEqualToString: permissions]  ) {
                 break;
             }
-            sleep(1);
         }
-        if (  ! [octalString isEqualToString:@"644"]  ) {
-            NSLog(@"Unable to change permissions of configuration file %@ from 0%@ to 0644 in %d attempts; OSStatus = @ld", configFilePath, octalString, maxtries, status);
-        }
-        
-        // Try to set ownership
-        helper = @"/usr/sbin/chown";
-        arguments = [NSArray arrayWithObjects:@"root:wheel", configFilePath, nil];
-        
-        for (i=0; i <= maxtries; i++) {
-            status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
-            fileOwner = [fileAttributes fileOwnerAccountID];
-            if (  [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
-                break;
+        if (  ! [octalString isEqualToString: permissions]  ) {
+            NSLog(@"Unable to change permissions of configuration file %@ from 0%@ to 0%@ in %d attempts; OSStatus = @ld", configFilePath, octalString, permissions, maxtries, status);
+            failed = TRUE;
+        } else {
+            
+            // Try to set ownership
+            helper = @"/usr/sbin/chown";
+            arguments = [NSArray arrayWithObjects: [NSString stringWithFormat: @"%d:%d", owner, group], configFilePath, nil];
+            
+            for (i=0; i <= maxtries; i++) {
+                if (  i != 0  ) {
+                    sleep(1);
+                    status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
+                }
+                fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
+                fileOwner = [[fileAttributes fileOwnerAccountID] intValue];
+                if (  fileOwner == owner  ) {
+                    break;
+                }
             }
-            sleep(1);
-        }
-        if (  ! [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
-            NSLog(@"Unable to change ownership of configuration file %@ from %@ to 0 in %d attempts. OSStatus = @ld", configFilePath, fileOwner, maxtries, status);
+            if (  fileOwner != owner  ) {
+                NSLog(@"Unable to change ownership of configuration file %@ from %d to %d in %d attempts. OSStatus = @ld", configFilePath, fileOwner, owner, maxtries, status);
+                failed = TRUE;
+            }
         }
     }
         
-    if (  [self configNeedsRepair:configFilePath]  ) {
+    if (  failed  ) {
+        NSLog(@"Could not change ownership and/or permissions of configuration file %@", configFilePath);
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                    [self configName],
                                                    NSLocalizedString(@"Not connecting", @"Window title")],
-                        NSLocalizedString(@"Tunnelblick could not repair ownership and permissions of the configuration file. See the Console Log for details.", @"Window text"),
+                        NSLocalizedString(@"Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details.", @"Window text"),
                         nil,
                         nil,
                         nil);
-        NSLog(@"Could not repair ownership/permissions of configuration file %@", configFilePath);
         return NO;
     }
 
-    NSLog(@"Repaired ownership/permissions of configuration file %@", configFilePath);
+    NSLog(@"Changed ownership and permissions of configuration file %@ to %d:%d and %@", configFilePath, owner, group, permissions);
     return YES;
 }
 
