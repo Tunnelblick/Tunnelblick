@@ -130,6 +130,11 @@ extern TBUserDefaults  * gTbDefaults;
         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [deployDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         gTbDefaults = [[TBUserDefaults alloc] initWithDefaultsDictionary: dict];
         
+        // Set default preferences as needed
+        if (  [gTbDefaults objectForKey: @"showConnectedDurations"] == nil  ) {
+            [gTbDefaults setBool: TRUE forKey: @"showConnectedDurations"];
+        }
+        
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
 
@@ -400,20 +405,20 @@ extern TBUserDefaults  * gTbDefaults;
                                                      andPreferenceKey: @"doNotMonitorConfigurationFolder"
                                                               negated: YES];
         
-        warnAboutSimultaneousItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Warn About Simultaneous Connections", @"Menu item")
-                                                          andAction: @selector(toggleWarnAboutSimultaneous:)
-                                                         andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
-                                                 atIndentationLevel: 1
-                                                   andPreferenceKey: @"skipWarningAboutSimultaneousConnections"
-                                                            negated: YES];
-        
-        showConnectedDurationsItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Show Connection Timers", @"Menu item")
-                                                          andAction: @selector(toggleConnectionTimers:)
-                                                         andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
-                                                 atIndentationLevel: 1
-                                                   andPreferenceKey: @"showConnectedDurations"
-                                                            negated: NO];
-        
+//        warnAboutSimultaneousItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Warn About Simultaneous Connections", @"Menu item")
+//                                                          andAction: @selector(toggleWarnAboutSimultaneous:)
+//                                                         andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
+//                                                 atIndentationLevel: 1
+//                                                   andPreferenceKey: @"skipWarningAboutSimultaneousConnections"
+//                                                            negated: YES];
+//        
+//        showConnectedDurationsItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Show Connection Timers", @"Menu item")
+//                                                          andAction: @selector(toggleConnectionTimers:)
+//                                                         andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
+//                                                 atIndentationLevel: 1
+//                                                   andPreferenceKey: @"showConnectedDurations"
+//                                                            negated: NO];
+//        
         useShadowCopiesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Shadow Copies of Configuration Files", @"Menu item")
                                                     andAction: @selector(toggleUseShadowCopies:)
                                                    andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
