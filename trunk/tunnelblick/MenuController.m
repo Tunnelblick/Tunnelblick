@@ -40,74 +40,16 @@
 #import "NetSocket.h"
 #import "NSApplication+LoginItem.h"
 #import "NSApplication+NetworkNotifications.h"
+#import "NSApplication+SystemVersion.h"
 #import "helper.h"
 #import "TBUserDefaults.h"
 
 extern TBUserDefaults  * gTbDefaults;
 
-// *******************************************************************************************************************
-// Start of code from http://www.cocoadev.com/index.pl?DeterminingOSVersion
-
-@interface NSApplication (SystemVersion)
-
-- (void)getSystemVersionMajor:(unsigned *)major
-                        minor:(unsigned *)minor
-                       bugFix:(unsigned *)bugFix;
-
-@end
-
-@implementation NSApplication (SystemVersion)
-
-- (void)getSystemVersionMajor:(unsigned *)major
-                        minor:(unsigned *)minor
-                       bugFix:(unsigned *)bugFix;
-{
-    OSErr err;
-    SInt32 systemVersion, versionMajor, versionMinor, versionBugFix;
-    if ((err = Gestalt(gestaltSystemVersion, &systemVersion)) != noErr) goto fail;
-    if (systemVersion < 0x1040)
-    {
-        if (major) *major = ((systemVersion & 0xF000) >> 12) * 10 +
-            ((systemVersion & 0x0F00) >> 8);
-        if (minor) *minor = (systemVersion & 0x00F0) >> 4;
-        if (bugFix) *bugFix = (systemVersion & 0x000F);
-    }
-    else
-    {
-        if ((err = Gestalt(gestaltSystemVersionMajor, &versionMajor)) != noErr) goto fail;
-        if ((err = Gestalt(gestaltSystemVersionMinor, &versionMinor)) != noErr) goto fail;
-        if ((err = Gestalt(gestaltSystemVersionBugFix, &versionBugFix)) != noErr) goto fail;
-        if (major) *major = versionMajor;
-        if (minor) *minor = versionMinor;
-        if (bugFix) *bugFix = versionBugFix;
-    }
-    
-    return;
-    
-fail:
-    NSLog(@"Unable to obtain system version: %ld", (long)err);
-    if (major) *major = 10;
-    if (minor) *minor = 0;
-    if (bugFix) *bugFix = 0;
-}
-
-@end
-
-// End of code from http://www.cocoadev.com/index.pl?DeterminingOSVersion
-// *******************************************************************************************************************
-
-BOOL runningOnTigerOrNewer()
-{
-    unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 2) );
-}
-
 @interface NSStatusBar (NSStatusBar_Private)
 - (id)_statusItemWithLength:(float)l withPriority:(int)p;
 - (id)_insertStatusItem:(NSStatusItem *)i withPriority:(int)p;
 @end
-
 
 @implementation MenuController
 
@@ -1133,40 +1075,19 @@ BOOL runningOnTigerOrNewer()
                 }
             }
         }
-    
+        
         if (  numConnections != 1  ) {
-            // Dictionary for the panel -- can't use NSPanel because the Tiger version of NSPanel doesn't support "Don't show this message again" checkbox
-            NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-            NSString *question = [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ];
-            [dict setObject:NSLocalizedString(@"Do you wish to connect?", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
-            [dict setObject:question forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-            if (  [gTbDefaults canChangeValueForKey: @"skipWarningAboutSimultaneousConnections"]  ) {
-                [dict setObject:NSLocalizedString(@"Do not warn about this again", @"Checkbox name") forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
-            }
-            [dict setObject:NSLocalizedString(@"Connect", @"Button") forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-            [dict setObject:NSLocalizedString(@"Cancel", @"Button") forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
-            SInt32 error;
-            CFUserNotificationRef notification = CFUserNotificationCreate(NULL, 30, CFUserNotificationSecureTextField(0), &error, (CFDictionaryRef)dict);
-            CFOptionFlags response;
-            // If we couldn't receive a response, don't connect
-            if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
-                CFRelease(notification);
+            int button = TBRunAlertPanelExtended(NSLocalizedString(@"Do you wish to connect?", @"Window title"),
+                                                 [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ],
+                                                 NSLocalizedString(@"Connect", @"Button"),  // Default button
+                                                 NSLocalizedString(@"Cancel", @"Button"),   // Alternate button
+                                                 nil,
+                                                 @"skipWarningAboutSimultaneousConnections",
+                                                 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                                 nil);
+            if (  button == NSAlertAlternateReturn  ) {
                 return;
             }
-            // If user clicked Cancel, don't connect
-            if((response & 0x3) != kCFUserNotificationDefaultResponse) {
-                CFRelease(notification);
-                return;
-            }
-            // If user checked the "Do not warn... again" checbox, set a preference
-            if (  [gTbDefaults canChangeValueForKey: @"skipWarningAboutSimultaneousConnections"]  ) {
-                if((response & CFUserNotificationCheckBoxChecked(0))) {
-                    [gTbDefaults setBool:TRUE forKey:@"skipWarningAboutSimultaneousConnections"];
-                    [gTbDefaults synchronize];
-                }
-            }
-
-            CFRelease(notification);
         }
     }
     
@@ -1502,6 +1423,14 @@ BOOL runningOnTigerOrNewer()
     if (  [[self getConfigs] count] != 0  ) {
         return;
     }
+
+    if (  configDirIsDeploy  ) {
+        TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
+                        [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"), configDirPath],
+                        nil, nil, nil);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
     
     NSFileManager  * fileManager     = [NSFileManager defaultManager];
     NSString       * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
@@ -1525,12 +1454,15 @@ BOOL runningOnTigerOrNewer()
         }
     }
     
-    if (  ! [fileManager createDirectoryAtPath: configDirPath attributes:nil]  ) {
-        NSLog(@"Error creating %@", configDirPath);
+    if (  ! [fileManager fileExistsAtPath: configDirPath]  ) {                      // If ~/Library/Application Support/Tunnelblick/Configurations doesn't exist, create it
+        if (  ! [fileManager createDirectoryAtPath: configDirPath attributes:nil]  ) {
+            NSLog(@"Error creating %@", configDirPath);
+        }
     }
-    
-    NSLog(@"Installing %@ to %@", [openvpnConfPath lastPathComponent], configDirPath);
-    if (  ! [fileManager copyPath: openvpnConfPath toPath: [configDirPath stringByAppendingPathComponent:@"openvpn.conf"] handler: nil]  ) {
+        
+    NSString * targetPath = [configDirPath stringByAppendingPathComponent:@"openvpn.conf"];
+    NSLog(@"Installing sample configuration file %@", targetPath);
+    if (  ! [fileManager copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
         NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", configDirPath);
         TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"), configDirPath],
@@ -1541,7 +1473,7 @@ BOOL runningOnTigerOrNewer()
         [NSApp terminate: nil];
     }
     
-    [[NSWorkspace sharedWorkspace] openFile:openvpnConfPath withApplication:@"TextEdit"];
+    [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
 }
 
 -(IBAction)editConfig:(id)sender
@@ -1549,7 +1481,70 @@ BOOL runningOnTigerOrNewer()
 	VPNConnection *connection = [self selectedConnection];
 	NSString *configFilename = [connection configFilename];
     if(configFilename == nil) configFilename = @"/openvpn.conf";
-    [[NSWorkspace sharedWorkspace] openFile:[configDirPath stringByAppendingPathComponent: configFilename] withApplication: @"TextEdit"];
+    NSString * targetPath = [configDirPath stringByAppendingPathComponent: configFilename];
+
+    // To allow Tiger and Leopard users to edit and save a configuration file, we allow the user to unprotect the file before editing. 
+    // This is because, although on Snow Leoapard TextEdit can save the file (the new file will be owned by the current user, with 644 permissions),
+    // on Tiger and Leopard TextEdit cannot save a file if it is protected (owned by root with 644 permissions).
+    if (  connection  ) {
+        NSFileManager  * fileManager = [NSFileManager defaultManager];
+        if (  [fileManager fileExistsAtPath: targetPath]  ) {           // Must check that file exists because isWritableAtPath returns NO if the file doesn't exist
+            if (  ! [fileManager isWritableFileAtPath: targetPath]  ) {
+                if (  runningOnSnowLeopardOrNewer()  ) {
+                    int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
+                                                         NSLocalizedString(@"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
+                                                         NSLocalizedString(@"Edit configuration", @"Button"),   // Default button
+                                                         NSLocalizedString(@"Cancel", @"Button"),               // Alternate button
+                                                         nil,                                                   // Other button
+                                                         @"skipWarningAboutReprotectingConfigurationFile",      // Preference about seeing this message again
+                                                         NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
+                                                         nil);
+                    if (  button == NSAlertAlternateReturn  ) {
+                        return;
+                    }
+                } else {
+                    if (  userIsAnAdmin || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] )  ) {
+                        // Ask if user wants to unprotect the configuration file
+                        int button = TBRunAlertPanel(NSLocalizedString(@"The configuration file is protected", @"Window title"),
+                                                     NSLocalizedString(@"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
+                                                     NSLocalizedString(@"Examine", @"Button"),              // Default button
+                                                     NSLocalizedString(@"Unprotect and Modify", @"Button"), // Alternate button
+                                                     NSLocalizedString(@"Cancel", @"Button"));              // Other button
+                        if (  button == NSAlertOtherReturn  ) {
+                            return;
+                        }
+                        if (  button == NSAlertAlternateReturn  ) {
+                            if (  ! [connection unprotectConfigurationFile: targetPath]  ) {
+                                int button = TBRunAlertPanel(NSLocalizedString(@"Examine the configuration file?", @"Window title"),
+                                                             NSLocalizedString(@"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?", @"Window text"),
+                                                             NSLocalizedString(@"Cancel", @"Button"),    // Default button
+                                                             NSLocalizedString(@"Examine", @"Button"),   // Alternate button
+                                                             nil);
+                                if (  button != NSAlertAlternateReturn  ) {
+                                    return;
+                                }
+                            }
+                        }
+                    } else {
+                        // User is only allowed to examine the configuration file
+                        int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
+                                                             NSLocalizedString(@"You may examine the configuration file, but you will not be allowed to modify it.", @"Window text"),
+                                                             NSLocalizedString(@"Examine", @"Button"),          // Default button
+                                                             NSLocalizedString(@"Cancel", @"Button"),           // Alternate button
+                                                             nil,                                               // Other button
+                                                             @"skipWarningThatCannotModifyConfigurationFile",   // Preference about seeing this message again
+                                                             NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
+                                                             nil);
+                        if (  button == NSAlertAlternateReturn  ) {
+                            return;
+                        }
+                    }                    
+                }
+            }
+        }
+            
+        [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
+    }
 }
 
 - (void) networkConfigurationDidChange

@@ -19,10 +19,25 @@
 
 #include "TBUserDefaults.h"
 #include "helper.h"
+#import "NSApplication+SystemVersion.h"
 
 // This file contains global variables and common routines
 
 TBUserDefaults * gTbDefaults;
+
+BOOL runningOnTigerOrNewer()
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ( (major > 10) || (minor > 2) );
+}
+
+BOOL runningOnSnowLeopardOrNewer()
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ( (major > 10) || (minor > 5) );
+}
 
 // Returns an escaped version of a string so it can be sent over the management interface
 NSString *escaped(NSString *string) {
@@ -206,6 +221,27 @@ NSRange rangeOfDigits(NSString * s)
 
 int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLabel, NSString * alternateButtonLabel, NSString * otherButtonLabel)
 {
+    return TBRunAlertPanelExtended(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, nil, nil, nil);
+}
+
+// Like TBRunAlertPanel but allows a "do not show again" preference key and checkbox, or a checkbox for some other function.
+// If the preference is set, the panel is not shown and "NSAlertDefaultReturn" is returned.
+// If the preference can be changed by the user, or the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
+// If the preference can be changed by the user, the preference is set if the user checks the box and the default button is clicked.
+// If the checkboxResult pointer is not nil, the value of the checkbox is returned.
+int TBRunAlertPanelExtended(NSString * title,
+                            NSString * msg,
+                            NSString * defaultButtonLabel,
+                            NSString * alternateButtonLabel,
+                            NSString * otherButtonLabel,
+                            NSString * doNotShowAgainPreferenceKey,
+                            NSString * checkboxLabel,
+                            BOOL     * checkboxResult)
+{
+    if (  doNotShowAgainPreferenceKey && [gTbDefaults boolForKey: doNotShowAgainPreferenceKey]  ) {
+        return NSAlertDefaultReturn;
+    }
+    
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                   msg,  kCFUserNotificationAlertMessageKey,
                                   [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"tunnelblick" ofType: @"icns"]],
@@ -237,6 +273,14 @@ int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLa
                  forKey: (NSString *)kCFUserNotificationOtherButtonTitleKey];
     }
     
+    if (  checkboxLabel  ) {
+        if (   checkboxResult
+            || ( doNotShowAgainPreferenceKey && [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey] )
+            ) {
+            [dict setObject: checkboxLabel forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+        }
+    }
+    
     SInt32 error;
     CFUserNotificationRef notification;
     CFOptionFlags response;
@@ -253,9 +297,22 @@ int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLa
     CFRelease(notification);
     [dict release];
     
+    if (  checkboxResult  ) {
+        * checkboxResult = response & CFUserNotificationCheckBoxChecked(0);
+    } 
+
     switch (response & 0x3) {
         case kCFUserNotificationDefaultResponse:
-            return NSAlertDefaultReturn;
+           if (  checkboxLabel  ) {
+               if (   doNotShowAgainPreferenceKey
+                   && [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
+                   && ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
+                   [gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
+                   [gTbDefaults synchronize];
+               }
+           }
+           
+           return NSAlertDefaultReturn;
             
         case kCFUserNotificationAlternateResponse:
             return NSAlertAlternateReturn;

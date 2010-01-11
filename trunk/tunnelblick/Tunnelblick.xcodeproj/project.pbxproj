@@ -46,6 +46,7 @@
 		61BC4E7A0E2FA8D600F24255 /* client.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E780E2FA8D000F24255 /* client.up.osx.sh */; };
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
+		6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */; };
 		635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */; };
@@ -175,6 +176,8 @@
 		61BC4E780E2FA8D000F24255 /* client.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.osx.sh; sourceTree = "<group>"; };
 		61C03B960ED4E42A00175F22 /* NB.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NB.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
+		6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+SystemVersion.h"; sourceTree = "<group>"; };
+		6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+SystemVersion.m"; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.up.osx.sh; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 				61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */,
 				61BC4B710E2F9EBC00F24255 /* NSApplication+NetworkNotifications.h */,
 				61BC4B720E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m */,
+				6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */,
+				6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */,
 				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
 				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
 				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
@@ -327,8 +332,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
-				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */,
 				634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
@@ -344,6 +347,8 @@
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
+				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
+				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
 				61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */,
 				61BC4DB10E2FA3C300F24255 /* LogWindow.nib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.nib */,
@@ -565,6 +570,7 @@
 				6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */,
 				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
+				6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

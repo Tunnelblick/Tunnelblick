@@ -1,3 +1,9 @@
+/* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
+
+/* Window title */
+"All configuration files removed" = "All configuration files removed";
+
 /* Menu item */
 "Automatically Check for Updates" = "Automatically Check for Updates";
 
@@ -6,6 +12,15 @@
 
 /* Window title */
 "Configuration Change" = "Configuration Change";
+
+/* Window title */
+"Examine the configuration file?" = "Examine the configuration file?";
+
+/* Button */
+"Examine" = "Examine";
+
+/* Window text */
+"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
 /* Checkbox name */
 "Monitor DNS" = "Monitor DNS";
@@ -50,14 +65,32 @@
 "The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
 /* Window title */
+"The configuration file is protected" = "The configuration file is protected";
+
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
+
+/* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no pudo reparar los permisos del archivo de configuración. Vea la Bitácora de Consola para más detalles.";
+
+/* Window text */
+"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+
+/* Button */
+"Unprotect and Modify" = "Unprotect and Modify";
 
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";
+
+/* Window text */
+"You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
 

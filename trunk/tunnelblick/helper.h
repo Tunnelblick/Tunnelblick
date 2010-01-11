@@ -28,6 +28,16 @@ int            TBRunAlertPanel      (NSString * title,
                                      NSString * defaultButtonLabel,
                                      NSString * alternateButtonLabel,
                                      NSString * otherButtonLabel);
+int TBRunAlertPanelExtended         (NSString * title,
+                                     NSString * msg,
+                                     NSString * defaultButtonLabel,
+                                     NSString * alternateButtonLabel,
+                                     NSString * otherButtonLabel,
+                                     NSString * doNotShowAgainPreferenceKey,
+                                     NSString * checkboxLabel,
+                                     BOOL     * checkboxResult);
 NSString     * tunnelblickVersion   (void);
 BOOL           useDNSStatus         (id connection);
 BOOL           isUserAnAdmin        (void);
+BOOL           runningOnTigerOrNewer();
+BOOL           runningOnSnowLeopardOrNewer();
