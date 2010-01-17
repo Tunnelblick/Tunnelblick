@@ -63,15 +63,29 @@ BOOL useDNSStatus(id connection)
 }
 
 // Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3 (3.0b12 build 157)"
-NSString * tunnelblickVersion(void)
+NSString * tunnelblickVersion(NSBundle * bundle)
 {
-    NSString * TBFullV = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString * TBFullV = [bundle objectForInfoDictionaryKey:@"CFBundleVersion"];
     NSDictionary * TunnelblickV = parseVersion(TBFullV);
-    NSString * version      = [NSString stringWithFormat:@"Tunnelblick %@ (%@ build %@)",
-                               [TunnelblickV objectForKey:@"major"],
-                               TBFullV,
-                               [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Build"]
-                              ];
+    NSMutableString * version = [NSMutableString stringWithCapacity: 30];
+    [version appendString: @"Tunnelblick"];
+    id major = [TunnelblickV objectForKey:@"major"];
+    if (  major  ) {
+        [version appendFormat: @" %@", major];
+    }
+    if (  TBFullV  ) {
+        [version appendFormat: @" (%@", TBFullV];
+    }
+    id build = [bundle objectForInfoDictionaryKey:@"Build"];
+    if (  build  ) {
+        [version appendFormat: @" build %@", build];
+    }
+    if (  TBFullV  ) {
+        [version appendFormat: @")"];
+    }
+    if (  ( ! TBFullV ) && ( ! major) && ( ! build) ) {
+        [version appendFormat: @" (no version information)"];
+    }
     return (version);
 }
 
@@ -83,7 +97,7 @@ NSString * openVPNVersion(void)
                                [OpenVPNV objectForKey:@"major"],
                                [OpenVPNV objectForKey:@"full"]
                               ];
-    return (version);
+    return ([NSString stringWithString: version]);
 }
 
 // Returns a dictionary from parseVersion with version info about OpenVPN
@@ -228,7 +242,7 @@ int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLa
 // If the preference is set, the panel is not shown and "NSAlertDefaultReturn" is returned.
 // If the preference can be changed by the user, or the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
 // If the preference can be changed by the user, the preference is set if the user checks the box and the default button is clicked.
-// If the checkboxResult pointer is not nil, the value of the checkbox is returned.
+// If the checkboxResult pointer is not nil, the initial value of the checkbox will be set from it, and the value of the checkbox is returned to it.
 int TBRunAlertPanelExtended(NSString * title,
                             NSString * msg,
                             NSString * defaultButtonLabel,
@@ -284,9 +298,16 @@ int TBRunAlertPanelExtended(NSString * title,
     SInt32 error;
     CFUserNotificationRef notification;
     CFOptionFlags response;
+
+    CFOptionFlags checkboxChecked = 0;
+    if (  checkboxResult  ) {
+        if (  * checkboxResult  ) {
+            checkboxChecked = CFUserNotificationCheckBoxChecked(0);
+        }
+    }
     
     [NSApp activateIgnoringOtherApps:YES];
-    notification = CFUserNotificationCreate(NULL, 0, 0, &error, (CFDictionaryRef) dict);
+    notification = CFUserNotificationCreate(NULL, 0, checkboxChecked, &error, (CFDictionaryRef) dict);
     
     if(  error || CFUserNotificationReceiveResponse(notification, 0, &response)  ) {
         CFRelease(notification);
@@ -298,7 +319,11 @@ int TBRunAlertPanelExtended(NSString * title,
     [dict release];
     
     if (  checkboxResult  ) {
-        * checkboxResult = response & CFUserNotificationCheckBoxChecked(0);
+        if (  response & CFUserNotificationCheckBoxChecked(0)  ) {
+            * checkboxResult = TRUE;
+        } else {
+            * checkboxResult = FALSE;
+        }
     } 
 
     switch (response & 0x3) {
@@ -361,10 +386,13 @@ BOOL isUserAnAdmin(void)
     return (rng.location != NSNotFound);
 }
 
-// This method is never invoked. It is a place to put strings which are used in the .nib or come from OpenVPN
+// This method is never invoked. It is a place to put strings which are used in the DMG or the .nib or come from OpenVPN
 // They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.
 void localizableStrings(void)
 {
+    // This string comes from the "Other Sources/dmgFiles/background.rtf" file, used to generate an image for the DMG
+    NSLocalizedString(@"Double-click to begin", @"Text on disk image");
+    
     // These strings come from the .nib
     NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title");
     NSLocalizedString(@"Clear log",                         @"Button");

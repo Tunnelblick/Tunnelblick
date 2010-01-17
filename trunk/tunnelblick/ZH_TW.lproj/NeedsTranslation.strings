@@ -1,8 +1,41 @@
 /* Window text */
+"(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
+
+/* Window text */
 "All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
 
 /* Window title */
 "All configuration files removed" = "All configuration files removed";
+
+/* Window text */
+"An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
+
+/* Window text */
+"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
+
+/* Window text */
+"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to downgrade\n     %1$@\nto\n     %2$@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+
+/* Window text */
+"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
+
+/* Window text */
+"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to reinstall\n     %1$@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%2$@\"\n%3$@";
+
+/* Window text */
+"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to upgrade\n     %1$@\nto\n     %2$@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+
+/* Text on disk image */
+"Double-click to begin" = "Double-click to begin";
+
+/* Window title */
+"Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
+
+/* Window title */
+"Downgrade succeeded" = "Downgrade succeeded";
+
+/* Button */
+"Downgrade" = "Downgrade";
 
 /* Window title */
 "Examine the configuration file?" = "Examine the configuration file?";
@@ -14,16 +47,64 @@
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
 /* Window title */
+"Install Tunnelblick?" = "Install Tunnelblick?";
+
+/* Button */
+"Install" ="Install";
+
+/* Window title */
+"Installation succeeded" = "Installation succeeded";
+
+/* Button */
+"Launch" = "Launch";
+
+/* Window title */
+"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
+
+/* Button */
+"Reinstall" = "Reinstall";
+
+/* Window title */
+"Reinstallation succeeded" = "Reinstallation succeeded";
+
+/* Window title */
 "The configuration file is protected" = "The configuration file is protected";
 
 /* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick 未能修復設定檔之擁有者及使用權限. 詳情請查看控制台日誌.";
 
 /* Window text */
+"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
 "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+
+/* Window title */
+"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
 
 /* Button */
 "Unprotect and Modify" = "Unprotect and Modify";
+
+/* Window title */
+"Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
+
+/* Window title */
+"Upgrade succeeded" = "Upgrade succeeded";
+
+/* Button */
+"Upgrade" = "Upgrade";
 
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";

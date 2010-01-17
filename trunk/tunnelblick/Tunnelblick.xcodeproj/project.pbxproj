@@ -56,6 +56,7 @@
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		638FA0DE10B0220500A03AD0 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 638FA0DD10B0220500A03AD0 /* SplashWindow.xib */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
+		63B78ADC1102419800734D73 /* dmgFiles in Resources */ = {isa = PBXBuildFile; fileRef = 63B78AD41102419800734D73 /* dmgFiles */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
@@ -189,6 +190,7 @@
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		638FA0DD10B0220500A03AD0 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
+		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				63B78AD41102419800734D73 /* dmgFiles */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
 				6140EF990E3C334800C5B93A /* openvpn */,
 				ADB23E101099514400CC52D3 /* openvpn-down-root.so */,
@@ -497,6 +500,7 @@
 				638FA0DE10B0220500A03AD0 /* SplashWindow.xib in Resources */,
 				635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */,
 				635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */,
+				63B78ADC1102419800734D73 /* dmgFiles in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,7 +518,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION = \"Release\" ]; then\nTMPDMG=build/Release/Tunnelblick\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\nmv build/Release/Tunnelblick.app $TMPDMG\nln -s /Applications/ $TMPDMG/Applications\ncp ReleaseNotes.html $TMPDMG\nmkdir \"$TMPDMG/Using Tunnelblick\"\ncp using-tunnelblick.html \"$TMPDMG/Using Tunnelblick/Using Tunnelblick.html\"\nmkdir \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\ncp using-tunnelblick-files/* \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\n# Here's where we'll make the dmg\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -scrub -srcfolder $TMPDMG build/Release/Tunnelblick.dmg\nfi";
+			shellScript = "if [ $CONFIGURATION = \"Release\" ]; then\n\n\n# Staging folder\nTMPDMG=build/Release/Tunnelblick\n\n# Folder with files for the .dmg (.DS_Store, background folder which contains background.png background image)\nDMG_FILES=dmgFiles\n\n# Remove the existing \"staging\" folder and copy Tunnelblick.app into it\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\ncp -p -R build/Release/Tunnelblick.app $TMPDMG\n\n# Copy \"ReleaseNotes.html\" to the staging folder\ncp -p ReleaseNotes.html $TMPDMG\n\n# Copy \"Using Tunnelblick.html\" and its files into a \"Using Tunnelblick\" folder\nmkdir \"$TMPDMG/Using Tunnelblick\"\ncp -p using-tunnelblick.html \"$TMPDMG/Using Tunnelblick/Using Tunnelblick.html\"\nmkdir \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\ncp using-tunnelblick-files/* \"$TMPDMG/Using Tunnelblick/using-tunnelblick-files\"\n\n# Copy the background folder and its background.png file, then name the folder invisible in the Finder\ncp -p -R $DMG_FILES/background $TMPDMG\nsetfile -a -V \"$TMPDMG/background\"\n\n# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\ncp -p -R $DMG_FILES/dotDS_Store \"$TMPDMG/.DS_Store\"\nsetfile -a -V \"$TMPDMG/.DS_Store\"\n\n# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\nrm -rf build/Release/Tunnelblick.dmg\nhdiutil create -noscrub -srcfolder $TMPDMG build/Release/Tunnelblick.dmg\n\n\nfi";
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

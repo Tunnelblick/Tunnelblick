@@ -1,6 +1,9 @@
 /* Window title */
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
+/* Window text */
+"(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
+
 /* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
@@ -24,6 +27,12 @@
 
 /* Window title */
 "All configuration files removed" = "All configuration files removed";
+
+/* Window text */
+"An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
+
+/* Window text */
+"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
 
 /* Window title */
 "Authentication failed" = "Authentication failed";
@@ -73,6 +82,30 @@
 /* Window title */
 "Do you wish to connect?" = "Do you wish to connect?";
 
+/* Window text */
+"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to downgrade\n     %1$@\nto\n     %2$@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+
+/* Window text */
+"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
+
+/* Window text */
+"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to reinstall\n     %1$@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%2$@\"\n%3$@";
+
+/* Window text */
+"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to upgrade\n     %1$@\nto\n     %2$@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+
+/* Text on disk image */
+"Double-click to begin" = "Double-click to begin";
+
+/* Window title */
+"Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
+
+/* Window title */
+"Downgrade succeeded" = "Downgrade succeeded";
+
+/* Button */
+"Downgrade" = "Downgrade";
+
 /* Button */
 "Download" = "Download";
 
@@ -88,17 +121,29 @@
 /* Window text */
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
+/* Window title */
+"Install Tunnelblick?" = "Install Tunnelblick?";
+
 /* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
 
 /* Window title */
 "Install and edit sample configuration file?" = "Install and edit sample configuration file?";
 
+/* Button */
+"Install" ="Install";
+
 /* Window title */
 "Installation failed" = "Installation failed";
 
 /* Window title */
 "Installation or Repair Failed" = "Installation or Repair Failed";
+
+/* Window title */
+"Installation succeeded" = "Installation succeeded";
+
+/* Button */
+"Launch" = "Launch";
 
 /* Checkbox name */
 "Monitor DNS" = "Monitor DNS";
@@ -128,9 +173,6 @@
 "Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
 
 /* Window text */
-"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.";
-
-/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
 /* Window title */
@@ -141,6 +183,15 @@
 
 /* Connection status */
 "RECONNECTING" = "Reconnecting";
+
+/* Window title */
+"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
+
+/* Button */
+"Reinstall" = "Reinstall";
+
+/* Window title */
+"Reinstallation succeeded" = "Reinstallation succeeded";
 
 /* Button */
 "Remove backup and do not restore" = "Remove backup and do not restore";
@@ -227,6 +278,18 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
+"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
 "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Status message */
@@ -235,8 +298,23 @@
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 connection active.";
 
+/* Window title */
+"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+
 /* Button */
 "Unprotect and Modify" = "Unprotect and Modify";
+
+/* Window title */
+"Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
+
+/* Window title */
+"Upgrade succeeded" = "Upgrade succeeded";
+
+/* Button */
+"Upgrade" = "Upgrade";
 
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
@@ -249,9 +327,6 @@
 
 /* Window title */
 "Welcome to Tunnelblick" = "Welcome to Tunnelblick";
-
-/* Window title */
-"You are trying to launch Tunnelblick from the disk image" = "You are trying to launch Tunnelblick from the disk image";
 
 /* Window text */
 "You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself.";
