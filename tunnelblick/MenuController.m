@@ -1042,7 +1042,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@; %@", major, minor, bugFix, tunnelblickVersion(), openVPNVersion()]);
+    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@; %@", major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()]);
 }
 
 - (VPNConnection*) selectedConnection
@@ -1259,7 +1259,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     NSImage  * appIcon      = [NSImage imageNamed:@"tunnelblick.icns"];
     NSString * appName      = @"Tunnelblick";
-    NSString * appVersion   = tunnelblickVersion();
+    NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);
     NSString * version      = @"";
 	
     NSString * basedOnHtml  = @"<br><br>";
@@ -1687,16 +1687,137 @@ static void signal_handler(int signalNumber)
 
 -(void) dmgCheck
 {
-	NSString *path = [[NSBundle mainBundle] bundlePath];
-	if([path hasPrefix:@"/Volumes/Tunnelblick"]) {
-		TBRunAlertPanel(NSLocalizedString(@"You are trying to launch Tunnelblick from the disk image", @"Window title"),
-                        NSLocalizedString(@"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it.", @"Window text"),
-                        NSLocalizedString(@"Cancel", @"Button"),
-                        nil,
-                        nil);
-        [NSApp setAutoLaunchOnLogin: NO];
+    [NSApp setAutoLaunchOnLogin: NO];
+    
+	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
+	if (  [currentPath hasPrefix:@"/Volumes/Tunnelblick"]  ) {
+        
+        NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);
+
+        NSFileManager * fMgr = [NSFileManager defaultManager];
+
+        NSString * standardPath;
+        
+        // Use a standardPath of /Applications/Tunnelblick.app unless overridden by a forced preference
+        NSString * deployDirPath = [currentPath stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+        NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [deployDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        id obj = [forcedDefaults objectForKey:@"standardApplicationPath"];
+        if (  ! obj  ) {
+            standardPath = @"/Applications/Tunnelblick.app";
+        } else if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
+            NSLog(@"'standardApplicationPath' preference ignored because it is not a string.");
+            standardPath = @"/Applications/Tunnelblick.app";
+        } else {
+            standardPath = [obj stringByExpandingTildeInPath];
+        }
+        
+        NSString * displayApplicationName = [fMgr displayNameAtPath: @"Tunnelblick.app"];
+        
+        NSString * standardFolder = [standardPath stringByDeletingLastPathComponent];
+
+        NSArray  * standardPathComponents = [fMgr componentsToDisplayForPath: standardPath];
+        NSString * standardPathDisplayName = [standardPathComponents componentsJoinedByString: @"/"];
+        
+        NSArray  * standardFolderComponents = [fMgr componentsToDisplayForPath: standardFolder];
+        NSString * standardFolderDisplayName = [standardFolderComponents componentsJoinedByString: @"/"];
+        
+        NSString * launchWindowTitle;
+        NSString * launchWindowText;
+        int response;
+        
+        NSString * changeLocationText = [NSString stringWithFormat: NSLocalizedString(@"(To install to a different location, drag %@ to that location.)", @"Window text"), displayApplicationName];
+
+        if (  [fMgr fileExistsAtPath: standardPath]  ) {
+            NSBundle * previousBundle = [NSBundle bundleWithPath: standardPath];
+            int previousBuild = [self buildIntValueForBundle: previousBundle];
+            int currentBuild  = [self buildIntValueForBundle: [NSBundle mainBundle]];
+            NSString * previousVersion = tunnelblickVersion(previousBundle);
+            if (  currentBuild < previousBuild  ) {
+                launchWindowTitle = NSLocalizedString(@"Downgrade succeeded", @"Window title");
+                launchWindowText = NSLocalizedString(@"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
+                response = TBRunAlertPanel(NSLocalizedString(@"Downgrade Tunnelblick?", @"Window title"),
+                                           [NSString stringWithFormat: NSLocalizedString(@"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%@\"\n%@", @"Window text"), previousVersion, appVersion, standardFolderDisplayName, changeLocationText],
+                                           NSLocalizedString(@"Downgrade", @"Button"),  // Default button
+                                           NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
+                                           nil);                                        // Other button
+            } else if (  currentBuild == previousBuild  ) {
+                launchWindowTitle = NSLocalizedString(@"Reinstallation succeeded", @"Window title");
+                launchWindowText = NSLocalizedString(@"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
+                response = TBRunAlertPanel(NSLocalizedString(@"Reinstall Tunnelblick?", @"Window title"),
+                                           [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%@\"\n%@", @"Window text"), previousVersion, standardFolderDisplayName, changeLocationText],
+                                           NSLocalizedString(@"Reinstall", @"Button"),  // Default button
+                                           NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
+                                           nil);                                        // Other button
+            } else {
+                launchWindowTitle = NSLocalizedString(@"Upgrade succeeded", @"Window title");
+                launchWindowText = NSLocalizedString(@"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
+                previousVersion = tunnelblickVersion(previousBundle);
+                response = TBRunAlertPanel(NSLocalizedString(@"Upgrade Tunnelblick?", @"Window title"),
+                                           [NSString stringWithFormat: NSLocalizedString(@"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%@\"\n%@", @"Window text"), previousVersion, appVersion, standardFolderDisplayName, changeLocationText],
+                                           NSLocalizedString(@"Upgrade", @"Button"),    // Default button
+                                           NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
+                                           nil);                                        // Other button
+            }
+        } else {
+            launchWindowTitle = NSLocalizedString(@"Installation succeeded", @"Window title");
+            launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
+            response = TBRunAlertPanel(NSLocalizedString(@"Install Tunnelblick?", @"Window title"),
+                                       [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@", @"Window text"), standardFolderDisplayName, changeLocationText],
+                                       NSLocalizedString(@"Install", @"Button"),    // Default button
+                                       NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
+                                       nil);                                        // Other button
+        }
+        
+        if (  response == NSAlertDefaultReturn  ) {
+            int tag;
+            if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation source: standardFolder destination: standardFolder files: [NSArray arrayWithObject: [standardPath lastPathComponent]] tag: &tag]  ) {
+                NSLog(@"Moved %@ to Trash", standardPath);
+            }
+
+            if (  ! [fMgr copyPath: currentPath toPath: standardPath handler: nil]  ) {
+                TBRunAlertPanel(NSLocalizedString(@"Unable to install Tunnelblick", @"Window title"),
+                                [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to install Tunnelblick.app in %@", @"Window text"), standardPathDisplayName],
+                                NSLocalizedString(@"Cancel", @"Button"),                // Default button
+                                nil,
+                                nil);
+            } else {
+                NSLog(@"Copied %@ to %@", currentPath, standardPath);
+                response = TBRunAlertPanel(launchWindowTitle,
+                                           launchWindowText,
+                                           NSLocalizedString(@"Launch", "Button"), // Default button
+                                           NSLocalizedString(@"Quit", "Button"), // Alternate button
+                                           nil);
+                if (  response == NSAlertDefaultReturn  ) {
+                    if (  ! [[NSWorkspace sharedWorkspace] launchApplication: standardPath]  ) {
+                        TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
+                                        [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), standardPathDisplayName],
+                                        NSLocalizedString(@"Cancel", @"Button"),                // Default button
+                                        nil,
+                                        nil);
+                    }
+                }
+            }
+        }
+        
         [NSApp terminate: nil];
 	}
+}
+
+-(int)buildIntValueForBundle: (NSBundle *) theBundle
+{
+    int result = 0;
+    id tmp = [theBundle objectForInfoDictionaryKey:@"Build"];
+    if (  tmp  ) {
+        if (  [[tmp class] isSubclassOfClass: [NSString class]]  ) {
+            NSString * tmpString = tmp;
+            result = [tmpString intValue];
+        } else if (  [[tmp class] isSubclassOfClass: [NSNumber class]] ) {
+            NSNumber * tmpNumber = tmp;
+            result = [tmpNumber intValue];
+        }
+    }
+    
+    return result;
 }
 
 -(void)moveSoftwareUpdateWindowToForeground

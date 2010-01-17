@@ -1,6 +1,9 @@
 /* Window title */ 
 "'%@' has been disconnected" = "'%@' 已中断连线"; 
 
+/* NEEDS TRANSLATION *//* Window text */
+"(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
+
 /* OpenVPN Log message */ 
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpn 启动状态#%1$d: %2$@"; 
 
@@ -27,6 +30,12 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "All configuration files removed" = "All configuration files removed";
+
+/* NEEDS TRANSLATION *//* Window text */
+"An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
 
 /* Window title */ 
 "Authentication failed" = "认证失败"; 
@@ -88,6 +97,30 @@
 /* Window title */ 
 "Do you wish to connect?" = "要再次连线吗?"; 
 
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to downgrade\n     %1$@\nto\n     %2$@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to reinstall\n     %1$@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%2$@\"\n%3$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to upgrade\n     %1$@\nto\n     %2$@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+
+/* NEEDS TRANSLATION *//* Text on disk image */
+"Double-click to begin" = "Double-click to begin";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Downgrade succeeded" = "Downgrade succeeded";
+
+/* NEEDS TRANSLATION *//* Button */
+"Downgrade" = "Downgrade";
+
 /* Button */ 
 "Download" = "下载"; 
 
@@ -109,17 +142,29 @@
 /* NEEDS TRANSLATION *//* Window text */
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Install Tunnelblick?" = "Install Tunnelblick?";
+
 /* Button */ 
 "Install and edit sample configuration file" = "安装及编辑范例设定档"; 
 
 /* Window title */ 
 "Install and edit sample configuration file?" = "安装及编辑范例设定档吗?"; 
 
+/* NEEDS TRANSLATION *//* Button */
+"Install" ="Install";
+
 /* Window title */ 
 "Installation failed" = "安装失败"; 
 
 /* Window title */ 
 "Installation or Repair Failed" = "安装或修复失败"; 
+
+/* NEEDS TRANSLATION *//* Window title */
+"Installation succeeded" = "Installation succeeded";
+
+/* NEEDS TRANSLATION *//* Button */
+"Launch" = "Launch";
 
 /* Checkbox name */ 
 "Monitor DNS" = "监察 DNS"; 
@@ -158,9 +203,6 @@
 "Place Icon Near the Spotlight Icon" = "将图示置于Spotlight 图示旁"; 
 
 /* Window text */ 
-"Please copy Tunnelblick.app to the \"/Applications\" folder of your hard drive before launching it." = "启动前请复制Tunnelblick.app 至硬碟里的\"/Applications\" 档案夹."; 
-
-/* Window text */ 
 "Please enter VPN passphrase." = "请输入VPN 口令."; 
 
 /* Window text */ 
@@ -181,6 +223,15 @@
 
 /* Connection status */ 
 "RECONNECTING" = "重新连线"; 
+
+/* NEEDS TRANSLATION *//* Window title */
+"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Reinstall" = "Reinstall";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Reinstallation succeeded" = "Reinstallation succeeded";
 
 /* Button */ 
 "Remove backup and do not restore" = "清除备份及取消复原"; 
@@ -273,6 +324,18 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因设定档被移除'%@'将被设定为离线."; 
 
 /* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Status message */ 
@@ -281,8 +344,23 @@
 /* Status message */ 
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 个有效连线."; 
 
+/* NEEDS TRANSLATION *//* Window title */
+"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+
 /* NEEDS TRANSLATION *//* Button */
 "Unprotect and Modify" = "Unprotect and Modify";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Upgrade succeeded" = "Upgrade succeeded";
+
+/* NEEDS TRANSLATION *//* Button */
+"Upgrade" = "Upgrade";
 
 /* Menu item */ 
 "Use Shadow Copies of Configuration Files" = "使用影子复本设定档"; 
@@ -301,9 +379,6 @@
 
 /* Window title */ 
 "Welcome to Tunnelblick" = "欢迎使用Tunnelblick"; 
-
-/* Window title */ 
-"You are trying to launch Tunnelblick from the disk image" = "你正从镜象档启动Tunnelblick"; 
 
 /* Window text */ 
 "You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "您需要由~/Library/Application Support/Tunnelblick/Configurations 移除所有设定档. 您想安装及编辑范本设定档吗? 如否, 请关闭Tunnelblick 并自行将设定档置于~/Library/Application Support/Tunnelblick/Configurations/ ."; 
