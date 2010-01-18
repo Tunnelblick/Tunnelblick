@@ -59,6 +59,14 @@ extern TBUserDefaults  * gTbDefaults;
         
         unloadKextsAtTermination = FALSE;
         
+        if (  ! runningOnTigerOrNewer()  ) {
+            TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+                            NSLocalizedString(@"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")", @"Window text"),
+                            nil, nil, nil);
+            [NSApp terminate:self];
+
+        }
+        
         [self dmgCheck];
 		
 		[NSApp setDelegate:self];

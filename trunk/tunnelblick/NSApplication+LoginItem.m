@@ -4,6 +4,7 @@
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
 //  Copyright (c) 2004 Objectpark Software. All rights reserved.
+//  Modified by Jonathan K. Bullard Sun Jan 17 2010.
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -24,6 +25,7 @@
 #import <signal.h>
 #import "NSApplication+LoginItem.h"
 #import "NSArray+cArray.h"
+#import "UKLoginItemRegistry/UKLoginItemRegistry.h"
 
 @implementation NSApplication (LoginItem)
 
@@ -65,8 +67,7 @@
     NSZoneFree(NULL, info);
 }
 
-+ (BOOL)setAutoLaunchPath:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
-/*" Changes the login window preferences to launch the current application when the user logs in. Returns YES, when the setting has been changed. NO, if no change was necessary. "*/
++ (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
 {
     NSMutableArray *loginItems;
     int i;
@@ -91,15 +92,15 @@
             i--; // stay on position
         }
     }
-        
+    
     if (doAutoLaunch) 
     {
         NSDictionary *loginDict;
         
         loginDict = [NSDictionary dictionaryWithObjectsAndKeys:
-            itemPath, @"Path", 
-            [NSNumber numberWithBool:NO], @"Hide", 
-            nil, nil];
+                     itemPath, @"Path", 
+                     [NSNumber numberWithBool:NO], @"Hide", 
+                     nil, nil];
         [loginItems addObject:loginDict];
     } 
     
@@ -116,8 +117,27 @@
     return YES;    
 }
 
++ (BOOL)setAutoLaunchPathLeopard:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
+{
+    if (  doAutoLaunch  ) {
+        return [UKLoginItemRegistry addLoginItemWithPath: itemPath hideIt: NO];
+    } else {
+        return [UKLoginItemRegistry removeLoginItemWithPath: itemPath];
+    }
+    
+    return NO;
+}
+
++ (BOOL)setAutoLaunchPath:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
+{
+    if (  runningOnLeopardOrNewer()  ) {
+        return [[self class] setAutoLaunchPathLeopard: itemPath onLogin: doAutoLaunch];
+    } else {
+        return [[self class] setAutoLaunchPathTiger:   itemPath onLogin: doAutoLaunch];
+    }
+}
+
 - (BOOL) setAutoLaunchOnLogin: (BOOL) doAutoLaunch
-/*" Changes the login window preferences to launch the current application when the user logs in. Returns YES, when the setting has been changed. NO, if no change was necessary. "*/
 {
     NSString* itemPath = [[[NSProcessInfo processInfo] arguments] objectAtIndex: 0];
     // Remove suffix /Contents/MacOS/AppName

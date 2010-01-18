@@ -29,7 +29,14 @@ BOOL runningOnTigerOrNewer()
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 2) );
+    return ( (major > 10) || (minor > 3) );
+}
+
+BOOL runningOnLeopardOrNewer()
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ( (major > 10) || (minor > 4) );
 }
 
 BOOL runningOnSnowLeopardOrNewer()

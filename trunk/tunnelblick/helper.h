@@ -40,4 +40,5 @@ NSString     * tunnelblickVersion   (NSBundle * bundle);
 BOOL           useDNSStatus         (id         connection);
 BOOL           isUserAnAdmin        (void);
 BOOL           runningOnTigerOrNewer();
+BOOL           runningOnLeopardOrNewer();
 BOOL           runningOnSnowLeopardOrNewer();
