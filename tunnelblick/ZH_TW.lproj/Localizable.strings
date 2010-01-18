@@ -257,8 +257,11 @@
 /* Menu item */
 "Show Connection Timers" = "顯示連線計時器";
 
+/* NEEDS TRANSLATION *//* Window title */
+"System Requirements Not Met"
+
 /* Menu item tooltip */
-"Takes effect at the next check for updates" = "將於下一次檢查更新時生效";
+"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
 /* Menu item tooltip */
 "Takes effect immediately" = "立即生效";
@@ -324,6 +327,12 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因設定檔被移除 '%@'將被設定為離線.";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")"
+
+/* Window text */
+"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -334,9 +343,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d 個有效連線.";

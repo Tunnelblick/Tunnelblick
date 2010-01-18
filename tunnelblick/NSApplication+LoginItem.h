@@ -24,7 +24,9 @@
 
 - (void) killOtherInstances;
 
-+ (BOOL) setAutoLaunchPath:(NSString *)path onLogin: (BOOL) doAutoLaunch;
++ (BOOL) setAutoLaunchPath:         (NSString *)path onLogin: (BOOL) doAutoLaunch;
++ (BOOL) setAutoLaunchPathTiger:    (NSString *)path onLogin: (BOOL) doAutoLaunch;
++ (BOOL) setAutoLaunchPathLeopard:  (NSString *)path onLogin: (BOOL) doAutoLaunch;
 
 - (BOOL) setAutoLaunchOnLogin: (BOOL) doAutoLaunch;
 

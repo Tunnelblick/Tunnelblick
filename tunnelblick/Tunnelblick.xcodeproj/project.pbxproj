@@ -47,6 +47,8 @@
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */; };
+		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
+		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */; };
 		635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */; };
@@ -179,6 +181,11 @@
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+SystemVersion.h"; sourceTree = "<group>"; };
 		6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+SystemVersion.m"; sourceTree = "<group>"; };
+		6311305F11041B89003435F1 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
+		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
+		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
+		6311306211041B89003435F1 /* UKLoginItemRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKLoginItemRegistry.m; sourceTree = "<group>"; };
+		6311306311041B89003435F1 /* untitled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = untitled.h; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.up.osx.sh; sourceTree = "<group>"; };
@@ -234,6 +241,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
@@ -384,6 +392,18 @@
 				61BC4B900E2F9EDA00F24255 /* UKMainThreadProxy.m */,
 			);
 			path = UKKQueue;
+			sourceTree = "<group>";
+		};
+		6311305E11041B89003435F1 /* UKLoginItemRegistry */ = {
+			isa = PBXGroup;
+			children = (
+				6311305F11041B89003435F1 /* LoginItemsAE.c */,
+				6311306011041B89003435F1 /* LoginItemsAE.h */,
+				6311306111041B89003435F1 /* UKLoginItemRegistry.h */,
+				6311306211041B89003435F1 /* UKLoginItemRegistry.m */,
+				6311306311041B89003435F1 /* untitled.h */,
+			);
+			path = UKLoginItemRegistry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -575,6 +595,8 @@
 				637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */,
 				638E69611097725500587933 /* TBUserDefaults.m in Sources */,
 				6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */,
+				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
+				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

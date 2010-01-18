@@ -169,6 +169,9 @@
 /* Menu item */
 "Show Connection Timers" = "Show Connection Timers";
 
+/* Window title */
+"System Requirements Not Met"
+
 /* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
@@ -221,6 +224,12 @@
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
 
 /* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")"
+
+/* Window text */
+"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+
+/* Window text */
 "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
 
 /* Window text */
@@ -231,9 +240,6 @@
 
 /* Window text */
 "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
-
-/* Window text */
-"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Window title */
 "Unable to install Tunnelblick" = "Unable to install Tunnelblick";
