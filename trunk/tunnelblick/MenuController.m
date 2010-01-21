@@ -314,8 +314,10 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (void) awakeFromNib
 {
+    NSString * configDirPathForDisplay = [[[NSFileManager defaultManager] componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"];
 	[self createDefaultConfigUsingTitle:NSLocalizedString(@"Welcome to Tunnelblick", @"Window title") 
-							 andMessage:NSLocalizedString(@"There are no configuration files in '~/Library/Application Support/Tunnelblick/Configurations/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself.", @"Window text")];
+							 andMessage: [NSString stringWithFormat: NSLocalizedString(@"There are no configuration files in '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself.", @"Window text"),
+                                          configDirPathForDisplay, configDirPathForDisplay]];
 	[self initialiseAnim];
 }
 
@@ -814,8 +816,10 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
 	// If there aren't any configuration files left, deal with that
-	[self createDefaultConfigUsingTitle: NSLocalizedString(@"Install and edit sample configuration file?", @"Window title")
-							 andMessage: NSLocalizedString(@"You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself.", @"Window text")];
+    NSString * configDirPathForDisplay = [[[NSFileManager defaultManager] componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"];
+    [self createDefaultConfigUsingTitle: NSLocalizedString(@"Install and edit sample configuration file?", @"Window title")
+							 andMessage: [NSString stringWithFormat: NSLocalizedString(@"You have removed all configuration files from '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself.", @"Window text"),
+                                          configDirPathForDisplay, configDirPathForDisplay]];
     
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
@@ -1437,15 +1441,17 @@ extern TBUserDefaults  * gTbDefaults;
         return;
     }
 
+    NSFileManager  * fileManager     = [NSFileManager defaultManager];
+
     if (  configDirIsDeploy  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"), configDirPath],
+                        [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
+                         [[fileManager componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"]],
                         nil, nil, nil);
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
     }
     
-    NSFileManager  * fileManager     = [NSFileManager defaultManager];
     NSString       * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
                                                                     ofType: @"conf"];
 
@@ -1478,7 +1484,8 @@ extern TBUserDefaults  * gTbDefaults;
     if (  ! [fileManager copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
         NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", configDirPath);
         TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"), configDirPath],
+                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"),
+                         [[fileManager componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"]],
                         nil,
                         nil,
                         nil);
@@ -1709,25 +1716,23 @@ static void signal_handler(int signalNumber)
         // Use a standardPath of /Applications/Tunnelblick.app unless overridden by a forced preference
         NSString * deployDirPath = [currentPath stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
         NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [deployDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        standardPath = @"/Applications/Tunnelblick.app";
         id obj = [forcedDefaults objectForKey:@"standardApplicationPath"];
-        if (  ! obj  ) {
-            standardPath = @"/Applications/Tunnelblick.app";
-        } else if (  ! [[obj class] isSubclassOfClass: [NSString class]]  ) {
-            NSLog(@"'standardApplicationPath' preference ignored because it is not a string.");
-            standardPath = @"/Applications/Tunnelblick.app";
-        } else {
-            standardPath = [obj stringByExpandingTildeInPath];
+        if (  obj  ) {
+            if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+                standardPath = [obj stringByExpandingTildeInPath];
+            } else {
+                NSLog(@"'standardApplicationPath' preference ignored because it is not a string.");
+            }
         }
         
         NSString * displayApplicationName = [fMgr displayNameAtPath: @"Tunnelblick.app"];
         
         NSString * standardFolder = [standardPath stringByDeletingLastPathComponent];
 
-        NSArray  * standardPathComponents = [fMgr componentsToDisplayForPath: standardPath];
-        NSString * standardPathDisplayName = [standardPathComponents componentsJoinedByString: @"/"];
+        NSString * standardPathDisplayName = [[fMgr componentsToDisplayForPath: standardPath] componentsJoinedByString: @"/"];
         
-        NSArray  * standardFolderComponents = [fMgr componentsToDisplayForPath: standardFolder];
-        NSString * standardFolderDisplayName = [standardFolderComponents componentsJoinedByString: @"/"];
+        NSString * standardFolderDisplayName = [[fMgr componentsToDisplayForPath: standardFolder] componentsJoinedByString: @"/"];
         
         NSString * launchWindowTitle;
         NSString * launchWindowText;
