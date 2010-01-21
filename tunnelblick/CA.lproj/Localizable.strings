@@ -258,7 +258,7 @@
 "Show Connection Timers" = "Mostrar els comptadors de la connexió";
 
 /* NEEDS TRANSLATION *//* Window title */
-"System Requirements Not Met"
+"System Requirements Not Met" = "System Requirements Not Met";
 
 /* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
@@ -291,7 +291,7 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari i la contrasenya no poden ser buits!\nSi us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
 
 /* Window text */
-"There are no configuration files in '~/Library/Application Support/Tunnelblick/Configurations/'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "No hi ha arxius de configuració en '~/Library/Application Support/Tunnelblick/Configurations/'. Desitges instal·lar i editar un arxiu de configuració de mostra? Si no, hauràs de sortir de Tunnelblick i posar un o més arxius de configuració en ~/Library/Application Support/Tunnelblick/Configurations/.";
+"There are no configuration files in '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself." = "No hi ha arxius de configuració en '%@'. Desitges instal·lar i editar un arxiu de configuració de mostra? Si no, hauràs de sortir de Tunnelblick i posar un o més arxius de configuració en '%@'.";
 
 /* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Aquesta còpia de Tunnelblick no té cap configuració establerta. Desitges restaurar la configuració d'una còpia de seguretat?\n\nFarà falta drets d'administració.";
@@ -327,10 +327,7 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ha desconnectat '%@' perquè l'arxiu de configuració ha estat eliminat.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")"
-
-/* Window text */
-"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
@@ -343,6 +340,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* Window text */
+"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d connexions actives.";
@@ -387,7 +387,7 @@
 "Welcome to Tunnelblick" = "Benvingut a Tunnelblick";
 
 /* Window text */
-"You have removed all configuration files from ~/Library/Application Support/Tunnelblick/Configurations. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in ~/Library/Application Support/Tunnelblick/Configurations/ yourself." = "Has eliminat tots els arxius de configuració de ~/Library/Application Support/Tunnelblick/Configurations. Desitges instal·lar i editar un arxiu de configuració de mostra? Si no, hauràs de sortir de Tunnelblick i posar un o més arxius de configuració en ~/Library/Application Support/Tunnelblick/Configurations/.";
+"You have removed all configuration files from '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself." = "Has eliminat tots els arxius de configuració de '%@'. Desitges instal·lar i editar un arxiu de configuració de mostra? Si no, hauràs de sortir de Tunnelblick i posar un o més arxius de configuració en '%@'.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";

@@ -759,7 +759,8 @@ extern TBUserDefaults  * gTbDefaults;
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                                           [self configName],
                                                                           NSLocalizedString(@"Create local copy of configuration file?", @"Window title")],
-                                               [NSString stringWithFormat:longMsg, cfgPath, altCfgFolderPath],
+                                               [NSString stringWithFormat:longMsg, cfgPath,
+                                                [[fMgr componentsToDisplayForPath: altCfgFolderPath] componentsJoinedByString: @"/"]],
                                                NSLocalizedString(@"Create copy", @"Button"),
                                                nil,
                                                NSLocalizedString(@"Cancel", @"Button"));
