@@ -291,9 +291,6 @@
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "用户名及密码不能空白!\n请输入VPN 用户名／密码组合."; 
 
 /* Window text */ 
-"There are no configuration files in '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself." = "于'%@' 里未能找到到设定档. 您想安装及编辑范本设定档吗? 如否, 请关闭Tunnelblick 并自行将设定档置于'%@' ."; 
-
-/* Window text */ 
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "此版本之Tunnelblick 并未包含任何设定项. 您想从备份中复原设定吗?\n\n此动作需要用户名及密码."; 
 
 /* Button */ 
@@ -344,6 +341,9 @@
 /* Window text */
 "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+
 /* Status message */ 
 "Tunnelblick: %d connections active." = "Tunnelblick: %d 个有效连线."; 
 
@@ -386,8 +386,8 @@
 /* Window title */ 
 "Welcome to Tunnelblick" = "欢迎使用Tunnelblick"; 
 
-/* Window text */ 
-"You have removed all configuration files from '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself." = "您需要由'%@' 移除所有设定档. 您想安装及编辑范本设定档吗? 如否, 请关闭Tunnelblick 并自行将设定档置于'%@' ."; 
+/* NEEDS TRANSLATION *//* Window text */
+"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";

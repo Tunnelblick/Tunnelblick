@@ -314,10 +314,8 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (void) awakeFromNib
 {
-    NSString * configDirPathForDisplay = [[[NSFileManager defaultManager] componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"];
 	[self createDefaultConfigUsingTitle:NSLocalizedString(@"Welcome to Tunnelblick", @"Window title") 
-							 andMessage: [NSString stringWithFormat: NSLocalizedString(@"There are no configuration files in '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself.", @"Window text"),
-                                          configDirPathForDisplay, configDirPathForDisplay]];
+							 andMessage: NSLocalizedString(@"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n", @"Window text")];
 	[self initialiseAnim];
 }
 
@@ -816,10 +814,8 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
 	// If there aren't any configuration files left, deal with that
-    NSString * configDirPathForDisplay = [[[NSFileManager defaultManager] componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"];
-    [self createDefaultConfigUsingTitle: NSLocalizedString(@"Install and edit sample configuration file?", @"Window title")
-							 andMessage: [NSString stringWithFormat: NSLocalizedString(@"You have removed all configuration files from '%@'. Do you wish to install and edit a sample configuration file? If not, you must quit Tunnelblick and put one or more configuration files in '%@' yourself.", @"Window text"),
-                                          configDirPathForDisplay, configDirPathForDisplay]];
+    [self createDefaultConfigUsingTitle: NSLocalizedString(@"All configuration files removed", @"Window title")
+							 andMessage: NSLocalizedString(@"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n", @"Window text")];
     
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
@@ -1452,16 +1448,25 @@ extern TBUserDefaults  * gTbDefaults;
         [NSApp terminate: nil];
     }
     
-    NSString       * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
-                                                                    ofType: @"conf"];
+    NSString * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
+                                                                 ofType: @"conf"];
+    
+    BOOL isDir;
+    NSString * alternateButtonTitle = nil;
+    if (  ! ([fileManager fileExistsAtPath: configDirPath isDirectory: &isDir])  ) {
+        alternateButtonTitle = NSLocalizedString(@"Create and open configuration folder", @"Button");
+    } else {
+        alternateButtonTitle = NSLocalizedString(@"Open configuration folder", @"Button");
+    }
+
 
     int button = TBRunAlertPanel(ttl,
                                  msg,
                                  NSLocalizedString(@"Quit", @"Button"), // Default button
                                  NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
-                                 nil);
+                                 alternateButtonTitle);                 // Other button
     
-    if (  button == NSAlertDefaultReturn  ) {
+    if (  button == NSAlertDefaultReturn  ) {   // QUIT
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
     }
@@ -1479,6 +1484,12 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
         
+    if (  button == NSAlertOtherReturn  ) { // CREATE CONFIGURATION FOLDER (already created)
+        [[NSWorkspace sharedWorkspace] openFile: configDirPath];
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
+    
     NSString * targetPath = [configDirPath stringByAppendingPathComponent:@"openvpn.conf"];
     NSLog(@"Installing sample configuration file %@", targetPath);
     if (  ! [fileManager copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
