@@ -46,6 +46,7 @@ extern TBUserDefaults  * gTbDefaults;
                              orAlt:             (NSString *)        altCfgPath;
 -(unsigned int)     getFreePort;
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
+-(BOOL)             isSampleConfigurationAtPath:(NSString *)        cfgPath;
 -(BOOL)             onRemoteVolume:             (NSString *)        cfgPath;
 -(void)             processLine:                (NSString *)        line;
 -(BOOL)             protectConfigurationFile:   (NSString *)        configFile
@@ -130,6 +131,10 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), [self configFilename]];
 
     if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
+        return;
+    }
+    
+    if (  [self isSampleConfigurationAtPath: cfgPath]  ) {
         return;
     }
 
@@ -1041,4 +1046,26 @@ extern TBUserDefaults  * gTbDefaults;
     return YES;
 }
 
-    @end
+-(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath
+{
+    NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
+    NSFileManager  * fMgr = [NSFileManager defaultManager];
+    
+    if (  ! [fMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
+        return FALSE;
+    }
+    
+    int button = TBRunAlertPanel(NSLocalizedString(@"You cannot connect using the sample configuration", @"Window title"),
+                                 NSLocalizedString(@"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n", @"Window text"),
+                                 NSLocalizedString(@"Cancel", @"Button"),                           // Default button
+                                 NSLocalizedString(@"Go to the OpenVPN documentation on the web", @"Button"), // Alternate button
+                                 nil);                                                              // No Other button
+	
+    if( button == NSAlertAlternateReturn ) {
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://openvpn.net/index.php/open-source/documentation.html"]];
+	}
+
+    return TRUE;
+}
+
+@end

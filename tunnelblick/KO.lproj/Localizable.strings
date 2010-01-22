@@ -139,6 +139,9 @@
 /* Connection status */
 "GET_CONFIG" = "설정 받는 중";
 
+/* NEEDS TRANSLATION *//* Button */
+"Go to the OpenVPN documentation on the web" = "Go to the OpenVPN documentation on the web";
+
 /* NEEDS TRANSLATION *//* Window text */
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
@@ -386,8 +389,14 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Welcome to Tunnelblick" = "Welcome to Tunnelblick";
 
+/* NEEDS TRANSLATION *//* Window title */
+"You cannot connect using the sample configuration" = "You cannot connect using the sample configuration";
+
 /* NEEDS TRANSLATION *//* Window text */
 "You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";
