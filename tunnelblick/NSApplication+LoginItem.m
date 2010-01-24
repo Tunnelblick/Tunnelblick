@@ -67,6 +67,43 @@
     NSZoneFree(NULL, info);
 }
 
+- (int) countOtherInstances
+// Returns the number of other instances of a process (cribbed from killOtherInstances, above)
+{
+    int         myPid = [[NSProcessInfo processInfo] processIdentifier];
+    const char* myProcessName = [[[NSProcessInfo processInfo] processName] UTF8String];
+    int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    struct kinfo_proc* info;
+    size_t length;
+    int count, i;
+    int returnCount = 0;
+    
+    // KERN_PROC_ALL has 3 elements, all others have 4
+    int level = 3;
+    
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return (-1);
+    // Allocate memory for info structure:
+    if (!(info = NSZoneMalloc(NULL, length))) return (-1);
+    if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
+        NSZoneFree(NULL, info);
+        return(-1);
+    }
+    
+    // Calculate number of processes:
+    count = length / sizeof(struct kinfo_proc);
+    for (i = 0; i < count; i++) {
+        char* command = info[i].kp_proc.p_comm;
+        pid_t pid = info[i].kp_proc.p_pid;
+        //NSLog(@"Found running command: '%s'", command);
+        // Test, if this command is called like us:
+        if (pid!=myPid && strncmp(myProcessName, command, MAXCOMLEN)==0) {
+            returnCount++;
+        }
+    }    
+    NSZoneFree(NULL, info);
+    return(returnCount);
+}
+
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
 {
     NSMutableArray *loginItems;

@@ -114,7 +114,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 
 -(void)             activateStatusMenu;
 -(void)             addConnection:                          (id)                sender;
--(int)              buildIntValueForBundle:                 (NSBundle *)        theBundle;
+-(int)              intValueOfBuildForBundle:                 (NSBundle *)        theBundle;
 -(void)             cleanup;
 -(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
                                        andMessage:          (NSString *)        msg;
