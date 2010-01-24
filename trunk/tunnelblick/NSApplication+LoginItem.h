@@ -23,6 +23,7 @@
 @interface NSApplication (LoginItem)
 
 - (void) killOtherInstances;
+- (int)  countOtherInstances;
 
 + (BOOL) setAutoLaunchPath:         (NSString *)path onLogin: (BOOL) doAutoLaunch;
 + (BOOL) setAutoLaunchPathTiger:    (NSString *)path onLogin: (BOOL) doAutoLaunch;

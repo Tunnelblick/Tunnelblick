@@ -14,16 +14,22 @@
 "An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
 
 /* Window text */
-"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to downgrade\n     %1$@\nto\n     %2$@?\n\nThe replaced version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+"An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "An error occurred while trying to move the previous version of %1$@ to the Trash.\n\nThe previous version is %2$@";
+
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+
+/* Window text */
+"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
 /* Window text */
 "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
 
 /* Window text */
-"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to reinstall\n     %1$@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nLocation: \"%2$@\"\n%3$@";
+"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
 /* Window text */
-"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%@\"\n%@" = "Do you wish to upgrade\n     %1$@\nto\n     %2$@?\n\nThe old version will be put in the Trash.\n\nLocation: \"%3$@\"\n%4$@";
+"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
 /* Text on disk image */
 "Double-click to begin" = "Double-click to begin";
@@ -82,6 +88,9 @@
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
+/* Window title */
+"Tunnelblick is currently running" = "Tunnelblick is currently running";
+
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
 
@@ -106,6 +115,9 @@
 /* Window title */
 "Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
 
+/* Window title */
+"Unable to move previous version to Trash" = "Unable to move previous version to Trash";
+
 /* Button */
 "Unprotect and Modify" = "Unprotect and Modify";
 
@@ -117,6 +129,12 @@
 
 /* Button */
 "Upgrade" = "Upgrade";
+
+/* Window title */
+"Warning" = "Warning";
+
+/* Window text */
+"You are currently running a different copy of Tunnelblick." = "You are currently running a different copy of Tunnelblick.";
 
 /* Window title */
 "You cannot connect using the sample configuration" = "You cannot connect using the sample configuration";
@@ -133,3 +151,5 @@
 /* Window text */
 "You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
 
+/* Window text */
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch Tunnelblick.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";

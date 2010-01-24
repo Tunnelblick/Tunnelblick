@@ -18,7 +18,12 @@
 	if( err != noErr )
 	{
 		NSLog(@"Couldn't list login items error %ld", err);
-		return nil;
+        err = LIAECopyLoginItems( (CFArrayRef*) &itemsList );	// Take advantage of toll-free bridging.
+        if( err != noErr )
+        {
+            NSLog(@"Retry couldn't list login items error %ld", err);
+            return nil;
+        }
 	}
 	
 	return [itemsList autorelease];
