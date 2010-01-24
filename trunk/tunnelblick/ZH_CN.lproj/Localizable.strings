@@ -1,28 +1,28 @@
-/* Window title */ 
+/* Window title */
 "'%@' has been disconnected" = "'%@' 已中断连线"; 
 
 /* NEEDS TRANSLATION *//* Window text */
 "(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
 
-/* OpenVPN Log message */ 
+/* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpn 启动状态#%1$d: %2$@"; 
 
-/* Window text */ 
+/* Window text */
 "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>建基于Tunnelblick, 自由软体由<a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 提供"; 
 
-/* Connection status */ 
+/* Connection status */
 "ADD_ROUTES" = "设定路由中"; 
 
-/* Connection status */ 
+/* Connection status */
 "ASSIGN_IP" = "分配 IP 地址中"; 
 
-/* Connection status */ 
+/* Connection status */
 "AUTH" = "认证中"; 
 
-/* Menu item */ 
+/* Menu item */
 "About..." = "关于…"; 
 
-/* Window title */ 
+/* Window title */
 "Alert" = "警告"; 
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -37,64 +37,64 @@
 /* NEEDS TRANSLATION *//* Window text */
 "An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
 
-/* Window title */ 
+/* Window title */
 "Authentication failed" = "认证失败"; 
 
-/* Menu item */ 
+/* Menu item */
 "Automatically Check for Updates" = "自动检查更新"; 
 
-/* Checkbox name */ 
+/* Checkbox name */
 "Automatically connect on launch" = "启动时自动连线"; 
 
-/* Connection status */ 
+/* Connection status */
 "CONNECTED" = "已连线"; 
 
-/* Connection status */ 
+/* Connection status */
 "CONNECTING" = "连线中"; 
 
-/* Button */ 
+/* Button */
 "Cancel" = "取消"; 
 
-/* Menu item */ 
+/* Menu item */
 "Check For Updates Now" = "检查更新"; 
 
-/* Button */ 
+/* Button */
 "Clear log" = "清除日志档"; 
 
-/* Window title */ 
+/* Window title */
 "Configuration Change" = "更改设定"; 
 
-/* Window text */ 
+/* Window text */
 "Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "设定档%1$@ 位于远端卷宗内. 基于保安原因Tunnelblick 要求将设定档置于本地卷宗内\n\n要Tunnelblick 为您创建及使用在%2$@ 的本地设定档吗?\n\n(此动作需要管理员之名称及密码.)\n";
 
-/* Button */ 
+/* Button */
 "Connect" = "连线"; 
 
-/* Button */ 
+/* Button */
 "Continue" = "继续"; 
 
-/* Window text */ 
+/* Window text */
 "Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "版权由© 2004-2009 Angelo Laub and others 拥有. 仿版必究."; 
 
-/* Button */ 
+/* Button */
 "Create copy" = "制作拷贝"; 
 
-/* Window title */ 
+/* Window title */
 "Create local copy of configuration file?" = "创建本地设定档?"; 
 
-/* Menu item */ 
+/* Menu item */
 "Details..." = "详情…"; 
 
-/* Button */ 
+/* Button */
 "Disconnect" = "中断连线"; 
 
-/* Button */ 
+/* Button */
 "Do not restore" = "不回复"; 
 
-/* Checkbox name */ 
+/* Checkbox name */
 "Do not warn about this again" = "停用此警告"; 
 
-/* Window title */ 
+/* Window title */
 "Do you wish to connect?" = "要再次连线吗?"; 
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -121,13 +121,13 @@
 /* NEEDS TRANSLATION *//* Button */
 "Downgrade" = "Downgrade";
 
-/* Button */ 
+/* Button */
 "Download" = "下载"; 
 
-/* Connection status */ 
+/* Connection status */
 "EXITING" = "离线"; // Please translate "Disconnected" 
 
-/* Button */ 
+/* Button */
 "Edit configuration" = "编辑设定档"; 
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -136,7 +136,7 @@
 /* NEEDS TRANSLATION *//* Button */
 "Examine" = "Examine";
 
-/* Connection status */ 
+/* Connection status */
 "GET_CONFIG" = "获取设定中"; 
 
 /* NEEDS TRANSLATION *//* Button */
@@ -148,19 +148,19 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Install Tunnelblick?" = "Install Tunnelblick?";
 
-/* Button */ 
+/* Button */
 "Install and edit sample configuration file" = "安装及编辑范例设定档"; 
 
-/* Window title */ 
+/* Window title */
 "Install and edit sample configuration file?" = "安装及编辑范例设定档吗?"; 
 
 /* NEEDS TRANSLATION *//* Button */
 "Install" ="Install";
 
-/* Window title */ 
+/* Window title */
 "Installation failed" = "安装失败"; 
 
-/* Window title */ 
+/* Window title */
 "Installation or Repair Failed" = "安装或修复失败"; 
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -169,62 +169,62 @@
 /* NEEDS TRANSLATION *//* Button */
 "Launch" = "Launch";
 
-/* Checkbox name */ 
+/* Checkbox name */
 "Monitor DNS" = "监察 DNS"; 
 
-/* Checkbox name */ 
+/* Checkbox name */
 "Monitor WINS" = "监察 WINS"; 
 
-/* Checkbox name */ 
+/* Checkbox name */
 "Monitor connection" = "监察连线"; 
 
-/* Menu item */ 
+/* Menu item */
 "Monitor the Configuration Folder" = "监察设定资料夹"; 
 
-/* Window text */ 
+/* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "多重并行连线将被建立(%1$d 条连线已'设定域名服务器', %2$d 条连线未'设定域名服务器')."; 
 
-/* Window title */ 
+/* Window title */
 "Not connecting" = "未连线"; 
 
-/* Button */ 
+/* Button */
 "OK" = "确定"; 
 
-/* Window title */ 
+/* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN 日志记录- Tunnelblick"; 
 
-/* Menu item */ 
+/* Menu item */
 "Options" = "选项"; 
 
-/* Window title */ 
+/* Window title */
 "Passphrase" = "口令"; 
 
-/* Textbox name */ 
+/* Textbox name */
 "Password:" = "密码:"; 
 
-/* Menu item */ 
+/* Menu item */
 "Place Icon Near the Spotlight Icon" = "将图示置于Spotlight 图示旁"; 
 
-/* Window text */ 
+/* Window text */
 "Please enter VPN passphrase." = "请输入VPN 口令."; 
 
-/* Window text */ 
+/* Window text */
 "Please enter VPN username/password combination." = "请轮入VPN 用户名/密码组合."; 
 
-/* Window text */ 
+/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "请输入代号\"%@\", 再点选\"确定\""; 
 
-/* Window title */ 
+/* Window title */
 "Please insert token" = "请输入代号"; 
 
-/* Menu item */ 
+/* Menu item */
 "Preferences" = "喜好设定"; 
 
 /* Menu item 
-   Button */ 
+   Button */
 "Quit" = "离开"; 
 
-/* Connection status */ 
+/* Connection status */
 "RECONNECTING" = "重新连线"; 
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -236,28 +236,28 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Reinstallation succeeded" = "Reinstallation succeeded";
 
-/* Button */ 
+/* Button */
 "Remove backup and do not restore" = "清除备份及取消复原"; 
 
-/* Window title */ 
+/* Window title */
 "Restore Configuration Settings from Backup?" = "从备份中复原设定档吗?"; 
 
-/* Button */ 
+/* Button */
 "Restore" = "回复"; 
 
-/* Connection status */ 
+/* Connection status */
 "SLEEP" = "等待背影程序"; // Please translate "Waiting for daemon process" 
 
-/* Checkbox text */ 
+/* Checkbox text */
 "Save in Keychain" = "于 Keychain 内储存"; 
 
-/* Menu item */ 
+/* Menu item */
 "Send Anonymous System Profile" = "传送匿名系统档"; 
 
-/* Checkbox name */ 
+/* Checkbox name */
 "Set nameserver" = "设定域名服务器"; 
 
-/* Menu item */ 
+/* Menu item */
 "Show Connection Timers" = "显示连线计时器"; 
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -266,64 +266,64 @@
 /* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
-/* Menu item tooltip */ 
+/* Menu item tooltip */
 "Takes effect immediately" = "立即生效"; 
 
-/* Menu item tooltip */ 
+/* Menu item tooltip */
 "Takes effect the next time Tunnelblick is launched" = "将于Tunnelblick 下一次启动时生效"; 
 
-/* Menu item tooltip */ 
+/* Menu item tooltip */
 "Takes effect with the next connection" = "将于下一次连线时生效"; 
 
-/* Window text */ 
+/* Window text */
 "The change will take effect the next time you connect." = "新设定将于下次连线时生效."; 
 
 /* NEEDS TRANSLATION *//* Window title */
 "The configuration file is protected" = "The configuration file is protected";
 
-/* Window text */ 
+/* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "证书(口令或用户名/密码) 不获远端VPN 伺股器接纳."; 
 
-/* Window text */ 
+/* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "安装,移除,复原或修复Tunnelblick 模组失败. 详情请查看控制台日志."; 
 
-/* Window text */ 
+/* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "口令不能空白!\n请输入VPN 口令."; 
 
-/* Window text */ 
+/* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "用户名及密码不能空白!\n请输入VPN 用户名／密码组合."; 
 
-/* Window text */ 
+/* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "此版本之Tunnelblick 并未包含任何设定项. 您想从备份中复原设定吗?\n\n此动作需要用户名及密码."; 
 
-/* Button */ 
+/* Button */
 "Try again with different credentials" = "以不同证书再尝试"; 
 
-/* Button */ 
+/* Button */
 "Try again" = "重试"; 
 
-/* Window title */ 
+/* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick 设定错误"; 
 
-/* Window title */ 
+/* Window title */
 "Tunnelblick Error" = "Tunnelblick 错误"; 
 
-/* Window text */ 
+/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由于设定出现问题Tunnelblick 未能启动. 详情请查看控制台日志."; 
 
-/* NEEDS TRANSLATION *//* Window text */ 
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick 未能修复设定档之拥有者及使用权限. 详情请查看控制台日志."; 
 
-/* Window text */ 
+/* Window text */
 "Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick 未能将openvpn.conf 复制至%@"; 
 
-/* Window text */ 
+/* Window text */
 "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick 未能复制设定档至交替的本地位置. 详情请查看控制台日志."; 
 
-/* Window text */ 
+/* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick 未能创建交替的本地设定档之档案夹. 详情请查看控制台日志."; 
 
-/* Window text */ 
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因设定档被移除'%@'将被设定为离线."; 
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -347,10 +347,10 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
 
-/* Status message */ 
+/* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d 个有效连线."; 
 
-/* Status message */ 
+/* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 个有效连线."; 
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -371,22 +371,22 @@
 /* NEEDS TRANSLATION *//* Button */
 "Upgrade" = "Upgrade";
 
-/* Menu item */ 
+/* Menu item */
 "Use Shadow Copies of Configuration Files" = "使用影子复本设定档"; 
 
-/* Window title */ 
+/* Window title */
 "Username and password" = "用户名及密码"; 
 
-/* Textbox name */ 
+/* Textbox name */
 "Username:" = "用户名:"; 
 
-/* Connection status */ 
+/* Connection status */
 "WAIT" = "等待伺服器回应"; // Please translate "Waiting for Server Response" 
 
-/* Menu item */ 
+/* Menu item */
 "Warn About Simultaneous Connections" = "当同时连线时作出警告"; 
 
-/* Window title */ 
+/* Window title */
 "Welcome to Tunnelblick" = "欢迎使用Tunnelblick"; 
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -404,5 +404,5 @@
 /* NEEDS TRANSLATION *//* Window text */
 "You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
 
-/* Window text */ 
+/* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "您必须重新安装Tunnelblick. 请将Tunnelblick 移至垃圾筒并重新下载. 问题在于:\n\n%@";
