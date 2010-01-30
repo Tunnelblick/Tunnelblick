@@ -3,6 +3,8 @@
 
 http://tunnelblick-discuss.googlegroups.com/web/tb-logo.png?gda=y991Xj0AAADVQgPybVoDdkjSA0U14ywkEm9Pql-cJNS2nWybnTRrfIBzFSeFkNeIFx1-2nJrDdrlNv--OykrTYJH3lVGu2Z5
 
+*For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
+
 *This document describes how to create a deployable version of Tunnelblick and was last modified 2009-12-19. It reflects the behavior of Tunnelblick built from the r313 version of the Tunnelblick source code.*
 
 Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. It is written in Cocoa and runs on OS X Tiger (10.4), Leopard (10.5), and Snow Leopard (10.6). It comes as a ready to use Universal  application with all necessary binaries and drivers, including OpenVPN and tun/tap. Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
@@ -143,3 +145,9 @@ Within a few moments, your .dmg file will be created.
     * Added note that if configuration files are not in Deploy, forced preferences for them are not secure
   * 2010-01-07 (r320)
     * Fixed so logo image appears
+  *  2010-01-30 (r350)
+    * Added footer with link to discussion group.
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
