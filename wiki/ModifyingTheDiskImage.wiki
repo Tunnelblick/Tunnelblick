@@ -35,3 +35,7 @@ content/icons is more complicated:
       `cp   -p   /Volumes/Tunnelblick/.DS_Store   /Users/joe/Documents/TB/tunnelblick/dmgFiles/dotDS_Store`
 
       `setfile   -a   -v   /Users/joe/Documents/TB/tunnelblick/dmgFiles/dotDS_Store`
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
