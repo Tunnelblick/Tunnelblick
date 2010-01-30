@@ -1,9 +1,11 @@
 #summary How to build Tunnelblick from the source code
 #labels Phase-Deploy
 
-=How to build Tunnelblick from the source code=
+*HOW TO BUILD TUNNELBLICK FROM THE SOURCE CODE*
 
-==Introduction==
+<wiki:toc max_depth="2" />
+
+==INTRODUCTION==
 
 Usually, people install and use a "release" -- an easy-to-use version -- of Tunnelblick. The most recent release is always in the "Featured downloads" section of the project homepage and is a .dmg file. It's easy to install Tunnelblick from this .dmg.
 
@@ -49,3 +51,7 @@ It is possible to build versions of Tunnelblick prior to revision 232 on Leopard
   * To download revision 231 (the last version which can be built on Leopard), use the following command instead of the command given above (note the change in boldface):
 
       svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
