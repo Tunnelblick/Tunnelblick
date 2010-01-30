@@ -1,7 +1,7 @@
 #summary Adding Additional Language Translations to Tunnelblick
 #labels Phase-Deploy
 
-http://tunnelblick-discuss.googlegroups.com/web/tb-logo.png?gda=y991Xj0AAADVQgPybVoDdkjSA0U14ywkEm9Pql-cJNS2nWybnTRrfIBzFSeFkNeIFx1-2nJrDdrlNv--OykrTYJH3lVGu2Z5
+http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png
 
 Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
@@ -113,3 +113,7 @@ we would translate that into Yoda's English by changing it to
 "The %@ is %@" = "%2$@ the %1$@ is"
 }}}
 (We'll ignore the fact that %2$@ needs to be capitalized because it now starts a sentence.)
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
