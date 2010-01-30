@@ -240,7 +240,7 @@ The preference keys for the above preferences are: *CONFIGNAMEautoConnect*, *CON
 
 Several additional preferences cannot be viewed or modified via the user interface. They are usually used in customized or deployed versions of Tunnelblick.
 
-The following preferences control what is displayed to the user. All default to FALSE:
+The following boolean preferences control what is displayed to the user. All default to FALSE:
   * *doNotShowOptionsSubmenu*:
   * *doNotShowCheckForUpdatesNowMenuItem*:
   * *doNotShowForcedPreferenceMenuItems*:
@@ -251,9 +251,9 @@ The following preferences are automatically maintained by the program:
   * *detailsWindowFrame*: The size and position of the "OpenVPN Log” window when it was last closed.
   * *detailsWindowFrameVersion*: The version of Tunnelblick that saved the detailsWindowFrame preference.
 
-The following per-configuration preferences do not have a user interface:
+The following per-configuration boolean preferences do not have a user interface:
 
-*CONFIGNAME_-useDownRootPlugin*: Causes the plugin to be loaded when the configuration is used to start a connection. The default is cleared.
+*CONFIGNAME-useDownRootPlugin*: Causes the plugin to be loaded when the configuration is used to start a connection. The default is cleared.
 
 *CONFIGNAMEdisableEditConfiguration*: Disables the "Edit configuration" button for the configuration. The default is cleared.
 
