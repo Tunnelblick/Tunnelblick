@@ -3,9 +3,7 @@
 ==Tunnelblick Release Notes==
 The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
 
-*PLEASE DO* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a broader audience of members who might be able to help!
-
-*PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+*PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a broader audience of members who might be able to help!
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
 
@@ -167,6 +165,6 @@ Known Issues:
   * Updated to the new tun/tap drivers
   * Auto-Update Capability using Sparkle
 
------
+------------------
 
-*PLEASE DO NOT* post comments at the bottom of this page (except comments about these Release Notes, of course). Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
