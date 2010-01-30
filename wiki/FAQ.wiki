@@ -37,9 +37,6 @@ You are probably using the 'user' or 'group' directive in your OpenVPN client co
 
 As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. Together with a per-configuration preference, this allows the use of 'user' and 'group'. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for details on how to do this.
 
-==Why does Tunnelblick use OpenVPN version 2.1, which is not an official release?==
-Tunnelblick uses OpenVPN version 2.1, instead of version 2.0.9, which is the latest official release, because that is the version recommended by the OpenVPN core team.
-
 ==Where can I go if my question is not answered here?==
 Go to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
