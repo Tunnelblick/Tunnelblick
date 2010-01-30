@@ -11,9 +11,7 @@ This document describes how to use Tunnelblick version 3.0b24.
 
 The latest versions of this document and related documents including release notes, FAQ, and instructions for building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
-*PLEASE DO* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
-
-*PLEASE DO NOT* post comments at the bottom of this page.
+*PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
 This document contains the following sections:
 
@@ -197,18 +195,26 @@ You can specify that a connection automatically be opened when Tunnelblick start
 ==USING openvpn-down-root.so==
 When using "Set nameserver", it is usually necessary to avoid using the OpenVPN "user" and "group" options. These options cause OpenVPN to drop root privileges and take the privileges of the specified user and group. It this is done, then the standard scripts that handle restarting connections when there is a transient failure fail, because they are run without root privileges. And restoring routes when a tunnel is disconnected fails, too. So the "user" and "group" OpenVPN options should not be specified.
 
-However, starting with Tunnelblick version 3.0b22, Tunnelblick includes the "openvpn-down-root.so" plugin for OpenVPN. It is located in theTunnelblick.app/Contents/Resources" folder. This plugin, when activated by including a line in the configuration file, allows the use of the "user" and "group" options, so that OpenVPN drops root privileges, but still have the scripts run as root, so reconnecting after transient network problems, or restoring routes when a tunnel is disconnected continue to work. To activate the plugin, include the following line in your configuration file:
+However, starting with Tunnelblick version 3.0b22, Tunnelblick includes the "openvpn-down-root.so" plugin for OpenVPN. It is located in theTunnelblick.app/Contents/Resources" folder. This plugin, when activated by including a line in the configuration file, allows the use of the "user" and "group" options, so that OpenVPN drops root privileges, but still has the scripts run as root, so reconnecting after transient network problems, or restoring routes when a tunnel is disconnected continue to work.
 
- plugin path-to-openvpn-down-root.so path-to-client.down.osx.sh
-
+To activate the plugin:
+  # Set the per-configuration boolean preference "CONFIG_NAME-useDownRootPlugin" to true.  If your configuration file is named "xyz.conf", the preference key is "xyz-useDownRootPlugin". (To set up the preference, use "Property List Editor.app" to  edit ~/Library/Preferences/com.openvpn.tunnelblick.plist and add the key, then right-click it and change the type to "boolean" and check it. “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs.)
+  # Include the following line in your configuration file:
+{{{
+    plugin path-to-openvpn-down-root.so     path-to-client.down.osx.sh
+}}}
 Example: If Tunnelblick.app is located in /Applications, the line would be:
-
- plugin /Applications/Tunnelblick.app/Contents/Resources/openvpn-down-root.so /Applications/Tunnelblick.app/Contents/Resources/client.down.osx.sh 
-
+{{{
+    plugin /Applications/Tunnelblick.app/Contents/Resources/openvpn-down-root.so    /Applications/Tunnelblick.app/Contents/Resources/client.down.osx.sh 
+}}}
+Example: If Tunnelblick.app is located in /Applications and you have "Set nameserver" checked but "Monitor connection" unchecked, the line would be:
+{{{
+    plugin /Applications/Tunnelblick.app/Contents/Resources/openvpn-down-root.so    /Applications/Tunnelblick.app/Contents/Resources/client.nomonitor.down.osx.sh 
+}}}
 Example: If using a "deployed" version of Tunnelblick:
-
- plugin ../openvpn-down-root.so ../client.down.osx.sh 
-
+{{{
+    plugin ../openvpn-down-root.so    ../client.down.osx.sh
+}}}
 ==PREFERENCES==
 Note: A "deployed" version of Tunnelblick can contain a "forced-preferences.plist" file, which lists preference values which override the preferences located in ~/Library/Preferences/com.openvpn.tunnelblick.plist. See [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick the Deploying Tunnelblick wiki] for more details.
 
@@ -264,7 +270,10 @@ Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVP
     * Changed "PREFERENCES" section to reflect new user interface to preferences and new preferences.
     * Changes to "THE 'ABOUT TUNNELBLICK' WINDOW" section to the reflect new "Options" submenu.
     * Added new image of OpenVPN Log window showing "Monitor connection" checkbox.
+  * 2010-01-30
+    * Fixed inaccurate down-root plugin instructions.
+    * Added footer with link to discussion group.
 
------
+------------------
 
-*PLEASE DO NOT* post comments here. Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
