@@ -20,6 +20,6 @@ The following are known problems or limitations in Tunnelblick version 3.0b24:
  
   * Localization is not complete. We need additional translations to Catalan, German, Spanish, French, Japanese, Korean, and Norwegian (Norsk Bokmal). If you can help with these or any other languages, please contact project committer  [http://code.google.com/u/jkbullard/ Jon].
 
------
+------------------
 
-*PLEASE DO NOT* post comments here. Use the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] instead.
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discussTUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
