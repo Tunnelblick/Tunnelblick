@@ -145,8 +145,10 @@ Within a few moments, your .dmg file will be created.
     * Added note that if configuration files are not in Deploy, forced preferences for them are not secure
   * 2010-01-07 (r320)
     * Fixed so logo image appears
-  *  2010-01-30 (r350)
+  *  2010-01-30 (r341)
     * Added footer with link to discussion group.
+  *  2010-01-30 (r343)
+    * Fixed typo in document history.
 
 ------------------
 
