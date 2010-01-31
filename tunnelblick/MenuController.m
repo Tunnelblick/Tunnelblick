@@ -559,6 +559,9 @@ extern TBUserDefaults  * gTbDefaults;
 	}
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
     
+	[myVPNMenu addItem: detailsItem];
+	[myVPNMenu addItem: [NSMenuItem separatorItem]];
+	
     if (  optionsItem  ) {
         [myVPNMenu addItem: optionsItem];
     } else {
@@ -566,9 +569,6 @@ extern TBUserDefaults  * gTbDefaults;
     }
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
 
-	[myVPNMenu addItem: detailsItem];
-	[myVPNMenu addItem: [NSMenuItem separatorItem]];
-	
     [myVPNMenu addItem: quitItem];
 
 }
