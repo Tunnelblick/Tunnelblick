@@ -28,6 +28,9 @@
 /* Window title */
 "Configuration Change" = "Configuration Change";
 
+/* Button */
+"Do not restore" = "Do not restore";
+
 /* Window text */
 "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
@@ -88,6 +91,9 @@
 /* Menu item */
 "Monitor the Configuration Folder" = "Monitor the Configuration Folder";
 
+/* Button */
+"OK" = "OK";
+
 /* Menu item */
 "Options" = "Options";
 
@@ -116,6 +122,9 @@
 "System Requirements Not Met" = "System Requirements Not Met";
 
 /* Menu item tooltip */
+"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
+
+/* Menu item tooltip */
 "Takes effect immediately" = "Takes effect immediately";
 
 /* Menu item tooltip */
@@ -137,7 +146,7 @@
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick no pudo reparar los permisos del archivo de configuración. Vea la Bitácora de Consola para más detalles.";
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick is currently running";
@@ -209,4 +218,4 @@
 "You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
 
 /* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch Tunnelblick.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";

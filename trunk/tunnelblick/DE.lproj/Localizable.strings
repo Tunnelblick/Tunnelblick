@@ -22,7 +22,7 @@
 /* Menu item */
 "About..." = "Über…";
 
-/* TRANSLATION IS THE SAME AS DEVELOPMENT LANGUAGE *//* Window title */
+/* NEEDS TRANSLATION *//* TRANSLATION IS THE SAME AS DEVELOPMENT LANGUAGE *//* Window title */
 "Alert" = "Alert";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -127,7 +127,7 @@
 /* NEEDS TRANSLATION *//* Button */
 "Downgrade" = "Downgrade";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Download" = "Download";
 
 /* Connection status */
@@ -193,16 +193,16 @@
 /* Window title */
 "Not connecting" = "Verbindet nicht";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "OK" = "OK";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Menu item */
 "Options" = "Options";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Passphrase" = "Passphrase";
 
 /* Textbox name */
@@ -269,7 +269,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "System Requirements Not Met" = "System Requirements Not Met";
 
-/* Menu item tooltip */
+/* NEEDS TRANSLATION *//* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
 /* NEEDS TRANSLATION *//* Menu item tooltip */
@@ -317,7 +317,7 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick konnte nicht die Zugriffsberechtigungen für die Konfigurationsdatei reparieren. Bitte sehen Sie in das Console Log für weitere Details.";
 
 /* Window text */
@@ -329,7 +329,7 @@
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick konnte kein Verzeichnis für die alternative lokale Konfiguration erstellen. Bitte sehen Sie in das Console Log für weitere Details.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Window text */
@@ -426,4 +426,4 @@
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Sie müssen Tunnelblick neu installieren. Bitte bewegen Sie Tunnelblick in den Papierkorb und laden eine neue Kopie herunter. Das Problem war:\n\n%@";
 
 /* NEEDS TRANSLATION *//* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch Tunnelblick.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";

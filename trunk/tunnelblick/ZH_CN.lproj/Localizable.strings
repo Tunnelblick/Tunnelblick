@@ -269,7 +269,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "System Requirements Not Met" = "System Requirements Not Met";
 
-/* Menu item tooltip */
+/* NEEDS TRANSLATION *//* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
 /* Menu item tooltip */
@@ -317,7 +317,7 @@
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由于设定出现问题Tunnelblick 未能启动. 详情请查看控制台日志."; 
 
-/* NEEDS TRANSLATION *//* Window text */
+/* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details." = "Tunnelblick 未能修复设定档之拥有者及使用权限. 详情请查看控制台日志."; 
 
 /* Window text */
@@ -329,7 +329,7 @@
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick 未能创建交替的本地设定档之档案夹. 详情请查看控制台日志."; 
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
 /* Window text */
@@ -424,5 +424,6 @@
 
 /* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "您必须重新安装Tunnelblick. 请将Tunnelblick 移至垃圾筒并重新下载. 问题在于:\n\n%@";
+
 /* NEEDS TRANSLATION *//* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch Tunnelblick.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";

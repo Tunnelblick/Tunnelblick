@@ -1,4 +1,4 @@
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -71,7 +71,7 @@
 "Configuration Change" = "Configuration Change";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume . Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
+"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
 
 /* Button */
 "Connect"= "Koble til";
@@ -79,7 +79,7 @@
 /* Button */
 "Continue" = "Fortsett";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2009 Angelo Laub and others. All rights reserved.";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -127,7 +127,7 @@
 /* NEEDS TRANSLATION *//* Button */
 "Downgrade" = "Downgrade";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Download" = "Download";
 
 /* Connection status */
@@ -193,7 +193,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Not connecting" = "Not connecting";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "OK"		= "OK";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -220,7 +220,7 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Please insert token" = "Please insert token";
 
 /* NEEDS TRANSLATION *//* Menu item */
@@ -230,7 +230,7 @@
    Button */
 "Quit"  = "Avslutte";
 
-/* Connection status */
+/* NEEDS TRANSLATION *//* Connection status */
 "RECONNECTING" = "Reconnecting";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -254,7 +254,7 @@
 /* Connection status */
 "SLEEP" = "Venter på svar fra applikasjonen";   // Please translate "Waiting for daemon process"
 
-/* Checkbox text */
+/* NEEDS TRANSLATION *//* Checkbox text */
 "Save in Keychain" = "Save in Keychain";
 
 /* NEEDS TRANSLATION *//* Menu item */
@@ -269,7 +269,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "System Requirements Not Met" = "System Requirements Not Met";
 
-/* Menu item tooltip */
+/* NEEDS TRANSLATION *//* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
 /* NEEDS TRANSLATION *//* Menu item tooltip */
@@ -287,7 +287,7 @@
 /* NEEDS TRANSLATION *//* Window title */
 "The configuration file is protected" = "The configuration file is protected";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "The credentials (passphrase or username/password) were not accepted by the remote VPN server.";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -302,16 +302,16 @@
 /* NEEDS TRANSLATION *//* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Try again with different credentials" = "Try again with different credentials";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Try again" = "Try again";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick Error" = "Tunnelblick Error";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -329,10 +329,10 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -386,7 +386,7 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Username and password" = "Username and password";
 
 /* Textbox name */
@@ -426,4 +426,4 @@
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";
 
 /* NEEDS TRANSLATION *//* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch Tunnelblick.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
