@@ -15,6 +15,7 @@ EOF)"
 PROCESS="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
 CONNECTION="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*Connection :' | sed -e 's/^.*: //g')"
 USER="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*User :' | sed -e 's/^.*: //g')"
+CONFIG_PATH="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*ConfigPath :' | sed -e 's/^.*: //g')"
 
 if [ -n "${USER}" ] ; then
 	LOG_DIR="$(eval echo ~${USER}/Library/Application Support/Tunnelblick/Configurations)"
@@ -31,6 +32,10 @@ if [ -z "${CONNECTION}" ] ; then
 fi
 LOG_FILE="${LOG_DIR}/${CONNECTION}.log"
 
+if [ -n "${CONFIG_PATH}" ] ; then
+    CONFIG_PATH_DASHES="$(echo "${CONFIG_PATH}" | sed -e 's/\//-/g')"
+    LOG_FILE="/tmp/tunnelblick${CONFIG_PATH_DASHES}.logpipe"
+fi
 # If we have a process, then we check the DNS status...
 if (( M=${PROCESS:-0} )) ; then
 	# What's the correct DNS info?
@@ -63,14 +68,17 @@ if (( M=${PROCESS:-0} )) ; then
 	# we could re-set this ourselves manually but the USR1 signal gives us the ability to restart the
 	# VPN in case of a line crash or circuit change or something like that.
 	RESTART="false"
+    SEND_HEADER="true"
 	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] ; then
 		RESTART="true"
 		# Echo information on the reason the link was re-set
+        echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: A network configuration change was detected" >> "${LOG_FILE}"
+        SEND_HEADER="false"
 		cat <<-EOF >> "${LOG_FILE}"
-			$(date): DNS configuration has changed:
-			--- BEGIN "GOOD" DNS CFG ---
+			DNS configuration has changed:
+			--- BEGIN EXPECTED DNS CFG ---
 			${DNS_GOOD}
-			---- END "GOOD" DNS CFG ----
+			---- END EXPECTED DNS CFG ----
 			--- BEGIN CURRENT DNS CFG ---
 			${DNS_NOW}
 			---- END CURRENT DNS CFG ----
@@ -79,11 +87,14 @@ if (( M=${PROCESS:-0} )) ; then
 	if [ "${WINS_GOOD}" != "${WINS_NOW}" ] ; then
 		RESTART="true"
 		# Echo information on the reason the link was re-set
+        if ${SEND_HEADER} ; then
+            echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: A network configuration change was detected" >> "${LOG_FILE}"
+        fi
 		cat <<-EOF >> "${LOG_FILE}"
-			$(date): WINS configuration has changed:
-			--- BEGIN "GOOD" WINS CFG ---
+			WINS configuration has changed:
+			--- BEGIN EXPECTED WINS CFG ---
 			${WINS_GOOD}
-			---- END "GOOD" WINS CFG ----
+			---- END EXPECTED WINS CFG ----
 			--- BEGIN CURRENT WINS CFG ---
 			${WINS_NOW}
 			---- END CURRENT WINS CFG ----
@@ -91,7 +102,10 @@ if (( M=${PROCESS:-0} )) ; then
 	fi
 
 	if ${RESTART} ; then
-		echo "$(date): Sending USR1 to OpenVPN PID ${PROCESS}" >> "${LOG_FILE}"
+		echo "Sending USR1 to OpenVPN PID ${PROCESS}" >> "${LOG_FILE}"
+        echo -e "\003" >> "${LOG_FILE}"
+        # sleep 1 so log message is displayed before we start getting log messages from OpenVPN about the restart
+        sleep 1
 		kill -USR1 ${PROCESS}
 	fi
 fi

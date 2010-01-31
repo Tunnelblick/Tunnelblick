@@ -120,6 +120,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                                        andMessage:          (NSString *)        msg;
 -(void)             createMenu;
 -(void)             createStatusItem;
+-(void)             destroyAllPipes;
 -(void)             dmgCheck;
 -(void)             fileSystemHasChanged:                   (NSNotification *)  n;
 -(NSMutableArray *) getConfigs;
