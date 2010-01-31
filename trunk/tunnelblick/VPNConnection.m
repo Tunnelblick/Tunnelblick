@@ -237,6 +237,17 @@ extern TBUserDefaults  * gTbDefaults;
                           ];
     [self addToLog: logText atDate: nil];
 
+    NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:40];
+    int i;
+    for (i=0; i<[arguments count]; i++) {
+        [escapedArguments addObject: [[[arguments objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
+    }
+    
+    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: %@ %@",
+                     [[path componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "],
+                     [escapedArguments componentsJoinedByString: @" "]]
+            atDate: nil];
+    
 	[task setArguments:arguments];
 	[task setCurrentDirectoryPath: configDirPath];
 	[task launch];
@@ -330,7 +341,7 @@ extern TBUserDefaults  * gTbDefaults;
     [self setState:@"EXITING"];
     
     if (  savedPid != 0  ) {
-        [[NSApp delegate] waitUntilGone: savedPid];     // Wait until OpenVPN process is completely gone
+        [NSApp waitUntilNoProcessWithID: savedPid];     // Wait until OpenVPN process is completely gone
     }
     
     if (  ! [managementSocket peekData]  ) {
