@@ -24,6 +24,7 @@
 
 - (void) killOtherInstances;
 - (int)  countOtherInstances;
+- (void) waitUntilNoProcessWithID:             (pid_t)     pid;
 
 + (BOOL) setAutoLaunchPath:         (NSString *)path onLogin: (BOOL) doAutoLaunch;
 + (BOOL) setAutoLaunchPathTiger:    (NSString *)path onLogin: (BOOL) doAutoLaunch;

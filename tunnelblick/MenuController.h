@@ -158,7 +158,6 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(void)             updateUI;
 -(void)             validateLogButtons;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
--(void)             waitUntilGone:                          (pid_t)             pid;
 -(void)             watcher:                                (UKKQueue *)        kq
                     receivedNotification:                   (NSString *)        nm
                     forPath:                                (NSString *)        fpath;
