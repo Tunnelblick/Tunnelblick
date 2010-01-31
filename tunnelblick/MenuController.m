@@ -1510,7 +1510,7 @@ extern TBUserDefaults  * gTbDefaults;
                         if (  button == NSAlertAlternateReturn  ) {
                             if (  ! [connection unprotectConfigurationFile: targetPath]  ) {
                                 int button = TBRunAlertPanel(NSLocalizedString(@"Examine the configuration file?", @"Window title"),
-                                                             NSLocalizedString(@"Tunnelblick was unable to unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?", @"Window text"),
+                                                             NSLocalizedString(@"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?", @"Window text"),
                                                              NSLocalizedString(@"Cancel", @"Button"),    // Default button
                                                              NSLocalizedString(@"Examine", @"Button"),   // Alternate button
                                                              nil);
