@@ -21,6 +21,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import "NetSocket.h"
 #import "AuthAgent.h"
+#import "NamedPipe.h"
 
 @interface VPNConnection : NSObject {
     BOOL            configDirIsDeploy;  // Indicates that configDirPath is /Resources/Deploy
@@ -32,6 +33,8 @@
 	NSTextStorage * logStorage;         // nil, or contains entire log (or that part of log since it was cleared)
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
+    NamedPipe     * myPipe;             // Up/down scripts send data through this pipe and we append the data to the OpenVPN Log
+    NSMutableString * myPipeBuffer;     // Buffer in which we collect data from the pipe until the ETX-LF character combination that completes a log entry
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
@@ -51,11 +54,14 @@
 
 -(void)             addToLog:                   (NSString *)        text
                       atDate:                   (NSCalendarDate *)  date;
+-(void)             appendDataToLog:            (NSData *)          data;
 -(NSString*)        configName;
 -(NSString*)        configFilename;
 -(NSDate *)         connectedSinceDate;
 -(IBAction)         connect:                    (id) sender;
+-(void)             destroyPipe;
 -(IBAction)         disconnect:                 (id) sender;
+-(void)             emptyPipe;
 -(id)               initWithConfig:             (NSString *)    inConfig
                        inDirectory:             (NSString *)    inDir
                         isInDeploy:             (BOOL)          inDeploy;

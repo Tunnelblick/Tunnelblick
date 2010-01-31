@@ -1308,12 +1308,26 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void)killAllConnections
 {
-	id connection;
+	VPNConnection * connection;
     NSEnumerator* e = [connectionArray objectEnumerator];
     
     while (connection = [e nextObject]) {
         [connection disconnect:self];
 		if(NSDebugEnabled) NSLog(@"Killing connection");
+    }
+}
+
+-(void)destroyAllPipes
+{
+    VPNConnection * connection;
+    
+    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
+    NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
+    NSEnumerator* e = [myConnectionArray objectEnumerator];
+    
+    if(NSDebugEnabled) NSLog(@"Destroying pipes.\n");
+    while (connection = [e nextObject]) {
+        [connection destroyPipe];
     }
 }
 
@@ -1595,6 +1609,7 @@ extern TBUserDefaults  * gTbDefaults;
 	[NSApp callDelegateOnNetworkChange: NO];
 	[self killAllConnections];
 	[self killAllOpenVPN];  // Kill any OpenVPN processes that still exist
+    [self destroyAllPipes];
     [self unloadKexts];     // Unload tun.kext and tap.kext
 	if (  theItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:theItem];

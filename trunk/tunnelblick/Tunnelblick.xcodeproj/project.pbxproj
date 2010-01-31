@@ -49,6 +49,7 @@
 		6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
+		6327163F11048B9900E7AC34 /* NamedPipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 6327163E11048B9900E7AC34 /* NamedPipe.m */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		634A1E1010AEEF8F0097D733 /* client.nomonitor.up.osx.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */; };
 		635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */; };
@@ -186,6 +187,8 @@
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
 		6311306211041B89003435F1 /* UKLoginItemRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKLoginItemRegistry.m; sourceTree = "<group>"; };
 		6311306311041B89003435F1 /* untitled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = untitled.h; sourceTree = "<group>"; };
+		6327163D11048B9900E7AC34 /* NamedPipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedPipe.h; sourceTree = "<group>"; };
+		6327163E11048B9900E7AC34 /* NamedPipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NamedPipe.m; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.nomonitor.up.osx.sh; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6327163D11048B9900E7AC34 /* NamedPipe.h */,
+				6327163E11048B9900E7AC34 /* NamedPipe.m */,
 				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
@@ -597,6 +602,7 @@
 				6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */,
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
+				6327163F11048B9900E7AC34 /* NamedPipe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

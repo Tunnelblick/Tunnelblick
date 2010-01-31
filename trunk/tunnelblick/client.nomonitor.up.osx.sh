@@ -223,6 +223,7 @@ scutil <<- EOF
 	d.init
 	d.add PID # ${PPID}
 	d.add Service ${PSID}
+    d.add ConfigPath "${config}"
 	set State:/Network/OpenVPN
 
 	# First, back up the device's current DNS and WINS configuration, for
