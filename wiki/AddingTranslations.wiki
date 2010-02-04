@@ -57,6 +57,14 @@ If you are editing a file that has already been party or fully translated (perha
 
 "Localizable.strings" will have a "/`*` Needs Translation `*`/" comment before every line that appears to not have been translated. (A program we use to create these files decides that a line needs translating if the left-side and right-side strings are identical, which does not always mean they need translation, but is a reasonable guess.) You should remove the "/`*` Needs Translation `*`/" comments on any strings that you have translated.
 
+==If a String is the Same in Both Languages==
+If a string is the same in both the development language and the target language, then put a hint of `/* TRANSLATION SAME AS DEVELOPMENT */` before the string. For example,
+{{{
+/* TRANSLATION SAME AS DEVELOPMENT */ /* Button */
+"OK" = "OK";
+}}}
+This helps the program which process the strings files understand that the string does not need translation.
+
 ==Opening Localizable.strings Files in `TextEdit`==
 You can edit Localizable.strings files in TextEdit, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
 
@@ -100,6 +108,8 @@ You're done. The copy of Tunnelblick.app on your Desktop now has your translatio
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
 
 ==Weird Characters in the Strings==
+Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
+
 Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it. However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
 
 Here's an example: for English speakers, one of the distinctive features of the character Yoda in _Star Wars_ was the way he spoke -- he spoke backwards. For example, he would say "Hot the food is", when the usual way to express that in English is "The food is hot". If the line in Localizable.strings was
