@@ -339,6 +339,63 @@
 "Tunnelblick is currently running" = "Tunnelblick is currently running";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to move the configurations folder and remove the configuration(s) backup." = "Tunnelblick needs to move the configurations folder and remove the configuration(s) backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to move the configurations folder." = "Tunnelblick needs to move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to remove the configuration(s) backup." = "Tunnelblick needs to remove the configuration(s) backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file." = "Tunnelblick needs to repair ownership/permissions of the configuration file.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program and remove the configuration(s) backup." = "Tunnelblick needs to repair ownership/permissions of the program and remove the configuration(s) backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program and restore configuration(s) from the backup." = "Tunnelblick needs to repair ownership/permissions of the program and restore configuration(s) from the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program, remove the backup of configuration(s), and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program, remove the backup of configuration(s), and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and remove the backup." = "Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and remove the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, remove the backup, and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program." = "Tunnelblick needs to repair ownership/permissions of the program.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file." = "Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder." = "Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup and then remove the backup." = "Tunnelblick needs to restore configuration(s) from the backup and then remove the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup." = "Tunnelblick needs to restore configuration(s) from the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
 
 /* NEEDS TRANSLATION *//* Window text */
