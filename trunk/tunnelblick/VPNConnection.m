@@ -723,7 +723,7 @@ extern TBUserDefaults  * gTbDefaults;
              || [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )    ) {
         // Config is on non-remote volume and we are not supposed to use a shadow configuration file
 		NSLog( [NSString stringWithFormat: @"Configuration file %@ needs ownership/permissions repair", cfgPath]);
-        authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the configuration file.", @"Window text")]; // Try to repair regular config
+        authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it.", @"Window text")]; // Try to repair regular config
         if ( authRef == nil ) {
             NSLog(@"Repair authorization cancelled by user");
             AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
@@ -745,7 +745,7 @@ extern TBUserDefaults  * gTbDefaults;
                 if ( [self configNotProtected:altCfgPath] ) {                            // Check ownership/permissions
                     // Alt config needs repair
                     NSLog(@"The shadow copy of configuration file %@ needs ownership/permissions repair", cfgPath);
-                    authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file.", @"Window text")]; // Repair if necessary
+                    authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it.", @"Window text")]; // Repair if necessary
                     if ( authRef == nil ) {
                         NSLog(@"Repair authorization cancelled by user");
                         AuthorizationFree(authRef, kAuthorizationFlagDefaults);
@@ -1062,7 +1062,7 @@ extern TBUserDefaults  * gTbDefaults;
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                    [self configName],
                                                    NSLocalizedString(@"Not connecting", @"Window title")],
-                        NSLocalizedString(@"Tunnelblick could not change ownership and permissions of the configuration file. See the Console Log for details.", @"Window text"),
+                        NSLocalizedString(@"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.", @"Window text"),
                         nil,
                         nil,
                         nil);
