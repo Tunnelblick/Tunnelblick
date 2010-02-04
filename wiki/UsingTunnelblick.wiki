@@ -1,7 +1,7 @@
 #summary Using Tunnelblick
 #labels Featured,Phase-Deploy
 
-http://groups.google.com/group/tunnelblick-discuss/web/tb-logo.png
+http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png
 
 Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. It is written in Cocoa and runs on OS X Tiger (10.4), Leopard (10.5), and Snow Leopard (10.6). It comes as a ready to use Universal  application with all necessary binaries and drivers, including OpenVPN and tun/tap. Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
@@ -20,7 +20,7 @@ This document contains the following sections:
 ==INSTALLING TUNNELBLICK==
 To install Tunnelblick, first download it from the Downloads page, then double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a new window similar to the following will appear:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-dmg.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-02-04.png
 
 Drag Tunnelblick.app (which may be labeled "Tunnelblick” without the ".app”) and drop it on the shortcut to the Applications folder. This will copy the application from the .dmg into the Applications folder. You may then close the window and eject the "Tunnelblick” disk icon.
 
@@ -63,7 +63,7 @@ Within the Tunnelblick.app application, client up/down scripts and openvpn-down-
 ==THE FIRST TIME TUNNELBLICK IS RUN BY EACH USER==
 When there are no configuration files in ~/Library/Application Support/Tunnelblick/Configurations (which is usually the case the first time Tunnelblick is run by each user when using a non-deployed version of Tunnelblick), the following screen will be displayed:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-welcome.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-02-04.png
 
 If you click "Quit”, Tunnelblick will quit without doing anything. If you click "Continue”, Tunnelblick will create and save an example OpenVPN configuration file, ~/Library/Application Support/Tunnelblick/Configurations/openvpn.conf, and then open it in TextEdit for you to modify. If you have an OpenVPN configuration file that you are supposed to use, copy its contents, paste them into this file (replacing the default contents), save, and exit TextEdit. Your configuration (named "openvpn.conf”) is all set. Tunnelblick changes the ownership of OpenVPN configuration files to root, so it is protected against unnoticed and possibly malicious changes.
 
@@ -72,14 +72,14 @@ If you have received key files or certificate files together with your personal 
 ==THE FIRST TIME TUNNELBLICK IS RUN ON A COMPUTER==
 The first time Tunnelblick is run on a particular computer (but only the first time the first user runs it), it will display the following screen:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-password.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-password-2010-02-04.png
 
 Please enter the name and password of a computer administrator. Tunnelblick's imbedded OpenVPN needs root privileges because it needs to modify network settings by configuring new network devices, changing routes, and adding and removing nameservers. Because we don't want you to enter your administrator account name and password every time you start a VPN connection, Tunnelblick comes with a setuid root binary that allows it to do exactly one thing: start a VPN connection with super user rights. Tunnelblick needs your administrator account name password only on its first start after installation, so it can create this setuid root binary.
 
 ==THE SECOND TIME TUNNELBLICK IS RUN BY EACH USER==
 The second time Tunnelblick is run by each user, a screen similar to the following will be displayed:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-check.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-check-2010-02-04.png
 
 Specify whether or not you wish to have Tunnelblick check for updates. Each time an update is available, you will be given a choice of whether to install the update or not.
 
@@ -89,15 +89,15 @@ Whenever a configuration file changes, you will need to enter the name and passw
 ==NORMAL TUNNELBLICK OPERATION==
 Once Tunnelblick has been started, you control it from the icon in the Status Bar at the top of your screen. The Tunnelblick icon is usually placed between the time and the Spotlight icon. When no VPN connection is active, the icon is dark, indicating a closed tunnel:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-closed.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-closed-2010-02-04.png
 
 If you click on the icon, you'll see a drop down menu similar to the following:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-menu-a.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-menu-2010-02-04.png
 
 There will be a "Connect” menu item for each .ovpn or .conf file in ~/Library/Application Support/Tunnelblick/Configurations/. Click on one to establish the corresponding pre-configured VPN connection. To illustrate the connection being established, three dots will appear in the menu item, and the Tunnelblick icon will darken and lighten repeatedly. If the connection is successfully opened, the icon will change to show an open tunnel:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-open.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-open-2010-02-04.png
 
 You may be asked for a passphrase or username/password combination if key/certificate files are not being used. You can save your passphrase or password in Apple's Keychain by checking the appropriate checkbox.
 
@@ -112,7 +112,7 @@ If Tunnelblick is running when you logout (or your computer crashes, or is shut 
 ==THE "OPTIONS" SUBMENU==
 When the Tunnelblick menu is displayed, if you hover over "Options", the Options Submenu appears:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-options-menu.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-options-menu-2010-02-04.png
 
 Click on an item in the Options Submenu to change a preference, check for updates, or display the "About" window. For more details on preferences, see [UsingTunnelblick#PREFERENCES Preferences], below.
 
@@ -121,7 +121,7 @@ Some deployed versions of Tunnelblick do not display the Options Submenu (it is 
 ==THE "OPENVPN LOG” WINDOW==
 Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon then click on "Details…” to obtain details for all connections (open or closed). A window similar to the following will appear:
 
-http://groups.google.com/group/tunnelblick-discuss/web/using-tunnelblick-details-a.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-details-2010-02-04.png
 
 There will be a tab for each connection (i.e., each .ovpn or .conf file), whether the connection is open or closed. Each tab contains a pane with the OpenVPN Log for the connection and two checkboxes that provide options for that connection:
 
@@ -273,6 +273,8 @@ Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVP
   * 2010-01-30
     * Fixed inaccurate down-root plugin instructions.
     * Added footer with link to discussion group.
+  * 2010-02-04
+    * Changed image URLs to be from Downloads (Deprecated)
 
 ------------------
 
