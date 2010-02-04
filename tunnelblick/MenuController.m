@@ -157,6 +157,27 @@ extern TBUserDefaults  * gTbDefaults;
 		[self createMenu];
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
+        if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
+            if ( ! configDirIsDeploy  ) {
+                BOOL isDir;
+                NSFileManager * fMgr = [NSFileManager defaultManager];
+                if (  [fMgr fileExistsAtPath: configDirPath isDirectory: &isDir]  ) {
+                    NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
+                    NSString * launchTunnelblickSymlink = [configDirPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+                    if (  ! [fMgr fileExistsAtPath:launchTunnelblickSymlink]  ) {
+                        NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
+                        [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                                  pathContent: pathToThisApp];
+                    } else if (  ! [[fMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
+                        NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
+                        [fMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
+                        [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                                  pathContent: pathToThisApp];
+                    }
+                }
+            }
+        }
+        
         [[NSNotificationCenter defaultCenter] addObserver: self 
                                                  selector: @selector(logNeedsScrolling:) 
                                                      name: @"LogDidChange" 
