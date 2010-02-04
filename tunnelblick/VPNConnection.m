@@ -141,6 +141,39 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (IBAction) connect: (id) sender
 {
+    if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
+        // Count the total number of connections and what their "Set nameserver" status was at the time of connection
+        int numConnections = 1;
+        int numConnectionsWithSetNameserver = 0;
+        if (  useDNSStatus(self)  ) {
+            numConnectionsWithSetNameserver = 1;
+        }
+        VPNConnection * connection;
+        NSEnumerator* e = [[[NSApp delegate] myVPNConnectionDictionary] objectEnumerator];
+        while (connection = [e nextObject]) {
+            if (  ! [[connection state] isEqualToString:@"EXITING"]  ) {
+                numConnections++;
+                if (  [connection usedSetNameserver]  ) {
+                    numConnectionsWithSetNameserver++;
+                }
+            }
+        }
+        
+        if (  numConnections != 1  ) {
+            int button = TBRunAlertPanelExtended(NSLocalizedString(@"Do you wish to connect?", @"Window title"),
+                                                 [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ],
+                                                 NSLocalizedString(@"Connect", @"Button"),  // Default button
+                                                 NSLocalizedString(@"Cancel", @"Button"),   // Alternate button
+                                                 nil,
+                                                 @"skipWarningAboutSimultaneousConnections",
+                                                 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                                 nil);
+            if (  button == NSAlertAlternateReturn  ) {
+                return;
+            }
+        }
+    }
+    
 	NSString *cfgPath = [configDirPath stringByAppendingPathComponent: [self configFilename]];
     NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), [self configFilename]];
 
@@ -148,10 +181,6 @@ extern TBUserDefaults  * gTbDefaults;
         return;
     }
     
-    if (  [self isSampleConfigurationAtPath: cfgPath]  ) {
-        return;
-    }
-
     ignoreOnePasswordRequest = NO;
     
 	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
@@ -712,7 +741,10 @@ extern TBUserDefaults  * gTbDefaults;
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {
     if (  ! [self configNotProtected:cfgPath]  ) {                             // If config doesn't need repair
-        if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {  // And not using shadow configuration files
+        if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {   // And not using shadow configuration files
+            if (  [self isSampleConfigurationAtPath: cfgPath]  ) {             // And it isn't the sample configuration file
+                return nil;
+            }
             return cfgPath;                                                   // Then use it
         }
     }
@@ -722,6 +754,9 @@ extern TBUserDefaults  * gTbDefaults;
     if (    ! ( [self onRemoteVolume:cfgPath]
              || [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )    ) {
         // Config is on non-remote volume and we are not supposed to use a shadow configuration file
+        if (  [self isSampleConfigurationAtPath: cfgPath]  ) {             // Make sure it isn't the sample configuration file
+            return nil;
+        }
 		NSLog( [NSString stringWithFormat: @"Configuration file %@ needs ownership/permissions repair", cfgPath]);
         authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it.", @"Window text")]; // Try to repair regular config
         if ( authRef == nil ) {
@@ -740,6 +775,9 @@ extern TBUserDefaults  * gTbDefaults;
         NSFileManager * fMgr = [NSFileManager defaultManager];                          // See if alt config exists
         if ( [fMgr fileExistsAtPath:altCfgPath] ) {
             // Alt config exists
+            if (  [self isSampleConfigurationAtPath: altCfgPath]  ) {                   // And it isn't the sample configuration file
+                return nil;
+            }
             if ( [fMgr contentsEqualAtPath:cfgPath andPath:altCfgPath] ) {              // See if files are the same
                 // Alt config exists and is the same as regular config
                 if ( [self configNotProtected:altCfgPath] ) {                            // Check ownership/permissions
@@ -777,6 +815,9 @@ extern TBUserDefaults  * gTbDefaults;
             }
         } else {
             // Alt config doesn't exist. We must create it (and maybe the folders that contain it)
+            if (  [self isSampleConfigurationAtPath: cfgPath]  ) {             // But only if it isn't the sample configuration file
+                return nil;
+            }
             NSLog(@"Creating shadow copy of configuration file %@", cfgPath);
             
             // Folder creation code below needs alt config to be in /Library/Application Support/Tunnelblick/Users/<username>/xxx.conf

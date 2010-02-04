@@ -278,6 +278,11 @@ extern TBUserDefaults  * gTbDefaults;
     [super dealloc];
 }
 
+-(NSMutableDictionary *) myVPNConnectionDictionary
+{
+    return myVPNConnectionDictionary;
+}
+
 // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
 // By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
 // Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
@@ -1097,39 +1102,6 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (IBAction)connect:(id)sender
 {
-    if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
-        // Count the total number of connections and what their "Set nameserver" status was at the time of connection
-        int numConnections = 1;
-        int numConnectionsWithSetNameserver = 0;
-        if (  useDNSStatus([self selectedConnection])  ) {
-            numConnectionsWithSetNameserver = 1;
-        }
-        VPNConnection * connection;
-        NSEnumerator* e = [myVPNConnectionDictionary objectEnumerator];
-        while (connection = [e nextObject]) {
-            if (  ! [[connection state] isEqualToString:@"EXITING"]  ) {
-                numConnections++;
-                if (  [connection usedSetNameserver]  ) {
-                    numConnectionsWithSetNameserver++;
-                }
-            }
-        }
-        
-        if (  numConnections != 1  ) {
-            int button = TBRunAlertPanelExtended(NSLocalizedString(@"Do you wish to connect?", @"Window title"),
-                                                 [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ],
-                                                 NSLocalizedString(@"Connect", @"Button"),  // Default button
-                                                 NSLocalizedString(@"Cancel", @"Button"),   // Alternate button
-                                                 nil,
-                                                 @"skipWarningAboutSimultaneousConnections",
-                                                 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                 nil);
-            if (  button == NSAlertAlternateReturn  ) {
-                return;
-            }
-        }
-    }
-    
     [[self selectedConnection] connect: sender]; 
 }
 

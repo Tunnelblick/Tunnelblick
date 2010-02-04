@@ -144,6 +144,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                     shiftLeft:                              (NSButton *)        buttonToLeft
                     shiftSelfLeft:                          (BOOL)              shiftSelfLeft;
 -(void)             moveSoftwareUpdateWindowToForeground;
+-(NSMutableDictionary *)     myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             removeConnection:                       (id)                sender;
 -(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
