@@ -25,7 +25,7 @@
 #import "VPNConnection.h"
 
 @class NetSocket;
-BOOL needsInstallation(void);
+BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN);
 void terminateBecauseOfBadConfiguration(void);
 BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath);
 BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave);
@@ -144,7 +144,8 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(void)             removeConnection:                       (id)                sender;
 -(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
                                     repairApp:              (BOOL)              repairIt
-                                 removeBackup:              (BOOL)              removeBkup;
+                                 removeBackup:              (BOOL)              removeBkup
+                           moveLibraryOpenVPN:              (BOOL)              moveConfigs;
 -(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
 -(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
 -(VPNConnection *)  selectedConnection;

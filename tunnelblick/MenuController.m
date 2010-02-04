@@ -79,10 +79,11 @@ extern TBUserDefaults  * gTbDefaults;
                                              stringByAppendingPathComponent: @"TunnelblickBackup"]
                                             stringByAppendingPathComponent: @"Deploy"];
         BOOL isDir;
-        
+        BOOL needsChangeOwnershipAndOrPermissions;
+        BOOL needsMoveLibraryOpenVPN;
         BOOL haveDeploy   = [fMgr fileExistsAtPath: deployDirPath    isDirectory: &isDir] && isDir;
         BOOL haveBackup   = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
-        BOOL needsInstall = needsInstallation();
+        needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN );
         BOOL remove     = FALSE;   // Remove the backup of Resources/Deploy
         BOOL restore    = FALSE;   // Restore Resources/Deploy from backup
 
@@ -105,8 +106,11 @@ extern TBUserDefaults  * gTbDefaults;
         }
         // The installer restores Resources/Deploy and/or removes its backups and/or repairs permissions,
         // then moves the config folder if it hasn't already been moved, then backs up Resources/Deploy if it exists
-        if (  restore || remove || needsInstall  ) {
-            if (  ! [self runInstallerRestoreDeploy: restore repairApp: needsInstall removeBackup: remove]  ) {
+        if (  restore || remove || needsChangeOwnershipAndOrPermissions || needsMoveLibraryOpenVPN  ) {
+            if (  ! [self runInstallerRestoreDeploy: restore
+                                          repairApp: needsChangeOwnershipAndOrPermissions
+                                       removeBackup: remove
+                                 moveLibraryOpenVPN: needsMoveLibraryOpenVPN]  ) {
                 // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
                 [NSApp setAutoLaunchOnLogin: NO];
                 [NSApp terminate:self];
@@ -1886,33 +1890,90 @@ static void signal_handler(int signalNumber)
 }
 
 // Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files and/or move the config folder
-// restore      should be TRUE if Resources/Deploy should be restored from its backup
-// repairApp    should be TRUE if needsRepair() returned TRUE
-// removeBackup should be TRUE if the backup of Resources/Deploy should be removed
+// restore    should be TRUE if Resources/Deploy should be restored from its backup
+// repairIt   should be TRUE if needsRepair() returned TRUE
+// removeBkup should be TRUE if the backup of Resources/Deploy should be removed
+// moveIt     should be TRUE if /Library/openvpn needs to be moved to /Library/Application Support/Tunnelblick/Configurations
 // Returns TRUE if ran successfully, FALSE if failed
--(BOOL) runInstallerRestoreDeploy: (BOOL) restore repairApp: (BOOL) repairIt removeBackup: (BOOL) removeBkup
+-(BOOL) runInstallerRestoreDeploy: (BOOL) restore repairApp: (BOOL) repairIt removeBackup: (BOOL) removeBkup moveLibraryOpenVPN: (BOOL) moveConfigs
 {
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	NSString *installer = [thisBundle pathForResource:@"installer" ofType:nil];
 	AuthorizationRef authRef;
 
     NSMutableArray * args = [[[NSMutableArray alloc] initWithCapacity:3] autorelease];
-    NSString * msg = @"Need to";
+    
+    NSString * msg;
+    
+    int code = 0;
+    if (restore    ) code = code + 1;
+    if (repairIt   ) code = code + 2;
+    if (removeBkup ) code = code + 4;
+    if (moveConfigs) code = code + 8;
+
+    switch (  code  ) {
+        case 1:
+            msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup.", @"Window text");
+            break;
+        case 2:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program.", @"Window text");
+            break;
+        case 3:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program and restore configuration(s) from the backup.", @"Window text");
+            break;
+        case 4:
+            msg = NSLocalizedString(@"Tunnelblick needs to remove the configuration(s) backup.", @"Window text");
+            break;
+        case 5:
+            msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup and then remove the backup.", @"Window text");
+            break;
+        case 6:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program and remove the configuration(s) backup.", @"Window text");
+            break;
+        case 7:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and remove the backup.", @"Window text");
+            break;
+        case 8:
+            msg = NSLocalizedString(@"Tunnelblick needs to move the configurations folder.", @"Window text");
+            break;
+        case 9:
+            msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder.", @"Window text");
+            break;
+        case 10:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program and move the configurations folder.", @"Window text");
+            break;
+        case 11:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and move the configurations folder.", @"Window text");
+            break;
+        case 12:
+            msg = NSLocalizedString(@"Tunnelblick needs to move the configurations folder and remove the configuration(s) backup.", @"Window text");
+            break;
+        case 13:
+            msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder.", @"Window text");
+            break;
+        case 14:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, remove the backup of configuration(s), and move the configurations folder.", @"Window text");
+            break;
+        case 15:
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, remove the backup, and move the configurations folder.", @"Window text");
+            break;
+        default:
+            msg = @"";
+            break;
+    }
+    
     if (  restore  ) {
         [args addObject: @"1"];
-        msg = [msg stringByAppendingString:@" restore configuration(s) from backup;"];
     } else {
         [args addObject: @"0"];
     }
-    if (  repairIt  ) {
+    if (  repairIt || moveConfigs  ) {
         [args addObject:@"1"];
-        msg = [msg stringByAppendingString:@" repair ownership/permissions of the program or move the configurations folder;"];
     } else {
         [args addObject:@"0"];
     }
     if (  removeBkup  ) {
         [args addObject:@"1"];
-        msg = [msg stringByAppendingString:@" remove backup of configuration(s);"];
     } else {
         [args addObject:@"0"];
     }
@@ -1930,6 +1991,8 @@ static void signal_handler(int signalNumber)
     NSFileManager * fMgr = [NSFileManager defaultManager];
     OSStatus status;
     BOOL installFailed;
+    BOOL needsChangeOwnershipAndOrPermissions;
+    BOOL needsMoveLibraryOpenVPN;
     do {
         if (  i != 5  ) {
             sleep(1);
@@ -1939,11 +2002,11 @@ static void signal_handler(int signalNumber)
         if (  installFailed  ) {
             [fMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
         }
-    } while (  needsInstallation()  && (i-- > 0)  );
+    } while (  needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN )  && (i-- > 0)  );
     
     AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     
-    if (  (status != EXIT_SUCCESS) || installFailed || (  (i < 0) && needsInstallation()  )  ) {
+    if (  (status != EXIT_SUCCESS) || installFailed || (  (i < 0) && needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN )  )  ) {
         NSLog(@"Installation or repair failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
                         NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
@@ -1957,9 +2020,9 @@ static void signal_handler(int signalNumber)
     return TRUE;
 }
 
-// Checks ownership and permissions of critical files. Returns YES if need to run the installer to repair them, else returns NO.
-// Also returns YES if ~/Library/openvpn has NOT been moved to ~/Library/Application Support/Tunnelblick/Configurations (for 3.0b24)
-BOOL needsInstallation(void) 
+// Checks ownership and permissions of critical files and whether ~/Library/openvpn has been moved to ~/Library/Application Support/Tunnelblick/Configurations (for 3.0b24)
+// Returns with the respective arguments set YES or NO, and returns YES if either one is YES. Otherwise returns NO.
+BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN) 
 {
     // Check that the configuration folder has been moved. If not, return YES
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
@@ -1968,6 +2031,9 @@ BOOL needsInstallation(void)
     BOOL isDir;
     BOOL newFolderExists = FALSE;
     BOOL newParentExists = FALSE;
+    
+    *changeOwnershipAndOrPermissions = FALSE;
+    *moveLibraryOpenVPN = FALSE;
     
     NSFileManager * fMgr = [NSFileManager defaultManager];
     
@@ -2006,7 +2072,7 @@ BOOL needsInstallation(void)
                         NSLog(@"Error: %@ exists and is a folder, but %@ already exists, so %@ cannot be moved", oldConfigDirPath, newParentDirPath, oldConfigDirPath);
                         terminateBecauseOfBadConfiguration();
                     }
-                    return YES;  // old folder exists, but new one doesn't, so do the move
+                    *moveLibraryOpenVPN = YES;  // old folder exists, but new one doesn't, so do the move
                 }
             } else {
                 NSLog(@"Error: %@ exists but is not a symbolic link or a folder", oldConfigDirPath);
@@ -2054,6 +2120,7 @@ BOOL needsInstallation(void)
 		 && (sb.st_uid == 0) // is owned by root
 		)) {
 		NSLog(@"openvpnstart has missing set uid bit, is not owned by root, or owner can't execute it");
+        *changeOwnershipAndOrPermissions = YES;
 		return YES;		
 	}
 	
@@ -2063,6 +2130,7 @@ BOOL needsInstallation(void)
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {
         if (  ! isOwnedByRootAndHasPermissions(currentPath, @"744")  ) {
+            *changeOwnershipAndOrPermissions = YES;
             return YES; // NSLog already called
         }
 	}
@@ -2070,6 +2138,7 @@ BOOL needsInstallation(void)
     // check permissions of files in Resources/Deploy (if any)        
     NSString * deployDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
     if (  deployContentsOwnerOrPermissionsNeedRepair(deployDirPath)  ) {
+        *changeOwnershipAndOrPermissions = YES;
         return YES;
     }
     
@@ -2079,7 +2148,12 @@ BOOL needsInstallation(void)
                                     stringByAppendingPathComponent: @"TunnelblickBackup"]
                                    stringByAppendingPathComponent: @"Deploy"];
     
-	return deployContentsOwnerOrPermissionsNeedRepair(deployBackupPath);
+    if (  deployContentsOwnerOrPermissionsNeedRepair(deployBackupPath)  ) {
+        *changeOwnershipAndOrPermissions = YES;
+        return YES;
+    }
+    
+    return *moveLibraryOpenVPN;
 }
 
 void terminateBecauseOfBadConfiguration(void)

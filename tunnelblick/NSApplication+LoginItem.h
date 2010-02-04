@@ -32,7 +32,7 @@
 
 - (BOOL) setAutoLaunchOnLogin: (BOOL) doAutoLaunch;
 
-+(AuthorizationRef)getAuthorizationRef: msg;
++(AuthorizationRef)getAuthorizationRef: (NSString *) msg;
 
 +(OSStatus) executeAuthorized:(NSString *)toolPath withArguments:(NSArray *)arguments withAuthorizationRef:(AuthorizationRef) myAuthorizationRef;
 

@@ -237,12 +237,53 @@
     return [[self class] setAutoLaunchPath: itemPath onLogin: doAutoLaunch];
 }
 
-+(AuthorizationRef)getAuthorizationRef: msg {
++(AuthorizationRef)getAuthorizationRef: (NSString *) msg {
 	OSStatus myStatus;
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
 	AuthorizationRef myAuthorizationRef;
-	myStatus = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment,
-								   myFlags, &myAuthorizationRef);
+    
+    // Add an icon and a prompt to the authorization dialog
+    //
+    // One would think that we could use an icon in Resources, but that doesn't work. Apparently if the path is too long
+    // the icon won't be displayed. It works if the icon is in /tmp. In addition, it seems to require a 32x32 png.
+    // We create the icon dynamically so if the main Tunnelblick icon changes, the authorization dialog will show the new icon.
+
+    NSString * tmpAuthIconPath = @"/tmp/TunnelblickAuthIcon.png";
+    
+    // START OF CODE adapted from comment 7 on http://cocoadev.com/forums/comments.php?DiscussionID=1215    //
+                                                                                                            //
+    NSImage *saveIcon = [[NSWorkspace sharedWorkspace] iconForFile: [[NSBundle mainBundle] bundlePath]];    //
+                                                                                                            //
+    NSImage *smallSave = [[[NSImage alloc] initWithSize:NSMakeSize(32, 32)] autorelease];                   //
+    // Get it's size down to 32x32                                                                          //
+    [smallSave lockFocus];                                                                                  //
+    [saveIcon drawInRect:NSMakeRect(0, 0, 32, 32)                                                           //
+                fromRect:NSMakeRect(0, 0, saveIcon.size.width, saveIcon.size.height)                        //
+               operation:NSCompositeSourceOver                                                              //
+                fraction:1.0];                                                                              //
+                                                                                                            //
+    [smallSave unlockFocus];                                                                                //
+    NSBitmapImageRep *rep = [NSBitmapImageRep imageRepWithData:[smallSave TIFFRepresentation]];             //
+                                                                                                            //
+    [[rep representationUsingType:NSPNGFileType properties:nil] writeToFile:tmpAuthIconPath atomically:NO]; //
+                                                                                                            //
+    // END OF CODE adapted from comment 7 on http://cocoadev.com/forums/comments.php?DiscussionID=1215      //
+    
+    const char *iconPathC = [tmpAuthIconPath fileSystemRepresentation];
+    size_t iconPathLength = iconPathC ? strlen(iconPathC) : 0;
+
+    // Prefix the prompt with a space so it is indented, like the rest of the dialog, and follow it with two newlines
+    char * promptC = (char *) [[NSString stringWithFormat: @" %@\n\n", msg] UTF8String];
+    size_t promptLength = strlen(promptC);
+    
+    AuthorizationItem environmentItems[] = {
+        {kAuthorizationEnvironmentPrompt, promptLength, (void*)promptC, 0},
+        {kAuthorizationEnvironmentIcon, iconPathLength, (void*)iconPathC, 0}
+    };
+    
+    AuthorizationEnvironment myEnvironment = {2, environmentItems};
+    
+	myStatus = AuthorizationCreate(NULL, &myEnvironment, myFlags, &myAuthorizationRef);
 	if (myStatus != errAuthorizationSuccess)
 		return nil;
 	AuthorizationItem myItems = {kAuthorizationRightExecute, 0,
@@ -252,7 +293,7 @@
 		kAuthorizationFlagInteractionAllowed |
 		kAuthorizationFlagPreAuthorize |
 		kAuthorizationFlagExtendRights;
-	myStatus = AuthorizationCopyRights (myAuthorizationRef,&myRights, NULL, myFlags, NULL );
+	myStatus = AuthorizationCopyRights (myAuthorizationRef,&myRights, &myEnvironment, myFlags, NULL );
 	if (myStatus != errAuthorizationSuccess)
 		return nil;
 	
