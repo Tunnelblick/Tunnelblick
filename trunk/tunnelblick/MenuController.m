@@ -178,6 +178,7 @@ extern TBUserDefaults  * gTbDefaults;
 																   name: @"NSWorkspaceDidWakeNotification"
 																 object:nil];
 		
+        ignoreNoConfigs = FALSE;    // We don't ignore the "no configurations" situation
         if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
             myQueue = [UKKQueue sharedFileWatcher];
             [myQueue addPathToQueue: configDirPath];
@@ -1400,12 +1401,12 @@ extern TBUserDefaults  * gTbDefaults;
 // else do nothing
 -(void)createDefaultConfigUsingTitle:(NSString *) ttl andMessage:(NSString *) msg 
 {
-    if (  [[self getConfigs] count] != 0  ) {
+    if (  ignoreNoConfigs || [[self getConfigs] count] != 0  ) {
         return;
     }
-
+    
     NSFileManager  * fileManager     = [NSFileManager defaultManager];
-
+    
     if (  configDirIsDeploy  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
@@ -1425,8 +1426,8 @@ extern TBUserDefaults  * gTbDefaults;
     } else {
         alternateButtonTitle = NSLocalizedString(@"Open configuration folder", @"Button");
     }
-
-
+    
+    
     int button = TBRunAlertPanel(ttl,
                                  msg,
                                  NSLocalizedString(@"Quit", @"Button"), // Default button
@@ -1437,7 +1438,7 @@ extern TBUserDefaults  * gTbDefaults;
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
     }
-
+    
     NSString * parentPath = [configDirPath stringByDeletingLastPathComponent];
     if (  ! [fileManager fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
         if ( ! [fileManager createDirectoryAtPath: parentPath attributes:nil]  ) {
@@ -1450,7 +1451,24 @@ extern TBUserDefaults  * gTbDefaults;
             NSLog(@"Error creating %@", configDirPath);
         }
     }
-        
+    
+    if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
+        NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
+        NSString * launchTunnelblickSymlink = [configDirPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+        if (  ! [fileManager fileExistsAtPath:launchTunnelblickSymlink]  ) {
+            ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
+            NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
+            [fileManager createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                      pathContent: pathToThisApp];
+        } else if (  ! [[fileManager pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
+            ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
+            NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
+            [fileManager removeFileAtPath: launchTunnelblickSymlink handler: nil];
+            [fileManager createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                      pathContent: pathToThisApp];
+        }
+    }
+    
     if (  button == NSAlertOtherReturn  ) { // CREATE CONFIGURATION FOLDER (already created)
         [[NSWorkspace sharedWorkspace] openFile: configDirPath];
         [NSApp setAutoLaunchOnLogin: NO];
@@ -1472,6 +1490,8 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
     [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
+    
+    ignoreNoConfigs = FALSE;    // Go back to checking for no configuration files
 }
 
 -(IBAction)editConfig:(id)sender
