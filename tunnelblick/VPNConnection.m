@@ -761,7 +761,7 @@ extern TBUserDefaults  * gTbDefaults;
             } else {
                 // Alt config exists but is different
                 NSLog(@"The shadow copy of configuration file %@ needs to be updated from the original", cfgPath);
-                authRef = [NSApplication getAuthorizationRef: @"Tunnelblick needs to update the shadow copy of the configuration file from the original."];// Overwrite it with the standard one and set ownership & permissions
+                authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to update the shadow copy of the configuration file from the original.", @"Window text")];// Overwrite it with the standard one and set ownership & permissions
                 if ( authRef == nil ) {
                     NSLog(@"Authorization for update of shadow copy cancelled by user");
                     AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
@@ -801,7 +801,7 @@ extern TBUserDefaults  * gTbDefaults;
                 }
             }
 
-            authRef = [NSApplication getAuthorizationRef: @"Tunnelblick needs to create a shadow copy of the configuration file."]; // Create folders if they don't exist:
+            authRef = [NSApplication getAuthorizationRef: NSLocalizedString(@"Tunnelblick needs to create a shadow copy of the configuration file.", @"Window text")]; // Create folders if they don't exist:
             if ( authRef == nil ) {
                 NSLog(@"Authorization to create a shadow copy of the configuration file cancelled by user.");
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
