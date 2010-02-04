@@ -1957,10 +1957,10 @@ static void signal_handler(int signalNumber)
             msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup.", @"Window text");
             break;
         case 2:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it.", @"Window text");
             break;
         case 3:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program and restore configuration(s) from the backup.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it and restore configuration(s) from the backup.", @"Window text");
             break;
         case 4:
             msg = NSLocalizedString(@"Tunnelblick needs to remove the configuration(s) backup.", @"Window text");
@@ -1969,10 +1969,10 @@ static void signal_handler(int signalNumber)
             msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup and then remove the backup.", @"Window text");
             break;
         case 6:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program and remove the configuration(s) backup.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it and remove the configuration(s) backup.", @"Window text");
             break;
         case 7:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and remove the backup.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and remove the backup.", @"Window text");
             break;
         case 8:
             msg = NSLocalizedString(@"Tunnelblick needs to move the configurations folder.", @"Window text");
@@ -1981,10 +1981,10 @@ static void signal_handler(int signalNumber)
             msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder.", @"Window text");
             break;
         case 10:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program and move the configurations folder.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it and move the configurations folder.", @"Window text");
             break;
         case 11:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, and move the configurations folder.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and move the configurations folder.", @"Window text");
             break;
         case 12:
             msg = NSLocalizedString(@"Tunnelblick needs to move the configurations folder and remove the configuration(s) backup.", @"Window text");
@@ -1993,10 +1993,10 @@ static void signal_handler(int signalNumber)
             msg = NSLocalizedString(@"Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder.", @"Window text");
             break;
         case 14:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, remove the backup of configuration(s), and move the configurations folder.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it, remove the backup of configuration(s), and move the configurations folder.", @"Window text");
             break;
         case 15:
-            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program, restore configuration(s) from the backup, remove the backup, and move the configurations folder.", @"Window text");
+            msg = NSLocalizedString(@"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, remove the backup, and move the configurations folder.", @"Window text");
             break;
         default:
             msg = @"";
