@@ -165,7 +165,7 @@ extern TBUserDefaults  * gTbDefaults;
                 if (  [fMgr fileExistsAtPath: configDirPath isDirectory: &isDir]  ) {
                     NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
                     NSString * launchTunnelblickSymlink = [configDirPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                    if (  ! [fMgr fileExistsAtPath:launchTunnelblickSymlink]  ) {
+                    if (  ! [fMgr fileAttributesAtPath: launchTunnelblickSymlink traverseLink: NO]  ) {
                         NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
                         [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
                                                   pathContent: pathToThisApp];
