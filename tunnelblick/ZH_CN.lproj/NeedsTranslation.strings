@@ -16,8 +16,32 @@
 /* Window text */
 "An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "An error occurred while trying to move the previous version of %1$@ to the Trash.\n\nThe previous version is %2$@";
 
+/* Window text */
+"Anonymous unique ID" = "Anonymous unique ID";
+
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+
+/* System profile item */
+"Computer admin" = "Computer admin";
+
+/* System profile item */
+"Configurations" = "Configurations";
+
+/* System profile item */
+"Deployed" = "Deployed";
+
+/* "Menu item tooltip" */
+"Disabled because Sparkle Updater does not implement this feature" = "Disabled because Sparkle Updater does not implement this feature";
+
+/* "Menu item tooltip" */
+"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+
+/* "Menu item tooltip" */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
 
 /* Window text */
 "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
@@ -68,6 +92,9 @@
 "Launch" = "Launch";
 
 /* Window title */
+"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
+
+/* Window title */
 "Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
 
 /* Button */
@@ -84,6 +111,9 @@
 
 /* Window title */
 "The configuration file is protected" = "The configuration file is protected";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
 
 /* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
@@ -182,6 +212,9 @@
 "Unprotect and Modify" = "Unprotect and Modify";
 
 /* Window title */
+"Updates are disabled" = "Updates are disabled";
+
+/* Window title */
 "Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
 
 /* Window title */
@@ -213,3 +246,5 @@
 
 /* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+/* Window text */
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";

@@ -17,9 +17,9 @@
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0b25</string>
+	<string>3.0b25 (build 1371)</string>
 	<key>CFBundleVersion</key>
-	<string>3.0b25</string>
+	<string>1371</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -30,7 +30,7 @@
 	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>SUEnableSystemProfiling</key>
 	<true/>
-	<key>Build</key>
-	<string>1363</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>

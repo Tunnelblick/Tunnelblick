@@ -47,6 +47,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     IBOutlet id               myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * theItem;                      // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
+	NSMenuItem              * detailsItem;                  // "Details..." item for menu
     NSMenuItem              * optionsItem;                  // "Options" item for menu
     NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
     NSMenuItem              * preferencesTitleItem;         //    "Preferences" menu item (just used as a title)
@@ -59,7 +60,6 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSMenuItem              * reportAnonymousInfoItem;      //        "Report Anonymous System Info" menu item
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
-	NSMenuItem              * detailsItem;                  // "Details..." item for menu
     NSMenuItem              * quitItem;                     // "Quit..." item for menu
 
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
@@ -136,14 +136,15 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                  andPreferenceKey:                          (NSString *)        prefKey
                           negated:                          (BOOL)              negatePref;
 -(void)             initialiseAnim;
+-(NSString *)       installationId;
 -(void)             killAllConnections;
 -(void)             loadKexts; 
 -(void)             loadMenuIconSet;
+-(BOOL)             AppNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(void)             localizeControl:                        (NSButton *)        button       
                     shiftRight:                             (NSButton *)        buttonToRight
                     shiftLeft:                              (NSButton *)        buttonToLeft
                     shiftSelfLeft:                          (BOOL)              shiftSelfLeft;
--(void)             moveSoftwareUpdateWindowToForeground;
 -(NSMutableDictionary *)     myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             removeConnection:                       (id)                sender;
