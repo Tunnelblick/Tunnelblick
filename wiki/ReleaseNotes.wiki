@@ -1,11 +1,27 @@
-#summary Release Notes - Tunnelblick v 3.0b24
+#summary Release Notes - Tunnelblick
 #labels Featured,Phase-Deploy
+
 ==Tunnelblick Release Notes==
 The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a broader audience of members who might be able to help!
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
+
+==3.0b26 (2010-02-09)==
+  * Now uses OpenVPN version 2.1.1.
+  * Adds Chinese localization (both simplified and traditional). Many thanks to Aming Lau.
+  * Installation has been simplified: The Tunnelblick disk image gives instructions to "Double-click to begin" in several languages. Double-clicking starts a small installer. The installer detects installs/reinstalls/upgrades/downgrades and puts the current copy of Tunnelblick.app in the Trash before replacing it, then offers to launch the new version. Warns about other copies of Tunnelblick running during an install and offers to stop them. (Simply copying Tunnelblick.app to /Applications or elsewhere on the hard drive still works, too.)
+  * The "Welcome to Tunnelblick" window now gives the user much more information, and offers the options of creating and editing a sample configuration file or opening the Configurations folder in Finder.
+  * Uses Sparkle Updater version 1.5b6 for better security. Updates must be signed with 2048-bit DSA signatures. Updating behavior is now controlled by Tunnelblick preferences, which may be forced. Deployers note: many of these preferences should be forced for security reasons in a deployed environment.
+  * Tunnelblick now explains why it is asking for an administrator username/password in authentication dialogs.
+  * Tunnelblick's OpenVPN Log window now includes detailed information about why a connection was restarted by leasewatch (when the 'Monitor connection' checkbox is checked).
+  * The program's menu has been streamlined.
+  * Connection timers are now displayed by default (unless the 'showConnectedDurations' preference is FALSE).
+  * Fixes problem editing configuration files on Tiger and Leopard by allowing non-admin users (without an administrator username/password) to unprotect the configuration file before invoking TextEdit. This ability can be disabled with the 'onlyAdminsCanUnprotectConfigurationFiles' preference. On Snow Leopard (which automatically unprotects files when they are modified), warns user that an administrator username/password will be required to connect if the configuration file is modified. Note: The 'Edit Configuration' button may be still disabled with a per-configuration  preference.
+  * Enhancements: Displays command line used to launch 'openvpnstart' in the OpenVPN Log window. Detects and gives a detailed error message if a configuration file is identical to the sample provided by Tunnelblick. Creates a "Launch Tunnelblick" link in the Configurations folder. Localizes paths that are displayed to the user -- for example, in French (FR), 'Library' becomes 'Bibliothèque'. Detects, complains, and quits if not running on OS X 10.4 ("Tiger") or above. Added Quick Start Guide to disk image.
+  * Bug fixes: Fixes bug that caused crashes when started automatically on login on some versions of Leopard and Snow Leopard. Fixes bug that didn't localize the title for the OpenVPN Log window. Fixes bug that displayed 'monitoring connection' when 'Set nameserver' is not checked. Fixes bug opening wrong copy of sample configuration file in TextEdit. Fixes bug that tries to to create Configurations folder when not necessary. Fixes bug that tried to create configuration file in Deploy. Fixes typo in dialog for remote home folders. Fixes sporadic failure to detect multiple simultaneous connections.
+  * Known Issues: See the [http://code.google.com/p/tunnelblick/wiki/KnownIssues Known Issues wiki].
 
 ==3.0b24 (2009-12-12)==
   * New 'Monitor connection' checkbox in the OpenVPN Log window (defaults to checked). When checked, Tunnelblick monitors connection interfaces as it has since 3.0b18. When unchecked, Tunnelblick ignores connection interface changes, as version 3.0b10 did. This allows more users to use the latest version (some users couldn't because of repeated restarts caused by Tunnelblick detecting connection interface changes). Please note that OpenVPN itself restarts connections under certain circumstances. New scripts are used when 'Monitor connection' is not checked and 'Set DNS' is checked: client.nomonitor.up.osx.sh and client.nomonitor.down.osx.sh.
