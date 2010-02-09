@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    // If need to repair ownership and/or permissions and/or move the configuration folder, do so:
+    // If need to repair ownership and/or permissions of Tunnelblick.app and/or move the configuration folder, do so:
     if ( needToRepair ) {
         NSString *installerPath         = [thisBundle stringByAppendingPathComponent:@"/installer"];
         NSString *openvpnstartPath      = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
@@ -125,11 +125,13 @@ int main(int argc, char *argv[])
         NSString *clientDownPath        = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
         NSString *clientNoMonUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.up.osx.sh"];
         NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.down.osx.sh"];
+        NSString *infoPlistPath         = [[[installerPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
         
         // Create arrays of arguments for the chmod command to set permissions for files in /Resources/Deploy
-        // as follows: .crt and .key files are set to 600, shell files are set to 744, ana all other file are set to 644
+        // as follows: certificate & key files are set to 600, shell files are set to 744, and all other file are set to 644
+        // Other permissions: Info.plist is set to 644, and executable and standard scripts are set to 744
         NSMutableArray *chmod600Args = [NSMutableArray arrayWithObject: @"600"];
-        NSMutableArray *chmod644Args = [NSMutableArray arrayWithObject: @"644"];
+        NSMutableArray *chmod644Args = [NSMutableArray arrayWithObjects: @"644", infoPlistPath, nil];
         NSMutableArray *chmod744Args = [NSMutableArray arrayWithObjects: @"744",
                                         installerPath, openvpnPath, leasewatchPath,
                                         clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
@@ -149,7 +151,7 @@ int main(int argc, char *argv[])
             }
         }
         
-        runTask(@"/usr/sbin/chown", [NSArray arrayWithObjects: @"-R", @"root:wheel", thisBundle, nil]);
+        runTask(@"/usr/sbin/chown", [NSArray arrayWithObjects: @"-R", @"root:wheel", thisBundle, infoPlistPath, nil]);
         
         runTask(@"/bin/chmod",      [NSArray arrayWithObjects: @"4111", openvpnstartPath, nil]);
         

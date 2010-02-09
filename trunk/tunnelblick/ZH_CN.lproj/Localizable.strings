@@ -40,6 +40,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "An error occurred while trying to move the previous version of %1$@ to the Trash.\n\nThe previous version is %2$@";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Anonymous unique ID" = "Anonymous unique ID";
+
 /* Window title */
 "Authentication failed" = "认证失败"; 
 
@@ -67,11 +70,17 @@
 /* NEEDS TRANSLATION *//* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 
+/* NEEDS TRANSLATION *//* System profile item */
+"Computer admin" = "Computer admin";
+
 /* Window title */
 "Configuration Change" = "更改设定"; 
 
 /* Window text */
 "Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "设定档%1$@ 位于远端卷宗内. 基于保安原因Tunnelblick 要求将设定档置于本地卷宗内\n\n要Tunnelblick 为您创建及使用在%2$@ 的本地设定档吗?\n\n(此动作需要管理员之名称及密码.)\n";
+
+/* NEEDS TRANSLATION *//* System profile item */
+"Configurations" = "Configurations";
 
 /* Button */
 "Connect" = "连线"; 
@@ -80,7 +89,7 @@
 "Continue" = "继续"; 
 
 /* Window text */
-"Copyright © 2004-2009 Angelo Laub and others. All rights reserved." = "版权由© 2004-2009 Angelo Laub and others 拥有. 仿版必究."; 
+"Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "版权由© 2004-2010 Angelo Laub and others 拥有. 仿版必究."; 
 
 /* Button */
 "Create copy" = "制作拷贝"; 
@@ -88,8 +97,20 @@
 /* Window title */
 "Create local copy of configuration file?" = "创建本地设定档?"; 
 
+/* NEEDS TRANSLATION *//* System profile item */
+"Deployed" = "Deployed";
+
 /* Menu item */
 "Details..." = "详情…"; 
+
+/* NEEDS TRANSLATION *//* "Menu item tooltip" */
+"Disabled because Sparkle Updater does not implement this feature" = "Disabled because Sparkle Updater does not implement this feature";
+
+/* NEEDS TRANSLATION *//* "Menu item tooltip" */
+"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+
+/* NEEDS TRANSLATION *//* "Menu item tooltip" */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set";
 
 /* Button */
 "Disconnect" = "中断连线"; 
@@ -99,6 +120,9 @@
 
 /* Checkbox name */
 "Do not warn about this again" = "停用此警告"; 
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
 
 /* Window title */
 "Do you wish to connect?" = "要再次连线吗?"; 
@@ -195,6 +219,9 @@
 
 /* Button */
 "OK" = "确定"; 
+
+/* NEEDS TRANSLATION *//* Window title */
+"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
 /* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN 日志记录- Tunnelblick"; 
@@ -314,6 +341,9 @@
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick 错误"; 
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
+
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "由于设定出现问题Tunnelblick 未能启动. 详情请查看控制台日志."; 
 
@@ -432,6 +462,9 @@
 "Unprotect and Modify" = "Unprotect and Modify";
 
 /* NEEDS TRANSLATION *//* Window title */
+"Updates are disabled" = "Updates are disabled";
+
+/* NEEDS TRANSLATION *//* Window title */
 "Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -484,3 +517,5 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+/* NEEDS TRANSLATION *//* Window text */
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";

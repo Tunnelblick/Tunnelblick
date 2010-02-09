@@ -69,29 +69,47 @@ BOOL useDNSStatus(id connection)
 	return useDNS;
 }
 
-// Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3 (3.0b12 build 157)"
+// Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3.0b12 (build 157)"
 NSString * tunnelblickVersion(NSBundle * bundle)
 {
-    NSString * TBFullV = [bundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-    NSDictionary * TunnelblickV = parseVersion(TBFullV);
+    NSString * infoVersion = [bundle objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString * infoShort   = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString * infoBuild   = [bundle objectForInfoDictionaryKey:@"Build"];
+    
+    if (  [[infoVersion class] isSubclassOfClass: [NSString class]] && [infoVersion rangeOfString: @"."].location == NSNotFound  ) {
+        // No "." in CFBundleVersion, so it is a build number, which means that the CFBundleShortVersionString has what we want
+        return [NSString stringWithFormat: @"Tunnelblick %@", infoShort];
+    }
+    
+    // We must construct the string from what we have in infoShort and infoBuild.
+    //Strip "Tunnelblick " from the front of the string if it exists (it may not)
+    NSString * appVersion;
+    if (  [infoShort hasPrefix: @"Tunnelblick "]  ) {
+        appVersion = [infoShort substringFromIndex: [@"Tunnelblick " length]];
+    } else {
+        appVersion = infoShort;
+    }
+    
+    NSString * appVersionWithoutBuild;
+    int parenStart;
+    if (  ( parenStart = ([appVersion rangeOfString: @" ("].location) ) == NSNotFound  ) {
+        // No " (" in version, so it doesn't have a build # in it
+        appVersionWithoutBuild   = appVersion;
+    } else {
+        // Remove the parenthesized build
+        appVersionWithoutBuild   = [appVersion substringToIndex: parenStart];
+    }
+    
     NSMutableString * version = [NSMutableString stringWithCapacity: 30];
     [version appendString: @"Tunnelblick"];
-    id major = [TunnelblickV objectForKey:@"major"];
-    if (  major  ) {
-        [version appendFormat: @" %@", major];
+    if (  appVersionWithoutBuild  ) {
+        [version appendFormat: @" %@", appVersionWithoutBuild];
     }
-    if (  TBFullV  ) {
-        [version appendFormat: @" (%@", TBFullV];
+    if (  infoBuild  ) {
+        [version appendFormat: @" (build %@)", infoBuild];
     }
-    id build = [bundle objectForInfoDictionaryKey:@"Build"];
-    if (  build  ) {
-        [version appendFormat: @" build %@", build];
-    }
-    if (  TBFullV  ) {
-        [version appendFormat: @")"];
-    }
-    if (  ( ! TBFullV ) && ( ! major) && ( ! build) ) {
-        [version appendFormat: @" (no version information)"];
+    if (  ( ! appVersionWithoutBuild ) &&  ( ! infoBuild) ) {
+        [version appendFormat: @" (no version information available)"];
     }
     return (version);
 }
@@ -100,8 +118,7 @@ NSString * tunnelblickVersion(NSBundle * bundle)
 NSString * openVPNVersion(void)
 {
     NSDictionary * OpenVPNV = getOpenVPNVersion();
-    NSString * version      = [NSString stringWithFormat:@"OpenVPN %@ (%@)",
-                               [OpenVPNV objectForKey:@"major"],
+    NSString * version      = [NSString stringWithFormat:@"OpenVPN %@",
                                [OpenVPNV objectForKey:@"full"]
                               ];
     return ([NSString stringWithString: version]);
@@ -145,7 +162,7 @@ NSDictionary * getOpenVPNVersion(void)
             }
         }
     }
-
+    
     return (  parseVersion(string)  );
 }
 

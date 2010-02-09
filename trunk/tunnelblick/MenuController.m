@@ -36,6 +36,7 @@
 #import <sys/sysctl.h>
 #import <sys/types.h>
 #import <sys/stat.h>
+#import <uuid/uuid.h>
 #import "KeyChain.h"
 #import "NetSocket.h"
 #import "NSApplication+LoginItem.h"
@@ -207,22 +208,12 @@ extern TBUserDefaults  * gTbDefaults;
             [myQueue setAlwaysNotify: YES];
 		}
         
-		[NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
-		
 		userIsAnAdmin = isUserAnAdmin();
 		
         updater = [[SUUpdater alloc] init];
 
         [self loadKexts];
 
-        // The following two lines work around a Sparkle Updater bug on Snow Leopard: the updater window doesn't appear.
-        // If we have a window of our own, the updater window appears. The window needn't be visible; it only needs to
-        // be loaded and the app needs to be activated for the updater window to appear. On Tiger and Leopard, it was
-        // sufficient to run moveSoftwareUpdateWindowToForeground (via a delayed thread), and that code is left in so
-        // Tiger and Leopard still show the update window. Presumably a newer version of Sparkle will fix this bug.
-        [NSBundle loadNibNamed: @"SplashWindow" owner: self];   // Loads, but does not display
-        [NSApp activateIgnoringOtherApps:YES];
-        
         // Process "Automatically connect on launch" checkboxes
         NSString * filename;
         VPNConnection * myConnection;
@@ -317,16 +308,6 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
 }
-
--(void)moveSoftwareUpdateWindowToForegroundThread
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    sleep(3);
-    [self moveSoftwareUpdateWindowToForeground];
-    //	[NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(moveSoftwareUpdateWindowToForeground) userInfo: nil repeats: YES];
-    [pool release];
-}
-
 
 - (void) menuExtrasWereAdded: (NSNotification*) n
 {
@@ -444,6 +425,20 @@ extern TBUserDefaults  * gTbDefaults;
                                                      andPreferenceKey: @"doNotMonitorConfigurationFolder"
                                                               negated: YES];
         
+        useShadowCopiesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Shadow Copies of Configuration Files", @"Menu item")
+                                                    andAction: @selector(toggleUseShadowCopies:)
+                                                   andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
+                                           atIndentationLevel: 1
+                                             andPreferenceKey: @"useShadowConfigurationFiles"
+                                                      negated: NO];
+        
+        autoCheckForUpdatesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Automatically Check for Updates", @"Menu item")
+                                                        andAction: @selector(toggleAutoCheckForUpdates:)
+                                                       andToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")
+                                               atIndentationLevel: 1
+                                                 andPreferenceKey: @"updateCheckAutomatically"
+                                                          negated: NO];
+        
 //        warnAboutSimultaneousItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Warn About Simultaneous Connections", @"Menu item")
 //                                                          andAction: @selector(toggleWarnAboutSimultaneous:)
 //                                                         andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
@@ -458,27 +453,13 @@ extern TBUserDefaults  * gTbDefaults;
 //                                                   andPreferenceKey: @"showConnectedDurations"
 //                                                            negated: NO];
 //        
-        useShadowCopiesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Shadow Copies of Configuration Files", @"Menu item")
-                                                    andAction: @selector(toggleUseShadowCopies:)
-                                                   andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
-                                           atIndentationLevel: 1
-                                             andPreferenceKey: @"useShadowConfigurationFiles"
-                                                      negated: NO];
-        
-        autoCheckForUpdatesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Automatically Check for Updates", @"Menu item")
-                                                        andAction: @selector(toggleAutoCheckForUpdates:)
-                                                       andToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")
-                                               atIndentationLevel: 1
-                                                 andPreferenceKey: @"SUEnableAutomaticChecks"
-                                                          negated: NO];
-        
-        reportAnonymousInfoItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Send Anonymous System Profile", @"Menu item")
-                                                        andAction: @selector(toggleReportAnonymousInfo:)
-                                                       andToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")
-                                               atIndentationLevel: 1
-                                                 andPreferenceKey: @"SUSendProfileInfo"
-                                                          negated: NO];
-
+//        reportAnonymousInfoItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Send Anonymous System Profile", @"Menu item")
+//                                                        andAction: @selector(toggleReportAnonymousInfo:)
+//                                                       andToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")
+//                                               atIndentationLevel: 1
+//                                                 andPreferenceKey: @"updateSendProfileInfo"
+//                                                          negated: NO];
+//
         if (  ! [gTbDefaults boolForKey:@"doNotShowCheckForUpdatesNowMenuItem"]  ) {
             checkForUpdatesNowItem = [[NSMenuItem alloc] init];
             [checkForUpdatesNowItem setTitle: NSLocalizedString(@"Check For Updates Now", @"Menu item")];
@@ -509,15 +490,11 @@ extern TBUserDefaults  * gTbDefaults;
         if (  warnAboutSimultaneousItem         ) { [optionsSubmenu addItem: warnAboutSimultaneousItem      ]; }
         if (  showConnectedDurationsItem        ) { [optionsSubmenu addItem: showConnectedDurationsItem     ]; }
         if (  useShadowCopiesItem               ) { [optionsSubmenu addItem: useShadowCopiesItem            ]; }
-
-        if (   putIconNearSpotlightItem || monitorConfigurationDirItem || warnAboutSimultaneousItem || showConnectedDurationsItem || useShadowCopiesItem  ) {
-            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
-        }
-        
         if (  autoCheckForUpdatesItem  ) { [optionsSubmenu addItem: autoCheckForUpdatesItem ]; }
         if (  reportAnonymousInfoItem  ) { [optionsSubmenu addItem: reportAnonymousInfoItem ]; }
         
-        if (  autoCheckForUpdatesItem || reportAnonymousInfoItem  ) {
+
+        if (   putIconNearSpotlightItem || monitorConfigurationDirItem || warnAboutSimultaneousItem || showConnectedDurationsItem || useShadowCopiesItem || autoCheckForUpdatesItem || reportAnonymousInfoItem  ) {
             [optionsSubmenu addItem: [NSMenuItem separatorItem]];
         }
         
@@ -636,8 +613,6 @@ extern TBUserDefaults  * gTbDefaults;
 - (BOOL)validateMenuItem:(NSMenuItem *)anItem 
 {
     // We set the on/off state from the CURRENT preferences, not the preferences when launched.
-    // That is easier than setting the on/off state whenever we change a preference, and
-    // some preferences are changed by Sparkle, so we must set them here anyway
     SEL act = [anItem action];
     if (  act == @selector(togglePlaceIconNearSpotlight:)  ) {
         if (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  ) {
@@ -669,23 +644,54 @@ extern TBUserDefaults  * gTbDefaults;
         } else {
             [anItem setState: NSOffState];
         }
-    } else if (  act == @selector(toggleAutoCheckForUpdates:)  ) {
-        if (  [gTbDefaults boolForKey:@"SUEnableAutomaticChecks"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
     } else if (  act == @selector(toggleReportAnonymousInfo:)  ) {
-        if (  [gTbDefaults boolForKey:@"SUSendProfileInfo"]  ) {
+        if (  [gTbDefaults boolForKey:@"updateSendProfileInfo"]  ) {
             [anItem setState: NSOnState];
         } else {
             [anItem setState: NSOffState];
         }
+        if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            return NO;
+        } else if (  ! [updater respondsToSelector:@selector(setSendsSystemProfile:)]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:", @"Menu item tooltip")];
+            return NO;
+        }
+        [anItem setToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")];
+    } else if (  act == @selector(toggleAutoCheckForUpdates:)  ) {
+        [anItem setState: NSOffState];
+        if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            return NO;
+        } else if (  ! [updater respondsToSelector:@selector(setAutomaticallyChecksForUpdates:)]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:", @"Menu item tooltip")];
+            return NO;
+        } else if (  ! [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
+            return NO;
+        }
+        if (  [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
+            [anItem setState: NSOnState];
+        }
+        [anItem setToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")];
+    } else if (  act == @selector(checkForUpdates:)  ) {
+        if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            return NO;
+        } else if (  ! [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
+            return NO;
+        }
+        [anItem setToolTip: @""];
+    } else {
+        [anItem setToolTip: @""];
+        return YES;
     }
-
-    // We store the preference key for a menu itme in the item's representedObject so we can do the following:
+    
+    // We store the preference key for a menu item in the item's representedObject so we can do the following:
     if (  [anItem representedObject]  ) {
         if (  ! [gTbDefaults canChangeValueForKey: [anItem representedObject]]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Disabled because this setting is being forced", @"Menu item tooltip")];
             return NO;
         }
     }
@@ -755,12 +761,33 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void)toggleAutoCheckForUpdates: (NSMenuItem *) item
 {
-    [self toggleMenuItem: item withPreferenceKey: @"SUEnableAutomaticChecks"];
+    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
+        if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
+            // Was OFF, trying to change to ON
+            if (  [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+                [self toggleMenuItem: item withPreferenceKey: @"updateCheckAutomatically"];
+                [updater setAutomaticallyChecksForUpdates: YES];
+            } else {
+                NSLog(@"'Automatically Check for Updates' change ignored because the name of the application has been changed");
+            }
+        } else {
+            // Was ON, change to OFF
+            [self toggleMenuItem: item withPreferenceKey: @"updateCheckAutomatically"];
+            [updater setAutomaticallyChecksForUpdates: NO];
+        }
+    } else {
+        NSLog(@"'Automatically Check for Updates' change ignored because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
+    }
 }
 
 -(void)toggleReportAnonymousInfo: (NSMenuItem *) item
 {
-    [self toggleMenuItem: item withPreferenceKey: @"SUSendProfileInfo"];
+    if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
+        [self toggleMenuItem: item withPreferenceKey: @"updateSendProfileInfo"];
+        [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
+    } else {
+        NSLog(@"'Send Anonymous System Profile' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
+    }
 }
 
 -(void)toggleMenuItem: (NSMenuItem *) item withPreferenceKey: (NSString *) prefKey
@@ -1110,11 +1137,34 @@ extern TBUserDefaults  * gTbDefaults;
     [[self selectedConnection] disconnect: sender];      
 }
 
-
 - (IBAction) checkForUpdates: (id) sender
 {
-    [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
-    [updater checkForUpdates: self];
+    if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+        NSLog(@"Check for updates was not performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
+    } else {
+        if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
+            if (  [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+                if (  ! userIsAnAdmin  ) {
+                    int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
+                                                           NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
+                                                           NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
+                                                           NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
+                                                           nil,                                                     // Other button
+                                                           @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
+                                                           NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
+                                                           nil);
+                    if (  response == NSAlertAlternateReturn  ) {
+                        return;
+                    }
+                }
+                [updater checkForUpdates: self];
+            } else {
+                NSLog(@"'Check for Updates Now' ignored because the name of the application has been changed");
+            }
+        } else {
+            NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
+        }
+    }
 }
 
 - (IBAction) openLogWindow: (id) sender
@@ -1252,7 +1302,7 @@ extern TBUserDefaults  * gTbDefaults;
         if (saveIt) {
             [gTbDefaults setObject: frame forKey: @"detailsWindowFrame"];
             [gTbDefaults setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-                           forKey: @"detailsWindowFrameVersion"];
+                            forKey: @"detailsWindowFrameVersion"];
             [gTbDefaults synchronize];
         }
         logWindowIsOpen = FALSE;
@@ -1288,7 +1338,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
     NSAttributedString * credits = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
 
-    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2009 Angelo Laub and others. All rights reserved.", @"Window text");
+    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2010 Angelo Laub and others. All rights reserved.", @"Window text");
 
     NSDictionary * aboutPanelDict;
     aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1516,11 +1566,14 @@ extern TBUserDefaults  * gTbDefaults;
                 } else {
                     if (  userIsAnAdmin || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] )  ) {
                         // Ask if user wants to unprotect the configuration file
-                        int button = TBRunAlertPanel(NSLocalizedString(@"The configuration file is protected", @"Window title"),
-                                                     NSLocalizedString(@"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
-                                                     NSLocalizedString(@"Examine", @"Button"),              // Default button
-                                                     NSLocalizedString(@"Unprotect and Modify", @"Button"), // Alternate button
-                                                     NSLocalizedString(@"Cancel", @"Button"));              // Other button
+                        int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
+                                                             NSLocalizedString(@"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
+                                                             NSLocalizedString(@"Examine", @"Button"),                  // Default button
+                                                             NSLocalizedString(@"Unprotect and Modify", @"Button"),     // Alternate button
+                                                             NSLocalizedString(@"Cancel", @"Button"),                   // Other button
+                                                             @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",  // Preference about seeing this message again
+                                                             NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox text"),
+                                                             nil);
                         if (  button == NSAlertOtherReturn  ) {
                             return;
                         }
@@ -1587,8 +1640,8 @@ extern TBUserDefaults  * gTbDefaults;
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
 		NSString* key = [[connection configName] stringByAppendingString: @"-notMonitoringConnection"];
-		[gTbDefaults setObject: [NSNumber numberWithBool: ! inBool] forKey: key];
-		[gTbDefaults synchronize];
+        [gTbDefaults setObject: [NSNumber numberWithBool: ! inBool] forKey: key];
+        [gTbDefaults synchronize];
         if (  ! [connection isDisconnected]  ) {
             TBRunAlertPanel(@"Configuration Change", @"The change will take effect the next time you connect.", nil, nil, nil);
         }
@@ -1664,7 +1717,6 @@ static void signal_handler(int signalNumber)
     }
 }
 
-
 - (void) installSignalHandler
 {
     struct sigaction action;
@@ -1682,14 +1734,341 @@ static void signal_handler(int signalNumber)
         NSLog(@"Warning: setting signal handler failed: %s", strerror(errno));
     }	
 }
+
+- (void) applicationWillFinishLaunching: (NSNotification *)notification
+{
+    // Sparkle Updater 1.5b6 allows system profiles to be sent to Tunnelblick's website.
+    // However, a user who has already used Tunnelblick will not be asked permission to send them.
+    // So we force Sparkle to ask the user again (i.e., ask again about checking for updates automatically) in order to allow
+    // the user to respond as they see fit, after (if they wish) viewing the exact data that will be sent.
+    //
+    // We do this by clearing Sparkle's preferences. We use our own preference that indicates that we've done this so we only
+    // do it once (and so we can override that preference with a forced-preferences.plist entry). The _value_ of that
+    // preference doesn't matter; if it exists we assume this issue has been dealt with. The user will not be asked if
+    // both the "updateCheckAutomatically" and "updateSendProfileInfo" preferences are forced (to any value).
+    //
+    // We do this check each time Tunnelblick is launched, to allow deployers to "un-force" this at some later time and have
+    // the user asked for his/her preference.
+    
+    BOOL forcingAutoChecksAndSendProfile = ( ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
+                                        && ( ! [gTbDefaults canChangeValueForKey: @"updateSendProfileInfo"]  );
+    BOOL userIsAdminOrNonAdminsCanUpdate = ( userIsAnAdmin ) || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] );
+    NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (  [gTbDefaults objectForKey: @"haveDealtWithSparkle1dot5b6"] == nil  ) {
+        if (  ! forcingAutoChecksAndSendProfile  ) {
+            // Haven't done this already and aren't forcing the user's answers, so ask the user (perhaps again) by clearing Sparkle's preferences
+            // EXCEPT we SET "SUHasLaunchedBefore", so the user will be asked right away about checking for updates automatically and sending profile info
+            [stdDefaults removeObjectForKey: @"SUEnableAutomaticChecks"];
+            [stdDefaults removeObjectForKey: @"SUAutomaticallyUpdate"];
+            [stdDefaults removeObjectForKey: @"SUupdateSendProfileInfo"];
+            [stdDefaults removeObjectForKey: @"SULastCheckTime"];                       
+            [stdDefaults removeObjectForKey: @"SULastProfileSubmissionDate"];
+            
+            [stdDefaults setBool: TRUE forKey: @"SUHasLaunchedBefore"];
+            
+            // We clear _our_ preferences, too, so they will be updated when the Sparkle preferences are set by Sparkle
+            [stdDefaults removeObjectForKey: @"updateCheckAutomatically"];
+            [stdDefaults removeObjectForKey: @"updateSendProfileInfo"];
+            [stdDefaults synchronize];
+            
+            [gTbDefaults setBool: YES forKey: @"haveDealtWithSparkle1dot5b6"];
+            [gTbDefaults synchronize];
+        }
+    }
+    
+    // We aren't supposed to use Sparkle Updater's preferences directly. However, we need to be able to, in effect,
+    // override three of them via forced-preferences.plist. So we have three of our own preferences which mirror Sparkle's. Our
+    // preferences are "updateCheckAutomatically", "updateSendProfileInfo", and "updateAutomatically", which mirror
+    // Sparkle's "SUEnableAutomaticChecks", "SUupdateSendProfileInfo", and "SUAutomaticallyUpdate". We use our preferences to
+    // set Sparkle's behavior by invoking methods of the updater instance.
+    //
+    // We also have two other preferences which affect Sparkle's behavior. Sparkle doesn't use preferences for them; they are set in
+    // Info.plist or have default values. These two preferences are "updateCheckInterval", and "updateFeedURL".
+    // Note that "updateFeedURL" may only be forced -- any normal, user-modifiable value will be ignored.
+    //
+    // Everywhere we change our preferences, we notify Sparkle via the appropriate updater methods.
+    //
+    // We access Sparkle's preferences only on a read-only basis, and only for the inital setup of our preferences (here).
+    // We do the initial setup of our preferences from Sparkle's preferences because it is Sparkle that asks the user.
+    // Until the user has been asked by Sparkle (and thus Sparkle has set its preferences), we assume we are not
+    // checking, and not sending system profiles.
+    
+    // Initialize our preferences from Sparkle's if ours have not been set yet (and thus are not being forced), and Sparkle's _have_ been set
+    // (We have to access Sparkle's prefs directly because we need to wait until they have actually been set one way or the other)
+    // Note that we access Sparkle's preferences via stdDefaults, so they can't be forced (Sparkle would ignore the forcing, anyway)
+    // However, when we try to set out preferences from Sparkle's, if they are forced then they won't be changed.
+    
+    if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  ) {
+        if (  [stdDefaults objectForKey: @"SUEnableAutomaticChecks"] != nil  ) {
+            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUEnableAutomaticChecks"]
+                          forKey: @"updateCheckAutomatically"];
+            [gTbDefaults synchronize];
+        }
+    }
+    
+    if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] == nil  ) {
+        if (  [stdDefaults objectForKey: @"SUupdateSendProfileInfo"] != nil  ) {
+            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUupdateSendProfileInfo"]
+                          forKey: @"updateSendProfileInfo"];
+            [gTbDefaults synchronize];
+        }
+    }
+    
+    // SUAutomaticallyUpdate may be changed at any time by a checkbox in Sparkle's update window, so we always use Sparkle's version
+    if (  [stdDefaults objectForKey: @"SUAutomaticallyUpdate"] != nil  ) {
+        [gTbDefaults setBool: [updater automaticallyDownloadsUpdates]       // But if it is forced, this setBool will be ignored
+                      forKey: @"updateAutomatically"];
+        [gTbDefaults synchronize];
+    }
+    
+    // Set Sparkle's behavior from our preferences using Sparkle's approved methods
+    BOOL warnedAlready = FALSE;
+    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
+        if (  userIsAdminOrNonAdminsCanUpdate  ) {
+            if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] != nil  ) {
+                if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
+                    if (  [self AppNameIsTunnelblickWarnUserIfNot: TRUE]  ) {
+                        [updater setAutomaticallyChecksForUpdates: YES];
+                    } else {
+                        warnedAlready = TRUE;
+                        [updater setAutomaticallyChecksForUpdates: NO];
+                    }
+                } else {
+                    [updater setAutomaticallyChecksForUpdates: NO];
+                }
+            }
+        } else {
+            if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
+                NSLog(@"Automatic check for updates will not be performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
+            }
+            [updater setAutomaticallyChecksForUpdates: NO];
+        }
+    } else {
+        if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
+            NSLog(@"Ignoring 'updateCheckAutomatically' preference because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
+        }
+    }
+    
+    if (  [updater respondsToSelector: @selector(setAutomaticallyDownloadsUpdates:)]  ) {
+        if (  userIsAdminOrNonAdminsCanUpdate  ) {
+            if (  [gTbDefaults objectForKey: @"updateAutomatically"] != nil  ) {
+                if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
+                    if (  [self AppNameIsTunnelblickWarnUserIfNot: warnedAlready]  ) {
+                        [updater setAutomaticallyDownloadsUpdates: YES];
+                    } else {
+                        [updater setAutomaticallyDownloadsUpdates: NO];
+                    }
+                } else {
+                    [updater setAutomaticallyDownloadsUpdates: NO];
+                }
+            }
+        } else {
+            if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
+                NSLog(@"Automatic updates will not be performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
+            }
+            [updater setAutomaticallyDownloadsUpdates: NO];
+        }
+    } else {
+        if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
+            NSLog(@"Ignoring 'updateAutomatically' preference because Sparkle Updater does not respond to setAutomaticallyDownloadsUpdates:");
+        }
+    }
+    
+    if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
+        if (  [gTbDefaults boolForKey: @"updateSendProfileInfo"] != nil  ) {
+            [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
+        }
+    } else {
+        NSLog(@"Ignoring 'updateSendProfileInfo' preference because Sparkle Updater Updater does not respond to setSendsSystemProfile:");
+    }
+    
+    id checkInterval = [gTbDefaults objectForKey: @"updateCheckInterval"];
+    if (  checkInterval  ) {
+        if (  [updater respondsToSelector: @selector(setUpdateCheckInterval:)]  ) {
+            if (  [checkInterval isMemberOfClass: [NSNumber class]]
+                || [checkInterval isMemberOfClass: [NSString class]]  ) {
+                NSTimeInterval d = [checkInterval doubleValue];
+                if (  d == 0.0  ) {
+                    NSLog(@"Ignoring 'updateCheckInterval' preference because it is 0 or is not a valid number");
+                } else {
+                    if (  d < 3600.0  ) {   // Minimum one hour to prevent DOS on the update servers
+                        d = 3600.0;
+                    }
+                    [updater setUpdateCheckInterval: d];
+                }
+                
+            } else {
+                NSLog(@"Ignoring 'updateCheckInterval' preference because it is not a string or a number");
+            }
+        } else {
+            NSLog(@"Ignoring 'updateCheckInterval' preference because Sparkle Updater does not respond to setUpdateCheckInterval:");
+        }
+    }
+    
+    // We set the Feed URL if it is forced, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
+    // the user may do a 'Check for Updates Now' on the first run, and we need to check with the forced Feed URL
+    if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
+        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
+            id feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
+            if (  [feedURL isMemberOfClass: [NSString class]]  ) {
+                [updater setFeedURL: [NSURL URLWithString: feedURL]];
+            } else {
+                NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
+            }
+        } else {
+            NSLog(@"Ignoring 'updateFeedURL' preference because Sparkle Updater does not respond to setFeedURL:");
+        }
+    }
+    
+    // Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
+    // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
+    // it presents to the user when asking the user for permission to send the data.
+    if (  [updater respondsToSelector: @selector(setDelegate:)]  ) {
+        [updater setDelegate: self];
+    } else {
+        NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
+    }
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	[NSApp callDelegateOnNetworkChange: NO];
     [self installSignalHandler];    
     [NSApp setAutoLaunchOnLogin: YES];
     [self activateStatusMenu];
-    [updater checkForUpdatesInBackground];
-    [NSThread detachNewThreadSelector:@selector(moveSoftwareUpdateWindowToForegroundThread) toTarget:self withObject:nil];
+    
+    // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
+    // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
+    // will ask the user whether to check or not, then we set our preferences from that.)
+    if (      [gTbDefaults boolForKey:   @"updateCheckAutomatically"]
+        || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
+        ) {
+        if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
+            if (  [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+                [updater checkForUpdatesInBackground];
+            } else {
+                NSLog(@"Not checking for updates because the name of the application has been changed");
+            }
+        } else {
+            NSLog(@"Cannot check for updates because Sparkle Updater does not respond to checkForUpdatesInBackground");
+        }
+    }
+}
+
+// Sparkle delegate:
+// This method allows you to add extra parameters to the appcast URL,
+// potentially based on whether or not Sparkle will also be sending along
+// the system profile. This method should return an array of dictionaries
+// with keys: "key", "value", "displayKey", "displayValue", the latter two
+// being human-readable variants of the former two.
+- (NSArray *)feedParametersForUpdater:(SUUpdater *) updaterToFeed
+                 sendingSystemProfile:(BOOL) sendingProfile
+{
+    if (  updaterToFeed == updater  ) {
+        int nConfigurations    = [myConfigArray count];
+        int nSetNameserver     = 0;
+        int nMonitorConnection = 0;
+        int i;
+        
+        // Count # of configurations with 'Set nameserver' checked and the # with 'Monitor connection' set
+        for (i=0; i<nConfigurations; i++) {
+            NSString * cfgName = [[myConfigArray objectAtIndex: i] stringByDeletingPathExtension];
+            
+            NSString * dnsKey = [cfgName stringByAppendingString:@"useDNS"];
+            if (  [gTbDefaults objectForKey: dnsKey]  ) {
+                if (  [gTbDefaults boolForKey: dnsKey]  ) {
+                    nSetNameserver++;
+                }
+            } else {
+                nSetNameserver++;
+            }
+            
+            NSString * mcKey = [cfgName stringByAppendingString:@"-notMonitoringConnection"];
+            if (  [gTbDefaults objectForKey: mcKey]  ) {
+                if (  ! [gTbDefaults boolForKey: mcKey]  ) {
+                    nMonitorConnection++;
+                }
+            } else {
+                nMonitorConnection++;
+            }
+        }
+        
+        NSString * sConn = [NSString stringWithFormat:@"%d", nConfigurations    ];
+        NSString * sSN   = [NSString stringWithFormat:@"%d", nSetNameserver     ];
+        NSString * sMC   = [NSString stringWithFormat:@"%d", nMonitorConnection ];
+        NSString * sDep  = (configDirIsDeploy ? @"1" : @"0");
+        NSString * sAdm  = (userIsAnAdmin     ? @"1" : @"0");
+        NSString * sUuid = [self installationId];
+
+// IMPORTANT: If new keys are added here, they must also be added to profileConfig.php on the website
+//            or the user's data for the new keys will not be recorded in the database.
+
+        return [NSArray arrayWithObjects:
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 @"nConn",   @"key", sConn, @"value", NSLocalizedString(@"Configurations",     @"Window text"  ), @"displayKey", sConn, @"displayValue", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 @"nSetDNS", @"key", sSN,   @"value", NSLocalizedString(@"Set nameserver",     @"Checkbox name"), @"displayKey", sSN,   @"displayValue", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 @"nMonCon", @"key", sMC,   @"value", NSLocalizedString(@"Monitor connection", @"Checkbox name"), @"displayKey", sMC,   @"displayValue", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 @"Deploy",  @"key", sDep,  @"value", NSLocalizedString(@"Deployed",           @"Window text"  ), @"displayKey", sDep,  @"displayValue", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 @"Admin",   @"key", sAdm,  @"value", NSLocalizedString(@"Computer admin",     @"Window text"  ), @"displayKey", sAdm,  @"displayValue", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 @"Uuid",    @"key", sUuid, @"value", NSLocalizedString(@"Anonymous unique ID",@"Window text"  ), @"displayKey", sUuid, @"displayValue", nil],
+                nil
+                ];
+    }
+    
+    NSLog(@"feedParametersForUpdater: invoked with unknown 'updaterToFeed' = %@", updaterToFeed);
+    return [NSArray array];
+}
+
+- (NSString *)installationId
+{
+    NSString * installationIdKey = @"installationUID";
+    
+    NSString *uuid = [gTbDefaults objectForKey:installationIdKey];
+    
+    if (uuid == nil) {
+        uuid_t buffer;
+        uuid_generate(buffer);
+        char str[37];   // 36 bytes plus trailing \0
+        uuid_unparse_upper(buffer, str);
+        uuid = [NSString stringWithFormat:@"%s", str];
+        [gTbDefaults setObject: uuid
+                        forKey: installationIdKey];
+    }
+    return uuid;
+}
+
+
+// Returns TRUE if it is OK to update because the application name is still 'Tunnelblick'
+// Returns FALSE iff Sparkle Updates should be disabled because the application name has been changed.
+// Warns user about it if tellUser is TRUE
+-(BOOL) AppNameIsTunnelblickWarnUserIfNot: (BOOL) tellUser
+{
+    // Sparkle Updater doesn't work if the user has changed the name to something other than Tunnelblick
+    NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+    NSString *appName = [[NSFileManager defaultManager] displayNameAtPath: bundlePath];
+    if (  [appName isEqualToString:@"Tunnelblick"]
+       || [appName isEqualToString:@"Tunnelblick.app"]  ) {
+        return TRUE;
+    }
+    
+    NSLog(@"Cannot check for updates because the name of Tunnelblick has been changed");
+    if (  tellUser  ) {
+        TBRunAlertPanelExtended(NSLocalizedString(@"Updates are disabled", @"Window title"),
+                                [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.", @"Window text"), appName],
+                                NSLocalizedString(@"OK", @"button"),    // Default button
+                                nil,
+                                nil,
+                                @"skipWarningThatNameChangeDisabledUpdates",
+                                NSLocalizedString(@"Do not warn about this again", @"Checkbox Name"),
+                                nil);
+    }
+    return FALSE;
 }
 
 -(void) dmgCheck
@@ -1861,35 +2240,34 @@ static void signal_handler(int signalNumber)
     }
 }
 
+// After  r357, the build number is in Info.plist as "CFBundleVersion"
+// From   r126 through r357, the build number was in Info.plist as "Build"
+// Before r126, there was no build number
 -(int)intValueOfBuildForBundle: (NSBundle *) theBundle
 {
     int result = 0;
-    id tmp = [theBundle objectForInfoDictionaryKey:@"Build"];
-    if (  tmp  ) {
-        if (  [[tmp class] isSubclassOfClass: [NSString class]]  ) {
-            NSString * tmpString = tmp;
+    id infoVersion = [theBundle objectForInfoDictionaryKey: @"CFBundleVersion"];
+    
+    id appBuild;
+    if (  [[infoVersion class] isSubclassOfClass: [NSString class]] && [infoVersion rangeOfString: @"."].location == NSNotFound  ) {
+        // No "." in version, so it is a build number
+        appBuild   = infoVersion;
+    } else {
+        // "." in version, so build must be separate
+        appBuild   = [theBundle objectForInfoDictionaryKey: @"Build"];
+    }
+    
+    if (  appBuild  ) {
+        if (  [[appBuild class] isSubclassOfClass: [NSString class]]  ) {
+            NSString * tmpString = appBuild;
             result = [tmpString intValue];
-        } else if (  [[tmp class] isSubclassOfClass: [NSNumber class]] ) {
-            NSNumber * tmpNumber = tmp;
+        } else if (  [[appBuild class] isSubclassOfClass: [NSNumber class]] ) {
+            NSNumber * tmpNumber = appBuild;
             result = [tmpNumber intValue];
         }
     }
     
     return result;
-}
-
--(void)moveSoftwareUpdateWindowToForeground
-{
-    NSArray *windows = [NSApp windows];
-    NSEnumerator *e = [windows objectEnumerator];
-    NSWindow *window = nil;
-    while(window = [e nextObject]) {
-    	if (  [[window title] isEqualToString:@"Software Update"]  ) {
-            [window makeKeyAndOrderFront: self];
-            [window setLevel:NSStatusWindowLevel];
-            [NSApp activateIgnoringOtherApps:YES]; // Force Software update window to front
-        }
-    }
 }
 
 -(void) fileSystemHasChanged: (NSNotification*) n
@@ -2112,7 +2490,7 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
 	// Check ownership and permissions on components of Tunnelblick.app
     NSBundle *thisBundle = [NSBundle mainBundle];
 	
-	NSString *installerPath         = [thisBundle pathForResource:@"intaller"                       ofType:nil];
+	NSString *installerPath         = [thisBundle pathForResource:@"installer"                      ofType:nil];
 	NSString *openvpnstartPath      = [thisBundle pathForResource:@"openvpnstart"                   ofType:nil];
 	NSString *openvpnPath           = [thisBundle pathForResource:@"openvpn"                        ofType:nil];
 	NSString *leasewatchPath        = [thisBundle pathForResource:@"leasewatch"                     ofType:nil];
@@ -2120,6 +2498,7 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
 	NSString *clientDownPath        = [thisBundle pathForResource:@"client.down.osx.sh"             ofType:nil];
 	NSString *clientNoMonUpPath     = [thisBundle pathForResource:@"client.nomonitor.up.osx.sh"     ofType:nil];
 	NSString *clientNoMonDownPath   = [thisBundle pathForResource:@"client.nomonitor.down.osx.sh"   ofType:nil];
+    NSString *infoPlistPath         = [[[installerPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
 	
 	// check openvpnstart owned by root, set uid, owner may execute
 	const char *path = [openvpnstartPath UTF8String];
@@ -2148,6 +2527,11 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
         }
 	}
     
+    // check Info.plist
+    if (  ! isOwnedByRootAndHasPermissions(infoPlistPath, @"644")  ) {
+        return YES; // NSLog already called
+    }
+
     // check permissions of files in Resources/Deploy (if any)        
     NSString * deployDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
     if (  deployContentsOwnerOrPermissionsNeedRepair(deployDirPath)  ) {
