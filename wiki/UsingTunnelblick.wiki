@@ -1,7 +1,7 @@
 #summary Using Tunnelblick
 #labels Featured,Phase-Deploy
 
-http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png
+http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png 
 
 This document describes how to use Tunnelblick version 3.0b26.
 
