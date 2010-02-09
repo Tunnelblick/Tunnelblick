@@ -35,7 +35,7 @@ Note: there is no need to install OpenVPN separately - the Tunnelblick applicati
 
 First, download the latest disk image from the featured downloads section on the [http://code.google.com/p/tunnelblick/ Tunnelblick project page]. Double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a window similar to the following will appear:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-02-06.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-02-09.png
 
 Double-click the Tunnelblick icon and a new window will appear, similar to the following:
 
