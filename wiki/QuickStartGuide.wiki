@@ -5,7 +5,7 @@ The latest versions of this document and related documents including release not
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
-(If you aren't sure, take a look at [What_Tunnelblick_Is What Tunnelblick Is].)
+Take a look at [What_Tunnelblick_Is What Tunnelblick Is] if you aren't sure.
 
 This is a *Quick Start Guide* to Tunnelblick; for a more through and complete discussion of Tunnelblick see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki].
 
