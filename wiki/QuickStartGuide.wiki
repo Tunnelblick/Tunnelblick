@@ -140,7 +140,7 @@ If you are using Snow Leopard (10.6), then your manually-configured DNS and WINS
 
 For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
-==DOCUMENT HISTORY==
+==Document History==
   * 2010-02-09 (Version 3.0b26)
     * Document created.
 
