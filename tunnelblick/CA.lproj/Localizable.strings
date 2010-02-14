@@ -253,8 +253,10 @@
 /* Menu item */
 "Preferences" = "Preferències";
 
-/* Menu item
-   Button */
+/* Menu item */
+"Quit Tunnelblick" = "Sortir Tunnelblick";
+
+/* Button */
 "Quit" = "Sortir";
 
 /* Connection status */

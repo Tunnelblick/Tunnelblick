@@ -253,9 +253,11 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "Preferences" = "Preferences";
 
-/* Menu item
-   Button */
-"Quit"       = "Quitter";
+/* Menu item */
+"Quit Tunnelblick" = "Quitter Tunnelblick";
+
+/* Button */
+"Quit" = "Quitter";
 
 /* Connection status */
 "RECONNECTING" = "Rebranche";

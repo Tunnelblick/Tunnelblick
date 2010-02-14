@@ -520,7 +520,7 @@ extern TBUserDefaults  * gTbDefaults;
     [detailsItem setAction: @selector(openLogWindow:)];
     
     quitItem = [[NSMenuItem alloc] init];
-    [quitItem setTitle: NSLocalizedString(@"Quit", @"Menu item")];
+    [quitItem setTitle: NSLocalizedString(@"Quit Tunnelblick", @"Menu item")];
     [quitItem setTarget: self];
     [quitItem setAction: @selector(quit:)];
     

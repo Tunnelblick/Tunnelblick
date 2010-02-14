@@ -60,7 +60,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSMenuItem              * reportAnonymousInfoItem;      //        "Report Anonymous System Info" menu item
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
-    NSMenuItem              * quitItem;                     // "Quit..." item for menu
+    NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
 
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar

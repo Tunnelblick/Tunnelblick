@@ -253,8 +253,10 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "Preferences" = "Preferences";
 
-/* Menu item
-   Button */
+/* Menu item */
+"Quit Tunnelblick" = "종료 Tunnelblick";
+
+/* Button */
 "Quit" = "종료";
 
 /* Connection status */
