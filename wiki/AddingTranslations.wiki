@@ -29,7 +29,7 @@ The second line has two strings, separated by an equal sign and followed by a se
 
 In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
 
-*You can edit this file in `TextEdit` (but you need to open it in a special way, see [Opening_Localizable.strings_Files_in_TextEdit Opening Localizable.strings Files in TextEdit])* change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see [Adding_Your_Translations_to_Your_Copy_of_Tunnelblick Adding Your Translations to Your Copy of Tunnelblick]).
+*You can edit this file in `TextEdit` (but you need to open it in a special way, see [Opening_Localizable.strings_Files Opening Localizable.strings Files])* change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see [Adding_Your_Translations_to_Your_Copy_of_Tunnelblick Adding Your Translations to Your Copy of Tunnelblick]).
 
 ==First Translation of a Language==
 If you are the first translator for a language, the file you have will use will be a copy of English.lproj/Localizable.strings. (Make your own copy if necessary.) The file will have lines such as the following:
@@ -65,7 +65,7 @@ If a string is the same in both the development language and the target language
 }}}
 This helps the program which process the strings files understand that the string does not need translation.
 
-==Opening Localizable.strings Files in TextEdit==
+==Opening Localizable.strings Files==
 You can edit Localizable.strings files in `TextEdit`, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
 
 To open one of the .strings files in `TextEdit`:
