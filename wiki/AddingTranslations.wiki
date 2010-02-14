@@ -29,7 +29,7 @@ The second line has two strings, separated by an equal sign and followed by a se
 
 In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
 
-*You can edit this file in TextEdit (but you need to open it in a special way, see below)* change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see below).
+*You can edit this file in `TextEdit` (but you need to open it in a special way, see [Opening_Localizable.strings_Files_in_TextEdit Opening Localizable.strings Files in TextEdit])* change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see [Adding_Your_Translations_to_Your_Copy_of_Tunnelblick Adding Your Translations to Your Copy of Tunnelblick]).
 
 ==First Translation of a Language==
 If you are the first translator for a language, the file you have will use will be a copy of English.lproj/Localizable.strings. (Make your own copy if necessary.) The file will have lines such as the following:
@@ -65,11 +65,11 @@ If a string is the same in both the development language and the target language
 }}}
 This helps the program which process the strings files understand that the string does not need translation.
 
-==Opening Localizable.strings Files in `TextEdit`==
-You can edit Localizable.strings files in TextEdit, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
+==Opening Localizable.strings Files in TextEdit==
+You can edit Localizable.strings files in `TextEdit`, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
 
-To open one of the .strings files in TextEdit:
-  # Open TextEdit, which is in /Applications
+To open one of the .strings files in `TextEdit`:
+  # Open `TextEdit`, which is in /Applications
   # Click "File", then "Open"
   # Navigate to and select the .strings file you wish to edit
   # At the bottom of the window to the right of "Plain Text Encoding", select "Unicode (UTF-8)
@@ -81,6 +81,21 @@ Now you can edit the file. When you are done, be sure to save it. If you do a "S
 Here is what the bottom of the "Open file" dialog window should look like when you click the "Open" button:
 
 http://tunnelblick-discuss.googlegroups.com/web/add-translations-open-file-window.png?gda=4jqTW1cAAADVQgPybVoDdkjSA0U14ywk_BVAdCKiMoncTpEXaIarzhOnNyGOrq4Mj_c6JQjursoenAryYyiYF7HXKAZo0RGXFXmOG-PcRnDCvNNomWfEhXleHbr-qQzBoYYWXY0JTQM
+
+==Weird Characters in the Strings==
+Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
+
+Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it. However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
+
+Here's an example: for English speakers, one of the distinctive features of the character Yoda in _Star Wars_ was the way he spoke -- he spoke backwards. For example, he would say "Hot the food is", when the usual way to express that in English is "The food is hot". If the line in Localizable.strings was
+{{{
+"The %@ is %@" = "The %1$@ is %2$@";
+}}}
+we would translate that into Yoda's English by changing it to
+{{{
+"The %@ is %@" = "%2$@ the %1$@ is"
+}}}
+(We'll ignore the fact that %2$@ needs to be capitalized because it now starts a sentence.)
 
 ==Adding Your Translations to Your Copy of Tunnelblick==
 *If you made the first translation of a language*, here's how to put your modified .strings file into your copy of Tunnelblick:
@@ -106,21 +121,6 @@ You're done. The copy of Tunnelblick.app on your Desktop now has your translatio
   # Close the Finder window
 
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
-
-==Weird Characters in the Strings==
-Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
-
-Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it. However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
-
-Here's an example: for English speakers, one of the distinctive features of the character Yoda in _Star Wars_ was the way he spoke -- he spoke backwards. For example, he would say "Hot the food is", when the usual way to express that in English is "The food is hot". If the line in Localizable.strings was
-{{{
-"The %@ is %@" = "The %1$@ is %2$@";
-}}}
-we would translate that into Yoda's English by changing it to
-{{{
-"The %@ is %@" = "%2$@ the %1$@ is"
-}}}
-(We'll ignore the fact that %2$@ needs to be capitalized because it now starts a sentence.)
 
 ------------------
 
