@@ -156,7 +156,7 @@ Known Issues:
       * Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously)
       * Do not remove manual DNS entries (i.e., the manual nameserver will continue to be used even when the tunnel is open even if the OpenVPN "redirect-gateway" option is specified)
 
-==3.0b10==
+==3.0b10 (2008-11-20)==
   
   * fix linking problem that resulted in lzo compression not working on PowerPC 
   * prevent user from launching tunnelblick directly from the dmg
@@ -174,7 +174,7 @@ Known Issues:
   * kill all openvpn processes on quit. fixes a rare condition where openvpn processes would be left over on Tunnelblick  quit
   * Add German, French, Japanese, Korean and Norwegian translations
   
-==3.0b9==
+==3.0b9 (2008-07-24)==
 
   * Fixed the crash on Leopard
   * Fixes the slow shutdown issue
