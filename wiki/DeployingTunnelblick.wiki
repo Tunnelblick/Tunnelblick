@@ -3,11 +3,9 @@
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
 
-*This document describes how to create a deployed version of Tunnelblick and was last modified 2010-02-06. It reflects the behavior of Tunnelblick built from the r363 version of the Tunnelblick source code.*
+*The [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick latest version of  this document] describes how to create a deployed version of Tunnelblick and was last modified 2010-02-14.* It reflects the behavior of Tunnelblick built from the r363 version of the Tunnelblick source code. No changes affecting deployed versions were committed from r364 through r399.
 
 For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
-
-*This document may be obsolete!* The latest versions of this document and related documents including release notes, FAQ, and instructions for using and building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
 This document contains the following sections:
 
@@ -16,7 +14,7 @@ This document contains the following sections:
 ==What is a Deployed Version?==
 A deployed version of Tunnelblick is a customized version of `Tunnelblick.app` which can include everything necessary to install and run Tunnelblick and connect to one or more VPNs. In particular, it may include one or more OpenVPN configuration files, and, usually, certificate and key files for authentication. It can also include shell scripts and text that will appear in Tunnelblick's "about" window, and can specify user preferences that are forced to particular values and are read-only.
 
-If you want information about _using_ Tunnelblick, see the [https://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki].
+If you want information about _using_ Tunnelblick, see the [https://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] or ask a question in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 ==How it Works==
 You create a deployed version of Tunnelblick by putting a "Deploy" folder into the `Contents/Resources` folder of `Tunnelblick.app`. `Deploy` can contain any one or a combination of configuration files, certificate and key files, up/down scripts, and a "forced-preferences.plist" file. Since `Deploy` and its contents can not be modified by a non-administrator user, this is a secure way to ensure that your users do not tamper with any settings that you wish to protect.
@@ -168,6 +166,8 @@ Within a few moments, your .dmg file will be created.
     * Fixed typo in document history.
   * 2010-02-06
     * Minor reorganization, edits, and clarifications.
+  * 2010-02-14
+    * Noted document is up-to-date as of r399.
 
 ------------------
 
