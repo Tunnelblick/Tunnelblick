@@ -253,8 +253,10 @@
 /* Menu item */
 "Preferences" = "喜好設定";
 
-/* Menu item
-   Button */
+/* Menu item */
+"Quit Tunnelblick" = "離開 Tunnelblick";
+
+/* Button */
 "Quit" = "離開";
 
 /* Connection status */
