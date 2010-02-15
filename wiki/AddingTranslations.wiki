@@ -29,7 +29,7 @@ The second line has two strings, separated by an equal sign and followed by a se
 
 In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
 
-*You can edit this file in `TextEdit`* (but you need to open it in a special way, see <a href="#Opening_Localizable.strings_Files"Opening Localizable.strings Files</a>) change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see <a href="#Adding_Your_Translations_to_Your_Copy_of_Tunnelblick">Adding Your Translations to Your Copy of Tunnelblick</a>).
+*You can edit this file in `TextEdit`* (but you need to open it in a special way, see <a href="#Opening_Localizable.strings_Files">Opening Localizable.strings Files</a>) change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see <a href="#Adding_Your_Translations_to_Your_Copy_of_Tunnelblick">Adding Your Translations to Your Copy of Tunnelblick</a>).
 
 ==First Translation of a Language==
 If you are the first translator for a language, the file you have will use will be a copy of English.lproj/Localizable.strings. (Make your own copy if necessary.) The file will have lines such as the following:
