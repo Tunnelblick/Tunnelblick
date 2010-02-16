@@ -13,9 +13,9 @@ This document contains the following sections:
 <wiki:toc max_depth="2" />
 
 ==How Translations Work==
-Although some applications have elaborate structures to specify translations, Tunnelblick's is simple. Inside of Tunnelblick.app there is a folder for English, and a folder for each language that has been translated. Each language folder (except English) has as its name the ISO-639-2 two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. The one exception is English, which is named English.lproj. That is because Tunnelblick's original development language was English.
+Although some applications have elaborate structures to specify translations, Tunnelblick's is simple. Inside of Tunnelblick.app there is a folder for English, and a folder for each language that has been translated. Each language folder (except English) has as its name the ISO-639-1 two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. The one exception is English, which is named English.lproj. That is because Tunnelblick's original development language was English.
 
-NOTE: Prior to r255, which will be incorporated in Tunnelblick versions 3.0b24 and up, all .lproj folders had the English name of the language, instead of the ISO-632-2 two-letter abbreviation of the language.
+NOTE: Prior to r255, which will be incorporated in Tunnelblick versions 3.0b24 and up, all .lproj folders had the English name of the language, instead of the ISO-639-1 two-letter abbreviation of the language.
 
 Each of these folders contains a "Localizable.strings" file. These files contain a series of lines that look like this:
 
@@ -99,7 +99,7 @@ we would translate that into Yoda's English by changing it to
 
 ==Adding Your Translations to Your Copy of Tunnelblick==
 *If you made the first translation of a language*, here's how to put your modified .strings file into your copy of Tunnelblick:
-  # Look up the ISO 632-2 two-character abbreviation for the language. You can do that at [http://www.loc.gov/standards/iso639-2/php/code_list.php]
+  # Look up the ISO 639-1 two-character abbreviation for the language. You can do that at [http://www.loc.gov/standards/iso639-2/php/code_list.php]
   # Create a folder on your Desktop named with the two-character abbreviation followed by ".lproj" (e.g., "CA.lproj" for Catalan/Valencian)
   # Put the Localizable.strings file that you have modified in the folder
   # Get a fresh copy of Tunnelblick (one that has never been used; copy from a downloaded disk image file if necessary) and put it on your Desktop
