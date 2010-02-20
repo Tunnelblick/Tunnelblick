@@ -15,8 +15,12 @@ To modify the background image, simply edit "background.rtf", take a screenshot 
 
 ==ADDING/REMOVING CONTENT OR MODIFYING THE LAYOUT OF ICONS OR VIEW OPTIONS==
 
-Modifying view options, the layout of the icons, or adding or removing
-content/icons is more complicated:
+Note: According to http://www.araelium.com/dmgcanvas:
+  "In Mac OS X Snow Leopard, disk images created with background images do not display properly on Mac OS X Leopard and earlier. This is because of a change in Finder itself that affects all disk images created on Snow Leopard."
+
+So it might be a good idea to do the following in Leopard or Tiger.
+
+Modifying view options, the layout of the icons, or adding or removing content/icons is more complicated:
   # Use Disk Utility to convert Tunnelblick.dmg to a read/write image named "TunnelblickRW.dmg". ("Convert" creates a new copy without disturbing the original.)
   # Double-click the read-write image and then double-click the resulting Tunnelblick volume to open a window for it in the Finder.
   # Manipulate the window to add or remove files, change view options and icon positions, etc. as desired.
