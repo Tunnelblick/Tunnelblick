@@ -181,7 +181,7 @@ extern TBUserDefaults  * gTbDefaults;
         return;
     }
     
-    ignoreOnePasswordRequest = NO;
+    authenticationFailed = NO;
     
 	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
 													 ofType: nil];
@@ -444,10 +444,10 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (void) processLine: (NSString*) line
 {
-	/* Additional Output, so it's probably a good idea to write this into the log
-	   this happens e.g. with buffered log messages after saying log on all
-	 */
+    if (NSDebugEnabled) NSLog(@">openvpn: '%@'", line);
+    
     if (![line hasPrefix: @">"]) {
+        // Output in response to command to OpenVPN. Could be the PID command, or additional log output from LOG ON ALL
 		[self setPIDFromLine:line];
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @","];
@@ -461,139 +461,131 @@ extern TBUserDefaults  * gTbDefaults;
 			
 		}
 		return;
-	} 
-		//NSArray* logEntry = [readString componentsSeparatedByString: @","];
-        if (NSDebugEnabled) NSLog(@">openvpn: '%@'", line);
+	}
+    // "Real time" output from OpenVPN.
+    NSRange separatorRange = [line rangeOfString: @":"];
+    if (separatorRange.length) {
+        NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
+        NSString* command = [line substringWithRange: commandRange];
+        NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
+        //NSLog(@"Found command '%@' with parameters: %@", command, parameterString);
         
-        NSRange separatorRange = [line rangeOfString: @":"];
-        if (separatorRange.length) {
-            NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
-            NSString* command = [line substringWithRange: commandRange];
-            NSString* parameterString = [line substringFromIndex: separatorRange.location+1];
-			//NSLog(@"Found command '%@' with parameters: %@", command, parameterString);
+        if ([command isEqualToString: @"STATE"]) {
+            NSArray* parameters = [parameterString componentsSeparatedByString: @","];
+            NSString* state = [parameters objectAtIndex: 1];
+            if (NSDebugEnabled) NSLog(@"State is '%@'", state);
+            [self setState: state];
+
+            if([state isEqualToString: @"RECONNECTING"]) {
+                [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
             
-            if ([command isEqualToString: @"STATE"]) {
-                
-                NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-                
-                NSString* state = [parameters objectAtIndex: 1];
-                
-                if (NSDebugEnabled) NSLog(@"State is '%@'", state);
-                [self setState: state];
-                if([state isEqualToString: @"RECONNECTING"]) {
-                    [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
-                } else if ([state isEqualToString: @"CONNECTED"]) {
-                    NSDate *now = [[NSDate alloc] init];
-                    [[NSApp delegate] addConnection:self];
-					[self setConnectedSinceDate:now];
-                    [now release];
-                } else if ([state isEqualToString: @"EXITING"]) {
-                    [managementSocket close]; [managementSocket setDelegate: nil];
-                    [managementSocket release]; managementSocket = nil;
-                }
-            } else if ([command isEqualToString: @"PASSWORD"]) {
-                if (  ignoreOnePasswordRequest  ) {
-                    ignoreOnePasswordRequest = NO;
-                    [self addToLog:[NSString stringWithFormat:@"*Tunnelblick: Ignoring server request \"%@\"", line] atDate: nil];
-                    return;
-                }
-				// Found password request from server:
-                
-                // Find out wether the server wants a private key or user/auth:
-				
-				NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
-				NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
-                if (pwrange_need.length && pwrange_password.length) {
-					// NSRange tokenNameRange = NSMakeRange(pwrange_need.length, [parameterString length] - pwrange_password.location + 1);
-					NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
-					NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
-					if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
-					[myAuthAgent setAuthMode:@"privateKey"];
-					[myAuthAgent performAuthentication];
-					// Server wants a private key:
-                    NSString *myPassphrase = [myAuthAgent passphrase];
-					if(myPassphrase){
-						[managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
-					} else {
-						[self disconnect:self];
-					}
-                }
-                else if ([line rangeOfString: @"Failed"].length) {
-                    if (NSDebugEnabled) NSLog(@"Passphrase verification failed");
-                    ignoreOnePasswordRequest = YES;
-                    [self disconnect:nil];
+            } else if ([state isEqualToString: @"CONNECTED"]) {
+                NSDate *now = [[NSDate alloc] init];
+                [[NSApp delegate] addConnection:self];
+                [self setConnectedSinceDate:now];
+                [now release];
+            
+            } else if ([state isEqualToString: @"EXITING"]) {
+                [managementSocket close]; [managementSocket setDelegate: nil];
+                [managementSocket release]; managementSocket = nil;
+            }
+            
+        } else if ([command isEqualToString: @"PASSWORD"]) {
+            if ([line rangeOfString: @"Failed"].length) {
+                if (NSDebugEnabled) NSLog(@"Passphrase or user/auth verification failed");
+                authenticationFailed = YES;
+            } else {
+                // Password request from server. If it comes immediately after a failure, inform user and ask what to do
+                if (  authenticationFailed  ) {
+                    authenticationFailed = NO;
                     id buttonWithDifferentCredentials = nil;
                     if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
                         if ([myAuthAgent keychainHasCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
                             buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
                         }
                     }
-					int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                                              [self configName],
-                                                                              NSLocalizedString(@"Authentication failed", @"Window title")],
-                                                    NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
-                                                    NSLocalizedString(@"Try again", @"Button"),
-                                                    buttonWithDifferentCredentials,
-                                                    NSLocalizedString(@"Cancel", @"Button"));
-					if (alertVal == NSAlertAlternateReturn) {
-						[myAuthAgent deleteCredentialsFromKeychain];
-					}
-					if (  (alertVal == NSAlertAlternateReturn) || (alertVal == NSAlertDefaultReturn)  ) {	// i.e., not Other (Cancel) or Error returns
-                        ignoreOnePasswordRequest = NO;
-						[self connect:nil];
-					}
+                    int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self configName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                                                   NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
+                                                   NSLocalizedString(@"Try again", @"Button"),  // Default
+                                                   buttonWithDifferentCredentials,              // Alternate
+                                                   NSLocalizedString(@"Cancel", @"Button"));    // Other
+                    if (alertVal == NSAlertAlternateReturn) {
+                        [myAuthAgent deleteCredentialsFromKeychain];
+                    }
+                    if (  (alertVal != NSAlertDefaultReturn) && (alertVal != NSAlertAlternateReturn)  ) {	// If cancel or error then disconnect
+                        [self disconnect:nil];
+                        return;
+                    }
                 }
-                else if ([line rangeOfString: @"Auth"].length) { // Server wants user/auth:
+
+                // Find out whether the server wants a private key or user/auth:
+                NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
+                NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
+                if (pwrange_need.length && pwrange_password.length) {
+                    if (NSDebugEnabled) NSLog(@"Server wants user private key.");
+                    [myAuthAgent setAuthMode:@"privateKey"];
+                    [myAuthAgent performAuthentication];
+                    NSString *myPassphrase = [myAuthAgent passphrase];
+					NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
+					NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
+					if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
+                    if(myPassphrase){
+                        [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
+                    } else {
+                        [self disconnect:self];
+                    }
+
+                } else if ([line rangeOfString: @"Auth"].length) {
                     if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
                     [myAuthAgent setAuthMode:@"password"];
-
-					[myAuthAgent performAuthentication];
-					NSString *myPassword = [myAuthAgent password];
-					NSString *myUsername = [myAuthAgent username];
-					if(myUsername && myPassword){
-						[managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
-						[managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
-					} else {
-						[self disconnect:self];
-					}
-					
-                }
+                    [myAuthAgent performAuthentication];
+                    NSString *myPassword = [myAuthAgent password];
+                    NSString *myUsername = [myAuthAgent username];
+                    if(myUsername && myPassword){
+                        [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
+                        [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
+                    } else {
+                        [self disconnect:self];
+                    }
                 
-            } else if ([command isEqualToString:@"LOG"]) {
-                NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-                NSCalendarDate* date = nil;
-                if ( [[parameters objectAtIndex: 0] intValue] != 0) {
-                    date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+                } else {
+                    NSLog(@"Unrecognized PASSWORD command from OpenVPN management interface has been ignored:\n%@", line);
                 }
-				NSString* logLine = [parameters lastObject];
-				[self addToLog:logLine atDate:date];
             }
-			else if ([command isEqualToString:@"NEED-OK"]) {
-				// NEED-OK: MSG:Please insert TOKEN
-				NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
-				NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
-				if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
-					if (NSDebugEnabled) NSLog(@"Server wants token.");
-					int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                                                      [self configName],
-                                                                                      NSLocalizedString(@"Please insert token", @"Window title")],
-                                                           [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
-                                                           nil,
-                                                           NSLocalizedString(@"Cancel", @"Button"),
-                                                           nil);
-					if (needButtonReturn == NSAlertDefaultReturn) {
-						if (NSDebugEnabled) NSLog(@"Write need ok.");
-						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSISOLatin1StringEncoding];
-					} else {
-						if (NSDebugEnabled) NSLog(@"Write need cancel.");
-						[managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' cancel\r\n"] encoding:NSISOLatin1StringEncoding];
-					}
-				}
-			}
-        
+
+        } else if ([command isEqualToString:@"LOG"]) {
+            NSArray* parameters = [parameterString componentsSeparatedByString: @","];
+            NSCalendarDate* date = nil;
+            if ( [[parameters objectAtIndex: 0] intValue] != 0) {
+                date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
+            }
+            NSString* logLine = [parameters lastObject];
+            [self addToLog:logLine atDate:date];
+            
+        } else if ([command isEqualToString:@"NEED-OK"]) {
+            // NEED-OK: MSG:Please insert TOKEN
+            if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
+                if (NSDebugEnabled) NSLog(@"Server wants token.");
+                NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
+                NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
+                int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
+                                                        [self configName],
+                                                        NSLocalizedString(@"Please insert token", @"Window title")],
+                                                       [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
+                                                       nil,
+                                                       NSLocalizedString(@"Cancel", @"Button"),
+                                                       nil);
+                if (needButtonReturn == NSAlertDefaultReturn) {
+                    if (NSDebugEnabled) NSLog(@"Write need ok.");
+                    [managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' ok\r\n"] encoding:NSASCIIStringEncoding];
+                } else {
+                    if (NSDebugEnabled) NSLog(@"Write need cancel.");
+                    [managementSocket writeString:[NSString stringWithFormat:@"needok 'token-insertion-request' cancel\r\n"] encoding:NSASCIIStringEncoding];
+                }
+            }
+        }
     }
 }
-	
 
 
 // Adds a message to the OpenVPN Log with a specified date/time. If date/time is nil, current date/time is used

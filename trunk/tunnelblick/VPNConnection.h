@@ -38,15 +38,7 @@
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
-    
-    // The following flag is used to avoid a race condition: when a bad passphrase or username/password is used, OpenVPN responds with two
-    // messages: a "failed" message and a new "password" request. When we get the "failed" request, we kill the connection.
-    // Sometimes the new "password" request is queued up before we kill the connection, so we get both messages, but other
-    // times the connection is killed before the new "password" request is queued, so we only get the "failed" request.
-    // When this boolean is TRUE, we discard one "password" message and set it to FALSE.
-    // This boolean is set TRUE when a "failed" message is received, so we will ignore the new "password" request if it arrives.
-    // It is set FALSE when we do a "connect:", so any normal (not after failure) "password" message is processed.
-    BOOL       ignoreOnePasswordRequest;
+    BOOL            authenticationFailed; // True iff a message from OpenVPN has been received that password/passphrase authentication failed and the user hasn't been notified yet
 }
 
 // PUBLIC METHODS:
