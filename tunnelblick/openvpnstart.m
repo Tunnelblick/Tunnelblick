@@ -319,8 +319,15 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
 	[task setArguments:arguments];
+    
+    NSMutableString * cmdLine = [NSMutableString stringWithString: openvpnPath];
+    int i;
+    for (i=0; i<[arguments count]; i++) {
+        [cmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
+    }
+    printf("%s", [cmdLine UTF8String]);
 	
-	becomeRoot();
+    becomeRoot();
 	[task launch];
 	[task waitUntilExit];
     

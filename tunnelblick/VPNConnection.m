@@ -247,8 +247,10 @@ extern TBUserDefaults  * gTbDefaults;
         skipScrSec = @"0";
     }
     
-    NSPipe * pipe = [[NSPipe alloc] init];
-    [task setStandardError: pipe];
+    NSPipe * errPipe = [[NSPipe alloc] init];
+    [task setStandardError: errPipe];
+    NSPipe * stdPipe = [[NSPipe alloc] init];
+    [task setStandardOutput: stdPipe];
     
     arguments = [NSArray arrayWithObjects:@"start", [self configFilename], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
     
@@ -282,15 +284,23 @@ extern TBUserDefaults  * gTbDefaults;
 	[task launch];
 	[task waitUntilExit];
     
+    // Standard output has command line that openvpnstart used to start OpenVPN; copy it to the log
+    NSFileHandle * file = [stdPipe fileHandleForReading];
+    NSData * data = [file readDataToEndOfFile];
+    [file closeFile];
+    [stdPipe release];
+    NSString * openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: %@", openvpnstartOutput] atDate: nil];
+
     int status = [task terminationStatus];
-    
     if (  status != 0  ) {
-        NSString * openvpnstartOutput;
         if (  status == 240  ) {
             openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
         } else {
-            NSFileHandle * file = [pipe fileHandleForReading];
-            NSData * data = [file readDataToEndOfFile];
+            file = [errPipe fileHandleForReading];
+            data = [file readDataToEndOfFile];
+            [file closeFile];
             openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
@@ -299,7 +309,7 @@ extern TBUserDefaults  * gTbDefaults;
                 atDate: nil];
     }
     
-    [pipe release];
+    [errPipe release];
     
 	[self setState: @"SLEEP"];
     
