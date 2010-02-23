@@ -38,8 +38,6 @@
 -(void) dealloc
 {
     [forcedDefaults release];
-    [forcedDefaults release];
-    
     [super dealloc];
 }
 
