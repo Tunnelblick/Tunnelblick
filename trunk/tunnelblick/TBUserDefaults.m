@@ -38,6 +38,7 @@
 -(void) dealloc
 {
     [forcedDefaults release];
+    [forcedDefaults release];
     
     [super dealloc];
 }
@@ -45,6 +46,18 @@
 -(BOOL) canChangeValueForKey: (NSString *) key     // Returns YES if key's value can be modified, NO if it can't (because it is in Deploy)
 {
     if (  ! [forcedDefaults objectForKey: key]  ) {
+        // No forced key for XYZABCDE, so try for a wildcard match
+        // If forcedDefaults has a *ABCDE key, returns NO (can't change value)
+        NSEnumerator * e = [forcedDefaults keyEnumerator];
+        NSString * forcedKey;
+        while (  forcedKey = [e nextObject]  ) {
+            if (  [forcedKey hasPrefix: @"*"] && ( [forcedKey length] != 1)  ) {
+                if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
+                    return NO;
+                }
+            }
+        }
+        
         return YES;
     }
     
@@ -70,6 +83,18 @@
     }
     id value = [forcedDefaults objectForKey: key];
     if (  value == nil  ) {
+        // No tbDefaults key for XYZABCDE, so try for a wildcard match
+        // If tbDefaults has a *ABCDE key, returns it's value
+        NSEnumerator * e = [forcedDefaults keyEnumerator];
+        NSString * forcedKey;
+        while (  forcedKey = [e nextObject]  ) {
+            if (  [forcedKey hasPrefix: @"*"] && ( [forcedKey length] != 1)  ) {
+                if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
+                    return [forcedDefaults objectForKey: key];
+                }
+            }
+        }
+
         return [userDefaults objectForKey: key];
     }
     
