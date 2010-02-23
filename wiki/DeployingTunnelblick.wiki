@@ -3,7 +3,7 @@
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
 
-*The [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick latest version of  this document] describes how to create a deployed version of Tunnelblick and was last modified 2010-02-14.* It reflects the behavior of Tunnelblick built from the r363 version of the Tunnelblick source code. No changes affecting deployed versions were committed from r364 through r399.
+*The [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick latest version of  this document] describes how to create a deployed version of Tunnelblick and was last modified 2010-02-23.* It reflects the behavior of Tunnelblick built from the r412 source code.
 
 For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
@@ -25,7 +25,7 @@ If `Contents/Resources/Deploy` exists, Tunnelblick's behavior changes:
   Note: if configuration files are not in `Deploy`, their names may be changed by an unprivileged user. Any forced preferences for a configuration whose name has been changed will be ignored, because the forced preferences will be referring to the original configuration name.
   * If `Deploy` contains certificate and key files, those files can be referenced from configuration files by using the name of the file (i.e., no path need be given).
   * If `Deploy` contains up/down scripts with specific names (see [Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is checked, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
-  * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences_Exceptions Forced Preferences Exceptions] for exceptions to this behavior. See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
+  * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
 
 Certificate and key files may usually be referenced within a configuration file without path information:
   * If `Deploy` contains _only_ `*.conf`, `*.ovpn`, `*.up.sh`, `*.down.sh`, and `forced-preferences.plist` files, the `~/Library/Application Support/Tunnelblick/Configurations` folder will be used as the target of the OpenVPN `--cd` option, which means that files in that folder may be specified in the configuration file without path information -- e.g., "key xxx.key".
@@ -64,10 +64,23 @@ There is only space for a couple of lines of text without causing scrollbars to 
 ==What about Updates?==
 A version of Tunnelblick with `Deploy` will work with Tunnelblick's standard update process, either through the the built-in update mechanism, or by reinstalling, upgrading, or downgrading Tunnelblick. An update replaces `Tunnelblick.app` with a new copy without `Deploy`; however, when the updated program is first run, `Deploy` will be restored from the backup copy, and will then be used normally. Note: "about.html" is not included in standard Tunnelblick updates, so it will be lost when there is a standard update because it is not located in `Deploy`.
 
-==Forced Preferences Exceptions==
-Each preference in `forced-preferences.plist` overrides the identically-named preference in the user's normal preferences located in `~/Library/Preferences/com.openvpn.tunnelblick.plist`, with two exceptions:
-  * All forced preferences with a key beginning with "SU" are ignored. These preferences are used privately by Sparkle Updater (which Tunnelblick uses to update itself), and should not be used. Tunnelblick provides preferences (which can be forced) which control the update process.
-  * Forcing the _config-name_-keychainHasPrivateKey_ and _config-name_-keychainHasUsernameAndPassword_ preferences -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords for that configuration in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored.
+==Forced Preferences==
+Preferences in `Deploy/forced-preferences.plist` override the user's normal preferences located in `~/Library/Preferences/com.openvpn.tunnelblick.plist`. Wildcards can be used to simplify the specification of forced preferences for multiple configurations.
+
+Forced preferences are implemented as follows:
+  # If a forced preference has the same name as a normal preference, the forced preference is used instead of the normal preference.
+  # If a forced preference begins with an asterisk ("`*`") and the rest of the forced preference matches the end of a normal preference, it is used instead of the normal preference.
+  # Otherwise the normal preference is used, or the default if there is no normal preference.
+
+A forced preference consisting only of an asterisk ("`*`") will be ignored.
+
+For example, with forced preferences of `*useDNS`= TRUE and `config1useDNS` = FALSE, configuration `config1` will be forced to not use DNS, and all other configurations will be forced to use DNS. The user will not be able to change any `useDNS` preferences.
+
+Another example: forced preferences of `*ABCuseDNS`= TRUE, `*DEFuseDNS`= FALSE, configuration `configABC` will be forced to use DNS, and `configDEF` will be forced to not use DNS. The user will be able to change `useDNS` preferences for other configurations, if any.
+
+There are two *exceptions* to the way forced preferences work:
+  * All forced preferences with a key beginning with "SU" are ignored. These preferences are used privately by Sparkle Updater (which Tunnelblick uses to update itself), and should not be used. Tunnelblick provides preferences (which can be forced) which control the update process and override these Sparkle preferences.
+  * Forcing the _config-name_-keychainHasPrivateKey and _config-name_-keychainHasUsernameAndPassword preferences -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords for that configuration in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored.
 
 See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
 
@@ -168,6 +181,8 @@ Within a few moments, your .dmg file will be created.
     * Minor reorganization, edits, and clarifications.
   * 2010-02-14
     * Noted document is up-to-date as of r399.
+  * 2010-02-23
+    * Described use of wildcards in forced preferences.
 
 ------------------
 
