@@ -3,7 +3,7 @@
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
 
-*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0b26.
+*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0b28.
 
 For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
@@ -14,7 +14,9 @@ This document contains the following sections:
 <wiki:toc max_depth="2" />
 
 ==Overview==
-Tunnelblick's preferences for a user are stored in `~/Library/Preferences/com.openvpn.tunnelblick.plist`. If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then any preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See the [DeployingTunnelblick Deploying Tunnelblick wiki] for more details.
+Tunnelblick's preferences for a user are stored in `~/Library/Preferences/com.openvpn.tunnelblick.plist`.
+
+If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See the [DeployingTunnelblick Deploying Tunnelblick wiki] for more details.
 
 Note: some preferences are stored as the opposite of the state of the corresponding check box: For example, the *_config-name_-notMonitoringConnection* preference is the opposite of the "Monitor Connection" check box
 
@@ -91,6 +93,8 @@ All preferences starting with the letters "SU" are preferences used privately by
 ==Document History==
   * 2010-02-05
     * Created.
+  * 2010-02-15
+    * Edits for 3.0b28
 
 ------------------
 
