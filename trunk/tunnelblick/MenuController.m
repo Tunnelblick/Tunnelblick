@@ -1075,7 +1075,10 @@ extern TBUserDefaults  * gTbDefaults;
     [[logView textStorage] setDelegate: self];
 	
     [self validateLogButtons];
+    
+    [logWindow setTitle: [NSString stringWithFormat: @"%@ - %@", NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title"), [[self selectedConnection] configName]]];
 }
+
 - (void) textStorageDidProcessEditing: (NSNotification*) aNotification
 {
     NSNotification *notification = [NSNotification notificationWithName: @"LogDidChange" 
