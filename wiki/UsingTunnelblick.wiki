@@ -251,10 +251,10 @@ Within the Tunnelblick.app application, client up/down scripts and openvpn-down-
 ==When a Configuration File Changes==
 Whenever a configuration file changes, you will need to enter the name and password of a computer administrator. This is done as a security measure: because configuration files can contain references to scripts that run as root, they are owned by root and an administrator must grant permission to use them.
 
-==COMMAND-LINE INTERFACE==
+==Command-line interface==
 Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources. For details on using openvpnstart, run it from a Terminal window with no arguments.
 
-==DOCUMENT HISTORY==
+==Document History==
   * 2009-12-12 (Version 3.0b24)
     * Modified to reflect move from ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations.
     * Added note about localization of "Library" in Finder.
@@ -269,6 +269,8 @@ Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVP
     * Changed image URLs to be from Downloads (Deprecated)
   * 2010-02-09
     * Edits for 3.0b26, moved Preferences section to a separate wiki page.
+  * 2010-02-27
+    * Cosmetic changes
 
 ------------------
 
