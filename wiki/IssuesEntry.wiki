@@ -1,6 +1,4 @@
-#summary Entry to Issues
 #labels Deprecated
-
 Before posting a <strong>new</strong> Issue, please
 
   * Take a look at the [http://code.google.com/p/tunnelblick/wiki/KnownIssues Known Issues wiki]
