@@ -1,7 +1,7 @@
 #labels Deprecated
 Before posting a <strong>new</strong> Issue, please
 
-  * Take a look at the [http://code.google.com/p/tunnelblick/wiki/KnownIssues Known Issues wiki]
+  * Take a look at the [KnownIssues Known Issues wiki]
   * Discuss the problem in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]. More people monitor the discussion group and you will probably receive help more quickly there than if you post an Issue.
 
-Or continue on to [http://code.google.com/p/tunnelblick/issues/list Tunnelblick Issues]
+Or continue on to [../issues/list Tunnelblick Issues]
