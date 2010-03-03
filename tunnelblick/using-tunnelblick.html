@@ -6,7 +6,7 @@
     <body
  <big><big><big><strong>Using Tunnelblick</strong></big></big></big>
  <p><img src="using-tunnelblick-files/tb-logo-613x127-2010-01-30.png"> </p><p>This
- document describes how to use Tunnelblick version 3.0b26. </p><p>The 
+ document describes how to use Tunnelblick version 3.0. </p><p>The 
 latest versions of this document and related documents including release
  notes and FAQ may be found in the <a 
 href="http://code.google.com/p/tunnelblick/w/list" rel="nofollow">Tunnelblick
@@ -41,8 +41,8 @@ href="#Uninstalling_Tunnelblick">Uninstalling Tunnelblick</a></li><li><a
  href="#Configuration_Files">Configuration Files</a></li><li><a 
 href="#File_Locations">File Locations</a></li><li><a 
 href="#When_a_Configuration_File_Changes">When a Configuration File 
-Changes</a></li><li><a href="#COMMAND-LINE_INTERFACE">COMMAND-LINE 
-INTERFACE</a></li><li><a href="#DOCUMENT_HISTORY">DOCUMENT HISTORY</a></li></ul></ul>
+Changes</a></li><li><a href="#COMMAND-LINE_INTERFACE">Command-line Interface
+</a></li><li><a href="#DOCUMENT_HISTORY">Document History</a></li></ul></ul>
  <h2><a name="What_is_Tunnelblick?">What is Tunnelblick?</a></h2><ul><li><a
  name="What_is_Tunnelblick?"><strong>Explanation 1</strong>: Tunnelblick
  is a program that can be used to securely connect a Mac running OS X to
@@ -88,7 +88,7 @@ GUI and OpenVPN. </a></p><p><a name="Installing_Tunnelblick">First,
 download the latest disk image from the featured downloads section on 
 the </a><a href="http://code.google.com/p/tunnelblick/" rel="nofollow">Tunnelblick
  project page</a>. Double-click the downloaded .dmg file. An icon for a 
-"Tunnelblick” disk will appear on the Desktop, and a window similar to 
+"Tunnelblick" disk will appear on the Desktop, and a window similar to 
 the following will appear: </p><p><img 
 src="using-tunnelblick-files/using-tunnelblick-dmg-2010-02-09.png"> </p><p>Double-click
  the Tunnelblick icon and a new window will appear, similar to the 
@@ -147,12 +147,12 @@ version of Tunnelblick), the following window will appear: </a></p><p><a
  name="The_First_Time_Tunnelblick_is_Run_by_Each_User"><img 
 src="using-tunnelblick-files/using-tunnelblick-welcome-2010-02-06.png"> </a></p><p><a
  name="The_First_Time_Tunnelblick_is_Run_by_Each_User">If you click 
-"Install and edit sample configuration file”, Tunnelblick will create a 
+"Install and edit sample configuration file", Tunnelblick will create a 
 sample OpenVPN configuration file at <tt>~/Library/Application 
 Support/Tunnelblick/Configurations/openvpn.conf</tt>, then open it in 
 TextEdit for you to modify. </a></p><p><a 
 name="The_First_Time_Tunnelblick_is_Run_by_Each_User">If you click 
-"Quit”, Tunnelblick will quit without doing anything. </a></p><p><a 
+"Quit", Tunnelblick will quit without doing anything. </a></p><p><a 
 name="The_First_Time_Tunnelblick_is_Run_by_Each_User">If you click "Open
  configuration folder", Tunnelblick will open a Finder window with <tt>~/Library/Application
  Support/Tunnelblick/Configurations</tt>, and then quit. Move or copy 
@@ -176,7 +176,7 @@ src="using-tunnelblick-files/using-tunnelblick-closed-2010-02-04.png"> </a></p><
 see a drop down menu similar to the following: </a></p><p><a 
 name="Normal_Tunnelblick_Operation"><img 
 src="using-tunnelblick-files/using-tunnelblick-menu-2010-02-06.png"> </a></p><p><a
- name="Normal_Tunnelblick_Operation">There will be a "Connect” menu item
+ name="Normal_Tunnelblick_Operation">There will be a "Connect" menu item
  for each .ovpn or .conf file in <tt>~/Library/Application 
 Support/Tunnelblick/Configurations</tt>. Click on one to establish the 
 corresponding pre-configured VPN connection. To illustrate the 
@@ -198,17 +198,17 @@ the connection. </a></p><p><a name="Normal_Tunnelblick_Operation">If a
 connection error occurs, or in the unlikely event of an interface crash,
  Tunnelblick will terminate the VPN tunnel and record the error in the 
 Console Log. </a></p><p><a name="Normal_Tunnelblick_Operation">Use 
-"Disconnect” from the drop-down menu to close the VPN connection. Use 
-"Quit” to close all open connections and quit the program and prevent 
+"Disconnect" from the drop-down menu to close the VPN connection. Use 
+"Quit" to close all open connections and quit the program and prevent 
 Tunnelblick from starting itself at your next login at your computer. </a></p><p><a
  name="Normal_Tunnelblick_Operation">If Tunnelblick is running when you 
 logout (or your computer crashes, or is shut down or restarted), then 
 Tunnelblick will be started automatically upon login. To stop 
 Tunnelblick from being started automatically upon login, be sure to quit
- Tunnelblick before logging out, either by using the "Quit” command, or 
-by using Command-Q (Apple-Q) when the "OpenVPN Log” or "About...” window 
+ Tunnelblick before logging out, either by using the "Quit" command, or 
+by using Command-Q (Apple-Q) when the "OpenVPN Log" or "About..." window 
 is active. (Don't confuse this automatic launch of Tunnelblick upon 
-login with the "Automatically connect on launch” option, which causes a 
+login with the "Automatically connect on launch" option, which causes a 
 connection to be established when Tunnelblick is started.) </a></p><h2><a
  name="The_Options..._Submenu">The "Options..." Submenu</a></h2><p><a
  name="The_&quot;Options...&quot;_Submenu">When the Tunnelblick menu is 
@@ -224,7 +224,7 @@ Tunnelblick do not display the Options Submenu (it is controlled by a
 preference), in which case the "Options" menu item is replaced by "About..." </p><h2><a name="The_&quot;OpenVPN_Log&quot;_Window">The
  "OpenVPN Log" Window</a></h2><p><a 
 name="The_&quot;OpenVPN_Log&quot;_Window">When the Tunnelblick menu is 
-displayed, if you click on "Details...” a window similar to the following 
+displayed, if you click on "Details..." a window similar to the following 
 will appear: </a></p><p><a name="The_&quot;OpenVPN_Log&quot;_Window"><img
  src="using-tunnelblick-files/using-tunnelblick-details-2010-02-04.png"> </a></p><p><a
  name="The_&quot;OpenVPN_Log&quot;_Window">There will be a tab for each 
@@ -232,15 +232,15 @@ connection (i.e., each .ovpn or .conf file), whether the connection is
 open or closed. Each tab contains a pane with the OpenVPN Log for the 
 connection and checkboxes that provide options for that connection: </a></p><ul><li><a
  name="The_&quot;OpenVPN_Log&quot;_Window">"Automatically connect on 
-launch” causes the connection to be opened when Tunnelblick is launched 
-(started). "Automatically connect on launch” is unchecked by default. </a></li></ul><ul><li><a
- name="The_&quot;OpenVPN_Log&quot;_Window">"Set nameserver” causes 
+launch" causes the connection to be opened when Tunnelblick is launched 
+(started). "Automatically connect on launch" is unchecked by default. </a></li></ul><ul><li><a
+ name="The_&quot;OpenVPN_Log&quot;_Window">"Set nameserver" causes 
 scripts to be run before a connection is opened and after the connection
  is closed. The scripts save and restore DHCP DNS and WINS information. 
-"Set nameserver” is checked by default. </a></li></ul><p><a 
+"Set nameserver" is checked by default. </a></li></ul><p><a 
 name="The_&quot;OpenVPN_Log&quot;_Window">     </a></p><blockquote><a 
 name="The_&quot;OpenVPN_Log&quot;_Window">When a connection is 
-attempted, the script for "Set nameserver” saves the current DNS 
+attempted, the script for "Set nameserver" saves the current DNS 
 settings and removes DNS settings that were set by DHCP (manual DNS 
 settings are <i>not</i> removed). When a connection is disconnected the 
 scripts restore the saved DNS settings. The scripts do not support the 
@@ -253,18 +253,18 @@ detected, the connection will be disconnected and reconnected. "Monitor
 connection" is checked by default, but the connection is only monitored 
 when "Set nameserver" is checked. </a></li></ul><p><a 
 name="The_&quot;OpenVPN_Log&quot;_Window">     In addition, the "OpenVPN
- Log” window contains four buttons: </a></p><ul><li><a 
-name="The_&quot;OpenVPN_Log&quot;_Window">"Clear log” clears the OpenVPN
+ Log" window contains four buttons: </a></p><ul><li><a 
+name="The_&quot;OpenVPN_Log&quot;_Window">"Clear log" clears the OpenVPN
  Log for the connection being displayed. </a></li></ul><ul><li><a 
-name="The_&quot;OpenVPN_Log&quot;_Window">"Edit configuration” starts 
+name="The_&quot;OpenVPN_Log&quot;_Window">"Edit configuration" starts 
 TextEdit with the configuration file containing the OpenVPN 
 configuration for the connection being displayed so it can be edited. If
  you modify a configuration file, you will need the username and 
 password of a computer administrator to connect using the modified 
 configuration file.  </a></li></ul><ul><li><a 
-name="The_&quot;OpenVPN_Log&quot;_Window">"Connect” opens the connection
+name="The_&quot;OpenVPN_Log&quot;_Window">"Connect" opens the connection
  being displayed. </a></li></ul><ul><li><a 
-name="The_&quot;OpenVPN_Log&quot;_Window">"Disconnect” closes the 
+name="The_&quot;OpenVPN_Log&quot;_Window">"Disconnect" closes the 
 connection being displayed. </a></li></ul><p><a 
 name="The_&quot;OpenVPN_Log&quot;_Window">You may use the standard 
 keyboard shortcuts in the "OpenVPN Log" window: Command-C, Command-X, 
@@ -276,7 +276,7 @@ name="The_&quot;About...&quot;_Window">The "About..." Window</a></h2><p><a
 name="The_&quot;About...&quot;_Window">Click on the Tunnelblick icon in 
 the Status Bar at the top of your screen between the time and the 
 Spotlight icon, then (if it is visible) click on "Options", then on 
-"About...” to open a window with information about the versions of 
+"About..." to open a window with information about the versions of 
 Tunnelblick and OpenVPN that are running and a link to the Tunnelblick 
 website. </a></p><h2><a 
 name="The_&quot;Set_Nameserver&quot;_Check_Box_and_DNS_&amp;_WINS_Sett">The
@@ -349,7 +349,7 @@ Support/Tunnelblick/Configurations folder. Tunnelblick interprets each
 .ovpn or .conf file in the ~/Library/Application 
 Support/Tunnelblick/Configurations folder as a configuration file for a 
 different connection; each of the connections will be available in the 
-drop down menu and shown as a separate tab in the "OpenVPN Log” window. </a></p><h2><a
+drop down menu and shown as a separate tab in the "OpenVPN Log" window. </a></p><h2><a
  name="Using_More_than_One_VPN_Connection_Simultaneously">Using More 
 than One VPN Connection Simultaneously</a></h2><p><a 
 name="Using_More_than_One_VPN_Connection_Simultaneously">Tunnelblick can
@@ -357,7 +357,7 @@ name="Using_More_than_One_VPN_Connection_Simultaneously">Tunnelblick can
  name="Using_More_than_One_VPN_Connection_Simultaneously">However, this 
 is for experts only: </a></p><ul><li><a 
 name="Using_More_than_One_VPN_Connection_Simultaneously">If you use "Set
- nameserver” (which uses standard scripts to save/change/restore DNS 
+ nameserver" (which uses standard scripts to save/change/restore DNS 
 resolution data), on one or more connections your DNS settings may not 
 be saved and restored properly and DNS might or might not work. It 
 depends on the order in what DNS settings you want to use and which 
@@ -365,7 +365,7 @@ connections are opened and closed. Connections may close and be reopened
  because of communications errors over which you have no control, which 
 can cause unpredictable results. Not recommended. </a></li><li><a 
 name="Using_More_than_One_VPN_Connection_Simultaneously">If you don't 
-use "Set nameserver”, and your customized configuration files are 
+use "Set nameserver", and your customized configuration files are 
 suitably written to work together with custom scripts, things can work. 
 But if you don't handle the DNS and routing settings properly, lots of 
 things could go wrong. So this isn't recommended either unless you 
@@ -381,7 +381,7 @@ name="Automatically_Starting_Tunnelblick_Upon_Login">Tunnelblick was
 designed as a persistent menu icon that survives reboots. To this end, 
 it inserts itself into the login items when it is started and only 
 removes itself from the login items when you choose Quit from the menu 
-or Command-Q from the "OpenVPN Log” window or "About..." window. . So if
+or Command-Q from the "OpenVPN Log" window or "About..." window. . So if
  you just log out, shut down, or restart your computer, or it crashes, 
 the next time you log in, Tunnelblick will automatically start. If you 
 do not want Tunnelblick to start automatically, quit Tunnelblick before 
@@ -390,9 +390,9 @@ name="Automatically_Opening_a_VPN_Connection_When_Tunnelblick_Starts">Automatica
  Opening a VPN Connection When Tunnelblick Starts</a></h2><p><a 
 name="Automatically_Opening_a_VPN_Connection_When_Tunnelblick_Starts">You
  can specify that a connection automatically be opened when Tunnelblick 
-starts by putting a check in the "Automatically connect on launch” 
+starts by putting a check in the "Automatically connect on launch" 
 checkbox for that connection. The checkbox is located on the 
-connection's tab in the "OpenVPN Log” window. </a></p><h2><a 
+connection's tab in the "OpenVPN Log" window. </a></p><h2><a 
 name="Using_openvpn-down-root.so">Using openvpn-down-root.so</a></h2><p><a
  name="Using_openvpn-down-root.so">When using "Set nameserver", it is 
 usually necessary to avoid using the OpenVPN "user" and "group" options.
@@ -417,7 +417,7 @@ configuration file is named "xyz.conf", the preference key is
 "xyz-useDownRootPlugin". (To set up the preference, use "Property List 
 Editor.app" to  edit ~/Library/Preferences/com.openvpn.tunnelblick.plist
  and add the key, then right-click it and change the type to "boolean" 
-and check it. “Property List Editor.app” is a small part of the free </a><a
+and check it. “Property List Editor.app" is a small part of the free </a><a
  href="http://developer.apple.com/technology/Xcode.html" rel="nofollow">Developer
  Tools</a> available from Apple (a free Apple Developer Connection 
 membership is required). The Developer Tools are a very large (over 
@@ -445,7 +445,7 @@ by Tunnelblick needs an OpenVPN configuration file. Tunnelblick
 considers any file located in ~/Library/Application 
 Support/Tunnelblick/Configurations with an extension of .conf or .ovpn 
 to be a configuration file, and presents each such file as a potential 
-"connection”. (The "~" refers to your home folder.) Often these 
+"connection". (The "~" refers to your home folder.) Often these 
 configuration files will be supplied to you. Refer to </a><a 
 href="http://openvpn.net/index.php/open-source/documentation/manuals/69-openvpn-21.html"
  rel="nofollow">the OpenVPN documentation</a> for details about what the
@@ -473,13 +473,13 @@ manipulate this folder or its contents directly; Tunnelblick will do so
 automatically. (See "useShadowConfigurationFiles" in the <a 
 href="http://code.google.com/p/tunnelblick/wiki/Preferences" 
 rel="nofollow">Preferences wiki</a>.) </p><p>If Tunnelblick's "Set 
-nameserver” option is used: </p><ul><li>Any "up” or "down” options in 
-the configuration file will be ignored. </li><li>If any "user” or 
-"group” options appear in the configuration file, DNS settings will not 
+nameserver" option is used: </p><ul><li>Any "up" or "down" options in 
+the configuration file will be ignored. </li><li>If any "user" or 
+"group" options appear in the configuration file, DNS settings will not 
 be restored when a tunnel is disconnected. </li></ul><h2><a 
 name="File_Locations">File Locations</a></h2><p><a name="File_Locations">Tunnelblick
  preferences are contained in 
-~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates 
+~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~" indicates 
 your home folder.) Deployed versions of Tunnelblick may contain a 
 "forced-preferences.plist" file within the Tunnelblick application 
 itself; see the </a><a 
@@ -505,23 +505,23 @@ rel="nofollow">Deploying Tunnelblick</a> wiki for details of file
 locations when using a deployed version of Tunnelblick. </p><p>Within 
 the Tunnelblick.app application, client up/down scripts and 
 openvpn-down-root.so are located in Tunnelblick.app/Contents/Resources 
-(see the "Set nameserver” checkbox in the "OpenVPN Log Window” section).
+(see the "Set nameserver" checkbox in the "OpenVPN Log Window" section).
  To access Tunnelblick.app/Contents in the Finder, control-click 
 Tunnelblick.app in the Applications folder, then click on "Show Package 
-Contents”. </p><h2><a name="When_a_Configuration_File_Changes">When a 
+Contents". </p><h2><a name="When_a_Configuration_File_Changes">When a 
 Configuration File Changes</a></h2><p><a 
 name="When_a_Configuration_File_Changes">Whenever a configuration file 
 changes, you will need to enter the name and password of a computer 
 administrator. This is done as a security measure: because configuration
  files can contain references to scripts that run as root, they are 
 owned by root and an administrator must grant permission to use them. </a></p><h2><a
- name="COMMAND-LINE_INTERFACE">COMMAND-LINE INTERFACE</a></h2><p><a 
+ name="COMMAND-LINE_INTERFACE">Command-line Interface</a></h2><p><a 
 name="COMMAND-LINE_INTERFACE">Tunnelblick also contains openvpnstart, an
  OS X command line interface to OpenVPN which provides a scriptable way 
 to create and destroy OpenVPN tunnels. openvpnstart is located in 
 Tunnelblick.app/Contents/Resources. For details on using openvpnstart, 
 run it from a Terminal window with no arguments. </a></p><h2><a 
-name="DOCUMENT_HISTORY">DOCUMENT HISTORY</a></h2><ul><li><a 
+name="DOCUMENT_HISTORY">Document History</a></h2><ul><li><a 
 name="DOCUMENT_HISTORY">2009-12-12 (Version 3.0b24) </a></li><ul><li><a 
 name="DOCUMENT_HISTORY">Modified to reflect move from ~/Library/openvpn 
 to ~/Library/Application Support/Tunnelblick/Configurations. </a></li><li><a
@@ -537,11 +537,17 @@ OpenVPN Log window showing "Monitor connection" checkbox. </a></li></ul><li><a
  name="DOCUMENT_HISTORY">2010-01-30 </a></li><ul><li><a 
 name="DOCUMENT_HISTORY">Fixed inaccurate down-root plugin instructions. </a></li><li><a
  name="DOCUMENT_HISTORY">Added footer with link to discussion group. </a></li></ul><li><a
- name="DOCUMENT_HISTORY">2010-02-04 </a></li><ul><li><a 
+ name="DOCUMENT_HISTORY">2010-02-04 </a></li>
+ <ul><li><a 
 name="DOCUMENT_HISTORY">Changed image URLs to be from Downloads 
 (Deprecated) </a></li></ul><li><a name="DOCUMENT_HISTORY">2010-02-09 </a></li><ul><li><a
  name="DOCUMENT_HISTORY">Edits for 3.0b26, moved Preferences section to a
- separate wiki page. </a></li></ul></ul><hr><h3><a 
+ separate wiki page. </a></li></ul></ul>
+<ul><li><a 
+name="DOCUMENT_HISTORY">Changed image URLs to be from Downloads 
+(Deprecated) </a></li></ul><li><a name="DOCUMENT_HISTORY">2010-02-27 </a></li><ul><li><a
+ name="DOCUMENT_HISTORY">Edits for 3.0, fixed invalid right-double-quote characters, cosmetic changes.</a></li></ul></ul> 
+ <hr><h3><a 
 name="PLEASE_USE_THE_FOR_COMMENTS_OR_QUESTIONS">PLEASE USE THE </a><a 
 href="http://groups.google.com/group/tunnelblick-discuss" rel="nofollow">TUNNELBLICK
  DISCUSSION GROUP</a> FOR COMMENTS OR QUESTIONS<strong></strong></h3>

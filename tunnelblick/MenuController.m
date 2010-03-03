@@ -660,6 +660,9 @@ extern TBUserDefaults  * gTbDefaults;
         [anItem setToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")];
     } else if (  act == @selector(toggleAutoCheckForUpdates:)  ) {
         [anItem setState: NSOffState];
+        
+        [self setupSparklePreferences]; // If first run, Sparkle may have changed the auto update preference
+        
         if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
             return NO;
@@ -1802,28 +1805,7 @@ static void signal_handler(int signalNumber)
     // Note that we access Sparkle's preferences via stdDefaults, so they can't be forced (Sparkle would ignore the forcing, anyway)
     // However, when we try to set out preferences from Sparkle's, if they are forced then they won't be changed.
     
-    if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  ) {
-        if (  [stdDefaults objectForKey: @"SUEnableAutomaticChecks"] != nil  ) {
-            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUEnableAutomaticChecks"]
-                          forKey: @"updateCheckAutomatically"];
-            [gTbDefaults synchronize];
-        }
-    }
-    
-    if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] == nil  ) {
-        if (  [stdDefaults objectForKey: @"SUupdateSendProfileInfo"] != nil  ) {
-            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUupdateSendProfileInfo"]
-                          forKey: @"updateSendProfileInfo"];
-            [gTbDefaults synchronize];
-        }
-    }
-    
-    // SUAutomaticallyUpdate may be changed at any time by a checkbox in Sparkle's update window, so we always use Sparkle's version
-    if (  [stdDefaults objectForKey: @"SUAutomaticallyUpdate"] != nil  ) {
-        [gTbDefaults setBool: [updater automaticallyDownloadsUpdates]       // But if it is forced, this setBool will be ignored
-                      forKey: @"updateAutomatically"];
-        [gTbDefaults synchronize];
-    }
+    [self setupSparklePreferences];
     
     // Set Sparkle's behavior from our preferences using Sparkle's approved methods
     BOOL warnedAlready = FALSE;
@@ -1932,6 +1914,37 @@ static void signal_handler(int signalNumber)
     } else {
         NSLog(@"Cannot set Sparkle delegate because Sparkle Updater does not respond to setDelegate:");
     }
+}
+
+// If we haven't set up the updateCheckAutomatically, updateSendProfileInfo, and updateAutomatically preferences,
+// and the corresponding Sparkle preferences have been set, copy Sparkle's settings to ours
+-(void) setupSparklePreferences
+{
+    NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
+
+    if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  ) {
+        if (  [stdDefaults objectForKey: @"SUEnableAutomaticChecks"] != nil  ) {
+            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUEnableAutomaticChecks"]
+                          forKey: @"updateCheckAutomatically"];
+            [gTbDefaults synchronize];
+        }
+    }
+    
+    if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] == nil  ) {
+        if (  [stdDefaults objectForKey: @"SUupdateSendProfileInfo"] != nil  ) {
+            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUupdateSendProfileInfo"]
+                          forKey: @"updateSendProfileInfo"];
+            [gTbDefaults synchronize];
+        }
+    }
+    
+    // SUAutomaticallyUpdate may be changed at any time by a checkbox in Sparkle's update window, so we always use Sparkle's version
+    if (  [stdDefaults objectForKey: @"SUAutomaticallyUpdate"] != nil  ) {
+        [gTbDefaults setBool: [updater automaticallyDownloadsUpdates]       // But if it is forced, this setBool will be ignored
+                      forKey: @"updateAutomatically"];
+        [gTbDefaults synchronize];
+    }
+    
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
