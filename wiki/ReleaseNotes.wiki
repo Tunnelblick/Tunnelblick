@@ -1,5 +1,5 @@
 #summary Release Notes - Tunnelblick
-#labels Featured,Phase-Deploy
+#labels Phase-Deploy
 
 ==Tunnelblick Release Notes==
 The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
