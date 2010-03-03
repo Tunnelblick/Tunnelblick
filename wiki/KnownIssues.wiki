@@ -5,7 +5,7 @@
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
-The following are known problems or limitations in Tunnelblick version 3.0b28:
+The following are known problems or limitations in Tunnelblick version 3.0:
   * If "Monitor connection" is checked, Tunnelblick monitors the network interface that connects to the VPN and will restart the connection if changes to DNS or WINS are detected. With some network configurations this causes repeated disconnects/reconnects every few seconds. To avoid this, uncheck "Monitor connection" in the tab for the problematic configuration on the "Details..." window..
 
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick the Using Tunnelblick wiki] for details.
@@ -21,7 +21,7 @@ The following are known problems or limitations in Tunnelblick version 3.0b28:
 
   * Updates will fail if the name of Tunnelblick is not "Tunnelblick" or "Tunnelblick.app". To avoid this, rename the application temporarily, perform the update, then restore the original name. (You must change the name of the application itself, not the name of an alias or shortcut to the application.)
 
-  * Localization is not complete. We need additional translations to Catalan, Chinese (both simplified and traditional), Spanish, French, Korean, Japanese, and Norwegian (Norsk Bokmal). If you can help with these or any other languages, please contact project committer  [http://code.google.com/u/jkbullard/ Jon].
+  * Localization is not complete. We need additional translations to Catalan, Chinese (both simplified and traditional), Spanish, French, Korean, Japanese, and Norwegian (Norsk Bokmal). If you can help with these or any other languages, please contact [http://code.google.com/u/jkbullard/ Jon].
 
 ------------------
 
