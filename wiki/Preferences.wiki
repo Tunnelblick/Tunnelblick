@@ -3,7 +3,7 @@
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
 
-*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0b28.
+*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0.
 
 For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
@@ -94,8 +94,8 @@ All preferences starting with the letters "SU" are preferences used privately by
   * 2010-02-05
     * Created.
   * 2010-02-15
-    * Edits for 3.0b28
+    * Edits for 3.0
 
 ------------------
 
-===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
