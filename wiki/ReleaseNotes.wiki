@@ -8,12 +8,16 @@ The latest version of these release notes is located at http://code.google.com/p
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
 
+==3.0 (2010-03-03)==
+  * Fixes incorrect display of 'Automatically Check for Updates' preference on first run after some updates.
+  * Out of beta!
+
 ==3.0b28 (2010-02-24)==
 
   * Wildcards for forced preferences (see the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick wiki]).
   * Displays configuration name in title of OpenVPN Log window.
   * Inserts full command line used for starting OpenVPN into the OpenVPN Log window.
-  * Full German localization. Many thanks to Markus Markus Schneider.
+  * Full German localization. Many thanks to Markus Schneider.
 
 ==3.0b26 (2010-02-09)==
   * Now uses OpenVPN version 2.1.1.
