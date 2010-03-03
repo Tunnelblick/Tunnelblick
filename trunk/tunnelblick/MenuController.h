@@ -157,6 +157,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
 -(void)             setState:                               (NSString *)        newState;
+-(void)             setupSparklePreferences;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             unloadKexts; 
