@@ -3,7 +3,7 @@
 
 http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png 
 
-This document describes how to use Tunnelblick version 3.0b26.
+This document describes how to use Tunnelblick version 3.0.
 
 The latest versions of this document and related documents including release notes and FAQ may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
@@ -251,10 +251,10 @@ Within the Tunnelblick.app application, client up/down scripts and openvpn-down-
 ==When a Configuration File Changes==
 Whenever a configuration file changes, you will need to enter the name and password of a computer administrator. This is done as a security measure: because configuration files can contain references to scripts that run as root, they are owned by root and an administrator must grant permission to use them.
 
-==Command-line interface==
+==COMMAND-LINE INTERFACE==
 Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources. For details on using openvpnstart, run it from a Terminal window with no arguments.
 
-==Document History==
+==DOCUMENT HISTORY==
   * 2009-12-12 (Version 3.0b24)
     * Modified to reflect move from ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations.
     * Added note about localization of "Library" in Finder.
@@ -269,9 +269,8 @@ Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVP
     * Changed image URLs to be from Downloads (Deprecated)
   * 2010-02-09
     * Edits for 3.0b26, moved Preferences section to a separate wiki page.
-  * 2010-02-27
-    * Cosmetic changes
-
+  * 2010-02-14
+    * Edits for 3.0
 ------------------
 
-===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
