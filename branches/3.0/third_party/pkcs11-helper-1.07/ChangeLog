@@ -1,0 +1,94 @@
+pkcs11-helper
+Copyright (c) 2006-2008 Alon Bar-Lev <alon.barlev@gmail.com>
+
+$Id: ChangeLog 185 2009-02-27 03:03:11Z alonbl $
+
+2009-02-27 - Version 1.07
+
+ * Minor Win64 fixup.
+
+2008-07-31 - Version 1.06
+
+ * Some MinGW build fixups.
+
+ * Some BSD build fixups.
+
+ * Fix some VC6 issues thanks to Justin Karneges.
+
+ * Add version resource for Windows.
+
+2007-10-12 - Version 1.05
+
+ * Export pkcs11h_logout().
+
+2007-10-05 - Version 1.04
+
+ * Added NSS crypto enigne.
+
+ * Added new slotevent mode (poll vs fetch).
+
+ * Add more invalid characters to serialization string.
+
+ * Fix openssl decrypt return code.
+
+2007-06-13 - Version 1.03
+
+ * Autoconf fixups.
+
+ * RPM packaging is available, thank to Eddy Nigg.
+
+ * Debian packaging is available, thank to Sandro Wefel.
+
+ * size_t printf 64bit fixups (debug).
+
+ * Certificate session period fixup, thank to Leo Pohl for reporting.
+
+ * Block signals for own threads using pthread calls.
+
+ * Fixup compilation error when using GnuTLS only environment, thank to
+   Simon Josefsson.
+
+ * Allow several engines to co-exist, so application may select its
+   favorite.
+
+ * Add logout verb.
+
+2007-10-05 - Version 1.02
+
+ * Switch to free implementation of PKCS#11 headers.
+
+ * First standalone version.
+
+ * Fix invalid certificate max size handling (Zeljko Vrba).
+
+ * Added object serialization.
+
+ * Added user data to hooks.
+
+ * Added a force login method.
+
+ * Added support for gnutls in addition to openssl.
+
+ * Fixup threading lock issues.
+
+ * Added support for duplicate serial tokens, based on label.
+
+ * Added workaround for OpenSC cards, OpenSC bug#108, thanks to Kaupo Arulo.
+
+ * Added a methods to lock session between two sign/decrypt operations.
+
+ * Modified openssl interface.
+
+ * Added engines for system and crypto to minimize dependencies.
+
+ * Added win32 crypto engine.
+
+ * Added decrypt option using C_UnwrapKey, thanks for Christoph Neerfeld.
+
+2006-06-26 - Version 1.01
+
+ * Fix handling multiple providers.
+
+2006-05-14 - Version 1.00
+
+ * First stable release.

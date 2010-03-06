@@ -1,0 +1,523 @@
+/* Window title */
+"'%@' has been disconnected" = "'%@' s'ha desconnectat";
+
+/* NEEDS TRANSLATION *//* Window text */
+"(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
+
+/* OpenVPN Log message */
+"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart estat #%1$d: %2$@";
+
+/* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basat en Tunnelblick, programari lliure disponible a <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
+/* Connection status */
+"ADD_ROUTES" = "Afegint rutes";
+
+/* Connection status */
+"ASSIGN_IP" = "Assignant adreça IP";
+
+/* Connection status */
+"AUTH" = "Autoritzant";
+
+/* Menu item */
+"About..." = "Quant a…";
+
+/* Window title */
+"Alert" = "Atenció";
+
+/* NEEDS TRANSLATION *//* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"All configuration files removed" = "All configuration files removed";
+
+/* NEEDS TRANSLATION *//* Window text */
+"An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "An error occurred while trying to move the previous version of %1$@ to the Trash.\n\nThe previous version is %2$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Anonymous unique ID" = "Anonymous unique ID";
+
+/* Window title */
+"Authentication failed" = "L'autenticació ha fallat";
+
+/* Menu item */
+"Automatically Check for Updates" = "Cercar actualitzacions automàticament";
+
+/* Checkbox name */
+"Automatically connect on launch" = "Connectar automàticament a l'arrencada";
+
+/* Connection status */
+"CONNECTED" = "Connectat";
+
+/* Connection status */
+"CONNECTING" = "Connectant";
+
+/* Button */
+"Cancel" = "Cancel·lar";
+
+/* Menu item */
+"Check For Updates Now" = "Cercar actualitzacions ara";
+
+/* Button */
+"Clear log" = "Netejar missatges";
+
+/* NEEDS TRANSLATION *//* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+
+/* NEEDS TRANSLATION *//* System profile item */
+"Computer admin" = "Computer admin";
+
+/* Window title */
+"Configuration Change" = "Canvi en la configuració";
+
+/* Window text */
+"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "L'arxiu de configuració %1$@ es troba en un volum remot. Per motius de seguretat Tunnelblick necessita que els arxius de configuració es trobin en un volum local\n\nDesitges que Tunnelblick creï i utilitzi una còpia local de l'arxiu de configuració en %2$@?\n\n(Farà falta drets d'administració.)\n";
+
+/* NEEDS TRANSLATION *//* System profile item */
+"Configurations" = "Configurations";
+
+/* Button */
+"Connect" = "Connectar";
+
+/* Button */
+"Continue" = "Continuar";
+
+/* Window text */
+"Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2010 Angelo Laub i altres. Tots els drets reservats.";
+
+/* Button */
+"Create copy" = "Crear còpia";
+
+/* Window title */
+"Create local copy of configuration file?" = "Crear una còpia local de l'arxiu de configuració?";
+
+/* NEEDS TRANSLATION *//* System profile item */
+"Deployed" = "Deployed";
+
+/* Menu item */
+"Details..." = "Detalls…";
+
+/* NEEDS TRANSLATION *//* "Menu item tooltip" */
+"Disabled because Sparkle Updater does not implement this feature" = "Disabled because Sparkle Updater does not implement this feature";
+
+/* NEEDS TRANSLATION *//* "Menu item tooltip" */
+"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+
+/* NEEDS TRANSLATION *//* "Menu item tooltip" */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set";
+
+/* Button */
+"Disconnect" = "Desconnectar";
+
+/* Button */
+"Do not restore" = "No restaurar";
+
+/* Checkbox name */
+"Do not warn about this again" = "No m'avisis més sobre això";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
+
+/* Window title */
+"Do you wish to connect?" = "Desitges desconnectar?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+
+/* NEEDS TRANSLATION *//* Text on disk image */
+"Double-click to begin" = "Double-click to begin";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Downgrade succeeded" = "Downgrade succeeded";
+
+/* NEEDS TRANSLATION *//* Button */
+"Downgrade" = "Downgrade";
+
+/* Button */
+"Download" = "Descarregar";
+
+/* Connection status */
+"EXITING" = "Desconnectat";     // Please translate "Disconnected"
+
+/* Button */
+"Edit configuration" = "Editar la configuració";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Examine the configuration file?" = "Examine the configuration file?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Examine" = "Examine";
+
+/* Connection status */
+"GET_CONFIG" = "Obtenint la configuració";
+
+/* NEEDS TRANSLATION *//* Button */
+"Go to the OpenVPN documentation on the web" = "Go to the OpenVPN documentation on the web";
+
+/* NEEDS TRANSLATION *//* Window text */
+"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Install Tunnelblick?" = "Install Tunnelblick?";
+
+/* Button */
+"Install and edit sample configuration file" = "Instal·la i edita un arxiu de configuració de mostra";
+
+/* Window title */
+"Install and edit sample configuration file?" = "Instal·lar i editar un arxiu de configuració de mostra?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Install" ="Install";
+
+/* Window title */
+"Installation failed" = "La instal·lació ha fallat";
+
+/* Window title */
+"Installation or Repair Failed" = "La instal·lació o reparació ha fallat";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Installation succeeded" = "Installation succeeded";
+
+/* NEEDS TRANSLATION *//* Button */
+"Launch" = "Launch";
+
+/* Checkbox name */
+"Monitor DNS" = "Monitoritzar DNS";
+
+/* Checkbox name */
+"Monitor WINS" = "Monitoritzar WINS";
+
+/* Checkbox name */
+"Monitor connection" = "Monitoritzar la connexió";
+
+/* Menu item */
+"Monitor the Configuration Folder" = "Monitoritzar la carpeta de configuració";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Es crearien múltiples connexions simultànies (%1$d amb 'Configurar el servidor de noms', %2$d sense 'Configurar el servidor de noms').";
+
+/* Window title */
+"Not connecting" = "No s'esta connectant";
+
+/* Button */
+"OK" = "D'acord";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
+
+/* Window title */
+"OpenVPN Log Output - Tunnelblick" = "Missatges del Log de l'OpenVPN - Tunnelblick";
+
+/* Menu item */
+"Options" = "Opcions";
+
+/* Window title */
+"Passphrase" = "Mot clau";
+
+/* Textbox name */
+"Password:" = "Contrasenya:";
+
+/* Menu item */
+"Place Icon Near the Spotlight Icon" = "Col·locar la icona propera a la icona de l'Spotlight";
+
+/* Window text */
+"Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
+
+/* Window text */
+"Please enter VPN username/password combination." = "Si us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Si us plau entra el token \"%@\", i prem sobre \"D'acord\"";
+
+/* Window title */
+"Please insert token" = "Si us plau entra el token";
+
+/* Menu item */
+"Preferences" = "Preferències";
+
+/* Menu item */
+"Quit Tunnelblick" = "Sortir Tunnelblick";
+
+/* Button */
+"Quit" = "Sortir";
+
+/* Connection status */
+"RECONNECTING" = "Reconnectant";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Reinstall" = "Reinstall";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Reinstallation succeeded" = "Reinstallation succeeded";
+
+/* Button */
+"Remove backup and do not restore" = "Eliminar còpia de seguretat i no restaurar";
+
+/* Window title */
+"Restore Configuration Settings from Backup?" = "Restaurar configuració des d'una còpia de seguretat?";
+
+/* Button */
+"Restore" = "Restaurar";
+
+/* Connection status */
+"SLEEP" = "Esperant el procés dimoni";   // Please translate "Waiting for daemon process"
+
+/* Checkbox text */
+"Save in Keychain" = "Guardar en el gestor de claus";
+
+/* Menu item */
+"Send Anonymous System Profile" = "Enviar informació anònima del sistema";
+
+/* Checkbox name */
+"Set nameserver" = "Configurar el servidor de noms";
+
+/* Menu item */
+"Show Connection Timers" = "Mostrar els comptadors de la connexió";
+
+/* NEEDS TRANSLATION *//* Window title */
+"System Requirements Not Met" = "System Requirements Not Met";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
+
+/* Menu item tooltip */
+"Takes effect immediately" = "S'aplica immediatament";
+
+/* Menu item tooltip */
+"Takes effect the next time Tunnelblick is launched" = "S'aplica la propera vegada que Tunnelblick s'executi";
+
+/* Menu item tooltip */
+"Takes effect with the next connection" = "S'aplica amb la propera connexió";
+
+/* Window text */
+"The change will take effect the next time you connect." = "El canvi s'aplicarà la propera vegada que connectis.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"The configuration file is protected" = "The configuration file is protected";
+
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Les credencials (mot clau o nom d'usuari/contrasenya) no han estat acceptades pel servidor VPN remot.";
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "La instal·lació, esborrat, recuperació o reparació d'un o més dels component de Tunnelblick ha fallat. Mira la Consola per obtenir més detalls.";
+
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "El mot clau no pot ser buit!\nSi us plau entra el mot clau de la connexió VPN.";
+
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari i la contrasenya no poden ser buits!\nSi us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
+
+/* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Aquesta còpia de Tunnelblick no té cap configuració establerta. Desitges restaurar la configuració d'una còpia de seguretat?\n\nFarà falta drets d'administració.";
+
+/* Button */
+"Try again with different credentials" = "Provar de nou amb unes altres credencials";
+
+/* Button */
+"Try again" = "Provar de nou";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+
+/* Window title */
+"Tunnelblick Error" = "Error del Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
+
+/* Window text */
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick no ha pogut copiar openvpn.conf a %@";
+
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick no ha pogut copiar l'arxiu de configuració al lloc alternatiu local. Mira la Consola per obtenir més detalls.";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick no ha pogut crear una carpeta pel lloc alternatiu de configuració. Mira la Consola per obtenir més detalls.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ha desconnectat '%@' perquè l'arxiu de configuració ha estat eliminat.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick is currently running" = "Tunnelblick is currently running";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to move the configurations folder and remove the configuration(s) backup." = "Tunnelblick needs to move the configurations folder and remove the configuration(s) backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to move the configurations folder." = "Tunnelblick needs to move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to remove the configuration(s) backup." = "Tunnelblick needs to remove the configuration(s) backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the configuration file to secure it.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it and remove the configuration(s) backup." = "Tunnelblick needs to repair ownership/permissions of the program to secure it and remove the configuration(s) backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it and restore configuration(s) from the backup." = "Tunnelblick needs to repair ownership/permissions of the program to secure it and restore configuration(s) from the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, remove the backup of configuration(s), and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, remove the backup of configuration(s), and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and remove the backup." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and remove the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, remove the backup, and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it." = "Tunnelblick needs to repair ownership/permissions of the program to secure it.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder." = "Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup and then remove the backup." = "Tunnelblick needs to restore configuration(s) from the backup and then remove the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup." = "Tunnelblick needs to restore configuration(s) from the backup.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+
+/* Status message */
+"Tunnelblick: %d connections active." = "Tunnelblick: %d connexions actives.";
+
+/* Status message */
+"Tunnelblick: 1 connection active." = "Tunnelblick: 1 connexió activa.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Unable to move previous version to Trash" = "Unable to move previous version to Trash";
+
+/* NEEDS TRANSLATION *//* Button */
+"Unprotect and Modify" = "Unprotect and Modify";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Updates are disabled" = "Updates are disabled";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Upgrade succeeded" = "Upgrade succeeded";
+
+/* NEEDS TRANSLATION *//* Button */
+"Upgrade" = "Upgrade";
+
+/* Menu item */
+"Use Shadow Copies of Configuration Files" = "Utilitza còpies Shadow dels arxius de configuració";
+
+/* Window title */
+"Username and password" = "Nom d'usuari i contrasenya";
+
+/* Textbox name */
+"Username:" = "Nom d'usuari:";
+
+/* Connection status */
+"WAIT" = "Esperant resposta del servidor";   // Please translate "Waiting for Server Response"
+
+/* Menu item */
+"Warn About Simultaneous Connections" = "Avisa sobre connexions simultànies";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Warning" = "Warning";
+
+/* Window title */
+"Welcome to Tunnelblick" = "Benvingut a Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You are currently running a different copy of Tunnelblick." = "You are currently running a different copy of Tunnelblick.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"You cannot connect using the sample configuration" = "You cannot connect using the sample configuration";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Has de tornar a instal·lar Tunnelblick. Si us plau mou Tunnelblick a la Paperera i descarrega una còpia nova. El problema ha estat:\n\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+/* NEEDS TRANSLATION *//* Window text */
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
