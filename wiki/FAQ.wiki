@@ -54,11 +54,15 @@ Click on the Tunnelblick icon to reveal the Tunnelblick menu, then click on a co
 Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
 
 ==How do I update Tunnelblick?==
-There are two ways to upgrade Tunnelblick.
+Each time Tunnelblick is launched, it checks for updates automatically (if that was specified when Tunnelblick was installed) and displays a notice that an update is available.
 
-_Whichever method you chose, you will need and administrator username/password the first time a new copy of Tunnelblick is run._ All configurations and preferences will be used by the new version (even if it a "deployed" version).
+(Note: Due to a bug in older versions of Tunnelblick, update notices are sometimes not visible. For versions of Tunnelblick earlier than 3.0b16, the user must display the "Details..." window and click in that window for the popup window to appear. For versions of Tunnelblick earlier than 3.0b24, the user must display the "Details..." window for the popup window to appear. For version 3.0b24 and later, update notices will be visible without any user action.)
 
-  * You can update to the latest _stable_ version of Tunnelblick by starting Tunnelblick, selecting "Options…" from the Tunnelbilck menu, then selecting "Check for Updates Now". If an update is available, you will be guided through the update process. This method _does not_ move the old version to the Trash, it overwrites it.
+If automatic checking for updates is not enabled, there are two ways to update Tunnelblick manually:
+
+_Whichever method you chose, you will need and administrator username/password the first time a new copy of Tunnelblick is run._ All configurations and preferences will be used by the new version (even if it is a "deployed" version).
+
+  * You can update to the latest _stable_ version of Tunnelblick by starting Tunnelblick, selecting "Options…" from the Tunnelbilck menu, then selecting "Check for Updates Now". If an update is available, you will be guided through the update process. If you install an update, your old version will be moved to the Trash.
 
   *If you are feeling a bit more adventurous, go to the [http://code.google.com/p/tunnelblick/downloads/list Tunnelblick Downloads page] and download a beta (experimental) version. Then follow the "[How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
 
