@@ -31,6 +31,9 @@ What else you need depends on your situation:
   * If you have a "deployed" version of Tunnelblick (usually from a company or VPN service provider), you may not need anything else -- everything is usually included in the customized version of the Tunnelblick application that is distributed.
   * Otherwise, you need either a "configuration file" or enough information about the VPN to edit the sample configuration file that Tunnelblick will offer to install. You will probably also need certificate and key files for encryption. Your company or VPN service provider should provide them.
 
+==Where can I get old versions of Tunnelblick?==
+Older versions of Tunnelblick are available on the Downloads page, but they are hidden by default. On the Downloads page, select "Deprecated downloads" in the drop-down list next to "Search", then click the "Search" button. A list of all old versions of Tunnelblick will be displayed. (Ignore the files with names starting with "using-tunnelblick".)
+
 ==What is a "deployed" version of Tunnelblick?==
 A "deployed" version of Tunnelblick is a customized version of the program, which includes everything you need to connect to a VPN: the program itself, configuration file(s), and key and certificate files for encryption.
 
