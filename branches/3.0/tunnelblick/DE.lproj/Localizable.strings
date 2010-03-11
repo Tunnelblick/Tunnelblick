@@ -223,6 +223,9 @@
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Nur Administratoren sollten Tunnelblick updaten";
 
+/* Button */
+"Open configuration folder" = "Das Konfigurationsverzeichnis öffnen";
+
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
 
