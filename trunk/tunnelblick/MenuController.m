@@ -68,14 +68,13 @@ extern TBUserDefaults  * gTbDefaults;
 
         }
         
-        deployDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"];
-
         [self dmgCheck];
 		
 		[NSApp setDelegate:self];
 		
         // Backup/restore Resources/Deploy and/or repair ownership and permissions if necessary
         NSFileManager * fMgr             = [NSFileManager defaultManager];
+        NSString      * deployDirPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
         NSString      * deployBackupPath = [[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
                                               stringByDeletingLastPathComponent]
                                              stringByAppendingPathComponent: @"TunnelblickBackup"]
@@ -120,16 +119,18 @@ extern TBUserDefaults  * gTbDefaults;
         }
 
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
-        //    set configDirPath to point to it
-        // Otherwise set configDirPath to point to ~/Library/Application Support/Tunnelblick/Configurations
+        //    set configDirIsDeploy TRUE and set configDirPath to point to it
+        // Otherwise set configDirIsDeploy FALSE and set configDirPath to point to ~/Library/Application Support/Tunnelblick/Configurations
+        configDirIsDeploy = FALSE;
         configDirPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
         
         if (  [fMgr fileExistsAtPath: deployDirPath isDirectory: &isDir] && isDir ) {
-            NSString * file;
-            NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployDirPath];
-            while (file = [dirEnum nextObject]) {
-                NSString * ext  = [file pathExtension];
+            NSArray *dirContents = [fMgr directoryContentsAtPath: deployDirPath];
+            int i;
+            for (i=0; i<[dirContents count]; i++) {
+                NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
                 if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
+                    configDirIsDeploy = TRUE;
                     [configDirPath release];
                     configDirPath = [deployDirPath copy];
                     break;
@@ -158,7 +159,7 @@ extern TBUserDefaults  * gTbDefaults;
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
-            if ( ! [configDirPath isEqualToString: deployDirPath]  ) {
+            if ( ! configDirIsDeploy  ) {
                 BOOL isDir;
                 NSFileManager * fMgr = [NSFileManager defaultManager];
                 if (  [fMgr fileExistsAtPath: configDirPath isDirectory: &isDir]  ) {
@@ -550,7 +551,8 @@ extern TBUserDefaults  * gTbDefaults;
 		
         // configure connection object:
 		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString
-                                                                inDirectory: configDirPath]; // initialize VPN Connection with config
+                                                                inDirectory: configDirPath
+                                                                 isInDeploy: configDirIsDeploy]; // initialize VPN Connection with config	
 		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
         
@@ -819,7 +821,8 @@ extern TBUserDefaults  * gTbDefaults;
             
             // Add new config to myVPNConnectionDictionary
             VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString
-                                                                    inDirectory: configDirPath];
+                                                                    inDirectory: configDirPath
+                                                                     isInDeploy: configDirIsDeploy];
             [myConnection setState:@"EXITING"];
             [myConnection setDelegate:self];
             [myVPNConnectionDictionary setObject: myConnection forKey:configString];
@@ -1325,7 +1328,7 @@ extern TBUserDefaults  * gTbDefaults;
     // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html" inDirectory: @"Deploy"] doesn't work -- it is apparently cached by OS X.
     // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
     // The workaround is to create the path "by hand" and use that.
-    NSString * aboutPath    = [[[NSBundle mainBundle] resourcePath] stringByAppendingString: @"about.html"];
+    NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
 	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
     if (  htmlFromFile  ) {
         basedOnHtml  = NSLocalizedString(@"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
@@ -1453,7 +1456,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     NSFileManager  * fileManager     = [NSFileManager defaultManager];
     
-    if (  [configDirPath isEqualToString: deployDirPath]  ) {
+    if (  configDirIsDeploy  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
                          [[fileManager componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"]],
@@ -2010,7 +2013,7 @@ static void signal_handler(int signalNumber)
         NSString * sConn = [NSString stringWithFormat:@"%d", nConfigurations    ];
         NSString * sSN   = [NSString stringWithFormat:@"%d", nSetNameserver     ];
         NSString * sMC   = [NSString stringWithFormat:@"%d", nMonitorConnection ];
-        NSString * sDep  = ([configDirPath isEqualToString: deployDirPath] ? @"1" : @"0");
+        NSString * sDep  = (configDirIsDeploy ? @"1" : @"0");
         NSString * sAdm  = (userIsAnAdmin     ? @"1" : @"0");
         NSString * sUuid = [self installationId];
 
@@ -2098,6 +2101,7 @@ static void signal_handler(int signalNumber)
         NSString * standardPath;
         
         // Use a standardPath of /Applications/Tunnelblick.app unless overridden by a forced preference
+        NSString * deployDirPath = [currentPath stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
         NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [deployDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         standardPath = @"/Applications/Tunnelblick.app";
         id obj = [forcedDefaults objectForKey:@"standardApplicationPath"];
@@ -2545,7 +2549,8 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
     }
 
     // check permissions of files in Resources/Deploy (if any)        
-    if (  deployContentsOwnerOrPermissionsNeedRepair([[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"])  ) {
+    NSString * deployDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+    if (  deployContentsOwnerOrPermissionsNeedRepair(deployDirPath)  ) {
         *changeOwnershipAndOrPermissions = YES;
         return YES;
     }
@@ -2572,21 +2577,17 @@ void terminateBecauseOfBadConfiguration(void)
     [NSApp setAutoLaunchOnLogin: NO];
     [NSApp terminate: nil];
 }
-BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * theDirPath)
+BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath)
 {
     NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
-    NSFileManager * fMgr = [NSFileManager defaultManager];
-    NSString * file;
-    BOOL isDir;
-    NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: theDirPath];
-    while (file = [dirEnum nextObject]) {
-        NSString * filePath = [theDirPath stringByAppendingPathComponent: file];
+    NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployDirPath];
+    int i;
+    
+    for (i=0; i<[dirContents count]; i++) {
+        NSString * file = [dirContents objectAtIndex: i];
+        NSString * filePath = [deployDirPath stringByAppendingPathComponent: file];
         NSString * ext  = [file pathExtension];
-        if (  [fMgr fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"755")  ) {
-                return YES; // NSLog already called
-            }
-        } else if ( [ext isEqualToString:@"sh"]  ) {
+        if ( [ext isEqualToString:@"sh"]  ) {
             if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
                 return YES; // NSLog already called
             }
