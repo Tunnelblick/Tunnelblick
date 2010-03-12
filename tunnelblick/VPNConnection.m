@@ -62,11 +62,12 @@ extern TBUserDefaults  * gTbDefaults;
 
 @implementation VPNConnection
 
--(id) initWithConfig:(NSString *)inConfig inDirectory: (NSString *) inDir
+-(id) initWithConfig:(NSString *)inConfig inDirectory: (NSString *) inDir isInDeploy: (BOOL) inDeploy
 {	
     if (self = [super init]) {
         configFilename = [inConfig copy];
         configDirPath = [inDir copy];
+        configDirIsDeploy = inDeploy;
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
@@ -212,7 +213,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *altCfgLoc = @"0";
     if ( [cfgPath isEqualToString:altPath] ) {
         altCfgLoc = @"1";
-    } else if (  [configDirPath isEqualToString: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Deploy"]]  ) {
+    } else if (  configDirIsDeploy  ) {
         altCfgLoc = @"2";
     }
     

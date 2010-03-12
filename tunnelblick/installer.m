@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     uid_t realUserID  = getuid();   // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as
     gid_t realGroupID = getgid();
 
-    NSFileManager * fMgr = [NSFileManager defaultManager];
+    NSFileManager * fMgr                 = [NSFileManager defaultManager];
     BOOL            isDir;
     
     // We create this file to act as a flag that the installation failed. We delete it before a success return.
@@ -127,32 +127,27 @@ int main(int argc, char *argv[])
         NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.down.osx.sh"];
         NSString *infoPlistPath         = [[[installerPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
         
-        // Create arrays of arguments for the chmod command to set permissions as follows:
-        //        Info.plist is set to 644
-        //        executables and standard scripts are set to 744
-        //        For the contents of /Resources/Deploy and its subfolders:
-        //            folders are set to 755, certificate & key files are set to 600, shell files are set to 744, all other file are set to 644
+        // Create arrays of arguments for the chmod command to set permissions for files in /Resources/Deploy
+        // as follows: certificate & key files are set to 600, shell files are set to 744, and all other file are set to 644
+        // Other permissions: Info.plist is set to 644, and executable and standard scripts are set to 744
         NSMutableArray *chmod600Args = [NSMutableArray arrayWithObject: @"600"];
         NSMutableArray *chmod644Args = [NSMutableArray arrayWithObjects: @"644", infoPlistPath, nil];
         NSMutableArray *chmod744Args = [NSMutableArray arrayWithObjects: @"744",
                                         installerPath, openvpnPath, leasewatchPath,
                                         clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
-        NSMutableArray *chmod755Args = [NSMutableArray arrayWithObject: @"755"];
         NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
         
-        NSString * file;
-        NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployPath];
-        while (file = [dirEnum nextObject]) {
+        NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployPath];
+        int i;
+        for (i=0; i<[dirContents count]; i++) {
+            NSString * file = [dirContents objectAtIndex: i];
             NSString * ext  = [file pathExtension];
-            NSString * filePath = [deployPath stringByAppendingPathComponent: file];
-            if (  [fMgr fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
-                [chmod755Args addObject: filePath];
-            } else if ( [ext isEqualToString:@"sh"]  ) {
-                [chmod744Args addObject: filePath];
+            if ( [ext isEqualToString:@"sh"]  ) {
+                [chmod744Args addObject:[deployPath stringByAppendingPathComponent: file]];
             } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
-                [chmod600Args addObject: filePath];
+                [chmod600Args addObject:[deployPath stringByAppendingPathComponent: file]];
             } else {
-                [chmod644Args addObject: filePath];
+                [chmod644Args addObject:[deployPath stringByAppendingPathComponent: file]];
             }
         }
         
@@ -163,7 +158,6 @@ int main(int argc, char *argv[])
         if ( [chmod600Args count] > 1  ) { runTask(@"/bin/chmod", chmod600Args); }
         if ( [chmod644Args count] > 1  ) { runTask(@"/bin/chmod", chmod644Args); }
         if ( [chmod744Args count] > 1  ) { runTask(@"/bin/chmod", chmod744Args); }
-        if ( [chmod755Args count] > 1  ) { runTask(@"/bin/chmod", chmod755Args); }
         
         // Move configuration folder to new place in file hierarchy if necessary
         NSString * oldConfigDirPath       = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
@@ -215,7 +209,8 @@ int main(int argc, char *argv[])
     }
     
     // If Resources/Deploy exists, back it up -- saving the first configuration and the two most recent
-    if (  [fMgr fileExistsAtPath: deployPath isDirectory: &isDir] && isDir  ) {
+    NSArray * deployContents = [fMgr directoryContentsAtPath:deployPath];
+    if (  deployContents != nil  ) {
         createDir(deployBkupHolderPath);    // Create the folder that holds the backup folders if it doesn't already exist
         
         if (  ! (  [fMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir] && isDir  )  ) {
