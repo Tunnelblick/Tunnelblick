@@ -24,7 +24,6 @@
 #import "NamedPipe.h"
 
 @interface VPNConnection : NSObject {
-    BOOL            configDirIsDeploy;  // Indicates that configDirPath is /Resources/Deploy
     NSString      * configDirPath;      // Path to folder that has configuration files
 	NSString      * configFilename;     // This contains the filename and extension of the configuration file
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
@@ -55,8 +54,7 @@
 -(IBAction)         disconnect:                 (id) sender;
 -(void)             emptyPipe;
 -(id)               initWithConfig:             (NSString *)    inConfig
-                       inDirectory:             (NSString *)    inDir
-                        isInDeploy:             (BOOL)          inDeploy;
+                       inDirectory:             (NSString *)    inDir;
 -(BOOL)             isConnected;
 -(BOOL)             isDisconnected;
 -(NSTextStorage*)   logStorage;
