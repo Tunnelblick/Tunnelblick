@@ -69,8 +69,8 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
     NSString                * configDirPath;                // Path to folder that has configuration files
-    BOOL                      configDirIsDeploy;            // Indicates that configDirPath is /Resources/Deploy
-
+    NSString                * deployDirPath;                // Path to Tunnelblick.app/Contents/Resources/Deploy (whether or not it exists)
+    
     NSMutableArray          * myConfigArray;                // Sorted list of all configuration filenames including .ovnp or .conf extensions
     NSMutableDictionary     * myVPNConnectionDictionary;    // List of all configurations and corresponding VPNConnections
                                                             // Key is the configuration filename including extension, object is the VPNConnection object for the configuration
