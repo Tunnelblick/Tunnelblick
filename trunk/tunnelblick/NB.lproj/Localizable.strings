@@ -1,14 +1,14 @@
-/* NEEDS TRANSLATION *//* Window title */
-"'%@' has been disconnected" = "'%@' has been disconnected";
+/* Window title */
+"'%@' has been disconnected" = "'%@' har blitt koblet fra";
 
-/* NEEDS TRANSLATION *//* Window text */
-"(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
+/* Window text */
+"(To install to a different location, drag %@ to that location.)" = "(For å innstallere et annet sted, dra %@ til den lokasjon.)";
 
-/* NEEDS TRANSLATION *//* OpenVPN Log message */
+/* TRANSLATION SAME AS DEVELOPMENT *//* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basert på Tunnelblick, gratis programvare tilgjengelig fra <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Connection status */
 "ADD_ROUTES" = "Adding routes";
@@ -20,34 +20,34 @@
 "AUTH"  = "Autoriserer";
 
 /* Menu item */
-"About..." = "About…";
+"About..." = "Om…";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Alert" = "Alert";
+/* Window title */
+"Alert" = "Advarsel";
 
-/* NEEDS TRANSLATION *//* Window text */
-"All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
+/* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "Alle konfigurasjonsfiler i %@ har blitt fjernet. Tunnelblick må avslutte.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"All configuration files removed" = "All configuration files removed";
+/* Window title */
+"All configuration files removed" = "Alle konfigurasjonsfiler er fjernet";
 
-/* NEEDS TRANSLATION *//* Window text */
-"An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
+/* Window text */
+"An error occurred while trying to install Tunnelblick.app in %@" = "En feil oppstod i forsøket på å innstallere Tunnelblick.app i %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
+/* Window text */
+"An error occurred while trying to launch %@" = "En feil oppstod ved forsøk på å starte %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "An error occurred while trying to move the previous version of %1$@ to the Trash.\n\nThe previous version is %2$@";
+/* Window text */
+"An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "En feil oppstod ved forsøket på å flytte den forrige versjon %1$@ til Papirkurven.\n\nForrige versjon er %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Anonymous unique ID" = "Anonymous unique ID";
+/* Window text */
+"Anonymous unique ID" = "Anonym unik ID";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Authentication failed" = "Authentication failed";
+/* Window title */
+"Authentication failed" = "Godkjenning feilet";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Automatically Check for Updates" = "Automatically Check for Updates";
+/* Menu item */
+"Automatically Check for Updates" = "Automatisk sjekk for oppdateringer";
 
 /* Checkbox name */
 "Automatically connect on launch" = "Koble til automatisk ved oppstart";
@@ -55,32 +55,32 @@
 /* Connection status */
 "CONNECTED"  = "Tilkoblet";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "Connecting";
+/* Connection status */
+"CONNECTING" = "Kobler til";
 
 /* Button */
 "Cancel"	= "Avbryt";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Check For Updates Now" = "Check For Updates Now";
+/* Menu item */
+"Check For Updates Now" = "Sjekk etter oppdateringer nå";
 
 /* Button */
 "Clear log" = "Nullstill log";
 
-/* NEEDS TRANSLATION *//* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Koble fra VPN oppkoblinger og avslutt Tunnelblick";
 
-/* NEEDS TRANSLATION *//* System profile item */
-"Computer admin" = "Computer admin";
+/* System profile item */
+"Computer admin" = "Datamaskin administrator";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Configuration Change" = "Configuration Change";
+/* Window title */
+"Configuration Change" = "Konfigurasjonsendring";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Configuration file %1$@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %2$@?\n\n(You will need an administrator name and password.)\n";
+/* Window text */
+"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n" = "Konfigurasjonsfilen %1$@ er på et eksternt volum. Tunnelblick krever at konfigurasjonsfilen lagres på lokalt volum av sikkerhetshensyn\n\nØnsker du at Tunnelblick skal lage, og bruke en lokal konfigurasjonsfil i %2$@?\n\n(Du vil trenge administrator brukernavn og passord.)\n";
 
-/* NEEDS TRANSLATION *//* System profile item */
-"Configurations" = "Configurations";
+/* System profile item */
+"Configurations" = "Konfigurasjoner";
 
 /* Button */
 "Connect"= "Koble til";
@@ -88,71 +88,71 @@
 /* Button */
 "Continue" = "Fortsett";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
 "Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2010 Angelo Laub and others. All rights reserved.";
 
-/* NEEDS TRANSLATION *//* Button */
-"Create copy" = "Create copy";
+/* Button */
+"Create copy" = "Lag kopi";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Create local copy of configuration file?" = "Create local copy of configuration file?";
+/* Window title */
+"Create local copy of configuration file?" = "Vil du lage en lokal kopi av konfigurasjonsfilen?";
 
-/* NEEDS TRANSLATION *//* System profile item */
-"Deployed" = "Deployed";
+/* System profile item */
+"Deployed" = "Utrullet";
 
 /* Menu item */
 "Details..." = "Detaljer…";
 
-/* NEEDS TRANSLATION *//* "Menu item tooltip" */
-"Disabled because Sparkle Updater does not implement this feature" = "Disabled because Sparkle Updater does not implement this feature";
+/* "Menu item tooltip" */
+"Disabled because Sparkle Updater does not implement this feature" = "Deaktivert fordi Sparkle Updater støtter ikke denne funksjonen";
 
-/* NEEDS TRANSLATION *//* "Menu item tooltip" */
-"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+/* "Menu item tooltip" */
+"Disabled because this setting is being forced" = "Deaktivert fordi denne instillingen er tvungen";
 
-/* NEEDS TRANSLATION *//* "Menu item tooltip" */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set";
+/* "Menu item tooltip" */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Deaktivert fordi du ikke har administratortilgang på denne maskinen, og 'onlyAdminCanUpdate' er satt";
 
 /* Button */
 "Disconnect" = "Koble fra";
 
-/* NEEDS TRANSLATION *//* Button */
-"Do not restore" = "Do not restore";
+/* Button */
+"Do not restore" = "Ikke gjenopprett";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not warn about this again" = "Do not warn about this again";
+/* Checkbox name */
+"Do not warn about this again" = "Ikke advar meg om dette igjen";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Ikke advar meg om dette igjen, alltid 'Undersøk'";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+/* Window title */
+"Do you wish to connect?" = "Ønsker du og koble opp?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+/* Window text */
+"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Vil du nedgradere\n     %@\ntil\n     %@?\n\nDen erstattede versjonen vil plasseres i Papirkurven.\n\nInstallasjons lokasjon: \"%@\"\n%@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
+/* Window text */
+"Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Vil du installere Tunnelblick i\n\n\"%@\"?\n\n%@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+/* Window text */
+"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Vil du reinstallere\n     %@\nerstatte med en frisk kopi?\n\nDen gamle kopien vil plasseres i Papirkurven.\n\nInstallasjons lokasjon: \"%@\"\n%@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+/* Window text */
+"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Vil du oppgradere\n     %@\nto\n     %@?\n\nDen gamle versjonen vil plasseres i Papirkurven.\n\nInstallasjons lokasjon: \"%@\"\n%@";
 
-/* NEEDS TRANSLATION *//* Text on disk image */
-"Double-click to begin" = "Double-click to begin";
+/* Text on disk image */
+"Double-click to begin" = "Dobbelt-klikk for å starte";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
+/* Window title */
+"Downgrade Tunnelblick?" = "Nedgradere Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Downgrade succeeded" = "Downgrade succeeded";
+/* Window title */
+"Downgrade succeeded" = "Nedgraderingen var vellykket";
 
-/* NEEDS TRANSLATION *//* Button */
-"Downgrade" = "Downgrade";
+/* Button */
+"Downgrade" = "Nedgradere";
 
-/* NEEDS TRANSLATION *//* Button */
-"Download" = "Download";
+/* Button */
+"Download" = "Last ned";
 
 /* Connection status */
 "EXITING"= "Frakoblet";
@@ -160,74 +160,77 @@
 /* Button */
 "Edit configuration" = "Editere innstillinger";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Examine the configuration file?" = "Examine the configuration file?";
+/* Window title */
+"Examine the configuration file?" = "Undersøk konfigurasjonsfilen?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Examine" = "Examine";
+/* Button */
+"Examine" = "Undersøk";
 
 /* Connection status */
 "GET_CONFIG" = "Getting configuration";
 
-/* NEEDS TRANSLATION *//* Button */
-"Go to the OpenVPN documentation on the web" = "Go to the OpenVPN documentation on the web";
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Gå til OpenVPN dokumentasjonen på internett";
 
-/* NEEDS TRANSLATION *//* Window text */
-"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
+/* Window text */
+"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "Hvis du vil modifisere konfigurasjonsfilen, vil du måtte oppgi et administrator brukernavn og passord neste gang du kobler opp med denne.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install Tunnelblick?" = "Install Tunnelblick?";
+/* Window title */
+"Install Tunnelblick?" = "Installer Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Install and edit sample configuration file" = "Install and edit sample configuration file";
+/* Button */
+"Install and edit sample configuration file" = "Installer og editer eksempelkonfigurasjonsfilen";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install and edit sample configuration file?" = "Install and edit sample configuration file?";
+/* Window title */
+"Install and edit sample configuration file?" = "Installer og editer eksempelkonfigurasjonsfilen?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Install" ="Install";
+/* Button */
+"Install" ="Installer";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation failed" = "Installation failed";
+/* Window title */
+"Installation failed" = "Installasjonen feilet";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation or Repair Failed" = "Installation or Repair Failed";
+/* Window title */
+"Installation or Repair Failed" = "Installasjon eller Reparasjon feilet";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation succeeded" = "Installation succeeded";
+/* Window title */
+"Installation succeeded" = "Installasjonen var vellykket";
 
-/* NEEDS TRANSLATION *//* Button */
-"Launch" = "Launch";
+/* Button */
+"Launch" = "Åpne";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Monitor DNS" = "Monitor DNS";
+/* Checkbox name */
+"Monitor DNS" = "Overvåk DNS";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Monitor WINS" = "Monitor WINS";
+/* Checkbox name */
+"Monitor WINS" = "Overvåk WINS";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Monitor connection" = "Monitor connection";
+/* Checkbox name */
+"Monitor connection" = "Overvåk oppkobling";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Monitor the Configuration Folder" = "Monitor the Configuration Folder";
+/* Menu item */
+"Monitor the Configuration Folder" = "Overvåk konfigurasjonsmappen";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Flere samtidige oppkoblinger vil bli opprettet (%1$d med 'Set nameserver', %2$d uten 'Set nameserver').";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Not connecting" = "Not connecting";
+/* Window title */
+"Not connecting" = "Kobler ikke opp";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "OK"		= "OK";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
+/* Window title */
+"Only computer administrators should update Tunnelblick" = "Kun administrator bør oppdatere Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* Button */
+"Open configuration folder" = "Åpne konfigurasjonsmappen";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Options" = "Options";
+/* Menu item */
+"Options" = "Tilvalg";
 
 /* Window title */
 "Passphrase" = "Passord";
@@ -235,8 +238,8 @@
 /* Textbox name */
 "Password:" = "Passord:";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+/* Menu item */
+"Place Icon Near the Spotlight Icon" = "Plasser menylinjeikonet nær Spotlight ikonet";
 
 /* Window text */
 "Please enter VPN passphrase." = "Skriv in ditt passord.";
@@ -244,14 +247,14 @@
 /* Window text */
 "Please enter VPN username/password combination." = "Skriv inn ditt brukernavn og passord.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Vennligst tast inn kode \"%@\", klikk deretter \"OK\"";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Please insert token" = "Please insert token";
+/* Window title */
+"Please insert token" = "Vennligst tast inn kode";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Preferences" = "Preferences";
+/* Menu item */
+"Preferences" = "Valg";
 
 /* Menu item */
 "Quit Tunnelblick" = "Avslutte Tunnelblick";
@@ -259,191 +262,191 @@
 /* Button */
 "Quit"  = "Avslutte";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"RECONNECTING" = "Reconnecting";
+/* Connection status */
+"RECONNECTING" = "Gjenoppkobler";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
+/* Window title */
+"Reinstall Tunnelblick?" = "Reinstaller Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Reinstall" = "Reinstall";
+/* Button */
+"Reinstall" = "Reinstaller";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Reinstallation succeeded" = "Reinstallation succeeded";
+/* Window title */
+"Reinstallation succeeded" = "Reinstallasjonen var vellykket";
 
-/* NEEDS TRANSLATION *//* Button */
-"Remove backup and do not restore" = "Remove backup and do not restore";
+/* Button */
+"Remove backup and do not restore" = "Fjern sikkerhetskopi og tilbakestill ei";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Restore Configuration Settings from Backup?" = "Restore Configuration Settings from Backup?";
+/* Window title */
+"Restore Configuration Settings from Backup?" = "Tilbakestill konfigurasjonsinstillingene fra sikkerhetskopi?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Restore" = "Restore";
+/* Button */
+"Restore" = "Gjenopprett";
 
 /* Connection status */
 "SLEEP" = "Venter på svar fra applikasjonen";   // Please translate "Waiting for daemon process"
 
-/* NEEDS TRANSLATION *//* Checkbox text */
-"Save in Keychain" = "Save in Keychain";
+/* Checkbox text */
+"Save in Keychain" = "Lagre på nøkkelring";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Send Anonymous System Profile" = "Send Anonymous System Profile";
+/* Menu item */
+"Send Anonymous System Profile" = "Send Anonym systemprofil";
 
 /* Checkbox name */
 "Set nameserver" = "Sett Navntjener";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Show Connection Timers" = "Show Connection Timers";
+/* Menu item */
+"Show Connection Timers" = "Vis oppkoblings tidtaker";
 
-/* NEEDS TRANSLATION *//* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
+/* Window title */
+"System Requirements Not Met" = "Systemkrav ikke tilfredstilt";
 
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
+/* Menu item tooltip */
+"Takes effect at the next check for updates" = "Gjelder fra neste oppdateringssjekk";
 
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Takes effect immediately" = "Takes effect immediately";
+/* Menu item tooltip */
+"Takes effect immediately" = "Gjelder umiddelbart";
 
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Takes effect the next time Tunnelblick is launched" = "Takes effect the next time Tunnelblick is launched";
+/* Menu item tooltip */
+"Takes effect the next time Tunnelblick is launched" = "Gjelder fra neste gang Tunnelblick startes";
 
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Takes effect with the next connection" = "Takes effect with the next connection";
+/* Menu item tooltip */
+"Takes effect with the next connection" = "Gjelder fra neste oppkobling";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
+/* Window text */
+"The change will take effect the next time you connect." = "Endringen vil gjelde fra neste gang du kobler opp.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"The configuration file is protected" = "The configuration file is protected";
+/* Window title */
+"The configuration file is protected" = "Konfigurasjonsfilen er beskyttet";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "The credentials (passphrase or username/password) were not accepted by the remote VPN server.";
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Passordet eller brukernavn/passord ble ikke godkjent av VPN serveren du vil koble til.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Installasjonen, fjerningen, gjenopprettingen, eller reparasjon av en eller flere Tunnelblick komponenter feilet. Se i konsoll loggen for detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Passordet kan ikke være blankt!\nVennligst tast inn VPN passord.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Brukernav og passord kan ikke være blankt!\nVennligst tast inn riktig VPN brukernavn/passord kombinasjon.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
+/* Window text */
+"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "Denne kopien av Tunnelblick har ingen konfigurasjonsinstillinger. Ønsker du og gjenopprette konfigurasjonen fra sikkerhetskopien?\n\nAdministrator brukernavn og passord vil kreves.";
 
-/* NEEDS TRANSLATION *//* Button */
-"Try again with different credentials" = "Try again with different credentials";
+/* Button */
+"Try again with different credentials" = "Prøv igjen med annet brukernavn og/eller passord";
 
-/* NEEDS TRANSLATION *//* Button */
-"Try again" = "Try again";
+/* Button */
+"Try again" = "Prøv igjen";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+/* Window title */
+"Tunnelblick Configuration Problem" = "Tunnelblick Konfigurasjonsproblem";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
+/* Window title */
+"Tunnelblick Error" = "Tunnelblick Feil";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kan kun oppdateres hvis den heter 'Tunnelblick'. Du har endret filnlavnet til %@, så oppdateringer er deaktivert.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunne ikke startes grunnet konfigurasjonsproblemer. Vennligst undersøk konsoll loggen for detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick klarte ikke og endre eierskap og rettigheter til konfigurasjonsfilen for å sikre den. Sjekk konsoll loggen for detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
+/* Window text */
+"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick klarte ikke å kopiere openvpn.conf til %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details." = "Tunnelblick klarte ikke og kopiere konfigurasjonsfilen til den alternative plasseringen. Sjekk konsoll loggen for detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick klarte ikke og lage mappe til den alternative lokale konfigurasjonen. Sjekk konsoll loggen for detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick kunne ikke låse opp konfigurasjonsfilen. Sjekk konsoll loggen for detaljer.\n\nØnsker du og undersøke konfigurasjonsfilen selv om du ikke kan modifisere den?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick koblet fra '%@' siden konfigurasjonsfilen har blitt fjernet.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick is currently running" = "Tunnelblick is currently running";
+/* Window title */
+"Tunnelblick is currently running" = "Tunnelblick er igang";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
+/* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick må lage en skyggekopi av konfigurasjonsfilen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to move the configurations folder and remove the configuration(s) backup." = "Tunnelblick needs to move the configurations folder and remove the configuration(s) backup.";
+/* Window text */
+"Tunnelblick needs to move the configurations folder and remove the configuration(s) backup." = "Tunnelblick må flytte konfigurasjonsmappen og fjerne konfigurasjonens sikkerhetskopi.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to move the configurations folder." = "Tunnelblick needs to move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to move the configurations folder." = "Tunnelblick må flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to remove the configuration(s) backup." = "Tunnelblick needs to remove the configuration(s) backup.";
+/* Window text */
+"Tunnelblick needs to remove the configuration(s) backup." = "Tunnelblick må fjerne konfigurasjonens sikkerhetskopi.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the configuration file to secure it.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Tunnelblick må reparere eierskap/rettigheter på konfigurasjonsfilen for å sikre den.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it and move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it and move the configurations folder." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det og flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it and remove the configuration(s) backup." = "Tunnelblick needs to repair ownership/permissions of the program to secure it and remove the configuration(s) backup.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it and remove the configuration(s) backup." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det og fjerne konfigurasjonens sikkerhetskopi.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it and restore configuration(s) from the backup." = "Tunnelblick needs to repair ownership/permissions of the program to secure it and restore configuration(s) from the backup.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it and restore configuration(s) from the backup." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det og gjenopprette konfigurasjonen fra sikkerhetskopien.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it, remove the backup of configuration(s), and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, remove the backup of configuration(s), and move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, remove the backup of configuration(s), and move the configurations folder." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det, fjerne konfigurasjonens sikkerhetskopi, og flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and move the configurations folder." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det, gjenopprette konfigurasjonen fra sikkerhetskopien, og flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and remove the backup." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and remove the backup.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, and remove the backup." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det, gjenopprette konfigurasjonen fra sikkerhetskopien, og fjerne sikkerhetskopien.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, remove the backup, and move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it, restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det, gjenopprette konfigurasjonen fra sikkerhetskopien, og fjerne sikkerhetskopien, og flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the program to secure it." = "Tunnelblick needs to repair ownership/permissions of the program to secure it.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the program to secure it." = "Tunnelblick må reparere eierskap/rettigheter på programmet for å sikre det.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Tunnelblick må reparere eierskap/rettigheter på skyggekopien av konfigurasjonsfilen for å sikre den.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder." = "Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup and move the configurations folder." = "Tunnelblick må gjenopprette konfigurasjonen fra sikkerhetskopien og flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to restore configuration(s) from the backup and then remove the backup." = "Tunnelblick needs to restore configuration(s) from the backup and then remove the backup.";
+/* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup and then remove the backup." = "Tunnelblick må gjenopprette konfigurasjonen fra sikkerhetskopien og deretter slette sikkerhetskopien.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder.";
+/* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup, remove the backup, and move the configurations folder." = "Tunnelblick må gjenopprette konfigurasjonen fra sikkerhetskopien, slette sikkerhetskopien, og flytte konfigurasjonsmappen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to restore configuration(s) from the backup." = "Tunnelblick needs to restore configuration(s) from the backup.";
+/* Window text */
+"Tunnelblick needs to restore configuration(s) from the backup." = "Tunnelblick må gjenopprette konfigurasjonen fra sikkerhetskopien.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
+/* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick må oppdatere skyggekopien av konfigurasjonsfilen basert på den originale.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
+/* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick krever OS X 10.4 eller høyere\n     (\"Tiger\", \"Leopard\", eller \"Snow Leopard\")";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+/* Window text */
+"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Nedgraderingen av Tunnelblick var vellykket.\n\nØnsker du og starte Tunnelblick nå?\n\n(Et administrator brukernav og passord kreves slik at Tunnelblick kan sikres.)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+/* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Installasjonen av Tunnelblick var vellykket.\n\nØnsker du og starte Tunnelblick nå?\n\n(Et administrator brukernav og passord kreves slik at Tunnelblick kan sikres.)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+/* Window text */
+"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Reinstallasjonen av Tunnelblick var vellykket.\n\nØnsker du og starte Tunnelblick nå?\n\n(Et administrator brukernav og passord kreves slik at Tunnelblick kan sikres.)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
+/* Window text */
+"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Oppgraderingen av Tunnelblick var vellykket.\n\nØnsker du og starte Tunnelblick nå?\n\n(Et administrator brukernav og passord kreves slik at Tunnelblick kan sikres.)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+/* Window text */
+"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's konfigurasjonsmappe eksisterer ikke eller inneholder ingen konfigurasjonsfiler.\n\nTunnelblick trenger en eller flere konfigurasjonsfiler til dine VPN-oppkoblinger. Disse filene vil du vanligvis få fra din nettverksadministrator eller din VPN tilbyder og de må lagres i konfigurasjonsmappen. Det kan også hende du trenger sertifikat- og/eller nøkkelfiler; disse plasseres vanligvis i konfigurasjonsmappen også.\n\nDu kan\n     • Installere en eksempelkonfigurasjon og editere den. (Tunnelblick vil fortsatt kjøre.)\n     • Åpne konfigurasjonsmappen og plassere dine filer i den. (Tunnelblick krever da en omstart.)\n     • Avslutte Tunnelblick\n\n";
 
 /* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d aktive oppkoblinger";
@@ -451,35 +454,35 @@
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 aktiv oppkobling";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
+/* Window title */
+"Unable to install Tunnelblick" = "Kan ikke installere Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+/* Window title */
+"Unable to launch Tunnelblick" = "Klarer ikke starte Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unable to move previous version to Trash" = "Unable to move previous version to Trash";
+/* Window title */
+"Unable to move previous version to Trash" = "Klarer ikke og flytte den gamle versjonen til Papirkurven";
 
-/* NEEDS TRANSLATION *//* Button */
-"Unprotect and Modify" = "Unprotect and Modify";
+/* Button */
+"Unprotect and Modify" = "Lås opp og modifiser";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Updates are disabled" = "Updates are disabled";
+/* Window title */
+"Updates are disabled" = "Oppdateringer er deaktivert";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
+/* Window title */
+"Upgrade Tunnelblick?" = "Oppgradere Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Upgrade succeeded" = "Upgrade succeeded";
+/* Window title */
+"Upgrade succeeded" = "Oppgraderingen var vellykket";
 
-/* NEEDS TRANSLATION *//* Button */
-"Upgrade" = "Upgrade";
+/* Button */
+"Upgrade" = "Oppgradere";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
+/* Menu item */
+"Use Shadow Copies of Configuration Files" = "Bruk skyggekopien av konfigurasjonsfilene";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Username and password" = "Username and password";
+/* Window title */
+"Username and password" = "Brukernavn og passord";
 
 /* Textbox name */
 "Username:" = "Brukernavn";
@@ -487,37 +490,39 @@
 /* Connection status */
 "WAIT"  = "Venter på svar fra serveren";   // Please translate "Waiting for Server Response"
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";
+/* Menu item */
+"Warn About Simultaneous Connections" = "Advar om samtidige oppkoblinger";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Warning" = "Warning";
+/* Window title */
+"Warning" = "Advarsel";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+/* Window title */
+"Welcome to Tunnelblick" = "Velkommen til Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You are currently running a different copy of Tunnelblick." = "You are currently running a different copy of Tunnelblick.";
+/* Window text */
+"You are currently running a different copy of Tunnelblick." = "Du kjører for øyeblikket en annen instans av Tunnelblick.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"You cannot connect using the sample configuration" = "You cannot connect using the sample configuration";
+/* Window title */
+"You cannot connect using the sample configuration" = "Du kan ikke koble til med eksempelkonfigurasjonen";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+/* Window text */
+"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Du har fjernet alle konfigurasjonsfilene fra konfigurasjonsmappen.\n\nTunnelblick trenger en eller flere konfigurasjonsfiler til dine VPN-oppkoblinger. Disse filene vil du vanligvis få fra din nettverksadministrator eller din VPN tilbyder og de må lagres i konfigurasjonsmappen. Det kan også hende du trenger sertifikat- og/eller nøkkelfiler; disse plasseres vanligvis i konfigurasjonsmappen også.\n\nDu kan\n     • Installere en eksempelkonfigurasjon og editere den. (Tunnelblick vil fortsatt kjøre.)\n     • Åpne konfigurasjonsmappen og plassere dine filer i den. (Tunnelblick krever da en omstart.)\n     • Avslutte Tunnelblick\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+/* Window text */
+"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Du har prøvd og koble opp med en konfigurasjonsfil som er identisk med eksempelkonfigurasjonen som ble installert av Tunnelblick. Konfigurasjonsfilen må modifiseres for å kunne opprette en VPN oppkobling. Det kan også være at du trenger ytterligere filer, som sertifikater eller nøkkelfiler, for å koble til din VPN.\n\nRådfør deg med din nettverksadministrator eller din VPN leverandør for å få disse filene eller nødvendige opplysninger for å editere eksempelkonfigurasjonen..\n\nOpenVPN dokumentasjon er tilgjengelig fra\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Du kan undersøke konfigurasjonsfilen, men hvis du ønsker og editere den må du låse den opp nå. Hvis du skal låse opp konfigurasjonsfilen nå, så kreves det et administrator brukernavn og passord neste gang du kobler opp med denne.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You may examine the configuration file, but you will not be allowed to modify it." = "You may examine the configuration file, but you will not be allowed to modify it.";
+/* Window text */
+"You may examine the configuration file, but you will not be allowed to modify it." = "Du kan kikke på konfigurasjonsfilen, men du kan ikke editere den.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Du må reinstallere Tunnelblick. Vennligst flytt Tunnelblick til papirkurven og last ned en frisk kopi. Problemet var:\n\n%@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
-/* NEEDS TRANSLATION *//* Window text */
-"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
+/* Window text */
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Du må avslutte Tunnelblick for å kunne starte den nye versjonen.\n\Klikk \"Koble fra VPN oppkoblinger og avslutt Tunnelblick\" for å koble ned alle aktive VPN oppkoblinger og avslutte den kjørende Tunnelblick, før du starter Tunnelblick.";
+
+/* Window text */
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Du vil ikke kunne bruke Tunnelblick etter oppdateringen hvis du ikke har et administrator brukernavn og passord.\n\nEr du sikker på at du vil søke etter oppdateringer?";
+

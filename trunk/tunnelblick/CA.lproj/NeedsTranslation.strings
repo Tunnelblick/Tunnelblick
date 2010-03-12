@@ -94,6 +94,9 @@
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
+/* Button */
+"Open configuration folder" = "Open configuration folder";
+
 /* Window title */
 "Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
 
