@@ -24,8 +24,14 @@
 #import "NamedPipe.h"
 
 @interface VPNConnection : NSObject {
-    NSString      * configDirPath;      // Path to folder that has configuration files
-	NSString      * configFilename;     // This contains the filename and extension of the configuration file
+    NSString      * configPath;         // Full path to the configuration file.
+                                        // The file MUST reside (for security reasons) in either
+                                        //      Tunnelblick.app/Contents/Resources/Deploy
+                                        // or
+                                        //      ~/Library/Application Support/Tunnelblick/Configurations
+                                        // or a subdirectory of either of them
+	NSString      * displayName;        // The configuration name as displayed to the user
+
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
@@ -46,21 +52,23 @@
 -(void)             addToLog:                   (NSString *)        text
                       atDate:                   (NSCalendarDate *)  date;
 -(void)             appendDataToLog:            (NSData *)          data;
--(NSString*)        configName;
--(NSString*)        configFilename;
+-(NSString *)       configPath;
 -(NSDate *)         connectedSinceDate;
 -(IBAction)         connect:                    (id) sender;
 -(void)             destroyPipe;
 -(IBAction)         disconnect:                 (id) sender;
+-(NSString *)       displayName;
 -(void)             emptyPipe;
--(id)               initWithConfig:             (NSString *)    inConfig
-                       inDirectory:             (NSString *)    inDir;
+-(id)               initWithConfigPath:         (NSString *)    inPath
+                       withDisplayName:         (NSString *)    inDisplayName;
 -(BOOL)             isConnected;
 -(BOOL)             isDisconnected;
+-(NSString *)       lastPartsOfPath;
 -(NSTextStorage*)   logStorage;
 -(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned)      inAmount;
 -(void)             netsocketConnected:         (NetSocket *)   socket;
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
+-(NSString *)       preferencePrefix;
 -(void)             setDelegate:                (id)            newDelegate;
 -(void)             setState:                   (NSString *)    newState;
 -(NSString*)        state;
