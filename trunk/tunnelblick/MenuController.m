@@ -74,7 +74,7 @@ extern TBUserDefaults  * gTbDefaults;
 		
         // Backup/restore Resources/Deploy and/or repair ownership and permissions if necessary
         NSFileManager * fMgr             = [NSFileManager defaultManager];
-        NSString      * deployDirPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+        NSString      * deployDirPath    = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"];
         NSString      * deployBackupPath = [[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
                                               stringByDeletingLastPathComponent]
                                              stringByAppendingPathComponent: @"TunnelblickBackup"]
@@ -551,8 +551,7 @@ extern TBUserDefaults  * gTbDefaults;
 		
         // configure connection object:
 		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString
-                                                                inDirectory: configDirPath
-                                                                 isInDeploy: configDirIsDeploy]; // initialize VPN Connection with config	
+                                                                inDirectory: configDirPath]; // initialize VPN Connection with config	
 		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
         
@@ -821,8 +820,7 @@ extern TBUserDefaults  * gTbDefaults;
             
             // Add new config to myVPNConnectionDictionary
             VPNConnection* myConnection = [[VPNConnection alloc] initWithConfig: configString
-                                                                    inDirectory: configDirPath
-                                                                     isInDeploy: configDirIsDeploy];
+                                                                    inDirectory: configDirPath];
             [myConnection setState:@"EXITING"];
             [myConnection setDelegate:self];
             [myVPNConnectionDictionary setObject: myConnection forKey:configString];
@@ -1327,6 +1325,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSString * basedOnHtml  = @"<br><br>";
     // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html" inDirectory: @"Deploy"] doesn't work -- it is apparently cached by OS X.
     // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
+    // Using [[NSBundle mainBundle] resourcePath: ALSO seems to not work (don't know why, maybe the same reason)
     // The workaround is to create the path "by hand" and use that.
     NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
 	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
@@ -2549,7 +2548,7 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
     }
 
     // check permissions of files in Resources/Deploy (if any)        
-    NSString * deployDirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
+    NSString * deployDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"];
     if (  deployContentsOwnerOrPermissionsNeedRepair(deployDirPath)  ) {
         *changeOwnershipAndOrPermissions = YES;
         return YES;

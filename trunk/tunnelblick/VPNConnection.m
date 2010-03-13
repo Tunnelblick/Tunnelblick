@@ -62,12 +62,11 @@ extern TBUserDefaults  * gTbDefaults;
 
 @implementation VPNConnection
 
--(id) initWithConfig:(NSString *)inConfig inDirectory: (NSString *) inDir isInDeploy: (BOOL) inDeploy
+-(id) initWithConfig:(NSString *)inConfig inDirectory: (NSString *) inDir
 {	
     if (self = [super init]) {
         configFilename = [inConfig copy];
         configDirPath = [inDir copy];
-        configDirIsDeploy = inDeploy;
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
@@ -213,7 +212,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *altCfgLoc = @"0";
     if ( [cfgPath isEqualToString:altPath] ) {
         altCfgLoc = @"1";
-    } else if (  configDirIsDeploy  ) {
+    } else if (  [configDirPath isEqualToString: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"]]  ) {
         altCfgLoc = @"2";
     }
     
@@ -1153,7 +1152,7 @@ extern TBUserDefaults  * gTbDefaults;
          
 /* Invoked when data is available from myPipe, which accepts data and sends it to the OpenVPN Log via this routine
  
- The pipe is created in /tmp by the "initWithConfig:inDirectory:isInDeploy: method (above)
+ The pipe is created in /tmp by the "initWithConfig:inDirectory: method (above)
  The name of the pipe is formed in part by replacing slash characters in the configuration file's path with dashes:
  If the configuration file's path is
                       "/Users/joe/Application Support/Tunnelblick/Configurations/test.conf"

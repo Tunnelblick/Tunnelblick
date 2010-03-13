@@ -131,7 +131,7 @@ NSDictionary * getOpenVPNVersion(void)
     
     NSTask * task = [[NSTask alloc] init];
     
-    NSString * exePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"/Contents/Resources/openvpnstart"];
+    NSString * exePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"openvpnstart"];
     [task setLaunchPath: exePath];
     
     NSArray  *arguments = [NSArray arrayWithObjects: @"OpenVPNInfo", nil];
