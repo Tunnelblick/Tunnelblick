@@ -40,13 +40,14 @@ extern TBUserDefaults  * gTbDefaults;
 -(BOOL)             copyFile:                   (NSString *)        source
                       toFile:                   (NSString *)        target
                    usingAuth:                   (AuthorizationRef)  authRef;
--(BOOL)             makeSureFolderExistsAtPath: (NSString *)        folderPath
-                                     usingAuth:  (AuthorizationRef) authRef;
+-(NSString *)       firstPartsOfPath;
 -(NSString *)       getConfigToUse:             (NSString *)        cfgPath
                              orAlt:             (NSString *)        altCfgPath;
 -(unsigned int)     getFreePort;
--(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
 -(BOOL)             isSampleConfigurationAtPath:(NSString *)        cfgPath;
+-(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
+-(BOOL)             makeSureFolderExistsAtPath: (NSString *)        folderPath
+                                     usingAuth:  (AuthorizationRef) authRef;
 -(BOOL)             onRemoteVolume:             (NSString *)        cfgPath;
 -(void)             processLine:                (NSString *)        line;
 -(BOOL)             protectConfigurationFile:   (NSString *)        configFile
@@ -62,21 +63,21 @@ extern TBUserDefaults  * gTbDefaults;
 
 @implementation VPNConnection
 
--(id) initWithConfig:(NSString *)inConfig inDirectory: (NSString *) inDir
+-(id) initWithConfigPath: (NSString *) inPath withDisplayName: (NSString *) inDisplayName
 {	
     if (self = [super init]) {
-        configFilename = [inConfig copy];
-        configDirPath = [inDir copy];
+        configPath = [inPath copy];
+        displayName = [inDisplayName copy];
         portNumber = 0;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
 		[self addToLog:[[NSApp delegate] openVPNLogHeader] atDate: nil];
         lastState = @"EXITING";
-        NSArray  * pipePathComponents = [[inDir stringByAppendingPathComponent: inConfig] pathComponents];
+		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self preferencePrefix]];
+        NSArray  * pipePathComponents = [inPath pathComponents];
         NSArray  * pipePathComponentsAfter1st = [pipePathComponents subarrayWithRange: NSMakeRange(1, [pipePathComponents count]-1)];
         NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick-%@.logpipe",
                                [pipePathComponentsAfter1st componentsJoinedByString: @"-"]];
-		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self configName]];
         myPipeBuffer = [[NSMutableString alloc] initWithCapacity: 10000];
         myPipe = [[NamedPipe alloc] initPipeReadingFromPath: pipePath
                                               sendingDataTo: @selector(appendDataToLog:)
@@ -91,15 +92,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(NSString *) description
 {
-	return [NSString stringWithFormat:@"VPN Connection %@", configFilename];
-}
-
--(void) setConfigFilename:(NSString *)inName 
-{
-    if (inName!=configFilename) {
-	[configFilename release];
-	configFilename = [inName retain];
-    }
+	return [NSString stringWithFormat:@"VPN Connection %@", displayName];
 }
 
 -(void)setPort:(unsigned int)inPort 
@@ -110,6 +103,42 @@ extern TBUserDefaults  * gTbDefaults;
 -(unsigned int)port 
 {
     return portNumber;
+}
+
+-(NSString *) configPath
+{
+    return [[configPath retain] autorelease];
+}
+
+-(NSString *) displayName
+{
+    return [[displayName retain] autorelease];
+}
+
+// The path of the /Deploy or /Configurations folder the configuration is contained in
+-(NSString *) firstPartsOfPath
+{
+    NSString * libraryPath = [[NSApp delegate] libraryPath];
+    if ( [configPath hasPrefix: libraryPath]  ) {
+        return libraryPath;
+    } else {
+        return [[NSApp delegate] deployPath];
+    }
+}
+
+// The name of the configuration file, but prefixed by any folders it is contained in after /Deploy or /Configurations
+//      = configPath less the Deploy or Configurations folder prefix (but including the extension)
+// Used for constructing path to shadow copy of the configuration and as an argument to openvpnstart
+-(NSString *) lastPartsOfPath
+{
+    return [configPath substringFromIndex: [[self firstPartsOfPath] length]+1];
+}
+
+// Used as the prefix for preference and Keychain keys
+//      = configPath less the Deploy or Configurations folder prefix, and less the extension
+-(NSString *) preferencePrefix
+{
+    return [[self lastPartsOfPath] stringByDeletingPathExtension];
 }
 
 - (void) setManagementSocket: (NetSocket*) socket
@@ -128,8 +157,8 @@ extern TBUserDefaults  * gTbDefaults;
     [managementSocket setDelegate: nil];
     [managementSocket release]; 
     [lastState release];
-    [configFilename release];
-    [configDirPath release];
+    [configPath release];
+    [displayName release];
     [connectedSinceDate release];
     [myAuthAgent release];
     [myPipe release];
@@ -173,8 +202,8 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
     
-	NSString *cfgPath = [configDirPath stringByAppendingPathComponent: [self configFilename]];
-    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), [self configFilename]];
+	NSString *cfgPath = [self configPath];
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), [self lastPartsOfPath]];
 
     if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
         return;
@@ -198,7 +227,7 @@ extern TBUserDefaults  * gTbDefaults;
 		
 	NSString *useDNS = @"0";
 	if(useDNSStatus(self)) {
-        NSString * useDownRootPluginKey = [[[self configFilename] stringByDeletingPathExtension] stringByAppendingString: @"-useDownRootPlugin"];
+        NSString * useDownRootPluginKey = [[self preferencePrefix] stringByAppendingString: @"-useDownRootPlugin"];
         if (  [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
             useDNS = @"2";
         } else {
@@ -212,11 +241,11 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *altCfgLoc = @"0";
     if ( [cfgPath isEqualToString:altPath] ) {
         altCfgLoc = @"1";
-    } else if (  [configDirPath isEqualToString: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"]]  ) {
+    } else if (  [configPath hasPrefix: [[NSApp delegate] deployPath]]  ) {
         altCfgLoc = @"2";
     }
     
-    NSString * noMonitorKey = [[[self configFilename] stringByDeletingPathExtension] stringByAppendingString: @"-notMonitoringConnection"];
+    NSString * noMonitorKey = [[self preferencePrefix] stringByAppendingString: @"-notMonitoringConnection"];
     NSString * noMonitor = @"0";
     if (  [useDNS isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
         noMonitor = @"1";
@@ -251,10 +280,10 @@ extern TBUserDefaults  * gTbDefaults;
     NSPipe * stdPipe = [[NSPipe alloc] init];
     [task setStandardOutput: stdPipe];
     
-    arguments = [NSArray arrayWithObjects:@"start", [self configFilename], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
+    arguments = [NSArray arrayWithObjects:@"start", [self lastPartsOfPath], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
     
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
-                          configFilename,
+                          [self displayName],
                           (  [altCfgLoc isEqualToString:@"1"]
                            ? @" using shadow copy"
                            : (  [altCfgLoc isEqualToString:@"2"]
@@ -279,7 +308,7 @@ extern TBUserDefaults  * gTbDefaults;
             atDate: nil];
     
 	[task setArguments:arguments];
-	[task setCurrentDirectoryPath: configDirPath];
+	[task setCurrentDirectoryPath: [self firstPartsOfPath]];
 	[task launch];
 	[task waitUntilExit];
     
@@ -345,16 +374,6 @@ extern TBUserDefaults  * gTbDefaults;
 }
 
 
-- (NSString*) configFilename
-{
-    return [[configFilename retain] autorelease];
-}
-
-- (NSString*) configName
-{
-    return [[[[self configFilename] stringByDeletingPathExtension] retain] autorelease];
-}
-
 - (void) connectToManagementSocket
 {
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
@@ -401,7 +420,7 @@ extern TBUserDefaults  * gTbDefaults;
 	NSString *pidString = [NSString stringWithFormat:@"%d", pid];
 	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
 	[task setArguments:arguments];
-	[task setCurrentDirectoryPath: configDirPath];
+	[task setCurrentDirectoryPath: [self firstPartsOfPath]];
     pid = 0;
 	[task launch];
 	[task waitUntilExit];
@@ -503,7 +522,7 @@ extern TBUserDefaults  * gTbDefaults;
                             buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
                         }
                     }
-                    int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self configName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                    int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self displayName], NSLocalizedString(@"Authentication failed", @"Window title")],
                                                    NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
                                                    NSLocalizedString(@"Try again", @"Button"),  // Default
                                                    buttonWithDifferentCredentials,              // Alternate
@@ -568,7 +587,7 @@ extern TBUserDefaults  * gTbDefaults;
                 NSRange tokenNameRange = [parameterString rangeOfString: @"MSG:"];
                 NSString* tokenName = [parameterString substringFromIndex: tokenNameRange.location+4];
                 int needButtonReturn = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                        [self configName],
+                                                        [self displayName],
                                                         NSLocalizedString(@"Please insert token", @"Window title")],
                                                        [NSString stringWithFormat:NSLocalizedString(@"Please insert token \"%@\", then click \"OK\"", @"Window text"), tokenName],
                                                        nil,
@@ -716,7 +735,8 @@ extern TBUserDefaults  * gTbDefaults;
         if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", @"Button");
         else commandString = NSLocalizedString(@"Connect", @"Button");
         
-        NSString *itemTitle = [NSString stringWithFormat:@"%@ '%@'", commandString, [connection configName]];
+        NSString *itemTitle = [NSString stringWithFormat:@"%@ '%@'", commandString, [connection displayName]];
+
         [anItem setTitle:itemTitle]; 
 	}
 	return YES;
@@ -831,7 +851,7 @@ extern TBUserDefaults  * gTbDefaults;
                 // Get user's permission to proceed
                 NSString * longMsg = NSLocalizedString(@"Configuration file %@ is on a remote volume. Tunnelblick requires configuration files to be on a local volume for security reasons\n\nDo you want Tunnelblick to create and use a local copy of the configuration file in %@?\n\n(You will need an administrator name and password.)\n", @"Window text");
                 int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                                          [self configName],
+                                                                          [self displayName],
                                                                           NSLocalizedString(@"Create local copy of configuration file?", @"Window title")],
                                                [NSString stringWithFormat:longMsg, cfgPath,
                                                 [[fMgr componentsToDisplayForPath: altCfgFolderPath] componentsJoinedByString: @"/"]],
@@ -919,7 +939,7 @@ extern TBUserDefaults  * gTbDefaults;
     if ( ! [fMgr contentsEqualAtPath:source andPath:target] ) {
         NSLog(@"Tunnelblick could not copy the config file %@ to the alternate local location %@ in %d attempts.", source, target, maxtries);
     TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                               [self configName],
+                                               [self displayName],
                                                NSLocalizedString(@"Not connecting", @"Window title")],
                     NSLocalizedString(@"Tunnelblick could not copy the configuration file to the alternate local location. See the Console Log for details.", @"Window text"),
                     nil,
@@ -983,7 +1003,7 @@ extern TBUserDefaults  * gTbDefaults;
     if (    ! (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  )    ) {
         NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration in %d attempts. OSStatus %ld.", folderPath, maxtries, status);
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                    [self configName],
+                                                    [self displayName],
                                                     NSLocalizedString(@"Not connecting", @"Window title")],
                         NSLocalizedString(@"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.", @"Window text"),
                         nil,
@@ -1102,7 +1122,7 @@ extern TBUserDefaults  * gTbDefaults;
     if (  failed  ) {
         NSLog(@"Could not change ownership and/or permissions of configuration file %@", configFilePath);
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
-                                                   [self configName],
+                                                   [self displayName],
                                                    NSLocalizedString(@"Not connecting", @"Window title")],
                         NSLocalizedString(@"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.", @"Window text"),
                         nil,

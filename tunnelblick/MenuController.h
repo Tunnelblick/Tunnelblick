@@ -27,7 +27,7 @@
 @class NetSocket;
 BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN);
 void terminateBecauseOfBadConfiguration(void);
-BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * deployDirPath);
+BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * theDirPath);
 BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave);
 
 
@@ -68,8 +68,10 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
-    NSString                * configDirPath;                // Path to folder that has configuration files
-    BOOL                      configDirIsDeploy;            // Indicates that configDirPath is /Resources/Deploy
+    NSString                * configDirPath;                // Path to .../Resources/Deploy OR to ~/Library/Application Support/Tunnelblick/Configurations
+
+    NSString                * deployPath;                   // Path to Tunnelblick.app/Contents/Resources/Deploy
+    NSString                * libraryPath;                  // Path to ~/Library/Application Support/Tunnelblick/Configurations
 
     NSMutableArray          * myConfigArray;                // Sorted list of all configuration filenames including .ovnp or .conf extensions
     NSMutableDictionary     * myVPNConnectionDictionary;    // List of all configurations and corresponding VPNConnections
@@ -116,6 +118,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(IBAction)         openLogWindow:                          (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
 
+// General methods
 -(void)             activateStatusMenu;
 -(void)             addConnection:                          (id)                sender;
 -(int)              intValueOfBuildForBundle:                 (NSBundle *)        theBundle;
@@ -170,4 +173,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                     receivedNotification:                   (NSString *)        nm
                     forPath:                                (NSString *)        fpath;
 
+// Getters
+-(NSString *)       deployPath;
+-(NSString *)       libraryPath;
 @end
