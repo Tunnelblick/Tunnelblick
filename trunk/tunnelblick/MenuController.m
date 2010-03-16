@@ -86,13 +86,16 @@ extern TBUserDefaults  * gTbDefaults;
         BOOL isDir;
         BOOL needsChangeOwnershipAndOrPermissions;
         BOOL needsMoveLibraryOpenVPN;
-        BOOL haveDeploy   = [fMgr fileExistsAtPath: deployPath    isDirectory: &isDir] && isDir;
-        BOOL haveBackup   = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
+        BOOL haveDeploy   = [fMgr fileExistsAtPath: deployPath    isDirectory: &isDir]
+                         && isDir;
+        BOOL haveBackup   = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
+                         && isDir;
         needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN );
         BOOL remove     = FALSE;   // Remove the backup of Resources/Deploy
         BOOL restore    = FALSE;   // Restore Resources/Deploy from backup
 
-        if ( haveBackup && ( ! haveDeploy) ) {
+        if (   haveBackup
+            && ( ! haveDeploy) ) {
             restore = TRUE;
 /* REMOVED FOR PRODUCTION. An end user should always restore from backup. We can't make this a preference since the preferences
                            haven't been loaded yet because we don't know if we have a "forced-preferences.plist" file
@@ -134,13 +137,14 @@ extern TBUserDefaults  * gTbDefaults;
         
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
         // Then add it to configDirs
-        if (  [fMgr fileExistsAtPath: deployPath isDirectory: &isDir] && isDir ) {
-            NSArray *dirContents = [fMgr directoryContentsAtPath: deployPath];
-            int i;
-            for (i=0; i<[dirContents count]; i++) {
-                NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
+        if (   [fMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+            && isDir ) {
+            NSString * file;
+            NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployPath];
+            while (file = [dirEnum nextObject]) {
+                NSString * ext  = [file pathExtension];
                 if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
-                    if (  [fMgr fileExistsAtPath: [deployPath stringByAppendingPathComponent: [dirContents objectAtIndex: i]] isDirectory: &isDir]
+                    if (   [fMgr fileExistsAtPath: [deployPath stringByAppendingPathComponent: file] isDirectory: &isDir]
                         && ( ! isDir)  ) {
                         [configDirs addObject: [deployPath copy]];
                         break;
@@ -518,7 +522,8 @@ extern TBUserDefaults  * gTbDefaults;
         
         if (  checkForUpdatesNowItem  ) { [optionsSubmenu addItem: checkForUpdatesNowItem   ]; }
 
-        if (  checkForUpdatesNowItem && aboutItem  ) {
+        if (   checkForUpdatesNowItem
+            && aboutItem  ) {
             [optionsSubmenu addItem: [NSMenuItem separatorItem]];
         }
         
@@ -667,7 +672,8 @@ extern TBUserDefaults  * gTbDefaults;
         } else {
             [anItem setState: NSOffState];
         }
-        if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+        if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
+            && ( ! userIsAnAdmin )  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
             return NO;
         } else if (  ! [updater respondsToSelector:@selector(setSendsSystemProfile:)]  ) {
@@ -680,7 +686,8 @@ extern TBUserDefaults  * gTbDefaults;
         
         [self setupSparklePreferences]; // If first run, Sparkle may have changed the auto update preference
         
-        if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+        if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
+            && ( ! userIsAnAdmin )  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
             return NO;
         } else if (  ! [updater respondsToSelector:@selector(setAutomaticallyChecksForUpdates:)]  ) {
@@ -695,7 +702,8 @@ extern TBUserDefaults  * gTbDefaults;
         }
         [anItem setToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")];
     } else if (  act == @selector(checkForUpdates:)  ) {
-        if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+        if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
+            && ( ! userIsAnAdmin )  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
             return NO;
         } else if (  ! [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
@@ -996,7 +1004,8 @@ extern TBUserDefaults  * gTbDefaults;
             NSString * path = [folder stringByAppendingPathComponent: file];
             NSString * ext = [file pathExtension];
             if ([ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]) {
-                if (  [fMgr fileExistsAtPath: path isDirectory: &isDir] && ( ! isDir)  ) {
+                if (   [fMgr fileExistsAtPath: path isDirectory: &isDir]
+                    && ( ! isDir)  ) {
                     NSString * dispNm = [file substringToIndex: [file length]-5];
                     if (  ! [dict objectForKey: dispNm]  ) {
                         [dict setObject: path forKey: dispNm];
@@ -1073,12 +1082,14 @@ extern TBUserDefaults  * gTbDefaults;
 	}
 	
 	NSString *notMonitorConnectionKey = [[connection displayName] stringByAppendingString:@"-notMonitoringConnection"];
-    if (  [gTbDefaults canChangeValueForKey: notMonitorConnectionKey] && useDNSStatus(connection)  ) {
+    if (   [gTbDefaults canChangeValueForKey: notMonitorConnectionKey]
+        && useDNSStatus(connection)  ) {
         [monitorConnnectionCheckbox setEnabled: YES];
     } else {
         [monitorConnnectionCheckbox setEnabled: NO];
 	}
-	if(  ( ! [gTbDefaults boolForKey:notMonitorConnectionKey] ) && useDNSStatus(connection)  ) {
+	if(   ( ! [gTbDefaults boolForKey:notMonitorConnectionKey] )
+       && useDNSStatus(connection)  ) {
 		[monitorConnnectionCheckbox setState:NSOnState];
 	} else {
 		[monitorConnnectionCheckbox setState:NSOffState];
@@ -1098,8 +1109,8 @@ extern TBUserDefaults  * gTbDefaults;
         NSString * cTimeS = @"";
 
         // Get connection duration if preferences say to 
-        if (    [gTbDefaults boolForKey:@"showConnectedDurations"]
-             && [cState isEqualToString: @"CONNECTED"]    ) {
+        if (   [gTbDefaults boolForKey:@"showConnectedDurations"]
+            && [cState isEqualToString: @"CONNECTED"]    ) {
             NSDate * csd = [myConnection connectedSinceDate];
             NSTimeInterval ti = [csd timeIntervalSinceNow];
             long cTimeL = (long) round(-ti);
@@ -1131,7 +1142,8 @@ extern TBUserDefaults  * gTbDefaults;
     [statusMenuItem setTitle: myState];
     [theItem setToolTip: myState];
 	
-	if( (![lastState isEqualToString:@"EXITING"]) && (![lastState isEqualToString:@"CONNECTED"]) ) { 
+	if (   (![lastState isEqualToString:@"EXITING"])
+        && (![lastState isEqualToString:@"CONNECTED"]) ) { 
 		// override while in transitional state
 		// Any other state shows "transitional" image:
 		//[theItem setImage: transitionalImage];
@@ -1158,7 +1170,8 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (void)animationDidEnd:(NSAnimation*)animation
 {
-	if ((![lastState isEqualToString:@"EXITING"]) && (![lastState isEqualToString:@"CONNECTED"]))
+	if (   (![lastState isEqualToString:@"EXITING"])
+        && (![lastState isEqualToString:@"CONNECTED"]))
 	{
 		// NSLog(@"Starting Animation (2)");
 		[theAnim startAnimation];
@@ -1267,7 +1280,8 @@ extern TBUserDefaults  * gTbDefaults;
 
 - (IBAction) checkForUpdates: (id) sender
 {
-    if (  [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] && ( ! userIsAnAdmin )  ) {
+    if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
+        && ( ! userIsAnAdmin )  ) {
         NSLog(@"Check for updates was not performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
         if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
@@ -1340,7 +1354,8 @@ extern TBUserDefaults  * gTbDefaults;
         [tabView addTabViewItem: newItem];
         [newItem release];
         ++curTabIndex;
-        if (  ( ! haveOpenConnection ) && ( ! [connection isDisconnected] )  ) {
+        if (   ( ! haveOpenConnection )
+            && ( ! [connection isDisconnected] )  ) {
             [tabView selectTabViewItemAtIndex:curTabIndex];
             haveOpenConnection = YES;
         }
@@ -1356,7 +1371,8 @@ extern TBUserDefaults  * gTbDefaults;
 	[self updateTabLabels];
     
     // Set up a timer to update the tab labels with connections' duration times
-    if (    (showDurationsTimer == nil)  && [gTbDefaults boolForKey:@"showConnectedDurations"]    ) {
+    if (   (showDurationsTimer == nil)
+        && [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
         showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
                                                                target:self
                                                              selector:@selector(updateTabLabels)
@@ -1581,7 +1597,8 @@ extern TBUserDefaults  * gTbDefaults;
     
     NSFileManager  * fileManager     = [NSFileManager defaultManager];
     
-    if (  [configDirs count] == 1 && [[configDirs objectAtIndex:0] isEqualToString: deployPath] ) {
+    if (   [configDirs count] == 1
+        && [[configDirs objectAtIndex:0] isEqualToString: deployPath]  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
                          [[fileManager componentsToDisplayForPath: deployPath] componentsJoinedByString: @"/"]],
@@ -1874,7 +1891,7 @@ static void signal_handler(int signalNumber)
     // We do this check each time Tunnelblick is launched, to allow deployers to "un-force" this at some later time and have
     // the user asked for his/her preference.
     
-    BOOL forcingAutoChecksAndSendProfile = ( ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
+    BOOL forcingAutoChecksAndSendProfile = (  ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
                                         && ( ! [gTbDefaults canChangeValueForKey: @"updateSendProfileInfo"]  );
     BOOL userIsAdminOrNonAdminsCanUpdate = ( userIsAnAdmin ) || ( ! [gTbDefaults boolForKey:@"onlyAdminCanUpdate"] );
     NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
@@ -2339,7 +2356,8 @@ static void signal_handler(int signalNumber)
                                     sleep(1);
                                     i++;
                                     numberOfOthers = [NSApp countOtherInstances];
-                                } while (  (numberOfOthers > 0) && (i < 10)  );
+                                } while (   (numberOfOthers > 0)
+                                         && (i < 10)  );
                             }
                         }
                         
@@ -2381,7 +2399,8 @@ static void signal_handler(int signalNumber)
     id infoVersion = [theBundle objectForInfoDictionaryKey: @"CFBundleVersion"];
     
     id appBuild;
-    if (  [[infoVersion class] isSubclassOfClass: [NSString class]] && [infoVersion rangeOfString: @"."].location == NSNotFound  ) {
+    if (   [[infoVersion class] isSubclassOfClass: [NSString class]]
+        && [infoVersion rangeOfString: @"."].location == NSNotFound  ) {
         // No "." in version, so it is a build number
         appBuild   = infoVersion;
     } else {
@@ -2525,17 +2544,20 @@ static void signal_handler(int signalNumber)
         if (  installFailed  ) {
             [fMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
         }
-    } while (  needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN )  && (i-- > 0)  );
+    } while (   needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN )
+             && (i-- > 0)  );
     
     AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     
-    if (  (status != EXIT_SUCCESS) || installFailed || (  (i < 0) && needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN )  )  ) {
+    if (   (status != EXIT_SUCCESS)
+        || installFailed
+        || needsChangeOwnershipAndOrPermissions
+        || needsMoveLibraryOpenVPN
+        ) {
         NSLog(@"Installation or repair failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
                         NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
-                        nil,
-                        nil,
-                        nil);
+                        nil, nil, nil);
         return FALSE;
     }
     
@@ -2639,10 +2661,12 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
         runUnrecoverableErrorPanel(@"Unable to determine status of \"openvpnstart\"");
 	}
     
-	if ( !( (sb.st_mode & S_ISUID) // set uid bit is set
-		 && (sb.st_mode & S_IXUSR) // owner may execute it
-		 && (sb.st_uid == 0) // is owned by root
-		)) {
+	if (   ! (
+              (sb.st_mode & S_ISUID) // set uid bit is set
+              && (sb.st_mode & S_IXUSR) // owner may execute it
+              && (sb.st_uid == 0) // is owned by root
+              )
+        ) {
 		NSLog(@"openvpnstart has missing set uid bit, is not owned by root, or owner can't execute it");
         *changeOwnershipAndOrPermissions = YES;
 		return YES;		
@@ -2695,14 +2719,19 @@ void terminateBecauseOfBadConfiguration(void)
 BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * theDirPath)
 {
     NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
-    NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: theDirPath];
-    int i;
-    
-    for (i=0; i<[dirContents count]; i++) {
-        NSString * path = [dirContents objectAtIndex: i];
-        NSString * filePath = [theDirPath stringByAppendingPathComponent: path];
-        NSString * ext  = [path pathExtension];
-        if ( [ext isEqualToString:@"sh"]  ) {
+    NSFileManager * fMgr = [NSFileManager defaultManager];
+    NSString * file;
+    BOOL isDir;
+    NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: theDirPath];
+    while (file = [dirEnum nextObject]) {
+        NSString * filePath = [theDirPath stringByAppendingPathComponent: file];
+        NSString * ext  = [file pathExtension];
+        if (   [fMgr fileExistsAtPath: filePath isDirectory: &isDir]
+            && isDir  ) {
+            if (  ! isOwnedByRootAndHasPermissions(filePath, @"755")  ) {
+                return YES; // NSLog already called
+            }
+        } else if ( [ext isEqualToString:@"sh"]  ) {
             if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
                 return YES; // NSLog already called
             }
@@ -2726,7 +2755,8 @@ BOOL isOwnedByRootAndHasPermissions(NSString * fPath, NSString * permsShouldHave
     NSString *octalString = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     
-    if (  [octalString isEqualToString: permsShouldHave] && [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
+    if (   [octalString isEqualToString: permsShouldHave]
+        && [fileOwner isEqualToNumber:[NSNumber numberWithInt:0]]  ) {
         return YES;
     }
     
