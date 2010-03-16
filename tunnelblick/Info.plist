@@ -17,9 +17,9 @@
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1beta01 (build 1457)</string>
+	<string>3.1beta01 (build 1458)</string>
 	<key>CFBundleVersion</key>
-	<string>1457</string>
+	<string>1458</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     uid_t realUserID  = getuid();   // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as
     gid_t realGroupID = getgid();
 
-    NSFileManager * fMgr                 = [NSFileManager defaultManager];
+    NSFileManager * fMgr = [NSFileManager defaultManager];
     BOOL            isDir;
     
     // We create this file to act as a flag that the installation failed. We delete it before a success return.
@@ -64,8 +64,10 @@ int main(int argc, char *argv[])
     
     // If a backup of Resources/Deploy exists, and Resources/Deploy itself does not exist
     // Then restore it from the backup if the user gave permission to do so
-    if (  [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir  ) {
-        if (  ! (  [fMgr fileExistsAtPath: deployPath isDirectory: &isDir] && isDir  )  ) {
+    if (   [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
+        && isDir  ) {
+        if (  ! (   [fMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+                 && isDir  )  ) {
             if (  okToRecover  ) {
                 if (  ! [fMgr copyPath:deployBackupPath toPath: deployPath handler:nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", deployPath);
@@ -81,7 +83,8 @@ int main(int argc, char *argv[])
     // If the backup of Deploy should be removed, first remove the folder that holds all
     // three copies, then delete parent folders up the hierarchy if they are empty or only have .DS_Store
     if (  removeBackup  ) {
-        if (  [fMgr fileExistsAtPath: deployBkupHolderPath isDirectory: &isDir] && isDir  ) {
+        if (   [fMgr fileExistsAtPath: deployBkupHolderPath isDirectory: &isDir]
+            && isDir  ) {
             if (  ! [fMgr removeFileAtPath: deployBkupHolderPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to remove %@", deployBkupHolderPath);
                 [pool release];
@@ -90,11 +93,13 @@ int main(int argc, char *argv[])
             NSString * curDir = [deployBkupHolderPath stringByDeletingLastPathComponent];
             do
             {   
-                if ( [fMgr fileExistsAtPath: curDir isDirectory: &isDir] && isDir  ) {
+                if (   [fMgr fileExistsAtPath: curDir isDirectory: &isDir]
+                    && isDir  ) {
                     NSArray * contents = [fMgr directoryContentsAtPath: curDir];
                     if (  contents  ) {
                         if (  ([contents count] == 0)
-                            || (  ([contents count] == 1) && [[contents objectAtIndex:0] isEqualToString:@".DS_Store"]  )
+                            || (   ([contents count] == 1)
+                                && [[contents objectAtIndex:0] isEqualToString:@".DS_Store"]  )
                             ) {
                             if (  ! [fMgr removeFileAtPath: curDir handler:nil]  ) {
                                 NSLog(@"Tunnelblick Installer: Unable to remove %@", curDir);
@@ -127,27 +132,33 @@ int main(int argc, char *argv[])
         NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.down.osx.sh"];
         NSString *infoPlistPath         = [[[installerPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
         
-        // Create arrays of arguments for the chmod command to set permissions for files in /Resources/Deploy
-        // as follows: certificate & key files are set to 600, shell files are set to 744, and all other file are set to 644
-        // Other permissions: Info.plist is set to 644, and executable and standard scripts are set to 744
+        // Create arrays of arguments for the chmod command to set permissions as follows:
+        //        Info.plist is set to 644
+        //        executables and standard scripts are set to 744
+        //        For the contents of /Resources/Deploy and its subfolders:
+        //            folders are set to 755, certificate & key files are set to 600, shell files are set to 744, all other file are set to 644
         NSMutableArray *chmod600Args = [NSMutableArray arrayWithObject: @"600"];
         NSMutableArray *chmod644Args = [NSMutableArray arrayWithObjects: @"644", infoPlistPath, nil];
         NSMutableArray *chmod744Args = [NSMutableArray arrayWithObjects: @"744",
                                         installerPath, openvpnPath, leasewatchPath,
                                         clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
+        NSMutableArray *chmod755Args = [NSMutableArray arrayWithObject: @"755"];
         NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
         
-        NSArray *dirContents = [[NSFileManager defaultManager] directoryContentsAtPath: deployPath];
-        int i;
-        for (i=0; i<[dirContents count]; i++) {
-            NSString * file = [dirContents objectAtIndex: i];
+        NSString * file;
+        NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployPath];
+        while (file = [dirEnum nextObject]) {
             NSString * ext  = [file pathExtension];
-            if ( [ext isEqualToString:@"sh"]  ) {
-                [chmod744Args addObject:[deployPath stringByAppendingPathComponent: file]];
+            NSString * filePath = [deployPath stringByAppendingPathComponent: file];
+            if (   [fMgr fileExistsAtPath: filePath isDirectory: &isDir]
+                && isDir  ) {
+                [chmod755Args addObject: filePath];
+            } else if ( [ext isEqualToString:@"sh"]  ) {
+                [chmod744Args addObject: filePath];
             } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
-                [chmod600Args addObject:[deployPath stringByAppendingPathComponent: file]];
+                [chmod600Args addObject: filePath];
             } else {
-                [chmod644Args addObject:[deployPath stringByAppendingPathComponent: file]];
+                [chmod644Args addObject: filePath];
             }
         }
         
@@ -158,6 +169,7 @@ int main(int argc, char *argv[])
         if ( [chmod600Args count] > 1  ) { runTask(@"/bin/chmod", chmod600Args); }
         if ( [chmod644Args count] > 1  ) { runTask(@"/bin/chmod", chmod644Args); }
         if ( [chmod744Args count] > 1  ) { runTask(@"/bin/chmod", chmod744Args); }
+        if ( [chmod755Args count] > 1  ) { runTask(@"/bin/chmod", chmod755Args); }
         
         // Move configuration folder to new place in file hierarchy if necessary
         NSString * oldConfigDirPath       = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
@@ -168,7 +180,8 @@ int main(int argc, char *argv[])
             if (  ! [fMgr fileExistsAtPath: newConfigDirPath]  ) {
                 NSDictionary * fileAttributes = [fMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO]; // Want to see if it is a link, so traverseLink:NO
                 if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                    if (  [fMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir] && isDir  ) {
+                    if (   [fMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]
+                        && isDir  ) {
                         createDir(newConfigDirHolderPath);
                         // Since we're running as root, owner of 'newConfigDirHolderPath' is root:wheel. Try to change to real user:group
                         if (  0 != chown([newConfigDirHolderPath UTF8String], realUserID, realGroupID)  ) {
@@ -209,11 +222,12 @@ int main(int argc, char *argv[])
     }
     
     // If Resources/Deploy exists, back it up -- saving the first configuration and the two most recent
-    NSArray * deployContents = [fMgr directoryContentsAtPath:deployPath];
-    if (  deployContents != nil  ) {
+    if (   [fMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+        && isDir  ) {
         createDir(deployBkupHolderPath);    // Create the folder that holds the backup folders if it doesn't already exist
         
-        if (  ! (  [fMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir] && isDir  )  ) {
+        if (  ! (   [fMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
+                 && isDir  )  ) {
             if (  ! [fMgr copyPath:deployPath toPath: deployOrigBackupPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", deployPath);
                 [pool release];
@@ -266,7 +280,8 @@ void createDir(NSString * d)
 {
     NSFileManager * fMgr = [NSFileManager defaultManager];
     BOOL isDir;
-    if (  [fMgr fileExistsAtPath: d isDirectory: &isDir] && isDir  ) {
+    if (   [fMgr fileExistsAtPath: d isDirectory: &isDir]
+        && isDir  ) {
         return;
     }
     
