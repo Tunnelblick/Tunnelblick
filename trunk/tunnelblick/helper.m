@@ -57,7 +57,7 @@ NSString *escaped(NSString *string) {
 BOOL useDNSStatus(id connection)
 {
 	static BOOL useDNS = FALSE;
-	NSString *key = [[connection preferencePrefix] stringByAppendingString:@"useDNS"];
+	NSString *key = [[connection displayName] stringByAppendingString:@"useDNS"];
 	id status = [gTbDefaults objectForKey:key];
 	
 	if(status == nil) { // nothing is set, use default value

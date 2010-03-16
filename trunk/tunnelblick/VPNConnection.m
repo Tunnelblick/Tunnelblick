@@ -40,7 +40,6 @@ extern TBUserDefaults  * gTbDefaults;
 -(BOOL)             copyFile:                   (NSString *)        source
                       toFile:                   (NSString *)        target
                    usingAuth:                   (AuthorizationRef)  authRef;
--(NSString *)       firstPartsOfPath;
 -(NSString *)       getConfigToUse:             (NSString *)        cfgPath
                              orAlt:             (NSString *)        altCfgPath;
 -(unsigned int)     getFreePort;
@@ -73,7 +72,7 @@ extern TBUserDefaults  * gTbDefaults;
 		connectedSinceDate = [[NSDate alloc] init];
 		[self addToLog:[[NSApp delegate] openVPNLogHeader] atDate: nil];
         lastState = @"EXITING";
-		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self preferencePrefix]];
+		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
         NSArray  * pipePathComponents = [inPath pathComponents];
         NSArray  * pipePathComponentsAfter1st = [pipePathComponents subarrayWithRange: NSMakeRange(1, [pipePathComponents count]-1)];
         NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick-%@.logpipe",
@@ -110,35 +109,10 @@ extern TBUserDefaults  * gTbDefaults;
     return [[configPath retain] autorelease];
 }
 
+// Also used as the prefix for preference and Keychain keys
 -(NSString *) displayName
 {
     return [[displayName retain] autorelease];
-}
-
-// The path of the /Deploy or /Configurations folder the configuration is contained in
--(NSString *) firstPartsOfPath
-{
-    NSString * libraryPath = [[NSApp delegate] libraryPath];
-    if ( [configPath hasPrefix: libraryPath]  ) {
-        return libraryPath;
-    } else {
-        return [[NSApp delegate] deployPath];
-    }
-}
-
-// The name of the configuration file, but prefixed by any folders it is contained in after /Deploy or /Configurations
-//      = configPath less the Deploy or Configurations folder prefix (but including the extension)
-// Used for constructing path to shadow copy of the configuration and as an argument to openvpnstart
--(NSString *) lastPartsOfPath
-{
-    return [configPath substringFromIndex: [[self firstPartsOfPath] length]+1];
-}
-
-// Used as the prefix for preference and Keychain keys
-//      = configPath less the Deploy or Configurations folder prefix, and less the extension
--(NSString *) preferencePrefix
-{
-    return [[self lastPartsOfPath] stringByDeletingPathExtension];
 }
 
 - (void) setManagementSocket: (NetSocket*) socket
@@ -203,7 +177,8 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
 	NSString *cfgPath = [self configPath];
-    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), [self lastPartsOfPath]];
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@",
+                         NSUserName(), [[NSApp delegate] lastPartsOfPath: configPath]];
 
     if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
         return;
@@ -227,7 +202,7 @@ extern TBUserDefaults  * gTbDefaults;
 		
 	NSString *useDNS = @"0";
 	if(useDNSStatus(self)) {
-        NSString * useDownRootPluginKey = [[self preferencePrefix] stringByAppendingString: @"-useDownRootPlugin"];
+        NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
         if (  [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
             useDNS = @"2";
         } else {
@@ -245,7 +220,7 @@ extern TBUserDefaults  * gTbDefaults;
         altCfgLoc = @"2";
     }
     
-    NSString * noMonitorKey = [[self preferencePrefix] stringByAppendingString: @"-notMonitoringConnection"];
+    NSString * noMonitorKey = [[self displayName] stringByAppendingString: @"-notMonitoringConnection"];
     NSString * noMonitor = @"0";
     if (  [useDNS isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
         noMonitor = @"1";
@@ -280,7 +255,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSPipe * stdPipe = [[NSPipe alloc] init];
     [task setStandardOutput: stdPipe];
     
-    arguments = [NSArray arrayWithObjects:@"start", [self lastPartsOfPath], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
+    arguments = [NSArray arrayWithObjects:@"start", [[NSApp delegate] lastPartsOfPath: configPath], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
     
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           [self displayName],
@@ -308,7 +283,7 @@ extern TBUserDefaults  * gTbDefaults;
             atDate: nil];
     
 	[task setArguments:arguments];
-	[task setCurrentDirectoryPath: [self firstPartsOfPath]];
+	[task setCurrentDirectoryPath: [[NSApp delegate] firstPartsOfPath: configPath]];
 	[task launch];
 	[task waitUntilExit];
     
@@ -420,7 +395,7 @@ extern TBUserDefaults  * gTbDefaults;
 	NSString *pidString = [NSString stringWithFormat:@"%d", pid];
 	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
 	[task setArguments:arguments];
-	[task setCurrentDirectoryPath: [self firstPartsOfPath]];
+	[task setCurrentDirectoryPath: [[NSApp delegate] firstPartsOfPath: configPath]];
     pid = 0;
 	[task launch];
 	[task waitUntilExit];
@@ -735,8 +710,7 @@ extern TBUserDefaults  * gTbDefaults;
         if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", @"Button");
         else commandString = NSLocalizedString(@"Connect", @"Button");
         
-        NSString *itemTitle = [NSString stringWithFormat:@"%@ '%@'", commandString, [connection displayName]];
-
+        NSString *itemTitle = [NSString stringWithFormat:@"%@ %@", commandString, [connection displayName]];
         [anItem setTitle:itemTitle]; 
 	}
 	return YES;
@@ -911,7 +885,7 @@ extern TBUserDefaults  * gTbDefaults;
             return FALSE;
         }
     } else {
-        NSLog(@"statfs returned error %d; treating %@ as if it were on a remote volume", status, cfgPath);
+        NSLog(@"statfs returned error %@; treating %@ as if it were on a remote volume", [NSString stringWithCString:strerror(errno)], cfgPath);
     }
     return TRUE;   // Network volume or error accessing the file's data.
 }
