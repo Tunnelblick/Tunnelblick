@@ -68,15 +68,17 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
-    NSString                * configDirPath;                // Path to .../Resources/Deploy OR to ~/Library/Application Support/Tunnelblick/Configurations
-
     NSString                * deployPath;                   // Path to Tunnelblick.app/Contents/Resources/Deploy
     NSString                * libraryPath;                  // Path to ~/Library/Application Support/Tunnelblick/Configurations
 
-    NSMutableArray          * myConfigArray;                // Sorted list of all configuration filenames including .ovnp or .conf extensions
-    NSMutableDictionary     * myVPNConnectionDictionary;    // List of all configurations and corresponding VPNConnections
-                                                            // Key is the configuration filename including extension, object is the VPNConnection object for the configuration
+    NSMutableArray          * configDirs;                   // Array of paths to configuration directories currently in use
+
+    NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file
+
+    NSMutableDictionary     * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
+    
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
+    
     NSMutableArray          * connectionsToRestore;         // VPNConnections to be restored when awaken from sleep
     
     BOOL                      unloadKextsAtTermination;     // Indicates tun/tap kexts should be unloaded at program termination
@@ -121,17 +123,19 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 // General methods
 -(void)             activateStatusMenu;
 -(void)             addConnection:                          (id)                sender;
--(int)              intValueOfBuildForBundle:                 (NSBundle *)        theBundle;
+-(void)             addNewConfig:                           (NSString *)        path
+                 withDisplayName:                           (NSString *)        dispNm;
 -(void)             cleanup;
 -(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
                                        andMessage:          (NSString *)        msg;
 -(void)             createMenu;
 -(void)             createStatusItem;
+-(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             destroyAllPipes;
 -(void)             dmgCheck;
 -(void)             fileSystemHasChanged:                   (NSNotification *)  n;
--(NSMutableArray *) getConfigs;
--(BOOL)             getCurrentAutoLaunchSetting;
+-(NSString *)       firstPartsOfPath:                       (NSString *)        thePath;
+-(NSMutableDictionary *) getConfigurations;
 -(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
                         andAction:                          (SEL)               action
                        andToolTip:                          (NSString *)        tip
@@ -140,7 +144,9 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                           negated:                          (BOOL)              negatePref;
 -(void)             initialiseAnim;
 -(NSString *)       installationId;
+-(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
 -(void)             killAllConnections;
+-(NSString *)       lastPartsOfPath:                        (NSString *)        thePath;
 -(void)             loadKexts; 
 -(void)             loadMenuIconSet;
 -(BOOL)             AppNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
@@ -174,6 +180,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
                     forPath:                                (NSString *)        fpath;
 
 // Getters
+-(NSMutableArray *) configDirs;
 -(NSString *)       deployPath;
 -(NSString *)       libraryPath;
 @end

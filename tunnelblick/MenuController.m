@@ -71,6 +71,8 @@ extern TBUserDefaults  * gTbDefaults;
         deployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
         libraryPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
 
+		configDirs = [[NSMutableArray alloc] initWithCapacity: 2];
+
 		[NSApp setDelegate:self];
 		
         [self dmgCheck];
@@ -120,23 +122,6 @@ extern TBUserDefaults  * gTbDefaults;
             }
         }
 
-        // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files, set configDirPath to point to it
-        // Otherwise set set configDirPath to point to ~/Library/Application Support/Tunnelblick/Configurations
-        configDirPath = [self libraryPath];
-        
-        if (  [fMgr fileExistsAtPath: deployPath isDirectory: &isDir] && isDir ) {
-            NSArray *dirContents = [fMgr directoryContentsAtPath: deployPath];
-            int i;
-            for (i=0; i<[dirContents count]; i++) {
-                NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
-                if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
-                    [configDirPath release];
-                    configDirPath = [self deployPath];
-                    break;
-                }
-            }
-        }
-
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [deployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
@@ -147,9 +132,38 @@ extern TBUserDefaults  * gTbDefaults;
             [gTbDefaults setBool: TRUE forKey: @"showConnectedDurations"];
         }
         
+        // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
+        // Then add it to configDirs
+        if (  [fMgr fileExistsAtPath: deployPath isDirectory: &isDir] && isDir ) {
+            NSArray *dirContents = [fMgr directoryContentsAtPath: deployPath];
+            int i;
+            for (i=0; i<[dirContents count]; i++) {
+                NSString * ext  = [[dirContents objectAtIndex: i] pathExtension];
+                if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
+                    if (  [fMgr fileExistsAtPath: [deployPath stringByAppendingPathComponent: [dirContents objectAtIndex: i]] isDirectory: &isDir]
+                        && ( ! isDir)  ) {
+                        [configDirs addObject: [deployPath copy]];
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // If not Deployed, or if Deployed and it is specifically allowed,
+        // Then add ~/Library/Application Support/Tunnelblick/Configurations to configDirs
+        if (  [configDirs count] != 0  ) {
+            if (  ! [gTbDefaults canChangeValueForKey: @"useLibraryConfigurationsWithDeployedOnes"]  ) {
+                if (  [gTbDefaults boolForKey: @"useLibraryConfigurationsWithDeployedOnes"]  ) {
+                    [configDirs addObject: [libraryPath copy]];
+                }
+            }
+        } else {
+            [configDirs addObject: [libraryPath copy]];
+        }
+        
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
-
+        
         [self loadMenuIconSet];
         
 		[self createStatusItem];
@@ -158,22 +172,18 @@ extern TBUserDefaults  * gTbDefaults;
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
-            if ( ! [configDirPath isEqualToString: [self deployPath]]  ) {
-                BOOL isDir;
-                NSFileManager * fMgr = [NSFileManager defaultManager];
-                if (  [fMgr fileExistsAtPath: configDirPath isDirectory: &isDir]  ) {
+            if (  [configDirs containsObject: libraryPath]  ) {
+                if (  [fMgr fileExistsAtPath: libraryPath isDirectory: &isDir]  ) {
                     NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
-                    NSString * launchTunnelblickSymlink = [configDirPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+                    NSString * launchTunnelblickSymlink = [libraryPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
                     if (  ! [fMgr fileAttributesAtPath: launchTunnelblickSymlink traverseLink: NO]  ) {
                         NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-                        [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
-                                                  pathContent: pathToThisApp];
                     } else if (  ! [[fMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
                         NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
                         [fMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
-                        [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
-                                                  pathContent: pathToThisApp];
                     }
+                    [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                       pathContent: pathToThisApp];
                 }
             }
         }
@@ -200,9 +210,13 @@ extern TBUserDefaults  * gTbDefaults;
 																 object:nil];
 		
         ignoreNoConfigs = FALSE;    // We don't ignore the "no configurations" situation
+		// Monitor each config folder if specified
         if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
+            int i;
             myQueue = [UKKQueue sharedFileWatcher];
-            [myQueue addPathToQueue: configDirPath];
+			for (i = 0; i < [configDirs count]; i++) {
+                [myQueue addPathToQueue: [configDirs objectAtIndex: i]];
+            }
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
 		}
@@ -210,23 +224,22 @@ extern TBUserDefaults  * gTbDefaults;
 		userIsAnAdmin = isUserAnAdmin();
 		
         updater = [[SUUpdater alloc] init];
-
+        
         [self loadKexts];
-
+        
         // Process "Automatically connect on launch" checkboxes
-        NSString * filename;
         VPNConnection * myConnection;
-        NSEnumerator * m = [myConfigArray objectEnumerator];
-        while (filename = [m nextObject]) {
-            myConnection = [myVPNConnectionDictionary objectForKey: filename];
-            if([gTbDefaults boolForKey: [[myConnection preferencePrefix] stringByAppendingString: @"autoConnect"]]) {
-                if(![myConnection isConnected]) {
+        NSString * dispNm;
+        NSEnumerator * e = [myConfigDictionary keyEnumerator];
+        while (dispNm = [e nextObject]) {
+            myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+            if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
+                if (  ![myConnection isConnected]  ) {
                     [myConnection connect:self];
                 }
             }
         }
-	}
-
+    }
 
     return self;
 }
@@ -237,13 +250,19 @@ extern TBUserDefaults  * gTbDefaults;
     [connectedImage release];
     [mainImage release];
     
-    [gTbDefaults release];
+	int i;
+  	for(i = 0; i < [configDirs count]; i++) {
+        [[configDirs objectAtIndex:i] release];
+    }
+    [configDirs release];
 
-    [configDirPath release];
+    [gTbDefaults release];
     [connectionArray release];
     [connectionsToRestore release];
+    [deployPath release];
     [lastState release];
-    [myConfigArray release];
+    [libraryPath release];
+    [myConfigDictionary release];
     [myVPNConnectionDictionary release];
     [myVPNMenu release];
     [showDurationsTimer release];
@@ -537,26 +556,26 @@ extern TBUserDefaults  * gTbDefaults;
 	[myVPNMenu addItem:statusMenuItem];
 	[myVPNMenu addItem:[NSMenuItem separatorItem]];
     
-	[myConfigArray release];
-    myConfigArray = [[[[self getConfigs] sortedArrayUsingSelector:@selector(compare:)] mutableCopy] retain];
+	[myConfigDictionary release];
+    myConfigDictionary = [[[self getConfigurations] mutableCopy] retain];
     
-	NSEnumerator *m = [myConfigArray objectEnumerator];
-	NSString *configString;
     int i = 2; // we start at MenuItem #2
-	
-    while (configString = [m nextObject]) 
-    {
+
+    NSString * dispNm;
+    NSArray *keyArray = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+	NSEnumerator * e = [keyArray objectEnumerator];
+    while (dispNm = [e nextObject]) {
 		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
 		
         // configure connection object:
-		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: [configDirPath stringByAppendingPathComponent: configString]
-                                                                withDisplayName: configString]; // initialize VPN Connection with config	
+		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: [myConfigDictionary objectForKey: dispNm]
+                                                                withDisplayName: dispNm];
 		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
         
-		[myVPNConnectionDictionary setObject: myConnection forKey:configString];
+		[myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
 		
-        // Note: The item's title will be set on demand in VPNConnection's -validateMenuItem
+        // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
 		[connectionItem setTarget:myConnection]; 
 		[connectionItem setAction:@selector(toggle:)];
 		
@@ -710,15 +729,24 @@ extern TBUserDefaults  * gTbDefaults;
     [self toggleMenuItem: item withPreferenceKey: @"doNotMonitorConfigurationFolder"];
     if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
         if (  myQueue  ) {
-            [myQueue removePathFromQueue: configDirPath];
+			int i;
+            for (i = 0; i < [configDirs count]; i++) {
+                [myQueue removePathFromQueue: [configDirs objectAtIndex: i]];
+            }
         }
     } else {
         if ( myQueue  ) {
-            [myQueue addPathToQueue: configDirPath];
+			int i;
+            for (i = 0; i < [configDirs count]; i++) {
+                [myQueue addPathToQueue: [configDirs objectAtIndex: i]];
+            }
             [self activateStatusMenu];
         } else {
             myQueue = [UKKQueue sharedFileWatcher];
-            [myQueue addPathToQueue: configDirPath];
+			int i;
+            for (i = 0; i < [configDirs count]; i++) {
+                [myQueue addPathToQueue: [configDirs objectAtIndex: i]];
+            }
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
             [self activateStatusMenu];
@@ -807,65 +835,61 @@ extern TBUserDefaults  * gTbDefaults;
 // If any config files have been deleted, remove them from the menu and remove their tabs in the Log window
 -(void) updateMenuAndLogWindow 
 {	
-    NSArray * curConfigsArray = [[self getConfigs] sortedArrayUsingSelector:@selector(compare:)];
-	NSEnumerator *m = [curConfigsArray objectEnumerator];
-	NSString *configString;
-    
     BOOL needToUpdateLogWindow = FALSE;
+    NSString * dispNm;
 
-    // First add the new ones
-    while (configString = [m nextObject]) {
-        if (  [myConfigArray indexOfObject:configString] == NSNotFound  ) {
-            
-            // Add new config to myVPNConnectionDictionary
-            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: [configDirPath stringByAppendingPathComponent: configString]
-                                                                    withDisplayName: configString];
-            [myConnection setState:@"EXITING"];
-            [myConnection setDelegate:self];
-            [myVPNConnectionDictionary setObject: myConnection forKey:configString];
-            
-            // Add new config to myConfigArray and the menu, keeping myConfigArray sorted
-            // Note: The item's title will be set on demand in VPNConnection's -validateMenuItem
-            NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-            [connectionItem setTarget:myConnection]; 
-            [connectionItem setAction:@selector(toggle:)];
-            int i;
-            for (i=0; i<[myConfigArray count]; i++) {
-                if (  [[myConfigArray objectAtIndex:i] isGreaterThan:configString]  ) {
-                    break;
+    NSDictionary * curConfigsDict = [self getConfigurations];
+
+    // Add new configurations
+	NSEnumerator * e = [curConfigsDict keyEnumerator];
+    while (dispNm = [e nextObject]) {
+        BOOL sameDispNm = [myConfigDictionary objectForKey: dispNm] != nil;
+        BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
+        BOOL newIsDeploy = [deployPath isEqualToString: [self firstPartsOfPath: [curConfigsDict objectForKey: dispNm]]];
+        
+        if (  sameDispNm  ) {
+            if (  ! sameFolder  ) {
+                if (  newIsDeploy  ) {
+                    // Replace one from ~/Library/.../Configurations with one from Deploy
+                    [self deleteExistingConfig: dispNm];
+                    [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm];
+                    needToUpdateLogWindow = TRUE;
+                } else {
+                    ; // Ignore new configs that are in ~/Library/.../Configurations if there is one with the same display name in Deploy
                 }
+            } else {
+                ; // Ignore -- not changed
             }
-            [myConfigArray insertObject:configString atIndex:i];
-            [myVPNMenu insertItem:connectionItem atIndex:i+2];  // Note: first item is status, second is a separator
-            
+        } else {
+            [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm]; // No old config with same name
             needToUpdateLogWindow = TRUE;
         }
     }
-    
-    // Remove the ones that have been deleted
-    m = [myConfigArray objectEnumerator];
-    while (configString = [m nextObject]) {
-        if (  [curConfigsArray indexOfObject:configString] == NSNotFound  ) {
-            
-            // Disconnect first if necessary
-            VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey:configString];
-            if (  ! [[myConnection state] isEqualTo:@"EXITING"]  ) {
-                [myConnection disconnect:self];
-                
-                TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"),
-                                 [myConnection displayName]],
-                                [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"),
-                                 [myConnection displayName]],
-                                nil, nil, nil);
-            }
 
-            [myVPNConnectionDictionary removeObjectForKey:configString];
-            
-            // Remove config from myConfigArray and the menu
-            int i = [myConfigArray indexOfObject:configString];
-            [myConfigArray removeObjectAtIndex:i];
-            [myVPNMenu removeItemAtIndex:i+2];  // Note: first item is status, second is a separator
-            
+    // Remove configurations that are no longer available
+    // (Or replace a deleted Deploy configuration with one from ~/Library/.../Configurations if it exists
+	e = [myConfigDictionary keyEnumerator];
+    while (dispNm = [e nextObject]) {
+        BOOL sameDispNm = [curConfigsDict objectForKey: dispNm] != nil;
+        BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
+        BOOL oldWasDeploy = [deployPath isEqualToString: [self firstPartsOfPath: [myConfigDictionary objectForKey: dispNm]]];
+        
+        if (  sameDispNm  ) {
+            if (  ! sameFolder  ) {
+                if (  oldWasDeploy  ) {
+                    // Replace one from Deploy with one from ~/Library/.../Configurations
+                    [self deleteExistingConfig: dispNm];
+                    [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm];
+                    needToUpdateLogWindow = TRUE;
+                } else {
+                    [self deleteExistingConfig: dispNm];  // No new config at same path
+                    needToUpdateLogWindow = TRUE;
+                }
+            } else {
+                ; // Ignore -- not changed
+            }
+        } else {
+            [self deleteExistingConfig: dispNm]; // No new config with same name
             needToUpdateLogWindow = TRUE;
         }
     }
@@ -886,6 +910,62 @@ extern TBUserDefaults  * gTbDefaults;
     }
 }
 
+// Add new config to myVPNConnectionDictionary, the menu, and myConfigDictionary
+// Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
+-(void) addNewConfig: (NSString *) path withDisplayName: (NSString *) dispNm
+{
+    VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
+                                                            withDisplayName: dispNm];
+    [myConnection setState:@"EXITING"];
+    [myConnection setDelegate:self];
+    [myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
+    
+    NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
+    [connectionItem setTarget:myConnection]; 
+    [connectionItem setAction:@selector(toggle:)];
+    
+    int i;
+    NSArray *keyArray = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+    for (  i=0; i < [keyArray count]; i++  ) {
+        if (  [dispNm caseInsensitiveCompare: [keyArray objectAtIndex: i]] == NSOrderedAscending  ) {
+            [myVPNMenu insertItem:connectionItem atIndex:i+2];      // 1st menu item is status, 2nd is a separator
+            break;
+        }
+    }
+    if (  i == [keyArray count]  ) {
+        [myVPNMenu insertItem:connectionItem atIndex:i+2];
+    }
+    
+    [myConfigDictionary setObject: path forKey: dispNm];
+}
+
+// Remove config from myVPNConnectionDictionary, the menu, and myConfigDictionary
+// Disconnect first if necessary
+-(void) deleteExistingConfig: (NSString *) dispNm
+{
+    VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+    if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
+        [myConnection disconnect: self];
+        
+        TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
+                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm],
+                        nil, nil, nil);
+    }
+    
+    [myVPNConnectionDictionary removeObjectForKey: dispNm];
+    
+    int i;
+    NSArray *keyArray = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+    for (  i=0; i < [keyArray count]; i++  ) {
+        if (  [dispNm isEqualToString: [keyArray objectAtIndex: i]]  ) {
+            [myVPNMenu removeItemAtIndex:i+2];      // 1st menu item is status, 2nd is a separator
+            break;
+        }
+    }
+    
+    [myConfigDictionary removeObjectForKey: dispNm];
+}
+
 - (void)activateStatusMenu
 {
     [self updateUI];
@@ -901,19 +981,57 @@ extern TBUserDefaults  * gTbDefaults;
 	}	
 }
 
--(NSMutableArray *)getConfigs {
-    int i = 0;  	
-    NSMutableArray *array = [[[NSMutableArray alloc] init] autorelease];
-    NSString *file;
-    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: configDirPath];
-    while (file = [dirEnum nextObject]) {
-        if ([[file pathExtension] isEqualToString: @"conf"] || [[file pathExtension] isEqualToString: @"ovpn"]) {
-			[array insertObject:file atIndex:i];
-			//if(NSDebugEnabled) NSLog(@"Object: %@ atIndex: %d",file,i);
-			i++;
+// Returns a dictionary with information about the configuration files
+// The key for each entry is the display name for the configuration; the object is the path to the configuration file for the configuration
+-(NSMutableDictionary *) getConfigurations {
+    NSFileManager * fMgr = [NSFileManager defaultManager];
+    NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSString * file;
+    int i;
+    BOOL isDir;
+    for (i=0; i < [configDirs count]; i++) {
+        NSString * folder = [configDirs objectAtIndex: i];
+        NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: folder];
+        while (file = [dirEnum nextObject]) {
+            NSString * path = [folder stringByAppendingPathComponent: file];
+            NSString * ext = [file pathExtension];
+            if ([ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]) {
+                if (  [fMgr fileExistsAtPath: path isDirectory: &isDir] && ( ! isDir)  ) {
+                    NSString * dispNm = [file substringToIndex: [file length]-5];
+                    if (  ! [dict objectForKey: dispNm]  ) {
+                        [dict setObject: path forKey: dispNm];
+                    }
+                }
+            }
         }
     }
-    return array;
+
+    return dict;
+}
+
+// Returns the path of the configuration folder in which a specified configuration file is contained
+// Quits Tunnelblick if it is not in any configuration folder (serious programming error, no recovery possible)
+-(NSString *) firstPartsOfPath: (NSString *) thePath
+{
+    int i;
+    for (i=0; i<[configDirs count]; i++) {
+        if (  [thePath hasPrefix: [configDirs objectAtIndex: i]]  ) {
+            return [configDirs objectAtIndex: i];
+        }
+    }
+    
+    NSLog(@"firstPartsOfPath: Path %@ does not have a prefix that is in any ConfigDirs entry", thePath);
+    [NSApp setAutoLaunchOnLogin: NO];
+    [NSApp terminate: self];
+    return nil;
+}
+
+// The name of the configuration file, but prefixed by any folders it is contained in after /Deploy or /Configurations
+//      = configPath less the Deploy or Configurations folder prefix (but including the extension)
+// Used for constructing path to shadow copy of the configuration and as an argument to openvpnstart
+-(NSString *) lastPartsOfPath: (NSString *) thePath
+{
+    return [thePath substringFromIndex: [[self firstPartsOfPath: thePath] length]+1];
 }
 
 -(void)validateLogButtons
@@ -923,14 +1041,14 @@ extern TBUserDefaults  * gTbDefaults;
     [connectButton setEnabled:[connection isDisconnected]];
     [disconnectButton setEnabled:(![connection isDisconnected])];
 
-	NSString *disableEditConfigKey = [[connection preferencePrefix] stringByAppendingString:@"disableEditConfiguration"];
+	NSString *disableEditConfigKey = [[connection displayName] stringByAppendingString:@"disableEditConfiguration"];
     if (  [gTbDefaults boolForKey:disableEditConfigKey]  ) {
         [editButton setEnabled: NO];
     } else {
         [editButton setEnabled: YES];
     }
     
-	NSString *autoConnectKey = [[connection preferencePrefix] stringByAppendingString:@"autoConnect"];
+	NSString *autoConnectKey = [[connection displayName] stringByAppendingString:@"autoConnect"];
     if (  [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
         [autoLaunchCheckbox setEnabled: YES];
     } else {
@@ -942,7 +1060,7 @@ extern TBUserDefaults  * gTbDefaults;
 		[autoLaunchCheckbox setState:NSOffState];
 	}
 	
-	NSString *useDNSKey = [[connection preferencePrefix] stringByAppendingString:@"useDNS"];
+	NSString *useDNSKey = [[connection displayName] stringByAppendingString:@"useDNS"];
     if (  [gTbDefaults canChangeValueForKey: useDNSKey]  ) {
         [useNameserverCheckbox setEnabled: YES];
     } else {
@@ -954,7 +1072,7 @@ extern TBUserDefaults  * gTbDefaults;
 		[useNameserverCheckbox setState:NSOffState];
 	}
 	
-	NSString *notMonitorConnectionKey = [[connection preferencePrefix] stringByAppendingString:@"-notMonitoringConnection"];
+	NSString *notMonitorConnectionKey = [[connection displayName] stringByAppendingString:@"-notMonitoringConnection"];
     if (  [gTbDefaults canChangeValueForKey: notMonitorConnectionKey] && useDNSStatus(connection)  ) {
         [monitorConnnectionCheckbox setEnabled: YES];
     } else {
@@ -969,7 +1087,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void)updateTabLabels
 {
-	NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
+	NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
 	NSEnumerator *connectionEnumerator = [myConnectionArray objectEnumerator];
 	VPNConnection *myConnection;
@@ -1074,7 +1192,16 @@ extern TBUserDefaults  * gTbDefaults;
 	
     [self validateLogButtons];
     
-    [logWindow setTitle: [NSString stringWithFormat: @"%@ - %@", NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title"), [[self selectedConnection] displayName]]];
+    NSString * deployMsg = @"";
+    if (  [configDirs count] > 1 ) {
+        if (  [[self firstPartsOfPath: [newConnection configPath]] isEqualToString: deployPath]  ) {
+            deployMsg =  NSLocalizedString(@" (Deployed)", @"Window title");
+        }
+    }
+    [logWindow setTitle: [NSString stringWithFormat: @"%@ - %@%@",
+                          NSLocalizedString(@"OpenVPN Log Output - Tunnelblick", @"Window title"),
+                          [[self selectedConnection] displayName],
+                          deployMsg]];
 }
 
 - (void) textStorageDidProcessEditing: (NSNotification*) aNotification
@@ -1119,8 +1246,8 @@ extern TBUserDefaults  * gTbDefaults;
 		[tabView selectFirstTabViewItem: nil];
 	}
 	
-    NSString* configFilename = [[tabView selectedTabViewItem] identifier];
-	VPNConnection* connection = [myVPNConnectionDictionary objectForKey:configFilename];
+    NSString* dispNm = [[tabView selectedTabViewItem] identifier];
+	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: dispNm];
 	NSArray *allConnections = [myVPNConnectionDictionary allValues];
 	if(connection) return connection;
 	else if([allConnections count]) return [allConnections objectAtIndex:0] ; 
@@ -1188,13 +1315,7 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
 
-	[logWindow setDelegate:self];
-	VPNConnection *myConnection = [self selectedConnection];
-	NSTextStorage* store = [myConnection logStorage];
-	[[[self selectedLogView] layoutManager] replaceTextStorage: store];
-	
-	NSEnumerator* e = [[[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)] objectEnumerator];
-	//id test = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
+	NSEnumerator* e = [[[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
 	NSTabViewItem* initialItem;
 	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
     if (  ! connection  ) {
@@ -1204,16 +1325,18 @@ extern TBUserDefaults  * gTbDefaults;
     }
 
     initialItem = [tabView tabViewItemAtIndex: 0];
-    [initialItem setIdentifier: [connection lastPartsOfPath]];
-    [initialItem setLabel: [connection displayName]];
+    NSString * dispNm = [connection displayName];
+    [initialItem setIdentifier: dispNm];
+    [initialItem setLabel:      dispNm];
     
     int curTabIndex = 0;
     [tabView selectTabViewItemAtIndex:0];
     BOOL haveOpenConnection = ! [connection isDisconnected];
     while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
         NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
-        [newItem setIdentifier: [connection lastPartsOfPath]];
-        [newItem setLabel: [connection displayName]];
+        dispNm = [connection displayName];
+        [newItem setIdentifier: dispNm];
+        [newItem setLabel:      dispNm];
         [tabView addTabViewItem: newItem];
         [newItem release];
         ++curTabIndex;
@@ -1222,6 +1345,12 @@ extern TBUserDefaults  * gTbDefaults;
             haveOpenConnection = YES;
         }
     }
+    
+	[logWindow setDelegate:self];
+	VPNConnection *myConnection = [self selectedConnection];
+	NSTextStorage* store = [myConnection logStorage];
+	[[[self selectedLogView] layoutManager] replaceTextStorage: store];
+	
 	[self tabView:tabView didSelectTabViewItem:initialItem];
 	[self validateLogButtons];
 	[self updateTabLabels];
@@ -1371,7 +1500,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
     VPNConnection * connection;
     
-    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
+    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
     NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
     NSEnumerator* e = [myConnectionArray objectEnumerator];
     
@@ -1441,21 +1570,21 @@ extern TBUserDefaults  * gTbDefaults;
 	}
 }
 
-// If there aren't ANY config files in the config folder 
+// If there aren't ANY config files in the config folders 
 // then let the user either quit or create and edit a sample configuration file
 // else do nothing
 -(void)createDefaultConfigUsingTitle:(NSString *) ttl andMessage:(NSString *) msg 
 {
-    if (  ignoreNoConfigs || [[self getConfigs] count] != 0  ) {
+    if (  ignoreNoConfigs || [[self getConfigurations] count] != 0  ) {
         return;
     }
     
     NSFileManager  * fileManager     = [NSFileManager defaultManager];
     
-    if (  [configDirPath isEqualToString: [self deployPath]]  ) {
+    if (  [configDirs count] == 1 && [[configDirs objectAtIndex:0] isEqualToString: deployPath] ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
-                         [[fileManager componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"]],
+                         [[fileManager componentsToDisplayForPath: deployPath] componentsJoinedByString: @"/"]],
                         nil, nil, nil);
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
@@ -1466,12 +1595,11 @@ extern TBUserDefaults  * gTbDefaults;
     
     BOOL isDir;
     NSString * alternateButtonTitle = nil;
-    if (  ! ([fileManager fileExistsAtPath: configDirPath isDirectory: &isDir])  ) {
+    if (  ! ([fileManager fileExistsAtPath: libraryPath isDirectory: &isDir])  ) {
         alternateButtonTitle = NSLocalizedString(@"Create and open configuration folder", @"Button");
     } else {
         alternateButtonTitle = NSLocalizedString(@"Open configuration folder", @"Button");
     }
-    
     
     int button = TBRunAlertPanel(ttl,
                                  msg,
@@ -1484,22 +1612,22 @@ extern TBUserDefaults  * gTbDefaults;
         [NSApp terminate: nil];
     }
     
-    NSString * parentPath = [configDirPath stringByDeletingLastPathComponent];
+    NSString * parentPath = [libraryPath stringByDeletingLastPathComponent];
     if (  ! [fileManager fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
         if ( ! [fileManager createDirectoryAtPath: parentPath attributes:nil]  ) {
             NSLog(@"Error creating %@", parentPath);
         }
     }
     
-    if (  ! [fileManager fileExistsAtPath: configDirPath]  ) {                      // If ~/Library/Application Support/Tunnelblick/Configurations doesn't exist, create it
-        if (  ! [fileManager createDirectoryAtPath: configDirPath attributes:nil]  ) {
-            NSLog(@"Error creating %@", configDirPath);
+    if (  ! [fileManager fileExistsAtPath: libraryPath]  ) {                     // If ~/Library/Application Support/Tunnelblick/Configurations doesn't exist, create it
+        if (  ! [fileManager createDirectoryAtPath: libraryPath attributes:nil]  ) {
+            NSLog(@"Error creating %@", libraryPath);
         }
     }
     
     if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
         NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
-        NSString * launchTunnelblickSymlink = [configDirPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+        NSString * launchTunnelblickSymlink = [libraryPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
         if (  ! [fileManager fileExistsAtPath:launchTunnelblickSymlink]  ) {
             ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
             NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
@@ -1515,18 +1643,18 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
     if (  button == NSAlertOtherReturn  ) { // CREATE CONFIGURATION FOLDER (already created)
-        [[NSWorkspace sharedWorkspace] openFile: configDirPath];
+        [[NSWorkspace sharedWorkspace] openFile: libraryPath];
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
     }
     
-    NSString * targetPath = [configDirPath stringByAppendingPathComponent:@"openvpn.conf"];
+    NSString * targetPath = [libraryPath stringByAppendingPathComponent:@"openvpn.conf"];
     NSLog(@"Installing sample configuration file %@", targetPath);
     if (  ! [fileManager copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
-        NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", configDirPath);
+        NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", libraryPath);
         TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"),
-                         [[fileManager componentsToDisplayForPath: configDirPath] componentsJoinedByString: @"/"]],
+                         [[fileManager componentsToDisplayForPath: libraryPath] componentsJoinedByString: @"/"]],
                         nil,
                         nil,
                         nil);
@@ -1544,7 +1672,7 @@ extern TBUserDefaults  * gTbDefaults;
 	VPNConnection *connection = [self selectedConnection];
     NSString * targetPath = [connection configPath];
     if ( ! targetPath  ) {
-        targetPath = [configDirPath stringByAppendingPathComponent: @"openvpn.conf"];
+        targetPath = [libraryPath stringByAppendingPathComponent: @"openvpn.conf"];
     }
 
     // To allow Tiger and Leopard users to edit and save a configuration file, we allow the user to unprotect the file before editing. 
@@ -1642,7 +1770,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
-		NSString* key = [[connection preferencePrefix] stringByAppendingString: @"-notMonitoringConnection"];
+		NSString* key = [[connection displayName] stringByAppendingString: @"-notMonitoringConnection"];
         [gTbDefaults setObject: [NSNumber numberWithBool: ! inBool] forKey: key];
         [gTbDefaults synchronize];
         if (  ! [connection isDisconnected]  ) {
@@ -1655,7 +1783,7 @@ extern TBUserDefaults  * gTbDefaults;
 {
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
-		NSString* key = [[connection preferencePrefix] stringByAppendingString: @"useDNS"];
+		NSString* key = [[connection displayName] stringByAppendingString: @"useDNS"];
 		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: key];
 		[gTbDefaults synchronize];
         if (  ! [connection isDisconnected]  ) {
@@ -1668,18 +1796,11 @@ extern TBUserDefaults  * gTbDefaults;
 {
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
-		NSString* autoConnectKey = [[connection preferencePrefix] stringByAppendingString: @"autoConnect"];
+		NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
 		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: autoConnectKey];
 		[gTbDefaults synchronize];
 	}
 	
-}
-
--(BOOL)getCurrentAutoLaunchSetting
-{
-	VPNConnection *connection = [self selectedConnection];
-	NSString *autoConnectKey = [[connection preferencePrefix] stringByAppendingString:@"autoConnect"];
-	return [gTbDefaults boolForKey:autoConnectKey];
 }
 
 - (void) setState: (NSString*) newState
@@ -1979,16 +2100,15 @@ static void signal_handler(int signalNumber)
                  sendingSystemProfile:(BOOL) sendingProfile
 {
     if (  updaterToFeed == updater  ) {
-        int nConfigurations    = [myConfigArray count];
+        int nConfigurations    = [myConfigDictionary count];
         int nSetNameserver     = 0;
         int nMonitorConnection = 0;
-        int i;
-        
+        NSString * key;
+
         // Count # of configurations with 'Set nameserver' checked and the # with 'Monitor connection' set
-        for (i=0; i<nConfigurations; i++) {
-            NSString * cfgName = [[myConfigArray objectAtIndex: i] stringByDeletingPathExtension];
-            
-            NSString * dnsKey = [cfgName stringByAppendingString:@"useDNS"];
+        NSEnumerator * e = [myConfigDictionary keyEnumerator];
+        while (  key = [e nextObject]  ) {
+            NSString * dnsKey = [key stringByAppendingString:@"useDNS"];
             if (  [gTbDefaults objectForKey: dnsKey]  ) {
                 if (  [gTbDefaults boolForKey: dnsKey]  ) {
                     nSetNameserver++;
@@ -1997,7 +2117,7 @@ static void signal_handler(int signalNumber)
                 nSetNameserver++;
             }
             
-            NSString * mcKey = [cfgName stringByAppendingString:@"-notMonitoringConnection"];
+            NSString * mcKey = [key stringByAppendingString:@"-notMonitoringConnection"];
             if (  [gTbDefaults objectForKey: mcKey]  ) {
                 if (  ! [gTbDefaults boolForKey: mcKey]  ) {
                     nMonitorConnection++;
@@ -2010,8 +2130,8 @@ static void signal_handler(int signalNumber)
         NSString * sConn = [NSString stringWithFormat:@"%d", nConfigurations    ];
         NSString * sSN   = [NSString stringWithFormat:@"%d", nSetNameserver     ];
         NSString * sMC   = [NSString stringWithFormat:@"%d", nMonitorConnection ];
-        NSString * sDep  = ([configDirPath isEqualToString: deployPath] ? @"1" : @"0");
-        NSString * sAdm  = (userIsAnAdmin     ? @"1" : @"0");
+        NSString * sDep  = ([[configDirs objectAtIndex: 0] isEqualToString: deployPath] ? @"1" : @"0");
+        NSString * sAdm  = (userIsAnAdmin ? @"1" : @"0");
         NSString * sUuid = [self installationId];
 
 // IMPORTANT: If new keys are added here, they must also be added to profileConfig.php on the website
@@ -2098,8 +2218,7 @@ static void signal_handler(int signalNumber)
         NSString * standardPath;
         
         // Use a standardPath of /Applications/Tunnelblick.app unless overridden by a forced preference
-        NSString * deployDirPath = [currentPath stringByAppendingPathComponent: @"Contents/Resources/Deploy"];
-        NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [deployDirPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [deployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         standardPath = @"/Applications/Tunnelblick.app";
         id obj = [forcedDefaults objectForKey:@"standardApplicationPath"];
         if (  obj  ) {
@@ -2546,8 +2665,7 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
     }
 
     // check permissions of files in Resources/Deploy (if any)        
-    NSString * deployDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"];
-    if (  deployContentsOwnerOrPermissionsNeedRepair(deployDirPath)  ) {
+    if (  deployContentsOwnerOrPermissionsNeedRepair([[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"])  ) {
         *changeOwnershipAndOrPermissions = YES;
         return YES;
     }
@@ -2581,9 +2699,9 @@ BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * theDirPath)
     int i;
     
     for (i=0; i<[dirContents count]; i++) {
-        NSString * file = [dirContents objectAtIndex: i];
-        NSString * filePath = [theDirPath stringByAppendingPathComponent: file];
-        NSString * ext  = [file pathExtension];
+        NSString * path = [dirContents objectAtIndex: i];
+        NSString * filePath = [theDirPath stringByAppendingPathComponent: path];
+        NSString * ext  = [path pathExtension];
         if ( [ext isEqualToString:@"sh"]  ) {
             if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
                 return YES; // NSLog already called
@@ -2676,14 +2794,19 @@ int runUnrecoverableErrorPanel(msg)
 	}
 }
 
--(NSString *)       deployPath
+-(NSString *) deployPath
 {
     return [[deployPath retain] autorelease];
 }
 
--(NSString *)       libraryPath
+-(NSString *) libraryPath
 {
     return [[libraryPath retain] autorelease];
+}
+
+-(NSMutableArray *) configDirs
+{
+    return [[configDirs retain] autorelease];
 }
 
 @end

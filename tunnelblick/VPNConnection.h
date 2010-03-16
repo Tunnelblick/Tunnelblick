@@ -63,12 +63,10 @@
                        withDisplayName:         (NSString *)    inDisplayName;
 -(BOOL)             isConnected;
 -(BOOL)             isDisconnected;
--(NSString *)       lastPartsOfPath;
 -(NSTextStorage*)   logStorage;
 -(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned)      inAmount;
 -(void)             netsocketConnected:         (NetSocket *)   socket;
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
--(NSString *)       preferencePrefix;
 -(void)             setDelegate:                (id)            newDelegate;
 -(void)             setState:                   (NSString *)    newState;
 -(NSString*)        state;

@@ -1,3 +1,6 @@
+/* Window title */
+" (Deployed)" = " (Deployed)";
+
 /* Window text */
 "(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
 
