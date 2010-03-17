@@ -113,35 +113,54 @@ int main(int argc, char* argv[])
 	}
 	
 	if (syntaxError) {
-		fprintf(stderr, "openvpnstart usage:\n\n"
+		fprintf(stderr,
+                "\n\nopenvpnstart usage:\n\n"
 				
-				"\t./openvpnstart OpenVPNInfo\n"
-				"\t./openvpnstart loadKexts\n"
-				"\t./openvpnstart unloadKexts\n"
-				"\t./openvpnstart killall\n"
-				"\t./openvpnstart kill   processId\n"
-				"\t./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode]  ]  ]\n\n"
+				"./openvpnstart OpenVPNInfo\n"
+				"               to get information about OpenVPN\n\n"
+                
+				"./openvpnstart loadKexts\n"
+				"               to load tun.kext and tap.kext\n\n"
+                
+				"./openvpnstart unloadKexts\n"
+				"               to unload tun.kext and tap.kext\n\n"
+                
+				"./openvpnstart killall\n"
+				"               to terminate all processes named 'openvpn'\n\n"
+                
+				"./openvpnstart kill   processId\n"
+				"               to terminate the 'openvpn' process with the specified processID\n\n"
+                
+				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  ]  ]  ]  ]\n\n"
+				"               to load tun.kext and tap.kext and start OpenVPN with the specified configuration file and options.\n\n"
 				
-				"Where:\n"
-				"\tprocessId  is the process ID of the openvpn process to kill\n"
-				"\tconfigName is the name of the configuration file\n"
-				"\tmgtPort    is the port number (0-65535) to use for managing the connection\n"
-				"\tuseScripts is 0 to not use scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
-                "\t           or 1 to run scripts before connecting and after disconnecting\n"
-				"\t                (The scripts are usually Tunnelblick.app/Contents/Resources/client.up.osx.sh & client.down.osx.sh, but see the cfgLocCode option)\n"
-                "\t           or 2 to run the scripts, and also use the 'openvpn-down-root.so' plugin\n"
-                "\tskipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n"
-                "\tcfgLocCode is 0 to use the standard folder (~/Library/Application Support/Tunnelblick/Configurations) for configuration and other files,\n"
-                "\t           or 1 to use the alternate folder (/Library/Application Support/Tunnelblick/Users/<username>)\n"
-                "                  for configuration files and the standard folder for other files,\n"
-                "\t           or 2 to use the Resources/Deploy folder for configuration and other files,\n"
-                "\t                except that if Resources/Deploy contains only .conf, .ovpn, .up.sh, .down.sh and forced-preferences.plist files\n"
-                "\t                            then ~/Library/Application Support/Tunnelblick/Configurations will be used for all other files (such as .crt and .key files)\n"
-                "\t                and If 'useScripts' is 1 or 2\n"
-                "\t                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
-                "\t                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n"
-                "\tnoMonitor  is 0 to monitor the connection for interface configuration changes\n"
-                "\t           or 1 to not monitor the connection for interface configuration changes\n\n"
+				"Where:\n\n"
+                
+				"processId  is the process ID of the openvpn process to kill\n\n"
+                
+				"configName is the name of the configuration file\n\n"
+                
+				"mgtPort    is the port number (0-65535) to use for managing the connection\n\n"
+                
+				"useScripts is 0 to not use scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
+                "           or 1 to run scripts before connecting and after disconnecting\n"
+				"                (The scripts are usually Tunnelblick.app/Contents/Resources/client.up.osx.sh & client.down.osx.sh, but see the cfgLocCode option)\n"
+                "           or 2 to run the scripts, and also use the 'openvpn-down-root.so' plugin\n\n"
+                
+                "skipScrSec is 1 to skip sending a '--script-security 2' argument to OpenVPN (versions before 2.1_rc9 don't implement it).\n\n"
+                
+                "cfgLocCode is 0 to use the standard folder (~/Library/Application Support/Tunnelblick/Configurations) for configuration and other files,\n"
+                "           or 1 to use the alternate folder (/Library/Application Support/Tunnelblick/Users/<username>)\n"
+                "                for configuration files and the standard folder for other files,\n"
+                "           or 2 to use the Resources/Deploy folder for configuration and other files,\n"
+                "                except that if Resources/Deploy contains only .conf, .ovpn, .up.sh, .down.sh and forced-preferences.plist files\n"
+                "                            then ~/Library/Application Support/Tunnelblick/Configurations will be used for all other files (such as .crt and .key files)\n"
+                "                and If 'useScripts' is 1 or 2\n"
+                "                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
+                "                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n\n"
+                
+                "noMonitor  is 0 to monitor the connection for interface configuration changes\n"
+                "           or 1 to not monitor the connection for interface configuration changes\n\n"
 
 				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n\n"
 				
