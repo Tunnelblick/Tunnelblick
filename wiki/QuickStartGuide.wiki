@@ -35,11 +35,11 @@ You will now see a window asking for an administrator username and password. Ent
 You may see a window asking if you wish to check for updates automatically. Click a button to indicate your selection.
 
 When there are no configuration files in `~/Library/Application Support/Tunnelblick/Configurations` (which is usually the case the first time Tunnelblick is run by each user), the "Welcome to Tunnelblick" window will appear. You have three choices:
-  * If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file at `~/Library/Application Support/Tunnelblick/Configurations/openvpn.conf`, then open it in TextEdit for you to modify. Tunnelblick will keep running, and, after you modify `openvpn.conf` to connect to your VPN, you can proceed to [Using_Tunnelblick Using Tunnelblick]
+  * If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file at `~/Library/Application Support/Tunnelblick/Configurations/openvpn.conf`, then open it in `TextEdit` for you to modify. Tunnelblick will keep running, and, after you modify `openvpn.conf` to connect to your VPN, you can proceed to [QuickStartGuide#Using_Tunnelblick Using Tunnelblick]
 
   * If you click "Quit”, Tunnelblick will quit without doing anything.
 
-  * If you click "Open configuration folder", Tunnelblick will open a Finder window with `~/Library/Application Support/Tunnelblick/Configurations`, and then quit. Move or copy your OpenVPN configuration file(s) -- files with extensions of ".oven" or ".conf" -- to this window. If you have received key files or certificate files with your configuration file, move or copy them to this window also.
+  * If you click "Open configuration folder", Tunnelblick will open a Finder window with `~/Library/Application Support/Tunnelblick/Configurations`, and then quit. Move or copy your OpenVPN configuration file(s) -- files with extensions of ".ovpn" or ".conf" -- to this window. If you have received key files or certificate files with your configuration file, move or copy them to this window also.
 
 ==Launching Tunnelblick==
 To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder.
@@ -95,7 +95,7 @@ The "Options…" submenu allows you to control several preferences. Click on one
 
 The "Details…", or "OpenVPN Log" window allows you to control several preferences for each configuration separately:
   * *Automatically connect on launch*: If checked, Tunnelblick will connect using the configuration when Tunnelblick is launched. If not checked, the user must connect manually.
-  * *Set nameserver*: If checked, Tunnelblick will use its standard scripts before and after a connection is made to save and restore the computer's DNS and WINS settings. If not checked, no save and restore will be done.
+  * *Set nameserver*: If checked, Tunnelblick will use its standard scripts before and after a connection is made to save and restore the computer's DNS and WINS settings, and allow DNS and WINS settings to be "pushed" from the VPN server. If not checked, no save and restore will be done and the DNS and WINS settings will not be "pushed" from the VPN server.
   * *Monitor connection*: (Only available if "Set nameserver" is checked.) If checked, Tunnelblick will monitor the network and restart the connection if changes to the network DNS or WINS configurations are detected. If unchecked, or if "Set nameserver" is not checked, no monitoring will be done. Note: under certain circumstances, repeated and unnecessary restarts are peformed when "Monitor connection" is checked; unchecking it stops this from occurring.
 
 For more details on "Set nameserver" see the following section.
@@ -144,6 +144,8 @@ For more information, including wikis and a discussion group, see the [http://co
   * 2010-02-09 (Version 3.0b26)
     * Document created.
   * 2010-02-14
+    * Minor edit
+  * 2010-03-19
     * Minor edit
 ------------------
 
