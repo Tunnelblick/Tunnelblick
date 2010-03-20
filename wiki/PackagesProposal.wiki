@@ -10,7 +10,7 @@
 
 This proposal arose from a [http://groups.google.com/group/tunnelblick-discuss/browse_thread/thread/6920e90bb46229f3 recent thread] on the Tunnelblick Discussion Group. Please discuss this proposal in [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f this thread].
 
-A Tunnelblick package contains information about one VPN configuration.
+A Tunnelblick package is a folder with an extension of .tblk that contains information about one VPN configuration.
   * Packages provide a convenient way to distribute VPN configurations separate from the Tunnelblick application itself.
   * Packages contain identification and version information to assist in version control.
   * Packages may be automatically installed when Tunnelblick is installed by including them in the Tunnelblick disk image.
@@ -49,10 +49,10 @@ Info.plist is required. It must be an OS X property list file, and must contain 
 
 A package's Info.plist may also contain a 'TBDisplayName' key with a string value which will be used as the display name of the configuration. If no 'TBDisplayName' is present, the name of the Tunnelblick package (without the .tblk) will be used as the display name of the configuration.
 
-A package's Info.plist may also contain entries (strings and booleans) with keys that start with "TB-Preference". The strings are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TB-Preference" is replaced with the display name of the package (not including the .tblk extension). 
+A package's Info.plist may also contain entries (strings and booleans) with keys that start with "TB-Preference". The strings are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TB-Preference" is replaced with the display name of the package. 
 
 ==Display Name==
-If a 'TBDisplayName' key is present in the package's Info.plist, the string value corresponding to that key will be used as the "display name" Tunnelblick uses to identify the configuration to the user and for preference and Keychain keys. If there is no "TBDisplayName" key, the package's filename (without the ".tblk") will be used.
+If a 'TBDisplayName' key is present in the package's Info.plist, the string value corresponding to that key will be used as the "display name" Tunnelblick uses to identify the configuration to the user and for preference and Keychain keys. If there is no "TBDisplayName" key, the package's filename (without the ".tblk" extension) will be used.
 
 ==Automatic Installation==
 A package's Info.plist must contain a string with a key of "TBInstallFromDmg". The string may be "no", "yes", "force", or "ask".
