@@ -2,7 +2,7 @@
 #labels Featured,Phase-Requirements
 
 ====THIS IS A PROPOSAL. IT HAS NOT BEEN IMPLEMENTED AND IT IS PRELIMINARY AND SUBJECT TO CHANGE.===
-====PLEASE DISCUSS THIS PROPOSAL IN [ THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
+====PLEASE DISCUSS THIS PROPOSAL IN [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
 
 <wiki:toc max_depth="2" />
 
@@ -67,7 +67,7 @@ On automatic or manual installation of a package, if a package with an identical
 When an existing package is replaced, the new copy takes the display name of the existing version. Thus, the new version will inherit the existing version's preferences and Keychain items.
 
 ==Name Conflicts During Installation==
-If the display name of a package is the same as the name of an .ovpn or .conf file (without the .extension) from either Deploy or ~/Library/Application Support/Tunnelblick/Configurations:
+If the display name of a package is the same as the name of an .ovpn or .conf file (without the .extension) from either Deploy or ~/Library/Application Support/Tunnelblick/Configurations, or is the same as the display name of an existing package that has a different CFBundleIdentifier:
   * If the display name came from the package filename, the user will be asked to rename the package or cancel the installation;
   * If the display name came from a 'TBDisplayName' entry in the package's Info.plist, the installation will be cancelled. (The user must rename of the .ovpn or .conf file and should rename all preferences for that configuration to allow installation to proceed.)
 
@@ -109,5 +109,7 @@ If the display name of a package is the same as the name of an .ovpn or .conf fi
     * Document created
   * 2010-03-20
     * Changed Info.plist item for installation options, clarified language, reorganized
+  * 2010-03-21
+    * Clarified section about naming conflicts
 
 ====PLEASE DISCUSS THIS PROPOSAL IN [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
