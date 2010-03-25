@@ -50,7 +50,7 @@ Info.plist is required. It must be an OS X property list file, and must contain 
 ||TBPackageVersion||The string "1" (without the quotation marks)||1||
 ||TBInstallWhenInstallingTunnelblick||A string specifying whether to install the package when the package is located on a disk image or other volume from which Tunnelblick cannot be used and Tunnelblick is installed by double-clicking Tunnelblick.app on the volume. Must be "yes", "no", or "ask" (without the quotation marks)||no||
 ||TBReplaceIdentical||A string specifying whether to install the package over a package with the same CFBundleIdentifier. Must be "yes", "no", "ask", or "force" (without the quotation marks)||yes||
-||TBSharePackage||A string specifying whether to install the package as shared or private, or to ask the user. Must be "public", "private", or "ask" (without the quotation marks)||ask||
+||TBSharePackage||A string specifying whether to install the package as shared or private, or to ask the user. Must be "shared", "private", or "ask" (without the quotation marks)||ask||
 
 A package's Info.plist may optionally contain a 'TBDisplayName' key with a string value which will be used as the display name of the configuration. If no 'TBDisplayName' is present, the name of the Tunnelblick package (without the .tblk) will be used as the display name of the configuration.
 
@@ -117,6 +117,6 @@ If the display name of a package is the same as the name of an .ovpn or .conf fi
   * 2010-03-21
     * Clarified section about naming conflicts
   * 2010-03-25
-    * Changed some Info.plist entries, added note about shadow copies, and made minor edits.
+    * Changed some Info.plist entries, added ability to install to shared location, added note about shadow copies, and made minor edits.
 
 ====PLEASE DISCUSS THIS PROPOSAL IN [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
