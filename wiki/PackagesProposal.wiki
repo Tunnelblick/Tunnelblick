@@ -20,11 +20,11 @@ A Tunnelblick package is a folder with an extension of .tblk that contains infor
 Tunnelblick packages must be installed before they can be used.
 
 ==Installation==
-Installation of a package can be done manually by double-clicking it or dragging it to a Tunnelblick icon in Finder. (A package _cannot_ be dragged to the Tunnelblick icon near the Spotlight icon in the Status Bar.) Installation can also be done automatically when Tunnelblick is installed from a disk image or certain other other volumes (see [Automatic_Installation Automatic Installation]).
+Installation of a package can be done manually by double-clicking it or dragging it to a Tunnelblick icon in Finder. (A package _cannot_ be dragged to the Tunnelblick icon near the Spotlight icon in the Status Bar.) Installation can also be done automatically when Tunnelblick is installed from a disk image or certain other other volumes (see [PackagesProposal#Automatic_Installation Automatic Installation]).
 
-When a package is installed, it is copied and the copy is secured by setting ownership and permissions on the package's contents. The installed package may be shared or private. Packages to be shared are copied to /Library/Application Support/Tunnelblick/Shared, and packages to be kept private are copied to ~/Library/Application Support/Tunnelblick/PrivateConfigurations.
+When a package is installed, it is copied and the copy is secured by setting ownership and permissions on the package's contents. The installed package may be shared or private. Packages to be shared are copied to `/Library/Application Support/Tunnelblick/Shared`, and packages to be kept private are copied to `~/Library/Application Support/Tunnelblick/Configurations`.
 
- Depending on the value of "TBSharePackage" in Info.plist, the user may be asked if the package is to be shared or private, or it may be automatically installed as one or the other.
+Depending on the value of "TBSharePackage" in Info.plist, the user may be asked if the package is to be shared or private, or it may be automatically installed as one or the other.
 
 ==Package Format==
 Tunnelblick packages are folders with an extension of ".tblk". (OS X will treat the folder as a package because of the extension.) The contents of a Tunnelblick package should be arranged as follows:
