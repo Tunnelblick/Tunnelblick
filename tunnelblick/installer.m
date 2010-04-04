@@ -16,9 +16,11 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "installer.h"
+#import <Foundation/Foundation.h>
 #include <unistd.h>
-//#include <sys/types.h>
+
+void runTask(NSString *launchPath,NSArray *arguments);
+void createDir(NSString * d);
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 // This program takes three arguments that specify what it is to do:
@@ -26,6 +28,7 @@
 // If the second is "1", the application's ownership/permissions should be repaired and/or the configuration folder moved and
 //                       a symbolic link ~/Library/Application Support/Tunnelblick/Configurations created as ~/Library/openvpn
 // If the third  is "1", the Deploy backup will be removed.
+// This program also always makes sure that /Library/Application Support/Tunnelblick/Shared exists (it creates it if necessary)
 
 int main(int argc, char *argv[]) 
 {
@@ -61,6 +64,9 @@ int main(int argc, char *argv[])
     BOOL okToRecover  = strcmp(argv[1], "1") == 0;
     BOOL needToRepair = strcmp(argv[2], "1") == 0;
     BOOL removeBackup = strcmp(argv[3], "1") == 0;
+    
+    // Make sure /Library/Application Support/Tunnelblick/Shared exists
+    createDir(@"/Library/Application Support/Tunnelblick/Shared");
     
     // If a backup of Resources/Deploy exists, and Resources/Deploy itself does not exist
     // Then restore it from the backup if the user gave permission to do so

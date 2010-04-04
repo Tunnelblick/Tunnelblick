@@ -70,6 +70,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 
     NSString                * deployPath;                   // Path to Tunnelblick.app/Contents/Resources/Deploy
     NSString                * libraryPath;                  // Path to ~/Library/Application Support/Tunnelblick/Configurations
+    NSString                * sharedPath;                   // Path to /Library/Application Support/Tunnelblick/Shared
 
     NSMutableArray          * configDirs;                   // Array of paths to configuration directories currently in use
 
@@ -85,7 +86,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
-    BOOL                      logWindowIsOpen;              // Indicates if OpenVPN Log window is being displayed
+    BOOL                      logWindowIsOpen;              // Indicates if Details window is being displayed
     
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
@@ -125,6 +126,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(void)             addConnection:                          (id)                sender;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
+-(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
 -(void)             cleanup;
 -(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
                                        andMessage:          (NSString *)        msg;
@@ -183,4 +185,5 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(NSMutableArray *) configDirs;
 -(NSString *)       deployPath;
 -(NSString *)       libraryPath;
+-(NSString *)       sharedPath;
 @end

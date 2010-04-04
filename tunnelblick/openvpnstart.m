@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor = TRUE;
-						if (cfgLocCode < 3) {
+						if (cfgLocCode < 4) {
                             retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor);
                             syntaxError = FALSE;
                         }
@@ -157,8 +157,9 @@ int main(int argc, char* argv[])
                 "                            then ~/Library/Application Support/Tunnelblick/Configurations will be used for all other files (such as .crt and .key files)\n"
                 "                and If 'useScripts' is 1 or 2\n"
                 "                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
-                "                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n\n"
-                
+                "                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n"
+                "           or 3 to use /Library/Application Support/Tunnelblick/Shared\n\n"
+
                 "noMonitor  is 0 to monitor the connection for interface configuration changes\n"
                 "           or 1 to not monitor the connection for interface configuration changes\n\n"
 
@@ -239,6 +240,11 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             if (  ! onlyThoseFiles  ) {
                 directoryPath = deployDirPath;
             }
+            break;
+            
+        case 3:
+            configPath = [@"/Library/Application Support/Tunnelblick/Shared" stringByAppendingPathComponent: configFile];
+            directoryPath = @"/Library/Application Support/Tunnelblick/Shared";
             break;
             
         default:

@@ -218,6 +218,8 @@ extern TBUserDefaults  * gTbDefaults;
         altCfgLoc = @"1";
     } else if (  [configPath hasPrefix: [[NSApp delegate] deployPath]]  ) {
         altCfgLoc = @"2";
+    } else if (  [configPath hasPrefix: [[NSApp delegate] sharedPath]]  ) {
+        altCfgLoc = @"3";
     }
     
     NSString * noMonitorKey = [[self displayName] stringByAppendingString: @"-notMonitoringConnection"];
@@ -710,8 +712,17 @@ extern TBUserDefaults  * gTbDefaults;
         if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", @"Button");
         else commandString = NSLocalizedString(@"Connect", @"Button");
         
-        NSString *itemTitle = [NSString stringWithFormat:@"%@ %@", commandString, [connection displayName]];
-        [anItem setTitle:itemTitle]; 
+        NSString * locationMessage = @"";
+        if (  [[[NSApp delegate] configDirs] count] > 1  ) {
+            if (  [[connection configPath] hasPrefix: [[NSApp delegate] deployPath]]  ) {
+                locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
+            } else if (  [[connection configPath] hasPrefix: [[NSApp delegate] sharedPath]]  ) {
+                locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
+            }
+        }
+        NSString *itemTitle = [NSString stringWithFormat:@"%@ %@%@", commandString, [connection displayName], locationMessage];
+        [anItem setTitle:itemTitle];
+        [anItem setToolTip: [connection configPath]];
 	}
 	return YES;
 }
@@ -731,16 +742,27 @@ extern TBUserDefaults  * gTbDefaults;
 	return NO;
 }
 
-// Given paths to the regular config in ~/Library/Application Support/Tunnelblick/Configurations or /Resources/Deploy, and an alternate config in /Library/Application Support/Tunnelblick/Users/<username>/
+// Given paths to a configuration (either a .conf or .ovpn file)
+// (in ~/Library/Application Support/Tunnelblick/Configurations,
+//     /Library/Application Support/Tunnelblick/Shared,
+//  or /Resources/Deploy)
+// and an alternate config in /Library/Application Support/Tunnelblick/Users/<username>/
 // Returns the path to use, or nil if can't use either one
 -(NSString *) getConfigToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
 {
-    if (  ! [self configNotProtected:cfgPath]  ) {                             // If config doesn't need repair
-        if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {   // And not using shadow configuration files
-            if (  [self isSampleConfigurationAtPath: cfgPath]  ) {             // And it isn't the sample configuration file
-                return nil;
+    if (  [self isSampleConfigurationAtPath: cfgPath]  ) {             // Don't use the sample configuration file
+        return nil;
+    }
+    
+    if (  ! [self configNotProtected:cfgPath]  ) {                              // If config is protected
+        if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {    //    If not using shadow configuration files
+            return cfgPath;                                                     //    Then use it
+        } else { 
+            NSString * folder = [[NSApp delegate] firstPartsOfPath: cfgPath];   //    Or if are using shadow configuration files
+            if (   [folder isEqualToString: [[NSApp delegate] sharedPath]]      //    And in Shared or Deploy (even if using shadow copies)
+                || [folder isEqualToString: [[NSApp delegate] deployPath]]  ) { //    Then use it (we don't need to shadow copy them)
+                return cfgPath;
             }
-            return cfgPath;                                                   // Then use it
         }
     }
     
@@ -1001,11 +1023,14 @@ extern TBUserDefaults  * gTbDefaults;
 
 // Sets ownership/permissions on a config file to the current user:group/0644 without using authorization
 // Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
--(BOOL)unprotectConfigurationFile:(NSString *) configFilePath
+-(BOOL)unprotectConfigurationFile
 {
+    NSString * configFilePath = [self configPath];
+    
     // Do it by replacing the root-owned file with a user-owned copy (keep root-owned file as a backup)
-    NSString * configBackupPath = [configFilePath stringByAppendingPathExtension:@"previous"];
     NSString * configTempPath   = [configFilePath stringByAppendingPathExtension:@"temp"];
+    NSString * oldExtension = [configFilePath pathExtension];
+    NSString * configBackupPath = [[[configFilePath stringByDeletingPathExtension] stringByAppendingString:@"-previous"] stringByAppendingPathExtension: oldExtension];
     
     NSFileManager * fMgr = [NSFileManager defaultManager];
     

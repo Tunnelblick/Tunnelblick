@@ -418,7 +418,7 @@ void localizableStrings(void)
     NSLocalizedString(@"Double-click to begin", @"Text on disk image");
     
     // These strings come from the .nib
-    NSLocalizedString(@"OpenVPN Log Output - Tunnelblick",  @"Window title");
+    NSLocalizedString(@"Details - Tunnelblick",             @"Window title");
     NSLocalizedString(@"Clear log",                         @"Button");
     NSLocalizedString(@"Edit configuration",                @"Button");
     NSLocalizedString(@"Connect",                           @"Button");

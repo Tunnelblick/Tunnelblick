@@ -1,6 +1,9 @@
 /* Window title */
 " (Deployed)" = " (Deployed)";
 
+/* Window title */
+" (Shared)" = " (Shared)";
+
 /* Window text */
 "(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
 
@@ -31,11 +34,23 @@
 /* System profile item */
 "Configurations" = "Configurations";
 
+/* Button */
+"Create and open configuration folder" = "Create and open configuration folder";
+
 /* System profile item */
 "Deployed" = "Deployed";
 
 /* "Menu item tooltip" */
 "Disabled because Sparkle Updater does not implement this feature" = "Disabled because Sparkle Updater does not implement this feature";
+
+/* Menu item tooltip */
+"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
+
+/* Menu item tooltip */
+"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:" = "Disabled because Sparkle Updater does not respond to setSendsSystemProfile:";
+
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
 
 /* "Menu item tooltip" */
 "Disabled because this setting is being forced" = "Disabled because this setting is being forced";
@@ -48,6 +63,9 @@
 
 /* Window text */
 "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
+
+/* Window text */
+"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\"%1$@\"?\n\n%2$@";
 
 /* Window text */
 "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@";
@@ -123,6 +141,9 @@
 
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
+
+/* Window text */
+"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = "Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
