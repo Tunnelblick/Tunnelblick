@@ -24,12 +24,13 @@
 #import "NamedPipe.h"
 
 @interface VPNConnection : NSObject {
-    NSString      * configPath;         // Full path to the configuration file.
-                                        // The file MUST reside (for security reasons) in either
-                                        //      Tunnelblick.app/Contents/Resources/Deploy
-                                        // or
-                                        //      ~/Library/Application Support/Tunnelblick/Configurations
-                                        // or a subdirectory of either of them
+    NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file)
+    // The configuration file MUST reside (for security reasons) in
+    //      Tunnelblick.app/Contents/Resources/Deploy
+    // or   ~/Library/Application Support/Tunnelblick/Configurations
+    // or   /Library/Application Support/Tunnelblick/Shared
+    // or   /Library/Application Support/Tunnelblick/User/<username>
+    // or a subdirectory of one of them
 	NSString      * displayName;        // The configuration name as displayed to the user
 
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
@@ -71,7 +72,7 @@
 -(void)             setState:                   (NSString *)    newState;
 -(NSString*)        state;
 -(IBAction)         toggle:                     (id)            sender;
--(BOOL)             unprotectConfigurationFile: (NSString *)    configFilePath;
+-(BOOL)             unprotectConfigurationFile;
 -(BOOL)             usedSetNameserver;
 
 @end

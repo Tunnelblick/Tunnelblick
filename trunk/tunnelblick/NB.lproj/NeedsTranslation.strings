@@ -1,3 +1,24 @@
 /* Window title */
 " (Deployed)" = " (Deployed)";
 
+/* Window title */
+" (Shared)" = " (Shared)";
+
+/* Button */
+"Create and open configuration folder" = "Create and open configuration folder";
+
+/* Menu item tooltip */
+"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
+
+/* Menu item tooltip */
+"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:" = "Disabled because Sparkle Updater does not respond to setSendsSystemProfile:";
+
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
+
+/* Window text */
+"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\"%1$@\"?\n\n%2$@";
+
+/* Window text */
+"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = "Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n";
+

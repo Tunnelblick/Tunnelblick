@@ -1,6 +1,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 " (Deployed)" = " (Deployed)";
 
+/* NEEDS TRANSLATION *//* Window title */
+" (Shared)" = " (Shared)";
+
 /* Window title */
 "'%@' has been disconnected" = "'%@' har blitt koblet fra";
 
@@ -94,6 +97,9 @@
 /* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
 "Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2010 Angelo Laub and others. All rights reserved.";
 
+/* NEEDS TRANSLATION *//* Button */
+"Create and open configuration folder" = "Create and open configuration folder";
+
 /* Button */
 "Create copy" = "Lag kopi";
 
@@ -103,11 +109,23 @@
 /* System profile item */
 "Deployed" = "Utrullet";
 
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+"Details - Tunnelblick" = "Details - Tunnelblick";
+
 /* Menu item */
 "Details..." = "Detaljer…";
 
 /* "Menu item tooltip" */
 "Disabled because Sparkle Updater does not implement this feature" = "Deaktivert fordi Sparkle Updater støtter ikke denne funksjonen";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:" = "Disabled because Sparkle Updater does not respond to setSendsSystemProfile:";
+
+/* NEEDS TRANSLATION *//* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
 
 /* "Menu item tooltip" */
 "Disabled because this setting is being forced" = "Deaktivert fordi denne instillingen er tvungen";
@@ -132,6 +150,9 @@
 
 /* Window text */
 "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Vil du nedgradere\n     %@\ntil\n     %@?\n\nDen erstattede versjonen vil plasseres i Papirkurven.\n\nInstallasjons lokasjon: \"%@\"\n%@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\"%1$@\"?\n\n%2$@";
 
 /* Window text */
 "Do you wish to install Tunnelblick in\n\n\"%@\"?\n\n%@" = "Vil du installere Tunnelblick i\n\n\"%@\"?\n\n%@";
@@ -228,9 +249,6 @@
 
 /* Button */
 "Open configuration folder" = "Åpne konfigurasjonsmappen";
-
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"OpenVPN Log Output - Tunnelblick" = "OpenVPN Log Output - Tunnelblick";
 
 /* Menu item */
 "Options" = "Tilvalg";
@@ -351,6 +369,9 @@
 
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kan kun oppdateres hvis den heter 'Tunnelblick'. Du har endret filnlavnet til %@, så oppdateringer er deaktivert.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = "Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunne ikke startes grunnet konfigurasjonsproblemer. Vennligst undersøk konsoll loggen for detaljer.";

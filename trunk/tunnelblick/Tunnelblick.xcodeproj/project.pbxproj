@@ -169,7 +169,6 @@
 		61BC4D6B0E2FA06900F24255 /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4D880E2FA20800F24255 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		61BC4D890E2FA20800F24255 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
-		61BC4D9C0E2FA2F300F24255 /* installer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = installer.h; sourceTree = "<group>"; };
 		61BC4D9D0E2FA2F300F24255 /* installer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = installer.m; sourceTree = "<group>"; };
 		61BC4DB10E2FA3C300F24255 /* LogWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LogWindow.nib; sourceTree = "<group>"; };
 		61BC4DB20E2FA3C300F24255 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
@@ -252,7 +251,6 @@
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
 				638E695F1097725500587933 /* TBUserDefaults.h */,
 				638E69601097725500587933 /* TBUserDefaults.m */,
-				61BC4D9C0E2FA2F300F24255 /* installer.h */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,

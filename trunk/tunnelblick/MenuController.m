@@ -37,6 +37,7 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <uuid/uuid.h>
+#include <sys/mount.h>
 #import "KeyChain.h"
 #import "NetSocket.h"
 #import "NSApplication+LoginItem.h"
@@ -70,6 +71,7 @@ extern TBUserDefaults  * gTbDefaults;
         
         deployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
         libraryPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
+        sharedPath = [@"/Library/Application Support/Tunnelblick/Shared" copy];
 
 		configDirs = [[NSMutableArray alloc] initWithCapacity: 2];
 
@@ -97,20 +99,6 @@ extern TBUserDefaults  * gTbDefaults;
         if (   haveBackup
             && ( ! haveDeploy) ) {
             restore = TRUE;
-/* REMOVED FOR PRODUCTION. An end user should always restore from backup. We can't make this a preference since the preferences
-                           haven't been loaded yet because we don't know if we have a "forced-preferences.plist" file
- 
-            int response = TBRunAlertPanel(NSLocalizedString(@"Restore Configuration Settings from Backup?", @"Window title"),
-                                           NSLocalizedString(@"This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.", @"Window text"),
-                                           NSLocalizedString(@"Restore", @"Button"),        // Default Button
-                                           NSLocalizedString(@"Remove backup and do not restore", @"Button"), // Alternate Button
-                                           NSLocalizedString(@"Do not restore", @"Button")); // Other button
-            if (  response == NSAlertDefaultReturn ) {
-                restore = TRUE;
-            } else if (  response == NSAlertAlternateReturn ) {
-                remove = TRUE;
-            }
-*/
         }
         // The installer restores Resources/Deploy and/or removes its backups and/or repairs permissions,
         // then moves the config folder if it hasn't already been moved, then backs up Resources/Deploy if it exists
@@ -154,14 +142,21 @@ extern TBUserDefaults  * gTbDefaults;
         }
         
         // If not Deployed, or if Deployed and it is specifically allowed,
-        // Then add ~/Library/Application Support/Tunnelblick/Configurations to configDirs
+        // Then   add /Library/Application Support/Tunnelblick/Shared to configDirs
+        // and/or add ~/Library/Application Support/Tunnelblick/Configurations to configDirs
         if (  [configDirs count] != 0  ) {
+            if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
+                if (  [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
+                    [configDirs addObject: [sharedPath copy]];
+                }
+            }
             if (  ! [gTbDefaults canChangeValueForKey: @"useLibraryConfigurationsWithDeployedOnes"]  ) {
                 if (  [gTbDefaults boolForKey: @"useLibraryConfigurationsWithDeployedOnes"]  ) {
                     [configDirs addObject: [libraryPath copy]];
                 }
             }
         } else {
+            [configDirs addObject: [sharedPath copy]];
             [configDirs addObject: [libraryPath copy]];
         }
         
@@ -177,7 +172,8 @@ extern TBUserDefaults  * gTbDefaults;
         
         if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
             if (  [configDirs containsObject: libraryPath]  ) {
-                if (  [fMgr fileExistsAtPath: libraryPath isDirectory: &isDir]  ) {
+                if (   [fMgr fileExistsAtPath: libraryPath isDirectory: &isDir]
+                    && isDir  ) {
                     NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
                     NSString * launchTunnelblickSymlink = [libraryPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
                     if (  ! [fMgr fileAttributesAtPath: launchTunnelblickSymlink traverseLink: NO]  ) {
@@ -989,8 +985,9 @@ extern TBUserDefaults  * gTbDefaults;
 	}	
 }
 
-// Returns a dictionary with information about the configuration files
-// The key for each entry is the display name for the configuration; the object is the path to the configuration file for the configuration
+// Returns a dictionary with information about the configuration files in configDirs.
+// The key for each entry is the display name for the configuration
+// The object is the path to the configuration file for the configuration
 -(NSMutableDictionary *) getConfigurations {
     NSFileManager * fMgr = [NSFileManager defaultManager];
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
@@ -1205,16 +1202,18 @@ extern TBUserDefaults  * gTbDefaults;
 	
     [self validateLogButtons];
     
-    NSString * deployMsg = @"";
-    if (  [configDirs count] > 1 ) {
-        if (  [[self firstPartsOfPath: [newConnection configPath]] isEqualToString: deployPath]  ) {
-            deployMsg =  NSLocalizedString(@" (Deployed)", @"Window title");
+    NSString * locationMessage = @"";
+    if (  [configDirs count] > 1  ) {
+        if (  [[newConnection configPath] hasPrefix: deployPath]) {
+            locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
+        } else if (  [[newConnection configPath] hasPrefix: sharedPath]) {
+            locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
         }
     }
     [logWindow setTitle: [NSString stringWithFormat: @"%@ - %@%@",
-                          NSLocalizedString(@"OpenVPN Log Output - Tunnelblick", @"Window title"),
+                          NSLocalizedString(@"Details - Tunnelblick", @"Window title"),
                           [[self selectedConnection] displayName],
-                          deployMsg]];
+                          locationMessage]];
 }
 
 - (void) textStorageDidProcessEditing: (NSNotification*) aNotification
@@ -1699,59 +1698,46 @@ extern TBUserDefaults  * gTbDefaults;
         NSFileManager  * fileManager = [NSFileManager defaultManager];
         if (  [fileManager fileExistsAtPath: targetPath]  ) {           // Must check that file exists because isWritableAtPath returns NO if the file doesn't exist
             if (  ! [fileManager isWritableFileAtPath: targetPath]  ) {
-                if (  runningOnSnowLeopardOrNewer()  ) {
+                if (   [fileManager isWritableFileAtPath: [targetPath stringByDeletingLastPathComponent]]
+                    && (userIsAnAdmin || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] ))  ) {
+                    // Ask if user wants to unprotect the configuration file
                     int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
-                                                         NSLocalizedString(@"If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
-                                                         NSLocalizedString(@"Edit configuration", @"Button"),   // Default button
-                                                         NSLocalizedString(@"Cancel", @"Button"),               // Alternate button
-                                                         nil,                                                   // Other button
-                                                         @"skipWarningAboutReprotectingConfigurationFile",      // Preference about seeing this message again
+                                                         NSLocalizedString(@"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
+                                                         NSLocalizedString(@"Examine", @"Button"),                  // Default button
+                                                         NSLocalizedString(@"Unprotect and Modify", @"Button"),     // Alternate button
+                                                         NSLocalizedString(@"Cancel", @"Button"),                   // Other button
+                                                         @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",  // Preference about seeing this message again
+                                                         NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox text"),
+                                                         nil);
+                    if (  button == NSAlertOtherReturn  ) {
+                        return;
+                    }
+                    if (  button == NSAlertAlternateReturn  ) {
+                        if (  ! [connection unprotectConfigurationFile]  ) {
+                            int button = TBRunAlertPanel(NSLocalizedString(@"Examine the configuration file?", @"Window title"),
+                                                         NSLocalizedString(@"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?", @"Window text"),
+                                                         NSLocalizedString(@"Cancel", @"Button"),    // Default button
+                                                         NSLocalizedString(@"Examine", @"Button"),   // Alternate button
+                                                         nil);
+                            if (  button != NSAlertAlternateReturn  ) {
+                                return;
+                            }
+                        }
+                    }
+                } else {
+                    // User is only allowed to examine the configuration file
+                    int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
+                                                         NSLocalizedString(@"You may examine the configuration file, but you will not be allowed to modify it.", @"Window text"),
+                                                         NSLocalizedString(@"Examine", @"Button"),          // Default button
+                                                         NSLocalizedString(@"Cancel", @"Button"),           // Alternate button
+                                                         nil,                                               // Other button
+                                                         @"skipWarningThatCannotModifyConfigurationFile",   // Preference about seeing this message again
                                                          NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
                                                          nil);
                     if (  button == NSAlertAlternateReturn  ) {
                         return;
                     }
-                } else {
-                    if (  userIsAnAdmin || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] )  ) {
-                        // Ask if user wants to unprotect the configuration file
-                        int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
-                                                             NSLocalizedString(@"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.", @"Window text"),
-                                                             NSLocalizedString(@"Examine", @"Button"),                  // Default button
-                                                             NSLocalizedString(@"Unprotect and Modify", @"Button"),     // Alternate button
-                                                             NSLocalizedString(@"Cancel", @"Button"),                   // Other button
-                                                             @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",  // Preference about seeing this message again
-                                                             NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox text"),
-                                                             nil);
-                        if (  button == NSAlertOtherReturn  ) {
-                            return;
-                        }
-                        if (  button == NSAlertAlternateReturn  ) {
-                            if (  ! [connection unprotectConfigurationFile: targetPath]  ) {
-                                int button = TBRunAlertPanel(NSLocalizedString(@"Examine the configuration file?", @"Window title"),
-                                                             NSLocalizedString(@"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?", @"Window text"),
-                                                             NSLocalizedString(@"Cancel", @"Button"),    // Default button
-                                                             NSLocalizedString(@"Examine", @"Button"),   // Alternate button
-                                                             nil);
-                                if (  button != NSAlertAlternateReturn  ) {
-                                    return;
-                                }
-                            }
-                        }
-                    } else {
-                        // User is only allowed to examine the configuration file
-                        int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
-                                                             NSLocalizedString(@"You may examine the configuration file, but you will not be allowed to modify it.", @"Window text"),
-                                                             NSLocalizedString(@"Examine", @"Button"),          // Default button
-                                                             NSLocalizedString(@"Cancel", @"Button"),           // Alternate button
-                                                             nil,                                               // Other button
-                                                             @"skipWarningThatCannotModifyConfigurationFile",   // Preference about seeing this message again
-                                                             NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
-                                                             nil);
-                        if (  button == NSAlertAlternateReturn  ) {
-                            return;
-                        }
-                    }                    
-                }
+                }                    
             }
         }
             
@@ -1996,7 +1982,7 @@ static void signal_handler(int signalNumber)
     }
     
     if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        if (  [gTbDefaults boolForKey: @"updateSendProfileInfo"] != nil  ) {
+        if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] != nil  ) {
             [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
         }
     } else {
@@ -2117,6 +2103,10 @@ static void signal_handler(int signalNumber)
                  sendingSystemProfile:(BOOL) sendingProfile
 {
     if (  updaterToFeed == updater  ) {
+        if (  ! sendingProfile  ) {
+            return [NSArray array];
+        }
+        
         int nConfigurations    = [myConfigDictionary count];
         int nSetNameserver     = 0;
         int nMonitorConnection = 0;
@@ -2211,11 +2201,11 @@ static void signal_handler(int signalNumber)
     if (  tellUser  ) {
         TBRunAlertPanelExtended(NSLocalizedString(@"Updates are disabled", @"Window title"),
                                 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.", @"Window text"), appName],
-                                NSLocalizedString(@"OK", @"button"),    // Default button
+                                NSLocalizedString(@"OK", @"Button"),    // Default button
                                 nil,
                                 nil,
                                 @"skipWarningThatNameChangeDisabledUpdates",
-                                NSLocalizedString(@"Do not warn about this again", @"Checkbox Name"),
+                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                 nil);
     }
     return FALSE;
@@ -2226,7 +2216,7 @@ static void signal_handler(int signalNumber)
     [NSApp setAutoLaunchOnLogin: NO];
     
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
-	if (  [currentPath hasPrefix:@"/Volumes/Tunnelblick"]  ) {
+	if (  [self cannotRunFromVolume: currentPath]  ) {
         
         NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);
         
@@ -2246,6 +2236,7 @@ static void signal_handler(int signalNumber)
             }
         }
         
+        NSString * preMessage = NSLocalizedString(@"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n", @"Window text");
         NSString * displayApplicationName = [fMgr displayNameAtPath: @"Tunnelblick.app"];
         
         NSString * standardFolder = [standardPath stringByDeletingLastPathComponent];
@@ -2269,7 +2260,8 @@ static void signal_handler(int signalNumber)
                 launchWindowTitle = NSLocalizedString(@"Downgrade succeeded", @"Window title");
                 launchWindowText = NSLocalizedString(@"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
                 response = TBRunAlertPanel(NSLocalizedString(@"Downgrade Tunnelblick?", @"Window title"),
-                                           [NSString stringWithFormat: NSLocalizedString(@"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@", @"Window text"), previousVersion, appVersion, standardFolderDisplayName, changeLocationText],
+                                           [NSString stringWithFormat: [preMessage stringByAppendingString:
+                                                                        NSLocalizedString(@"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@", @"Window text")], previousVersion, appVersion, standardFolderDisplayName, changeLocationText],
                                            NSLocalizedString(@"Downgrade", @"Button"),  // Default button
                                            NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
                                            nil);                                        // Other button
@@ -2277,7 +2269,8 @@ static void signal_handler(int signalNumber)
                 launchWindowTitle = NSLocalizedString(@"Reinstallation succeeded", @"Window title");
                 launchWindowText = NSLocalizedString(@"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
                 response = TBRunAlertPanel(NSLocalizedString(@"Reinstall Tunnelblick?", @"Window title"),
-                                           [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@", @"Window text"), previousVersion, standardFolderDisplayName, changeLocationText],
+                                           [NSString stringWithFormat: [preMessage stringByAppendingString:
+                                                                        NSLocalizedString(@"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@", @"Window text")], previousVersion, standardFolderDisplayName, changeLocationText],
                                            NSLocalizedString(@"Reinstall", @"Button"),  // Default button
                                            NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
                                            nil);                                        // Other button
@@ -2286,7 +2279,8 @@ static void signal_handler(int signalNumber)
                 launchWindowText = NSLocalizedString(@"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
                 previousVersion = tunnelblickVersion(previousBundle);
                 response = TBRunAlertPanel(NSLocalizedString(@"Upgrade Tunnelblick?", @"Window title"),
-                                           [NSString stringWithFormat: NSLocalizedString(@"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@", @"Window text"), previousVersion, appVersion, standardFolderDisplayName, changeLocationText],
+                                           [NSString stringWithFormat: [preMessage stringByAppendingString:
+                                                                        NSLocalizedString(@"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@", @"Window text")], previousVersion, appVersion, standardFolderDisplayName, changeLocationText],
                                            NSLocalizedString(@"Upgrade", @"Button"),    // Default button
                                            NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
                                            nil);                                        // Other button
@@ -2295,7 +2289,8 @@ static void signal_handler(int signalNumber)
             launchWindowTitle = NSLocalizedString(@"Installation succeeded", @"Window title");
             launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
             response = TBRunAlertPanel(NSLocalizedString(@"Install Tunnelblick?", @"Window title"),
-                                       [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@", @"Window text"), standardFolderDisplayName, changeLocationText],
+                                       [NSString stringWithFormat: [preMessage stringByAppendingString:
+                                                                    NSLocalizedString(@"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@", @"Window text")], standardFolderDisplayName, changeLocationText],
                                        NSLocalizedString(@"Install", @"Button"),    // Default button
                                        NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
                                        nil);                                        // Other button
@@ -2388,6 +2383,27 @@ static void signal_handler(int signalNumber)
         
         [NSApp terminate: nil];
     }
+}
+
+// Returns TRUE if can't run Tunnelblick from this volume (can't run setuid binaries) or if statfs on it fails, FALSE otherwise
+-(BOOL) cannotRunFromVolume: (NSString *)path
+{
+    if ([path hasPrefix:@"/Volumes/Tunnelblick"]  ) {
+        return TRUE;
+    }
+    
+    const char * fileName = [path UTF8String];
+    struct statfs stats_buf;
+    int status;
+    
+    if (  0 == (status = statfs(fileName, &stats_buf))  ) {
+        if (  (stats_buf.f_flags & MNT_NOSUID) == 0  ) {
+            return FALSE;
+        }
+    } else {
+        NSLog(@"statfs returned error %@; treating %@ as if it were on a remote volume", [NSString stringWithCString:strerror(errno)], path);
+    }
+    return TRUE;   // Network volume or error accessing the file's data.
 }
 
 // After  r357, the build number is in Info.plist as "CFBundleVersion"
@@ -2832,6 +2848,11 @@ int runUnrecoverableErrorPanel(msg)
 -(NSString *) libraryPath
 {
     return [[libraryPath retain] autorelease];
+}
+
+-(NSString *) sharedPath
+{
+    return [[sharedPath retain] autorelease];
 }
 
 -(NSMutableArray *) configDirs
