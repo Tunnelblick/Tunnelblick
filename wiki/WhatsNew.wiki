@@ -1,8 +1,11 @@
 #summary What's New in Tunnelblick 3.0
 #labels Featured,Phase-Deploy
 
-For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
 <hr>
+[http://tunnelblick.googlecode.com/files/Tunnelblick_3.0.dmg Download Tunnelblick 3.0]
+
+<hr>
+
 This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.0. For more details or changes from other versions to Tunnelblick 3.0, see the [http://code.google.com/p/tunnelblick/wiki/ReleaseNotes Tunnelblick Release Notes].
 
 ==Better Security==
