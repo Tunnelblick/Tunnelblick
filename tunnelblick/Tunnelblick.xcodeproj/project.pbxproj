@@ -243,21 +243,24 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6327163D11048B9900E7AC34 /* NamedPipe.h */,
-				6327163E11048B9900E7AC34 /* NamedPipe.m */,
-				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
+				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
 				638E695F1097725500587933 /* TBUserDefaults.h */,
 				638E69601097725500587933 /* TBUserDefaults.m */,
-				61BC4D9D0E2FA2F300F24255 /* installer.m */,
-				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
-				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
-				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
-				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
+				6185E73E0E76045D0009C2FD /* helper.h */,
+				6185E73F0E76045D0009C2FD /* helper.m */,
 				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
 				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
+				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
+				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
+				6327163D11048B9900E7AC34 /* NamedPipe.h */,
+				6327163E11048B9900E7AC34 /* NamedPipe.m */,
+				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
+				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
+				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
+				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
 				61BC4B6B0E2F9EBC00F24255 /* NetSocket.h */,
 				61BC4B6C0E2F9EBC00F24255 /* NetSocket.m */,
 				61BC4B6D0E2F9EBC00F24255 /* NetSocket+Text.h */,
@@ -269,12 +272,9 @@
 				6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */,
 				6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */,
 				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
-				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
-				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
-				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
-				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
-				6185E73E0E76045D0009C2FD /* helper.h */,
-				6185E73F0E76045D0009C2FD /* helper.m */,
+				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
+				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
+				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -331,11 +331,6 @@
 			isa = PBXGroup;
 			children = (
 				63B78AD41102419800734D73 /* dmgFiles */,
-				61F294A50ED389520097DE94 /* openvpn.conf */,
-				6140EF990E3C334800C5B93A /* openvpn */,
-				ADB23E101099514400CC52D3 /* openvpn-down-root.so */,
-				61BC4E770E2FA8D000F24255 /* client.down.osx.sh */,
-				61BC4E780E2FA8D000F24255 /* client.up.osx.sh */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -345,9 +340,14 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6353818E1116031F00D68E83 /* dsa_pub.pem */,
-				6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */,
+				61F294A50ED389520097DE94 /* openvpn.conf */,
+				6140EF990E3C334800C5B93A /* openvpn */,
+				ADB23E101099514400CC52D3 /* openvpn-down-root.so */,
+				61BC4E780E2FA8D000F24255 /* client.up.osx.sh */,
 				634A1E0F10AEEF8F0097D733 /* client.nomonitor.up.osx.sh */,
+				61BC4E770E2FA8D000F24255 /* client.down.osx.sh */,
+				6388A0D110AEFD1F00E6BB2E /* client.nomonitor.down.osx.sh */,
+				6353818E1116031F00D68E83 /* dsa_pub.pem */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,

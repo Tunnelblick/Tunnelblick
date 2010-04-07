@@ -19,6 +19,9 @@
 #import <Foundation/Foundation.h>
 #include <unistd.h>
 
+NSFileManager * gFileMgr;       // [NSFileManager defaultManager]
+NSString      * gDeployPath;    // Path to Tunnelblick.app/Contents/Resources/Deploy
+
 void runTask(NSString *launchPath,NSArray *arguments);
 void createDir(NSString * d);
 
@@ -34,8 +37,10 @@ int main(int argc, char *argv[])
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
     
-	NSString * thisBundle           = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
-	NSString * deployPath           = [thisBundle stringByAppendingPathComponent:@"Deploy"];
+    gFileMgr = [NSFileManager defaultManager];    
+	
+    NSString * thisBundle           = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+               gDeployPath          = [thisBundle stringByAppendingPathComponent:@"Deploy"];
     NSString * deployBkupHolderPath = [[[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: thisBundle]
                                           stringByDeletingLastPathComponent]
                                          stringByDeletingLastPathComponent]
@@ -48,11 +53,10 @@ int main(int argc, char *argv[])
     uid_t realUserID  = getuid();   // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as
     gid_t realGroupID = getgid();
 
-    NSFileManager * fMgr = [NSFileManager defaultManager];
     BOOL            isDir;
     
     // We create this file to act as a flag that the installation failed. We delete it before a success return.
-    [fMgr createFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" contents: [NSData data] attributes: [NSDictionary dictionary]];
+    [gFileMgr createFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" contents: [NSData data] attributes: [NSDictionary dictionary]];
     chown([@"/tmp/TunnelblickInstallationFailed.txt" UTF8String], realUserID, realGroupID);
     
     if (  argc != 4  ) {
@@ -70,17 +74,17 @@ int main(int argc, char *argv[])
     
     // If a backup of Resources/Deploy exists, and Resources/Deploy itself does not exist
     // Then restore it from the backup if the user gave permission to do so
-    if (   [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
+    if (   [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
         && isDir  ) {
-        if (  ! (   [fMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+        if (  ! (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
                  && isDir  )  ) {
             if (  okToRecover  ) {
-                if (  ! [fMgr copyPath:deployBackupPath toPath: deployPath handler:nil]  ) {
-                    NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", deployPath);
+                if (  ! [gFileMgr copyPath:deployBackupPath toPath: gDeployPath handler:nil]  ) {
+                    NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", gDeployPath);
                     [pool release];
                     exit(EXIT_FAILURE);
                 } else {
-                    NSLog(@"Tunnelblick Installer: Restored %@ from backup", deployPath);
+                    NSLog(@"Tunnelblick Installer: Restored %@ from backup", gDeployPath);
                 }
             }
         }
@@ -89,9 +93,9 @@ int main(int argc, char *argv[])
     // If the backup of Deploy should be removed, first remove the folder that holds all
     // three copies, then delete parent folders up the hierarchy if they are empty or only have .DS_Store
     if (  removeBackup  ) {
-        if (   [fMgr fileExistsAtPath: deployBkupHolderPath isDirectory: &isDir]
+        if (   [gFileMgr fileExistsAtPath: deployBkupHolderPath isDirectory: &isDir]
             && isDir  ) {
-            if (  ! [fMgr removeFileAtPath: deployBkupHolderPath handler:nil]  ) {
+            if (  ! [gFileMgr removeFileAtPath: deployBkupHolderPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to remove %@", deployBkupHolderPath);
                 [pool release];
                 exit(EXIT_FAILURE);
@@ -99,15 +103,15 @@ int main(int argc, char *argv[])
             NSString * curDir = [deployBkupHolderPath stringByDeletingLastPathComponent];
             do
             {   
-                if (   [fMgr fileExistsAtPath: curDir isDirectory: &isDir]
+                if (   [gFileMgr fileExistsAtPath: curDir isDirectory: &isDir]
                     && isDir  ) {
-                    NSArray * contents = [fMgr directoryContentsAtPath: curDir];
+                    NSArray * contents = [gFileMgr directoryContentsAtPath: curDir];
                     if (  contents  ) {
                         if (  ([contents count] == 0)
                             || (   ([contents count] == 1)
                                 && [[contents objectAtIndex:0] isEqualToString:@".DS_Store"]  )
                             ) {
-                            if (  ! [fMgr removeFileAtPath: curDir handler:nil]  ) {
+                            if (  ! [gFileMgr removeFileAtPath: curDir handler:nil]  ) {
                                 NSLog(@"Tunnelblick Installer: Unable to remove %@", curDir);
                                 [pool release];
                                 exit(EXIT_FAILURE);
@@ -152,11 +156,11 @@ int main(int argc, char *argv[])
         NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
         
         NSString * file;
-        NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployPath];
+        NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: gDeployPath];
         while (file = [dirEnum nextObject]) {
             NSString * ext  = [file pathExtension];
-            NSString * filePath = [deployPath stringByAppendingPathComponent: file];
-            if (   [fMgr fileExistsAtPath: filePath isDirectory: &isDir]
+            NSString * filePath = [gDeployPath stringByAppendingPathComponent: file];
+            if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
                 && isDir  ) {
                 [chmod755Args addObject: filePath];
             } else if ( [ext isEqualToString:@"sh"]  ) {
@@ -182,19 +186,19 @@ int main(int argc, char *argv[])
         NSString * newConfigDirHolderPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick"];
         NSString * newConfigDirPath       = [newConfigDirHolderPath stringByAppendingPathComponent: @"Configurations"];
         
-        if (  ! [fMgr fileExistsAtPath: newConfigDirHolderPath]  ) {
-            if (  ! [fMgr fileExistsAtPath: newConfigDirPath]  ) {
-                NSDictionary * fileAttributes = [fMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO]; // Want to see if it is a link, so traverseLink:NO
+        if (  ! [gFileMgr fileExistsAtPath: newConfigDirHolderPath]  ) {
+            if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath]  ) {
+                NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO]; // Want to see if it is a link, so traverseLink:NO
                 if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                    if (   [fMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]
+                    if (   [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]
                         && isDir  ) {
                         createDir(newConfigDirHolderPath);
                         // Since we're running as root, owner of 'newConfigDirHolderPath' is root:wheel. Try to change to real user:group
                         if (  0 != chown([newConfigDirHolderPath UTF8String], realUserID, realGroupID)  ) {
                             NSLog(@"Tunnelblick Installer: Warning: Tried to change ownership of folder %@, returned status = %d", newConfigDirHolderPath, errno);
                         }
-                        if (  [fMgr movePath: oldConfigDirPath toPath: newConfigDirPath handler: nil]  ) {
-                            if (  [fMgr createSymbolicLinkAtPath: oldConfigDirPath pathContent: newConfigDirPath]  ) {
+                        if (  [gFileMgr movePath: oldConfigDirPath toPath: newConfigDirPath handler: nil]  ) {
+                            if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath pathContent: newConfigDirPath]  ) {
                                 NSLog(@"Tunnelblick Installer: Successfully moved configuration folder %@ to %@ and created a symbolic link in its place.", oldConfigDirPath, newConfigDirPath);
                                 // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
                                 if (  0 != lchown([oldConfigDirPath UTF8String], realUserID, realGroupID)  ) {
@@ -228,31 +232,31 @@ int main(int argc, char *argv[])
     }
     
     // If Resources/Deploy exists, back it up -- saving the first configuration and the two most recent
-    if (   [fMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+    if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
         && isDir  ) {
         createDir(deployBkupHolderPath);    // Create the folder that holds the backup folders if it doesn't already exist
         
-        if (  ! (   [fMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
+        if (  ! (   [gFileMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
                  && isDir  )  ) {
-            if (  ! [fMgr copyPath:deployPath toPath: deployOrigBackupPath handler:nil]  ) {
-                NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", deployPath);
+            if (  ! [gFileMgr copyPath:gDeployPath toPath: deployOrigBackupPath handler:nil]  ) {
+                NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", gDeployPath);
                 [pool release];
                 exit(EXIT_FAILURE);
             }
         }
         
-        [fMgr removeFileAtPath:deployPrevBackupPath handler:nil];                       // Make original backup. Ignore errors -- original backup may not exist yet
-        [fMgr movePath: deployBackupPath toPath: deployPrevBackupPath handler: nil];    // Make backup of previous backup. Ignore errors -- previous backup may not exist yet
+        [gFileMgr removeFileAtPath:deployPrevBackupPath handler:nil];                       // Make original backup. Ignore errors -- original backup may not exist yet
+        [gFileMgr movePath: deployBackupPath toPath: deployPrevBackupPath handler: nil];    // Make backup of previous backup. Ignore errors -- previous backup may not exist yet
         
-        if (  ! [fMgr copyPath:deployPath toPath: deployBackupPath handler:nil]  ) {    // Make backup of current
-            NSLog(@"Tunnelblick Installer: Unable to make backup of %@", deployPath);
+        if (  ! [gFileMgr copyPath:gDeployPath toPath: deployBackupPath handler:nil]  ) {    // Make backup of current
+            NSLog(@"Tunnelblick Installer: Unable to make backup of %@", gDeployPath);
             [pool release];
             exit(EXIT_FAILURE);
         }
     }
 
     // We remove this file to indicate that the installation succeeded because the return code doesn't propogate back to our caller
-    [fMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
+    [gFileMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
     
     [pool release];
     exit(EXIT_SUCCESS);
@@ -282,19 +286,18 @@ void runTask(NSString *launchPath,NSArray *arguments)
 }
 
 // Recursive function to create a directory if it doesn't already exist
-void createDir(NSString * d)
+void createDir(NSString * dirPath)
 {
-    NSFileManager * fMgr = [NSFileManager defaultManager];
     BOOL isDir;
-    if (   [fMgr fileExistsAtPath: d isDirectory: &isDir]
+    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
         && isDir  ) {
         return;
     }
     
-    createDir([d stringByDeletingLastPathComponent]);
+    createDir([dirPath stringByDeletingLastPathComponent]);
     
-    if (  ! [fMgr createDirectoryAtPath: d attributes: nil]  ) {
-        NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
+    if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: nil]  ) {
+        NSLog(@"Tunnelblick Installer: Unable to create directory %@", dirPath);
     }
     
     return;

@@ -46,11 +46,77 @@
 #import "helper.h"
 #import "TBUserDefaults.h"
 
+extern NSMutableArray  * gConfigDirs;
+extern NSString        * gDeployPath;
+extern NSString        * gSharedPath;
+extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
+
+extern NSString * firstPartOfPath(NSString * thePath);
+extern NSString * lastPartOfPath(NSString * thePath);
 
 @interface NSStatusBar (NSStatusBar_Private)
 - (id)_statusItemWithLength:(float)l withPriority:(int)p;
 - (id)_insertStatusItem:(NSStatusItem *)i withPriority:(int)p;
+@end
+
+@interface MenuController() // PRIVATE METHODS
+-(void)             activateStatusMenu;
+-(void)             addNewConfig:                           (NSString *)        path
+                 withDisplayName:                           (NSString *)        dispNm;
+-(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
+-(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
+-(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
+                                       andMessage:          (NSString *)        msg;
+-(void)             createMenu;
+-(void)             createStatusItem;
+-(void)             deleteExistingConfig:                   (NSString *)        dispNm;
+-(void)             destroyAllPipes;
+-(void)             dmgCheck;
+-(void)             fileSystemHasChanged:                   (NSNotification *)  n;
+-(BOOL)             folderContentsNeedToBeSecuredAtPath:    (NSString *)        theDirPath;
+-(NSMutableDictionary *) getConfigurations;
+-(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
+                                    andAction:              (SEL)               action
+                                   andToolTip:              (NSString *)        tip
+                           atIndentationLevel:              (int)               indentLevel
+                             andPreferenceKey:              (NSString *)        prefKey
+                                      negated:              (BOOL)              negatePref;
+-(void)             initialiseAnim;
+-(NSString *)       installationId;
+-(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
+-(BOOL)             isOwnedByRootAtPath:                    (NSString *)        fPath
+                        withPermissions:                    (NSString *)        permsShouldHave;
+-(void)             killAllConnections;
+-(void)             loadMenuIconSet;
+-(void)             loadKexts; 
+-(void)             localizeControl:                        (NSButton *)        button       
+                         shiftRight:                        (NSButton *)        buttonToRight
+                          shiftLeft:                        (NSButton *)        buttonToLeft
+                      shiftSelfLeft:                        (BOOL)              shiftSelfLeft;
+-(BOOL)             needsInstallation:                      (BOOL *)            changeOwnershipAndOrPermissions
+                          moveLibrary:                      (BOOL *)            moveLibraryOpenVPN;
+-(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
+                                    repairApp:              (BOOL)              repairIt
+                                 removeBackup:              (BOOL)              removeBkup
+                           moveLibraryOpenVPN:              (BOOL)              moveConfigs;
+-(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
+-(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
+-(VPNConnection *)  selectedConnection;
+-(NSTextView *)     selectedLogView;
+-(void)             setupSparklePreferences;
+-(void)             terminateBecauseOfBadConfiguration;
+-(void)             toggleMenuItem:                         (NSMenuItem *)      item
+                 withPreferenceKey:                         (NSString *)        prefKey;
+-(void)             unloadKexts; 
+-(void)             updateMenuAndLogWindow;
+-(void)             updateTabLabels;
+-(void)             updateUI;
+-(void)             validateLogButtons;
+-(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
+-(void)             watcher:                                (UKKQueue *)        kq
+       receivedNotification:                   (NSString *)        nm
+                    forPath:                                (NSString *)        fpath;
 @end
 
 @implementation MenuController
@@ -69,18 +135,19 @@ extern TBUserDefaults  * gTbDefaults;
 
         }
         
-        deployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
+        gFileMgr = [NSFileManager defaultManager];
+        
+        gDeployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
+        gSharedPath = [@"/Library/Application Support/Tunnelblick/Shared" copy];
         libraryPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
-        sharedPath = [@"/Library/Application Support/Tunnelblick/Shared" copy];
 
-		configDirs = [[NSMutableArray alloc] initWithCapacity: 2];
+		gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
 
 		[NSApp setDelegate:self];
 		
         [self dmgCheck];
 		
         // Backup/restore Resources/Deploy and/or repair ownership and permissions if necessary
-        NSFileManager * fMgr             = [NSFileManager defaultManager];
         NSString      * deployBackupPath = [[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
                                               stringByDeletingLastPathComponent]
                                              stringByAppendingPathComponent: @"TunnelblickBackup"]
@@ -88,11 +155,11 @@ extern TBUserDefaults  * gTbDefaults;
         BOOL isDir;
         BOOL needsChangeOwnershipAndOrPermissions;
         BOOL needsMoveLibraryOpenVPN;
-        BOOL haveDeploy   = [fMgr fileExistsAtPath: deployPath    isDirectory: &isDir]
+        BOOL haveDeploy   = [gFileMgr fileExistsAtPath: gDeployPath      isDirectory: &isDir]
                          && isDir;
-        BOOL haveBackup   = [fMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
+        BOOL haveBackup   = [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
                          && isDir;
-        needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN );
+        [self needsInstallation: &needsChangeOwnershipAndOrPermissions moveLibrary: &needsMoveLibraryOpenVPN];
         BOOL remove     = FALSE;   // Remove the backup of Resources/Deploy
         BOOL restore    = FALSE;   // Restore Resources/Deploy from backup
 
@@ -115,7 +182,7 @@ extern TBUserDefaults  * gTbDefaults;
 
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [deployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         gTbDefaults = [[TBUserDefaults alloc] initWithDefaultsDictionary: dict];
         
         // Set default preferences as needed
@@ -124,17 +191,17 @@ extern TBUserDefaults  * gTbDefaults;
         }
         
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .conf or .ovpn files,
-        // Then add it to configDirs
-        if (   [fMgr fileExistsAtPath: deployPath isDirectory: &isDir]
+        // Then add it to gConfigDirs
+        if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir ) {
             NSString * file;
-            NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployPath];
+            NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: gDeployPath];
             while (file = [dirEnum nextObject]) {
                 NSString * ext  = [file pathExtension];
                 if ( [ext isEqualToString:@"conf"] || [ext isEqualToString:@"ovpn"]  ) {
-                    if (   [fMgr fileExistsAtPath: [deployPath stringByAppendingPathComponent: file] isDirectory: &isDir]
+                    if (   [gFileMgr fileExistsAtPath: [gDeployPath stringByAppendingPathComponent: file] isDirectory: &isDir]
                         && ( ! isDir)  ) {
-                        [configDirs addObject: [deployPath copy]];
+                        [gConfigDirs addObject: [gDeployPath copy]];
                         break;
                     }
                 }
@@ -142,22 +209,22 @@ extern TBUserDefaults  * gTbDefaults;
         }
         
         // If not Deployed, or if Deployed and it is specifically allowed,
-        // Then   add /Library/Application Support/Tunnelblick/Shared to configDirs
-        // and/or add ~/Library/Application Support/Tunnelblick/Configurations to configDirs
-        if (  [configDirs count] != 0  ) {
+        // Then   add /Library/Application Support/Tunnelblick/Shared to gConfigDirs
+        // and/or add ~/Library/Application Support/Tunnelblick/Configurations to gConfigDirs
+        if (  [gConfigDirs count] != 0  ) {
             if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
                 if (  [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
-                    [configDirs addObject: [sharedPath copy]];
+                    [gConfigDirs addObject: [gSharedPath copy]];
                 }
             }
             if (  ! [gTbDefaults canChangeValueForKey: @"useLibraryConfigurationsWithDeployedOnes"]  ) {
                 if (  [gTbDefaults boolForKey: @"useLibraryConfigurationsWithDeployedOnes"]  ) {
-                    [configDirs addObject: [libraryPath copy]];
+                    [gConfigDirs addObject: [libraryPath copy]];
                 }
             }
         } else {
-            [configDirs addObject: [sharedPath copy]];
-            [configDirs addObject: [libraryPath copy]];
+            [gConfigDirs addObject: [gSharedPath copy]];
+            [gConfigDirs addObject: [libraryPath copy]];
         }
         
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
@@ -171,18 +238,18 @@ extern TBUserDefaults  * gTbDefaults;
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
-            if (  [configDirs containsObject: libraryPath]  ) {
-                if (   [fMgr fileExistsAtPath: libraryPath isDirectory: &isDir]
+            if (  [gConfigDirs containsObject: libraryPath]  ) {
+                if (   [gFileMgr fileExistsAtPath: libraryPath isDirectory: &isDir]
                     && isDir  ) {
                     NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
                     NSString * launchTunnelblickSymlink = [libraryPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                    if (  ! [fMgr fileAttributesAtPath: launchTunnelblickSymlink traverseLink: NO]  ) {
+                    if (  ! [gFileMgr fileAttributesAtPath: launchTunnelblickSymlink traverseLink: NO]  ) {
                         NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-                    } else if (  ! [[fMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
+                    } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
                         NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-                        [fMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
+                        [gFileMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
                     }
-                    [fMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
                                        pathContent: pathToThisApp];
                 }
             }
@@ -214,8 +281,8 @@ extern TBUserDefaults  * gTbDefaults;
         if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
             int i;
             myQueue = [UKKQueue sharedFileWatcher];
-			for (i = 0; i < [configDirs count]; i++) {
-                [myQueue addPathToQueue: [configDirs objectAtIndex: i]];
+			for (i = 0; i < [gConfigDirs count]; i++) {
+                [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
             }
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
@@ -251,15 +318,15 @@ extern TBUserDefaults  * gTbDefaults;
     [mainImage release];
     
 	int i;
-  	for(i = 0; i < [configDirs count]; i++) {
-        [[configDirs objectAtIndex:i] release];
+  	for(i = 0; i < [gConfigDirs count]; i++) {
+        [[gConfigDirs objectAtIndex:i] release];
     }
-    [configDirs release];
+    [gConfigDirs release];
 
     [gTbDefaults release];
     [connectionArray release];
     [connectionsToRestore release];
-    [deployPath release];
+    [gDeployPath release];
     [lastState release];
     [libraryPath release];
     [myConfigDictionary release];
@@ -361,7 +428,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *file;
     NSString *fullPath;
     NSString *confDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent:menuIconSet];
-    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: confDir];
+    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: confDir];
     NSArray *allObjects = [dirEnum allObjects];
     
     animImages = [[NSMutableArray alloc] init];
@@ -389,19 +456,16 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
 
-    NSFileManager * fileMgr = [[NSFileManager alloc] init];     // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
-                                                                // (won't necessarily find all files, but won't try to load files that don't exist)
+    // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
+    // (won't necessarily find all files, but won't try to load files that don't exist)
     for(i=0;i<nFrames;i++) {
         fullPath = [confDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", i]];
-        if ([fileMgr fileExistsAtPath:fullPath]) {
+        if ([gFileMgr fileExistsAtPath:fullPath]) {
             NSImage *frame = [[NSImage alloc] initWithContentsOfFile:fullPath];
             [animImages addObject:frame];
             [frame release];
         }
     }
-    
-    [fileMgr release];
-
 }
 
 - (void) initialiseAnim
@@ -689,7 +753,7 @@ extern TBUserDefaults  * gTbDefaults;
         } else if (  ! [updater respondsToSelector:@selector(setAutomaticallyChecksForUpdates:)]  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:", @"Menu item tooltip")];
             return NO;
-        } else if (  ! [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+        } else if (  ! [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
             return NO;
         }
@@ -702,7 +766,7 @@ extern TBUserDefaults  * gTbDefaults;
             && ( ! userIsAnAdmin )  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
             return NO;
-        } else if (  ! [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+        } else if (  ! [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
             [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
             return NO;
         }
@@ -734,22 +798,22 @@ extern TBUserDefaults  * gTbDefaults;
     if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
         if (  myQueue  ) {
 			int i;
-            for (i = 0; i < [configDirs count]; i++) {
-                [myQueue removePathFromQueue: [configDirs objectAtIndex: i]];
+            for (i = 0; i < [gConfigDirs count]; i++) {
+                [myQueue removePathFromQueue: [gConfigDirs objectAtIndex: i]];
             }
         }
     } else {
         if ( myQueue  ) {
 			int i;
-            for (i = 0; i < [configDirs count]; i++) {
-                [myQueue addPathToQueue: [configDirs objectAtIndex: i]];
+            for (i = 0; i < [gConfigDirs count]; i++) {
+                [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
             }
             [self activateStatusMenu];
         } else {
             myQueue = [UKKQueue sharedFileWatcher];
 			int i;
-            for (i = 0; i < [configDirs count]; i++) {
-                [myQueue addPathToQueue: [configDirs objectAtIndex: i]];
+            for (i = 0; i < [gConfigDirs count]; i++) {
+                [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
             }
             [myQueue setDelegate: self];
             [myQueue setAlwaysNotify: YES];
@@ -797,7 +861,7 @@ extern TBUserDefaults  * gTbDefaults;
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
             // Was OFF, trying to change to ON
-            if (  [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+            if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
                 [self toggleMenuItem: item withPreferenceKey: @"updateCheckAutomatically"];
                 [updater setAutomaticallyChecksForUpdates: YES];
             } else {
@@ -849,7 +913,7 @@ extern TBUserDefaults  * gTbDefaults;
     while (dispNm = [e nextObject]) {
         BOOL sameDispNm = [myConfigDictionary objectForKey: dispNm] != nil;
         BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
-        BOOL newIsDeploy = [deployPath isEqualToString: [self firstPartsOfPath: [curConfigsDict objectForKey: dispNm]]];
+        BOOL newIsDeploy = [gDeployPath isEqualToString: firstPartOfPath([curConfigsDict objectForKey: dispNm])];
         
         if (  sameDispNm  ) {
             if (  ! sameFolder  ) {
@@ -876,7 +940,7 @@ extern TBUserDefaults  * gTbDefaults;
     while (dispNm = [e nextObject]) {
         BOOL sameDispNm = [curConfigsDict objectForKey: dispNm] != nil;
         BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
-        BOOL oldWasDeploy = [deployPath isEqualToString: [self firstPartsOfPath: [myConfigDictionary objectForKey: dispNm]]];
+        BOOL oldWasDeploy = [gDeployPath isEqualToString: firstPartOfPath([myConfigDictionary objectForKey: dispNm])];
         
         if (  sameDispNm  ) {
             if (  ! sameFolder  ) {
@@ -985,23 +1049,22 @@ extern TBUserDefaults  * gTbDefaults;
 	}	
 }
 
-// Returns a dictionary with information about the configuration files in configDirs.
+// Returns a dictionary with information about the configuration files in gConfigDirs.
 // The key for each entry is the display name for the configuration
 // The object is the path to the configuration file for the configuration
 -(NSMutableDictionary *) getConfigurations {
-    NSFileManager * fMgr = [NSFileManager defaultManager];
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
     NSString * file;
     int i;
     BOOL isDir;
-    for (i=0; i < [configDirs count]; i++) {
-        NSString * folder = [configDirs objectAtIndex: i];
-        NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: folder];
+    for (i=0; i < [gConfigDirs count]; i++) {
+        NSString * folder = [gConfigDirs objectAtIndex: i];
+        NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: folder];
         while (file = [dirEnum nextObject]) {
             NSString * path = [folder stringByAppendingPathComponent: file];
             NSString * ext = [file pathExtension];
             if ([ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]) {
-                if (   [fMgr fileExistsAtPath: path isDirectory: &isDir]
+                if (   [gFileMgr fileExistsAtPath: path isDirectory: &isDir]
                     && ( ! isDir)  ) {
                     NSString * dispNm = [file substringToIndex: [file length]-5];
                     if (  ! [dict objectForKey: dispNm]  ) {
@@ -1013,31 +1076,6 @@ extern TBUserDefaults  * gTbDefaults;
     }
 
     return dict;
-}
-
-// Returns the path of the configuration folder in which a specified configuration file is contained
-// Quits Tunnelblick if it is not in any configuration folder (serious programming error, no recovery possible)
--(NSString *) firstPartsOfPath: (NSString *) thePath
-{
-    int i;
-    for (i=0; i<[configDirs count]; i++) {
-        if (  [thePath hasPrefix: [configDirs objectAtIndex: i]]  ) {
-            return [configDirs objectAtIndex: i];
-        }
-    }
-    
-    NSLog(@"firstPartsOfPath: Path %@ does not have a prefix that is in any ConfigDirs entry", thePath);
-    [NSApp setAutoLaunchOnLogin: NO];
-    [NSApp terminate: self];
-    return nil;
-}
-
-// The name of the configuration file, but prefixed by any folders it is contained in after /Deploy or /Configurations
-//      = configPath less the Deploy or Configurations folder prefix (but including the extension)
-// Used for constructing path to shadow copy of the configuration and as an argument to openvpnstart
--(NSString *) lastPartsOfPath: (NSString *) thePath
-{
-    return [thePath substringFromIndex: [[self firstPartsOfPath: thePath] length]+1];
 }
 
 -(void)validateLogButtons
@@ -1203,10 +1241,10 @@ extern TBUserDefaults  * gTbDefaults;
     [self validateLogButtons];
     
     NSString * locationMessage = @"";
-    if (  [configDirs count] > 1  ) {
-        if (  [[newConnection configPath] hasPrefix: deployPath]) {
+    if (  [gConfigDirs count] > 1  ) {
+        if (  [[newConnection configPath] hasPrefix: gDeployPath]) {
             locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
-        } else if (  [[newConnection configPath] hasPrefix: sharedPath]) {
+        } else if (  [[newConnection configPath] hasPrefix: gSharedPath]) {
             locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
         }
     }
@@ -1284,7 +1322,7 @@ extern TBUserDefaults  * gTbDefaults;
         NSLog(@"Check for updates was not performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
         if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
-            if (  [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+            if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
                 if (  ! userIsAnAdmin  ) {
                     int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
                                                            NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
@@ -1594,13 +1632,11 @@ extern TBUserDefaults  * gTbDefaults;
         return;
     }
     
-    NSFileManager  * fileManager     = [NSFileManager defaultManager];
-    
-    if (   [configDirs count] == 1
-        && [[configDirs objectAtIndex:0] isEqualToString: deployPath]  ) {
+    if (   [gConfigDirs count] == 1
+        && [[gConfigDirs objectAtIndex:0] isEqualToString: gDeployPath]  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
-                         [[fileManager componentsToDisplayForPath: deployPath] componentsJoinedByString: @"/"]],
+                         [[gFileMgr componentsToDisplayForPath: gDeployPath] componentsJoinedByString: @"/"]],
                         nil, nil, nil);
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
@@ -1611,7 +1647,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     BOOL isDir;
     NSString * alternateButtonTitle = nil;
-    if (  ! ([fileManager fileExistsAtPath: libraryPath isDirectory: &isDir])  ) {
+    if (  ! ([gFileMgr fileExistsAtPath: libraryPath isDirectory: &isDir])  ) {
         alternateButtonTitle = NSLocalizedString(@"Create and open configuration folder", @"Button");
     } else {
         alternateButtonTitle = NSLocalizedString(@"Open configuration folder", @"Button");
@@ -1629,14 +1665,14 @@ extern TBUserDefaults  * gTbDefaults;
     }
     
     NSString * parentPath = [libraryPath stringByDeletingLastPathComponent];
-    if (  ! [fileManager fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
-        if ( ! [fileManager createDirectoryAtPath: parentPath attributes:nil]  ) {
+    if (  ! [gFileMgr fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
+        if ( ! [gFileMgr createDirectoryAtPath: parentPath attributes:nil]  ) {
             NSLog(@"Error creating %@", parentPath);
         }
     }
     
-    if (  ! [fileManager fileExistsAtPath: libraryPath]  ) {                     // If ~/Library/Application Support/Tunnelblick/Configurations doesn't exist, create it
-        if (  ! [fileManager createDirectoryAtPath: libraryPath attributes:nil]  ) {
+    if (  ! [gFileMgr fileExistsAtPath: libraryPath]  ) {                     // If ~/Library/Application Support/Tunnelblick/Configurations doesn't exist, create it
+        if (  ! [gFileMgr createDirectoryAtPath: libraryPath attributes:nil]  ) {
             NSLog(@"Error creating %@", libraryPath);
         }
     }
@@ -1644,16 +1680,16 @@ extern TBUserDefaults  * gTbDefaults;
     if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
         NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
         NSString * launchTunnelblickSymlink = [libraryPath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-        if (  ! [fileManager fileExistsAtPath:launchTunnelblickSymlink]  ) {
+        if (  ! [gFileMgr fileExistsAtPath:launchTunnelblickSymlink]  ) {
             ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
             NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-            [fileManager createSymbolicLinkAtPath: launchTunnelblickSymlink
+            [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
                                       pathContent: pathToThisApp];
-        } else if (  ! [[fileManager pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
+        } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
             ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
             NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-            [fileManager removeFileAtPath: launchTunnelblickSymlink handler: nil];
-            [fileManager createSymbolicLinkAtPath: launchTunnelblickSymlink
+            [gFileMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
+            [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
                                       pathContent: pathToThisApp];
         }
     }
@@ -1666,11 +1702,11 @@ extern TBUserDefaults  * gTbDefaults;
     
     NSString * targetPath = [libraryPath stringByAppendingPathComponent:@"openvpn.conf"];
     NSLog(@"Installing sample configuration file %@", targetPath);
-    if (  ! [fileManager copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
+    if (  ! [gFileMgr copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
         NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", libraryPath);
         TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
                         [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"),
-                         [[fileManager componentsToDisplayForPath: libraryPath] componentsJoinedByString: @"/"]],
+                         [[gFileMgr componentsToDisplayForPath: libraryPath] componentsJoinedByString: @"/"]],
                         nil,
                         nil,
                         nil);
@@ -1695,10 +1731,9 @@ extern TBUserDefaults  * gTbDefaults;
     // This is because, although on Snow Leoapard TextEdit can save the file (the new file will be owned by the current user, with 644 permissions),
     // on Tiger and Leopard TextEdit cannot save a file if it is protected (owned by root with 644 permissions).
     if (  connection  ) {
-        NSFileManager  * fileManager = [NSFileManager defaultManager];
-        if (  [fileManager fileExistsAtPath: targetPath]  ) {           // Must check that file exists because isWritableAtPath returns NO if the file doesn't exist
-            if (  ! [fileManager isWritableFileAtPath: targetPath]  ) {
-                if (   [fileManager isWritableFileAtPath: [targetPath stringByDeletingLastPathComponent]]
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {           // Must check that file exists because isWritableAtPath returns NO if the file doesn't exist
+            if (  ! [gFileMgr isWritableFileAtPath: targetPath]  ) {
+                if (   [gFileMgr isWritableFileAtPath: [targetPath stringByDeletingLastPathComponent]]
                     && (userIsAnAdmin || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] ))  ) {
                     // Ask if user wants to unprotect the configuration file
                     int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
@@ -1934,7 +1969,7 @@ static void signal_handler(int signalNumber)
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] != nil  ) {
                 if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
-                    if (  [self AppNameIsTunnelblickWarnUserIfNot: TRUE]  ) {
+                    if (  [self appNameIsTunnelblickWarnUserIfNot: TRUE]  ) {
                         [updater setAutomaticallyChecksForUpdates: YES];
                     } else {
                         warnedAlready = TRUE;
@@ -1960,7 +1995,7 @@ static void signal_handler(int signalNumber)
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateAutomatically"] != nil  ) {
                 if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
-                    if (  [self AppNameIsTunnelblickWarnUserIfNot: warnedAlready]  ) {
+                    if (  [self appNameIsTunnelblickWarnUserIfNot: warnedAlready]  ) {
                         [updater setAutomaticallyDownloadsUpdates: YES];
                     } else {
                         [updater setAutomaticallyDownloadsUpdates: NO];
@@ -2082,7 +2117,7 @@ static void signal_handler(int signalNumber)
         || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
         ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
-            if (  [self AppNameIsTunnelblickWarnUserIfNot: NO]  ) {
+            if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
                 [updater checkForUpdatesInBackground];
             } else {
                 NSLog(@"Not checking for updates because the name of the application has been changed");
@@ -2137,7 +2172,7 @@ static void signal_handler(int signalNumber)
         NSString * sConn = [NSString stringWithFormat:@"%d", nConfigurations    ];
         NSString * sSN   = [NSString stringWithFormat:@"%d", nSetNameserver     ];
         NSString * sMC   = [NSString stringWithFormat:@"%d", nMonitorConnection ];
-        NSString * sDep  = ([[configDirs objectAtIndex: 0] isEqualToString: deployPath] ? @"1" : @"0");
+        NSString * sDep  = ([[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] ? @"1" : @"0");
         NSString * sAdm  = (userIsAnAdmin ? @"1" : @"0");
         NSString * sUuid = [self installationId];
 
@@ -2187,11 +2222,11 @@ static void signal_handler(int signalNumber)
 // Returns TRUE if it is OK to update because the application name is still 'Tunnelblick'
 // Returns FALSE iff Sparkle Updates should be disabled because the application name has been changed.
 // Warns user about it if tellUser is TRUE
--(BOOL) AppNameIsTunnelblickWarnUserIfNot: (BOOL) tellUser
+-(BOOL) appNameIsTunnelblickWarnUserIfNot: (BOOL) tellUser
 {
     // Sparkle Updater doesn't work if the user has changed the name to something other than Tunnelblick
     NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-    NSString *appName = [[NSFileManager defaultManager] displayNameAtPath: bundlePath];
+    NSString *appName = [gFileMgr displayNameAtPath: bundlePath];
     if (  [appName isEqualToString:@"Tunnelblick"]
        || [appName isEqualToString:@"Tunnelblick.app"]  ) {
         return TRUE;
@@ -2220,12 +2255,10 @@ static void signal_handler(int signalNumber)
         
         NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);
         
-        NSFileManager * fMgr = [NSFileManager defaultManager];
-        
         NSString * standardPath;
         
         // Use a standardPath of /Applications/Tunnelblick.app unless overridden by a forced preference
-        NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [deployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        NSDictionary * forcedDefaults = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         standardPath = @"/Applications/Tunnelblick.app";
         id obj = [forcedDefaults objectForKey:@"standardApplicationPath"];
         if (  obj  ) {
@@ -2237,13 +2270,13 @@ static void signal_handler(int signalNumber)
         }
         
         NSString * preMessage = NSLocalizedString(@"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n", @"Window text");
-        NSString * displayApplicationName = [fMgr displayNameAtPath: @"Tunnelblick.app"];
+        NSString * displayApplicationName = [gFileMgr displayNameAtPath: @"Tunnelblick.app"];
         
         NSString * standardFolder = [standardPath stringByDeletingLastPathComponent];
         
-        NSString * standardPathDisplayName = [[fMgr componentsToDisplayForPath: standardPath] componentsJoinedByString: @"/"];
+        NSString * standardPathDisplayName = [[gFileMgr componentsToDisplayForPath: standardPath] componentsJoinedByString: @"/"];
         
-        NSString * standardFolderDisplayName = [[fMgr componentsToDisplayForPath: standardFolder] componentsJoinedByString: @"/"];
+        NSString * standardFolderDisplayName = [[gFileMgr componentsToDisplayForPath: standardFolder] componentsJoinedByString: @"/"];
         
         NSString * launchWindowTitle;
         NSString * launchWindowText;
@@ -2251,7 +2284,7 @@ static void signal_handler(int signalNumber)
         
         NSString * changeLocationText = [NSString stringWithFormat: NSLocalizedString(@"(To install to a different location, drag %@ to that location.)", @"Window text"), displayApplicationName];
         
-        if (  [fMgr fileExistsAtPath: standardPath]  ) {
+        if (  [gFileMgr fileExistsAtPath: standardPath]  ) {
             NSBundle * previousBundle = [NSBundle bundleWithPath: standardPath];
             int previousBuild = [self intValueOfBuildForBundle: previousBundle];
             int currentBuild  = [self intValueOfBuildForBundle: [NSBundle mainBundle]];
@@ -2299,14 +2332,14 @@ static void signal_handler(int signalNumber)
         if (  response == NSAlertDefaultReturn  ) {
             
             // Install, Reinstall, Upgrade, or Downgrade
-            if (  [fMgr fileExistsAtPath: standardPath]  ) {
+            if (  [gFileMgr fileExistsAtPath: standardPath]  ) {
                 int tag;
                 if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation source: standardFolder destination: standardFolder files: [NSArray arrayWithObject: [standardPath lastPathComponent]] tag: &tag]  ) {
                     NSLog(@"Moved %@ to Trash", standardPath);
                 }
             }
             
-            if (  [fMgr fileExistsAtPath: standardPath]  ) {
+            if (  [gFileMgr fileExistsAtPath: standardPath]  ) {
                 NSLog(@"Unable to move %@ to Trash", standardPath);
                 TBRunAlertPanel(NSLocalizedString(@"Unable to move previous version to Trash", @"Window title"),
                                 [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@", @"Window text"), displayApplicationName, standardPathDisplayName],
@@ -2314,7 +2347,7 @@ static void signal_handler(int signalNumber)
                                 nil,
                                 nil);
             } else {
-                if (  ! [fMgr copyPath: currentPath toPath: standardPath handler: nil]  ) {
+                if (  ! [gFileMgr copyPath: currentPath toPath: standardPath handler: nil]  ) {
                     NSLog(@"Unable to copy %@ to %@", currentPath, standardPath);
                     TBRunAlertPanel(NSLocalizedString(@"Unable to install Tunnelblick", @"Window title"),
                                     [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to install Tunnelblick.app in %@", @"Window text"), standardPathDisplayName],
@@ -2546,7 +2579,6 @@ static void signal_handler(int signalNumber)
     }
     
     int i = 5;
-    NSFileManager * fMgr = [NSFileManager defaultManager];
     OSStatus status;
     BOOL installFailed;
     BOOL needsChangeOwnershipAndOrPermissions;
@@ -2556,11 +2588,11 @@ static void signal_handler(int signalNumber)
             sleep(1);
         }
         status = [NSApplication executeAuthorized: installer withArguments: args withAuthorizationRef: authRef];
-        installFailed = [fMgr fileExistsAtPath: @"/tmp/TunnelblickInstallationFailed.txt"];
+        installFailed = [gFileMgr fileExistsAtPath: @"/tmp/TunnelblickInstallationFailed.txt"];
         if (  installFailed  ) {
-            [fMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
+            [gFileMgr removeFileAtPath: @"/tmp/TunnelblickInstallationFailed.txt" handler: nil];
         }
-    } while (   needsInstallation( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN )
+    } while (   [self needsInstallation: &needsChangeOwnershipAndOrPermissions moveLibrary: &needsMoveLibraryOpenVPN]
              && (i-- > 0)  );
     
     AuthorizationFree(authRef, kAuthorizationFlagDefaults);
@@ -2583,7 +2615,7 @@ static void signal_handler(int signalNumber)
 
 // Checks ownership and permissions of critical files and whether ~/Library/openvpn has been moved to ~/Library/Application Support/Tunnelblick/Configurations (for 3.0b24)
 // Returns with the respective arguments set YES or NO, and returns YES if either one is YES. Otherwise returns NO.
-BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN) 
+-(BOOL) needsInstallation: (BOOL *) changeOwnershipAndOrPermissions moveLibrary: (BOOL *) moveLibraryOpenVPN
 {
     // Check that the configuration folder has been moved. If not, return YES
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
@@ -2596,64 +2628,62 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
     *changeOwnershipAndOrPermissions = FALSE;
     *moveLibraryOpenVPN = FALSE;
     
-    NSFileManager * fMgr = [NSFileManager defaultManager];
-    
     // Check ~/Library/Application Support/Tunnelblick/Configurations
-    if (  [fMgr fileExistsAtPath: newParentDirPath isDirectory: &isDir]  ) {
+    if (  [gFileMgr fileExistsAtPath: newParentDirPath isDirectory: &isDir]  ) {
         newParentExists = TRUE;
         if (  isDir  ) {
-            if (  [fMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
+            if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
                 if (  isDir  ) {
                     newFolderExists = TRUE; // New folder exists, so we've already moved (check that's true below)
                 } else {
                     NSLog(@"Error: %@ exists but is not a folder", newConfigDirPath);
-                    terminateBecauseOfBadConfiguration();
+                    [self terminateBecauseOfBadConfiguration];
                 }
             } else {
                 // New folder does not exist. That's OK if ~/Library/openvpn doesn't exist
             }
         } else {
             NSLog(@"Error: %@ exists but is not a folder", newParentDirPath);
-            terminateBecauseOfBadConfiguration();
+            [self terminateBecauseOfBadConfiguration];
         }
     } else {
         // New folder's holder does not exist, so we need to do the move only if ~Library/openvpn exists and is a folder (which we check for below)
     }
     
     // If it exists, ~/Library/openvpn must either be a directory, or a symbolic link to ~/Library/Application Support/Tunnelblick/Configurations
-    NSDictionary * fileAttributes = [fMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
     if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-        if (  [fMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+        if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
             if (  isDir  ) {
                 if (  newFolderExists  ) {
                     NSLog(@"Error: Both %@ and %@ exist and are folders, so %@ cannot be moved", oldConfigDirPath, newConfigDirPath, oldConfigDirPath);
-                    terminateBecauseOfBadConfiguration();
+                    [self terminateBecauseOfBadConfiguration];
                 } else {
                     if (  newParentExists  ) {
                         NSLog(@"Error: %@ exists and is a folder, but %@ already exists, so %@ cannot be moved", oldConfigDirPath, newParentDirPath, oldConfigDirPath);
-                        terminateBecauseOfBadConfiguration();
+                        [self terminateBecauseOfBadConfiguration];
                     }
                     *moveLibraryOpenVPN = YES;  // old folder exists, but new one doesn't, so do the move
                 }
             } else {
                 NSLog(@"Error: %@ exists but is not a symbolic link or a folder", oldConfigDirPath);
-                terminateBecauseOfBadConfiguration();
+                [self terminateBecauseOfBadConfiguration];
             }
         } else {
             // ~/Library/openvpn does not exist, so we don't do the move (whether or not the new folder exists)
         }
     } else {
         // ~/Library/openvpn is a symbolic link
-        if (  [[fMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
+        if (  [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
             if (  newFolderExists  ) {
                 // ~/Library/openvpn is a symbolic link to ~/Library/Application Support/Tunnelblick/Configurations, which exists, so we've already done the move
             } else {
                 NSLog(@"Error: %@ exists and is a symbolic link but its target, %@, does not exist", oldConfigDirPath, newConfigDirPath);
-                terminateBecauseOfBadConfiguration();
+                [self terminateBecauseOfBadConfiguration];
             }
         } else {
             NSLog(@"Error: %@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
-            terminateBecauseOfBadConfiguration();
+            [self terminateBecauseOfBadConfiguration];
         }
     }
     
@@ -2693,19 +2723,19 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {
-        if (  ! isOwnedByRootAndHasPermissions(currentPath, @"744")  ) {
+        if (  ! [self isOwnedByRootAtPath: currentPath withPermissions: @"744"]  ) {
             *changeOwnershipAndOrPermissions = YES;
             return YES; // NSLog already called
         }
 	}
     
     // check Info.plist
-    if (  ! isOwnedByRootAndHasPermissions(infoPlistPath, @"644")  ) {
+    if (  ! [self isOwnedByRootAtPath: infoPlistPath withPermissions: @"644"]  ) {
         return YES; // NSLog already called
     }
 
     // check permissions of files in Resources/Deploy (if any)        
-    if (  deployContentsOwnerOrPermissionsNeedRepair([[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"])  ) {
+    if (  [self folderContentsNeedToBeSecuredAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"]]  ) {
         *changeOwnershipAndOrPermissions = YES;
         return YES;
     }
@@ -2716,7 +2746,7 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
                                     stringByAppendingPathComponent: @"TunnelblickBackup"]
                                    stringByAppendingPathComponent: @"Deploy"];
     
-    if (  deployContentsOwnerOrPermissionsNeedRepair(deployBackupPath)  ) {
+    if (  [self folderContentsNeedToBeSecuredAtPath: deployBackupPath]  ) {
         *changeOwnershipAndOrPermissions = YES;
         return YES;
     }
@@ -2724,7 +2754,7 @@ BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibrar
     return *moveLibraryOpenVPN;
 }
 
-void terminateBecauseOfBadConfiguration(void)
+-(void) terminateBecauseOfBadConfiguration
 {
     TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Problem", @"Window title"),
                     NSLocalizedString(@"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.", @"Window text"),
@@ -2732,41 +2762,41 @@ void terminateBecauseOfBadConfiguration(void)
     [NSApp setAutoLaunchOnLogin: NO];
     [NSApp terminate: nil];
 }
-BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * theDirPath)
+
+-(BOOL) folderContentsNeedToBeSecuredAtPath: (NSString *) theDirPath
 {
     NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
-    NSFileManager * fMgr = [NSFileManager defaultManager];
     NSString * file;
     BOOL isDir;
-    NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: theDirPath];
+    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: theDirPath];
     while (file = [dirEnum nextObject]) {
         NSString * filePath = [theDirPath stringByAppendingPathComponent: file];
         NSString * ext  = [file pathExtension];
-        if (   [fMgr fileExistsAtPath: filePath isDirectory: &isDir]
+        if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
             && isDir  ) {
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"755")  ) {
+            if (  ! [self isOwnedByRootAtPath: filePath withPermissions: @"755"]  ) {
                 return YES; // NSLog already called
             }
         } else if ( [ext isEqualToString:@"sh"]  ) {
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"744")  ) {
+            if (  ! [self isOwnedByRootAtPath: filePath withPermissions: @"744"]  ) {
                 return YES; // NSLog already called
             }
         } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"600")  ) {
+            if (  ! [self isOwnedByRootAtPath: filePath withPermissions: @"600"]  ) {
                 return YES; // NSLog already called
             }
         } else { // including .conf and .ovpn
-            if (  ! isOwnedByRootAndHasPermissions(filePath, @"644")  ) {
+            if (  ! [self isOwnedByRootAtPath: filePath withPermissions: @"644"]  ) {
                 return YES; // NSLog already called
             }
         }
     }
     return NO;
 }
-BOOL isOwnedByRootAndHasPermissions(NSString * fPath, NSString * permsShouldHave)
+
+-(BOOL) isOwnedByRootAtPath: (NSString *) fPath withPermissions: (NSString *) permsShouldHave
 {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:fPath traverseLink:YES];
+    NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSString *octalString = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
@@ -2838,26 +2868,6 @@ int runUnrecoverableErrorPanel(msg)
 	} else {
 		[self saveMonitorConnectionCheckboxState:FALSE];
 	}
-}
-
--(NSString *) deployPath
-{
-    return [[deployPath retain] autorelease];
-}
-
--(NSString *) libraryPath
-{
-    return [[libraryPath retain] autorelease];
-}
-
--(NSString *) sharedPath
-{
-    return [[sharedPath retain] autorelease];
-}
-
--(NSMutableArray *) configDirs
-{
-    return [[configDirs retain] autorelease];
 }
 
 @end

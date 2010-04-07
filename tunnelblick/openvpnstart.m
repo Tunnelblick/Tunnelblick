@@ -49,10 +49,14 @@ NSString*					execPath;		//Path to folder containing this executable, openvpn, t
 NSString*			        configPath;		//Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
 NSAutoreleasePool*			pool;
 
+NSFileManager * gFileMgr;
+
 int main(int argc, char* argv[])
 {
     pool = [[NSAutoreleasePool alloc] init];
 	
+    gFileMgr = [NSFileManager defaultManager];
+    
 	BOOL	syntaxError	= TRUE;
     int     retCode = 0;
     execPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
@@ -193,8 +197,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 	NSString*	upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
 	NSString*	downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"];
 
-    NSFileManager * fMgr = [NSFileManager defaultManager];
-
 	switch (cfgLocCode) {
         case 0:
             configPath = [directoryPath stringByAppendingPathComponent:configFile];
@@ -211,7 +213,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             // Then use Deploy as the --cd directory
             BOOL onlyThoseFiles = TRUE;   // Assume Deploy contains only those files
             NSString *file;
-            NSDirectoryEnumerator *dirEnum = [fMgr enumeratorAtPath: deployDirPath];
+            NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: deployDirPath];
             while (file = [dirEnum nextObject]) {
                 NSString * ext = [file pathExtension];
                 if (  [file isEqualToString:@"forced-preferences.plist"]  || [file isEqualToString:@".DS_Store"]  ) {
@@ -286,25 +288,25 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                                                          stringByAppendingPathExtension:@"down"] stringByAppendingPathExtension:@"sh"];
             
             if (  noMonitor  ) {
-                if (  [fMgr fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
+                if (  [gFileMgr fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
                     upscriptPath = deployUpscriptNoMonitorPath;
-                } else if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                } else if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
                 } else {
                     upscriptPath = upscriptNoMonitorPath;
                 }
-                if (  [fMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
+                if (  [gFileMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
                     downscriptPath = deployDownscriptNoMonitorPath;
-                } else if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                } else if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
                 } else {
                     downscriptPath = downscriptNoMonitorPath;
                 }
             } else {
-                if (  [fMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
                 }
-                if (  [fMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
                 }
             }
@@ -617,8 +619,7 @@ BOOL processExists(pid_t pid)
 //Returns NO if configuration file is secure, otherwise complains and exits
 BOOL configNeedsRepair(void)
 {
-	NSFileManager*	fileManager		= [NSFileManager defaultManager];
-	NSDictionary*	fileAttributes	= [fileManager fileAttributesAtPath:configPath traverseLink:YES];
+	NSDictionary*	fileAttributes	= [gFileMgr fileAttributesAtPath:configPath traverseLink:YES];
 
 	if (fileAttributes == nil) {
 		fprintf(stderr, "Error: %s does not exist\n", [configPath UTF8String]);

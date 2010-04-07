@@ -31,7 +31,14 @@
 #include <sys/param.h>
 #include <sys/mount.h>
 
+extern NSMutableArray  * gConfigDirs;
+extern NSString        * gDeployPath;
+extern NSString        * gSharedPath;
+extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
+
+extern NSString * firstPartOfPath(NSString * thePath);
+extern NSString * lastPartOfPath(NSString * thePath);
 
 @interface VPNConnection()          // PRIVATE METHODS
 
@@ -178,7 +185,7 @@ extern TBUserDefaults  * gTbDefaults;
     
 	NSString *cfgPath = [self configPath];
     NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@",
-                         NSUserName(), [[NSApp delegate] lastPartsOfPath: configPath]];
+                         NSUserName(), lastPartOfPath(configPath)];
 
     if ( ! (cfgPath = [self getConfigToUse:cfgPath orAlt:altPath]) ) {
         return;
@@ -216,9 +223,9 @@ extern TBUserDefaults  * gTbDefaults;
     NSString *altCfgLoc = @"0";
     if ( [cfgPath isEqualToString:altPath] ) {
         altCfgLoc = @"1";
-    } else if (  [configPath hasPrefix: [[NSApp delegate] deployPath]]  ) {
+    } else if (  [configPath hasPrefix: gDeployPath]  ) {
         altCfgLoc = @"2";
-    } else if (  [configPath hasPrefix: [[NSApp delegate] sharedPath]]  ) {
+    } else if (  [configPath hasPrefix: gSharedPath]  ) {
         altCfgLoc = @"3";
     }
     
@@ -257,7 +264,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSPipe * stdPipe = [[NSPipe alloc] init];
     [task setStandardOutput: stdPipe];
     
-    arguments = [NSArray arrayWithObjects:@"start", [[NSApp delegate] lastPartsOfPath: configPath], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
+    arguments = [NSArray arrayWithObjects:@"start", lastPartOfPath(configPath), portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
     
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           [self displayName],
@@ -285,7 +292,7 @@ extern TBUserDefaults  * gTbDefaults;
             atDate: nil];
     
 	[task setArguments:arguments];
-	[task setCurrentDirectoryPath: [[NSApp delegate] firstPartsOfPath: configPath]];
+	[task setCurrentDirectoryPath: firstPartOfPath(configPath)];
 	[task launch];
 	[task waitUntilExit];
     
@@ -397,7 +404,7 @@ extern TBUserDefaults  * gTbDefaults;
 	NSString *pidString = [NSString stringWithFormat:@"%d", pid];
 	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
 	[task setArguments:arguments];
-	[task setCurrentDirectoryPath: [[NSApp delegate] firstPartsOfPath: configPath]];
+	[task setCurrentDirectoryPath: firstPartOfPath(configPath)];
     pid = 0;
 	[task launch];
 	[task waitUntilExit];
@@ -713,10 +720,10 @@ extern TBUserDefaults  * gTbDefaults;
         else commandString = NSLocalizedString(@"Connect", @"Button");
         
         NSString * locationMessage = @"";
-        if (  [[[NSApp delegate] configDirs] count] > 1  ) {
-            if (  [[connection configPath] hasPrefix: [[NSApp delegate] deployPath]]  ) {
+        if (  [gConfigDirs count] > 1  ) {
+            if (  [[connection configPath] hasPrefix: gDeployPath]  ) {
                 locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
-            } else if (  [[connection configPath] hasPrefix: [[NSApp delegate] sharedPath]]  ) {
+            } else if (  [[connection configPath] hasPrefix: gSharedPath]  ) {
                 locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
             }
         }
@@ -729,8 +736,7 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(BOOL)configNotProtected:(NSString *)configFile 
 {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSDictionary *fileAttributes = [fileManager fileAttributesAtPath:configFile traverseLink:YES];
+	NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:configFile traverseLink:YES];
 	unsigned long perms = [fileAttributes filePosixPermissions];
 	NSString *octalString = [NSString stringWithFormat:@"%o",perms];
 	NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
@@ -758,9 +764,9 @@ extern TBUserDefaults  * gTbDefaults;
         if (  ! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {    //    If not using shadow configuration files
             return cfgPath;                                                     //    Then use it
         } else { 
-            NSString * folder = [[NSApp delegate] firstPartsOfPath: cfgPath];   //    Or if are using shadow configuration files
-            if (   [folder isEqualToString: [[NSApp delegate] sharedPath]]      //    And in Shared or Deploy (even if using shadow copies)
-                || [folder isEqualToString: [[NSApp delegate] deployPath]]  ) { //    Then use it (we don't need to shadow copy them)
+            NSString * folder = firstPartOfPath(cfgPath);                       //    Or if are using shadow configuration files
+            if (   [folder isEqualToString: gSharedPath]                        //    And in Shared or Deploy (even if using shadow copies)
+                || [folder isEqualToString: gDeployPath]  ) {                   //    Then use it (we don't need to shadow copy them)
                 return cfgPath;
             }
         }
@@ -789,13 +795,12 @@ extern TBUserDefaults  * gTbDefaults;
         return cfgPath;
     } else {
         // Config is on remote volume or we should use a shadow configuration file
-        NSFileManager * fMgr = [NSFileManager defaultManager];                          // See if alt config exists
-        if ( [fMgr fileExistsAtPath:altCfgPath] ) {
+        if ( [gFileMgr fileExistsAtPath:altCfgPath] ) {                                 // See if alt config exists
             // Alt config exists
             if (  [self isSampleConfigurationAtPath: altCfgPath]  ) {                   // And it isn't the sample configuration file
                 return nil;
             }
-            if ( [fMgr contentsEqualAtPath:cfgPath andPath:altCfgPath] ) {              // See if files are the same
+            if ( [gFileMgr contentsEqualAtPath:cfgPath andPath:altCfgPath] ) {              // See if files are the same
                 // Alt config exists and is the same as regular config
                 if ( [self configNotProtected:altCfgPath] ) {                            // Check ownership/permissions
                     // Alt config needs repair
@@ -850,7 +855,7 @@ extern TBUserDefaults  * gTbDefaults;
                                                                           [self displayName],
                                                                           NSLocalizedString(@"Create local copy of configuration file?", @"Window title")],
                                                [NSString stringWithFormat:longMsg, cfgPath,
-                                                [[fMgr componentsToDisplayForPath: altCfgFolderPath] componentsJoinedByString: @"/"]],
+                                                [[gFileMgr componentsToDisplayForPath: altCfgFolderPath] componentsJoinedByString: @"/"]],
                                                NSLocalizedString(@"Create copy", @"Button"),
                                                nil,
                                                NSLocalizedString(@"Cancel", @"Button"));
@@ -916,7 +921,6 @@ extern TBUserDefaults  * gTbDefaults;
 // Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
 -(BOOL) copyFile:(NSString *)source toFile: (NSString *) target usingAuth: (AuthorizationRef) authRef
 {
-    NSFileManager * fMgr;
 	int i;
 	int maxtries = 5;
     
@@ -926,13 +930,12 @@ extern TBUserDefaults  * gTbDefaults;
 	
 	for (i=0; i <= maxtries; i++) {
         [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
-        fMgr = [NSFileManager defaultManager];
-        if ( [fMgr contentsEqualAtPath:source andPath:target] ) {
+        if ( [gFileMgr contentsEqualAtPath:source andPath:target] ) {
             break;
         }
         sleep(1);
     }
-    if ( ! [fMgr contentsEqualAtPath:source andPath:target] ) {
+    if ( ! [gFileMgr contentsEqualAtPath:source andPath:target] ) {
         NSLog(@"Tunnelblick could not copy the config file %@ to the alternate local location %@ in %d attempts.", source, target, maxtries);
     TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                [self displayName],
@@ -949,11 +952,11 @@ extern TBUserDefaults  * gTbDefaults;
     NSDictionary * newAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:NSFileImmutable];
     
 	for (i=0; i <= maxtries; i++) {
-        curAttributes = [fMgr fileAttributesAtPath:target traverseLink:YES];
+        curAttributes = [gFileMgr fileAttributesAtPath:target traverseLink:YES];
         if (  ! [curAttributes fileIsImmutable]  ) {
             break;
         }
-        [fMgr changeFileAttributes:newAttributes atPath:target];
+        [gFileMgr changeFileAttributes:newAttributes atPath:target];
         sleep(1);
     }
     if (  [curAttributes fileIsImmutable]  ) {
@@ -975,10 +978,10 @@ extern TBUserDefaults  * gTbDefaults;
 // Returns TRUE if the folder already existed or was created successfully, returns FALSE otherwise, having already output an error message to the console log.
 -(BOOL) makeSureFolderExistsAtPath:(NSString *)folderPath usingAuth: (AuthorizationRef) authRef
 {
-	NSFileManager * fMgr = [NSFileManager defaultManager];
     BOOL isDir;
 
-    if (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  ) {
+    if (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir]
+        && isDir  ) {
         return TRUE;
     }
     
@@ -991,12 +994,14 @@ extern TBUserDefaults  * gTbDefaults;
 	for (i=0; i <= maxtries; i++) {
 		status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
 		sleep(1);   // This is needed or the test in the next line fails for some reason!
-		if (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  ) {
+		if (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir] 
+            && isDir  ) {
 			break;
 		}
 	}
 
-    if (    ! (  [fMgr fileExistsAtPath:folderPath isDirectory:&isDir] && isDir  )    ) {
+    if (    ! (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir]
+               && isDir  )    ) {
         NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration in %d attempts. OSStatus %ld.", folderPath, maxtries, status);
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                                                     [self displayName],
@@ -1032,23 +1037,21 @@ extern TBUserDefaults  * gTbDefaults;
     NSString * oldExtension = [configFilePath pathExtension];
     NSString * configBackupPath = [[[configFilePath stringByDeletingPathExtension] stringByAppendingString:@"-previous"] stringByAppendingPathExtension: oldExtension];
     
-    NSFileManager * fMgr = [NSFileManager defaultManager];
-    
     // Although the documentation for copyPath:toPath:handler: says that the file's ownership and permissions are copied, the ownership
     // of a file owned by root is NOT copied. Instead, the owner is the currently logged-in user:group, which is *exactly* what we want!
-    [fMgr removeFileAtPath: configTempPath handler: nil];
-    if (  ! [fMgr copyPath: configFilePath toPath: configTempPath handler: nil]  ) {
+    [gFileMgr removeFileAtPath: configTempPath handler: nil];
+    if (  ! [gFileMgr copyPath: configFilePath toPath: configTempPath handler: nil]  ) {
         NSLog(@"Unable to copy %@ to %@", configFilePath, configTempPath);
         return FALSE;
     }
     
-    [fMgr removeFileAtPath: configBackupPath handler: nil];
-    if (  ! [fMgr movePath: configFilePath toPath: configBackupPath handler: nil]  ) {
+    [gFileMgr removeFileAtPath: configBackupPath handler: nil];
+    if (  ! [gFileMgr movePath: configFilePath toPath: configBackupPath handler: nil]  ) {
         NSLog(@"Unable to rename %@ to %@", configFilePath, configBackupPath);
         return FALSE;
     }
     
-    if (  ! [fMgr movePath: configTempPath toPath: configFilePath handler: nil]  ) {
+    if (  ! [gFileMgr movePath: configTempPath toPath: configFilePath handler: nil]  ) {
         NSLog(@"Unable to rename %@ to %@", configTempPath, configFilePath);
         return FALSE;
     }
@@ -1059,11 +1062,10 @@ extern TBUserDefaults  * gTbDefaults;
 // Sets ownership and permissions for a configuration file using an authorization
 -(BOOL)setConfigurationFileAtPath: (NSString *) configFilePath toOwner: (int) owner andGroup: (int) group withPermissions: (NSString *) permissions usingAuth: (AuthorizationRef) authRef
 {
-    NSFileManager * fileManager = [NSFileManager defaultManager];
     BOOL failed = FALSE;
 
     // Warn user if the file is locked
-    NSDictionary * curAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
+    NSDictionary * curAttributes = [gFileMgr fileAttributesAtPath:configFilePath traverseLink:YES];
     if (  [curAttributes fileIsImmutable]  ) {
         NSLog(@"Configuration file needs ownership and/or permissions change but is locked: %@", configFilePath);
     } else {
@@ -1084,7 +1086,7 @@ extern TBUserDefaults  * gTbDefaults;
                 sleep(1);
                 status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
             }
-            fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
+            fileAttributes = [gFileMgr fileAttributesAtPath:configFilePath traverseLink:YES];
             perms = [fileAttributes filePosixPermissions];
             octalString = [NSString stringWithFormat:@"%lo",perms];
             if (  [octalString isEqualToString: permissions]  ) {
@@ -1105,7 +1107,7 @@ extern TBUserDefaults  * gTbDefaults;
                     sleep(1);
                     status = [NSApplication executeAuthorized:helper withArguments:arguments withAuthorizationRef:authRef];
                 }
-                fileAttributes = [fileManager fileAttributesAtPath:configFilePath traverseLink:YES];
+                fileAttributes = [gFileMgr fileAttributesAtPath:configFilePath traverseLink:YES];
                 fileOwner = [[fileAttributes fileOwnerAccountID] intValue];
                 if (  fileOwner == owner  ) {
                     break;
@@ -1137,9 +1139,7 @@ extern TBUserDefaults  * gTbDefaults;
 -(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath
 {
     NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
-    NSFileManager  * fMgr = [NSFileManager defaultManager];
-    
-    if (  ! [fMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
+    if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
         return FALSE;
     }
     

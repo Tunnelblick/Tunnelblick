@@ -25,11 +25,6 @@
 #import "VPNConnection.h"
 
 @class NetSocket;
-BOOL needsInstallation(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN);
-void terminateBecauseOfBadConfiguration(void);
-BOOL deployContentsOwnerOrPermissionsNeedRepair(NSString * theDirPath);
-BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave);
-
 
 @interface MenuController : NSObject
 {
@@ -68,11 +63,7 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
-    NSString                * deployPath;                   // Path to Tunnelblick.app/Contents/Resources/Deploy
     NSString                * libraryPath;                  // Path to ~/Library/Application Support/Tunnelblick/Configurations
-    NSString                * sharedPath;                   // Path to /Library/Application Support/Tunnelblick/Shared
-
-    NSMutableArray          * configDirs;                   // Array of paths to configuration directories currently in use
 
     NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file
 
@@ -122,68 +113,11 @@ BOOL isOwnedByRootAndHasPermissions(NSString *fPath, NSString * permsShouldHave)
 -(IBAction)         quit:                                   (id)                sender;
 
 // General methods
--(void)             activateStatusMenu;
 -(void)             addConnection:                          (id)                sender;
--(void)             addNewConfig:                           (NSString *)        path
-                 withDisplayName:                           (NSString *)        dispNm;
--(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
 -(void)             cleanup;
--(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
-                                       andMessage:          (NSString *)        msg;
--(void)             createMenu;
--(void)             createStatusItem;
--(void)             deleteExistingConfig:                   (NSString *)        dispNm;
--(void)             destroyAllPipes;
--(void)             dmgCheck;
--(void)             fileSystemHasChanged:                   (NSNotification *)  n;
--(NSString *)       firstPartsOfPath:                       (NSString *)        thePath;
--(NSMutableDictionary *) getConfigurations;
--(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
-                        andAction:                          (SEL)               action
-                       andToolTip:                          (NSString *)        tip
-               atIndentationLevel:                          (int)               indentLevel
-                 andPreferenceKey:                          (NSString *)        prefKey
-                          negated:                          (BOOL)              negatePref;
--(void)             initialiseAnim;
--(NSString *)       installationId;
--(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
--(void)             killAllConnections;
--(NSString *)       lastPartsOfPath:                        (NSString *)        thePath;
--(void)             loadKexts; 
--(void)             loadMenuIconSet;
--(BOOL)             AppNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
--(void)             localizeControl:                        (NSButton *)        button       
-                    shiftRight:                             (NSButton *)        buttonToRight
-                    shiftLeft:                              (NSButton *)        buttonToLeft
-                    shiftSelfLeft:                          (BOOL)              shiftSelfLeft;
 -(NSMutableDictionary *)     myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             removeConnection:                       (id)                sender;
--(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
-                                    repairApp:              (BOOL)              repairIt
-                                 removeBackup:              (BOOL)              removeBkup
-                           moveLibraryOpenVPN:              (BOOL)              moveConfigs;
--(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
--(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
--(VPNConnection *)  selectedConnection;
--(NSTextView *)     selectedLogView;
 -(void)             setState:                               (NSString *)        newState;
--(void)             setupSparklePreferences;
--(void)             toggleMenuItem:                         (NSMenuItem *)      item
-                 withPreferenceKey:                         (NSString *)        prefKey;
--(void)             unloadKexts; 
--(void)             updateMenuAndLogWindow;
--(void)             updateTabLabels;
--(void)             updateUI;
--(void)             validateLogButtons;
--(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
--(void)             watcher:                                (UKKQueue *)        kq
-                    receivedNotification:                   (NSString *)        nm
-                    forPath:                                (NSString *)        fpath;
 
-// Getters
--(NSMutableArray *) configDirs;
--(NSString *)       deployPath;
--(NSString *)       libraryPath;
--(NSString *)       sharedPath;
 @end

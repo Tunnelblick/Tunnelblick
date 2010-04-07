@@ -21,9 +21,13 @@
 #include "helper.h"
 #import "NSApplication+SystemVersion.h"
 
-// This file contains global variables and common routines
+// This file contains global variables and common routines. The global variables are set by the -init method of MenuController.
 
+NSMutableArray * gConfigDirs;   // Array of paths to configuration directories currently in use
+NSString       * gDeployPath;   // Path to Tunnelblick.app/Contents/Resources/Deploy
+NSString       * gSharedPath;   // Path to /Library/Application Support/Tunnelblick/Shared
 TBUserDefaults * gTbDefaults;
+NSFileManager  * gFileMgr;      // [NSFileManager defaultManager]
 
 BOOL runningOnTigerOrNewer()
 {
@@ -53,6 +57,30 @@ NSString *escaped(NSString *string) {
 	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
 	return stringOut;
 }
+
+// Returns the path of the configuration folder in which a specified configuration file is contained
+// Returns nil if it is not in any configuration folder
+NSString * firstPartOfPath(NSString * thePath)
+{
+    int i;
+    for (i=0; i < [gConfigDirs count]; i++) {
+        if (  [thePath hasPrefix: [gConfigDirs objectAtIndex: i]]  ) {
+            return [gConfigDirs objectAtIndex: i];
+        }
+    }
+    
+    NSLog(@"firstPartOfPath: Path %@ does not have a prefix that is in any gConfigDirs entry", thePath);
+    return nil;
+}
+
+// The name of the configuration file, but prefixed by any folders it is contained in after /Deploy or /Configurations
+//      = configPath less the Deploy or Configurations folder prefix (but including the extension)
+// Used for constructing path to shadow copy of the configuration and as an argument to openvpnstart
+NSString * lastPartOfPath(NSString * thePath)
+{
+    return [thePath substringFromIndex: [firstPartOfPath(thePath) length]+1];
+}
+
 
 BOOL useDNSStatus(id connection)
 {
