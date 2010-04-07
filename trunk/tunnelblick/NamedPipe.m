@@ -18,6 +18,8 @@
 
 #import "NamedPipe.h"
 
+extern NSFileManager * gFileMgr;
+
 @implementation NamedPipe
 
 -(id) initPipeReadingFromPath: (NSString *) path
@@ -43,7 +45,7 @@
     inTarget = target;
     [inTarget retain];
     
-    [[NSFileManager defaultManager] removeFileAtPath:inPath handler:nil];
+    [gFileMgr removeFileAtPath:inPath handler:nil];
     
     const char * cPath = [path UTF8String];
     
@@ -116,7 +118,7 @@
     fileHandleForReading = nil;
     
     if (  inPath  ) {
-        [[NSFileManager defaultManager] removeFileAtPath:inPath handler:nil];
+        [gFileMgr removeFileAtPath:inPath handler:nil];
         [inPath release];
         inPath = nil;
     }
