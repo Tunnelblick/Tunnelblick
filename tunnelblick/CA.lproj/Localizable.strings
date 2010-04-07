@@ -1,8 +1,8 @@
 /* NEEDS TRANSLATION *//* Window title */
-" (Deployed)" = " (Deployed)";
+" (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 
 /* NEEDS TRANSLATION *//* Window title */
-" (Shared)" = " (Shared)";
+" (Shared)" = " (Shared)"; /* Indicates a shared configuration */
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' s'ha desconnectat";
