@@ -7,14 +7,15 @@ To use Tunnelblick you need access a VPN server -- your computer is one end of t
   * You can get (free or for a fee) access to a VPN by using a VPN service provider.
 
 ==Employer-provided VPN Servers==
-Your employer should supply an OpenVPN configuration file (or files), along with the appropriate certificate and key files and usernames and passwords.
+Your employer should supply an OpenVPN configuration file (or files), along with the appropriate certificate and key files and usernames and passwords. Generally, you can just put all the files into the following folder:
+~/Library/Application Support/Tunnelblick/Configurations. Don't put the folder containing the files into ...Configurations -- just put the files themselves. (This assumes that the lines in the configuration file beginning with "ca", "key", and "cert" are followed by a filename, and not a folder/filename combination.)
 
 ==Setting Up Your Own VPN Server==
 This is more complicated. It involves creating an OpenVPN configuration file and certificate and key files. There are tutorials about doing this -- try searching for "set up vpn server".
 
 If you want to set up a computer to act solely as a router/bridge/firewall, consider [http://www.zeroshell.net/eng/ ZeroShell].
 
-If you have a router running DD-WRT, consider the [http://www.dd-wrt.com/wiki/index.php/OpenVPN#Enable_OpenVPN_in_the_Router DD-RT].
+If you have a router running DD-WRT, you can use [http://www.dd-wrt.com/wiki/index.php/OpenVPN#Enable_OpenVPN_in_the_Router OpenVPN on DD-RT].
 
 ==VPN Service Providers That Recommend Tunnelblick Exclusively for Mac OS X==
 
