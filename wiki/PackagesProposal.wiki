@@ -35,12 +35,12 @@ Tunnelblick packages are folders with an extension of ".tblk". (OS X will treat 
         Contents/
             Info.plist
             Resources/
-                Exactly one .conf or .ovpn file containing OpenVPN configuration information (may be contained in a subfolder)
-                (Optional) files and/or folders containing any number of keys, certificates, and/or shell scripts
+                config.conf, containing OpenVPN configuration information
+                (Optional) key, certificate, and/or shell script files
 }}}
-The configuration file may reside at the top level of /Resources or in a subfolder. The name of the configuration file is not used by Tunnelblick.
+The configuration file must reside at the top level of /Resources and be named "config.conf".
 
-The name of the _package_ (without ".tblk") is used as the display name of the configuration unless a 'TBDisplayName' entry exists in Info.plist (see [PackagesProposal#Display_Name Display Name]).
+The name of the _package_ (without ".tblk") is used as the display name of the configuration unless it conflicts with an existing name (see [PackagesProposal#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
 ==Info.plist==
 Info.plist is optional. If it exists, it must be an OS X property list file, and may contain the following keys:
@@ -52,12 +52,8 @@ Info.plist is optional. If it exists, it must be an OS X property list file, and
 ||TBInstallWhenInstallingTunnelblick||A string specifying whether to install the package when the package is located on a disk image or other volume from which Tunnelblick cannot be used and Tunnelblick is installed by double-clicking Tunnelblick.app on the volume. Must be "yes", "no", or "ask" (without the quotation marks)||ask||no||
 ||TBReplaceIdentical||A string specifying whether to install the package over a package with the same CFBundleIdentifier. Must be "yes", "no", "ask", or "force" (without the quotation marks)||ask||yes||
 ||TBSharePackage||A string specifying whether to install the package as shared or private, or to ask the user. Must be "shared", "private", or "ask" (without the quotation marks)||ask||ask||
-||TBDisplayName||A string to be used as the display name of the configuration.||The name of the Tunnelblick package (without the .tblk)||Office-Main||
 
-A package's Info.plist may also optionally contain entries (strings and booleans) with keys that start with "TB-Preference". The strings are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TB-Preference" is replaced with the display name of the package. Note that the "autoConnect" option triggers a connection when Tunnelblick is started, so the configuration is not connected automatically when it is installed, but the next time Tunnelblick is launched.
-
-==Display Name==
-If a 'TBDisplayName' key is present in the package's Info.plist, the string value corresponding to that key will be used as the "display name" Tunnelblick uses to identify the configuration to the user and for preference and Keychain items. If there is no "TBDisplayName" key, the package's filename (without the ".tblk" extension) will be used. Note that if the package replaces an existing package with the same "CFBundleIdentifier", the display name of the existing package will be *not* replace this entry.
+A package's Info.plist may also optionally contain entries (strings and booleans) with keys that start with "TBPreference". The strings are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TBPreference" is replaced with the display name of the package. Note that the "autoConnect" option triggers a connection when Tunnelblick is started, so the configuration is not connected automatically when it is installed, but the next time Tunnelblick is launched.
 
 ==Automatic Installation==
 When Tunnelblick itself is installed (by double-clicking Tunnelblick.app when it is located on a disk image or other volume from which it cannot be used), all packages in the folder containing the Tunnelblick.app being installed, or a subfolder of it, that have "TBInstallWhenInstallingTunnelblick" set to "yes" are installed (subject to [PackagesProposal#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [PackagesProposal#Name_Conflicts_During_Installation Name Conflicts During Installation]. If "TBInstallWhenInstallingTunnelblick" is set to "no", the package will not be installed. If "TBInstallWhenInstallingTunnelblick" is "ask", the user will be asked before installing the package.
@@ -65,16 +61,14 @@ When Tunnelblick itself is installed (by double-clicking Tunnelblick.app when it
 == CFBundleIdentifier Conflicts==
 On automatic or manual installation of a package, if a package with an identical CFBundleIdentifier is already installed:
   * If the new package's "TBReplaceIdentical" is "no", the package will not be installed.
-  * If the new package's "TBReplaceIdentical" is "yes", the existing package will be replaced without notifying the user only if it has an equal or higher "CFBundleVersion" than the existing installed package.
+  * If the new package's "TBReplaceIdentical" is "yes", the existing package will be replaced without notifying the user if it has an equal or higher "CFBundleVersion" than the existing installed package. If it has a lower "CFBundleVersion", the package will not be installed.
   * If the new package's "TBReplaceIdentical" is "force", the existing package will be replaced without notifying the user.
   * If the new package's "TBReplaceIdentical" is "ask", the existing package will be replaced only after getting the user's consent.
 
 When an existing package is replaced, the new copy takes the display name of the existing version. Thus, the new version will inherit the existing version's preferences and Keychain items.
 
 ==Name Conflicts During Installation==
-If the display name of a package is the same as the name of an .ovpn or .conf file (without the .extension) from Deploy, /Library/Application Support/Tunnelblick/Shared, or ~/Library/Application Support/Tunnelblick/Configurations, or is the same as the display name of an existing package that has a different CFBundleIdentifier:
-  * If the display name came from the package filename, the user will be asked to rename the package or cancel the installation;
-  * If the display name came from a 'TBDisplayName' entry in the package's Info.plist, the installation will be cancelled. (The user must rename of the .ovpn or .conf file and should rename all preferences for that configuration to allow installation to proceed.)
+If the display name of a package is the same as the name of an .ovpn or .conf file (without the .extension) from Deploy, /Library/Application Support/Tunnelblick/Shared, or ~/Library/Application Support/Tunnelblick/Configurations, or is the same as the display name of an existing package that has a different CFBundleIdentifier the user will be asked to rename the package or cancel the installation;
 
 ==Name Conflicts After Installation==
 Configurations are displayed from
@@ -94,9 +88,9 @@ in that order. If a display name matches an earlier display name, the later conf
   * Configurations in packages are always combined with non-packaged, non-deployed configurations.
 
   * Deployed versions contain configurations within Tunnelblick.app
-  * Packages are copied to ~/Library/Application Support/Tunnelblick/Configurations
+  * Packages are copied to ~/Library/Application Support/Tunnelblick/Configurations or /Library/Application Support/Tunnelblick/Shared
 
-  * Deployed versions use "forced-preferences.plist" to force any Tunnelblick preference. The user cannot change the forced preferences. Wildcards may be used to easily specify preferences for multiple configurations.
+  * Deployed versions use "forced-preferences.plist" to force any Tunnelblick preference. The user cannot change the forced preferences. Wildcards may be used to specify preferences for multiple configurations.
   * Packages use Info.plist to force default preferences for only that configuration. The user may change the preferences. No wildcards are allowed.
 
   * The Deploy folder is backed up each time Tunnelblick is launched if contents of Deploy have changed. The Deploy folder is restored from the backup if a Tunnelblick which does not contain the Deploy folder is launched from the same location. This means that once a Deployed version is launched and the backup is created, the launch of a "fresh" copy of Tunnelblick (one without a Deploy folder) from the same location will change that "fresh" version into a Deployed version. This is how the built-in updater can update Tunnelblick without losing the Deploy folder. If the updated "fresh" version of Tunnelblick contains Deploy, that (presumably new) version of Deploy will replace the old version (and then be backed up).
@@ -106,7 +100,7 @@ in that order. If a display name matches an earlier display name, the later conf
   * Non-deployed versions ask for  a computer administrator username/password on the first launch of Tunnelblick, when a package is installed, and the first time each non-packaged individual configuration is used.
 
   * Deployed versions of Tunnelblick allow an arbitrary arrangement of configuration files, folders, and subfolders within Deploy.
-  * Packages are slightly more structured and require exactly one configuration file.
+  * Packages are highly structured and require exactly one configuration file with a specific name.
 
   * In Deployed versions: key, certificate, script etc. files are referred to in the configuration file relative to /Deploy.
   * In packages: key, certificate, script etc. files are referred to in the configuration file relative to /Resources.
@@ -125,5 +119,7 @@ in that order. If a display name matches an earlier display name, the later conf
     * Changed some Info.plist entries, added ability to install to shared location, added note about shadow copies, and made minor edits.
   * 2010-03-29
     * Relaxed requirements for Info.plist and made other minor edits
+  * 2010-04-11
+    * Removed the TBDisplayName Info.plist entry and made the .tblk structure more highly specified.
 
 ====PLEASE DISCUSS THIS PROPOSAL IN [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
