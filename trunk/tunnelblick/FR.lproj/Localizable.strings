@@ -34,8 +34,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"All configuration files removed" = "All configuration files removed";
+/* Window title */
+"All configuration files removed" = "Tous les fichiers de configuration ont été effacés";
 
 /* NEEDS TRANSLATION *//* Window text */
 "An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
@@ -52,8 +52,8 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Authentication failed" = "Authentication failed";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Automatically Check for Updates" = "Automatically Check for Updates";
+/* Menu item */
+"Automatically Check for Updates" = "Vérifier automatiquement les mises à jour";
 
 /* Checkbox name */
 "Automatically connect on launch" = "Se connecter au lancement";
@@ -67,14 +67,14 @@
 /* Button */
 "Cancel"	= "Annuler";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Check For Updates Now" = "Check For Updates Now";
+/* Menu item */
+"Check For Updates Now" = "Vérifier les mises à jour";
 
 /* Button */
 "Clear log" = "Effacer le journal";
 
-/* NEEDS TRANSLATION *//* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Fermer les connections VPN et arreter Tunnelblick";
 
 /* NEEDS TRANSLATION *//* System profile item */
 "Computer admin" = "Computer admin";
@@ -100,11 +100,11 @@
 /* NEEDS TRANSLATION *//* Button */
 "Create and open configuration folder" = "Create and open configuration folder";
 
-/* NEEDS TRANSLATION *//* Button */
-"Create copy" = "Create copy";
+/* Button */
+"Create copy" = "Créer une copie";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Create local copy of configuration file?" = "Create local copy of configuration file?";
+/* Window title */
+"Create local copy of configuration file?" = "Créer une copie locale du fichier de configuration?";
 
 /* NEEDS TRANSLATION *//* System profile item */
 "Deployed" = "Deployed";
@@ -145,8 +145,8 @@
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+/* Window title */
+"Do you wish to connect?" = "Voulez-vous vous connecter?";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
@@ -163,8 +163,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
-/* NEEDS TRANSLATION *//* Text on disk image */
-"Double-click to begin" = "Double-click to begin";
+/* Text on disk image */
+"Double-click to begin" = "Faites double click pour commencer";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
@@ -187,20 +187,20 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Examine the configuration file?" = "Examine the configuration file?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Examine" = "Examine";
+/* Button */
+"Examine" = "Examiner";
 
 /* Connection status */
 "GET_CONFIG" = "Obtient la configuration";
 
-/* NEEDS TRANSLATION *//* Button */
-"Go to the OpenVPN documentation on the web" = "Go to the OpenVPN documentation on the web";
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Aller à la documentation OpenVPN sur le net";
 
 /* NEEDS TRANSLATION *//* Window text */
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install Tunnelblick?" = "Install Tunnelblick?";
+/* Window title */
+"Install Tunnelblick?" = "Installer Tunnelblick?";
 
 /* NEEDS TRANSLATION *//* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -208,20 +208,20 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Install and edit sample configuration file?" = "Install and edit sample configuration file?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Install" ="Install";
+/* Button */
+"Install" ="Installation";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation failed" = "Installation failed";
+/* Window title */
+"Installation failed" = "Installation échouée";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Installation or Repair Failed" = "Installation or Repair Failed";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation succeeded" = "Installation succeeded";
+/* Window title */
+"Installation succeeded" = "Installation réussite";
 
-/* NEEDS TRANSLATION *//* Button */
-"Launch" = "Launch";
+/* Button */
+"Launch" = "Démarrer";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Monitor DNS" = "Monitor DNS";
@@ -259,8 +259,8 @@
 /* Textbox name */
 "Password:" = "Mot de passe:";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
+/* Menu item */
+"Place Icon Near the Spotlight Icon" = "Placer l'Icone près de l'Icone Spotlight";
 
 /* Window text */
 "Please enter VPN passphrase." = "Veuillez saisir votre clef privée du VPN.";
@@ -286,14 +286,14 @@
 /* Connection status */
 "RECONNECTING" = "Rebranche";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
+/* Window title */
+"Reinstall Tunnelblick?" = "Reinstaller Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Reinstall" = "Reinstall";
+/* Button */
+"Reinstall" = "Reinstaller";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Reinstallation succeeded" = "Reinstallation succeeded";
+/* Window title */
+"Reinstallation succeeded" = "Reinstallation réussite";
 
 /* NEEDS TRANSLATION *//* Button */
 "Remove backup and do not restore" = "Remove backup and do not restore";
@@ -349,8 +349,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Le nom d'utilisateur et le mot de passe ne doivent pas être vides!\nEntrez l'utilisateur/mot de passe VPN.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
@@ -361,8 +361,8 @@
 /* Button */
 "Try again" = "Veuillez réessayer";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
+/* Window title */
+"Tunnelblick Configuration Problem" = "Problème de Configuration de Tunnelblick";
 
 /* Window title */
 "Tunnelblick Error" = "Erreur Tunnelblick";
@@ -454,8 +454,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
+/* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick a besoin de OS X 10.4 ou supérieur\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
@@ -478,11 +478,11 @@
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 connexion active.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
+/* Window title */
+"Unable to install Tunnelblick" = "Impossible d'installer Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+/* Window title */
+"Unable to launch Tunnelblick" = "Impossible de démarrer Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Unable to move previous version to Trash" = "Unable to move previous version to Trash";
@@ -499,8 +499,8 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Upgrade succeeded" = "Upgrade succeeded";
 
-/* NEEDS TRANSLATION *//* Button */
-"Upgrade" = "Upgrade";
+/* Button */
+"Upgrade" = "Mise à jour";
 
 /* NEEDS TRANSLATION *//* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
@@ -546,5 +546,7 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+
 /* NEEDS TRANSLATION *//* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
+
