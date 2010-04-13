@@ -19,9 +19,6 @@
 /* Window text */
 "All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
 
-/* Window title */
-"All configuration files removed" = "All configuration files removed";
-
 /* Window text */
 "An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
 
@@ -37,17 +34,8 @@
 /* Window title */
 "Authentication failed" = "Authentication failed";
 
-/* Menu item */
-"Automatically Check for Updates" = "Automatically Check for Updates";
-
 /* Connection status */
 "CONNECTING" = "Connecting";
-
-/* Menu item */
-"Check For Updates Now" = "Check For Updates Now";
-
-/* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 
 /* System profile item */
 "Computer admin" = "Computer admin";
@@ -63,12 +51,6 @@
 
 /* Button */
 "Create and open configuration folder" = "Create and open configuration folder";
-
-/* Button */
-"Create copy" = "Create copy";
-
-/* Window title */
-"Create local copy of configuration file?" = "Create local copy of configuration file?";
 
 /* System profile item */
 "Deployed" = "Deployed";
@@ -103,9 +85,6 @@
 /* Checkbox name */
 "Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
 
-/* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
-
 /* Window text */
 "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
@@ -121,9 +100,6 @@
 /* Window text */
 "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@";
 
-/* Text on disk image */
-"Double-click to begin" = "Double-click to begin";
-
 /* Window title */
 "Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
 
@@ -136,17 +112,8 @@
 /* Window title */
 "Examine the configuration file?" = "Examine the configuration file?";
 
-/* Button */
-"Examine" = "Examine";
-
-/* Button */
-"Go to the OpenVPN documentation on the web" = "Go to the OpenVPN documentation on the web";
-
 /* Window text */
 "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it." = "If you modify the configuration file, you will need to provide an administrator username and password the next time you connect using it.";
-
-/* Window title */
-"Install Tunnelblick?" = "Install Tunnelblick?";
 
 /* Button */
 "Install and edit sample configuration file" = "Install and edit sample configuration file";
@@ -154,20 +121,8 @@
 /* Window title */
 "Install and edit sample configuration file?" = "Install and edit sample configuration file?";
 
-/* Button */
-"Install" ="Install";
-
-/* Window title */
-"Installation failed" = "Installation failed";
-
 /* Window title */
 "Installation or Repair Failed" = "Installation or Repair Failed";
-
-/* Window title */
-"Installation succeeded" = "Installation succeeded";
-
-/* Button */
-"Launch" = "Launch";
 
 /* Checkbox name */
 "Monitor DNS" = "Monitor DNS";
@@ -199,23 +154,11 @@
 /* Menu item */
 "Options" = "Options";
 
-/* Menu item */
-"Place Icon Near the Spotlight Icon" = "Place Icon Near the Spotlight Icon";
-
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
 /* Menu item */
 "Preferences" = "Preferences";
-
-/* Window title */
-"Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
-
-/* Button */
-"Reinstall" = "Reinstall";
-
-/* Window title */
-"Reinstallation succeeded" = "Reinstallation succeeded";
 
 /* Button */
 "Remove backup and do not restore" = "Remove backup and do not restore";
@@ -260,13 +203,7 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
 
 /* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
-
-/* Window text */
 "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required." = "This copy of Tunnelblick does not contain any configuration settings. Do you wish to restore the configuration settings from the backup copy?\n\nAn administrator username and password will be required.";
-
-/* Window title */
-"Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
 
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
@@ -353,9 +290,6 @@
 "Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
 
 /* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
-
-/* Window text */
 "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?\n\n(An administrator username and password will be required so Tunnelblick can be secured.)";
 
 /* Window text */
@@ -371,12 +305,6 @@
 "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
 
 /* Window title */
-"Unable to install Tunnelblick" = "Unable to install Tunnelblick";
-
-/* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
-
-/* Window title */
 "Unable to move previous version to Trash" = "Unable to move previous version to Trash";
 
 /* Button */
@@ -390,9 +318,6 @@
 
 /* Window title */
 "Upgrade succeeded" = "Upgrade succeeded";
-
-/* Button */
-"Upgrade" = "Upgrade";
 
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
@@ -429,5 +354,7 @@
 
 /* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
+
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
+
