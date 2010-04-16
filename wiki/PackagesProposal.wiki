@@ -58,9 +58,9 @@ Info.plist is optional. If it exists, it must be an OS X property list file, and
 ||TBPreference||See [PackagesProposal#Preferences Preferences]|| || ||
 
 ==Preferences==
-A package's Info.plist may also optionally contain entries (strings and booleans) with keys that start with "TBPreference". The strings are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TBPreference" is replaced with the display name of the package. Note that the "autoConnect" option triggers a connection when Tunnelblick is started, so the configuration is not connected automatically when it is installed, but the next time Tunnelblick is launched.
+A package's Info.plist may also optionally contain entries (strings and booleans) with keys that start with "TBPreference". The entries are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TBPreference" is replaced with the display name of the package. Note that the "autoConnect" option triggers a connection when Tunnelblick is started, so a configuration with "TBPreferenceautoConnect" is not connected automatically when it is installed, but rather is connected automatically the next time Tunnelblick is launched.
 
-In a Deployed version of Tunnelblick, the forced-preferences in Deploy will override any such package preferences. 
+In a Deployed version of Tunnelblick, the forced-preferences in Deploy will override any package-specified preferences. 
 
 ==Up and Down Scripts==
 If the package contains up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the package and "Set nameserver" is checked for the package's configuration.
@@ -135,5 +135,7 @@ in that order. If a display name matches an earlier display name, the later conf
     * Removed the TBDisplayName Info.plist entry and made the .tblk structure more highly specified.
   * 2010-04-15
     * Changed config.conf to config.ovpn, and added up/down scripts within the package.
+  * 2010-04-16
+    * Minor wording change for clarification.
 
 ====PLEASE DISCUSS THIS PROPOSAL IN [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
