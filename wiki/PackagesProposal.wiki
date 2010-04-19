@@ -48,14 +48,14 @@ The name of the _package_ (without ".tblk") is used as the display name of the c
 ==Info.plist==
 Info.plist is optional. If it exists, it must be an OS X property list file, and may contain the following keys:
 ||Key||Description||Default||Examples||
-||CFBundleIdentifier||A string that uniquely identifies the configuration and the individual or organization distributing the package. If this is an empty string, Tunnelblick uses the filename of the package||(None)||com.example.tbconfigs.config27A||
+||CFBundleIdentifier||A string that uniquely identifies the configuration and the individual or organization distributing the package.||The package's filename||com.example.tbconfigs.config27A||
 ||CFBundleVersion ||A string representing the version number that is used to determine later/earlier versions of the package (see [PackagesProposal#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts]). The string must consist of a major version number, optionally followed by a decimal point and a minor version number, optionally followed by a decimal point and a bugfix version number||(None)||1.16.4||
 ||CFBundleShortVersionString||A string to display as the version (in Get Info, for example)||(None)||1.6 Test 3||
 ||TBPackageVersion||A string with the package version number||1||The string "1" (without the quotation marks)||
 ||TBInstallWhenInstallingTunnelblick||A string specifying whether to install the package when the package is located on a disk image or other volume from which Tunnelblick cannot be used and Tunnelblick is installed by double-clicking Tunnelblick.app on the volume. Must be "yes", "no", or "ask" (without the quotation marks)||ask||no||
 ||TBReplaceIdentical||A string specifying whether to install the package over a package with the same CFBundleIdentifier. Must be "yes", "no", "ask", or "force" (without the quotation marks)||ask||yes||
 ||TBSharePackage||A string specifying whether to install the package as shared or private, or to ask the user. Must be "shared", "private", or "ask" (without the quotation marks)||ask||ask||
-||TBPreference||See [PackagesProposal#Preferences Preferences]|| || ||
+||TBPreference||See [PackagesProposal#Preferences Preferences]|| ||TBPreferenceuseDNS||
 
 ==Preferences==
 A package's Info.plist may also optionally contain entries (strings and booleans) with keys that start with "TBPreference". The entries are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the package (when Tunnelblick is launched or the package is added to the Configurations folder). When the entries are copied, "TBPreference" is replaced with the display name of the package. Note that the "autoConnect" option triggers a connection when Tunnelblick is started, so a configuration with "TBPreferenceautoConnect" is not connected automatically when it is installed, but rather is connected automatically the next time Tunnelblick is launched.
