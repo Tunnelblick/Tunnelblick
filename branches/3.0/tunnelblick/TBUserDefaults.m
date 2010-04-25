@@ -28,7 +28,7 @@
     }
     
     userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults registerDefaults: [[NSMutableDictionary alloc] init]];
+    [userDefaults registerDefaults: [[[NSMutableDictionary alloc] init] autorelease]];
 
     forcedDefaults = [inDict copy];
 
