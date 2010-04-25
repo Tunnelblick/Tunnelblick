@@ -11,13 +11,7 @@
 "  • Secure Tunnelblick VPN Configurations\n" = "  • Secure Tunnelblick VPN Configurations\n";
 
 /* Window title */
-" (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
-
-/* Window title */
 " (Private)" = " (Private)";
-
-/* Window title */
-" (Shared)" = " (Shared)"; /* Indicates a shared configuration */
 
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN Configurations were installed successfully.";
@@ -47,18 +41,6 @@
 "Could Not Move and Secure Configuration" = "Could Not Move and Secure Configuration";
 
 /* Button */
-"Create and open configuration folder" = "Create and open configuration folder";
-
-/* Menu item tooltip */
-"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
-
-/* Menu item tooltip */
-"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:" = "Disabled because Sparkle Updater does not respond to setSendsSystemProfile:";
-
-/* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
-
-/* Button */
 "Do Not Install" = "Do Not Install";
 
 /* Window text */
@@ -66,9 +48,6 @@
 
 /* Window text */
 "Do you wish to install Tunnelblick VPN Configuration '%@'?" = "Do you wish to install Tunnelblick VPN Configuration '%@'?";
-
-/* Window text */
-"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\"%1$@\"?\n\n%2$@";
 
 /* Window text */
 "Do you wish to install one configuration?" = "Do you wish to install one configuration?";
@@ -83,9 +62,6 @@
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Do you wish to replace '%1$@'%2$@ version %3$@ with version %4$@?";
 
 /* Button */
-"Downgrade" = "Downgrade";
-
-/* Button */
 "Examine configuration" = "Examine configuration";
 
 /* Window title */
@@ -93,9 +69,6 @@
 
 /* Window title */
 "Install Tunnelblick VPN Configuration?" = "Install Tunnelblick VPN Configuration?";
-
-/* Button */
-"Install" ="Install";
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
@@ -114,9 +87,6 @@
 
 /* Button */
 "Only Me" = "Only Me";
-
-/* Button */
-"Open configuration folder" = "Open configuration folder";
 
 /* Window title */
 "Perform installation?" = "Perform installation?";
@@ -159,9 +129,6 @@
 
 /* Window title */
 "Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN Configuration Installation";
-
-/* Window text */
-"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = "Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details.";

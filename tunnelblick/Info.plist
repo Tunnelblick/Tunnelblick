@@ -4,6 +4,25 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tblk</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>tunnelblick.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Tunnelblick VPN Configuration</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>Tunnelblick</string>
 	<key>CFBundleIconFile</key>
@@ -14,10 +33,10 @@
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>OVPN</string>
 	<key>CFBundleShortVersionString</key>
 	<string>3.1beta01 (build 1483)</string>
+	<key>CFBundleSignature</key>
+	<string>OVPN</string>
 	<key>CFBundleVersion</key>
 	<string>1483</string>
 	<key>NSMainNibFile</key>
@@ -26,10 +45,10 @@
 	<string>NSApplication</string>
 	<key>NSUIElement</key>
 	<string>1</string>
-	<key>SUFeedURL</key>
-	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>SUEnableSystemProfiling</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 </dict>

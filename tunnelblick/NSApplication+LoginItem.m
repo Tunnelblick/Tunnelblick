@@ -60,7 +60,7 @@
         if (pid!=myPid && strncmp(myProcessName, command, MAXCOMLEN)==0) {
             // Actually kill it:
             if (kill(pid, SIGTERM) !=0) {
-                NSLog(@"Error while killing process: %s", strerror(errno)); 
+                NSLog(@"Error while killing process: Error was '%s'", strerror(errno)); 
             }
         }
     }    
@@ -248,7 +248,7 @@
     // the icon won't be displayed. It works if the icon is in /tmp. In addition, it seems to require a 32x32 png.
     // We create the icon dynamically so if the main Tunnelblick icon changes, the authorization dialog will show the new icon.
 
-    NSString * tmpAuthIconPath = @"/tmp/TunnelblickAuthIcon.png";
+    NSString * tmpAuthIconPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickAuthIcon.png"];
     
     // START OF CODE adapted from comment 7 on http://cocoadev.com/forums/comments.php?DiscussionID=1215    //
                                                                                                             //

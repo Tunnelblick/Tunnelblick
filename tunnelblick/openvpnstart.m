@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+ * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009, 2010 Angelo Laub
  * Contributions by Dirk Theisen and Jonathan K. Bullard
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,12 +18,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <Foundation/NSDebug.h>
-#import <sys/types.h>
-#import <sys/stat.h>
-#import <unistd.h>
 #import <sys/sysctl.h>
-#import <signal.h>
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor);
@@ -42,21 +37,21 @@ void	getProcesses		(struct kinfo_proc** procs, int* number);	//Fills in process 
 BOOL    processExists       (pid_t pid);    //Returns TRUE if the process exists
 BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn")
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
+BOOL    itemIsVisible       (NSString * path); // Returns NO if path or any component of path is invisible (compenent starts with a '.')
 
+NSString * configPathFromTblkPath(NSString * path);
 NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 
-NSString*					execPath;		//Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
-NSString*			        configPath;		//Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
-NSAutoreleasePool*			pool;
+NSAutoreleasePool   * pool;
+NSString			* configPath;   //Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
+NSString			* execPath;     //Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
+NSFileManager       * gFileMgr;
 
-NSFileManager * gFileMgr;
-
+//**************************************************************************************************************************
 int main(int argc, char* argv[])
 {
     pool = [[NSAutoreleasePool alloc] init];
 	
-    gFileMgr = [NSFileManager defaultManager];
-    
 	BOOL	syntaxError	= TRUE;
     int     retCode = 0;
     execPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
@@ -142,7 +137,7 @@ int main(int argc, char* argv[])
                 
 				"processId  is the process ID of the openvpn process to kill\n\n"
                 
-				"configName is the name of the configuration file\n\n"
+				"configName is the name of the configuration file (a .conf or .ovpn file, or .tblk package)\n\n"
                 
 				"mgtPort    is the port number (0-65535) to use for managing the connection\n\n"
                 
@@ -163,11 +158,14 @@ int main(int argc, char* argv[])
                 "                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
                 "                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n"
                 "           or 3 to use /Library/Application Support/Tunnelblick/Shared\n\n"
-
+                
                 "noMonitor  is 0 to monitor the connection for interface configuration changes\n"
                 "           or 1 to not monitor the connection for interface configuration changes\n\n"
-
+                
 				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n\n"
+                
+                "If the configuration file's extension is '.tblk', the package is searched for the configuration file, and the OpenVPN '--cd'\n"
+                "option is set to the path of the configuration's /Contents/Resources folder.\n\n"
 				
 				"The normal return code is 0. If an error occurs a message is sent to stderr and a code of 2 is returned.\n\n"
 				
@@ -185,10 +183,11 @@ int main(int argc, char* argv[])
 	exit(retCode);
 }
 
+//**************************************************************************************************************************
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor)
 {
-	NSString*	directoryPath	= [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+	NSString*	privateFolderPath       = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
 	NSString*	openvpnPath             = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSString*	upscriptPath            = [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
 	NSString*	downscriptPath          = [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
@@ -196,10 +195,14 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     NSString*   deployDirPath           = [execPath stringByAppendingPathComponent: @"Deploy"];
 	NSString*	upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
 	NSString*	downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"];
+    
+    gFileMgr = [NSFileManager defaultManager];
 
+    NSString * cdFolderPath = [[privateFolderPath copy] autorelease];  // Assume we're using the private folder
+    
 	switch (cfgLocCode) {
         case 0:
-            configPath = [directoryPath stringByAppendingPathComponent:configFile];
+            configPath = [privateFolderPath stringByAppendingPathComponent:configFile];
             break;
             
         case 1:
@@ -207,46 +210,52 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             break;
             
         case 2:
-            configPath = [deployDirPath stringByAppendingPathComponent:configFile];
-
-            // If Deploy contains anything other than *.conf, *.ovpn, *.up.sh, *.down.sh, and forced-preferences.plist files
-            // Then use Deploy as the --cd directory
+            configPath = [deployDirPath stringByAppendingPathComponent: configFile];
+            // If Deploy contains anything other than *.conf, *.ovpn, *.up.sh, *.down.sh, *.tblk, and forced-preferences.plist files
+            // Then use Deploy as the --cd directory (but this is overridden later for .tblks)
             BOOL onlyThoseFiles = TRUE;   // Assume Deploy contains only those files
             NSString *file;
             NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: deployDirPath];
             while (file = [dirEnum nextObject]) {
-                NSString * ext = [file pathExtension];
-                if (  [file isEqualToString:@"forced-preferences.plist"]  || [file isEqualToString:@".DS_Store"]  ) {
-                    // forced-preferences.plist and .DS_Store are OK
-                } else if (  [ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]  ) {
-                    // *.conf and *.ovpn are OK
-                } else {
-                    // Not forced-preferences.plist, .DS_Store, *.conf, or *.ovpn
-                    if (  [ext isEqualToString: @"sh"]  ) {
-                        NSString * secondExt = [[file stringByDeletingPathExtension] pathExtension];
-                        if (  [secondExt isEqualToString: @"up"] || [secondExt isEqualToString: @"down"]  ) {
-                            // *.up.sh and *.down.sh are OK
+                if (  itemIsVisible([deployDirPath stringByAppendingPathComponent: file])  ) {
+                    NSString * ext = [file pathExtension];
+                    if (  [file isEqualToString:@"forced-preferences.plist"]  ) {
+                        // forced-preferences.plist is OK
+                    } else if (  [ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"tblk"]  ) {
+                        // *.conf and *.ovpn and *.tblk are OK
+                    } else {
+                        // Not forced-preferences.plist, *.conf, *.ovpn, *.tblk
+                        if (  [ext isEqualToString: @"sh"]  ) {
+                            NSString * secondExt = [[file stringByDeletingPathExtension] pathExtension];
+                            if (  [secondExt isEqualToString: @"up"] || [secondExt isEqualToString: @"down"]  ) {
+                                // *.up.sh and *.down.sh are OK
+                            } else {
+                                // *.sh file, but not *.up.sh or *.down.sh
+                                onlyThoseFiles = FALSE;
+                                break;
+                            }
                         } else {
-                            // *.sh file, but not *.up.sh or *.down.sh
+                            // not forced-preferences.plist, *.conf, *.ovpn, .tblk, or *.sh -- probably *.crt or *.key
                             onlyThoseFiles = FALSE;
                             break;
                         }
-                    } else {
-                        // not forced-preferences.plist, .DS_Store, *.conf, *.ovpn, or *.sh -- probably *.crt or *.key
-                        onlyThoseFiles = FALSE;
-                        break;
                     }
                 }
             }
-
+            
             if (  ! onlyThoseFiles  ) {
-                directoryPath = deployDirPath;
+                cdFolderPath = deployDirPath;   // We override this later if a configuration is a .tblk package
             }
             break;
             
         case 3:
+            if (  ! [[configFile pathExtension] isEqualToString: @"tblk"]) {
+                fprintf(stderr, "Only Tunnelblick VPN Configurations (.tblk packages) may connect from /Library/Application Support/Tunnelblick/Shared\n");
+                [pool drain];
+                exit(237);
+            }
             configPath = [@"/Library/Application Support/Tunnelblick/Shared" stringByAppendingPathComponent: configFile];
-            directoryPath = @"/Library/Application Support/Tunnelblick/Shared";
+            // directoryPath is set below since this is a .tblk
             break;
             
         default:
@@ -254,16 +263,28 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             [pool drain];
             exit(238);
     }
-
+    
+    // If this is a .tblk package, OVERRIDE any code above that sets directoryPath, and set the actual configuration path
+    if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
+        NSString * cfg = configPathFromTblkPath(configPath);
+        if (  ! cfg  ) {
+            fprintf(stderr, "Unable to find configuration file in %s\n", [cfg UTF8String]);
+            [pool drain];
+            exit(236);
+        }
+        cdFolderPath = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
+        configPath = [cfg copy];
+    }
+    
     if(configNeedsRepair()) {
 		[pool drain];
 		exit(241);
 	}
-	
-	// default arguments to openvpn command line
+    
+    // default arguments to openvpn command line
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
 								 @"--management-query-passwords",  
-								 @"--cd", directoryPath, 
+								 @"--cd", cdFolderPath, 
 								 @"--daemon", 
 								 @"--management-hold", 
 								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d", port],  
@@ -310,13 +331,38 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                     downscriptPath = deployDownscriptPath;
                 }
             }
-
+            
         } else {
             if (  noMonitor  ) {
                 upscriptPath = upscriptNoMonitorPath;
                 downscriptPath = downscriptNoMonitorPath;
             }
         }
+        
+        // BUT OVERRIDE THE ABOVE if there are scripts in the .tblk
+        if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
+            NSString * tblkUpscriptPath             = [cdFolderPath stringByAppendingPathComponent: @"up.sh"];
+            NSString * tblkDownscriptPath           = [cdFolderPath stringByAppendingPathComponent: @"down.sh"];
+            NSString * tblkUpscriptNoMonitorPath    = [cdFolderPath stringByAppendingPathComponent: @"nomonitor.up.sh"];
+            NSString * tblkDownscriptNoMonitorPath  = [cdFolderPath stringByAppendingPathComponent: @"nomonitor.down.sh"];
+            if (  noMonitor  ) {
+                if (  [gFileMgr fileExistsAtPath: tblkUpscriptNoMonitorPath]  ) {
+                    upscriptPath = tblkUpscriptNoMonitorPath;
+                }
+                if (  [gFileMgr fileExistsAtPath: tblkDownscriptNoMonitorPath]  ) {
+                    downscriptPath = tblkDownscriptNoMonitorPath;
+                }
+            } else {
+                if (  [gFileMgr fileExistsAtPath: tblkUpscriptPath]  ) {
+                    upscriptPath = tblkUpscriptPath;
+                }
+                if (  [gFileMgr fileExistsAtPath: tblkDownscriptPath]  ) {
+                    downscriptPath = tblkDownscriptPath;
+                }
+            }
+
+        }
+        
         if (  useScripts == 2  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
                                              @"--up", escaped(upscriptPath),
@@ -371,12 +417,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     return 0;
 }
 
+//**************************************************************************************************************************
 //Starts OpenVPN with no arguments, to obtain version and usage info. May complain and exit if can't become root
 void StartOpenVPNWithNoArgs(void)
 {
 	NSString* openvpnPath = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSMutableArray* arguments = [NSMutableArray array];
-
+    
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
 	[task setArguments:arguments];
@@ -386,6 +433,7 @@ void StartOpenVPNWithNoArgs(void)
 	[task waitUntilExit];
 }
 
+//**************************************************************************************************************************
 //Returns having killed an openvpn process, or complains and exits
 void killOneOpenvpn(pid_t pid)
 {
@@ -396,7 +444,7 @@ void killOneOpenvpn(pid_t pid)
         [pool drain];
         exit(243);
     }
-        
+    
 	if(isOpenvpn(pid)) {
 		becomeRoot();
 		didnotKill = kill(pid, SIGTERM);
@@ -412,14 +460,15 @@ void killOneOpenvpn(pid_t pid)
 	}
 }
 
+//**************************************************************************************************************************
 //Kills all openvpn processes and returns the number of processes that were killed. May complain and exit if can't become root or some openvpn processes can't be killed
 int killAllOpenvpn(void)
 {
 	int	count		= 0,
-		i			= 0,
-		nKilled		= 0,		//# of openvpn processes succesfully killed
-		nNotKilled	= 0,		//# of openvpn processes not killed
-		didnotKill;				//return value from kill() -- zero indicates killed successfully
+    i			= 0,
+    nKilled		= 0,		//# of openvpn processes succesfully killed
+    nNotKilled	= 0,		//# of openvpn processes not killed
+    didnotKill;				//return value from kill() -- zero indicates killed successfully
 	
 	struct kinfo_proc*	info	= NULL;
 	
@@ -443,7 +492,7 @@ int killAllOpenvpn(void)
 	free(info);
 	
     waitUntilAllGone();
-
+    
 	if (nNotKilled) {
 		// An error message for each openvpn process that wasn't killed has already been output
 		[pool drain];
@@ -453,12 +502,13 @@ int killAllOpenvpn(void)
 	return(nKilled);
 }
 
+//**************************************************************************************************************************
 //Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 void waitUntilAllGone(void)
 {
     int count   = 0,
-        i       = 0,
-        j       = 0;
+    i       = 0,
+    j       = 0;
     
     BOOL found  = FALSE;
     
@@ -493,6 +543,7 @@ void waitUntilAllGone(void)
     }
 }
 
+//**************************************************************************************************************************
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void loadKexts(void)
 {
@@ -516,6 +567,7 @@ void loadKexts(void)
     }
 }
 
+//**************************************************************************************************************************
 //Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
 void unloadKexts(void)
 {
@@ -540,19 +592,21 @@ void unloadKexts(void)
     }
 }
 
+//**************************************************************************************************************************
 //Returns as root, having setuid(0) if necessary; complains and exits if can't become root
 void becomeRoot(void)
 {
 	if (getuid()  != 0) {
 		if (  setuid(0)  ) {
 			fprintf(stderr, "Error: Unable to become root\n"
-							"You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
+                    "You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
 			[pool drain];
 			exit(248);
 		}
 	}
 }
 
+//**************************************************************************************************************************
 //Fills in process information
 void getProcesses(struct kinfo_proc** procs, int* number)
 {
@@ -571,6 +625,7 @@ void getProcesses(struct kinfo_proc** procs, int* number)
 	*number = length / sizeof(struct kinfo_proc);
 }
 
+//**************************************************************************************************************************
 //Returns TRUE if process is an openvpn process (i.e., process name = "openvpn"), otherwise returns FALSE
 BOOL isOpenvpn(pid_t pid)
 {
@@ -596,6 +651,7 @@ BOOL isOpenvpn(pid_t pid)
 	return is_openvpn;
 }
 
+//**************************************************************************************************************************
 //Returns TRUE if process exists, otherwise returns FALSE
 BOOL processExists(pid_t pid)
 {
@@ -608,7 +664,7 @@ BOOL processExists(pid_t pid)
     for (i = 0; i < count; i++) {
         pid_t thisPid = info[i].kp_proc.p_pid;
         if (pid == thisPid) {
-				does_exist = TRUE;
+            does_exist = TRUE;
             break;
         }
     }    
@@ -616,11 +672,12 @@ BOOL processExists(pid_t pid)
 	return does_exist;
 }
 
+//**************************************************************************************************************************
 //Returns NO if configuration file is secure, otherwise complains and exits
 BOOL configNeedsRepair(void)
 {
 	NSDictionary*	fileAttributes	= [gFileMgr fileAttributesAtPath:configPath traverseLink:YES];
-
+    
 	if (fileAttributes == nil) {
 		fprintf(stderr, "Error: %s does not exist\n", [configPath UTF8String]);
 		[pool drain];
@@ -642,9 +699,37 @@ BOOL configNeedsRepair(void)
 	return NO;
 }
 
+//**************************************************************************************************************************
 // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 NSString *escaped(NSString *string)
 {
 	return [NSString stringWithFormat:@"\"%@\"", string];
 }
 
+// Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
+NSString * configPathFromTblkPath(NSString * path)
+{
+    NSString * cfgPath = [path stringByAppendingPathComponent:@"Contents/Resources/config.ovpn"];
+    BOOL isDir;
+    
+    if (   [gFileMgr fileExistsAtPath: cfgPath isDirectory: &isDir]
+        && (! isDir)  ) {
+        return cfgPath;
+    }
+
+    return nil;
+}
+
+//**************************************************************************************************************************
+// Returns NO if path or any component of path is invisible (compenent starts with a '.') 
+BOOL itemIsVisible(NSString * path)
+{
+    if (  [path hasPrefix: @"."]  ) {
+        return NO;
+    }
+    NSRange rng = [path rangeOfString:@"/."];
+    if (  rng.length != 0) {
+        return NO;
+    }
+    return YES;
+}

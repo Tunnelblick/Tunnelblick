@@ -19,6 +19,7 @@
  */
 
 #import "KeyChain.h"
+#import <Security/Security.h>
 
 @implementation KeyChain
 

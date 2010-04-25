@@ -19,23 +19,28 @@
 
 /* MenuController */
 
-#import <Cocoa/Cocoa.h>
-#import <Sparkle/SUUpdater.h>
+#import <Security/Security.h>
+#import "Sparkle/SUUpdater.h"
 #import "UKKQueue/UKKQueue.h"
-#import "VPNConnection.h"
 
 @class NetSocket;
 
+BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN, BOOL  *restoreDeploy, BOOL * needsPkgRepair); 
+BOOL needToChangeOwnershipAndOrPermissions(void);
+BOOL needToMoveLibraryOpenVPN(void);
+BOOL needToRestoreDeploy(void);
+BOOL needToRepairPackages(void);
+
 @interface MenuController : NSObject
 {
-    IBOutlet NSButton       * monitorConnnectionCheckbox;
     IBOutlet NSButton       * autoLaunchCheckbox;
     IBOutlet NSButton       * clearButton;
     IBOutlet NSButton       * connectButton;
     IBOutlet NSButton       * disconnectButton;
     IBOutlet NSButton       * editButton;
     IBOutlet NSWindow       * logWindow;
-    IBOutlet NSWindow       * splashWindow;
+    IBOutlet NSButton       * monitorConnnectionCheckbox;
+    IBOutlet NSButton       * shareButton;
     IBOutlet NSTabView      * tabView;
     IBOutlet NSButton       * useNameserverCheckbox;
 
@@ -63,11 +68,15 @@
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
-    NSString                * libraryPath;                  // Path to ~/Library/Application Support/Tunnelblick/Configurations
-
-    NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file
+    NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
+    
+    BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
+    
+    NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
 
     NSMutableDictionary     * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
+    
+    AuthorizationRef          myAuth;                       // Used to call installer
     
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
     
@@ -88,8 +97,11 @@
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
     
     BOOL                      ignoreNoConfigs;              // Indicates that the absense of any configuration files should be ingored. This is used to prevent the creation
-                                                            // of a link to Tunnelblick in the Configurations folder in "createDefaultConfigUsingTitle:andMessage" from
-                                                            // triggering a second invocation of it because of the filesystem change when the link is created
+    //                                                         of a link to Tunnelblick in the Configurations folder in "createDefaultConfigUsingTitle:andMessage" from
+    //                                                         triggering a second invocation of it because of the filesystem change when the link is created
+    
+    NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
+    //                                                         so the program can re-select. nil after re-selecting it
 }
 
 // Button and checkbox actions
@@ -101,6 +113,7 @@
 -(IBAction)         disconnect:                             (id)                sender;
 -(IBAction)         editConfig:                             (id)                sender;
 -(IBAction)         nameserverPrefButtonWasClicked:         (id)                sender;
+-(IBAction)         shareConfig:                            (id)                sender;
 
 // Menu actions
 -(IBAction)         togglePlaceIconNearSpotlight:           (NSMenuItem *)      item;   // On Options submenu
@@ -115,9 +128,16 @@
 // General methods
 -(void)             addConnection:                          (id)                sender;
 -(void)             cleanup;
--(NSMutableDictionary *)     myVPNConnectionDictionary;
+-(NSMutableDictionary *)    myConfigDictionary;
+-(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             removeConnection:                       (id)                sender;
+-(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
+                                    repairApp:              (BOOL)              repairIt
+                           moveLibraryOpenVPN:              (BOOL)              moveConfigs
+                               repairPackages:              (BOOL)              repairPkgs
+                                     withAuth:              (AuthorizationRef)  inAuthRef;
 -(void)             setState:                               (NSString *)        newState;
+-(BOOL)             userIsAnAdmin;
 
 @end

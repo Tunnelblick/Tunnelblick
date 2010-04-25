@@ -16,8 +16,6 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import <Cocoa/Cocoa.h>
-
 @interface NamedPipe : NSObject {
     NSString      * inPath;                 // Path for pipe we're reading from
     NSFileHandle  * fileHandleForReading;   // File handle for reading from the pipe

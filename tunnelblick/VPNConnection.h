@@ -16,15 +16,12 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-
-#import <Cocoa/Cocoa.h>
-#import <CoreFoundation/CoreFoundation.h>
-#import "NetSocket.h"
 #import "AuthAgent.h"
+#import "NetSocket.h"
 #import "NamedPipe.h"
 
 @interface VPNConnection : NSObject {
-    NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file)
+    NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file or .tblk package)
     // The configuration file MUST reside (for security reasons) in
     //      Tunnelblick.app/Contents/Resources/Deploy
     // or   ~/Library/Application Support/Tunnelblick/Configurations
@@ -52,27 +49,46 @@
 
 -(void)             addToLog:                   (NSString *)        text
                       atDate:                   (NSCalendarDate *)  date;
+
 -(void)             appendDataToLog:            (NSData *)          data;
+
 -(NSString *)       configPath;
+
 -(NSDate *)         connectedSinceDate;
+
 -(IBAction)         connect:                    (id) sender;
+
 -(void)             destroyPipe;
+
 -(IBAction)         disconnect:                 (id) sender;
+
 -(NSString *)       displayName;
+
 -(void)             emptyPipe;
 -(id)               initWithConfigPath:         (NSString *)    inPath
                        withDisplayName:         (NSString *)    inDisplayName;
+
 -(BOOL)             isConnected;
+
 -(BOOL)             isDisconnected;
+
 -(NSTextStorage*)   logStorage;
--(void)             netsocket:                  (NetSocket *)   socket      dataAvailable:  (unsigned)      inAmount;
+
+-(void)             netsocket:                  (NetSocket *)   socket
+                dataAvailable:                  (unsigned)      inAmount;
+
 -(void)             netsocketConnected:         (NetSocket *)   socket;
+
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
+
 -(void)             setDelegate:                (id)            newDelegate;
+
 -(void)             setState:                   (NSString *)    newState;
+
 -(NSString*)        state;
+
 -(IBAction)         toggle:                     (id)            sender;
--(BOOL)             unprotectConfigurationFile;
+
 -(BOOL)             usedSetNameserver;
 
 @end

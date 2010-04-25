@@ -17,17 +17,67 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "TBUserDefaults.h"
-#include "helper.h"
+#import "helper.h"
+#import "TBUserDefaults.h"
 #import "NSApplication+SystemVersion.h"
 
-// This file contains global variables and common routines. The global variables are set by the -init method of MenuController.
+// This file contains the following global functions:
+BOOL        runningOnTigerOrNewer();
+BOOL        runningOnLeopardOrNewer();
+BOOL        runningOnSnowLeopardOrNewer();
 
-NSMutableArray * gConfigDirs;   // Array of paths to configuration directories currently in use
-NSString       * gDeployPath;   // Path to Tunnelblick.app/Contents/Resources/Deploy
-NSString       * gSharedPath;   // Path to /Library/Application Support/Tunnelblick/Shared
-TBUserDefaults * gTbDefaults;
-NSFileManager  * gFileMgr;      // [NSFileManager defaultManager]
+NSString *  tunnelblickVersion(NSBundle * bundle);
+NSString *  openVPNVersion(void);
+
+NSString *  escaped(NSString *string);
+
+NSString *  firstPartOfPath(NSString * thePath);
+NSString *  lastPartOfPath(NSString * thePath);
+NSString *  firstPathComponent(NSString * path);
+
+NSString *  configPathFromTblkPath(NSString * path);
+
+BOOL        itemIsVisible(NSString * path);
+
+NSString *  tblkPathFromConfigPath(NSString * path);
+
+BOOL        useDNSStatus(id connection);
+
+BOOL        folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
+
+BOOL        checkOwnerAndPermissions(NSString      * fPath,
+                                     uid_t           uid,
+                                     gid_t           gid,
+                                     NSString      * permsShouldHave);
+
+int         TBRunAlertPanel(NSString * title,
+                            NSString * msg,
+                            NSString * defaultButtonLabel,
+                            NSString * alternateButtonLabel,
+                            NSString * otherButtonLabel);
+
+int         TBRunAlertPanelExtended(NSString * title,
+                                    NSString * msg,
+                                    NSString * defaultButtonLabel,
+                                    NSString * alternateButtonLabel,
+                                    NSString * otherButtonLabel,
+                                    NSString * doNotShowAgainPreferenceKey,
+                                    NSString * checkboxLabel,
+                                    BOOL     * checkboxResult);
+BOOL isUserAnAdmin(void);
+
+// The following functions are used only by this file:
+NSDictionary * getOpenVPNVersion(void);
+NSDictionary * parseVersion( NSString * string);
+NSRange        rangeOfDigits(NSString * s);
+void           localizableStrings(void);
+
+// The following external, global variables are used by functions in this file and must be declared and set elsewhere before the
+// functions in this file are called:
+extern NSMutableArray  * gConfigDirs;   // Used by firstPartOfPath, lastPartOfPath
+extern NSString        * gPrivatePath;  // Used by folderContentsNeedToBeSecuredAtPath
+extern NSFileManager   * gFileMgr;      // Used by configPathFromTblkPath, folderContentsNeedToBeSecuredAtPath, checkOwnerAndPermissions
+extern TBUserDefaults  * gTbDefaults;   // Used by useDNSStatus, TBRunAlertPanel, TBRunAlertPanelExtended
 
 BOOL runningOnTigerOrNewer()
 {
@@ -51,7 +101,8 @@ BOOL runningOnSnowLeopardOrNewer()
 }
 
 // Returns an escaped version of a string so it can be sent over the management interface
-NSString *escaped(NSString *string) {
+NSString * escaped(NSString *string)
+{
 	NSMutableString * stringOut = [[string mutableCopy] autorelease];
 	[stringOut replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
 	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
@@ -81,6 +132,61 @@ NSString * lastPartOfPath(NSString * thePath)
     return [thePath substringFromIndex: [firstPartOfPath(thePath) length]+1];
 }
 
+// Returns the first component of a path
+NSString * firstPathComponent(NSString * path)
+{
+    NSRange slash = [path rangeOfString: @"/"];
+    if ( slash.location == 0 ) {
+        slash = [[path substringFromIndex: 1] rangeOfString: @"/"];
+    }
+    if ( slash.location == NSNotFound) {
+        slash.location = [path length];
+    }
+    return [path substringToIndex: slash.location];
+}
+
+// Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
+NSString * configPathFromTblkPath(NSString * path)
+{
+    NSString * cfgPath = [path stringByAppendingPathComponent:@"Contents/Resources/config.ovpn"];
+    BOOL isDir;
+    
+    if (   [gFileMgr fileExistsAtPath: cfgPath isDirectory: &isDir]
+        && (! isDir)  ) {
+        return cfgPath;
+    }
+    
+    return nil;
+}
+
+BOOL itemIsVisible(NSString * path)
+{
+    if (  [path hasPrefix: @"."]  ) {
+        return NO;
+    }
+    NSRange rng = [path rangeOfString:@"/."];
+    if (  rng.length != 0) {
+        return NO;
+    }
+    return YES;
+}
+
+// Returns the path of the .tblk that a configuration file is enclosed within, or nil if the configuration file is not enclosed in a .tblk
+NSString * tblkPathFromConfigPath(NSString * path)
+{
+    NSString * answer = path;
+    while (   ! [[answer pathExtension] isEqualToString: @"tblk"]
+           && [answer length] != 0
+           && ! [answer isEqualToString: @"/"]  ) {
+        answer = [answer stringByDeletingLastPathComponent];
+    }
+    
+    if (  ! [[answer pathExtension] isEqualToString: @"tblk"]  ) {
+        return nil;
+    }
+    
+    return answer;
+}
 
 BOOL useDNSStatus(id connection)
 {
@@ -95,6 +201,79 @@ BOOL useDNSStatus(id connection)
 	}
 
 	return useDNS;
+}
+
+BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
+{
+    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+    NSString * file;
+    BOOL isDir;
+    
+    // If it isn't an existing folder, then it can't be secured!
+    if (  ! (   [gFileMgr fileExistsAtPath: theDirPath isDirectory: &isDir]
+             && isDir )  ) {
+        return YES;
+    }
+    
+    uid_t realUid = getuid();
+    gid_t realGid = getgid();
+    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: theDirPath];
+    while (file = [dirEnum nextObject]) {
+        NSString * filePath = [theDirPath stringByAppendingPathComponent: file];
+        if (  itemIsVisible(filePath)  ) {
+            NSString * ext  = [file pathExtension];
+            if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
+                && isDir  ) {
+                if (  [filePath hasPrefix: gPrivatePath]  ) {
+                    if (   [ext isEqualToString: @"tblk"]
+                        || [filePath hasSuffix: @".tblk/Contents/Resources"]  ) {
+                        if (  ! checkOwnerAndPermissions(filePath, realUid, realGid, @"755")  ) {   // .tblk and .tblk/Contents/Resource in private folder owned by user
+                            return YES;
+                        }
+                    } else {
+                        if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"755")  ) {               // other folders owned by root
+                            return YES;
+                        }
+                    }
+                } else {
+                    if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"755")  ) {   // other folders are 755
+                        return YES; // NSLog already called
+                    }
+                }
+            } else if ( [ext isEqualToString:@"sh"]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
+                    return YES; // NSLog already called
+                }
+            } else if (  [extensionsFor600Permissions containsObject: ext]  ) {     // keys, certs, etc. are 600
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"600")  ) {
+                    return YES; // NSLog already called
+                }
+            } else { // including .conf and .ovpn
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0,  @"644")  ) {      // everything else is 644
+                    return YES; // NSLog already called
+                }
+            }
+        }
+    }
+    return NO;
+}
+
+BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave)
+{
+    NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
+    unsigned long perms = [fileAttributes filePosixPermissions];
+    NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+    NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
+    NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
+    
+    if (   [octalString isEqualToString: permsShouldHave]
+        && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
+        && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
+        return YES;
+    }
+    
+    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair", fPath, octalString, fileOwner);
+    return NO;
 }
 
 // Returns a string with the version # for Tunnelblick, e.g., "Tunnelbick 3.0b12 (build 157)"

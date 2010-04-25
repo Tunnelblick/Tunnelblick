@@ -16,8 +16,6 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import <Cocoa/Cocoa.h>
-
 // This class is used to override the user's standard preferences if the Resources/Deploy folder
 // is being used for configurations and it contains a "forced-preferences.plist" file.
 //

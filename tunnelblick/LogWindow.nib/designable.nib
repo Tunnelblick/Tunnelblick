@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10C540</string>
-		<string key="IBDocument.InterfaceBuilderVersion">740</string>
-		<string key="IBDocument.AppKitVersion">1038.25</string>
-		<string key="IBDocument.HIToolboxVersion">458.00</string>
+		<string key="IBDocument.SystemVersion">10D573</string>
+		<string key="IBDocument.InterfaceBuilderVersion">762</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">460.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">740</string>
+			<string key="NS.object.0">762</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -41,7 +41,7 @@
 			<object class="NSWindowTemplate" id="445280757">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{223, 313}, {624, 453}}</string>
+				<string key="NSWindowRect">{{223, 313}, {821, 453}}</string>
 				<int key="NSWTFlags">1350041600</int>
 				<string key="NSWindowTitle">OpenVPN Log Output - Tunnelblick</string>
 				<object class="NSMutableString" key="NSWindowClass">
@@ -84,10 +84,33 @@
 								<int key="NSPeriodicInterval">25</int>
 							</object>
 						</object>
+						<object class="NSButton" id="421474671">
+							<reference key="NSNextResponder" ref="83747719"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{312, 12}, {164, 32}}</string>
+							<reference key="NSSuperview" ref="83747719"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="836829634">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Share configuration</string>
+								<reference key="NSSupport" ref="267831319"/>
+								<reference key="NSControlView" ref="421474671"/>
+								<int key="NSButtonFlags">-2038284033</int>
+								<int key="NSButtonFlags2">1</int>
+								<reference key="NSAlternateImage" ref="267831319"/>
+								<string key="NSAlternateContents"/>
+								<object class="NSMutableString" key="NSKeyEquivalent">
+									<characters key="NS.bytes"/>
+								</object>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
 						<object class="NSButton" id="295442164">
 							<reference key="NSNextResponder" ref="83747719"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{496, 12}, {114, 32}}</string>
+							<string key="NSFrame">{{693, 12}, {114, 32}}</string>
 							<reference key="NSSuperview" ref="83747719"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="375476445">
@@ -110,7 +133,7 @@
 						<object class="NSButton" id="304227237">
 							<reference key="NSNextResponder" ref="83747719"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{386, 12}, {110, 32}}</string>
+							<string key="NSFrame">{{583, 12}, {110, 32}}</string>
 							<reference key="NSSuperview" ref="83747719"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="846230609">
@@ -133,7 +156,7 @@
 						<object class="NSTabView" id="1024647931">
 							<reference key="NSNextResponder" ref="83747719"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{0, 84}, {620, 363}}</string>
+							<string key="NSFrame">{{0, 84}, {808, 363}}</string>
 							<reference key="NSSuperview" ref="83747719"/>
 							<object class="NSMutableArray" key="NSTabViewItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
@@ -180,7 +203,7 @@
 																		<string>public.url</string>
 																	</object>
 																</object>
-																<string key="NSFrameSize">{598, 14}</string>
+																<string key="NSFrameSize">{789, 14}</string>
 																<reference key="NSSuperview" ref="913490156"/>
 																<object class="NSTextContainer" key="NSTextContainer" id="526445585">
 																	<object class="NSLayoutManager" key="NSLayoutManager">
@@ -198,7 +221,7 @@
 																		<nil key="NSDelegate"/>
 																	</object>
 																	<reference key="NSTextView" ref="878372583"/>
-																	<double key="NSWidth">598</double>
+																	<double key="NSWidth">789</double>
 																	<int key="NSTCFlags">1</int>
 																</object>
 																<object class="NSTextViewSharedData" key="NSSharedData">
@@ -263,7 +286,7 @@
 																<nil key="NSDelegate"/>
 															</object>
 														</object>
-														<string key="NSFrame">{{1, 1}, {598, 316}}</string>
+														<string key="NSFrame">{{1, 1}, {789, 316}}</string>
 														<reference key="NSSuperview" ref="40939307"/>
 														<reference key="NSNextKeyView" ref="878372583"/>
 														<reference key="NSDocView" ref="878372583"/>
@@ -295,7 +318,7 @@
 														<double key="NSPercent">0.94565218687057495</double>
 													</object>
 												</object>
-												<string key="NSFrame">{{0, -1}, {600, 318}}</string>
+												<string key="NSFrame">{{0, -1}, {791, 318}}</string>
 												<reference key="NSSuperview" ref="1049118956"/>
 												<reference key="NSNextKeyView" ref="913490156"/>
 												<int key="NSsFlags">530</int>
@@ -304,7 +327,7 @@
 												<reference key="NSContentView" ref="913490156"/>
 											</object>
 										</object>
-										<string key="NSFrame">{{10, 33}, {600, 317}}</string>
+										<string key="NSFrame">{{10, 33}, {788, 317}}</string>
 										<reference key="NSSuperview" ref="1024647931"/>
 									</object>
 									<string key="NSLabel">openvpn</string>
@@ -421,7 +444,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{624, 453}</string>
+					<string key="NSFrameSize">{821, 453}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -568,6 +591,22 @@
 					</object>
 					<int key="connectionID">106</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">shareButton</string>
+						<reference key="source" ref="212841637"/>
+						<reference key="destination" ref="421474671"/>
+					</object>
+					<int key="connectionID">124</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">shareConfig:</string>
+						<reference key="source" ref="212841637"/>
+						<reference key="destination" ref="421474671"/>
+					</object>
+					<int key="connectionID">125</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -612,13 +651,14 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="190585953"/>
-							<reference ref="295442164"/>
-							<reference ref="304227237"/>
 							<reference ref="530230245"/>
 							<reference ref="856995554"/>
 							<reference ref="77152343"/>
 							<reference ref="1024647931"/>
 							<reference ref="824762043"/>
+							<reference ref="295442164"/>
+							<reference ref="304227237"/>
+							<reference ref="421474671"/>
 						</object>
 						<reference key="parent" ref="445280757"/>
 					</object>
@@ -773,6 +813,20 @@
 						<reference key="object" ref="332210244"/>
 						<reference key="parent" ref="824762043"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">116</int>
+						<reference key="object" ref="421474671"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="836829634"/>
+						</object>
+						<reference key="parent" ref="83747719"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">117</int>
+						<reference key="object" ref="836829634"/>
+						<reference key="parent" ref="421474671"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -790,6 +844,10 @@
 					<string>11.CustomClassName</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.ImportedFromIB2</string>
+					<string>116.IBPluginDependency</string>
+					<string>116.ImportedFromIB2</string>
+					<string>117.IBPluginDependency</string>
+					<string>117.ImportedFromIB2</string>
 					<string>18.IBPluginDependency</string>
 					<string>18.ImportedFromIB2</string>
 					<string>19.IBPluginDependency</string>
@@ -862,9 +920,13 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{61, 542}, {624, 453}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{61, 542}, {624, 453}}</string>
+					<boolean value="YES"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
+					<string>{{61, 542}, {821, 453}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{61, 542}, {821, 453}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<string>{213, 107}</string>
@@ -906,7 +968,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">106</int>
+			<int key="maxID">125</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -938,6 +1000,13 @@
 							<string>openLogWindow:</string>
 							<string>quit:</string>
 							<string>removeConnection:</string>
+							<string>shareConfig:</string>
+							<string>toggleAutoCheckForUpdates:</string>
+							<string>toggleMonitorConfigurationDir:</string>
+							<string>togglePlaceIconNearSpotlight:</string>
+							<string>toggleReportAnonymousInfo:</string>
+							<string>toggleUseShadowCopies:</string>
+							<string>toggleWarnAboutSimultaneous:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -953,6 +1022,13 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -967,6 +1043,7 @@
 							<string>logWindow</string>
 							<string>monitorConnnectionCheckbox</string>
 							<string>myVPNMenu</string>
+							<string>shareButton</string>
 							<string>statusMenuItem</string>
 							<string>tabView</string>
 							<string>useNameserverCheckbox</string>
@@ -981,6 +1058,7 @@
 							<string>NSWindow</string>
 							<string>NSButton</string>
 							<string>id</string>
+							<string>NSButton</string>
 							<string>NSMenuItem</string>
 							<string>NSTabView</string>
 							<string>NSButton</string>
@@ -1015,6 +1093,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">NSApplication+NetworkNotifications.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSApplication</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">NSApplication+SystemVersion.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1441,41 +1526,6 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUAutomaticUpdateAlert.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUInstaller.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUUnarchiver.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUUpdateAlert.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUUpdatePermissionPrompt.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Sparkle.framework/Headers/SUUpdater.h</string>
 					</object>
 				</object>
@@ -1590,6 +1640,7 @@
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1050" key="NS.object.0"/>
@@ -1605,5 +1656,9 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">Tunnelblick.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">NSSwitch</string>
+			<string key="NS.object.0">{15, 15}</string>
+		</object>
 	</data>
 </archive>
