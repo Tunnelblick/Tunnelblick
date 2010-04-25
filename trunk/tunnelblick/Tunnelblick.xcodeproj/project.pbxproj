@@ -34,7 +34,6 @@
 		61BC4CDF0E2F9FFA00F24255 /* openvpnstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4B670E2F9EBC00F24255 /* openvpnstart.m */; };
 		61BC4CE10E2FA02800F24255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BC4D880E2FA20800F24255 /* CoreFoundation.framework */; };
-		61BC4D8B0E2FA20800F24255 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61BC4D890E2FA20800F24255 /* Security.framework */; };
 		61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BC4D9D0E2FA2F300F24255 /* installer.m */; };
 		61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		61BC4DAB0E2FA33C00F24255 /* installer in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61BC4D6B0E2FA06900F24255 /* installer */; };
@@ -61,10 +60,13 @@
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
 		63B78ADC1102419800734D73 /* dmgFiles in Resources */ = {isa = PBXBuildFile; fileRef = 63B78AD41102419800734D73 /* dmgFiles */; };
+		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
+		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
+		63E8427C117A147500529DE2 /* ConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E8427B117A147500529DE2 /* ConfigurationManager.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -169,7 +171,6 @@
 		61BC4BC10E2F9FE900F24255 /* openvpnstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = openvpnstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4D6B0E2FA06900F24255 /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		61BC4D880E2FA20800F24255 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
-		61BC4D890E2FA20800F24255 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		61BC4D9D0E2FA2F300F24255 /* installer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = installer.m; sourceTree = "<group>"; };
 		61BC4DB10E2FA3C300F24255 /* LogWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LogWindow.nib; sourceTree = "<group>"; };
 		61BC4DB20E2FA3C300F24255 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
@@ -204,8 +205,11 @@
 		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
+		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
+		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
+		63E8427B117A147500529DE2 /* ConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationManager.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB23E101099514400CC52D3 /* openvpn-down-root.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "openvpn-down-root.so"; path = "../third_party/openvpn/plugin/down-root/openvpn-down-root.so"; sourceTree = SOURCE_ROOT; };
@@ -224,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */,
 				61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,8 +239,8 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				61BC4D8A0E2FA20800F24255 /* CoreFoundation.framework in Frameworks */,
-				61BC4D8B0E2FA20800F24255 /* Security.framework in Frameworks */,
 				61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */,
+				63C504291178E21100340D13 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,10 +262,12 @@
 				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
 				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
+				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
+				63E8427B117A147500529DE2 /* ConfigurationManager.m */,
 				6327163D11048B9900E7AC34 /* NamedPipe.h */,
 				6327163E11048B9900E7AC34 /* NamedPipe.m */,
-				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
 				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
+				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
 				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
 				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
 				61BC4B6B0E2F9EBC00F24255 /* NetSocket.h */,
@@ -284,10 +291,10 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63C504281178E21100340D13 /* Security.framework */,
 				61492D370E38ED3400BC9C3F /* Sparkle.framework */,
 				616A44E10E38CAA700477476 /* Kernel.framework */,
 				61BC4D880E2FA20800F24255 /* CoreFoundation.framework */,
-				61BC4D890E2FA20800F24255 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -605,6 +612,7 @@
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
 				6327163F11048B9900E7AC34 /* NamedPipe.m in Sources */,
+				63E8427C117A147500529DE2 /* ConfigurationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

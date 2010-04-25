@@ -26,10 +26,7 @@
 // do a "performAuthentication" to get the appropriate credential(s) so that
 // they will be returned by the "getters"
 
-#import <Cocoa/Cocoa.h>
 #import "KeyChain.h"
-#import "NetSocket.h"
-#import <Foundation/NSDebug.h>
 
 @interface AuthAgent : NSObject {
 	NSString * authMode;                // Either @"privateKey" or @"password", depending on type of authentication desired

@@ -18,7 +18,6 @@
 
 #import "TBUserDefaults.h"
 
-
 @implementation TBUserDefaults
 
 -(TBUserDefaults *) initWithDefaultsDictionary: (NSDictionary *) inDict
@@ -28,7 +27,7 @@
     }
     
     userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults registerDefaults: [[NSMutableDictionary alloc] init]];
+    [userDefaults registerDefaults: [NSMutableDictionary dictionaryWithCapacity: 20]];
 
     forcedDefaults = [inDict copy];
 

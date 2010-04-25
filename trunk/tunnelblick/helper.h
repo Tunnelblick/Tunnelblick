@@ -16,29 +16,41 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import "VPNConnection.h"
+NSString     * configPathFromTblkPath   (NSString * path);
+NSString     * tblkPathFromConfigPath   (NSString * path);
+NSString     * escaped                  (NSString * string);
+BOOL           itemIsVisible            (NSString * path);
 
-NSString     * escaped              (NSString *string);
-NSDictionary * getOpenVPNVersion    (void);
-NSString     * openVPNVersion       (void);
-NSDictionary * parseVersion         (NSString * string);
-NSRange        rangeOfDigits        (NSString * s);
-int            TBRunAlertPanel      (NSString * title,
-                                     NSString * msg,
-                                     NSString * defaultButtonLabel,
-                                     NSString * alternateButtonLabel,
-                                     NSString * otherButtonLabel);
-int TBRunAlertPanelExtended         (NSString * title,
-                                     NSString * msg,
-                                     NSString * defaultButtonLabel,
-                                     NSString * alternateButtonLabel,
-                                     NSString * otherButtonLabel,
-                                     NSString * doNotShowAgainPreferenceKey,
-                                     NSString * checkboxLabel,
-                                     BOOL     * checkboxResult);
-NSString     * tunnelblickVersion   (NSBundle * bundle);
-BOOL           useDNSStatus         (id         connection);
-BOOL           isUserAnAdmin        (void);
-BOOL           runningOnTigerOrNewer();
-BOOL           runningOnLeopardOrNewer();
-BOOL           runningOnSnowLeopardOrNewer();
+NSString     * firstPartOfPath          (NSString * thePath);
+NSString     * lastPartOfPath           (NSString * thePath);
+NSString     * firstPathComponent       (NSString * thePath);
+
+NSString     * tunnelblickVersion       (NSBundle * bundle);
+NSDictionary * getOpenVPNVersion        (void);
+NSString     * openVPNVersion           (void);
+NSDictionary * parseVersion             (NSString * string);
+
+NSRange        rangeOfDigits            (NSString * s);
+
+int            TBRunAlertPanel          (NSString * title,
+                                         NSString * msg,
+                                         NSString * defaultButtonLabel,
+                                         NSString * alternateButtonLabel,
+                                         NSString * otherButtonLabel);
+
+int TBRunAlertPanelExtended             (NSString * title,
+                                         NSString * msg,
+                                         NSString * defaultButtonLabel,
+                                         NSString * alternateButtonLabel,
+                                         NSString * otherButtonLabel,
+                                         NSString * doNotShowAgainPreferenceKey,
+                                         NSString * checkboxLabel,
+                                         BOOL     * checkboxResult);
+
+BOOL           useDNSStatus             (id         connection);
+
+BOOL           isUserAnAdmin            (void);
+
+BOOL           runningOnTigerOrNewer    (void);
+BOOL           runningOnLeopardOrNewer  (void);
+BOOL           runningOnSnowLeopardOrNewer(void);

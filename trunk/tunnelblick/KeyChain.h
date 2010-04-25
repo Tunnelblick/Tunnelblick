@@ -17,12 +17,6 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import <Cocoa/Cocoa.h>
-#import <CoreFoundation/CoreFoundation.h>
-#import <Security/Security.h>
-#import <CoreServices/CoreServices.h>
-
-
 @interface KeyChain : NSObject {
     NSString  * accountName;	
     NSString  * serviceName;
