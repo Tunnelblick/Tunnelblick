@@ -1051,7 +1051,7 @@ extern TBUserDefaults  * gTbDefaults;
     } else {
 
         // Try to set permissions
-        OSStatus status = 0;
+        OSStatus status;
         int i = 0;
         int maxtries = 5;
         NSDictionary * fileAttributes;
