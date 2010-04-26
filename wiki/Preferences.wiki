@@ -3,11 +3,9 @@
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
 
-*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0.
+*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0, with a section at the end about preferences in version 3.1beta01.
 
 For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
-
-*This document may be obsolete!* The latest versions of this document and related documents including release notes, FAQ, and instructions for using and building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
 This document contains the following sections:
 
@@ -86,8 +84,21 @@ All preferences starting with the letters "SU" are preferences used privately by
   * *SULastProfileSubmissionDate* (Date/time)
   * *SUHasLaunchedBefore* (Boolean)
 
+==Preferences in Tunnelblick 3.1beta01==
+Tunnelblick version 3.1beta01 (build 1494) includes "Tunnelblick VPN Configurations" (.tblk packages), which can specify default values for preferences. See [PackagesProposal Packages Proposal] for details.
 
+The following additional preferences are available beginning in Tunnelblick version 3.1beta01 (build 1494):
 
+*disableShareConfigurationButton* is a boolean which may be used to inhibit the display of the "Share configuration" / "Make configuration private" button. If absent or false, the button is displayed for all configurations, but is enabled only for Tunnelblick VPN Connection (.tblk) configurations that are not Deployed; it is disabled (dimmed) for  non-.tblk and Deployed configurations.
+
+*usePrivateConfigurationsWithDeployedOnes* and *useSharedConfigurationsWithDeployedOnes* are booleans which may be used in a Deployed version of Tunnelblick (see [DeployingTunnelblick Deploying Tunnelblick]) to allow simultaneous display of configurations from the Private (~/Library/Application Support/Tunnelblick/Configurations) and Shared (/Library/Application Support/Tunnelblick/Shared) folders, respectively. These preferences must be forced -- they will be ignored if they are not forced.
+
+*skipWarningAboutIgnoredConfigurations* is a boolean which controls display of the warning that one or more configurations are being ignored. Configurations are ignored if there are higher priority configurations with the same name. Priorities are, from highest to lowest:
+ # Deployed .tlbk configurations
+ # Deployed .ovpn and .conf configurations
+ # Shared .tblk configurations
+ # Private .tblk configurations
+ # Private .ovpn and .conf configurations
 
 
 ==Document History==
@@ -95,6 +106,8 @@ All preferences starting with the letters "SU" are preferences used privately by
     * Created.
   * 2010-02-15
     * Edits for 3.0
+  * 2010-04-26
+    * Added section about preferences in Tunnelblick version 3.1beta
 
 ------------------
 
