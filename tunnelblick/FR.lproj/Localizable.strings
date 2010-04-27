@@ -244,6 +244,12 @@
 /* Window title */
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
 
+/* Window Title */
+"Install Sample Configuration?" = "Install Sample Configuration?";
+
+/* Button */
+"Install Sample" = "Install Sample";
+
 /* Window title */
 "Install Tunnelblick VPN Configuration?" = "Install Tunnelblick VPN Configuration?";
 
@@ -448,6 +454,9 @@
 /* Window title */
 "Tunnelblick Error" = "Erreur Tunnelblick";
 
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
+
 /* Window title */
 "Tunnelblick VPN Configuration Installation Error" = "Tunnelblick VPN Configuration Installation Error";
 
@@ -466,14 +475,17 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy openvpn.conf to %@" = "Tunnelblick could not copy openvpn.conf to %@";
-
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details.";
 
+/* Window text */
+"Tunnelblick could not copy the sample configuration to %@" = "Tunnelblick could not copy the sample configuration to %@";
+
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
+
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details.";
