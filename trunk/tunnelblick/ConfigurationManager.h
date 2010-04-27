@@ -43,6 +43,9 @@
 -(NSString *)               getConfigurationToUse:      (NSString *)        cfgPath
                                             orAlt:      (NSString *)        altCfgPath;
 
+-(NSString *)               makeTemporarySampleTblkWithName: (NSString *)   name
+                                         andKey:        (NSString *)        key;
+
 -(void)                     openDotTblkPackages:        (NSArray *)         filePaths
                                       usingAuth:        (AuthorizationRef)  authRef;
 

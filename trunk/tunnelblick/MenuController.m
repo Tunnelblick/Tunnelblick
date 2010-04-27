@@ -1676,9 +1676,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [NSApp terminate: nil];
     }
     
-    NSString * openvpnConfPath = [[NSBundle mainBundle] pathForResource: @"openvpn"
-                                                                 ofType: @"conf"];
-    
     BOOL isDir;
     NSString * alternateButtonTitle = nil;
     if (  ! ([gFileMgr fileExistsAtPath: gPrivatePath isDirectory: &isDir])  ) {
@@ -1697,6 +1694,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
     }
+    
     
     NSString * parentPath = [gPrivatePath stringByDeletingLastPathComponent];
     if (  ! [gFileMgr fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
@@ -1734,21 +1732,28 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [NSApp terminate: nil];
     }
     
-    NSString * targetPath = [gPrivatePath stringByAppendingPathComponent:@"openvpn.conf"];
-    NSLog(@"Installing sample configuration file %@", targetPath);
-    if (  ! [gFileMgr copyPath: openvpnConfPath toPath: targetPath handler: nil]  ) {
-        NSLog(@"Installation failed. Not able to copy openvpn.conf to %@", gPrivatePath);
+    NSString * sourcePath = [[ConfigurationManager defaultManager] makeTemporarySampleTblkWithName: @"sample.tblk" andKey: @"1"];
+    if (  ! sourcePath  ) {
         TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy openvpn.conf to %@", @"Window text"),
+                        NSLocalizedString(@"Tunnelblick could not create the sample configuration", @"Window text"),
+                        nil, nil, nil);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
+
+    NSString * targetPath = [gPrivatePath stringByAppendingPathComponent:@"sample.tblk"];
+    NSLog(@"Installing sample configuration file %@", targetPath);
+    if (  ! [gFileMgr copyPath: sourcePath toPath: targetPath handler: nil]  ) {
+        NSLog(@"Installation failed. Not able to copy %@ to %@", sourcePath, targetPath);
+        TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
+                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the sample configuration to %@", @"Window text"),
                          [[gFileMgr componentsToDisplayForPath: gPrivatePath] componentsJoinedByString: @"/"]],
-                        nil,
-                        nil,
-                        nil);
+                        nil, nil, nil);
         [NSApp setAutoLaunchOnLogin: NO];
         [NSApp terminate: nil];
     }
     
-    [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
+    [[NSWorkspace sharedWorkspace] openFile: [targetPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"] withApplication: @"TextEdit"];
     
     ignoreNoConfigs = FALSE;    // Go back to checking for no configuration files
 }

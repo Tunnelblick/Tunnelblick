@@ -57,20 +57,29 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                     warnDialog:             (BOOL)                      warn
                    moveNotCopy:             (BOOL)                      moveInstead;
 
+-(BOOL)         createDir:                  (NSString *)                thePath;
+
 -(NSString *)   displayNameForPath:         (NSString *)                thePath;
 
 -(NSString *)   getLowerCaseStringForKey:   (NSString *)                key
                             inDictionary:   (NSDictionary *)            dict
                                defaultTo:   (id)                        replacement;
 
+-(NSString *)   getPackageToInstall:        (NSString *)                thePath
+                            withKey:        (NSString *)                key;
+
 -(BOOL)         isSampleConfigurationAtPath:(NSString *)                cfgPath;
+
+-(NSString *)   makeEmptyTblk:              (NSString *)                thePath
+                      withKey:              (NSString *)                key;
 
 -(BOOL)         makeSureFolderExistsAtPath: (NSString *)                folderPath
                                  usingAuth: (AuthorizationRef)          authRef;
 
 -(BOOL)         onRemoteVolume:             (NSString *)                cfgPath;
 
--(NSString *)   checkOneDotTblkPackage:     (NSString *)                filePath;
+-(NSArray *)    checkOneDotTblkPackage:     (NSString *)                filePath
+                              withKey:      (NSString *)                key;
 
 -(BOOL)         protectConfigurationFile:   (NSString *)                configFilePath
                                usingAuth:   (AuthorizationRef)          authRef;
@@ -416,7 +425,6 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     // We do this to implement the automatic installation of configurations when Tunnelblick is installed from a disk image
     NSMutableArray * augmentedFilePaths = [NSMutableArray arrayWithArray: filePaths];
     NSString * file;
-    NSString * dest;
     BOOL isDir;
     int i;
     for (i=0; i < [filePaths count]; i++) {
@@ -460,14 +468,15 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     NSMutableArray * targetList = [NSMutableArray arrayWithCapacity: [augmentedFilePaths count]];        // Paths to destination to install them
     NSMutableArray * errList    = [NSMutableArray arrayWithCapacity: [augmentedFilePaths count]];        // Paths to files not installed
     
+    NSArray * dest;
     // Go through the augmented array, check each .tblk package, and add it to the install list if it is OK
     for (i=0; i < [augmentedFilePaths count]; i++) {
         file = [augmentedFilePaths objectAtIndex: i];
-        dest = [self checkOneDotTblkPackage: file];
+        dest = [self checkOneDotTblkPackage: file withKey: [NSString stringWithFormat: @"%d", i]];
         if (  dest  ) {
-            if (  [dest length] != 0  ) {
-                [sourceList addObject: file];
-                [targetList addObject: dest];
+            if (  [dest count] != 0  ) {
+                [sourceList addObject: [dest objectAtIndex: 0]];
+                [targetList addObject: [dest objectAtIndex: 1]];
             }
         } else {
             [errList addObject: file];
@@ -529,12 +538,16 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     
     int nErrors = 0;
     for (  i=0; i < [sourceList count]; i++  ) {
-        if (  ! [self copyConfigPath: [sourceList objectAtIndex: i]
+        NSString * source = [sourceList objectAtIndex: i];
+        if (  ! [self copyConfigPath: source
                               toPath: [targetList objectAtIndex: i]
                         usingAuthRef: localAuth
                           warnDialog: NO
                          moveNotCopy: NO]  ) {
             nErrors++;
+        }
+        if (  [source hasPrefix: NSTemporaryDirectory()]  ) {
+            [gFileMgr removeFileAtPath: [source stringByDeletingLastPathComponent] handler: nil];
         }
     }
     
@@ -570,10 +583,10 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 }
 
 // Checks one .tblk package to make sure it should be installed
-// Returns path to put installed copy if it should be installed
-// Returns an empty string if the user cancelled the installation
+// Returns an array with [source, dest] paths if it should be installed
+// Returns an empty array if the user cancelled the installation
 // Returns nil if an error occurred
--(NSString *) checkOneDotTblkPackage: (NSString *) filePath
+-(NSArray *) checkOneDotTblkPackage: (NSString *) filePath withKey: (NSString *) key
 {
     if (   [filePath hasPrefix: gPrivatePath]
         || [filePath hasPrefix: gSharedPath]
@@ -590,6 +603,16 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     NSString * tryDisplayName;      // Try to use this display name, but deal with conflicts
     tryDisplayName = [[filePath lastPathComponent] stringByDeletingPathExtension];
     
+    // Do some preliminary checking to see if this is a well-formed .tblk. Return with path to .tblk to use
+    // (which might be a temporary file with a "fixed" version of the .tblk).
+    NSString * pathToTblk = [self getPackageToInstall: filePath withKey: key];
+    if (  ! pathToTblk  ) {
+        return nil;                     // Error occured
+    }
+    if (  [pathToTblk length] == 0) {
+        return [NSArray array];         // User cancelled
+    }
+    
     // **************************************************************************************
     // Get the following data from Info.plist (and make sure nothing else is in it except TBPreference***):
     
@@ -601,65 +624,75 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     NSString * pkgSharePackage;
     NSString * pkgInstallWhenInstalling;
     
-    NSString * infoPath = [filePath stringByAppendingPathComponent: @"Contents/Info.plist"];
+    NSString * infoPath = [pathToTblk stringByAppendingPathComponent: @"Contents/Info.plist"];
     NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
     
-    pkgId = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: infoDict defaultTo: nil];
-    if (  pkgId  ) {
-        if (  [pkgId length] == 0  ) {
-            pkgId = [filePath lastPathComponent];
-        }
-    }
-    
-    pkgVersion = [self getLowerCaseStringForKey: @"CFBundleVersion" inDictionary: infoDict defaultTo: nil];
-    
-//  pkgShortVersionString = [self getLowerCaseStringForKey: @"CFBundleShortVersionString" inDictionary: infoDict defaultTo: nil];
-    
-    pkgPkgVersion = [self getLowerCaseStringForKey: @"TBPackageVersion" inDictionary: infoDict defaultTo: nil];
-    if (  ! [pkgPkgVersion isEqualToString: @"1"]  ) {
-        NSLog(@"Configuration installer: Unknown 'TBPackageVersion' = '%@' (only '1' is allowed) in %@", pkgPkgVersion, infoPath);
-        pkgIsOK = FALSE;
-    }
-    
-    pkgReplaceIdentical = [self getLowerCaseStringForKey: @"TBReplaceIdentical" inDictionary: infoDict defaultTo: @"ask"];
-    NSArray * okValues = [NSArray arrayWithObjects: @"no", @"yes", @"force", @"ask", nil];
-    if ( ! [okValues containsObject: pkgReplaceIdentical]  ) {
-        NSLog(@"Configuration installer: Invalid value '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical' in %@", pkgReplaceIdentical, infoPath);
-        pkgIsOK = FALSE;
-    }
-    
-    pkgSharePackage = [self getLowerCaseStringForKey: @"TBSharePackage" inDictionary: infoDict defaultTo: @"ask"];
-    okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
-    if ( ! [okValues containsObject: pkgSharePackage]  ) {
-        NSLog(@"Configuration installer: Invalid value '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage' in %@", pkgSharePackage, infoPath);
-        pkgIsOK = FALSE;
-    }
-    
-    pkgInstallWhenInstalling = [self getLowerCaseStringForKey: @"TBInstallWhenInstallingTunnelblick" inDictionary: infoDict defaultTo: @"ask"];
-    okValues = [NSArray arrayWithObjects: @"no", @"yes", @"ask", nil];
-    if ( ! [okValues containsObject: pkgInstallWhenInstalling]  ) {
-        NSLog(@"Configuration installer: Invalid value '%@' (only 'yes', 'no', or 'ask' are allowed) for 'TBInstallWhenInstallingTunnelblick' in %@", pkgInstallWhenInstalling, infoPath);
-    }
-    
-    NSString * key;
-    NSArray * validKeys = [NSArray arrayWithObjects: @"CFBundleIdentifier", @"CFBundleVersion", @"CFBundleShortVersionString",
-                           @"TBPackageVersion", @"TBReplaceIdentical", @"TBSharePackage", @"TBInstallWhenInstallingTunnelblick", nil];
-    NSEnumerator * e = [infoDict keyEnumerator];
-    while (  key = [e nextObject]  ) {
-        if (  ! [validKeys containsObject: key]  ) {
-            if (  ! [key hasPrefix: @"TBPreference"]  ) {
-                NSLog(@"Configuration installer: Unknown key '%@' in %@", key, infoPath);
-                pkgIsOK = FALSE;
+    if (  infoDict  ) {
+        pkgId = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: infoDict defaultTo: nil];
+        if (  pkgId  ) {
+            if (  [pkgId length] == 0  ) {
+                pkgId = [pathToTblk lastPathComponent];
             }
         }
+        
+        pkgVersion = [self getLowerCaseStringForKey: @"CFBundleVersion" inDictionary: infoDict defaultTo: nil];
+        
+        //  pkgShortVersionString = [self getLowerCaseStringForKey: @"CFBundleShortVersionString" inDictionary: infoDict defaultTo: nil];
+        
+        pkgPkgVersion = [self getLowerCaseStringForKey: @"TBPackageVersion" inDictionary: infoDict defaultTo: nil];
+        if (  ! [pkgPkgVersion isEqualToString: @"1"]  ) {
+            NSLog(@"Configuration installer: Unknown 'TBPackageVersion' = '%@' (only '1' is allowed) in %@", pkgPkgVersion, infoPath);
+            pkgIsOK = FALSE;
+        }
+        
+        pkgReplaceIdentical = [self getLowerCaseStringForKey: @"TBReplaceIdentical" inDictionary: infoDict defaultTo: @"ask"];
+        NSArray * okValues = [NSArray arrayWithObjects: @"no", @"yes", @"force", @"ask", nil];
+        if ( ! [okValues containsObject: pkgReplaceIdentical]  ) {
+            NSLog(@"Configuration installer: Invalid value '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical' in %@", pkgReplaceIdentical, infoPath);
+            pkgIsOK = FALSE;
+        }
+        
+        pkgSharePackage = [self getLowerCaseStringForKey: @"TBSharePackage" inDictionary: infoDict defaultTo: @"ask"];
+        okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
+        if ( ! [okValues containsObject: pkgSharePackage]  ) {
+            NSLog(@"Configuration installer: Invalid value '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage' in %@", pkgSharePackage, infoPath);
+            pkgIsOK = FALSE;
+        }
+        
+        pkgInstallWhenInstalling = [self getLowerCaseStringForKey: @"TBInstallWhenInstallingTunnelblick" inDictionary: infoDict defaultTo: @"ask"];
+        okValues = [NSArray arrayWithObjects: @"no", @"yes", @"ask", nil];
+        if ( ! [okValues containsObject: pkgInstallWhenInstalling]  ) {
+            NSLog(@"Configuration installer: Invalid value '%@' (only 'yes', 'no', or 'ask' are allowed) for 'TBInstallWhenInstallingTunnelblick' in %@", pkgInstallWhenInstalling, infoPath);
+        }
+        
+        NSString * key;
+        NSArray * validKeys = [NSArray arrayWithObjects: @"CFBundleIdentifier", @"CFBundleVersion", @"CFBundleShortVersionString",
+                               @"TBPackageVersion", @"TBReplaceIdentical", @"TBSharePackage", @"TBInstallWhenInstallingTunnelblick", nil];
+        NSEnumerator * e = [infoDict keyEnumerator];
+        while (  key = [e nextObject]  ) {
+            if (  ! [validKeys containsObject: key]  ) {
+                if (  ! [key hasPrefix: @"TBPreference"]  ) {
+                    NSLog(@"Configuration installer: Unknown key '%@' in %@", key, infoPath);
+                    pkgIsOK = FALSE;
+                }
+            }
+        }
+    } else {
+        // No Info.plist, so use default values
+        pkgId                       = nil;
+        pkgVersion                  = nil;
+        pkgReplaceIdentical         = @"ask";
+        pkgSharePackage             = @"ask";
+//        pkgInstallWhenInstalling    = @"ask";
     }
-    
+
+        
     // **************************************************************************************
     // Make sure there is exactly one configuration file
     int numberOfConfigFiles = 0;
     BOOL haveConfigDotOvpn = FALSE;
     NSString * file;
-    NSString * folder = [filePath stringByAppendingPathComponent: @"Contents/Resources"];
+    NSString * folder = [pathToTblk stringByAppendingPathComponent: @"Contents/Resources"];
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: folder];
     while (file = [dirEnum nextObject]) {
         if (  itemIsVisible([folder stringByAppendingPathComponent: file])  ) {
@@ -693,7 +726,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     NSString * replacementPath = nil;   // Complete path of package this one is replacing, or nil if not replacing
 
     if (  pkgId  ) {
-        e = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
+        NSString * key;
+        NSEnumerator * e = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
         while (key = [e nextObject]) {
             NSString * path = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
             NSString * last = lastPartOfPath(path);
@@ -744,7 +778,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                                                      nil);
                         if (  result == NSAlertAlternateReturn  ) {
                             NSLog(@"Configuration installer: Tunnelblick VPN Configuration %@ installation declined by user.", tryDisplayName);
-                            return @"";
+                            return [NSArray array];
                         }
                     }
                     
@@ -799,7 +833,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             if((response & 0x3) != kCFUserNotificationDefaultResponse) {
                 CFRelease(notification);    // User clicked "Cancel"
                 NSLog(@"Configuration installer: Installation of Tunnelblick VPN Package %@ has been cancelled.", tryDisplayName);
-                return @"";
+                return [NSArray array];
             }
             
             // Get the new name from the textfield
@@ -828,7 +862,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                     pkgSharePackage = @"shared";
                 } else {
                     NSLog(@"Configuration installer: Installation of Tunnelblick VPN Package %@ has been cancelled.", tryDisplayName);
-                    return @"";
+                    return [NSArray array];
                 }
             }
         }
@@ -837,9 +871,9 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         // Indicate the package is to be installed
         NSString * tblkName = [tryDisplayName stringByAppendingPathExtension: @"tblk"];
         if (  [pkgSharePackage isEqualToString: @"private"]  ) {
-            return [gPrivatePath stringByAppendingPathComponent: tblkName];
+            return [NSArray arrayWithObjects: pathToTblk, [gPrivatePath stringByAppendingPathComponent: tblkName], nil];
         } else if (  [pkgSharePackage isEqualToString: @"shared"]  ) {
-            return [gSharedPath stringByAppendingPathComponent: tblkName];
+            return [NSArray arrayWithObjects: pathToTblk, [gSharedPath  stringByAppendingPathComponent: tblkName], nil];
         }
     }
     
@@ -860,6 +894,214 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     }
 
     return retVal;
+}
+
+// Does simple checks on a .tblk package.
+// If it has a single folder at the top level named "Contents", returns the .tblk's path without looking inside "Contents"
+// If it can be "fixed", returns the path to a temporary copy with the problems fixed.
+// If it is empty, and the use chooses, a path to a temporay copy with the sample configuration file is returned.
+// If it is empty, and the user cancels, an empty string (@"") is returned.
+// Otherwise, returns nil to indicate an error;
+// Can fix the following:
+//   * Package contains, or has a single folder which contains, one .ovpn or .conf, and any number of .key, .crt, etc. files:
+//          Moves the .ovpn or .conf to Contents/Resources/config.ovpn
+//          Moves the .key, .crt, etc. files to Contents/Resources
+-(NSString *) getPackageToInstall: (NSString *) thePath withKey: (NSString *) key;
+
+{
+    NSMutableArray * pkgList = [[gFileMgr directoryContentsAtPath: thePath] mutableCopy];
+    if (  ! pkgList  ) {
+        return nil;
+    }
+    
+    // Remove invisible files and folders
+    int i;
+    for (i=0; i < [pkgList count]; i++) {
+        if (  ! itemIsVisible([pkgList objectAtIndex: i])  ) {
+            [pkgList removeObjectAtIndex: i];
+            i--;
+        }
+    }
+    
+    // If empty package, make a sample config
+    if (  [pkgList count] == 0  ) {
+        int result = TBRunAlertPanel(NSLocalizedString(@"Install Sample Configuration?", @"Window Title"),
+                                     [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?", @"Window text"),
+                                      [[thePath lastPathComponent]stringByDeletingPathExtension]],
+                                     NSLocalizedString(@"Install Sample", @"Button"),
+                                     NSLocalizedString(@"Cancel", @"Button"),
+                                     nil);
+        if (  result != NSAlertDefaultReturn  ) {
+            [pkgList release];
+            return @"";
+        }
+
+        [pkgList release];
+        return [self makeTemporarySampleTblkWithName: [thePath lastPathComponent] andKey: key];
+    }
+    
+    // If the .tblk contains only a single subfolder, "Contents", then return .tblk path
+    NSString * firstItem = [pkgList objectAtIndex: 0];
+    if (   ([pkgList count] == 1)
+        && ( [[firstItem lastPathComponent] isEqualToString: @"Contents"])  ) {
+        [pkgList release];
+        return [[thePath copy] autorelease];
+    }
+    
+    NSString * searchPath;    // Use this from here on
+    
+    // If the .tblk contains only a single subfolder (not "Contents"), look in that folder for stuff to put into Contents/Resources
+    BOOL isDir;
+    if (   ([pkgList count] == 1)
+        && [gFileMgr fileExistsAtPath: firstItem isDirectory: &isDir]
+        && isDir  ) {
+        [pkgList release];
+        pkgList = [[gFileMgr directoryContentsAtPath: firstItem] mutableCopy];
+        searchPath = [[firstItem copy] autorelease];
+    } else {
+        searchPath = [[thePath copy] autorelease];
+    }
+    
+    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+
+    // Look through the package and see what's in it
+    unsigned int nConfigs = 0;   // # of configuration files we've seen
+    unsigned int nInfos   = 0;   // # of Info.plist files we've seen
+    unsigned int nUnknown = 0;   // # of folders or unknown files we've seen
+    for (i=0; i < [pkgList count]; i++) {
+        NSString * ext = [[pkgList objectAtIndex: i] pathExtension];
+        if (  itemIsVisible(thePath)  ) {
+            if (   [gFileMgr fileExistsAtPath: thePath isDirectory: &isDir]
+                && ( ! isDir )  ) {
+                if (   [ext isEqualToString: @"conf"]
+                    || [ext isEqualToString: @"ovpn"]  ) {
+                    nConfigs++;
+                } else if (  [[[pkgList objectAtIndex: i] lastPathComponent] isEqualToString: @"Info.plist"]  ) {
+                    nInfos++;
+                } else if (  [ext isEqualToString: @"sh"]  ) {
+                    ;
+                } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
+                    ;
+                } else {
+                    nUnknown++;
+                }
+            } else {
+                nUnknown++;
+            }
+        }
+    }
+    
+    if (  nConfigs == 0  ) {
+        NSLog(@"Must have one configuration in a .tblk, %d were found in %@", nConfigs, searchPath);
+        [pkgList release];
+        return nil;
+    }
+    
+    if (  nInfos > 1  ) {
+        NSLog(@"Must have at most one Info.plist in a .tblk, %d were found in %@", nInfos, searchPath);
+        [pkgList release];
+        return nil;
+    }
+    
+    if (  nUnknown != 0  ) {
+        NSLog(@"Folder(s) or unrecognized file(s) found in %@", searchPath);
+        [pkgList release];
+        return nil;
+    }
+    
+    // Create an empty .tblk and copy stuff in the folder to its Contents/Resources (Copy Info.plist to Contents)
+    NSString * emptyTblk = [self makeEmptyTblk: thePath withKey: key];
+    if (  ! emptyTblk  ) {
+        [pkgList release];
+        return nil;
+    }
+    
+    NSString * emptyResources = [emptyTblk stringByAppendingPathComponent: @"Contents/Resources"];
+
+    for (i=0; i < [pkgList count]; i++) {
+        NSString * oldPath = [pkgList objectAtIndex: i];
+        NSString * newPath;
+        NSString * ext = [oldPath pathExtension];
+        if (   [ext isEqualToString: @"conf"]
+            || [ext isEqualToString: @"ovpn"]  ) {
+            newPath = [emptyResources stringByAppendingPathComponent: @"config.ovpn"];
+        } else if (  [[oldPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
+            newPath = [[emptyResources stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+        } else{
+            newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
+        }
+
+        if (  [gFileMgr copyPath: oldPath toPath: newPath handler: nil]  ) {
+            NSLog(@"Unable to copy %@ to %@", oldPath, newPath);
+            [pkgList release];
+            return nil;
+        }
+    }
+    
+    [pkgList release];
+    return emptyTblk;
+}
+
+-(BOOL) createDir: (NSString *) thePath
+{
+    BOOL result = [gFileMgr createDirectoryAtPath: thePath attributes: nil];
+    if (  ! result  ) {
+        NSLog(@"Unable to create folder at ", thePath);
+    }
+    return result;
+}
+
+-(NSString *) makeTemporarySampleTblkWithName: (NSString *) name andKey: (NSString *) key
+{
+    NSString * emptyTblk = [self makeEmptyTblk: name withKey: key];
+    if (  ! emptyTblk  ) {
+        NSLog(@"Unable to create temporary .tblk");
+        return nil;
+    }
+    
+    NSString * source = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
+    NSString * target = [emptyTblk stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
+    if (  ! [gFileMgr copyPath: source toPath: target handler: nil]  ) {
+        NSLog(@"Unable to copy sample configuration file to %@", target);
+        return nil;
+    }
+    return emptyTblk;
+}    
+
+// Creates an "empty" .tblk with name taken from input arugment, and with Contents/Resources created,
+// in a newly-created temporary folder
+// Returns nil on error, or with the path to the .tblk
+-(NSString *) makeEmptyTblk: (NSString *) thePath withKey: (NSString *) key
+{
+    NSString * tempFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:
+                             [NSString stringWithFormat:@"TunnelblickConfigInstallFolder-%d-%@", gSecuritySessionId, key]];
+    
+    NSString * tempTblk = [tempFolder stringByAppendingPathComponent: [thePath lastPathComponent]];
+    
+    NSString * tempContents = [tempTblk stringByAppendingPathComponent: @"Contents"];
+    
+    NSString * tempResources = [tempTblk stringByAppendingPathComponent: @"Contents/Resources"];
+    
+    [gFileMgr removeFileAtPath: tempFolder handler: nil];
+    
+    int result = [self createDir: tempFolder];
+    if (  result == 0  ) {
+        return nil;
+    }
+    result = [self createDir: tempTblk];
+    if (  result == 0  ) {
+        return nil;
+    }
+    result = [self createDir: tempContents];
+    if (  result == 0  ) {
+        return nil;
+    }
+    result = [self createDir: tempResources];
+    if (  result == 0  ) {
+        return nil;
+    }
+    
+    return tempTblk;
 }
 
 // Given paths to a configuration (either a .conf or .ovpn file, or a .tblk package) in one of the gConfigDirs
@@ -985,8 +1227,14 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 -(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath
 {
     NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
-    if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
-        return FALSE;
+    if (  [[cfgPath pathExtension] isEqualToString: @"tblk"]  ) {
+        if (  ! [gFileMgr contentsEqualAtPath: [cfgPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"] andPath: samplePath]  ) {
+            return FALSE;
+        }
+    } else {
+        if (  ! [gFileMgr contentsEqualAtPath: cfgPath andPath: samplePath]  ) {
+            return FALSE;
+        }
     }
     
     int button = TBRunAlertPanel(NSLocalizedString(@"You cannot connect using the sample configuration", @"Window title"),
