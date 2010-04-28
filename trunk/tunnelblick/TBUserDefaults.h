@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Jonathan Bullard
+ * Copyright (c) 2009, 2010 Jonathan Bullard
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -16,42 +16,59 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-// This class is used to override the user's standard preferences if the Resources/Deploy folder
-// is being used for configurations and it contains a "forced-preferences.plist" file.
+// Note: this class is DAEMON-SAFE IF it is initialized with "usingUserDefaults" set to NO.
 //
-// Preferences in that file are read-only.
+// This class is used as a substitute for NSUserDefaults and implements an augmented subset of its methods.
 //
-// If Resources/Deploy is not being used for configurations,
-// or it doesn't contain "forced-preferences.plist",
-// or a particular preference is not specified in that file,
-// Then the user's standard preferences are used.
+// It implements two levels of read-only dictionaries that can override the user's standard preferences,
+// a "forced" dictionary and a "secondary" dictionary.
+//
+// The "forced" dictionary may contain wildcards (i.e, a "*" as the first character in a key).
+//
+// When looking for the value of a key:
+//     If a key is found in the "forced" dictionary or a key matches a wildcard
+//     Then the value from the "forced" dictionary is returned.
+//
+//     Otherwise, if a key is found in the "secondary" dictionary, then the value from it is returned.
+//
+//     Otherwise, if the class was initialized with "usingUserDefaults" set TRUE
+//                then the value from the user's standard preferences is returned.
+//     Otherwise, nil is returned.
 // 
 // THIS CLASS IMPLEMENTS A METHOD NOT FOUND IN NSUserDefaults:
 //
-//      canChangeValueForKey:
+//      canChangeValueForKey: (NSString *) key
 //
-// It returns TRUE if the user's standard preference for that key will be used (because the value can be modified)
-// It returns FALSE if the preference is contained in /Resources/Deploy/forced-preferences.plist (because the value cannot be modified)
+// It returns FALSE if the value of the key is is specified by the "forced dictionary" (including wildcard matches)
+//                  or by the "secondary" dictionary, or if the userDefaults preferences are not being used
+// It returns TRUE otherwise
 
 @interface TBUserDefaults : NSObject {
 
-    NSDictionary   * forcedDefaults;                // Preferences from Deploy
-    NSUserDefaults * userDefaults;                  // [NSUserDefaults standardUserDefaults]
-
+    NSDictionary   * forcedDefaults;                // nil, or an NSDictionary of preferences which may contain wildcards   -- used by tunnelblickd and the GUI
+    NSDictionary   * secondaryDefaults;             // nil, or an NSDictionary of preferences (from Shared Info.plists)     -- used by tunnelblickd
+    NSUserDefaults * userDefaults;                  // nil, or [NSUserDefaults standardUserDefaults]                        -- used by the GUI
 }
 
--(TBUserDefaults *) initWithDefaultsDictionary: (NSDictionary *)    inDict;     // Sets up to override user's standard preferences (if nil, standard user's preferences will be used)
+-(TBUserDefaults *) initWithForcedDictionary:   (NSDictionary *)    inForced
+                      andSecondaryDictionary:   (NSDictionary *)    inSecondary
+                           usingUserDefaults:   (BOOL)              inUseUserDefaults;
 
--(BOOL)             canChangeValueForKey:   (NSString *)            key;        // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
+// The following methods are implemented. They are like the corresponding NSUserPreferences methods
 
-// These are just like the corresponding NSUserPreferences methods
--(BOOL)             boolForKey:             (NSString *)            key;
--(NSString *)       objectForKey:           (id)                    key;
+-(BOOL)             canChangeValueForKey:       (NSString *)        key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
 
--(void)             setBool:                (BOOL)                  value   forKey: (NSString *)    key;
--(void)             setObject:              (id)                    value   forKey: (NSString *)    key;
+-(BOOL)             boolForKey:                 (NSString *)        key;    // Note: returns [object boolValue], which works only on booleans until OS X 10.5
 
--(void)             removeObjectForKey:     (NSString *)            key;
+-(id)               objectForKey:               (NSString *)        key;
+
+-(void)             setBool:                    (BOOL)              value
+                     forKey:                    (NSString *)        key;
+
+-(void)             setObject:                  (id)                value
+                       forKey:                  (NSString *)        key;
+
+-(void)             removeObjectForKey:         (NSString *)        key;
 
 -(void)             synchronize;
 

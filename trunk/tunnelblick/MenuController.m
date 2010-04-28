@@ -177,7 +177,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
         NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
-        gTbDefaults = [[TBUserDefaults alloc] initWithDefaultsDictionary: dict];
+        gTbDefaults = [[TBUserDefaults alloc] initWithForcedDictionary: dict
+                                                andSecondaryDictionary: nil
+                                                     usingUserDefaults: YES];
         
         // Set default preferences as needed
         if (  [gTbDefaults objectForKey: @"showConnectedDurations"] == nil  ) {
