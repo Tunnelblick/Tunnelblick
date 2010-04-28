@@ -102,6 +102,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             setTitle:                               (NSString *)        newTitle
                    ofControl:                               (NSButton *)        theControl;
 -(void)             setupSparklePreferences;
+-(void)             startOrStopDurationsTimer;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             unloadKexts; 
@@ -132,6 +133,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         launchFinished = FALSE;
+        
+        showDurationsTimer = nil;
         
         // Use a session ID in temporary files to support fast user switching
         OSStatus error;
@@ -824,25 +827,50 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)toggleConnectionTimers: (NSMenuItem *) item
 {
     [self toggleMenuItem: item withPreferenceKey: @"showConnectedDurations"];
-    
-    if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
-        // Now on, so it was off. Start the timer
-        if (  showDurationsTimer == nil  ) {
-            showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                                   target:self
-                                                                 selector:@selector(updateTabLabels)
-                                                                 userInfo:nil
-                                                                  repeats:YES] retain];
+    [self startOrStopDurationsTimer];
+    [self updateTabLabels];
+}
+
+// Starts or stops the timer for showing connection durations.
+// Starts it (or lets it continue) if it is enabled and any tunnels are connected; stops it otherwise
+-(void) startOrStopDurationsTimer
+{
+    if (  showDurationsTimer == nil  ) {
+        // Timer is inactive. Start it if enabled and any tunnels are connected
+        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+            VPNConnection * conn;
+            NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+            while (  conn = [connEnum nextObject]  ) {
+                if (  [[conn state] isEqualToString: @"CONNECTED"]) {
+                    showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                                           target:self
+                                                                         selector:@selector(updateTabLabels)
+                                                                         userInfo:nil
+                                                                          repeats:YES] retain];
+                    return;
+                }
+            }
         }
     } else {
-        // Now off, so was on. Stop the timer
-        if (showDurationsTimer != nil) {
+        // Timer is active. Stop it if not enabled or if no tunnels are connected.
+        if (  ! [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+            [showDurationsTimer invalidate];
+            [showDurationsTimer release];
+            showDurationsTimer = nil;
+        } else {
+            VPNConnection * conn;
+            NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+            while (  conn = [connEnum nextObject]  ) {
+                if (  [[conn state] isEqualToString: @"CONNECTED"]) {
+                    return;
+                }
+            }
+            
             [showDurationsTimer invalidate];
             [showDurationsTimer release];
             showDurationsTimer = nil;
         }
     }
-    [self updateTabLabels];
 }
 
 -(void)toggleUseShadowCopies: (NSMenuItem *) item
@@ -1436,14 +1464,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[self updateTabLabels];
     
     // Set up a timer to update the tab labels with connections' duration times
-    if (   (showDurationsTimer == nil)
-        && [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
-        showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                               target:self
-                                                             selector:@selector(updateTabLabels)
-                                                             userInfo:nil
-                                                              repeats:YES] retain];
-    }
+    [self startOrStopDurationsTimer];
 	
     [logWindow display];
     [logWindow makeKeyAndOrderFront: self];
@@ -1874,15 +1895,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(void)addConnection:(id)sender 
 {
-	if(sender != nil) {
+	if (  sender != nil  ) {
 		[connectionArray removeObject:sender];
 		[connectionArray addObject:sender];
+        [self startOrStopDurationsTimer];
 	}
 }
 
 -(void)removeConnection:(id)sender
 {
-	if(sender != nil) [connectionArray removeObject:sender];	
+	if (  sender != nil  ) {
+        [connectionArray removeObject:sender];
+        [self startOrStopDurationsTimer];
+    }
 }
 
 static void signal_handler(int signalNumber)
