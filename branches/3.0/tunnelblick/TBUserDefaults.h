@@ -48,7 +48,7 @@
 
 // These are just like the corresponding NSUserPreferences methods
 -(BOOL)             boolForKey:             (NSString *)            key;
--(NSString *)       objectForKey:           (id)                    key;
+-(id)               objectForKey:           (NSString *)            key;
 
 -(void)             setBool:                (BOOL)                  value   forKey: (NSString *)    key;
 -(void)             setObject:              (id)                    value   forKey: (NSString *)    key;

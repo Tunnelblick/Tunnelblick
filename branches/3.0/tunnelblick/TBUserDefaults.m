@@ -67,14 +67,14 @@
     if (  ! forcedDefaults  ) {
         return [userDefaults boolForKey: key];
     }
-    NSNumber * value = [forcedDefaults objectForKey: key];
+    NSNumber * value = [self objectForKey: key];
     if (  value == nil  ) {
         return [userDefaults boolForKey: key];
     }
     return [value boolValue];
 }
 
--(NSString *) objectForKey: (id) key
+-(id) objectForKey: (NSString *) key
 {
     if (  ! forcedDefaults  ) {
         return [userDefaults objectForKey: key];
@@ -88,7 +88,7 @@
         while (  forcedKey = [e nextObject]  ) {
             if (  [forcedKey hasPrefix: @"*"] && ( [forcedKey length] != 1)  ) {
                 if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
-                    return [forcedDefaults objectForKey: key];
+                    return [forcedDefaults objectForKey: forcedKey];
                 }
             }
         }
