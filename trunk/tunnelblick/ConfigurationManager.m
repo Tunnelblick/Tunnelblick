@@ -1129,7 +1129,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     AuthorizationRef authRef;
     if (   (! [self onRemoteVolume:cfgPath] )
         && (! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )
-        && (! [cfgPath hasPrefix: gPrivatePath] )  ) {
+        && ([cfgPath hasPrefix: gPrivatePath] )  ) {
         
         // We don't use a shadow configuration file
 		NSLog(@"Configuration file %@ needs ownership/permissions repair", cfgPath);
