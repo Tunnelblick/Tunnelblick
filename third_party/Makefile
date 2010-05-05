@@ -90,7 +90,16 @@ openvpn-clean:
 
 .PHONY : tuntap
 
-tuntap: 
+tuntap-patch:
+	@cd tuntap; \
+	for patchfile in ../patches/tuntap/*.diff; do \
+		patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
+		if [ $$? == 0 ]; then \
+			patch -p0 -N -i $$patchfile; \
+		fi \
+	done
+
+tuntap: tuntap-patch
 	# Now we'll build the tun/tap driver
 	$(MAKE) -C tuntap/
 
