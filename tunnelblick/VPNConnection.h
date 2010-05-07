@@ -16,6 +16,7 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#import <Security/Security.h>
 #import "AuthAgent.h"
 #import "NetSocket.h"
 #import "NamedPipe.h"
@@ -42,6 +43,9 @@
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
     BOOL            authenticationFailed; // True iff a message from OpenVPN has been received that password/passphrase authentication failed and the user hasn't been notified yet
+    BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an existing instance of OpenVPN
+    BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
+    NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
 }
 
 // PUBLIC METHODS:
@@ -52,21 +56,31 @@
 
 -(void)             appendDataToLog:            (NSData *)          data;
 
+-(BOOL)             checkConnectOnSystemStart:  (BOOL)              startIt
+                                     withAuth:  (AuthorizationRef)  inAuthRef;
+
 -(NSString *)       configPath;
 
 -(NSDate *)         connectedSinceDate;
 
--(IBAction)         connect:                    (id) sender;
+-(void)              connect:                    (id) sender;
 
 -(void)             destroyPipe;
 
--(IBAction)         disconnect:                 (id) sender;
+-(void)             disconnect:                 (id) sender;
 
 -(NSString *)       displayName;
 
 -(void)             emptyPipe;
+
 -(id)               initWithConfigPath:         (NSString *)    inPath
                        withDisplayName:         (NSString *)    inDisplayName;
+
+-(void)             invalidateConfigurationParse;
+
+-(void)             tryToHookupToPort:          (int)           inPortNumber;
+-(BOOL)             tryingToHookup;
+-(BOOL)             isHookedup;
 
 -(BOOL)             isConnected;
 
@@ -81,14 +95,19 @@
 
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
 
+-(pid_t)            pid;
+
 -(void)             setDelegate:                (id)            newDelegate;
 
 -(void)             setState:                   (NSString *)    newState;
 
 -(NSString*)        state;
 
+-(void)             stopTryingToHookup;
+
 -(IBAction)         toggle:                     (id)            sender;
 
 -(BOOL)             usedSetNameserver;
+
 
 @end

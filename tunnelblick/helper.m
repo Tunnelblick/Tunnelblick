@@ -21,63 +21,19 @@
 #import "TBUserDefaults.h"
 #import "NSApplication+SystemVersion.h"
 
-// This file contains the following global functions:
-BOOL        runningOnTigerOrNewer();
-BOOL        runningOnLeopardOrNewer();
-BOOL        runningOnSnowLeopardOrNewer();
-
-NSString *  tunnelblickVersion(NSBundle * bundle);
-NSString *  openVPNVersion(void);
-
-NSString *  escaped(NSString *string);
-
-NSString *  firstPartOfPath(NSString * thePath);
-NSString *  lastPartOfPath(NSString * thePath);
-NSString *  firstPathComponent(NSString * path);
-
-NSString *  configPathFromTblkPath(NSString * path);
-
-BOOL        itemIsVisible(NSString * path);
-
-NSString *  tblkPathFromConfigPath(NSString * path);
-
-BOOL        useDNSStatus(id connection);
-
-BOOL        folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
-
-BOOL        checkOwnerAndPermissions(NSString      * fPath,
-                                     uid_t           uid,
-                                     gid_t           gid,
-                                     NSString      * permsShouldHave);
-
-int         TBRunAlertPanel(NSString * title,
-                            NSString * msg,
-                            NSString * defaultButtonLabel,
-                            NSString * alternateButtonLabel,
-                            NSString * otherButtonLabel);
-
-int         TBRunAlertPanelExtended(NSString * title,
-                                    NSString * msg,
-                                    NSString * defaultButtonLabel,
-                                    NSString * alternateButtonLabel,
-                                    NSString * otherButtonLabel,
-                                    NSString * doNotShowAgainPreferenceKey,
-                                    NSString * checkboxLabel,
-                                    BOOL     * checkboxResult);
-BOOL isUserAnAdmin(void);
-
-// The following functions are used only by this file:
-NSDictionary * getOpenVPNVersion(void);
-NSDictionary * parseVersion( NSString * string);
-NSRange        rangeOfDigits(NSString * s);
-void           localizableStrings(void);
+// PRIVATE FUNCTIONS:
+NSString     * openVPNVersion           (void);
+NSDictionary * parseVersion             (NSString * string);
+NSRange        rangeOfDigits            (NSString * s);
+void           localizableStrings       (void);
 
 // The following external, global variables are used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
-extern NSMutableArray  * gConfigDirs;   // Used by firstPartOfPath, lastPartOfPath
-extern NSString        * gPrivatePath;  // Used by folderContentsNeedToBeSecuredAtPath
-extern NSFileManager   * gFileMgr;      // Used by configPathFromTblkPath, folderContentsNeedToBeSecuredAtPath, checkOwnerAndPermissions
-extern TBUserDefaults  * gTbDefaults;   // Used by useDNSStatus, TBRunAlertPanel, TBRunAlertPanelExtended
+extern NSMutableArray  * gConfigDirs;
+extern NSString        * gPrivatePath;
+extern NSFileManager   * gFileMgr;
+extern TBUserDefaults  * gTbDefaults;
+extern NSDictionary    * gOpenVPNVersionDict;  
 
 BOOL runningOnTigerOrNewer()
 {
@@ -116,7 +72,7 @@ NSString * firstPartOfPath(NSString * thePath)
     int i;
     for (i=0; i < [gConfigDirs count]; i++) {
         if (  [thePath hasPrefix: [gConfigDirs objectAtIndex: i]]  ) {
-            return [gConfigDirs objectAtIndex: i];
+            return [[[gConfigDirs objectAtIndex: i] copy] autorelease];
         }
     }
     
@@ -157,6 +113,56 @@ NSString * configPathFromTblkPath(NSString * path)
     }
     
     return nil;
+}
+
+// Returns a path for an OpenVPN log file.
+// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of the port number and "log".
+NSString * constructOpenVPNLogPath(NSString * configurationPath, int port)
+{
+    NSMutableString * logPath = [configurationPath mutableCopy];
+    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
+    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
+    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%d.log", logPath, port];
+    [logPath release];
+    return returnVal;
+}
+
+// Returns a configuration path (and port number) from a path created by constructOpenVPNLogPath
+NSString * deconstructOpenVPNLogPath (NSString * logPath, int * portPtr)
+{
+    if (  [logPath hasPrefix: @"/tmp/tunnelblick-S"]  ) {
+        if (  [[logPath pathExtension] isEqualToString: @"log"]  ) {
+            int prefixLength = [@"/tmp/tunnelblick" length];    // Keep the "-S" so it is replaced by a leading "/"
+            NSRange r = NSMakeRange(prefixLength, [logPath length] - 4 - prefixLength);
+            NSString * withoutPrefixOrDotLog = [logPath substringWithRange: r];
+            NSString * portString = [withoutPrefixOrDotLog pathExtension];
+            int port = [portString intValue];
+            if (   port != 0
+                && port != INT_MAX
+                && port != INT_MIN  ) {
+                
+                *portPtr = port;
+                
+                NSMutableString * cfg = [[withoutPrefixOrDotLog stringByDeletingPathExtension] mutableCopy];
+                [cfg replaceOccurrencesOfString: @"-S" withString: @"/" options: 0 range: NSMakeRange(0, [cfg length])];
+                [cfg replaceOccurrencesOfString: @"--" withString: @"-" options: 0 range: NSMakeRange(0, [cfg length])];
+                [cfg replaceOccurrencesOfString: @"/Contents/Resources/config.ovpn" withString: @"" options: 0 range: NSMakeRange(0, [cfg length])];
+                NSString * returnVal = [[cfg copy] autorelease];
+                [cfg release];
+                
+                return returnVal;
+            } else {
+                NSLog(@"deconstructOpenVPNLogPath: called with invalid port number in path %@", logPath);
+                return @"";
+            }
+        } else {
+            NSLog(@"deconstructOpenVPNLogPath: called with non-log path %@", logPath);
+            return @"";
+        }
+    } else {
+        NSLog(@"deconstructOpenVPNLogPath: called with invalid prefix to path %@", logPath);
+        return @"";
+    }
 }
 
 BOOL itemIsVisible(NSString * path)
@@ -324,7 +330,7 @@ NSString * tunnelblickVersion(NSBundle * bundle)
 // Returns a string with the version # for OpenVPN, e.g., "OpenVPN 2 (2.1_rc15)"
 NSString * openVPNVersion(void)
 {
-    NSDictionary * OpenVPNV = getOpenVPNVersion();
+    NSDictionary * OpenVPNV = gOpenVPNVersionDict;
     NSString * version      = [NSString stringWithFormat:@"OpenVPN %@",
                                [OpenVPNV objectForKey:@"full"]
                               ];
@@ -370,7 +376,7 @@ NSDictionary * getOpenVPNVersion(void)
         }
     }
     
-    return (  parseVersion(string)  );
+    return (  [[parseVersion(string) copy] autorelease]  );
 }
 
 // Given a string with a version number, parses it and returns an NSDictionary with full, preMajor, major, preMinor, minor, preSuffix, suffix, and postSuffix fields
@@ -421,9 +427,16 @@ NSDictionary * parseVersion( NSString * string)
     
 //NSLog(@"full = '%@'; preMajor = '%@'; major = '%@'; preMinor = '%@'; minor = '%@'; preSuffix = '%@'; suffix = '%@'; postSuffix = '%@'    ",
 //      string, preMajor, major, preMinor, minor, preSuffix, suffix, postSuffix);
-    return (  [NSDictionary dictionaryWithObjectsAndKeys:   string, @"full",
-                                                            preMajor, @"preMajor", major, @"major", preMinor, @"preMinor", minor, @"minor",
-                                                            preSuffix, @"preSuffix", suffix, @"suffix", postSuffix, @"postSuffix", nil]  );
+    return (  [NSDictionary dictionaryWithObjectsAndKeys:
+               [[string copy] autorelease], @"full",
+               [[preMajor copy] autorelease], @"preMajor",
+               [[major copy] autorelease], @"major",
+               [[preMinor copy] autorelease], @"preMinor",
+               [[minor copy] autorelease], @"minor",
+               [[preSuffix copy] autorelease], @"preSuffix",
+               [[suffix copy] autorelease], @"suffix",
+               [[postSuffix copy] autorelease], @"postSuffix",
+               nil]  );
 }
 
 
@@ -623,16 +636,6 @@ void localizableStrings(void)
 {
     // This string comes from the "Other Sources/dmgFiles/background.rtf" file, used to generate an image for the DMG
     NSLocalizedString(@"Double-click to begin", @"Text on disk image");
-    
-    // These strings come from the .nib
-    NSLocalizedString(@"Details - Tunnelblick",             @"Window title");
-    NSLocalizedString(@"Clear log",                         @"Button");
-    NSLocalizedString(@"Edit configuration",                @"Button");
-    NSLocalizedString(@"Connect",                           @"Button");
-    NSLocalizedString(@"Disconnect",                        @"Button");
-    NSLocalizedString(@"Automatically connect on launch",   @"Checkbox name");
-    NSLocalizedString(@"Set nameserver",                    @"Checkbox name");
-    NSLocalizedString(@"Monitor connection",                @"Checkbox name");
     
     // These strings come from OpenVPN and indicate the status of a connection
     NSLocalizedString(@"ADD_ROUTES",    @"Connection status");

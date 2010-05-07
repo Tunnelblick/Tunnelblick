@@ -96,7 +96,7 @@ extern TBUserDefaults  * gTbDefaults;
                      NSLocalizedString(@"Passphrase", @"Window title")]                 forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [dict setObject:NSLocalizedString(@"Please enter VPN passphrase.", @"Window text")  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
     if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
-        [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")            forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+        [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox name")            forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
     }
     [dict setObject:@""                                                                 forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
     [dict setObject:NSLocalizedString(@"OK", @"Button")                                 forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
@@ -185,7 +185,7 @@ extern TBUserDefaults  * gTbDefaults;
                          NSLocalizedString(@"Username and password", @"Window title")]                          forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
         [dict setObject:NSLocalizedString(@"Please enter VPN username/password combination.", @"Window text")   forKey:(NSString *)kCFUserNotificationAlertMessageKey];
         if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
-            [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox text")                                forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+            [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox name")                                forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
         }
         [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", @"Textbox name"),
                          NSLocalizedString(@"Password:", @"Textbox name"),

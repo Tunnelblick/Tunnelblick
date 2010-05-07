@@ -220,7 +220,7 @@ int main(int argc, char *argv[])
     BOOL okSoFar = checkSetOwnership(gPrivatePath, FALSE, realUserID, realGroupID);
     okSoFar = okSoFar && checkSetPermissions(gPrivatePath, @"755");
     if (  ! okSoFar  ) {
-        NSLog(@"Tunnelblick Installer: Unable to change ownership and permissions to %d:%d and 0755 on %@\nError was '%s'", (int) realUserID, (int) realGroupID, gPrivatePath, strerror(errno));
+        NSLog(@"Tunnelblick Installer: Unable to change ownership and permissions to %d:%d and 0755 on %@", (int) realUserID, (int) realGroupID, gPrivatePath);
         [pool release];
         exit(EXIT_FAILURE);
     }
@@ -255,14 +255,15 @@ int main(int argc, char *argv[])
     //            all other files are set to 0644
     if ( secureApp ) {
         
-        NSString *installerPath         = [thisBundle stringByAppendingPathComponent:@"/installer"];
-        NSString *openvpnstartPath      = [thisBundle stringByAppendingPathComponent:@"/openvpnstart"];
-        NSString *openvpnPath           = [thisBundle stringByAppendingPathComponent:@"/openvpn"];
-        NSString *leasewatchPath        = [thisBundle stringByAppendingPathComponent:@"/leasewatch"];
-        NSString *clientUpPath          = [thisBundle stringByAppendingPathComponent:@"/client.up.osx.sh"];
-        NSString *clientDownPath        = [thisBundle stringByAppendingPathComponent:@"/client.down.osx.sh"];
-        NSString *clientNoMonUpPath     = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.up.osx.sh"];
-        NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"/client.nomonitor.down.osx.sh"];
+        NSString *installerPath         = [thisBundle stringByAppendingPathComponent:@"installer"];
+        NSString *openvpnstartPath      = [thisBundle stringByAppendingPathComponent:@"openvpnstart"];
+        NSString *openvpnPath           = [thisBundle stringByAppendingPathComponent:@"openvpn"];
+        NSString *atsystemstartPath     = [thisBundle stringByAppendingPathComponent:@"atsystemstart"];
+        NSString *leasewatchPath        = [thisBundle stringByAppendingPathComponent:@"leasewatch"];
+        NSString *clientUpPath          = [thisBundle stringByAppendingPathComponent:@"client.up.osx.sh"];
+        NSString *clientDownPath        = [thisBundle stringByAppendingPathComponent:@"client.down.osx.sh"];
+        NSString *clientNoMonUpPath     = [thisBundle stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"];
+        NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"client.nomonitor.down.osx.sh"];
         NSString *infoPlistPath         = [[thisBundle stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
         
         BOOL okSoFar = YES;
@@ -276,6 +277,7 @@ int main(int argc, char *argv[])
         
         okSoFar = okSoFar && checkSetPermissions(installerPath,       @"744");
         okSoFar = okSoFar && checkSetPermissions(openvpnPath,         @"744");
+        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,   @"744");
         okSoFar = okSoFar && checkSetPermissions(leasewatchPath,      @"744");
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,        @"744");
         okSoFar = okSoFar && checkSetPermissions(clientDownPath,      @"744");

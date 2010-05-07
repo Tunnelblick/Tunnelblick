@@ -17,24 +17,32 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#import "openvpnstart.h"
 #import <Foundation/Foundation.h>
 #import <sys/sysctl.h>
+#import <netinet/in.h>
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor);
+int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, BOOL bitMask);
+int     setupLog            (NSString* logPath); // Sets up the OpenVPN log file (for "without GUI" operation), which encodes the configuration file path and port info into the filename
+NSString * createOpenVPNLog (NSString* configurationPath, int port);
+NSString * constructOpenVPNLogPath (NSString * configurationPath, int port);
+BOOL    deleteLogFiles(NSString * configurationPath);
 
-void    StartOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
+void    startOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
 void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or complains and exits
 int		killAllOpenvpn		(void);			//Kills all openvpn processes and returns the number of processes that were killed. May complain and exit
 void    waitUntilAllGone    (void);         //Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 
-void	loadKexts			(void);			//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
-void	unloadKexts			(void);			//Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
+void	loadKexts			(int bitMask);	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
+void	unloadKexts			(int bitMask);	//Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
 void	becomeRoot			(void);			//Returns as root, having setuid(0) if necessary; complains and exits if can't become root
 
 void	getProcesses		(struct kinfo_proc** procs, int* number);	//Fills in process information
 BOOL    processExists       (pid_t pid);    //Returns TRUE if the process exists
+unsigned int getFreePort    (void);         //Returns a free port
+
 BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn")
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
 BOOL    itemIsVisible       (NSString * path); // Returns NO if path or any component of path is invisible (compenent starts with a '.')
@@ -51,11 +59,11 @@ NSFileManager       * gFileMgr;
 int main(int argc, char* argv[])
 {
     pool = [[NSAutoreleasePool alloc] init];
-	
+
 	BOOL	syntaxError	= TRUE;
     int     retCode = 0;
     execPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
-	
+
     if (argc > 1) {
 		char* command = argv[1];
 		if( strcmp(command, "killall") == 0 ) {
@@ -69,19 +77,31 @@ int main(int argc, char* argv[])
 			}
 		} else if( strcmp(command, "loadKexts") == 0 ) {
 			if (argc == 2) {
-                loadKexts();
+                loadKexts(0);
 				syntaxError = FALSE;
+            } else if (  argc == 3 ) {
+                int bitMask = atoi(argv[2]);
+                if (  bitMask < 16  ) {
+                    loadKexts(bitMask);
+                    syntaxError = FALSE;
+                }
 			}
             
 		} else if( strcmp(command, "unloadKexts") == 0 ) {
 			if (argc == 2) {
-                unloadKexts();
+                unloadKexts(0);
 				syntaxError = FALSE;
+            } else if (  argc == 3 ) {
+                int bitMask = atoi(argv[2]);
+                if (  bitMask < 16  ) {
+                    unloadKexts(bitMask);
+                    syntaxError = FALSE;
+                }
 			}
             
 		} else if( strcmp(command, "OpenVPNInfo") == 0 ) {
 			if (argc == 2) {
-                StartOpenVPNWithNoArgs();
+                startOpenVPNWithNoArgs();
 				syntaxError = FALSE;
 			}
             
@@ -92,7 +112,7 @@ int main(int argc, char* argv[])
 				syntaxError = FALSE;
 			}
 		} else if( strcmp(command, "start") == 0 ) {
-			if (  (argc > 3) && (argc < 9)  ) {
+			if (  (argc > 3) && (argc < 10)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
 				if(strlen(argv[3]) < 6 ) {
 					unsigned int port = atoi(argv[3]);
@@ -100,9 +120,10 @@ int main(int argc, char* argv[])
 						unsigned  useScripts = 0;     if(  argc > 4  )                         useScripts = atoi(argv[4]);
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
-						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor = TRUE;
+						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
+						BOOL      bitMask    = FALSE; if( (argc > 8) && (atoi(argv[8]) == 1) ) bitMask    = TRUE;
 						if (cfgLocCode < 4) {
-                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor);
+                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask);
                             syntaxError = FALSE;
                         }
 					}
@@ -110,7 +131,7 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
-	
+
 	if (syntaxError) {
 		fprintf(stderr,
                 "\n\nopenvpnstart usage:\n\n"
@@ -118,11 +139,11 @@ int main(int argc, char* argv[])
 				"./openvpnstart OpenVPNInfo\n"
 				"               to get information about OpenVPN\n\n"
                 
-				"./openvpnstart loadKexts\n"
-				"               to load tun.kext and tap.kext\n\n"
+				"./openvpnstart loadKexts     [bitMask]\n"
+				"               to load .tun and .tap kexts\n\n"
                 
-				"./openvpnstart unloadKexts\n"
-				"               to unload tun.kext and tap.kext\n\n"
+				"./openvpnstart unloadKexts   [bitMask]\n"
+				"               to unload the .tun and .tap kexts\n\n"
                 
 				"./openvpnstart killall\n"
 				"               to terminate all processes named 'openvpn'\n\n"
@@ -130,7 +151,7 @@ int main(int argc, char* argv[])
 				"./openvpnstart kill   processId\n"
 				"               to terminate the 'openvpn' process with the specified processID\n\n"
                 
-				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  ]  ]  ]  ]\n\n"
+				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  ]  ]  ]  ]  ]\n\n"
 				"               to load tun.kext and tap.kext and start OpenVPN with the specified configuration file and options.\n\n"
 				
 				"Where:\n\n"
@@ -139,7 +160,8 @@ int main(int argc, char* argv[])
                 
 				"configName is the name of the configuration file (a .conf or .ovpn file, or .tblk package)\n\n"
                 
-				"mgtPort    is the port number (0-65535) to use for managing the connection\n\n"
+				"mgtPort    is the port number (0-65535) to use for managing the connection\n"
+                "           or 0 to use a free port and create a log file encoding the configuration path and port number\n\n"
                 
 				"useScripts is 0 to not use scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
                 "           or 1 to run scripts before connecting and after disconnecting\n"
@@ -162,7 +184,15 @@ int main(int argc, char* argv[])
                 "noMonitor  is 0 to monitor the connection for interface configuration changes\n"
                 "           or 1 to not monitor the connection for interface configuration changes\n\n"
                 
-				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n\n"
+                "bitMask    contains a mask: bit 0 is 1 to unload/load net.tunnelblick.tun (bit 0 is the lowest ordered bit)\n"
+                "                            bit 1 is 1 to unload/load net.tunnelblick.tap\n"
+                "                            bit 2 is 1 to unload foo.tun\n"
+                "                            bit 3 is 1 to unload foo.tap\n"
+                "                            bit 4 is 1 to create a log file in /tmp with the configuration path and port number encoded in the filename\n"
+                "                                          (Bit 4 is used only by the 'start' command; for the 'connect when system starts' feature)\n"
+                "                                          (Bit 4 is forced to 1 if mgtPort = 0)\n\n"
+                
+				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0. bitMask defaults to 0x0F.\n\n"
                 
                 "If the configuration file's extension is '.tblk', the package is searched for the configuration file, and the OpenVPN '--cd'\n"
                 "option is set to the path of the configuration's /Contents/Resources folder.\n\n"
@@ -185,9 +215,8 @@ int main(int argc, char* argv[])
 
 //**************************************************************************************************************************
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor)
+int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, BOOL bitMask)
 {
-	NSString*	privateFolderPath       = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
 	NSString*	openvpnPath             = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSString*	upscriptPath            = [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
 	NSString*	downscriptPath          = [execPath stringByAppendingPathComponent: @"client.down.osx.sh"];
@@ -198,18 +227,21 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     
     gFileMgr = [NSFileManager defaultManager];
 
-    NSString * cdFolderPath = [[privateFolderPath copy] autorelease];  // Assume we're using the private folder
+    NSString * cdFolderPath;
     
 	switch (cfgLocCode) {
         case 0:
-            configPath = [privateFolderPath stringByAppendingPathComponent:configFile];
+            cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+            configPath = [cdFolderPath stringByAppendingPathComponent:configFile];
             break;
             
         case 1:
+            cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
             configPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), configFile];
             break;
             
         case 2:
+            cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
             configPath = [deployDirPath stringByAppendingPathComponent: configFile];
             // If Deploy contains anything other than *.conf, *.ovpn, *.up.sh, *.down.sh, *.tblk, and forced-preferences.plist files
             // Then use Deploy as the --cd directory (but this is overridden later for .tblks)
@@ -255,7 +287,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 exit(237);
             }
             configPath = [@"/Library/Application Support/Tunnelblick/Shared" stringByAppendingPathComponent: configFile];
-            // directoryPath is set below since this is a .tblk
+            cdFolderPath = @"/tmp";     // Will be set below since this is a .tblk. Set to /tmp to catch error if that doesn't happen for some reason
             break;
             
         default:
@@ -281,20 +313,43 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 		exit(241);
 	}
     
+    BOOL withoutGUI = FALSE;
+    if ( port == 0) {
+        withoutGUI = TRUE;
+        port = getFreePort();
+    }
+
+    NSString * logPath;
+    if (   (bitMask & CREATE_LOG_FILE)
+        || withoutGUI  ) {
+        logPath = createOpenVPNLog(configPath, port);
+    }
+        
     // default arguments to openvpn command line
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
-								 @"--management-query-passwords",  
-								 @"--cd", cdFolderPath, 
+								 @"--cd", cdFolderPath,
 								 @"--daemon", 
-								 @"--management-hold", 
 								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d", port],  
 								 @"--config", configPath,
-								 nil
-								 ];
-	
+								 nil];
+    
 	// conditionally push additional arguments to array
     
-	if( ! skipScrSec ) {        // permissions must allow us to call the up and down scripts or scripts defined in config
+	if ( withoutGUI ) {
+        // We tell  OpenVPN to put the log into a file whose name encodes the path to the configuration file and the port # for the
+        // OpenVPN management interface. This enables the GUI to associate a management port with a configuration file. The GUI can then
+        // query the management interface for a process ID and other info, and can control the connection.
+        [arguments addObjectsFromArray: [NSArray arrayWithObjects:
+                                         @"--log", logPath,
+                                         nil]];
+   } else {
+        [arguments addObjectsFromArray: [NSArray arrayWithObjects:
+                                         @"--management-query-passwords",
+                                         @"--management-hold",
+                                         nil]];
+    }
+    
+    if( ! skipScrSec ) {        // permissions must allow us to call the up and down scripts or scripts defined in config
 		[arguments addObjectsFromArray: [NSArray arrayWithObjects: @"--script-security", @"2", nil]];
     }
     
@@ -387,7 +442,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
     }
     
-    loadKexts();
+    loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
     
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
@@ -403,7 +458,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     becomeRoot();
 	[task launch];
 	[task waitUntilExit];
-    
+   
     int retCode = [task terminationStatus];
     if (  retCode != 0  ) {
         if (  retCode != 1  ) {
@@ -419,7 +474,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 
 //**************************************************************************************************************************
 //Starts OpenVPN with no arguments, to obtain version and usage info. May complain and exit if can't become root
-void StartOpenVPNWithNoArgs(void)
+void startOpenVPNWithNoArgs(void)
 {
 	NSString* openvpnPath = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSMutableArray* arguments = [NSMutableArray array];
@@ -503,6 +558,72 @@ int killAllOpenvpn(void)
 }
 
 //**************************************************************************************************************************
+// Sets up the OpenVPN log file (for "withoutGUI" operation), which encodes the configuration file path and port info into the filename
+// Given the name of this file, this function deletes other versions of it (same configuration file path but encoding any port number),
+// and creates the file with permissions so that anyone may read it. (OpenVPN truncates the file, so the ownership and permissions
+// are preserved.)
+NSString * createOpenVPNLog(NSString* configurationPath, int port)
+{
+    deleteLogFiles(configurationPath);
+    
+    NSString * logPath = constructOpenVPNLogPath(configurationPath, port);
+    
+    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0744] forKey: NSFilePosixPermissions];
+    
+    if (  ! [gFileMgr createFileAtPath: logPath contents: [NSData data] attributes: logAttributes]  ) {
+        NSString * msg = [NSString stringWithFormat: @"Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
+        fprintf(stderr, [msg UTF8String]);
+    }
+    
+    return logPath;
+}
+
+/// Returns a path for an OpenVPN log file.
+// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of the port number and "log".
+NSString * constructOpenVPNLogPath(NSString * configurationPath, int port)
+{
+    NSMutableString * logPath = [configurationPath mutableCopy];
+    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
+    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
+    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%d.log", logPath, port];
+    [logPath release];
+    return returnVal;
+}
+
+//**************************************************************************************************************************
+// Deletes OpenVPN log files associated with a specified configuration file
+BOOL deleteLogFiles(NSString * configurationPath)
+{
+    BOOL errHappened = FALSE;
+    
+    NSString * logPath = constructOpenVPNLogPath(configurationPath, 0); // Port # doesn't matter because we strip it off
+    
+    NSString * logPathPrefix = [[logPath stringByDeletingPathExtension] stringByDeletingPathExtension];     // Remove .<port #>.log
+    
+    NSString * filename;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/tmp"];
+    while (  filename = [dirEnum nextObject]  ) {
+        [dirEnum skipDescendents];
+        NSString * oldFullPath = [@"/tmp" stringByAppendingPathComponent: filename];
+        if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
+            if (  [[filename pathExtension] isEqualToString: @"log"]) {
+                if (  [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
+                    NSString * msg = [NSString stringWithFormat: @"Deleted old OpenVPN log file %@", oldFullPath];
+                    fprintf(stderr, [msg UTF8String]);
+                } else {
+                    NSString * msg = [NSString stringWithFormat: @"Error occurred trying to delete old OpenVPN log file %@", oldFullPath];
+                    fprintf(stderr, [msg UTF8String]);
+                    errHappened = TRUE;
+                }
+
+            }
+        }
+    }
+
+    return errHappened;
+}
+
+//**************************************************************************************************************************
 //Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 void waitUntilAllGone(void)
 {
@@ -545,23 +666,42 @@ void waitUntilAllGone(void)
 
 //**************************************************************************************************************************
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
-void loadKexts(void)
+void loadKexts(int bitMask)
 {
-	NSString*	tapPath		= [execPath stringByAppendingPathComponent: @"tap.kext"];
-	NSString*	tunPath		= [execPath stringByAppendingPathComponent: @"tun.kext"];
-	NSTask*		task		= [[[NSTask alloc] init] autorelease];
-	NSArray*	arguments	= [NSArray arrayWithObjects:@"-q", tapPath, tunPath, nil];
-	
-	[task setLaunchPath:@"/sbin/kextload"];
-	
-	[task setArguments:arguments];
-	becomeRoot();
-	[task launch];
-	[task waitUntilExit];
+    if (  (bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT) ) == 0  ) {
+        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
+    }
     
-    int status = [task terminationStatus];
+    NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
+    
+    if (  OUR_TAP_KEXT & bitMask  ) {
+        [arguments addObject: [execPath stringByAppendingPathComponent: @"tap.kext"]];
+    }
+    if (  OUR_TUN_KEXT & bitMask  ) {
+        [arguments addObject: [execPath stringByAppendingPathComponent: @"tun.kext"]];
+    }
+    
+	NSTask * task = [[[NSTask alloc] init] autorelease];
+
+    [task setLaunchPath:@"/sbin/kextload"];
+    
+    [task setArguments:arguments];
+    becomeRoot();
+
+    int status;
+    int i;
+    for (i=0; i < 5; i++) {
+        [task launch];
+        [task waitUntilExit];
+        
+        status = [task terminationStatus];
+        if (  status == 0  ) {
+            break;
+        }
+        sleep(1);
+    }
     if (  status != 0  ) {
-        fprintf(stderr, "Error: Unable to load tun and tap kexts. Status = %d\n", status);
+        fprintf(stderr, "Error: Unable to load net.tunnelblick.tun and/or net.tunnelblick.tap kexts in 5 tries. Status = %d\n", status);
         [pool drain];
         exit(247);
     }
@@ -569,27 +709,40 @@ void loadKexts(void)
 
 //**************************************************************************************************************************
 //Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
-void unloadKexts(void)
+//Because this is a non-critical function, and the unloading fails if a kext is in use, we ignore errors.
+void unloadKexts(int bitMask)
 {
-	NSString*	tapPath		= [execPath stringByAppendingPathComponent: @"tap.kext"];
-	NSString*	tunPath		= [execPath stringByAppendingPathComponent: @"tun.kext"];
-	NSTask*		task		= [[[NSTask alloc] init] autorelease];
-	NSArray*	arguments	= [NSArray arrayWithObjects: tapPath, tunPath, nil];
-	
-	[task setLaunchPath:@"/sbin/kextunload"];
-	
-	[task setArguments:arguments];
-	
-	becomeRoot();
-	[task launch];
-	[task waitUntilExit];
-    
-    int status = [task terminationStatus];
-    if (  status != 0  ) {
-        fprintf(stderr, "Error: Unable to unload tun and tap kexts. Status = %d\n", status);
-        [pool drain];
-        exit(239);
+    if (  bitMask == 0  ) {
+        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
     }
+    
+    NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 10];
+    
+    [arguments addObject: @"-q"];
+    
+    if (  OUR_TAP_KEXT & bitMask  ) {
+        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tap", nil]];
+    }
+    if (  OUR_TUN_KEXT & bitMask  ) {
+        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tun", nil]];
+    }
+    if (  FOO_TAP_KEXT & bitMask  ) {
+        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tap", nil]];
+    }
+    if (  FOO_TUN_KEXT & bitMask  ) {
+        [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tun", nil]];
+    }
+    
+    NSTask* task = [[[NSTask alloc] init] autorelease];
+    
+    [task setLaunchPath:@"/sbin/kextunload"];
+    
+    [task setArguments:arguments];
+    
+    becomeRoot();
+    [task launch];
+    [task waitUntilExit];
+    
 }
 
 //**************************************************************************************************************************
@@ -733,3 +886,35 @@ BOOL itemIsVisible(NSString * path)
     }
     return YES;
 }
+
+//**************************************************************************************************************************
+// Returns a free port
+unsigned int getFreePort(void)
+{
+    unsigned int resultPort = 1336; // start port	
+    int fd = socket(AF_INET, SOCK_STREAM, 0);
+    int result = 0;
+    
+    do {		
+        struct sockaddr_in address;
+        int len = sizeof(struct sockaddr_in);
+        resultPort++;
+        
+        address.sin_len = len;
+        address.sin_family = AF_INET;
+        address.sin_port = htons(resultPort);
+        address.sin_addr.s_addr = htonl(0x7f000001); // 127.0.0.1, localhost
+        
+        memset(address.sin_zero,0,sizeof(address.sin_zero));
+        
+        result = bind(fd, (struct sockaddr *)&address,sizeof(address));
+        
+    } while (result!=0);
+    
+    close(fd);
+    
+    return resultPort;
+}
+
+    
+    

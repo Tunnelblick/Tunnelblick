@@ -33,7 +33,9 @@ BOOL needToRepairPackages(void);
 
 @interface MenuController : NSObject
 {
-    IBOutlet NSButton       * autoLaunchCheckbox;
+    IBOutlet id               onLaunchRadioButton;
+    IBOutlet id               onSystemStartRadioButton;
+    IBOutlet NSButton       * autoConnectCheckbox;
     IBOutlet NSButton       * clearButton;
     IBOutlet NSButton       * connectButton;
     IBOutlet NSButton       * disconnectButton;
@@ -82,8 +84,6 @@ BOOL needToRepairPackages(void);
     
     NSMutableArray          * connectionsToRestore;         // VPNConnections to be restored when awaken from sleep
     
-    BOOL                      unloadKextsAtTermination;     // Indicates tun/tap kexts should be unloaded at program termination
-    
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
     BOOL                      logWindowIsOpen;              // Indicates if Details window is being displayed
@@ -91,6 +91,8 @@ BOOL needToRepairPackages(void);
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
     NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
+	
+    NSTimer                 * hookupWatchdogTimer;              // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
     
@@ -106,24 +108,26 @@ BOOL needToRepairPackages(void);
 
 // Button and checkbox actions
 -(IBAction)         monitorConnectionPrefButtonWasClicked:  (id)                sender;
--(IBAction)         autoLaunchPrefButtonWasClicked:         (id)                sender;
--(IBAction)         checkForUpdates:                        (id)                sender;
--(IBAction)         clearLog:                               (id)                sender;
--(IBAction)         connect:                                (id)                sender;
--(IBAction)         disconnect:                             (id)                sender;
--(IBAction)         editConfig:                             (id)                sender;
+-(IBAction)         autoConnectPrefButtonWasClicked:        (id)                sender;
+-(IBAction)         onLaunchRadioButtonWasClicked:          (id)                sender;
+-(IBAction)         onSystemStartRadioButtonWasClicked:     (id)                sender;
+-(IBAction)         clearLogButtonWasClicked:               (id)                sender;
+-(IBAction)         connectButtonWasClicked:                (id)                sender;
+-(IBAction)         disconnectButtonWasClicked:             (id)                sender;
+-(IBAction)         editConfigButtonWasClicked:             (id)                sender;
 -(IBAction)         nameserverPrefButtonWasClicked:         (id)                sender;
--(IBAction)         shareConfig:                            (id)                sender;
+-(IBAction)         shareConfigButtonWasClicked:            (id)                sender;
 
 // Menu actions
+-(IBAction)         checkForUpdates:                        (id)                sender;
+-(IBAction)         openLogWindow:                          (id)                sender;
+-(IBAction)         quit:                                   (id)                sender;
 -(IBAction)         togglePlaceIconNearSpotlight:           (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleMonitorConfigurationDir:          (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleWarnAboutSimultaneous:            (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleUseShadowCopies:                  (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleAutoCheckForUpdates:              (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleReportAnonymousInfo:              (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         openLogWindow:                          (id)                sender;
--(IBAction)         quit:                                   (id)                sender;
 
 // General methods
 -(void)             addConnection:                          (id)                sender;
@@ -138,6 +142,7 @@ BOOL needToRepairPackages(void);
                                repairPackages:              (BOOL)              repairPkgs
                                      withAuth:              (AuthorizationRef)  inAuthRef;
 -(void)             setState:                               (NSString *)        newState;
+-(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
 
 @end

@@ -34,6 +34,7 @@
 #import "TBUserDefaults.h"
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
+#import "openvpnstart.h"
 
 
 // These are global variables rather than class variables to make access to them easier
@@ -43,7 +44,10 @@ NSString              * gPrivatePath;         // Path to ~/Library/Application S
 NSString              * gSharedPath;          // Path to /Library/Application Support/Tunnelblick/Shared
 TBUserDefaults        * gTbDefaults;          // Our preferences
 NSFileManager         * gFileMgr;             // [NSFileManager defaultManager]
+NSDictionary          * gOpenVPNVersionDict;  // Dictionary with OpenVPN version information
 SecuritySessionId       gSecuritySessionId;   // Session ID used to create temporary files
+unsigned int            gHookupTimeout;       // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
+//                                               or zero to keep trying indefinitely
 
 void terminateBecauseOfBadConfiguration(void);
 
@@ -73,6 +77,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                  withDisplayName:                           (NSString *)        dispNm;
 -(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
+-(void)             fixWhenConnectingButtons;
 -(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
                                        andMessage:          (NSString *)        msg;
 -(void)             createMenu;
@@ -81,6 +86,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             destroyAllPipes;
 -(void)             dmgCheck;
 -(void)             fileSystemHasChanged:                   (NSNotification *)  n;
+-(int)              getLoadedKextsMask;
+-(void)             hookupWatchdogHandler;
+-(void)             hookupWatchdog;
+-(void)             hookupToRunningOpenVPNs;
 -(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
                                     andAction:              (SEL)               action
                                    andToolTip:              (NSString *)        tip
@@ -90,26 +99,29 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             initialiseAnim;
 -(NSString *)       installationId;
 -(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
--(void)             killAllConnections;
+-(int)              killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons;
 -(void)             loadMenuIconSet;
--(void)             loadKexts; 
 -(int)              numberOfTblksToInstallinPath:           (NSString *)        thePath;
 -(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
+-(void)             saveOnLaunchRadioButtonState:           (BOOL)              onLaunch
+             withOnSystemStartupRadioButtonState:           (BOOL)              onSystemStart
+                                   forConnection:           (VPNConnection *)   connection;
 -(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
 -(void)             setLogWindowTitle;
 -(void)             setTitle:                               (NSString *)        newTitle
-                   ofControl:                               (NSButton *)        theControl;
+                   ofControl:                               (id)                theControl;
 -(void)             setupSparklePreferences;
 -(void)             startOrStopDurationsTimer;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
--(void)             unloadKexts; 
 -(void)             updateMenuAndLogWindow;
 -(void)             updateTabLabels;
 -(void)             updateUI;
--(void)             validateLogButtons;
+-(void)             validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) connection;
+-(void)             validateWhenConnectingForConnection:    (VPNConnection *)   connection;
+-(void)             validateDetailsWindowControls;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void)             watcher:                                (UKKQueue *)        kq
        receivedNotification:                                (NSString *)        nm
@@ -121,8 +133,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(id) init
 {	
     if (self = [super init]) {
-        
-        unloadKextsAtTermination = FALSE;
         
         if (  ! runningOnTigerOrNewer()  ) {
             TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
@@ -155,7 +165,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
 		gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
         
-		[NSApp setDelegate:self];
+		[NSApp setDelegate: self];
 		
         [self dmgCheck];    // If running from a place that can't do suid (e.g., a disk image), this method does not return
 		
@@ -236,6 +246,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
         }
         
+        gOpenVPNVersionDict = [getOpenVPNVersion() copy];
+        
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
         
@@ -290,10 +302,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		userIsAnAdmin = isUserAnAdmin();
 		
         updater = [[SUUpdater alloc] init];
-        
-        [self loadKexts];
-        
-    }
+
+        [self unloadKexts];
+}
     
     return self;
 }
@@ -318,8 +329,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [myVPNConnectionDictionary release];
     [myVPNMenu release];
     [showDurationsTimer release];
+    [hookupWatchdogTimer release];
     [theAnim release];
     [updater release];
+    [gOpenVPNVersionDict release];
     
     [aboutItem release];
     [checkForUpdatesNowItem release];
@@ -1070,17 +1083,84 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[self updateTabLabels];
     if (connection == [self selectedConnection]) 
 	{
-		[self validateLogButtons];
+		[self validateConnectAndDisconnectButtonsForConnection: connection];
 	}	
 }
 
--(void)validateLogButtons
+// Validates (disables or enables) the Connect and Disconnect buttons in the Details... window
+-(void) validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) connection
 {
-    //NSLog(@"validating log buttons");
-    VPNConnection* connection = [self selectedConnection];
-    [connectButton setEnabled:[connection isDisconnected]];
-    [disconnectButton setEnabled:(![connection isDisconnected])];
+    NSString * displayName = [connection displayName];
     
+    NSString * disableConnectButtonKey    = [displayName stringByAppendingString: @"-disableConnectButton"];
+    NSString * disableDisconnectButtonKey = [displayName stringByAppendingString: @"-disableDisconnectButton"];
+    [connectButton setEnabled: (   [connection isDisconnected]
+                                && ( ! [gTbDefaults boolForKey: disableConnectButtonKey] )  )];
+    [disconnectButton setEnabled:(   ( ! [connection isDisconnected] )
+                                  && ( ! [gTbDefaults boolForKey: disableDisconnectButtonKey] )  )];
+}
+
+// Validates the "when Tunnelblick launches" and "when the computer starts" radio buttons for the specified connection
+-(void) validateWhenConnectingForConnection: (VPNConnection *) connection
+{
+    NSString * displayName      = [connection displayName];
+    NSString * autoConnectKey   = [displayName stringByAppendingString:@"autoConnect"];
+    NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
+    
+    if (   [gTbDefaults boolForKey:autoConnectKey]  ) {
+        if (  [gTbDefaults boolForKey: onSystemStartKey]  ) {
+            if (  [[connection configPath] hasPrefix: gPrivatePath]  ) {
+                // onSystemStart pref, but this is a private configuration, so force the pref off
+                if (  [gTbDefaults canChangeValueForKey: onSystemStartKey]  ) {
+                    [gTbDefaults setBool: FALSE forKey: onSystemStartKey];  // Shouldn't be set, so clear it
+                    [self saveOnLaunchRadioButtonState: TRUE withOnSystemStartupRadioButtonState: FALSE forConnection: connection];
+                    NSLog(@"The '-onSystemStart' preference was set but it has been cleared because '%@' is a private configuration", displayName);
+                } else {
+                    NSLog(@"The '-onSystemStart' preference for '%@' is being forced, but will be ignored because it is a private configuration", displayName);
+                }
+            } else {
+                [self saveOnLaunchRadioButtonState: FALSE  withOnSystemStartupRadioButtonState: TRUE forConnection: connection];
+            }
+        } else {
+            [self saveOnLaunchRadioButtonState: TRUE   withOnSystemStartupRadioButtonState: FALSE forConnection: connection];
+        }
+    } else {
+        [self saveOnLaunchRadioButtonState: FALSE withOnSystemStartupRadioButtonState: FALSE forConnection: connection];
+    }
+    
+    if (   [gTbDefaults boolForKey:autoConnectKey]
+        && [gTbDefaults canChangeValueForKey: autoConnectKey]
+        && [gTbDefaults canChangeValueForKey: onSystemStartKey]  ) {
+        if (  [[connection configPath] hasPrefix: gPrivatePath]  ) {
+            [onSystemStartRadioButton setEnabled: NO];
+            [onLaunchRadioButton      setEnabled: NO];
+        } else {
+            [onSystemStartRadioButton setEnabled: YES];
+            [onLaunchRadioButton      setEnabled: YES];
+        }
+        
+        if (   [gTbDefaults boolForKey: autoConnectKey]
+            && [gTbDefaults boolForKey: onSystemStartKey]  ) {
+            [autoConnectCheckbox        setEnabled: NO];        // Disable other controls for daemon connections because otherwise
+            [useNameserverCheckbox      setEnabled: NO];        // we have to update the daemon's .plist to reflect changes, and
+            [monitorConnnectionCheckbox setEnabled: NO];        // that requires admin authorization for each change
+            [shareButton                setEnabled: NO];
+        }
+    } else {
+        [onLaunchRadioButton      setEnabled: NO];
+        [onSystemStartRadioButton setEnabled: NO];
+    }
+}    
+
+// Validates (sets and disables or enables) all of the controls in the Details... window (including the Connect and Disconnect buttons)
+-(void) validateDetailsWindowControls
+{
+    VPNConnection* connection = [self selectedConnection];
+    
+    NSString * displayName = [connection displayName];
+    
+    [self validateConnectAndDisconnectButtonsForConnection: connection];
+
 	// The "Edit configuration" button is also the "Examine Configuration" button so first we indicate which it is
     if (  [[ConfigurationManager defaultManager] userCanEditConfiguration: [[self selectedConnection] configPath]]  ) {
         [self setTitle: NSLocalizedString(@"Edit configuration", @"Button") ofControl: editButton];
@@ -1088,7 +1168,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [self setTitle: NSLocalizedString(@"Examine configuration", @"Button") ofControl: editButton];
     }
     
-    NSString *disableEditConfigKey = [[connection displayName] stringByAppendingString:@"disableEditConfiguration"];
+    NSString *disableEditConfigKey = [displayName stringByAppendingString:@"disableEditConfiguration"];
     if (  [gTbDefaults boolForKey:disableEditConfigKey]  ) {
         [editButton setEnabled: NO];
     } else {
@@ -1096,7 +1176,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
 	// The "Share configuration" button is also the "Make configuration private" button and it is only active when it is a .tblk configuration
-    NSString *disableShareConfigKey = [[connection displayName] stringByAppendingString:@"disableShareConfigurationButton"];
+    NSString *disableShareConfigKey = [displayName stringByAppendingString:@"disableShareConfigurationButton"];
     if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
         NSString * path = [[self selectedConnection] configPath];
         if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
@@ -1117,19 +1197,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [shareButton setEnabled: NO];
     }
         
-	NSString *autoConnectKey = [[connection displayName] stringByAppendingString:@"autoConnect"];
-    if (  [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
-        [autoLaunchCheckbox setEnabled: YES];
-    } else {
-        [autoLaunchCheckbox setEnabled: NO];
-    }
-	if([gTbDefaults boolForKey:autoConnectKey]) {
-		[autoLaunchCheckbox setState:NSOnState];
-	} else {
-		[autoLaunchCheckbox setState:NSOffState];
-	}
-	
-	NSString *useDNSKey = [[connection displayName] stringByAppendingString:@"useDNS"];
+	NSString *useDNSKey = [displayName stringByAppendingString:@"useDNS"];
     if (  [gTbDefaults canChangeValueForKey: useDNSKey]  ) {
         [useNameserverCheckbox setEnabled: YES];
     } else {
@@ -1141,7 +1209,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[useNameserverCheckbox setState:NSOffState];
 	}
 	
-	NSString *notMonitorConnectionKey = [[connection displayName] stringByAppendingString:@"-notMonitoringConnection"];
+	NSString *notMonitorConnectionKey = [displayName stringByAppendingString:@"-notMonitoringConnection"];
     if (   [gTbDefaults canChangeValueForKey: notMonitorConnectionKey]
         && useDNSStatus(connection)  ) {
         [monitorConnnectionCheckbox setEnabled: YES];
@@ -1154,8 +1222,21 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	} else {
 		[monitorConnnectionCheckbox setState:NSOffState];
 	}
+    
+    NSString *autoConnectKey = [displayName stringByAppendingString:@"autoConnect"];
+    if (  [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
+        [autoConnectCheckbox setEnabled: YES];
+    } else {
+        [autoConnectCheckbox setEnabled: NO];
+    }
+	if (  [gTbDefaults boolForKey: autoConnectKey]  ) {
+		[autoConnectCheckbox setState:NSOnState];
+	} else {
+		[autoConnectCheckbox setState:NSOffState];
+	}
+	
+    [self validateWhenConnectingForConnection: connection];     // May disable other controls if 'when computer connects' is selected
 }
-
 -(void)updateTabLabels
 {
 	NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
@@ -1265,7 +1346,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [self setLogWindowTitle];
 
-    [self validateLogButtons];
+    [self validateDetailsWindowControls];
 }
 
 - (void) setLogWindowTitle
@@ -1311,7 +1392,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     return result;
 }
 
-- (IBAction) clearLog: (id) sender
+- (IBAction) clearLogButtonWasClicked: (id) sender
 {
 	[[self selectedLogView] setString: @""];
     [[self selectedConnection] addToLog: [self openVPNLogHeader] atDate: nil];
@@ -1340,12 +1421,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 }
 
 
-- (IBAction)connect:(id)sender
+- (IBAction)connectButtonWasClicked:(id)sender
 {
     [[self selectedConnection] connect: sender]; 
 }
 
-- (IBAction)disconnect:(id)sender
+- (IBAction)disconnectButtonWasClicked:(id)sender
 {
     [[self selectedConnection] disconnect: sender];      
 }
@@ -1365,7 +1446,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                                            NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
                                                            nil,                                                     // Other button
                                                            @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
-                                                           NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
+                                                           NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                                            nil);
                     if (  response == NSAlertAlternateReturn  ) {
                         return;
@@ -1445,14 +1526,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
 	// Localize buttons and checkboxes
     
-    [self setTitle: NSLocalizedString(@"Clear log"                      , @"Button")        ofControl: clearButton];
-    [self setTitle: NSLocalizedString(@"Edit configuration"             , @"Button")        ofControl: editButton];
-    [self setTitle: NSLocalizedString(@"Share configuration"            , @"Button")        ofControl: shareButton];
-    [self setTitle: NSLocalizedString(@"Connect"                        , @"Button")        ofControl: connectButton];
-    [self setTitle: NSLocalizedString(@"Disconnect"                     , @"Button")        ofControl: disconnectButton];
-    [self setTitle: NSLocalizedString(@"Set nameserver"                 , @"Checkbox name") ofControl: useNameserverCheckbox];
-    [self setTitle: NSLocalizedString(@"Monitor connection"             , @"Checkbox name") ofControl: monitorConnnectionCheckbox];
-    [self setTitle: NSLocalizedString(@"Automatically connect on launch", @"Checkbox name") ofControl: autoLaunchCheckbox];
+    [self setTitle: NSLocalizedString(@"Clear log"                  , @"Button")        ofControl: clearButton                ];
+    [self setTitle: NSLocalizedString(@"Edit configuration"         , @"Button")        ofControl: editButton                 ];
+    [self setTitle: NSLocalizedString(@"Share configuration"        , @"Button")        ofControl: shareButton                ];
+    [self setTitle: NSLocalizedString(@"Connect"                    , @"Button")        ofControl: connectButton              ];
+    [self setTitle: NSLocalizedString(@"Disconnect"                 , @"Button")        ofControl: disconnectButton           ];
+    [self setTitle: NSLocalizedString(@"Set nameserver"             , @"Checkbox name") ofControl: useNameserverCheckbox      ];
+    [self setTitle: NSLocalizedString(@"Monitor connection"         , @"Checkbox name") ofControl: monitorConnnectionCheckbox ];
+    [self setTitle: NSLocalizedString(@"Automatically connect"      , @"Checkbox name") ofControl: autoConnectCheckbox         ];
+    [self setTitle: NSLocalizedString(@"when Tunnelblick launches"  , @"Checkbox name") ofControl: onLaunchRadioButton        ];
+    [self setTitle: NSLocalizedString(@"when computer starts"       , @"Checkbox name") ofControl: onSystemStartRadioButton   ];
     
 	VPNConnection *myConnection = [self selectedConnection];
 	NSTextStorage* store = [myConnection logStorage];
@@ -1460,7 +1543,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	
 	[self tabView:tabView didSelectTabViewItem:initialItem];
 	
-    [self validateLogButtons];
 	[self updateTabLabels];
     
     // Set up a timer to update the tab labels with connections' duration times
@@ -1473,11 +1555,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 }
 
 // Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
--(void) setTitle: (NSString *) newTitle ofControl: (NSButton *) theControl
+-(void) setTitle: (NSString *) newTitle ofControl: (id) theControl
 {
     NSRect oldRect = [theControl frame];
-	[theControl setTitle:NSLocalizedString(newTitle, nil)];
+	
+    if (   [theControl isEqual: onLaunchRadioButton]
+        || [theControl isEqual: onSystemStartRadioButton]  ) {
+        id cell = [theControl cellAtRow: 0 column: 0];
+        [cell setTitle: NSLocalizedString(newTitle, nil)];
+    } else {
+        [theControl setTitle: NSLocalizedString(newTitle, nil)];
+    }
     [theControl sizeToFit];
+    
     NSRect newRect = [theControl frame];
     float widthChange = newRect.size.width - oldRect.size.width;
     NSRect oldPos;
@@ -1489,34 +1579,38 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [theControl setFrame:oldPos];
     }
 
-    if (  [theControl isEqual: clearButton]  )  {               // If the Clear log button changes, shift the Edit and Share buttons right/left
+    if (  [theControl isEqual: clearButton]  )  {                   // If the Clear log button changes, shift the Edit and Share buttons right/left
         oldPos = [editButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [editButton setFrame:oldPos];
         oldPos = [shareButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [shareButton setFrame:oldPos];
-    }
-    
-    if (  [theControl isEqual: editButton]  )  {               // If the Edit button changes, shift the Share button right/left
+    } else if (  [theControl isEqual: editButton]  )  {             // If the Edit button changes, shift the Share button right/left
         oldPos = [shareButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [shareButton setFrame:oldPos];
-    }
-
-    if (  [theControl isEqual: useNameserverCheckbox]  )  {     // If the Use nameserver checkbox changes, shift the Monitor connection checkbox right/left
+    } else if (  [theControl isEqual: useNameserverCheckbox]  )  {  // If the Use nameserver checkbox changes, shift the Monitor connection checkbox right/left
         oldPos = [monitorConnnectionCheckbox frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [monitorConnnectionCheckbox setFrame:oldPos];
-    }
-    
-    if (  [theControl isEqual: connectButton]  )  {             // If the Connect button changes, shift the Disconnect button left/right
+    } else if (  [theControl isEqual: connectButton]  )  {          // If the Connect button changes, shift the Disconnect button left/right
         oldPos = [disconnectButton frame];
         oldPos.origin.x = oldPos.origin.x - widthChange;
         [disconnectButton setFrame:oldPos];
+    } else if (  [theControl isEqual: autoConnectCheckbox]  ) {      // If the Auto Connect checkbox changes, shift the On Launch and On Computer Startup buttons left/right
+        oldPos = [onLaunchRadioButton frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [onLaunchRadioButton setFrame:oldPos];
+        oldPos = [onSystemStartRadioButton frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [onSystemStartRadioButton setFrame:oldPos];
+    } else if (  [theControl isEqual: onLaunchRadioButton]  ) {     // If the On Launch radio button changes, shift the On System Startup button left/right
+        oldPos = [onSystemStartRadioButton frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [onSystemStartRadioButton setFrame:oldPos];
     }
 }
-
 
 // Invoked when the Details... window (logWindow) will close
 - (void)windowWillClose:(NSNotification *)n
@@ -1595,18 +1689,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
 }
 
--(void)killAllConnections
-{
-	VPNConnection * connection;
-    NSEnumerator* e = [connectionArray objectEnumerator];
-    
-    while (connection = [e nextObject]) {
-        [connection disconnect:self];
-		if(NSDebugEnabled) NSLog(@"Killing connection");
-    }
-}
-
--(void)destroyAllPipes
+-(void) destroyAllPipes
 {
     VPNConnection * connection;
     
@@ -1620,50 +1703,107 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
--(void)killAllOpenVPN 
+// Returns the number of connections NOT killed
+-(int) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons
 {
-	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
-													 ofType: nil];
-	NSTask* task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath: path]; 
-	
-	NSArray *arguments = [NSArray arrayWithObjects:@"killall", nil];
-	[task setArguments:arguments];
-    sleep(1);       //Give them a chance to end gracefully, first
-	[task launch];
-	[task waitUntilExit];
+    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * connection;
+    int notKilled = 0;
+    while (  connection = [connEnum nextObject]  ) {
+        NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+        if (   includeDaemons
+            || ( ! [gTbDefaults boolForKey: key]  )  ) {
+            [connection disconnect: self];
+        } else {
+            notKilled++;
+        }
+    }
+    return notKilled;
 }
 
--(void)loadKexts 
+-(void) unloadKexts 
 {
-	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
-													 ofType: nil];
-	NSTask* task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath: path]; 
-	
-	NSArray *arguments = [NSArray arrayWithObjects:@"loadKexts", nil];
-	[task setArguments:arguments];
-	[task launch];
-	[task waitUntilExit];
-    unloadKextsAtTermination = TRUE;    // Even if this load failed, the automatic load in openvpnstart may succeed, so we unload.
-}
-
--(void)unloadKexts 
-{
-    if (  unloadKextsAtTermination  ) {
-        NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
-                                                         ofType: nil];
-        NSTask* task = [[[NSTask alloc] init] autorelease];
-        [task setLaunchPath: path]; 
+    int bitMask = [self getLoadedKextsMask];
+    
+    if (  bitMask != 0  ) {
         
-        NSArray *arguments = [NSArray arrayWithObjects:@"unloadKexts", nil];
-        [task setArguments:arguments];
-        [task launch];
-        [task waitUntilExit];
+        if (   (bitMask & FOO_TAP_KEXT)
+            || (bitMask & FOO_TUN_KEXT)  ) {
+            int result = TBRunAlertPanelExtended(NSLocalizedString(@"Remove kexts?", @"Window title"),
+                                                 NSLocalizedString(@"One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?", @"Window text"),
+                                                 NSLocalizedString(@"Ignore", @"Button"),
+                                                 NSLocalizedString(@"Remove", @"Button"),
+                                                 nil,
+                                                 @"skipAskingToUnloadFooKexts",
+                                                 NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Checkbox name"),
+                                                 nil);
+            if (  result == NSAlertDefaultReturn  ) {
+                bitMask = bitMask & (  ~(FOO_TAP_KEXT | FOO_TUN_KEXT)  );
+            }
+        }
+        
+        if (  bitMask != 0  ) {
+            NSString * arg1 = [NSString stringWithFormat: @"%d", bitMask];
+            NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
+                                                             ofType: nil];
+            NSTask* task = [[NSTask alloc] init];
+            [task setLaunchPath: path]; 
+            
+            NSArray *arguments = [NSArray arrayWithObjects:@"unloadKexts", arg1, nil];
+            [task setArguments:arguments];
+            [task launch];
+            [task waitUntilExit];
+            [task release];
+        }
     }
 }
 
--(void)resetActiveConnections {
+// Returns with a bitmask of kexts that are loaded that can be unloaded
+// Launches "kextstat" to get the list of loaded kexts, and does a simple search
+-(int) getLoadedKextsMask
+{
+    NSString * exePath = @"/usr/sbin/kextstat";
+
+    NSTask * task = [[NSTask alloc] init];
+    [task setLaunchPath: exePath];
+
+    NSArray  *arguments = [NSArray array];
+    [task setArguments: arguments];
+    
+    NSPipe * pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+    
+    NSFileHandle * file = [pipe fileHandleForReading];
+    
+    [task launch];
+    
+    NSData * data = [file readDataToEndOfFile];
+    
+    [task release];
+    
+    NSString * string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    
+    int bitMask = 0;
+
+    if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
+        bitMask = bitMask | FOO_TAP_KEXT;
+    }
+    if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
+        bitMask = bitMask | FOO_TUN_KEXT;
+    }
+    if (  [string rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
+        bitMask = bitMask | OUR_TAP_KEXT;
+    }
+    if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
+        bitMask = bitMask | OUR_TUN_KEXT;
+    }
+    
+    [string release];
+    
+    return bitMask;
+}
+
+-(void) resetActiveConnections {
 	VPNConnection *connection;
 	NSEnumerator* e = [connectionArray objectEnumerator];
 	
@@ -1683,7 +1823,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // If there aren't ANY config files in the config folders 
 // then let the user either quit or create and edit a sample configuration file
 // else do nothing
--(void)createDefaultConfigUsingTitle:(NSString *) ttl andMessage:(NSString *) msg 
+-(void) createDefaultConfigUsingTitle: (NSString *) ttl andMessage: (NSString *) msg 
 {
     if (  ignoreNoConfigs || [myConfigDictionary count] != 0  ) {
         return;
@@ -1781,12 +1921,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     ignoreNoConfigs = FALSE;    // Go back to checking for no configuration files
 }
 
--(IBAction)editConfig:(id)sender
+-(IBAction) editConfigButtonWasClicked: (id) sender
 {
-	[[ConfigurationManager defaultManager] editConfigurationAtPath: [[self selectedConnection] configPath]];
+    VPNConnection * connection = [self selectedConnection];
+	[[ConfigurationManager defaultManager] editConfigurationAtPath: [connection configPath] forConnection: connection];
 }
 
--(IBAction)shareConfig:(id)sender
+-(IBAction) shareConfigButtonWasClicked: (id) sender
 {
     NSString * disableShareConfigKey = [[[self selectedConnection] displayName] stringByAppendingString:@"disableShareConfigurationButton"];
     if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
@@ -1834,14 +1975,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)cleanup 
 {
 	[NSApp callDelegateOnNetworkChange: NO];
-	[self killAllConnections];
-	[self killAllOpenVPN];  // Kill any OpenVPN processes that still exist
+    [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     [self destroyAllPipes];
-    [self unloadKexts];     // Unload tun.kext and tap.kext
+    [self unloadKexts];     // Unload .tun and .tap kexts
 	if (  theItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:theItem];
     }
 }
+
 
 -(void)saveMonitorConnectionCheckboxState:(BOOL)inBool
 {
@@ -1856,8 +1997,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                             nil, nil, nil);
         }
 	}
-	
 }
+
 -(void)saveUseNameserverCheckboxState:(BOOL)inBool
 {
 	VPNConnection* connection = [self selectedConnection];
@@ -1871,7 +2012,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                             nil, nil, nil);
         }
 	}
-	
 }
 -(void)saveAutoLaunchCheckboxState:(BOOL)inBool
 {
@@ -1881,9 +2021,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: autoConnectKey];
 		[gTbDefaults synchronize];
 	}
-	
 }
 
+-(void)saveOnLaunchRadioButtonState: (BOOL) onLaunch
+withOnSystemStartupRadioButtonState: (BOOL) onSystemStart
+                      forConnection: (VPNConnection *) connection
+{
+	if(connection != nil) {
+        BOOL coss = [connection checkConnectOnSystemStart: onSystemStart withAuth: myAuth];
+		NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+        [gTbDefaults setBool: coss forKey: key];
+        [gTbDefaults synchronize];
+        
+        [[onLaunchRadioButton      cellAtRow: 0 column: 0]  setState: (int) (! coss)];
+        [[onSystemStartRadioButton cellAtRow: 0 column: 0]  setState: (int) coss];
+	}
+}
 - (void) setState: (NSString*) newState
 // Be sure to call this in main thread only
 {
@@ -2214,6 +2367,18 @@ static void signal_handler(int signalNumber)
 	[self createDefaultConfigUsingTitle: NSLocalizedString(@"Welcome to Tunnelblick", @"Window title") 
 							 andMessage: NSLocalizedString(@"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n", @"Window text")];
 
+    // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
+    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * connection;
+    while (  connection = [connEnum nextObject]  ) {
+        [self validateWhenConnectingForConnection: connection];
+    }
+    
+    [self hookupToRunningOpenVPNs];
+    
+    AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
+    myAuth = nil;
+    
     // Process "Automatically connect on launch" checkboxes
     VPNConnection * myConnection;
     NSString * dispNm;
@@ -2221,18 +2386,90 @@ static void signal_handler(int signalNumber)
     while (dispNm = [e nextObject]) {
         myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
         if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
-            if (  ![myConnection isConnected]  ) {
-                [myConnection connect:self];
+            if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-onSystemStart"]]  ) {
+                if (  ![myConnection isConnected]  ) {
+                    [myConnection connect:self];
+                }
             }
         }
     }
-
-    AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
-    myAuth = nil;
+    
+    gHookupTimeout = 5; // Default
+    id hookupTimeout;
+    if (  hookupTimeout = [gTbDefaults objectForKey: @"hookupTimeout"]  ) {
+        if (   [[hookupTimeout class]  isSubclassOfClass: [NSNumber class]]
+            || [[hookupTimeout class]  isSubclassOfClass: [NSString class]]) {
+            gHookupTimeout = [hookupTimeout intValue];
+        }
+    }
+    
+    if (  gHookupTimeout  != 0) {
+        hookupWatchdogTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) gHookupTimeout
+                                                               target: self
+                                                             selector: @selector(hookupWatchdogHandler)
+                                                             userInfo: nil
+                                                              repeats: NO];
+    }
     
     [NSApp setAutoLaunchOnLogin: YES];
 
     launchFinished = TRUE;
+}
+
+-(void) hookupWatchdogHandler
+{
+	[self performSelectorOnMainThread: @selector(hookupWatchdog) withObject: nil waitUntilDone: NO];
+}
+
+-(void) hookupWatchdog
+{
+    NSMutableArray * pids = [NSApp pIdsForOpenVPNProcesses];
+    
+    VPNConnection * connection;
+    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    while (  connection = [connEnum nextObject]  ) {
+        if (  [connection isHookedup]  ) {
+            NSNumber * processId = [NSNumber numberWithInt: (int) [connection pid]];
+            if (  processId != 0  ) {
+                if (  [pids containsObject: processId]  ) {
+                    [pids removeObject: processId];
+                }
+            }
+        } else {
+            if (  [connection tryingToHookup]  ) {
+                [connection stopTryingToHookup];
+            }
+        }
+    }
+    
+    if (  [pids count]  ) {
+        int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
+                                             NSLocalizedString(@"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?", @"Window text"),
+                                             NSLocalizedString(@"Ignore", @"Button"),
+                                             NSLocalizedString(@"Terminate", @"Button"),
+                                             nil,
+                                             @"skipWarningAboutUnknownOpenVpnProcesses",
+                                             NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Window text"),
+                                             nil);
+        if (  result == NSAlertAlternateReturn  ) {
+            NSNumber * pidNumber;
+            NSEnumerator * pidsEnum = [pids objectEnumerator];
+            while (  pidNumber = [pidsEnum nextObject]  ) {
+                
+                NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+                NSString *pidString = [NSString stringWithFormat:@"%d", [pidNumber intValue]];
+                NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
+                
+                NSTask* task = [[[NSTask alloc] init] autorelease];
+                [task setLaunchPath: path]; 
+                [task setArguments:arguments];
+                [task setCurrentDirectoryPath: @"/tmp"];
+                [task launch];
+                [task waitUntilExit];
+                
+            }
+        }
+    }
 }
 
 // Sparkle delegate:
@@ -2367,6 +2604,49 @@ static void signal_handler(int signalNumber)
                                 nil);
     }
     return FALSE;
+}
+
+// This method tries to "hook up" to any running OpenVPN processes.
+//
+// It searches for files in /tmp with names of tunnelblick-A.B.log, where A is the path to
+// the configuration file (with dashes instead of slashes) and B is the management port number
+// The file contains the OpenVPN log.
+//
+// Then the [connection tryToHookupToPort:] method corresponding to the configuration file is used to set
+// the connection's port # and initiate communications to get the process ID for that instance of
+// OpenVPN.
+//
+// If no OpenVPN processes exist, there's nothing to hook up to, so we skip all this
+
+-(void) hookupToRunningOpenVPNs
+{
+    if (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
+        NSString * logPathPrefix = @"/tmp/tunnelblick-S";
+        NSString * filename;
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/tmp"];
+        while (  filename = [dirEnum nextObject]  ) {
+            [dirEnum skipDescendents];
+            NSString * oldFullPath = [@"/tmp" stringByAppendingPathComponent: filename];
+            if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
+                if (  [[filename pathExtension] isEqualToString: @"log"]) {
+                    int port = 0;
+                    NSString * cfgPath = deconstructOpenVPNLogPath(oldFullPath, &port);
+                    NSArray * keysForConfig = [myConfigDictionary allKeysForObject: cfgPath];
+                    int keyCount = [keysForConfig count];
+                    if (  keyCount == 0  ) {
+                        NSLog(@"No keys in myConfigDictionary for %@", cfgPath);
+                    } else {
+                        if (  keyCount != 1  ) {
+                            NSLog(@"Using first of %d keys in myConfigDictionary for %@", keyCount, cfgPath);
+                        }
+                        NSString * displayName = [keysForConfig objectAtIndex: 0];
+                        VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+                        [connection tryToHookupToPort: port];
+                    }
+                }
+            }
+        }
+    }
 }
 
 -(void) dmgCheck
@@ -2813,6 +3093,7 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
 	NSString *installerPath         = [thisBundle pathForResource:@"installer"                      ofType:nil];
 	NSString *openvpnstartPath      = [thisBundle pathForResource:@"openvpnstart"                   ofType:nil];
 	NSString *openvpnPath           = [thisBundle pathForResource:@"openvpn"                        ofType:nil];
+	NSString *atsystemstartPath     = [thisBundle pathForResource:@"atsystemstart"                  ofType:nil];
 	NSString *leasewatchPath        = [thisBundle pathForResource:@"leasewatch"                     ofType:nil];
 	NSString *clientUpPath          = [thisBundle pathForResource:@"client.up.osx.sh"               ofType:nil];
 	NSString *clientDownPath        = [thisBundle pathForResource:@"client.down.osx.sh"             ofType:nil];
@@ -2837,7 +3118,7 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
 	}
 	
 	// check files which should be owned by root with 744 permissions
-	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
+	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, atsystemstartPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {
@@ -2937,8 +3218,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
-	[self killAllConnections];
-	[self killAllOpenVPN];  // Kill any OpenVPN processes that still exist
+	[self killAllConnectionsIncludingDaemons: YES];  // Kill any OpenVPN processes that still exist
 }
 -(void)wokeUpFromSleep 
 {
@@ -2965,13 +3245,14 @@ int runUnrecoverableErrorPanel(msg)
     exit(2);
 }
 
--(IBAction) autoLaunchPrefButtonWasClicked: (id) sender
+-(IBAction) autoConnectPrefButtonWasClicked: (id) sender
 {
 	if([sender state]) {
 		[self saveAutoLaunchCheckboxState:TRUE];
 	} else {
 		[self saveAutoLaunchCheckboxState:FALSE];
 	}
+    [self validateDetailsWindowControls];
 }
 
 -(IBAction) nameserverPrefButtonWasClicked: (id) sender
@@ -2981,7 +3262,7 @@ int runUnrecoverableErrorPanel(msg)
 	} else {
 		[self saveUseNameserverCheckboxState:FALSE];
 	}
-    [self validateLogButtons];
+    [self validateDetailsWindowControls];
 }
 
 -(IBAction) monitorConnectionPrefButtonWasClicked: (id) sender
@@ -2991,6 +3272,42 @@ int runUnrecoverableErrorPanel(msg)
 	} else {
 		[self saveMonitorConnectionCheckboxState:FALSE];
 	}
+    [self validateDetailsWindowControls];
+}
+
+-(IBAction) onLaunchRadioButtonWasClicked: (id) sender
+{
+	if([[sender cellAtRow: 0 column: 0] state]) {
+		[self saveOnLaunchRadioButtonState: TRUE  withOnSystemStartupRadioButtonState: FALSE forConnection: [self selectedConnection]];
+	} else {
+		[self saveOnLaunchRadioButtonState: FALSE withOnSystemStartupRadioButtonState: TRUE forConnection: [self selectedConnection]];
+	}
+    [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
+}
+
+-(IBAction) onSystemStartRadioButtonWasClicked: (id) sender
+{
+	if([[sender cellAtRow: 0 column: 0] state]) {
+		[self saveOnLaunchRadioButtonState: FALSE withOnSystemStartupRadioButtonState: TRUE forConnection: [self selectedConnection]];
+	} else {
+		[self saveOnLaunchRadioButtonState: TRUE  withOnSystemStartupRadioButtonState: FALSE forConnection: [self selectedConnection]];
+	}
+    [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
+}
+
+// We use this to get around a problem with our use of the "when Tunnelblick launches" and "when the computer starts" radio buttons.
+// If the user clicks the button but then cancels, OS X changes the state of the button _after_ our WasClicked handler. So
+// we set both buttons to the way they should be _after_ OS X makes that change.
+-(void) fixWhenConnectingButtons
+{
+    VPNConnection * connection = [self selectedConnection];
+    if (  connection  ) {
+        NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+        BOOL preferenceValue = [gTbDefaults boolForKey: key];
+        [[onSystemStartRadioButton cellAtRow: 0 column: 0]  setState:   preferenceValue];
+        [[onLaunchRadioButton      cellAtRow: 0 column: 0]  setState: ! preferenceValue];
+        [self validateDetailsWindowControls];
+    }
 }
 
 @end

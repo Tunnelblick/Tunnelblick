@@ -22,18 +22,22 @@
 
 @interface NSApplication (LoginItem)
 
-- (void) killOtherInstances;
-- (int)  countOtherInstances;
-- (void) waitUntilNoProcessWithID:             (pid_t)     pid;
+- (void)            killOtherInstances;
+- (int)             countOtherInstances;
 
-+ (BOOL) setAutoLaunchPath:         (NSString *)path onLogin: (BOOL) doAutoLaunch;
-+ (BOOL) setAutoLaunchPathTiger:    (NSString *)path onLogin: (BOOL) doAutoLaunch;
-+ (BOOL) setAutoLaunchPathLeopard:  (NSString *)path onLogin: (BOOL) doAutoLaunch;
+- (NSMutableArray *)pIdsForOpenVPNProcesses;
 
-- (BOOL) setAutoLaunchOnLogin: (BOOL) doAutoLaunch;
+- (void)            waitUntilNoProcessWithID:   (pid_t)             pid;
 
-+(AuthorizationRef)getAuthorizationRef: (NSString *) msg;
+- (BOOL)            setAutoLaunchOnLogin:       (BOOL)              doAutoLaunch;
++ (BOOL)            setAutoLaunchPath:          (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
++ (BOOL)            setAutoLaunchPathTiger:     (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
++ (BOOL)            setAutoLaunchPathLeopard:   (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
 
-+(OSStatus) executeAuthorized:(NSString *)toolPath withArguments:(NSArray *)arguments withAuthorizationRef:(AuthorizationRef) myAuthorizationRef;
++(AuthorizationRef) getAuthorizationRef:        (NSString *)        msg;
+
++(OSStatus)         executeAuthorized:          (NSString *)        toolPath
+                        withArguments:          (NSArray *)         arguments
+                 withAuthorizationRef:          (AuthorizationRef)  myAuthorizationRef;
 
 @end

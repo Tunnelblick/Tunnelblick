@@ -84,6 +84,9 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 -(BOOL)         protectConfigurationFile:   (NSString *)                configFilePath
                                usingAuth:   (AuthorizationRef)          authRef;
 
+-(NSString *)   parseString:                (NSString *)                cfgContents
+                  forOption:                (NSString *)                option;
+
 @end
 
 @implementation ConfigurationManager
@@ -120,7 +123,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                                 NSLocalizedString(@"One or more configurations are being ignored. See the Console Log for details.", @"Window text"),
                                 nil, nil, nil,
                                 @"skipWarningAboutIgnoredConfigurations",          // Preference about seeing this message again
-                                NSLocalizedString(@"Do not warn about this again", @"Checkbox text"),
+                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                 nil);
     }
     return dict;
@@ -253,7 +256,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] )   );
 }
 
--(void) editConfigurationAtPath: (NSString *) thePath
+-(void) editConfigurationAtPath: (NSString *) thePath forConnection: (VPNConnection *) connection
 {
     NSString * targetPath = [[thePath copy] autorelease];
     if ( ! targetPath  ) {
@@ -284,7 +287,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                                                  NSLocalizedString(@"Unprotect and Modify", @"Button"),     // Alternate button
                                                  NSLocalizedString(@"Cancel", @"Button"),                   // Other button
                                                  @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",  // Preference about seeing this message again
-                                                 NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox text"),
+                                                 NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox name"),
                                                  nil);
             if (  button == NSAlertOtherReturn  ) {
                 return;
@@ -303,6 +306,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             }
         }
     }
+    
+    [connection invalidateConfigurationParse];
     
     [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
 }
@@ -408,6 +413,134 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     }
     
     return TRUE;
+}
+
+// Parses the configuration file.
+// Gives user the option of adding the down-root plugin if appropriate
+// Returns with device type: "tun" or "tap", or nil if it can't be determined
+-(NSString *)parseConfigurationPath: (NSString *) cfgPath forConnection: (VPNConnection *) connection
+{
+    NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
+    if (  [gTbDefaults boolForKey: doNotParseKey]  ) {
+        return nil;
+    }
+    
+    NSString * actualConfigPath = [[cfgPath copy] autorelease];
+    if (  [[cfgPath pathExtension] isEqualToString: @"tblk"]  ) {
+        actualConfigPath = [actualConfigPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
+    }
+    NSString * cfgContents = [[NSString alloc] initWithData: [gFileMgr contentsAtPath: actualConfigPath] encoding:NSUTF8StringEncoding];
+    
+    NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
+    NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
+    if (   ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
+        &&     [gTbDefaults canChangeValueForKey: useDownRootPluginKey]
+        && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
+        NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
+        NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
+        NSString * downOption  = [self parseString: cfgContents forOption: @"down" ];
+        
+        if (   (userOption || groupOption)
+            && (   downOption
+                || useDNSStatus(connection)  )  ) {
+                
+                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
+                                  [connection displayName]];
+                
+                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"), 
+                                                     msg,
+                                                     NSLocalizedString(@"Do not use the plugin", @"Button"),
+                                                     NSLocalizedString(@"Use the plugin", @"Button"),
+                                                     nil, 
+                                                     skipWarningKey, 
+                                                     NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
+                                                     nil);
+                if (  result == NSAlertOtherReturn  ) {
+                    [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
+                }
+            }
+    }
+    
+    NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
+    if (   ( ! devOption )
+        || ( ! (   ( [devOption caseInsensitiveCompare: @"tun"] == NSOrderedSame )
+                || ( [devOption caseInsensitiveCompare: @"tap"] == NSOrderedSame )  )  )  ) {
+        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
+               [connection displayName]];
+        NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"skipWarningAboutNoTunOrTap"];
+        TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun' or 'dev tap' found", @"Window title"), 
+                                msg,
+                                nil, nil, nil,
+                                skipWarningKey, 
+                                NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
+                                nil);
+    }
+    [cfgContents release];
+    return [devOption lowercaseString];
+}
+
+-(NSString *) parseString: (NSString *) cfgContents forOption: (NSString *) option
+{
+    NSCharacterSet * notWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
+    NSCharacterSet * notWhitespaceNotNewline = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
+    NSCharacterSet * newline = [NSCharacterSet characterSetWithCharactersInString: @"(\n\r"];
+    NSRange mainRng = NSMakeRange(0, [cfgContents length]);
+    unsigned int mainEnd = mainRng.length;
+    
+    unsigned int curPos = 0;
+    while (  curPos < mainRng.length  ) {
+        mainRng.location = curPos;
+        mainRng.length = mainEnd - curPos;
+        
+        // Skip whitespace, including newlines
+        NSRange restRng = [cfgContents rangeOfCharacterFromSet: notWhitespaceNotNewline
+                                                       options: 0
+                                                         range: mainRng];
+        if (  restRng.length != 0  ) {
+            curPos = restRng.location;
+        }
+        
+        // If option is next
+        NSRange optRng = NSMakeRange(curPos, [option length]);
+        if (  [[cfgContents substringWithRange: optRng] caseInsensitiveCompare: option] == NSOrderedSame  ) {
+            
+            // Skip mandatory whitespace between option and rest of line
+            mainRng.location = optRng.location + optRng.length;
+            mainRng.length = mainEnd - mainRng.location;
+            restRng = [cfgContents rangeOfCharacterFromSet: notWhitespace
+                                                   options: 0
+                                                     range: mainRng];
+            if (  restRng.location != mainRng.location  ) {
+                // Whitespace found, so "value" for option is the rest of the line (if any)
+                mainRng.location = restRng.location;
+                mainRng.length = mainEnd - mainRng.location;
+                NSRange nlRng = [cfgContents rangeOfCharacterFromSet: newline
+                                                             options: 0
+                                                               range: mainRng];
+                NSRange valRng;
+                if (  nlRng.length == 0  ) {
+                    valRng = NSMakeRange(mainRng.location, mainEnd - mainRng.location);
+                } else {
+                    valRng = NSMakeRange( mainRng.location, nlRng.location - mainRng.location);
+                }
+                return [cfgContents substringWithRange: valRng];
+            }
+            
+            // No whitespace after option, so it is no good (either optionXXX or option\n
+        }
+        
+        // Skip to next \n
+        restRng = [cfgContents rangeOfCharacterFromSet: newline
+                                               options: 0
+                                                 range: mainRng];
+        if (  restRng.length == 0 ) {
+            curPos = mainRng.length;
+        } else {
+            curPos = restRng.location + restRng.length;
+        }
+    }
+
+    return nil;
 }
 
 -(void) openDotTblkPackages: (NSArray *) filePaths usingAuth: (AuthorizationRef) authRef
@@ -899,11 +1032,11 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 // Does simple checks on a .tblk package.
 // If it has a single folder at the top level named "Contents", returns the .tblk's path without looking inside "Contents"
 // If it can be "fixed", returns the path to a temporary copy with the problems fixed.
-// If it is empty, and the use chooses, a path to a temporay copy with the sample configuration file is returned.
+// If it is empty, and the user chooses, a path to a temporay copy with the sample configuration file is returned.
 // If it is empty, and the user cancels, an empty string (@"") is returned.
 // Otherwise, returns nil to indicate an error;
 // Can fix the following:
-//   * Package contains, or has a single folder which contains, one .ovpn or .conf, and any number of .key, .crt, etc. files:
+//   * Package contains, or has a single folder which contains, one .ovpn or .conf, zero or one Info.plist, and any number of .key, .crt, etc. files:
 //          Moves the .ovpn or .conf to Contents/Resources/config.ovpn
 //          Moves the .key, .crt, etc. files to Contents/Resources
 -(NSString *) getPackageToInstall: (NSString *) thePath withKey: (NSString *) key;
@@ -969,14 +1102,15 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     unsigned int nInfos   = 0;   // # of Info.plist files we've seen
     unsigned int nUnknown = 0;   // # of folders or unknown files we've seen
     for (i=0; i < [pkgList count]; i++) {
-        NSString * ext = [[pkgList objectAtIndex: i] pathExtension];
-        if (  itemIsVisible(thePath)  ) {
-            if (   [gFileMgr fileExistsAtPath: thePath isDirectory: &isDir]
+        NSString * itemPath = [searchPath stringByAppendingPathComponent: [pkgList objectAtIndex: i]];
+        NSString * ext = [itemPath pathExtension];
+        if (  itemIsVisible(itemPath)  ) {
+            if (   [gFileMgr fileExistsAtPath: itemPath isDirectory: &isDir]
                 && ( ! isDir )  ) {
                 if (   [ext isEqualToString: @"conf"]
                     || [ext isEqualToString: @"ovpn"]  ) {
                     nConfigs++;
-                } else if (  [[[pkgList objectAtIndex: i] lastPathComponent] isEqualToString: @"Info.plist"]  ) {
+                } else if (  [[itemPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
                     nInfos++;
                 } else if (  [ext isEqualToString: @"sh"]  ) {
                     ;
@@ -1019,7 +1153,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     NSString * emptyResources = [emptyTblk stringByAppendingPathComponent: @"Contents/Resources"];
 
     for (i=0; i < [pkgList count]; i++) {
-        NSString * oldPath = [pkgList objectAtIndex: i];
+        NSString * oldPath = [searchPath stringByAppendingPathComponent: [pkgList objectAtIndex: i]];
         NSString * newPath;
         NSString * ext = [oldPath pathExtension];
         if (   [ext isEqualToString: @"conf"]
@@ -1031,7 +1165,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
         }
 
-        if (  [gFileMgr copyPath: oldPath toPath: newPath handler: nil]  ) {
+        if (  ! [gFileMgr copyPath: oldPath toPath: newPath handler: nil]  ) {
             NSLog(@"Unable to copy %@ to %@", oldPath, newPath);
             [pkgList release];
             return nil;
@@ -1321,7 +1455,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         // installer creates a file to act as a flag that the installation failed. installer deletes it before a success return
         // The filename needs the session ID to support fast user switching
         NSString * installFailureFlagFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:
-                                                 [NSString stringWithFormat:@"TunnelblickInstallationFailed-%d.txt", gSecuritySessionId]];
+                                                 [NSString stringWithFormat:@"TunnelblickInstallationFailed-%d.txt", (int) gSecuritySessionId]];
         BOOL failed = [gFileMgr fileExistsAtPath: installFailureFlagFilePath];
         if (  failed  ) {
             NSLog(@"Presence of error file indicates failure of installer execution of %@: %@", launchPath, arguments);
