@@ -1,15 +1,66 @@
-/* Window Title */
-"Install Sample Configuration?" = "Install Sample Configuration?";
+/* Window text */
+" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.";
+
+/* Checkbox name */
+"Automatically connect" = "Automatically connect";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
 
 /* Button */
-"Install Sample" = "Install Sample";
+"Do not use the plugin" = "Do not use the plugin";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
+
+/* Button */
+"Ignore" = "Ignore";
+
+/* Window title */
+"No 'dev tun' or 'dev tap' found" = "No 'dev tun' or 'dev tap' found";
 
 /* Window text */
-"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
+"One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?" = "One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?";
 
 /* Window text */
-"Tunnelblick could not copy the sample configuration to %@" = "Tunnelblick could not copy the sample configuration to %@";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+
+/* Window title */
+"Remove kexts?" = "Remove kexts?";
+
+/* Button */
+"Remove" = "Remove";
+
+/* Button */
+"Terminate" = "Terminate";
 
 /* Window text */
-"Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
+
+/* Window title */
+"Tunnelblick Problem" = "Tunnelblick Problem";
+
+/* Window text */
+"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
+
+/* Window text */
+"Unable to Establish Communication" = "Unable to Establish Communication";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+
+/* Button */
+"Use the plugin" = "Use the plugin";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
 
