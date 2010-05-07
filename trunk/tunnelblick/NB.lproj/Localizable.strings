@@ -20,6 +20,12 @@
 " (Shared)" = " (Shared)"; /* Indicates a shared configuration */
 
 /* Window text */
+" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.";
+
+/* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN Configurations were installed successfully.";
 
 /* Window text */
@@ -86,7 +92,7 @@
 "Automatically Check for Updates" = "Automatisk sjekk for oppdateringer";
 
 /* Checkbox name */
-"Automatically connect on launch" = "Koble til automatisk ved oppstart";
+"Automatically connect" = "Automatically connect";
 
 /* Connection status */
 "CONNECTED"  = "Tilkoblet";
@@ -167,6 +173,15 @@
 "Do Not Install" = "Do Not Install";
 
 /* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+
+/* Button */
+"Do not use the plugin" = "Do not use the plugin";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
+
+/* Checkbox name */
 "Do not warn about this again" = "Ikke advar meg om dette igjen";
 
 /* Checkbox name */
@@ -241,6 +256,9 @@
 /* Button */
 "Go to the OpenVPN documentation on the web" = "Gå til OpenVPN dokumentasjonen på internett";
 
+/* Button */
+"Ignore" = "Ignore";
+
 /* Window title */
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
 
@@ -296,10 +314,19 @@
 "Name In Use" = "Name In Use";
 
 /* Window title */
+"No 'dev tun' or 'dev tap' found" = "No 'dev tun' or 'dev tap' found";
+
+/* Window title */
 "Not connecting" = "Kobler ikke opp";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "OK"		= "OK";
+
+/* Window text */
+"One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?" = "One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
@@ -362,6 +389,12 @@
 "Reinstallation succeeded" = "Reinstallasjonen var vellykket";
 
 /* Window title */
+"Remove kexts?" = "Remove kexts?";
+
+/* Button */
+"Remove" = "Remove";
+
+/* Window title */
 "Replace Existing Configuration?" = "Replace Existing Configuration?";
 
 /* Window title */
@@ -406,6 +439,9 @@
 /* Menu item tooltip */
 "Takes effect with the next connection" = "Gjelder fra neste oppkobling";
 
+/* Button */
+"Terminate" = "Terminate";
+
 /* Window text */
 "The Tunnelblick VPN Configuration was installed successfully." = "The Tunnelblick VPN Configuration was installed successfully.";
 
@@ -417,6 +453,12 @@
 
 /* Window text */
 "The change will take effect the next time you connect." = "Endringen vil gjelde fra neste gang du kobler opp.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
 
 /* Window title */
 "The configuration file is protected" = "Konfigurasjonsfilen er beskyttet";
@@ -454,6 +496,9 @@
 /* Window title */
 "Tunnelblick Error" = "Tunnelblick Feil";
 
+/* Window title */
+"Tunnelblick Problem" = "Tunnelblick Problem";
+
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
 
@@ -474,6 +519,9 @@
 
 /* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick klarte ikke og endre eierskap og rettigheter til konfigurasjonsfilen for å sikre den. Sjekk konsoll loggen for detaljer.";
+
+/* Window text */
+"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details.";
@@ -533,6 +581,9 @@
 "Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Oppgraderingen av Tunnelblick var vellykket.\n\nØnsker du og starte Tunnelblick nå?%@\n\n(Et administrator brukernav og passord kreves slik at Tunnelblick kan sikres.)";
 
 /* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
+
+/* Window text */
 "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's konfigurasjonsmappe eksisterer ikke eller inneholder ingen konfigurasjonsfiler.\n\nTunnelblick trenger en eller flere konfigurasjonsfiler til dine VPN-oppkoblinger. Disse filene vil du vanligvis få fra din nettverksadministrator eller din VPN tilbyder og de må lagres i konfigurasjonsmappen. Det kan også hende du trenger sertifikat- og/eller nøkkelfiler; disse plasseres vanligvis i konfigurasjonsmappen også.\n\nDu kan\n     • Installere en eksempelkonfigurasjon og editere den. (Tunnelblick vil fortsatt kjøre.)\n     • Åpne konfigurasjonsmappen og plassere dine filer i den. (Tunnelblick krever da en omstart.)\n     • Avslutte Tunnelblick\n\n";
 
 /* Status message */
@@ -540,6 +591,9 @@
 
 /* Status message */
 "Tunnelblick: 1 connection active." = "Tunnelblick: 1 aktiv oppkobling";
+
+/* Window text */
+"Unable to Establish Communication" = "Unable to Establish Communication";
 
 /* Window title */
 "Unable to install Tunnelblick" = "Kan ikke installere Tunnelblick";
@@ -565,8 +619,14 @@
 /* Button */
 "Upgrade" = "Oppgradere";
 
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Bruk skyggekopien av konfigurasjonsfilene";
+
+/* Button */
+"Use the plugin" = "Use the plugin";
 
 /* Window title */
 "Username and password" = "Brukernavn og passord";
@@ -585,6 +645,9 @@
 
 /* Window title */
 "Warning" = "Advarsel";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
 
 /* Window title */
 "Welcome to Tunnelblick" = "Velkommen til Tunnelblick";
@@ -624,4 +687,10 @@
 
 /* Window text */
 "\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed automatically. If you do not launch Tunnelblick now, they will not be installed." = "\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed automatically. If you do not launch Tunnelblick now, they will not be installed.";
+
+/* Checkbox name */
+"when Tunnelblick launches" = "when Tunnelblick launches";
+
+/* Checkbox name */
+"when computer starts" = "when computer starts";
 

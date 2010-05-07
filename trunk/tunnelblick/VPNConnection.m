@@ -161,7 +161,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                                 msg,
                                 nil, nil, nil,
                                 prefKey,
-                                NSLocalizedString(@"Do not warn about this again", @"Window text"),
+                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                 nil);
     }
 }

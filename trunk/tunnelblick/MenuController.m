@@ -2449,7 +2449,7 @@ static void signal_handler(int signalNumber)
                                              NSLocalizedString(@"Terminate", @"Button"),
                                              nil,
                                              @"skipWarningAboutUnknownOpenVpnProcesses",
-                                             NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Window text"),
+                                             NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Checkbox name"),
                                              nil);
         if (  result == NSAlertAlternateReturn  ) {
             NSNumber * pidNumber;
