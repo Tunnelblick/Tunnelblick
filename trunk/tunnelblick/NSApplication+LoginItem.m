@@ -104,6 +104,43 @@
     return(returnCount);
 }
 
+// Returns an array of NSNumber objects, each with the pid for an OpenVPN process
+// Returns nil on error, empty array if no OpenVPN processes running
+//  (modified version of countOtherInstances, above)
+-(NSMutableArray *) pIdsForOpenVPNProcesses
+{
+    NSMutableArray * retArray = [NSMutableArray arrayWithCapacity: 2];
+    const char* processName = "openvpn";
+    int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+    struct kinfo_proc* info;
+    size_t length;
+    int count, i;
+    
+    // KERN_PROC_ALL has 3 elements, all others have 4
+    int level = 3;
+    
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return (nil);
+    // Allocate memory for info structure:
+    if (!(info = NSZoneMalloc(NULL, length))) return (nil);
+    if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
+        NSZoneFree(NULL, info);
+        return(nil);
+    }
+    
+    // Get each process ID:
+    count = length / sizeof(struct kinfo_proc);
+    for (i = 0; i < count; i++) {
+        char* command = info[i].kp_proc.p_comm;
+        pid_t pid = info[i].kp_proc.p_pid;
+        if (strncmp(processName, command, MAXCOMLEN)==0) {
+            [retArray addObject: [NSNumber numberWithInt: (int) pid]];
+        }
+    }    
+    NSZoneFree(NULL, info);
+    
+    return(retArray);
+}
+
 // Waits up to five seconds for a process to be gone
 // (Modified version of NSApplication+LoginItem's killOtherInstances)
 - (void) waitUntilNoProcessWithID: (pid_t) pid
@@ -154,8 +191,6 @@
         NSLog(@"Error: Timeout (5 seconds) waiting for OpenVPN process %d to terminate", pid);
     }
 }
-
-
 
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
 {

@@ -18,19 +18,28 @@
 
 NSString     * configPathFromTblkPath   (NSString * path);
 NSString     * tblkPathFromConfigPath   (NSString * path);
+
+BOOL           checkOwnerAndPermissions (NSString * fPath,
+                                         uid_t      uid,
+                                         gid_t      gid,
+                                         NSString * permsShouldHave);
+
+
 NSString     * escaped                  (NSString * string);
+
 BOOL           itemIsVisible            (NSString * path);
 
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
+NSString     * constructOpenVPNLogPath  (NSString * configurationPath,
+                                         int        port);
+NSString     * deconstructOpenVPNLogPath(NSString * logPath,
+                                         int      * portPtr);
+
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSDictionary * getOpenVPNVersion        (void);
-NSString     * openVPNVersion           (void);
-NSDictionary * parseVersion             (NSString * string);
-
-NSRange        rangeOfDigits            (NSString * s);
 
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,
@@ -38,7 +47,7 @@ int            TBRunAlertPanel          (NSString * title,
                                          NSString * alternateButtonLabel,
                                          NSString * otherButtonLabel);
 
-int TBRunAlertPanelExtended             (NSString * title,
+int            TBRunAlertPanelExtended  (NSString * title,
                                          NSString * msg,
                                          NSString * defaultButtonLabel,
                                          NSString * alternateButtonLabel,

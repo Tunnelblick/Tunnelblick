@@ -29,6 +29,7 @@
  */
 
 #import <Security/Security.h>
+#import "VPNConnection.h"
 
 @interface ConfigurationManager : NSObject {
 
@@ -36,7 +37,8 @@
 
 +(id)                       defaultManager;
 
--(void)                     editConfigurationAtPath:    (NSString *)        thePath;
+-(void)                     editConfigurationAtPath:    (NSString *)        thePath
+                                      forConnection:    (VPNConnection *)   connection;
 
 -(NSMutableDictionary *)    getConfigurations;
 
@@ -48,6 +50,9 @@
 
 -(void)                     openDotTblkPackages:        (NSArray *)         filePaths
                                       usingAuth:        (AuthorizationRef)  authRef;
+
+-(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
+                                     forConnection:     (VPNConnection *)   connection;
 
 -(void)                     shareOrPrivatizeAtPath:     (NSString *)        path;
 

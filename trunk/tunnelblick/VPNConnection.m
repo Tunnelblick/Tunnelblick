@@ -19,7 +19,9 @@
 #import "VPNConnection.h"
 #import <CoreServices/CoreServices.h>
 #import <Foundation/NSDebug.h>
+#import <Security/AuthSession.h>
 #import <signal.h>
+#import "openvpnstart.h"
 #import "KeyChain.h"
 #import "NetSocket.h"
 #import "NetSocket+Text.h"
@@ -34,6 +36,9 @@ extern NSString             * gDeployPath;
 extern NSString             * gSharedPath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
+extern NSDictionary         * gOpenVPNVersionDict;
+extern SecuritySessionId      gSecuritySessionId;
+extern unsigned int           gHookupTimeout;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 
@@ -41,17 +46,27 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 @interface VPNConnection()          // PRIVATE METHODS
 
+-(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
+
 -(void)             connectToManagementSocket;
 
 -(unsigned int)     getFreePort;
 
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
 
+-(void)             makePlistFileForAtPath:     (NSString *)        plistPath
+                                 withLabel:     (NSString *)        daemonLabel;
+
 -(void)             processLine:                (NSString *)        line;
+
+-(void)             processState:               (NSString *)        newState
+                           dated:               (NSString *)        dateTime;
 
 -(void)             setConnectedSinceDate:      (NSDate *)          value;
 
 -(void)             setManagementSocket:        (NetSocket *)       socket;
+
+-(void)             setPort:                    (unsigned int)      inPort; 
 
 @end
 
@@ -63,11 +78,14 @@ extern NSString * lastPartOfPath(NSString * thePath);
         configPath = [inPath copy];
         displayName = [inDisplayName copy];
         portNumber = 0;
+        managementSocket = nil;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
 		[self addToLog:[[NSApp delegate] openVPNLogHeader] atDate: nil];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
+        tryingToHookup = FALSE;
+        isHookedup = FALSE;
         NSArray  * pipePathComponents = [inPath pathComponents];
         NSArray  * pipePathComponentsAfter1st = [pipePathComponents subarrayWithRange: NSMakeRange(1, [pipePathComponents count]-1)];
         NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick-%@.logpipe",
@@ -98,6 +116,250 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     
     return self;
+}
+
+-(void) tryToHookupToPort: (int) inPortNumber
+{
+    if (  portNumber != 0  ) {
+        NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using port number %d", [self description], portNumber);
+        return;
+    }
+    
+    if (  managementSocket  ) {
+        NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using managementSocket", [self description]);
+        return;
+    }
+    
+    NSString * logPath = constructOpenVPNLogPath([self configPath], inPortNumber);
+    NSString * msg = [[NSString alloc] initWithData: [gFileMgr contentsAtPath: logPath] encoding:NSUTF8StringEncoding];
+    NSAttributedString * msgAS = [[NSAttributedString alloc] initWithString: msg];
+    [[self logStorage] setAttributedString: msgAS];
+    [self addToLog:[[NSApp delegate] openVPNLogHeader] atDate: nil];
+    [msgAS release];
+    [msg release];
+    
+    [self setPort: inPortNumber];
+    tryingToHookup = TRUE;
+    [self connectToManagementSocket];
+}
+
+-(void) stopTryingToHookup
+{
+    if (   tryingToHookup
+        && ( ! isHookedup  )  ) {
+        tryingToHookup = FALSE;
+        [self setPort: 0];
+        
+        NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self displayName], gHookupTimeout);
+        NSString * msg = [NSString stringWithFormat:
+                          NSLocalizedString(@"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned.", @"Window text"),
+                          [self displayName],
+                          gHookupTimeout];
+        NSString * prefKey = [NSString stringWithFormat: @"%@-skipWarningUnableToToEstablishOpenVPNLink", [self displayName]];
+        
+        TBRunAlertPanelExtended(NSLocalizedString(@"Unable to Establish Communication", @"Window text"),
+                                msg,
+                                nil, nil, nil,
+                                prefKey,
+                                NSLocalizedString(@"Do not warn about this again", @"Window text"),
+                                nil);
+    }
+}
+
+// User wants to connect, or not connect, the configuration when the system starts.
+// Returns TRUE if can and will connect, FALSE otherwise
+//
+// Needs and asks for administrator username/password to make a change if a change is necessary and authRef is nil.
+// (authRef is non-nil only when Tunnelblick is in the process of launching, and only when it was used for something else.
+//
+// A change is necesary if changing connect/not connect status, or if preference changes would change
+// the .plist file used to connect when the system starts
+
+-(BOOL) checkConnectOnSystemStart: (BOOL) startIt withAuth: (AuthorizationRef) inAuthRef
+{
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", [self displayName]];
+    
+    NSString * libPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
+
+    NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick-atsystemstart.%d.plist", (int) gSecuritySessionId];
+    
+    if (  ! startIt  ) {
+        if (  ! [gFileMgr fileExistsAtPath: libPath]  ) {
+            return NO; // Not connecting at system startup and no .plist in /Library/LaunchDaemons, so we needn't do anything
+        }
+        [self makePlistFileForAtPath: plistPath withLabel: daemonLabel];
+    } else {
+        if (  ! (   [configPath hasPrefix: gDeployPath]
+                 || [configPath hasPrefix: gSharedPath]   )  ) {
+            NSLog(@"Tunnelblick will NOT connect '%@' when the system starts because it is a private configuration", [self displayName]);
+            return NO;
+        }
+        
+        [self makePlistFileForAtPath: plistPath withLabel: daemonLabel];
+        
+        if (  [gFileMgr contentsEqualAtPath: plistPath andPath: libPath]  ) {
+            [gFileMgr removeFileAtPath: plistPath handler: nil];
+            return YES; // .plist contents are the same, so we needn't do anything
+        }
+    }
+    
+	NSBundle *thisBundle = [NSBundle mainBundle];
+	NSString *launchPath = [thisBundle pathForResource:@"atsystemstart" ofType:nil];
+    
+    NSString * arg = ( startIt ? @"1" : @"0" );
+    NSArray *  arguments = [NSArray arrayWithObject: arg];
+    
+    // Use executeAuthorized to run "atsystemstart" to replace or remove the .plist in /Library/LaunchDaemons
+    BOOL freeAuthRef = NO;
+    if (  inAuthRef == nil  ) {
+        // Get an AuthorizationRef
+        NSString * msg;
+        if (  startIt  ) {
+            msg = [NSString stringWithFormat:
+                   NSLocalizedString(@" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.", @"Window text"),
+                   [self displayName]];
+        } else {
+            msg = [NSString stringWithFormat:
+                   NSLocalizedString(@" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.", @"Window text"),
+                   [self displayName]];
+        }
+        
+        inAuthRef= [NSApplication getAuthorizationRef: msg];
+        freeAuthRef = YES;
+    }
+    
+    if (  inAuthRef == nil  ) {
+        if (  startIt  ) {
+            NSLog(@"Set up to connect '%@' when system starts cancelled by user", [self displayName]);
+            [gFileMgr removeFileAtPath: plistPath handler: nil];
+            NSString * autoConnectKey = [[self displayName] stringByAppendingString: @"autoConnect"];
+            if (   [gTbDefaults boolForKey: autoConnectKey]
+                && [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
+                [gTbDefaults setBool: NO forKey: autoConnectKey];
+                NSLog(@"Automatically connect unchecked for '%@' because of cancellation", [self displayName]);
+            }
+            return NO;
+        } else {
+            NSLog(@"Set up to NOT connect '%@' when system starts cancelled by user", [self displayName]);
+            [gFileMgr removeFileAtPath: plistPath handler: nil];
+            return YES;
+        }
+    }
+    
+    // The return code from executeAuthorized is NOT the code returned by the executed program. A 0 code
+    // does not mean that the program succeeded. So we make sure that what we wanted the program to do was
+    // actually done.
+    //
+    // There also is a problem doing that test -- without the sleep(1), the test often says that the program
+    // did not succeed, even though it did. Probably an OS X cache problem of some sort.
+    // The multiple tries are an attempt to make sure the program tries, even if the sleep(1) didn't clear up
+    // whatever problem caused the bogus results -- for example, under heavy load perhaps sleep(1) isn't enough.
+    
+    NSString * flagPath = [NSString stringWithFormat: @"/tmp/tunnelblick-atsystemstart.%d.done", (int) gSecuritySessionId];
+
+    int i;
+    OSStatus status;
+    BOOL didIt = FALSE;
+    for (i=0; i < 5; i++) {
+        if (  [gFileMgr fileExistsAtPath: flagPath]  ) {
+            if (  ! [gFileMgr removeFileAtPath: flagPath handler: nil]  ) {
+                NSLog(@"Unable to remove temporary file %@", flagPath);
+            }
+        }
+            
+        status = [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: inAuthRef];
+        if (  status != 0  ) {
+            NSLog(@"Returned status of %d indicates failure of execution of %@: %@", status, launchPath, arguments);
+        }
+        
+        int j;
+        for (j=0; j < 6; j++) {
+            if (  [gFileMgr contentsAtPath: flagPath]  ) {
+                break;
+            }
+            sleep(1);
+        }
+
+        if (  ! [gFileMgr contentsAtPath: flagPath]  ) {
+            NSLog(@"Timeout (5 seconds) waiting for atsystemstart execution to finish");
+        }
+        
+        if (  startIt  ) {
+            if (  [gFileMgr contentsEqualAtPath: plistPath andPath: libPath]  ) {
+                didIt = TRUE;
+                break;
+            }
+        } else {
+            if (  ! [gFileMgr fileExistsAtPath: libPath]  ) {
+                didIt = TRUE;
+                break;
+            }
+        }
+        sleep(1);
+    }
+    
+    if (  freeAuthRef  ) {
+        AuthorizationFree(inAuthRef, kAuthorizationFlagDefaults);
+    }
+    
+    if (  ! [gFileMgr removeFileAtPath: flagPath handler: nil]  ) {
+        NSLog(@"Unable to remove temporary file %@", flagPath);
+    }
+
+    if (  ! [gFileMgr removeFileAtPath: plistPath handler: nil]  ) {
+        NSLog(@"Unable to remove temporary file %@", plistPath);
+    }
+    
+    if (  ! didIt  ) {
+        if (  startIt  ) {
+            NSLog(@"Set up to connect '%@' when system starts failed; tried 5 times", [self displayName]);
+            return NO;
+        } else {
+            NSLog(@"Set up to NOT connect '%@' when system starts failed; tried 5 times", [self displayName]);
+            return YES;
+        }
+        
+    }
+
+    if (  startIt  ) {
+        NSLog(@"Tunnelblick will connect '%@' when the system starts", [self displayName]);
+    } else {
+        NSLog(@"Tunnelblick will NOT connect '%@' when the system starts", [self displayName]);
+    }
+
+    return startIt;
+}
+
+-(void) makePlistFileForAtPath: (NSString *) plistPath withLabel: (NSString *) daemonLabel
+{
+    // Don't use the "Program" key, because we want the first argument to be the path to the program,
+    // so openvpnstart can know where it is, so it can find other Tunnelblick compenents.
+    NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+    NSMutableArray  * arguments = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
+    [arguments insertObject: openvpnstartPath atIndex: 0];
+    
+    NSString * daemonDescription = [NSString stringWithFormat: @"Processes Tunnelblick 'Connect when system starts' for VPN configuration '%@'",
+                                    [self displayName]];
+    
+    NSDictionary * plistDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                daemonLabel,                    @"Label",
+                                arguments,                      @"ProgramArguments",
+                                [NSNumber numberWithBool: YES], @"onDemand",
+                                [NSNumber numberWithBool: YES], @"RunAtLoad",
+                                firstPartOfPath(configPath),    @"WorkingDirectory",
+                                daemonDescription,              @"ServiceDescription",
+                                nil];
+    
+    [gFileMgr removeFileAtPath: plistPath handler: nil];
+    if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
+        NSLog(@"Unable to create %@", plistPath);
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Problem", @"Window title"),
+                        NSLocalizedString(@"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.", @"Window text"),
+                        nil, nil, nil);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
+    return;
 }
 
 -(NSString *) description
@@ -142,6 +404,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [managementSocket setDelegate: nil];
     [managementSocket release]; 
     [lastState release];
+    [tunOrTap release];
     [configPath release];
     [displayName release];
     [connectedSinceDate release];
@@ -151,8 +414,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [super dealloc];
 }
 
+-(void) invalidateConfigurationParse
+{
+    [tunOrTap release];
+    tunOrTap = nil;
+}
 
-- (IBAction) connect: (id) sender
+- (void) connect: (id) sender
 {
     if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
         // Count the total number of connections and what their "Set nameserver" status was at the time of connection
@@ -187,104 +455,43 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
     
-	NSString *cfgPath = [self configPath];
-    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@",
-                         NSUserName(), lastPartOfPath(configPath)];
-
-    if ( ! (cfgPath = [[ConfigurationManager defaultManager] getConfigurationToUse: cfgPath orAlt: altPath]) ) {
-        return;
-    }
-    
     authenticationFailed = NO;
     
-	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" 
-													 ofType: nil];
     [managementSocket close];
     [managementSocket setDelegate: nil];
     [managementSocket release];
     managementSocket = nil;
     
-    [self setPort:[self getFreePort]];
+	NSArray *arguments = [self argumentsForOpenvpnstartForNow: YES];
+    if (  arguments == nil  ) {
+        return;
+    }
+		
 	NSTask* task = [[[NSTask alloc] init] autorelease];
+    
+	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
 	[task setLaunchPath: path]; 
 		
-	NSString *portString = [NSString stringWithFormat:@"%d",portNumber];
-	NSArray *arguments;
-		
-	NSString *useDNS = @"0";
-	if(useDNSStatus(self)) {
-        NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
-        if (  [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
-            useDNS = @"2";
-        } else {
-            useDNS = @"1";
-        }
-        usedSetNameserver = TRUE;
-	} else {
-        usedSetNameserver = FALSE;
-    }
-
-    NSString *altCfgLoc = @"0";
-    if ( [cfgPath isEqualToString:altPath] ) {
-        altCfgLoc = @"1";
-    } else if (  [configPath hasPrefix: gDeployPath]  ) {
-        altCfgLoc = @"2";
-    } else if (  [configPath hasPrefix: gSharedPath]  ) {
-        altCfgLoc = @"3";
-    }
-    
-    NSString * noMonitorKey = [[self displayName] stringByAppendingString: @"-notMonitoringConnection"];
-    NSString * noMonitor = @"0";
-    if (  [useDNS isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
-        noMonitor = @"1";
-    }
-    
-    // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
-    
-    NSDictionary * vers = getOpenVPNVersion();
-    int intMajor =  [[vers objectForKey:@"major"]  intValue];
-    int intMinor =  [[vers objectForKey:@"minor"]  intValue];
-    int intSuffix = [[vers objectForKey:@"suffix"] intValue];
-    
-	NSString *skipScrSec =@"1";
-    if ( intMajor == 2 ) {
-        if ( intMinor == 1 ) {
-            if (  [[vers objectForKey:@"preSuffix"] isEqualToString:@"_rc"] ) {
-                if ( intSuffix > 8 ) {
-                    skipScrSec = @"0";
-                }
-            } else {
-                skipScrSec = @"0";
-            }
-        } else if ( intMinor > 1 ) {
-            skipScrSec = @"0";
-        }
-    } else if ( intMajor > 2 ) {
-        skipScrSec = @"0";
-    }
-    
     NSPipe * errPipe = [[NSPipe alloc] init];
     [task setStandardError: errPipe];
     NSPipe * stdPipe = [[NSPipe alloc] init];
     [task setStandardOutput: stdPipe];
     
-    arguments = [NSArray arrayWithObjects:@"start", lastPartOfPath(configPath), portString, useDNS, skipScrSec, altCfgLoc, noMonitor, nil];
-    
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           [self displayName],
-                          (  [altCfgLoc isEqualToString:@"1"]
+                          (  [[arguments objectAtIndex: 5] isEqualToString:@"1"]
                            ? @" using shadow copy"
-                           : (  [altCfgLoc isEqualToString:@"2"]
+                           : (  [[arguments objectAtIndex: 5] isEqualToString:@"2"]
                               ? @" from Deploy"
                               : @""  )  ),
-                          useDNS,
-                          (  [noMonitor isEqualToString:@"1"]
+                          [arguments objectAtIndex: 3],
+                          (  [[arguments objectAtIndex: 6] isEqualToString:@"1"]
                            ? @"; not monitoring connection"
                            : @"; monitoring connection" )
                           ];
     [self addToLog: logText atDate: nil];
 
-    NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:40];
+    NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[arguments count]];
     int i;
     for (i=0; i<[arguments count]; i++) {
         [escapedArguments addObject: [[[arguments objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
@@ -329,12 +536,122 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
 	[self setState: @"SLEEP"];
     
-	//sleep(1);
 	[self connectToManagementSocket];
-	// Wait some time for the demon to start up before connecting to the management interface:
-	//[NSTimer scheduledTimerWithTimeInterval: 3.0 target: self selector: @selector(connectToManagementSocket) userInfo: nil repeats: NO];
 }
 
+-(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
+{
+    NSString *cfgPath = [self configPath];
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@",
+                         NSUserName(), lastPartOfPath(configPath)];
+    
+    if ( ! (cfgPath = [[ConfigurationManager defaultManager] getConfigurationToUse: cfgPath orAlt: altPath]) ) {
+        return nil;
+    }
+    
+    BOOL useShadowCopy = [cfgPath isEqualToString: altPath];
+    BOOL useDeploy     = [cfgPath hasPrefix: gDeployPath];
+    BOOL useShared     = [cfgPath hasPrefix: gSharedPath];
+    
+    NSString *portString;
+    if (  forNow  ) {
+        [self setPort:[self getFreePort]];
+        portString = [NSString stringWithFormat:@"%d", portNumber];
+    } else {
+        portString = @"0";
+    }
+    
+    NSString *useDNS = @"0";
+	if(useDNSStatus(self)) {
+        NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
+        if (  [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
+            useDNS = @"2";
+        } else {
+            useDNS = @"1";
+        }
+        if (  forNow  ) {
+            usedSetNameserver = TRUE;
+        }
+	} else {
+        if (  forNow  ) {
+            usedSetNameserver = FALSE;
+        }
+    }
+    
+    // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
+    int intMajor =  [[gOpenVPNVersionDict objectForKey:@"major"]  intValue];
+    int intMinor =  [[gOpenVPNVersionDict objectForKey:@"minor"]  intValue];
+    int intSuffix = [[gOpenVPNVersionDict objectForKey:@"suffix"] intValue];
+    
+	NSString *skipScrSec =@"1";
+    if ( intMajor == 2 ) {
+        if ( intMinor == 1 ) {
+            if (  [[gOpenVPNVersionDict objectForKey:@"preSuffix"] isEqualToString:@"_rc"] ) {
+                if ( intSuffix > 8 ) {
+                    skipScrSec = @"0";
+                }
+            } else {
+                skipScrSec = @"0";
+            }
+        } else if ( intMinor > 1 ) {
+            skipScrSec = @"0";
+        }
+    } else if ( intMajor > 2 ) {
+        skipScrSec = @"0";
+    }
+    NSString *altCfgLoc = @"0";
+    if ( useShadowCopy ) {
+        altCfgLoc = @"1";
+    } else if (  useDeploy  ) {
+        altCfgLoc = @"2";
+    } else if (  useShared  ) {
+        altCfgLoc = @"3";
+    }
+    
+    NSString * noMonitorKey = [[self displayName] stringByAppendingString: @"-notMonitoringConnection"];
+    NSString * noMonitor = @"0";
+    if (  [useDNS isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
+        noMonitor = @"1";
+    }
+
+    if (  ! tunOrTap  ) {
+        tunOrTap = [[[ConfigurationManager defaultManager] parseConfigurationPath: configPath forConnection: self] copy];
+    }
+
+    int bitMask = 0;
+    
+    NSString * noTapKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTapKext"];
+    NSString * yesTapKextKey = [[self displayName] stringByAppendingString: @"-loadTapKext"];
+    if (  ! [gTbDefaults boolForKey: noTapKextKey]  ) {
+        if (   ( ! tunOrTap )
+            || [tunOrTap isEqualToString: @"tap"]
+            || [gTbDefaults boolForKey: yesTapKextKey]  ) {
+            bitMask = bitMask | OUR_TAP_KEXT;
+        }
+    }
+    
+    NSString * noTunKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTunKext"];
+    NSString * yesTunKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTunKext"];
+    if (  ! [gTbDefaults boolForKey: noTunKextKey]  ) {
+        if (   ( ! tunOrTap )
+            || [tunOrTap isEqualToString: @"tun"]
+            || [gTbDefaults boolForKey: yesTunKextKey]  ) {
+            bitMask = bitMask | OUR_TUN_KEXT;
+        }
+    }
+    
+    NSString * onSystemStartKey = [[self displayName] stringByAppendingString: @"-onSystemStart"];
+    if (   (! forNow )
+        || [gTbDefaults boolForKey: onSystemStartKey]  ) {
+        bitMask = bitMask | CREATE_LOG_FILE;
+    }
+    
+    NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
+    
+    NSArray * args = [NSArray arrayWithObjects:
+                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, bitMaskString, nil];
+    return args;
+}    
 
 - (NSDate *)connectedSinceDate {
     return [[connectedSinceDate retain] autorelease];
@@ -351,6 +668,20 @@ extern NSString * lastPartOfPath(NSString * thePath);
     return usedSetNameserver;
 }
 
+-(BOOL) tryingToHookup
+{
+    return tryingToHookup;
+}
+
+-(BOOL) isHookedup
+{
+    return isHookedup;
+}
+
+-(pid_t) pid
+{
+    return pid;
+}
 
 - (IBAction) toggle: (id) sender
 {
@@ -367,27 +698,25 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
 }
 
-- (IBAction) disconnect: (id)sender 
+- (void) disconnect: (id)sender 
 {
     pid_t savedPid = 0;
 	if(pid > 0) {
         savedPid = pid;
 		[self killProcess];
+        [NSApp waitUntilNoProcessWithID: savedPid];
 	} else {
 		if([managementSocket isConnected]) {
 			[managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
+            sleep(5);       // Wait five seconds for OpenVPN to disappear after it sends terminating log output
 		}
-        sleep(5);       // Wait five seconds for OpenVPN to disappear
 	}
     
     [self emptyPipe];
     
     [[NSApp delegate] removeConnection:self];
     [self setState:@"EXITING"];
-    
-    if (  savedPid != 0  ) {
-        [NSApp waitUntilNoProcessWithID: savedPid];     // Wait until OpenVPN process is completely gone
-    }
+    [[NSApp delegate] unloadKexts];
     
     if (  ! [managementSocket peekData]  ) {
         [managementSocket close]; [managementSocket setDelegate: nil];
@@ -412,7 +741,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
     pid = 0;
 	[task launch];
 	[task waitUntilExit];
-    
 }
 
 - (void) netsocketConnected: (NetSocket*) socket
@@ -423,10 +751,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (NSDebugEnabled) NSLog(@"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
     NS_DURING {
-		[managementSocket writeString: @"pid\r\n" encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"state on\r\n" encoding: NSASCIIStringEncoding];    
-        [managementSocket writeString: @"log on all\r\n" encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+		[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
+        [managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];    
+		[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
+        [managementSocket writeString: @"log on all\r\n"    encoding: NSASCIIStringEncoding];
+        [managementSocket writeString: @"hold release\r\n"  encoding: NSASCIIStringEncoding];
     } NS_HANDLER {
         NSLog(@"Exception caught while writing to socket: %@\n", localException);
     }
@@ -447,14 +776,57 @@ extern NSString * lastPartOfPath(NSString * thePath);
 	}
 }
 
+-(void) setStateFromLine: (NSString *) line 
+{
+    @try {
+        NSArray* parameters = [line componentsSeparatedByString: @","];
+        NSString *stateString = [parameters objectAtIndex:1];
+        if (  [stateString length] > 3  ) {
+            NSArray * validStates = [NSArray arrayWithObjects:
+                                     @"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED",  @"CONNECTING",
+                                     @"EXITING", @"GET_CONFIG", @"RECONNECTING", @"SLEEP", @"WAIT", nil];
+            if (  [validStates containsObject: stateString]  ) {
+                [self processState: stateString dated: [parameters objectAtIndex: 0]];
+            }
+        }
+    } @catch(NSException *exception) {
+    }
+}
+
+-(void) processState: (NSString *) newState dated: (NSString *) dateTime
+{
+    [self setState: newState];
+    
+    if([newState isEqualToString: @"RECONNECTING"]) {
+        [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
+        
+    } else if ([newState isEqualToString: @"CONNECTED"]) {
+        NSDate *date; 
+        if (  dateTime) {
+            date = [NSCalendarDate dateWithTimeIntervalSince1970: [dateTime intValue]];
+        } else {
+            date = [[[NSDate alloc] init] autorelease];
+        }
+        
+        [[NSApp delegate] addConnection:self];
+        [self setConnectedSinceDate: date];
+        
+    } else if ([newState isEqualToString: @"EXITING"]) {
+        [managementSocket close]; [managementSocket setDelegate: nil];
+        [managementSocket release]; managementSocket = nil;
+        portNumber = 0;
+    }
+}
 
 - (void) processLine: (NSString*) line
 {
-    if (NSDebugEnabled) NSLog(@">openvpn: '%@'", line);
+    isHookedup = TRUE;
+    tryingToHookup = FALSE;
     
     if (![line hasPrefix: @">"]) {
         // Output in response to command to OpenVPN. Could be the PID command, or additional log output from LOG ON ALL
 		[self setPIDFromLine:line];
+        [self setStateFromLine:line];
 		@try {
 			NSArray* parameters = [line componentsSeparatedByString: @","];
             NSCalendarDate* date = nil;
@@ -479,22 +851,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if ([command isEqualToString: @"STATE"]) {
             NSArray* parameters = [parameterString componentsSeparatedByString: @","];
             NSString* state = [parameters objectAtIndex: 1];
-            if (NSDebugEnabled) NSLog(@"State is '%@'", state);
-            [self setState: state];
-
-            if([state isEqualToString: @"RECONNECTING"]) {
-                [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
-            
-            } else if ([state isEqualToString: @"CONNECTED"]) {
-                NSDate *now = [[NSDate alloc] init];
-                [[NSApp delegate] addConnection:self];
-                [self setConnectedSinceDate:now];
-                [now release];
-            
-            } else if ([state isEqualToString: @"EXITING"]) {
-                [managementSocket close]; [managementSocket setDelegate: nil];
-                [managementSocket release]; managementSocket = nil;
-            }
+            [self processState: state dated: nil];
             
         } else if ([command isEqualToString: @"PASSWORD"]) {
             if ([line rangeOfString: @"Failed"].length) {
