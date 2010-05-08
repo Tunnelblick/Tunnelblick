@@ -20,6 +20,7 @@
     * [wBuild Building from Source]
     * [wDmg Modifying the disk image]
     * [wLocalize Localizing Tunnelblick]
+    * [wTranslate Making Translations]
   * Reference
     * [wFAQ FAQ]
     * [wKnown Known Issues]
