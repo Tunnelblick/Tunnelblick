@@ -17,3 +17,7 @@
   It runs on OS X Tiger (10.4), Leopard (10.5), and Snow Leopard (10.6). It comes as a ready-to-use Universal application with all necessary binaries and drivers (including OpenVPN and tun/tap) included. No additional installation is necessary -- just add your configuration and encryption information.
 
   Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
