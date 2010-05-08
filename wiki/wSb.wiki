@@ -22,7 +22,7 @@ Troubleshooting
 Customized Versions
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
-    [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configuration"]<br>
+    [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configurations"]<br>
     [wLocalize Localizing Tunnelblick]<br><br>
 For Developers
     [wBuild Building from Source]<br>
