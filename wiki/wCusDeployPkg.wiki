@@ -27,5 +27,6 @@
   * Configurations may contain identifier and version information that is be used by Tunnelblick to manage updates.
   * Although Deployed versions may contain identifier or version information, Tunnelblick does not use that information.
 
+------------------
 
-====PLEASE DISCUSS THIS IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
