@@ -1,4 +1,4 @@
-#summary Release Notes - Tunnelblick<
+#summary Release Notes - Tunnelblick
 #labels Deprecated
 #sidebar wSb
 
