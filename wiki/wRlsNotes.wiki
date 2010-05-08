@@ -1,5 +1,5 @@
-#summary Release Notes - Tunnelblick
 #labels Deprecated
+<wiki:comment>#summary Release Notes - Tunnelblick</wiki:comment>
 #sidebar wSb
 
 ==Tunnelblick Release Notes==
