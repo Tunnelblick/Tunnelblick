@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary How to Help the Tunnelblick Project
 #labels Deprecated
 #sidebar wSb
 
