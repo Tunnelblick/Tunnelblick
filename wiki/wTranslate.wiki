@@ -4,7 +4,7 @@
 
 * Translating Tunnelblick*
 
-This document describes how to translate Tunnelblick "Localizable.strings" and "NeedsTranslation.strings" files. For an overview of how to integrate these files into Tunnelblick, see [wLocalize Localizing Tunnelblick].
+This document describes how to translate Tunnelblick "Localizable.strings" and "!NeedsTranslation.strings" files. For an overview of how to integrate these files into Tunnelblick, see [wLocalize Localizing Tunnelblick].
 
 Tunnelblick has two files for each language:
  * A "Localizable.strings" file, which contains all of the strings used by Tunnelblick, whether they have been translated or not; and
