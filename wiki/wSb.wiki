@@ -1,5 +1,5 @@
 #labels Deprecated
-  * [http://code.google.com/p/tunnelblick Home]
+  * [http://code.google.com/p/tunnelblick Project home]
   * [wNews News]
   * Getting Started
     * [wWhatIs What is Tunnelblick?]
@@ -8,16 +8,18 @@
     * [wHowHelp How you can help]
   * Detailed guides
     * [wInstall Installing Tunnelblick]
-    * [wConfig Configuring Tunnelblick]
+    * [wConfigT Configuring Tunnelblick]
+    * [wConfigO Configuring OpenVPN]
     * [wUsing Using Tunnelblick]
   * Customized Versions
     * [wCusDeployed "Deployed" versions]
-    * [wCusPkgs Using .tlkb packages]
+    * [wCusPkgs .tlkb packages]
     * [wCusDeployPkg Deploy vs. .tblk packages]
     * [wCusTrans Adding Translations]
   * For Developers
     * [wBuild Building from Source]
     * [wDmg Modifying the disk image]
+    * [wLocalize Localizing Tunnelblick]
   * Reference
     * [wFAQ FAQ]
     * [wKnown Known Issues]
