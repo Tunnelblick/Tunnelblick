@@ -13,7 +13,8 @@
     * [wUsing Using Tunnelblick]
   * Customized Versions
     * [wCusDeployed "Deployed" versions]
-    * [wPkgs Tunnelblick VPN Configurations]    * [wCusDeployPkg Deploy vs. .tblk packages]
+    * [wPkgs Tunnelblick VPN Configurations]
+    * [wCusDeployPkg Deploy vs. .tblk packages]
     * [wCusTrans Adding Translations]
   * For Developers
     * [wBuild Building from Source]
