@@ -14,8 +14,8 @@
   * Customized Versions
     * [wCusDeployed "Deployed" versions]
     * [wPkgs Tunnelblick VPN Configurations]
-    * [wCusDeployPkg Deploy vs. .tblk packages]
-    * [wCusTrans Adding Translations]
+    * [wCusDeployPkg Comparing "Deployed" and "Configurations"]
+    * [wLocalize Localizing Tunnelblick]
   * For Developers
     * [wBuild Building from Source]
     * [wDmg Modifying the disk image]
