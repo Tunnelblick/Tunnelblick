@@ -1,5 +1,6 @@
 #summary Frequently Asked Questions (Answered)
 #labels Deprecated
+#sidebar wSb
 
 <wiki:toc max_depth="2" />
 
