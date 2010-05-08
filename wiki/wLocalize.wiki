@@ -4,7 +4,7 @@
 
 *Localizing Tunnelblick*
 
-This document describes how to localize Tunnelblick. For information about translating the "Localizable.strings" and "NeedsTranslation.strings" files, see [wTranslate Translating Tunnelblick].
+This document describes how to localize Tunnelblick. For information about translating the "Localizable.strings" and "!NeedsTranslation.strings" files, see [wTranslate Translating Tunnelblick].
 
 ==How Localization Work in Tunnelblick==
 Although some applications have elaborate structures to specify translations, Tunnelblick's is simple. Inside of Tunnelblick.app there is a folder for English, and a folder for each language that has been translated. Each of these folders contains a "Localizable.strings" file for one particular language. That file is used "on-the-fly" to translate the Tunnelblick application's strings, which are in English, to the language specified in the user's System Preferences. (The folders may also contain a "NeedsTranslation.strings" file, which contains only strings that have not been translated. "NeedsTranslations.strings" is not used by the program, but is a convenience for translators who only need to work on the strings in that file.)
