@@ -13,7 +13,7 @@
     * [wUsing Using Tunnelblick]
   * Customized Versions
     * [wCusDeployed "Deployed" versions]
-    * [wCusPkgs .tlkb packages]
+    * [wPkgs .tlkb packages]
     * [wCusDeployPkg Deploy vs. .tblk packages]
     * [wCusTrans Adding Translations]
   * For Developers
