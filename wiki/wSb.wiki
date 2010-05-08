@@ -9,8 +9,8 @@ Getting Started
 Detailed guides
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Configuring Tunnelblick]<br>
-    [wConfigO Configuring OpenVPN]<br>
     [wUsing Using Tunnelblick]<br>
+    [wConfigO Configuring OpenVPN]<br>
 Customized Versions
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
