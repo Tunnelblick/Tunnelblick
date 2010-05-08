@@ -11,3 +11,7 @@ However, you do need access to a VPN server. Your computer is one end of the VPN
   * You can get (free or for a fee) access to a VPN by using a VPN service provider.
 
 For more details, see [wGettingVPNService Getting VPN Service].
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
