@@ -4,4 +4,4 @@
 
 _A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that need testing, and may have bugs or limitations._
 
-There are no beta versions of Tunnelblick currently available. When a new beta version is available, it is announced on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+There are no beta versions of Tunnelblick currently available. When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
