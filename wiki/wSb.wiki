@@ -1,5 +1,6 @@
 #labels Deprecated
 [http://code.google.com/p/tunnelblick Project home]<br><br>
+[http://groups.google.com/group/tunnelblick-discuss Discussion Group]<br><br>
 [wNews News]<br><br>
 Getting Started
     [wWhatIs What is Tunnelblick?]<br>
