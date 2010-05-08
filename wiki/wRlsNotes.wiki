@@ -1,8 +1,7 @@
+#summary Release Notes - Tunnelblick<
 #labels Deprecated
-<wiki:comment>#summary Release Notes - Tunnelblick</wiki:comment>
 #sidebar wSb
 
-==Tunnelblick Release Notes==
 ==3.0 (2010-03-03)==
   * Fixes incorrect display of 'Automatically Check for Updates' preference on first run after some updates.
   * Out of beta!
