@@ -11,7 +11,12 @@ Detailed guides
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Configuring Tunnelblick]<br>
     [wUsing Using Tunnelblick]<br>
-    [wConfigO Configuring OpenVPN]<br>
+    [wConfigO Configuring OpenVPN]<br><br>
+Troubleshooting
+    [wCommonProblems Common Problems]<br>
+    [wOpenVPNLog The OpenVPN Log]<br>
+    [wConsoleLog The Console Log]<br>
+    [wHelp How to get help]<br><br>
 Customized Versions
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
