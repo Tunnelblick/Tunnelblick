@@ -1,0 +1,15 @@
+#summary Latest news about Tunnelblick
+#labels Deprecated
+#sidebar wSb
+
+*2010-05-09*: Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download].
+
+New features in this beta build include:
+
+  * *Shared configurations*: Configurations may be shared by all users of a computer without being installed for each user individually. [wShared Details].
+
+  * *Connect when computer starts*: Configurations may be set to connect when the computer starts, before anyone is logged in. Such connections persist through login and logout and may be controlled by Tunnelblick when a user is logged in. [wConnectWhenComputerStarts Details].
+
+  * *Tunnelblick VPN Configuration "packages"*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users. [wPkgs Details].
+
+This is a  *beta* release -- use it for testing or if you need the new features. Please give feedback or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
