@@ -1,5 +1,6 @@
 #summary "Deployed" Compared to "Configurations"
 #labels Deprecated
+#sidebar wSb
 
 ==Comparing Tunnelblick VPN Configurations ("Configurations")  and Deployed Versions of Tunnelblick==
   * Deployed versions may have multiple configurations
