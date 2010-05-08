@@ -1,0 +1,163 @@
+#summary Setting Up Tunnelblick
+#labels Deprecated
+#sidebar wSb
+
+<wiki:toc max_depth="2" />
+
+<font color="red">Stop!</font> If you have a [wCusDeployed "Deployed" version] of Tunnelblick, it comes already set up -- you do no need to do anything more! Just [wUsing  start using it] and enjoy!
+
+==Setting Up Tunnelblick==
+Installing Tunnelblick is not sufficient to connect to a VPN. You need to set up Tunnelblick so it knows how to connect to the VPN.
+
+
+When no configurations have been installed (which is usually the case the first time Tunnelblick is run by each user when using a non-deployed version of Tunnelblick), the following window will appear:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-02-06.png
+
+If you click "Install and edit sample configuration file”, Tunnelblick will create a sample [wPkgs Tunnelblick VPN Configurations] and open the OpenVPN configuration file within it in TextEdit for you to modify.
+
+If you click "Quit”, Tunnelblick will quit without doing anything.
+
+If you click "Open configuration folder", Tunnelblick will open a Finder window with `~/Library/Application Support/Tunnelblick/Configurations`, and then quit. Move or copy your OpenVPN configuration file(s) -- files with extensions of ".oven" or ".conf" -- to this window. If you have received key files or certificate files with your configuration file, move or copy them to this window also.
+
+To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder.
+
+==Normal Tunnelblick Operation==
+Once Tunnelblick has been launched, you control it from the icon in the Status Bar at the top of your screen. The Tunnelblick icon is usually placed between the time and the Spotlight icon. When no VPN connection is active, the icon is dark, indicating a closed tunnel:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-closed-2010-02-04.png
+
+If you click on the icon, you'll see a drop down menu similar to the following:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-menu-2010-02-06.png
+
+There will be a "Connect” menu item for each .ovpn or .conf file in `~/Library/Application Support/Tunnelblick/Configurations`. Click on one to establish the corresponding pre-configured VPN connection. To illustrate the connection being established, three dots will appear in the menu item, and the Tunnelblick icon will darken and lighten repeatedly. If the connection is successfully opened, the icon will change to show an open tunnel:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-open-2010-02-04.png
+
+Depending on your setup, you may be asked for a passphrase or username/password combination. You can save your passphrase or password in Apple's Keychain by checking the appropriate checkbox.
+
+The connection will be active as long as you do not end it or log out. Putting your computer to sleep will close the connection but upon waking up from sleep Tunnelblick will attempt to reestablish the connection. If Tunnelblick loses contact with the server (because of a lack of wireless signal, for example), it will periodically try to re-establish the connection.
+
+If a connection error occurs, or in the unlikely event of an interface crash, Tunnelblick will terminate the VPN tunnel and record the error in the Console Log.
+
+Use "Disconnect” from the drop-down menu to close the VPN connection. Use "Quit” to close all open connections and quit the program and prevent Tunnelblick from starting itself at your next login at your computer.
+
+If Tunnelblick is running when you logout (or your computer crashes, or is shut down or restarted), then Tunnelblick will be started automatically upon login. To stop Tunnelblick from being started automatically upon login, be sure to quit Tunnelblick before logging out, either by using the "Quit” command, or by using Command-Q (Apple-Q) when the "OpenVPN Log” or "About…” window is active. (Don't confuse this automatic launch of Tunnelblick upon login with the "Automatically connect on launch” option, which causes a connection to be established when Tunnelblick is started.)
+
+==The "Options…" Submenu==
+When the Tunnelblick menu is displayed, if you hover over "Options", the Options Submenu appears:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-options-menu-2010-02-06.png
+
+Click on an item in the Options Submenu to change a preference, check for updates, or display the "About" window. For more details on preferences, see the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].
+
+Some deployed versions of Tunnelblick do not display the Options Submenu (it is controlled by a preference), in which case the "Options" menu item is replaced by "About Tunnelblick..."
+
+==The "OpenVPN Log" Window==
+When the Tunnelblick menu is displayed, if you click on "Details…” a window similar to the following will appear:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-details-2010-02-04.png
+
+There will be a tab for each connection (i.e., each .ovpn or .conf file), whether the connection is open or closed. Each tab contains a pane with the OpenVPN Log for the connection and checkboxes that provide options for that connection:
+
+    * "Automatically connect on launch” causes the connection to be opened when Tunnelblick is launched (started). "Automatically connect on launch” is unchecked by default.
+
+    * "Set nameserver” causes scripts to be run before a connection is opened and after the connection is closed. The scripts save and restore DHCP DNS and WINS information. "Set nameserver” is checked by default.
+    
+    When a connection is attempted, the script for "Set nameserver” saves the current DNS settings and removes DNS settings that were set by DHCP (manual DNS settings are _not_ removed). When a connection is disconnected the scripts restore the saved DNS settings. The scripts do not support the simultaneous use of two or more nameservers for different domains; custom up/down scripts must be used for this purpose.
+
+    * "Monitor connection" causes the network connection to be monitored for changes. It is available only when "Set nameserver" is checked. When a change is detected, the connection will be disconnected and reconnected. "Monitor connection" is checked by default, but the connection is only monitored when "Set nameserver" is checked.
+    
+In addition, the "OpenVPN Log” window contains four buttons:
+
+    * "Clear log” clears the OpenVPN Log for the connection being displayed.
+
+    * "Edit configuration” starts TextEdit with the configuration file containing the OpenVPN configuration for the connection being displayed so it can be edited. If you modify a configuration file, you will need the username and password of a computer administrator to connect using the modified configuration file. 
+
+    * "Connect” opens the connection being displayed.
+
+    * "Disconnect” closes the connection being displayed.
+
+You may use the standard keyboard shortcuts in the "OpenVPN Log" window: Command-C, Command-X, and Command-V for copy, cut, and paste; and Command-A, Command-M, Command-W, and Command-Q to select all the text in the log that is currently being displayed, minimize the window to the dock, close the window, and quit the program.
+
+==The "About…" Window==
+Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon, then (if it is visible) click on "Options", then on "About…” to open a window with information about the versions of Tunnelblick and OpenVPN that are running and a link to the Tunnelblick website.
+
+==The "Set Nameserver" Check Box and DNS & WINS Settings==
+If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, put a check in the "Set nameserver" checkbox. (This is the situation for most users.)
+
+If you are using DHCP, wish to use your original DNS and WINS servers when connected, and the VPN server you are connecting to does not "push" DNS or WINS settings to your client, un-check the "Set nameserver" checkbox.
+
+If you are using manual settings, different versions of OS X behave differently. This is due to a change in network behavior in Snow Leopard and is beyond the scope of this project to fix.
+
+If you're using Leopard (10.5) or Tiger (10.4), then it is possible to use the VPN-server-supplied DNS and WINS settings *in addition to* your manual settings by checking the "Set nameserver" box. However, your manual settings will always take precedence over any VPN server-supplied settings.  If "Set nameserver" is un-checked, you will continue to use only your manually-configured settings and any VPN server-supplied settings will be ignored.
+
+If you are using Snow Leopard (10.6), then your manually-configured DNS and WINS settings will *always* be used, and no aggregation of configurations will be performed.
+
+ * If you set your DNS servers manually, then regardless of the state of the "Set nameserver" box, your manual DNS servers will always be the only ones used.
+
+ * If you set your Search Domain(s) manually, then regardless of the state of the "Set nameserver" box, your manual Search Domains will always be the only ones used.
+
+ * If you set your WINS servers manually, then regardless of the state of the "Set nameserver" box, your manual WINS servers will always be the only ones used.
+
+ * Each of these settings is independent of the others: if "Set nameserver" is checked, those settings not configured manually will be replaced by the settings obtained from the VPN server.  If "Set nameserver" is not checked, then as with Leopard/Tiger, no DNS/WINS settings will be applied.
+
+*If your situation is not described above* (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and un-check the "Set nameserver" checkbox.
+
+==THE "MONITOR CONNECTION" CHECKBOX==
+If checked (the default), the "Monitor connection" checkbox instructs Tunnelblick to monitor the connection's interface for changes. If Tunnelblick detects a change to DNS or WINS, the connection will be restarted. Under certain circumstances, repeated and unnecessary restarts are peformed; unchecking this box stops this from occurring.
+
+Note that connection monitoring is not available unless "Set nameserver" is checked.
+
+==Using More than One VPN Connection==
+You can put more than one .ovpn or .conf file together with its key and/or certificate files into the ~/Library/Application Support/Tunnelblick/Configurations folder. Tunnelblick interprets each .ovpn or .conf file in the ~/Library/Application Support/Tunnelblick/Configurations folder as a configuration file for a different connection; each of the connections will be available in the drop down menu and shown as a separate tab in the "OpenVPN Log” window.
+
+==Using More than One VPN Connection Simultaneously==
+Tunnelblick can maintain multiple simultaneous open connections to different VPNs.
+
+However, this is for experts only:
+
+    * If you use "Set nameserver” (which uses standard scripts to save/change/restore DNS resolution data), on one or more connections your DNS settings may not be saved and restored properly and DNS might or might not work. It depends on the order in what DNS settings you want to use and which connections are opened and closed. Connections may close and be reopened because of communications errors over which you have no control, which can cause unpredictable results. Not recommended.
+    * If you don't use "Set nameserver”, and your customized configuration files are suitably written to work together with custom scripts, things can work. But if you don't handle the DNS and routing settings properly, lots of things could go wrong. So this isn't recommended either unless you really know what you're doing and have a NEED to connect to multiple VPNs simultaneously.
+    * VPN administrators might not be happy that you are connecting their networks together. Most VPN client software limits you to a single connection, probably for that reason.
+
+==Automatically Starting Tunnelblick Upon Login==
+Tunnelblick was designed as a persistent menu icon that survives reboots. To this end, it inserts itself into the login items when it is started and only removes itself from the login items when you choose Quit from the menu or Command-Q from the "OpenVPN Log” window or "About..." window. . So if you just log out, shut down, or restart your computer, or it crashes, the next time you log in, Tunnelblick will automatically start. If you do not want Tunnelblick to start automatically, quit Tunnelblick before you log out, shut down, or restart.
+
+==Automatically Opening a VPN Connection When Tunnelblick Starts==
+You can specify that a connection automatically be opened when Tunnelblick starts by putting a check in the "Automatically connect on launch” checkbox for that connection. The checkbox is located on the connection's tab in the "OpenVPN Log” window.
+
+==Using openvpn-down-root.so==
+When using "Set nameserver", it is usually necessary to avoid using the OpenVPN "user" and "group" options. These options cause OpenVPN to drop root privileges and take the privileges of the specified user and group. It this is done, then the standard scripts that handle restarting connections when there is a transient failure fail, because they are run without root privileges. And restoring routes when a tunnel is disconnected fails, too. So the "user" and "group" OpenVPN options should not be specified.
+
+However, starting with Tunnelblick version 3.0b22, Tunnelblick includes the "openvpn-down-root.so" plugin for OpenVPN. It is located in theTunnelblick.app/Contents/Resources" folder. This plugin, when activated by including a line in the configuration file, allows the use of the "user" and "group" options, so that OpenVPN drops root privileges, but still has the scripts run as root, so reconnecting after transient network problems, or restoring routes when a tunnel is disconnected continue to work.
+
+To activate the plugin:
+  # Set the per-configuration boolean preference "CONFIG_NAME-useDownRootPlugin" to true.  If your configuration file is named "xyz.conf", the preference key is "xyz-useDownRootPlugin". (To set up the preference, use "Property List Editor.app" to  edit ~/Library/Preferences/com.openvpn.tunnelblick.plist and add the key, then right-click it and change the type to "boolean" and check it. “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs.)
+  # Include the following line in your configuration file:
+{{{
+    plugin path-to-openvpn-down-root.so     path-to-client.down.osx.sh
+}}}
+Example: If Tunnelblick.app is located in /Applications, the line would be:
+{{{
+    plugin /Applications/Tunnelblick.app/Contents/Resources/openvpn-down-root.so    /Applications/Tunnelblick.app/Contents/Resources/client.down.osx.sh 
+}}}
+Example: If Tunnelblick.app is located in /Applications and you have "Set nameserver" checked but "Monitor connection" unchecked, the line would be:
+{{{
+    plugin /Applications/Tunnelblick.app/Contents/Resources/openvpn-down-root.so    /Applications/Tunnelblick.app/Contents/Resources/client.nomonitor.down.osx.sh 
+}}}
+Example: If using a "deployed" version of Tunnelblick:
+{{{
+    plugin ../openvpn-down-root.so    ../client.down.osx.sh
+}}}
+==Preferences==
+See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].
+
+==Uninstalling Tunnelblick==
+To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash. Other than the preferences and configuration files described in "File Locations", there are no other files installed -- OpenVPN, the tun/tap kernel extensions, and up/down scripts are contained within the Tunnelblick.app package and are loaded only when needed directly from there. Tunnelblick may store passphrases or passwords in the Keychain at the user's request.
+
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
