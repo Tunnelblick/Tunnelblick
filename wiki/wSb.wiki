@@ -24,7 +24,7 @@
     * [wFAQ FAQ]
     * [wKnown Known Issues]
     * [wRlsNotes Release notes]
-    * [wProviders VPN Providers]
+    * [wGettingVPNService Getting VPN Service]
     * [wSysReq System requirements]
     * [wPrefs Preferences]
     * [wPkgs Tunnelblick VPN Configurations]
