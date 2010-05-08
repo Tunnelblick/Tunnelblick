@@ -1,5 +1,5 @@
 #labels Deprecated
-<font color="red">*NOTE: This wiki is for Tunnelblick version 3.1beta02*</font>
+<font color="red">*NOTE: This is for Tunnelblick version 3.1beta02 only*</font>
 
 [http://code.google.com/p/tunnelblick Project home]<br><br>
 [http://groups.google.com/group/tunnelblick-discuss Discussion Group]<br><br>
