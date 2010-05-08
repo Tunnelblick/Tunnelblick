@@ -1,4 +1,3 @@
-#summary Tunnelblick VPN Configurations
 #labels Deprecated
 #sidebar wSb
 <wiki:toc max_depth="2" />
