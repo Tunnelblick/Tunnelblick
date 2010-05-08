@@ -28,3 +28,4 @@
     * [wSysReq System requirements]
     * [wPrefs Preferences]
     * [wPkgs Tunnelblick VPN Configurations]
+    * [wBeta Beta Versions]
