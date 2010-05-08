@@ -1,4 +1,4 @@
-#summary Latest news about Tunnelblick
+#summary The Latest News About Tunnelblick
 #labels Deprecated
 #sidebar wSb
 
