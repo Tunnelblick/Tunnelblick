@@ -103,4 +103,6 @@ in that order. If a display name matches an earlier display name, the later conf
   * 2010-05-08
     * Document created
 
-====PLEASE DISCUSS THIS IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
