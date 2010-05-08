@@ -12,4 +12,4 @@ New features in this beta build include:
 
   * *Tunnelblick VPN Configuration "packages"*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users. [wPkgs Details].
 
-This is a  *beta* release -- use it for testing or if you need the new features. Please give feedback or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+This is a  *beta* release. *Please give feedback on the new features* or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
