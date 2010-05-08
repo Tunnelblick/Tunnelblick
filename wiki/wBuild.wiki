@@ -7,7 +7,6 @@
 <wiki:toc max_depth="2" />
 
 ------------
-          NOTE: Version 3.1beta01 (build 1509) and later will generate four such warnings.
           NOTE: Xcode 3.2.2 causes some warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.)
 ------------
 
