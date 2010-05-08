@@ -1,34 +1,32 @@
 #labels Deprecated
-  [http://code.google.com/p/tunnelblick Project home]
-  [wNews News]
-    Getting Started<br>
+[http://code.google.com/p/tunnelblick Project home]<br><br>
+[wNews News]<br><br>
+Getting Started
     [wWhatIs What is Tunnelblick?]<br>
     [wWhatElse What else you need]<br>
     [wQuick Quick start guide]<br>
-    [wHowHelp How you can help]<br>
-
-
-  * Detailed guides
-    * [wInstall Installing Tunnelblick]
-    * [wConfigT Configuring Tunnelblick]
-    * [wConfigO Configuring OpenVPN]
-    * [wUsing Using Tunnelblick]
-  * Customized Versions
-    * [wCusDeployed "Deployed" versions]
-    * [wPkgs Tunnelblick VPN Configurations]
-    * [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configuration"]
-    * [wLocalize Localizing Tunnelblick]
-  * For Developers
-    * [wBuild Building from Source]
-    * [wDmg Modifying the disk image]
-    * [wLocalize Localizing Tunnelblick]
-    * [wTranslate Making Translations]
-  * Reference
-    * [wFAQ FAQ]
-    * [wKnown Known Issues]
-    * [wRlsNotes Release notes]
-    * [wGettingVPNService Getting VPN Service]
-    * [wSysReq System requirements]
-    * [wPrefs Preferences]
-    * [wPkgs Tunnelblick VPN Configurations]
-    * [wBeta Beta Versions]
+    [wHowHelp How you can help]<br><br>
+Detailed guides
+    [wInstall Installing Tunnelblick]<br>
+    [wConfigT Configuring Tunnelblick]<br>
+    [wConfigO Configuring OpenVPN]<br>
+    [wUsing Using Tunnelblick]<br>
+Customized Versions
+    [wCusDeployed "Deployed" versions]<br>
+    [wPkgs Tunnelblick VPN Configurations]<br>
+    [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configuration"]<br>
+    [wLocalize Localizing Tunnelblick]<br><br>
+For Developers
+    [wBuild Building from Source]<br>
+    [wDmg Modifying the disk image]<br>
+    [wLocalize Localizing Tunnelblick]<br>
+    [wTranslate Making Translations]<br><br>
+Reference
+    [wFAQ FAQ]<br>
+    [wKnown Known Issues]<br>
+    [wRlsNotes Release notes]<br>
+    [wGettingVPNService Getting VPN Service]<br>
+    [wSysReq System requirements]<br>
+    [wPrefs Preferences]<br>
+    [wPkgs Tunnelblick VPN Configurations]<br>
+    [wBeta Beta Versions]<br>
