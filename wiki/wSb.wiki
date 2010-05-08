@@ -1,6 +1,5 @@
 #labels Deprecated
-
-<font color="red">*NOTE: This is for Tunnelblick 3.1beta02 only and describes features not available in earlier versions.*</font>
+<br><font color="red">*NOTE: This is for Tunnelblick 3.1beta02 only and describes features not available in earlier versions.*</font>
 
 [http://code.google.com/p/tunnelblick Project home]<br><br>
 [http://groups.google.com/group/tunnelblick-discuss Discussion Group]<br><br>
