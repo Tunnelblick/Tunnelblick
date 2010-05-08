@@ -38,3 +38,4 @@
     [wPrefs Preferences]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wBeta Beta Versions]<br>
+    [wFileLocations File Locations]
