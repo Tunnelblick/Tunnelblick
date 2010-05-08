@@ -11,7 +11,7 @@ Getting Started
     [wHowHelp How you can help]<br><br>
 Detailed guides
     [wInstall Installing Tunnelblick]<br>
-    [wConfigT Configuring Tunnelblick]<br>
+    [wConfigT Setting up Tunnelblick]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br><br>
 Troubleshooting
