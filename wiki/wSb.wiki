@@ -1,11 +1,11 @@
 #labels Deprecated
   [http://code.google.com/p/tunnelblick Project home]
   [wNews News]
-    Getting Started
-    [wWhatIs What is Tunnelblick?]
-    [wWhatElse What else you need]
-    [wQuick Quick start guide]
-    [wHowHelp How you can help]
+    Getting Started<br>
+    [wWhatIs What is Tunnelblick?]<br>
+    [wWhatElse What else you need]<br>
+    [wQuick Quick start guide]<br>
+    [wHowHelp How you can help]<br>
 
 
   * Detailed guides
