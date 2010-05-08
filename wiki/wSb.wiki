@@ -1,35 +1,35 @@
 #labels Deprecated
 <br><font color="red">*NOTE: This is for Tunnelblick 3.1beta02 only and describes features not available in earlier versions.*</font>
 
-[http://code.google.com/p/tunnelblick Tunnelblick Project home]<br><br>
-[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]<br><br>
-[wNews News]<br><br>
-Getting Started
+*[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
+*[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
+*[wNews News]<br><br>
+*Getting Started*
     [wWhatIs What is Tunnelblick?]<br>
     [wWhatElse What else you need]<br>
     [wQuick Quick start guide]<br>
     [wHowHelp How you can help]<br><br>
-Detailed guides
+*Detailed guides*
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Tunnelblick]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br><br>
-Troubleshooting
+*Troubleshooting*
     [wCommonProblems Common Problems]<br>
     [wOpenVPNLog The OpenVPN Log]<br>
     [wConsoleLog The Console Log]<br>
     [wHelp How to get help]<br><br>
-Customized Versions
+*Customized Versions*
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configurations"]<br>
     [wLocalize Localizing Tunnelblick]<br><br>
-For Developers
+*For Developers*
     [wBuild Building from Source]<br>
     [wDmg Modifying the disk image]<br>
     [wLocalize Localizing Tunnelblick]<br>
     [wTranslate Making Translations]<br><br>
-Reference
+*Reference*
     [wFAQ FAQ]<br>
     [wKnown Known Issues]<br>
     [wRlsNotes Release notes]<br>
