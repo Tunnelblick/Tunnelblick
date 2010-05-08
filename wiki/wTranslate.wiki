@@ -8,7 +8,7 @@ This document describes how to translate Tunnelblick "Localizable.strings" and "
 
 Tunnelblick has two files for each language:
  * A "Localizable.strings" file, which contains all of the strings used by Tunnelblick, whether they have been translated or not; and
- * A "NeedsTranslations.strings" file, which contains only the strings that have not yet been translated.
+ * A "!NeedsTranslations.strings" file, which contains only the strings that have not yet been translated.
 
 Both files have the same format. They contain a series of lines that look like this:
 
@@ -25,7 +25,7 @@ In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the 
 *You can edit this file in `TextEdit`* (but you need to open it in a special way, see <a href="#Opening_Localizable.strings_Files">Opening Localizable.strings Files</a>) change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see <a href="#Adding_Your_Translations_to_Your_Copy_of_Tunnelblick">Adding Your Translations to Your Copy of Tunnelblick</a>).
 
 ==Doing the Translations==
-If you are the first translator for a language, you will be editing a Localizable.strings file. If you are working on a language that has been worked on before, you will be editing a NeedsTranslation.strings file. 
+If you are the first translator for a language, you will be editing a Localizable.strings file. If you are working on a language that has been worked on before, you will be editing a !NeedsTranslation.strings file. 
 
 Either file will have lines such as the following:
 
@@ -59,7 +59,7 @@ before the string. For example,
 }}}
 This helps the program which process the strings files understand that the string does not need translation.
 
-==Editing Localizable.strings and NeedsTranslation.strings Files==
+==Editing Localizable.strings and !NeedsTranslation.strings Files==
 You can edit Localizable.strings files in `TextEdit`, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
 
 To open one of the .strings files in `TextEdit`:
