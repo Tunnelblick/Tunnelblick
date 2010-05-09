@@ -19,7 +19,7 @@ Tunnelblick Configurations must be installed before they can be used.
 The configuration file of a Configuration that is private may be edited. The configuration file of a Configuration that is shared may only be examined.
 
 ==Creation==
-You can create a Configuration by collecting together the configuration file and any files associated with the configuration into a folder. Give the folder the name you wish to appear in Tunnelblick's list of configurations, and add an extension of ".tblk". You do not need to arrange the files in the folder in any way -- the installation process will copy each file to its appropriate place. The name of the files within the folder do not matter, except for the optional Info.plist file (see [wPkgs#Format], below).
+You can create a Configuration by collecting together the configuration file and any files associated with the configuration into a folder. Give the folder the name you wish to appear in Tunnelblick's list of configurations, and add an extension of ".tblk". You do not need to arrange the files in the folder in any way -- the installation process will copy each file to its appropriate place. The name of the files within the folder do not matter, except for the optional Info.plist file (see [wPkgs#Format Format], below).
 
 Example: a folder named "Main Office.tblk" is a Tunnelblick VPN Configuration that will show up in Tunnelblick as the "Main Office" configuration.
 
