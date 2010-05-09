@@ -19,6 +19,7 @@ Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunne
 There are two types of configuration files:
 
   * Tunnelblick VPN Connection files (.tblk files), which include within them all key, certificate, and script files used by the configuration; and
+
   * OpenVPN configuration files (.ovpn and .conf files). Key, certificate, and script files associated with a configuration file are (if used) separate, but usually stored in the same folder as the OpenVPN configuration file.
 
 There are four places configuration files may be stored:
