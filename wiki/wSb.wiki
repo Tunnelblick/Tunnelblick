@@ -21,17 +21,17 @@
     [wHelp How to get help]<br>
 *Releases*
     [WhatsNew Stable Releases]<br>
-    [wBeta Beta Releases]<br><br>
+    [wBeta Beta Releases]<br>
 *Customized Versions*
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configurations]<br>
-    [wLocalize Localizing Tunnelblick]<br><br>
+    [wLocalize Localizing Tunnelblick]<br>
 *For Developers*
     [wBuild Building from Source]<br>
     [wDmg Modifying the disk image]<br>
     [wLocalize Localizing Tunnelblick]<br>
-    [wTranslate Making Translations]<br><br>
+    [wTranslate Making Translations]<br>
 *Reference*
     [wFAQ FAQ]<br>
     [wKnown Known Issues]<br>
