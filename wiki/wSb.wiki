@@ -19,6 +19,9 @@
     [wOpenVPNLog The OpenVPN Log]<br>
     [wConsoleLog The Console Log]<br>
     [wHelp How to get help]<br><br>
+*Releases*
+    [WhatsNew Stable Releases]<br>
+    [wBeta Beta Releases]<br><br>
 *Customized Versions*
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
@@ -29,9 +32,6 @@
     [wDmg Modifying the disk image]<br>
     [wLocalize Localizing Tunnelblick]<br>
     [wTranslate Making Translations]<br><br>
-*Releases*
-    [WhatsNew Stable Releases]<br>
-    [wBeta Beta Releases]<br><br>
 *Reference*
     [wFAQ FAQ]<br>
     [wKnown Known Issues]<br>
