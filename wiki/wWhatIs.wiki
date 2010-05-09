@@ -8,6 +8,7 @@
 
   VPNs are primarily used two ways, or sometimes both ways simultaneously:
     * To securely connect a computer to the Internet, even though it may be connecting through an untrusted network (a wireless network at a hotel or airport, for example); and
+
     * To securely connect a computer to a company's internal network or some part of it (a branch office, for example).
 
   In addition to Tunnelblick, you need access to a VPN server. Your company may provide one, or you can obtain VPN service from any of several VPN service providers, or you can use another one of your computers or a router to act as a VPN server. See [wGettingVPNService Getting VPN Service] for details.
