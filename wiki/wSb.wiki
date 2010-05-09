@@ -8,17 +8,17 @@
     [wWhatIs What is Tunnelblick?]<br>
     [wWhatElse What else you need]<br>
     [wQuick Quick start guide]<br>
-    [wHowHelp How you can help]<br><br>
+    [wHowHelp How you can help]<br>
 *Detailed guides*
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br>
-    [wConfigO Configuring OpenVPN]<br><br>
+    [wConfigO Configuring OpenVPN]<br>
 *Troubleshooting*
     [wCommonProblems Common Problems]<br>
     [wOpenVPNLog The OpenVPN Log]<br>
     [wConsoleLog The Console Log]<br>
-    [wHelp How to get help]<br><br>
+    [wHelp How to get help]<br>
 *Releases*
     [WhatsNew Stable Releases]<br>
     [wBeta Beta Releases]<br><br>
