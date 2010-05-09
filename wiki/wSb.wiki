@@ -29,6 +29,9 @@
     [wDmg Modifying the disk image]<br>
     [wLocalize Localizing Tunnelblick]<br>
     [wTranslate Making Translations]<br><br>
+*Releases*
+    [WhatsNew Stable Releases]<br>
+    [wBeta Beta Releases]<br><br>
 *Reference*
     [wFAQ FAQ]<br>
     [wKnown Known Issues]<br>
@@ -37,5 +40,4 @@
     [wSysReq System requirements]<br>
     [wPrefs Preferences]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
-    [wBeta Beta Versions]<br>
     [wFileLocations File Locations]
