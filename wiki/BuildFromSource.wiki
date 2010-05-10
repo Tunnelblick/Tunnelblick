@@ -1,5 +1,6 @@
 #summary How to build Tunnelblick from the source code
 #labels Phase-Deploy
+#sidebar xSb
 
 *HOW TO BUILD TUNNELBLICK FROM THE SOURCE CODE*
 
