@@ -1,5 +1,5 @@
 #summary Documentation for Tunnelblick 3.0
-#labels Featured,Phase-Deploy
+#labels Deprecated,Phase-Deploy
 #sidebar xSb
 
 <hr>
