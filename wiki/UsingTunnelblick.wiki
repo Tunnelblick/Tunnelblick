@@ -1,11 +1,10 @@
 #summary Using Tunnelblick
 #labels Featured,Phase-Deploy
+#sidebar xSb
 
 http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png 
 
 This document describes how to use Tunnelblick version 3.0.
-
-The latest versions of this document and related documents including release notes and FAQ may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
