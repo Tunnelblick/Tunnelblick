@@ -1,11 +1,8 @@
 #summary Preferences
 #labels Phase-Deploy
+#sidebar xSb
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
-
-*This document describes Tunnelblick's preferences* as of Tunnelblick version 3.0, with a section at the end about preferences in version 3.1beta01.
-
-For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
 This document contains the following sections:
 
