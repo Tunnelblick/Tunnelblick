@@ -1,5 +1,5 @@
 #summary Developer Note: Modifying the Disk Image
-#labels Phase-Implementation
+#labels Deprecated
 #sidebar xSb
 
 Starting with Build 1326, the build process for Tunnelblick specifies the view options, icon positions, and background image that the user sees upon opening Tunnelblick.dmg. These settings are contained in the "tunnelblick/dmgFiles" folder, which contains three items:
