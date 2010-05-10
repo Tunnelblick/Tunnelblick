@@ -5,19 +5,19 @@
 <wiki:toc max_depth="2" />
 
 ==The Tunnelblick Application==
-The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications on the startup volume, however, it may be located anywhere on any volume whose filesystem has appropriate security support. In general, that means any local hard drive. Tunnelblick cannot usually be run from network drives, external drives including "thumb drives", or CD/DVD drives. Any attempt to run Tunnelblick from such a drive will result in an error message and an offer to install Tunnelblick in /Applications on the startup drive. (Technically Tunnelblick can only run from a volume whose filesystem supports 'suid'.)
+The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications on the startup volume, however, it may be located anywhere on any volume whose filesystem has appropriate security support. In general, that means any local hard drive. For security reasons, Tunnelblick can only run from a volume whose filesystem supports 'suid'. Thus it cannot be run from network drives, external drives including "thumb drives", or CD/DVD drives. Any attempt to run Tunnelblick from such a drive will result in an error message and an offer to install Tunnelblick in /Applications on the startup drive.
 
 Within Tunnelblick.app, client up/down scripts and openvpn-down-root.so are located in Tunnelblick.app/Contents/Resources.
 
 ==OpenVPN and Drivers==
-The OpenVPN program, and the "tun" and "tap" kext files are included with, and contained within, Tunnelblick.app.
+The OpenVPN program and the "tun" and "tap" kext files are included with, and contained within, Tunnelblick.app.
 
 ==Configuration Files==
 There are two types of configuration files:
 
   * Tunnelblick VPN Connection files (.tblk files), which include within them all key, certificate, and script files used by the configuration; and
 
-  * OpenVPN configuration files (.ovpn and .conf files). Key, certificate, and script files associated with a configuration file are (if used) separate, but usually stored in the same folder as the OpenVPN configuration file.
+  * OpenVPN configuration files (.ovpn and .conf files). Key, certificate, and script files associated with a configuration file are often separate files, but if so, they are usually stored in the same folder as the OpenVPN configuration file.
 
 There are four places configuration files may be stored:
 
@@ -27,7 +27,7 @@ There are four places configuration files may be stored:
 
   * [DeployingTunnelblick Deployed configurations], including both types of files, are stored within the Contents/Resources folder of Tunnelblick.app itself. They do not need to be set up for each user, and are accessible to all users of the computer with access to the application. (To access the internal contents of Tunnelblick.app  in the Finder, control-click Tunnelblick.app in the Applications folder  and click "Show Package Contents”.)
 
-  * "Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. See "useShadowConfigurationFiles" in [Preferences Preferencesi] for details.
+  * "Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. See "useShadowConfigurationFiles" in [Preferences Preferences] for details.
 
 Note: Prior to Tunnelblick version 3.0b24, private configuration files were stored in ~/Library/openvpn. Version 3.0b24 and later versions automatically move that folder to its new location, and replace it with a symbolic link to the new location.
 
@@ -36,4 +36,4 @@ A user's Tunnelblick preferences are contained in ~/Library/Preferences/com.open
 
 Deployed versions of Tunnelblick may contain a "forced-preferences.plist" file within the Tunnelblick application itself. They are used to override the user's normal preferences; see [DeployingTunnelblick Deploying Tunnelblick] for details.
 
-Tunnelblick VPN Configurations may also include preference defaults,  which are used to initialize the user's preferences, but which may be changed by the user.
+Tunnelblick VPN Configurations may also include preference defaults,  which are used to initialize the user's preferences (which may then be changed by the user).
