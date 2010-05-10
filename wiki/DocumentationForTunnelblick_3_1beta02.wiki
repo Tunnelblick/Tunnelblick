@@ -1,5 +1,5 @@
 #summary Documentation for Tunnelblick 3.1beta02
-#labels Featured
+#labels Deprecated
 #sidebar wSb
 
 ==What is Tunnelblick?==
