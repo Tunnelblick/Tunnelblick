@@ -1,4 +1,4 @@
-#summary What's New in Tunnelblick 3.0
+#summary Documentation for Tunnelblick 3.0
 #labels Featured,Phase-Deploy
 #sidebar xSb
 
