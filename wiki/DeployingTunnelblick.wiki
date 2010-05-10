@@ -1,5 +1,5 @@
 #summary Deploying Tunnelblick
-#labels Phase-Deploy
+#labels Deprecated
 #sidebar xSb
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
