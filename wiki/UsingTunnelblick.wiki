@@ -1,5 +1,5 @@
 #summary Using Tunnelblick
-#labels Featured,Phase-Deploy
+#labels Deprecated,Phase-Deploy
 #sidebar xSb
 
 http://tunnelblick.googlecode.com/files/tb-logo-613x127-2010-01-30.png 
