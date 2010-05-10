@@ -5,7 +5,7 @@
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[wNews News]*<br><br>
 *Getting Started*
-    [wikiDoc31beta02 What is Tunnelblick?]<br>
+    [DocumentationForTunnelblick_3_1beta02 What is Tunnelblick?]<br>
     [wWhatElse What else you need]<br>
     [wQuick Quick start guide]<br>
     [wHowHelp How you can help]<br>
