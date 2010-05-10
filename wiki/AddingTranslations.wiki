@@ -1,12 +1,8 @@
 #summary Adding Additional Language Translations to Tunnelblick
 #labels Phase-Deploy
-
-Tunnelblick is an OS X Graphical User Interface (GUI) for the OpenVPN free and open-source program, which maintains VPN "tunnels". It provides easy-to-use control of OpenVPN server and/or client connections. For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
+#sidebar xSb
 
 *This document describes how to add additional language translations to Tunnelblick.*
-
-*This document may be obsolete!* The latest versions of this document and related documents including release notes, FAQ, and instructions 
-for building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
 This document contains the following sections:
 
