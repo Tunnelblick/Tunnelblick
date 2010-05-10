@@ -12,6 +12,7 @@
 *Detailed guides*
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
+    [wServer Tunnelblick as a VPN Server]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br>
 *Troubleshooting*
