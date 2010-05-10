@@ -1,5 +1,5 @@
 #summary Quick Start Guide
-#labels Phase-Deploy,Featured
+#labels Deprecated,Featured
 #sidebar xSb
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
