@@ -23,6 +23,7 @@
     [wStable Stable Releases]<br>
     [wBeta Beta Releases]<br>
 *Customized Versions*
+    [wDistribute Distributing Tunnelblick]<br>
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configurations]<br>
