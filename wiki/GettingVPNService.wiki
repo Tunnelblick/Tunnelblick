@@ -1,4 +1,6 @@
 #summary Getting VPN Service
+#labels Phase-Deploy
+#sidebar xSb
 
 If you try to connect to a VPN without setting up a configuration file, the following error message will appear:
 
