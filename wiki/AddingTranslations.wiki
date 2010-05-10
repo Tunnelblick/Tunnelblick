@@ -1,5 +1,5 @@
 #summary Adding Additional Language Translations to Tunnelblick
-#labels Phase-Deploy
+#labels Deprecated
 #sidebar xSb
 
 *This document describes how to add additional language translations to Tunnelblick.*
