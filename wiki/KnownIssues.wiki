@@ -1,7 +1,6 @@
 #summary Known Issues
 #labels Phase-Deploy,Featured
-
-*THE LATEST VERSION OF THIS DOCUMENT* is at [http://code.google.com/p/tunnelblick/wiki/KnownIssues http://code.google.com/p/tunnelblick/wiki/KnownIssues].
+#sidebar xSb
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
