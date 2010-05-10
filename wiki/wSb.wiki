@@ -20,7 +20,7 @@
     [wConsoleLog The Console Log]<br>
     [wHelp How to get help]<br>
 *Releases*
-    [WhatsNew Stable Releases]<br>
+    [wStable Stable Releases]<br>
     [wBeta Beta Releases]<br>
 *Customized Versions*
     [wCusDeployed "Deployed" versions]<br>
