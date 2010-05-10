@@ -8,7 +8,7 @@
     [GettingVPNService Getting VPN Service]<br>
     [KnownIssues Known Issues]<br><br>
 
-    [WhatsNew What's New in Tunnelblick 3.0]<br>
+    [DocumentationForTunnelblick_3_0 What's New in Tunnelblick 3.0]<br>
     [ReleaseNotes Release Notes]<br>
 
     [Preferences Preferences]<br>
