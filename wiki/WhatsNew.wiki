@@ -1,5 +1,6 @@
 #summary What's New in Tunnelblick 3.0
 #labels Featured,Phase-Deploy
+#sidebar xSb
 
 <hr>
 <font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
