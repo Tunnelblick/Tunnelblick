@@ -5,7 +5,7 @@
 <wiki:toc max_depth="2" />
 
 ==The Tunnelblick Application==
-The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications on the startup volume, however, it may be located anywhere on any volume whose filesystem has appropriate security support. In general, that means any local hard drive. For security reasons, Tunnelblick can only run from a volume whose filesystem supports 'suid'. Thus it cannot be run from network drives, external drives including "thumb drives", or CD/DVD drives. Any attempt to run Tunnelblick from such a drive will result in an error message and an offer to install Tunnelblick in /Applications on the startup drive.
+The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications on the startup volume, however, it may be located anywhere on any volume whose filesystem has appropriate security support. In general, that means any local hard drive. For security reasons, Tunnelblick can only run from a volume whose filesystem supports 'suid'. Thus it cannot be run from network drives, external drives including thumb or flash drives, or CD/DVD drives. Any attempt to run Tunnelblick from such a drive will result in an error message and an offer to install Tunnelblick in /Applications on the startup drive.
 
 ==OpenVPN, Drivers, and Scripts==
 The OpenVPN program, openvpn-down-root.so, the "tun" and "tap" kext driver files, and standard client up/down scripts are included with, and contained within, Tunnelblick.app.
