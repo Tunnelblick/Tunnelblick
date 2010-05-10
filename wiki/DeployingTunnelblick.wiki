@@ -1,11 +1,8 @@
 #summary Deploying Tunnelblick
 #labels Phase-Deploy
+#sidebar xSb
 
 *For help configuring and using Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
-
-*The [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick latest version of  this document] describes how to create a deployed version of Tunnelblick and was last modified 2010-02-23.* It reflects the behavior of Tunnelblick built from the r412 source code.
-
-For more information about Tunnelblick, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
 
 This document contains the following sections:
 
