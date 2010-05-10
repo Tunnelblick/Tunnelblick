@@ -3,7 +3,7 @@
 #sidebar wSb
 
 ==What's New in Tunnelblick 3.1beta02==
-  * Norwegian (Bokmål, NB) localization by Jon Luberth. Tusen takk!
+  * Norwegian Bokmål (NB) localization by Jon Luberth. Tusen takk!
   * Polish (PL) localization by Grzegorz Danecki. Dziękuję bardzo!
   * Additional French (FR) localisation by François Varas. Merci beaucoup!
   * Additional Catalan localization by Aleix Dorca. Moltes gràcies!
