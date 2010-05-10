@@ -1,5 +1,6 @@
 #summary Frequently Asked Questions (Answered)
 #labels Featured,Phase-Deploy
+#sidebar xSb
 
 <wiki:toc max_depth="2" />
 
