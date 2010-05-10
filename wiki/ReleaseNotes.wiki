@@ -1,10 +1,8 @@
 #summary Release Notes - Tunnelblick
 #labels Phase-Deploy
+#sidebar xSb
 
-==Tunnelblick Release Notes==
-The latest version of these release notes is located at http://code.google.com/p/tunnelblick/wiki/ReleaseNotes.
-
-*PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List] before initiating an Issue. Issues are usually only looked at by the developers; the Discussion List has a broader audience of members who might be able to help!
+*PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
 For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
 
