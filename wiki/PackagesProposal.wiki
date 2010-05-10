@@ -1,5 +1,6 @@
 #summary Tunnelblick .tblk Packages Proposal
 #labels Featured,Phase-Requirements
+#sidebar xSb
 
 ====THIS IS A PROPOSAL. IT HAS NOT BEEN IMPLEMENTED AND IT IS PRELIMINARY AND SUBJECT TO CHANGE.===
 ====PLEASE DISCUSS THIS PROPOSAL IN [http://groups.google.com/group/tunnelblick-discuss/t/45f208097827043f THIS THREAD] IN THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]====
