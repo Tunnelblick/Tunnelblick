@@ -12,7 +12,7 @@
     [ReleaseNotes Release Notes]<br>
 
     [Preferences Preferences]<br>
-    [AddingTranslations Adding Additional Language Translations]<br>
+    [AddingTranslations Adding an Additional Language]<br>
     [BuildFromSource Building Tunnelblick from the Source Code]<br>
     [ModifyingTheDiskImage Modifying the Disk Image]<br>
     [DeployingTunnelblick "Deployed" Versions of Tunnelblick]<br>
