@@ -35,6 +35,7 @@
     [wLocalize Localizing Tunnelblick]<br>
     [wTranslate Making Translations]<br>
 *Reference*
+    [DocumentationForTunnelblick_3_1beta02 What's New in Tunnelblick 3.1beta02]
     [wFAQ FAQ]<br>
     [wKnown Known Issues]<br>
     [wRlsNotes Release notes]<br>
