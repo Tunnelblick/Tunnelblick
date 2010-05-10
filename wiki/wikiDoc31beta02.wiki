@@ -1,5 +1,5 @@
 #summary Documentation for Tunnelblick 3.1beta02
-#labels Featured,Deprecated
+#labels Featured
 #sidebar wSb
 
   * *Explanation 1*: Tunnelblick is a program that can be used to securely connect a Mac running OS X to a VPN server. The server then connects the Mac to a remote network or to the Internet, bypassing untrusted networks, censorship, and eavesdropping. 
