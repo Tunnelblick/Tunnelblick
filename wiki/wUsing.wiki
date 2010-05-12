@@ -2,7 +2,7 @@
 #labels Deprecated
 #sidebar wSb
 
-This document describes how to use Tunnelblick version 3.0.
+This document describes how to use Tunnelblick version 3.1beta02.
 
 <wiki:toc max_depth="2" />
 
