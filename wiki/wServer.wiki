@@ -4,7 +4,7 @@
 
 All versions of Tunnelblick allow use of OpenVPN as a server, but before Tunnelblick version 3.1beta02:
  * Tunnelblick could only start the OpenVPN server when a user was logged in and launched Tunnelblick; and
- * When the user quit Tunnelblick or logged out, the OpenVPN server would be shut down.
+ * When the user quits Tunnelblick or logs out, the OpenVPN server would be shut down.
 
 Tunnelblick version 3.1beta02 and higher are much more flexible:
  * The OpenVPN server can be started when the computer starts and will keep running until the computer shuts down.
