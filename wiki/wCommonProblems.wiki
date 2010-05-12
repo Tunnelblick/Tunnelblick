@@ -2,7 +2,7 @@
 #labels Deprecated
 #sidebar wSb
 
-*It is probably obvious, but this article is not finished yet!*
+<font color="red>*It is probably obvious, but this article is not finished yet!*</font>
 
 <wiki:toc max_depth="2" />
 
