@@ -6,6 +6,6 @@ A stable release is a version that has been tested as thoroughly as possible and
 
 The most recent stable release is [WhatsNew Tunnelblick 3.0]. It is suitable for Mac OS X 10.4 and up.
 
-The next-most stable release for 10.4 and up is [http://tunnelblick.googlecode.com/files/Tunnelblick_3.0b10.dmg Tunnelblick 3.0b10], which is available on the [http://code.google.com/p/tunnelblick/downloads/list?can=4 Deprecated Downloads page].
+The next-most stable release for OS X 10.4 and up is [http://tunnelblick.googlecode.com/files/Tunnelblick_3.0b10.dmg Tunnelblick 3.0b10], which is available on the [http://code.google.com/p/tunnelblick/downloads/list?can=4 Deprecated Downloads page].
 
 For Mac OS X 10.3 ("Panther"), the only release available is [http://tunnelblick.googlecode.com/files/Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.0.1].
