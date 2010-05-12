@@ -1,0 +1,24 @@
+#summary Common Problems
+#labels Deprecated
+#sidebar wSb
+
+*It is probably obvious, but this article is not finished yet!*
+
+<wiki:toc max_depth="2" />
+
+==Tunnelblick Won't Connect==
+If Tunnelblick won't connect to a VPN, take a look at the [wOpenVPNLog The OpenVPN Log], which usually indicates what specifically is causing the problem. Unfortunately, the OpenVPN log usually has a lot of entries as it makes a connection attempt, and it is sometimes hard to find the entry that describes the problem. Usually it is one of the last entries in the log, however.
+
+==An error messages says to see details in the Console Log==
+See [wConsoleLog The Console Log] for instructions on viewing the Console Log.
+
+==An error message says "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details."==
+(See [wConsoleLog The Console Log] for instructions on viewing the Console Log.)
+
+This is usually caused by a problem with the private configuration folder. (Tunnelblick sets this up, but if you accidentally delete a critical file or folder, this could happen.) The Console log will contain details about the specific problem.
+
+See [wFileLocations File Locations] for information about how the files and folders should be set up.
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
