@@ -6,7 +6,7 @@
 
 New features in this  <font color="red">[wBeta *beta* release]</font> include:
 
- * *Tunnelblick VPN Configurations"*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users. [wPkgs Details].
+ * *Tunnelblick VPN Configurations*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users. [wPkgs Details].
 
  * *Shared configurations*: Tunnelblick VPN Configurations may be shared by all users of a computer without being installed for each user individually. There is a button on the "Details…" window to switch a configuration from Shared to Private. Note: when switching from Shared to Private or Private to Shared, Info.plist entries are ignored. That is, the file is copied, but neither the file nor user preferences are changed as a result of the switch.
 
