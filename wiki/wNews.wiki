@@ -2,7 +2,7 @@
 #labels Deprecated
 #sidebar wSb
 
-*2010-05-XX*: Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download].
+*2010-05-XX*: Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download]. Details are in the [wRlsNotes Release Notes].
 
 New features in this  <font color="red">[wBeta *beta* release]</font> include:
 
