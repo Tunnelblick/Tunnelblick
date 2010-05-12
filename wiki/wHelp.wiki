@@ -3,13 +3,13 @@
 #sidebar wSb
 
 Your first resource for help should be the person or organization that set up your VPN:
- * If you are using a [wCusDeployed "Deployed" version] of Tunnelblick or a Tunnelblick VPN Configuratio, the person or organization you received Tunnelblick or the Tunnelblick VPN Configuration file from should provide you with help.
+ * If you are using a [wCusDeployed "Deployed" version] of Tunnelblick or a [wPkgs Tunnelblick VPN Configuration], the person or organization you received Tunnelblick or the Tunnelblick VPN Configuration from should provide you with help.
 
- * If you have purchased VPN service from a VPN service provider, they should provide you with help.
+ * If you get VPN service from a VPN service provider, they should provide you with help.
 
  * If you get VPN service from a corporate or other network, your network manager or IT department should provide you with help.
 
-Otherwise, try searching the Internet for your problem.
+Next, try searching the Internet for your problem.
 
 If you can't find anything by searching the Internet, try asking your question on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]. When you ask your question, if it has anything to do with a connection (almost all questions do) it is very helpful if you can include
  * The contents of the OpenVPN configuration file (.ovpn or .conf file)
@@ -17,7 +17,7 @@ If you can't find anything by searching the Internet, try asking your question o
  * The complete contents of the OpenVPN log.
 Be sure to X out any sensitive IP addresses and keys or certificates.
 
-The first time you post a question, it will have to be approved before it appears. This is not an attempt to censor anyone -- it is needed to prevent the group from being inundated with spam. As long as your question isn't spam, it will be approved. (We reserve the right to not approve abusive or illegal posts, but that has never happened.) Please be patient, approval may take anywhere from a few seconds to a few hours. It requires a human, and although we have moderators spread across several time zones, there are times when we are all busy with other things. After your first post is approved, subsequent posts should appear in the discussion group immediately.
+The first time you post a question, it will have to be approved before it appears. This is not an attempt to censor anyone -- it is needed to prevent the group from being inundated with spam. As long as your question isn't spam, it will be approved. (We reserve the right to not approve abusive or illegal posts, but that has never happened.) Please be patient -- approval may take anywhere from a few seconds to a few hours. It requires a human, and although we have moderators spread across several time zones, there are times when we are all busy with other things. After your first post is approved, subsequent posts should appear in the discussion group immediately.
 
 ------------------
 
