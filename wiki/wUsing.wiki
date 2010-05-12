@@ -52,7 +52,7 @@ Some deployed versions of Tunnelblick do not display the Options Submenu, in whi
 ==The "Details" Window==
 When the Tunnelblick menu is displayed, if you click on "Details…” a window similar to the following will appear:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-details-2010-02-04.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-details-2010-05-12.png
 
 The window will contain a tab for each configuration and the title of the window will show the name of the currently selected configuration and its availability (Private, Shared, or Deployed).
 
