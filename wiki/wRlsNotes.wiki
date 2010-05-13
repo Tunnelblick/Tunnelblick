@@ -16,7 +16,7 @@
     * The Shared folder (/Library/Application Support/Tunnelblick/Shared) and its contents are protected. It is owned by root and may only be modified by administrators.
     * Shared configurations (like deployed configurations) may only be examined, not edited. (But you can make it private, edit it, and then share it).
 
- * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see http://code.google.com/p/tunnelblick/wiki/PackagesProposal for details):
+ * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see [wPkgs Tunnelblick VPN Configurations] for details):
     * A Tunnelblick VPN Configuration is an OS X folder with an extension of '.tblk'.
     * A Tunnelblick VPN Configuration includes one .ovpn configuration file, and many include key and certificate files and shell scripts. It can also include default settings for per-configuration preferences and version information to help manage enterprise distribution of configurations.
     * Tunnelblick VPN Configurations must be installed before they can be used. They can be installed by double-clicking them, or dragging and dropping them on a Tunnelblick icon in Finder (but not the Tunnelblick icon in the Status Bar near the Spotlight icon). They can also be automatically installed when installing Tunnelblick by including them in the disk image. The user is given the option of installing them as private or shared. All of this behavior can be controlled and/or inhibited by preferences, which can be 'forced' in a Deployed version of Tunnelblick.
