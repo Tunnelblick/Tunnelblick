@@ -6,10 +6,9 @@
 
 ==Installing Tunnelblick and Getting it Set Up==
 Here is what you need to get started using Tunnelblick:
-  * The username and password of an administrator for your computer.
   * A copy of the Tunnelblick installation disk image. You can download one from the [http://code.google.com/p/tunnelblick Tunnelblick project home page].
-  * An OpenVPN configuration file or information about your VPN configuration. You get that from whoever set up your VPN (usually your company or VPN service provider).
-  * Key and certificate files for encryption and authentication. Again, get them from whoever set up your VPN.
+  * A [wPkgs Tunnelblick VPN Configuration] or an OpenVPN configuration file together with key and certificate files for encryption and authentication. You get either one from whoever set up your VPN (usually your company or VPN service provider).
+  * The username and password of an administrator for your computer.
 
 To get started, double-click the disk image.
 
