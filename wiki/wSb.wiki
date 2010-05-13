@@ -19,7 +19,6 @@
     [wUsing Using Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br>
 *Troubleshooting*
-    [wCommonProblems Common Problems]<br>
     [wOpenVPNLog The OpenVPN Log]<br>
     [wConsoleLog The Console Log]<br>
     [wHelp How to get help]<br>
