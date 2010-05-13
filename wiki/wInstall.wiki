@@ -48,7 +48,7 @@ Specify whether or not you wish to have Tunnelblick check for updates each time 
 
 When there are no configurations (which is usually the case the first time Tunnelblick is run by each user when using a non-deployed version of Tunnelblick with no Shared configurations), the following window will appear:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-02-06.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-05-13.png
 
 If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file and open it in TextEdit for you to modify.
 
