@@ -26,6 +26,7 @@
 *Releases*
     [wStable Stable Releases]<br>
     [wBeta Beta Releases]<br>
+    [wRlsNotes Release notes]<br>
 *Customized Versions*
     [wDistribute Distributing Tunnelblick]<br>
     [wCusDeployed "Deployed" versions]<br>
