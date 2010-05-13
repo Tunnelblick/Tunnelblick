@@ -78,8 +78,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
 -(void)             fixWhenConnectingButtons;
--(void)             createDefaultConfigUsingTitle:          (NSString *)        ttl
-                                       andMessage:          (NSString *)        msg;
+-(void)             checkNoConfigurations;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
@@ -103,9 +102,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             loadMenuIconSet;
 -(int)              numberOfTblksToInstallinPath:           (NSString *)        thePath;
 -(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
--(void)             saveOnLaunchRadioButtonState:           (BOOL)              onLaunch
-             withOnSystemStartupRadioButtonState:           (BOOL)              onSystemStart
-                                   forConnection:           (VPNConnection *)   connection;
+-(void)             saveOnSystemStartRadioButtonState:      (BOOL)              onSystemStart
+                                        forConnection:      (VPNConnection *)   connection;
 -(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
@@ -998,8 +996,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
 	// If there aren't any configuration files left, deal with that
-    [self createDefaultConfigUsingTitle: NSLocalizedString(@"All configuration files removed", @"Window title")
-							 andMessage: NSLocalizedString(@"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n", @"Window text")];
+    [self checkNoConfigurations];
     
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
@@ -1113,19 +1110,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 // onSystemStart pref, but this is a private configuration, so force the pref off
                 if (  [gTbDefaults canChangeValueForKey: onSystemStartKey]  ) {
                     [gTbDefaults setBool: FALSE forKey: onSystemStartKey];  // Shouldn't be set, so clear it
-                    [self saveOnLaunchRadioButtonState: TRUE withOnSystemStartupRadioButtonState: FALSE forConnection: connection];
+                    [self saveOnSystemStartRadioButtonState: TRUE forConnection: connection];
                     NSLog(@"The '-onSystemStart' preference was set but it has been cleared because '%@' is a private configuration", displayName);
                 } else {
                     NSLog(@"The '-onSystemStart' preference for '%@' is being forced, but will be ignored because it is a private configuration", displayName);
                 }
             } else {
-                [self saveOnLaunchRadioButtonState: FALSE  withOnSystemStartupRadioButtonState: TRUE forConnection: connection];
+                [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
             }
         } else {
-            [self saveOnLaunchRadioButtonState: TRUE   withOnSystemStartupRadioButtonState: FALSE forConnection: connection];
+            [self saveOnSystemStartRadioButtonState: TRUE forConnection: connection];
         }
     } else {
-        [self saveOnLaunchRadioButtonState: FALSE withOnSystemStartupRadioButtonState: FALSE forConnection: connection];
+        [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
     }
     
     if (   [gTbDefaults boolForKey:autoConnectKey]
@@ -1823,12 +1820,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // If there aren't ANY config files in the config folders 
 // then let the user either quit or create and edit a sample configuration file
 // else do nothing
--(void) createDefaultConfigUsingTitle: (NSString *) ttl andMessage: (NSString *) msg 
+-(void) checkNoConfigurations
 {
     if (  ignoreNoConfigs || [myConfigDictionary count] != 0  ) {
         return;
     }
-    
+
     if (   [gConfigDirs count] == 1
         && [[gConfigDirs objectAtIndex:0] isEqualToString: gDeployPath]  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
@@ -1839,19 +1836,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [NSApp terminate: nil];
     }
     
-    BOOL isDir;
-    NSString * alternateButtonTitle = nil;
-    if (  ! ([gFileMgr fileExistsAtPath: gPrivatePath isDirectory: &isDir])  ) {
-        alternateButtonTitle = NSLocalizedString(@"Create and open configuration folder", @"Button");
-    } else {
-        alternateButtonTitle = NSLocalizedString(@"Open configuration folder", @"Button");
-    }
-    
-    int button = TBRunAlertPanel(ttl,
+    NSString * msg = NSLocalizedString(@"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network manager or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample Tunnelblick VPN Configuration and edit it. (Tunnelblick will keep running.)\n     • Quit Tunnelblick. (You can double-click a Tunnelblick VPN Configuration to install it. See http://code.google.com/p/tunnelblick/wiki/wConfigT for details)\n\n", @"Window text");
+    int button = TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick", @"Window title"),
                                  msg,
-                                 NSLocalizedString(@"Quit", @"Button"), // Default button
+                                 NSLocalizedString(@"Quit", @"Button"),                                       // Default button
                                  NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
-                                 alternateButtonTitle);                 // Other button
+                                 nil // NSLocalizedString(@"Open configuration folder", @"Button")                   // Other button
+                                 );
     
     if (  button == NSAlertDefaultReturn  ) {   // QUIT
         [NSApp setAutoLaunchOnLogin: NO];
@@ -1889,11 +1880,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
     }
     
-    if (  button == NSAlertOtherReturn  ) { // CREATE CONFIGURATION FOLDER (already created)
-        [[NSWorkspace sharedWorkspace] openFile: gPrivatePath];
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
-    }
+//    if (  button == NSAlertOtherReturn  ) { // CREATE CONFIGURATION FOLDER (already created)
+//        [[NSWorkspace sharedWorkspace] openFile: gPrivatePath];
+//        [NSApp setAutoLaunchOnLogin: NO];
+//        [NSApp terminate: nil];
+//    }
     
     NSString * sourcePath = [[ConfigurationManager defaultManager] makeTemporarySampleTblkWithName: @"sample.tblk" andKey: @"1"];
     if (  ! sourcePath  ) {
@@ -2023,17 +2014,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	}
 }
 
--(void)saveOnLaunchRadioButtonState: (BOOL) onLaunch
-withOnSystemStartupRadioButtonState: (BOOL) onSystemStart
-                      forConnection: (VPNConnection *) connection
+-(void)saveOnSystemStartRadioButtonState: (BOOL) onSystemStart
+                           forConnection: (VPNConnection *) connection
 {
 	if(connection != nil) {
+        NSString * name = [connection displayName];
         BOOL coss = [connection checkConnectOnSystemStart: onSystemStart withAuth: myAuth];
-		NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-        [gTbDefaults setBool: coss forKey: key];
+		NSString* systemStartkey = [name stringByAppendingString: @"-onSystemStart"];
+        [gTbDefaults setBool: coss forKey: systemStartkey];
         [gTbDefaults synchronize];
         
-        [[onLaunchRadioButton      cellAtRow: 0 column: 0]  setState: (int) (! coss)];
+        NSString * autoConnectKey = [name stringByAppendingString: @"autoConnect"];
+        BOOL col = ( ! coss ) && [gTbDefaults boolForKey: autoConnectKey];
+        
+        [[onLaunchRadioButton      cellAtRow: 0 column: 0]  setState: (int) col];
         [[onSystemStartRadioButton cellAtRow: 0 column: 0]  setState: (int) coss];
 	}
 }
@@ -2364,8 +2358,7 @@ static void signal_handler(int signalNumber)
     
     ignoreNoConfigs = NO;    // We should NOT ignore the "no configurations" situation
     
-	[self createDefaultConfigUsingTitle: NSLocalizedString(@"Welcome to Tunnelblick", @"Window title") 
-							 andMessage: NSLocalizedString(@"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n", @"Window text")];
+    [self checkNoConfigurations];
 
     // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
@@ -2681,11 +2674,11 @@ static void signal_handler(int signalNumber)
         
         NSString * standardFolderDisplayName = [[gFileMgr componentsToDisplayForPath: standardFolder] componentsJoinedByString: @"/"];
         
-        NSString * launchWindowTitle;
+        NSString * launchWindowTitle = NSLocalizedString(@"Installation succeeded", @"Window title");
+        NSString * changeLocationText = [NSString stringWithFormat: NSLocalizedString(@"(To install to a different location, drag %@ to that location.)", @"Window text"), displayApplicationName];
         NSString * launchWindowText;
         int response;
         
-        NSString * changeLocationText = [NSString stringWithFormat: NSLocalizedString(@"(To install to a different location, drag %@ to that location.)", @"Window text"), displayApplicationName];
         
         if (  [gFileMgr fileExistsAtPath: standardPath]  ) {
             NSBundle * previousBundle = [NSBundle bundleWithPath: standardPath];
@@ -2693,7 +2686,6 @@ static void signal_handler(int signalNumber)
             int currentBuild  = [self intValueOfBuildForBundle: [NSBundle mainBundle]];
             NSString * previousVersion = tunnelblickVersion(previousBundle);
             if (  currentBuild < previousBuild  ) {
-                launchWindowTitle = NSLocalizedString(@"Downgrade succeeded", @"Window title");
                 launchWindowText = NSLocalizedString(@"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
                 response = TBRunAlertPanel(NSLocalizedString(@"Downgrade Tunnelblick?", @"Window title"),
                                            [NSString stringWithFormat: [preMessage stringByAppendingString:
@@ -2702,7 +2694,6 @@ static void signal_handler(int signalNumber)
                                            NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
                                            nil);                                        // Other button
             } else if (  currentBuild == previousBuild  ) {
-                launchWindowTitle = NSLocalizedString(@"Reinstallation succeeded", @"Window title");
                 launchWindowText = NSLocalizedString(@"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
                 response = TBRunAlertPanel(NSLocalizedString(@"Reinstall Tunnelblick?", @"Window title"),
                                            [NSString stringWithFormat: [preMessage stringByAppendingString:
@@ -2711,7 +2702,6 @@ static void signal_handler(int signalNumber)
                                            NSLocalizedString(@"Cancel", @"Button"),     // Alternate button
                                            nil);                                        // Other button
             } else {
-                launchWindowTitle = NSLocalizedString(@"Upgrade succeeded", @"Window title");
                 launchWindowText = NSLocalizedString(@"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
                 previousVersion = tunnelblickVersion(previousBundle);
                 response = TBRunAlertPanel(NSLocalizedString(@"Upgrade Tunnelblick?", @"Window title"),
@@ -2722,8 +2712,7 @@ static void signal_handler(int signalNumber)
                                            nil);                                        // Other button
             }
         } else {
-            launchWindowTitle = NSLocalizedString(@"Installation succeeded", @"Window title");
-            launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
+             launchWindowText = NSLocalizedString(@"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)", @"Window text");
             response = TBRunAlertPanel(NSLocalizedString(@"Install Tunnelblick?", @"Window title"),
                                        [NSString stringWithFormat: [preMessage stringByAppendingString:
                                                                     NSLocalizedString(@"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@", @"Window text")], standardFolderDisplayName, changeLocationText],
@@ -3278,9 +3267,9 @@ int runUnrecoverableErrorPanel(msg)
 -(IBAction) onLaunchRadioButtonWasClicked: (id) sender
 {
 	if([[sender cellAtRow: 0 column: 0] state]) {
-		[self saveOnLaunchRadioButtonState: TRUE  withOnSystemStartupRadioButtonState: FALSE forConnection: [self selectedConnection]];
+		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
 	} else {
-		[self saveOnLaunchRadioButtonState: FALSE withOnSystemStartupRadioButtonState: TRUE forConnection: [self selectedConnection]];
+		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
 	}
     [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
 }
@@ -3288,9 +3277,9 @@ int runUnrecoverableErrorPanel(msg)
 -(IBAction) onSystemStartRadioButtonWasClicked: (id) sender
 {
 	if([[sender cellAtRow: 0 column: 0] state]) {
-		[self saveOnLaunchRadioButtonState: FALSE withOnSystemStartupRadioButtonState: TRUE forConnection: [self selectedConnection]];
+		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
 	} else {
-		[self saveOnLaunchRadioButtonState: TRUE  withOnSystemStartupRadioButtonState: FALSE forConnection: [self selectedConnection]];
+		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
 	}
     [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
 }

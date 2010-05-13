@@ -73,6 +73,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 "All configuration files removed" = "All configuration files removed";
 
+/* Button */
+"Always use the plugin" = "Always use the plugin";
+
 /* NEEDS TRANSLATION *//* Window text */
 "An error occurred while trying to install Tunnelblick.app in %@" = "An error occurred while trying to install Tunnelblick.app in %@";
 
@@ -138,9 +141,6 @@
 
 /* Window title */
 "Could Not Move and Secure Configuration" = "Could Not Move and Secure Configuration";
-
-/* NEEDS TRANSLATION *//* Button */
-"Create and open configuration folder" = "Create and open configuration folder";
 
 /* NEEDS TRANSLATION *//* System profile item */
 "Deployed" = "Deployed";
@@ -225,9 +225,6 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
-
-/* NEEDS TRANSLATION *//* Window title */
-"Downgrade succeeded" = "Downgrade succeeded";
 
 /* NEEDS TRANSLATION *//* Button */
 "Downgrade" = "Downgrade";
@@ -385,9 +382,6 @@
 /* NEEDS TRANSLATION *//* Button */
 "Reinstall" = "Reinstall";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Reinstallation succeeded" = "Reinstallation succeeded";
-
 /* Window title */
 "Remove kexts?" = "Remove kexts?";
 
@@ -455,7 +449,7 @@
 "The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that the restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to always use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that the restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to always use the plugin?";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
@@ -583,8 +577,8 @@
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
+/* Window text */
+"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network manager or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample Tunnelblick VPN Configuration and edit it. (Tunnelblick will keep running.)\n     • Quit Tunnelblick. (You can double-click a Tunnelblick VPN Configuration to install it. See http://code.google.com/p/tunnelblick/wiki/wConfigT for details)\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network manager or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample Tunnelblick VPN Configuration and edit it. (Tunnelblick will keep running.)\n     • Quit Tunnelblick. (You can double-click a Tunnelblick VPN Configuration to install it. See http://code.google.com/p/tunnelblick/wiki/wConfigT for details)\n\n";
 
 /* NEEDS TRANSLATION *//* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d connections active.";
@@ -613,9 +607,6 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Upgrade Tunnelblick?" = "Upgrade Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Upgrade succeeded" = "Upgrade succeeded";
-
 /* NEEDS TRANSLATION *//* Button */
 "Upgrade" = "Upgrade";
 
@@ -624,9 +615,6 @@
 
 /* NEEDS TRANSLATION *//* Menu item */
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
-
-/* Button */
-"Use the plugin" = "Use the plugin";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Username and password" = "Username and password";
@@ -666,9 +654,6 @@
 
 /* Window text */
 "You have asked to make the '%@' configuration shared, instead of private." = "You have asked to make the '%@' configuration shared, instead of private.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n" = "You have removed all configuration files from the configuration folder.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network administrator or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample configuration file and edit it. (Tunnelblick will keep running.)\n     • Open the configuration folder and put your files into it. (You will have to launch Tunnelblick again.)\n     • Quit Tunnelblick\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

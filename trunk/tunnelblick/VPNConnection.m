@@ -86,6 +86,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
         tryingToHookup = FALSE;
         isHookedup = FALSE;
+        tunOrTap = nil;
         NSArray  * pipePathComponents = [inPath pathComponents];
         NSArray  * pipePathComponentsAfter1st = [pipePathComponents subarrayWithRange: NSMakeRange(1, [pipePathComponents count]-1)];
         NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick-%@.logpipe",
@@ -561,6 +562,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
         portString = @"0";
     }
     
+    // Parse configuration file to catch "user" or "group" options and get tun/tap key
+    if (  ! tunOrTap  ) {
+        tunOrTap = [[[ConfigurationManager defaultManager] parseConfigurationPath: configPath forConnection: self] copy];
+    }
+    
     NSString *useDNS = @"0";
 	if(useDNSStatus(self)) {
         NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
@@ -614,12 +620,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         noMonitor = @"1";
     }
 
-    if (  ! tunOrTap  ) {
-        tunOrTap = [[[ConfigurationManager defaultManager] parseConfigurationPath: configPath forConnection: self] copy];
-    }
-
     int bitMask = 0;
-    
     NSString * noTapKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTapKext"];
     NSString * yesTapKextKey = [[self displayName] stringByAppendingString: @"-loadTapKext"];
     if (  ! [gTbDefaults boolForKey: noTapKextKey]  ) {
@@ -631,7 +632,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     
     NSString * noTunKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTunKext"];
-    NSString * yesTunKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTunKext"];
+    NSString * yesTunKextKey = [[self displayName] stringByAppendingString: @"-loadTunKext"];
     if (  ! [gTbDefaults boolForKey: noTunKextKey]  ) {
         if (   ( ! tunOrTap )
             || [tunOrTap isEqualToString: @"tun"]
