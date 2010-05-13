@@ -145,9 +145,10 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     BOOL ignored = FALSE;
     NSString * file;
     
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
+
     if (  deep  ) {
         // Search directory and subdirectories
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
         while (file = [dirEnum nextObject]) {
             BOOL addIt = FALSE;
             NSString * fullPath = [folderPath stringByAppendingPathComponent: file];
@@ -184,10 +185,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         }
     } else {
         // Search directory only, not subdirectories.
-        NSArray * dirContents = [gFileMgr directoryContentsAtPath: folderPath];
-        int i;
-        for (i=0; i < [dirContents count]; i++) {
-            file = [dirContents objectAtIndex: i];
+        while (file = [dirEnum nextObject]) {
+            [dirEnum skipDescendents];
             BOOL addIt = FALSE;
             NSString * fullPath = [folderPath stringByAppendingPathComponent: file];
             NSString * dispName = [file stringByDeletingPathExtension];
@@ -197,7 +196,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                     if (  [ext isEqualToString: @"tblk"]  ) {
                         NSString * tbPath = configPathFromTblkPath(fullPath);
                         if (  ! tbPath  ) {
-                            NSLog(@"Tunnelblick VPN Configuration ignored: No .conf or .ovpn file in %@", fullPath);
+                            NSLog(@"Tunnelblick VPN Configuration ignored: No .conf or .ovpn file. Try reinstalling %@", fullPath);
                              ignored = TRUE;
                         } else {
                             addIt = TRUE;
@@ -444,27 +443,33 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             && (   downOption
                 || useDNSStatus(connection)  )  ) {
                 
-                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' option and is using a down script (either 'Set nameserver' is checked, or there is a 'down' options in the configuration file).\n\nIt is likely that the script will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
+                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that the restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to always use the plugin?", @"Window text"),
                                   [connection displayName]];
                 
                 int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"), 
                                                      msg,
                                                      NSLocalizedString(@"Do not use the plugin", @"Button"),
-                                                     NSLocalizedString(@"Use the plugin", @"Button"),
+                                                     NSLocalizedString(@"Always use the plugin", @"Button"),
                                                      nil, 
                                                      skipWarningKey, 
                                                      NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
                                                      nil);
-                if (  result == NSAlertOtherReturn  ) {
+                if (  result == NSAlertAlternateReturn  ) {
                     [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
                 }
             }
     }
     
     NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
+    NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
+    if (  [devOption length] >= 3  ) {
+        devOptionFirst3Chars = [devOption substringToIndex: 3];
+    }
+    devOptionFirst3Chars = [devOptionFirst3Chars lowercaseString];
+
     if (   ( ! devOption )
-        || ( ! (   ( [devOption caseInsensitiveCompare: @"tun"] == NSOrderedSame )
-                || ( [devOption caseInsensitiveCompare: @"tap"] == NSOrderedSame )  )  )  ) {
+        || ( ! (   [devOptionFirst3Chars isEqualToString: @"tun"]
+                || [devOptionFirst3Chars isEqualToString: @"tap"]  )  )  ) {
         NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
                [connection displayName]];
         NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"skipWarningAboutNoTunOrTap"];
@@ -1161,7 +1166,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             newPath = [emptyResources stringByAppendingPathComponent: @"config.ovpn"];
         } else if (  [[oldPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
             newPath = [[emptyResources stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
-        } else{
+        } else {
             newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
         }
 

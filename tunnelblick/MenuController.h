@@ -99,7 +99,7 @@ BOOL needToRepairPackages(void);
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
     
     BOOL                      ignoreNoConfigs;              // Indicates that the absense of any configuration files should be ingored. This is used to prevent the creation
-    //                                                         of a link to Tunnelblick in the Configurations folder in "createDefaultConfigUsingTitle:andMessage" from
+    //                                                         of a link to Tunnelblick in the Configurations folder in checkNoConfigurations from
     //                                                         triggering a second invocation of it because of the filesystem change when the link is created
     
     NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
