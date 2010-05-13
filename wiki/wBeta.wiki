@@ -2,9 +2,11 @@
 #labels Deprecated
 #sidebar wSb
 
-_A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that need testing, and may have bugs or limitations._
+A *"beta"* version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has *new features that need testing, and may have bugs or limitations.*
 
 When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+
+Beta versions are flagged as "Deprecated" downloads on the website so they are not normally visible to viewers of the Downloads page.
 
 *Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
 
@@ -23,6 +25,10 @@ New features in this  <font color="red">*[wBeta beta release]*</font> include:
  * *Tunnelblick deals with the .tun and .tap kexts more flexibly*. For details, see the [wRlsNotes Release Notes]. Highlights:
   * Loads and unloads them on demand: loaded at connect, unloaded at disconnect. An load is ignored if the kext is already loaded and an unload is ignored if the kext is in use. 
   * Scans the configuration file to determine if 'tap' or 'tun' is being used, and loads only the appropriate kext at connect. (Tunnelblick uses whatever is specified in the first 'dev' option in the configuration file.)
+  * New per-configuration preferences can be used to override the automatic detection of which kexts to load at connect: -loadTapKext, -loadTunKext, -doNotLoadTapKext, and -doNotLoadTunKext are all to be prefixed by the configuration name. (If both 'load…' and 'doNotLoad…' preferences exist for a specific configuration, the specified kext will not be loaded.)
+  * When Tunnelblick launches, it unloads net.tunnelblick.tun and net.tunnelblick.tap so that the versions in use will always be loaded from the running version of Tunnelblick.app. The unload will not occur if the kexts are in use -- for example, by an instance of OpenVPN started when the computer started.
+  * If foo.tap and foo.tun are loaded when Tunnelblick launches, it offers to unload them. (They are the old Tunnelblick kexts.) This simplifies the transition to the new net.tunnelblick.tun/tap for most users without a computer restart. 
+
 
 
 ------------------
