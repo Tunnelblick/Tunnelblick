@@ -112,30 +112,6 @@ If you are using Snow Leopard (10.6), then your manually-configured DNS and WINS
 
 *If your situation is not described above* (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and un-check the "Set nameserver" checkbox.
 
-==What Tunnelblick Is==
-  * *Explanation 1*: Tunnelblick is a program that can be used to securely connect a Mac running OS X to a remote network or the Internet, bypassing untrusted networks, censorship, and eavesdropping. It does this by creating a "Virtual Private Network", or "[http://en.wiktionary.org/wiki/Virtual_Private_Network VPN] `[`wiktionary.org`]`", to a VPN server using a program named "OpenVPN", which is included within the Tunnelblick application. When you connect through a VPN, your computer sends all network traffic through a "tunnel" to the VPN server, which then passes on your network traffic to a local network or the Internet. It is as if you were connecting to the network or Internet through the VPN server instead of your computer. Usually, all traffic between your computer and the VPN server is encrypted.
-
-  VPNs are primarily used two ways, or sometimes both ways simultaneously:
-    * To securely connect a computer to the Internet, even though it may be connecting through an untrusted network (a wireless network at a hotel or airport, for example); and
-    * To securely connect a computer to a company's internal network or some part of it (a branch office, for example).
-
-  In addition to Tunnelblick, you need access to a VPN server. Your company may provide one, or you can obtain VPN service from any of several VPN service providers, or you can use another one of your computers or a router to act as a VPN server.
-
-  * *Explanation 2*: Tunnelblick is a ready-to-use Graphic User Interface (GUI) for OpenVPN on Mac OS X. It provides easy-to-use control of OpenVPN server and/or client connections.
-
-  It runs on OS X Tiger (10.4), Leopard (10.5), and Snow Leopard (10.6). It comes as a ready-to-use Universal application with all necessary binaries and drivers (including OpenVPN and tun/tap) included. No additional installation is necessary -- just add your configuration and encryption information.
-
-  Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
-
-For more information, including wikis and a discussion group, see the [http://code.google.com/p/tunnelblick/ Tunnelblick home page].
-
-==Document History==
-  * 2010-02-09 (Version 3.0b26)
-    * Document created.
-  * 2010-02-14
-    * Minor edit
-  * 2010-03-19
-    * Minor edit
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
