@@ -4,9 +4,7 @@
 
 ==Welcome to Tunnelblick==
 
-Move around the Tunnelblick documentation by clicking links in the navigation panel on the left.
-
-If you're new to Tunnelblick, you might want to start with the "Getting Started" section (duh!):
+If you're new to Tunnelblick, you might want to start with the "Getting Started" section:
    * *[wWhatIs What is Tunnelblick?]* - you do need to know this!
    * *[wWhatElse What else you need]* - briefly: the program, a configuration, administrator access.
    * *[wPkgs Tunnelblick VPN Configurations]* - instructions for how to connect to a VPN server
