@@ -10,7 +10,7 @@ Beta versions are flagged as "Deprecated" downloads on the website so they are n
 
 *Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
 
-New features in this  <font color="red">*[wBeta beta release]*</font> include:
+New features include:
 
  * *Tunnelblick VPN Configurations*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users. [wPkgs Details].
 
