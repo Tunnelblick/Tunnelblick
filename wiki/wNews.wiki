@@ -2,23 +2,16 @@
 #labels Deprecated
 #sidebar wSb
 
-*2010-05-XX*: Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download]. Details are in the [wRlsNotes Release Notes].
+*2010-05-XX*: Tunnelblick 3.1beta02 is available on the <font color="red">*[wBeta Beta Releases page]*</font>. Details of changes are in the [wRlsNotes Release Notes].
 
-New features in this  <font color="red">*[wBeta beta release]*</font> include:
+New features include:
 
- * *Tunnelblick VPN Configurations*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users. [wPkgs Details].
+ * *Tunnelblick VPN Configurations*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users.
 
- * *Shared configurations*: Tunnelblick VPN Configurations may be shared by all users of a computer without being installed for each user individually. There is a button on the "Details…" window to switch a configuration from Shared to Private. Note: when switching from Shared to Private or Private to Shared, Info.plist entries are ignored. That is, the file is copied, but neither the file nor user preferences are changed as a result of the switch.
+ * *Shared configurations*: Tunnelblick VPN Configurations may be shared by all users of a computer without being installed for each user individually. A button on the "Details…" window switches a configuration from Shared to Private or Private to Shared.
 
- * *Connect when computer starts*: Shared and Deployed Tunnelblick VPN Configurations may be set to automatically connect when the computer starts, before anyone is logged in. Such connections persist through login and logout and may be controlled by Tunnelblick when a user is logged in.
-  * When Tunnelblick is launched, it attaches itself to any OpenVPN processes which were started because of that option and allows control (disconnect/connect) of them, and displays their logs.
-  * When Tunnelblick quits, it closes only those connections which do not have 'when computer starts' selected. Thus OpenVPN instances started outside of Tunnelblick will continue, as will those started by Tunnelblick at any time that have 'when computer starts' selected at the time Tunnelblick quits.
-  * If any unknown OpenVPN processes are running a few seconds after Tunnelblick is launched (i.e., after it has 'hooked up' to ones it started because of the 'when the computer starts' option), it pops up a window which gives the user the option to terminate them or ignore them. A checkbox in the window allows the user to 'Do not display this message again, always ignore'. There is a preference, 'hookupTimeout' that is the number of seconds to try, with a default of five seconds.
-  * Configurations set to connect 'when the computer starts' must not ask for usernames, passwords, or private keys. (There is no user to ask, and Tunnelblick is not running so it can read them from the Keychain and give them to OpenVPN.)
+ * *Connect when computer starts*: Shared and Deployed Tunnelblick VPN Configurations may be set to automatically connect when the computer starts, before anyone is logged in. Such connections can persist through login and logout and may be controlled by Tunnelblick when a user is logged in.
 
- * *Tunnelblick deals with the .tun and .tap kexts more flexibly*. For details, see the [wRlsNotes Release Notes]. Highlights:
-  * Loads and unloads them on demand: loaded at connect, unloaded at disconnect. An load is ignored if the kext is already loaded and an unload is ignored if the kext is in use. 
-  * Scans the configuration file to determine if 'tap' or 'tun' is being used, and loads only the appropriate kext at connect. (Tunnelblick uses whatever is specified in the first 'dev' option in the configuration file.)
-
+ * *Tunnelblick deals with the .tun and .tap kexts more flexibly*.
 
 *Please give feedback on the new features* or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
