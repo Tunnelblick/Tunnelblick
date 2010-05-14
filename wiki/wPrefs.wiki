@@ -9,6 +9,8 @@ Tunnelblick's preferences for a user are stored in `~/Library/Preferences/com.op
 
 If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See the [DeployingTunnelblick Deploying Tunnelblick wiki] for more details.
 
+When using a [wPkgs Tunnelblick VPN Configuration], it may contain preferences in its Info.plist. Values of those preferences are used if the user has not specified different values. The use may also change the values after they are loaded from Info.plist.
+
 Note: some preferences are stored as the opposite of the state of the corresponding check box: For example, the *_config-name_-notMonitoringConnection* preference is the opposite of the "Monitor Connection" check box
 
 ==Preferences in the "Options…" Submenu==
@@ -27,6 +29,11 @@ All other preferences can only be modified by (A) forcing them or (B) modifying 
   * *onlyAdminsCanUnprotectConfigurationFiles* (Boolean): If set, the user will be warned that they will only be allowed to examine configuration files when using the "Edit Configuration" button on OS X 10.4 (Tiger) or 10.5 (Leopard) and will be unable to modify them. If cleared or not present, the user will be asked if they wish to unprotect the configuration file before editing it on Tiger or Leopard. On OS X 10.6 (Snow Leopard), this preference is ignored. On Tiger and Leopard, `TextEdit` will be unable to save a modified configuration file that is protected; on Leopard, `TextEdit` will silently unprotect the configuration file if it is saved after being modified. The default is not present.
   * *standardApplicationPath* (String): If present, the absolute path for the folder in which Tunnelblick is to be installed when installing Tunnelblick by double-clicking the icon in a downloaded disk image. If not present or empty, Tunnelblick will be installed in `/Applications`. The string may include a "~", which will be expanded appropriately to allow installation somewhere in the user's home folder. Default is not present.
   * *doNotCreateLaunchTunnelblickLinkinConfigurations* (Boolean): If set, no link will be created. If cleared or not present, Tunnelblick will create a link to itself in the `~/Library/Application Support/Tunnelblick/Configurations` folder each time it is started. The default is to create the link.
+  * *useShadowConfigurationFiles* (Boolean): If set, Tunnelblick will create and use "shadow copies" of configuration files on the local hard drive in a subfolder of `/Library/Application Support/Tunnelblick`. If cleared or not present, the original of each configuration file will be used. Configuration files must be owned by root and have permissions of "644" for security; if the configuration file is on a volume which does not allow this ownership and permissions, shadow copies must be used so the copies can be given the proper ownership and permissions. This happens automatically when the home folder is located on a network volume; it is not necessary to use this preference only when the home folder is on a non-network volume which doesn't allow the required ownership and permissions. The default is not present.
+  * *showConnectedDurations* (Boolean): If set, the time that a configuration has been connected is displayed on the configuration's tab in the "OpenVPN Log" window. If cleared, the time is not displayed. The default is set.
+  * *disableShareConfigurationButton* is a boolean which may be used to inhibit the display of the "Share configuration" / "Make configuration private" button. If absent or false, the button is displayed for all configurations, but is enabled only for Tunnelblick VPN Connection (.tblk) configurations that are not Deployed; it is disabled (dimmed) for  non-.tblk and Deployed configurations.
+  * *usePrivateConfigurationsWithDeployedOnes* and *useSharedConfigurationsWithDeployedOnes* are booleans which may be used in a Deployed version of Tunnelblick (see [DeployingTunnelblick Deploying Tunnelblick]) to allow simultaneous display of configurations from the Private (~/Library/Application Support/Tunnelblick/Configurations) and Shared (/Library/Application Support/Tunnelblick/Shared) folders, respectively. These preferences must be forced -- they will be ignored if they are not forced.
+  * *hookupTimeout* (Number): The number of seconds that Tunnelblick should use trying to associate Tunnelblick VPN Configurations with OpenVPN processes that were running when Tunnelblick was launched. If zero, Tunnelblick will keep trying until it is closed.
 
 ==Preferences That Control What The User Sees==
   * *doNotShowForcedPreferenceMenuItems* (Boolean): If set, any preferences that are forced will not be displayed on the "Options…" submenu. If cleared or not present, such preferences are shown dimmed, and are disabled. The default is not present.
@@ -49,9 +56,14 @@ Most of Tunnelblick's warning messages include a "Do not warn about this again" 
   * *skipWarningThatCannotModifyConfigurationFile* (Boolean): If set, Tunnelblick on Tiger or Leoaprd will not warn the user that any changes made to a configuration file will not be able to be saved. If cleared or not present, the warning will be displayed. Default is not present.
   * *skipWarningThatNameChangeDisabledUpdates* (Boolean): If set Tunnelblick will warn that an update will fail if the name of Tunnelblick.app has been changed by the user. If cleared or not present, the warning will be displayed. Default is not present.
   * *skipWarningAboutNonAdminUpdatingTunnelblick* (Boolean): If set, Tunnelblick will not warn a non-administrator user that an update will require an administrator username/password before the changed updated application can be used. If cleared or not present, the warning will be displayed. Default is not present.
-
-  * *useShadowConfigurationFiles* (Boolean): If set, Tunnelblick will create and use "shadow copies" of configuration files on the local hard drive in a subfolder of `/Library/Application Support/Tunnelblick`. If cleared or not present, the original of each configuration file will be used. Configuration files must be owned by root and have permissions of "644" for security; if the configuration file is on a volume which does not allow this ownership and permissions, shadow copies must be used so the copies can be given the proper ownership and permissions. This happens automatically when the home folder is located on a network volume; it is not necessary to use this preference only when the home folder is on a non-network volume which doesn't allow the required ownership and permissions. The default is not present.
-  * *showConnectedDurations* (Boolean): If set, the time that a configuration has been connected is displayed on the configuration's tab in the "OpenVPN Log" window. If cleared, the time is not displayed. The default is set.
+  * *skipWarningAboutUnknownOpenVpnProcesses* (Boolean): If set, Tunnelblick will not warn about OpenVPN processes that it cannot associate with a Tunnelblick VPN Connection.
+  * * skipAskingToUnloadFooKexts* (Boolean): If set, Tunnelblick will not ask if the "foo.tun" and "foo.tap" kexts should be unloaded.
+  * *skipWarningAboutIgnoredConfigurations* is a boolean which controls display of the warning that one or more configurations are being ignored. Configurations are ignored if there are higher priority configurations with the same name. Priorities are, from highest to lowest:
+    # Deployed .tlbk configurations
+    # Deployed .ovpn and .conf configurations
+    # Shared .tblk configurations
+    # Private .tblk configurations
+    # Private .ovpn and .conf configurations
 
 ==Per-Configuration Preferences==
 The following preferences must each be prefixed by the name of the configuration file without the ".conf" or ".ovpn" extension. For example, if a configuration file is named "xyz.conf", the preference would be named "xyzautoConnect", "xyz-keychainHasUsernameAndPassword", etc.
@@ -62,6 +74,14 @@ The following preferences must each be prefixed by the name of the configuration
   * *-useDownRootPlugin* (Boolean): If set, Tunnelblick will use its built-in "openvpn-down-root.so" plugin to allow the configuration file to use the "user" and "group" options to stop running the OpenVPN process as root once a connection has been established (as a security measure). See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] for details. The default is not present.
   * *-keychainHasPrivateKey* (Boolean): If set, the user's Keychain contains the connection's private key, and Tunnelblick will use it when needed without interacting with the user. If cleared or not present, the user will be asked for the private key if the connection requires it. This preference is set when the user checks the "Save to Keychain" check box on the dialog which asks for the private key. If this preference is forced, it has a special meaning: the check box is not displayed, the private key is not stored in the user's Keychain, and the user is asked each time the connection requires it. The default is not present.
   * *-keychainHasUsernameAndPassword* (Boolean): If set, the user's Keychain contains the connection's username and password, and Tunnelblick will use them when needed without interacting with the user. If cleared or not present, the user will be asked for the username and password if the connection requires it. This preference is set when the user checks the "Save to Keychain" check box on the dialog which asks for the username and password. If this preference is forced, it has a special meaning: the check box is not displayed, the username and password are not stored in the user's Keychain, and the user is asked each time the connection requires them. The default is not present.
+  * *-doNotParseConfigurationFile* (Boolean): If set, Tunnelblick will not parse the configuration file for 'dev tun', 'dev tap', 'user', and 'group' options, and both tun and tap kexts will be loaded when making a VPN connection.
+  * *-skipWarningAboutDownroot* (Boolean): If set, the warning about 'user' and/or 'group' options requiring the use of the 'openvpn-down-root.so' plugin will be disabled.
+  * *-disableConnectButton* (Boolean): If set, the "Connect" button will be disabled.
+  * *-disableDisconnectButton* (Boolean): If set, the "Disconnect" button will be disabled.
+  * *-doNotLoadTapKext* (Boolean): If set, the standard tap kext will not be loaded.
+  * *-doNotLoadTunKext* (Boolean): If set, the standard tun kext will not be loaded.
+  * *-doNotLoadTapKext* (Boolean): If set, the standard tap kext will be loaded.
+  * *-doNotLoadTunKext* (Boolean): If set, the standard tun kext will be loaded.
 
 ==Preferences That Tunnelblick Uses Internally==
   * *haveDealtWithSparkle1dot5b6* (Boolean): If set, Tunnelblick has reset the Sparkle Updater preferences for Sparkle version 1.5b6, so the user will be or has been asked about automatically checking for updates and including system profile information. If cleared, this has not been done yet. See the "updateCheckAutomatically" and "updateSendProfileInfo" preferences. The default is not present; Tunnelblick maintains this preference automatically. This preference is ignored if the "updateCheckAutomatically" and "updateSendProfileInfo" preferences are both forced (to any value).
@@ -76,23 +96,6 @@ All preferences starting with the letters "SU" are preferences used privately by
   * *SULastCheckTime* (Date/time)
   * *SULastProfileSubmissionDate* (Date/time)
   * *SUHasLaunchedBefore* (Boolean)
-
-==Preferences in Tunnelblick 3.1beta01==
-Tunnelblick version 3.1beta01 (build 1494) includes "Tunnelblick VPN Configurations" (.tblk packages), which can specify default values for preferences. See [PackagesProposal Packages Proposal] for details.
-
-The following additional preferences are available beginning in Tunnelblick version 3.1beta01 (build 1494):
-
-*disableShareConfigurationButton* is a boolean which may be used to inhibit the display of the "Share configuration" / "Make configuration private" button. If absent or false, the button is displayed for all configurations, but is enabled only for Tunnelblick VPN Connection (.tblk) configurations that are not Deployed; it is disabled (dimmed) for  non-.tblk and Deployed configurations.
-
-*usePrivateConfigurationsWithDeployedOnes* and *useSharedConfigurationsWithDeployedOnes* are booleans which may be used in a Deployed version of Tunnelblick (see [DeployingTunnelblick Deploying Tunnelblick]) to allow simultaneous display of configurations from the Private (~/Library/Application Support/Tunnelblick/Configurations) and Shared (/Library/Application Support/Tunnelblick/Shared) folders, respectively. These preferences must be forced -- they will be ignored if they are not forced.
-
-*skipWarningAboutIgnoredConfigurations* is a boolean which controls display of the warning that one or more configurations are being ignored. Configurations are ignored if there are higher priority configurations with the same name. Priorities are, from highest to lowest:
- # Deployed .tlbk configurations
- # Deployed .ovpn and .conf configurations
- # Shared .tblk configurations
- # Private .tblk configurations
- # Private .ovpn and .conf configurations
-
 
 ==Document History==
   * 2010-02-05
