@@ -271,8 +271,8 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Install Tunnelblick?" = "Install Tunnelblick?";
 
-/* NEEDS TRANSLATION *//* Button */
-"Install and edit sample configuration file" = "Install and edit sample configuration file";
+/* Button */
+"Install and edit sample Tunnelblick VPN Configuration" = "Install and edit sample Tunnelblick VPN Configuration";
 
 /* NEEDS TRANSLATION *//* Button */
 "Install" ="Install";

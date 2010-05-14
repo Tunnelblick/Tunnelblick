@@ -1840,7 +1840,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     int button = TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick", @"Window title"),
                                  msg,
                                  NSLocalizedString(@"Quit", @"Button"),                                       // Default button
-                                 NSLocalizedString(@"Install and edit sample configuration file", @"Button"), // Alternate button
+                                 NSLocalizedString(@"Install and edit sample Tunnelblick VPN Configuration", @"Button"), // Alternate button
                                  nil // NSLocalizedString(@"Open configuration folder", @"Button")                   // Other button
                                  );
     
