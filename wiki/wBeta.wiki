@@ -8,7 +8,7 @@ When a new beta version is available, it is announced to the [http://groups.goog
 
 Beta versions are flagged as "Deprecated" downloads on the website so they are not normally visible to viewers of the Downloads page.
 
-*Tunnelblick 3.1beta02 is now [http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta02.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+*Tunnelblick 3.1beta02 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
 
 New features include:
 
