@@ -1,5 +1,4 @@
 #summary Documentation for Tunnelblick 3.1beta02
-#labels Deprecated
 #sidebar wSb
 
 ==What's New in Tunnelblick 3.1beta02==
