@@ -2,7 +2,7 @@
 #labels Deprecated
 #sidebar wSb
 
-==3.1beta02 (2010-05-XX)==
+==3.1beta02 (2010-05-14)==
   * Polish (PL) localization by Grzegorz Danecki. Dziękuję bardzo!
   * Additional Norwegian (Bokmål, NB) localization by Jon Luberth. Tusen takk!
   * Additional French (FR) localisation by François Varas. Merci beaucoup!
