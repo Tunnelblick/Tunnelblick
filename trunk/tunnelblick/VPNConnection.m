@@ -87,10 +87,15 @@ extern NSString * lastPartOfPath(NSString * thePath);
         tryingToHookup = FALSE;
         isHookedup = FALSE;
         tunOrTap = nil;
-        NSArray  * pipePathComponents = [inPath pathComponents];
-        NSArray  * pipePathComponentsAfter1st = [pipePathComponents subarrayWithRange: NSMakeRange(1, [pipePathComponents count]-1)];
-        NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick-%@.logpipe",
-                               [pipePathComponentsAfter1st componentsJoinedByString: @"-"]];
+        
+        NSMutableString * realCfgPathWithDashes;
+        if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
+            realCfgPathWithDashes = [[configPathFromTblkPath(inPath) mutableCopy] autorelease];
+        } else {
+            realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
+        }
+        [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
+        NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
         myPipeBuffer = [[NSMutableString alloc] initWithCapacity: 10000];
         myPipe = [[NamedPipe alloc] initPipeReadingFromPath: pipePath
                                               sendingDataTo: @selector(appendDataToLog:)
