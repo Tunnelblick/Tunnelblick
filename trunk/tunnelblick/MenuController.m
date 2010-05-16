@@ -1116,10 +1116,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                     NSLog(@"The '-onSystemStart' preference for '%@' is being forced, but will be ignored because it is a private configuration", displayName);
                 }
             } else {
-                [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
+                [self saveOnSystemStartRadioButtonState: TRUE forConnection: connection];
             }
         } else {
-            [self saveOnSystemStartRadioButtonState: TRUE forConnection: connection];
+            [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
         }
     } else {
         [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
