@@ -2021,8 +2021,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         NSString * name = [connection displayName];
         BOOL coss = [connection checkConnectOnSystemStart: onSystemStart withAuth: myAuth];
 		NSString* systemStartkey = [name stringByAppendingString: @"-onSystemStart"];
-        [gTbDefaults setBool: coss forKey: systemStartkey];
-        [gTbDefaults synchronize];
+        if (  [gTbDefaults boolForKey: systemStartkey] != coss  ) {
+            [gTbDefaults setBool: coss forKey: systemStartkey];
+            [gTbDefaults synchronize];
+        }
         
         NSString * autoConnectKey = [name stringByAppendingString: @"autoConnect"];
         BOOL col = ( ! coss ) && [gTbDefaults boolForKey: autoConnectKey];
@@ -3267,9 +3269,9 @@ int runUnrecoverableErrorPanel(msg)
 -(IBAction) onLaunchRadioButtonWasClicked: (id) sender
 {
 	if([[sender cellAtRow: 0 column: 0] state]) {
-		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
-	} else {
 		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
+	} else {
+		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
 	}
     [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
 }
@@ -3277,9 +3279,9 @@ int runUnrecoverableErrorPanel(msg)
 -(IBAction) onSystemStartRadioButtonWasClicked: (id) sender
 {
 	if([[sender cellAtRow: 0 column: 0] state]) {
-		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
-	} else {
 		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
+	} else {
+		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
 	}
     [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
 }
