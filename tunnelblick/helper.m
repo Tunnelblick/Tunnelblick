@@ -194,6 +194,19 @@ NSString * tblkPathFromConfigPath(NSString * path)
     return answer;
 }
 
+NSString * pipePathFromConfigPath(NSString * inPath)
+{
+    NSMutableString * realCfgPathWithDashes;
+    if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
+        realCfgPathWithDashes = [[configPathFromTblkPath(inPath) mutableCopy] autorelease];
+    } else {
+        realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
+    }
+    [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
+    NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
+    return pipePath;
+}
+
 BOOL useDNSStatus(id connection)
 {
 	static BOOL useDNS = FALSE;

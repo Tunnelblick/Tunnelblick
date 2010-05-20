@@ -417,6 +417,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 // Parses the configuration file.
 // Gives user the option of adding the down-root plugin if appropriate
 // Returns with device type: "tun" or "tap", or nil if it can't be determined
+// Returns with string "Cancel" if user cancelled
 -(NSString *)parseConfigurationPath: (NSString *) cfgPath forConnection: (VPNConnection *) connection
 {
     NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
@@ -443,19 +444,22 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             && (   downOption
                 || useDNSStatus(connection)  )  ) {
                 
-                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that the restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to always use the plugin?", @"Window text"),
+                NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?", @"Window text"),
                                   [connection displayName]];
                 
                 int result = TBRunAlertPanelExtended(NSLocalizedString(@"Use 'down-root' plugin for OpenVPN?", @"Window title"), 
                                                      msg,
                                                      NSLocalizedString(@"Do not use the plugin", @"Button"),
                                                      NSLocalizedString(@"Always use the plugin", @"Button"),
-                                                     nil, 
+                                                     NSLocalizedString(@"Cancel", @"Button"), 
                                                      skipWarningKey, 
                                                      NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
                                                      nil);
                 if (  result == NSAlertAlternateReturn  ) {
                     [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
+                } else if (  result == NSAlertOtherReturn  ) {
+                    [cfgContents release];
+                    return @"Cancel";
                 }
             }
     }
@@ -479,6 +483,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                                 skipWarningKey, 
                                 NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
                                 nil);
+        [cfgContents release];
+        return nil;
     }
     [cfgContents release];
     return [devOption lowercaseString];

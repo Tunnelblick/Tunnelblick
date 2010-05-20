@@ -37,7 +37,9 @@
 	NSTextStorage * logStorage;         // nil, or contains entire log (or that part of log since it was cleared)
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
+    NSString      * myPipePath;         // Path to pipe scripts write to OpenVPN Log with
     NamedPipe     * myPipe;             // Up/down scripts send data through this pipe and we append the data to the OpenVPN Log
+    BOOL            myPipeError;        // Flag that we've complained already about being unable to hook up to the pipe
     NSMutableString * myPipeBuffer;     // Buffer in which we collect data from the pipe until the ETX-LF character combination that completes a log entry
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
@@ -45,6 +47,7 @@
     BOOL            authenticationFailed; // True iff a message from OpenVPN has been received that password/passphrase authentication failed and the user hasn't been notified yet
     BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an existing instance of OpenVPN
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
+    BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
     NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
 }
 
@@ -63,7 +66,7 @@
 
 -(NSDate *)         connectedSinceDate;
 
--(void)              connect:                    (id) sender;
+-(void)             connect:                    (id) sender;
 
 -(void)             destroyPipe;
 

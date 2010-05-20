@@ -1689,14 +1689,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void) destroyAllPipes
 {
     VPNConnection * connection;
-    
-    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
-    NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
-    NSEnumerator* e = [myConnectionArray objectEnumerator];
-    
-    if(NSDebugEnabled) NSLog(@"Destroying pipes.\n");
-    while (connection = [e nextObject]) {
-        [connection destroyPipe];
+    NSEnumerator* e = [myVPNConnectionDictionary objectEnumerator];
+    while (  connection = [e nextObject]  ) {
+		NSString* systemStartkey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+        if (  ! [gTbDefaults boolForKey: systemStartkey]  ) {
+            [connection destroyPipe];
+        }
     }
 }
 
@@ -1707,12 +1705,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     VPNConnection * connection;
     int notKilled = 0;
     while (  connection = [connEnum nextObject]  ) {
-        NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-        if (   includeDaemons
-            || ( ! [gTbDefaults boolForKey: key]  )  ) {
-            [connection disconnect: self];
-        } else {
-            notKilled++;
+        if (  ! [connection isDisconnected]  ) {
+            NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+            if (   includeDaemons
+                || ( ! [gTbDefaults boolForKey: key]  )  ) {
+                [connection disconnect: self];
+            } else {
+                notKilled++;
+            }
         }
     }
     return notKilled;
@@ -1803,16 +1803,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void) resetActiveConnections {
 	VPNConnection *connection;
 	NSEnumerator* e = [connectionArray objectEnumerator];
-	
 	while (connection = [e nextObject]) {
-		if (NSDebugEnabled) NSLog(@"Connection %@ is connected for %f seconds\n",[connection displayName],[[connection connectedSinceDate] timeIntervalSinceNow]);
 		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
 			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection displayName]);
 			[connection disconnect:self];
 			[connection connect:self];
-		}
-		else {
-			if (NSDebugEnabled) NSLog(@"Not Resetting connection: %@\n, waiting...",[connection displayName]);
+		} else {
+			if (NSDebugEnabled) NSLog(@"Not Resetting connection: %@, waiting...",[connection displayName]);
 		}
 	}
 }
