@@ -94,9 +94,6 @@
 /* Window title */
 "Examine the configuration file?" = "Examine the configuration file?";
 
-/* Button */
-"Install and edit sample Tunnelblick VPN Configuration" = "Install and edit sample Tunnelblick VPN Configuration";
-
 /* Window title */
 "Installation or Repair Failed" = "Installation or Repair Failed";
 
@@ -153,6 +150,9 @@
 
 /* Window text */
 "The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
 
 /* Window title */
 "The configuration file is protected" = "The configuration file is protected";
