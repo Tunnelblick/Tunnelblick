@@ -45,17 +45,6 @@ extern NSFileManager * gFileMgr;
     inTarget = target;
     [inTarget retain];
     
-    [gFileMgr removeFileAtPath:inPath handler:nil];
-    
-    const char * cPath = [path UTF8String];
-    
-    // Create the pipe
-    if (    ( mkfifo(cPath, 0666) == -1 ) && ( errno != EEXIST )    ){
-        NSLog(@"Unable to create named pipe %s", cPath);
-        [self destroyPipe];
-        return nil;
-    }
-    
     // We "open()" to get a file descriptor, then get a fileHandle from the returned file descriptor.
     //
     // If we try to get a fileHandle directly via "[NSFileHandle fileHandleForReadingAtPath:]"
@@ -73,6 +62,8 @@ extern NSFileManager * gFileMgr;
 
     // Get a file descriptor for reading the pipe without blocking
     int fileDescriptor;
+    const char * cPath = [path UTF8String];
+
     if (    ( fileDescriptor = open(cPath, O_RDWR) ) == -1    ) {
         NSLog(@"Unable to get file descriptor for named pipe %s", cPath);
         [self destroyPipe];

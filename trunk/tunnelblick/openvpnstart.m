@@ -21,11 +21,13 @@
 #import <Foundation/Foundation.h>
 #import <sys/sysctl.h>
 #import <netinet/in.h>
+#import <sys/stat.h>
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, BOOL bitMask);
 int     setupLog            (NSString* logPath); // Sets up the OpenVPN log file (for "without GUI" operation), which encodes the configuration file path and port info into the filename
 NSString * createOpenVPNLog (NSString* configurationPath, int port);
+BOOL       createPipeForConfigAtPath (NSString * inPath);
 NSString * constructOpenVPNLogPath (NSString * configurationPath, int port);
 BOOL    deleteLogFiles(NSString * configurationPath);
 
@@ -60,9 +62,34 @@ int main(int argc, char* argv[])
 {
     pool = [[NSAutoreleasePool alloc] init];
 
+    gFileMgr = [NSFileManager defaultManager];
+    
 	BOOL	syntaxError	= TRUE;
     int     retCode = 0;
     execPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+
+    // check this executable is owned by root, set uid, owner may execute
+	const char *path = argv[0];
+    struct stat sb;
+	if(stat(path,&sb)) {
+        fprintf(stderr, "Tunnelblick: stat() check on openvpnstart failed.\n");
+        NSLog(@"Tunnelblick: stat() check on openvpnstart failed.\n");
+        [pool drain];
+        exit(234);
+	}
+    
+	if (   ! (
+              (sb.st_mode & S_ISUID) // set uid bit is set
+              && (sb.st_mode & S_IXUSR) // owner may execute it
+              && (sb.st_uid == 0) // is owned by root
+              )
+        ) {
+        fprintf(stderr, "Tunnelblick: openvpnstart has not been secured; st_mode = %o\npath = |%s|\n"
+                "You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n", sb.st_mode, path);
+        NSLog(@"Tunnelblick: openvpnstart has not been secured.\nYou must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
+        [pool drain];
+        exit(235);
+	}
 
     if (argc > 1) {
 		char* command = argv[1];
@@ -110,7 +137,13 @@ int main(int argc, char* argv[])
 				pid_t pid = (pid_t) atoi(argv[2]);
 				killOneOpenvpn(pid);
 				syntaxError = FALSE;
+			} else if (argc == 4) {
+				pid_t pid = (pid_t) atoi(argv[2]);
+				killOneOpenvpn(pid);
+                deleteLogFiles( [NSString stringWithUTF8String: argv[3]] );
+				syntaxError = FALSE;
 			}
+            
 		} else if( strcmp(command, "start") == 0 ) {
 			if (  (argc > 3) && (argc < 10)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
@@ -121,7 +154,7 @@ int main(int argc, char* argv[])
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
-						BOOL      bitMask    = FALSE; if( (argc > 8) && (atoi(argv[8]) == 1) ) bitMask    = TRUE;
+						BOOL      bitMask    = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
 						if (cfgLocCode < 4) {
                             retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask);
                             syntaxError = FALSE;
@@ -148,8 +181,8 @@ int main(int argc, char* argv[])
 				"./openvpnstart killall\n"
 				"               to terminate all processes named 'openvpn'\n\n"
                 
-				"./openvpnstart kill   processId\n"
-				"               to terminate the 'openvpn' process with the specified processID\n\n"
+				"./openvpnstart kill   processId   [configPath]\n"
+				"               to terminate the 'openvpn' process with the specified processID and optionally delete the log file associated with the processs\n\n"
                 
 				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  ]  ]  ]  ]  ]\n\n"
 				"               to load tun.kext and tap.kext and start OpenVPN with the specified configuration file and options.\n\n"
@@ -157,6 +190,8 @@ int main(int argc, char* argv[])
 				"Where:\n\n"
                 
 				"processId  is the process ID of the openvpn process to kill\n\n"
+                
+				"configPath is the full path to the configuration file, so that the log file associated with the configuration can be deleted\n\n"
                 
 				"configName is the name of the configuration file (a .conf or .ovpn file, or .tblk package)\n\n"
                 
@@ -225,8 +260,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 	NSString*	upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
 	NSString*	downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"];
     
-    gFileMgr = [NSFileManager defaultManager];
-
     NSString * cdFolderPath;
     
 	switch (cfgLocCode) {
@@ -320,7 +353,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     }
 
     NSString * logPath;
-    if (   (bitMask & CREATE_LOG_FILE)
+    if (   ( (bitMask & CREATE_LOG_FILE) != 0 )
         || withoutGUI  ) {
         logPath = createOpenVPNLog(configPath, port);
     }
@@ -440,6 +473,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             exit(251);
             
         }
+    }
+    
+    if (  ! createPipeForConfigAtPath(configPath)  ) {
+        fprintf(stderr, "Error: Unable to create pipe at %s\n", [configPath UTF8String]);
     }
     
     loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
@@ -608,10 +645,10 @@ BOOL deleteLogFiles(NSString * configurationPath)
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
             if (  [[filename pathExtension] isEqualToString: @"log"]) {
                 if (  [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
-                    NSString * msg = [NSString stringWithFormat: @"Deleted old OpenVPN log file %@", oldFullPath];
+                    NSString * msg = [NSString stringWithFormat: @"Deleted OpenVPN log file %@", oldFullPath];
                     fprintf(stderr, [msg UTF8String]);
                 } else {
-                    NSString * msg = [NSString stringWithFormat: @"Error occurred trying to delete old OpenVPN log file %@", oldFullPath];
+                    NSString * msg = [NSString stringWithFormat: @"Error occurred trying to delete OpenVPN log file %@", oldFullPath];
                     fprintf(stderr, [msg UTF8String]);
                     errHappened = TRUE;
                 }
@@ -916,5 +953,28 @@ unsigned int getFreePort(void)
     return resultPort;
 }
 
+BOOL createPipeForConfigAtPath(NSString * inPath)
+{
+    NSMutableString * realCfgPathWithDashes;
+    if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
+        realCfgPathWithDashes = [[configPathFromTblkPath(inPath) mutableCopy] autorelease];
+    } else {
+        realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
+    }
+    [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
+    NSString * path = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
     
+    [gFileMgr removeFileAtPath: path handler: nil];
     
+    const char * cPath = [path UTF8String];
+    
+    // Create the pipe
+    if (    ( mkfifo(cPath, 0666) == -1 ) && ( errno != EEXIST )    ) {
+        return NO;
+    }
+    
+    if (  chmod(cPath, 0666)  ) {
+        return NO;
+    }
+    return YES;
+}

@@ -24,6 +24,7 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          gid_t      gid,
                                          NSString * permsShouldHave);
 
+NSString     * pipePathFromConfigPath   (NSString * inPath);
 
 NSString     * escaped                  (NSString * string);
 
