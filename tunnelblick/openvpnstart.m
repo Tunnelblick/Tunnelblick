@@ -24,7 +24,7 @@
 #import <sys/stat.h>
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, BOOL bitMask);
+int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
 int     setupLog            (NSString* logPath); // Sets up the OpenVPN log file (for "without GUI" operation), which encodes the configuration file path and port info into the filename
 NSString * createOpenVPNLog (NSString* configurationPath, int port);
 BOOL       createPipeForConfigAtPath (NSString * inPath);
@@ -37,8 +37,8 @@ void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or
 int		killAllOpenvpn		(void);			//Kills all openvpn processes and returns the number of processes that were killed. May complain and exit
 void    waitUntilAllGone    (void);         //Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 
-void	loadKexts			(int bitMask);	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
-void	unloadKexts			(int bitMask);	//Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
+void	loadKexts			(unsigned int bitMask);	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
+void	unloadKexts			(unsigned int bitMask);	//Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
 void	becomeRoot			(void);			//Returns as root, having setuid(0) if necessary; complains and exits if can't become root
 
 void	getProcesses		(struct kinfo_proc** procs, int* number);	//Fills in process information
@@ -73,7 +73,6 @@ int main(int argc, char* argv[])
     struct stat sb;
 	if(stat(path,&sb)) {
         fprintf(stderr, "Tunnelblick: stat() check on openvpnstart failed.\n");
-        NSLog(@"Tunnelblick: stat() check on openvpnstart failed.\n");
         [pool drain];
         exit(234);
 	}
@@ -86,7 +85,6 @@ int main(int argc, char* argv[])
         ) {
         fprintf(stderr, "Tunnelblick: openvpnstart has not been secured; st_mode = %o\npath = |%s|\n"
                 "You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n", sb.st_mode, path);
-        NSLog(@"Tunnelblick: openvpnstart has not been secured.\nYou must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
         [pool drain];
         exit(235);
 	}
@@ -107,8 +105,8 @@ int main(int argc, char* argv[])
                 loadKexts(0);
 				syntaxError = FALSE;
             } else if (  argc == 3 ) {
-                int bitMask = atoi(argv[2]);
-                if (  bitMask < 16  ) {
+                unsigned int bitMask = atoi(argv[2]);
+                if (  bitMask < 4  ) {
                     loadKexts(bitMask);
                     syntaxError = FALSE;
                 }
@@ -119,7 +117,7 @@ int main(int argc, char* argv[])
                 unloadKexts(0);
 				syntaxError = FALSE;
             } else if (  argc == 3 ) {
-                int bitMask = atoi(argv[2]);
+                unsigned int bitMask = atoi(argv[2]);
                 if (  bitMask < 16  ) {
                     unloadKexts(bitMask);
                     syntaxError = FALSE;
@@ -154,8 +152,9 @@ int main(int argc, char* argv[])
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
-						BOOL      bitMask    = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
-						if (cfgLocCode < 4) {
+						unsigned int bitMask = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
+						if (   (cfgLocCode < 4)
+                            && (bitMask < 1024)  ) {
                             retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask);
                             syntaxError = FALSE;
                         }
@@ -225,9 +224,12 @@ int main(int argc, char* argv[])
                 "                            bit 3 is 1 to unload foo.tap\n"
                 "                            bit 4 is 1 to create a log file in /tmp with the configuration path and port number encoded in the filename\n"
                 "                                          (Bit 4 is used only by the 'start' command; for the 'connect when system starts' feature)\n"
-                "                                          (Bit 4 is forced to 1 if mgtPort = 0)\n\n"
+                "                                          (Bit 4 is forced to 1 if mgtPort = 0)\n"
+                "                            bit 5 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
+                "                            bit 6 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n\n"
                 
-				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0. bitMask defaults to 0x0F.\n\n"
+				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n"
+                "bitMask defaults to 0x03.\n\n"
                 
                 "If the configuration file's extension is '.tblk', the package is searched for the configuration file, and the OpenVPN '--cd'\n"
                 "option is set to the path of the configuration's /Contents/Resources folder.\n\n"
@@ -250,7 +252,7 @@ int main(int argc, char* argv[])
 
 //**************************************************************************************************************************
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, BOOL bitMask)
+int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask)
 {
 	NSString*	openvpnPath             = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSString*	upscriptPath            = [execPath stringByAppendingPathComponent: @"client.up.osx.sh"];
@@ -259,8 +261,14 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     NSString*   deployDirPath           = [execPath stringByAppendingPathComponent: @"Deploy"];
 	NSString*	upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
 	NSString*	downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"];
+	NSString*	newUpscriptPath         = [execPath stringByAppendingPathComponent: @"client.up.tunnelblick.sh"];
+	NSString*	newDownscriptPath       = [execPath stringByAppendingPathComponent: @"client.down.tunnelblick.sh"];
     
     NSString * cdFolderPath;
+    
+    if (  bitMask == 0  ) {
+        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
+    }
     
 	switch (cfgLocCode) {
         case 0:
@@ -386,44 +394,62 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 		[arguments addObjectsFromArray: [NSArray arrayWithObjects: @"--script-security", @"2", nil]];
     }
     
+    // Figure out which scripts to use (if any)
+    // For backward compatibility, we only use the "new" (-tunnelblick-argument-capable) scripts if there are no old scripts
+    // This would normally be the case, but if someone's custom build inserts replacements for the old scripts, we will use the replacements instead of the new scripts
+    
+    if (  noMonitor  ) {
+        if (  ! [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
+            upscriptPath = newUpscriptPath;
+        }
+        if (  ! [gFileMgr fileExistsAtPath: downscriptNoMonitorPath]  ) {
+            downscriptPath = newDownscriptPath;
+        }
+    } else {
+        if (  ! [gFileMgr fileExistsAtPath: upscriptPath]  ) {
+            upscriptPath = newUpscriptPath;
+        }
+        if (  ! [gFileMgr fileExistsAtPath: downscriptPath]  ) {
+            downscriptPath = newDownscriptPath;
+        }
+    }
+    
     if(  useScripts != 0  ) {  // 'Set nameserver' specified, so use our standard scripts or Deploy/<config>.up.sh and Deploy/<config>.down.sh
         if (  cfgLocCode == 2  ) {
-            NSString * deployScriptPath = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
-            NSString * deployUpscriptPath   = [[deployScriptPath stringByAppendingPathExtension:@"up"]   stringByAppendingPathExtension:@"sh"];
-            NSString * deployDownscriptPath = [[deployScriptPath stringByAppendingPathExtension:@"down"] stringByAppendingPathExtension:@"sh"];
-            NSString * deployUpscriptNoMonitorPath   = [[[deployScriptPath stringByAppendingPathExtension:@"nomonitor"]
-                                                         stringByAppendingPathExtension:@"up"] stringByAppendingPathExtension:@"sh"];
-            NSString * deployDownscriptNoMonitorPath = [[[deployScriptPath stringByAppendingPathExtension:@"nomonitor"]
-                                                         stringByAppendingPathExtension:@"down"] stringByAppendingPathExtension:@"sh"];
+            NSString * deployScriptPath                 = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
+            NSString * deployUpscriptPath               = [deployScriptPath stringByAppendingPathExtension:@"up.sh"];
+            NSString * deployDownscriptPath             = [deployScriptPath stringByAppendingPathExtension:@"down.sh"];
+            NSString * deployUpscriptNoMonitorPath      = [deployScriptPath stringByAppendingPathExtension:@"nomonitor.up.sh"];
+            NSString * deployDownscriptNoMonitorPath    = [deployScriptPath stringByAppendingPathExtension:@"nomonitor.down.sh"];
+            NSString * deployNewUpscriptPath            = [deployScriptPath stringByAppendingPathExtension:@"up.tunnelblick.sh"];
+            NSString * deployNewDownscriptPath          = [deployScriptPath stringByAppendingPathExtension:@"down.tunnelblick.sh"];
             
             if (  noMonitor  ) {
                 if (  [gFileMgr fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
                     upscriptPath = deployUpscriptNoMonitorPath;
                 } else if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
-                } else {
-                    upscriptPath = upscriptNoMonitorPath;
+                } else if (  [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
+                    upscriptPath = deployNewUpscriptPath;
                 }
                 if (  [gFileMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
                     downscriptPath = deployDownscriptNoMonitorPath;
                 } else if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
-                } else {
-                    downscriptPath = downscriptNoMonitorPath;
+                } else if (  [gFileMgr fileExistsAtPath: deployNewDownscriptPath]  ) {
+                    downscriptPath = deployNewDownscriptPath;
                 }
             } else {
                 if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
+                    upscriptPath = deployNewUpscriptPath;
                 }
                 if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: deployNewDownscriptPath]  ) {
+                    downscriptPath = deployNewDownscriptPath;
                 }
-            }
-            
-        } else {
-            if (  noMonitor  ) {
-                upscriptPath = upscriptNoMonitorPath;
-                downscriptPath = downscriptNoMonitorPath;
             }
         }
         
@@ -433,36 +459,84 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             NSString * tblkDownscriptPath           = [cdFolderPath stringByAppendingPathComponent: @"down.sh"];
             NSString * tblkUpscriptNoMonitorPath    = [cdFolderPath stringByAppendingPathComponent: @"nomonitor.up.sh"];
             NSString * tblkDownscriptNoMonitorPath  = [cdFolderPath stringByAppendingPathComponent: @"nomonitor.down.sh"];
+            NSString * tblkNewUpscriptPath          = [cdFolderPath stringByAppendingPathComponent: @"up.tunnelblick.sh"];
+            NSString * tblkNewDownscriptPath        = [cdFolderPath stringByAppendingPathComponent: @"down.tunnelblick.sh"];
             if (  noMonitor  ) {
                 if (  [gFileMgr fileExistsAtPath: tblkUpscriptNoMonitorPath]  ) {
                     upscriptPath = tblkUpscriptNoMonitorPath;
+                } else if (  [gFileMgr fileExistsAtPath: tblkNewUpscriptPath]  ) {
+                    upscriptPath = tblkNewUpscriptPath;
                 }
                 if (  [gFileMgr fileExistsAtPath: tblkDownscriptNoMonitorPath]  ) {
                     downscriptPath = tblkDownscriptNoMonitorPath;
+                } else if (  [gFileMgr fileExistsAtPath: tblkNewDownscriptPath]  ) {
+                    downscriptPath = tblkNewDownscriptPath;
                 }
             } else {
                 if (  [gFileMgr fileExistsAtPath: tblkUpscriptPath]  ) {
                     upscriptPath = tblkUpscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: tblkNewUpscriptPath]  ) {
+                    upscriptPath = tblkNewUpscriptPath;
                 }
                 if (  [gFileMgr fileExistsAtPath: tblkDownscriptPath]  ) {
                     downscriptPath = tblkDownscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: tblkNewDownscriptPath]  ) {
+                    downscriptPath = tblkNewDownscriptPath;
                 }
             }
 
         }
         
+        // Process script options if scripts are "new" scripts
+        NSMutableString * scriptOptions = [[NSMutableString alloc] initWithCapacity: 16];
+
+        if (  ! noMonitor  ) {
+            [scriptOptions appendString: @" -m"];
+        }
+        
+        if (  (bitMask & RESTORE_ON_WINS_RESET) != 0  ) {
+            [scriptOptions appendString: @" -w"];
+        }
+        if (  (bitMask & RESTORE_ON_DNS_RESET) != 0  ) {
+            [scriptOptions appendString: @" -d"];
+        }
+        
+        NSString * upscriptCommand   = escaped(upscriptPath);   // Must escape these since they are the first part of a command line
+        NSString * downscriptCommand = escaped(downscriptPath);
+        if (   scriptOptions
+            && ( [scriptOptions length] != 0 )  ) {
+            
+            if (  [upscriptPath hasSuffix: @"tunnelblick.sh"]  ) {
+                upscriptCommand   = [upscriptCommand   stringByAppendingString: scriptOptions];
+            } else {
+                fprintf(stderr, "Warning: up script %@ is not new version; not using '%@' options\n", upscriptPath, scriptOptions);
+            }
+            
+            if (  [downscriptPath hasSuffix: @"tunnelblick.sh"]  ) {
+                downscriptCommand = [downscriptCommand stringByAppendingString: scriptOptions];
+            } else {
+                fprintf(stderr, "Warning: down script %@ is not new version; not using '%@' options\n", downscriptPath, scriptOptions);
+            }
+        }
+            
+        if (   ([upscriptCommand length] > 199  )
+            || ([downscriptCommand length] > 199  )) {
+            fprintf(stderr, "Warning: Path for up and/or down script is very long. OpenVPN truncates the command line that starts each script to 255 characters, which may cause problems. Examine the OpenVPN log in Tunnelblick's \"Details...\" window carefully.");
+        }
+        [scriptOptions release];
+        
         if (  useScripts == 2  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                             @"--up", escaped(upscriptPath),
-                                             @"--plugin", downRootPath, escaped(downscriptPath),    // escaped because it is a shell command, not just a path
+                                             @"--up", upscriptCommand,
+                                             @"--plugin", downRootPath, downscriptCommand,
                                              @"--up-restart",
                                              nil
                                              ]
              ];
         } else if (  useScripts == 1  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                             @"--up", escaped(upscriptPath),        // escaped because it is a shell command, not just a path
-                                             @"--down", escaped(downscriptPath),    // escaped because it is a shell command, not just a path
+                                             @"--up", upscriptCommand,
+                                             @"--down", downscriptCommand,
                                              @"--up-restart",
                                              nil
                                              ]
@@ -476,7 +550,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     }
     
     if (  ! createPipeForConfigAtPath(configPath)  ) {
-        fprintf(stderr, "Error: Unable to create pipe at %s\n", [configPath UTF8String]);
+        fprintf(stderr, "Warning: Unable to create pipe for script output for %s\n", [configPath UTF8String]);
     }
     
     loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
@@ -608,7 +682,7 @@ NSString * createOpenVPNLog(NSString* configurationPath, int port)
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0744] forKey: NSFilePosixPermissions];
     
     if (  ! [gFileMgr createFileAtPath: logPath contents: [NSData data] attributes: logAttributes]  ) {
-        NSString * msg = [NSString stringWithFormat: @"Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
+        NSString * msg = [NSString stringWithFormat: @"Warning: Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
         fprintf(stderr, [msg UTF8String]);
     }
     
@@ -703,9 +777,9 @@ void waitUntilAllGone(void)
 
 //**************************************************************************************************************************
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
-void loadKexts(int bitMask)
+void loadKexts(unsigned int bitMask)
 {
-    if (  (bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT) ) == 0  ) {
+    if (  bitMask == 0  ) {
         bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
     }
     
@@ -747,7 +821,7 @@ void loadKexts(int bitMask)
 //**************************************************************************************************************************
 //Tries to UNload kexts. May complain and exit if can't become root or if can't unload kexts
 //Because this is a non-critical function, and the unloading fails if a kext is in use, we ignore errors.
-void unloadKexts(int bitMask)
+void unloadKexts(unsigned int bitMask)
 {
     if (  bitMask == 0  ) {
         bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
@@ -893,7 +967,11 @@ BOOL configNeedsRepair(void)
 // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 NSString *escaped(NSString *string)
 {
-	return [NSString stringWithFormat:@"\"%@\"", string];
+    if (  [string rangeOfString: @" "].length == 0  ) {
+        return [[string copy] autorelease];
+    } else {
+        return [NSString stringWithFormat:@"\"%@\"", string];
+    }
 }
 
 // Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file

@@ -37,6 +37,9 @@
 /* Window text */
 "(To install to a different location, drag %@ to that location.)" = "(Falls Sie in einen anderen Pfad installieren möchten, ziehen Sie %@ in das entsprechende Verzeichnis.)";
 
+/* NEEDS TRANSLATION *//* OpenVPN Log message */
+"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart message: %@";
+
 /* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart Status #%1$d: %2$@";
 

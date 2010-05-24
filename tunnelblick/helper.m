@@ -277,8 +277,13 @@ BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
     return NO;
 }
 
+// Returns YES if file doesn't exist, or has the specified ownership and permissions
 BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave)
 {
+    if (  ! [gFileMgr fileExistsAtPath: fPath]  ) {
+        return YES;
+    }
+    
     NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSString *octalString = [NSString stringWithFormat:@"%o",perms];

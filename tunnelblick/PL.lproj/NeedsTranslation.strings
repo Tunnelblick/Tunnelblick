@@ -25,6 +25,9 @@
 /* Window text */
 "%d configurations were not installed. See the Console Log for details." = "%d configurations were not installed. See the Console Log for details.";
 
+/* OpenVPN Log message */
+"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart message: %@";
+
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
 
