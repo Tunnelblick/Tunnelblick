@@ -3088,6 +3088,8 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
 	NSString *clientNoMonUpPath     = [thisBundle pathForResource:@"client.nomonitor.up.osx.sh"     ofType:nil];
 	NSString *clientNoMonDownPath   = [thisBundle pathForResource:@"client.nomonitor.down.osx.sh"   ofType:nil];
     NSString *infoPlistPath         = [[[installerPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+	NSString *clientNewUpPath       = [thisBundle pathForResource:@"client.up.tunnelblick.sh"       ofType:nil];
+	NSString *clientNewDownPath     = [thisBundle pathForResource:@"client.down.tunnelblick.sh"     ofType:nil];
 	
 	// check openvpnstart owned by root, set uid, owner may execute
 	const char *path = [openvpnstartPath UTF8String];
@@ -3106,7 +3108,7 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
 	}
 	
 	// check files which should be owned by root with 744 permissions
-	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, atsystemstartPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, nil];
+	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, atsystemstartPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, clientNewUpPath, clientNewDownPath, nil];
 	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {

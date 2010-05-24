@@ -70,7 +70,7 @@ uid_t realUserID;               // User ID & Group ID for the real user (i.e., n
 gid_t realGroupID;
 
 BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid);
-BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave);
+BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
 BOOL createDir(NSString * d);
 BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
     }
     
     BOOL okSoFar = checkSetOwnership(gPrivatePath, FALSE, realUserID, realGroupID);
-    okSoFar = okSoFar && checkSetPermissions(gPrivatePath, @"755");
+    okSoFar = okSoFar && checkSetPermissions(gPrivatePath, @"755", YES);
     if (  ! okSoFar  ) {
         NSLog(@"Tunnelblick Installer: Unable to change ownership and permissions to %d:%d and 0755 on %@", (int) realUserID, (int) realGroupID, gPrivatePath);
         [pool release];
@@ -234,7 +234,7 @@ int main(int argc, char *argv[])
     }
     
     okSoFar = checkSetOwnership(gSharedPath, FALSE, 0, 0);
-    okSoFar = okSoFar && checkSetPermissions(gSharedPath, @"755");
+    okSoFar = okSoFar && checkSetPermissions(gSharedPath, @"755", YES);
     if (  ! okSoFar  ) {
         NSLog(@"Tunnelblick Installer: Unable to secure %@", gSharedPath);
         [pool release];
@@ -265,28 +265,32 @@ int main(int argc, char *argv[])
         NSString *clientNoMonUpPath     = [thisBundle stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"];
         NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"client.nomonitor.down.osx.sh"];
         NSString *infoPlistPath         = [[thisBundle stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+        NSString *clientNewUpPath       = [thisBundle stringByAppendingPathComponent:@"client.up.tunnelblick.sh"];
+        NSString *clientNewDownPath     = [thisBundle stringByAppendingPathComponent:@"client.down.tunnelblick.sh"];
         
         BOOL okSoFar = YES;
         okSoFar = okSoFar && checkSetOwnership(infoPlistPath, NO, 0, 0);
         
         okSoFar = okSoFar && checkSetOwnership(thisBundle, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,    @"4111");
+        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,    @"4111", YES);
         
-        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,       @"644");
+        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,       @"644", YES);
         
-        okSoFar = okSoFar && checkSetPermissions(installerPath,       @"744");
-        okSoFar = okSoFar && checkSetPermissions(openvpnPath,         @"744");
-        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,   @"744");
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,      @"744");
-        okSoFar = okSoFar && checkSetPermissions(clientUpPath,        @"744");
-        okSoFar = okSoFar && checkSetPermissions(clientDownPath,      @"744");
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,   @"744");
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath, @"744");
+        okSoFar = okSoFar && checkSetPermissions(installerPath,       @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnPath,         @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,   @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,      @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientUpPath,        @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientDownPath,      @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,   @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath, @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,     @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,   @"744", YES);
         
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
-            okSoFar = okSoFar && checkSetPermissions(gDeployPath,     @"755");
+            okSoFar = okSoFar && checkSetPermissions(gDeployPath,     @"755", YES);
             okSoFar = okSoFar && secureOneFolder(gDeployPath);
         }
         
@@ -355,7 +359,7 @@ int main(int argc, char *argv[])
                         } else {
                             okSoFar = okSoFar && checkSetOwnership(filePath, NO, 0, 0);
                         }
-                        okSoFar = okSoFar && checkSetPermissions(filePath, @"755");
+                        okSoFar = okSoFar && checkSetPermissions(filePath, @"755", YES);
                         okSoFar = okSoFar && secureOneFolder(filePath);
                     }
                 }
@@ -425,14 +429,14 @@ int main(int argc, char *argv[])
         NSString * ext = [singlePathToSecure pathExtension];
         if (  [ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]  ) {
             okSoFar = okSoFar && checkSetOwnership(singlePathToSecure, NO, 0, 0);
-            okSoFar = okSoFar && checkSetPermissions(singlePathToSecure, @"644");
+            okSoFar = okSoFar && checkSetPermissions(singlePathToSecure, @"644", YES);
         } else if (  [ext isEqualToString: @"tblk"]  ) {
             if (  [singlePathToSecure hasPrefix: gPrivatePath]  ) {
                 okSoFar = okSoFar && checkSetOwnership(singlePathToSecure, NO, realUserID, realGroupID);
             } else {
                 okSoFar = okSoFar && checkSetOwnership(singlePathToSecure, YES, 0, 0);
             }
-            okSoFar = okSoFar && checkSetPermissions(singlePathToSecure, @"755");
+            okSoFar = okSoFar && checkSetPermissions(singlePathToSecure, @"755", YES);
             okSoFar = okSoFar && secureOneFolder(singlePathToSecure);
         } else {
             NSLog(@"Tunnelblick Installer: trying to secure unknown item at %@", singlePathToSecure);
@@ -527,8 +531,16 @@ BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid)
 //**************************************************************************************************************************
 // Changes permissions on a file or folder (but not the folder's contents) to specified values if necessary
 // Returns YES on success, NO on failure
-BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave)
+// Also returns YES if no such file or folder and 'fileMustExist' is FALSE
+BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist)
 {
+    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+        if (  fileMustExist  ) {
+            return NO;
+        }
+        return YES;
+    }
+
     NSDictionary *atts = [gFileMgr fileAttributesAtPath: path traverseLink:YES];
     unsigned long perms = [atts filePosixPermissions];
     NSString *octalPerms = [NSString stringWithFormat:@"%o",perms];
@@ -635,13 +647,13 @@ BOOL secureOneFolder(NSString * path)
             }
             if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
                 && isDir  ) {
-                result = result && checkSetPermissions(filePath, @"755");           // Folders are 755
+                result = result && checkSetPermissions(filePath, @"755", YES);           // Folders are 755
             } else if ( [ext isEqualToString:@"sh"]  ) {
-                result = result && checkSetPermissions(filePath, @"744");           // Scripts are 744
+                result = result && checkSetPermissions(filePath, @"744", YES);           // Scripts are 744
             } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
-                result = result && checkSetPermissions(filePath, @"600");           // Keys and certificates are 600
+                result = result && checkSetPermissions(filePath, @"600", YES);           // Keys and certificates are 600
             } else {
-                result = result && checkSetPermissions(filePath, @"644");           // Everything else is 644
+                result = result && checkSetPermissions(filePath, @"644", YES);           // Everything else is 644
             }
         }
     }

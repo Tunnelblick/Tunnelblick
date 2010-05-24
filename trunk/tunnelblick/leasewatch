@@ -12,31 +12,19 @@ OPENVPN_CONFIG="$(/usr/sbin/scutil <<-EOF
 	quit
 EOF)"
 
+ARG_RESTORE_ON_DNS_RESET="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
+ARG_RESTORE_ON_WINS_RESET="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*RestoreOnWINSReset :' | sed -e 's/^.*: //g')"
+LOG_FILE="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*LogFile :' | sed -e 's/^.*: //g')"
 PROCESS="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
-CONNECTION="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*Connection :' | sed -e 's/^.*: //g')"
-USER="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*User :' | sed -e 's/^.*: //g')"
-CONFIG_PATH="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*ConfigPath :' | sed -e 's/^.*: //g')"
+PSID="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e 's/^.*: //g')"
+# Don't need: ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
+# Don't need: LEASEWATCHER_PLIST_PATH="$(echo "${OPENVPN_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
 
-if [ -n "${USER}" ] ; then
-	LOG_DIR="$(eval echo ~${USER}/Library/Application Support/Tunnelblick/Configurations)"
-else
-	LOG_DIR="/tmp"
-fi
+# If we have a process, then we check the DNS and WINS status...
+# ..._OLD is the pre-VPN value
+# ..._NOW is the current value
+# ..._GOOD is the expected (computed) post-VPN value
 
-if [ -d "${LOG_DIR}" ] ; then
-	LOG_DIR="/tmp"
-fi
-
-if [ -z "${CONNECTION}" ] ; then
-	CONNECTION="Tunnelblick-Leasewatch"
-fi
-LOG_FILE="${LOG_DIR}/${CONNECTION}.log"
-
-if [ -n "${CONFIG_PATH}" ] ; then
-    CONFIG_PATH_DASHES="$(echo "${CONFIG_PATH}" | sed -e 's/\//-/g')"
-    LOG_FILE="/tmp/tunnelblick${CONFIG_PATH_DASHES}.logpipe"
-fi
-# If we have a process, then we check the DNS status...
 if (( M=${PROCESS:-0} )) ; then
 	# What's the correct DNS info?
 	DNS_GOOD="$(/usr/sbin/scutil <<-EOF
@@ -44,19 +32,30 @@ if (( M=${PROCESS:-0} )) ; then
 		show State:/Network/OpenVPN/DNS
 		quit
 	EOF)"
+    # What's the old DNS info?
+    DNS_OLD="$(/usr/sbin/scutil <<-EOF
+        open
+        show State:/Network/OpenVPN/OldDNS
+        quit
+    EOF)"
 	# What's the current DNS info?
 	DNS_NOW="$(/usr/sbin/scutil <<-EOF
 		open
 		show State:/Network/Global/DNS
 		quit
 	EOF)"
-
 	# What's the correct WINS info?
-        WINS_GOOD="$(/usr/sbin/scutil <<-EOF
+    WINS_GOOD="$(/usr/sbin/scutil <<-EOF
 		open
 		show State:/Network/OpenVPN/SMB
 		quit
-        EOF)"
+    EOF)"
+    # What's the old WINS info?
+    WINS_OLD="$(/usr/sbin/scutil <<-EOF
+        open
+        show State:/Network/OpenVPN/OldSMB
+        quit
+    EOF)"
 	# What's the current WINS info?
 	WINS_NOW="$(/usr/sbin/scutil <<-EOF
 		open
@@ -64,16 +63,21 @@ if (( M=${PROCESS:-0} )) ; then
 		quit
 	EOF)"
 
-	# Do they match?  If not, then fix that by firing off a restart signal to the VPN... alternatively,
-	# we could re-set this ourselves manually but the USR1 signal gives us the ability to restart the
-	# VPN in case of a line crash or circuit change or something like that.
-	RESTART="false"
+    # If the DNS configuration has changed
+    # Then if it is the way it was pre-VPN
+    #      Then if OK to do so, restore to the post-VPN configuration
+    #      Otherwise restart the connection
+    # If the WINS configuration has changed
+    # Then if it is the way it was pre-VPN
+    #      Then if OK to do so, restore to the post-VPN configuration
+    #      Otherwise restart the connection
     SEND_HEADER="true"
 	if [ "${DNS_GOOD}" != "${DNS_NOW}" ] ; then
-		RESTART="true"
 		# Echo information on the reason the link was re-set
-        echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: A network configuration change was detected" >> "${LOG_FILE}"
-        SEND_HEADER="false"
+        if ${SEND_HEADER} ; then
+            echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: A network configuration change was detected" >> "${LOG_FILE}"
+            SEND_HEADER="false"
+        fi
 		cat <<-EOF >> "${LOG_FILE}"
 			DNS configuration has changed:
 			--- BEGIN EXPECTED DNS CFG ---
@@ -82,13 +86,45 @@ if (( M=${PROCESS:-0} )) ; then
 			--- BEGIN CURRENT DNS CFG ---
 			${DNS_NOW}
 			---- END CURRENT DNS CFG ----
+			--- BEGIN PRE-VPN DNS CFG ---
+			${DNS_OLD}
+			---- END PRE-VPN DNS CFG ----
 		EOF
+        
+        if [ "${DNS_OLD}" != "${DNS_NOW}" ] ; then
+            # DNS changed, but not to the pre-VPN settings
+                echo "Sending USR1 to OpenVPN PID ${PROCESS} to restart the connection.\003" >> "${LOG_FILE}"
+                # sleep 1 so log message is displayed before we start getting log messages from OpenVPN about the restart
+                sleep 1
+                kill -USR1 ${PROCESS}
+                # We're done here, so no need to wait around.
+                exit 0
+        else
+            # DNS changed, but to the pre-VPN settings
+            if ${ARG_RESTORE_ON_DNS_RESET} ; then
+                echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: Restoring the expected DNS settings." >> "${LOG_FILE}"
+				scutil <<-EOF
+					open
+					get State:/Network/OpenVPN/DNS
+					set State:/Network/Service/${PSID}/DNS
+					quit
+				EOF
+
+            else
+                echo "Sending USR1 to OpenVPN PID ${PROCESS} to restart the connection.\003" >> "${LOG_FILE}"
+                # sleep 1 so log message is displayed before we start getting log messages from OpenVPN about the restart
+                sleep 1
+                kill -USR1 ${PROCESS}
+                # We're done here, so no need to wait around.
+                exit 0
+            fi
+        fi
 	fi
 	if [ "${WINS_GOOD}" != "${WINS_NOW}" ] ; then
-		RESTART="true"
 		# Echo information on the reason the link was re-set
         if ${SEND_HEADER} ; then
             echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: A network configuration change was detected" >> "${LOG_FILE}"
+            SEND_HEADER="false"
         fi
 		cat <<-EOF >> "${LOG_FILE}"
 			WINS configuration has changed:
@@ -98,14 +134,43 @@ if (( M=${PROCESS:-0} )) ; then
 			--- BEGIN CURRENT WINS CFG ---
 			${WINS_NOW}
 			---- END CURRENT WINS CFG ----
+			--- BEGIN PRE-VPN WINS CFG ---
+			${WINS_OLD}
+			---- END PRE-VPN WINS CFG ----
 		EOF
-	fi
+        
+        if [ "${WINS_OLD}" == "${WINS_NOW}" ] ; then
+            # WINS changed, but not to the pre-VPN settings
+                echo -e "Sending USR1 to OpenVPN PID ${PROCESS} to restart the connection.\003" >> "${LOG_FILE}"
+                # sleep 1 so log message is displayed before we start getting log messages from OpenVPN about the restart
+                sleep 1
+                kill -USR1 ${PROCESS}
+                # We're done here, so no need to wait around.
+                exit 0
+        else
+            # WINS changed, but to the pre-VPN settings
+            if ${ARG_RESTORE_ON_WINS_RESET} ; then
+                echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: Restoring the expected WINS settings." >> "${LOG_FILE}"
+				scutil <<-EOF
+					open
+					get State:/Network/OpenVPN/SMB
+					set State:/Network/Service/${PSID}/SMB
+					quit
+				EOF
 
-	if ${RESTART} ; then
-		echo "Sending USR1 to OpenVPN PID ${PROCESS}" >> "${LOG_FILE}"
-        echo -e "\003" >> "${LOG_FILE}"
-        # sleep 1 so log message is displayed before we start getting log messages from OpenVPN about the restart
-        sleep 1
-		kill -USR1 ${PROCESS}
+            else
+                echo "Sending USR1 to OpenVPN PID ${PROCESS} to restart the connection.\003" >> "${LOG_FILE}"
+                # sleep 1 so log message is displayed before we start getting log messages from OpenVPN about the restart
+                sleep 1
+                kill -USR1 ${PROCESS}
+                # We're done here, so no need to wait around.
+                exit 0
+            fi
+        fi
 	fi
+    if ${SEND_HEADER} ; then
+        echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: A system configuration change was ignored because it was not relevant\003" >> "${LOG_FILE}"
+    else
+        echo -e "\003" >> "${LOG_FILE}"
+    fi
 fi

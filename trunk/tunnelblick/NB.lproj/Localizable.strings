@@ -37,6 +37,9 @@
 /* Window text */
 "(To install to a different location, drag %@ to that location.)" = "(For å innstallere et annet sted, dra %@ til den lokasjon.)";
 
+/* NEEDS TRANSLATION *//* OpenVPN Log message */
+"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart message: %@";
+
 /* TRANSLATION SAME AS DEVELOPMENT *//* OpenVPN Log message */
 "*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
 

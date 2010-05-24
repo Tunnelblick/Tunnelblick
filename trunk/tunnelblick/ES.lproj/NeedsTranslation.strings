@@ -34,6 +34,9 @@
 /* Window text */
 "(To install to a different location, drag %@ to that location.)" = "(To install to a different location, drag %@ to that location.)";
 
+/* OpenVPN Log message */
+"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart message: %@";
+
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
 

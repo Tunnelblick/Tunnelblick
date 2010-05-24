@@ -62,6 +62,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             processState:               (NSString *)        newState
                            dated:               (NSString *)        dateTime;
 
+-(void)             setBit:                     (unsigned int)      bit
+                    inMask:                     (unsigned int *)    bitMaskPtr
+    ifConnectionPreference:                     (NSString *)        keySuffix
+                  inverted:                     (BOOL)              invert;
+
 -(void)             setConnectedSinceDate:      (NSDate *)          value;
 
 -(void)             setManagementSocket:        (NetSocket *)       socket;
@@ -582,6 +587,18 @@ extern NSString * lastPartOfPath(NSString * thePath);
         
         [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]
                 atDate: nil];
+    } else {
+        file = [errPipe fileHandleForReading];
+        data = [file readDataToEndOfFile];
+        [file closeFile];
+        openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+        if (  openvpnstartOutput  ) {
+            openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (  [openvpnstartOutput length] != 0  ) {
+                [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart message: %@", @"OpenVPN Log message"), openvpnstartOutput]
+                        atDate: nil];
+            }
+        }
     }
     
     [errPipe release];
@@ -676,7 +693,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         noMonitor = @"1";
     }
 
-    int bitMask = 0;
+    unsigned int bitMask = 0;
     NSString * noTapKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTapKext"];
     NSString * yesTapKextKey = [[self displayName] stringByAppendingString: @"-loadTapKext"];
     if (  ! [gTbDefaults boolForKey: noTapKextKey]  ) {
@@ -703,12 +720,29 @@ extern NSString * lastPartOfPath(NSString * thePath);
         bitMask = bitMask | CREATE_LOG_FILE;
     }
     
+    [self setBit: RESTORE_ON_WINS_RESET  inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"   inverted: YES];
+    [self setBit: RESTORE_ON_DNS_RESET   inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"    inverted: YES];
+    
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
     NSArray * args = [NSArray arrayWithObjects:
                       @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, bitMaskString, nil];
     return args;
-}    
+}
+
+-(void) setBit: (unsigned int) bit inMask: (unsigned int *) bitMaskPtr ifConnectionPreference: (NSString *) keySuffix inverted: (BOOL) invert
+{
+    NSString * prefKey = [[self displayName] stringByAppendingString: keySuffix];
+    if (  [gTbDefaults boolForKey: prefKey]  ) {
+        if (  ! invert  ) {
+            *bitMaskPtr = *bitMaskPtr | bit;
+        }
+    } else {
+        if (  invert  ) {
+            *bitMaskPtr = *bitMaskPtr | bit;
+        }
+    }
+}
 
 - (NSDate *)connectedSinceDate {
     return [[connectedSinceDate retain] autorelease];

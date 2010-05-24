@@ -9,9 +9,47 @@ if [ "$foreign_option_1" == "" ]; then
 	exit 0
 fi
 
+# Process optional arguments (if any) for the script
+# Each one begins with a "-"
+# They come from Tunnelblick, and come first, before the OpenVPN arguments
+# So we set ARG_ script variables to their values and shift them out of the argument list
+# When we're done, only the OpenVPN arguments remain for the rest of the script to use
+ARG_MONITOR_NETWORK_CONFIGURATION="false"
+ARG_RESTORE_ON_DNS_RESET="false"
+ARG_RESTORE_ON_WINS_RESET="false"
+
+while [ {$#} ] ; do
+    if [  "$1" = "-m" ] ; then                                                  # Handle the arguments we know about
+        ARG_MONITOR_NETWORK_CONFIGURATION="true"                                # by setting ARG_ script variables to their values
+        shift                                                                   # Then shift them out
+    elif [  "$1" = "-d" ] ; then
+        ARG_RESTORE_ON_DNS_RESET="true"
+        shift
+    elif [  "$1" = "-w" ] ; then
+        ARG_RESTORE_ON_WINS_RESET="true"
+        shift
+    else
+        ARGTEST="$(echo "$1" | grep '^-.*' | sed -e 's/^-tunnelblick.*/-/g')"   # Ignore the arguments we don't know about
+        if [  "$ARGTEST" = "-" ] ; then                                         # (But shift them out, so the rest of the script
+            shift                                                               #  sees only the OpenVPN arguments)
+        else
+            break
+        fi
+    fi
+done
+
 trim() {
 	echo ${@}
 }
+
+if [ -n "${config}" ] ; then
+    CONFIG_PATH_DASHES="$(echo "${config}" | sed -e 's/\//-/g')"
+    LOG_FILE="/tmp/tunnelblick${CONFIG_PATH_DASHES}.logpipe"
+else
+    LOG_FILE="/tmp/tunnelblick-leasewatch-log.txt"
+fi
+
+LEASEWATCHER_PLIST_PATH="$(dirname "${0}")/LeaseWatch.plist"
 
 OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
 
@@ -210,28 +248,29 @@ if [ -z "${ALL_WINS}" ] ; then
 fi
 
 # Now, do the aggregation
-# save the openvpn PID, the Old DNS settings, and the old service ID
-#
-# This is more robust than the previous file-based exchange mechanism because
-# it leaves no garbage behind in case of a crash (configs aren't persisted), and
-# also because it makes an EXACT copy of the DNS configs that were there before
-# so they can be restored in the end.  EXACT copy means that if there were 20 DNS's
-# configured, then they will be appropriately restored unlike the previous script
-# which only saved two DNS's.
+# Save the openvpn process ID and the Network Primary Service ID, leasewather.plist path, logfile path, and optional arguments from Tunnelblick,
+# then save old and new DNS and WINS settings
+# PPID is a bash-script variable that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
+# config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
 scutil <<- EOF
 	open
 	d.init
 	d.add PID # ${PPID}
 	d.add Service ${PSID}
-    d.add ConfigPath "${config}"
+    d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
+    d.add LogFile "${LOG_FILE}"
+    d.add MonitorNetwork "${ARG_MONITOR_NETWORK_CONFIGURATION}"
+    d.add RestoreOnDNSReset   "${ARG_RESTORE_ON_DNS_RESET}"
+    d.add RestoreOnWINSReset  "${ARG_RESTORE_ON_WINS_RESET}"
 	set State:/Network/OpenVPN
 
-	# First, back up the device's current DNS and WINS configuration, for
-	# restoration later
-	get State:/Network/Service/${PSID}/DNS
+	# First, back up the device's current DNS and WINS configurations
+    get State:/Network/Service/${PSID}/DNS
 	set State:/Network/OpenVPN/OldDNS
+	get State:/Network/Service/${PSID}/SMB
+	set State:/Network/OpenVPN/OldSMB
 
-	# Second, initialize the new map
+	# Second, initialize the new DNS map
 	d.init
 	${HIDE_SNOW_LEOPARD}d.add DomainName ${domain}
 	${NO_DNS}d.add ServerAddresses * ${vDNS[*]}
@@ -246,7 +285,7 @@ scutil <<- EOF
 	${HIDE_LEOPARD}${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	set State:/Network/Service/${PSID}/SMB
 
-	# Now, initialize the map that will be compared against the system-generated map
+	# Now, initialize the maps that will be compared against the system-generated map
 	# which means that we will have to aggregate configurations of statically-configured
 	# nameservers, and statically-configured search domains
 	d.init
@@ -265,5 +304,12 @@ scutil <<- EOF
 	# We're done
 	quit
 EOF
+
+if [ "{ARG_MONITOR_NETWORK_CONFIGURATION}" ] ; then
+    # Generate an updated plist with a per-configuration path
+    LEASEWATCHER_TEMPLATE_PATH ="$(dirname "${0}")/LeaseWatch.plist.template"
+    sed -e "s|\${DIR}|${DIR}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+    launchctl load "${LEASEWATCHER_PLIST_PATH}"
+fi
 
 exit 0

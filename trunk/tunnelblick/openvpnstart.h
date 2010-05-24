@@ -18,8 +18,18 @@
 
 
 // Bit masks for bitMask parameter of openvpnstart start, loadkexts, and unloadkexts commands
+
+// For start, loadkexts, and unloadkexts:
 #define OUR_TUN_KEXT     1
 #define OUR_TAP_KEXT     2
+
+// For start and unloadkexts:
 #define FOO_TUN_KEXT     4
 #define FOO_TAP_KEXT     8
-#define CREATE_LOG_FILE 16
+
+// For start
+#define CREATE_LOG_FILE          16
+
+// For start to pass on to scripts as arguments in the --up and --down OpenVPN options
+#define RESTORE_ON_DNS_RESET     32
+#define RESTORE_ON_WINS_RESET    64
