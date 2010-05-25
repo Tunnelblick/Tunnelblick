@@ -1,0 +1,15 @@
+#summary System Requirements
+#labels Deprecated
+#sidebar wSb
+
+Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. See [wGettingVPNService Getting VPN Service] for details.
+
+Tunnelblick 3.0 runs on OS X Tiger (10.4) and higher, including Leopard and Snow Leopard. It comes as a ready-to-use Universal application with all necessary binaries and drivers (including OpenVPN and tun/tap). No additional installation is necessary -- just add your configuration and encryption information.
+
+An old version that works on OS X Panther (10.3) is Tunnelblick 2.0.1.
+
+*About 64-bit compatibility*: Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. Tunnelblick includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

@@ -1,0 +1,19 @@
+#summary The Latest News About Tunnelblick
+#labels Deprecated
+#sidebar wSb
+
+*2010-05-14*: Tunnelblick 3.1beta02 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
+
+The full list of changes is in the [wRlsNotes Release Notes].
+
+New features include:
+
+ * *Tunnelblick VPN Configurations*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users.
+
+ * *Shared configurations*: Tunnelblick VPN Configurations may be shared by all users of a computer without being installed for each user individually. A button on the "Details…" window switches a configuration from Shared to Private or Private to Shared.
+
+ * *Connect when computer starts*: Shared and Deployed Tunnelblick VPN Configurations may be set to automatically connect when the computer starts, before anyone is logged in. Such connections can persist through login and logout and may be controlled by Tunnelblick when a user is logged in.
+
+ * *Tunnelblick deals with the .tun and .tap kexts more flexibly*.
+
+*Please give feedback on the new features* or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].

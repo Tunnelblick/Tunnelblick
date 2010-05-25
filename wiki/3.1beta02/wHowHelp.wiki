@@ -1,0 +1,14 @@
+#summary How to Help the Tunnelblick Project
+#labels Deprecated
+#sidebar wSb
+
+There are several ways to help the Tunnelblick project:
+  * Try [wBeta beta versions] (when available) of Tunnelblick and help find problems.
+  * Help translate Tunnelblick to other languages. No special programs are required -- you only need the !TextEdit program that comes with all Macs. Contact [http://code.google.com/u/jkbullard/ Jon].
+  * Report bugs or problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick DIscussion Group].
+  * Help other Tunnelblick users in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick DIscussion Group].
+  * Make suggestions for new features.
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

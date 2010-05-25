@@ -1,0 +1,67 @@
+#summary Installing Tunnelblick
+#labels Deprecated
+#sidebar wSb
+
+<wiki:toc max_depth="2" />
+
+==Installing Tunnelblick==
+
+Note: there is no need to install OpenVPN separately - the Tunnelblick application contains both the Tunnelblick GUI and OpenVPN.
+
+First, download the latest disk image from the featured downloads section on the [http://code.google.com/p/tunnelblick/ Tunnelblick project home page]. Double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a window similar to the following will appear:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-05-13.png
+
+Double-click the Tunnelblick icon and a new window will appear, similar to the following:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-install-2010-02-06.png
+
+If you are reinstalling, upgrading, or downgrading Tunnelblick, the window will show the version number of the current copy and of the new copy. The current copy of Tunnelblick will be put in the Trash before it is replaced.
+
+Click the "Install" button to copy Tunnelblick to your hard drive at the indicated location.
+
+Once that is done (it may take a couple of seconds), a new window will appear, similar to the following:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-launch-2010-02-06.png
+
+If you have already set up your configurations and are ready to launch Tunnelblick now, click the "Launch" button. Otherwise, 
+
+If Tunnelblick is currently running, a window similar to the following will appear:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-running-2010-02-06.png
+
+Click the "Close VPN Connections and Stop Tunnelblick" to continue. After all connections are closed and Tunnelblick has quit, the new version of Tunnelblick will be launched. Continue with the following sections.
+
+==The First Time Tunnelblick is Run on a Computer==
+The first time a new installation of Tunnelblick is run on a computer and after a reinstall, upgrade, or downgrade, it will display the following screen:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-password-2010-02-06.png
+
+Please enter the name and password of a computer administrator. Tunnelblick's imbedded OpenVPN needs root privileges because it needs to modify network settings by configuring new network devices, changing routes, and adding and removing nameservers. Because we don't want you to enter your administrator account name and password every time you start a VPN connection, Tunnelblick comes with a setuid root binary that allows it to start a VPN connection with super user rights. Tunnelblick uses your administrator account name and password so it can create this setuid root binary.
+
+==The First Time Tunnelblick is Run by Each User==
+If this is the first time you have run Tunnelblick as a particular user, or the first time after some Tunnelblick upgrades, the following window will appear:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-check-2010-02-06.png
+
+Specify whether or not you wish to have Tunnelblick check for updates each time it is launched. Each time an update is available, you will be given a choice of whether to install the update or not.
+
+When there are no configurations (which is usually the case the first time Tunnelblick is run by each user when using a non-deployed version of Tunnelblick with no Shared configurations), the following window will appear:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-05-13.png
+
+If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file and open it in TextEdit for you to modify.
+
+If you click "Quit”, Tunnelblick will quit without doing anything.
+
+If you click "Open configuration folder", Tunnelblick will open a Finder window with `~/Library/Application Support/Tunnelblick/Configurations`, and then quit. Move or copy your [wPkgs Tunnelblick VPN Configurations] or OpenVPN configuration file(s) -- files with extensions of ".oven" or ".conf" -- to this window. If you have received key files or certificate files with your configuration file, move or copy them to this window also.
+
+To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder.
+
+==Uninstalling Tunnelblick==
+To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash. Other than the preferences and configuration files described in "File Locations", there are no other files installed -- OpenVPN, the tun/tap kernel extensions, and up/down scripts are contained within the Tunnelblick.app package and are loaded only when needed directly from there. Tunnelblick may store passphrases or passwords in the Keychain at the user's request.
+
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
