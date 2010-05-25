@@ -1,5 +1,7 @@
 #summary New Documentation for Tunnelblick 3.1beta02
-#sidebar 3.1beta02/wSb
+#sidebar wSb
+
+[3.1beta02/wBeta Test link to Beta page]
 
 ==What's New in Tunnelblick 3.1beta02==
   * Norwegian Bokmål (NB) localization by Jon Luberth. Tusen takk!
