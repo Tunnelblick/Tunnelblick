@@ -269,7 +269,8 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     if (  bitMask == 0  ) {
         bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
     }
-    
+
+    // Determine path to the configuration file and the --cd folder
 	switch (cfgLocCode) {
         case 0:
             cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
@@ -398,22 +399,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     // For backward compatibility, we only use the "new" (-tunnelblick-argument-capable) scripts if there are no old scripts
     // This would normally be the case, but if someone's custom build inserts replacements for the old scripts, we will use the replacements instead of the new scripts
     
-    if (  noMonitor  ) {
-        if (  ! [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
-            upscriptPath = newUpscriptPath;
-        }
-        if (  ! [gFileMgr fileExistsAtPath: downscriptNoMonitorPath]  ) {
-            downscriptPath = newDownscriptPath;
-        }
-    } else {
-        if (  ! [gFileMgr fileExistsAtPath: upscriptPath]  ) {
-            upscriptPath = newUpscriptPath;
-        }
-        if (  ! [gFileMgr fileExistsAtPath: downscriptPath]  ) {
-            downscriptPath = newDownscriptPath;
-        }
-    }
-    
     if(  useScripts != 0  ) {  // 'Set nameserver' specified, so use our standard scripts or Deploy/<config>.up.sh and Deploy/<config>.down.sh
         if (  cfgLocCode == 2  ) {
             NSString * deployScriptPath                 = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
@@ -429,31 +414,72 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                     upscriptPath = deployUpscriptNoMonitorPath;
                 } else if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
+                    upscriptPath = upscriptNoMonitorPath;
                 } else if (  [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
                     upscriptPath = deployNewUpscriptPath;
+                } else {
+                    upscriptPath = newUpscriptPath;
                 }
                 if (  [gFileMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
                     downscriptPath = deployDownscriptNoMonitorPath;
                 } else if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: downscriptNoMonitorPath]  ) {
+                    downscriptPath = downscriptNoMonitorPath;
                 } else if (  [gFileMgr fileExistsAtPath: deployNewDownscriptPath]  ) {
                     downscriptPath = deployNewDownscriptPath;
+                } else {
+                    downscriptPath = newDownscriptPath;
                 }
             } else {
                 if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: upscriptPath]  ) {
+                    ;
                 } else if (  [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
                     upscriptPath = deployNewUpscriptPath;
+                } else {
+                    upscriptPath = newUpscriptPath;
                 }
                 if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
+                } else if (  [gFileMgr fileExistsAtPath: downscriptPath]  ) {
+                    ;
                 } else if (  [gFileMgr fileExistsAtPath: deployNewDownscriptPath]  ) {
                     downscriptPath = deployNewDownscriptPath;
+                } else {
+                    downscriptPath = newDownscriptPath;
                 }
             }
+        } else {
+            if (  noMonitor  ) {
+                if (  [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
+                    upscriptPath = upscriptNoMonitorPath;
+                } else {
+                    upscriptPath = newUpscriptPath;
+                }
+                if (  [gFileMgr fileExistsAtPath: downscriptNoMonitorPath]  ) {
+                    downscriptPath = downscriptNoMonitorPath;
+                } else {
+                    downscriptPath = newDownscriptPath;
+                }
+            } else {
+                if (  [gFileMgr fileExistsAtPath: upscriptPath]  ) {
+                    ;
+                } else {
+                    upscriptPath = newUpscriptPath;
+                }
+                if (  [gFileMgr fileExistsAtPath: downscriptPath]  ) {
+                    ;
+                } else {
+                    downscriptPath = newDownscriptPath;
+                }
+            }
+
         }
         
-        // BUT OVERRIDE THE ABOVE if there are scripts in the .tblk
+        // BUT MAY OVERRIDE THE ABOVE if there are scripts in the .tblk
         if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
             NSString * tblkUpscriptPath             = [cdFolderPath stringByAppendingPathComponent: @"up.sh"];
             NSString * tblkDownscriptPath           = [cdFolderPath stringByAppendingPathComponent: @"down.sh"];
@@ -484,7 +510,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                     downscriptPath = tblkNewDownscriptPath;
                 }
             }
-
         }
         
         // Process script options if scripts are "new" scripts
