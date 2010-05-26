@@ -1065,6 +1065,9 @@ BOOL createPipeForConfigAtPath(NSString * inPath)
         realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
     }
     [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
+    if (  ! realCfgPathWithDashes  ) {
+        realCfgPathWithDashes = @"";
+    }
     NSString * path = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
     
     [gFileMgr removeFileAtPath: path handler: nil];
