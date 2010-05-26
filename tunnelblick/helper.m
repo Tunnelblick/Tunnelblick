@@ -203,6 +203,9 @@ NSString * pipePathFromConfigPath(NSString * inPath)
         realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
     }
     [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
+    if (  ! realCfgPathWithDashes  ) {
+        realCfgPathWithDashes = @"";
+    }
     NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
     return pipePath;
 }
