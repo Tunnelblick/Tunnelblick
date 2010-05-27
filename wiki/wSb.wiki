@@ -3,8 +3,8 @@
 
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
-*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg Download Tunnelblick 3.1beta04]<br><br>
-[wNews *News*]<br><br>
+*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg Download Tunnelblick 3.1beta04]*<br><br>
+*[wNews News]*<br><br>
 *Getting Started*
     [wWelcome Welcome to Tunnelblick]<br>
     [wWhatIs What is Tunnelblick?]<br>
