@@ -1,6 +1,10 @@
 #summary Documentation for Tunnelblick 3.1beta04
 #sidebar wSb
 
+<hr>
+<font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta04.dmg Download Tunnelblick 3.1beta04]*</font>
+<hr>
+
 ==What's New in Tunnelblick 3.1beta04 (from 3.1beta02)==
   * Creates pipes for script output to OpenVPN log window on demand instead of when Tunnelblick launches
 
