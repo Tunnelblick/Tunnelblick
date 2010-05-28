@@ -6,7 +6,8 @@ A *"beta"* version of a program is a version that has been tested internally and
 
 When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
-Beta versions are flagged as "Deprecated" downloads on the website so they are not normally visible to viewers of the Downloads page.
+Beta versions are usually flagged as "Deprecated" downloads on the website so they are not normally visible to viewers of the Downloads page. When you download from the Deprecated Downloads page, you will be warned that it is "...deprecated. Another file would probably be better" -- just click "OK" to download.
+
 --------------------
 2010-05-27: *Tunnelblick 3.1beta04 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
 
