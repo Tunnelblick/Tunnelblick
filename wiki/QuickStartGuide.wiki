@@ -1,5 +1,4 @@
 #summary Quick Start Guide
-#labels Deprecated
 #sidebar xSb
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
