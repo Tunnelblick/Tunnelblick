@@ -1,5 +1,6 @@
 #summary Entry page for the Documentation
 #labels Deprecated
+#sidebar sb
 
 = Documentation =
 
@@ -8,20 +9,20 @@
     [FAQ FAQ]<br>
     [DocumentationForTunnelblick_3_0 What's New]<br>
     [QuickStartGuide Quick Start Guide]<br>
-    [GettingVPNService Getting VPN Service]
+    [GettingVPNService Getting VPN Service]<br>
     [UsingTunnelblick Installing and Using Tunnelblick]<br><br>
 
 
 [DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]<br>
   Quick Links:<br>
+    [wBeta Beta Releases]<br>
     [wFAQ FAQ]<br>
     [DocumentationForTunnelblick_3_1beta04 What's New]<br>
-    [wQuick Quick start guide]<br>
+    [wQuick Quick Start Guide]<br>
     [wGettingVPNService Getting VPN Service]<br>
-    [wBeta Beta Releases]<br>
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br><br>
 
 
-[http://code.google.com/p/tunnelblick/w/list All documentation pages]
+[http://code.google.com/p/tunnelblick/w/list All Documentation (unorganized!)]
