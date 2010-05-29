@@ -6,6 +6,9 @@
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg Download Tunnelblick 3.1beta04]*<br><br>
 *[wNews News]*<br><br>
+*[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*<br>
+<hr>
+*Tunnelblick <font color="red">3.1beta04</font> Documentation*<br><br>
 *Getting Started*
     [wWelcome Welcome to Tunnelblick]<br>
     [wWhatIs What is Tunnelblick?]<br>
