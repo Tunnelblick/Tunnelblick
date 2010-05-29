@@ -1,5 +1,5 @@
 #summary Frequently Asked Questions (Answered)
-#labels Featured,Deprecated
+#labels Deprecated
 #sidebar xSb
 
 <wiki:toc max_depth="2" />
