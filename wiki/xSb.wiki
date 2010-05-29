@@ -4,7 +4,7 @@
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[DocumentationForTunnelblick_3_1beta04 Documentation for Tunnelblick Beta Releases]*<br>
 <hr>
-*Tunnelblick 3.0 Documentation*<br><br>
+*Tunnelblick 3.0 Documentation*<br>
 
     [FAQ Frequently Asked Questions]<br>
     [QuickStartGuide Quick Start Guide]<br>
