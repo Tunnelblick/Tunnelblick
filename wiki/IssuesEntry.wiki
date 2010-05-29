@@ -1,4 +1,3 @@
-#labels Deprecated
 Before *posting a new* Issue, please
 
   * Take a look at the [KnownIssues Known Issues wiki].
