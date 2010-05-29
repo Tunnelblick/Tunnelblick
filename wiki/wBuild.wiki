@@ -1,5 +1,4 @@
 #summary How to build Tunnelblick from the source code
-#labels Deprecated
 #sidebar wSb
 
 *HOW TO BUILD TUNNELBLICK FROM THE SOURCE CODE*
