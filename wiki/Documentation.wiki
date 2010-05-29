@@ -1,5 +1,4 @@
 #summary Entry page for the Documentation
-#labels Deprecated
 #sidebar sb
 
 = Documentation =
