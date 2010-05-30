@@ -1,5 +1,4 @@
 #summary Localizing Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 *Localizing Tunnelblick*
