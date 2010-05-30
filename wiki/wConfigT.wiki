@@ -1,5 +1,4 @@
 #summary Setting Up Configurations
-#labels Deprecated
 #sidebar wSb
 
 <wiki:toc max_depth="2" />
