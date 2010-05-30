@@ -1,5 +1,4 @@
 #summary Using Tunnelblick as a VPN Server
-#labels Deprecated
 #sidebar wSb
 
 All versions of Tunnelblick allow use of OpenVPN as a server or client (which is determined by the OpenVPN configuration file), but before Tunnelblick version 3.1beta02:
