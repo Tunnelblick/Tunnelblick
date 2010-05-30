@@ -1,5 +1,4 @@
 #summary Common Problems
-#labels Deprecated
 #sidebar wSb
 
 <font color="red>*It is probably obvious, but this article is not finished yet!*</font>
