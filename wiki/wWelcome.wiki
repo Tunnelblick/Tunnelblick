@@ -1,5 +1,4 @@
 #summary Welcome
-#labels Deprecated
 #sidebar wSb
 
 ==Welcome to Tunnelblick==
