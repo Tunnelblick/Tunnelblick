@@ -1,5 +1,4 @@
 #summary The Latest News About Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 *2010-05-27*: Tunnelblick 3.1beta04 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
