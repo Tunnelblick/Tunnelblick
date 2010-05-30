@@ -1,5 +1,4 @@
 #summary System Requirements
-#labels Deprecated
 #sidebar wSb
 
 Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. See [wGettingVPNService Getting VPN Service] for details.
