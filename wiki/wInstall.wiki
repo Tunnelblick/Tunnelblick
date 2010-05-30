@@ -1,5 +1,4 @@
 #summary Installing Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 <wiki:toc max_depth="2" />
