@@ -1,5 +1,4 @@
 #summary The Console Log
-#labels Deprecated
 #sidebar wSb
 
 Tunnelblick and OpenVPN sometimes output diagnostic information to the OS X logs. The logs include output from all of the programs running on your computer, not just Tunnelblick and OpenVPN.
