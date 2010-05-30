@@ -1,5 +1,4 @@
 #summary Release Notes - Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 ==3.1beta04 (2010-05-27)==
