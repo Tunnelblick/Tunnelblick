@@ -1,5 +1,4 @@
 #summary What Else You Need
-#labels Deprecated
 #sidebar wSb
 
 You don't need any other programs to use Tunnelblick. It comes with the OpenVPN program and all required drivers built into the Tunnelblick application itself.
