@@ -1,5 +1,4 @@
 #summary Deploying Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 *This  document describes how to create a deployed version of Tunnelblick and was last modified 2010-02-23.* It reflects the behavior of Tunnelblick built from the r412 source code.
