@@ -1,5 +1,4 @@
 #summary Configuring OpenVPN
-#labels Deprecated
 #sidebar wSb
 
 Tunnelblick is "just" a GUI -- a front end for OpenVPN. Each Tunnelblick VPN Configuration includes an OpenVPN configuration file (a file with an extension of .ovpn or .conf) that Tunnelblick tells OpenVPN to use to make a connection. The details of how OpenVPN should connect using the configuration are contained in that file.
