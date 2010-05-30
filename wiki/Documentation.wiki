@@ -4,7 +4,7 @@
 = Documentation =
 
 [DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]
-  Quick Links:
+  Popular articles:
     [FAQ FAQ]<br>
     [DocumentationForTunnelblick_3_0 What's New]<br>
     [QuickStartGuide Quick Start Guide]<br>
@@ -13,7 +13,7 @@
 
 
 [DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]<br>
-  Quick Links:<br>
+  Popular articles:
     [wBeta Beta Releases]<br>
     [wFAQ FAQ]<br>
     [DocumentationForTunnelblick_3_1beta04 What's New]<br>
@@ -23,5 +23,6 @@
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br><br>
 
+ALL ARTICLES are available from the side navigation panel on each page.
 
-[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized!)]
+[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list!)]
