@@ -1,5 +1,4 @@
 #summary How to Get Help
-#labels Deprecated
 #sidebar wSb
 
 Your first resource for help should be the person or organization that set up your VPN:
