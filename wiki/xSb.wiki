@@ -1,6 +1,7 @@
 #summary Sidebar for 3.0 wiki
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
+*[wNews News]*<br><br>
 *[DocumentationForTunnelblick_3_1beta04 Documentation for Tunnelblick Beta Releases]*<br>
 <hr>
 *Tunnelblick 3.0 Documentation*<br>
