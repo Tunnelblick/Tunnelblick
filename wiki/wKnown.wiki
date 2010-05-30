@@ -1,5 +1,4 @@
 #summary Known Issues
-#labels Deprecated
 #sidebar wSb
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
