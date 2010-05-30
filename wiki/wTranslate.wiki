@@ -1,5 +1,4 @@
 #summary Translating Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 * Translating Tunnelblick*
