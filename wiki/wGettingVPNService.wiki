@@ -3,7 +3,7 @@
 
 If you try to connect to a VPN without setting up a configuration file, the following error message will appear:
 
- "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.
+ You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.
 
  Consult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.
 
