@@ -1,5 +1,4 @@
 #summary How to Help the Tunnelblick Project
-#labels NotReally,Deprecated
 #sidebar wSb
 
 There are several ways to help the Tunnelblick project:
