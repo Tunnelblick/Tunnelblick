@@ -1,5 +1,4 @@
 #summary The OpenVPN Log
-#labels Deprecated
 #sidebar wSb
 
 The OpenVPN log is the record of output from OpenVPN for a connection. It includes entries from Tunnelblick giving additional information.
