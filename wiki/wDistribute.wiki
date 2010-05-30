@@ -1,5 +1,4 @@
 #summary Distributing Tunnelblick
-#labels Deprecated
 #sidebar wSb
 
 Tunnelblick is made available under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2]. It can be freely distributed within the restrictions of that license.
