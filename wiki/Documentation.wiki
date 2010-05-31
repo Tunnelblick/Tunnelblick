@@ -11,6 +11,8 @@
     [GettingVPNService Getting VPN Service]<br>
     [UsingTunnelblick Installing and Using Tunnelblick]<br><br>
 
+  ALL ARTICLES are available from the side navigation panel on each page.
+
 
 [DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]<br>
   Popular articles:
@@ -23,6 +25,7 @@
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br><br>
 
-ALL ARTICLES are available from the side navigation panel on each page.
+  ALL ARTICLES are available from the side navigation panel on each page.
+
 
 [http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list!)]
