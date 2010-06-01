@@ -8,15 +8,32 @@
 ==Tunnelblick Won't Connect==
 If Tunnelblick won't connect to a VPN, take a look at the [wOpenVPNLog The OpenVPN Log], which usually indicates what specifically is causing the problem. Unfortunately, the OpenVPN log usually has a lot of entries as it makes a connection attempt, and it is sometimes hard to find the entry that describes the problem. Usually it is one of the last entries in the log, however.
 
+
 ==An error messages says to see details in the Console Log==
 See [wConsoleLog The Console Log] for instructions on viewing the Console Log.
 
+
 ==An error message says "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details."==
+This is usually caused by a problem with the private configuration folder. (Tunnelblick sets this up, but if you accidentally delete a critical file or folder, this could happen.) The Console log will contain details about the specific problem. See [wFileLocations File Locations] for information about how the files and folders should be set up.
+
 (See [wConsoleLog The Console Log] for instructions on viewing the Console Log.)
 
-This is usually caused by a problem with the private configuration folder. (Tunnelblick sets this up, but if you accidentally delete a critical file or folder, this could happen.) The Console log will contain details about the specific problem.
 
-See [wFileLocations File Locations] for information about how the files and folders should be set up.
+==An OpenVPN log entry says "potential route subnet conflict"==
+This means that the remote network you are creating a VPN to has IP addresses that are also in your local LAN.
+
+The easiest way to fix this is usually to change the addresses of your local LAN. You do this by changing your router's configuration. For some routers you specify the first three numbers of the LAN (e.g. 192.168.77); in other routers you specify the address of the router itself (e.g. 192.168.77.1).
+
+After changing the LAN address, you should restart all computers (and other network devices including network printers), so they start using addresses in the new address range.
+
+Example:
+ WARNING: potential route subnet conflict between local LAN [192.168.1.0/255.255.255.0] and remote VPN [192.168.1.0/255.255.255.0] 
+
+This means that both the remote network and your local network are using the 192.168.1.`*` range of IP addresses. So change your local network to use, for example, 192.168.5.`*`, or 192.168.23.`*`. If you get the same warning message, try another address range.
+
+
+==An OpenVPN log entry says "Message hash algorithm 'SHA512' not found (OpenSSL)"==
+This means that the configuration and the server are trying to use a message hash algorithm that Tunnelblick doesn't know about. To run on OS X 10.4-10.6 with the same binary, Tunnelblick assumes that only the hash and encryption algorithms available on OS X 10.4 are available, regardless of which version of OS X you are running. A workaround (which involves creating a customized build of Tunnelblick from the source code) is described in  http://code.google.com/p/tunnelblick/issues/detail?id=82.
 
 ------------------
 
