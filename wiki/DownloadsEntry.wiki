@@ -13,8 +13,8 @@
 
 *Beta Releases*<br>
   A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has *new features that need testing, and may have bugs or limitations.*<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg&can=1&q= 3.01beta04]<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg&can=1&q= 3.01beta02]<br>
+  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg&can=1&q= 3.1beta04]<br>
+  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg&can=1&q= 3.1beta02]<br>
   [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b28.dmg&can=1&q= 3.0b28] (2010-02-24)<br>
   [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b26.dmg&can=1&q= 3.0b26] (2010-02-09)<br>
   [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b24.dmg&can=1&q= 3.0b24] (2009-12-12)<br>
