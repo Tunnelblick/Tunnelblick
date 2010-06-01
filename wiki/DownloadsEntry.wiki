@@ -29,4 +29,4 @@
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg&can=1&q= 3.0b8] (2008-07-17)<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg&can=1&q= 3.0b7] (2008-07-07)<br>
 
-The above links include all available versions of the program. [http://code.google.com/p/tunnelblick/downloads/list All files, including icons and images for the documentation]
+The above links include all available versions of the program. [http://code.google.com/p/tunnelblick/downloads/list?can=1&q= All files, including icons and images for the documentation]
