@@ -22,6 +22,7 @@
     [wServer Tunnelblick as a VPN Server]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br>
+    [http://code.google.com/p/tunnelblick/wiki/wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
 *Troubleshooting*
     [wCommonProblems Common Problems]<br>
     [wOpenVPNLog The OpenVPN Log]<br>
