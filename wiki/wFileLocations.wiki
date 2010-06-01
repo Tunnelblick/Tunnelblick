@@ -14,7 +14,9 @@ There are two types of configuration files:
 
   * Tunnelblick VPN Connection files (.tblk files), which include within them one OpenVPN configuration file and all key, certificate, and script files used by the configuration; and
 
-  * OpenVPN configuration files (.ovpn and .conf files). Keys, certificates, and scripts associated with a configuration file are stored as often separate files, but may be included within the configuration file itself.
+  * OpenVPN configuration files (.ovpn and .conf files). Keys, certificates, and scripts associated with a configuration file are often stored as separate files, but may be included within the configuration file itself.
+
+<font color="red">Note: Tunnelblick VPN Configurations should always be installed by double-clicking them.</font> If you just move or copy them they may not be work correctly.
 
 There are four places configuration files may be stored:
 
@@ -24,7 +26,7 @@ There are four places configuration files may be stored:
 
   * [DeployingTunnelblick Deployed configurations], including both types of files, are stored within the Contents/Resources folder of Tunnelblick.app itself. They do not need to be set up for each user, and are accessible to all users of the computer with access to the application. (To access the internal contents of Tunnelblick.app  in the Finder, control-click Tunnelblick.app in the Applications folder  and click "Show Package Contents”.)
 
-  * "Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. See "useShadowConfigurationFiles" in [Preferences Preferences] for details.
+  * "Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. See "useShadowConfigurationFiles" in [Preferences Preferences] for details. Shadow copies are created and maintained by Tunnelblick.
 
 Note: Prior to Tunnelblick version 3.0b24, private configuration files were stored in ~/Library/openvpn. Version 3.0b24 and later versions automatically move that folder to its new location, and replace it with a symbolic link to the new location.
 
