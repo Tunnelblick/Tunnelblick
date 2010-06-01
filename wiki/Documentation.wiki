@@ -28,4 +28,4 @@
   ALL ARTICLES are available from the side navigation panel on each page.
 
 
-[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list!)]
+[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list)]
