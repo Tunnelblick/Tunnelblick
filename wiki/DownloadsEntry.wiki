@@ -5,26 +5,28 @@
   A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [wBeta beta release], but may be more reliable.<br><br>
 
     _For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard"_ <br>
-      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg&can=1&q= 3.0] (2010-03-09)<br>
-      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b10.dmg&can=1&q= 3.0b10] (2008-11-20)<br>
+      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg&can=1&q= 3.0] (2010-03-09)<br><br>
+      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b10.dmg&can=1&q= 3.0b10] (2008-11-20) (Deprecated, use only if 3.0 doesn't work properly for you)<br>
 
     _For OS X 10.3 ("Panther")_ <br>
       [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg&can=1&q= 2.01]<br>
 
 *Beta Releases*<br>
   A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has *new features that need testing, and may have bugs or limitations.*<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg&can=1&q= 3.1beta04]<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg&can=1&q= 3.1beta02]<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b28.dmg&can=1&q= 3.0b28] (2010-02-24)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b26.dmg&can=1&q= 3.0b26] (2010-02-09)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b24.dmg&can=1&q= 3.0b24] (2009-12-12)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b22.dmg&can=1&q= 3.0b22] (2009-11-01)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b20.dmg&can=1&q= 3.0b20] (2009-10-09)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b18.dmg&can=1&q= 3.0b18] (2009-09-23)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b16.dmg&can=1&q= 3.0b16] (2009-08-22)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b14.dmg&can=1&q= 3.0b14] (2009-08-10)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b9.dmg&can=1&q= 3.0b9] (2008-07-24)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg&can=1&q= 3.0b8] (2008-07-17)<br>
-  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg&can=1&q= 3.0b7] (2008-07-07)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg&can=1&q= 3.1beta04]<br><br>
 
-[http://code.google.com/p/tunnelblick/downloads/list All Downloads]
+  Deprecated:
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg&can=1&q= 3.1beta02]<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b28.dmg&can=1&q= 3.0b28] (2010-02-24)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b26.dmg&can=1&q= 3.0b26] (2010-02-09)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b24.dmg&can=1&q= 3.0b24] (2009-12-12)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b22.dmg&can=1&q= 3.0b22] (2009-11-01)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b20.dmg&can=1&q= 3.0b20] (2009-10-09)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b18.dmg&can=1&q= 3.0b18] (2009-09-23)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b16.dmg&can=1&q= 3.0b16] (2009-08-22)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b14.dmg&can=1&q= 3.0b14] (2009-08-10)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b9.dmg&can=1&q= 3.0b9] (2008-07-24)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg&can=1&q= 3.0b8] (2008-07-17)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg&can=1&q= 3.0b7] (2008-07-07)<br>
+
+The above links include all available versions of the program. [http://code.google.com/p/tunnelblick/downloads/list All files, including icons and images for the documentation]
