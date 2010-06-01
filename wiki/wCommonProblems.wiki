@@ -1,7 +1,7 @@
 #summary Common Problems
 #sidebar wSb
 
-<font color="red>*It is probably obvious, but this article is not finished yet!*</font>
+<font color="red>*Note: This article is not complete.*</font>
 
 <wiki:toc max_depth="2" />
 
