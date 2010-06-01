@@ -4,11 +4,11 @@
 *Stable Releases*<br>
   A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [wBeta beta release], but may be more reliable.<br><br>
 
-    _For Mac OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard"_ <br>
+    _For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard"_ <br>
       [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg&can=1&q= 3.0] (2010-03-09)<br>
       [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b10.dmg&can=1&q= 3.0b10] (2008-11-20)<br>
 
-    _For Mac OS X 10.3 ("Panther")_ <br>
+    _For OS X 10.3 ("Panther")_ <br>
       [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg&can=1&q= 2.01]<br>
 
 *Beta Releases*<br>
