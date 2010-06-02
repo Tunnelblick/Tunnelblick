@@ -35,6 +35,24 @@ This means that both the remote network and your local network are using the 192
 ==An OpenVPN log entry says "Message hash algorithm 'SHA512' not found (OpenSSL)"==
 This means that the configuration and the server are trying to use a message hash algorithm that Tunnelblick doesn't know about. To run on OS X 10.4-10.6 with the same binary, Tunnelblick assumes that only the hash and encryption algorithms available on OS X 10.4 are available, regardless of which version of OS X you are running. A workaround (which involves creating a customized build of Tunnelblick from the source code) is described in  http://code.google.com/p/tunnelblick/issues/detail?id=82.
 
+
+==An OpenVPN log entry says "Tunnelblick: openvpnstart status #247: Error: Unable to load tun and tap kexts. Status = 71"==
+See the following entry.
+==An OpenVPN log entry says "Tunnelblick: openvpnstart status #247: Error: Unable to load net.tunnelblick.tun and/or net.tunnelblick.tap kexts in 5 tries. Status = 71"==
+This means that Tunnelblick was unable to load the tun and/or tap kexts (device drivers) it needs to make a VPN connection. Usually that is because there are incompatible kexts already loaded. Recent versions of Tunnelblick try to be "good citizens" by loading kexts only when needed, and unloading them when they are no longer needed. However, other VPN clients (Cisco AnyConnect SSL VPN, for example) load their own, incompatible kexts when the computer is started and leave them loaded, whether or not a VPN connection is in use.
+
+To find out if this is what is causing the problem, use the "kextstat" command in a Terminal window. It will list all of the loaded kexts. Usually the tun and/or tap kexts show up at or near the end of the list. Common tun/taps are:
+  * net.tunnelblick.tun and net.tunnelblick.tap: These are the kexts used by current versions of Tunnelblick. The appropriate one (tun or tap) is loaded when a connection is requested, and unloaded when it is disconnected.
+  * foo.tun and foo.tap: These are obsolete Tunnelblick kexts, loaded when an older version of Tunnelblick is launched (and unloaded when the computer restarts). If Tunnelblick detects them, it will offer to unload them before connecting.
+  * com.cisco.cscotun (and com.cisco.cscotap?): These are Cisco AnyConnect SSL VPN kexts. Cisco's installer causes them to be loaded when the computer starts.
+  * com.viscosityvpn.Viscosity.tun and com.viscosityvpn.Viscosity.tap: These are kexts used by the Viscosity VPN client.
+
+To unload kexts and allow Tunnelblick to load its own kexts, use the 'kextunload" Terminal command to unload each loaded tun and tap kext individually. For example, to unload com.viscosityvpn.Viscosity.tun, type the following:
+
+  sudo kextunload -b com.viscosityvpn.Viscosity.tun
+
+(The "sudo" is necessary because this command modifies the device driver. You will be asked for your administrator password.)
+
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
