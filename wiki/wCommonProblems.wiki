@@ -1,8 +1,6 @@
 #summary Common Problems
 #sidebar wSb
 
-<font color="red>*Note: This article is not complete.*</font>
-
 <wiki:toc max_depth="2" />
 
 ==Tunnelblick Won't Connect==
@@ -34,6 +32,18 @@ This means that both the remote network and your local network are using the 192
 
 ==An OpenVPN log entry says "Message hash algorithm 'SHA512' not found (OpenSSL)"==
 This means that the configuration and the server are trying to use a message hash algorithm that Tunnelblick doesn't know about. To run on OS X 10.4-10.6 with the same binary, Tunnelblick assumes that only the hash and encryption algorithms available on OS X 10.4 are available, regardless of which version of OS X you are running. A workaround (which involves creating a customized build of Tunnelblick from the source code) is described in  http://code.google.com/p/tunnelblick/issues/detail?id=82.
+
+
+==An OpenVPN log entry says "Cannot allocate TUN/TAP dev dynamically"==
+This problem indicates a problem with the tun/tap kexts.
+  * It could be caused (prior to Tunnelblick version 3.0b22),  by trying to make a connection while running the Snow Leopard kernel in 64 bit mode. Update to the latest version to correct this problem.
+  * It can be caused by the following sequence in the configuration file:
+    dev-type tun<br>
+    dev abcdefg
+  and a workaround is to change to the single line
+    dev tun
+  (or substitute "tap" for "tun" in the above if you are using the tap interface.)
+  * It can be caused by extra "tun" or "tap" kexts being loaded. See the following entry.
 
 
 ==An OpenVPN log entry says "Tunnelblick: openvpnstart status #247: Error: Unable to load tun and tap kexts. Status = 71"==
