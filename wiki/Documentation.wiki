@@ -4,6 +4,7 @@
 = Documentation =
 
 [DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]
+  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [FAQ FAQ]<br>
     [DocumentationForTunnelblick_3_0 What's New]<br>
@@ -11,10 +12,10 @@
     [GettingVPNService Getting VPN Service]<br>
     [UsingTunnelblick Installing and Using Tunnelblick]<br><br>
 
-  ALL ARTICLES are available from the side navigation panel on each page.
 
 
 [DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]<br>
+  ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wBeta Beta Releases]<br>
     [wFAQ FAQ]<br>
@@ -24,8 +25,5 @@
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br><br>
-
-  ALL ARTICLES are available from the side navigation panel on each page.
-
 
 [http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list)]
