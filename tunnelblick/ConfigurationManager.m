@@ -464,6 +464,16 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             }
     }
     
+    NSString * devTypeOption = [[self parseString: cfgContents forOption: @"dev-type"] lowercaseString];
+    if (  devTypeOption  ) {
+        if (   [devTypeOption isEqualToString: @"tun"]
+            || [devTypeOption isEqualToString: @"tap"]  ) {
+            return devTypeOption;
+        } else {
+            NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
+        }
+    }
+    
     NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
     NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
     if (  [devOption length] >= 3  ) {
@@ -487,7 +497,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         return nil;
     }
     [cfgContents release];
-    return [devOption lowercaseString];
+    return devOptionFirst3Chars;
 }
 
 -(NSString *) parseString: (NSString *) cfgContents forOption: (NSString *) option
