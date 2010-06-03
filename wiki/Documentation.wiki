@@ -3,7 +3,7 @@
 
 = Documentation =
 
-[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]
+*[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [FAQ FAQ]<br>
@@ -14,7 +14,7 @@
 
 
 
-[DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]<br>
+*[DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wBeta Beta Releases]<br>
@@ -26,4 +26,9 @@
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br><br>
 
-[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list)]
+*To determine which version of Tunnelblick you are using:*
+  # Find Tunnelblick.app (it is usually in the /Applications folder).
+  # Click on Tunnelblick.app to select it
+  # Click "File", then "Get Info". A window will appear with (among other things) version information.
+
+*[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list)]*
