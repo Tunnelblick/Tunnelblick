@@ -38,20 +38,23 @@ The files that should be contained in a Tunnelblick VPN Configuration (the "file
 
 There is one more requirement: the OpenVPN configuration file (.ovpn or .conf file) must refer to the other files by their names and extensions only, without path information. In other words, the OpenVPN configuration file must have lines that look like
 
- key name.key
- ca ca.crt
- cert client26.crt
- tls-auth ta.key 1
- up up.sh
+ key name.key<br>
+ ca ca.crt<br>
+ cert client26.crt<br>
+ tls-auth ta.key 1<br>
+ up up.sh<br>
  down down.sh
 
 and not like
 
- key ~/Documents/name.key
- ca VPN/ca.crt
- cert /Test/123/456/client26.crt
+ key ~/Documents/name.key<br>
+ ca VPN/ca.crt<br>
+ cert /Test/123/456/client26.crt<br>
 
  For convenience, when you start Tunnelblick with no configuration files present, it will offer to create a sample Tunnelblick VPN Configuration and open the sample OpenVPN configuration file within it in !TextEdit.
+
+==The OpenVPN Configuration File (.ovpn or .conf File)==
+The OpenVPN configuration file contains options that determine how OpenVPN will work -- whether or not OpenVPN should act as a server or client, for example, and how to connect or accept connections. Tunnelblick does not modify the OpenVPN configuration file, and doesn't help you determine what should be in the OpenVPN configuration file, although Tunnelblick will offer to create a sample client configuration file if it is started with no configuration files present. For documentation on options which may appear in the file, see documentation for the OpenVPN project at [http://openvpn.net/index.php/open-source/documentation.html http://openvpn.net/index.php/open-source/documentation.html].
 
 ==Other Features of Tunnelblick VPN Configurations==
 Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself. For details, see [wPkgs Tunnelblick VPN Connections].
@@ -85,7 +88,7 @@ However, Tunnelblick includes the "openvpn-down-root.so" plugin for OpenVPN. Whe
 When you try to connect with a configuration that includes the "user" and/or "group" options in your configuration file. Tunnelblick will ask if you wish to use the openvpn-down-root plugin. Answer in the affirmative and Tunnelblick will use the plugin each time it makes a connection. Note that OpenVPN will still be unable to make route changes after the initial connection; they still have to be made in the scripts.
 
 ==When and How to NOT Use a Tunnelblick VPN Configuration==
-Although Tunnelblick VPN Configurations are able to be shared and connected when your computer starts, it is only available on the latest versions of Tunnelblick (starting with Tunnelblick 3.1beta02). If you are using an older version of Tunnelblick, you must use only the OpenVPN configuration file (.ovpn or .conf extension). It must be located in
+Although Tunnelblick VPN Configurations are able to be shared and connected when your computer starts, they are only available on the latest versions of Tunnelblick (starting with Tunnelblick 3.1beta02). If you are using an older version of Tunnelblick or distributing a configuration to users of older versions of Tunnelblick, you must use only the OpenVPN configuration file (.ovpn or .conf extension). It must be located in
 
  ~/Library/Application Support/Tunnelblick/Configurations
 
