@@ -17,7 +17,9 @@ If OpenVPN can't connect to the server, there should be one or more error messag
 Look at lines near the end of the log for an error message. When you find it, consult [wCommonProblems Common Problems] to determine how to correct the problem.
 
 ==OpenVPN connects to the server but you can't surf the Internet==
-If OpenVPN connected to the server properly, but you are having trouble connecting to websites, 
+If OpenVPN connected to the server properly, but you are having trouble connecting to websites, the first thing find out is if the problem is a DNS problem or a connection problem.
+
+*DNS Problems*: DNS ("Domain Name System") is what computers on the Internet use to translate a name like "www.google.com" to an IP address like 192.168.254.254. I
 
 
 
