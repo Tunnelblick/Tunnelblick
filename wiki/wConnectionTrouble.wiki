@@ -2,7 +2,10 @@
 #sidebar wSb
 <wiki:toc max_depth="2" />
 ==Troubleshooting Connection Problems==
-The first thing to find out when you have a connection problem is whether or not OpenVPN connected to the server properly.
+
+*Troubleshooting this problem could be very simple: if you haven't tried it already, try connecting the VPN with and without a check in the "Set nameserver" box. If that solves your problem, you're done!*
+
+Otherwise, the first thing to find out when you have a connection problem is whether or not OpenVPN connected to the server properly.
 
 ==How can you tell if OpenVPN connected to the server properly?==
   # Click on the Tunnelblick icon at the top of the display.
@@ -17,7 +20,28 @@ If OpenVPN can't connect to the server, there should be one or more error messag
 Look at lines near the end of the log for an error message. When you find it, consult [wCommonProblems Common Problems] to determine how to correct the problem.
 
 ==If OpenVPN is connected to the server but you can't access the Internet==
-If OpenVPN connected to the server properly, but you are having trouble connecting to websites, the first thing find out is if there is a DNS problem. To check that, try using an IP address (instead of a name) for a common website. For example, try "http://129.42.58.216" instead of "http://www.ibm.com". If the IP address works, but the name doesn't, there is a DNS problem.
+If OpenVPN connected to the server properly, but you are having trouble connecting to websites, the first thing to find out is if there is a DNS problem. To check that, try to access a website by using its IP address instead of its name. For example, try "http://129.42.58.216" instead of "http://www.ibm.com" and "http://66.249.81.104" instead of "http://www.google.com". If the IP address works, but the name doesn't, there is a DNS problem.
+
+If you have a DNS problem:
+  # Make sure your network settings don't specify a manual DNS server. If you have a manual DNS server, it will be used even when the VPN is active. If the manual DNS server is your ISP's DNS server, it is probably set up to ignore queries that come from outside the network. When you are connected to the VPN, your queries come from the VPN server, which is probably outside the ISP's network, so the ISP's DNS server will ignore your request. You should set up your computer to use a free public DNS server (see )
+  # If your DNS settings are specified by DHCP, check your DNS settings both before you connect to the VPN and while you are connected.
+    * If the DNS settings are the same, and you have "Set nameserver" checked, your VPN server is not "pushing" a DNS address, and you should set up your computer to use a free public DNS server (see ).
+    * If the DNS settings are the same, and you don't have "Set nameserver" checked (and checking "Set nameserver" doesn't fix the problem), your VPN is not "pushing" a DNS server. You should set up your computer to use a free public DNS server (see )
+
+
+==How to check your DNS settings==
+  # Launch System Preferences,
+  # Click "Network"
+  # Your DNS server list is one of the entries on the right. It is a list of IP addresses, separated by commas. OS X will use the first one unless it fails to respond to requests, in which case it will try the second, then the third, etc.
+
+==How to use a different DNS server==
+You can set your computer up to use a different DNS server.  [http://code.google.com/speed/public-dns/ Google Public DNS] is free, and [http://www.opendns.com/ OpenDNS] has a free version:
+  # Launch System Preferences,
+  # Click "Network"
+  # Type "8.8.8.8, 8.8.4.4, 208.67.222.222, 208.67.220.220" (without the quotation marks) into the box to the right of "DNS Server"
+This will set up your computer to always (whether or not you are connected to the VPN) use two Google DNS servers and two OpenDNS servers (in that order).
+
+
 
 
 *DNS Problems*: DNS ("Domain Name System") is what computers on the Internet use to translate a name like "www.google.com" to an IP address like 192.168.254.254. I
