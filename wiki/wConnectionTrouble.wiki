@@ -1,0 +1,35 @@
+#summary Troubleshooting Connection Problems
+#sidebar wSb
+<wiki:toc max_depth="2" />
+==Troubleshooting Connection Problems==
+The first thing to find out when you have a connection problem is whether or not OpenVPN connected to the server properly.
+
+==How can you tell if OpenVPN connected to the server properly?==
+  # Click on the Tunnelblick icon at the top of the display.
+  # See what appears in the drop-down list for the configuration you are trying to troubleshoot:
+    * If the entry has "Connect xyz", configuration xyz is not connected, and Tunnelblick is not trying to connect
+    * If the entry has "√ Disconnect xyz", configuration xyz is connected.
+    * If the entry has "- Connect xyz", configuration xyz is not connected, but Tunnelblick is trying to connect:
+
+==OpenVPN fails to connect to the server==
+If OpenVPN can't connect to the server, there should be one or more error messages in the OpenVPN log to indicate what the problem is. To see the OpenVPN log, click on the Tunnelblick icon, click on "Details…", then click on the tab corresponding to the configuration you are troubleshooting. The OpenVPN log is the large area of white text on a black background. (It contains messages from Tunnelblick in addition to the messages from OpenVPN.)
+
+Look at lines near the end of the log for an error message. When you find it, consult [wCommonProblems Common Problems] to determine how to correct the problem.
+
+==OpenVPN connects to the server but you can't surf the Internet==
+If OpenVPN connected to the server properly, but you are having trouble connecting to websites, 
+
+
+
+  * Or does OpenVPN 
+
+If your VPN connection isn't working, there are several possibilities:
+  * You are trying to get it to work for the first time
+  * It used to work and nothing has changed, but now it doesn't work
+  * It used to work and something has changed, but now it doesn't work
+
+
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
