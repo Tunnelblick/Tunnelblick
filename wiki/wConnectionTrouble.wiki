@@ -26,7 +26,7 @@ If you have a DNS problem:
   # Make sure your network settings don't specify a manual DNS server. If you have a manual DNS server, it will be used even when the VPN is active. If the manual DNS server is your ISP's DNS server, it is probably set up to ignore queries that come from outside the network. When you are connected to the VPN, your queries come from the VPN server, which is probably outside the ISP's network, so the ISP's DNS server will ignore your request. You should set up your computer to use a free public DNS server (see )
   # If your DNS settings are specified by DHCP, check your DNS settings both before you connect to the VPN and while you are connected.
     * If the DNS settings are the same, and you have "Set nameserver" checked, your VPN server is not "pushing" a DNS address, and you should set up your computer to use a free public DNS server (see ).
-    * If the DNS settings are the same, and you don't have "Set nameserver" checked (and checking "Set nameserver" doesn't fix the problem), your VPN is not "pushing" a DNS server. You should set up your computer to use a free public DNS server (see )
+    * If the DNS settings are the same, and you don't have "Set nameserver" checked (and checking "Set nameserver" doesn't fix the problem), your VPN is not "pushing" a DNS server. You should set up your computer to use a free public DNS server (see [How_to_use_a_different_DNS_server How to use a different DNS server])
 
 
 ==How to check your DNS settings==
