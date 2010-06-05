@@ -1,10 +1,21 @@
 #summary Common Problems
 #sidebar wSb
-
 <wiki:toc max_depth="2" />
+==How can you tell if OpenVPN connected to the server properly?==
+  # Click on the Tunnelblick icon at the top of the display.
+  # See what appears in the drop-down list for the configuration you are trying to troubleshoot:
+    * If the entry shows *Connect xyz*, configuration xyz is *not connected* and Tunnelblick is not trying to connect
+    * If the entry shows *√ Disconnect xyz*, configuration xyz *is connected*
+    * If the entry shows *- Connect xyz*, Tunnelblick is *trying to connect* configuration xyz
 
-==Tunnelblick Won't Connect==
-If Tunnelblick won't connect to a VPN, take a look at the [wOpenVPNLog The OpenVPN Log], which usually indicates what specifically is causing the problem. Unfortunately, the OpenVPN log usually has a lot of entries as it makes a connection attempt, and it is sometimes hard to find the entry that describes the problem. Usually it is one of the last entries in the log, however.
+==If OpenVPN is not connected to the server==
+If OpenVPN can't connect to the server, there should be one or more error messages in the OpenVPN log to indicate what the problem is. To see the OpenVPN log, click on the Tunnelblick icon, click on "Details…", then click on the tab corresponding to the configuration you are troubleshooting. The OpenVPN log is the large area of white text on a black background. (It contains messages from Tunnelblick in addition to the messages from OpenVPN.)
+
+Look at lines near the end of the log for an error message.
+
+
+==OpenVPN Connects, but you can't surf the Internet==
+See [wConnectionTrouble Connection Problems].
 
 
 ==An error messages says to see details in the Console Log==
