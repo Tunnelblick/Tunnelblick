@@ -96,6 +96,9 @@ or
   ca xyz/abcde.crt
 then the file abcde.crt should be in the xyz subfolder of the folder with the configuration.
 
+==An OpenVPN log entry says "TLS Error: Auth Username/Password was not provided by peer"==
+Your client configuration file should include an "auth-user-pass" option.
+
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
