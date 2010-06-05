@@ -24,8 +24,8 @@
     [wConfigO Configuring OpenVPN]<br>
     [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
 *Troubleshooting*
-    [wConnectionTrouble Connection Problems]<br>
     [wCommonProblems Common Problems]<br>
+    [wConnectionTrouble Connection Problems]<br>
     [wOpenVPNLog The OpenVPN Log]<br>
     [wConsoleLog The Console Log]<br>
     [wHelp How to get help]<br>
