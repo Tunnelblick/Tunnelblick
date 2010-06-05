@@ -2,7 +2,7 @@
 #sidebar wSb
 <wiki:toc max_depth="2" />
 ==Troubleshooting Connection Problems==
-OpenVPN is such a powerful tool with so many options, and computer configurations are so varied, that it is impossible to have an exhaustive troubleshooting guide. This is meant for the most common setups, so if it doesn't apply to your situation, or doesn't help, ask the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] or the [http://news.gmane.org/gmane.network.openvpn.user OpenVPN users mailing list] for help. 
+OpenVPN is such a powerful tool with so many options, and computer configurations are so varied, that it is impossible to have an exhaustive troubleshooting guide. This guide is meant for the most common setups, so if it doesn't apply to your situation, or doesn't help, ask the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] or the [http://news.gmane.org/gmane.network.openvpn.user OpenVPN users mailing list] for help. 
 
 
 *Troubleshooting this problem could be very simple: try connecting the VPN with and without "Set nameserver" checked. If one way or the other solves your problem, you're done!*
