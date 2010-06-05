@@ -15,7 +15,7 @@ Look at lines near the end of the log for an error message.
 
 
 ==OpenVPN Connects, but you can't surf the Internet==
-See [wConnectionTrouble Connection Problems].
+See [wConnectedBut Connects OK, But...].
 
 
 ==An error messages says to see details in the Console Log==
