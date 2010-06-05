@@ -33,7 +33,9 @@ If OpenVPN connected to the server properly, but you are having trouble connecti
 ==How to check your DNS settings==
   # Launch System Preferences,
   # Click "Network"
-  # Your DNS server list is one of the entries on the right. It is a list of IP addresses, separated by commas. OS X will use the first one unless it fails to respond to requests, in which case it will try the second, then the third, etc.
+Your DNS server list is one of the entries on the right. It is a list of IP addresses, separated by commas. OS X will use the first one unless it fails to respond to requests, in which case it will try the second, then the third, etc.
+
+Note: If the DNS server list is dimmed (grayed out), it was set via DHCP, not manually.
 
 ==How to use a different DNS server==
 You can set your computer up to use a different DNS server.  [http://code.google.com/speed/public-dns/ Google Public DNS] is free, and [http://www.opendns.com/ OpenDNS] has a free version:
