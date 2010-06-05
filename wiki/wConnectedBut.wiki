@@ -1,0 +1,38 @@
+#summary Troubleshooting DNS Problems
+#sidebar wSb
+<wiki:toc max_depth="2" />
+==Connects to the VPN, but doesn't work==
+OpenVPN is such a powerful tool with so many options, and computer configurations are so varied, that it is impossible to have an exhaustive troubleshooting guide. This guide is meant for the most common setups, so if it doesn't apply to your situation, or doesn't help, ask the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] or the [http://news.gmane.org/gmane.network.openvpn.user OpenVPN users mailing list] for help. 
+
+This page assumes that you are successfully connected to a VPN server. If not, or if you aren't sure, look at [].
+
+*Troubleshooting this problem could be very simple: try connecting the VPN with and without "Set nameserver" checked. If one way or the other solves your problem, you're done!*
+
+==If OpenVPN is connected to the server but you can't access the Internet==
+If OpenVPN connected to the server properly, but you are having trouble connecting to websites, the first thing to find out is if there is a DNS problem. To check that, try to access a website by using its IP address instead of its name. For example, try "http://129.42.58.216" instead of "http://www.ibm.com" and "http://66.249.81.104" instead of "http://www.google.com". If the IP address works, but the name doesn't, there is a DNS problem. (Consider the IP address to be "working" if any of the webpage loads.)
+
+*If you have a DNS problem:*
+  # Make sure your network settings don't manually specify a DNS server. If so, it will be used even when the VPN is active. If the manual DNS server is your ISP's DNS server, it is probably set up to ignore queries that come from outside the network. When you are connected to the VPN, your queries come from the VPN server, which is probably outside the ISP's network, so the ISP's DNS server will ignore your request. You should set up your computer to use a free public DNS server (see [#How_to_use_a_different_DNS_server How to use a different DNS server]).
+  # If your DNS settings are specified by DHCP, check your DNS settings both before you connect to the VPN and while you are connected.
+    * If the DNS settings are the same, try setting up your computer to use a free public DNS server (see [#How_to_use_a_different_DNS_server How to use a different DNS server]).
+    * If the DNS settings are different, the VPN server has successfully "pushed" a DNS server to OpenVPN and that server is being used. Contact the person who maintains your VPN server to find out why that DNS server is not functioning properly.
+
+*If you don't have a DNS problem* then there is something else going on. Ask the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] for help.
+
+==How to check your DNS settings==
+  # Launch System Preferences,
+  # Click "Network"
+Your DNS server list is one of the entries on the right. It is a list of IP addresses, separated by commas. OS X will use the first one unless it fails to respond to requests, in which case it will try the second, then the third, etc.
+
+Note: If the DNS server list is dimmed (grayed out), it was set via DHCP, not manually.
+
+==How to use a different DNS server==
+You can set your computer up to use a different DNS server.  [http://code.google.com/speed/public-dns/ Google Public DNS] is free, and [http://www.opendns.com/ OpenDNS] has a free version:
+  # Launch System Preferences,
+  # Click "Network"
+  # Type "8.8.8.8, 8.8.4.4, 208.67.222.222, 208.67.220.220" (without the quotation marks) into the box to the right of "DNS Server"
+This will set up your computer to always (whether or not you are connected to the VPN) use two Google DNS servers and two OpenDNS servers (in that order).
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
