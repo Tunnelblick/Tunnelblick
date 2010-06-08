@@ -300,8 +300,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		userIsAnAdmin = isUserAnAdmin();
 		
         updater = [[SUUpdater alloc] init];
-
-        [self unloadKexts];
 }
     
     return self;
@@ -2370,6 +2368,8 @@ static void signal_handler(int signalNumber)
     
     AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
     myAuth = nil;
+    
+    [self unloadKexts];
     
     // Process "Automatically connect on launch" checkboxes
     VPNConnection * myConnection;

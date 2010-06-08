@@ -167,7 +167,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                     }
                 } else {
                     if (  [fullPath rangeOfString: @".tblk/"].length == 0  ) {  // Ignore .ovpn and .conf in a .tblk
-                        if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"ovpn"]  ) {
+                        if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
                             addIt = TRUE;
                         }
                     }
@@ -203,12 +203,12 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                         }
                     }
                 } else {
-                    if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"ovpn"]  ) {
+                    if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
                         addIt = TRUE;
                     }
                 }
                 if (   [folderPath isEqualToString: gSharedPath]
-                    && ([ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"ovpn"])  ) {
+                    && ([ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"])  ) {
                     NSLog(@"Tunnelblick VPN Configuration ignored: Only Tunnelblick VPN Configurations (.tblk packages) may be shared %@", fullPath);
                      ignored = TRUE;
                 }
@@ -693,12 +693,14 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     int nErrors = 0;
     for (  i=0; i < [sourceList count]; i++  ) {
         NSString * source = [sourceList objectAtIndex: i];
+        NSString * target = [targetList objectAtIndex: i];
         if (  ! [self copyConfigPath: source
-                              toPath: [targetList objectAtIndex: i]
+                              toPath: target
                         usingAuthRef: localAuth
                           warnDialog: NO
                          moveNotCopy: NO]  ) {
             nErrors++;
+            [gFileMgr removeFileAtPath: target handler: nil];
         }
         if (  [source hasPrefix: NSTemporaryDirectory()]  ) {
             [gFileMgr removeFileAtPath: [source stringByDeletingLastPathComponent] handler: nil];
@@ -854,7 +856,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             if (  [file isEqualToString: @"config.ovpn"]  ) {
                 haveConfigDotOvpn = TRUE;
                 numberOfConfigFiles++;
-            } else if (  [ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]  ) {
+            } else if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
                 numberOfConfigFiles++;
             }
         }
@@ -1128,8 +1130,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         if (  itemIsVisible(itemPath)  ) {
             if (   [gFileMgr fileExistsAtPath: itemPath isDirectory: &isDir]
                 && ( ! isDir )  ) {
-                if (   [ext isEqualToString: @"conf"]
-                    || [ext isEqualToString: @"ovpn"]  ) {
+                if (   [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
                     nConfigs++;
                 } else if (  [[itemPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
                     nInfos++;
@@ -1177,8 +1178,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         NSString * oldPath = [searchPath stringByAppendingPathComponent: [pkgList objectAtIndex: i]];
         NSString * newPath;
         NSString * ext = [oldPath pathExtension];
-        if (   [ext isEqualToString: @"conf"]
-            || [ext isEqualToString: @"ovpn"]  ) {
+        if (   [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
             newPath = [emptyResources stringByAppendingPathComponent: @"config.ovpn"];
         } else if (  [[oldPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
             newPath = [[emptyResources stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
