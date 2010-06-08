@@ -1,6 +1,14 @@
 #summary The Latest News About Tunnelblick
 #sidebar wSb
 
+*2010-06-07*: Tunnelblick 3.1beta06 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
+
+This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
+
+The full list of changes is in the [wRlsNotes Release Notes].
+
+--------------------
+
 *2010-05-27*: Tunnelblick 3.1beta04 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
 
 This is mainly a bug-fix release, but there are some new features:
