@@ -8,6 +8,11 @@ When a new beta version is available, it is announced to the [http://groups.goog
 Beta versions are usually flagged as "Deprecated" downloads on the website so they are not normally visible to viewers of the Downloads page. When you download from the Deprecated Downloads page, you will be warned that it is "...deprecated. Another file would probably be better" -- just click "OK" to download.
 
 --------------------
+2010-06-07: *Tunnelblick 3.1beta06 is now  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+
+This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
+
+--------------------
 2010-05-27: *Tunnelblick 3.1beta04 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
 
 This is mainly a bug-fix release, but there are some new features:
