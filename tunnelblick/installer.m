@@ -427,7 +427,7 @@ int main(int argc, char *argv[])
     if (  singlePathToSecure  ) {
         BOOL okSoFar = TRUE;
         NSString * ext = [singlePathToSecure pathExtension];
-        if (  [ext isEqualToString: @"conf"] || [ext isEqualToString: @"ovpn"]  ) {
+        if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
             okSoFar = okSoFar && checkSetOwnership(singlePathToSecure, NO, 0, 0);
             okSoFar = okSoFar && checkSetPermissions(singlePathToSecure, @"644", YES);
         } else if (  [ext isEqualToString: @"tblk"]  ) {

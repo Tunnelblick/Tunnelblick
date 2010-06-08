@@ -307,7 +307,7 @@ EOF
 
 if [ "{ARG_MONITOR_NETWORK_CONFIGURATION}" ] ; then
     # Generate an updated plist with a per-configuration path
-    LEASEWATCHER_TEMPLATE_PATH ="$(dirname "${0}")/LeaseWatch.plist.template"
+    LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch.plist.template"
     sed -e "s|\${DIR}|${DIR}|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
     launchctl load "${LEASEWATCHER_PLIST_PATH}"
 fi

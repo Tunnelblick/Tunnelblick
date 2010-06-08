@@ -826,6 +826,29 @@ extern NSString * lastPartOfPath(NSString * thePath);
         [self setState:@"EXITING"];
         [[NSApp delegate] unloadKexts];
         
+        if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+            NSString * postDisconnectPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
+            if (  [gFileMgr fileExistsAtPath: postDisconnectPath]  ) {
+                NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+                NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
+                if (   startArguments == nil
+                    || [[startArguments objectAtIndex: 5] isEqualToString: @"1"]  ) {
+                    return;
+                }
+                NSArray * arguments = [NSArray arrayWithObjects:
+                                       @"postDisconnect",
+                                       [startArguments objectAtIndex: 1],    // configFile
+                                       [startArguments objectAtIndex: 5],     // cfgLocCode
+                                       nil];
+                
+                NSTask * task = [[NSTask alloc] init];
+                [task setLaunchPath: path];
+                [task setArguments: arguments];
+                [task launch];
+                [task waitUntilExit];
+                [task release];
+            }
+        }
     } else {
         NSLog(@"disconnect: while disconnecting or disconnected");
     }
