@@ -14,7 +14,7 @@
 
 
 
-*[DocumentationForTunnelblick_3_1beta04 Tunnelblick 3.1beta04 Documentation]*
+*[DocumentationForTunnelblick_3_1beta06 Tunnelblick 3.1beta06 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wBeta Beta Releases]<br>
