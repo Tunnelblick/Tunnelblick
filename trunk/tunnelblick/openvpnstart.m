@@ -30,7 +30,7 @@ NSString * createOpenVPNLog (NSString* configurationPath, int port);
 BOOL    deleteLogFiles      (NSString * configurationPath);
 int     runAsRoot           (NSString * thePath, NSArray * theArguments);
 BOOL    createPipeForConfigAtPath (NSString * inPath);
-NSString * constructOpenVPNLogPath (NSString * configurationPath, int port);
+NSString * constructOpenVPNLogPath (NSString * configurationPath, NSString * openvpnstartArgs, int port);
 
 void    startOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
@@ -62,6 +62,7 @@ NSAutoreleasePool   * pool;
 NSString			* configPath;   //Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
 NSString			* execPath;     //Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
 NSFileManager       * gFileMgr;
+NSString            * startArgs;    //String with an underscore-delimited list of the following arguments to openvpnstart start: useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask 
 
 //**************************************************************************************************************************
 int main(int argc, char* argv[])
@@ -182,11 +183,13 @@ int main(int argc, char* argv[])
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
 						unsigned int bitMask = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
-						if (   (cfgLocCode < 4)
+                        startArgs = [[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy];
+                        if (   (cfgLocCode < 4)
                             && (bitMask < 1024)  ) {
                             retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask);
                             syntaxError = FALSE;
                         }
+                        [startArgs release];
 					}
 				}
 			}
@@ -738,15 +741,14 @@ int killAllOpenvpn(void)
 }
 
 //**************************************************************************************************************************
-// Sets up the OpenVPN log file (for "withoutGUI" operation), which encodes the configuration file path and port info into the filename
-// Given the name of this file, this function deletes other versions of it (same configuration file path but encoding any port number),
-// and creates the file with permissions so that anyone may read it. (OpenVPN truncates the file, so the ownership and permissions
-// are preserved.)
+// Sets up the OpenVPN log file (for "withoutGUI" operation), which encodes the configuration file path, openvpnstart arguments, and port info into the filename
+// Given the name of this file, this function deletes other versions of it (same configuration file path but encoding any openvpnstart arguments or port number),
+// and creates the file with permissions so that anyone may read it. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
 NSString * createOpenVPNLog(NSString* configurationPath, int port)
 {
     deleteLogFiles(configurationPath);
     
-    NSString * logPath = constructOpenVPNLogPath(configurationPath, port);
+    NSString * logPath = constructOpenVPNLogPath(configurationPath, startArgs, port);
     
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0744] forKey: NSFilePosixPermissions];
     
@@ -758,14 +760,17 @@ NSString * createOpenVPNLog(NSString* configurationPath, int port)
     return logPath;
 }
 
-/// Returns a path for an OpenVPN log file.
-// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of the port number and "log".
-NSString * constructOpenVPNLogPath(NSString * configurationPath, int port)
+// Returns a path for an OpenVPN log file.
+// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and extensions of
+//      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
+//      * the port number; and
+//      * "log"
+NSString * constructOpenVPNLogPath(NSString * configurationPath, NSString * openvpnstartArgs, int port)
 {
     NSMutableString * logPath = [configurationPath mutableCopy];
     [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
     [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%d.log", logPath, port];
+    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%@.%d.log", logPath, openvpnstartArgs, port];
     [logPath release];
     return returnVal;
 }
@@ -776,9 +781,11 @@ BOOL deleteLogFiles(NSString * configurationPath)
 {
     BOOL errHappened = FALSE;
     
-    NSString * logPath = constructOpenVPNLogPath(configurationPath, 0); // Port # doesn't matter because we strip it off
+    NSString * logPath = constructOpenVPNLogPath(configurationPath, @"XX", 0); // openvpnstart args and port # don't matter because we strip it off
     
-    NSString * logPathPrefix = [[logPath stringByDeletingPathExtension] stringByDeletingPathExtension];     // Remove .<port #>.log
+    NSString * logPathPrefix = [[[logPath stringByDeletingPathExtension]
+                                 stringByDeletingPathExtension]
+                                stringByDeletingPathExtension];     // Remove .<start-args>.<port #>.log
     
     NSString * filename;
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/tmp"];

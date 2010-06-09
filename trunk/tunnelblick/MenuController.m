@@ -155,6 +155,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         dotTblkFileList = nil;
         oldSelectedConnectionName = nil;
         
+        tunCount = 0;
+        tapCount = 0;
+        
         gFileMgr    = [NSFileManager defaultManager];
         
         gDeployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
@@ -1716,10 +1719,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     return notKilled;
 }
 
--(void) unloadKexts 
+// Unloads loaded tun/tap kexts if tunCount/tapCount is zero.
+// If fooOnly is TRUE, only the foo tun/tap kexts will be unloaded (if they are loaded, and without reference to the tunCount/tapCount)
+-(void) unloadKextsFooOnly: (BOOL) fooOnly 
 {
     int bitMask = [self getLoadedKextsMask];
     
+    if (  fooOnly  ) {
+        bitMask = bitMask & (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
     if (  bitMask != 0  ) {
         
         if (   (bitMask & FOO_TAP_KEXT)
@@ -1735,6 +1743,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (  result == NSAlertDefaultReturn  ) {
                 bitMask = bitMask & (  ~(FOO_TAP_KEXT | FOO_TUN_KEXT)  );
             }
+        }
+        
+        if (  tapCount != 0  ) {
+            bitMask = bitMask & ( ~OUR_TAP_KEXT);
+        }
+        
+        if (  tunCount != 0  ) {
+            bitMask = bitMask & ( ~OUR_TUN_KEXT);
         }
         
         if (  bitMask != 0  ) {
@@ -1963,7 +1979,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[NSApp callDelegateOnNetworkChange: NO];
     [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     [self destroyAllPipes];
-    [self unloadKexts];     // Unload .tun and .tap kexts
+    [self unloadKextsFooOnly: NO];     // Unload .tun and .tap kexts
 	if (  theItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:theItem];
     }
@@ -2369,7 +2385,7 @@ static void signal_handler(int signalNumber)
     AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
     myAuth = nil;
     
-    [self unloadKexts];
+    [self unloadKextsFooOnly: YES];
     
     // Process "Automatically connect on launch" checkboxes
     VPNConnection * myConnection;
@@ -2622,7 +2638,8 @@ static void signal_handler(int signalNumber)
             if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
                 if (  [[filename pathExtension] isEqualToString: @"log"]) {
                     int port = 0;
-                    NSString * cfgPath = deconstructOpenVPNLogPath(oldFullPath, &port);
+                    NSString * startArgs = nil;
+                    NSString * cfgPath = deconstructOpenVPNLogPath(oldFullPath, &port, &startArgs);
                     NSArray * keysForConfig = [myConfigDictionary allKeysForObject: cfgPath];
                     int keyCount = [keysForConfig count];
                     if (  keyCount == 0  ) {
@@ -2633,12 +2650,32 @@ static void signal_handler(int signalNumber)
                         }
                         NSString * displayName = [keysForConfig objectAtIndex: 0];
                         VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
-                        [connection tryToHookupToPort: port];
+                        [connection tryToHookupToPort: port withOpenvpnstartArgs: startArgs];
                     }
                 }
             }
         }
     }
+}
+
+-(unsigned) incrementTapCount
+{
+    return ++tapCount;
+}
+
+-(unsigned) incrementTunCount
+{
+    return ++tunCount;
+}
+
+-(unsigned) decrementTapCount
+{
+    return --tapCount;
+}
+
+-(unsigned) decrementTunCount
+{
+    return --tunCount;
 }
 
 -(void) dmgCheck

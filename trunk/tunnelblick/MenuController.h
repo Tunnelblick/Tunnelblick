@@ -104,6 +104,9 @@ BOOL needToRepairPackages(void);
     
     NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
     //                                                         so the program can re-select. nil after re-selecting it
+    
+    unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
+    unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
 }
 
 // Button and checkbox actions
@@ -132,6 +135,11 @@ BOOL needToRepairPackages(void);
 // General methods
 -(void)             addConnection:                          (id)                sender;
 -(void)             cleanup;
+-(unsigned)         decrementTapCount;
+-(unsigned)         decrementTunCount;
+-(unsigned)         incrementTapCount;
+-(unsigned)         incrementTunCount;
+
 -(NSMutableDictionary *)    myConfigDictionary;
 -(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
@@ -142,7 +150,7 @@ BOOL needToRepairPackages(void);
                                repairPackages:              (BOOL)              repairPkgs
                                      withAuth:              (AuthorizationRef)  inAuthRef;
 -(void)             setState:                               (NSString *)        newState;
--(void)             unloadKexts; 
+-(void)             unloadKextsFooOnly:                     (BOOL)              fooOnly; 
 -(BOOL)             userIsAnAdmin;
 
 @end

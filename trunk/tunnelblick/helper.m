@@ -116,25 +116,35 @@ NSString * configPathFromTblkPath(NSString * path)
 }
 
 // Returns a path for an OpenVPN log file.
-// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of the port number and "log".
-NSString * constructOpenVPNLogPath(NSString * configurationPath, int port)
+// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of
+//      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
+//      * the port number; and
+//      * "log"
+NSString * constructOpenVPNLogPath(NSString * configurationPath, NSString * openvpnstartArgs, int port)
 {
     NSMutableString * logPath = [configurationPath mutableCopy];
     [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
     [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%d.log", logPath, port];
+    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%@.%d.log", logPath, openvpnstartArgs, port];
     [logPath release];
     return returnVal;
 }
 
-// Returns a configuration path (and port number) from a path created by constructOpenVPNLogPath
-NSString * deconstructOpenVPNLogPath (NSString * logPath, int * portPtr)
+// Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by constructOpenVPNLogPath
+NSString * deconstructOpenVPNLogPath (NSString * logPath, int * portPtr, NSString * * startArgsPtr)
 {
     if (  [logPath hasPrefix: @"/tmp/tunnelblick-S"]  ) {
         if (  [[logPath pathExtension] isEqualToString: @"log"]  ) {
             int prefixLength = [@"/tmp/tunnelblick" length];    // Keep the "-S" so it is replaced by a leading "/"
             NSRange r = NSMakeRange(prefixLength, [logPath length] - 4 - prefixLength);
             NSString * withoutPrefixOrDotLog = [logPath substringWithRange: r];
+            NSString * withoutPrefixOrPortOrDotLog = [withoutPrefixOrDotLog stringByDeletingPathExtension];
+            NSString * startArgs = [withoutPrefixOrPortOrDotLog pathExtension];
+            if (  startArgs  ) {
+                if (  ! ( [startArgs isEqualToString: @"ovpn"] || [startArgs isEqualToString: @"conf"] )  ) {
+                    *startArgsPtr = startArgs;
+                }
+            }
             NSString * portString = [withoutPrefixOrDotLog pathExtension];
             int port = [portString intValue];
             if (   port != 0
@@ -143,7 +153,7 @@ NSString * deconstructOpenVPNLogPath (NSString * logPath, int * portPtr)
                 
                 *portPtr = port;
                 
-                NSMutableString * cfg = [[withoutPrefixOrDotLog stringByDeletingPathExtension] mutableCopy];
+                NSMutableString * cfg = [[withoutPrefixOrPortOrDotLog stringByDeletingPathExtension] mutableCopy];
                 [cfg replaceOccurrencesOfString: @"-S" withString: @"/" options: 0 range: NSMakeRange(0, [cfg length])];
                 [cfg replaceOccurrencesOfString: @"--" withString: @"-" options: 0 range: NSMakeRange(0, [cfg length])];
                 [cfg replaceOccurrencesOfString: @"/Contents/Resources/config.ovpn" withString: @"" options: 0 range: NSMakeRange(0, [cfg length])];
