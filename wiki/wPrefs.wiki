@@ -80,8 +80,8 @@ The following preferences must each be prefixed by the name of the configuration
   * *-disableDisconnectButton* (Boolean): If set, the "Disconnect" button will be disabled.
   * *-doNotLoadTapKext* (Boolean): If set, the standard tap kext will not be loaded.
   * *-doNotLoadTunKext* (Boolean): If set, the standard tun kext will not be loaded.
-  * *-doNotLoadTapKext* (Boolean): If set, the standard tap kext will be loaded.
-  * *-doNotLoadTunKext* (Boolean): If set, the standard tun kext will be loaded.
+  * *-loadTapKext* (Boolean): If set, the standard tap kext will be loaded.
+  * *-loadTunKext* (Boolean): If set, the standard tun kext will be loaded.
 
 ==Preferences That Tunnelblick Uses Internally==
   * *haveDealtWithSparkle1dot5b6* (Boolean): If set, Tunnelblick has reset the Sparkle Updater preferences for Sparkle version 1.5b6, so the user will be or has been asked about automatically checking for updates and including system profile information. If cleared, this has not been done yet. See the "updateCheckAutomatically" and "updateSendProfileInfo" preferences. The default is not present; Tunnelblick maintains this preference automatically. This preference is ignored if the "updateCheckAutomatically" and "updateSendProfileInfo" preferences are both forced (to any value).
