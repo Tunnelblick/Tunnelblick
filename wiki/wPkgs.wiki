@@ -34,19 +34,19 @@ An installed Configuration may be shared or private. Configurations to be shared
 ==Format==
 Tunnelblick Configurations are folders with an extension of ".tblk". (OS X will treat the folder as a Configuration because of the extension.)
 
-The contents of a Tunnelblick VPN Configuration are arranged as follows after installation (they need not be arranged this way prior to installation):
+The contents of a Tunnelblick VPN Configuration are arranged as follows after installation (they need not be arranged this way prior to installation, and the configuration file may have any name before installation):
 
 {{{
     sample.tblk/
         Contents/
-            Info.plist
+            (Optional) Info.plist
             Resources/
                 config.ovpn, containing OpenVPN configuration information
-                (Optional) shell scripts: up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh
+                (Optional) shell scripts: up.tunnelblick.sh, down.tunnelblick.sh
+                (Optional) shell scripts: pre-connect.sh, post-disconnect.sh
+                (Optional, deprecated shell scripts) up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh
                 (Optional) key, certificate, and/or other shell script files
 }}}
-The configuration file must reside at the top level of /Resources and be named "config.conf".
-
 The name of the Configuration (without ".tblk") is used as the display name of the configuration unless it conflicts with an existing name (see [wPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
 ==File References in the OpenVPN Configuration File==
@@ -72,9 +72,14 @@ A Configuration's Info.plist may also optionally contain entries (strings, numbe
 In a Deployed version of Tunnelblick, the forced-preferences in Deploy will override any Configuration-specified preferences. 
 
 ==Up and Down Scripts==
-If the Configuration contains up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is checked for the Configuration's configuration.
+If the Configuration contains up.tunnelblick.sh, down.tunnelblick.sh, up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is checked for the Configuration's configuration.
+
+For backward compatibility, scripts other than up.tunnelblick.sh and down.tunnelblick.sh will be used if they exist.
 
 In a Deployed version of Tunnelblick, a Configuration's up/down scripts will override the corresponding scripts in Deploy.
+
+==Pre-Connect and Post-Disconnect Scripts==
+If the Configuration includes "pre-connect.sh" and "post-disconnect.sh" scripts, they will be executed (as root) before connecting and/or after disconnecting. This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded. (If the scripts load special kexts, you can use the "-doNotLoadTapKext" and "-doNotLoadTunKext" preferences to cause Tunnelblick to not try to load its own kexts.)
 
 ==Automatic Installation==
 When Tunnelblick itself is installed (by double-clicking Tunnelblick.app when it is located on a disk image or other volume from which it cannot be used), all Configurations in the folder containing the Tunnelblick.app being installed, or a subfolder of it, that have "TBInstallWhenInstallingTunnelblick" set to "yes" are installed (subject to [wPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [wPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]. If a Configuration's "TBInstallWhenInstallingTunnelblick" is set to "no", the Configuration will not be installed. If "TBInstallWhenInstallingTunnelblick" is "ask", the user will be asked before installing the Configuration.
@@ -99,10 +104,6 @@ Configurations are displayed from
   * `~/Library/Application Support/Tunnelblick/Configurations/*.tblk``
   * `~/Library/Application Support/Tunnelblick/Configurations/*.ovpn and *.conf`
 in that order. If a display name matches an earlier display name, the later configuration will be ignored and only the earlier display name will be displayed, making only the earlier configuration available.
-
-==Document History==
-  * 2010-05-08
-    * Document created
 
 ------------------
 
