@@ -35,9 +35,11 @@ NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
 NSString     * constructOpenVPNLogPath  (NSString * configurationPath,
+                                         NSString * openvpnstartArgs,
                                          int        port);
 NSString     * deconstructOpenVPNLogPath(NSString * logPath,
-                                         int      * portPtr);
+                                         int      * portPtr,
+                                         NSString * * startArgsPtr);
 
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSDictionary * getOpenVPNVersion        (void);

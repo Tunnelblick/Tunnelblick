@@ -97,6 +97,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         myPipe = nil;
         myPipeError = FALSE;
         areDisconnecting = FALSE;
+        connectedWithTap = FALSE;
+        connectedWithTun = FALSE;
         
         // If a package, set preferences that haven't been defined yet
         if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
@@ -119,6 +121,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 }
 
 -(void) tryToHookupToPort: (int) inPortNumber
+     withOpenvpnstartArgs: (NSString *) inStartArgs
 {
     if (  portNumber != 0  ) {
         NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using port number %d", [self description], portNumber);
@@ -135,7 +138,25 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (  [[actualConfigPath pathExtension] isEqualToString: @"tblk"]  ) {
         actualConfigPath = [actualConfigPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
     }
-    NSString * logPath = constructOpenVPNLogPath(actualConfigPath, inPortNumber);
+    
+    // We have to search for the log file because we'll accept any openvpnstart arguments that are encoded in the 3rd from last extension
+    NSString * logPathStars = constructOpenVPNLogPath(actualConfigPath, @"*", inPortNumber);
+    NSString * logPathPrefix = [[[logPathStars stringByDeletingPathExtension] stringByDeletingPathExtension] stringByDeletingPathExtension];   // Remove .openvpnstartArgs.port.log
+    NSString * logPathDir = [logPathPrefix stringByDeletingLastPathComponent];
+    NSString * logPathPort = [[logPathStars stringByDeletingPathExtension] pathExtension];
+    NSString * logPathPortLog = [NSString stringWithFormat: @".%@.log", logPathPort];
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: logPathDir];
+    NSString * file;
+    NSString * logPath = nil;
+    while (  file = [dirEnum nextObject]  ) {
+        logPath = [logPathDir stringByAppendingPathComponent: file];
+        if (   [logPath hasPrefix: logPathPrefix]
+            && [logPath hasSuffix: logPathPortLog]  ) {
+            break;
+        }
+        logPath = nil;
+    }
+    
     NSNumber * logSizeN = [[gFileMgr fileAttributesAtPath: logPath traverseLink: NO] objectForKey: NSFileSize];
     if (  logSizeN  ) {
         long long logSize = [logSizeN  longLongValue];
@@ -174,7 +195,25 @@ extern NSString * lastPartOfPath(NSString * thePath);
             [msgAS release];
             
             [self addToLog: @"*Tunnelblick: ---------- End of OpenVPN log before Tunnelblick was launched" atDate: nil];
-            [self addToLog: @"*Tunnelblick: Start of \"current\" OpenVPN log. May contain entries duplicating some of the above" atDate: nil];
+        }
+        [self addToLog: @"*Tunnelblick: Start of \"current\" OpenVPN log. May contain entries duplicating some of the above" atDate: nil];
+        
+        // Keep track of the number of tun and tap kexts that openvpnstart loaded
+        NSString * openvpnstartArgs = [[[logPath stringByDeletingPathExtension] stringByDeletingPathExtension] pathExtension];
+        NSArray * args = [openvpnstartArgs componentsSeparatedByString: @"_"];
+        unsigned bitMask = [[args lastObject] intValue];
+        if (  (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT ) {
+            [[NSApp delegate] incrementTapCount];
+            connectedWithTap = TRUE;
+        } else {
+            connectedWithTap = FALSE;
+        }
+
+        if (  (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT ) {
+            [[NSApp delegate] incrementTunCount];
+            connectedWithTun = TRUE;
+        } else {
+            connectedWithTun = FALSE;
         }
     }
     
@@ -559,6 +598,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
                      [escapedArguments componentsJoinedByString: @" "]]
             atDate: nil];
     
+    if (  ([[arguments objectAtIndex: 7] intValue] & OUR_TAP_KEXT) != 0  ) {
+        [[NSApp delegate] incrementTapCount];
+    }
+    if (  ([[arguments objectAtIndex: 7] intValue] & OUR_TUN_KEXT) != 0  ) {
+        [[NSApp delegate] incrementTunCount];
+    }
+    
 	[task setArguments:arguments];
 	[task setCurrentDirectoryPath: firstPartOfPath(configPath)];
 	[task launch];
@@ -824,7 +870,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
         
         [[NSApp delegate] removeConnection:self];
         [self setState:@"EXITING"];
-        [[NSApp delegate] unloadKexts];
+        if (  connectedWithTap  ) {
+            [[NSApp delegate] decrementTapCount];
+        }
+        if (  connectedWithTun  ) {
+            [[NSApp delegate] decrementTunCount];
+        }
+        [[NSApp delegate] unloadKextsFooOnly: NO];
         
         if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
             NSString * postDisconnectPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];

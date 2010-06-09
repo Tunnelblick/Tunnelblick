@@ -48,6 +48,8 @@
     BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an existing instance of OpenVPN
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
+    BOOL            connectedWithTap;   // True iff last connection was made loading our tap kext
+    BOOL            connectedWithTun;   // True iff last connection was made loading our tun kext
     NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
 }
 
@@ -81,7 +83,9 @@
 
 -(void)             invalidateConfigurationParse;
 
--(void)             tryToHookupToPort:          (int)           inPortNumber;
+-(void)             tryToHookupToPort:          (int)           inPortNumber
+                 withOpenvpnstartArgs:          (NSString *)    inStartArgs;
+
 -(BOOL)             tryingToHookup;
 -(BOOL)             isHookedup;
 
