@@ -37,7 +37,8 @@
     [wDistribute Distributing Tunnelblick]<br>
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
-    [wCusDeployPkg Comparing "Deployed" versions and Tunnelblick VPN Configurations]<br>
+    [wUsingScripts Using Scripts]<br>
+    [wCusDeployPkg Deployed vs. Tunnelblick VPN Configurations]<br>
     [wLocalize Localizing Tunnelblick]<br>
 *For Developers*
     [wBuild Building from Source]<br>
