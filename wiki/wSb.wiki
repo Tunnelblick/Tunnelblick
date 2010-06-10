@@ -18,11 +18,11 @@
     [wHowHelp How you can help]<br>
 *Detailed guides*
     [wInstall Installing Tunnelblick]<br>
+    [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wServer Tunnelblick as a VPN Server]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br>
-    [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
 *Troubleshooting*
     [wCommonProblems Common Problems]<br>
     [wConnectedBut Connects OK, But...]<br>
