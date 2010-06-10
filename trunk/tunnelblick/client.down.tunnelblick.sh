@@ -28,7 +28,7 @@ PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
 	quit
 EOF)"
 
-if [ "{PSID}" != "{PSID_CURRENT}" ] ; then
+if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
         echo -e "\003\n$(date '+%Y-%m-%d %T') *Tunnelblick: Warning: Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}\003" >> "${LOG_FILE}"
 fi
 
