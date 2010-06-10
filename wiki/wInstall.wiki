@@ -49,7 +49,7 @@ When there are no configurations (which is usually the case the first time Tunne
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-05-13.png
 
-If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file and open it in TextEdit for you to modify.
+If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file and open it in !TextEdit for you to modify.
 
 If you click "Quit”, Tunnelblick will quit without doing anything.
 
