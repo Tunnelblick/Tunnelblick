@@ -58,7 +58,11 @@ If you click "Open configuration folder", Tunnelblick will open a Finder window 
 To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder.
 
 ==Uninstalling Tunnelblick==
-To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash. Other than the preferences and configuration files described in [wFileLocations File Locations], there are no other files installed -- OpenVPN, the tun/tap kernel extensions, and up/down scripts are contained within the Tunnelblick.app package and are loaded only when needed directly from there. Tunnelblick may store passphrases or passwords in the Keychain at the user's request. Tunnelblick version 3.1beta02 and later automatically unload the tun and tap kexts when you quit Tunnelblick, otherwise you can unload them by restarting your computer or manually with the "kextunload" Terminal command. (Usually it doesn't matter if they are loaded unless you are using other VPN software.)
+To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash.
+
+ * Other than the preferences and configuration files described in [wFileLocations File Locations], there are no other files installed -- OpenVPN, scripts, and the tun/tap kernel extensions are contained within Tunnelblick and are loaded only when needed directly from there.
+ * Tunnelblick may store passphrases or passwords in the Keychain at the user's request.
+ * Tunnelblick version 3.1beta02 and later automatically unload the tun and tap kexts when you disconnect; otherwise you can unload them by restarting your computer or manually with the "kextunload" Terminal command. (Usually it doesn't matter if they are loaded unless you are using other VPN software.)
 
 ------------------
 
