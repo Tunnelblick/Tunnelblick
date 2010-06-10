@@ -51,9 +51,7 @@ http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-05-13.png
 
 If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file and open it in !TextEdit for you to modify.
 
-If you click "Quit”, Tunnelblick will quit without doing anything.
-
-If you click "Open configuration folder", Tunnelblick will open a Finder window with `~/Library/Application Support/Tunnelblick/Configurations`, and then quit. Move or copy your [wPkgs Tunnelblick VPN Configurations] or OpenVPN configuration file(s) -- files with extensions of ".oven" or ".conf" -- to this window. If you have received key files or certificate files with your configuration file, move or copy them to this window also.
+If you click "Quit”, Tunnelblick will quit without doing anything. You can then double-click your [wPkgs Tunnelblick VPN Configurations] to install them.
 
 To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder.
 
