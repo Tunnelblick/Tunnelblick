@@ -21,7 +21,7 @@ This is mainly a bug-fix release, but there are some new features:
 
   * A DHCP renew which restores the original DNS and/or WINS information no longer causes the connection to restart. This new behavior can reversed be by setting Tunnelblick the boolean preferences '-doNotRestoreOnDnsReset' and/or '-doNotRestoreOnWinsReset' to TRUE.
 
-  * The up, down, and leasewatch scripts have been modified to implement options for the scripts which Tunnelblick causes OpenVPN to put first (before OpenVPN parameters) in the command line which starts the up/down scripts.
+  * The up, down, and leasewatch scripts have been modified to implement options for the scripts whichOpenVPN to puts first (before the usual OpenVPN parameters) in the command line which starts the up/down scripts.
 
 ------------------
 
