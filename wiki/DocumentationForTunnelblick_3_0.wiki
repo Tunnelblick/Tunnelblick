@@ -1,5 +1,4 @@
 #summary Documentation for Tunnelblick 3.0
-#labels Featured
 #sidebar xSb
 
 <hr>
