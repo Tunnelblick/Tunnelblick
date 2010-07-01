@@ -20,7 +20,7 @@ If `Contents/Resources/Deploy` exists, Tunnelblick's behavior changes:
 
   Note: if configuration files are not in `Deploy`, their names may be changed by an unprivileged user. Any forced preferences for a configuration whose name has been changed will be ignored, because the forced preferences will be referring to the original configuration name.
   * If `Deploy` contains certificate and key files, those files can be referenced from configuration files by using the name of the file (i.e., no path need be given).
-  * If `Deploy` contains up/down scripts with specific names (see [Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is checked, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
+  * If `Deploy` contains up/down scripts with specific names (see [#Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is checked, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
   * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
 
 Certificate and key files may usually be referenced within a configuration file without path information:
@@ -96,7 +96,7 @@ To make a deployed version of Tunnelblick, you need whatever is required to conn
 To be more specific, you need:
     * A copy of the Tunnelblick .dmg file with Tunnelblick version 3.0b22 or later. The latest version may be downloaded from [http://code.google.com/p/tunnelblick the Tunnelblick website].
     * Optional: one or more OpenVPN configuration files, with extensions of ".ovpn" or ".conf".
-    * Optional: cCertificate and key files for authentication.
+    * Optional: certificate and key files for authentication.
     * Optional: shell script files, with extension ".sh", if you do not use Tunnelblick's "Set nameserver" feature. If you have shell files, they must have an extension of "sh"; otherwise they will not have execute permissions.
     * Optional: "about.html" file, containing text that will be displayed in Tunnelblick's "about" window.
     * Optional: "forced-preferences.plist" file, containing user preferences that you wish to override.
