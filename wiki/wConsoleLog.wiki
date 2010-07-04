@@ -3,7 +3,7 @@
 
 Tunnelblick and OpenVPN sometimes output diagnostic information to the OS X logs. The logs include output from all of the programs running on your computer, not just Tunnelblick and OpenVPN.
 
-Tunnelblick's output, to the Console log, includes descriptions of installation activity, such as the ownership/permission changes that Tunnelblick makes when it is installed, and detailed information about some error conditions that Tunnelblick encounters. OpenVPN outputs detailed information about how a connection is established, maintained, and disconnected.
+Tunnelblick's output to the Console log includes descriptions of installation activity, such as the ownership/permission changes that Tunnelblick makes when it is installed, and detailed information about some error conditions that Tunnelblick encounters. OpenVPN outputs detailed information about how a connection is established, maintained, and disconnected.
 
 To view the Console log, launch the Console application, located at /Applications/Utilities/Console.app. The Console application is built into all versions of OS X.
 
