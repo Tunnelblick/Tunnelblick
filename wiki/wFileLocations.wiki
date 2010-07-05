@@ -20,7 +20,7 @@ There are two types of configuration files:
 
 There are four places configuration files may be stored:
 
-  * Private configurations, including both types of files, are stored in '~/Library/Application Support/Tunnelblick/Configurations'. Since these files are all located in the user's Library folder, they must be set up separately for each user. (Note that the "~" in the path indicates the user's home folder; thus the folder may actually be located somewhere such as /Users/username/Library/Application Support/Tunnelblick/Configurations.)
+  * Private configurations, including both types of files, are stored in '~/Library/Application Support/Tunnelblick/Configurations'. Since these files are all located in the user's Library folder, they must be set up separately for each user. (Note that the "~" in the path indicates the user's home folder; thus the folder is actually located somewhere such as /Users/username/Library/Application Support/Tunnelblick/Configurations. Do not confuse this Library folder with the /Library folder located at the root of the filesystem.)
 
   * Shared configurations, which can only be Tunnelblick VPN Connection files, are stored in /Library/Application Support/Tunnelblick/Shared. Shared configurations do not need to be set up for each user. (In fact, that's the whole point of sharing them!)
 
