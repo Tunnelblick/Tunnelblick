@@ -12,7 +12,7 @@
 				<string>tblk</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>tunnelblick.icns</string>
+			<string>tunnelblick_package.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>Tunnelblick VPN Configuration</string>
 			<key>CFBundleTypeRole</key>
@@ -34,11 +34,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1beta07 (build 1921)</string>
+	<string>3.1beta07 (build 1923)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>1921</string>
+	<string>1923</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
