@@ -28,7 +28,7 @@ Modifying view options, the layout of the icons, or adding or removing content/i
   # Eject the Tunnelblick volume, and then log out and log back in again or restart your computer. (The logout/login or restart seems to be necessary to flush the Finder's cache of data to the the .DS_Store file on the volume.)
   # Use Disk Utility to convert TunnelblickRW.dmg to a "compressed" disk image named "TunnelblickC.dmg".
   # Double-click TunnelblickC.dmg and verify that the window layout, view options, etc. are as desired.
-  # Use the following Terminal commands to (A) copy the volume's .DS_Store file and (B) make it visible. (Tip: drag and drop a folder icon anywhere in the Terminal window to insert the absolute path to that folder, followed by a space, at the Terminal window's insertion point.)
+  # Use the following Terminal commands to (A) copy the volume's .DS_Store file and (B) make it visible. (Tip: drag and drop a item's icon from a Finder window to anywhere in the Terminal window to insert the absolute path to that item, followed by a space, at the Terminal window's insertion point.)
 
       `cp -p /Volumes/Tunnelblick/.DS_Store` _path-to-dmgFiles/dotDS_Store_
 
