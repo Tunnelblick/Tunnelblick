@@ -17,20 +17,21 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import "openvpnstart.h"
 #import <Foundation/Foundation.h>
 #import <sys/sysctl.h>
 #import <netinet/in.h>
 #import <sys/stat.h>
+#import "defines.h"
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
-int     setupLog            (NSString* logPath); // Sets up the OpenVPN log file (for "without GUI" operation), which encodes the configuration file path and port info into the filename
-NSString * createOpenVPNLog (NSString* configurationPath, int port);
-BOOL    deleteLogFiles      (NSString * configurationPath);
-int     runAsRoot           (NSString * thePath, NSArray * theArguments);
-BOOL    createPipeForConfigAtPath (NSString * inPath);
+int     setupLog            (NSString* logPath);
 NSString * constructOpenVPNLogPath (NSString * configurationPath, NSString * openvpnstartArgs, int port);
+NSString * constructScriptLogPath (NSString * configurationPath);
+NSString * createOpenVPNLog (NSString* configurationPath, int port);
+NSString * createScriptLog  (NSString* configurationPath, NSString* cmdLine);
+BOOL    deleteOpenVpnLogFiles (NSString * configurationPath);
+int     runAsRoot           (NSString * thePath, NSArray * theArguments);
 
 void    startOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
 
@@ -54,6 +55,7 @@ BOOL    checkOwnerAndPermissions (NSString * fPath, // Returns YES if file doesn
                                   NSString * permsShouldHave);
 
 BOOL    itemIsVisible       (NSString * path); // Returns NO if path or any component of path is invisible (compenent starts with a '.')
+BOOL    createDir           (NSString * d, unsigned long perms);
 
 NSString * configPathFromTblkPath(NSString * path);
 NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
@@ -127,11 +129,6 @@ int main(int argc, char* argv[])
 			if (argc == 3) {
 				pid_t pid = (pid_t) atoi(argv[2]);
 				killOneOpenvpn(pid);
-				syntaxError = FALSE;
-			} else if (argc == 4) {
-				pid_t pid = (pid_t) atoi(argv[2]);
-				killOneOpenvpn(pid);
-                deleteLogFiles( [NSString stringWithUTF8String: argv[3]] );
 				syntaxError = FALSE;
 			}
             
@@ -212,8 +209,8 @@ int main(int argc, char* argv[])
 				"./openvpnstart killall\n"
 				"               to terminate all processes named 'openvpn'\n\n"
                 
-				"./openvpnstart kill   processId   [configPath]\n"
-				"               to terminate the 'openvpn' process with the specified processID and optionally delete the log file associated with the processs\n\n"
+				"./openvpnstart kill   processId\n"
+				"               to terminate the 'openvpn' process with the specified processID\n\n"
                 
 				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  ]  ]  ]  ]  ]\n\n"
 				"               to load tun.kext and tap.kext and start OpenVPN with the specified configuration file and options.\n\n"
@@ -398,31 +395,24 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         withoutGUI = TRUE;
         port = getFreePort();
     }
-
-    NSString * logPath;
-    if (   ( (bitMask & CREATE_LOG_FILE) != 0 )
-        || withoutGUI  ) {
-        logPath = createOpenVPNLog(configPath, port);
-    }
-        
+    
+    // Create OpenVPN log directory if necessary, delete old OpenVPN log files, and create a new, empty OpenVPN log file
+    createDir(LOG_DIR, 0777);
+    deleteOpenVpnLogFiles(configPath);
+    NSString * logPath = createOpenVPNLog(configPath, port);
+    
     // default arguments to openvpn command line
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
 								 @"--cd", cdFolderPath,
 								 @"--daemon", 
 								 @"--management", @"127.0.0.1", [NSString stringWithFormat:@"%d", port],  
 								 @"--config", configPath,
+                                 @"--log", logPath,
 								 nil];
     
 	// conditionally push additional arguments to array
     
-	if ( withoutGUI ) {
-        // We tell  OpenVPN to put the log into a file whose name encodes the path to the configuration file and the port # for the
-        // OpenVPN management interface. This enables the GUI to associate a management port with a configuration file. The GUI can then
-        // query the management interface for a process ID and other info, and can control the connection.
-        [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                         @"--log", logPath,
-                                         nil]];
-   } else {
+	if ( ! withoutGUI ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects:
                                          @"--management-query-passwords",
                                          @"--management-hold",
@@ -560,6 +550,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         if (  (bitMask & RESTORE_ON_WINS_RESET) != 0  ) {
             [scriptOptions appendString: @" -w"];
         }
+
         if (  (bitMask & RESTORE_ON_DNS_RESET) != 0  ) {
             [scriptOptions appendString: @" -d"];
         }
@@ -612,6 +603,15 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
     }
     
+    NSMutableString * cmdLine = [NSMutableString stringWithString: openvpnPath];
+    int i;
+    for (i=0; i<[arguments count]; i++) {
+        [cmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
+    }
+	
+    // Create a new script log which includes the command line used to start openvpn
+    createScriptLog(configPath, cmdLine);
+    
     if (  tblkPath  ) {
         NSString * preConnectPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/pre-connect.sh"];
         if (  [gFileMgr fileExistsAtPath: preConnectPath]  ) {
@@ -629,23 +629,12 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
     }
     
-    if (  ! createPipeForConfigAtPath(configPath)  ) {
-        fprintf(stderr, "Warning: Unable to create pipe for script output for %s\n", [configPath UTF8String]);
-    }
-    
     loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
     
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
 	[task setArguments:arguments];
     
-    NSMutableString * cmdLine = [NSMutableString stringWithString: openvpnPath];
-    int i;
-    for (i=0; i<[arguments count]; i++) {
-        [cmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
-    }
-    printf("%s", [cmdLine UTF8String]);
-	
     becomeRoot();
 	[task launch];
 	[task waitUntilExit];
@@ -741,13 +730,10 @@ int killAllOpenvpn(void)
 }
 
 //**************************************************************************************************************************
-// Sets up the OpenVPN log file (for "withoutGUI" operation), which encodes the configuration file path, openvpnstart arguments, and port info into the filename
-// Given the name of this file, this function deletes other versions of it (same configuration file path but encoding any openvpnstart arguments or port number),
-// and creates the file with permissions so that anyone may read it. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
+// Sets up the OpenVPN log file. The filename itself encodes the configuration file path, openvpnstart arguments, and port info.
+// The log file is created with permissions allowing anyone to read it. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
 NSString * createOpenVPNLog(NSString* configurationPath, int port)
 {
-    deleteLogFiles(configurationPath);
-    
     NSString * logPath = constructOpenVPNLogPath(configurationPath, startArgs, port);
     
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0744] forKey: NSFilePosixPermissions];
@@ -770,39 +756,73 @@ NSString * constructOpenVPNLogPath(NSString * configurationPath, NSString * open
     NSMutableString * logPath = [configurationPath mutableCopy];
     [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
     [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%@.%d.log", logPath, openvpnstartArgs, port];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.%@.%d.openvpn.log", LOG_DIR, logPath, openvpnstartArgs, port];
+    [logPath release];
+    return returnVal;
+}
+
+//**************************************************************************************************************************
+// Sets up a new script log file. The filename itself encodes the configuration file path.
+// It is created with permissions allowing everyone full access
+NSString * createScriptLog(NSString* configurationPath, NSString* cmdLine)
+{
+    NSString * logPath = constructScriptLogPath(configurationPath);
+    
+    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0777] forKey: NSFilePosixPermissions];
+
+    NSCalendarDate * date = [NSCalendarDate date];
+    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart: %@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], cmdLine];
+    NSData * dateCmdLineAsData = [NSData dataWithBytes: [dateCmdLine UTF8String] length: [dateCmdLine length]];
+    
+    if (  ! [gFileMgr createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes]  ) {
+        NSString * msg = [NSString stringWithFormat: @"Failed to create scripts log file at %@ with attributes %@", logPath, logAttributes];
+        fprintf(stderr, [msg UTF8String]);
+    }
+
+    return logPath;
+}
+
+// Returns a path for a script log file.
+// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of "log"
+NSString * constructScriptLogPath(NSString * configurationPath)
+{
+    NSMutableString * logPath = [configurationPath mutableCopy];
+    if (  [[configurationPath pathExtension] isEqualToString: @"tblk"]) {
+        [logPath appendString: @"/Contents/Resources/config.ovpn"];
+    }
+    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
+    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logPath];
     [logPath release];
     return returnVal;
 }
 
 //**************************************************************************************************************************
 // Deletes OpenVPN log files associated with a specified configuration file
-BOOL deleteLogFiles(NSString * configurationPath)
+BOOL deleteOpenVpnLogFiles(NSString * configurationPath)
 {
     BOOL errHappened = FALSE;
     
-    NSString * logPath = constructOpenVPNLogPath(configurationPath, @"XX", 0); // openvpnstart args and port # don't matter because we strip it off
+    NSString * logPath = constructOpenVPNLogPath(configurationPath, @"XX", 0); // openvpnstart args and port # don't matter because we strip them off
     
-    NSString * logPathPrefix = [[[logPath stringByDeletingPathExtension]
+    NSString * logPathPrefix = [[[[logPath stringByDeletingPathExtension]
+                                  stringByDeletingPathExtension]
                                  stringByDeletingPathExtension]
-                                stringByDeletingPathExtension];     // Remove .<start-args>.<port #>.log
+                                stringByDeletingPathExtension];     // Remove .<start-args>.<port #>.openvpn.log
     
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/tmp"];
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
     while (  filename = [dirEnum nextObject]  ) {
         [dirEnum skipDescendents];
-        NSString * oldFullPath = [@"/tmp" stringByAppendingPathComponent: filename];
+        NSString * oldFullPath = [LOG_DIR stringByAppendingPathComponent: filename];
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
-            if (  [[filename pathExtension] isEqualToString: @"log"]) {
-                if (  [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
-                    NSString * msg = [NSString stringWithFormat: @"Deleted OpenVPN log file %@\n", oldFullPath];
-                    fprintf(stderr, [msg UTF8String]);
-                } else {
+            if (   [[filename pathExtension] isEqualToString: @"log"]
+                && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
+                if (  ! [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
                     NSString * msg = [NSString stringWithFormat: @"Error occurred trying to delete OpenVPN log file %@\n", oldFullPath];
                     fprintf(stderr, [msg UTF8String]);
                     errHappened = TRUE;
                 }
-
             }
         }
     }
@@ -1041,6 +1061,7 @@ NSString *escaped(NSString *string)
     }
 }
 
+//**************************************************************************************************************************
 // Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
 NSString * configPathFromTblkPath(NSString * path)
 {
@@ -1098,35 +1119,7 @@ unsigned int getFreePort(void)
     return resultPort;
 }
 
-BOOL createPipeForConfigAtPath(NSString * inPath)
-{
-    NSMutableString * realCfgPathWithDashes;
-    if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
-        realCfgPathWithDashes = [[configPathFromTblkPath(inPath) mutableCopy] autorelease];
-    } else {
-        realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
-    }
-    [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
-    if (  ! realCfgPathWithDashes  ) {
-        realCfgPathWithDashes = @"";
-    }
-    NSString * path = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
-    
-    [gFileMgr removeFileAtPath: path handler: nil];
-    
-    const char * cPath = [path UTF8String];
-    
-    // Create the pipe
-    if (    ( mkfifo(cPath, 0666) == -1 ) && ( errno != EEXIST )    ) {
-        return NO;
-    }
-    
-    if (  chmod(cPath, 0666)  ) {
-        return NO;
-    }
-    return YES;
-}
-
+//**************************************************************************************************************************
 // Runs a program after becoming root
 // Returns program's termination status
 int runAsRoot(NSString * thePath, NSArray * theArguments)
@@ -1142,6 +1135,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments)
     return [task terminationStatus];
 }
 
+//**************************************************************************************************************************
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
 BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave)
 {
@@ -1162,4 +1156,26 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
     }
     
     return NO;
+}
+
+//**************************************************************************************************************************
+// Recursive function to create a directory if it doesn't already exist
+// Returns YES if the directory was created, NO if it already existed
+BOOL createDir(NSString * d, unsigned long perms)
+{
+    BOOL isDir;
+    if (   [gFileMgr fileExistsAtPath: d isDirectory: &isDir]
+        && isDir  ) {
+        return NO;
+    }
+    
+    createDir([d stringByDeletingLastPathComponent], perms);
+    
+    NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
+
+    if (  ! [gFileMgr createDirectoryAtPath: d attributes: dirAttributes] ) {
+        NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
+    }
+    
+    return YES;
 }
