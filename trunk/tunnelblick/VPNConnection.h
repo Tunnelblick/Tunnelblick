@@ -19,7 +19,7 @@
 #import <Security/Security.h>
 #import "AuthAgent.h"
 #import "NetSocket.h"
-#import "NamedPipe.h"
+#import "LogDisplay.h"
 
 @interface VPNConnection : NSObject {
     NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file or .tblk package)
@@ -34,13 +34,9 @@
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
-	NSTextStorage * logStorage;         // nil, or contains entire log (or that part of log since it was cleared)
+    LogDisplay    * logDisplay;         // Used to store and display the OpenVPN log
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
-    NSString      * myPipePath;         // Path to pipe scripts write to OpenVPN Log with
-    NamedPipe     * myPipe;             // Up/down scripts send data through this pipe and we append the data to the OpenVPN Log
-    BOOL            myPipeError;        // Flag that we've complained already about being unable to hook up to the pipe
-    NSMutableString * myPipeBuffer;     // Buffer in which we collect data from the pipe until the ETX-LF character combination that completes a log entry
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
@@ -56,13 +52,12 @@
 // PUBLIC METHODS:
 // (Private method interfaces are in VPNConnection.m)
 
--(void)             addToLog:                   (NSString *)        text
-                      atDate:                   (NSCalendarDate *)  date;
-
--(void)             appendDataToLog:            (NSData *)          data;
+-(void)             addToLog:                   (NSString *)        text;
 
 -(BOOL)             checkConnectOnSystemStart:  (BOOL)              startIt
                                      withAuth:  (AuthorizationRef)  inAuthRef;
+
+-(void)             clearLog;
 
 -(NSString *)       configPath;
 
@@ -70,21 +65,16 @@
 
 -(void)             connect:                    (id) sender;
 
--(void)             destroyPipe;
-
 -(void)             disconnect:                 (id) sender;
 
 -(NSString *)       displayName;
-
--(void)             emptyPipe;
 
 -(id)               initWithConfigPath:         (NSString *)    inPath
                        withDisplayName:         (NSString *)    inDisplayName;
 
 -(void)             invalidateConfigurationParse;
 
--(void)             tryToHookupToPort:          (int)           inPortNumber
-                 withOpenvpnstartArgs:          (NSString *)    inStartArgs;
+-(NSTextStorage *)  logStorage;
 
 -(BOOL)             tryingToHookup;
 -(BOOL)             isHookedup;
@@ -92,8 +82,6 @@
 -(BOOL)             isConnected;
 
 -(BOOL)             isDisconnected;
-
--(NSTextStorage*)   logStorage;
 
 -(void)             netsocket:                  (NetSocket *)   socket
                 dataAvailable:                  (unsigned)      inAmount;
@@ -113,6 +101,9 @@
 -(void)             stopTryingToHookup;
 
 -(IBAction)         toggle:                     (id)            sender;
+
+-(void)             tryToHookupToPort:          (int)           inPortNumber
+                 withOpenvpnstartArgs:          (NSString *)    inStartArgs;
 
 -(BOOL)             usedSetNameserver;
 

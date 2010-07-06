@@ -17,6 +17,7 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#import "defines.h"
 #import "helper.h"
 #import "TBUserDefaults.h"
 #import "NSApplication+SystemVersion.h"
@@ -115,64 +116,26 @@ NSString * configPathFromTblkPath(NSString * path)
     return nil;
 }
 
-// Returns a path for an OpenVPN log file.
-// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S" , and extensions of
-//      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
-//      * the port number; and
-//      * "log"
-NSString * constructOpenVPNLogPath(NSString * configurationPath, NSString * openvpnstartArgs, int port)
+//**************************************************************************************************************************
+// Recursive function to create a directory if it doesn't already exist
+// Returns YES if the directory was created, NO if it already existed
+BOOL createDir(NSString * d, unsigned long perms)
 {
-    NSMutableString * logPath = [configurationPath mutableCopy];
-    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
-    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"/tmp/tunnelblick%@.%@.%d.log", logPath, openvpnstartArgs, port];
-    [logPath release];
-    return returnVal;
-}
-
-// Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by constructOpenVPNLogPath
-NSString * deconstructOpenVPNLogPath (NSString * logPath, int * portPtr, NSString * * startArgsPtr)
-{
-    if (  [logPath hasPrefix: @"/tmp/tunnelblick-S"]  ) {
-        if (  [[logPath pathExtension] isEqualToString: @"log"]  ) {
-            int prefixLength = [@"/tmp/tunnelblick" length];    // Keep the "-S" so it is replaced by a leading "/"
-            NSRange r = NSMakeRange(prefixLength, [logPath length] - 4 - prefixLength);
-            NSString * withoutPrefixOrDotLog = [logPath substringWithRange: r];
-            NSString * withoutPrefixOrPortOrDotLog = [withoutPrefixOrDotLog stringByDeletingPathExtension];
-            NSString * startArgs = [withoutPrefixOrPortOrDotLog pathExtension];
-            if (  startArgs  ) {
-                if (  ! ( [startArgs isEqualToString: @"ovpn"] || [startArgs isEqualToString: @"conf"] )  ) {
-                    *startArgsPtr = startArgs;
-                }
-            }
-            NSString * portString = [withoutPrefixOrDotLog pathExtension];
-            int port = [portString intValue];
-            if (   port != 0
-                && port != INT_MAX
-                && port != INT_MIN  ) {
-                
-                *portPtr = port;
-                
-                NSMutableString * cfg = [[withoutPrefixOrPortOrDotLog stringByDeletingPathExtension] mutableCopy];
-                [cfg replaceOccurrencesOfString: @"-S" withString: @"/" options: 0 range: NSMakeRange(0, [cfg length])];
-                [cfg replaceOccurrencesOfString: @"--" withString: @"-" options: 0 range: NSMakeRange(0, [cfg length])];
-                [cfg replaceOccurrencesOfString: @"/Contents/Resources/config.ovpn" withString: @"" options: 0 range: NSMakeRange(0, [cfg length])];
-                NSString * returnVal = [[cfg copy] autorelease];
-                [cfg release];
-                
-                return returnVal;
-            } else {
-                NSLog(@"deconstructOpenVPNLogPath: called with invalid port number in path %@", logPath);
-                return @"";
-            }
-        } else {
-            NSLog(@"deconstructOpenVPNLogPath: called with non-log path %@", logPath);
-            return @"";
-        }
-    } else {
-        NSLog(@"deconstructOpenVPNLogPath: called with invalid prefix to path %@", logPath);
-        return @"";
+    BOOL isDir;
+    if (   [gFileMgr fileExistsAtPath: d isDirectory: &isDir]
+        && isDir  ) {
+        return NO;
     }
+    
+    createDir([d stringByDeletingLastPathComponent], perms);
+    
+    NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
+    
+    if (  ! [gFileMgr createDirectoryAtPath: d attributes: dirAttributes] ) {
+        NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
+    }
+    
+    return YES;
 }
 
 BOOL itemIsVisible(NSString * path)
@@ -197,27 +160,11 @@ NSString * tblkPathFromConfigPath(NSString * path)
         answer = [answer stringByDeletingLastPathComponent];
     }
     
-    if (  ! [[answer pathExtension] isEqualToString: @"tblk"]  ) {
-        return nil;
+    if (  [[answer pathExtension] isEqualToString: @"tblk"]  ) {
+        return answer;
     }
     
-    return answer;
-}
-
-NSString * pipePathFromConfigPath(NSString * inPath)
-{
-    NSMutableString * realCfgPathWithDashes;
-    if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
-        realCfgPathWithDashes = [[configPathFromTblkPath(inPath) mutableCopy] autorelease];
-    } else {
-        realCfgPathWithDashes = [[inPath mutableCopy] autorelease];
-    }
-    [realCfgPathWithDashes replaceOccurrencesOfString: @"/" withString: @"-" options: 0 range: NSMakeRange(0, [realCfgPathWithDashes length])];
-    if (  ! realCfgPathWithDashes  ) {
-        realCfgPathWithDashes = @"";
-    }
-    NSString * pipePath = [NSString stringWithFormat: @"/tmp/tunnelblick%@.logpipe", realCfgPathWithDashes];
-    return pipePath;
+    return nil;
 }
 
 BOOL useDNSStatus(id connection)

@@ -16,12 +16,12 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import "VPNConnection.h"
 #import <CoreServices/CoreServices.h>
 #import <Foundation/NSDebug.h>
 #import <Security/AuthSession.h>
 #import <signal.h>
-#import "openvpnstart.h"
+#import "defines.h"
+#import "VPNConnection.h"
 #import "KeyChain.h"
 #import "NetSocket.h"
 #import "NetSocket+Text.h"
@@ -86,16 +86,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
         managementSocket = nil;
 		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
-        logStorage = nil;
-		[self addToLog:[[NSApp delegate] openVPNLogHeader] atDate: nil];
+        logDisplay = [[LogDisplay alloc] initWithConfigurationPath: inPath];
         lastState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
         tryingToHookup = FALSE;
         isHookedup = FALSE;
         tunOrTap = nil;
-        myPipePath = [pipePathFromConfigPath(inPath) copy];
-        myPipe = nil;
-        myPipeError = FALSE;
         areDisconnecting = FALSE;
         connectedWithTap = FALSE;
         connectedWithTun = FALSE;
@@ -132,91 +128,26 @@ extern NSString * lastPartOfPath(NSString * thePath);
         NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using managementSocket", [self description]);
         return;
     }
-    
-    // Read in the log file, parse the date/time in each line, and add everything to the log
-    NSString * actualConfigPath = [self configPath];
-    if (  [[actualConfigPath pathExtension] isEqualToString: @"tblk"]  ) {
-        actualConfigPath = [actualConfigPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
+
+    [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
+
+    // Keep track of the number of tun and tap kexts that openvpnstart loaded
+    NSArray * openvpnstartArgs = [inStartArgs componentsSeparatedByString: @"_"];
+    unsigned bitMask = [[openvpnstartArgs lastObject] intValue];
+    if (  (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT ) {
+        [[NSApp delegate] incrementTapCount];
+        connectedWithTap = TRUE;
+    } else {
+        connectedWithTap = FALSE;
     }
     
-    // We have to search for the log file because we'll accept any openvpnstart arguments that are encoded in the 3rd from last extension
-    NSString * logPathStars = constructOpenVPNLogPath(actualConfigPath, @"*", inPortNumber);
-    NSString * logPathPrefix = [[[logPathStars stringByDeletingPathExtension] stringByDeletingPathExtension] stringByDeletingPathExtension];   // Remove .openvpnstartArgs.port.log
-    NSString * logPathDir = [logPathPrefix stringByDeletingLastPathComponent];
-    NSString * logPathPort = [[logPathStars stringByDeletingPathExtension] pathExtension];
-    NSString * logPathPortLog = [NSString stringWithFormat: @".%@.log", logPathPort];
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: logPathDir];
-    NSString * file;
-    NSString * logPath = nil;
-    while (  file = [dirEnum nextObject]  ) {
-        logPath = [logPathDir stringByAppendingPathComponent: file];
-        if (   [logPath hasPrefix: logPathPrefix]
-            && [logPath hasSuffix: logPathPortLog]  ) {
-            break;
-        }
-        logPath = nil;
+    if (  (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT ) {
+        [[NSApp delegate] incrementTunCount];
+        connectedWithTun = TRUE;
+    } else {
+        connectedWithTun = FALSE;
     }
-    
-    NSNumber * logSizeN = [[gFileMgr fileAttributesAtPath: logPath traverseLink: NO] objectForKey: NSFileSize];
-    if (  logSizeN  ) {
-        long long logSize = [logSizeN  longLongValue];
-        if (  logSize > 10000000  ) {
-            [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: OpenVPN log file at %@ is too large (%@ bytes) to display\n", logPath, logSizeN] atDate: nil];
-        } else if (  logSize != 0  ) {
-            NSString * msg = [[NSString alloc] initWithData: [gFileMgr contentsAtPath: logPath] encoding:NSUTF8StringEncoding];
-            NSArray * arr = [msg componentsSeparatedByString:@"\n"];
-            [msg release];
 
-            [self addToLog: @"*Tunnelblick: ---------- Start of OpenVPN log before Tunnelblick was launched" atDate: nil];
-            
-            NSMutableAttributedString * msgAS = [[NSMutableAttributedString alloc] init];
-            NSString * line;
-            const char * cLogLine;
-            const char * cRestOfLogLine;
-            struct tm cTime;
-            char cDateTimeStringBuffer[] = "1234567890123456789012345678901";
-            NSEnumerator * e = [arr objectEnumerator];
-            while (  line = [e nextObject]  ) {
-                cLogLine = [line UTF8String];
-                cRestOfLogLine = strptime(cLogLine, "%c", &cTime);
-                if (  cRestOfLogLine  ) {
-                    size_t timeLen = strftime(cDateTimeStringBuffer, 30, "%Y-%m-%d %H:%M:%S", &cTime);
-                    if (  timeLen  ) {
-                        line = [NSString stringWithFormat: @"%s%s", cDateTimeStringBuffer, cRestOfLogLine];
-                    }
-                }
-
-                line = [line stringByAppendingString: @"\n"];
-                NSAttributedString * s = [[NSAttributedString alloc] initWithString: line];
-                [msgAS appendAttributedString: s];
-                [s release];
-            }
-            [[self logStorage] appendAttributedString: msgAS];
-            [msgAS release];
-            
-            [self addToLog: @"*Tunnelblick: ---------- End of OpenVPN log before Tunnelblick was launched" atDate: nil];
-        }
-        [self addToLog: @"*Tunnelblick: Start of \"current\" OpenVPN log. May contain entries duplicating some of the above" atDate: nil];
-        
-        // Keep track of the number of tun and tap kexts that openvpnstart loaded
-        NSString * openvpnstartArgs = [[[logPath stringByDeletingPathExtension] stringByDeletingPathExtension] pathExtension];
-        NSArray * args = [openvpnstartArgs componentsSeparatedByString: @"_"];
-        unsigned bitMask = [[args lastObject] intValue];
-        if (  (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT ) {
-            [[NSApp delegate] incrementTapCount];
-            connectedWithTap = TRUE;
-        } else {
-            connectedWithTap = FALSE;
-        }
-
-        if (  (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT ) {
-            [[NSApp delegate] incrementTunCount];
-            connectedWithTun = TRUE;
-        } else {
-            connectedWithTun = FALSE;
-        }
-    }
-    
     [self setPort: inPortNumber];
     tryingToHookup = TRUE;
     [self connectToManagementSocket];
@@ -491,7 +422,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 - (void) dealloc
 {
     [self disconnect:self];
-    [logStorage release];
+    [logDisplay release];
     [managementSocket close];
     [managementSocket setDelegate: nil];
     [managementSocket release]; 
@@ -501,9 +432,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [displayName release];
     [connectedSinceDate release];
     [myAuthAgent release];
-    [myPipePath release];
-    [myPipe release];
-    [myPipeBuffer release];
     [super dealloc];
 }
 
@@ -551,7 +479,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
     authenticationFailed = NO;
     
     areDisconnecting = FALSE;
-    myPipeError = FALSE;
     
     [managementSocket close];
     [managementSocket setDelegate: nil];
@@ -585,7 +512,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                            ? @"; not monitoring connection"
                            : @"; monitoring connection" )
                           ];
-    [self addToLog: logText atDate: nil];
+    [self addToLog: logText];
 
     NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[arguments count]];
     int i;
@@ -595,8 +522,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
     [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: %@ %@",
                      [[path componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "],
-                     [escapedArguments componentsJoinedByString: @" "]]
-            atDate: nil];
+                     [escapedArguments componentsJoinedByString: @" "]]];
     
     if (  ([[arguments objectAtIndex: 7] intValue] & OUR_TAP_KEXT) != 0  ) {
         [[NSApp delegate] incrementTapCount];
@@ -617,7 +543,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [stdPipe release];
     NSString * openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: %@", openvpnstartOutput] atDate: nil];
+    if (  [openvpnstartOutput length] != 0  ) {
+        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: %@", openvpnstartOutput]];
+    }
 
     int status = [task terminationStatus];
     if (  status != 0  ) {
@@ -631,8 +559,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
-        [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]
-                atDate: nil];
+        [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]];
     } else {
         file = [errPipe fileHandleForReading];
         data = [file readDataToEndOfFile];
@@ -641,10 +568,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if (  openvpnstartOutput  ) {
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             if (  [openvpnstartOutput length] != 0  ) {
-                [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart message: %@", @"OpenVPN Log message"), openvpnstartOutput]
-                        atDate: nil];
+                [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart message: %@", @"OpenVPN Log message"), openvpnstartOutput]];
             }
         }
+        [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
+
     }
     
     [errPipe release];
@@ -760,12 +688,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
     
-    NSString * onSystemStartKey = [[self displayName] stringByAppendingString: @"-onSystemStart"];
-    if (   (! forNow )
-        || [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        bitMask = bitMask | CREATE_LOG_FILE;
-    }
-    
     [self setBit: RESTORE_ON_WINS_RESET  inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"   inverted: YES];
     [self setBit: RESTORE_ON_DNS_RESET   inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"    inverted: YES];
     
@@ -857,17 +779,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
             }
         }
         
-        [self emptyPipe];
-        
-        if (  ! [managementSocket peekData]  ) {
-            [managementSocket close]; [managementSocket setDelegate: nil];
-            [managementSocket release]; managementSocket = nil;
-            if (  [myPipeBuffer length] == 0  ) {
-                [self destroyPipe];
-                [self addToLog:@"*Tunnelblick: Destroyed pipe for scripts - disconnecting and no managmentSocket data available" atDate: nil];
-            }
-        }
-        
         [[NSApp delegate] removeConnection:self];
         [self setState:@"EXITING"];
         if (  connectedWithTap  ) {
@@ -916,14 +827,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 	[task setLaunchPath: path]; 
 	NSString *pidString = [NSString stringWithFormat:@"%d", pid];
     
-    // We also give the path to the actual config file, so that any log file associated with it will be deleted, too
-    // (We leave the pipe alone so it can output any disconnection info -- it is deleted only when Tunnelblick quits)
-    NSString * actualConfigPath = [self configPath];
-    if (  [[actualConfigPath pathExtension] isEqualToString: @"tblk"]  ) {
-        actualConfigPath = [actualConfigPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
-    }
-    
-	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, actualConfigPath, nil];
+	NSArray *arguments = [NSArray arrayWithObjects:@"kill", pidString, nil];
 	[task setArguments:arguments];
 	[task setCurrentDirectoryPath: firstPartOfPath(configPath)];
     pid = 0;
@@ -942,7 +846,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
 		[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];    
 		[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
-        [managementSocket writeString: @"log on all\r\n"    encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"hold release\r\n"  encoding: NSASCIIStringEncoding];
     } NS_HANDLER {
         NSLog(@"Exception caught while writing to socket: %@\n", localException);
@@ -1011,35 +914,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
     isHookedup = TRUE;
     tryingToHookup = FALSE;
     
-    // Take the first opportunity to hook up to the pipe that the scripts output to the OpenVPN Log with
-    if (  ( ! myPipe ) && ( ! myPipeError )  ) {
-        myPipeBuffer = [[NSMutableString alloc] initWithCapacity: 10000];
-        myPipe = [[NamedPipe alloc] initPipeReadingFromPath: myPipePath
-                                              sendingDataTo: @selector(appendDataToLog:)
-                                                  whichIsIn: self];
-        if (  myPipe  ) {
-            [self addToLog: @"*Tunnelblick: Attached to pipe for scripts" atDate: nil];
-        } else {
-            NSLog(@"Unable to initialize pipe %@ for up/down/leasewatch scripts to write to OpenVPN Log", myPipePath);
-            myPipeError = TRUE;
-        }
-    }
-    
     if (![line hasPrefix: @">"]) {
-        // Output in response to command to OpenVPN. Could be the PID command, or additional log output from LOG ON ALL
+        // Output in response to command to OpenVPN
 		[self setPIDFromLine:line];
         [self setStateFromLine:line];
-		@try {
-			NSArray* parameters = [line componentsSeparatedByString: @","];
-            NSCalendarDate* date = nil;
-            if ( [[parameters objectAtIndex: 0] intValue] != 0) {
-                date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-            }
-            NSString* logLine = [parameters lastObject];
-			[self addToLog:logLine atDate:date];
-		} @catch (NSException *exception) {
-			
-		}
 		return;
 	}
     // "Real time" output from OpenVPN.
@@ -1118,15 +996,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 }
             }
 
-        } else if ([command isEqualToString:@"LOG"]) {
-            NSArray* parameters = [parameterString componentsSeparatedByString: @","];
-            NSCalendarDate* date = nil;
-            if ( [[parameters objectAtIndex: 0] intValue] != 0) {
-                date = [NSCalendarDate dateWithTimeIntervalSince1970: [[parameters objectAtIndex: 0] intValue]];
-            }
-            NSString* logLine = [parameters lastObject];
-            [self addToLog:logLine atDate:date];
-            
         } else if ([command isEqualToString:@"NEED-OK"]) {
             // NEED-OK: MSG:Please insert TOKEN
             if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
@@ -1153,13 +1022,22 @@ extern NSString * lastPartOfPath(NSString * thePath);
 }
 
 
-// Adds a message to the OpenVPN Log with a specified date/time. If date/time is nil, current date/time is used
--(void)addToLog:(NSString *)text atDate:(NSCalendarDate *)date {
-    if ( ! date ) {
-        date = [NSCalendarDate date];
-    }
-    NSString *dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"],text];
-    [[self logStorage] appendAttributedString: [[[NSAttributedString alloc] initWithString: dateText] autorelease]];
+// Returns contents of the log display
+-(NSTextStorage *) logStorage
+{
+    return [logDisplay logStorage];
+}
+
+// Adds a message to the log display with the current date/time
+-(void)addToLog:(NSString *)text
+{
+    [logDisplay addToLog: text];
+}
+
+// Clears the log
+-(void) clearLog
+{
+    [logDisplay clear];
 }
 
 - (void) netsocket: (NetSocket*) socket dataAvailable: (unsigned) inAmount
@@ -1218,15 +1096,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
 //    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
     
     [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
-}
-
-- (NSTextStorage*) logStorage 
-/*" Returns all collected log messages for the reciever. "*/
-{
-    if (!logStorage) {
-        logStorage = [[NSTextStorage alloc] init];
-    }
-    return logStorage;
 }
 
 - (unsigned int) getFreePort
@@ -1296,118 +1165,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
         [anItem setToolTip: [connection configPath]];
 	}
 	return YES;
-}
-
--(void) destroyPipe
-{
-    if (  myPipe  ) {
-        [self emptyPipe];
-        sleep(1);
-        [myPipe destroyPipe];
-        [myPipe release];
-        [myPipeBuffer release];
-        myPipe = nil;
-        myPipeBuffer = nil;
-    }
-}
-
--(void) emptyPipe
-{
-    if (  [myPipeBuffer length] != 0  ) {
-        [self appendDataToLog: [@"\003\n" dataUsingEncoding: NSUTF8StringEncoding]];
-    }
-}
-         
-/* Invoked when data is available from myPipe, which accepts data and sends it to the OpenVPN Log via this routine
- 
- The pipe is created in /tmp by the "initWithConfig:inDirectory: method (above)
- The name of the pipe is formed in part by replacing slash characters in the configuration file's path with dashes:
- If the configuration file's path is
-                      "/Users/joe/Application Support/Tunnelblick/Configurations/test.conf"
- then the pipe is named
-      "/tmp/tunnelblick-Users-joe-Application Support-Tunnelblick-Configurations-test.conf.logpipe"
- 
-Data sent to the pipe should a message consisting of
-       ETX LF timestamp SP star SP program SP message ETX LF
-
- Where ETX       is the ASCII ETX character (use "\003" in the "echo -e" command)
-       LF        is the ASCII LF character ("\n")
-       timestamp is in the form "YYYY-MM-DD HH:MM:SS", as generated by bash shell "$(date '+%Y-%m-%d %T')"
-       SP        is a single space character
-       star      is the asterisk character "*"
-       program   is the name of the program generating the message
-       message   is the message that is to be displayed in the log. It may include any sequence of characters except ETX LF
-
- This format will make piped log output consistent with the way that Tunnelblick displays other messages in the log
-
- The first ETX LF forces any partial message that wasn't terminated to be output. If there is no partial message, then
- nothing will be output and the first ETX LF are ignored.
- 
- Example:
- echo -e "\003\n$(date '+%Y-%m-%d %T') * XYZ-Script This-is-the-actual-message.\003"
- will append a line like the following to the log. Note that the echo command appends a LF after the second ETX.
-
-       2010-01-15 10:05:02 * XYZ-Script This is the actual message
-
- Also, see leasewatch for shell code that outputs multi-line messages to the log window when the network configuration changes.
-*/
-
--(void) appendDataToLog: (NSData *) data
-{
-    if (  [data length] != 0  ) {
-        // Append the data to the buffer
-        NSString * s = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [myPipeBuffer appendString: s];
-        [s release];
-    }
-    
-    NSString * endOfMsgMarker = @"\003\n";
-    
-    NSRange eomRange = [myPipeBuffer rangeOfString: endOfMsgMarker];
-    if (  eomRange.location != NSNotFound  ) {
-        
-        while (  [myPipeBuffer length] != 0  ) {
-            
-            // Get message up to, but not including, the ETX-LF
-            NSMutableString * msg = [[NSMutableString alloc] initWithString: [myPipeBuffer substringWithRange: NSMakeRange(0, eomRange.location)]];
-            
-            // Remove LFs at the end of the message (for example, if have: msg  LF  ETX  LF, removes the first LF
-            // We do this to make indentation easy, and we add a final LF to the end of the message when it goes in the log
-            while (  [msg hasSuffix: @"\n"]  ) {
-                [msg deleteCharactersInRange:NSMakeRange([msg length]-1, 1)];
-            }
-            
-            if (  [msg length] != 0  ) {
-                // Indent all lines after the first. Since msg doesn't have the terminating \n, we can just replace all \n characters
-                [msg replaceOccurrencesOfString: @"\n"
-                                     withString: @"\n                                          " options: 0 range: NSMakeRange(0, [msg length])];
-                
-                [msg appendString: @"\n"];
-                
-                // Add the message to the log
-                NSAttributedString * msgAS = [[NSAttributedString alloc] initWithString: msg];
-                [[self logStorage] appendAttributedString: msgAS];
-                [msgAS release];
-            }
-            
-            [msg release];
-            
-            // Remove the entry from the buffer
-            [myPipeBuffer deleteCharactersInRange: NSMakeRange(0, eomRange.location + [endOfMsgMarker length])  ];
-            
-            eomRange = [myPipeBuffer rangeOfString: endOfMsgMarker];
-            if (  eomRange.location == NSNotFound  ) {
-                break;
-            }
-        }
-        
-    }
-    if (  areDisconnecting  ) {
-        if (  [myPipeBuffer length] == 0  ) {
-            [self destroyPipe];
-            [self addToLog:@"*Tunnelblick: Destroyed pipe for scripts - disconnecting and buffer became empty" atDate: nil];
-        }
-    }
 }
 
 @end

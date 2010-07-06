@@ -4,11 +4,6 @@ trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-# only do something when the server really is pushing something
-if [ "$foreign_option_1" == "" ]; then
-	exit 0
-fi
-
 # Process optional arguments (if any) for the script
 # Each one begins with a "-"
 # They come from Tunnelblick, and come first, before the OpenVPN arguments
@@ -19,9 +14,9 @@ ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 
 while [ {$#} ] ; do
-    if [  "$1" = "-m" ] ; then                                                  # Handle the arguments we know about
-        ARG_MONITOR_NETWORK_CONFIGURATION="true"                                # by setting ARG_ script variables to their values
-        shift                                                                   # Then shift them out
+    if [  "$1" = "-m" ] ; then                              # Handle the arguments we know about
+        ARG_MONITOR_NETWORK_CONFIGURATION="true"            # by setting ARG_ script variables to their values
+        shift                                               # Then shift them out
     elif [  "$1" = "-d" ] ; then
         ARG_RESTORE_ON_DNS_RESET="true"
         shift
@@ -29,25 +24,29 @@ while [ {$#} ] ; do
         ARG_RESTORE_ON_WINS_RESET="true"
         shift
     else
-        ARGTEST="$(echo "$1" | grep '^-.*' | sed -e 's/^-tunnelblick.*/-/g')"   # Ignore the arguments we don't know about
-        if [  "$ARGTEST" = "-" ] ; then                                         # (But shift them out, so the rest of the script
-            shift                                                               #  sees only the OpenVPN arguments)
+        if [  "${1:0:1}" = "-" ] ; then                     # Shift out Tunnelblick arguments (they start with "-") that we don't understand
+            shift                                           # so the rest of the script sees only the OpenVPN arguments                            
         else
             break
         fi
     fi
 done
 
+CONFIG_PATH_DASHES_SLASHES="$(echo "${config}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
+SCRIPT_LOG_FILE="/tmp/tunnelblick/logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
+
+# Do something only if the server pushed something
+if [ "$foreign_option_1" == "" ]; then
+    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: No network configuration changes need to be made" >> "${SCRIPT_LOG_FILE}"
+    if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+        echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Will NOT monitor for other network configuration changes" >> "${SCRIPT_LOG_FILE}"
+    fi
+	exit 0
+fi
+
 trim() {
 	echo ${@}
 }
-
-if [ -n "${config}" ] ; then
-    CONFIG_PATH_DASHES="$(echo "${config}" | sed -e 's/\//-/g')"
-    LOG_FILE="/tmp/tunnelblick${CONFIG_PATH_DASHES}.logpipe"
-else
-    LOG_FILE="/tmp/tunnelblick-leasewatch-log.txt"
-fi
 
 LEASEWATCHER_PLIST_PATH="$(dirname "${0}")/LeaseWatch.plist"
 
@@ -252,22 +251,29 @@ fi
 # then save old and new DNS and WINS settings
 # PPID is a bash-script variable that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
 # config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
+echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Up to two 'No such key' warnings are normal and may be ignored" >> "${SCRIPT_LOG_FILE}"
 scutil <<- EOF
 	open
 	d.init
 	d.add PID # ${PPID}
 	d.add Service ${PSID}
     d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
-    d.add LogFile "${LOG_FILE}"
+    d.add ScriptLogFile "${SCRIPT_LOG_FILE}"
     d.add MonitorNetwork "${ARG_MONITOR_NETWORK_CONFIGURATION}"
     d.add RestoreOnDNSReset   "${ARG_RESTORE_ON_DNS_RESET}"
     d.add RestoreOnWINSReset  "${ARG_RESTORE_ON_WINS_RESET}"
 	set State:/Network/OpenVPN
 
 	# First, back up the device's current DNS and WINS configurations
+    # Indicate 'no such key' by a dictionary with a single entry: "TunnelblickNoSuchKey : true"
+    d.init
+    d.add TunnelblickNoSuchKey true
     get State:/Network/Service/${PSID}/DNS
 	set State:/Network/OpenVPN/OldDNS
-	get State:/Network/Service/${PSID}/SMB
+	
+    d.init
+    d.add TunnelblickNoSuchKey true
+    get State:/Network/Service/${PSID}/SMB
 	set State:/Network/OpenVPN/OldSMB
 
 	# Second, initialize the new DNS map
@@ -305,11 +311,14 @@ scutil <<- EOF
 	quit
 EOF
 
-if [ "{ARG_MONITOR_NETWORK_CONFIGURATION}" ] ; then
+echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Saved the DNS and WINS configurations for later use" >> "${SCRIPT_LOG_FILE}"
+
+if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
     # Generate an updated plist with a per-configuration path
     LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch.plist.template"
     sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
     launchctl load "${LEASEWATCHER_PLIST_PATH}"
+    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Set up to monitor system configuration with leasewatch" >> "${SCRIPT_LOG_FILE}"
 fi
 
 exit 0

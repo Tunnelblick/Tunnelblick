@@ -24,7 +24,8 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          gid_t      gid,
                                          NSString * permsShouldHave);
 
-NSString     * pipePathFromConfigPath   (NSString * inPath);
+BOOL           createDir                (NSString * d,
+                                         unsigned long perms);
 
 NSString     * escaped                  (NSString * string);
 
@@ -34,9 +35,6 @@ NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
-NSString     * constructOpenVPNLogPath  (NSString * configurationPath,
-                                         NSString * openvpnstartArgs,
-                                         int        port);
 NSString     * deconstructOpenVPNLogPath(NSString * logPath,
                                          int      * portPtr,
                                          NSString * * startArgsPtr);

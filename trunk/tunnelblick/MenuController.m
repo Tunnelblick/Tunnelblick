@@ -20,13 +20,13 @@
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-
-#import "MenuController.h"
 #import <Foundation/NSDebug.h>
 #import <Security/AuthSession.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
 #import <uuid/uuid.h>
+#import "defines.h"
+#import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "NSApplication+NetworkNotifications.h"
 #import "NSApplication+SystemVersion.h"
@@ -34,7 +34,6 @@
 #import "TBUserDefaults.h"
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
-#import "openvpnstart.h"
 
 
 // These are global variables rather than class variables to make access to them easier
@@ -77,14 +76,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                  withDisplayName:                           (NSString *)        dispNm;
 -(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
+-(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
+                                       toPort:              (int *)             portPtr
+                                  toStartArgs:              (NSString * *)      startArgsPtr;
 -(void)             fixWhenConnectingButtons;
 -(void)             checkNoConfigurations;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
--(void)             destroyAllPipes;
 -(void)             dmgCheck;
--(void)             fileSystemHasChanged:                   (NSNotification *)  n;
 -(int)              getLoadedKextsMask;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
@@ -246,6 +246,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [gConfigDirs addObject: [[gSharedPath  copy] autorelease]];
             [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
         }
+        
+        // If necessary, create OpenVPN and scripts log directory
+        createDir(LOG_DIR, 0777);
         
         gOpenVPNVersionDict = [getOpenVPNVersion() copy];
         
@@ -640,15 +643,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	NSEnumerator * e = [keyArray objectEnumerator];
     while (dispNm = [e nextObject]) {
 		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-		
+		NSString * cfgPath = [myConfigDictionary objectForKey: dispNm];
+        
         // configure connection object:
-		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: [myConfigDictionary objectForKey: dispNm]
+		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
                                                                 withDisplayName: dispNm];
 		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
         
 		[myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
-		
+        
         // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
 		[connectionItem setTarget:myConnection]; 
 		[connectionItem setAction:@selector(toggle:)];
@@ -805,29 +809,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     [self toggleMenuItem: item withPreferenceKey: @"doNotMonitorConfigurationFolder"];
     if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
-        if (  myQueue  ) {
-			int i;
-            for (i = 0; i < [gConfigDirs count]; i++) {
-                [myQueue removePathFromQueue: [gConfigDirs objectAtIndex: i]];
-            }
+        int i;
+        for (i = 0; i < [gConfigDirs count]; i++) {
+            [myQueue removePathFromQueue: [gConfigDirs objectAtIndex: i]];
         }
     } else {
-        if ( myQueue  ) {
-			int i;
-            for (i = 0; i < [gConfigDirs count]; i++) {
-                [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
-            }
-            [self activateStatusMenu];
-        } else {
-            myQueue = [UKKQueue sharedFileWatcher];
-			int i;
-            for (i = 0; i < [gConfigDirs count]; i++) {
-                [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
-            }
-            [myQueue setDelegate: self];
-            [myQueue setAlwaysNotify: YES];
-            [self activateStatusMenu];
+        int i;
+        for (i = 0; i < [gConfigDirs count]; i++) {
+            [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
         }
+        [self activateStatusMenu];
     }
 }
 
@@ -1392,8 +1383,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (IBAction) clearLogButtonWasClicked: (id) sender
 {
-	[[self selectedLogView] setString: @""];
-    [[self selectedConnection] addToLog: [self openVPNLogHeader] atDate: nil];
+    [[self selectedConnection] clearLog];
 }
 
 - (NSString *) openVPNLogHeader
@@ -1535,9 +1525,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [self setTitle: NSLocalizedString(@"when Tunnelblick launches"  , @"Checkbox name") ofControl: onLaunchRadioButton        ];
     [self setTitle: NSLocalizedString(@"when computer starts"       , @"Checkbox name") ofControl: onSystemStartRadioButton   ];
     
-	VPNConnection *myConnection = [self selectedConnection];
-	NSTextStorage* store = [myConnection logStorage];
-	[[[self selectedLogView] layoutManager] replaceTextStorage: store];
+	VPNConnection * myConnection = [self selectedConnection];
+	NSTextStorage * store = [myConnection logStorage];
+    
+    [[[self selectedLogView] layoutManager] replaceTextStorage: store];
 	
 	[self tabView:tabView didSelectTabViewItem:initialItem];
 	
@@ -1685,18 +1676,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [NSApp orderFrontStandardAboutPanelWithOptions:aboutPanelDict];
     [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
-}
-
--(void) destroyAllPipes
-{
-    VPNConnection * connection;
-    NSEnumerator* e = [myVPNConnectionDictionary objectEnumerator];
-    while (  connection = [e nextObject]  ) {
-		NSString* systemStartkey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-        if (  ! [gTbDefaults boolForKey: systemStartkey]  ) {
-            [connection destroyPipe];
-        }
-    }
 }
 
 // Returns the number of connections NOT killed
@@ -1978,7 +1957,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
 	[NSApp callDelegateOnNetworkChange: NO];
     [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
-    [self destroyAllPipes];
     [self unloadKextsFooOnly: NO];     // Unload .tun and .tap kexts
 	if (  theItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:theItem];
@@ -2356,16 +2334,16 @@ static void signal_handler(int signalNumber)
         [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList usingAuth: myAuth];
     }
     
-    // Monitor each config folder if specified
+    // Set up to monitor configuration folders
+    myQueue = [UKKQueue sharedFileWatcher];
     if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
         int i;
-        myQueue = [UKKQueue sharedFileWatcher];
         for (i = 0; i < [gConfigDirs count]; i++) {
             [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
         }
-        [myQueue setDelegate: self];
-        [myQueue setAlwaysNotify: YES];
     }
+    [myQueue setDelegate: self];
+    [myQueue setAlwaysNotify: YES];
     
     [self activateStatusMenu];
     
@@ -2616,30 +2594,32 @@ static void signal_handler(int signalNumber)
 
 // This method tries to "hook up" to any running OpenVPN processes.
 //
-// It searches for files in /tmp with names of tunnelblick-A.B.log, where A is the path to
-// the configuration file (with dashes instead of slashes) and B is the management port number
+// (If no OpenVPN processes exist, there's nothing to hook up to, so we skip all this)
+//
+// It searches for files in the log directory with names of A.B.C.openvpn.log, where
+// A is the path to the configuration file (with -- instead of dashes and -/ instead of slashes)
+// B is the arguments that openvpnstart was invoked with, separated by underscores
+// C is the management port number
 // The file contains the OpenVPN log.
 //
-// Then the [connection tryToHookupToPort:] method corresponding to the configuration file is used to set
-// the connection's port # and initiate communications to get the process ID for that instance of
-// OpenVPN.
-//
-// If no OpenVPN processes exist, there's nothing to hook up to, so we skip all this
+// The [connection tryToHookupToPort:] method corresponding to the configuration file is used to set
+// the connection's port # and initiate communications to get the process ID for that instance of OpenVPN
 
 -(void) hookupToRunningOpenVPNs
 {
     if (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
-        NSString * logPathPrefix = @"/tmp/tunnelblick-S";
         NSString * filename;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: @"/tmp"];
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
         while (  filename = [dirEnum nextObject]  ) {
             [dirEnum skipDescendents];
-            NSString * oldFullPath = [@"/tmp" stringByAppendingPathComponent: filename];
-            if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
-                if (  [[filename pathExtension] isEqualToString: @"log"]) {
+            NSString * oldFullPath = [LOG_DIR stringByAppendingPathComponent: filename];
+            if (  [[filename pathExtension] isEqualToString: @"log"]) {
+                if (  [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]) {
                     int port = 0;
-                    NSString * startArgs = nil;
-                    NSString * cfgPath = deconstructOpenVPNLogPath(oldFullPath, &port, &startArgs);
+                    NSString * startArguments = nil;
+                    NSString * cfgPath = [self deconstructOpenVPNLogPath: oldFullPath
+                                                                  toPort: &port
+                                                             toStartArgs: &startArguments];
                     NSArray * keysForConfig = [myConfigDictionary allKeysForObject: cfgPath];
                     int keyCount = [keysForConfig count];
                     if (  keyCount == 0  ) {
@@ -2650,11 +2630,58 @@ static void signal_handler(int signalNumber)
                         }
                         NSString * displayName = [keysForConfig objectAtIndex: 0];
                         VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
-                        [connection tryToHookupToPort: port withOpenvpnstartArgs: startArgs];
+                        [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
                     }
                 }
             }
         }
+    }
+}
+
+// Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by openvpnstart
+-(NSString *) deconstructOpenVPNLogPath: (NSString *) logPath toPort: (int *) portPtr toStartArgs: (NSString * *) startArgsPtr
+{
+    NSString * prefix = [NSString stringWithFormat:@"%@/", LOG_DIR];
+    NSString * suffix = @".openvpn.log";
+    if (  [logPath hasPrefix: prefix]  ) {
+        if (  [logPath hasSuffix: suffix]  ) {
+            int prefixLength = [prefix length];
+            NSRange r = NSMakeRange(prefixLength, [logPath length] - prefixLength - [suffix length]);
+            NSString * withoutPrefixOrDotOpenvpnDotLog = [logPath substringWithRange: r];
+            NSString * withoutPrefixOrPortOrOpenvpnDotLog = [withoutPrefixOrDotOpenvpnDotLog stringByDeletingPathExtension];
+            NSString * startArguments = [withoutPrefixOrPortOrOpenvpnDotLog pathExtension];
+            if (  startArguments  ) {
+                if (  ! ( [startArguments isEqualToString: @"ovpn"] || [startArguments isEqualToString: @"conf"] )  ) {
+                    *startArgsPtr = startArguments;
+                }
+            }
+            NSString * portString = [withoutPrefixOrDotOpenvpnDotLog pathExtension];
+            int port = [portString intValue];
+            if (   port != 0
+                && port != INT_MAX
+                && port != INT_MIN  ) {
+                
+                *portPtr = port;
+                
+                NSMutableString * cfg = [[withoutPrefixOrPortOrOpenvpnDotLog stringByDeletingPathExtension] mutableCopy];
+                [cfg replaceOccurrencesOfString: @"-S" withString: @"/" options: 0 range: NSMakeRange(0, [cfg length])];
+                [cfg replaceOccurrencesOfString: @"--" withString: @"-" options: 0 range: NSMakeRange(0, [cfg length])];
+                [cfg replaceOccurrencesOfString: @".tblk/Contents/Resources/config.ovpn" withString: @".tblk" options: 0 range: NSMakeRange(0, [cfg length])];
+                NSString * returnVal = [[cfg copy] autorelease];
+                [cfg release];
+                
+                return returnVal;
+            } else {
+                NSLog(@"deconstructOpenVPNLogPath: called with invalid port number in path %@", logPath);
+                return @"";
+            }
+        } else {
+            NSLog(@"deconstructOpenVPNLogPath: called with non-log path %@", logPath);
+            return @"";
+        }
+    } else {
+        NSLog(@"deconstructOpenVPNLogPath: called with invalid prefix to path %@", logPath);
+        return @"";
     }
 }
 
@@ -2917,14 +2944,9 @@ static void signal_handler(int signalNumber)
     return result;
 }
 
--(void) fileSystemHasChanged: (NSNotification*) n
-{
-	if(NSDebugEnabled) NSLog(@"FileSystem has changed.");
-	[self performSelectorOnMainThread: @selector(activateStatusMenu) withObject: nil waitUntilDone: YES];
-}
+// Invoked when a folder containing configurations has changed.
 -(void) watcher: (UKKQueue*) kq receivedNotification: (NSString*) nm forPath: (NSString*) fpath {
-	
-	[self fileSystemHasChanged: nil];
+    [self performSelectorOnMainThread: @selector(activateStatusMenu) withObject: nil waitUntilDone: YES];
 }
 
 // Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files and/or move the config folder
