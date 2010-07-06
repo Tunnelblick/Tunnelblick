@@ -40,7 +40,6 @@
 		61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */ = {isa = PBXBuildFile; fileRef = 61BC4BC10E2F9FE900F24255 /* openvpnstart */; };
 		61BC4DB30E2FA3C300F24255 /* LogWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB10E2FA3C300F24255 /* LogWindow.nib */; };
 		61BC4DB40E2FA3C300F24255 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4DB20E2FA3C300F24255 /* MainMenu.nib */; };
-		61BC4E740E2FA8A900F24255 /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */; };
 		61C03B990ED4E42A00175F22 /* NB.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 61C03B960ED4E42A00175F22 /* NB.lproj */; };
 		61F294A60ED389520097DE94 /* openvpn.conf in Resources */ = {isa = PBXBuildFile; fileRef = 61F294A50ED389520097DE94 /* openvpn.conf */; };
 		6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */; };
@@ -61,6 +60,8 @@
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
+		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
+		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
 		63B78ADC1102419800734D73 /* dmgFiles in Resources */ = {isa = PBXBuildFile; fileRef = 63B78AD41102419800734D73 /* dmgFiles */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
@@ -184,7 +185,6 @@
 		61BC4D9D0E2FA2F300F24255 /* installer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = installer.m; sourceTree = "<group>"; };
 		61BC4DB10E2FA3C300F24255 /* LogWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LogWindow.nib; sourceTree = "<group>"; };
 		61BC4DB20E2FA3C300F24255 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
-		61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		61C03B960ED4E42A00175F22 /* NB.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NB.lproj; sourceTree = "<group>"; };
 		61F294A50ED389520097DE94 /* openvpn.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openvpn.conf; sourceTree = "<group>"; };
 		6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+SystemVersion.h"; sourceTree = "<group>"; };
@@ -210,6 +210,8 @@
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
 		63AE8596116CCF7A00D36CB1 /* PL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL.lproj; sourceTree = "<group>"; };
+		63B5E31811E34D69007D99DB /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
+		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
 		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
@@ -368,14 +370,16 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
+				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
+				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
+				63B5E31811E34D69007D99DB /* tunnelblick.icns */,
+				63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */,
 				6140EF990E3C334800C5B93A /* openvpn */,
 				ADB23E101099514400CC52D3 /* openvpn-down-root.so */,
 				6353818E1116031F00D68E83 /* dsa_pub.pem */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
-				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
 				616A49090E38D0D400477476 /* tap.kext */,
 				616A490A0E38D0D400477476 /* tun.kext */,
@@ -390,7 +394,6 @@
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
-				61BC4E6E0E2FA8A200F24255 /* tunnelblick.icns */,
 				61BC4DB10E2FA3C300F24255 /* LogWindow.nib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.nib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -545,29 +548,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61BC4E740E2FA8A900F24255 /* tunnelblick.icns in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				61BC4DB30E2FA3C300F24255 /* LogWindow.nib in Resources */,
 				61BC4DB40E2FA3C300F24255 /* MainMenu.nib in Resources */,
 				61F294A60ED389520097DE94 /* openvpn.conf in Resources */,
 				615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */,
-				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
+				63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */,
 				615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */,
+				6391992510449804001FA1BC /* ES.lproj in Resources */,
+				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
 				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
 				61C03B990ED4E42A00175F22 /* NB.lproj in Resources */,
+				63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */,
+				635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */,
+				635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */,
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
-				6391992510449804001FA1BC /* ES.lproj in Resources */,
-				63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */,
-				635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */,
-				635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */,
 				63B78ADC1102419800734D73 /* dmgFiles in Resources */,
 				6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */,
-				63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
+				63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */,
+				63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
