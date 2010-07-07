@@ -56,10 +56,13 @@
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
 
 /* Window title */
-"Could Not Copy and Secure Configuration" = "Could Not Copy and Secure Configuration";
+"Could Not Copy Configuration" = "Could Not Copy Configuration";
 
 /* Window title */
-"Could Not Move and Secure Configuration" = "Could Not Move and Secure Configuration";
+"Could Not Move Configuration" = "Could Not Move Configuration";
+
+/* Window title */
+"Could Not Secure Configuration" = "Could Not Secure Configuration";
 
 /* Menu item tooltip */
 "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
@@ -230,7 +233,7 @@
 "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details.";
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not copy the sample configuration to %@" = "Tunnelblick could not copy the sample configuration to %@";
@@ -239,7 +242,10 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
 
 /* Window text */
-"Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details.";
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration. See the Console Log for details.";
+
+/* Window text */
+"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick could not secure the '%@' configuration. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick needs to install one or more Tunnelblick VPN Configurations.";

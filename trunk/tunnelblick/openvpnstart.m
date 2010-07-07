@@ -48,7 +48,8 @@ BOOL    processExists       (pid_t pid);    //Returns TRUE if the process exists
 unsigned int getFreePort    (void);         //Returns a free port
 
 BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn")
-BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and exits
+BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and returns YES
+BOOL	tblkNeedsRepair     (void);			//Returns NO if .tblk package is secure, otherwise complains and returns YES
 BOOL    checkOwnerAndPermissions (NSString * fPath, // Returns YES if file doesn't exist, or has the specified ownership and permissions
                                   uid_t      uid,
                                   gid_t      gid,
@@ -372,8 +373,14 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             exit(238);
     }
     
-    // If this is a .tblk package, OVERRIDE any code above that sets directoryPath, and set the actual configuration path
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
+ 
+        // A .tblk package: check that it is secured, override any code above that sets directoryPath, and set the actual configuration path
+        if (  tblkNeedsRepair()  ) {
+            [pool drain];
+            exit(241);
+        }
+        
         tblkPath = [[configPath copy] autorelease];
         NSString * cfg = configPathFromTblkPath(configPath);
         if (  ! cfg  ) {
@@ -383,13 +390,14 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
         cdFolderPath = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
         configPath = [cfg copy];
+    } else {
+        // Not a .tblk package: check that it is secured
+        if (  configNeedsRepair()  ) {
+            [pool drain];
+            exit(241);
+        }
     }
-    
-    if(configNeedsRepair()) {
-		[pool drain];
-		exit(241);
-	}
-    
+        
     BOOL withoutGUI = FALSE;
     if ( port == 0) {
         withoutGUI = TRUE;
@@ -1135,8 +1143,56 @@ int runAsRoot(NSString * thePath, NSArray * theArguments)
     return [task terminationStatus];
 }
 
-//**************************************************************************************************************************
+// Returns YES if a .tblk package is not secured
+BOOL tblkNeedsRepair(void)
+{
+    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+    NSString * file;
+    BOOL isDir;
+    
+    // If it isn't an existing folder, then it can't be secured!
+    if (  ! (   [gFileMgr fileExistsAtPath: configPath isDirectory: &isDir]
+             && isDir )  ) {
+        return YES;
+    }
+    
+    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: configPath];
+    while (file = [dirEnum nextObject]) {
+        NSString * filePath = [configPath stringByAppendingPathComponent: file];
+        NSString * ext  = [file pathExtension];
+        if (  itemIsVisible(filePath)  ) {
+            if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
+                && isDir  ) {
+                if (  [filePath hasPrefix: @"/Users"]                               // Private folder (i.e., not shared, alternate, or deployed)
+                    && ( ! [filePath hasPrefix: execPath] )                         // .tblk and .tblk/Contents/Resource can be owned by anyone
+                    && (   [ext isEqualToString: @"tblk"]
+                        || [filePath hasSuffix: @".tblk/Contents/Resources"]  )  ) {
+                        ;
+                } else {
+                    if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"755")  ) { // other folders should be owned by root
+                       return YES;
+                    }
+                }
+            } else if ( [ext isEqualToString:@"sh"]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
+                    return YES; // NSLog already called
+                }
+            } else if (  [extensionsFor600Permissions containsObject: ext]  ) {     // keys, certs, etc. are 600
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"600")  ) {
+                    return YES; // NSLog already called
+                }
+            } else {
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0,  @"644")  ) {      // everything else is 644, including .conf and .ovpn
+                    return YES; // NSLog already called
+                }
+            }
+        }
+    }
+    return NO;
+}
+
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
+// Complains and returns NO otherwise
 BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave)
 {
     if (  ! [gFileMgr fileExistsAtPath: fPath]  ) {
@@ -1155,6 +1211,7 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
         return YES;
     }
     
+    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair", fPath, octalString, fileOwner);
     return NO;
 }
 

@@ -1334,6 +1334,10 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                 }
                 if ( [self copyConfigPath: cfgPath toPath: altCfgPath usingAuthRef: authRef warnDialog: YES moveNotCopy: NO] ) {
                     AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                    if (  [self configNotProtected: altCfgPath]  ) {
+                        NSLog(@"Unable to secure alternate configuration");
+                        return nil;
+                    }
                     return altCfgPath;                                                  // And return the alt config
                 } else {
                     AuthorizationFree(authRef, kAuthorizationFlagDefaults);             // Couldn't overwrite alt file with regular one
@@ -1371,6 +1375,10 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             }
             if ( [self copyConfigPath: cfgPath toPath: altCfgPath usingAuthRef: authRef warnDialog: YES moveNotCopy: NO] ) {    // Copy the config to the alt config
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                if (  [self configNotProtected: altCfgPath]  ) {
+                    NSLog(@"Unable to secure alternate configuration");
+                    return nil;
+                }
                 return altCfgPath;                                                              // Return the alt config
             }
             AuthorizationFree(authRef, kAuthorizationFlagDefaults);                             // Couldn't make alt file
@@ -1516,7 +1524,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 }
 
 // Copies or moves a config file or package and sets ownership and permissions on the target
-// Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
+// Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
+// Returns FALSE if failed, having already output an error message to the console log
 -(BOOL) copyConfigPath: (NSString *) sourcePath toPath: (NSString *) targetPath usingAuthRef: (AuthorizationRef) authRef warnDialog: (BOOL) warn moveNotCopy: (BOOL) moveInstead
 {
     if (  [sourcePath isEqualToString: targetPath]  ) {
@@ -1560,28 +1569,40 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             break;
         }
         
-        NSLog(@"installer failed trying to copy the configuration; retrying");
+        NSLog(@"installer failed trying to copy and secure the configuration; retrying");
     }
     
     if (  ! okNow  ) {
-        NSLog(@"Could not copy/move and secure configuration file %@ to %@", sourcePath, targetPath);
-        if (  warn  ) {
-            NSString * name = lastPartOfPath(sourcePath);
-            NSString * title;
-            NSString * msg;
-            if (  moveFlag  ) {
-                title = NSLocalizedString(@"Could Not Move and Secure Configuration", @"Window title");
-                msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details.", @"Window text"),
-                       name];
-            } else {
-                title = NSLocalizedString(@"Could Not Copy and Secure Configuration", @"Window title");
-                msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details.", @"Window text"),
-                       name];
+        NSString * name = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
+        if (  ! moveInstead  ) {
+            if (  ! [gFileMgr contentsEqualAtPath: sourcePath andPath: targetPath]  ) {
+                NSLog(@"Could not copy configuration file %@ to %@", sourcePath, targetPath);
+                if (  warn  ) {
+                    NSString * title = NSLocalizedString(@"Could Not Copy Configuration", @"Window title");
+                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the '%@' configuration. See the Console Log for details.", @"Window text"), name];
+                    TBRunAlertPanel(title, msg, nil, nil, nil);
+                }
+                return FALSE;
             }
-
+        } else {
+            if (  ! [gFileMgr fileExistsAtPath: targetPath]  ) {
+                NSLog(@"Could not move configuration file %@ to %@", sourcePath, targetPath);
+                if (  warn  ) {
+                    NSString * title = NSLocalizedString(@"Could Not Move Configuration", @"Window title");
+                    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not move the '%@' configuration. See the Console Log for details.", @"Window text"), name];
+                    TBRunAlertPanel(title, msg, nil, nil, nil);
+                }
+                return FALSE;
+            }
+        }
+        
+        NSLog(@"Moved or copied, but could not secure configuration file at %@", targetPath);
+        if (  warn  ) {
+            NSString * title = NSLocalizedString(@"Could Not Secure Configuration", @"Window title");
+            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not secure the '%@' configuration. See the Console Log for details.", @"Window text"), name];
             TBRunAlertPanel(title, msg, nil, nil, nil);
         }
-        return FALSE;
+        return TRUE;    // Copied or moved OK, but not secured
     }
     
     if (  moveInstead  ) {
