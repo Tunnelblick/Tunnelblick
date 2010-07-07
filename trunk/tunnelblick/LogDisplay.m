@@ -53,7 +53,8 @@ extern NSFileManager        * gFileMgr;
 -(void)         scriptLogChanged;
 
 -(NSString *)   nextLineInString:       (NSString * *)          stringPtr
-                    fromPosition:       (unsigned *)            positionPtr;
+                    fromPosition:       (unsigned *)            positionPtr
+                  fromOpenvpnLog:       (BOOL)                  isFromOpenvpnLog;
 
 -(void)         watcher:                (UKKQueue *)            kq
    receivedNotification:                (NSString *)            nm
@@ -164,8 +165,8 @@ extern NSFileManager        * gFileMgr;
     unsigned openvpnStringPosition = 0;
     unsigned scriptStringPosition  = 0;
     
-    NSString * oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition];
-    NSString * sLine = [self nextLineInString: &scriptString fromPosition:  &scriptStringPosition];
+    NSString * oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition fromOpenvpnLog: YES];
+    NSString * sLine = [self nextLineInString: &scriptString  fromPosition: &scriptStringPosition  fromOpenvpnLog: NO];
     
     NSString * oLineDateTime = @"0000-00-00 00:00:00";
     NSString * sLineDateTime = @"0000-00-00 00:00:00";
@@ -182,18 +183,18 @@ extern NSFileManager        * gFileMgr;
                 }
                 if (  [oLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
                     [self appendLine: oLine fromOpenvpnLog: YES];
-                    oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition];
+                    oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition fromOpenvpnLog: YES];
                 } else {
                     [self appendLine: sLine fromOpenvpnLog: NO];
-                    sLine = [self nextLineInString: &scriptString fromPosition: &scriptStringPosition];
+                    sLine = [self nextLineInString: &scriptString fromPosition: &scriptStringPosition fromOpenvpnLog: NO];
                 }
             } else {
                 [self appendLine: oLine fromOpenvpnLog: YES];
-                oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition];
+                oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition fromOpenvpnLog: YES];
             }
         } else {
             [self appendLine: sLine fromOpenvpnLog: NO];
-            sLine = [self nextLineInString: &scriptString fromPosition: &scriptStringPosition];
+            sLine = [self nextLineInString: &scriptString fromPosition: &scriptStringPosition fromOpenvpnLog: NO];
         }
     }
 }
@@ -220,8 +221,9 @@ extern NSFileManager        * gFileMgr;
 // Returns the next line from the string
 // The date/time in the line (if any) is converted to "YYYY-MM-DD HH:MM:SS" form
 // A \n is appended to the line if it doesn't end in one
+// If the line is not from the OpenVPN log, and the 1st character after the date/time is not a "*", one is inserted
 // If the at the end of the string, nil is returned
--(NSString *) nextLineInString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr
+-(NSString *) nextLineInString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr fromOpenvpnLog: (BOOL) isFromOpenvpnLog
 {
     NSString * line;
     unsigned stringLength = [*stringPtr length];
@@ -241,7 +243,20 @@ extern NSFileManager        * gFileMgr;
         *positionPtr += lineRng.length;
     }
     
-    return [self convertDate: line];
+    if (  isFromOpenvpnLog  ) {
+        return [self convertDate: line];
+    }
+
+    NSMutableString * newValue = [[[self convertDate: line] mutableCopy] autorelease];
+    if (  [newValue length] > 19  ) {
+        if (  [[newValue substringWithRange: NSMakeRange(18, 1)] isEqualToString: @" "]  ) {        // (Last digit of seconds)
+            if (  ! [[newValue substringWithRange: NSMakeRange(20, 1)] isEqualToString: @"*"]  ) {
+                [newValue insertString: @"*" atIndex: 20]; 
+            }
+        }
+    }
+        
+    return [[newValue copy] autorelease];
 }
 
 // If a line starts with the date/time as "Day dd Mon HH:MM:SS YYYY", converts it to start with "YYYY-MM-DD HH:MM:SS "
@@ -336,11 +351,11 @@ extern NSFileManager        * gFileMgr;
     NSString * logString = [self contentsOfPath: logPath  usePosition: logPositionPtr];
     unsigned logStringPosition = 0;
     
-    NSString * line = [self nextLineInString: &logString fromPosition:  &logStringPosition];
+    NSString * line = [self nextLineInString: &logString fromPosition:  &logStringPosition fromOpenvpnLog: isFromOpenvpnLog];
     
     while ( line ) {
         [self insertLine: line fromOpenvpnLog: isFromOpenvpnLog];
-        line = [self nextLineInString: &logString fromPosition:  &logStringPosition];
+        line = [self nextLineInString: &logString fromPosition:  &logStringPosition fromOpenvpnLog: isFromOpenvpnLog];
     }
 }
 
