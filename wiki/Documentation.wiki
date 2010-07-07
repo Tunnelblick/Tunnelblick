@@ -19,7 +19,7 @@
   Popular articles:
     [wBeta Beta Releases]<br>
     [wFAQ FAQ]<br>
-    [DocumentationForTunnelblick_3_1beta04 What's New]<br>
+    [DocumentationForTunnelblick_3_1beta06 What's New]<br>
     [wQuick Quick Start Guide]<br>
     [wGettingVPNService Getting VPN Service]<br>
     [wInstall Installing Tunnelblick]<br>
