@@ -50,6 +50,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             connectToManagementSocket;
 
+-(void)             flushDnsCache;
+
 -(unsigned int)     getFreePort;
 
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
@@ -764,57 +766,65 @@ extern NSString * lastPartOfPath(NSString * thePath);
         return;
     }
     
-    if (  ! areDisconnecting  ) {
-        areDisconnecting = TRUE;
-        
-        pid_t savedPid = 0;
-        if(pid > 0) {
-            savedPid = pid;
-            [self killProcess];
-            [NSApp waitUntilNoProcessWithID: savedPid];
-        } else {
-            if([managementSocket isConnected]) {
-                [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
-                sleep(5);       // Wait five seconds for OpenVPN to disappear after it sends terminating log output
-            }
-        }
-        
-        [[NSApp delegate] removeConnection:self];
-        [self setState:@"EXITING"];
-        if (  connectedWithTap  ) {
-            [[NSApp delegate] decrementTapCount];
-        }
-        if (  connectedWithTun  ) {
-            [[NSApp delegate] decrementTunCount];
-        }
-        [[NSApp delegate] unloadKextsFooOnly: NO];
-        
-        if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * postDisconnectPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
-            if (  [gFileMgr fileExistsAtPath: postDisconnectPath]  ) {
-                NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-                NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
-                if (   startArguments == nil
-                    || [[startArguments objectAtIndex: 5] isEqualToString: @"1"]  ) {
-                    return;
-                }
-                NSArray * arguments = [NSArray arrayWithObjects:
-                                       @"postDisconnect",
-                                       [startArguments objectAtIndex: 1],    // configFile
-                                       [startArguments objectAtIndex: 5],     // cfgLocCode
-                                       nil];
-                
-                NSTask * task = [[NSTask alloc] init];
-                [task setLaunchPath: path];
-                [task setArguments: arguments];
-                [task launch];
-                [task waitUntilExit];
-                [task release];
-            }
-        }
-    } else {
+    if (  areDisconnecting  ) {
         NSLog(@"disconnect: while disconnecting or disconnected");
+        return;
     }
+
+    areDisconnecting = TRUE;
+    
+    pid_t savedPid = 0;
+    if(pid > 0) {
+        savedPid = pid;
+        [self killProcess];
+        [NSApp waitUntilNoProcessWithID: savedPid];
+    } else {
+        if([managementSocket isConnected]) {
+            NSLog(@"No process ID; disconnecting via management interface");
+            [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
+            sleep(5);       // Wait five seconds for OpenVPN to disappear after it sends terminating log output
+        }
+    }
+    
+    [[NSApp delegate] removeConnection:self];
+    [self setState:@"EXITING"];
+    
+    // Unload tun/tap if not used by any other processes
+    if (  connectedWithTap  ) {
+        [[NSApp delegate] decrementTapCount];
+    }
+    if (  connectedWithTun  ) {
+        [[NSApp delegate] decrementTunCount];
+    }
+    [[NSApp delegate] unloadKextsFooOnly: NO];
+    
+    // Run the post-disconnect script, if any
+    if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+        NSString * cacheFlushPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
+        if (  [gFileMgr fileExistsAtPath: cacheFlushPath]  ) {
+            NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+            NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
+            if (   startArguments == nil
+                || [[startArguments objectAtIndex: 5] isEqualToString: @"1"]  ) {
+                return;
+            }
+            NSArray * arguments = [NSArray arrayWithObjects:
+                                   @"postDisconnect",
+                                   [startArguments objectAtIndex: 1],    // configFile
+                                   [startArguments objectAtIndex: 5],    // cfgLocCode
+                                   nil];
+            
+            NSTask * task = [[NSTask alloc] init];
+            [task setLaunchPath: path];
+            [task setArguments: arguments];
+            [task launch];
+            [task waitUntilExit];
+            [task release];
+        }
+    }
+    
+    [self flushDnsCache];
+
 }
     
 // Kills the OpenVPN process associated with this connection, if any
@@ -833,6 +843,40 @@ extern NSString * lastPartOfPath(NSString * thePath);
     pid = 0;
 	[task launch];
 	[task waitUntilExit];
+}
+
+-(void) flushDnsCache
+{
+    NSString * key = [displayName stringByAppendingString:@"-doNotFlushCache"];
+    if (  ! [gTbDefaults boolForKey: key]  ) {
+        BOOL didNotTry = TRUE;
+        NSArray * pathArray = [NSArray arrayWithObjects: @"/usr/bin/dscacheutil", @"/usr/sbin/lookupd", nil];
+        NSString * path;
+        NSEnumerator * arrEnum = [pathArray objectEnumerator];
+        while (  path = [arrEnum nextObject]  ) {
+            if (  [gFileMgr fileExistsAtPath: path]  ) {
+                didNotTry = FALSE;
+                NSArray * arguments = [NSArray arrayWithObject: @"-flushcache"];
+                NSTask * task = [[NSTask alloc] init];
+                [task setLaunchPath: path];
+                [task setArguments: arguments];
+                [task launch];
+                [task waitUntilExit];
+                int status = [task terminationStatus];
+                [task release];
+                if (  status != 0) {
+                    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Failed to flush the DNS cache; the command was: '%@ -flushcache'", path]];
+                } else {
+                    [self addToLog: @"*Tunnelblick: Flushed the DNS cache"];
+                    break;
+                }
+            }
+        }
+        
+        if (  didNotTry  ) {
+            [self addToLog: @"* Tunnelblick: DNS cache not flushed; did not find needed executable"];
+        }
+    }
 }
 
 - (void) netsocketConnected: (NetSocket*) socket
@@ -901,7 +945,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         
         [[NSApp delegate] addConnection:self];
         [self setConnectedSinceDate: date];
-        
+        [self flushDnsCache];
+
     } else if ([newState isEqualToString: @"EXITING"]) {
         [managementSocket close]; [managementSocket setDelegate: nil];
         [managementSocket release]; managementSocket = nil;

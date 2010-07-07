@@ -370,6 +370,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D1107310486CEB800E47090 /* Info.plist */,
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
@@ -396,7 +397,6 @@
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
 				61BC4DB10E2FA3C300F24255 /* LogWindow.nib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.nib */,
-				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
