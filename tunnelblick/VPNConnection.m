@@ -800,8 +800,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
     // Run the post-disconnect script, if any
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-        NSString * cacheFlushPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
-        if (  [gFileMgr fileExistsAtPath: cacheFlushPath]  ) {
+        NSString * postDisconnectScriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
+        if (  [gFileMgr fileExistsAtPath: postDisconnectScriptPath]  ) {
             NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
             NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
             if (   startArguments == nil
