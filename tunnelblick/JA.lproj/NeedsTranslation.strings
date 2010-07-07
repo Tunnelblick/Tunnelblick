@@ -131,10 +131,13 @@
 "Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2010 Angelo Laub and others. All rights reserved.";
 
 /* Window title */
-"Could Not Copy and Secure Configuration" = "Could Not Copy and Secure Configuration";
+"Could Not Copy Configuration" = "Could Not Copy Configuration";
 
 /* Window title */
-"Could Not Move and Secure Configuration" = "Could Not Move and Secure Configuration";
+"Could Not Move Configuration" = "Could Not Move Configuration";
+
+/* Window title */
+"Could Not Secure Configuration" = "Could Not Secure Configuration";
 
 /* System profile item */
 "Deployed" = "Deployed";
@@ -476,7 +479,7 @@
 "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration and secure the copy. See the Console Log for details.";
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not copy the sample configuration to %@" = "Tunnelblick could not copy the sample configuration to %@";
@@ -488,7 +491,10 @@
 "Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
 
 /* Window text */
-"Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration file and secure it in its new location. See the Console Log for details.";
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration. See the Console Log for details.";
+
+/* Window text */
+"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick could not secure the '%@' configuration. See the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
