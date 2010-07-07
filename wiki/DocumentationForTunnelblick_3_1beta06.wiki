@@ -5,6 +5,8 @@
 <font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta06.dmg Download Tunnelblick 3.1beta06]*</font>
 <hr>
 
+*[wRlsNotes Full Release Notes]*
+
 ==What's New in Tunnelblick 3.1beta06 (from 3.1beta04)==
    * Takes into account both the 'dev-type' and 'dev' options in the configuration file when trying to determine if it is a 'tun' or 'tap' connection. Tunnelblick tries to determine that so it can load only the tap or tun kext (device driver) that is required. Note: there appears to be a bug in OpenVPN that makes the dev-type option fail; this does not help that problem.
 
