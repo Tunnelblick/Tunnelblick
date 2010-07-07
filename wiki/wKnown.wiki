@@ -18,6 +18,8 @@ The following are known problems or limitations in Tunnelblick version 3.0:
 
   * Updates will fail if the name of Tunnelblick is not "Tunnelblick" or "Tunnelblick.app". To avoid this, rename the application temporarily, perform the update, then restore the original name. (You must change the name of the application itself, not the name of an alias or shortcut to the application.)
 
+  * A Tunnelblick VPN Configuration (.tblk) cannot be installed using "shadow copies". If the Configuration cannot be secured (e.g., it is on a network volume, thumb or other external drive, or other non-securable media) an error message will be displayed during installation.
+
   * Localization is not complete. We need additional translations to Catalan, Chinese (both simplified and traditional), Spanish, French, Korean, Japanese, and Norwegian (Norsk Bokmål). If you can help with these or any other languages, please contact [http://code.google.com/u/jkbullard/ Jon].
 
 ------------------
