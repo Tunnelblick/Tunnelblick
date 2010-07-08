@@ -112,11 +112,11 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
     BOOL noneIgnored = TRUE;
     
-    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: NO ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: NO  toDict: dict searchDeeply: NO ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gSharedPath  thatArePackages: YES toDict: dict searchDeeply: NO ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages: YES toDict: dict searchDeeply: NO ] && noneIgnored;
-    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages: NO  toDict: dict searchDeeply: YES] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gDeployPath  thatArePackages: NO  toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gSharedPath  thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages: YES toDict: dict searchDeeply: YES ] && noneIgnored;
+    noneIgnored = [self addConfigsFromPath: gPrivatePath thatArePackages: NO  toDict: dict searchDeeply: YES ] && noneIgnored;
     
     if (  ! noneIgnored  ) {
         TBRunAlertPanelExtended(NSLocalizedString(@"Configuration(s) Ignored", @"Window title"),
