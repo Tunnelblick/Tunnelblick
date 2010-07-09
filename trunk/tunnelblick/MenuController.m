@@ -1177,9 +1177,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 [shareButton setEnabled: YES];
             } else {
                 // Deployed, so we don't offer to share it or make it private
+                [self setTitle: NSLocalizedString(@"Share configuration"       , @"Button") ofControl: shareButton];
                 [shareButton setEnabled: NO];
             }
         } else {
+            [self setTitle: NSLocalizedString(@"Share configuration"           , @"Button") ofControl: shareButton];
             [shareButton setEnabled: NO];
         }
     } else {
