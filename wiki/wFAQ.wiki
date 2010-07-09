@@ -83,11 +83,27 @@ You are probably using the 'user' or 'group' directive in your OpenVPN client co
 
 As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. Together with a per-configuration preference, this allows the use of 'user' and 'group'. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for details on how to do this.
 
+==Why are some checkboxes or buttons dimmed and disabled?==
+Under certain circumstances,  checkboxes or buttons may be disabled and will appear dimmed -- nothing happens when you click on them. Buttons and checkboxes are disabled when they cannot be used. Examples (from the Details… window):
+    * "Monitor connection" is disabled unless "Set nameserver" is checked, because "Set nameserver" is required in order to monitor the connection.
+    * "Share configuration" is disabled when the configuration is not a Tunnelblick VPN Configuration because only Tunnelblick VPN Configurations may be shared.
+    * "Disconnect" is disabled when a configuration is not connected, and "Connect" is disabled when it is already connected.
+    * "when computer starts" is disabled unless a configuration is shared or Deployed, because only shared or Deployed configurations may be automatically connected when the computer starts.
+    * "when Tunnelblick launches" and "when computer starts" are disabled unless "Automatically connect" is checked, because they areonly have meaning when it is checked.
+    * "Automatically connect", "Set nameserver", "Monitor connection", "Share configuration", and "Make configuration private" are disabled when "when computer starts" is selected. This is because you cannot directly modify them without administrator approval. To modify them, select "when Tunnelblick launches" (which will require an administrator username and password), change the settings to be the way you want, then select "when computer starts" (which will again require administrator approval).
+
+==Why are some checkboxes or buttons missing?==
+  * You are using an older version of Tunnelblick which doesn't implement that checkbox or button; or
+  * You are using a "deployed" version of Tunnelblick, and the deployer has specified that that checkbox or button should not be available; or
+  * The button has a different label because it is being used for different purpose. Examples:
+    * There is one button which displays "Edit configuration" or "Examine configuration" depending on whether you can edit (modify) the configuration, or only examine it. To edit a configuration, you must have write permissions on the folder which contains the configuration, and must be able to write to the configuration file. Non-administrator users of "Deployed" versions of Tunnelblick may be prevented from editing configurations by the deployer. Shared configurations may not be edited directly -- make the configuration private, edit it, and then share it to have this effect.
+    * There is one button which displays either "Make configuration private" or "Share configuration". If the configuration is already being shared, it shows "Make configuration private". Otherwise, the button shows "Share configuration". Note that if the configuration is part of a "Deployed" version of Tunnelblick, or is not a Tunnelblick VPN Configuration, the button will be disabled (dimmed) because it cannot be shared.
+
 ==What version of OpenVPN does Tunnelblick include?==
 You can check the version of OpenVPN included in your copy of Tunnelblick by starting Tunnelblick, then selecting "Options…" from the Tunnelblick menu, then selecting "About…".
 
 ==Where can I go if my question is not answered here?==
-Take a look at the documents available in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki]. If you don't find an answer there, try the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+Take a look at the documents available in the [Documentation Tunnelblick Wiki]. If you don't find an answer there, try the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 ------------------
 
