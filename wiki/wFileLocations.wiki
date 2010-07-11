@@ -10,7 +10,7 @@ The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications
 The OpenVPN program, openvpn-down-root.so, the "tun" and "tap" kext driver files, and standard client up/down scripts are included with, and contained within, Tunnelblick.app.
 
 ==Log Files==
-Log files are stored in /tmp/tunnelblick. The log files for a configuration are created or deleted and recreated each time the connection is made. There are two log files for each configuration, and OpenVPN log file and a scripts log file. The contents of the files are merged in the display in Tunnelblick's "Detail…" window.
+Log files are stored in /tmp/tunnelblick. The log files for a configuration are created or deleted and recreated each time the connection is made. There are two log files for each configuration, and OpenVPN log file and a scripts log file. The contents of the files are merged in the display in Tunnelblick's "Detail‚Ä¶" window.
 
 ==Key and Certificate Files==
 These may be stored anywhere, but typically they are stored in the same folder as the configuration (.ovpn or .conf) file. Key and certificate files associated with a Tunnelblick VPN Configuration (.tblk) are stored inside the configuration itself.
