@@ -28,7 +28,7 @@
 
   * Sets share/private button to 'Share configuration' when it is disabled.
 
-  * Fixes bug that caused 'Ignoring change of Network Primary Service…' message to be displayed when no change occurred.
+  * Fixes bug that caused 'Ignoring change of Network Primary Service' message to be displayed when no change occurred.
 
   * Fixes bug that caused unload of tun/tap kext at exactly the right time while a restart was taking place if the user disconnected a different configuration that used the same tun/tap kext.
 
@@ -44,7 +44,7 @@
 
   * Fixes bug that caused launch of leasewatch script (when 'Set nameserver' is checked) to fail if automatically connecting when computer starts
 
-  * Fixes bug which causes format errors in the log display if a script generates log entries which don't haven a * after the date/time. (Inserts a * in such entries in the log display.)
+  * Fixes bug which causes format errors in the log display if a script generates log entries which don't have a "`*`" after the date/time. (Inserts a "`*`" in such entries in the log display.)
 
 ------------------
 
