@@ -1,6 +1,4 @@
 #summary Entry page for the Documentation
-#sidebar sb
-
 = Documentation =
 
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
@@ -14,12 +12,12 @@
 
 
 
-*[DocumentationForTunnelblick_3_1beta06 Tunnelblick 3.1beta06 Documentation]*
+*[DocumentationForTunnelblick_3_1beta08 Tunnelblick 3.1beta08 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wBeta Beta Releases]<br>
     [wFAQ FAQ]<br>
-    [DocumentationForTunnelblick_3_1beta06 What's New]<br>
+    [DocumentationForTunnelblick_3_1beta08 What's New]<br>
     [wQuick Quick Start Guide]<br>
     [wGettingVPNService Getting VPN Service]<br>
     [wInstall Installing Tunnelblick]<br>

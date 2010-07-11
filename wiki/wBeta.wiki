@@ -8,6 +8,25 @@ A *"beta"* version of a program is a version that has been tested internally and
 When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 --------------------
+2010-07-10: *Tunnelblick 3.1beta08 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+
+<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH AN EARLIER BETA VERSION*</font> 
+
+In addition to fixing bugs, this release adds several new features:
+ * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
+
+  * Log processing and display have been rewritten:
+    * Log files are created each time a connection is made.
+    * When displaying the log, the entries are merged such that script log entries follow OpenVPN log entries that have the same date/time.
+    * The log display now shows the most recent 10000 entries. Earlier entries are not displayed, but are in the log files stored in /tmp/tunnelblick/logs.
+
+  * The DNS cache is flushed after a tunnel is established and after it is torn down. This is enabled by default but may be disabled by the per-connection "-doNotFlushCache" preference.
+
+  * Tunnelblick VPN Configurations (.tblk packages) may now be shadow copied.
+
+  * Configurations (.conf, .ovpn, and .tblk) may be stored in subfolders. Note that .tblk configurations are installed at the top level of the shared or private folder; they must then be moved to a subfolder if that is desired.
+
+--------------------
 2010-06-07: *Tunnelblick 3.1beta06 is now  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
 
 This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
