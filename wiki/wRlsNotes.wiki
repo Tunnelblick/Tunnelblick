@@ -22,7 +22,7 @@
 
   * Sets share/private button to 'Share configuration' when it is disabled.
 
-  * Fixes bug that caused 'Ignoring change of Network Primary Service…' message to be displayed when no change occurred.
+  * Fixes bug that caused 'Ignoring change of Network Primary Service' message to be displayed when no change occurred.
 
   * Fixes bug that caused unload of tun/tap kext at exactly the right time while a restart was taking place if the user disconnected a different configuration that used the same tun/tap kext.
 
