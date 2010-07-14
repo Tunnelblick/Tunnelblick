@@ -4,9 +4,9 @@
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
+    [QuickStartGuide Quick Start Guide]<br>
     [FAQ FAQ]<br>
     [DocumentationForTunnelblick_3_0 What's New]<br>
-    [QuickStartGuide Quick Start Guide]<br>
     [GettingVPNService Getting VPN Service]<br>
     [UsingTunnelblick Installing and Using Tunnelblick]<br><br>
 
@@ -15,14 +15,14 @@
 *[DocumentationForTunnelblick_3_1beta08 Tunnelblick 3.1beta08 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
-    [wBeta Beta Releases]<br>
+    [wQuick Quick Start Guide]<br>
     [wFAQ FAQ]<br>
     [DocumentationForTunnelblick_3_1beta08 What's New]<br>
-    [wQuick Quick Start Guide]<br>
     [wGettingVPNService Getting VPN Service]<br>
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wUsing Using Tunnelblick]<br><br>
+    [wBeta Beta Releases]<br>
 
 *To determine which version of Tunnelblick you are using:*
   # Find Tunnelblick.app (it is usually in the /Applications folder).
