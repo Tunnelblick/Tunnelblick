@@ -77,6 +77,11 @@ NSString * firstPartOfPath(NSString * thePath)
         }
     }
     
+    NSString *altPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@", NSUserName()];
+    if (  [thePath hasPrefix: altPath]  ) {
+        return altPath;
+    }
+    
     NSLog(@"firstPartOfPath: Path %@ does not have a prefix that is in any gConfigDirs entry", thePath);
     return nil;
 }

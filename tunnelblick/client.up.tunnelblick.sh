@@ -32,7 +32,22 @@ while [ {$#} ] ; do
     fi
 done
 
-CONFIG_PATH_DASHES_SLASHES="$(echo "${config}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
+TBCONFIG="$config"
+# Note: The script log path is constructed from the path of the regular config file, not the shadow copy
+# if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
+# then convert to regular config     /Users/Jonathan/Library/Application Support/Tunnelblick/Configurations/Folder/Subfolder/config.ovpn
+#      to get the script log path
+TBALTPREFIX="/Library/Application Support/Tunnelblick/Users/"
+TBALTPREFIXLEN="${#TBALTPREFIX}"
+TBCONFIGSTART="${TBCONFIG:0:$TBALTPREFIXLEN}"
+if [ "$TBCONFIGSTART" = "$TBALTPREFIX" ] ; then
+    TBBASE="${TBCONFIG:$TBALTPREFIXLEN}"
+    TBSUFFIX="${TBBASE#*/}"
+    TBUSERNAME="${TBBASE%%/*}"
+    TBCONFIG="/Users/$TBUSERNAME/Library/Application Support/Tunnelblick/Configurations/$TBSUFFIX"
+fi
+
+CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
 SCRIPT_LOG_FILE="/tmp/tunnelblick/logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
 
 # Do something only if the server pushed something

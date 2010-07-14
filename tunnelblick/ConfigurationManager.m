@@ -1350,7 +1350,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
             
             // Folder creation code below needs alt config to be in /Library/Application Support/Tunnelblick/Users/<username>/xxx.conf
             NSString * altCfgFolderPath  = [altCfgPath stringByDeletingLastPathComponent]; // Strip off xxx.conf to get path to folder that holds it
-            if (  ! [[altCfgFolderPath stringByDeletingLastPathComponent] isEqualToString:@"/Library/Application Support/Tunnelblick/Users"]  ) {
+            //                                                                             // (But leave any subfolders) 
+            if (  ! [altCfgFolderPath hasPrefix: [NSString stringWithFormat: @"/Library/Application Support/Tunnelblick/Users", NSUserName()]]  ) {
                 NSLog(@"Internal Tunnelblick error: altCfgPath\n%@\nmust be in\n/Library/Application Support/Tunnelblick/Users/<username>", altCfgFolderPath);
                 return nil;
             }
@@ -1361,15 +1362,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);	
                 return nil;
             }
-            if ( ! [self makeSureFolderExistsAtPath:@"/Library/Application Support/Tunnelblick" usingAuth:authRef] ) {
-                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-                return nil;
-            }
-            if ( ! [self makeSureFolderExistsAtPath:@"/Library/Application Support/Tunnelblick/Users" usingAuth:authRef] ) {
-                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-                return nil;
-            }
-            if ( ! [self makeSureFolderExistsAtPath:altCfgFolderPath usingAuth:authRef] ) {     // /Library/.../<username>
+            if ( ! [self makeSureFolderExistsAtPath: altCfgFolderPath usingAuth: authRef] ) {     // /Library/.../<username>/[subdirs...]
                 AuthorizationFree(authRef, kAuthorizationFlagDefaults);
                 return nil;
             }
@@ -1621,9 +1614,14 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 {
     BOOL isDir;
     
-    if (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir]
+    if (   [gFileMgr fileExistsAtPath: folderPath isDirectory: &isDir]
         && isDir  ) {
         return TRUE;
+    }
+    
+    NSString * subfolderPath = [folderPath stringByDeletingLastPathComponent];
+    if (  ! [self makeSureFolderExistsAtPath: subfolderPath usingAuth: authRef]  ) {
+        return FALSE;
     }
     
     NSString *launchPath = @"/bin/mkdir";
@@ -1652,7 +1650,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         NSLog(@"mkdir failed; retrying");
 	}
     
-    if (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir]
+    if (   [gFileMgr fileExistsAtPath: folderPath isDirectory: &isDir]
         && isDir  ) {
         return TRUE;
     }
