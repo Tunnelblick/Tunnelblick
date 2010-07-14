@@ -7,9 +7,9 @@
 
 Note: there is no need to install OpenVPN separately - the Tunnelblick application contains both the Tunnelblick GUI and OpenVPN.
 
-First, download the latest disk image from the featured downloads section on the [http://code.google.com/p/tunnelblick/ Tunnelblick project home page]. Double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a window similar to the following will appear:
+First, download the latest disk image from the [DownloadsEntry Downloads page]. Double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a window similar to the following will appear:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-05-13.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-07-14.png
 
 Double-click the Tunnelblick icon and a new window will appear, similar to the following:
 
@@ -23,11 +23,13 @@ Once that is done (it may take a couple of seconds), a new window will appear, s
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-launch-2010-02-06.png
 
-If you have already set up your configurations and are ready to launch Tunnelblick now, click the "Launch" button. Otherwise, 
+Click the "Launch" button to launch Tunnelblick
 
 If Tunnelblick is currently running, a window similar to the following will appear:
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-running-2010-02-06.png
+
+(Note: Connections marked "automatically start when computer starts" *will not be closed*.)
 
 Click the "Close VPN Connections and Stop Tunnelblick" to continue. After all connections are closed and Tunnelblick has quit, the new version of Tunnelblick will be launched. Continue with the following sections.
 
@@ -49,11 +51,13 @@ When there are no configurations (which is usually the case the first time Tunne
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-05-13.png
 
-If you click "Install and edit sample configuration file”, Tunnelblick will create a sample OpenVPN configuration file and open it in !TextEdit for you to modify.
+If you click "Install and edit sample Tunnelblick VPN Configuration”, Tunnelblick will create a sample Tunnelblick VPN Configuration and open it's imbedded OpenVPN configuration file in !TextEdit for you to modify.
 
-If you click "Quit”, Tunnelblick will quit without doing anything. You can then double-click your [wPkgs Tunnelblick VPN Configurations] to install them.
+If you click "Quit”, Tunnelblick will quit without doing anything. You can then:
+  * Install a [wPkgs Tunnelblick VPN Configuration] by double-click it; and/or
+  * Install an OpenVPN configuration. See [wConifigO Configuring OpenVPN].
 
-To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder.
+To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder (or wherever else you installed it).
 
 ==Uninstalling Tunnelblick==
 To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash.
