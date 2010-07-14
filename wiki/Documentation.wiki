@@ -21,7 +21,7 @@
     [wGettingVPNService Getting VPN Service]<br>
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
-    [wUsing Using Tunnelblick]<br><br>
+    [wUsing Using Tunnelblick]<br>
     [wBeta Beta Releases]<br>
 
 *To determine which version of Tunnelblick you are using:*
