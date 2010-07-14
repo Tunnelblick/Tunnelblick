@@ -13,16 +13,15 @@
     [wWhatIs What is Tunnelblick?]<br>
     [wWhatElse What else you need]<br>
     [wGettingVPNService Getting VPN Service]<br>
-    [wPkgs Tunnelblick VPN Configurations]<br>
     [wQuick Quick start guide]<br>
     [wHowHelp How you can help]<br>
-*Detailed guides*
+*Installation, Setup, and Usage*
     [wInstall Installing Tunnelblick]<br>
     [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
-    [wConfigT Setting up Configurations]<br>
-    [wServer Tunnelblick as a VPN Server]<br>
-    [wUsing Using Tunnelblick]<br>
+    [wConfigT Setting up Tunnelblick]<br>
     [wConfigO Configuring OpenVPN]<br>
+    [wServer Tunnelblick as a VPN Server]<br><br>
+    [wUsing Using Tunnelblick]<br>
 *Troubleshooting*
     [wCommonProblems Common Problems]<br>
     [wConnectedBut Connects OK, But...]<br>
