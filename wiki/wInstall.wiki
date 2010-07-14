@@ -51,7 +51,7 @@ When there are no configurations (which is usually the case the first time Tunne
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-welcome-2010-05-13.png
 
-If you click "Install and edit sample Tunnelblick VPN Configuration”, Tunnelblick will create a sample Tunnelblick VPN Configuration and open it's imbedded OpenVPN configuration file in !TextEdit for you to modify. For more information about how to modify a Tunnelblick VPN Configuration, see [wPkgs Tunnelblick VPN Configurations].
+If you click "Install and edit sample Tunnelblick VPN Configuration”, Tunnelblick will create a sample Tunnelblick VPN Configuration and open it's imbedded OpenVPN configuration file in !TextEdit for you to modify. For more information about how to modify a Tunnelblick VPN Configuration, see [wConfigT Setting Up Tunnelblick] and [wPkgs Tunnelblick VPN Configurations].
 
 If you click "Quit”, Tunnelblick will quit without doing anything. You can then:
   * Install a [wPkgs Tunnelblick VPN Configuration] by double-click it; and/or
