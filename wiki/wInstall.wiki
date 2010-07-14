@@ -55,7 +55,7 @@ If you click "Install and edit sample Tunnelblick VPN Configuration”, Tunnelbl
 
 If you click "Quit”, Tunnelblick will quit without doing anything. You can then:
   * Install a [wPkgs Tunnelblick VPN Configuration] by double-click it; and/or
-  * Install an OpenVPN configuration. See [wConifigO Configuring OpenVPN].
+  * Install an OpenVPN configuration. See [wConfigO Configuring OpenVPN].
 
 To launch Tunnelblick after setting up configuration and other files, double-click "Launch Tunnelblick" in the `Configurations` folder, or double-click Tunnelblick in the Applications folder (or wherever else you installed it).
 
