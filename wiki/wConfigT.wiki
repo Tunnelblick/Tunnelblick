@@ -15,14 +15,18 @@ The rest of this document is for everyone else.
 It is not enough to install Tunnelblick:  you also need to tell Tunnelblick *_how to connect_* to a VPN.
 
 You tell Tunnelblick how to connect to a VPN with a configuration file. Tunnelblick can use two types of configuration files:
-  * Tunnelblick VPN Configurations. A Tunnelblick VPN Configuration contains all of the information Tunnelblick needs to connect to a VPN. A Tunnelblick VPN Configuration contains an OpenVPN configuration file, and may contain key, certificate, and script files. Everything needed is contained within the Tunnelblick VPN Configuration.
-  * OpenVPN configuration files. These are plain text files with extensions of .ovpn or .conf. These files usually contain only the configuration information; keys and certificates are held in separate files. For more information about setting up Tunnelblick using OpenVPN configuration files, see [wConfigO Configuring OpenVPN].
+  * *Tunnelblick VPN Configurations.* A Tunnelblick VPN Configuration contains all of the information Tunnelblick needs to connect to a VPN. A Tunnelblick VPN Configuration contains an OpenVPN configuration file, and may contain key, certificate, and script files. Everything needed is contained within the Tunnelblick VPN Configuration.
+  * *OpenVPN configuration files.* These are plain text files with extensions of .ovpn or .conf. These files usually contain only the configuration information; keys and certificates are held in separate files. For more information about setting up Tunnelblick using OpenVPN configuration files, see [wConfigO Configuring OpenVPN].
 
 *We strongly suggest that you use a Tunnelblick VPN Configuration* because you can do more with it. For example, you can share it with all users of your computer, and you can set it up to start when your computer starts -- even before you log in. It is also more secure because any key and certificate files within it are made inaccessible except to the OpenVPN program, and because any script files within it are protected against accidental or deliberate misuse. Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself that make managing widespread distribution easier. For details, see [wPkgs Tunnelblick VPN Connections].
 
-It is very easy to make a Tunnelblick VPN Configuration:
+==Creating a Tunnelblick VPN Configuration==
+_Note: When you start Tunnelblick with no configuration files present, it will offer to create a sample Tunnelblick VPN Configuration and open the sample OpenVPN configuration file within it in !TextEdit._
+
+To create a Tunnelblick VPN Configuration:
+
  # Create a folder anywhere (on your Desktop works well);
- # Put all the files related to the connection into the folder;
+ # Put all the files related to the connection into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
  # Name the folder with the name you want the configuration known by in Tunnelblick; and
  # Add an extension of ".tblk" at the end of the folder name.
 
@@ -50,11 +54,6 @@ and not like
  key ~/Documents/name.key<br>
  ca VPN/ca.crt<br>
  cert /Test/123/456/client26.crt<br>
-
- For convenience, when you start Tunnelblick with no configuration files present, it will offer to create a sample Tunnelblick VPN Configuration and open the sample OpenVPN configuration file within it in !TextEdit.
-
-==Other Features of Tunnelblick VPN Configurations==
-Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself. For details, see [wPkgs Tunnelblick VPN Connections].
 
 ==The "Set Nameserver" Check Box and DNS & WINS Settings==
 If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, put a check in the "Set nameserver" checkbox. (This is the situation for most users.)
