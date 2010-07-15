@@ -26,8 +26,11 @@ _Note: When you start Tunnelblick with no configuration files present, it will o
 To create a Tunnelblick VPN Configuration:
 
  # Create a folder anywhere (on your Desktop works well);
- # Put all the files related to the connection into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
- # Name the folder with the name you want the configuration known by in Tunnelblick; and
+ # Name the folder with the name you want the configuration known by in Tunnelblick;
+ # Create a subfolder of your folder and name it 'Contents';
+ # Create a subfolder of 'Contents' and name it 'Resources';
+ # Put all the files related to the connection into 'Resources' (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
+ # Rename the OpenVPN configuration file 'config.ovpn'; and
  # Add an extension of ".tblk" at the end of the folder name.
 
 To install it, just double-click it. You will be asked if you want the configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
@@ -36,7 +39,7 @@ That's it! You are done. The configuration will be available immediately in Tunn
 
 ==Files Contained in a Tunnelblick VPN Configuration==
 The files that should be contained in a Tunnelblick VPN Configuration (the "files related to the connection" in 2. above):
- * Must include one OpenVPN configuration file (a .ovpn or .conf file). The name of the file doesn't matter, only the extension;
+ * Must include one OpenVPN configuration file (a .ovpn or .conf file).
  * Any certificate or key files for that configuration (.key, .crt, .pem, .cer, .der, .p12, .p7b, .p7c, and .pfx files); and
  * Any script files for the configuration. (Script files must must have a .sh extension so that Tunnelblick can secure them and use them properly).
 
