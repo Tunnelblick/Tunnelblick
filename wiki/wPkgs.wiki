@@ -23,7 +23,7 @@ You can create a Configuration by collecting together the configuration file and
 Example: a folder named "Main Office.tblk" is a Tunnelblick VPN Configuration that will show up in Tunnelblick as the "Main Office" configuration.
 
 ==Installation==
-_Note: a Configuration cannot be installed using "shadow copies". If the Configuration cannot be secured (e.g., it is on a network volume, thumb or other external drive, or other non-securable media) an error message will be displayed during installation._
+_Note: a Configuration cannot be installed as "private" using "shadow copies". If the Configuration cannot be secured (e.g., it is on a network volume, thumb or other external drive, or other non-securable media) an error message will be displayed during installation._
 
 Installation of a Configuration can be done manually by double-clicking it or by dragging it to a Tunnelblick icon in Finder. (A Configuration _cannot_ be dragged to the Tunnelblick icon in the Status Bar.) Installation can also be done automatically when Tunnelblick is installed from a disk image or certain other other volumes (see [wPkgs#Automatic_Installation Automatic Installation]).
 
