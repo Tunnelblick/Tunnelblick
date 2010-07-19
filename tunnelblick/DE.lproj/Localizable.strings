@@ -1,4 +1,7 @@
 /* NEEDS TRANSLATION *//* Window text */
+"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -30,6 +33,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "%d configurations were not installed. See the Console Log for details." = "%d configurations were not installed. See the Console Log for details.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' wurde getrennt";
@@ -64,6 +70,12 @@
 /* Menu item */
 "About..." = "Über…";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Add a Configuration" = "Add a Configuration";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Add a Configuration..." = "Add a Configuration...";
+
 /* TRANSLATION IS THE SAME AS DEVELOPMENT LANGUAGE *//* Window title */
 "Alert" = "Warnung";
 
@@ -78,6 +90,9 @@
 
 /* NEEDS TRANSLATION *//* Button */
 "Always use the plugin" = "Always use the plugin";
+
+/* NEEDS TRANSLATION *//* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
 
 /* Window text */
 "An error occurred while trying to install Tunnelblick.app in %@" = "Beim Versuch Tunnelblick.app in %@ zu installieren, ist ein Fehler aufgetreten.";
@@ -99,6 +114,9 @@
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Automatically connect" = "Automatically connect";
+
+/* NEEDS TRANSLATION *//* Button */
+"Back" = "Back";
 
 /* Connection status */
 "CONNECTED"  = "Verbunden";
@@ -130,6 +148,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
+
 /* System profile item */
 "Configurations" = "Konfigurationen";
 
@@ -147,6 +168,15 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Could Not Secure Configuration" = "Could Not Secure Configuration";
+
+/* NEEDS TRANSLATION *//* Button */
+"Create Tunnelblick VPN Configuration" = "Create Tunnelblick VPN Configuration";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Create and Edit a Sample Configuration?" = "Create and Edit a Sample Configuration?";
+
+/* NEEDS TRANSLATION *//* Button */
+"Create sample configuration and edit it" = "Create sample configuration and edit it";
 
 /* System profile item */
 "Deployed" = "Angewendet";
@@ -175,9 +205,6 @@
 /* Button */
 "Disconnect" = "Trennen";
 
-/* NEEDS TRANSLATION *//* Button */
-"Do Not Install" = "Do Not Install";
-
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
 
@@ -203,9 +230,6 @@
 "Do you wish to install %d configurations?" = "Do you wish to install %d configurations?";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Do you wish to install Tunnelblick VPN Configuration '%@'?" = "Do you wish to install Tunnelblick VPN Configuration '%@'?";
-
-/* NEEDS TRANSLATION *//* Window text */
 "Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@" = "Do you wish to install Tunnelblick in\n\"%1$@\"?\n\n%2$@";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -225,6 +249,9 @@
 
 /* Window text */
 "Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Möchten Sie\n     %@\nto\n     %@upgraden?\n\nDie alte Version wird in den Papierkorb verschoben.\n\nInstallationspfad: \"%@\"\n%@";
+
+/* NEEDS TRANSLATION *//* Button */
+"Done" = "Done";
 
 /* Text on disk image */
 "Double-click to begin" = "Doppleklick zum Start";
@@ -260,6 +287,12 @@
 "Go to the OpenVPN documentation on the web" = "OpenVPN Dokumentation im Internet lesen";
 
 /* NEEDS TRANSLATION *//* Button */
+"I DO NOT have configuration files" = "I DO NOT have configuration files";
+
+/* NEEDS TRANSLATION *//* Button */
+"I have configuration files" = "I have configuration files";
+
+/* NEEDS TRANSLATION *//* Button */
 "Ignore" = "Ignore";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -271,14 +304,8 @@
 /* NEEDS TRANSLATION *//* Button */
 "Install Sample" = "Install Sample";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install Tunnelblick VPN Configuration?" = "Install Tunnelblick VPN Configuration?";
-
 /* Window title */
 "Install Tunnelblick?" = "Tunnelblick installieren?";
-
-/* NEEDS TRANSLATION *//* Button */
-"Install and edit sample Tunnelblick VPN Configuration" = "Install and edit sample Tunnelblick VPN Configuration";
 
 /* Button */
 "Install" ="Installieren";
@@ -294,6 +321,9 @@
 
 /* Window title */
 "Installation succeeded" = "Installation erfolgreich";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Installing a Tunnelblick VPN Configuration";
 
 /* Button */
 "Launch" = "Ausführen";
@@ -319,6 +349,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 "No 'dev tun' or 'dev tap' found" = "No 'dev tun' or 'dev tap' found";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"No VPN Configurations Available" = "No VPN Configurations Available";
+
 /* Window title */
 "Not connecting" = "Verbindet nicht";
 
@@ -340,8 +373,11 @@
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Nur Administratoren sollten Tunnelblick updaten";
 
-/* Button */
-"Open configuration folder" = "Das Konfigurationsverzeichnis öffnen";
+/* NEEDS TRANSLATION *//* Button */
+"Open Private Configurations Folder" = "Open Private Configurations Folder";
+
+/* NEEDS TRANSLATION *//* Button */
+"OpenVPN Configuration(s)" = "OpenVPN Configuration(s)";
 
 /* Menu item */
 "Options" = "Optionen";
@@ -373,6 +409,9 @@
 /* Menu item */
 "Preferences" = "Einstellungen";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Private Configuration Folder is Open" = "Private Configuration Folder is Open";
+
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick beenden";
 
@@ -398,6 +437,9 @@
 "Replace Existing Configuration?" = "Replace Existing Configuration?";
 
 /* NEEDS TRANSLATION *//* Window title */
+"Replace Existing File?" = "Replace Existing File?";
+
+/* NEEDS TRANSLATION *//* Window title */
 "Replace Tunnelblick VPN Configuration" = "Replace Tunnelblick VPN Configuration";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -405,6 +447,9 @@
 
 /* Connection status */
 "SLEEP" = "Warten auf Dämon-Prozess"; // translate "Waiting for Demon Process"!
+
+/* NEEDS TRANSLATION *//* Window title */
+"Sample Configuration Created" = "Sample Configuration Created";
 
 /* Checkbox text */
 "Save in Keychain" = "Im Schlüsselbund sichern";
@@ -472,8 +517,20 @@
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Die Passphrase darf nicht leer sein!\nBitte geben Sie eine VPN Passphrase ein.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately.";
+
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Der Nutzername und das Passwort dürfen nicht leer sein!\n Bitte geben Sie eine VPN Benutzername/Passwort Kombination ein.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "There was a problem with one or more configurations. Details are in the Console Log\n\n";
@@ -483,6 +540,12 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?" = "This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)";
 
 /* Button */
 "Try again with different credentials" = "Versuchen Sie es erneut mit anderen Zugangsdaten";
@@ -508,6 +571,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN Configuration Installation";
 
+/* NEEDS TRANSLATION *//* Button */
+"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN Configuration(s)";
+
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kann nur upgedatet werden, wenn es 'Tunnelblick' heißt. Sie haben es in %@ umgenannt, daher sind die Updates deaktiviert.";
 
@@ -526,11 +592,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the sample configuration to %@" = "Tunnelblick could not copy the sample configuration to %@";
-
 /* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick konnte kein Verzeichnis für die alternative lokale Konfiguration erstellen. Bitte sehen Sie in das Console Log für weitere Details.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick could not create the empty configuration folder";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
@@ -585,9 +651,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network manager or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample Tunnelblick VPN Configuration and edit it. (Tunnelblick will keep running.)\n     • Quit Tunnelblick. (You can double-click a Tunnelblick VPN Configuration to install it. See http://code.google.com/p/tunnelblick/wiki/wConfigT for details)\n\n" = "Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network manager or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample Tunnelblick VPN Configuration and edit it. (Tunnelblick will keep running.)\n     • Quit Tunnelblick. (You can double-click a Tunnelblick VPN Configuration to install it. See http://code.google.com/p/tunnelblick/wiki/wConfigT for details)\n\n";
 
 /* Status message */
 "Tunnelblick: %d connections active." = "Tunnelblick: %d Verbindungen aktiv.";
@@ -649,14 +712,23 @@
 /* Window title */
 "Welcome to Tunnelblick" = "Willkommen zu Tunnelblick";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Which Type of Configuration Do You Have?" = "Which Type of Configuration Do You Have?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Which Type of Configuration Do You Wish to Create?" = "Which Type of Configuration Do You Wish to Create?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
+
 /* Window text */
 "You are currently running a different copy of Tunnelblick." = "Sie führen derzeit eine weitere Kopie von Tunnelblick aus.";
 
-/* Window title */
-"You cannot connect using the sample configuration" = "Sie können sich nicht mit der Beispiel-Konfigurationsdatei verbinden";
-
 /* NEEDS TRANSLATION *//* Window text */
-"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nYou can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nYou can copy the installation and install from the copy.";
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.";
+
+/* NEEDS TRANSLATION *//* Window title */
+"You cannot use the sample configuration" = "You cannot use the sample configuration";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You have asked to make the '%@' configuration private, instead of shared." = "You have asked to make the '%@' configuration private, instead of shared.";
@@ -664,8 +736,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "You have asked to make the '%@' configuration shared, instead of private." = "You have asked to make the '%@' configuration shared, instead of private.";
 
-/* Window text */
-"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Sie haben versucht, sich mit einer Konfigurationsdatei zu verbinden, die mit der Tunnelblick Beispiel-Konfigurationsdatei identisch ist. Die Konfigurationsdatei muss verändert werden, um eine VPN Verbindung herzustellen. Sie könnten auch weitere Dateien, Zertifikat oder Schlüsseldateien (key files), benötigen, um eine VPN Verbindung herzustellen.\n\nBitte wenden Sie sich an Ihren Netzwerkadministrator oder VPN DIenstanbieter, um eine Konfigurationsdatei und andere Dateien oder weitere Informationen zu erhalten, damit Sie die Beispiel-Konfigurationsdatei bearbeiten können.\n\nOpenVPN Dokumentation hier verfügbar\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+/* NEEDS TRANSLATION *//* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
 
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Sie können die Konfigurationsdatei einsehen, aber wenn Sie sie verändern möchten, müssen Sie sie jetzt entsichern. Wenn Sie die Konfigurationsdatei entsichern, müssen Sie einen Administrator Benutzername und ein Passwort bei der nächsten Verbindung damit bereitstellen.";
@@ -678,8 +750,8 @@
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Sie werden Tunnelblick nach dem Update nicht ausführen können, außer Sie stellen einen Administrator Benutzernamen und ein Passwort bereit.\n\nSind Sie sicher und möchten nach Updates suchen?";
-/* NEEDS TRANSLATION *//* Window text */
-"\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed automatically. If you do not launch Tunnelblick now, they will not be installed." = "\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed automatically. If you do not launch Tunnelblick now, they will not be installed.";
+/* NEEDS TRANSLATION *//* If you do not launch Tunnelblick now, they will not be installed.\n\nWindow text */
+"\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed first.\n\nAn administrator username and password are required to install them." = "\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed first.\n\nAn administrator username and password are required to install them.";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "when Tunnelblick launches" = "when Tunnelblick launches";
