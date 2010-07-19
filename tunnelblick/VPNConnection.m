@@ -1197,6 +1197,14 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", @"Button");
         else commandString = NSLocalizedString(@"Connect", @"Button");
         
+        // Remove submenu prefix if using submenus
+        NSString * itemName = [connection displayName];
+        NSRange lastSlashRange = [itemName rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [itemName length] - 1)];
+        if (   (lastSlashRange.length != 0)
+            && ( ! [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"])  ) {
+            itemName = [itemName substringFromIndex: lastSlashRange.location + 1];
+        }
+        
         NSString * locationMessage = @"";
         if (  [gConfigDirs count] > 1  ) {
             if (  [[connection configPath] hasPrefix: gDeployPath]  ) {
@@ -1205,7 +1213,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
             }
         }
-        NSString *itemTitle = [NSString stringWithFormat:@"%@ %@%@", commandString, [connection displayName], locationMessage];
+        NSString *itemTitle = [NSString stringWithFormat:@"%@ %@%@", commandString, itemName, locationMessage];
         [anItem setTitle:itemTitle];
         [anItem setToolTip: [connection configPath]];
 	}

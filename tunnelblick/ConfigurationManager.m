@@ -39,6 +39,19 @@ extern NSString * firstPartOfPath(NSString * thePath);
 extern NSString * lastPartOfPath(NSString * thePath);
 extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 
+enum state_t {                      // These are the "states" of the guideState state machine
+    entryNoConfigurations,
+    entryAddConfiguration,
+    stateGoBack,                    // (This can only be a nextState, never an actual state)
+    stateHasNoConfigurations,
+    stateMakeSampleConfiguration,
+    stateMakeEmptyConfiguration,
+    stateOpenPrivateFolder,
+    stateHasConfigurations,
+    stateShowTbInstructions,
+    stateShowOpenVpnInstructions
+};
+
 @interface ConfigurationManager() // PRIVATE METHODS
 
 -(BOOL)         addConfigsFromPath:         (NSString *)                folderPath
@@ -57,13 +70,13 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                     warnDialog:             (BOOL)                      warn
                    moveNotCopy:             (BOOL)                      moveInstead;
 
--(BOOL)         createDir:                  (NSString *)                thePath;
-
 -(NSString *)   displayNameForPath:         (NSString *)                thePath;
 
 -(NSString *)   getLowerCaseStringForKey:   (NSString *)                key
                             inDictionary:   (NSDictionary *)            dict
                                defaultTo:   (id)                        replacement;
+
+-(void)         guideState:                 (enum state_t)              state;
 
 -(NSString *)   getPackageToInstall:        (NSString *)                thePath
                             withKey:        (NSString *)                key;
@@ -564,6 +577,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     return nil;
 }
 
+// The filePaths array entries are NSStrings with the path to a .tblk to install.
 -(void) openDotTblkPackages: (NSArray *) filePaths usingAuth: (AuthorizationRef) authRef
 {
     if (  [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]  )  {
@@ -574,66 +588,70 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         return;
     }
     
-    // If any paths are to a folder instead of a .tblk package, we search the folder and it's subfolders (including invisible
-    // subfolders except for ._ resource forks) for .tblk packages and add them to augmentedFilePaths, which we use for processing
-    // We do this to implement the automatic installation of configurations when Tunnelblick is installed from a disk image
-    NSMutableArray * augmentedFilePaths = [NSMutableArray arrayWithArray: filePaths];
-    NSString * file;
-    BOOL isDir;
+    NSMutableArray * sourceList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to source of files OK to install
+    NSMutableArray * targetList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to destination to install them
+    NSMutableArray * errList    = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to files not installed
+    
+    // Go through the array, check each .tblk package, and add it to the install list if it is OK
+    int keyIx = 0;  // Key used to create unique temporary copies
+    NSArray * dest;
+    NSMutableArray * innerTblksAlreadyProcessed = [NSMutableArray arrayWithCapacity: 10];
     int i;
     for (i=0; i < [filePaths count]; i++) {
-        file = [filePaths objectAtIndex: i];
-        if (  ! [[file pathExtension] isEqualToString: @"tblk"]  ) {
-            [augmentedFilePaths removeObjectAtIndex: i];
-            if (   [gFileMgr fileExistsAtPath:file isDirectory:&isDir]
-                && isDir  ) {
-                // Search the folder (deeply)
-                NSString * tblkPath;
-                NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: file];
-                while ( tblkPath = [dirEnum nextObject]  ) {
-                    if (   [[tblkPath pathExtension] isEqualToString: @"tblk"]
-                        && ( ! [[tblkPath lastPathComponent] hasPrefix: @"._"] )  ) {
-                        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [file stringByAppendingString: tblkPath]];
-                        NSString * installIt = [self getLowerCaseStringForKey: @"TBInstallWhenInstallingTunnelblick" inDictionary: dict defaultTo: @"yes"];
-                        if (  ! [installIt isEqualToString: @"no"]  ) {
-                            int result = NSAlertDefaultReturn;  // Assume we do install it
-                            if (   [installIt isEqualToString: @"ask"]  ) {
-                                NSString * pkgShare = [self getLowerCaseStringForKey: @"TBSharePackage" inDictionary: dict defaultTo: @"ask"];
-                                if (  ! [pkgShare isEqualToString: @"ask"]  ) {   // If will ask later (shared/private), don't ask now
-                                    NSString * name = [[tblkPath lastPathComponent] stringByDeletingPathExtension];
-                                    result = TBRunAlertPanel(NSLocalizedString(@"Install Tunnelblick VPN Configuration?", @"Window title"),
-                                                             [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install Tunnelblick VPN Configuration '%@'?", @"Window text"), name],
-                                                             NSLocalizedString(@"Install", @"Button"),           // Default
-                                                             NSLocalizedString(@"Do Not Install", @"Button"),    // Alternate
-                                                             nil);
-                                }
-                            }
-                            if (  result == NSAlertDefaultReturn  ) {
-                                [augmentedFilePaths addObject: [file stringByAppendingPathComponent: tblkPath]];
-                            }
-                        }
+        NSString * path = [filePaths objectAtIndex: i];
+        
+        // Deal with nested .tblks -- i.e., .tblks inside of a .tblk. One level of that is processed.
+        // If there are any .tblks inside the .tblk, the .tblk itself is not created, only the inner .tblks
+        // The inner .tblks may be inside subfolders of the outer .tblk, in which case they
+        // will be installed into subfolders of the private or shared configurations folder.
+        NSString * innerFileName;
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+        while (  innerFileName = [dirEnum nextObject]  ) {
+            NSString * fullInnerPath = [path stringByAppendingPathComponent: innerFileName];
+            if (   [[innerFileName pathExtension] isEqualToString: @"tblk"]  ) {
+                
+                // If have already processed a .tblk that contains this one, it is an error
+                // because it is a second level of enclosed .tblks.
+                // A message is inserted into the log, and the inner-most .tblk is skipped.
+                NSString * testPath;
+                BOOL nestedTooDeeply = FALSE;
+                NSEnumerator * arrayEnum = [innerTblksAlreadyProcessed objectEnumerator];
+                while (  testPath = [arrayEnum nextObject]  ) {
+                    if (  [fullInnerPath hasPrefix: testPath]  ) {
+                        NSLog(@".tblks nested too deeply (only one level of .tblk in a .tblk is allowed) in %@", path);
+                        nestedTooDeeply = TRUE;
+                        break;
                     }
+                }
+                
+                if (  ! nestedTooDeeply  ) {
+                    // This .tblk is not nested too deeply, so process it
+                    dest = [self checkOneDotTblkPackage: fullInnerPath withKey: [NSString stringWithFormat: @"%d", keyIx++]];
+                    if (  dest  ) {
+                        if (  [dest count] != 0  ) {
+                            [sourceList addObject: [dest objectAtIndex: 0]];
+                            [targetList addObject: [dest objectAtIndex: 1]];
+                        }
+                    } else {
+                        [errList addObject: path];
+                    }
+                    [innerTblksAlreadyProcessed addObject: fullInnerPath];
                 }
             }
         }
-    }
-
-    NSMutableArray * sourceList = [NSMutableArray arrayWithCapacity: [augmentedFilePaths count]];        // Paths to source of files OK to install
-    NSMutableArray * targetList = [NSMutableArray arrayWithCapacity: [augmentedFilePaths count]];        // Paths to destination to install them
-    NSMutableArray * errList    = [NSMutableArray arrayWithCapacity: [augmentedFilePaths count]];        // Paths to files not installed
-    
-    NSArray * dest;
-    // Go through the augmented array, check each .tblk package, and add it to the install list if it is OK
-    for (i=0; i < [augmentedFilePaths count]; i++) {
-        file = [augmentedFilePaths objectAtIndex: i];
-        dest = [self checkOneDotTblkPackage: file withKey: [NSString stringWithFormat: @"%d", i]];
-        if (  dest  ) {
-            if (  [dest count] != 0  ) {
-                [sourceList addObject: [dest objectAtIndex: 0]];
-                [targetList addObject: [dest objectAtIndex: 1]];
+        
+        if (  [innerTblksAlreadyProcessed count] == 0  ) {
+            dest = [self checkOneDotTblkPackage: path withKey: [NSString stringWithFormat: @"%d", keyIx++]];
+            if (  dest  ) {
+                if (  [dest count] != 0  ) {
+                    [sourceList addObject: [dest objectAtIndex: 0]];
+                    [targetList addObject: [dest objectAtIndex: 1]];
+                }
+            } else {
+                [errList addObject: path];
             }
         } else {
-            [errList addObject: file];
+            [innerTblksAlreadyProcessed removeAllObjects];
         }
     }
     
@@ -739,9 +757,10 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 }
 
 // Checks one .tblk package to make sure it should be installed
-// Returns an array with [source, dest] paths if it should be installed
-// Returns an empty array if the user cancelled the installation
-// Returns nil if an error occurred
+//     Returns an array with [source, dest] paths if it should be installed
+//     Returns an empty array if the user cancelled the installation
+//     Returns nil if an error occurred
+// If filePath is a nested .tblk (i.e., a .tblk contained within another .tblk), the destination path will be a subfolder of the private or shared configurations folder
 -(NSArray *) checkOneDotTblkPackage: (NSString *) filePath withKey: (NSString *) key
 {
     if (   [filePath hasPrefix: gPrivatePath]
@@ -749,11 +768,18 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         || [filePath hasPrefix: gDeployPath]  ) {
         NSLog(@"Configuration installer: Tunnelblick VPN Configuration is already installed: %@", filePath);
         TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
-                        NSLocalizedString(@"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nYou can copy the installation and install from the copy.", @"Window text"),
+                        NSLocalizedString(@"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.", @"Window text"),
                         nil, nil, nil);
         return nil;
     }
-    
+
+    NSString * subfolder = nil;
+    NSString * filePathWithoutTblk = [filePath stringByDeletingLastPathComponent];
+    NSRange outerTblkRange = [filePathWithoutTblk rangeOfString: @".tblk"];
+    if (  outerTblkRange.length != 0  ) {
+        subfolder = [filePathWithoutTblk substringWithRange: NSMakeRange(outerTblkRange.location + 5, [filePathWithoutTblk length] - outerTblkRange.location - 5)];
+    }
+
     BOOL pkgIsOK = TRUE;     // Assume it is OK to install the package
     
     NSString * tryDisplayName;      // Try to use this display name, but deal with conflicts
@@ -845,6 +871,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         
     // **************************************************************************************
     // Make sure there is exactly one configuration file
+    NSString * pathToConfigFile;
     int numberOfConfigFiles = 0;
     BOOL haveConfigDotOvpn = FALSE;
     NSString * file;
@@ -854,14 +881,15 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         if (  itemIsVisible([folder stringByAppendingPathComponent: file])  ) {
             NSString * ext = [file pathExtension];
             if (  [file isEqualToString: @"config.ovpn"]  ) {
+                pathToConfigFile = [folder stringByAppendingPathComponent: @"config.ovpn"];
                 haveConfigDotOvpn = TRUE;
                 numberOfConfigFiles++;
             } else if (  [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
+                pathToConfigFile = [folder stringByAppendingPathComponent: file];
                 numberOfConfigFiles++;
             }
         }
     }
-    
     
     if (  ! haveConfigDotOvpn  ) {
         NSLog(@"Configuration installer: No configuration file '/Contents/Resources/config.ovpn' in %@", tryDisplayName);
@@ -870,6 +898,13 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     
     if (  numberOfConfigFiles != 1  ) {
         NSLog(@"Configuration installer: Exactly one configuration file, '/Contents/Resources/config.ovpn', is allowed in a .tblk package. %d configuration files were found in %@", numberOfConfigFiles, tryDisplayName);
+        pkgIsOK = FALSE;
+    }
+    
+    // **************************************************************************************
+    // Make sure the configuration file is not the sample file
+    if (  [self isSampleConfigurationAtPath: pathToConfigFile]  ) {
+        // isSampleConfigurationAtPath has already informed the user of the problem
         pkgIsOK = FALSE;
     }
     
@@ -1026,11 +1061,16 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         // **************************************************************************************
         // Indicate the package is to be installed
         NSString * tblkName = [tryDisplayName stringByAppendingPathExtension: @"tblk"];
+        NSString * pathPrefix;
         if (  [pkgSharePackage isEqualToString: @"private"]  ) {
-            return [NSArray arrayWithObjects: pathToTblk, [gPrivatePath stringByAppendingPathComponent: tblkName], nil];
-        } else if (  [pkgSharePackage isEqualToString: @"shared"]  ) {
-            return [NSArray arrayWithObjects: pathToTblk, [gSharedPath  stringByAppendingPathComponent: tblkName], nil];
+            pathPrefix = gPrivatePath;
+        } else {
+            pathPrefix = gSharedPath;
         }
+        if (  subfolder  ) {
+            pathPrefix = [pathPrefix stringByAppendingPathComponent: subfolder];
+        }
+        return [NSArray arrayWithObjects: pathToTblk, [pathPrefix stringByAppendingPathComponent: tblkName], nil];
     }
     
     return nil;
@@ -1197,15 +1237,6 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     return emptyTblk;
 }
 
--(BOOL) createDir: (NSString *) thePath
-{
-    BOOL result = [gFileMgr createDirectoryAtPath: thePath attributes: nil];
-    if (  ! result  ) {
-        NSLog(@"Unable to create folder at ", thePath);
-    }
-    return result;
-}
-
 -(NSString *) makeTemporarySampleTblkWithName: (NSString *) name andKey: (NSString *) key
 {
     NSString * emptyTblk = [self makeEmptyTblk: name withKey: key];
@@ -1223,7 +1254,7 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     return emptyTblk;
 }    
 
-// Creates an "empty" .tblk with name taken from input arugment, and with Contents/Resources created,
+// Creates an "empty" .tblk with name taken from input argument, and with Contents/Resources created,
 // in a newly-created temporary folder
 // Returns nil on error, or with the path to the .tblk
 -(NSString *) makeEmptyTblk: (NSString *) thePath withKey: (NSString *) key
@@ -1233,26 +1264,12 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
     
     NSString * tempTblk = [tempFolder stringByAppendingPathComponent: [thePath lastPathComponent]];
     
-    NSString * tempContents = [tempTblk stringByAppendingPathComponent: @"Contents"];
-    
     NSString * tempResources = [tempTblk stringByAppendingPathComponent: @"Contents/Resources"];
     
     [gFileMgr removeFileAtPath: tempFolder handler: nil];
     
-    int result = [self createDir: tempFolder];
-    if (  result == 0  ) {
-        return nil;
-    }
-    result = [self createDir: tempTblk];
-    if (  result == 0  ) {
-        return nil;
-    }
-    result = [self createDir: tempContents];
-    if (  result == 0  ) {
-        return nil;
-    }
-    result = [self createDir: tempResources];
-    if (  result == 0  ) {
+    int result = createDir(tempResources, 0755);    // Creates all intermediate directories as needed
+    if (  result == -1  ) {
         return nil;
     }
     
@@ -1393,8 +1410,8 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
         }
     }
     
-    int button = TBRunAlertPanel(NSLocalizedString(@"You cannot connect using the sample configuration", @"Window title"),
-                                 NSLocalizedString(@"You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n", @"Window text"),
+    int button = TBRunAlertPanel(NSLocalizedString(@"You cannot use the sample configuration", @"Window title"),
+                                 NSLocalizedString(@"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n", @"Window text"),
                                  NSLocalizedString(@"Cancel", @"Button"),                           // Default button
                                  NSLocalizedString(@"Go to the OpenVPN documentation on the web", @"Button"), // Alternate button
                                  nil);                                                              // No Other button
@@ -1662,6 +1679,380 @@ extern BOOL       folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
                     nil,
                     nil);
     return FALSE;
+}
+
+// There are no configurations installed. Guide the user
+-(void) haveNoConfigurationsGuide
+{
+    [self guideState: entryNoConfigurations];
+}
+
+// Guide the user through the process of adding a configuration (.tblk or .ovpn/.conf)
+-(void) addConfigurationGuide
+{
+    [self guideState: entryAddConfiguration];
+}
+
+// guideState is sort of a state machine for displaying configuration dialog windows. It has a simple, LIFO history stored in an array to implement a "back" button
+-(void) guideState: (enum state_t) state
+{
+    enum state_t nextState;
+
+    int button;
+    
+    NSMutableArray * history = [NSMutableArray arrayWithCapacity: 20];  // Contains NSNumbers containing state history
+    
+    while ( TRUE  ) {
+        
+        switch (  state  ) {
+                
+                
+            case entryNoConfigurations:
+                
+                // No configuration files (entry from haveNoConfigurationsGuild)
+                button = TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick", @"Window title"),
+                                         NSLocalizedString(@"There are no VPN configurations installed.\n\n"
+                                                           "Tunnelblick needs one or more installed configurations to connect to a VPN. "
+                                                           "Configurations are installed from files that are usually supplied to you by your network manager "
+                                                           "or VPN service provider. The files must be installed to be used.\n\n"
+                                                           "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
+                                                           "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
+                                                           "Do you have any configuration files?\n",
+                                                           @"Window text"),
+                                         NSLocalizedString(@"I have configuration files", @"Button"),       // Default button
+                                         NSLocalizedString(@"Quit", @"Button"),                             // Alternate button
+                                         NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected QUIT
+                    [NSApp setAutoLaunchOnLogin: NO];
+                    [NSApp terminate: nil];
+                }
+                
+                if (  button == NSAlertDefaultReturn  ) {
+                    // User has configuration files and wishes to add them
+                    nextState = stateHasConfigurations;
+                    break;
+                }
+                
+                // User does not have configuration files
+                nextState = stateHasNoConfigurations;
+                break;
+                
+                
+            case stateHasNoConfigurations:
+                
+                // User doesn't have configuration files
+                button = TBRunAlertPanel(NSLocalizedString(@"Create and Edit a Sample Configuration?", @"Window title"),
+                                         NSLocalizedString(@"Would you like to\n\n"
+                                                           "     • Create a sample configuration on the Desktop\n             and\n"
+                                                           "     • Open its OpenVPN configuration file in TextEdit so you can modify "
+                                                           "it to connect to your VPN?\n\n", @"Window text"),
+                                         NSLocalizedString(@"Create sample configuration and edit it", @"Button"),    // Default button
+                                         NSLocalizedString(@"Back", @"Button"),                         // Alternate button
+                                         nil                                                            // Other button
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Back
+                    nextState = stateGoBack;
+                    break;
+                }
+                
+                // User wants to create sample configuration on Desktop and edit the OpenVPN configuration file in TextEdit
+                nextState = stateMakeSampleConfiguration;
+                break;
+                
+                
+            case stateMakeSampleConfiguration:
+                
+                // User wants to create a sample configuration on the Desktop and edit the OpenVPN configuration file in TextEdit
+                ; // Weird, but without this semicolon (i.e., empty statement) the compiler generates a syntax error for the next line!
+                NSString * sampleConfigFolderName = @"Sample Tunnelblick VPN Configuration";
+                NSString * targetPath = [[NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: sampleConfigFolderName];
+                if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+                    button = TBRunAlertPanel(NSLocalizedString(@"Replace Existing File?", @"Window title"),
+                                             [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists on the Desktop.\n\n"
+                                                                                           "Would you like to replace it?",
+                                                                                           @"Window text"), sampleConfigFolderName],
+                                             NSLocalizedString(@"Replace", @"Button"),  // Default button
+                                             NSLocalizedString(@"Back", @"Button"),     // Alternate button
+                                             nil);                                      // Other button
+                    
+                    if (  button == NSAlertAlternateReturn  ) {
+                        // User selected Back
+                        nextState = stateGoBack;
+                        break;
+                    }
+                    
+                    [gFileMgr removeFileAtPath: targetPath handler: nil];
+                }
+                
+                if (  createDir(targetPath, 0755) == -1  ) {
+                    NSLog(@"Installation failed. Not able to create %@", targetPath);
+                    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
+                                    NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"),
+                                    nil, nil, nil);
+                    return;
+                }
+                
+                NSString * targetConfigPath = [targetPath stringByAppendingPathComponent: @"config.ovpn"];
+                
+                NSString * sourcePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
+                if (  ! [gFileMgr copyPath: sourcePath toPath: targetConfigPath handler: nil]  ) {
+                    NSLog(@"Installation failed. Not able to copy %@ to %@", sourcePath, targetConfigPath);
+                    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
+                                    NSLocalizedString(@"Tunnelblick could not create the sample configuration", @"Window text"),
+                                    nil, nil, nil);
+                    return;
+                }
+                
+                [[NSWorkspace sharedWorkspace] openFile: targetPath];
+
+                [[NSWorkspace sharedWorkspace] openFile: targetConfigPath withApplication: @"TextEdit"];
+                
+                // Display guidance about what to do after editing the sample configuration file
+                TBRunAlertPanel(NSLocalizedString(@"Sample Configuration Created", @"Window title"),
+                                NSLocalizedString(@"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened "
+                                                  "in TextEdit so you can modify the file for your VPN setup.\n\n"
+                                                  "When you have finished editing the OpenVPN configuration file and saved the changes, please\n\n"
+                                                  
+                                                  "1. Move or copy any key or certificate files associated with the configuration "
+                                                  "into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n"
+                                                  "(This folder has been opened in a Finder window so you can drag the files to it.)\n\n"
+                                                  
+                                                  "2. Change the folder's name to a name of your choice. "
+                                                  "This will be the name that Tunnelblick uses for the configuration.\n\n"
+                                                  
+                                                  "3. Add .tblk to the end of the folder's name.\n\n"
+                                                  
+                                                  "4. Double-click the folder to install the configuration.\n\n"
+                                                  
+                                                  "The new configuration will be available in Tunnelblick immediately.",
+                                                  
+                                                  @"Window text"),
+                                nil, nil, nil);
+                return;
+                
+                
+            case entryAddConfiguration:
+                // Entry from addConfigurationGuide
+                button = TBRunAlertPanel(NSLocalizedString(@"Add a Configuration", @"Window title"),
+                                         NSLocalizedString(@"Configurations are usually installed from files that are supplied to you by your network manager "
+                                                           "or VPN service provider.\n\n"
+                                                           "Configuration files have extensions of .tblk, .ovpn, or .conf.\n\n"
+                                                           "(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\n"
+                                                           "Do you have any configuration files?\n",
+                                                           @"Window text"),
+                                         NSLocalizedString(@"I have configuration files", @"Button"),       // Default button
+                                         NSLocalizedString(@"Cancel", @"Button"),                           // Alternate button
+                                         NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Cancel
+                    return;
+                }
+                
+                if (  button == NSAlertDefaultReturn  ) {
+                    // User has configuration files and wishes to add them
+                    nextState = stateHasConfigurations;
+                    break;
+                }
+                
+                // User does not have configuration files
+                nextState = stateHasNoConfigurations;
+                break;
+                
+                
+            case stateHasConfigurations:
+                
+                // User has configuration files and wishes to add them
+                button = TBRunAlertPanel(NSLocalizedString(@"Which Type of Configuration Do You Have?", @"Window title"),
+                                         NSLocalizedString(@"There are two types of configuration files:\n\n"
+                                                           "     • Tunnelblick VPN Configurations (.tblk extension)\n\n"
+                                                           "     • OpenVPN Configurations (.ovpn or .conf extension)\n\n"
+                                                           "Which type of configuration file do have?\n\n",
+                                                           @"Window text"),
+                                         NSLocalizedString(@"Tunnelblick VPN Configuration(s)", @"Button"),    // Default button
+                                         NSLocalizedString(@"Back", @"Button"),                             // Alternate button
+                                         NSLocalizedString(@"OpenVPN Configuration(s)", @"Button")             // Other button
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Back
+                    nextState = stateGoBack;
+                    break;
+                }
+                
+                if (  button == NSAlertOtherReturn) {
+                    // User selected OPEPNVPN VPN CONFIGURATION
+                    nextState = stateShowOpenVpnInstructions;
+                    break;
+                }
+                
+                // User selected TUNNELBLICK VPN CONFIGURATION
+                nextState = stateShowTbInstructions;
+                break;
+                
+                
+            case stateShowTbInstructions:
+
+                // User selected TUNNELBLICK VPN CONFIGURATION
+                button = TBRunAlertPanel(NSLocalizedString(@"Installing a Tunnelblick VPN Configuration", @"Window title"),
+                                         NSLocalizedString(@"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\n"
+                                                           "The new configuration will be available in Tunnelblick immediately.", @"Window text"),
+                                         NSLocalizedString(@"Done", @"Button"),    // Default button
+                                         NSLocalizedString(@"Back", @"Button"),  // Alternate button
+                                         nil
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Back
+                    nextState = stateGoBack;
+                    break;
+                }
+                
+                return;
+                
+                
+            case stateShowOpenVpnInstructions:
+                
+                // User selected OPEPNVPN VPN CONFIGURATION
+                
+                button = TBRunAlertPanel(NSLocalizedString(@"Which Type of Configuration Do You Wish to Create?", @"Window title"),
+                                         NSLocalizedString(@"     • With one configuration file at a time, you can "
+                                                           "create a Tunnelblick VPN Configuration.\n\n"
+                                                           
+                                                           "     • With multiple configuration files, you "
+                                                           "can place the configuration files (and certificate "
+                                                           "and key files if you have them) into Tunnelblick's private configurations folder.\n"
+                                                           "This is the traditional way OpenVPN configurations have been used.\n\n"
+                                                           
+                                                           "Note: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started "
+                                                           "when the computer starts, and are secured automatically.", @"Window text"),
+                                         NSLocalizedString(@"Create Tunnelblick VPN Configuration", @"Button"), // Default button
+                                         NSLocalizedString(@"Back", @"Button"),                                 // Alternate button
+                                         NSLocalizedString(@"Open Private Configurations Folder", @"Button")    // Other button
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Back
+                    nextState = stateGoBack;
+                    break;
+                }
+                
+                if (  button == NSAlertOtherReturn  ) {
+                    // User wants to open the private configuration folder
+                    nextState = stateOpenPrivateFolder;
+                    break;
+                }
+                // User wants to create sample configuration on Desktop and edit the OpenVPN configuration file in TextEdit
+                nextState = stateMakeEmptyConfiguration;
+                break;
+                
+                
+            case stateOpenPrivateFolder:
+            
+                // User wants to open the private configuration folder
+                [[NSWorkspace sharedWorkspace] openFile: gPrivatePath];
+
+                button = TBRunAlertPanel(NSLocalizedString(@"Private Configuration Folder is Open", @"Window title"),
+                                         NSLocalizedString(@"The private configuration folder has been opened in a Finder window.\n\n"
+                                                           "Move or copy OpenVPN configuration files and key and certificate files to the folder.\n\n"
+                                                           "The new configuration(s) will be available in Tunnelblick immediately.", @"Window text"),
+                                         NSLocalizedString(@"Done", @"Button"),    // Default button
+                                         NSLocalizedString(@"Back", @"Button"),  // Alternate button
+                                         nil
+                                         );
+                
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Back
+                    nextState = stateGoBack;
+                    break;
+                }
+                
+                return;
+                
+                
+            case stateMakeEmptyConfiguration:
+                
+                // User wants to create an empty configuration
+                ; // Weird, but without this semicolon (i.e., empty statement) the compiler generates a syntax error for the next line!
+                NSString * emptyConfigFolderName = @"Empty Tunnelblick VPN Configuration";
+                targetPath = [[NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: emptyConfigFolderName];
+                if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+                    button = TBRunAlertPanel(NSLocalizedString(@"Replace Existing File?", @"Window title"),
+                                             [NSString stringWithFormat: NSLocalizedString(@"'%@' already exists on the Desktop.\n\n"
+                                                                                           "Would you like to replace it?",
+                                                                                           @"Window text"), targetPath],
+                                             NSLocalizedString(@"Replace", @"Button"),  // Default button
+                                             NSLocalizedString(@"Back", @"Button"),     // Alternate button
+                                             nil);                                      // Other button
+                    
+                    if (  button == NSAlertAlternateReturn  ) {
+                        // User selected Back
+                        nextState = stateGoBack;
+                        break;
+                    }
+                    
+                    [gFileMgr removeFileAtPath: targetPath handler: nil];
+                }
+                
+                if (    createDir(targetPath, 0755) == -1    ) {
+                    NSLog(@"Installation failed. Not able to create %@", targetPath);
+                    TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
+                                    NSLocalizedString(@"Tunnelblick could not create the empty configuration folder", @"Window text"),
+                                    nil, nil, nil);
+                    return;
+                }
+                
+                [[NSWorkspace sharedWorkspace] openFile: targetPath];
+                
+                button = TBRunAlertPanel(NSLocalizedString(@"An Empty Tunnelblick VPN Configuration Has Been Created", @"Window title"),
+                                         NSLocalizedString(@"To install it as a Tunnelblick VPN Configuration:\n\n"
+                                                           "1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick "
+                                                           "VPN Configuration' folder which has been created on the Desktop.\n\n"
+                                                           "2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n"
+                                                           "3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n"
+                                                           "4. Add an extension of .tblk to the end of the name of the folder.\n\n"
+                                                           "5. Double-click the folder to install it.\n\n"
+                                                           "The new configuration will be available in Tunnelblick immediately.\n\n"
+                                                           "(For your convenience, the folder has been opened in a Finder window.)",
+                                                           @"Window text"),
+                                         NSLocalizedString(@"Done", @"Button"),    // Default button
+                                         NSLocalizedString(@"Back", @"Button"),    // Alternate button
+                                         nil
+                                         );
+                if (  button == NSAlertAlternateReturn  ) {
+                    // User selected Back
+                    nextState = stateGoBack;
+                    break;
+                }
+                
+                return;
+                
+                
+            default:
+                NSLog(@"guideState: invalid state = %d", state);
+                return;
+        }
+        
+        if (  nextState == stateGoBack) {
+            // Go back
+            if (  [history count] == 0  ) {
+                NSLog(@"guideState: Back command but no history");
+                return;
+            }
+            int backState = [[history lastObject] intValue];
+            [history removeLastObject];
+            state = backState;
+        } else {
+            [history addObject: [NSNumber numberWithInt: state]];
+            state = nextState;
+        }
+    } 
 }
 
 -(NSString *) displayNameForPath: (NSString *) thePath

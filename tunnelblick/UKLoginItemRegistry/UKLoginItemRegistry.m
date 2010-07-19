@@ -14,18 +14,22 @@
 +(NSArray*)	allLoginItems
 {
 	NSArray*	itemsList = nil;
-	OSStatus	err = LIAECopyLoginItems( (CFArrayRef*) &itemsList );	// Take advantage of toll-free bridging.
-	if( err != noErr )
-	{
-		NSLog(@"Couldn't list login items error %ld", err);
-        err = LIAECopyLoginItems( (CFArrayRef*) &itemsList );	// Take advantage of toll-free bridging.
-        if( err != noErr )
-        {
-            NSLog(@"Retry couldn't list login items error %ld", err);
-            return nil;
-        }
-	}
-	
+    
+    OSStatus	err;
+    int         i;
+    for (i=0; i<5; i++)
+    {
+        OSStatus	err = LIAECopyLoginItems( (CFArrayRef*) &itemsList );	// Take advantage of toll-free bridging.
+        if( err == noErr )
+            break;
+        sleep(1);
+    }
+    if( err != noErr )
+    {
+        NSLog(@"After five tries, still could not list login items, error %ld", err);
+        return nil;
+    }
+
 	return [itemsList autorelease];
 }
 

@@ -47,8 +47,9 @@ BOOL needToRepairPackages(void);
     IBOutlet NSButton       * useNameserverCheckbox;
 
     IBOutlet id               myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
-    NSStatusItem            * theItem;                      // Our place in the Status Bar
+    NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
+    NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
 	NSMenuItem              * detailsItem;                  // "Details..." item for menu
     NSMenuItem              * optionsItem;                  // "Options" item for menu
     NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
@@ -59,7 +60,8 @@ BOOL needToRepairPackages(void);
     NSMenuItem              * warnAboutSimultaneousItem;    //      "Warn About Simultaneous Connections" menu item
     NSMenuItem              * useShadowCopiesItem;          //      "Use Shadow Copies of Configuration Files" menu item
     NSMenuItem              * autoCheckForUpdatesItem;      //      "Automatically Check for Updates" menu item
-    NSMenuItem              * reportAnonymousInfoItem;      //        "Report Anonymous System Info" menu item
+    NSMenuItem              * reportAnonymousInfoItem;      //      "Report Anonymous System Info" menu item
+    NSMenuItem              * addConfigurationItem;         //    "Add Configuration..." menu item
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
@@ -120,6 +122,7 @@ BOOL needToRepairPackages(void);
 -(IBAction)         editConfigButtonWasClicked:             (id)                sender;
 -(IBAction)         nameserverPrefButtonWasClicked:         (id)                sender;
 -(IBAction)         shareConfigButtonWasClicked:            (id)                sender;
+-(IBAction)         addConfigurationWasClicked:             (id)                sender;
 
 // Menu actions
 -(IBAction)         checkForUpdates:                        (id)                sender;

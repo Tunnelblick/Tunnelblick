@@ -37,8 +37,12 @@
 
 +(id)                       defaultManager;
 
+-(void)                     addConfigurationGuide;
+
 -(void)                     editConfigurationAtPath:    (NSString *)        thePath
                                       forConnection:    (VPNConnection *)   connection;
+
+-(void)                     haveNoConfigurationsGuide;
 
 -(NSMutableDictionary *)    getConfigurations;
 

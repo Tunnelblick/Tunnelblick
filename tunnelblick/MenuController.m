@@ -71,6 +71,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             applicationWillTerminate:               (NSNotification*)   notification;
 
 // Private interfaces
+-(void)             addPath:                                (NSString *)        path
+             toMonitorQueue:                                (UKKQueue *)        queue;
 -(void)             activateStatusMenu;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
@@ -96,11 +98,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                              andPreferenceKey:              (NSString *)        prefKey
                                       negated:              (BOOL)              negatePref;
 -(void)             initialiseAnim;
+-(void)             insertConnectionMenuItem:               (NSMenuItem *)      theItem
+                                    IntoMenu:               (NSMenu *)          theMenu
+                                  afterIndex:               (int)               theIndex
+                                    withName:               (NSString *)        displayName;
 -(NSString *)       installationId;
 -(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
 -(int)              killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons;
 -(void)             loadMenuIconSet;
--(int)              numberOfTblksToInstallinPath:           (NSString *)        thePath;
+-(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
+-(void)             removeConnectionWithDisplayName:        (NSString *)        theName
+                                           FromMenu:        (NSMenu *)          theMenu
+                                         afterIndex:        (int)               theIndex;
+-(void)             removePath:                             (NSString *)        path
+              fromMonitorQueue:                             (UKKQueue *)        queue;
 -(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
 -(void)             saveOnSystemStartRadioButtonState:      (BOOL)              onSystemStart
                                         forConnection:      (VPNConnection *)   connection;
@@ -112,6 +123,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                    ofControl:                               (id)                theControl;
 -(void)             setupSparklePreferences;
 -(void)             startOrStopDurationsTimer;
+-(NSMutableArray *) tblksToInstallInPath:                   (NSString *)        thePath;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             updateMenuAndLogWindow;
@@ -229,7 +241,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         // If not Deployed, or if Deployed and it is specifically allowed,
         // Then add /Library/Application Support/Tunnelblick/Shared
-        //      and ~/Library/Application Support/Tunnelblick/Configurations
+        //      create (if necessary) and add ~/Library/Application Support/Tunnelblick/Configurations
         //      to configDirs
         if (  [gConfigDirs count] != 0  ) {
             if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
@@ -239,16 +251,37 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
             if (  ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
                 if (  [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
+                    createDir(gPrivatePath, 0755);
                     [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
                 }
             }
         } else {
+            createDir(gPrivatePath, 0755);
             [gConfigDirs addObject: [[gSharedPath  copy] autorelease]];
             [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
         }
         
-        // If necessary, create OpenVPN and scripts log directory
-        createDir(LOG_DIR, 0777);
+        // Create OpenVPN and scripts log directory if necessary
+        createDir(LOG_DIR, 0777);   
+        
+        // Create link to this application in the private configurations folder if we are using it
+        if (  [gConfigDirs containsObject: gPrivatePath]  ) {
+            if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
+                NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
+                NSString * launchTunnelblickSymlink = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+                if (  ! [gFileMgr fileExistsAtPath:launchTunnelblickSymlink]  ) {
+                    NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
+                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                           pathContent: pathToThisApp];
+                } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
+                    ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
+                    NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
+                    [gFileMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
+                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                                           pathContent: pathToThisApp];
+                }
+            }
+        }
         
         gOpenVPNVersionDict = [getOpenVPNVersion() copy];
         
@@ -349,7 +382,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [detailsItem release];
     [quitItem release];
     [statusMenuItem release];
-    [theItem release]; 
+    [statusItem release]; 
     
     [super dealloc];
 }
@@ -386,18 +419,18 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             priority = MIN(priority, 2147483646); // found by experimenting - dirk
         }
         
-        if ( ! theItem  ) {
-            if (  ! ( theItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
+        if ( ! statusItem  ) {
+            if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
                 NSLog(@"Can't insert icon in Status Bar");
             }
         }
         // Re-insert item to place it correctly, to the left of SpotLight
-        [bar removeStatusItem: theItem];
-        [bar _insertStatusItem: theItem withPriority: priority];
+        [bar removeStatusItem: statusItem];
+        [bar _insertStatusItem: statusItem withPriority: priority];
     } else {
         // Standard placement of icon in Status Bar
-        if (  ! theItem  ) {
-            if (  ! (theItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
+        if (  ! statusItem  ) {
+            if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
                 NSLog(@"Can't insert icon in Status Bar");
             }
         }
@@ -560,6 +593,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [checkForUpdatesNowItem setTarget: self];
             [checkForUpdatesNowItem setAction: @selector(checkForUpdates:)];
         }
+        if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
+            addConfigurationItem = [[NSMenuItem alloc] init];
+            [addConfigurationItem setTitle: NSLocalizedString(@"Add a Configuration...", @"Menu item")];
+            [addConfigurationItem setTarget: self];
+            [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
+        }
+        
     }
     
     aboutItem = [[NSMenuItem alloc] init];
@@ -591,7 +631,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (   putIconNearSpotlightItem || monitorConfigurationDirItem || warnAboutSimultaneousItem || showConnectedDurationsItem || useShadowCopiesItem || autoCheckForUpdatesItem || reportAnonymousInfoItem  ) {
             [optionsSubmenu addItem: [NSMenuItem separatorItem]];
         }
-        
+
+        if (  addConfigurationItem  ) {
+            [optionsSubmenu addItem: addConfigurationItem];
+            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
+        }
+    
         if (  checkForUpdatesNowItem  ) { [optionsSubmenu addItem: checkForUpdatesNowItem   ]; }
         
         if (   checkForUpdatesNowItem
@@ -609,25 +654,28 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         optionsItem = nil;
     }
     
+    noConfigurationsItem = [[NSMenuItem alloc] init];
+    [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
+    
     detailsItem = [[NSMenuItem alloc] init];
     [detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
-    [detailsItem setTarget: self];
-    [detailsItem setAction: @selector(openLogWindow:)];
+    // We set the target and action below, but only if there are any configurations,
+    // so it is dimmed/disabled if there aren't any configuratinos
     
     quitItem = [[NSMenuItem alloc] init];
     [quitItem setTitle: NSLocalizedString(@"Quit Tunnelblick", @"Menu item")];
     [quitItem setTarget: self];
     [quitItem setAction: @selector(quit:)];
     
-    [theItem setHighlightMode:YES];
-    [theItem setMenu:nil];
+    [statusItem setHighlightMode:YES];
+    [statusItem setMenu:nil];
 	[myVPNMenu release]; myVPNMenu = nil;
 	[[myVPNConnectionDictionary allValues] makeObjectsPerformSelector:@selector(disconnect:) withObject:self];
 	[myVPNConnectionDictionary removeAllObjects];
 	
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
-	[theItem setMenu: myVPNMenu];
+	[statusItem setMenu: myVPNMenu];
 	
 	statusMenuItem = [[NSMenuItem alloc] init];
 	[myVPNMenu addItem:statusMenuItem];
@@ -636,10 +684,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[myConfigDictionary release];
     myConfigDictionary = [[[[ConfigurationManager defaultManager] getConfigurations] mutableCopy] retain];
     
-    int i = 2; // we start at MenuItem #2
-    
+    // Add each connection to the menu
     NSString * dispNm;
-    NSArray *keyArray = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+    NSArray *keyArray = [myConfigDictionary allKeys];
 	NSEnumerator * e = [keyArray objectEnumerator];
     while (dispNm = [e nextObject]) {
 		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
@@ -656,11 +703,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
 		[connectionItem setTarget:myConnection]; 
 		[connectionItem setAction:@selector(toggle:)];
-		
-		[myVPNMenu insertItem:connectionItem atIndex:i];
-		i++;
+        
+        [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
 	}
-	[myVPNMenu addItem: [NSMenuItem separatorItem]];
+    
+    if (  [myConfigDictionary count] == 0  ) {
+        [myVPNMenu addItem: noConfigurationsItem];
+        if (  addConfigurationItem  ) {
+            [myVPNMenu addItem: [[addConfigurationItem copy] autorelease]]; // Use a copy because the original is used in the Options... submenu
+        }
+    } else {
+        [detailsItem setTarget: self];
+        [detailsItem setAction: @selector(openLogWindow:)];
+    }
+    [myVPNMenu addItem: [NSMenuItem separatorItem]];
     
 	[myVPNMenu addItem: detailsItem];
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
@@ -676,6 +732,145 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
 }
 
+-(void) insertConnectionMenuItem: (NSMenuItem *) theItem IntoMenu: (NSMenu *) theMenu afterIndex: (int) theIndex withName: (NSString *) theName
+{
+    int i;
+    NSRange    slashRange = [theName rangeOfString: @"/" options: 0 range: NSMakeRange(0, [theName length] - 1)];
+    if (   (slashRange.length == 0)
+        || [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"]  ) {
+        // The item goes directly in the menu
+        for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
+            id menuItem = [theMenu itemAtIndex: i];
+            NSString * menuItemTitle;
+            if (  [menuItem isSeparatorItem]  ) {
+                break;                       // A separator marks the end of list of connection items
+            }
+            if (   [menuItem submenu]  ) {    // item is a submenu
+                menuItemTitle = [menuItem title];
+            } else {                                                            // item is a connection item
+                menuItemTitle = [self menuNameForItem: menuItem];
+            }
+            
+            if (  [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedDescending  ) {
+                break;
+            }
+        }
+        [theMenu insertItem: theItem atIndex: i];
+        return;
+    }
+    
+    // The item goes on a submenu
+    NSString * subMenuName = [theName substringWithRange: NSMakeRange(0, slashRange.location + 1)];
+    NSString * restOfName = [theName substringFromIndex: slashRange.location + 1];
+    for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
+        id menuItem = [theMenu itemAtIndex: i];
+        if (  [menuItem isSeparatorItem]  ) {
+            break; // A separator marks the end of list of connection items
+        } else {
+            NSMenu * subMenu = [menuItem submenu];
+            if (  subMenu   ) {
+                // Item is a submenu
+                NSString * menuItemTitle = [menuItem title];
+                NSComparisonResult  result = [menuItemTitle caseInsensitiveCompare: subMenuName];
+                if (  result == NSOrderedSame  ) {
+                    // Have found correct submenu, so add this item to it
+                    [self insertConnectionMenuItem: theItem IntoMenu: subMenu afterIndex: 0 withName: restOfName];
+                    return;
+                }
+                if (  result == NSOrderedDescending  ) {
+                    // Have found a different submenu that comes later
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Didn't find the submenu, so we have to create a new submenu and try again.
+    
+    // Create the new submenu
+    NSMenu * newSubmenu = [[NSMenu alloc] initWithTitle:@"A Configuration SubMenu Title"];
+    
+    // Create a new submenu item for the outer menu
+    NSMenuItem * newMenuItem = [[NSMenuItem alloc] init];
+    [newMenuItem setTitle: subMenuName];
+    [newMenuItem setSubmenu: newSubmenu];
+    
+    // Add the new submenu item to the outer menu
+    [self insertConnectionMenuItem: newMenuItem IntoMenu: theMenu afterIndex: theIndex withName: subMenuName];
+    
+    // Insert the original item we wanted to (now that the submenu has been created)
+    [self insertConnectionMenuItem: theItem IntoMenu: theMenu afterIndex: theIndex withName: theName];
+}
+
+-(NSString *) menuNameForItem: (NSMenuItem *) theItem
+{
+    NSString * theName = [[theItem target] displayName];
+    NSRange    slashRange = [theName rangeOfString: @"/" options: NSBackwardsSearch];
+    if (  slashRange.length == 0  ) {
+        return theName;
+    }
+    
+    return [theName substringFromIndex: slashRange.location + 1];
+}
+
+// JKB myVPNMenu
+-(void) removeConnectionWithDisplayName: (NSString *) theName FromMenu: (NSMenu *) theMenu afterIndex: (int) theIndex
+{
+    int i;
+    NSRange    slashRange = [theName rangeOfString: @"/" options: 0 range: NSMakeRange(0, [theName length] - 1)];
+    if (   (slashRange.length == 0)
+        || [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"]  ) {
+        // The item is directly in the menu
+        for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
+            id menuItem = [theMenu itemAtIndex: i];
+            NSString * menuItemTitle;
+            if (  [menuItem isSeparatorItem]  ) {
+                break;                              // A separator marks the end of list of connection items
+            }
+            if (   [menuItem submenu]  ) {          // item is a submenu
+                menuItemTitle = [menuItem title];
+            } else {                                // item is a connection item
+                menuItemTitle = [self menuNameForItem: menuItem];
+            }
+            
+            if (  [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedSame  ) {
+                [theMenu removeItemAtIndex: i];
+                return;
+            }
+        }
+        
+        NSLog(@"Unable to find '%@' in the menu, removal failed", theName);
+        return;
+    }
+
+    // The item is on a submenu
+    NSString * subMenuName = [theName substringWithRange: NSMakeRange(0, slashRange.location + 1)];
+    NSString * restOfName = [theName substringFromIndex: slashRange.location + 1];
+    for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
+        id menuItem = [theMenu itemAtIndex: i];
+        if (  [menuItem isSeparatorItem]  ) {
+            break; // A separator marks the end of list of connection items
+        } else {
+            NSMenu * subMenu = [menuItem submenu];
+            if (  subMenu   ) {
+                // Item is a submenu
+                NSString * menuItemTitle = [menuItem title];
+                if (  [menuItemTitle caseInsensitiveCompare: subMenuName] == NSOrderedSame  ) {
+                    // Have found correct submenu, so remove this item from it
+                    [self removeConnectionWithDisplayName: restOfName FromMenu: subMenu afterIndex: 0];
+                    if (  [subMenu numberOfItems] == 0  ) {
+                        // No more items on the submenu, so delete it, too
+                        [theMenu removeItemAtIndex: i];
+                    }
+                    return;
+                }
+            }
+        }
+    }
+    
+    NSLog(@"Unable to find submenu '%@' in the menu, removal failed", restOfName);
+}
+
 -(NSMenuItem *)initPrefMenuItemWithTitle: (NSString *) title
                                andAction: (SEL) action
                               andToolTip: (NSString *) tip
@@ -684,21 +879,21 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                  negated: (BOOL) negatePref
 {
     if (  [gTbDefaults canChangeValueForKey:prefKey] || ( ! [gTbDefaults boolForKey: @"doNotShowForcedPreferenceMenuItems"] )  ) {
-        NSMenuItem * item = [[NSMenuItem alloc] init];
-        [item setTitle:   title];
-        [item setTarget:  self];
-        [item setAction:  action];
-        [item setToolTip: tip];
-        [item setIndentationLevel: indentLevel];
-        [item setRepresentedObject: prefKey];
+        NSMenuItem * menuItem = [[NSMenuItem alloc] init];
+        [menuItem setTitle:   title];
+        [menuItem setTarget:  self];
+        [menuItem setAction:  action];
+        [menuItem setToolTip: tip];
+        [menuItem setIndentationLevel: indentLevel];
+        [menuItem setRepresentedObject: prefKey];
         BOOL state = [gTbDefaults boolForKey:prefKey];
         state = negatePref ? ! state : state;
         if (  state  ) {
-            [item setState: NSOnState];
+            [menuItem setState: NSOnState];
         } else {
-            [item setState: NSOffState];
+            [menuItem setState: NSOffState];
         }
-        return item;
+        return menuItem;
     } else {
         return nil;
     }
@@ -800,36 +995,36 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     return YES;
 }
 
--(void)togglePlaceIconNearSpotlight: (NSMenuItem *) item
+-(void)togglePlaceIconNearSpotlight: (NSMenuItem *) menuItem
 {
-    [self toggleMenuItem: item withPreferenceKey: @"placeIconInStandardPositionInStatusBar"];
+    [self toggleMenuItem: menuItem withPreferenceKey: @"placeIconInStandardPositionInStatusBar"];
 }
 
--(void)toggleMonitorConfigurationDir: (NSMenuItem *) item
+-(void)toggleMonitorConfigurationDir: (NSMenuItem *) menuItem
 {
-    [self toggleMenuItem: item withPreferenceKey: @"doNotMonitorConfigurationFolder"];
+    [self toggleMenuItem: menuItem withPreferenceKey: @"doNotMonitorConfigurationFolder"];
     if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
         int i;
         for (i = 0; i < [gConfigDirs count]; i++) {
-            [myQueue removePathFromQueue: [gConfigDirs objectAtIndex: i]];
+            [self removePath: [gConfigDirs objectAtIndex: i] fromMonitorQueue: myQueue];
         }
     } else {
         int i;
         for (i = 0; i < [gConfigDirs count]; i++) {
-            [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
+            [self addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
         }
         [self activateStatusMenu];
     }
 }
 
--(void)toggleWarnAboutSimultaneous: (NSMenuItem *) item
+-(void)toggleWarnAboutSimultaneous: (NSMenuItem *) menuItem
 {
-    [self toggleMenuItem: item withPreferenceKey: @"skipWarningAboutSimultaneousConnections"];
+    [self toggleMenuItem: menuItem withPreferenceKey: @"skipWarningAboutSimultaneousConnections"];
 }
 
--(void)toggleConnectionTimers: (NSMenuItem *) item
+-(void)toggleConnectionTimers: (NSMenuItem *) menuItem
 {
-    [self toggleMenuItem: item withPreferenceKey: @"showConnectedDurations"];
+    [self toggleMenuItem: menuItem withPreferenceKey: @"showConnectedDurations"];
     [self startOrStopDurationsTimer];
     [self updateTabLabels];
 }
@@ -876,25 +1071,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
--(void)toggleUseShadowCopies: (NSMenuItem *) item
+-(void)toggleUseShadowCopies: (NSMenuItem *) menuItem
 {
-    [self toggleMenuItem: item withPreferenceKey: @"useShadowConfigurationFiles"];
+    [self toggleMenuItem: menuItem withPreferenceKey: @"useShadowConfigurationFiles"];
 }
 
--(void)toggleAutoCheckForUpdates: (NSMenuItem *) item
+-(void)toggleAutoCheckForUpdates: (NSMenuItem *) menuItem
 {
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
             // Was OFF, trying to change to ON
             if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-                [self toggleMenuItem: item withPreferenceKey: @"updateCheckAutomatically"];
+                [self toggleMenuItem: menuItem withPreferenceKey: @"updateCheckAutomatically"];
                 [updater setAutomaticallyChecksForUpdates: YES];
             } else {
                 NSLog(@"'Automatically Check for Updates' change ignored because the name of the application has been changed");
             }
         } else {
             // Was ON, change to OFF
-            [self toggleMenuItem: item withPreferenceKey: @"updateCheckAutomatically"];
+            [self toggleMenuItem: menuItem withPreferenceKey: @"updateCheckAutomatically"];
             [updater setAutomaticallyChecksForUpdates: NO];
         }
     } else {
@@ -902,25 +1097,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
--(void)toggleReportAnonymousInfo: (NSMenuItem *) item
+-(void)toggleReportAnonymousInfo: (NSMenuItem *) menuItem
 {
     if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        [self toggleMenuItem: item withPreferenceKey: @"updateSendProfileInfo"];
+        [self toggleMenuItem: menuItem withPreferenceKey: @"updateSendProfileInfo"];
         [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
     } else {
         NSLog(@"'Send Anonymous System Profile' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
     }
 }
 
--(void)toggleMenuItem: (NSMenuItem *) item withPreferenceKey: (NSString *) prefKey
+-(void)toggleMenuItem: (NSMenuItem *) menuItem withPreferenceKey: (NSString *) prefKey
 {
     [gTbDefaults setBool: ! [gTbDefaults boolForKey:prefKey] forKey:prefKey];
     [gTbDefaults synchronize];
     
-    if (  [item state] == NSOnState  ) {
-        [item setState: NSOffState];
+    if (  [menuItem state] == NSOnState  ) {
+        [menuItem setState: NSOffState];
     } else {
-        [item setState:NSOnState];
+        [menuItem setState:NSOnState];
     }
 }
 
@@ -1019,17 +1214,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [connectionItem setTarget:myConnection]; 
     [connectionItem setAction:@selector(toggle:)];
     
-    int i;
-    NSArray *keyArray = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
-    for (  i=0; i < [keyArray count]; i++  ) {
-        if (  [dispNm caseInsensitiveCompare: [keyArray objectAtIndex: i]] == NSOrderedAscending  ) {
-            [myVPNMenu insertItem:connectionItem atIndex:i+2];      // 1st menu item is status, 2nd is a separator
-            break;
-        }
+    int itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
+    if (  itemIx  != -1) {
+        [myVPNMenu removeItemAtIndex: itemIx];
     }
-    if (  i == [keyArray count]  ) {
-        [myVPNMenu insertItem:connectionItem atIndex:i+2];
+    
+    itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"Add a Configuration...", @"Menu item")];
+    if (  itemIx  != -1) {
+        [myVPNMenu removeItemAtIndex: itemIx];
     }
+    
+    [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
+    
+    [detailsItem setTarget: self];
+    [detailsItem setAction: @selector(openLogWindow:)];
     
     [myConfigDictionary setObject: path forKey: dispNm];
 }
@@ -1049,16 +1247,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [myVPNConnectionDictionary removeObjectForKey: dispNm];
     
-    int i;
-    NSArray *keyArray = [[myConfigDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
-    for (  i=0; i < [keyArray count]; i++  ) {
-        if (  [dispNm isEqualToString: [keyArray objectAtIndex: i]]  ) {
-            [myVPNMenu removeItemAtIndex:i+2];      // 1st menu item is status, 2nd is a separator
-            break;
-        }
-    }
-    
+    [self removeConnectionWithDisplayName: dispNm FromMenu: myVPNMenu afterIndex: 2];
+
     [myConfigDictionary removeObjectForKey: dispNm];
+
+    if (  [myConfigDictionary count] == 0  ) {
+        int itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
+        if (  itemIx  == -1  ) {
+            [myVPNMenu insertItem: noConfigurationsItem atIndex: 2];
+        }
+        
+        itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"Add a Configuration...", @"Menu item")];
+        if (   (itemIx  == -1)
+            && addConfigurationItem  ) {
+            [myVPNMenu insertItem: [[addConfigurationItem copy] autorelease] atIndex: 3]; // Use a copy because the original is used in the Options... submenu
+        }
+        
+        [detailsItem setTarget: nil];
+        [detailsItem setAction: nil];
+    }
 }
 
 - (void)activateStatusMenu
@@ -1272,13 +1479,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	}
 	
     [statusMenuItem setTitle: myState];
-    [theItem setToolTip: myState];
+    [statusItem setToolTip: myState];
 	
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]) ) { 
 		// override while in transitional state
 		// Any other state shows "transitional" image:
-		//[theItem setImage: transitionalImage];
+		//[statusItem setImage: transitionalImage];
 		if (![theAnim isAnimating])
 		{
 			//NSLog(@"Starting Animation");
@@ -1293,9 +1500,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		}
         
         if (connectionNumber > 0 ) {
-            [theItem setImage: connectedImage];
+            [statusItem setImage: connectedImage];
         } else {
-            [theItem setImage: mainImage];
+            [statusItem setImage: mainImage];
         }
 	}
 }
@@ -1314,7 +1521,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
 	if (animation == theAnim)
 	{
-        [theItem performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
+        [statusItem performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -1460,6 +1667,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         return;
     }
     
+	NSEnumerator* e = [[[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
+	NSTabViewItem* initialItem;
+	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
+    if (  ! connection  ) {
+        NSLog(@"Internal program error: openLogWindow: but there are no configurations");
+        return;
+    }
+    
     [NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
     
     // Set the window's size and position from preferences (saved when window is closed)
@@ -1470,15 +1685,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (  frame != nil  ) {
             [logWindow setFrameFromString:frame];
         }
-    }
-    
-	NSEnumerator* e = [[[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
-	NSTabViewItem* initialItem;
-	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
-    if (  ! connection  ) {
-        NSLog(@"myVPNConnectionsDictionary is empty; Tunnelblick must have at least one configuration");
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: self];
     }
     
     initialItem = [tabView tabViewItemAtIndex: 0];
@@ -1810,14 +2016,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 }
 
 // If there aren't ANY config files in the config folders 
-// then let the user either quit or create and edit a sample configuration file
-// else do nothing
+// then guide the user
 -(void) checkNoConfigurations
 {
     if (  ignoreNoConfigs || [myConfigDictionary count] != 0  ) {
         return;
     }
-
+    
+    // If this is a Deployed version with no configurations, quit Tunnelblick
     if (   [gConfigDirs count] == 1
         && [[gConfigDirs objectAtIndex:0] isEqualToString: gDeployPath]  ) {
         TBRunAlertPanel(NSLocalizedString(@"All configuration files removed", @"Window title"),
@@ -1828,80 +2034,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [NSApp terminate: nil];
     }
     
-    NSString * msg = NSLocalizedString(@"Tunnelblick's configuration folder does not exist or it does not contain any configuration files.\n\nTunnelblick needs one or more configuration files for your VPN(s). These files are usually supplied to you by your network manager or your VPN service provider and they must be kept in the configuration folder. You may also have certificate or key files; they are usually put in the configuration folder, too.\n\nYou may\n     • Install a sample Tunnelblick VPN Configuration and edit it. (Tunnelblick will keep running.)\n     • Quit Tunnelblick. (You can double-click a Tunnelblick VPN Configuration to install it. See http://code.google.com/p/tunnelblick/wiki/wConfigT for details)\n\n", @"Window text");
-    int button = TBRunAlertPanel(NSLocalizedString(@"Welcome to Tunnelblick", @"Window title"),
-                                 msg,
-                                 NSLocalizedString(@"Quit", @"Button"),                                       // Default button
-                                 NSLocalizedString(@"Install and edit sample Tunnelblick VPN Configuration", @"Button"), // Alternate button
-                                 nil // NSLocalizedString(@"Open configuration folder", @"Button")                   // Other button
-                                 );
-    
-    if (  button == NSAlertDefaultReturn  ) {   // QUIT
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
-    }
-    
-    
-    NSString * parentPath = [gPrivatePath stringByDeletingLastPathComponent];
-    if (  ! [gFileMgr fileExistsAtPath: parentPath]  ) {                      // If ~/Library/Application Support/Tunnelblick doesn't exist, create it
-        if ( ! [gFileMgr createDirectoryAtPath: parentPath attributes:nil]  ) {
-            NSLog(@"Error creating %@", parentPath);
-        }
-    }
-    
-    if (  ! [gFileMgr fileExistsAtPath: gPrivatePath]  ) {                     // If ~/Library/Application Support/Tunnelblick/Configurations doesn't exist, create it
-        if (  ! [gFileMgr createDirectoryAtPath: gPrivatePath attributes:nil]  ) {
-            NSLog(@"Error creating %@", gPrivatePath);
-        }
-    }
-    
-    if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
-        NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
-        NSString * launchTunnelblickSymlink = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-        if (  ! [gFileMgr fileExistsAtPath:launchTunnelblickSymlink]  ) {
-            ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
-            NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-            [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
-                                   pathContent: pathToThisApp];
-        } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
-            ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
-            NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-            [gFileMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
-            [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
-                                   pathContent: pathToThisApp];
-        }
-    }
-    
-//    if (  button == NSAlertOtherReturn  ) { // CREATE CONFIGURATION FOLDER (already created)
-//        [[NSWorkspace sharedWorkspace] openFile: gPrivatePath];
-//        [NSApp setAutoLaunchOnLogin: NO];
-//        [NSApp terminate: nil];
-//    }
-    
-    NSString * sourcePath = [[ConfigurationManager defaultManager] makeTemporarySampleTblkWithName: @"sample.tblk" andKey: @"1"];
-    if (  ! sourcePath  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                        NSLocalizedString(@"Tunnelblick could not create the sample configuration", @"Window text"),
-                        nil, nil, nil);
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
-    }
+    [[ConfigurationManager defaultManager] haveNoConfigurationsGuide];
+}
 
-    NSString * targetPath = [gPrivatePath stringByAppendingPathComponent:@"sample.tblk"];
-    NSLog(@"Installing sample configuration file %@", targetPath);
-    if (  ! [gFileMgr copyPath: sourcePath toPath: targetPath handler: nil]  ) {
-        NSLog(@"Installation failed. Not able to copy %@ to %@", sourcePath, targetPath);
-        TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick could not copy the sample configuration to %@", @"Window text"),
-                         [[gFileMgr componentsToDisplayForPath: gPrivatePath] componentsJoinedByString: @"/"]],
-                        nil, nil, nil);
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
-    }
-    
-    [[NSWorkspace sharedWorkspace] openFile: [targetPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"] withApplication: @"TextEdit"];
-    
-    ignoreNoConfigs = FALSE;    // Go back to checking for no configuration files
+-(IBAction) addConfigurationWasClicked: (id) sender
+{
+    [[ConfigurationManager defaultManager] addConfigurationGuide];
 }
 
 -(IBAction) editConfigButtonWasClicked: (id) sender
@@ -1960,8 +2098,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[NSApp callDelegateOnNetworkChange: NO];
     [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     [self unloadKextsFooOnly: NO];     // Unload .tun and .tap kexts
-	if (  theItem  ) {
-        [[NSStatusBar systemStatusBar] removeStatusItem:theItem];
+	if (  statusItem  ) {
+        [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
     }
 }
 
@@ -2085,7 +2223,6 @@ static void signal_handler(int signalNumber)
 
 // Invoked when the user double-clicks on one or more .tblk packages,
 //                  or drags and drops one or more .tblk package(s) onto Tunnelblick
-//      or when installed from disk image (which passes the paths of the disk image or other install location, not a .tblk path) 
 - (BOOL)application: (NSApplication * )theApplication openFiles: (NSArray * )filePaths
 {
     // If we have finished launching Tunnelblick, we open the file(s) now
@@ -2331,7 +2468,7 @@ static void signal_handler(int signalNumber)
             NSLog(@"Cannot check for updates because Sparkle Updater does not respond to checkForUpdatesInBackground");
         }
     }
-
+    
     if (  dotTblkFileList  ) {
         [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList usingAuth: myAuth];
     }
@@ -2341,7 +2478,7 @@ static void signal_handler(int signalNumber)
     if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
         int i;
         for (i = 0; i < [gConfigDirs count]; i++) {
-            [myQueue addPathToQueue: [gConfigDirs objectAtIndex: i]];
+            [self addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
         }
     }
     [myQueue setDelegate: self];
@@ -2402,6 +2539,46 @@ static void signal_handler(int signalNumber)
     [NSApp setAutoLaunchOnLogin: YES];
 
     launchFinished = TRUE;
+}
+
+-(void) addPath: (NSString *) path toMonitorQueue: (UKKQueue *) queue
+{
+    // Add the path itself
+    [queue addPathToQueue: path];
+
+    // Add folders and subfolders
+    NSString * file;
+    BOOL isDir;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+    while (  file = [dirEnum nextObject]  ) {
+        if (  ! [file hasSuffix: @".tblk"]  ) {
+            NSString * subPath = [path stringByAppendingPathComponent: file];
+            if (  [gFileMgr fileExistsAtPath: subPath isDirectory: &isDir]
+                && isDir  ) {
+                [queue addPathToQueue: subPath];
+            }
+        }
+    }
+}
+
+-(void) removePath: (NSString *) path fromMonitorQueue: (UKKQueue *) queue
+{
+    // Remove the path itself
+    [queue removePathFromQueue: path];
+    
+    // Remove folders and subfolders
+    NSString * file;
+    BOOL isDir;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+    while (  file = [dirEnum nextObject]  ) {
+        if (  ! [file hasSuffix: @".tblk"]  ) {
+            NSString * subPath = [path stringByAppendingPathComponent: file];
+            if (  [gFileMgr fileExistsAtPath: subPath isDirectory: &isDir]
+                && isDir  ) {
+                [queue removePathFromQueue: subPath];
+            }
+        }
+    }
 }
 
 -(void) hookupWatchdogHandler
@@ -2814,10 +2991,16 @@ static void signal_handler(int signalNumber)
                 } else {
                     NSLog(@"Copied %@ to %@", currentPath, standardPath);
                     
+                    // Make a list of any .tblks on the .dmg -- they will be installed later
+                    NSMutableArray * tblksToInstall = [self tblksToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
                     NSString * installTblksMsg = @"";
-                    int nTblks = [self numberOfTblksToInstallinPath: [currentPath stringByDeletingLastPathComponent]];
-                    if (  nTblks  ) {
-                        installTblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed automatically. If you do not launch Tunnelblick now, they will not be installed.", @"Window text"), nTblks];
+                    if (  [tblksToInstall count] != 0  ) {
+                        installTblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nIf you launch Tunnelblick now, up to "
+                                                                                        "%d Tunnelblick VPN Configurations will be installed first.\n\n"
+                                                                                        "An administrator username and password are required to install them.",
+                                                                                        "If you do not launch Tunnelblick now, they will not be installed.\n\n"
+                                                                                        @"Window text"),
+                                           [tblksToInstall count]];
                     }
                     
                     response = TBRunAlertPanel(launchWindowTitle,
@@ -2858,6 +3041,11 @@ static void signal_handler(int signalNumber)
                             NSLog(@"Error: [NSApp countOtherInstances] returned -1");
                         }
                         
+                        // Try to install the .tblks
+                        if (  [tblksToInstall count] != 0  ) {
+                            [[ConfigurationManager defaultManager] openDotTblkPackages: tblksToInstall usingAuth: nil];
+                        }
+                        
                         // Launch the new copy
                         if (  ! [[NSWorkspace sharedWorkspace] openFile: [currentPath stringByDeletingLastPathComponent] withApplication: standardPath]  ) {
                             TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
@@ -2882,17 +3070,35 @@ static void signal_handler(int signalNumber)
     }
 }
 
--(int) numberOfTblksToInstallinPath: (NSString *) thePath
+-(NSMutableArray *) tblksToInstallInPath: (NSString *) thePath
 {
-    int n = 0;
+    NSMutableArray * listOfTblks = [NSMutableArray arrayWithCapacity:100];
     NSString * file;
-    NSEnumerator * dirEnum = [gFileMgr enumeratorAtPath: thePath];
+    NSString * folder;
+
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: [thePath stringByAppendingPathComponent: @"auto-install"]];
     while (  file = [dirEnum nextObject]  ) {
         if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-            n++;
+            folder = [file stringByDeletingLastPathComponent];
+            if (  [folder length] != 0  ) {
+                file = [NSString stringWithFormat: @"%@:%@", file, folder];
+            }
+            [listOfTblks addObject: [thePath stringByAppendingString: file]];
         }
     }
-    return n;
+    
+    dirEnum = [gFileMgr enumeratorAtPath: [thePath stringByAppendingPathComponent: @".auto-install"]];
+    while (  file = [dirEnum nextObject]  ) {
+        if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
+            folder = [file stringByDeletingLastPathComponent];
+            if (  [folder length] != 0  ) {
+                file = [NSString stringWithFormat: @"%@:%@", file, folder];
+            }
+            [listOfTblks addObject: [thePath stringByAppendingPathComponent: file]];
+        }
+    }
+
+    return listOfTblks;
 }
 
 // Returns TRUE if can't run Tunnelblick from this volume (can't run setuid binaries) or if statfs on it fails, FALSE otherwise
