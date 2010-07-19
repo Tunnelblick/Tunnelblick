@@ -24,7 +24,7 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          gid_t      gid,
                                          NSString * permsShouldHave);
 
-BOOL           createDir                (NSString * d,
+int            createDir                (NSString * d,
                                          unsigned long perms);
 
 NSString     * escaped                  (NSString * string);

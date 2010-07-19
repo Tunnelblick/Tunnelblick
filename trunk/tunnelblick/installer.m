@@ -71,7 +71,7 @@ gid_t realGroupID;
 
 BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
-BOOL createDir(NSString * d);
+int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group);
 BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
 BOOL makeFileUnlockedAtPath(NSString * path);
@@ -171,11 +171,7 @@ int main(int argc, char *argv[])
             if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
                 if (   [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]
                     && isDir  ) {
-                    createDir(newConfigDirHolderPath);
-                    // Since we're running as root, owner of 'newConfigDirHolderPath' is root:wheel. Try to change to real user:group
-                    if (  0 != chown([newConfigDirHolderPath UTF8String], realUserID, realGroupID)  ) {
-                        NSLog(@"Tunnelblick Installer: Warning: Tried to change ownership of folder %@\nError was '%s'", newConfigDirHolderPath, strerror(errno));
-                    }
+                    createDirWithPermissionAndOwnership(newConfigDirHolderPath, 0755, realUserID, realGroupID);
                     if (  [gFileMgr movePath: oldConfigDirPath toPath: newConfigDirPath handler: nil]  ) {
                         if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath pathContent: newConfigDirPath]  ) {
                             NSLog(@"Tunnelblick Installer: Successfully moved configuration folder %@ to %@ and created a symbolic link in its place.", oldConfigDirPath, newConfigDirPath);
@@ -213,14 +209,10 @@ int main(int argc, char *argv[])
     // (3)
     // Create ~/Library/Application Support/Tunnelblick/Configurations if it does not already exist, and make it owned by the user, not root, with 755 permissions
     
-    if (  createDir(gPrivatePath)  ) {
-        NSLog(@"Tunnelblick Installer: Created %@", gPrivatePath);
-    }
-    
-    BOOL okSoFar = checkSetOwnership(gPrivatePath, FALSE, realUserID, realGroupID);
-    okSoFar = okSoFar && checkSetPermissions(gPrivatePath, @"755", YES);
-    if (  ! okSoFar  ) {
-        NSLog(@"Tunnelblick Installer: Unable to change ownership and permissions to %d:%d and 0755 on %@", (int) realUserID, (int) realGroupID, gPrivatePath);
+    int result = createDirWithPermissionAndOwnership(gPrivatePath, 0755, realUserID, realGroupID);
+    if (  result == 1  ) {
+        NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", gPrivatePath);
+    } else if (  result == -1  ) {
         [pool release];
         exit(EXIT_FAILURE);
     }
@@ -229,14 +221,10 @@ int main(int argc, char *argv[])
     // (4)
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
     
-    if (  createDir(gSharedPath)  ) {
-        NSLog(@"Tunnelblick Installer: Created %@", gSharedPath);
-    }
-    
-    okSoFar = checkSetOwnership(gSharedPath, FALSE, 0, 0);
-    okSoFar = okSoFar && checkSetPermissions(gSharedPath, @"755", YES);
-    if (  ! okSoFar  ) {
-        NSLog(@"Tunnelblick Installer: Unable to secure %@", gSharedPath);
+    result = createDirWithPermissionAndOwnership(gSharedPath, 0755, 0, 0);
+    if (  result == 1  ) {
+        NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", gSharedPath);
+    } else if (  result == -1  ) {
         [pool release];
         exit(EXIT_FAILURE);
     }
@@ -308,7 +296,8 @@ int main(int argc, char *argv[])
         
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
-            createDir(deployBkupHolderPath);    // Create the folder that holds the backup folders if it doesn't already exist
+            
+            createDirWithPermissionAndOwnership(deployBkupHolderPath, 0755, 0, 0);    // Create the folder that holds the backup folders if it doesn't already exist
             
             if (  ! (   [gFileMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
                      && isDir  )  ) {
@@ -332,7 +321,7 @@ int main(int argc, char *argv[])
         
     //**************************************************************************************************************************
     // (7)
-    // If requested, secure all .tblk packages at the top level of folders:
+    // If requested, secure all .tblk packages
     if (  secureTblks  ) {
         NSString * sharedPath  = @"/Library/Application Support/Tunnelblick/Shared";
         NSString * libraryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"];
@@ -345,10 +334,8 @@ int main(int argc, char *argv[])
         for (i=0; i < [foldersToSecure count]; i++) {
             NSString * folderPath = [foldersToSecure objectAtIndex: i];
             NSString * file;
-            NSArray * dirContents = [gFileMgr directoryContentsAtPath: folderPath];
-            int j;
-            for (j=0; j < [dirContents count]; j++) {
-                file = [dirContents objectAtIndex: j];
+            NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
+            while (  file = [dirEnum nextObject]  ) {
                 NSString * filePath = [folderPath stringByAppendingPathComponent: file];
                 if (  itemIsVisible(filePath)  ) {
                     if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
@@ -379,6 +366,16 @@ int main(int argc, char *argv[])
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting, because we may be moving
     // from one disk to another (e.g., home folder on network to local hard drive)
     if (  singlePathToCopy  ) {
+        // Create the enclosing folder(s) if necessary. Owned by root unless if in gPrivatePath, in which case it is owned by the user
+        NSString * enclosingFolder = [singlePathToSecure stringByDeletingLastPathComponent];
+        int own = 0;
+        int grp = 0;
+        if (  [singlePathToSecure hasPrefix: gPrivatePath]  ) {
+            own = realUserID;
+            grp = realGroupID;
+        }
+        createDirWithPermissionAndOwnership(enclosingFolder, 0755, own, grp);
+        
         // Copy the file or package to a ".partial" file/folder first, then rename it
         // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
         // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
@@ -579,23 +576,54 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
 }
 
 //**************************************************************************************************************************
-// Recursive function to create a directory if it doesn't already exist
-// Returns YES if directory was created, NO if it already existed
-BOOL createDir(NSString * d)
+// Function to create a directory with specified ownership and permissions
+// Recursively creates all intermediate directories (with the same ownership and permissions) as needed
+// Returns 1 if the directory was created or ownership or permissions modified
+//         0 if the directory already exists with the specified ownership and permissions
+//        -1 if an error occurred. A directory was not created or the permissions were not changed, and an error message was put in the log.
+int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group)
 {
+    NSNumber     * permissionsAsNumber  = [NSNumber numberWithUnsignedLong: permissions];
+    NSNumber     * ownerAsNumber        = [NSNumber numberWithInt:          owner];
+    NSNumber     * groupAsNumber        = [NSNumber numberWithInt:          group];
+    
+    NSDictionary * attributesShouldHave = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           permissionsAsNumber, NSFilePosixPermissions,
+                                           ownerAsNumber,       NSFileOwnerAccountID,
+                                           groupAsNumber,       NSFileGroupOwnerAccountID,
+                                           nil];
     BOOL isDir;
-    if (   [gFileMgr fileExistsAtPath: d isDirectory: &isDir]
+    
+    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
         && isDir  ) {
-        return NO;
+        NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
+        if (   [[attributes objectForKey: NSFilePosixPermissions    ] isEqualToNumber: permissionsAsNumber]
+            && [[attributes objectForKey: NSFileOwnerAccountID      ] isEqualToNumber: ownerAsNumber      ]
+            && [[attributes objectForKey: NSFileGroupOwnerAccountID ] isEqualToNumber: groupAsNumber      ]  ) {
+            return 0;
+        }
+        
+        if (  ! [gFileMgr changeFileAttributes: attributesShouldHave atPath: dirPath] ) {
+            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lu, owner:group to %d:%d", dirPath, permissions, owner, group);
+            return -1;
+        }
+        
+        return 1;
     }
     
-    createDir([d stringByDeletingLastPathComponent]);
-    
-    if (  ! [gFileMgr createDirectoryAtPath: d attributes: nil]  ) {
-        NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
+    // No such directory. Create its parent directory (recurse) if necessary
+    int result = createDirWithPermissionAndOwnership([dirPath stringByDeletingLastPathComponent], permissions, owner, group);
+    if (  result == -1  ) {
+        return -1;
     }
     
-    return YES;
+    // Parent directory exists. Create the directory we want
+    if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: attributesShouldHave] ) {
+        NSLog(@"Tunnelblick Installer: Unable to create directory %@ with permissions %lu, owner:group of %d:%d", dirPath, permissions, owner, group);
+        return -1;
+    }
+    
+    return 1;
 }
 
 //**************************************************************************************************************************

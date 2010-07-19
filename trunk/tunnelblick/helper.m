@@ -122,25 +122,45 @@ NSString * configPathFromTblkPath(NSString * path)
 }
 
 //**************************************************************************************************************************
-// Recursive function to create a directory if it doesn't already exist
-// Returns YES if the directory was created, NO if it already existed
-BOOL createDir(NSString * d, unsigned long perms)
+// Function to create a directory with specified permissions
+// Recursively creates all intermediate directories (with the same permissions) as needed
+// Returns 1 if the directory was created or permissions modified
+//         0 if the directory already exists with the specified permissions
+//        -1 if an error occurred. A directory was not created or the permissions were not changed, and an error message was put in the log.
+int createDir(NSString * dirPath, unsigned long permissions)
 {
+    NSNumber     * permissionsAsNumber    = [NSNumber numberWithUnsignedLong: permissions];
+    NSDictionary * permissionsAsAttribute = [NSDictionary dictionaryWithObject: permissionsAsNumber forKey: NSFilePosixPermissions];
     BOOL isDir;
-    if (   [gFileMgr fileExistsAtPath: d isDirectory: &isDir]
+    
+    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
         && isDir  ) {
-        return NO;
+        NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
+        if (  [[attributes objectForKey: NSFilePosixPermissions] isEqualToNumber: permissionsAsNumber] ) {
+            return 0;
+        }
+        
+        if (  ! [gFileMgr changeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
+            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lu", dirPath, permissions);
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    // No such directory. Create its parent directory (recurse) if necessary
+    int result = createDir([dirPath stringByDeletingLastPathComponent], permissions);
+    if (  result == -1  ) {
+        return -1;
     }
     
-    createDir([d stringByDeletingLastPathComponent], perms);
-    
-    NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
-    
-    if (  ! [gFileMgr createDirectoryAtPath: d attributes: dirAttributes] ) {
-        NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
+    // Parent directory exists. Create the directory we want
+    if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
+        NSLog(@"Tunnelblick Installer: Unable to create directory %@ with permissions %lu", dirPath, permissions);
+        return -1;
     }
     
-    return YES;
+    return 1;
 }
 
 BOOL itemIsVisible(NSString * path)
@@ -251,17 +271,17 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
     
     NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+    NSString *permissionsOctal = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
     
-    if (   [octalString isEqualToString: permsShouldHave]
+    if (   [permissionsOctal isEqualToString: permsShouldHave]
         && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
         && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
         return YES;
     }
     
-    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair", fPath, octalString, fileOwner);
+    NSLog(@"File %@ has permissions: %@, is owned by %@:%@ and needs repair", fPath, permissionsOctal, fileOwner, fileGroup);
     return NO;
 }
 

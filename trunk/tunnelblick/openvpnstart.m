@@ -1222,17 +1222,17 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
     
     NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+    NSString *permissionsOctal = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
     
-    if (   [octalString isEqualToString: permsShouldHave]
+    if (   [permissionsOctal isEqualToString: permsShouldHave]
         && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
         && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
         return YES;
     }
     
-    NSLog(@"File %@ has permissions: %@, is owned by %@ and needs repair", fPath, octalString, fileOwner);
+    NSLog(@"File %@ has permissions: %@, is owned by %@:%@ and needs repair", fPath, permissionsOctal, fileOwner, fileGroup);
     return NO;
 }
 
