@@ -3074,27 +3074,28 @@ static void signal_handler(int signalNumber)
 {
     NSMutableArray * listOfTblks = [NSMutableArray arrayWithCapacity:100];
     NSString * file;
-    NSString * folder;
 
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: [thePath stringByAppendingPathComponent: @"auto-install"]];
+    NSString * folder = [thePath stringByAppendingPathComponent: @"auto-install"];
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
     while (  file = [dirEnum nextObject]  ) {
         if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-            folder = [file stringByDeletingLastPathComponent];
-            if (  [folder length] != 0  ) {
-                file = [NSString stringWithFormat: @"%@:%@", file, folder];
+            NSString * fullPath = [folder stringByAppendingPathComponent: file];
+            NSRange enclosingTblkRange = [fullPath rangeOfString: @".tblk/"];       // Include only if not inside another .tblk
+            if (  enclosingTblkRange.length == 0  ) {
+                [listOfTblks addObject: fullPath];
             }
-            [listOfTblks addObject: [thePath stringByAppendingString: file]];
         }
     }
     
-    dirEnum = [gFileMgr enumeratorAtPath: [thePath stringByAppendingPathComponent: @".auto-install"]];
+    folder = [thePath stringByAppendingPathComponent: @".auto-install"];
+    dirEnum = [gFileMgr enumeratorAtPath: folder];
     while (  file = [dirEnum nextObject]  ) {
         if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
-            folder = [file stringByDeletingLastPathComponent];
-            if (  [folder length] != 0  ) {
-                file = [NSString stringWithFormat: @"%@:%@", file, folder];
+            NSString * fullPath = [folder stringByAppendingPathComponent: file];
+            NSRange enclosingTblkRange = [fullPath rangeOfString: @".tblk/"];       // Include only if not inside another .tblk
+            if (  enclosingTblkRange.length == 0  ) {
+                [listOfTblks addObject: fullPath];
             }
-            [listOfTblks addObject: [thePath stringByAppendingPathComponent: file]];
         }
     }
 

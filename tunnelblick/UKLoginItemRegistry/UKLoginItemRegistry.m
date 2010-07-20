@@ -19,7 +19,7 @@
     int         i;
     for (i=0; i<5; i++)
     {
-        OSStatus	err = LIAECopyLoginItems( (CFArrayRef*) &itemsList );	// Take advantage of toll-free bridging.
+        err = LIAECopyLoginItems( (CFArrayRef*) &itemsList );	// Take advantage of toll-free bridging.
         if( err == noErr )
             break;
         sleep(1);
