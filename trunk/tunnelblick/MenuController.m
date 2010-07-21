@@ -123,7 +123,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                    ofControl:                               (id)                theControl;
 -(void)             setupSparklePreferences;
 -(void)             startOrStopDurationsTimer;
--(NSMutableArray *) tblksToInstallInPath:                   (NSString *)        thePath;
+-(NSString *)       findTblkToInstallInPath:                (NSString *)        thePath;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             updateMenuAndLogWindow;
@@ -2991,16 +2991,13 @@ static void signal_handler(int signalNumber)
                 } else {
                     NSLog(@"Copied %@ to %@", currentPath, standardPath);
                     
-                    // Make a list of any .tblks on the .dmg -- they will be installed later
-                    NSMutableArray * tblksToInstall = [self tblksToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
+                    // Find a .tblk on the .dmg -- it will be installed later
+                    NSString * tblkToInstallPath = [self findTblkToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
                     NSString * installTblksMsg = @"";
-                    if (  [tblksToInstall count] != 0  ) {
-                        installTblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nIf you launch Tunnelblick now, up to "
-                                                                                        "%d Tunnelblick VPN Configurations will be installed first.\n\n"
-                                                                                        "An administrator username and password are required to install them.",
-                                                                                        "If you do not launch Tunnelblick now, they will not be installed.\n\n"
-                                                                                        @"Window text"),
-                                           [tblksToInstall count]];
+                    if (  tblkToInstallPath  ) {
+                        installTblksMsg = NSLocalizedString(@"\n\nIf you launch Tunnelblick now, one or more Tunnelblick VPN Configurations "
+                                                            "will be installed.\n\nIf you do not launch Tunnelblick now, they will not be installed.\n\n", 
+                                                            @"Window text");
                     }
                     
                     response = TBRunAlertPanel(launchWindowTitle,
@@ -3041,13 +3038,8 @@ static void signal_handler(int signalNumber)
                             NSLog(@"Error: [NSApp countOtherInstances] returned -1");
                         }
                         
-                        // Try to install the .tblks
-                        if (  [tblksToInstall count] != 0  ) {
-                            [[ConfigurationManager defaultManager] openDotTblkPackages: tblksToInstall usingAuth: nil];
-                        }
-                        
-                        // Launch the new copy
-                        if (  ! [[NSWorkspace sharedWorkspace] openFile: [currentPath stringByDeletingLastPathComponent] withApplication: standardPath]  ) {
+                        // Launch the new copy, installing the .tblk (if any)
+                        if (  ! [[NSWorkspace sharedWorkspace] openFile: tblkToInstallPath withApplication: standardPath]  ) {
                             TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
                                             [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), standardPathDisplayName],
                                             NSLocalizedString(@"Cancel", @"Button"),                // Default button
@@ -3070,19 +3062,20 @@ static void signal_handler(int signalNumber)
     }
 }
 
--(NSMutableArray *) tblksToInstallInPath: (NSString *) thePath
+-(NSString *) findTblkToInstallInPath: (NSString *) thePath
 {
-    NSMutableArray * listOfTblks = [NSMutableArray arrayWithCapacity:100];
+    NSString * pathToReturn = nil;
     NSString * file;
-
     NSString * folder = [thePath stringByAppendingPathComponent: @"auto-install"];
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
     while (  file = [dirEnum nextObject]  ) {
+        [dirEnum skipDescendents];
         if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
             NSString * fullPath = [folder stringByAppendingPathComponent: file];
-            NSRange enclosingTblkRange = [fullPath rangeOfString: @".tblk/"];       // Include only if not inside another .tblk
-            if (  enclosingTblkRange.length == 0  ) {
-                [listOfTblks addObject: fullPath];
+            if (  pathToReturn  ) {
+                NSLog(@"Not installing %@ because already installing %@", fullPath, pathToReturn);
+            } else {
+                pathToReturn = fullPath;
             }
         }
     }
@@ -3090,16 +3083,18 @@ static void signal_handler(int signalNumber)
     folder = [thePath stringByAppendingPathComponent: @".auto-install"];
     dirEnum = [gFileMgr enumeratorAtPath: folder];
     while (  file = [dirEnum nextObject]  ) {
+        [dirEnum skipDescendents];
         if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
             NSString * fullPath = [folder stringByAppendingPathComponent: file];
-            NSRange enclosingTblkRange = [fullPath rangeOfString: @".tblk/"];       // Include only if not inside another .tblk
-            if (  enclosingTblkRange.length == 0  ) {
-                [listOfTblks addObject: fullPath];
+            if (  pathToReturn  ) {
+                NSLog(@"Not installing %@ because already installing %@", fullPath, pathToReturn);
+            } else {
+                pathToReturn = fullPath;
             }
         }
     }
-
-    return listOfTblks;
+    
+    return pathToReturn;
 }
 
 // Returns TRUE if can't run Tunnelblick from this volume (can't run setuid binaries) or if statfs on it fails, FALSE otherwise
