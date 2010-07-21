@@ -256,11 +256,8 @@ int main(int argc, char* argv[])
                 "                            bit 1 is 1 to unload/load net.tunnelblick.tap\n"
                 "                            bit 2 is 1 to unload foo.tun\n"
                 "                            bit 3 is 1 to unload foo.tap\n"
-                "                            bit 4 is 1 to create a log file in /tmp with the configuration path and port number encoded in the filename\n"
-                "                                          (Bit 4 is used only by the 'start' command; for the 'connect when system starts' feature)\n"
-                "                                          (Bit 4 is forced to 1 if mgtPort = 0)\n"
-                "                            bit 5 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
-                "                            bit 6 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n\n"
+                "                            bit 4 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
+                "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n\n"
                 
 				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n"
                 "bitMask defaults to 0x03.\n\n"

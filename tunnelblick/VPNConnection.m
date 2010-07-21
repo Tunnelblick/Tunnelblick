@@ -526,11 +526,19 @@ extern NSString * lastPartOfPath(NSString * thePath);
                      [[path componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "],
                      [escapedArguments componentsJoinedByString: @" "]]];
     
-    if (  ([[arguments objectAtIndex: 7] intValue] & OUR_TAP_KEXT) != 0  ) {
+    unsigned bitMask = [[arguments objectAtIndex: 7] intValue];
+    if (  (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT ) {
         [[NSApp delegate] incrementTapCount];
+        connectedWithTap = TRUE;
+    } else {
+        connectedWithTap = FALSE;
     }
-    if (  ([[arguments objectAtIndex: 7] intValue] & OUR_TUN_KEXT) != 0  ) {
+    
+    if (  (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT ) {
         [[NSApp delegate] incrementTunCount];
+        connectedWithTun = TRUE;
+    } else {
+        connectedWithTun = FALSE;
     }
     
 	[task setArguments:arguments];
