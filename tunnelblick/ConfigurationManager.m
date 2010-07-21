@@ -1163,6 +1163,7 @@ enum state_t {                      // These are the "states" of the guideState 
     // Look through the package and see what's in it
     unsigned int nConfigs = 0;   // # of configuration files we've seen
     unsigned int nInfos   = 0;   // # of Info.plist files we've seen
+    unsigned int nTblks   = 0;   // # of *.tblk packages we've seen
     unsigned int nUnknown = 0;   // # of folders or unknown files we've seen
     for (i=0; i < [pkgList count]; i++) {
         NSString * itemPath = [searchPath stringByAppendingPathComponent: [pkgList objectAtIndex: i]];
@@ -1172,6 +1173,8 @@ enum state_t {                      // These are the "states" of the guideState 
                 && ( ! isDir )  ) {
                 if (   [ext isEqualToString: @"ovpn"] || [ext isEqualToString: @"conf"]  ) {
                     nConfigs++;
+                } else if (  [ext isEqualToString: @"tblk"]  ) {
+                    nTblks++;
                 } else if (  [[itemPath lastPathComponent] isEqualToString: @"Info.plist"]  ) {
                     nInfos++;
                 } else if (  [ext isEqualToString: @"sh"]  ) {
@@ -1187,16 +1190,17 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
     
-    if (  nConfigs == 0  ) {
-        NSLog(@"Must have one configuration in a .tblk, %d were found in %@", nConfigs, searchPath);
-        [pkgList release];
-        return nil;
-    }
-    
-    if (  nInfos > 1  ) {
-        NSLog(@"Must have at most one Info.plist in a .tblk, %d were found in %@", nInfos, searchPath);
-        [pkgList release];
-        return nil;
+    if (  nTblks == 0  ) {
+        if ( nConfigs == 0  ) {
+            NSLog(@"Must have one configuration in a .tblk, %d were found in %@", nConfigs, searchPath);
+            [pkgList release];
+            return nil;
+        }
+        if (  nInfos > 1  ) {
+            NSLog(@"Must have at most one Info.plist in a .tblk, %d were found in %@", nInfos, searchPath);
+            [pkgList release];
+            return nil;
+        }
     }
     
     if (  nUnknown != 0  ) {
@@ -1204,7 +1208,6 @@ enum state_t {                      // These are the "states" of the guideState 
         [pkgList release];
         return nil;
     }
-    
     // Create an empty .tblk and copy stuff in the folder to its Contents/Resources (Copy Info.plist to Contents)
     NSString * emptyTblk = [self makeEmptyTblk: thePath withKey: key];
     if (  ! emptyTblk  ) {
