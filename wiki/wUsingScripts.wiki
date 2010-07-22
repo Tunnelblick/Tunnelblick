@@ -26,7 +26,7 @@ Tunnelblick uses three types of scripts: pre- and post- scripts, up- and down- s
   * The -w and -d options are specified if the boolean Tunnelblick preferences '-doNotRestoreOnDnsReset' and/or '-doNotRestoreOnWinsReset' are TRUE.
   * In a [wCusDeployed "Deployed" version] of Tunnelblick, the standard scripts may be overridden by including "up.tunnelblick.sh" and "down.tunnelblick.sh" scripts in Tunnelblick.app/Contents/Resources/Deploy.
   * The standard scripts and Deployed scripts may be overridden by including "up.tunnelblick.sh" and "down.tunnelblick.sh" scripts in a [wPkgs Tunnelblick VPN Configuration].
-  * For backward compatibility, deprecated scripts named "up.sh", "down.sh", "nomonitor.up.sh", "nomonitor.down.sh" will be override any other scripts.
+  * For backward compatibility, deprecated scripts named "up.sh", "down.sh", "nomonitor.up.sh", "nomonitor.down.sh" will override any other scripts.
 
 
 *leasewatch* is a script that is run when a VPN is connected, "Monitor connections" is checked for the configuration, and a network configuration change is detected. It ignores the change, restarts the connection, or restores the VPN's DNS and WINS configuration as appropriate. It is located in Tunnelblick.app/Contents/Resources/leasewatch.
