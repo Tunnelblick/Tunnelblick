@@ -1536,6 +1536,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     VPNConnection* newConnection = [self selectedConnection];
     NSTextView* logView = [self selectedLogView];
+    [logView setEditable: NO];
     [[logView layoutManager] replaceTextStorage: [newConnection logStorage]];
     //[logView setSelectedRange: NSMakeRange([[logView textStorage] length],[[logView textStorage] length])];
 	[logView scrollRangeToVisible: NSMakeRange([[logView string] length]-1, 0)];
