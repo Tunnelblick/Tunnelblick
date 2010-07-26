@@ -262,23 +262,34 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         // Create OpenVPN and scripts log directory if necessary
-        createDir(LOG_DIR, 0777);   
+        createDir(LOG_DIR, 0777);
         
-        // Create link to this application in the private configurations folder if we are using it
+        // Create a link to this application in the private configurations folder if we are using it
+        // Create a link to the private configurations folder from its old place
         if (  [gConfigDirs containsObject: gPrivatePath]  ) {
             if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
                 NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
-                NSString * launchTunnelblickSymlink = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                if (  ! [gFileMgr fileExistsAtPath:launchTunnelblickSymlink]  ) {
+                NSString * launchTunnelblickSymlinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+                if (  ! [gFileMgr fileExistsAtPath:launchTunnelblickSymlinkPath]  ) {
                     NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
                                            pathContent: pathToThisApp];
-                } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
+                } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath] isEqualToString: pathToThisApp]  ) {
                     ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
                     NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-                    [gFileMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
-                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
+                    [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil];
+                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
                                            pathContent: pathToThisApp];
+                }
+            }
+            
+            NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
+            if (  ! [gFileMgr fileExistsAtPath: oldConfigDirPath]  ) {
+                if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+                                             pathContent: gPrivatePath]  ) {
+                    NSLog(@"Created a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
+                } else {
+                    NSLog(@"Error: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
                 }
             }
         }
@@ -294,24 +305,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		
 		[self createMenu];
         [self setState: @"EXITING"]; // synonym for "Disconnected"
-        
-        if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
-            if (  [gConfigDirs containsObject: gPrivatePath]  ) {
-                if (   [gFileMgr fileExistsAtPath: gPrivatePath isDirectory: &isDir]
-                    && isDir  ) {
-                    NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
-                    NSString * launchTunnelblickSymlink = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                    if (  ! [gFileMgr fileAttributesAtPath: launchTunnelblickSymlink traverseLink: NO]  ) {
-                        NSLog(@"Creating 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-                    } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlink] isEqualToString: pathToThisApp]  ) {
-                        NSLog(@"Replacing 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-                        [gFileMgr removeFileAtPath: launchTunnelblickSymlink handler: nil];
-                    }
-                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlink
-                                           pathContent: pathToThisApp];
-                }
-            }
-        }
         
         [[NSNotificationCenter defaultCenter] addObserver: self 
                                                  selector: @selector(logNeedsScrolling:) 
