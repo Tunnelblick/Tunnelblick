@@ -71,10 +71,12 @@ gid_t realGroupID;
 
 BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
-int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group);
+int  createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group);
+BOOL createSymLink(NSString * fromPath, NSString * toPath);
 BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
 BOOL makeFileUnlockedAtPath(NSString * path);
+BOOL moveContents(NSString * fromPath, NSString * toPath);
 
 int main(int argc, char *argv[]) 
 {
@@ -160,51 +162,79 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (2)
-    // Move configuration folder to new place in file hierarchy if necessary
-    NSString * oldConfigDirPath       = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-    NSString * newConfigDirHolderPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick"];
-    NSString * newConfigDirPath       = [newConfigDirHolderPath stringByAppendingPathComponent: @"Configurations"];
+    // Deal with migration to new configuration path
+    NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
+    NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     
-    if (  ! [gFileMgr fileExistsAtPath: newConfigDirHolderPath]  ) {
-        if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath]  ) {
-            NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO]; // Want to see if it is a link, so traverseLink:NO
-            if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                if (   [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]
-                    && isDir  ) {
-                    createDirWithPermissionAndOwnership(newConfigDirHolderPath, 0755, realUserID, realGroupID);
-                    if (  [gFileMgr movePath: oldConfigDirPath toPath: newConfigDirPath handler: nil]  ) {
-                        if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath pathContent: newConfigDirPath]  ) {
-                            NSLog(@"Tunnelblick Installer: Successfully moved configuration folder %@ to %@ and created a symbolic link in its place.", oldConfigDirPath, newConfigDirPath);
-                            // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
-                            if (  0 != lchown([oldConfigDirPath UTF8String], realUserID, realGroupID)  ) {
-                                NSLog(@"Tunnelblick Installer: Warning: Tried to change ownership of symbolic link %@\nError was '%s'", oldConfigDirPath, strerror(errno));
-                            }
-                        } else {
-                            NSLog(@"Tunnelblick Installer: Successfully moved configuration folder %@ to %@.", oldConfigDirPath, newConfigDirPath);
-                            NSLog(@"Tunnelblick Installer: Error: Unable to create symbolic link to %@ at %@", newConfigDirPath, oldConfigDirPath);
-                            [pool release];
-                            exit(EXIT_FAILURE);
-                        }
-                    } else {
-                        NSLog(@"Tunnelblick Installer: Error occurred while moving configuration folder %@ to %@", oldConfigDirPath, newConfigDirPath);
-                        [pool release];
-                        exit(EXIT_FAILURE);
-                    }
-                } else {
-                    // oldConfigDirPath doesn't exist or isn't a folder, so we do nothing 
-                }
-                
-            } else {
-                // oldConfigDirPath is a symbolic link, so we do nothing
-            }
-        } else {
-            // newConfigDirPath exists, so we do nothing
+    // Create new configuration folder if necessary
+    if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
+        if (  -1 == createDirWithPermissionAndOwnership(newConfigDirPath, 0755, realUserID, realGroupID)  ) {
+            NSLog(@"Tunnelblick Installer: Unable to create %@", newConfigDirPath);
+            [pool release];
+            exit(EXIT_FAILURE);
         }
-        
-    } else {
-        // newConfigDirHolderPath exists, so we do nothing
+    } else if (  ! isDir  ) {
+        NSLog(@"Tunnelblick Installer: %@ exists but is not a folder", newConfigDirPath);
+        [pool release];
+        exit(EXIT_FAILURE);
     }
     
+    // If old configurations folder exists (and is a folder):
+    // Then move its contents to the new configurations folder, delete it, and replace it with a symlink to the new configurations folder
+    // Otherwise create the symlink if it doesn't already exist
+    NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+        if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+            if (  isDir  ) {
+                // Move old configurations folder's contents to the new configurations folder
+                if (  ! moveContents(oldConfigDirPath, newConfigDirPath)  ) {
+                    NSLog(@"Tunnelblick Installer: Unable to copy all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
+                    [pool release];
+                    exit(EXIT_FAILURE);
+                } else {
+                    NSLog(@"Tunnelblick Installer: Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
+                    secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
+                }
+                
+                // Delete the old configuration folder
+                if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+                    NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
+                    [pool release];
+                    exit(EXIT_FAILURE);
+                }
+                
+                if (  ! createSymLink(oldConfigDirPath, newConfigDirPath)  ) {
+                    [pool release];
+                    exit(EXIT_FAILURE);
+                }
+
+            } else {
+                NSLog(@"Tunnelblick Installer: %@ is not a symbolic link or a folder", oldConfigDirPath);
+                [pool release];
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            if (  ! createSymLink(oldConfigDirPath, newConfigDirPath)  ) {
+                [pool release];
+                exit(EXIT_FAILURE);
+            }
+        }
+
+    } else {
+        // ~/Library/openvpn is a symbolic link
+        if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
+            NSLog(@"Tunnelblick Installer: %@ exists and is a symbolic link but does not reference %@. Attempting repair...", oldConfigDirPath, newConfigDirPath);
+            if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+                NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
+            }
+
+            if (  ! createSymLink(oldConfigDirPath, newConfigDirPath)  ) {
+                [pool release];
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
     //**************************************************************************************************************************
     // (3)
     // Create ~/Library/Application Support/Tunnelblick/Configurations if it does not already exist, and make it owned by the user, not root, with 755 permissions
@@ -454,6 +484,50 @@ int main(int argc, char *argv[])
     exit(EXIT_SUCCESS);
 }
 
+//**************************************************************************************************************************
+BOOL moveContents(NSString * fromPath, NSString * toPath)
+{
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: fromPath];
+    NSString * file;
+    while (  file = [dirEnum nextObject]  ) {
+        [dirEnum skipDescendents];
+        if (  ! [file hasPrefix: @"."]  ) {
+            NSString * fullFromPath = [fromPath stringByAppendingPathComponent: file];
+            NSString * fullToPath   = [toPath   stringByAppendingPathComponent: file];
+            if (  [gFileMgr fileExistsAtPath: fullToPath]  ) {
+                NSLog(@"Tunnelblick Installer: Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath);
+                return NO;
+            } else {
+                if (  ! [gFileMgr movePath: fullFromPath toPath: fullToPath handler: nil]  ) {
+                    NSLog(@"Tunnelblick Installer: Unable to move %@ to %@", fullFromPath, fullToPath);
+                    return NO;
+                }
+            }
+        }
+    }
+    
+    return YES;
+}
+
+//**************************************************************************************************************************
+BOOL createSymLink(NSString * fromPath, NSString * toPath)
+{
+    if (  [gFileMgr createSymbolicLinkAtPath: fromPath pathContent: toPath]  ) {
+        // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
+        if (  0 != lchown([fromPath UTF8String], realUserID, realGroupID)  ) {
+            NSLog(@"Tunnelblick Installer: Error: Unable to change ownership of symbolic link %@\nError was '%s'", fromPath, strerror(errno));
+            return NO;
+        } else {
+            NSLog(@"Tunnelblick Installer: Successfully created a symbolic link from %@ to %@", fromPath, toPath);
+            return YES;
+        }
+    }
+
+    NSLog(@"Tunnelblick Installer: Error: Unable to create symbolic link from %@ to %@", fromPath, toPath);
+    return NO;
+}
+
+//**************************************************************************************************************************
 BOOL makeFileUnlockedAtPath(NSString * path)
 {
     // Make sure the copy is unlocked
