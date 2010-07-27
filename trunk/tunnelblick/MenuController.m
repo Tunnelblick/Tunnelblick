@@ -806,7 +806,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     return [theName substringFromIndex: slashRange.location + 1];
 }
 
-// JKB myVPNMenu
 -(void) removeConnectionWithDisplayName: (NSString *) theName FromMenu: (NSMenu *) theMenu afterIndex: (int) theIndex
 {
     int i;
@@ -3169,7 +3168,7 @@ static void signal_handler(int signalNumber)
     NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
     
     if (  needsAppRepair      ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
-    if (  needsMoveConfigs    ) [msg appendString: NSLocalizedString(@"  • Move the configurations folder\n", @"Window text")];
+    if (  needsMoveConfigs    ) [msg appendString: NSLocalizedString(@"  • Repair the private configurations folder\n", @"Window text")];
     if (  needsRestoreDeploy  ) [msg appendString: NSLocalizedString(@"  • Restore configuration(s) from the backup\n", @"Window text")];
     if (  needsPkgRepair      ) [msg appendString: NSLocalizedString(@"  • Secure Tunnelblick VPN Configurations\n", @"Window text")];
 
@@ -3261,49 +3260,35 @@ BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibra
 
 BOOL needToMoveLibraryOpenVPN(void)
 {
-    // Check that the configuration folder has been moved. If not, return YES
+    // Check that the configuration folder has been moved and replaced by a symlink. If not, return YES
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
-    NSString * newParentDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick"];
-    NSString * newConfigDirPath = [newParentDirPath stringByAppendingPathComponent: @"Configurations"];
+    NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     BOOL isDir;
     
     BOOL newFolderExists = FALSE;
-    BOOL newParentExists = FALSE;
-    // Check ~/Library/Application Support/Tunnelblick/Configurations
-    if (  [gFileMgr fileExistsAtPath: newParentDirPath isDirectory: &isDir]  ) {
-        newParentExists = TRUE;
+    // Check NEW location of private configurations
+    if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
         if (  isDir  ) {
-            if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
-                if (  isDir  ) {
-                    newFolderExists = TRUE; // New folder exists, so we've already moved (check that's true below)
-                } else {
-                    NSLog(@"Error: %@ exists but is not a folder", newConfigDirPath);
-                    terminateBecauseOfBadConfiguration();
-                }
-            } else {
-                // New folder does not exist. That's OK if ~/Library/openvpn doesn't exist
-            }
+            newFolderExists = TRUE;
         } else {
-            NSLog(@"Error: %@ exists but is not a folder", newParentDirPath);
+            NSLog(@"Error: %@ exists but is not a folder", newConfigDirPath);
             terminateBecauseOfBadConfiguration();
         }
     } else {
-        // New folder's holder does not exist, so we need to do the move only if ~Library/openvpn exists and is a folder (which we check for below)
+       NSLog(@"%@ does not exist", newConfigDirPath);
+       return YES; // New folder does not exist.
     }
     
-    // If it exists, ~/Library/openvpn must either be a directory, or a symbolic link to ~/Library/Application Support/Tunnelblick/Configurations
+    // OLD location must either be a directory, or a symbolic link to the NEW location
     NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
     if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
         if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
             if (  isDir  ) {
                 if (  newFolderExists  ) {
-                    NSLog(@"Error: Both %@ and %@ exist and are folders, so %@ cannot be moved", oldConfigDirPath, newConfigDirPath, oldConfigDirPath);
-                    terminateBecauseOfBadConfiguration();
+                    NSLog(@"Both %@ and %@ exist and are folders", oldConfigDirPath, newConfigDirPath);
+                    return YES; // Installer will try to repair this
                 } else {
-                    if (  newParentExists  ) {
-                        NSLog(@"Error: %@ exists and is a folder, but %@ already exists, so %@ cannot be moved", oldConfigDirPath, newParentDirPath, oldConfigDirPath);
-                        terminateBecauseOfBadConfiguration();
-                    }
+                    NSLog(@"%@ exists, but %@ doesn't", oldConfigDirPath, newConfigDirPath);
                     return YES;  // old folder exists, but new one doesn't, so do the move
                 }
             } else {
@@ -3311,23 +3296,18 @@ BOOL needToMoveLibraryOpenVPN(void)
                 terminateBecauseOfBadConfiguration();
             }
         } else {
-            // ~/Library/openvpn does not exist, so we don't do the move (whether or not the new folder exists)
+            NSLog(@"%@ does not exist", oldConfigDirPath);
+            return YES; // Installer will create a symlink to NEW location
         }
     } else {
         // ~/Library/openvpn is a symbolic link
-        if (  [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
-            if (  newFolderExists  ) {
-                // ~/Library/openvpn is a symbolic link to ~/Library/Application Support/Tunnelblick/Configurations, which exists, so we've already done the move
-            } else {
-                NSLog(@"Error: %@ exists and is a symbolic link but its target, %@, does not exist", oldConfigDirPath, newConfigDirPath);
-                return YES;
-            }
-        } else {
-            NSLog(@"Error: %@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
-            terminateBecauseOfBadConfiguration();
+        if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
+            NSLog(@"%@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
+            return YES; // Installer will repair this
         }
     }
-    return NO;
+
+    return NO;  // Nothing needs to be done
 }
 
 BOOL needToChangeOwnershipAndOrPermissions(void)
