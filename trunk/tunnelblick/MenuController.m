@@ -1887,9 +1887,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     int notKilled = 0;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isDisconnected]  ) {
-            NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+            NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+            NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
             if (   includeDaemons
-                || ( ! [gTbDefaults boolForKey: key]  )  ) {
+                || ( ! [gTbDefaults boolForKey: onSystemStartKey]  )
+                || ( ! [gTbDefaults boolForKey: autoConnectKey]    )  ) {
                 [connection disconnect: self];
             } else {
                 notKilled++;
@@ -2602,7 +2604,7 @@ static void signal_handler(int signalNumber)
     
     if (  [pids count]  ) {
         int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
-                                             NSLocalizedString(@"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?", @"Window text"),
+                                             NSLocalizedString(@"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?", @"Window text"),
                                              NSLocalizedString(@"Ignore", @"Button"),
                                              NSLocalizedString(@"Terminate", @"Button"),
                                              nil,
