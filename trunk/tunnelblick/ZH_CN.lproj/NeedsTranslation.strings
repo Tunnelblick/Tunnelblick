@@ -5,7 +5,7 @@
 "  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
 
 /* Window text */
-"  • Move the configurations folder\n" = "  • Move the configurations folder\n";
+"  • Repair the private configurations folder\n" = "  • Repair the private configurations folder\n";
 
 /* Window text */
 "  • Restore configuration(s) from the backup\n" = "  • Restore configuration(s) from the backup\n";
@@ -260,7 +260,7 @@
 "One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?" = "One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?";
 
 /* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running an OpenVPN server, this probably means that Tunnelblick failed to shut down improperly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
@@ -524,8 +524,8 @@
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
-/* If you do not launch Tunnelblick now, they will not be installed.\n\nWindow text */
-"\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed first.\n\nAn administrator username and password are required to install them." = "\n\nIf you launch Tunnelblick now, up to %d Tunnelblick VPN Configurations will be installed first.\n\nAn administrator username and password are required to install them.";
+/* Window text */
+"\n\nIf you launch Tunnelblick now, one or more Tunnelblick VPN Configurations will be installed.\n\nIf you do not launch Tunnelblick now, they will not be installed.\n\n" = "\n\nIf you launch Tunnelblick now, one or more Tunnelblick VPN Configurations will be installed.\n\nIf you do not launch Tunnelblick now, they will not be installed.\n\n";
 
 /* Checkbox name */
 "when Tunnelblick launches" = "when Tunnelblick launches";
