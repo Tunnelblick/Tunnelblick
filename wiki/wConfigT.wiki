@@ -1,4 +1,4 @@
-#summary Setting Up Configurations
+#summary Setting up Tunnelblick
 #sidebar wSb
 
 <wiki:toc max_depth="2" />
@@ -16,32 +16,27 @@ It is not enough to install Tunnelblick:  you also need to tell Tunnelblick *_ho
 
 You tell Tunnelblick how to connect to a VPN with a configuration file. Tunnelblick can use two types of configuration files:
   * *Tunnelblick VPN Configurations.* A Tunnelblick VPN Configuration contains all of the information Tunnelblick needs to connect to a VPN. A Tunnelblick VPN Configuration contains an OpenVPN configuration file, and may contain key, certificate, and script files. Everything needed is contained within the Tunnelblick VPN Configuration.
-  * *OpenVPN configuration files.* These are plain text files with extensions of .ovpn or .conf. These files usually contain only the configuration information; keys and certificates are held in separate files. For more information about setting up Tunnelblick using OpenVPN configuration files, see [wConfigO Configuring OpenVPN].
+  * *OpenVPN configuration files.* These are plain text files with extensions of .ovpn or .conf. These files usually contain only the configuration information; keys and certificates are held in separate files. *For more information about setting up Tunnelblick using OpenVPN configuration files, see [wConfigO Configuring OpenVPN].*
 
 *We strongly suggest that you use a Tunnelblick VPN Configuration* because you can do more with it. For example, you can share it with all users of your computer, and you can set it up to start when your computer starts -- even before you log in. It is also more secure because any key and certificate files within it are made inaccessible except to the OpenVPN program, and because any script files within it are protected against accidental or deliberate misuse. Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself that make managing widespread distribution easier. For details, see [wPkgs Tunnelblick VPN Connections].
 
 ==Creating a Tunnelblick VPN Configuration==
-_Note: When you start Tunnelblick with no configuration files present, it will offer to create a sample Tunnelblick VPN Configuration and open the sample OpenVPN configuration file within it in !TextEdit._
-
 To create a Tunnelblick VPN Configuration:
 
  # Create a folder anywhere (on your Desktop works well);
  # Name the folder with the name you want the configuration known by in Tunnelblick;
- # Create a subfolder of your folder and name it 'Contents';
- # Create a subfolder of 'Contents' and name it 'Resources';
- # Put all the files related to the connection into 'Resources' (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
- # Rename the OpenVPN configuration file 'config.ovpn'; and
- # Add an extension of ".tblk" at the end of the folder name.
+ # Put all the files related to the connection into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
+ # Add an extension of ".tblk" at the end of the folder name. When you do this the folder will change into a Tunnelblick VPN Configuration.
 
-To install it, just double-click it. You will be asked if you want the configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
+To install  a Tunnelblick VPN Configuration, just double-click it. You will be asked if you want the configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
 
 That's it! You are done. The configuration will be available immediately in Tunnelblick.
 
 ==Files Contained in a Tunnelblick VPN Configuration==
-The files that should be contained in a Tunnelblick VPN Configuration (the "files related to the connection" in 2. above):
- * Must include one OpenVPN configuration file (a .ovpn or .conf file).
+The files that should be contained in a Tunnelblick VPN Configuration (the "files related to the connection" in 3. above):
+ * One (and only one) OpenVPN configuration file (a .ovpn or .conf file).
  * Any certificate or key files for that configuration (.key, .crt, .pem, .cer, .der, .p12, .p7b, .p7c, and .pfx files); and
- * Any script files for the configuration. (Script files must must have a .sh extension so that Tunnelblick can secure them and use them properly).
+ * Any script files for the configuration. Script files must must have a .sh extension so that Tunnelblick can secure them and use them properly.
 
 There is one more requirement: the OpenVPN configuration file (.ovpn or .conf file) must refer to the other files by their names and extensions only, without path information. In other words, the OpenVPN configuration file must have lines that look like
 
@@ -65,9 +60,9 @@ If you are using DHCP, wish to use your original DNS and WINS servers when conne
 
 If you are using manual settings, different versions of OS X behave differently. This is due to a change in network behavior in Snow Leopard and is beyond the scope of this project to fix.
 
-If you're using Leopard (10.5) or Tiger (10.4), then it is possible to use the VPN-server-supplied DNS and WINS settings *in addition to* your manual settings by checking the "Set nameserver" box. However, your manual settings will always take precedence over any VPN server-supplied settings.  If "Set nameserver" is un-checked, you will continue to use only your manually-configured settings and any VPN server-supplied settings will be ignored.
-
-If you are using Snow Leopard (10.6), then your manually-configured DNS and WINS settings will *always* be used, and no aggregation of configurations will be performed.
+ * If you're using Leopard (10.5) or Tiger (10.4), then it is possible to use the VPN-server-supplied DNS and WINS settings *in addition to* your manual settings by checking the "Set nameserver" box. However, your manual settings will always take precedence over any VPN server-supplied settings.  If "Set nameserver" is un-checked, you will continue to use only your manually-configured settings and any VPN server-supplied settings will be ignored. "Take precedence" means that the manual DNS server will be used for all DNS queries unless it fails to answer, in which case the VPN server-supplied DNS server will be used.
+ 
+ *If you are using Snow Leopard (10.6), then your usual DNS and WINS settings will *always* be used, and no aggregation of configurations will be performed.
 
  * If you set your DNS servers manually, then regardless of the state of the "Set nameserver" box, your manual DNS servers will always be the only ones used.
 

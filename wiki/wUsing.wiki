@@ -21,15 +21,17 @@ http://tunnelblick.googlecode.com/files/using-tunnelblick-closed-2010-02-04.png
 
 If you click on the icon, you'll see a drop down menu similar to the following:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-menu-2010-02-06.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-menu-2010-07-29.png
 
-There will be a "Connect” menu item for each available configuration. Click on one to establish the corresponding VPN connection. To illustrate the connection being established, a dash will appear in the menu item and the Tunnelblick icon will darken and lighten repeatedly. If the connection is successfully opened, the icon will change to show an open tunnel:
+There will be a "Connect” menu item for each available configuration (configurations in subfolders appear on submenus). Click on a "Connect" item to establish the corresponding VPN connection. To illustrate the connection being established, a dash will appear in the menu item and the Tunnelblick icon will darken and lighten repeatedly. If the connection is successfully opened, the icon will change to show an open tunnel:
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-open-2010-02-04.png
 
 Depending on your setup, you may be asked for a passphrase or username/password combination. You can save your passphrase or username and password in Apple's Keychain by checking the appropriate checkbox.
 
-The connection will be active as long as you do not end it or log out^*^. Putting your computer to sleep will close the connection but upon waking up from sleep Tunnelblick will attempt to reestablish the connection. If Tunnelblick loses contact with the server (because of a lack of wireless signal, for example), it will periodically try to re-establish the connection.
+The connection will be active as long as you do not end it or log out. (Tunnelblick will not close a connection for a configuration that is set up to automatically connect "when the computer starts" if you log out or quit Tunnelblick. The connection will remain open until your computer shuts down, sleeps, or you specifically disconnect it.)
+
+Putting your computer to sleep will close the connection but upon waking up from sleep Tunnelblick will attempt to reestablish the connection.
 
 If a connection error occurs, or in the unlikely event of an interface crash, Tunnelblick will terminate the VPN tunnel and record the error in the Console Log.
 
@@ -42,9 +44,9 @@ If Tunnelblick is running when you logout (or your computer crashes, or is shut 
 ==The "Options…" Submenu==
 When the Tunnelblick menu is displayed, if you hover over "Options", the Options Submenu appears:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-options-menu-2010-02-06.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-options-menu-2010-07-29.png
 
-Click on an item in the Options Submenu to change a [wPrefs reference], check for updates, or display the "About" window.
+Click on an item in the Options Submenu to change a [wPrefs reference], add a configuration, check for updates, or display the "About" window.
 
 Some deployed versions of Tunnelblick do not display the Options Submenu, in which case the "Options" menu item is replaced by "About Tunnelblick..."
 
@@ -104,7 +106,7 @@ However, this is for experts only:
 Tunnelblick was designed as a persistent menu icon that survives reboots. To this end, it inserts itself into the login items when it is started and only removes itself from the login items when you choose Quit from the menu or Command-Q from the "Details” window or "About..." window. . So if you just log out, shut down, or restart your computer, or it crashes, the next time you log in, Tunnelblick will automatically start. If you do not want Tunnelblick to start automatically, quit Tunnelblick before you log out, shut down, or restart.
 
 ==Command-Line Interface==
-Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources. For details on using openvpnstart, run it from a Terminal window with no arguments.
+Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources. For details on using openvpnstart, run it from a Terminal window with no arguments. When a connection attempt is made, Tunnelblick inserts the openvpnstart command line into the log; it can be copied from there for use in your own shell scripts.
 
 ------------------
 

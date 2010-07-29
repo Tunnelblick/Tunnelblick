@@ -38,7 +38,8 @@ All other preferences can only be modified by (A) forcing them or (B) modifying 
   * *doNotShowForcedPreferenceMenuItems* (Boolean): If set, any preferences that are forced will not be displayed on the "Options…" submenu. If cleared or not present, such preferences are shown dimmed, and are disabled. The default is not present.
   * *doNotShowOptionsSubmenu* (Boolean): If set, the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
   * *doNotShowCheckForUpdatesNowMenuItem* (Boolean): If set, the "Check for Updates Now" item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
-
+  * *doNotShowAddConfigurationMenuItem* (Boolean): If set, the "Add a Configuration..." item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
+  
 ==Preferences That Control Updates==
   * *updateCheckAutomatically* (Boolean): If set, Tunnelblick checks for updates each time it is launched, and periodically thereafter. If cleared or not present, no checking is done. There is no default value; the user is asked if they want to enable automatic updates the first time Tunnelblick is launched and whenever the information that Tunnelblick sends when checking for an update changes (so the user can decide whether or not to include the information).
   * *updateSendProfileInfo* (Boolean): If set, Tunnelblick will send "system profile" information to the Tunnelblick website when checking for updates. If cleared or not present, no such profile information will be sent when checking for updates. There is no default value; when the user is asked if they want to enable automatic updates the first time Tunnelblick is launched and whenever the information the profile information changes, a check box allows the user to set or clear this value.

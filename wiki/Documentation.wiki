@@ -12,12 +12,12 @@
 
 
 
-*[DocumentationForTunnelblick_3_1beta08 Tunnelblick 3.1beta08 Documentation]*
+*[DocumentationForTunnelblick_3_1beta10 Tunnelblick 3.1beta10 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wQuick Quick Start Guide]<br>
     [wFAQ FAQ]<br>
-    [DocumentationForTunnelblick_3_1beta08 What's New]<br>
+    [DocumentationForTunnelblick_3_1beta10 What's New]<br>
     [wGettingVPNService Getting VPN Service]<br>
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
@@ -27,6 +27,6 @@
 *To determine which version of Tunnelblick you are using:*
   # Find Tunnelblick.app (it is usually in the /Applications folder).
   # Click on Tunnelblick.app to select it
-  # Click "File", then "Get Info". A window will appear with (among other things) version information.
+  # Click "File", then "Get Info". A window will appear with (among other things) version information. If there is no version information, it is Tunnelblick version 3.0b9 or earlier.
 
 *[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list)]*

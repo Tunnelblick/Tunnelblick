@@ -3,38 +3,37 @@
 <wiki:toc max_depth="2" />
 
 ==Introduction==
-A Tunnelblick VPN Configuration (a "Configuration") is a folder with an extension of .tblk that contains information about one VPN configuration.
-  * Configurations provide a convenient way to distribute VPN configurations separate from the Tunnelblick application itself.
-  * Configurations may be installed to be shared by all users of the computer, or installed to be private to a single user.
-  * Configurations may be automatically installed when Tunnelblick is installed by including them in the Tunnelblick disk image.
-  * Configurations may be set up to connect when the computer starts, and persist through logins and logouts.
-  * Configurations may contain identification and version information to assist in version control.
-  * Installing a Configuration "secures" it by setting ownership and permissions on its contents.
-  * Installing a Configuration requires a computer administrator username/password (as does Tunnelblick installation).
-  * The configuration file in a Configuration installed as private will be "shadow copied" to the boot drive if it is on a network volume or if the "Use Shadow Copies" preference is set.
+A Tunnelblick VPN Configuration (a "Configuration") is a folder with an extension of .tblk that contains information about one or more VPN configurations.
+ * Configurations provide a convenient way to distribute VPN configurations separate from the Tunnelblick application itself.
+ * Configurations may be installed to be private to a single user or shared by all users of the computer.
+ * Configurations may be automatically installed when Tunnelblick is installed by including them in the Tunnelblick disk image.
+ * Configurations may be set up to connect when the computer starts, and persist through logins and logouts.
+ * Configurations may contain identification and version information to assist in version control.
+ * Installing a Configuration "secures" it by setting ownership and permissions on its contents.
+ * Installing a Configuration requires a computer administrator username/password (as does Tunnelblick installation).
+ * A Configuration installed as private will be "shadow copied" to the boot drive if it is on a volume which cannot be secured (e.g., a network volume or a volume on an external drive) or if the "Use Shadow Copies" preference is set.
+ * The configuration file of a Configuration that is private may be edited. The configuration file of a Configuration that is shared may only be examined.
 
-Tunnelblick Configurations must be installed before they can be used.
-
-The configuration file of a Configuration that is private may be edited. The configuration file of a Configuration that is shared may only be examined.
+*Configurations must be installed before they can be used.* Install a Configuration by double-clicking it. (Tunnelblick must have been installed _before_ the Configuration is double-clicked.)
 
 ==Creation==
-You can create a Configuration by collecting together the configuration file and any files associated with the configuration into a folder. Give the folder the name you wish to appear in Tunnelblick's list of configurations, and add an extension of ".tblk". You do not need to arrange the files in the folder in any way -- the installation process will copy each file to its appropriate place. The name of the files within the folder do not matter, except for the optional Info.plist file (see [wPkgs#Format Format], below).
+You can create a Configuration by collecting together one configuration file and any files associated with the configuration into a folder. You do not need to arrange the files in the folder in any way, and the name of the files within the folder do not matter, except for the optional Info.plist file (see [wPkgs#Format Format], below). When you are done moving or copying files into the folder, give the folder the name you wish to appear in Tunnelblick's list of configurations, and add an extension of ".tblk".
 
-Example: a folder named "Main Office.tblk" is a Tunnelblick VPN Configuration that will show up in Tunnelblick as the "Main Office" configuration.
+Example: a Configuration named "Main Office.tblk" is a Tunnelblick VPN Configuration that will appear in Tunnelblick as the "Main Office" configuration unless that name conflicts with an existing name (see [wPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
 ==Installation==
-_Note: a Configuration cannot be installed as "private" using "shadow copies". If the Configuration cannot be secured (e.g., it is on a network volume, thumb or other external drive, or other non-securable media) an error message will be displayed during installation._
-
 Installation of a Configuration can be done manually by double-clicking it or by dragging it to a Tunnelblick icon in Finder. (A Configuration _cannot_ be dragged to the Tunnelblick icon in the Status Bar.) Installation can also be done automatically when Tunnelblick is installed from a disk image or certain other other volumes (see [wPkgs#Automatic_Installation Automatic Installation]).
 
-When a Configuration is installed, it's contents are copied and the copy is secured by setting ownership and permissions on the copy's contents.
+When a Configuration is installed, it's contents are copied and arranged in a specific way and the copy is secured by setting ownership and permissions on the copy's contents.
 
 An installed Configuration may be shared or private. Configurations to be shared are copied to `/Library/Application Support/Tunnelblick/Shared`, and Configurations to be kept private are copied to `~/Library/Application Support/Tunnelblick/Configurations`.
 
 ==Format==
-Tunnelblick Configurations are folders with an extension of ".tblk". (OS X will treat the folder as a Configuration because of the extension.)
+Tunnelblick Configurations are folders with an extension of ".tblk". The extension causes OS X to treat the folder as a "package" -- in most cases it is treated as if it were a single file. To look at the contents of a package (i.e. inside what was the folder), control-click or right-click the package and select "Show Package Contents".
 
-The contents of a Tunnelblick VPN Configuration are arranged as follows after installation (they need not be arranged this way prior to installation, and the configuration file may have any name before installation):
+Configurations may be nested one level deep. That is, a Configuration may contain within it other Configurations. When such a Configuration is installed, it installs all of the Configurations within it. The Configurations within it may not include Configurations, however -- only one level of included Configurations is allowed.
+
+The contents of a Tunnelblick VPN Configuration are arranged as follows *after installation* (they need not be arranged this way prior to installation, and the configuration file may have any name before installation):
 
 {{{
     sample.tblk/

@@ -2,9 +2,6 @@
 #sidebar wSb
 
 ==Comparing Tunnelblick VPN Configurations ("Configurations")  and Deployed Versions of Tunnelblick==
-  * Deployed versions may have multiple configurations
-  * Each Configuration may have only one configuration
-
   * Configurations in two Deployed versions may not be combined.
   * Configurations in Deployed versions may optionally be combined with Configurations and .ovpn and .conf configurations.
 

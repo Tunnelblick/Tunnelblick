@@ -10,7 +10,7 @@ This document contains the following sections:
 ==What is a Deployed Version?==
 A deployed version of Tunnelblick is a customized version of `Tunnelblick.app` which can include everything necessary to install and run Tunnelblick and connect to one or more VPNs. In particular, it may include one or more OpenVPN configuration files, and, usually, certificate and key files for authentication. It can also include shell scripts and text that will appear in Tunnelblick's "about" window, and can specify user preferences that are forced to particular values and are read-only.
 
-If you want information about _using_ Tunnelblick, see the [https://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] or ask a question in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+If you want information about _using_ Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] or ask a question in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 ==How it Works==
 You create a deployed version of Tunnelblick by putting a "Deploy" folder into the `Contents/Resources` folder of `Tunnelblick.app`. `Deploy` can contain any one or a combination of configuration files, certificate and key files, up/down scripts, and a "forced-preferences.plist" file. Since `Deploy` and its contents can not be modified by a non-administrator user, this is a secure way to ensure that your users do not tamper with any settings that you wish to protect.

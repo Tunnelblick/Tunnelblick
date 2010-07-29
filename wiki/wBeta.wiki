@@ -8,43 +8,60 @@ A *"beta"* version of a program is a version that has been tested internally and
 When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 --------------------
-2010-07-10: *Tunnelblick 3.1beta08 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+2010-07-29: *Tunnelblick 3.1beta10 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08*</font> 
+
+This beta includes an important bug fix:
+
+ * Fixes bugs in the shadow copy mechanism that caused connect failures, log-hookup failures, and (possibly) other problems. Thanks to Jim Bo for pointing out the first problem and suggesting a solution. The bugs were introduced in 3.1beta08.
+
+New features include:
+
+ * Configurations located in subfolders are displayed in submenus of the main Tunnelblick menu.
+
+ * When a Tunnelblick VPN Configuration (.tblk package) is installed, all Tunnelblick VPN Configurations within it will be installed. If these 'inner' configurations are inside subfolders of the outer .tblk, they will be installed as subfolders of the configurations folders and will appear in submenus of the main Tunnelblick menu.
+
+ * Automatic installation of configurations from the .dmg has changed: Only one Tunnelblick VPN Configuration (.tblk packages) in the '.auto-install' or '.auto-install' folders and their subfolders is installed.
+
+--------------------
+2010-07-10: *Tunnelblick 3.1beta08 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
 <font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH AN EARLIER BETA VERSION*</font> 
 
 In addition to fixing bugs, this release adds several new features:
  * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
 
-  * Log processing and display have been rewritten:
-    * Log files are created each time a connection is made.
-    * When displaying the log, the entries are merged such that script log entries follow OpenVPN log entries that have the same date/time.
-    * The log display now shows the most recent 10000 entries. Earlier entries are not displayed, but are in the log files stored in /tmp/tunnelblick/logs.
+ * Log processing and display have been rewritten:
+  * Log files are created each time a connection is made.
+  * When displaying the log, the entries are merged such that script log entries follow OpenVPN log entries that have the same date/time.
+  * The log display now shows the most recent 10000 entries. Earlier entries are not displayed, but are in the log files stored in /tmp/tunnelblick/logs.
 
-  * The DNS cache is flushed after a tunnel is established and after it is torn down. This is enabled by default but may be disabled by the per-connection "-doNotFlushCache" preference.
+ * The DNS cache is flushed after a tunnel is established and after it is torn down. This is enabled by default but may be disabled by the per-connection "-doNotFlushCache" preference.
 
-  * Tunnelblick VPN Configurations (.tblk packages) may now be shadow copied.
+ * Tunnelblick VPN Configurations (.tblk packages) may now be shadow copied.
 
-  * Configurations (.conf, .ovpn, and .tblk) may be stored in subfolders. Note that .tblk configurations are installed at the top level of the shared or private folder; they must then be moved to a subfolder if that is desired.
+ * Configurations (.conf, .ovpn, and .tblk) may be stored in subfolders. Note that .tblk configurations are installed at the top level of the shared or private folder; they must then be moved to a subfolder if that is desired.
 
 --------------------
-2010-06-07: *Tunnelblick 3.1beta06 is now  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+2010-06-07: *Tunnelblick 3.1beta06 is now  [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
 This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
 
 --------------------
-2010-05-27: *Tunnelblick 3.1beta04 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+2010-05-27: *Tunnelblick 3.1beta04 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
 This is mainly a bug-fix release, but there are some new features:
 
-  * The pipes for script output to OpenVPN log window are created on demand instead of when Tunnelblick launches, so if you have 50 configurations, Tunnelblick won't create 50 pipes when launched.
+ * The pipes for script output to OpenVPN log window are created on demand instead of when Tunnelblick launches, so if you have 50 configurations, Tunnelblick won't create 50 pipes when launched.
 
-  * A DHCP renew which restores the original DNS and/or WINS information no longer causes the connection to restart. This new behavior can reversed be by setting Tunnelblick the boolean preferences '-doNotRestoreOnDnsReset' and/or '-doNotRestoreOnWinsReset' to TRUE.
+ * A DHCP renew which restores the original DNS and/or WINS information no longer causes the connection to restart. This new behavior can reversed be by setting Tunnelblick the boolean preferences '-doNotRestoreOnDnsReset' and/or '-doNotRestoreOnWinsReset' to TRUE.
 
-  * The up, down, and leasewatch scripts have been modified to implement options for the scripts whichOpenVPN to puts first (before the usual OpenVPN parameters) in the command line which starts the up/down scripts.
+ * The up, down, and leasewatch scripts have been modified to implement options for the scripts whichOpenVPN to puts first (before the usual OpenVPN parameters) in the command line which starts the up/down scripts.
 
 ------------------
 
-2010-05-14: *Tunnelblick 3.1beta02 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg available for download]*. Details are in the [wRlsNotes Release Notes].
+2010-05-14: *Tunnelblick 3.1beta02 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
 New features include:
 
