@@ -31,6 +31,7 @@ When there are no configurations (which is usually the case the first time Tunne
 To launch Tunnelblick:
  * Double-click Tunnelblick in the Applications folder or
  * Double-click "Launch Tunnelblick" in the `Configurations` folder
+ * If Tunnelblick is running when you log out, shut down, or restart your computer, it will automatically be launched when you log in.
 
 ==Using Tunnelblick==
 Once Tunnelblick has been launched, you control it from the Tunnelblick icon in the Status Bar at the top of your screen. The Tunnelblick icon is usually placed between the time and the Spotlight icon. When no VPN connection is active, the icon is dark, indicating a closed tunnel.
