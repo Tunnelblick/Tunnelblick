@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10D573</string>
-		<string key="IBDocument.InterfaceBuilderVersion">762</string>
+		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.InterfaceBuilderVersion">788</string>
 		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">460.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">762</string>
+			<string key="NS.object.0">788</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -446,7 +446,7 @@
 						<object class="NSMatrix" id="549698804">
 							<reference key="NSNextResponder" ref="83747719"/>
 							<int key="NSvFlags">256</int>
-							<string key="NSFrame">{{187, 68}, {196, 18}}</string>
+							<string key="NSFrame">{{187, 70}, {196, 18}}</string>
 							<reference key="NSSuperview" ref="83747719"/>
 							<bool key="NSEnabled">YES</bool>
 							<int key="NSNumRows">1</int>
@@ -538,7 +538,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSMatrix" id="631938633">
 							<reference key="NSNextResponder" ref="83747719"/>
 							<int key="NSvFlags">256</int>
-							<string key="NSFrame">{{391, 68}, {196, 18}}</string>
+							<string key="NSFrame">{{391, 70}, {196, 18}}</string>
 							<reference key="NSSuperview" ref="83747719"/>
 							<bool key="NSEnabled">YES</bool>
 							<int key="NSNumRows">1</int>
@@ -866,12 +866,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="856995554"/>
 							<reference ref="77152343"/>
 							<reference ref="1024647931"/>
-							<reference ref="824762043"/>
 							<reference ref="295442164"/>
 							<reference ref="304227237"/>
 							<reference ref="421474671"/>
 							<reference ref="549698804"/>
 							<reference ref="631938633"/>
+							<reference ref="824762043"/>
 						</object>
 						<reference key="parent" ref="445280757"/>
 					</object>
@@ -1253,6 +1253,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addConfigurationWasClicked:</string>
 							<string>addConnection:</string>
 							<string>autoConnectPrefButtonWasClicked:</string>
 							<string>checkForUpdates:</string>
@@ -1292,12 +1293,132 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addConfigurationWasClicked:</string>
+							<string>addConnection:</string>
+							<string>autoConnectPrefButtonWasClicked:</string>
+							<string>checkForUpdates:</string>
+							<string>clearLogButtonWasClicked:</string>
+							<string>connectButtonWasClicked:</string>
+							<string>disconnectButtonWasClicked:</string>
+							<string>editConfigButtonWasClicked:</string>
+							<string>monitorConnectionPrefButtonWasClicked:</string>
+							<string>nameserverPrefButtonWasClicked:</string>
+							<string>onLaunchRadioButtonWasClicked:</string>
+							<string>onSystemStartRadioButtonWasClicked:</string>
+							<string>openLogWindow:</string>
+							<string>quit:</string>
+							<string>removeConnection:</string>
+							<string>shareConfigButtonWasClicked:</string>
+							<string>toggleAutoCheckForUpdates:</string>
+							<string>toggleMonitorConfigurationDir:</string>
+							<string>togglePlaceIconNearSpotlight:</string>
+							<string>toggleReportAnonymousInfo:</string>
+							<string>toggleUseShadowCopies:</string>
+							<string>toggleWarnAboutSimultaneous:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">addConfigurationWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">addConnection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">autoConnectPrefButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">checkForUpdates:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">clearLogButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">connectButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">disconnectButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">editConfigButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">monitorConnectionPrefButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">nameserverPrefButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">onLaunchRadioButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">onSystemStartRadioButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openLogWindow:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">quit:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeConnection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">shareConfigButtonWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleAutoCheckForUpdates:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleMonitorConfigurationDir:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">togglePlaceIconNearSpotlight:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleReportAnonymousInfo:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleUseShadowCopies:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleWarnAboutSimultaneous:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -1337,6 +1458,85 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>NSButton</string>
 						</object>
 					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>autoConnectCheckbox</string>
+							<string>clearButton</string>
+							<string>connectButton</string>
+							<string>disconnectButton</string>
+							<string>editButton</string>
+							<string>logWindow</string>
+							<string>monitorConnnectionCheckbox</string>
+							<string>myVPNMenu</string>
+							<string>onLaunchRadioButton</string>
+							<string>onSystemStartRadioButton</string>
+							<string>shareButton</string>
+							<string>statusMenuItem</string>
+							<string>tabView</string>
+							<string>useNameserverCheckbox</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">autoConnectCheckbox</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">clearButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">connectButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">disconnectButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">editButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">logWindow</string>
+								<string key="candidateClassName">NSWindow</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">monitorConnnectionCheckbox</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">myVPNMenu</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">onLaunchRadioButton</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">onSystemStartRadioButton</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">shareButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">statusMenuItem</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">tabView</string>
+								<string key="candidateClassName">NSTabView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">useNameserverCheckbox</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">MenuController.h</string>
@@ -1348,6 +1548,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">validateLogButtons:</string>
 						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">validateLogButtons:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">validateLogButtons:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>

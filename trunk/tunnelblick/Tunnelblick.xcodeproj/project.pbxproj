@@ -63,6 +63,7 @@
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
 		63B78ADC1102419800734D73 /* dmgFiles in Resources */ = {isa = PBXBuildFile; fileRef = 63B78AD41102419800734D73 /* dmgFiles */; };
+		63BD86E81205BA39005B8E38 /* IT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* IT.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
@@ -213,6 +214,7 @@
 		63B5E31811E34D69007D99DB /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
 		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
+		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -389,6 +391,7 @@
 				615F74900ED3A4FA007F6F0A /* DE.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
+				63BD86E41205BA39005B8E38 /* IT.lproj */,
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
@@ -572,6 +575,7 @@
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
 				63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */,
 				63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */,
+				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

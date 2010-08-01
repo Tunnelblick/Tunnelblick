@@ -1790,10 +1790,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [disconnectButton setFrame:oldPos];
     } else if (  [theControl isEqual: autoConnectCheckbox]  ) {      // If the Auto Connect checkbox changes, shift the On Launch and On Computer Startup buttons left/right
         oldPos = [onLaunchRadioButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
+        oldPos.origin.x = oldPos.origin.x + widthChange;
         [onLaunchRadioButton setFrame:oldPos];
         oldPos = [onSystemStartRadioButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
+        oldPos.origin.x = oldPos.origin.x + widthChange;
+        [onSystemStartRadioButton setFrame:oldPos];
+    } else if (  [theControl isEqual: onLaunchRadioButton]  ) {      // If the On Launch checkbox changes, shift the On Computer Startup button left/right
+        oldPos = [onSystemStartRadioButton frame];
+        oldPos.origin.x = oldPos.origin.x + widthChange;
         [onSystemStartRadioButton setFrame:oldPos];
     } else if (  [theControl isEqual: onLaunchRadioButton]  ) {     // If the On Launch radio button changes, shift the On System Startup button left/right
         oldPos = [onSystemStartRadioButton frame];
