@@ -112,6 +112,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                          afterIndex:        (int)               theIndex;
 -(void)             removePath:                             (NSString *)        path
               fromMonitorQueue:                             (UKKQueue *)        queue;
+-(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
+                                    repairApp:              (BOOL)              repairIt
+                           moveLibraryOpenVPN:              (BOOL)              moveConfigs
+                               repairPackages:              (BOOL)              repairPkgs
+                                     withAuth:              (AuthorizationRef)  inAuthRef;
 -(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
 -(void)             saveOnSystemStartRadioButtonState:      (BOOL)              onSystemStart
                                         forConnection:      (VPNConnection *)   connection;
@@ -432,7 +437,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) menuExtrasWereAdded: (NSNotification*) n
 {
-	[self createStatusItem];
+	[self performSelectorOnMainThread: @selector(createStatusItem) withObject: nil waitUntilDone: NO];
 }
 
 
@@ -1573,7 +1578,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) logNeedsScrolling: (NSNotification*) aNotification
 {
-    NSTextView* textView = [aNotification object];
+    [self performSelectorOnMainThread: @selector(doLogScrolling:) withObject: [aNotification object] waitUntilDone: NO];
+}
+
+-(void) doLogScrolling: (NSTextView *) textView
+{
     [textView scrollRangeToVisible: NSMakeRange([[textView string] length]-1, 0)];
 }
 
