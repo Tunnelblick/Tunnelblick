@@ -35,7 +35,7 @@ svn checkout http://tunnelblick.googlecode.com/svn/trunk/ tunnelblick-read-only
 
 and press the "return" key. This will download the latest version of the Tunnelblick source code from the web and store it in a new folder named "tunnelblick-read-only". Remember, the latest version has not been tested thoroughly, so you take your chances!
 
-To get an older version of the source code (for example, for a release), see [GettingOldSource Getting source code for an older version of Tunnelblick].
+To get an older version of the source code (for example, for a release), see [GettingSource Getting source code for Tunnelblick].
 
 ==SET XCODE TO CREATE A "RELEASE" FOR 10.4==
 Fourth, you should set up Xcode to create a "Release" build instead of a "Debug" build. Navigate to the "tunnelblick-read-only" folder that was created above, double-click the the "tunnelblick" folder within it, then double-click "Tunnelblick.xcodeproj". That will start Xcode in a new window with the Tunnelblick project. Click "Build" in the menu bar, then click "Build Results". That will open a new window. In that window click on the drop-down button at the top left that says something like "10.4 | Debug | Tunnelblick | i386", and under the "Active configuration" heading, click on "Release". The button should now read "10.4 | Release | Tunnelblick | i386". If it doesn't show "10.4", specify that in the same way as you specified "Release".
