@@ -1,4 +1,4 @@
-#summary How to the source code for an older version of Tunnelblick.
+#summary How to get the source code for an older version of Tunnelblick.
 
 ==Getting source code for an older version of Tunnelblick==
 
