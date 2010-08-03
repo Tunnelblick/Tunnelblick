@@ -1,4 +1,5 @@
 #summary How to get the source code for Tunnelblick.
+#sidebar wSb
 
 ==Getting the source code for Tunnelblick==
 
