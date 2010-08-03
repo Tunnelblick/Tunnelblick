@@ -33,7 +33,7 @@ Third, you must download the Tunnelblick source code. Start a terminal session (
 
 svn checkout http://tunnelblick.googlecode.com/svn/trunk/ tunnelblick-read-only
 
-and press the "return" key. This will download the latest version of the Tunnelblick source code from the web and store it in a new folder named "tunnelblick-read-only". Remember, the latest version has not been tested thoroughly, so you take your chances!
+and press the "return" key. This will download the latest version of the Tunnelblick source code from the web and store it in a new folder named "tunnelblick-read-only". ("read-only" means that you cannot commit any modifications you make back to the repository. It does NOT mean that the copy you get is "read only" as far as making changes to it.) Remember, the latest version has not been tested thoroughly, so you take your chances!
 
 To get an older version of the source code (for example, for a release), see [GettingSource Getting source code for Tunnelblick].
 
