@@ -19,6 +19,7 @@
 
 /* MenuController */
 
+#import <Carbon/Carbon.h>
 #import <Security/Security.h>
 #import "Sparkle/SUUpdater.h"
 #import "UKKQueue/UKKQueue.h"
@@ -61,6 +62,8 @@ BOOL needToRepairPackages(void);
     NSMenuItem              * useShadowCopiesItem;          //      "Use Shadow Copies of Configuration Files" menu item
     NSMenuItem              * autoCheckForUpdatesItem;      //      "Automatically Check for Updates" menu item
     NSMenuItem              * reportAnonymousInfoItem;      //      "Report Anonymous System Info" menu item
+    NSMenu                  * hotKeySubmenu;                //      Shortcut Key Submenu
+    NSMenuItem              * hotKeySubmenuItem;            //      Shortcut Key Item in Options menu
     NSMenuItem              * addConfigurationItem;         //    "Add Configuration..." menu item
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
@@ -109,6 +112,12 @@ BOOL needToRepairPackages(void);
     
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
+    
+    BOOL                      hotKeyHasBeenRegistered;      // A hot key has been registered
+    EventHotKeyRef            hotKeyRef;                    // Reference for the key
+    UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
+    UInt32                    hotKeyModifierKeys;           //                  Modifier keys code
+    NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use 
 }
 
 // Button and checkbox actions
