@@ -165,7 +165,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         launchFinished = FALSE;
-        hotKeyHasBeenRegistered = FALSE;
+        hotKeyEventHandlerIsInstalled = FALSE;
         
         showDurationsTimer = nil;
         
@@ -179,6 +179,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         dotTblkFileList = nil;
         oldSelectedConnectionName = nil;
+        hotKeySubmenuItemThatIsOn = nil;
         
         tunCount = 0;
         tapCount = 0;
@@ -633,9 +634,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
         }
         
-        if (  ! [gTbDefaults boolForKey:@"doNotShowHotKeySubmenu"]  ) {
+        if (  ! [gTbDefaults boolForKey:@"doNotShowShortcutKeySubmenu"]  ) {
             hotKeySubmenu = [[NSMenu alloc] init];
-            [hotKeySubmenu setTitle: NSLocalizedString(@"Shortcut Key", @"Menu item")];
+            [hotKeySubmenu setTitle: NSLocalizedString(@"Keyboard Shortcut", @"Menu item")];
             
             // Virtual Key Codes for F1...F16. Taken from Snow Leopard HIToolBox/Events.h
             int j;
@@ -3666,25 +3667,30 @@ int runUnrecoverableErrorPanel(msg)
 
 -(void) hotKeySubmenuItemWasClicked: (NSMenuItem *) fKey
 {
-    [hotKeySubmenuItemThatIsOn setState: NSOffState];
-    [hotKeySubmenuItemThatIsOn release];
-
     if (  fKey == hotKeySubmenuItemThatIsOn  ) {
         UnregisterEventHotKey(hotKeyRef);
         
-        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"shortcutKeyModifiers"];
-        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey:  @"shortcutKeyKeyCode"];
+        [hotKeySubmenuItemThatIsOn setState: NSOffState];
+        [hotKeySubmenuItemThatIsOn release];
+        hotKeySubmenuItemThatIsOn = nil;
         
         hotKeyModifierKeys = 0;
+        hotKeyKeyCode = 0;
+        
+        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"shortcutKeyModifiers"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"shortcutKeyKeyCode"];
     } else {
+        [hotKeySubmenuItemThatIsOn setState: NSOffState];
+        [hotKeySubmenuItemThatIsOn release];
+        hotKeySubmenuItemThatIsOn = nil;
+        
         int fIndex = [[fKey representedObject] intValue];
 
-        [self setupHotKeyWithCode: fKeyCode[fIndex] andModifierKeys: hotKeyModifierKeys];
+        [self setupHotKeyWithCode: fKeyCode[fIndex] andModifierKeys:  cmdKey + optionKey];
         
         hotKeySubmenuItemThatIsOn = [fKey retain];
         [hotKeySubmenuItemThatIsOn setState: NSOnState];
         
-        hotKeyModifierKeys = cmdKey + optionKey;
         [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyModifierKeys] forKey:  @"shortcutKeyModifiers"];
         [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyKeyCode]      forKey:  @"shortcutKeyKeyCode"];
     }
@@ -3692,13 +3698,16 @@ int runUnrecoverableErrorPanel(msg)
 
 -(void) setupHotKeyWithCode: (UInt32) keyCode andModifierKeys: (UInt32) modifierKeys
 {
-    if (  hotKeyHasBeenRegistered  ) {
-        UnregisterEventHotKey(hotKeyRef);
+    if (  hotKeyEventHandlerIsInstalled  ) {
+        if (  hotKeyModifierKeys != 0  ) {
+            UnregisterEventHotKey(hotKeyRef);
+        }
     } else {
         EventTypeSpec eventType;
         eventType.eventClass = kEventClassKeyboard;
         eventType.eventKind  = kEventHotKeyPressed;
         InstallApplicationEventHandler(&hotKeyPressed, 1, &eventType, (void *) self, NULL);
+        hotKeyEventHandlerIsInstalled = TRUE;
     }
     
     EventHotKeyID hotKeyID;
@@ -3708,7 +3717,6 @@ int runUnrecoverableErrorPanel(msg)
     
     hotKeyKeyCode = keyCode;
     hotKeyModifierKeys = modifierKeys;
-    hotKeyHasBeenRegistered = TRUE;
 }
 
 OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData)
