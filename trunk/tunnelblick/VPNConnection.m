@@ -423,7 +423,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 - (void) dealloc
 {
-    [self disconnect:self];
+    [self disconnectAndWait: [NSNumber numberWithBool: YES]];
     [logDisplay release];
     [managementSocket close];
     [managementSocket setDelegate: nil];
@@ -755,7 +755,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 - (IBAction) toggle: (id) sender
 {
 	if (![self isDisconnected]) {
-		[self disconnect: sender];
+		[self disconnectAndWait: [NSNumber numberWithBool: YES]];
 	} else {
 		[self connect: sender];
 	}
@@ -767,10 +767,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
 }
 
-- (void) disconnect: (id)sender 
+- (void) disconnectAndWait: (NSNumber *) wait 
 {
     if (  [self isDisconnected]  ) {
-        NSLog(@"Ignored disconnect: because already disconnected");
         return;
     }
     
@@ -785,12 +784,15 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if(pid > 0) {
         savedPid = pid;
         [self killProcess];
-        [NSApp waitUntilNoProcessWithID: savedPid];
+        if (  [wait boolValue]  ) {
+            [NSApp waitUntilNoProcessWithID: savedPid];
+        }
     } else {
         if([managementSocket isConnected]) {
             NSLog(@"No process ID; disconnecting via management interface");
             [managementSocket writeString: @"signal SIGTERM\r\n" encoding: NSASCIIStringEncoding];
             sleep(5);       // Wait five seconds for OpenVPN to disappear after it sends terminating log output
+            //                 (Wait even if 'wait' is FALSE because we need OpenVPN to receive the message)
         }
     }
     
@@ -1009,7 +1011,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                         [myAuthAgent deleteCredentialsFromKeychain];
                     }
                     if (  (alertVal != NSAlertDefaultReturn) && (alertVal != NSAlertAlternateReturn)  ) {	// If cancel or error then disconnect
-                        [self disconnect:nil];
+                        [self disconnectAndWait: [NSNumber numberWithBool: YES]];
                         return;
                     }
                 }
@@ -1028,7 +1030,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                     if(myPassphrase){
                         [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
                     } else {
-                        [self disconnect:self];
+                        [self disconnectAndWait: [NSNumber numberWithBool: YES]];
                     }
 
                 } else if ([line rangeOfString: @"Auth"].length) {
@@ -1041,7 +1043,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                         [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
                         [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
                     } else {
-                        [self disconnect:self];
+                        [self disconnectAndWait: [NSNumber numberWithBool: YES]];
                     }
                 
                 } else {
@@ -1115,7 +1117,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         [self setManagementSocket: nil];
         if (   ( ! areDisconnecting )
             && ( ! [self isDisconnected]  )  ) {
-            [self performSelectorOnMainThread: @selector(disconnect:) withObject: nil waitUntilDone: NO];
+            [self performSelectorOnMainThread: @selector(disconnectAndWait:) withObject:  [NSNumber numberWithBool: YES] waitUntilDone: NO];
         }
     }
 }

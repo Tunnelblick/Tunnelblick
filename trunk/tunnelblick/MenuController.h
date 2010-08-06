@@ -107,6 +107,9 @@ BOOL needToRepairPackages(void);
     //                                                         of a link to Tunnelblick in the Configurations folder in checkNoConfigurations from
     //                                                         triggering a second invocation of it because of the filesystem change when the link is created
     
+    BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch
+    //                                                         and therefore we can safely terminate unknown OpenVPN processes when quitting TB
+    
     NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
     //                                                         so the program can re-select. nil after re-selecting it
     

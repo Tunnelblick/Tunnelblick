@@ -108,7 +108,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                     withName:               (NSString *)        displayName;
 -(NSString *)       installationId;
 -(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
--(int)              killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons;
+-(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons;
 -(void)             loadMenuIconSet;
 -(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
@@ -166,6 +166,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
+        
+        noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
         showDurationsTimer = nil;
         
@@ -694,7 +696,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (  reportAnonymousInfoItem  ) { [optionsSubmenu addItem: reportAnonymousInfoItem ]; }
         if (  hotKeySubmenu  ) {
             hotKeySubmenuItem = [[NSMenuItem alloc] init];
-            [hotKeySubmenuItem setTitle: NSLocalizedString(@"Shortcut Key", @"Menu item")];
+            [hotKeySubmenuItem setTitle: NSLocalizedString(@"Keyboard Shortcut", @"Menu item")];
             [hotKeySubmenuItem setIndentationLevel: 1];
             [hotKeySubmenuItem setSubmenu: hotKeySubmenu];
             [optionsSubmenu addItem: hotKeySubmenuItem];
@@ -749,7 +751,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [statusItem setHighlightMode:YES];
     [statusItem setMenu:nil];
 	[myVPNMenu release]; myVPNMenu = nil;
-	[[myVPNConnectionDictionary allValues] makeObjectsPerformSelector:@selector(disconnect:) withObject:self];
+	[[myVPNConnectionDictionary allValues] makeObjectsPerformSelector:@selector(disconnectAndWait:) withObject: [NSNumber numberWithBool: YES]];
 	[myVPNConnectionDictionary removeAllObjects];
 	
 	myVPNMenu = [[NSMenu alloc] init];
@@ -1342,7 +1344,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
     if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
-        [myConnection disconnect: self];
+        [myConnection disconnectAndWait: [NSNumber numberWithBool: NO]];
         
         TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
                         [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm],
@@ -1736,7 +1738,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (IBAction)disconnectButtonWasClicked:(id)sender
 {
-    [[self selectedConnection] disconnect: sender];      
+    [[self selectedConnection] disconnectAndWait: [NSNumber numberWithBool: YES]];      
 }
 
 - (IBAction) checkForUpdates: (id) sender
@@ -1870,9 +1872,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     if (   [theControl isEqual: onLaunchRadioButton]
         || [theControl isEqual: onSystemStartRadioButton]  ) {
         id cell = [theControl cellAtRow: 0 column: 0];
-        [cell setTitle: NSLocalizedString(newTitle, nil)];
+        [cell setTitle: newTitle];
     } else {
-        [theControl setTitle: NSLocalizedString(newTitle, nil)];
+        [theControl setTitle: newTitle];
     }
     [theControl sizeToFit];
     
@@ -2001,28 +2003,66 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
 }
 
-// Returns the number of connections NOT killed
--(int) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons
+// If possible, we try to use 'killall' to kill all processes named 'openvpn'
+// But if there are unknown open processes that the user wants running, or we have active daemon processes,
+//     then we must use 'kill' to kill each individual process that should be killed
+-(void) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons
 {
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
-    int notKilled = 0;
-    while (  connection = [connEnum nextObject]  ) {
-        if (  ! [connection isDisconnected]  ) {
+    BOOL noActiveDaemons = YES;
+    
+    if (  ! includeDaemons  ) {
+        // See if any of our daemons are active -- i.e., have a process ID (they may be in the process of connecting or disconnecting)
+        while (  connection = [connEnum nextObject]  ) {
             NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
             NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
-            if (   includeDaemons
-                || ( ! [gTbDefaults boolForKey: onSystemStartKey]  )
-                || ( ! [gTbDefaults boolForKey: autoConnectKey]    )  ) {
-                [connection disconnect: self];
-            } else {
-                notKilled++;
+            if (   [gTbDefaults boolForKey: onSystemStartKey]
+                && [gTbDefaults boolForKey: autoConnectKey]  ) {
+                if (  [connection pid] != 0  ) {
+                    noActiveDaemons = NO;
+                    break;
+                }
             }
         }
     }
-    return notKilled;
-}
-
+    
+    if (   includeDaemons
+        || ( noUnknownOpenVPNsRunning && noActiveDaemons )  ) {
+        
+        // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
+        NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+        NSTask* task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath: path];
+        [task setArguments: [NSArray arrayWithObject: @"killall"]];
+        [task launch];
+        [task waitUntilExit];
+    } else {
+        
+        // Killing selected processes only -- those we know about that are not daemons
+        while (  connection = [connEnum nextObject]  ) {
+            if (  ! [connection isDisconnected]  ) {
+                NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+                NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
+                if (   ( ! [gTbDefaults boolForKey: onSystemStartKey]  )
+                    || ( ! [gTbDefaults boolForKey: autoConnectKey]    )  ) {
+                    pid_t procId = [connection pid];
+                    if (  procId > 0  ) {
+                        NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+                        NSTask* task = [[[NSTask alloc] init] autorelease];
+                        [task setLaunchPath: path];
+                        [task setArguments: [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%d", procId], nil]];
+                        [task launch];
+                        [task waitUntilExit];
+                    } else {
+                        [connection disconnectAndWait: [NSNumber numberWithBool: NO]];
+                    }
+                }
+            }
+        }
+    }
+}    
+    
 // Unloads loaded tun/tap kexts if tunCount/tapCount is zero.
 // If fooOnly is TRUE, only the foo tun/tap kexts will be unloaded (if they are loaded, and without reference to the tunCount/tapCount)
 -(void) unloadKextsFooOnly: (BOOL) fooOnly 
@@ -2124,7 +2164,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	while (connection = [e nextObject]) {
 		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
 			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection displayName]);
-			[connection disconnect:self];
+			[connection disconnectAndWait: [NSNumber numberWithBool: YES]];
 			[connection connect:self];
 		} else {
 			if (NSDebugEnabled) NSLog(@"Not Resetting connection: %@, waiting...",[connection displayName]);
@@ -2756,10 +2796,13 @@ static void signal_handler(int signalNumber)
                 [task setCurrentDirectoryPath: @"/tmp"];
                 [task launch];
                 [task waitUntilExit];
-                
+                noUnknownOpenVPNsRunning = YES;
             }
         }
+    } else {
+        noUnknownOpenVPNsRunning = YES;
     }
+
 }
 
 // Sparkle delegate:

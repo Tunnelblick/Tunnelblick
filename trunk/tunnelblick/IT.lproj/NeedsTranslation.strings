@@ -196,6 +196,9 @@
 /* Window title */
 "Installing a Tunnelblick VPN Configuration" = "Installing a Tunnelblick VPN Configuration";
 
+/* Menu item */
+"Keyboard Shortcut" = "Keyboard Shortcut";
+
 /* Window title */
 "Make Configuration Private?" = "Make Configuration Private?";
 

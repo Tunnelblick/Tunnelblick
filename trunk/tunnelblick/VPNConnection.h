@@ -65,7 +65,7 @@
 
 -(void)             connect:                    (id) sender;
 
--(void)             disconnect:                 (id) sender;
+-(void)             disconnectAndWait:          (NSNumber *)    wait;
 
 -(NSString *)       displayName;
 
