@@ -47,8 +47,12 @@ NSDictionary          * gOpenVPNVersionDict;  // Dictionary with OpenVPN version
 SecuritySessionId       gSecuritySessionId;   // Session ID used to create temporary files
 unsigned int            gHookupTimeout;       // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                               or zero to keep trying indefinitely
+UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
+    0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
 
 void terminateBecauseOfBadConfiguration(void);
+
+OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData);
 
 extern BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave);
@@ -126,8 +130,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             setLogWindowTitle;
 -(void)             setTitle:                               (NSString *)        newTitle
                    ofControl:                               (id)                theControl;
+-(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
+                        andModifierKeys:                    (UInt32)            modifierKeys;
 -(void)             setupSparklePreferences;
 -(void)             startOrStopDurationsTimer;
+-(NSStatusItem *)   statusItem;
 -(NSString *)       findTblkToInstallInPath:                (NSString *)        thePath;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
@@ -158,6 +165,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         launchFinished = FALSE;
+        hotKeyHasBeenRegistered = FALSE;
         
         showDurationsTimer = nil;
         
@@ -281,10 +289,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                            pathContent: pathToThisApp];
                 } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath] isEqualToString: pathToThisApp]  ) {
                     ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
-                    NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-                    [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil];
-                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
-                                           pathContent: pathToThisApp];
+                    if (  ! [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil]  ) {
+                        NSLog(@"Unable to remove %@", launchTunnelblickSymlinkPath);
+                    }
+                    if (  ! [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                                                   pathContent: pathToThisApp]  ) {
+                        NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
+                    } else {
+                        NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
+                    }
                 }
             }
             
@@ -308,7 +321,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
 		[self createStatusItem];
 		
+        // Get hot key keyCode and modifiers
+        id code = [gTbDefaults objectForKey: @"shortcutKeyKeyCode"];
+        if (  [code respondsToSelector: @selector(unsignedIntValue)]  ) {
+            hotKeyKeyCode = (UInt32) [code unsignedIntValue];
+        } else {
+            hotKeyKeyCode = 0x7A;   /* F1 key */
+        }
+        code = [gTbDefaults objectForKey: @"shortcutKeyModifiers"];
+        if (  [code respondsToSelector: @selector(unsignedIntValue)]  ) {
+            hotKeyModifierKeys = (UInt32) [code unsignedIntValue];
+        } else {
+            hotKeyModifierKeys = cmdKey+optionKey;
+        }
+        
 		[self createMenu];
+        
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         [[NSNotificationCenter defaultCenter] addObserver: self 
@@ -337,6 +365,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		userIsAnAdmin = isUserAnAdmin();
 		
         updater = [[SUUpdater alloc] init];
+        
 }
     
     return self;
@@ -379,8 +408,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [optionsItem release];
     [detailsItem release];
     [quitItem release];
+    [hotKeySubmenuItemThatIsOn release];
+    [hotKeySubmenuItem release];
+    [hotKeySubmenu release];
     [statusMenuItem release];
-    [statusItem release]; 
+    [statusItem release];
     
     [super dealloc];
 }
@@ -530,7 +562,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // Initial creation of the menu
 -(void) createMenu 
 {	
+    hotKeySubmenu = nil;
+    
     if (  ! [gTbDefaults boolForKey:@"doNotShowOptionsSubmenu"]  ) {
+        
         preferencesTitleItem = [[NSMenuItem alloc] init];
         [preferencesTitleItem setTitle: NSLocalizedString(@"Preferences", @"Menu item")];
         [preferencesTitleItem setTarget: self];
@@ -598,6 +633,38 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
         }
         
+        if (  ! [gTbDefaults boolForKey:@"doNotShowHotKeySubmenu"]  ) {
+            hotKeySubmenu = [[NSMenu alloc] init];
+            [hotKeySubmenu setTitle: NSLocalizedString(@"Shortcut Key", @"Menu item")];
+            
+            // Virtual Key Codes for F1...F16. Taken from Snow Leopard HIToolBox/Events.h
+            int j;
+            for (j=0; j<16; j++) {
+                if (  fKeyCode[j] == hotKeyKeyCode  ) {
+                    break;
+                }
+            }
+            int i;
+            // We allow F1...F12 so the menu isn't too long (and MacBook keyboards only go that high, anyway)
+            for (i=0; i<12; i++) {
+                hotKeySubmenuItem =  [[NSMenuItem alloc] init];
+                const unichar cmdOptionChars[] = {0x2318,' ',0x2325};
+                NSString * cmdOptionString = [NSString stringWithCharacters: cmdOptionChars
+                                                             length: sizeof cmdOptionChars / sizeof * cmdOptionChars];
+                [hotKeySubmenuItem setTitle: [NSString stringWithFormat: @"%@ F%d", cmdOptionString , i+1]];
+                [hotKeySubmenuItem setTarget: self];
+                [hotKeySubmenuItem setAction: @selector(hotKeySubmenuItemWasClicked:)];
+                [hotKeySubmenuItem setRepresentedObject: [NSNumber numberWithInt: i]];
+                if (  i == j  ) {
+                    [hotKeySubmenuItem setState: NSOnState];
+                    hotKeySubmenuItemThatIsOn = [hotKeySubmenuItem retain];
+                } else {
+                    [hotKeySubmenuItem setState: NSOffState];
+                }
+                
+                [hotKeySubmenu addItem: hotKeySubmenuItem];
+            }
+        }
     }
     
     aboutItem = [[NSMenuItem alloc] init];
@@ -624,9 +691,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (  useShadowCopiesItem               ) { [optionsSubmenu addItem: useShadowCopiesItem            ]; }
         if (  autoCheckForUpdatesItem  ) { [optionsSubmenu addItem: autoCheckForUpdatesItem ]; }
         if (  reportAnonymousInfoItem  ) { [optionsSubmenu addItem: reportAnonymousInfoItem ]; }
+        if (  hotKeySubmenu  ) {
+            hotKeySubmenuItem = [[NSMenuItem alloc] init];
+            [hotKeySubmenuItem setTitle: NSLocalizedString(@"Shortcut Key", @"Menu item")];
+            [hotKeySubmenuItem setIndentationLevel: 1];
+            [hotKeySubmenuItem setSubmenu: hotKeySubmenu];
+            [optionsSubmenu addItem: hotKeySubmenuItem];
+        }
         
-        
-        if (   putIconNearSpotlightItem || monitorConfigurationDirItem || warnAboutSimultaneousItem || showConnectedDurationsItem || useShadowCopiesItem || autoCheckForUpdatesItem || reportAnonymousInfoItem  ) {
+        if (   putIconNearSpotlightItem
+            || monitorConfigurationDirItem
+            || warnAboutSimultaneousItem
+            || showConnectedDurationsItem
+            || useShadowCopiesItem
+            || autoCheckForUpdatesItem
+            || reportAnonymousInfoItem
+            || hotKeySubmenu  ) {
             [optionsSubmenu addItem: [NSMenuItem separatorItem]];
         }
 
@@ -868,6 +948,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSLog(@"Unable to find submenu '%@' in the menu, removal failed", restOfName);
 }
 
+// Note: ToolTips are disabled because they interfere with VoiceOver
 -(NSMenuItem *)initPrefMenuItemWithTitle: (NSString *) title
                                andAction: (SEL) action
                               andToolTip: (NSString *) tip
@@ -880,7 +961,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [menuItem setTitle:   title];
         [menuItem setTarget:  self];
         [menuItem setAction:  action];
-        [menuItem setToolTip: tip];
+        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+            [menuItem setToolTip: tip];
+        }
         [menuItem setIndentationLevel: indentLevel];
         [menuItem setRepresentedObject: prefKey];
         BOOL state = [gTbDefaults boolForKey:prefKey];
@@ -939,13 +1022,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
             && ( ! userIsAnAdmin )  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            }
             return NO;
         } else if (  ! [updater respondsToSelector:@selector(setSendsSystemProfile:)]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:", @"Menu item tooltip")];
+            }
             return NO;
         }
-        [anItem setToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")];
+        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")];
+        }
     } else if (  act == @selector(toggleAutoCheckForUpdates:)  ) {
         [anItem setState: NSOffState];
         
@@ -953,38 +1042,55 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
             && ( ! userIsAnAdmin )  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            }
             return NO;
         } else if (  ! [updater respondsToSelector:@selector(setAutomaticallyChecksForUpdates:)]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:", @"Menu item tooltip")];
+            }
             return NO;
         } else if (  ! [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
+            }
             return NO;
         }
         if (  [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
             [anItem setState: NSOnState];
         }
-        [anItem setToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")];
+        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+            [anItem setToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")];
+        }
     } else if (  act == @selector(checkForUpdates:)  ) {
         if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
             && ( ! userIsAnAdmin )  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
+            }
             return NO;
         } else if (  ! [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
+            }
             return NO;
         }
-        [anItem setToolTip: @""];
+        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+            [anItem setToolTip: @""];
+        }
     } else {
-        [anItem setToolTip: @""];
-        return YES;
+        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+            [anItem setToolTip: @""];
+        }
     }
     
     // We store the preference key for a menu item in the item's representedObject so we can do the following:
     if (  [anItem representedObject]  ) {
         if (  ! [gTbDefaults canChangeValueForKey: [anItem representedObject]]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Disabled because this setting is being forced", @"Menu item tooltip")];
+            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+                [anItem setToolTip: NSLocalizedString(@"Disabled because this setting is being forced", @"Menu item tooltip")];
+            }
             return NO;
         }
     }
@@ -1476,8 +1582,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	}
 	
     [statusMenuItem setTitle: myState];
-    [statusItem setToolTip: myState];
-	
+    if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+        [statusItem setToolTip: myState];
+	}
+    
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]) ) { 
 		// override while in transitional state
@@ -2545,6 +2653,10 @@ static void signal_handler(int signalNumber)
     }
     
     [NSApp setAutoLaunchOnLogin: YES];
+    
+    if (  hotKeyModifierKeys != 0  ) {
+        [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
+    }
 
     launchFinished = TRUE;
 }
@@ -3552,4 +3664,65 @@ int runUnrecoverableErrorPanel(msg)
     }
 }
 
+-(void) hotKeySubmenuItemWasClicked: (NSMenuItem *) fKey
+{
+    [hotKeySubmenuItemThatIsOn setState: NSOffState];
+    [hotKeySubmenuItemThatIsOn release];
+
+    if (  fKey == hotKeySubmenuItemThatIsOn  ) {
+        UnregisterEventHotKey(hotKeyRef);
+        
+        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"shortcutKeyModifiers"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey:  @"shortcutKeyKeyCode"];
+        
+        hotKeyModifierKeys = 0;
+    } else {
+        int fIndex = [[fKey representedObject] intValue];
+
+        [self setupHotKeyWithCode: fKeyCode[fIndex] andModifierKeys: hotKeyModifierKeys];
+        
+        hotKeySubmenuItemThatIsOn = [fKey retain];
+        [hotKeySubmenuItemThatIsOn setState: NSOnState];
+        
+        hotKeyModifierKeys = cmdKey + optionKey;
+        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyModifierKeys] forKey:  @"shortcutKeyModifiers"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyKeyCode]      forKey:  @"shortcutKeyKeyCode"];
+    }
+}
+
+-(void) setupHotKeyWithCode: (UInt32) keyCode andModifierKeys: (UInt32) modifierKeys
+{
+    if (  hotKeyHasBeenRegistered  ) {
+        UnregisterEventHotKey(hotKeyRef);
+    } else {
+        EventTypeSpec eventType;
+        eventType.eventClass = kEventClassKeyboard;
+        eventType.eventKind  = kEventHotKeyPressed;
+        InstallApplicationEventHandler(&hotKeyPressed, 1, &eventType, (void *) self, NULL);
+    }
+    
+    EventHotKeyID hotKeyID;
+    hotKeyID.signature = 'htk1';
+    hotKeyID.id = 1;
+    RegisterEventHotKey(keyCode, modifierKeys, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
+    
+    hotKeyKeyCode = keyCode;
+    hotKeyModifierKeys = modifierKeys;
+    hotKeyHasBeenRegistered = TRUE;
+}
+
+OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData)
+{
+    // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
+    MenuController * menuC = (MenuController *) userData;
+    NSStatusItem * statusI = [menuC statusItem];
+    [statusI popUpStatusItemMenu: [statusI menu]];
+    return noErr;
+}
+
+-(NSStatusItem *) statusItem
+{
+    return statusItem;
+}
+    
 @end

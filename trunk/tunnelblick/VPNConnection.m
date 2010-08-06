@@ -1223,8 +1223,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
         NSString *itemTitle = [NSString stringWithFormat:@"%@ %@%@", commandString, itemName, locationMessage];
         [anItem setTitle:itemTitle];
-        [anItem setToolTip: [connection configPath]];
-	}
+        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+            [anItem setToolTip: [connection configPath]];
+        }
+    }
 	return YES;
 }
 
