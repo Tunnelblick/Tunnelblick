@@ -113,11 +113,11 @@ BOOL needToRepairPackages(void);
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
-    BOOL                      hotKeyHasBeenRegistered;      // A hot key has been registered
-    EventHotKeyRef            hotKeyRef;                    // Reference for the key
+    BOOL                      hotKeyEventHandlerIsInstalled;// The event handler for the hot key (keyboard shortcut to pop up the Tunnelblick menu) has been installed
+    EventHotKeyRef            hotKeyRef;                    // Reference for the current hot key
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
-    UInt32                    hotKeyModifierKeys;           //                  Modifier keys code
-    NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use 
+    UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
+    NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use or nil if no hot key active
 }
 
 // Button and checkbox actions
