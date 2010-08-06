@@ -867,7 +867,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     // Didn't find the submenu, so we have to create a new submenu and try again.
     
     // Create the new submenu
-    NSMenu * newSubmenu = [[NSMenu alloc] initWithTitle:@"A Configuration SubMenu Title"];
+    NSMenu * newSubmenu = [[[NSMenu alloc] initWithTitle:@"A Configuration SubMenu Title"] autorelease];
     
     // Create a new submenu item for the outer menu
     NSMenuItem * newMenuItem = [[NSMenuItem alloc] init];
@@ -2212,6 +2212,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(void)cleanup 
 {
+    if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
+        UnregisterEventHotKey(hotKeyRef);
+    }
+    
 	[NSApp callDelegateOnNetworkChange: NO];
     [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     [self unloadKextsFooOnly: NO];     // Unload .tun and .tap kexts

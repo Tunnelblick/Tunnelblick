@@ -871,7 +871,7 @@ enum state_t {                      // These are the "states" of the guideState 
         
     // **************************************************************************************
     // Make sure there is exactly one configuration file
-    NSString * pathToConfigFile;
+    NSString * pathToConfigFile = nil;
     int numberOfConfigFiles = 0;
     BOOL haveConfigDotOvpn = FALSE;
     NSString * file;
@@ -903,9 +903,8 @@ enum state_t {                      // These are the "states" of the guideState 
     
     // **************************************************************************************
     // Make sure the configuration file is not the sample file
-    if (  [self isSampleConfigurationAtPath: pathToConfigFile]  ) {
-        // isSampleConfigurationAtPath has already informed the user of the problem
-        pkgIsOK = FALSE;
+    if (  pathToConfigFile  && [self isSampleConfigurationAtPath: pathToConfigFile]  ) {
+        pkgIsOK = FALSE;            // have already informed the user of the problem
     }
     
     if ( ! pkgIsOK  ) {
