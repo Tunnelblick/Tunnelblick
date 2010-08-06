@@ -325,6 +325,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Installing a Tunnelblick VPN Configuration" = "Installing a Tunnelblick VPN Configuration";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Keyboard Shortcut" = "Keyboard Shortcut";
+
 /* Button */
 "Launch" = "Démarrer";
 
