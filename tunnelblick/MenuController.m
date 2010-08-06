@@ -327,7 +327,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (  [code respondsToSelector: @selector(unsignedIntValue)]  ) {
             hotKeyKeyCode = (UInt32) [code unsignedIntValue];
         } else {
-            hotKeyKeyCode = 0x7A;   /* F1 key */
+            hotKeyKeyCode = 0x6F;   /* F12 key */
         }
         code = [gTbDefaults objectForKey: @"shortcutKeyModifiers"];
         if (  [code respondsToSelector: @selector(unsignedIntValue)]  ) {
