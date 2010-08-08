@@ -641,7 +641,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
         }
         
-        if (  ! [gTbDefaults boolForKey:@"doNotShowShortcutKeySubmenu"]  ) {
+        if (  ! [gTbDefaults boolForKey:@"doNotShowKeyboardShortcutSubmenu"]  ) {
             hotKeySubmenu = [[NSMenu alloc] init];
             [hotKeySubmenu setTitle: NSLocalizedString(@"Keyboard Shortcut", @"Menu item")];
             
