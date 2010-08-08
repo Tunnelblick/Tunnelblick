@@ -330,13 +330,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[self createStatusItem];
 		
         // Get hot key keyCode and modifiers
-        id code = [gTbDefaults objectForKey: @"shortcutKeyKeyCode"];
+        id code = [gTbDefaults objectForKey: @"keyboardShortcutKeyCode"];
         if (  [code respondsToSelector: @selector(unsignedIntValue)]  ) {
             hotKeyKeyCode = (UInt32) [code unsignedIntValue];
         } else {
             hotKeyKeyCode = 0x7A;   /* F1 key */
         }
-        code = [gTbDefaults objectForKey: @"shortcutKeyModifiers"];
+        code = [gTbDefaults objectForKey: @"keyboardShortcutModifiers"];
         if (  [code respondsToSelector: @selector(unsignedIntValue)]  ) {
             hotKeyModifierKeys = (UInt32) [code unsignedIntValue];
         } else {
@@ -3727,8 +3727,8 @@ int runUnrecoverableErrorPanel(msg)
         hotKeyModifierKeys = 0;
         hotKeyKeyCode = 0;
         
-        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"shortcutKeyModifiers"];
-        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"shortcutKeyKeyCode"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"keyboardShortcutModifiers"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"keyboardShortcutKeyCode"];
     } else {
         [hotKeySubmenuItemThatIsOn setState: NSOffState];
         [hotKeySubmenuItemThatIsOn release];
@@ -3741,8 +3741,8 @@ int runUnrecoverableErrorPanel(msg)
         hotKeySubmenuItemThatIsOn = [fKey retain];
         [hotKeySubmenuItemThatIsOn setState: NSOnState];
         
-        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyModifierKeys] forKey:  @"shortcutKeyModifiers"];
-        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyKeyCode]      forKey:  @"shortcutKeyKeyCode"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyModifierKeys] forKey:  @"keyboardShortcutModifiers"];
+        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyKeyCode]      forKey:  @"keyboardShortcutKeyCode"];
     }
 }
 
