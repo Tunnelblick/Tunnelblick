@@ -1,4 +1,4 @@
-#summary Release Notes - Tunnelblick
+#summary Thanks
 #sidebar wSb
 <font size="5">THANKS!</font>
 
