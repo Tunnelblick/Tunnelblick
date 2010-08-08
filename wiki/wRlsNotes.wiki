@@ -9,10 +9,10 @@
  * Implements a single, system-wide keyboard shortcut (command-option-F1 by default) to expose the Tunnelblick menu.
    * This make it possible to use Tunnelblick with only a keyboard.
    * The keyboard shortcut may be used whenever Tunnelblick is running - it does not need to be the front-most application.
-   * A new submenu of the Options submenu has been added to allow the key to be changed to any of the function keys from F1 through F12. The display of the new menu item is inhibited if the 'doNotShowKeyboardShortcutSubmenu' preference is set to TRUE.
+   * A new submenu of the Options submenu has been added to allow the key to be changed to any of the function keys from F1 through F12. The display of the new submenu is inhibited if the 'doNotShowKeyboardShortcutSubmenu' preference is set to TRUE.
    * Two new unsigned integer preferences: 'keyboardShortcutKeyCode' contains the virtual keycode for the key, and 'keyboardShortcutModifiers' contains the code for the modifier keys. 
 
- * No longer displays Tooltips by default. They are displayed only if the 'showTooltips' preference is set to TRUE. This is necessary because tooltips on menu items interfere with the proper operation of VoiceOver, OS X's built-in screen access solution.
+ * No longer displays Tooltips by default. They are displayed only if the 'showTooltips' preference is set to TRUE. This is necessary because tooltips on menu items interfere with the proper operation of !VoiceOver, OS X's built-in screen access solution.
 
  * Terminates faster if going to sleep or if no unknown OpenVPN processes exist and no 'when computer starts' configurations are connected.
 
