@@ -77,7 +77,7 @@ Tunnelblick is made possible by the efforts of many people:
 
   <tr>
     <td>      Dustin Mierau    </td>
-    <td>      NetSocket    </td>
+    <td>      !NetSocket    </td>
   </tr>
 
   <tr>
