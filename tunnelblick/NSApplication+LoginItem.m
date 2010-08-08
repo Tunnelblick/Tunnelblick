@@ -143,7 +143,8 @@
 
 // Waits up to five seconds for a process to be gone
 // (Modified version of NSApplication+LoginItem's killOtherInstances)
-- (void) waitUntilNoProcessWithID: (pid_t) pid
+// Returns TRUE if process has terminated, otherwise returns FALSE
+- (BOOL) waitUntilNoProcessWithID: (pid_t) pid
 {
     int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
     struct kinfo_proc* info;
@@ -155,7 +156,7 @@
     int level = 3;
     
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
-        return;
+        return FALSE;
     }
     
     for (j=0; j<6; j++) {   // Check six times, one second wait between each = five second maximum wait
@@ -164,11 +165,13 @@
             sleep(1);
         }
         // Allocate memory for info structure:
-        if (!(info = NSZoneMalloc(NULL, length))) return;
+        if (!(info = NSZoneMalloc(NULL, length))) {
+            return FALSE;
+        }
         
         if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
             NSZoneFree(NULL, info);
-            return;
+            return FALSE;
         }
         
         // Calculate number of processes:
@@ -189,7 +192,10 @@
     
     if (  found  ) {
         NSLog(@"Error: Timeout (5 seconds) waiting for OpenVPN process %d to terminate", pid);
+        return FALSE;
     }
+    
+    return TRUE;
 }
 
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 

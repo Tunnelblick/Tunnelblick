@@ -382,6 +382,15 @@
 /* Button */
 "OpenVPN Configuration(s)" = "Configurazioni di OpenVPN";
 
+/* NEEDS TRANSLATION *//* Window title */
+"OpenVPN Not Responding" = "OpenVPN Not Responding";
+
+/* NEEDS TRANSLATION *//* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.2 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.2 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
+
 /* Menu item */
 "Options" = "Opzioni";
 
@@ -423,6 +432,9 @@
 
 /* Connection status */
 "RECONNECTING" = "Riconnessione";
+
+/* NEEDS TRANSLATION *//* Connection status */
+"RESOLVE" = "Resolving domain name";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Reinstall Tunnelblick?" = "Reinstall Tunnelblick?";
@@ -705,6 +717,9 @@
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "Attenzione alle connessioni simultanee";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Warning!" = "Warning!";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Warning" = "Warning";

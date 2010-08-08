@@ -286,20 +286,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
                 NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
                 NSString * launchTunnelblickSymlinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                if (  ! [gFileMgr fileExistsAtPath:launchTunnelblickSymlinkPath]  ) {
-                    NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-                    [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
-                                           pathContent: pathToThisApp];
-                } else if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath] isEqualToString: pathToThisApp]  ) {
+                NSString * linkContents = [gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath];
+                if (  linkContents == nil  ) {
+                    [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil];
+                    if (  [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                                                   pathContent: pathToThisApp]  ) {
+                        NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
+                    } else {
+                        NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
+                    }
+                } else if (  ! [linkContents isEqualToString: pathToThisApp]  ) {
                     ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
                     if (  ! [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil]  ) {
                         NSLog(@"Unable to remove %@", launchTunnelblickSymlinkPath);
                     }
-                    if (  ! [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                    if (  [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
                                                    pathContent: pathToThisApp]  ) {
-                        NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
-                    } else {
                         NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
+                    } else {
+                        NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
                     }
                 }
             }
@@ -776,7 +781,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         // configure connection object:
 		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
                                                                 withDisplayName: dispNm];
-		[myConnection setState:@"EXITING"];
 		[myConnection setDelegate:self];
         
 		[myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
@@ -1312,7 +1316,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
                                                             withDisplayName: dispNm];
-    [myConnection setState:@"EXITING"];
     [myConnection setDelegate:self];
     [myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
     

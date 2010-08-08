@@ -34,9 +34,14 @@
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
+    NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
     LogDisplay    * logDisplay;         // Used to store and display the OpenVPN log
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
+    NSTimer       * forceKillTimer;     // Used to keep trying to kill a (temporarily, we hope) non-responsive OpenVPN process
+    unsigned int    forceKillTimeout;   // Number of seconds to wait before forcing a disconnection
+    unsigned int    forceKillInterval;  // Number of seconds between tries to kill a non-responsive OpenVPN process
+    unsigned int    forceKillWaitSoFar; // Number of seconds since forceKillTimer was first set for this disconnection attempt
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
@@ -46,7 +51,6 @@
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
     BOOL            connectedWithTap;   // True iff last connection was made loading our tap kext
     BOOL            connectedWithTun;   // True iff last connection was made loading our tun kext
-    NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
 }
 
 // PUBLIC METHODS:
@@ -68,6 +72,8 @@
 -(void)             disconnectAndWait:          (NSNumber *)    wait;
 
 -(NSString *)       displayName;
+
+-(void)             hasDisconnected;
 
 -(id)               initWithConfigPath:         (NSString *)    inPath
                        withDisplayName:         (NSString *)    inDisplayName;

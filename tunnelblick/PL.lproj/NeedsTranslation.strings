@@ -179,10 +179,22 @@
 "OpenVPN Configuration(s)" = "OpenVPN Configuration(s)";
 
 /* Window title */
+"OpenVPN Not Responding" = "OpenVPN Not Responding";
+
+/* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state.";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.2 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.2 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
+
+/* Window title */
 "Perform installation?" = "Perform installation?";
 
 /* Window title */
 "Private Configuration Folder is Open" = "Private Configuration Folder is Open";
+
+/* Connection status */
+"RESOLVE" = "Resolving domain name";
 
 /* Window title */
 "Remove kexts?" = "Remove kexts?";
@@ -306,6 +318,9 @@
 
 /* Window text */
 "VPN Connections" = "VPN Connections";
+
+/* Window title */
+"Warning!" = "Warning!";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
