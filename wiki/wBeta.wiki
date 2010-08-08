@@ -8,6 +8,23 @@ A *"beta"* version of a program is a version that has been tested internally and
 When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 --------------------
+2010-08-08: *Tunnelblick 3.1beta12 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or 3.1beta10*</font> 
+
+New features include:
+
+ * Italian localization thanks to Pierpaolo Gulla (Grazie!).
+
+ * Implements a single, system-wide keyboard shortcut (command-option-F1 by default) to expose the Tunnelblick menu.
+
+ * No longer displays Tooltips by default.
+
+ * Terminates faster if going to sleep or if no unknown OpenVPN processes exist and no 'when computer starts' configurations are connected.
+
+ * Fixes several bugs and includes a workaround for an OpenVPN bug.
+ 
+--------------------
 2010-07-29: *Tunnelblick 3.1beta10 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
 <font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08*</font> 

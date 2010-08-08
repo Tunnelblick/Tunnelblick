@@ -12,7 +12,7 @@
 
 
 
-*[DocumentationForTunnelblick_3_1beta10 Tunnelblick 3.1beta10 Documentation]*
+*[DocumentationForTunnelblick_3_1beta12 Tunnelblick 3.1beta12 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wQuick Quick Start Guide]<br>

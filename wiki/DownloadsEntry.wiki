@@ -12,7 +12,7 @@ A stable release is a version that has been tested as thoroughly as possible and
 
 ==Beta Releases==
 A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg&can=1&q= Tunnelblick 3.1beta10] (2010-07-29)<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg&can=1&q= Tunnelblick 3.1beta12] (2010-08-08)<br><br>
 
 ==User-Contributed Scripts==
 These scripts have been contributed by users and usually help deal with special circumstances. They are not endorsed or checked by the Tunnelblick project or Google, and you use them at your own risk. Note: scripts are executed as root. [wUsingScripts Instructions for using scripts]. To contribute a script, please email project owner [http://code.google.com/u/jkbullard/ Jon].
@@ -20,6 +20,7 @@ These scripts have been contributed by users and usually help deal with special 
     * *Unload Cisco Tun Kext*:  [http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-001-pre-post.zip&can=2&q= user-contributed-001-pre-post.zip] Contributed by petiepooo. These scripts unload the Cisco !AnyConnect tun kext before a Tunnelblick connection is started, and reload the Cisco tun kext after a Tunnelblick connection is stopped. (The Cisco kext interferes with Tunnelblick's operation of tun connections.) Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher.
 
 *Deprecated Versions of Tunnelblick*<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg&can=1&q= Tunnelblick 3.1beta10] (2010-07-29)<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg&can=1&q= Tunnelblick 3.1beta08] (2010-07-10)<br>    
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg&can=1&q= Tunnelblick 3.1beta06] (2010-06-07)<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg&can=1&q= Tunnelblick 3.1beta04] (2010-05-27)<br>
