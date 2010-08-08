@@ -2,12 +2,12 @@
 #sidebar wSb
 <font size="5">THANKS!</font>
 
-Tunnelblick is made possible through work by:
+Tunnelblick is made possible by the efforts of many people:
 
 <table>
-
    <tr>
-    <td colspan="2"><font size="4"><strong>Code and Documentation</strong></font></td>
+    <td colspan="2">
+<font size="4"><strong>Code and Documentation</strong></font></td>
   </tr>
 
  <tr>
@@ -17,7 +17,7 @@ Tunnelblick is made possible through work by:
 
   <tr>
     <td>      Angelo Laub    </td>
-    <td>      Founder, original programming    </td>
+    <td>      Founder, original program and documentation    </td>
   </tr>
 
   <tr>
@@ -27,7 +27,7 @@ Tunnelblick is made possible through work by:
 
   <tr>
     <td>      Dirk Theisen    </td>
-    <td>      Contributed much code to the original program    </td>
+    <td>      Contributed much to the early code    </td>
   </tr>
 
   <tr>
@@ -110,7 +110,8 @@ Tunnelblick is made possible through work by:
     <td colspan="2">
 <font size="4"><strong>Localization</strong></font></td>
   </tr>
-   <tr>
+
+  <tr>
     <td>      Name    </td>
     <td>      Language    </td>
   </tr>
