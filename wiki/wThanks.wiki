@@ -7,7 +7,7 @@ Tunnelblick is made possible by the efforts of many people:
 <table>
    <tr>
     <td colspan="2">
-<font size="4"><strong>Code and Documentation</strong></font></td>
+<font size="4"><strong>Program and Documentation</strong></font></td>
   </tr>
 
  <tr>
