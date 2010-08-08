@@ -652,6 +652,7 @@ void localizableStrings(void)
     NSLocalizedString(@"EXITING",       @"Connection status");
     NSLocalizedString(@"GET_CONFIG",    @"Connection status");
     NSLocalizedString(@"RECONNECTING",  @"Connection status");
+    NSLocalizedString(@"RESOLVE",       @"Connection status");
     NSLocalizedString(@"SLEEP",         @"Connection status");
     NSLocalizedString(@"WAIT",          @"Connection status");
 }
