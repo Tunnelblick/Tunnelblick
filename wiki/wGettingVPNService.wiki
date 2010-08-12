@@ -39,7 +39,9 @@ The following VPN service providers recommend or use Tunnelblick exclusively for
   * [http://www.my-expat-network.co.uk My Expat Network]
   * [http://info.psmail.net/noah PSMail]
   * [http://www.RoadWarriorVPN.com Road Warrior VPN.com]
+  * [http://www.smallvpn.com Small VPN]
   * [http://www.surfbouncer.com SurfBouncer Personal VPN]
+  * [http://www.tuvpn.com TUVPN]
   * [http://www.ultravpn.fr UltraVPN]
 
 If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-07-11.)
