@@ -33,9 +33,11 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 
   * [http://www.acevpn.com Ace VPN]
   * [http://s6n.org/arethusa Arethusa VPN]
+  * [http://www.comodo.com/trustconnect/overview.html Comodo TrustConnect]
   * [http://www.my-expat-network.co.uk My Expat Network]
   * [http://info.psmail.net/noah PSMail]
   * [http://www.RoadWarriorVPN.com Road Warrior VPN.com]
+  * [http://www.smallvpn.com Small VPN]
   * [http://www.surfbouncer.com SurfBouncer Personal VPN]
   * [http://www.tuvpn.com TUVPN]
   * [http://www.ultravpn.fr UltraVPN]
