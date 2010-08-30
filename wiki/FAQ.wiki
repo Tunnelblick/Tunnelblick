@@ -31,6 +31,18 @@ What else you need depends on your situation:
   * If you have a "deployed" version of Tunnelblick (usually from a company or VPN service provider), you may not need anything else -- everything is usually included in the customized version of the Tunnelblick application that is distributed.
   * Otherwise, you need either a "configuration file" or enough information about the VPN to edit the sample configuration file that Tunnelblick will offer to install. You will probably also need certificate and key files for encryption. Your company or VPN service provider should provide them.
 
+==How do I verify a download's SHA-1 checksum?==
+To get the "SHA-1" checksum of a file, use the following command in Terminal:
+
+{{{
+/usr/bin/openssl  sha1  path-to-the-file
+}}}
+For example:
+
+{{{
+/usr/bin/openssl  sha1  /Users/johnsmith/Downloads/Tunnelblick_3.0.dmg
+}}}
+
 ==Where can I get old versions of Tunnelblick?==
 Older versions of Tunnelblick are available on the Downloads page, but they are hidden by default. On the Downloads page, select "Deprecated downloads" in the drop-down list next to "Search", then click the "Search" button. A list of all old versions of Tunnelblick will be displayed. (Ignore the files with names starting with "using-tunnelblick".)
 
