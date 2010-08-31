@@ -31,7 +31,7 @@ When there are no configurations (which is usually the case the first time Tunne
 To launch Tunnelblick:
  * Double-click Tunnelblick in the Applications folder or
  * Double-click "Launch Tunnelblick" in the `Configurations` folder
- * If Tunnelblick is running when you log out, shut down, or restart your computer, it will automatically be launched when you log in.
+If Tunnelblick is running when you log out, shut down, or restart your computer, it will automatically be launched when you log in.
 
 ==Using Tunnelblick==
 Once Tunnelblick has been launched, you control it from the Tunnelblick icon in the Status Bar at the top of your screen. The Tunnelblick icon is usually placed between the time and the Spotlight icon. When no VPN connection is active, the icon is dark, indicating a closed tunnel.
@@ -74,7 +74,7 @@ You can quit Tunnelblick by:
   * Clicking on the Tunnelblick icon, then on "Quit"
   * Typing Command-Q (also known as Apple-Q) from the "Details…" (or "OpenVPN Log) window, or the "About…" window.
 
-Tunnelblick will close all connections before it quits.
+Tunnelblick will close all connections that are not marked "automatically connect when the computer starts" before it quits.
 
 ==Starting Tunnelblick Automatically==
 If you *don't* quit Tunnelblick before logging out, it will be started automatically upon login. Don't confuse this automatic launch of Tunnelblick upon login with the "Automatically connect” options, which cause a connection to be established when Tunnelblick is launched or when the computer is started or restarted.
@@ -84,7 +84,7 @@ If you have configurations that are marked "automatically connect when the compu
 ==Preferences==
 The "Options…" submenu allows you to control several preferences. Click on one to change its status from checked to unchecked and vice-versa:
  * *Place Icon Near the Spotlight Icon*: If checked, the Tunnelblick icon will be positioned near the Spotlight icon at the extreme right of the screen. If unchecked, it will be placed to the left of the other icons at the time Tunnelblick is started.
- * *Monitor the Configuration Folder*: If checked, Tunnelblick will monitor the folders that contains configurations and react appropriately when configuration files are added or removed. If not checked, Tunnelblick not recognize added or removed configurations until it is restarted.
+ * *Monitor the Configuration Folder*: If checked, Tunnelblick will monitor the folders that contain configurations and react appropriately when configuration files are added or removed. If not checked, Tunnelblick not recognize added or removed configurations until it is restarted.
  * *Use Shadow Copies of Configuration Files*: If checked, Tunnelblick will create and use "shadow copies" of configuration files on the local hard drive. If not checked, the original of each configuration file will be used. Configuration files must have certain settings for security; if the configuration file is on a volume which does not allow these settings, shadow copies must be used so the copies can be secured. This usually happens automatically as needed; it is not usually necessary to use this preference.
 
 The "Details…", or "OpenVPN Log" window allows you to control several preferences for each configuration separately:
