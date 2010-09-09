@@ -10,7 +10,7 @@
  # Xcode 3.2.2 and higher cause four warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.) After you clean, you have to build again, of course.
  # Build 2013 and higher cause eight warning messages to appear when building OpenVPN. These warnings may be ignored. There are three 'incompatible pointer type' and one 'assignment discards qualifiers'; each warning is repeated twice (once each for PowerPC and intel.)
 
- So the first time Tunnelblick is built from source, there will be 16 warnings (the twelve above, plus the four "normal" warnings described in [#Build_A_Release Build A Release];
+ So the first time Tunnelblick is built from source, there will be 16 warnings (the twelve above, plus the four "normal" warnings described in [#BUILD_A_RELEASE Build A Release];
 ------------
 
 ==INTRODUCTION==
