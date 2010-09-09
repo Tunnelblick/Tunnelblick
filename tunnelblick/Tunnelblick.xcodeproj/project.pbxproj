@@ -609,8 +609,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "BUILDDIR=../third_party/\ncd $BUILDDIR\n\nif [ -e built ]; then\n\texit 0\nfi\n\nmake clean\nmake\n\ntouch built";
+			shellPath = /bin/bash;
+			shellScript = "cd ../third_party/\n\nif [ -e built ]; then\n\texit 0\nfi\n\n# The following line is needed so make openssl works\nCOMMAND_MODE=unix2003\n\nmake clean\nmake\n\ntouch built";
 		};
 /* End PBXShellScriptBuildPhase section */
 
