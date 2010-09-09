@@ -24,6 +24,7 @@ LZO_DIR=lzo-2.03
 PKCS11_DIR=pkcs11-helper-1.07
 
 all: tuntap openvpn
+	rm -rf $(BUILD_DIR)
 
 buildenv: $(PROJ_BUILD_DIRS)
 $(PROJ_BUILD_DIRS):
