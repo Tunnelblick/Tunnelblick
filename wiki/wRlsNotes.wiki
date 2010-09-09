@@ -20,7 +20,7 @@
 
  * Logs errors trying to create or update 'Launch Tunnelblick' in the private configurations folder.
 
- * Fixes bugs (race conditions) when the log view is being updated and when MenuExtras are added.
+ * Fixes bugs (race conditions) when the log view is being updated and when !MenuExtras are added.
 
  * Fixes bug with placement of the 'when computer starts' radio button in non-English versions of Tunnelblick.
 
