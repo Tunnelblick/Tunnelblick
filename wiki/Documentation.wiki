@@ -17,7 +17,7 @@
   Popular articles:
     [wQuick Quick Start Guide]<br>
     [wFAQ FAQ]<br>
-    [DocumentationForTunnelblick_3_1beta10 What's New]<br>
+    [wNews What's New]<br>
     [wGettingVPNService Getting VPN Service]<br>
     [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
