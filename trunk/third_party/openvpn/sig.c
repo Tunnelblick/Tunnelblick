@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -257,7 +257,7 @@ print_status (const struct context *c, struct status_output *so)
 
   status_reset (so);
 
-  status_printf (so, PACKAGE_NAME " STATISTICS");
+  status_printf (so, "OpenVPN STATISTICS");
   status_printf (so, "Updated,%s", time_string (0, 0, false, &gc));
   status_printf (so, "TUN/TAP read bytes," counter_format, c->c2.tun_read_bytes);
   status_printf (so, "TUN/TAP write bytes," counter_format, c->c2.tun_write_bytes);

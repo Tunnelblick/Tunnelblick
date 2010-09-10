@@ -4,7 +4,7 @@
 .\"             packet encryption, packet authentication, and
 .\"             packet compression.
 .\"
-.\"  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+.\"  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
 .\"
 .\"  This program is free software; you can redistribute it and/or modify
 .\"  it under the terms of the GNU General Public License version 2
@@ -474,7 +474,7 @@ InternetQueryOption API.
 This option exists in OpenVPN 2.1 or higher.
 .\"*********************************************************
 .TP
-.B --http-proxy server port [authfile|'auto'] [auth-method]
+.B --http-proxy server port [authfile|'auto'|'auto-nct'] [auth-method]
 Connect to remote host through an HTTP proxy at address
 .B server
 and port
@@ -487,6 +487,13 @@ is a file containing a username and password on 2 lines, or
 .B auth-method
 should be one of "none", "basic", or "ntlm".
 
+HTTP Digest authentication is supported as well, but only via
+the
+.B auto
+or
+.B auto-nct
+flags (below).
+
 The
 .B auto
 flag causes OpenVPN to automatically determine the
@@ -494,6 +501,12 @@ flag causes OpenVPN to automatically determine the
 and query stdin or the management interface for
 username/password credentials, if required.  This flag
 exists on OpenVPN 2.1 or higher.
+
+The
+.B auto-nct
+flag (no clear-text auth) instructs OpenVPN to automatically
+determine the authentication method, but to reject weak
+authentication protocols such as HTTP Basic Authentication.
 .\"*********************************************************
 .TP
 .B --http-proxy-retry
@@ -4265,6 +4278,13 @@ or common name equal to
 The remote host must also pass all other tests
 of verification.
 
+.B NOTE:
+Because tls-remote may test against a common name prefix,
+only use this option when you are using OpenVPN with a custom CA
+certificate that is under your control.
+Never use this option when your client certificates are signed by
+a third party, such as a commercial web CA.
+
 Name can also be a common name prefix, for example if you
 want a client to only accept connections to "Server-1",
 "Server-2", etc., you can simply use
@@ -4734,6 +4754,13 @@ Ask Windows to release the TAP adapter lease on shutdown.
 This option has the same caveats as
 .B --dhcp-renew
 above.
+.\"*********************************************************
+.TP
+.B --register-dns
+Run net stop dnscache, net start dnscache, ipconfig /flushdns
+and ipconfig /registerdns on connection initiation.
+This is known to kick Windows into
+recognizing pushed DNS servers.
 .\"*********************************************************
 .TP
 .B --pause-exit
@@ -5836,7 +5863,7 @@ For more information on the LZO real-time compression library see
 .I http://www.oberhumer.com/opensource/lzo/
 .\"*********************************************************
 .SH COPYRIGHT
-Copyright (C) 2002-2009 OpenVPN Technologies, Inc. This program is free software;
+Copyright (C) 2002-2010 OpenVPN Technologies, Inc. This program is free software;
 you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2
 as published by the Free Software Foundation.

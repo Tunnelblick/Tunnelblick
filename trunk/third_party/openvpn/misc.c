@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -1194,7 +1194,7 @@ create_temp_filename (const char *directory, const char *prefix, struct gc_arena
 const char *
 hostname_randomize(const char *hostname, struct gc_arena *gc)
 {
-  const int n_rnd_bytes = 6;
+# define n_rnd_bytes 6
 
   char *hst = string_alloc(hostname, gc);
   char *dot = strchr(hst, '.');
@@ -1213,6 +1213,7 @@ hostname_randomize(const char *hostname, struct gc_arena *gc)
     }
   else
     return hostname;
+# undef n_rnd_bytes
 }
 
 #else
@@ -1373,6 +1374,9 @@ get_user_pass (struct user_pass *up,
     {
       const bool from_stdin = (!auth_file || !strcmp (auth_file, "stdin"));
 
+      if (flags & GET_USER_PASS_PREVIOUS_CREDS_FAILED)
+	msg (M_WARN, "Note: previous '%s' credentials failed", prefix);
+
 #ifdef ENABLE_MANAGEMENT
       /*
        * Get username/password from standard input?
@@ -1381,6 +1385,9 @@ get_user_pass (struct user_pass *up,
 	  && ((auth_file && streq (auth_file, "management")) || (from_stdin && (flags & GET_USER_PASS_MANAGEMENT)))
 	  && management_query_user_pass_enabled (management))
 	{
+	  if (flags & GET_USER_PASS_PREVIOUS_CREDS_FAILED)
+	    management_auth_failure (management, prefix, "previous auth credentials failed");
+
 	  if (!management_query_user_pass (management, up, prefix, flags))
 	    {
 	      if ((flags & GET_USER_PASS_NOFATAL) != 0)

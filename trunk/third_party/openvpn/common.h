@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -76,8 +76,15 @@ typedef unsigned long ptr_type;
 /*
  * This parameter controls the TLS channel buffer size and the
  * maximum size of a single TLS message (cleartext).
+ * This parameter must be >= PUSH_BUNDLE_SIZE
  */
-#define TLS_CHANNEL_BUF_SIZE 1024
+#define TLS_CHANNEL_BUF_SIZE 2048
+
+/*
+ * This parameter controls the maximum size of a bundle
+ * of pushed options.
+ */
+#define PUSH_BUNDLE_SIZE 1024
 
 /*
  * A sort of pseudo-filename for data provided inline within

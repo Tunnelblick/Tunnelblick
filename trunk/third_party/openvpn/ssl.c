@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -1228,6 +1228,10 @@ tls_authentication_status (struct tls_multi *multi, const int latency)
 }
 
 #ifdef MANAGEMENT_DEF_AUTH
+/*
+ * For deferred auth, this is where the management interface calls (on server)
+ * to indicate auth failure/success.
+ */
 bool
 tls_authenticate_key (struct tls_multi *multi, const unsigned int mda_key_id, const bool auth, const char *client_reason)
 {
@@ -1635,7 +1639,7 @@ init_ssl (const struct options *options)
 		{
 #ifdef ENABLE_MANAGEMENT
 		  if (management && (ERR_GET_REASON (ERR_peek_error()) == EVP_R_BAD_DECRYPT))
-		    management_auth_failure (management, UP_TYPE_PRIVATE_KEY);
+		    management_auth_failure (management, UP_TYPE_PRIVATE_KEY, NULL);
 #endif
 		  msg (M_WARN|M_SSL, "Cannot load private key file %s", options->priv_key_file);
 		  goto err;
@@ -2262,6 +2266,7 @@ key_state_free (struct key_state *ks, bool clear)
   free_buf (&ks->plaintext_read_buf);
   free_buf (&ks->plaintext_write_buf);
   free_buf (&ks->ack_write_buf);
+  buffer_list_free(ks->paybuf);
 
   if (ks->send_reliable)
     {
@@ -2554,6 +2559,8 @@ tls_multi_free (struct tls_multi *multi, bool clear)
 
 #ifdef MANAGEMENT_DEF_AUTH
   man_def_auth_set_client_reason(multi, NULL);  
+
+  free (multi->peer_info);
 #endif
 
   if (multi->locked_cn)
@@ -3058,6 +3065,17 @@ key_source2_read (struct key_source2 *k2,
   return 1;
 }
 
+static void
+flush_payload_buffer (struct tls_multi *multi, struct key_state *ks)
+{
+  struct buffer *b;
+  while ((b = buffer_list_peek (ks->paybuf)))
+    {
+      key_state_write_plaintext_const (multi, ks, b->data, b->len);
+      buffer_list_pop (ks->paybuf);
+    }
+}
+
 /*
  * Macros for key_state_soft_reset & tls_process
  */
@@ -3102,6 +3120,14 @@ write_string (struct buffer *buf, const char *str, const int maxlen)
 }
 
 static bool
+write_empty_string (struct buffer *buf)
+{
+  if (!buf_write_u16 (buf, 0))
+    return false;
+  return true;
+}
+
+static bool
 read_string (struct buffer *buf, char *str, const unsigned int capacity)
 {
   const int len = buf_read_u16 (buf);
@@ -3111,6 +3137,33 @@ read_string (struct buffer *buf, char *str, const unsigned int capacity)
     return false;
   str[len-1] = '\0';
   return true;
+}
+
+static char *
+read_string_alloc (struct buffer *buf)
+{
+  const int len = buf_read_u16 (buf);
+  char *str;
+
+  if (len < 1)
+    return NULL;
+  str = (char *) malloc(len);
+  check_malloc_return(str);
+  if (!buf_read (buf, str, len))
+    {
+      free (str);
+      return NULL;
+    }
+  str[len-1] = '\0';
+  return str;
+}
+
+void
+read_string_discard (struct buffer *buf)
+{
+  char *data = read_string_alloc(buf);
+  if (data)
+    free (data);
 }
 
 /*
@@ -3324,6 +3377,73 @@ key_method_1_write (struct buffer *buf, struct tls_session *session)
 }
 
 static bool
+push_peer_info(struct buffer *buf, struct tls_session *session)
+{
+  struct gc_arena gc = gc_new ();
+  bool ret = false;
+
+#ifdef ENABLE_PUSH_PEER_INFO
+  if (session->opt->push_peer_info) /* write peer info */
+    {
+      struct env_set *es = session->opt->es;
+      struct env_item *e;
+      struct buffer out = alloc_buf_gc (512*3, &gc);
+
+      /* push version */
+      buf_printf (&out, "IV_VER=%s\n", PACKAGE_VERSION);
+
+      /* push platform */
+#if defined(TARGET_LINUX)
+      buf_printf (&out, "IV_PLAT=linux\n");
+#elif defined(TARGET_SOLARIS)
+      buf_printf (&out, "IV_PLAT=solaris\n");
+#elif defined(TARGET_OPENBSD)
+      buf_printf (&out, "IV_PLAT=openbsd\n");
+#elif defined(TARGET_DARWIN)
+      buf_printf (&out, "IV_PLAT=mac\n");
+#elif defined(TARGET_NETBSD)
+      buf_printf (&out, "IV_PLAT=netbsd\n");
+#elif defined(TARGET_FREEBSD)
+      buf_printf (&out, "IV_PLAT=freebsd\n");
+#elif defined(WIN32)
+      buf_printf (&out, "IV_PLAT=win\n");
+#endif
+
+      /* push mac addr */
+      {
+	bool get_default_gateway_mac_addr (unsigned char *macaddr);
+	uint8_t macaddr[6];
+	get_default_gateway_mac_addr (macaddr);
+	buf_printf (&out, "IV_HWADDR=%s\n", format_hex_ex (macaddr, 6, 0, 1, ":", &gc));
+      }
+
+      /* push env vars that begin with UV_ */
+      for (e=es->list; e != NULL; e=e->next)
+	{
+	  if (e->string)
+	    {
+	      if (!strncmp(e->string, "UV_", 3) && buf_safe(&out, strlen(e->string)+1))
+		buf_printf (&out, "%s\n", e->string);
+	    }
+	}
+
+      if (!write_string(buf, BSTR(&out), -1))
+	goto error;
+    }
+  else
+#endif
+    {
+      if (!write_empty_string (buf)) /* no peer info */
+	goto error;
+    }
+  ret = true;
+
+ error:
+  gc_free (&gc);
+  return ret;
+}
+
+static bool
 key_method_2_write (struct buffer *buf, struct tls_session *session)
 {
   ASSERT (session->opt->key_method == 2);
@@ -3357,6 +3477,16 @@ key_method_2_write (struct buffer *buf, struct tls_session *session)
 	goto error;
       purge_user_pass (&auth_user_pass, false);
     }
+  else
+    {
+      if (!write_empty_string (buf)) /* no username */
+	goto error;
+      if (!write_empty_string (buf)) /* no password */
+	goto error;
+    }
+
+  if (!push_peer_info (buf, session))
+    goto error;
 
   /*
    * generate tunnel keys if server
@@ -3503,11 +3633,13 @@ key_method_2_read (struct buffer *buf, struct tls_multi *multi, struct tls_sessi
       int s1 = OPENVPN_PLUGIN_FUNC_SUCCESS;
       bool s2 = true;
       char *raw_username;
+      bool username_status, password_status;
 
       /* get username/password from plaintext buffer */
       ALLOC_OBJ_CLEAR_GC (up, struct user_pass, &gc);
-      if (!read_string (buf, up->username, USER_PASS_LEN)
-	  || !read_string (buf, up->password, USER_PASS_LEN))
+      username_status = read_string (buf, up->username, USER_PASS_LEN);
+      password_status = read_string (buf, up->password, USER_PASS_LEN);
+      if (!username_status || !password_status)
 	{
 	  CLEAR (*up);
 	  if (!(session->opt->ssl_flags & SSLF_AUTH_USER_PASS_OPTIONAL))
@@ -3528,6 +3660,10 @@ key_method_2_read (struct buffer *buf, struct tls_multi *multi, struct tls_sessi
 
       /* call plugin(s) and/or script */
 #ifdef MANAGEMENT_DEF_AUTH
+      /* get peer info from control channel */
+      free (multi->peer_info);
+      multi->peer_info = read_string_alloc (buf);
+
       if (man_def_auth == KMDA_DEF)
 	man_def_auth = verify_user_pass_management (session, up, raw_username);
 #endif
@@ -3698,9 +3834,12 @@ key_method_2_read (struct buffer *buf, struct tls_multi *multi, struct tls_sessi
 static int
 auth_deferred_expire_window (const struct tls_options *o)
 {
-  const int hw = o->handshake_window;
+  int ret = o->handshake_window;
   const int r2 = o->renegotiate_seconds / 2;
-  return min_int (hw, r2);
+
+  if (o->renegotiate_seconds && r2 < ret)
+    ret = r2;
+  return ret;
 }
 
 /*
@@ -3850,6 +3989,9 @@ tls_process (struct tls_multi *multi,
 
 		  /* Set outgoing address for data channel packets */
 		  link_socket_set_outgoing_addr (NULL, to_link_socket_info, &ks->remote_addr, session->common_name, session->opt->es);
+
+		  /* Flush any payload packets that were buffered before our state transitioned to S_ACTIVE */
+		  flush_payload_buffer (multi, ks);
 
 #ifdef MEASURE_TLS_HANDSHAKE_STATS
 		  show_tls_performance_stats();
@@ -4949,6 +5091,13 @@ tls_send_payload (struct tls_multi *multi,
     {
       if (key_state_write_plaintext_const (multi, ks, data, size) == 1)
 	ret = true;
+    }
+  else
+    {
+      if (!ks->paybuf)
+	ks->paybuf = buffer_list_new (0);
+      buffer_list_push_data (ks->paybuf, data, (size_t)size);
+      ret = true;
     }
 
   ERR_clear_error ();

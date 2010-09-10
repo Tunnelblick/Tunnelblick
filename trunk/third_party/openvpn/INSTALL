@@ -1,6 +1,6 @@
 Installation instructions for OpenVPN, a Secure Tunneling Daemon
 
-Copyright (C) 2002-2009 OpenVPN Technologies, Inc. This program is free software;
+Copyright (C) 2002-2010 OpenVPN Technologies, Inc. This program is free software;
 you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2
 as published by the Free Software Foundation.
@@ -12,8 +12,11 @@ QUICK START:
   Unix:
     ./configure && make && make-install
 
-  Windows:
+  Windows MinGW, using MSYS bash shell:
     ./domake-win (see comments in the script for more info)
+
+  Windows Visual Studio:
+    python win\build_all.py
 
 *************************************************************************
 

@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -477,14 +477,16 @@ redirect_stdout_stderr (const char *file, bool append)
     {
       HANDLE log_handle;
       int log_fd;
-      struct security_attributes sa;
 
-      init_security_attributes_allow_all (&sa);
+      SECURITY_ATTRIBUTES saAttr; 
+      saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
+      saAttr.bInheritHandle = TRUE; 
+      saAttr.lpSecurityDescriptor = NULL; 
 
       log_handle = CreateFile (file,
 			       GENERIC_WRITE,
 			       FILE_SHARE_READ,
-			       &sa.sa,
+			       &saAttr,
 			       append ? OPEN_ALWAYS : CREATE_ALWAYS,
 			       FILE_ATTRIBUTE_NORMAL,
 			       NULL);
@@ -505,10 +507,12 @@ redirect_stdout_stderr (const char *file, bool append)
       /* save original stderr for password prompts */
       orig_stderr = GetStdHandle (STD_ERROR_HANDLE);
 
+#if 0 /* seems not be necessary with stdout/stderr redirection below*/
       /* set up for redirection */
       if (!SetStdHandle (STD_OUTPUT_HANDLE, log_handle)
 	  || !SetStdHandle (STD_ERROR_HANDLE, log_handle))
 	msg (M_ERR, "Error: cannot redirect stdout/stderr to --log file: %s", file);
+#endif
 
       /* direct stdout/stderr to point to log_handle */
       log_fd = _open_osfhandle ((intptr_t)log_handle, _O_TEXT);
@@ -520,6 +524,10 @@ redirect_stdout_stderr (const char *file, bool append)
       msgfp = _fdopen (log_fd, "w");
       if (msgfp == NULL)
 	msg (M_ERR, "Error: --log redirect failed due to _fdopen");
+
+      /* redirect C-library stdout/stderr to log file */
+      if (_dup2 (log_fd, 1) == -1 || _dup2 (log_fd, 2) == -1)
+	msg (M_WARN, "Error: --log redirect of stdout/stderr failed");
 
       std_redir = true;
     }
@@ -682,9 +690,12 @@ msg_thread_uninit (void)
 void
 openvpn_exit (const int status)
 {
+  void tun_abort();
 #ifdef ENABLE_PLUGIN
   void plugin_abort (void);
 #endif
+
+  tun_abort();
 
 #ifdef WIN32
   uninit_win32 ();

@@ -4,7 +4,7 @@
  *
  *  This code was inspired by the CIPE-Win32 driver by Damion K. Wilson.
  *
- *  This source code is Copyright (C) 2002-2009 OpenVPN Technologies, Inc.,
+ *  This source code is Copyright (C) 2002-2010 OpenVPN Technologies, Inc.,
  *  and is released under the GPL version 2 (see below).
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@
 // TAP_IOCTL_CONFIG_TUN ioctl.
 //======================================================
 
-#include "../../autodefs/defs.h"
+#include "common.h"
 #ifndef DDKVER_MAJOR
 #error DDKVER_MAJOR must be defined as the major number of the DDK Version
 #endif
@@ -78,7 +78,6 @@
 
 #include "lock.h"
 #include "constants.h"
-#include "common.h"
 #include "proto.h"
 #include "error.h"
 #include "endian.h"
@@ -209,7 +208,7 @@ DriverEntry (IN PDRIVER_OBJECT p_DriverObject,
 		 TAP_DRIVER_MINOR_VERSION,
 		 __DATE__,
 		 __TIME__));
-	DEBUGP (("Registry Path: '%S'\n", p_RegistryPath->Buffer));
+	DEBUGP (("Registry Path: '%.*S'\n", p_RegistryPath->Length/2, p_RegistryPath->Buffer));
 	break;
       }
 
@@ -414,7 +413,9 @@ NDIS_STATUS AdapterCreate
 	{
 	  if (parm->ParameterType == NdisParameterString)
 	    {
-	      DEBUGP (("[TAP] NdisReadConfiguration (MiniportName=%S)\n", parm->ParameterData.StringData.Buffer));
+	      DEBUGP (("[TAP] NdisReadConfiguration (MiniportName=%.*S)\n",
+		       parm->ParameterData.StringData.Length/2,
+		       parm->ParameterData.StringData.Buffer));
 
 	      if (RtlUnicodeStringToAnsiString (
 						&l_Adapter->m_NameAnsi,
