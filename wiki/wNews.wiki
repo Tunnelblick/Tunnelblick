@@ -1,11 +1,11 @@
 #summary The Latest News About Tunnelblick
 #sidebar wSb
 
+<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
+
 --------------------
 
 2010-09-09: *Tunnelblick 3.1beta14 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta14.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
-
-<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 - 3.1beta12*</font> 
 
  * Fixes a problem that, under certain circumstances, crashes client.down.tunnelblick.sh. (Issue 159.)
 
@@ -14,8 +14,6 @@
 --------------------
 
 2010-08-08: *Tunnelblick 3.1beta12 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
-
-<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or 3.1beta10*</font> 
 
 New features include:
 
@@ -33,8 +31,6 @@ New features include:
 
 2010-07-29: *Tunnelblick 3.1beta10 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
-<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08*</font> 
-
 This beta includes an important bug fix:
 
   * Fixes bugs in the shadow copy mechanism that caused connect failures, log-hookup failures, and (possibly) other problems. Thanks to Jim Bo for pointing out the first problem and suggesting a solution. The bugs were introduced in 3.1beta08.
@@ -50,8 +46,6 @@ New features include:
 --------------------
 
 2010-07-10: *Tunnelblick 3.1beta08 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
-
-<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08*</font> 
 
 In addition to fixing bugs, this release adds several new features:
  * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
