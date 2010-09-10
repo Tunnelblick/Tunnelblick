@@ -16,6 +16,8 @@ When a new beta version is available, it is announced to the [http://groups.goog
 
  * Thanks to Mohammad A. Haque, this release imbeds the  OpenSSL version. 1.0.0a library into the included OpenVPN binary. This adds support for over 60 additional digests, ciphers, and TLS ciphers.
 
+ * Includes OpenVPN version 2.1.3.
+
  --------------------
 2010-08-08: *Tunnelblick 3.1beta12 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
