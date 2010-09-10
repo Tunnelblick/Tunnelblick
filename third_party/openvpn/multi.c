@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -721,7 +721,7 @@ multi_print_status (struct multi_context *m, struct status_output *so, const int
 	  /*
 	   * Status file version 1
 	   */
-	  status_printf (so, PACKAGE_NAME " CLIENT LIST");
+	  status_printf (so, "OpenVPN CLIENT LIST");
 	  status_printf (so, "Updated,%s", time_string (0, 0, false, &gc_top));
 	  status_printf (so, "Common Name,Real Address,Bytes Received,Bytes Sent,Connected Since");
 	  hash_iterator_init (m->hash, &hi, true);
@@ -1843,6 +1843,20 @@ compute_wakeup_sigma (const struct timeval *delta)
     }
 }
 
+static void
+multi_schedule_context_wakeup (struct multi_context *m, struct multi_instance *mi)
+{
+  /* calculate an absolute wakeup time */
+  ASSERT (!openvpn_gettimeofday (&mi->wakeup, NULL));
+  tv_add (&mi->wakeup, &mi->context.c2.timeval);
+
+  /* tell scheduler to wake us up at some point in the future */
+  schedule_add_entry (m->schedule,
+		      (struct schedule_entry *) mi,
+		      &mi->wakeup,
+		      compute_wakeup_sigma (&mi->context.c2.timeval));
+}
+
 /*
  * Figure instance-specific timers, convert
  * earliest to absolute time in mi->wakeup,
@@ -1863,15 +1877,8 @@ multi_process_post (struct multi_context *m, struct multi_instance *mi, const un
 
       if (!IS_SIG (&mi->context))
 	{
-	  /* calculate an absolute wakeup time */
-	  ASSERT (!openvpn_gettimeofday (&mi->wakeup, NULL));
-	  tv_add (&mi->wakeup, &mi->context.c2.timeval);
-
 	  /* tell scheduler to wake us up at some point in the future */
-	  schedule_add_entry (m->schedule,
-			      (struct schedule_entry *) mi,
-			      &mi->wakeup,
-			      compute_wakeup_sigma (&mi->context.c2.timeval));
+	  multi_schedule_context_wakeup(m, mi);
 
 	  /* connection is "established" when SSL/TLS key negotiation succeeds
 	     and (if specified) auth user/pass succeeds */
@@ -2566,19 +2573,44 @@ management_client_auth (void *arg,
       ret = tls_authenticate_key (mi->context.c2.tls_multi, mda_key_id, auth, client_reason);
       if (ret)
 	{
-	  if (auth && !mi->connection_established_flag)
+	  if (auth)
 	    {
-	      set_cc_config (mi, cc_config);
-	      cc_config_owned = false;
+	      if (!mi->connection_established_flag)
+		{
+		  set_cc_config (mi, cc_config);
+		  cc_config_owned = false;
+		}
 	    }
-	  if (!auth && reason)
-	    msg (D_MULTI_LOW, "MULTI: connection rejected: %s, CLI:%s", reason, np(client_reason));
+	  else
+	    {
+	      if (reason)
+		msg (D_MULTI_LOW, "MULTI: connection rejected: %s, CLI:%s", reason, np(client_reason));
+	      if (mi->connection_established_flag)
+		{
+		  send_auth_failed (&mi->context, client_reason); /* mid-session reauth failed */
+		  multi_schedule_context_wakeup(m, mi);
+		}
+	    }
 	}
     }
   if (cc_config_owned && cc_config)
     buffer_list_free (cc_config);
   return ret;
 }
+
+static char *
+management_get_peer_info (void *arg, const unsigned long cid)
+{
+  struct multi_context *m = (struct multi_context *) arg;
+  struct multi_instance *mi = lookup_by_cid (m, cid);
+  char *ret = NULL;
+
+  if (mi)
+      ret = tls_get_peer_info (mi->context.c2.tls_multi);
+
+  return ret;
+}
+
 #endif
 
 #ifdef MANAGEMENT_PF
@@ -2619,6 +2651,7 @@ init_management_callback_multi (struct multi_context *m)
 #ifdef MANAGEMENT_DEF_AUTH
       cb.kill_by_cid = management_kill_by_cid;
       cb.client_auth = management_client_auth;
+      cb.get_peer_info = management_get_peer_info;
 #endif
 #ifdef MANAGEMENT_PF
       cb.client_pf = management_client_pf;

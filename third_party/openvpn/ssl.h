@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -376,6 +376,8 @@ struct key_state
   struct reliable *rec_reliable;  /* order incoming ciphertext packets before we pass to TLS */
   struct reliable_ack *rec_ack;	  /* buffers all packet IDs we want to ACK back to sender */
 
+  struct buffer_list *paybuf;
+
   int n_bytes;			 /* how many bytes sent/recvd since last key exchange */
   int n_packets;		 /* how many packets sent/recvd since last key exchange */
 
@@ -431,6 +433,9 @@ struct tls_options
   bool single_session;
 #ifdef ENABLE_OCC
   bool disable_occ;
+#endif
+#ifdef ENABLE_PUSH_PEER_INFO
+  bool push_peer_info;
 #endif
   int transition_window;
   int handshake_window;
@@ -618,6 +623,12 @@ struct tls_multi
    */
   char *client_reason;
 
+  /*
+   * A multi-line string of general-purpose info received from peer
+   * over control channel.
+   */
+  char *peer_info;
+
   /* Time of last call to tls_authentication_status */
   time_t tas_last;
 #endif
@@ -721,6 +732,12 @@ void tls_deauthenticate (struct tls_multi *multi);
 
 #ifdef MANAGEMENT_DEF_AUTH
 bool tls_authenticate_key (struct tls_multi *multi, const unsigned int mda_key_id, const bool auth, const char *client_reason);
+
+static inline char *
+tls_get_peer_info(const struct tls_multi *multi)
+{
+  return multi->peer_info;
+}
 #endif
 
 /*

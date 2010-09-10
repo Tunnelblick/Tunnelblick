@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -43,6 +43,7 @@ void
 receive_auth_failed (struct context *c, const struct buffer *buffer)
 {
   msg (M_VERB0, "AUTH: Received AUTH_FAILED control message");
+  connection_list_set_no_advance(&c->options);
   if (c->options.pull)
     {
       switch (auth_retry_get ())
@@ -62,11 +63,11 @@ receive_auth_failed (struct context *c, const struct buffer *buffer)
 #ifdef ENABLE_MANAGEMENT
       if (management)
 	{
-	  const char *reason = UP_TYPE_AUTH;
+	  const char *reason = NULL;
 	  struct buffer buf = *buffer;
 	  if (buf_string_compare_advance (&buf, "AUTH_FAILED,") && BLEN (&buf))
 	    reason = BSTR (&buf);
-	  management_auth_failure (management, reason);
+	  management_auth_failure (management, UP_TYPE_AUTH, reason);
 	}
 #endif
     }
@@ -101,8 +102,8 @@ send_auth_failed (struct context *c, const char *client_reason)
   schedule_exit (c, c->options.scheduled_exit_interval, SIGTERM);
 
   len = (client_reason ? strlen(client_reason)+1 : 0) + sizeof(auth_failed);
-  if (len > TLS_CHANNEL_BUF_SIZE)
-    len = TLS_CHANNEL_BUF_SIZE;
+  if (len > PUSH_BUNDLE_SIZE)
+    len = PUSH_BUNDLE_SIZE;
 
   {
     struct buffer buf = alloc_buf_gc (len, &gc);
@@ -170,7 +171,7 @@ bool
 send_push_reply (struct context *c)
 {
   struct gc_arena gc = gc_new ();
-  struct buffer buf = alloc_buf_gc (TLS_CHANNEL_BUF_SIZE, &gc);
+  struct buffer buf = alloc_buf_gc (PUSH_BUNDLE_SIZE, &gc);
   struct push_entry *e = c->options.push_list.head;
   bool multi_push = false;
   static char cmd[] = "PUSH_REPLY";

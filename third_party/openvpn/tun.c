@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -55,7 +55,7 @@ static void netsh_ifconfig (const struct tuntap_options *to,
 			    const char *flex_name,
 			    const in_addr_t ip,
 			    const in_addr_t netmask,
-			    unsigned int flags);
+			    const unsigned int flags);
 
 static const char *netsh_get_id (const char *dev_node, struct gc_arena *gc);
 
@@ -3383,6 +3383,48 @@ netsh_command (const struct argv *a, int n)
 }
 
 void
+ipconfig_register_dns (const struct env_set *es)
+{
+  struct argv argv;
+  bool status;
+  const char err[] = "ERROR: Windows ipconfig command failed";
+
+  netcmd_semaphore_lock ();
+
+  argv_init (&argv);
+
+  argv_printf (&argv, "%s%sc stop dnscache",
+	       get_win_sys_path(),
+	       WIN_NET_PATH_SUFFIX);
+  argv_msg (D_TUNTAP_INFO, &argv);
+  status = openvpn_execve_check (&argv, es, 0, err);
+  argv_reset(&argv);
+
+  argv_printf (&argv, "%s%sc start dnscache",
+	       get_win_sys_path(),
+	       WIN_NET_PATH_SUFFIX);
+  argv_msg (D_TUNTAP_INFO, &argv);
+  status = openvpn_execve_check (&argv, es, 0, err);
+  argv_reset(&argv);
+
+  argv_printf (&argv, "%s%sc /flushdns",
+	       get_win_sys_path(),
+	       WIN_IPCONFIG_PATH_SUFFIX);
+  argv_msg (D_TUNTAP_INFO, &argv);
+  status = openvpn_execve_check (&argv, es, 0, err);
+  argv_reset(&argv);
+
+  argv_printf (&argv, "%s%sc /registerdns",
+	       get_win_sys_path(),
+	       WIN_IPCONFIG_PATH_SUFFIX);
+  argv_msg (D_TUNTAP_INFO, &argv);
+  status = openvpn_execve_check (&argv, es, 0, err);
+  argv_reset(&argv);
+
+  netcmd_semaphore_release ();
+}
+
+void
 ip_addr_string_to_array (in_addr_t *dest, int *dest_len, const IP_ADDR_STRING *src)
 {
   int i = 0;
@@ -3817,8 +3859,23 @@ fork_dhcp_action (struct tuntap *tt)
 	buf_printf (&cmd, " --dhcp-pre-release");
       if (tt->options.dhcp_renew)
 	buf_printf (&cmd, " --dhcp-renew");
-      buf_printf (&cmd, " --dhcp-rr %u", (unsigned int)tt->adapter_index);
+      buf_printf (&cmd, " --dhcp-internal %u", (unsigned int)tt->adapter_index);
 
+      fork_to_self (BSTR (&cmd));
+      gc_free (&gc);
+    }
+}
+
+void
+fork_register_dns_action (struct tuntap *tt)
+{
+  if (tt && tt->options.register_dns)
+    {
+      struct gc_arena gc = gc_new ();
+      struct buffer cmd = alloc_buf_gc (256, &gc);
+      const int verb = 3;
+ 
+      buf_printf (&cmd, "openvpn --verb %d --register-dns --rdns-internal", verb);
       fork_to_self (BSTR (&cmd));
       gc_free (&gc);
     }

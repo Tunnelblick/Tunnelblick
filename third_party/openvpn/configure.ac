@@ -4,7 +4,7 @@ dnl             session authentication and key exchange,
 dnl             packet encryption, packet authentication, and
 dnl             packet compression.
 dnl
-dnl  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+dnl  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
 dnl
 dnl  This program is free software; you can redistribute it and/or modify
 dnl  it under the terms of the GNU General Public License as published by
@@ -914,7 +914,6 @@ fi
 AC_OUTPUT([
 	Makefile
 	openvpn.spec
-	config-win32.h
 	images/Makefile
 	service-win32/Makefile
 	install-win32/Makefile

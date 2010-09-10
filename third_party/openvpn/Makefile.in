@@ -21,7 +21,7 @@
 #             packet encryption, packet authentication, and
 #             packet compression.
 #
-#  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+#  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2
@@ -67,10 +67,9 @@ DIST_COMMON = README $(am__configure_deps) \
 	$(am__dist_noinst_DATA_DIST) $(dist_man_MANS) \
 	$(dist_noinst_HEADERS) $(dist_noinst_SCRIPTS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/config-win32.h.in $(srcdir)/config.h.in \
-	$(srcdir)/openvpn.spec.in $(top_srcdir)/configure AUTHORS \
-	COPYING ChangeLog INSTALL NEWS config.guess config.sub depcomp \
-	install-sh memcmp.c missing
+	$(srcdir)/config.h.in $(srcdir)/openvpn.spec.in \
+	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
+	config.guess config.sub depcomp install-sh memcmp.c missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/version.m4 $(top_srcdir)/configure.ac
@@ -80,7 +79,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = openvpn.spec config-win32.h
+CONFIG_CLEAN_FILES = openvpn.spec
 am__installdirs = "$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man8dir)" \
 	"$(DESTDIR)$(htmldir)"
 sbinPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
@@ -89,18 +88,18 @@ am_openvpn_OBJECTS = base64.$(OBJEXT) buffer.$(OBJEXT) \
 	crypto.$(OBJEXT) dhcp.$(OBJEXT) error.$(OBJEXT) \
 	event.$(OBJEXT) fdmisc.$(OBJEXT) forward.$(OBJEXT) \
 	fragment.$(OBJEXT) gremlin.$(OBJEXT) helper.$(OBJEXT) \
-	lladdr.$(OBJEXT) init.$(OBJEXT) interval.$(OBJEXT) \
-	list.$(OBJEXT) lzo.$(OBJEXT) manage.$(OBJEXT) mbuf.$(OBJEXT) \
-	misc.$(OBJEXT) mroute.$(OBJEXT) mss.$(OBJEXT) mtcp.$(OBJEXT) \
-	mtu.$(OBJEXT) mudp.$(OBJEXT) multi.$(OBJEXT) ntlm.$(OBJEXT) \
-	occ.$(OBJEXT) pkcs11.$(OBJEXT) openvpn.$(OBJEXT) \
-	options.$(OBJEXT) otime.$(OBJEXT) packet_id.$(OBJEXT) \
-	perf.$(OBJEXT) pf.$(OBJEXT) ping.$(OBJEXT) plugin.$(OBJEXT) \
-	pool.$(OBJEXT) proto.$(OBJEXT) proxy.$(OBJEXT) \
-	ieproxy.$(OBJEXT) ps.$(OBJEXT) push.$(OBJEXT) \
-	reliable.$(OBJEXT) route.$(OBJEXT) schedule.$(OBJEXT) \
-	session_id.$(OBJEXT) shaper.$(OBJEXT) sig.$(OBJEXT) \
-	socket.$(OBJEXT) socks.$(OBJEXT) ssl.$(OBJEXT) \
+	httpdigest.$(OBJEXT) lladdr.$(OBJEXT) init.$(OBJEXT) \
+	interval.$(OBJEXT) list.$(OBJEXT) lzo.$(OBJEXT) \
+	manage.$(OBJEXT) mbuf.$(OBJEXT) misc.$(OBJEXT) \
+	mroute.$(OBJEXT) mss.$(OBJEXT) mtcp.$(OBJEXT) mtu.$(OBJEXT) \
+	mudp.$(OBJEXT) multi.$(OBJEXT) ntlm.$(OBJEXT) occ.$(OBJEXT) \
+	pkcs11.$(OBJEXT) openvpn.$(OBJEXT) options.$(OBJEXT) \
+	otime.$(OBJEXT) packet_id.$(OBJEXT) perf.$(OBJEXT) \
+	pf.$(OBJEXT) ping.$(OBJEXT) plugin.$(OBJEXT) pool.$(OBJEXT) \
+	proto.$(OBJEXT) proxy.$(OBJEXT) ieproxy.$(OBJEXT) ps.$(OBJEXT) \
+	push.$(OBJEXT) reliable.$(OBJEXT) route.$(OBJEXT) \
+	schedule.$(OBJEXT) session_id.$(OBJEXT) shaper.$(OBJEXT) \
+	sig.$(OBJEXT) socket.$(OBJEXT) socks.$(OBJEXT) ssl.$(OBJEXT) \
 	status.$(OBJEXT) thread.$(OBJEXT) tun.$(OBJEXT) \
 	win32.$(OBJEXT) cryptoapi.$(OBJEXT)
 openvpn_OBJECTS = $(am_openvpn_OBJECTS)
@@ -272,7 +271,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/install-sh $(srcdir)/ltmain.sh $(srcdir)/missing \
 	$(srcdir)/depcomp $(srcdir)/aclocal.m4 \
 	$(srcdir)/config.guess $(srcdir)/config.sub \
-	$(srcdir)/config-win32.h $(srcdir)/openvpn.spec
+	$(srcdir)/openvpn.spec
 
 CLEANFILES = openvpn.8.html
 EXTRA_DIST = \
@@ -284,7 +283,8 @@ EXTRA_DIST = \
 	tap-win32 \
 	contrib \
 	debug \
-	plugin
+	plugin \
+	win
 
 SUBDIRS = \
 	images \
@@ -292,9 +292,7 @@ SUBDIRS = \
 	install-win32
 
 TESTS = t_lpback.sh t_cltsrv.sh
-dist_noinst_HEADERS = \
-	config-win32.h
-
+dist_noinst_HEADERS = 
 dist_noinst_SCRIPTS = \
 	$(TESTS) \
 	doclean \
@@ -319,6 +317,7 @@ openvpn_SOURCES = \
 	fragment.c fragment.h \
 	gremlin.c gremlin.h \
 	helper.c helper.h \
+	httpdigest.c httpdigest.h \
 	lladdr.c lladdr.h \
 	init.c init.h \
 	integer.h \
@@ -429,8 +428,6 @@ distclean-hdr:
 	-rm -f config.h stamp-h1
 openvpn.spec: $(top_builddir)/config.status $(srcdir)/openvpn.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-config-win32.h: $(top_builddir)/config.status $(srcdir)/config-win32.h.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-sbinPROGRAMS: $(sbin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	test -z "$(sbindir)" || $(MKDIR_P) "$(DESTDIR)$(sbindir)"
@@ -477,6 +474,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fragment.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gremlin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/helper.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/httpdigest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ieproxy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/init.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/interval.Po@am__quote@

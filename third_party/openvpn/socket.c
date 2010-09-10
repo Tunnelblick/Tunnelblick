@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -89,11 +89,25 @@ getaddr (unsigned int flags,
 	 bool *succeeded,
 	 volatile int *signal_received)
 {
+  return getaddr_multi (flags, hostname, resolve_retry_seconds, succeeded, signal_received, NULL);
+}
+
+in_addr_t
+getaddr_multi (unsigned int flags,
+	 const char *hostname,
+	 int resolve_retry_seconds,
+	 bool *succeeded,
+	 volatile int *signal_received,
+	 struct resolve_list *reslist)
+{
   struct in_addr ia;
   int status;
   int sigrec = 0;
   int msglevel = (flags & GETADDR_FATAL) ? M_FATAL : D_RESOLVE_ERRORS;
   struct gc_arena gc = gc_new ();
+
+  if (reslist)
+    reslist->len = 0;
 
   if (flags & GETADDR_RANDOMIZE)
     hostname = hostname_randomize(hostname, &gc);
@@ -212,12 +226,28 @@ getaddr (unsigned int flags,
 		++n;
 	      ASSERT (n >= 2);
 
-	      msg (D_RESOLVE_ERRORS, "RESOLVE: NOTE: %s resolves to %d addresses, choosing one by random",
+	      msg (D_RESOLVE_ERRORS, "RESOLVE: NOTE: %s resolves to %d addresses",
 		   hostname,
 		   n);
 
 	      /* choose address randomly, for basic load-balancing capability */
-	      ia.s_addr = *(in_addr_t *) (h->h_addr_list[get_random () % n]);
+	      /*ia.s_addr = *(in_addr_t *) (h->h_addr_list[get_random () % n]);*/
+
+	      /* choose first address */
+	      ia.s_addr = *(in_addr_t *) (h->h_addr_list[0]);
+
+	      if (reslist)
+		{
+		  int i;
+		  for (i = 0; i < n && i < SIZE(reslist->data); ++i)
+		    {
+		      in_addr_t a = *(in_addr_t *) (h->h_addr_list[i]);
+		      if (flags & GETADDR_HOST_ORDER)
+			a = ntohl(a);
+		      reslist->data[i] = a;
+		    }
+		  reslist->len = i;
+		}
 	    }
 	}
 
@@ -486,7 +516,7 @@ socket_set_buffers (int fd, const struct socket_buffer_size *sbs)
 static bool
 socket_set_tcp_nodelay (int sd, int state)
 {
-#if defined(HAVE_SETSOCKOPT) && defined(IPPROTO_TCP) && defined(TCP_NODELAY)
+#if defined(WIN32) || (defined(HAVE_SETSOCKOPT) && defined(IPPROTO_TCP) && defined(TCP_NODELAY))
   if (setsockopt (sd, IPPROTO_TCP, TCP_NODELAY, (void *) &state, sizeof (state)) != 0)
     {
       msg (M_WARN, "NOTE: setsockopt TCP_NODELAY=%d failed", state);
@@ -1291,6 +1321,10 @@ link_socket_init_phase1 (struct link_socket *sock,
   else if (mode != LS_MODE_TCP_ACCEPT_FROM)
     {
       create_socket (sock);
+
+      /* set socket buffers based on --sndbuf and --rcvbuf options */
+      socket_set_buffers (sock->sd, &sock->socket_buffer_sizes);
+
       resolve_bind_local (sock);
       resolve_remote (sock, 1, NULL, NULL);
     }
@@ -1492,9 +1526,6 @@ link_socket_init_phase2 (struct link_socket *sock,
 	  sock->info.lsa->remote.sa.sin_addr.s_addr = sock->info.lsa->actual.dest.sa.sin_addr.s_addr;
 	}
     }
-
-  /* set socket buffers based on --sndbuf and --rcvbuf options */
-  socket_set_buffers (sock->sd, &sock->socket_buffer_sizes);
 
   /* set misc socket parameters */
   socket_set_flags (sock->sd, sock->sockflags);

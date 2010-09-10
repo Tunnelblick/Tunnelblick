@@ -5,7 +5,7 @@
  *             packet encryption, packet authentication, and
  *             packet compression.
  *
- *  Copyright (C) 2002-2009 OpenVPN Technologies, Inc. <sales@openvpn.net>
+ *  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -687,14 +687,25 @@ read_incoming_link (struct context *c)
 	if (c->options.inetd)
 	  {
 	    c->sig->signal_received = SIGTERM;
+	    c->sig->signal_text = "connection-reset-inetd";
 	    msg (D_STREAM_ERRORS, "Connection reset, inetd/xinetd exit [%d]", status);
 	  }
 	else
 	  {
-	    c->sig->signal_received = SIGUSR1; /* SOFT-SIGUSR1 -- TCP connection reset */
-	    msg (D_STREAM_ERRORS, "Connection reset, restarting [%d]", status);
+#ifdef ENABLE_OCC
+	    if (event_timeout_defined(&c->c2.explicit_exit_notification_interval))
+	      {
+		msg (D_STREAM_ERRORS, "Connection reset during exit notification period, ignoring [%d]", status);
+		openvpn_sleep(1);
+	      }
+	    else
+#endif
+	      {
+		c->sig->signal_received = SIGUSR1; /* SOFT-SIGUSR1 -- TCP connection reset */
+		c->sig->signal_text = "connection-reset";
+		msg (D_STREAM_ERRORS, "Connection reset, restarting [%d]", status);
+	      }
 	  }
-	c->sig->signal_text = "connection-reset";
       }
       perf_pop ();
       return;
