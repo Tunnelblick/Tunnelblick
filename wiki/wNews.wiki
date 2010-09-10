@@ -1,6 +1,18 @@
 #summary The Latest News About Tunnelblick
 #sidebar wSb
 
+--------------------
+
+2010-09-09: *Tunnelblick 3.1beta14 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta14.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 - 3.1beta12*</font> 
+
+ * Fixes a problem that, under certain circumstances, crashes client.down.tunnelblick.sh. (Issue 159.)
+
+ * Thanks to Mohammad A. Haque, this release imbeds the  OpenSSL version. 1.0.0a library into the included OpenVPN binary. This adds support for over 60 additional digests, ciphers, and TLS ciphers.
+
+--------------------
+
 2010-08-08: *Tunnelblick 3.1beta12 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
 <font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU ARE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or 3.1beta10*</font> 
@@ -76,8 +88,6 @@ This is mainly a bug-fix release, but there are some new features:
   * The up, down, and leasewatch scripts have been modified to implement options for the scripts which Tunnelblick causes OpenVPN to put first (before OpenVPN parameters) in the command line which starts the up/down scripts.
 
 The full list of changes is in the [wRlsNotes Release Notes].
-
---------------------
 
 *2010-05-14*: Tunnelblick 3.1beta02 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
 

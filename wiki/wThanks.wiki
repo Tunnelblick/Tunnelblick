@@ -61,6 +61,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Mohammad A. Haque    </td>
+    <td>      Xcode help and OpenSSL integration    </td>
+  </tr>
+
+  <tr>
     <td>      Uli Kusterer    </td>
     <td>      UKKQueue and UKLoginItemRegistry    </td>
   </tr>
