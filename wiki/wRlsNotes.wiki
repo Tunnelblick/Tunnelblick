@@ -8,6 +8,8 @@
 ==3.1beta14 (2010-09-09)==
  * Fixes Issue 159 problem that, under certain circumstances, crashes client.down.tunnelblick.sh 
  
+ * Includes OpenVPN version 2.1.3.
+
  * Thanks to Mohammad A. Haque: Includes the OpenSSL v. 1.0.0a library imbedded into the included OpenVPN binary. This adds support for the following:
 
    Digests:<br>
@@ -92,8 +94,6 @@
    ("sudo" is needed if Tunnelblick.app has been run at least once, because Tunnelblick secures the OpenVPN binary by making it owned and executable only by root.)
 
 ==3.1beta12 (2010-08-08)==
- * <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLIER BETA VERSIONS:*</font> The first time that you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
-
  * Includes Italian localization thanks to Pierpaolo Gulla (Grazie!).
 
  * Implements a single, system-wide keyboard shortcut (command-option-F1 by default) to expose the Tunnelblick menu.
@@ -115,8 +115,6 @@
  * Fixes bug with placement of the 'when computer starts' radio button in non-English versions of Tunnelblick.
 
 ==3.1beta10 (2010-07-29)==
-  * <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08:*</font> When you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
-  
  * Configurations located in subfolders are displayed in submenus of the main Tunnelblick menu.
 
  * The 'wizard' that runs when there are no configurations present or when the user selects 'Add a configuration…' has been enhanced.
@@ -146,8 +144,6 @@
  * Fixes incorrect help message for 'openvpnstart'
 
 ==3.1beta08 (2010-07-10)==
-  * <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLIER BETA VERSIONS:*</font> When you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
-
   * Benji Greig has created an updated Tunnelblick icon that looks great in Coverflow. He has also created a distinctive icon for Tunnelblick VPN Configurations, and a new background image for the Disk Image. Thanks, Benji!
 
   * Log processing and display have been rewritten:
