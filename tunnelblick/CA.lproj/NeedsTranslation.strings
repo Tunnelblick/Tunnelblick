@@ -76,6 +76,9 @@
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
+/* Menu item */
+"Connect %@%@" = "Connect %@%@";
+
 /* Window title */
 "Could Not Copy Configuration" = "Could Not Copy Configuration";
 
@@ -102,6 +105,9 @@
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
+
+/* Menu item */
+"Disconnect %@%@" = "Disconnect %@%@";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
@@ -135,6 +141,9 @@
 
 /* Button */
 "Downgrade" = "Downgrade";
+
+/* Folder name */
+"Empty Tunnelblick VPN Configuration" = "Empty Tunnelblick VPN Configuration";
 
 /* Button */
 "Examine configuration" = "Examine configuration";
@@ -240,6 +249,9 @@
 
 /* Window title */
 "Sample Configuration Created" = "Sample Configuration Created";
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* Window title */
 "Share Configuration?" = "Share Configuration?";

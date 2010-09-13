@@ -943,11 +943,11 @@ enum state_t {                      // These are the "states" of the guideState 
                         replacementPath = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
                         NSString * sharedPrivateDeployed;
                         if (  [replacementPath hasPrefix: gSharedPath]  ) {
-                            sharedPrivateDeployed = @" (Shared)";
+                            sharedPrivateDeployed = NSLocalizedString(@" (Shared)", @"Window title");
                         } else if (  [replacementPath hasPrefix: gPrivatePath]  ) {
-                            sharedPrivateDeployed = @" (Private)";
+                            sharedPrivateDeployed = NSLocalizedString(@" (Private)", @"Window title");
                         } else {
-                            sharedPrivateDeployed = @" (Deployed)";
+                            sharedPrivateDeployed = NSLocalizedString(@" (Deployed)", @"Window title");
                         }
                         if (  [oldVersion compare: pkgVersion options: NSNumericSearch] == NSOrderedSame  ) {
                             msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to reinstall '%@'%@ version %@?", @"Window text"),
@@ -1771,7 +1771,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 // User wants to create a sample configuration on the Desktop and edit the OpenVPN configuration file in TextEdit
                 ; // Weird, but without this semicolon (i.e., empty statement) the compiler generates a syntax error for the next line!
-                NSString * sampleConfigFolderName = @"Sample Tunnelblick VPN Configuration";
+                NSString * sampleConfigFolderName = NSLocalizedString(@"Sample Tunnelblick VPN Configuration", @"Folder name");
                 NSString * targetPath = [[NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: sampleConfigFolderName];
                 if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
                     button = TBRunAlertPanel(NSLocalizedString(@"Replace Existing File?", @"Window title"),
@@ -1982,7 +1982,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 // User wants to create an empty configuration
                 ; // Weird, but without this semicolon (i.e., empty statement) the compiler generates a syntax error for the next line!
-                NSString * emptyConfigFolderName = @"Empty Tunnelblick VPN Configuration";
+                NSString * emptyConfigFolderName = NSLocalizedString(@"Empty Tunnelblick VPN Configuration", @"Folder name");
                 targetPath = [[NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: emptyConfigFolderName];
                 if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
                     button = TBRunAlertPanel(NSLocalizedString(@"Replace Existing File?", @"Window title"),

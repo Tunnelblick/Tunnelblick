@@ -100,6 +100,9 @@
 /* System profile item */
 "Configurations" = "Configurations";
 
+/* Menu item */
+"Connect %@%@" = "Connect %@%@";
+
 /* Window text */
 "Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2010 Angelo Laub and others. All rights reserved.";
 
@@ -132,6 +135,9 @@
 
 /* "Menu item tooltip" */
 "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set";
+
+/* Menu item */
+"Disconnect %@%@" = "Disconnect %@%@";
 
 /* Checkbox name */
 "Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
@@ -168,6 +174,9 @@
 
 /* Window title */
 "Downgrade Tunnelblick?" = "Downgrade Tunnelblick?";
+
+/* Folder name */
+"Empty Tunnelblick VPN Configuration" = "Empty Tunnelblick VPN Configuration";
 
 /* Window title */
 "Examine the configuration file?" = "Examine the configuration file?";
@@ -279,6 +288,9 @@
 
 /* Window title */
 "Sample Configuration Created" = "Sample Configuration Created";
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* Checkbox text */
 "Save in Keychain" = "Save in Keychain";
