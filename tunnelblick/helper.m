@@ -144,7 +144,7 @@ int createDir(NSString * dirPath, unsigned long permissions)
             return 0;
         }
         if (  ! [gFileMgr changeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
-            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %luo", dirPath, permissions);
+            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lo", dirPath, permissions);
             return -1;
         }
 
