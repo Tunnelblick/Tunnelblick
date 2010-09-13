@@ -122,6 +122,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Stefan Bethke      </td>
+    <td>      German    </td>
+  </tr>
+
+  <tr>
     <td>      Grzegorz Danecki      </td>
     <td>      Polish    </td>
   </tr>
