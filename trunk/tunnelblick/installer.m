@@ -678,7 +678,7 @@ int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permis
         }
         
         if (  ! [gFileMgr changeFileAttributes: attributesShouldHave atPath: dirPath] ) {
-            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %luo, owner:group to %d:%d", dirPath, permissions, owner, group);
+            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lo, owner:group to %d:%d", dirPath, permissions, owner, group);
             return -1;
         }
         
