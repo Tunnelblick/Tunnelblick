@@ -154,6 +154,9 @@
 /* NEEDS TRANSLATION *//* System profile item */
 "Configurations" = "Configurations";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Connect %@%@" = "Connect %@%@";
+
 /* Button */
 "Connect"= "接続";
 
@@ -201,6 +204,9 @@
 
 /* NEEDS TRANSLATION *//* "Menu item tooltip" */
 "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set";
+
+/* NEEDS TRANSLATION *//* Menu item */
+"Disconnect %@%@" = "Disconnect %@%@";
 
 /* Button */
 "Disconnect" = "切断";
@@ -270,6 +276,9 @@
 
 /* Button */
 "Edit configuration" = "環境設定ファイルの編集";
+
+/* NEEDS TRANSLATION *//* Folder name */
+"Empty Tunnelblick VPN Configuration" = "Empty Tunnelblick VPN Configuration";
 
 /* NEEDS TRANSLATION *//* Button */
 "Examine configuration" = "Examine configuration";
@@ -465,6 +474,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Sample Configuration Created" = "Sample Configuration Created";
+
+/* NEEDS TRANSLATION *//* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* NEEDS TRANSLATION *//* Checkbox text */
 "Save in Keychain" = "Save in Keychain";

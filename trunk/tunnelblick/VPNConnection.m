@@ -1324,8 +1324,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
         // setting menu command title depending on current status:
         NSString *commandString; 
-        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect", @"Button");
-        else commandString = NSLocalizedString(@"Connect", @"Button");
+        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect %@%@", @"Menu item");
+        else commandString = NSLocalizedString(@"Connect %@%@", @"Menu item");
         
         // Remove submenu prefix if using submenus
         NSString * itemName = [connection displayName];
@@ -1343,7 +1343,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
             }
         }
-        NSString *itemTitle = [NSString stringWithFormat:@"%@ %@%@", commandString, itemName, locationMessage];
+        NSString *itemTitle = [NSString stringWithFormat:commandString, itemName, locationMessage];
         [anItem setTitle:itemTitle];
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: [connection configPath]];
