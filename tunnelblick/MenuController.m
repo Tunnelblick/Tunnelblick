@@ -1232,71 +1232,50 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
 // If any config files have been deleted, remove them from the menu and remove their tabs in the Log window
 -(void) updateMenuAndLogWindow 
-{	
-    BOOL needToUpdateLogWindow = FALSE;
+{
+    BOOL needToUpdateLogWindow = FALSE;         // If we changed any configurations, process the changes after we're done
+    
     NSString * dispNm;
     
     NSDictionary * curConfigsDict = [[ConfigurationManager defaultManager] getConfigurations];
     
-    // Add new configurations
+    // Add new configurations and replace updated ones
 	NSEnumerator * e = [curConfigsDict keyEnumerator];
     while (dispNm = [e nextObject]) {
         BOOL sameDispNm = [myConfigDictionary objectForKey: dispNm] != nil;
         BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
-        BOOL newIsDeploy = [gDeployPath isEqualToString: firstPartOfPath([curConfigsDict objectForKey: dispNm])];
         
         if (  sameDispNm  ) {
             if (  ! sameFolder  ) {
-                if (  newIsDeploy  ) {
-                    // Replace one from ~/Library/.../Configurations with one from Deploy
+                    // Replace a configuration
                     [self deleteExistingConfig: dispNm];
                     [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm];
                     needToUpdateLogWindow = TRUE;
-                } else {
-                    ; // Ignore new configs that are in ~/Library/.../Configurations if there is one with the same display name in Deploy
-                }
-            } else {
-                ; // Ignore -- not changed
             }
         } else {
+            // Add a configuration
             [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm]; // No old config with same name
             needToUpdateLogWindow = TRUE;
         }
     }
     
     // Remove configurations that are no longer available
-    // (Or replace a deleted Deploy configuration with one from ~/Library/.../Configurations if it exists
 	e = [myConfigDictionary keyEnumerator];
     while (dispNm = [e nextObject]) {
         BOOL sameDispNm = [curConfigsDict objectForKey: dispNm] != nil;
-        BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
-        BOOL oldWasDeploy = [gDeployPath isEqualToString: firstPartOfPath([myConfigDictionary objectForKey: dispNm])];
         
-        if (  sameDispNm  ) {
-            if (  ! sameFolder  ) {
-                if (  oldWasDeploy  ) {
-                    // Replace one from Deploy with one from ~/Library/.../Configurations
-                    [self deleteExistingConfig: dispNm];
-                    [self addNewConfig: [curConfigsDict objectForKey: dispNm] withDisplayName: dispNm];
-                    needToUpdateLogWindow = TRUE;
-                } else {
-                    [self deleteExistingConfig: dispNm];  // No new config at same path
-                    needToUpdateLogWindow = TRUE;
-                }
-            } else {
-                ; // Ignore -- not changed
-            }
-        } else {
+        if (  ! sameDispNm  ) {
             [self deleteExistingConfig: dispNm]; // No new config with same name
             needToUpdateLogWindow = TRUE;
         }
     }
     
+NSLog(@"Configs = \n%@", myConfigDictionary); // JKB
 	// If there aren't any configuration files left, deal with that
     [self checkNoConfigurations];
     
     if (  needToUpdateLogWindow  ) {
-        // Add or remove configurations from the Log window (if it is open) by closing and reopening the Log window
+        // Add or remove configurations from the Log window (if it is open) by closing and reopening it
         BOOL logWindowWasOpen = logWindowIsOpen;
         [logWindow close];
         [logWindow release];
