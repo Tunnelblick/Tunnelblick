@@ -33,16 +33,16 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 
 The following VPN service providers recommend or use Tunnelblick exclusively for Mac OS X.
 
-  * [http://www.acevpn.com Ace VPN]
-  * [http://s6n.org/arethusa Arethusa VPN]
-  * [https://www.astrill.com Astrill] (to be available soon: 10% discount on a 1-year purchase; 5% discount for 6-month purchase)
-  * [http://www.comodo.com/trustconnect/overview.html Comodo TrustConnect]
-  * [http://www.my-expat-network.co.uk My Expat Network]
-  * [http://info.psmail.net/noah PSMail]
-  * [http://www.RoadWarriorVPN.com Road Warrior VPN.com]
-  * [http://www.smallvpn.com Small VPN]
-  * [http://www.surfbouncer.com SurfBouncer Personal VPN]
-  * [http://www.ultravpn.fr UltraVPN]
+  * *[http://www.acevpn.com Ace VPN]*
+  * *[http://s6n.org/arethusa Arethusa VPN]*
+  * *[https://www.astrill.com/a3329ebd4 Astrill]* (Astrill contributes to Tunnelblick and you get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase if you use this link)
+  * *[http://www.comodo.com/trustconnect/overview.html Comodo TrustConnect]*
+  * *[http://www.my-expat-network.co.uk My Expat Network]*
+  * *[http://info.psmail.net/noah PSMail]*
+  * *[http://www.RoadWarriorVPN.com Road Warrior VPN.com]*
+  * *[http://www.smallvpn.com Small VPN]*
+  * *[http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[http://www.ultravpn.fr UltraVPN]*
 
 If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-08-11.)
 
