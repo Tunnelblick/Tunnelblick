@@ -35,7 +35,7 @@ The following VPN service providers recommend or use Tunnelblick exclusively for
 
   * [http://www.acevpn.com Ace VPN]
   * [http://s6n.org/arethusa Arethusa VPN]
-  * [https://www.astrill.com Astrill]
+  * [https://www.astrill.com Astrill] (to be available soon: 10% discount on a 1-year purchase; 5% discount for 6-month purchase)
   * [http://www.comodo.com/trustconnect/overview.html Comodo TrustConnect]
   * [http://www.my-expat-network.co.uk My Expat Network]
   * [http://info.psmail.net/noah PSMail]
