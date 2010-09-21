@@ -475,8 +475,8 @@
 /* Window title */
 "Sample Configuration Created" = "Beispielkonfiguration erstellt";
 
-/* NEEDS TRANSLATION *//* Folder name */
-"Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Beispiel-Tunnelblick-VPN-Konfiguration";
 
 /* Checkbox text */
 "Save in Keychain" = "Im Schlüsselbund sichern";
