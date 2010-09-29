@@ -18,9 +18,12 @@ Three preferences may be set or cleared by the user via the "Options…" submenu
 ==Preferences in the "OpenVPN Log" Window==
 Three preferences may be set or cleared by the user via check boxes on the "OpenVPN Log" window tab for each configuration. See [Per-Configuration_Preferences Per-Configuration Preferences].
 
-
 ==Modifying Preferences That are Not in the "Options…" Submenu or the "OpenVPN Log" Window==
-All other preferences can only be modified by (A) forcing them or (B) modifying them in `~/Library/Preferences/com.openvpn.tunnelblick.plist` using Apple's "Property List Editor.app". “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs. The Developer Tools installs Property List Editor.app in /Developer/Applications/Utilities.
+All other preferences can be modified by
+ * Forcing them (see [wCusDeployed "Deployed" Versions]).
+ * Modifying them in `~/Library/Preferences/com.openvpn.tunnelblick.plist` using Apple's "Property List Editor.app". “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs. The Developer Tools installs Property List Editor.app in /Developer/Applications/Utilities.
+ * Modifying them by using the "defaults" commands in Terminal.app. For example, to disable the display of the duration of connections in the tabs of the Details… window, use
+     `defaults    write    com.openvpn.tunnelblick showConnectedDurations    -bool    no`
 
 ==Preferences That Control What Tunnelblick Does==
   * *placeIconInStandardPositionInStatusBar* (Boolean): If set, the Tunnelblick icon will be positioned normally, to the left of the other icons at the time Tunnelblick is started. If cleared or not present, the Tunnelblick icon will be placed between the time display and the Spotlight icon. The default is not present.
