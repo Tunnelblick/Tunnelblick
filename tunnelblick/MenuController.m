@@ -1270,7 +1270,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
     }
     
-NSLog(@"Configs = \n%@", myConfigDictionary); // JKB
 	// If there aren't any configuration files left, deal with that
     [self checkNoConfigurations];
     

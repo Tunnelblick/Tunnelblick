@@ -34,11 +34,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1beta15 (build 2050)</string>
+	<string>3.1beta15 (build 2051)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>2050</string>
+	<string>2051</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
