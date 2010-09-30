@@ -53,7 +53,7 @@ if (( M=${PROCESS:-0} )) ; then
 	EOF)"
     # Make it match TB_NO_SUCH_KEY if there is no such key
 	if [ "${DNS_NOW}" = "${SCUTIL_NO_SUCH_KEY}" ] ; then
-        DNS_NOW = TB_NO_SUCH_KEY
+        DNS_NOW="${TB_NO_SUCH_KEY}"
     fi
 	# What's the correct WINS info?
     WINS_GOOD="$(/usr/sbin/scutil <<-EOF
@@ -75,7 +75,7 @@ if (( M=${PROCESS:-0} )) ; then
 	EOF)"
     # Make it match TB_NO_SUCH_KEY if there is no such key
 	if [ "${WINS_NOW}" = "${SCUTIL_NO_SUCH_KEY}" ] ; then
-        WINS_NOW=TB_NO_SUCH_KEY
+        WINS_NOW="${TB_NO_SUCH_KEY}"
     fi
 
     # If the DNS configuration has changed
