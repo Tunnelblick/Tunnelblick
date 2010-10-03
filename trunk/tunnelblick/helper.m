@@ -125,32 +125,37 @@ NSString * configPathFromTblkPath(NSString * path)
 // Function to create a directory with specified permissions
 // Recursively creates all intermediate directories (with the same permissions) as needed
 // Returns 1 if the directory was created or permissions modified
-//         0 if the directory already exists with the specified permissions
-//        -1 if an error occurred. A directory was not created or the permissions were not changed, and an error message was put in the log.
+//         0 if the directory already exists (whether or not permissions could be changed)
+//        -1 if an error occurred. A directory was not created, and an error message was put in the log.
 int createDir(NSString * dirPath, unsigned long permissions)
 {
     NSNumber     * permissionsAsNumber    = [NSNumber numberWithUnsignedLong: permissions];
     NSDictionary * permissionsAsAttribute = [NSDictionary dictionaryWithObject: permissionsAsNumber forKey: NSFilePosixPermissions];
     BOOL isDir;
     
-    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
-        && isDir  ) {
-        NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
-        if (  [[attributes objectForKey: NSFilePosixPermissions] isEqualToNumber: permissionsAsNumber] ) {
+    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]  ) {
+        if (  isDir  ) {
+            // Don't try to change permissions of /tmp, /Library/Application Support, or ~/Library/Application Support
+            if (   [dirPath isEqualToString: @"/tmp"]
+                || [dirPath hasSuffix: @"/Library/Application Support"]  ) {
+                return 0;
+            }
+            NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
+            NSNumber * oldPermissionsAsNumber = [attributes objectForKey: NSFilePosixPermissions];
+            if (  [oldPermissionsAsNumber isEqualToNumber: permissionsAsNumber] ) {
+                return 0;
+            }
+            if (  [gFileMgr changeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
+                return 1;
+            }
+            NSLog(@"Warning: Unable to change permissions on %@ from %lo to %lo", dirPath, [oldPermissionsAsNumber longValue], permissions);
             return 0;
-        }
-        
-        if (  [dirPath isEqualToString: @"/tmp"]  ) {   // Don't try to change permissions of /tmp
-            return 0;
-        }
-        if (  ! [gFileMgr changeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
-            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lo", dirPath, permissions);
+        } else {
+            NSLog(@"Error: %@ exists but is not a directory", dirPath);
             return -1;
         }
-
-        return 1;
     }
-
+    
     // No such directory. Create its parent directory (recurse) if necessary
     int result = createDir([dirPath stringByDeletingLastPathComponent], permissions);
     if (  result == -1  ) {
@@ -159,8 +164,14 @@ int createDir(NSString * dirPath, unsigned long permissions)
     
     // Parent directory exists. Create the directory we want
     if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
-        NSLog(@"Tunnelblick Installer: Unable to create directory %@ with permissions %lu", dirPath, permissions);
-        return -1;
+        if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
+            && isDir  ) {
+            NSLog(@"Warning: Created directory %@ but unable to set permissions to %lu", dirPath, permissions);
+            return 1;
+        } else {
+            NSLog(@"Error: Unable to create directory %@ with permissions %lu", dirPath, permissions);
+            return -1;
+        }
     }
     
     return 1;
