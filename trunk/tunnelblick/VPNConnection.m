@@ -1368,7 +1368,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 // Returns an array of NSDictionary objects with entries for the 'Set nameserver' popup button for this connection
--(NSArray *)        modifyNameserverOptionList
+-(NSArray *) modifyNameserverOptionList
 {
     // Figure out whether to use the standard scripts or 'custom' scripts
     // If Deployed, .tblk, or "old" scripts exist, they are considered "custom" scripts
@@ -1411,18 +1411,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (   custom  ) {
-        return [[NSArray alloc] initWithObjects:
-                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
-                nil];
+        return [[[NSArray alloc] initWithObjects:
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
+                 nil] autorelease];
     } else {
-        return [[NSArray alloc] initWithObjects:
-                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"3", @"value", nil],
-                [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:
-                                                             NSLocalizedString(@"Set nameserver (alternate %d)", @"PopUpButton"), 1] , @"name", @"2", @"value", nil],
-                nil];
+        return [[[NSArray alloc] initWithObjects:
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"3", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:
+                                                              NSLocalizedString(@"Set nameserver (alternate %d)", @"PopUpButton"), 1] , @"name", @"2", @"value", nil],
+                 nil] autorelease];
     }
 }
 
