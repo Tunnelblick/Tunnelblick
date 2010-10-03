@@ -214,6 +214,9 @@
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
 
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Do not set nameserver" = "Do not set nameserver";
+
 /* NEEDS TRANSLATION *//* Button */
 "Do not use the plugin" = "Do not use the plugin";
 
@@ -484,6 +487,12 @@
 /* Menu item */
 "Send Anonymous System Profile" = "傳送匿名系統檔";
 
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
+
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Set nameserver (alternate %d)" = "Set nameserver (alternate %d)";
+
 /* Checkbox name */
 "Set nameserver" = "設定域名服務器";
 
@@ -527,7 +536,7 @@
 "The change will take effect the next time you connect." = "新設定將於下次連線時生效.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";

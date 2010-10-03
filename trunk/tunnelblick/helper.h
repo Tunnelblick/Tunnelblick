@@ -57,8 +57,6 @@ int            TBRunAlertPanelExtended  (NSString * title,
                                          NSString * checkboxLabel,
                                          BOOL     * checkboxResult);
 
-BOOL           useDNSStatus             (id         connection);
-
 BOOL           isUserAnAdmin            (void);
 
 BOOL           runningOnTigerOrNewer    (void);

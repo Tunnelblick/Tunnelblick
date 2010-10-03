@@ -285,30 +285,38 @@ int main(int argc, char *argv[])
         NSString *infoPlistPath         = [[thisBundle stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
         NSString *clientNewUpPath       = [thisBundle stringByAppendingPathComponent:@"client.up.tunnelblick.sh"];
         NSString *clientNewDownPath     = [thisBundle stringByAppendingPathComponent:@"client.down.tunnelblick.sh"];
+        NSString *clientNewAlt1UpPath   = [thisBundle stringByAppendingPathComponent:@"client.1.up.tunnelblick.sh"];
+        NSString *clientNewAlt1DownPath = [thisBundle stringByAppendingPathComponent:@"client.1.down.tunnelblick.sh"];
+        NSString *clientNewAlt2UpPath   = [thisBundle stringByAppendingPathComponent:@"client.2.up.tunnelblick.sh"];
+        NSString *clientNewAlt2DownPath = [thisBundle stringByAppendingPathComponent:@"client.2.down.tunnelblick.sh"];
         
         BOOL okSoFar = YES;
         okSoFar = okSoFar && checkSetOwnership(infoPlistPath, NO, 0, 0);
         
         okSoFar = okSoFar && checkSetOwnership(thisBundle, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,    @"4111", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,      @"4111", YES);
         
-        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,       @"644", YES);
+        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,         @"644", YES);
         
-        okSoFar = okSoFar && checkSetPermissions(installerPath,       @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(openvpnPath,         @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,   @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,      @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientUpPath,        @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientDownPath,      @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,   @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath, @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,     @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,   @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(installerPath,         @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnPath,           @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,     @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,        @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientUpPath,          @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientDownPath,        @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,     @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,   @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,       @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,     @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,   @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath, @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,   @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath, @"744", YES);
         
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
-            okSoFar = okSoFar && checkSetPermissions(gDeployPath,     @"755", YES);
+            okSoFar = okSoFar && checkSetPermissions(gDeployPath,       @"755", YES);
             okSoFar = okSoFar && secureOneFolder(gDeployPath);
         }
         

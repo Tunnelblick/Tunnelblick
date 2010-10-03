@@ -125,6 +125,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             saveOnSystemStartRadioButtonState:      (BOOL)              onSystemStart
                                         forConnection:      (VPNConnection *)   connection;
 -(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
+-(void)             saveUseNameserverPopupButtonState:      (unsigned)          inValue;
 -(VPNConnection *)  selectedConnection;
 -(NSTextView *)     selectedLogView;
 -(void)             setLogWindowTitle;
@@ -1424,10 +1425,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         if (   [gTbDefaults boolForKey: autoConnectKey]
             && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-            [autoConnectCheckbox        setEnabled: NO];        // Disable other controls for daemon connections because otherwise
-            [useNameserverCheckbox      setEnabled: NO];        // we have to update the daemon's .plist to reflect changes, and
-            [monitorConnnectionCheckbox setEnabled: NO];        // that requires admin authorization for each change
-            [shareButton                setEnabled: NO];
+            [autoConnectCheckbox         setEnabled: NO];        // Disable other controls for daemon connections because otherwise
+            [modifyNameserverPopUpButton setEnabled: NO];        // we have to update the daemon's .plist to reflect changes, and
+            [monitorConnnectionCheckbox  setEnabled: NO];        // that requires admin authorization for each change
+            [shareButton                 setEnabled: NO];
         }
     } else {
         [onLaunchRadioButton      setEnabled: NO];
@@ -1481,28 +1482,47 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     } else {
         [shareButton setEnabled: NO];
     }
-        
+    
+    // Set up the 'Set nameserver' popup button with localized values
+    [modifyNameserverPopUpButtonArrayController setContent: [connection modifyNameserverOptionList]];
+    
+    // If the width of the 'Set nameserver' popup button changes, shift the 'Monitor connection' checkbox left or right as needed
+    NSRect oldRect = [modifyNameserverPopUpButton frame];
+    [modifyNameserverPopUpButton sizeToFit];
+    NSRect newRect = [modifyNameserverPopUpButton frame];
+    float widthChange = newRect.size.width - oldRect.size.width;
+    NSRect oldPos = [monitorConnnectionCheckbox frame];
+    oldPos.origin.x = oldPos.origin.x + widthChange;
+    [monitorConnnectionCheckbox setFrame:oldPos];
+    
 	NSString *useDNSKey = [displayName stringByAppendingString:@"useDNS"];
+    int index = [connection useDNSStatus];
+
+    // ***** Duplicate the effect of [self setSelectedModifyNameserverIndex: index] but without calling ourselves
+    if (  index != selectedModifyNameserverIndex  ) {
+        selectedModifyNameserverIndex = index;
+        [modifyNameserverPopUpButton selectItemAtIndex: index];
+        [self saveUseNameserverPopupButtonState: (unsigned) index];
+        //[self validateDetailsWindowControls]; DO NOT DO THIS -- recurses infinitely. That is why we do this duplicate code instead of invoking setSelectedModifyNameserverIndex:
+    }
+    // ***** End duplication of the effect of [self setSelectedModifyNameserverIndex: index] but without calling ourselves
+    
     if (  [gTbDefaults canChangeValueForKey: useDNSKey]  ) {
-        [useNameserverCheckbox setEnabled: YES];
+        [modifyNameserverPopUpButton setEnabled: YES];
     } else {
-        [useNameserverCheckbox setEnabled: NO];
-	}
-	if(  useDNSStatus(connection)  ) {
-		[useNameserverCheckbox setState:NSOnState];
-	} else {
-		[useNameserverCheckbox setState:NSOffState];
+        [modifyNameserverPopUpButton setEnabled: NO];
 	}
 	
 	NSString *notMonitorConnectionKey = [displayName stringByAppendingString:@"-notMonitoringConnection"];
     if (   [gTbDefaults canChangeValueForKey: notMonitorConnectionKey]
-        && useDNSStatus(connection)  ) {
+        && ([connection useDNSStatus] == 1)  ) {
         [monitorConnnectionCheckbox setEnabled: YES];
     } else {
         [monitorConnnectionCheckbox setEnabled: NO];
 	}
+    
 	if(   ( ! [gTbDefaults boolForKey:notMonitorConnectionKey] )
-       && useDNSStatus(connection)  ) {
+       && ( [connection useDNSStatus] == 1 )  ) {
 		[monitorConnnectionCheckbox setState:NSOnState];
 	} else {
 		[monitorConnnectionCheckbox setState:NSOffState];
@@ -1814,16 +1834,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
 	[self setLogWindowTitle];
     
-	// Localize buttons and checkboxes
+	// Localize buttons and checkboxes, shifting their neighbors left or right as needed
+    // NOTE: We don't localize the contents of modifyNameserverPopUpButton because they are localized when they are inserted into it by
+    //       validateDetailsWindowControls, which also does any necessary shifting of its neighbor, the 'Monitor connection' checkbox.
     
     [self setTitle: NSLocalizedString(@"Clear log"                  , @"Button")        ofControl: clearButton                ];
     [self setTitle: NSLocalizedString(@"Edit configuration"         , @"Button")        ofControl: editButton                 ];
     [self setTitle: NSLocalizedString(@"Share configuration"        , @"Button")        ofControl: shareButton                ];
     [self setTitle: NSLocalizedString(@"Connect"                    , @"Button")        ofControl: connectButton              ];
     [self setTitle: NSLocalizedString(@"Disconnect"                 , @"Button")        ofControl: disconnectButton           ];
-    [self setTitle: NSLocalizedString(@"Set nameserver"             , @"Checkbox name") ofControl: useNameserverCheckbox      ];
     [self setTitle: NSLocalizedString(@"Monitor connection"         , @"Checkbox name") ofControl: monitorConnnectionCheckbox ];
-    [self setTitle: NSLocalizedString(@"Automatically connect"      , @"Checkbox name") ofControl: autoConnectCheckbox         ];
+    [self setTitle: NSLocalizedString(@"Automatically connect"      , @"Checkbox name") ofControl: autoConnectCheckbox        ];
     [self setTitle: NSLocalizedString(@"when Tunnelblick launches"  , @"Checkbox name") ofControl: onLaunchRadioButton        ];
     [self setTitle: NSLocalizedString(@"when computer starts"       , @"Checkbox name") ofControl: onSystemStartRadioButton   ];
     
@@ -1863,7 +1884,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     float widthChange = newRect.size.width - oldRect.size.width;
     NSRect oldPos;
     
-    if (   [theControl isEqual: connectButton]                  // Shift the control itself left/right if necessary
+    if (   [theControl isEqual: connectButton]                      // Shift the control itself left/right if necessary
         || [theControl isEqual: disconnectButton]  ) {
         oldPos = [theControl frame];
         oldPos.origin.x = oldPos.origin.x - widthChange;
@@ -1881,22 +1902,18 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         oldPos = [shareButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [shareButton setFrame:oldPos];
-    } else if (  [theControl isEqual: useNameserverCheckbox]  )  {  // If the Use nameserver checkbox changes, shift the Monitor connection checkbox right/left
-        oldPos = [monitorConnnectionCheckbox frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [monitorConnnectionCheckbox setFrame:oldPos];
     } else if (  [theControl isEqual: connectButton]  )  {          // If the Connect button changes, shift the Disconnect button left/right
         oldPos = [disconnectButton frame];
         oldPos.origin.x = oldPos.origin.x - widthChange;
         [disconnectButton setFrame:oldPos];
-    } else if (  [theControl isEqual: autoConnectCheckbox]  ) {      // If the Auto Connect checkbox changes, shift the On Launch and On Computer Startup buttons left/right
+    } else if (  [theControl isEqual: autoConnectCheckbox]  ) {     // If the Auto Connect checkbox changes, shift the On Launch and On Computer Startup buttons left/right
         oldPos = [onLaunchRadioButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [onLaunchRadioButton setFrame:oldPos];
         oldPos = [onSystemStartRadioButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [onSystemStartRadioButton setFrame:oldPos];
-    } else if (  [theControl isEqual: onLaunchRadioButton]  ) {      // If the On Launch checkbox changes, shift the On Computer Startup button left/right
+    } else if (  [theControl isEqual: onLaunchRadioButton]  ) {     // If the On Launch checkbox changes, shift the On Computer Startup button left/right
         oldPos = [onSystemStartRadioButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [onSystemStartRadioButton setFrame:oldPos];
@@ -2261,12 +2278,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	}
 }
 
--(void)saveUseNameserverCheckboxState:(BOOL)inBool
+-(void)saveUseNameserverPopupButtonState:(unsigned)inValue
 {
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
 		NSString* key = [[connection displayName] stringByAppendingString: @"useDNS"];
-		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: key];
+		[gTbDefaults setObject: [NSNumber numberWithInt: (int) inValue] forKey: key];
 		[gTbDefaults synchronize];
         if (  ! [connection isDisconnected]  ) {
             TBRunAlertPanel(NSLocalizedString(@"Configuration Change", @"Window title"),
@@ -2801,7 +2818,7 @@ static void signal_handler(int signalNumber)
         }
         
         int nConfigurations    = [myConfigDictionary count];
-        int nSetNameserver     = 0;
+        int nModifyNameserver  = 0;
         int nMonitorConnection = 0;
         int nPackages          = 0;
         
@@ -2824,10 +2841,10 @@ static void signal_handler(int signalNumber)
             NSString * dnsKey = [key stringByAppendingString:@"useDNS"];
             if (  [gTbDefaults objectForKey: dnsKey]  ) {
                 if (  [gTbDefaults boolForKey: dnsKey]  ) {
-                    nSetNameserver++;
+                    nModifyNameserver++;
                 }
             } else {
-                nSetNameserver++;
+                nModifyNameserver++;
             }
             
             NSString * mcKey = [key stringByAppendingString:@"-notMonitoringConnection"];
@@ -2841,7 +2858,7 @@ static void signal_handler(int signalNumber)
         }
         
         NSString * sConn = [NSString stringWithFormat:@"%d", nConfigurations    ];
-        NSString * sSN   = [NSString stringWithFormat:@"%d", nSetNameserver     ];
+        NSString * sSN   = [NSString stringWithFormat:@"%d", nModifyNameserver  ];
         NSString * sPkg  = [NSString stringWithFormat:@"%d", nPackages          ];
         NSString * sMC   = [NSString stringWithFormat:@"%d", nMonitorConnection ];
         NSString * sDep  = ([[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] ? @"1" : @"0");
@@ -3483,6 +3500,10 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
     NSString *infoPlistPath         = [[[installerPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
 	NSString *clientNewUpPath       = [thisBundle pathForResource:@"client.up.tunnelblick.sh"       ofType:nil];
 	NSString *clientNewDownPath     = [thisBundle pathForResource:@"client.down.tunnelblick.sh"     ofType:nil];
+	NSString *clientNewAlt1UpPath   = [thisBundle pathForResource:@"client.1.up.tunnelblick.sh"     ofType:nil];
+	NSString *clientNewAlt1DownPath = [thisBundle pathForResource:@"client.1.down.tunnelblick.sh"   ofType:nil];
+	NSString *clientNewAlt2UpPath   = [thisBundle pathForResource:@"client.2.up.tunnelblick.sh"     ofType:nil];
+	NSString *clientNewAlt2DownPath = [thisBundle pathForResource:@"client.2.down.tunnelblick.sh"   ofType:nil];
 	
 	// check openvpnstart owned by root, set uid, owner may execute
 	const char *path = [openvpnstartPath UTF8String];
@@ -3501,8 +3522,15 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
 	}
 	
 	// check files which should be owned by root with 744 permissions
-	NSArray *inaccessibleObjects = [NSArray arrayWithObjects: installerPath, openvpnPath, atsystemstartPath, leasewatchPath, clientUpPath, clientDownPath, clientNoMonUpPath, clientNoMonDownPath, clientNewUpPath, clientNewDownPath, nil];
-	NSEnumerator *e = [inaccessibleObjects objectEnumerator];
+	NSArray *root744Objects = [NSArray arrayWithObjects:
+                                    installerPath, openvpnPath, atsystemstartPath, leasewatchPath,
+                                    clientUpPath, clientDownPath,
+                                    clientNoMonUpPath, clientNoMonDownPath,
+                                    clientNewUpPath, clientNewDownPath,
+                                    clientNewAlt1UpPath, clientNewAlt1DownPath,
+                                    clientNewAlt2UpPath, clientNewAlt2DownPath,
+                                    nil];
+	NSEnumerator *e = [root744Objects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {
         if (  ! checkOwnerAndPermissions(currentPath, 0, 0, @"744")  ) {
@@ -3638,16 +3666,6 @@ int runUnrecoverableErrorPanel(msg)
     [self validateDetailsWindowControls];
 }
 
--(IBAction) nameserverPrefButtonWasClicked: (id) sender
-{
-	if([sender state]) {
-		[self saveUseNameserverCheckboxState:TRUE];
-	} else {
-		[self saveUseNameserverCheckboxState:FALSE];
-	}
-    [self validateDetailsWindowControls];
-}
-
 -(IBAction) monitorConnectionPrefButtonWasClicked: (id) sender
 {
 	if([sender state]) {
@@ -3761,4 +3779,20 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return statusItem;
 }
     
+-(int) selectedModifyNameserverIndex
+{
+    return selectedModifyNameserverIndex;
+}
+
+-(void) setSelectedModifyNameserverIndex: (int) newValue
+{
+    // We duplicate this code in validateDetailsWindowControls but without calling itself
+    if (  newValue != selectedModifyNameserverIndex  ) {
+        selectedModifyNameserverIndex = newValue;
+        [modifyNameserverPopUpButton selectItemAtIndex: newValue];
+        [self saveUseNameserverPopupButtonState: (unsigned) newValue];
+        [self validateDetailsWindowControls];   // The code in validateDetailsWindowControls DOES NOT do this
+    }
+}
+
 @end

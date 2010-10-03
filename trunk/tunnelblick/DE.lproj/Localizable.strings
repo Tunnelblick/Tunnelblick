@@ -214,6 +214,9 @@
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Nicht wieder fragen und immer ignorieren";
 
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Do not set nameserver" = "Do not set nameserver";
+
 /* Button */
 "Do not use the plugin" = "Das Plugin nicht verwenden";
 
@@ -484,6 +487,12 @@
 /* Menu item */
 "Send Anonymous System Profile" = "Anonymes Systemprofil senden";
 
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
+
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Set nameserver (alternate %d)" = "Set nameserver (alternate %d)";
+
 /* Checkbox name */
 "Set nameserver" = "Nameserver festlegen";
 
@@ -526,8 +535,8 @@
 /* Window text */
 "The change will take effect the next time you connect." = "Die Veränderung wird ab der nächsten Verbindung angewandt.";
 
-/* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script (either 'Set nameserver' is checked, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Die Konfigurationsdatei für „%@“ enthält offenbar die Optionen „user“ oder “group“ und ein Skript, das beim Trennen der Verbindung ausgeführt wird. (Entweder ist die Option „Nameserver festlegen“ aktiv, oder die Konfigurationdatei enthält die Option „down“.)\n\nWahrscheinlich kann die Verbindung nach einer Trennung nur dann erfolgreich wiederhergestellt werden, wenn das Plugin „openvpn-down-root.so“ verwendet wird.\n\nMöchten Sie das Plugin aktivieren?";
+/* NEEDS TRANSLATION *//* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Die Konfigurationsdatei für „%@“ enthält weder die Option „dev tun“ noch „dev tap“. Eine der beiden Optionen muss gesetzt sein, damit Tunnelblick die Verbindung herstellen kann. Bitte konsultieren Sie Ihren Netzwerkadministrator oder die OpenVPN-Dokumentation.";

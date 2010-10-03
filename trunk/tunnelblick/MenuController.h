@@ -45,8 +45,9 @@ BOOL needToRepairPackages(void);
     IBOutlet NSButton       * monitorConnnectionCheckbox;
     IBOutlet NSButton       * shareButton;
     IBOutlet NSTabView      * tabView;
-    IBOutlet NSButton       * useNameserverCheckbox;
+    IBOutlet NSPopUpButton  * modifyNameserverPopUpButton;
 
+    IBOutlet NSArrayController * modifyNameserverPopUpButtonArrayController;
     IBOutlet id               myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
@@ -121,6 +122,8 @@ BOOL needToRepairPackages(void);
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
     UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
     NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use or nil if no hot key active
+
+    int                       selectedModifyNameserverIndex;// Holds index of the selected 'Set nameserver' option
 }
 
 // Button and checkbox actions
@@ -132,7 +135,6 @@ BOOL needToRepairPackages(void);
 -(IBAction)         connectButtonWasClicked:                (id)                sender;
 -(IBAction)         disconnectButtonWasClicked:             (id)                sender;
 -(IBAction)         editConfigButtonWasClicked:             (id)                sender;
--(IBAction)         nameserverPrefButtonWasClicked:         (id)                sender;
 -(IBAction)         shareConfigButtonWasClicked:            (id)                sender;
 -(IBAction)         addConfigurationWasClicked:             (id)                sender;
 
@@ -162,5 +164,10 @@ BOOL needToRepairPackages(void);
 -(void)             setState:                               (NSString *)        newState;
 -(void)             unloadKextsFooOnly:                     (BOOL)              fooOnly; 
 -(BOOL)             userIsAnAdmin;
+
+// Getters and Setters
+
+-(int)              selectedModifyNameserverIndex;
+-(void)             setSelectedModifyNameserverIndex:       (int)               newValue;
 
 @end

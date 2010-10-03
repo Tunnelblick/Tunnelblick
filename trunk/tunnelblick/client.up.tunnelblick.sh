@@ -12,6 +12,7 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 ARG_MONITOR_NETWORK_CONFIGURATION="false"
 ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
+ARG_TAP="false"
 
 while [ {$#} ] ; do
     if [  "$1" = "-m" ] ; then                              # Handle the arguments we know about
@@ -22,6 +23,9 @@ while [ {$#} ] ; do
         shift
     elif [  "$1" = "-w" ] ; then
         ARG_RESTORE_ON_WINS_RESET="true"
+        shift
+    elif [  "$1" = "-a" ] ; then
+        ARG_TAP="true"
         shift
     else
         if [  "${1:0:1}" = "-" ] ; then                     # Shift out Tunnelblick arguments (they start with "-") that we don't understand
