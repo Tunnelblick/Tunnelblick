@@ -457,24 +457,24 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
         // Count the total number of connections and what their "Set nameserver" status was at the time of connection
         int numConnections = 1;
-        int numConnectionsWithSetNameserver = 0;
-        if (  useDNSStatus(self)  ) {
-            numConnectionsWithSetNameserver = 1;
+        int numConnectionsWithModifyNameserver = 0;
+        if (  [self useDNSStatus] != 0  ) {
+            numConnectionsWithModifyNameserver = 1;
         }
         VPNConnection * connection;
         NSEnumerator* e = [[[NSApp delegate] myVPNConnectionDictionary] objectEnumerator];
         while (connection = [e nextObject]) {
             if (  ! [[connection state] isEqualToString:@"EXITING"]  ) {
                 numConnections++;
-                if (  [connection usedSetNameserver]  ) {
-                    numConnectionsWithSetNameserver++;
+                if (  [connection usedModifyNameserver]  ) {
+                    numConnectionsWithModifyNameserver++;
                 }
             }
         }
         
         if (  numConnections != 1  ) {
             int button = TBRunAlertPanelExtended(NSLocalizedString(@"Do you wish to connect?", @"Window title"),
-                                                 [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithSetNameserver, (numConnections-numConnectionsWithSetNameserver) ],
+                                                 [NSString stringWithFormat:NSLocalizedString(@"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver').", @"Window text"), numConnectionsWithModifyNameserver, (numConnections-numConnectionsWithModifyNameserver) ],
                                                  NSLocalizedString(@"Connect", @"Button"),  // Default button
                                                  NSLocalizedString(@"Cancel", @"Button"),   // Alternate button
                                                  nil,
@@ -633,20 +633,19 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
     
-    NSString *useDNS = @"0";
-	if(useDNSStatus(self)) {
-        NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
-        if (  [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
-            useDNS = @"2";
-        } else {
-            useDNS = @"1";
-        }
+    NSString *useDNSArg = @"0";
+    unsigned useDNSStat = (unsigned) [self useDNSStatus];
+	if(  useDNSStat == 0) {
         if (  forNow  ) {
-            usedSetNameserver = TRUE;
+            usedModifyNameserver = FALSE;
         }
 	} else {
+        NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
+        BOOL useDownRoot = [gTbDefaults boolForKey: useDownRootPluginKey];
+        unsigned useDNSNum = (  (useDNSStat-1) << 2) + (useDownRoot ? 2 : 0) + 1;   // (script #) + downroot-flag + set-nameserver-flag
+        useDNSArg = [NSString stringWithFormat: @"%u", useDNSNum];
         if (  forNow  ) {
-            usedSetNameserver = FALSE;
+            usedModifyNameserver = TRUE;
         }
     }
     
@@ -682,7 +681,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
     NSString * noMonitorKey = [[self displayName] stringByAppendingString: @"-notMonitoringConnection"];
     NSString * noMonitor = @"0";
-    if (  [useDNS isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
+    if (  [useDNSArg isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
         noMonitor = @"1";
     }
 
@@ -713,7 +712,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
     NSArray * args = [NSArray arrayWithObjects:
-                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNS, skipScrSec, altCfgLoc, noMonitor, bitMaskString, nil];
+                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, nil];
     return args;
 }
 
@@ -742,8 +741,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
 }
 
-- (BOOL) usedSetNameserver {
-    return usedSetNameserver;
+- (BOOL) usedModifyNameserver {
+    return usedModifyNameserver;
 }
 
 -(BOOL) tryingToHookup
@@ -1350,6 +1349,81 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 	return YES;
+}
+
+-(int) useDNSStatus
+{
+	NSString * key = [[self displayName] stringByAppendingString:@"useDNS"];
+	id useObj = [gTbDefaults objectForKey:key];
+	if (  useObj == nil  ) {
+		return 1;   // Preference is not set, so use default value
+	} else {
+        if (  [[useObj class] isSubclassOfClass: [NSNumber class]]  ) {
+            return [useObj intValue];
+        } else {
+            NSLog(@"Preference '%@' is not a number; it has value %@. Assuming 'Do not set nameserver'", key, useObj);
+            return 0;
+        }
+    }
+}
+
+// Returns an array of NSDictionary objects with entries for the 'Set nameserver' popup button for this connection
+-(NSArray *)        modifyNameserverOptionList
+{
+    // Figure out whether to use the standard scripts or 'custom' scripts
+    // If Deployed, .tblk, or "old" scripts exist, they are considered "custom" scripts
+    BOOL custom = FALSE;
+    NSString * resourcePath          = [[NSBundle mainBundle] resourcePath];
+    
+    if (  [configPath hasPrefix: gDeployPath]  ) {
+        NSString * deployPath                  = [resourcePath stringByAppendingPathComponent: @"Deploy"];
+        NSString * configFile                  = [configPath lastPathComponent];
+        NSString * deployScriptPath            = [deployPath stringByAppendingPathComponent:[configFile stringByDeletingPathExtension]];
+        NSString * deployUpscriptPath          = [deployScriptPath stringByAppendingPathExtension: @"up.sh"            ];
+        NSString * deployUpscriptNoMonitorPath = [deployScriptPath stringByAppendingPathExtension: @"nomonitor.up.sh"  ];
+        NSString * deployNewUpscriptPath       = [deployScriptPath stringByAppendingPathExtension: @"up.tunnelblick.sh"];
+        if (   [gFileMgr fileExistsAtPath: deployUpscriptPath]
+            || [gFileMgr fileExistsAtPath: deployUpscriptNoMonitorPath]
+            || [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
+            custom = TRUE;
+        }
+    } else {
+        NSString * upscriptPath          = [resourcePath stringByAppendingPathComponent: @"client.up.osx.sh"          ];
+        NSString * upscriptNoMonitorPath = [resourcePath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"];
+        if (   [gFileMgr fileExistsAtPath: upscriptPath]
+            || [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
+            custom = TRUE;
+        }
+    }
+    
+    if (  ! custom  ) {
+        if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
+            NSString * scriptPath                   = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
+            NSString * tblkUpscriptPath             = [scriptPath stringByAppendingPathComponent: @"up.sh"            ];
+            NSString * tblkUpscriptNoMonitorPath    = [scriptPath stringByAppendingPathComponent: @"nomonitor.up.sh"  ];
+            NSString * tblkNewUpscriptPath          = [scriptPath stringByAppendingPathComponent: @"up.tunnelblick.sh"];
+            if (   [gFileMgr fileExistsAtPath: tblkUpscriptPath]
+                || [gFileMgr fileExistsAtPath: tblkUpscriptNoMonitorPath]
+                || [gFileMgr fileExistsAtPath: tblkNewUpscriptPath]  ) {
+                custom = TRUE;
+            }
+        }
+    }
+    
+    if (   custom  ) {
+        return [[NSArray alloc] initWithObjects:
+                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
+                nil];
+    } else {
+        return [[NSArray alloc] initWithObjects:
+                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"3", @"value", nil],
+                [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:
+                                                             NSLocalizedString(@"Set nameserver (alternate %d)", @"PopUpButton"), 1] , @"name", @"2", @"value", nil],
+                nil];
+    }
 }
 
 @end

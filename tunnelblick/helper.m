@@ -195,21 +195,6 @@ NSString * tblkPathFromConfigPath(NSString * path)
     return nil;
 }
 
-BOOL useDNSStatus(id connection)
-{
-	static BOOL useDNS = FALSE;
-	NSString *key = [[connection displayName] stringByAppendingString:@"useDNS"];
-	id status = [gTbDefaults objectForKey:key];
-	
-	if(status == nil) { // nothing is set, use default value
-		useDNS = TRUE;
-	} else {
-		useDNS = [gTbDefaults boolForKey:key];
-	}
-
-	return useDNS;
-}
-
 BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
 {
     NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];

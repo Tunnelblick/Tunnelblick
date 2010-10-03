@@ -48,8 +48,12 @@
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631795FC118DC79B0057ACAF /* atsystemstart in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
+		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
+		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
+		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
+		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
 		635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */; };
@@ -198,9 +202,13 @@
 		6311306311041B89003435F1 /* untitled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = untitled.h; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
+		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
+		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
+		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_CN.lproj; sourceTree = "<group>"; };
 		635CBBE010F3B3E700BF529B /* ZH_TW.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_TW.lproj; sourceTree = "<group>"; };
@@ -380,6 +388,10 @@
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
+				63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */,
+				63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */,
+				634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */,
+				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
 				63B5E31811E34D69007D99DB /* tunnelblick.icns */,
 				63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */,
@@ -564,6 +576,7 @@
 				615F74990ED3A4FA007F6F0A /* DE.lproj in Resources */,
 				6391992510449804001FA1BC /* ES.lproj in Resources */,
 				615F748F0ED3A4E5007F6F0A /* FR.lproj in Resources */,
+				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
 				615F749A0ED3A4FA007F6F0A /* JA.lproj in Resources */,
 				615F749B0ED3A4FA007F6F0A /* KO.lproj in Resources */,
 				61C03B990ED4E42A00175F22 /* NB.lproj in Resources */,
@@ -577,9 +590,12 @@
 				6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
+				634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */,
+				634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */,
 				63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */,
 				63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */,
-				63BD86E81205BA39005B8E38 /* IT.lproj in Resources */,
+				63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */,
+				63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

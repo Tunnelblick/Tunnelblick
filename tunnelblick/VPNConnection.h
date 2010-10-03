@@ -44,7 +44,7 @@
     unsigned int    forceKillWaitSoFar; // Number of seconds since forceKillTimer was first set for this disconnection attempt
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
-    BOOL            usedSetNameserver;  // True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
+    BOOL            usedModifyNameserver;// True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
     BOOL            authenticationFailed; // True iff a message from OpenVPN has been received that password/passphrase authentication failed and the user hasn't been notified yet
     BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an existing instance of OpenVPN
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
@@ -89,6 +89,8 @@
 
 -(BOOL)             isDisconnected;
 
+-(NSArray *)        modifyNameserverOptionList;
+
 -(void)             netsocket:                  (NetSocket *)   socket
                 dataAvailable:                  (unsigned)      inAmount;
 
@@ -111,7 +113,9 @@
 -(void)             tryToHookupToPort:          (int)           inPortNumber
                  withOpenvpnstartArgs:          (NSString *)    inStartArgs;
 
--(BOOL)             usedSetNameserver;
+-(int)              useDNSStatus;
+
+-(BOOL)             usedModifyNameserver;
 
 
 @end
