@@ -110,6 +110,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
 -(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons;
 -(void)             loadMenuIconSet;
+-(void)             makeSymbolicLink;
 -(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
                                            FromMenu:        (NSMenu *)          theMenu
@@ -199,6 +200,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		
         [self dmgCheck];    // If running from a place that can't do suid (e.g., a disk image), this method does not return
 		
+        // Create folder for OpenVPN log and scripts log if necessary
+        if (  createDir(LOG_DIR, 0777) == -1  ) {
+            NSLog(@"Warning: Tunnelblick was unable to create a temporary log folder at %@", LOG_DIR);
+            [NSApp setAutoLaunchOnLogin: NO];
+            [NSApp terminate:self];
+        }
+        
+        // Create private configurations folder if necessary
+        createDir(gPrivatePath, 0755);
+        
+        // Try to create a symbolic link to the private configurations folder from its old place (~/Library/openvpn)
+        // May fail if old place hasn't been moved yet, so we do it again later anyway.
+        // The installer can't do this on some networked home directories because root on this
+        // computer may not have permission to modify the home directory on the network server.
+        [self makeSymbolicLink];
+        
         // Run the installer only if necessary. The installer restores Resources/Deploy and/or repairs permissions,
         // moves the config folder if it hasn't already been moved, and backs up Resources/Deploy if it exists
         BOOL needsChangeOwnershipAndOrPermissions;
@@ -216,6 +233,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 [NSApp terminate:self];
             }
         }
+        
+        // Try again to create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
+        // configuration folder contents to the new place)
+        [self makeSymbolicLink];
         
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
@@ -258,9 +279,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         // If not Deployed, or if Deployed and it is specifically allowed,
         // Then add /Library/Application Support/Tunnelblick/Shared
-        //      create (if necessary) and add ~/Library/Application Support/Tunnelblick/Configurations
+        //      and ~/Library/Application Support/Tunnelblick/Configurations
         //      to configDirs
-        if (  [gConfigDirs count] != 0  ) {
+        if (  [gConfigDirs count] == 0  ) {
+            [gConfigDirs addObject: [[gSharedPath  copy] autorelease]];
+            [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
+        } else {
             if (  ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
                 if (  [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]  ) {
                     [gConfigDirs addObject: [[gSharedPath copy] autorelease]];
@@ -268,21 +292,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
             if (  ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
                 if (  [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]  ) {
-                    createDir(gPrivatePath, 0755);
                     [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
                 }
             }
-        } else {
-            createDir(gPrivatePath, 0755);
-            [gConfigDirs addObject: [[gSharedPath  copy] autorelease]];
-            [gConfigDirs addObject: [[gPrivatePath copy] autorelease]];
         }
         
-        // Create OpenVPN and scripts log directory if necessary
-        createDir(LOG_DIR, 0777);
-        
         // Create a link to this application in the private configurations folder if we are using it
-        // Create a link to the private configurations folder from its old place
         if (  [gConfigDirs containsObject: gPrivatePath]  ) {
             if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
                 NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
@@ -307,16 +322,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                     } else {
                         NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
                     }
-                }
-            }
-            
-            NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-            if (  ! [gFileMgr fileExistsAtPath: oldConfigDirPath]  ) {
-                if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
-                                             pathContent: gPrivatePath]  ) {
-                    NSLog(@"Created a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
-                } else {
-                    NSLog(@"Error: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
                 }
             }
         }
@@ -375,10 +380,71 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		
         updater = [[SUUpdater alloc] init];
         
-}
+    }
     
     return self;
 }
+
+// Attempts to make a symbolic link from the old configurations folder to the new configurations folder
+- (void) makeSymbolicLink
+{
+    BOOL isDir;
+    NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
+    NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+        // A symbolic link exists
+        if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: gPrivatePath]  ) {
+            NSLog(@"Warning: %@ exists and is a symbolic link but does not reference %@. Attempting repair...", oldConfigDirPath, gPrivatePath);
+            if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+                NSLog(@"Warning: Unable to remove %@", oldConfigDirPath);
+            }
+            if (  ! [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+                                           pathContent: gPrivatePath]  ) {
+                NSLog(@"Warning: Unable to change symbolic link %@ to point to %@", oldConfigDirPath, gPrivatePath);
+            }
+        }
+        
+    } else {
+        // Not a symbolic link
+        if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+            if (  isDir  ) {
+                // If empty (i.e., only has invisible files), delete it and create the symlink
+                BOOL isEmpty = TRUE;
+                NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: oldConfigDirPath];
+                NSString * file;
+                while (file = [dirEnum nextObject]) {
+                    if (  itemIsVisible([oldConfigDirPath stringByAppendingPathComponent: file])  ) {
+                        isEmpty = FALSE;
+                        break;
+                    }
+                }
+                if (  isEmpty  ) {
+                    if (  [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+                        if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+                                                     pathContent: gPrivatePath]  ) {
+                            NSLog(@"Replaceed %@ with a symbolic link to %@", oldConfigDirPath, gPrivatePath);
+                        } else {
+                            NSLog(@"Warning: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
+                        }
+                    } else {
+                        NSLog(@"Warning: unable to remove %@ folder to replace it with a symbolic link", oldConfigDirPath);
+                    }
+                } else {
+                    NSLog(@"Warning: %@ is a folder which is not empty.", oldConfigDirPath);
+                }
+            } else {
+                NSLog(@"Warning: %@ exists but is not a symbolic link or a folder.", oldConfigDirPath);
+            }
+        } else {
+            if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+                                         pathContent: gPrivatePath]  ) {
+                NSLog(@"Created a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
+            } else {
+                NSLog(@"Warning: Unable to create a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
+            }
+        }
+    }
+}    
 
 - (void) dealloc
 {
@@ -3468,9 +3534,6 @@ BOOL needToMoveLibraryOpenVPN(void)
                 NSLog(@"Error: %@ exists but is not a symbolic link or a folder", oldConfigDirPath);
                 terminateBecauseOfBadConfiguration();
             }
-        } else {
-            NSLog(@"%@ does not exist", oldConfigDirPath);
-            return YES; // Installer will create a symlink to NEW location
         }
     } else {
         // ~/Library/openvpn is a symbolic link

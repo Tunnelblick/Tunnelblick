@@ -41,7 +41,7 @@
 //      (1) Restores the /Deploy folder from the backup copy if it does not exist and a backup copy does,
 //      (2) Moves the configuration folder from /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //                and creates a symbolic link in its place (if this has not been done already)
-//      (3) Creates ~/Library/Application Support/Tunnelblick/Configurations if it does not already exist
+//      (3) *** REMOVED ***
 //      (4) Creates /Library/Application Support/Tunnelblick/Shared if it doesn't exist and makes sure it is secured
 //      (5) _Iff_ the 1st command line argument is "1", secures Tunnelblick.app by setting the ownership and permissions of its components
 //      (6) _Iff_ the 1st command line argument is "1", makes a backup of the /Deploy folder if it exists
@@ -166,13 +166,11 @@ int main(int argc, char *argv[])
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
     NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     
-    // Create new configuration folder if necessary
+    // Verify that new configuration folder exists
     if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
-        if (  -1 == createDirWithPermissionAndOwnership(newConfigDirPath, 0755, realUserID, realGroupID)  ) {
-            NSLog(@"Tunnelblick Installer: Unable to create %@", newConfigDirPath);
-            [pool release];
-            exit(EXIT_FAILURE);
-        }
+        NSLog(@"Tunnelblick Installer: Private configuration folder %@ does not exist", newConfigDirPath);
+        [pool release];
+        exit(EXIT_FAILURE);
     } else if (  ! isDir  ) {
         NSLog(@"Tunnelblick Installer: %@ exists but is not a folder", newConfigDirPath);
         [pool release];
@@ -180,78 +178,42 @@ int main(int argc, char *argv[])
     }
     
     // If old configurations folder exists (and is a folder):
-    // Then move its contents to the new configurations folder, delete it, and replace it with a symlink to the new configurations folder
-    // Otherwise create the symlink if it doesn't already exist
+    // Move its contents to the new configurations folder and delete it
     NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
     if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
         if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
             if (  isDir  ) {
-                // Move old configurations folder's contents to the new configurations folder
-                if (  ! moveContents(oldConfigDirPath, newConfigDirPath)  ) {
-                    NSLog(@"Tunnelblick Installer: Unable to copy all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                    [pool release];
-                    exit(EXIT_FAILURE);
-                } else {
+                // Move old configurations folder's contents to the new configurations folder and delete the old folder
+                if (  moveContents(oldConfigDirPath, newConfigDirPath)  ) {
                     NSLog(@"Tunnelblick Installer: Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
                     secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
-                }
-                
-                // Delete the old configuration folder
-                if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
-                    NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
+                    // Delete the old configuration folder
+                    if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+                        NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
+                        [pool release];
+                        exit(EXIT_FAILURE);
+                    }
+                } else {
+                    NSLog(@"Tunnelblick Installer: Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
                     [pool release];
                     exit(EXIT_FAILURE);
                 }
-                
-                if (  ! createSymLink(oldConfigDirPath, newConfigDirPath)  ) {
-                    [pool release];
-                    exit(EXIT_FAILURE);
-                }
-
             } else {
                 NSLog(@"Tunnelblick Installer: %@ is not a symbolic link or a folder", oldConfigDirPath);
                 [pool release];
                 exit(EXIT_FAILURE);
             }
-        } else {
-            if (  ! createSymLink(oldConfigDirPath, newConfigDirPath)  ) {
-                [pool release];
-                exit(EXIT_FAILURE);
-            }
-        }
-
-    } else {
-        // ~/Library/openvpn is a symbolic link
-        if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
-            NSLog(@"Tunnelblick Installer: %@ exists and is a symbolic link but does not reference %@. Attempting repair...", oldConfigDirPath, newConfigDirPath);
-            if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
-                NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
-            }
-
-            if (  ! createSymLink(oldConfigDirPath, newConfigDirPath)  ) {
-                [pool release];
-                exit(EXIT_FAILURE);
-            }
         }
     }
 
     //**************************************************************************************************************************
-    // (3)
-    // Create ~/Library/Application Support/Tunnelblick/Configurations if it does not already exist, and make it owned by the user, not root, with 755 permissions
-    
-    int result = createDirWithPermissionAndOwnership(gPrivatePath, 0755, realUserID, realGroupID);
-    if (  result == 1  ) {
-        NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", gPrivatePath);
-    } else if (  result == -1  ) {
-        [pool release];
-        exit(EXIT_FAILURE);
-    }
+    // (3) *** REMOVED ***
     
     //**************************************************************************************************************************
     // (4)
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
     
-    result = createDirWithPermissionAndOwnership(gSharedPath, 0755, 0, 0);
+    int result = createDirWithPermissionAndOwnership(gSharedPath, 0755, 0, 0);
     if (  result == 1  ) {
         NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", gSharedPath);
     } else if (  result == -1  ) {
@@ -392,9 +354,7 @@ int main(int argc, char *argv[])
         }
         
         if (  ! okSoFar  ) {
-            NSLog(@"Tunnelblick Installer: Unable to secure all .tblk packages");
-            [pool release];
-            exit(EXIT_FAILURE);
+            NSLog(@"Tunnelblick Installer: Warning: Unable to secure all .tblk packages");
         }
     }
     
