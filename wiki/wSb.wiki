@@ -23,6 +23,7 @@
     [wServer Tunnelblick as a VPN Server]<br><br>
     [wUsing Using Tunnelblick]<br>
 *Troubleshooting*
+    [wKnown Known Issues]<br>
     [wCommonProblems Common Problems]<br>
     [wConnectedBut Connects OK, But...]<br>
     [wOpenVPNLog The OpenVPN Log]<br>
