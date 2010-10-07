@@ -8,6 +8,8 @@
 ==What is a Deployed Version?==
 A deployed version of Tunnelblick is a customized version of `Tunnelblick.app` which can include everything necessary to install and run Tunnelblick and connect to one or more VPNs. In particular, it may include one or more OpenVPN configuration files, and, usually, certificate and key files for authentication. It can also include shell scripts and text that will appear in Tunnelblick's "about" window, and can specify user preferences that are forced to particular values and are read-only.
 
+A Deployed version can specify additional commands and submenus to be added to the Tunnelblick menu, including specific programs to be run when a menu item is chosen. A Deployed version can also specify programs to be run at the end of the Tunnelblick launch process and/or before a connection is attempted. These features are described in "[Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs].
+
 If you want information about _using_ Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] or ask a question in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 ==How it Works==
@@ -54,6 +56,95 @@ and followed by
   `<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></div></center><body></html>`
 
 There is only space for a couple of lines of text without causing scrollbars to be necessary.
+
+==Additional Menu Commands and Programs==
+If the Deploy folder contains a "Menu" subfolder, it can contain items that will be added to the Tunnelblick menu (either as menu items or submenus) and programs that will be executed when Tunnelblick launches and before a connection is made.
+
+The “Menu” folder can contain zero or more additional items to be inserted into the Tunnelblick menu, immediately above the “Quit Tunnelblick” item.
+
+Each item in the Menu folder should be either a subfolder or an executable file with an .executable extension:
+
+ * If it is a subfolder, a submenu will be created with the subfolder's contents. The name of the subfolder will be used as the name of the submenu.
+
+ * If it is an executable file  has extensions of “.runOnLaunch.executable", execution of the file will be started when Tunnelblick is launched, immediately before starting the processing of any “connect when Tunnelblick starts” configurations.
+
+ * If it is an executable file has extensions of “.runOnLaunch.wait.executable", the file will be executed to completion when Tunnelblick is launched, immediately before processing any “connect when Tunnelblick starts” configurations. If the file returns a status non-zero status code, the launch of Tunnelblick will be abandoned before any “connect when Tunnelbick starts” configurations are connected..
+
+ * If it is an executable file has extensions of “.addToMenu.executable", a menu item will be created and the file will be executed when the user selects the menu item.
+
+ * If it is an executable file has extensions of “.addToMenu.wait.executable", a menu item will be created and the file will be executed when the user selects the menu item. Tunnelblick will not respond to further user input until the file returns control. (Traffic over connections may stall under certain circumstances while waiting for the file to return control.)
+
+ * If it is anything else, it will be ignored.
+
+Note: An "executable" file may be any executable file. The .executable extension is required so that Tunnelblick will set permissions on the file to allow it to be executed by the user. The file will be owned by root, with permissions of 755.
+
+The first “runOnLaunch” and “runOnConnect” files to be found will be the only ones processed. Care should be taken to name subfolders such that they are alphabetically after  these files; otherwise the subfolder(s) will be processed first, and any “runOnLaunch” and “runOnConnect” file in them will be processed first and be used when Tunnelblick is launched or a connection is attempted.
+
+Items from the Menu folder (and any subfolders) will be listed on the menu in alphabetic order by filename.
+
+Names (of files used as menu commands and folders used as submenu names) are modified for display to the user in the menu as follows:
+
+ # Any “.executable” extension will be removed.
+ # Any “.wait” extension from the result will be removed.
+ # If the result contains an underscore (“_”), everything up to and including the underscore will be removed.
+ # The result will be localized using Tunnelblick's Localizable.strings files.
+ # The result will be displayed to the user.
+
+===Example===
+
+If /Contents/Resources/Deploy/Menu/ contains:<br>
+        000_.runOnConnect.wait.executable<br>
+        000_.runOnLaunch.wait.executable<br>
+	001_First.addToMenu.executable<br>
+	002_Second.addToMenu.wait.executable<br>
+	003_Third.addToMenu.executable<br>
+	004_Fourth/<br>
+		Sub-1.addToMenu.executable<br>
+		Sub-2.addToMenu.executable<br>
+	005_Fifth.addToMenu.executable<br>
+
+The bottom of the Tunnelblick menu will look like this:
+
+{{{
+	Details…
+        --------
+	Options
+        --------
+	First
+	Second
+	Third
+	Fourth >
+		Sub-1
+		Sub-2
+	Fifth
+        --------
+	Quit Tunnelblick
+}}}
+In this example, the prefixes `001_`, `002_`, etc. specify the order in which the items will be listed, but are removed (along with the extensions) before being displayed to the user.
+
+If the appropriate Localizable.strings file contains
+“First” = “XXXXX”
+“Second” = “YYYYY”
+
+Then the bottom of the Tunnelblick menu will look like this:
+
+{{{
+	Details…
+        --------
+	Options
+        --------
+	XXXXX
+	YYYYY
+	Third
+	Fourth >
+		Sub-1
+		Sub-2
+	Fifth
+        --------
+	Quit Tunnelblick
+}}}
+
+In addition to the menu commands and submenu added, the file `000_.runOnLaunch.wait.executable` will be run at the end of the Tunnelblick launch process. Because ".wait" is specified, Tunnelblick will wait until the program finishes and examine the program's exit status. If the exit status is zero, Tunnelblick will finish launching, including making and "connect on launch" connections. If the exit status is non-zero, Tunnelblick will terminate immediately without any indication to the user other than an entry in the Console log. Before each connection attempt (either automatic or user-initiated), `000_.runOnConnect.wait.executable` will be run before the connection is made. (It will be called with the same arguments used to run the openvpnstart program.) Because ".wait" is specified, Tunnelblick will wait until the program finishes and examine the program's exit status. If the exit status is zero, Tunnelblick will attempt to make the connection. If the exit status is non-zero, the connection will be abandoned without any indication to the user other than an entry in the Console log. 
 
 ==What about Updates?==
 A version of Tunnelblick with `Deploy` will work with Tunnelblick's standard update process, either through the the built-in update mechanism, or by reinstalling, upgrading, or downgrading Tunnelblick. An update replaces `Tunnelblick.app` with a new copy without `Deploy`; however, when the updated program is first run, `Deploy` will be restored from the backup copy, and will then be used normally. Note: "about.html" is not included in standard Tunnelblick updates, so it will be lost when there is a standard update because it is not located in `Deploy`.
