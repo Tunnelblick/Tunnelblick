@@ -243,6 +243,10 @@ BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
                         return YES; // NSLog already called
                     }
                 }
+            } else if ( [ext isEqualToString:@"executable"]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"755")  ) {       // executable files for custom menu commands are 755
+                    return YES; // NSLog already called
+                }
             } else if ( [ext isEqualToString:@"sh"]  ) {
                 if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
                     return YES; // NSLog already called

@@ -75,6 +75,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             applicationWillTerminate:               (NSNotification*)   notification;
 
 // Private interfaces
+-(void)             addCustomMenuItems;
+-(BOOL)             addCustomMenuItemsFromFolder:           (NSString *)        folderPath
+                                          toMenu:           (NSMenu *)          theMenu;
+-(void)             addOneCustomMenuItem:                   (NSString *)        file
+                              fromFolder:                   (NSString *)        folder
+                                  toMenu:                   (NSMenu *)          theMenu;
+-(BOOL)             addOneCustomMenuSubmenu:                (NSString *)        file
+                                 fromFolder:                (NSString *)        folder
+                                     toMenu:                (NSMenu *)          theMenu;
 -(void)             addPath:                                (NSString *)        path
              toMonitorQueue:                                (UKKQueue *)        queue;
 -(void)             activateStatusMenu;
@@ -117,6 +126,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                          afterIndex:        (int)               theIndex;
 -(void)             removePath:                             (NSString *)        path
               fromMonitorQueue:                             (UKKQueue *)        queue;
+-(void)             runCustomMenuItem:                      (NSMenuItem *)      item;
 -(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
                                     repairApp:              (BOOL)              repairIt
                            moveLibraryOpenVPN:              (BOOL)              moveConfigs
@@ -137,6 +147,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             setupSparklePreferences;
 -(void)             startOrStopDurationsTimer;
 -(NSStatusItem *)   statusItem;
+-(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(NSString *)       findTblkToInstallInPath:                (NSString *)        thePath;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
@@ -184,6 +195,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         dotTblkFileList = nil;
         oldSelectedConnectionName = nil;
         hotKeySubmenuItemThatIsOn = nil;
+        customRunOnLaunchPath = nil;
+        customRunOnConnectPath = nil;
+        customMenuScripts = nil;
         
         tunCount = 0;
         tapCount = 0;
@@ -470,6 +484,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [theAnim release];
     [updater release];
     [gOpenVPNVersionDict release];
+    [customMenuScripts release];
+    [customRunOnLaunchPath release];
+    [customRunOnConnectPath release];
     
     [aboutItem release];
     [checkForUpdatesNowItem release];
@@ -880,6 +897,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
     
+    [self addCustomMenuItems];
+    
     [myVPNMenu addItem: quitItem];
     
 }
@@ -965,10 +984,151 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     return [theName substringFromIndex: slashRange.location + 1];
 }
 
+-(void) addCustomMenuItems
+{
+    // Reset custom script variables
+    customMenuScriptIndex = 0;
+    [customMenuScripts release];
+    customMenuScripts = [[NSMutableArray alloc] init];
+    
+    // Process the contents of the Menu folder
+    NSString * menuDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/Deploy/Menu"];
+    if (  [self addCustomMenuItemsFromFolder: menuDirPath toMenu: myVPNMenu]  ) {
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+    }
+}
+
+// Note: this method is indirectly recursive because it invokes addOneCustomMenuSubmenu, which may invoke this method
+-(BOOL) addCustomMenuItemsFromFolder: (NSString *) folderPath toMenu: (NSMenu *) theMenu
+{
+    // List the items in the folder
+    NSMutableArray * itemsInMenuFolder = [[[NSMutableArray alloc] init] autorelease];
+    NSString * file;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folderPath];
+    while (file = [dirEnum nextObject]) {
+        [dirEnum skipDescendents];
+        [itemsInMenuFolder addObject: file];
+    }
+    
+    // Sort the list
+	NSArray *sortedArray = [itemsInMenuFolder sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+
+    // Use the sorted list to add items to the Tunnelblick menu, or to run them on launch or on connect
+    BOOL haveAddedItems = FALSE;
+    BOOL isDir;
+    
+    int i;
+    for (i=0; i<[sortedArray count]; i++) {
+        file = [sortedArray objectAtIndex: i];
+        NSString * fullPath = [folderPath stringByAppendingPathComponent: file];
+        if (  itemIsVisible(fullPath)  ) {
+            if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]  ) {
+                if (  isDir  ) {
+                    haveAddedItems = [self addOneCustomMenuSubmenu: file fromFolder: folderPath toMenu: theMenu] || haveAddedItems;
+                } else if (  [[file pathExtension] isEqualToString: @"executable"]  ) {
+                    NSString * name = [file stringByDeletingPathExtension];
+                    if (  [[name pathExtension] isEqualToString: @"wait"]  ) {
+                        name = [name stringByDeletingPathExtension];
+                    }
+                    NSString * extension = [name pathExtension];
+                    if (  [extension isEqualToString: @"runOnLaunch"]  ) {
+                        if (  customRunOnLaunchPath  ) {
+                            NSLog(@"%@ is being ignored; %@ is already set up to be run on launch", fullPath, customRunOnLaunchPath);
+                        } else {
+                            customRunOnLaunchPath = [fullPath copy];
+                        }
+                    } else if (  [extension isEqualToString: @"runOnConnect"]  ) {
+                        if (  customRunOnConnectPath  ) {
+                            NSLog(@"%@ is being ignored; %@ is already set up to be run on connect", fullPath, customRunOnConnectPath);
+                        } else {
+                            customRunOnConnectPath = [fullPath copy];
+                        }
+                    } else if (  [extension isEqualToString: @"addToMenu"]  ) {
+                        [self addOneCustomMenuItem: file fromFolder: folderPath toMenu: theMenu];
+                        haveAddedItems = TRUE;
+                    }
+                }
+            }
+        }
+    }
+    
+    return haveAddedItems;
+}
+
+-(BOOL) addOneCustomMenuSubmenu: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
+{
+    NSMenu * subMenu = [[[NSMenu alloc] init] autorelease];
+    if (  [self addCustomMenuItemsFromFolder: [folder stringByAppendingPathComponent: file] toMenu: subMenu]  ) {
+        NSMenuItem * subMenuItem = [[[NSMenuItem alloc] init] autorelease];
+        [subMenuItem setTitle: NSLocalizedString([self menuNameFromFilename: file], @"Menu item")];
+        [subMenuItem setSubmenu: subMenu];
+        [theMenu addItem: subMenuItem];
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+-(void) addOneCustomMenuItem: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
+{
+    NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
+    [item setTitle: NSLocalizedString([self menuNameFromFilename: file], @"Menu item")];
+    [item setTarget: self];
+    [item setAction: @selector(runCustomMenuItem:)];
+    [item setTag: customMenuScriptIndex++];
+
+    NSString * scriptPath = [folder stringByAppendingPathComponent: file];
+    [customMenuScripts addObject: scriptPath];
+    
+    [theMenu addItem: item];
+}
+
+// Strips off .addToMenu, .wait, and .executable from the end of a string, and everything up to and including the first underscore
+-(NSString *) menuNameFromFilename: (NSString *) inString
+{
+    NSString * s = [[inString copy] autorelease];
+    if (  [[s pathExtension] isEqualToString: @"executable"]  ) {
+        s = [s stringByDeletingPathExtension];
+    }
+    
+    if (  [[s pathExtension] isEqualToString: @"wait"]  ) {
+        s = [s stringByDeletingPathExtension];
+    }
+    
+    if (  [[s pathExtension] isEqualToString: @"addToMenu"]  ) {
+        s = [s stringByDeletingPathExtension];
+    }
+    
+    NSRange underscoreRange = [s rangeOfString: @"_"];
+    if (  underscoreRange.length != 0  ) {
+        if (  underscoreRange.location == [s length] -1  ) {
+            NSLog(@"Not stripping through the underscore from the name of menu item %@ because there is nothing after the underscore", inString);
+            return s;
+        }
+        return [s substringFromIndex: underscoreRange.location+1];
+    }
+    
+    return s;
+}
+
+-(void) runCustomMenuItem: (NSMenuItem *) item
+{
+    int tag = [item tag];
+    NSString * scriptPath = [customMenuScripts objectAtIndex: tag];
+    NSTask* task = [[[NSTask alloc] init] autorelease];
+	[task setLaunchPath: scriptPath];
+	[task setArguments: [NSArray array]];
+	[task setCurrentDirectoryPath: [scriptPath stringByDeletingLastPathComponent]];
+	[task launch];
+    if (  [[[scriptPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
+        [task waitUntilExit];
+    }
+}
+
 -(void) removeConnectionWithDisplayName: (NSString *) theName FromMenu: (NSMenu *) theMenu afterIndex: (int) theIndex
 {
     int i;
-    NSRange    slashRange = [theName rangeOfString: @"/" options: 0 range: NSMakeRange(0, [theName length] - 1)];
+    NSRange slashRange = [theName rangeOfString: @"/" options: 0 range: NSMakeRange(0, [theName length] - 1)];
     if (   (slashRange.length == 0)
         || [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"]  ) {
         // The item is directly in the menu
@@ -2729,6 +2889,23 @@ static void signal_handler(int signalNumber)
     
     [self unloadKextsFooOnly: YES];
     
+    // Process runOnLaunch item
+    if (  customRunOnLaunchPath  ) {
+        NSTask* task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath: customRunOnLaunchPath];
+        [task setArguments: [NSArray array]];
+        [task setCurrentDirectoryPath: [customRunOnLaunchPath stringByDeletingLastPathComponent]];
+        [task launch];
+        if (  [[[customRunOnLaunchPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
+            [task waitUntilExit];
+            int status = [task terminationStatus];
+            if (  status != 0  ) {
+                NSLog(@"Tunnelblick runOnLaunch item %@ returned %d; Tunnelblick launch cancelled", customRunOnLaunchPath, status);
+                [NSApp terminate:self];
+            }
+        }
+    }
+    
     // Process "Automatically connect on launch" checkboxes
     VPNConnection * myConnection;
     NSString * dispNm;
@@ -3856,6 +4033,11 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
         [self saveUseNameserverPopupButtonState: (unsigned) newValue];
         [self validateDetailsWindowControls];   // The code in validateDetailsWindowControls DOES NOT do this
     }
+}
+
+-(NSString *) customRunOnConnectPath
+{
+    return customRunOnConnectPath;
 }
 
 @end
