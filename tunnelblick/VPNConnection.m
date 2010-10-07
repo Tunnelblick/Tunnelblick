@@ -501,9 +501,28 @@ extern NSString * lastPartOfPath(NSString * thePath);
         return;
     }
 		
+    // Process runOnConnect item
+    NSString * path = [[NSApp delegate] customRunOnConnectPath];
+    if (  path  ) {
+        NSTask* task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath: path];
+        [task setArguments: arguments];
+        [task setCurrentDirectoryPath: [path stringByDeletingLastPathComponent]];
+        [task launch];
+        if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
+            [task waitUntilExit];
+            int status = [task terminationStatus];
+            if (  status != 0  ) {
+                NSLog(@"Tunnelblick runOnConnect item %@ returned %d; '%@' connect cancelled", path, status, displayName);
+                return;
+            }
+        }
+    }
+    
+    
 	NSTask* task = [[[NSTask alloc] init] autorelease];
     
-	NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+	path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
 	[task setLaunchPath: path]; 
 		
     NSPipe * errPipe = [[NSPipe alloc] init];

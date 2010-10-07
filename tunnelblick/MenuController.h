@@ -124,6 +124,11 @@ BOOL needToRepairPackages(void);
     NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use or nil if no hot key active
 
     int                       selectedModifyNameserverIndex;// Holds index of the selected 'Set nameserver' option
+
+    NSMutableArray          * customMenuScripts;            // Array of paths to the scripts for custom menu items
+    int                       customMenuScriptIndex;        // Index used while building the customMenuScripts array
+    NSString                * customRunOnLaunchPath;        // Path of a file to be executed before processing "connect when Tunnelblick launches" configurations
+    NSString                * customRunOnConnectPath;       // Path of a file to be executed before making a connection
 }
 
 // Button and checkbox actions
@@ -169,5 +174,6 @@ BOOL needToRepairPackages(void);
 
 -(int)              selectedModifyNameserverIndex;
 -(void)             setSelectedModifyNameserverIndex:       (int)               newValue;
+-(NSString *)       customRunOnConnectPath;
 
 @end

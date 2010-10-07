@@ -39,8 +39,7 @@
 //
 // It does the following:
 //      (1) Restores the /Deploy folder from the backup copy if it does not exist and a backup copy does,
-//      (2) Moves the configuration folder from /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
-//                and creates a symbolic link in its place (if this has not been done already)
+//      (2) Moves the contents of the old configuration folder at /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //      (3) *** REMOVED ***
 //      (4) Creates /Library/Application Support/Tunnelblick/Shared if it doesn't exist and makes sure it is secured
 //      (5) _Iff_ the 1st command line argument is "1", secures Tunnelblick.app by setting the ownership and permissions of its components
@@ -688,7 +687,7 @@ BOOL itemIsVisible(NSString * path)
 // in the ~/Library/.../Configurations folder are changed to be owned by the user so the user can edit the configuration file
 // If necessary, changes permissions on *contents* of the folder as follows
 //         invisible files (those with _any_ path component that starts with a period) are not changed
-//         folders are set to 755
+//         folders and executables are set to 755
 //         shell scripts are set to 744
 //         certificate & key files are set to 600
 //         all other visible files are set to 644
@@ -718,6 +717,8 @@ BOOL secureOneFolder(NSString * path)
             if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
                 && isDir  ) {
                 result = result && checkSetPermissions(filePath, @"755", YES);           // Folders are 755
+            } else if ( [ext isEqualToString:@"executable"]  ) {
+                result = result && checkSetPermissions(filePath, @"755", YES);           // executable files for custom menu commands are 755
             } else if ( [ext isEqualToString:@"sh"]  ) {
                 result = result && checkSetPermissions(filePath, @"744", YES);           // Scripts are 744
             } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
