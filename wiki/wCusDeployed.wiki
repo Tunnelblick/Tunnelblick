@@ -22,7 +22,8 @@ If `Contents/Resources/Deploy` exists, Tunnelblick's behavior changes:
   * If `Deploy` contains certificate and key files, those files can be referenced from configuration files by using the name of the file (i.e., no path need be given).
   * If `Deploy` contains up/down scripts with specific names (see [#Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is selected, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
   * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
-
+  * If `Deploy` contains a "Menu" folder, Tunnelblick will add entries in it to the Tunnelblick menu and/or use entries in it to run programs (see  [#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs].
+ 
 Certificate and key files may usually be referenced within a configuration file without path information:
   * If `Deploy` contains _only_ `*.conf`, `*.ovpn`, `*.up.sh`, `*.down.sh`, and `forced-preferences.plist` files, the `~/Library/Application Support/Tunnelblick/Configurations` folder will be used as the target of the OpenVPN `--cd` option, which means that files in that folder may be specified in the configuration file without path information -- e.g., "key xxx.key".
   * If `Deploy` contains _any other files_ (for example, `*.key` files), then `Deploy` will be used as the target of the OpenVPN `--cd` option, which means that files in `Deploy` may be specified in the configuration file without path information -- e.g., "key xxx.key".
@@ -33,6 +34,7 @@ Each time Tunnelblick starts:
   # If not already set, the permissions of `Contents/Info.plist` and of all items within `Contents/Resources` are set to "644" (root can read/write, everyone else can read), except
     * The permissions of `openvpnstart` are set to 4111 (setuid, anyone can execute)
     * The permissions of the standard up/down scripts, `installer`, `leasewatch`, and `openvpn` are set to 744
+    * The permissions of the `*.executable` files are set to 755
     * The permissions of the following files in `Deploy` are given different permissions:
       *  `*.cer`, `*.crt`, `*.der`, `*.key`, `*.p12`, `*.p7b`, `*.p7c`, `*.pem`, and `*.pfx` files are given permissions of "600" (root can read/write, nobody else can read)
       * `*.sh` files are given permissions of "744" (root can read/write/execute, everyone else can read)
@@ -66,13 +68,17 @@ Each item in the Menu folder should be either a subfolder or an executable file 
 
  * If it is a subfolder, a submenu will be created with the subfolder's contents. The name of the subfolder will be used as the name of the submenu.
 
- * If it is an executable file  has extensions of “.runOnLaunch.executable", execution of the file will be started when Tunnelblick is launched, immediately before starting the processing of any “connect when Tunnelblick starts” configurations.
+ * If it is an executable file with extensions of “.runOnLaunch.executable", execution of the file will be started when Tunnelblick is launched, immediately before starting the processing of any “connect when Tunnelblick starts” configurations.
 
- * If it is an executable file has extensions of “.runOnLaunch.wait.executable", the file will be executed to completion when Tunnelblick is launched, immediately before processing any “connect when Tunnelblick starts” configurations. If the file returns a status non-zero status code, the launch of Tunnelblick will be abandoned before any “connect when Tunnelbick starts” configurations are connected..
+ * If it is an executable file with extensions of “.runOnLaunch.wait.executable", the file will be executed to completion when Tunnelblick is launched, immediately before processing any “connect when Tunnelblick starts” configurations. If the file returns a status non-zero status code, the launch of Tunnelblick will be abandoned before any “connect when Tunnelbick starts” configurations are connected..
 
- * If it is an executable file has extensions of “.addToMenu.executable", a menu item will be created and the file will be executed when the user selects the menu item.
+ * If it is an executable file with extensions of “.runOnConnect.executable", execution of the file will be started when a connection attempt is made (either by the user or by a “connect when Tunnelblick launches” configurations, but not when a "connect when the computer starts" configuration).
 
- * If it is an executable file has extensions of “.addToMenu.wait.executable", a menu item will be created and the file will be executed when the user selects the menu item. Tunnelblick will not respond to further user input until the file returns control. (Traffic over connections may stall under certain circumstances while waiting for the file to return control.)
+ * If it is an executable file with extensions of “.runOnConnect.wait.executable", the file will be executed to completion when a connection attempt is made (either by the user or by a “connect when Tunnelblick launches” configurations, but not when a "connect when the computer starts" configuration). If the file returns a status non-zero status code, the connection attempt will be abandoned.
+
+ * If it is an executable file with extensions of “.addToMenu.executable", a menu item will be created and the file will be executed when the user selects the menu item.
+
+ * If it is an executable file with extensions of “.addToMenu.wait.executable", a menu item will be created and the file will be executed when the user selects the menu item. Tunnelblick will not respond to further user input until the file returns control. (Traffic over connections may stall under certain circumstances while waiting for the file to return control.)
 
  * If it is anything else, it will be ignored.
 
@@ -226,48 +232,6 @@ That's all. There is no step 2. Your .zip file has been created.
     # Select "Image Format: compressed", and "Encryption: none"
     # Click "Save"
 Within a few moments, your .dmg file will be created.
-
-==Document History==
-  * 2009-10-29 (r227, r228, r230)
-    * Initial creation of this document.
-  * 2009-10-31 (r238)
-    * Miscellaneous clarifications
-    * Added "USING openvpn-down-root.so" section.
-  * 2009-11-17 (r281)
-    * Clarified that a deployed version is not required to contain configuration files.
-    * Changed to reflect that "from Deploy" appears in the OpenVPN Log when a connection is attempted, rather than at the start of the log.
-    * Changed to add comments about what happens when `Tunnelblick.app` is renamed and when two copies of `Tunnelblick.app` are in the same folder.
-    * Changed to indicate that it is possible to force the "SUEnableAutomaticChecks" preference.
-    * Added "UP AND DOWN SCRIPTS" section.
-    * Added explanation of the "_config-name_-useDownRootPlugin" preference.
-  * 2009-11-17 (r285)
-    * Specified behavior when only `*`.ovpn, `*`.conf, `*`.up.sh, `*`.down.sh, and forced-preferences.plist files are in `Deploy`.
-  * 2009-11-26 (r290)
-    * Clarified how the OpenVPN --cd option is set.
-    * Fixed error describing permissions of installer.
-    * Fixed several typos.
-  * 2009-12-03 (r295)
-    * Clarified that this document describes behavior of the current source code.
-    * Removed note saying that "SUEnableAutomaticChecks" can be forced.
-    * Clarified that Tunnelblick preferences that mirror Sparkle's preferences are not committed yet.
-  * 2009-12-19 (r314)
-    * Updated to reflect move from ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations.
-    * Rewrote "UP AND DOWN SCRIPTS" section.
-    * Listed additional extensions that get permissions of "600".
-  * 2010-01-07 (r319)
-    * Added note that if configuration files are not in Deploy, forced preferences for them are not secure
-  * 2010-01-07 (r320)
-    * Fixed so logo image appears
-  * 2010-01-30 (r341)
-    * Added footer with link to discussion group.
-  * 2010-01-30 (r343)
-    * Fixed typo in document history.
-  * 2010-02-06
-    * Minor reorganization, edits, and clarifications.
-  * 2010-02-14
-    * Noted document is up-to-date as of r399.
-  * 2010-02-23
-    * Described use of wildcards in forced preferences.
 
 ------------------
 
