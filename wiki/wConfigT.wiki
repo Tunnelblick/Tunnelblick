@@ -54,25 +54,25 @@ and not like
  cert /Test/123/456/client26.crt<br>
 
 ==The "Set Nameserver" Check Box and DNS & WINS Settings==
-If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, put a check in the "Set nameserver" checkbox. (This is the situation for most users.)
+If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, select "Set nameserver". (This is the situation for most users.)
 
-If you are using DHCP, wish to use your original DNS and WINS servers when connected, and the VPN server you are connecting to does not "push" DNS or WINS settings to your client, un-check the "Set nameserver" checkbox.
+If you are using DHCP, wish to use your original DNS and WINS servers when connected, and the VPN server you are connecting to does not "push" DNS or WINS settings to your client, select "Do not set nameserver".
 
 If you are using manual settings, different versions of OS X behave differently. This is due to a change in network behavior in Snow Leopard and is beyond the scope of this project to fix.
 
- * If you're using Leopard (10.5) or Tiger (10.4), then it is possible to use the VPN-server-supplied DNS and WINS settings *in addition to* your manual settings by checking the "Set nameserver" box. However, your manual settings will always take precedence over any VPN server-supplied settings.  If "Set nameserver" is un-checked, you will continue to use only your manually-configured settings and any VPN server-supplied settings will be ignored. "Take precedence" means that the manual DNS server will be used for all DNS queries unless it fails to answer, in which case the VPN server-supplied DNS server will be used.
+ * If you're using Leopard (10.5) or Tiger (10.4), then it is possible to use the VPN-server-supplied DNS and WINS settings *in addition to* your manual settings by selecting "Set nameserver". However, your manual settings will always take precedence over any VPN server-supplied settings.  If "Do not set nameserver" is selected, you will continue to use only your manually-configured settings and any VPN server-supplied settings will be ignored. "Take precedence" means that the manual DNS server will be used for all DNS queries unless it fails to answer, in which case the VPN server-supplied DNS server will be used.
  
  *If you are using Snow Leopard (10.6), then your usual DNS and WINS settings will *always* be used, and no aggregation of configurations will be performed.
 
- * If you set your DNS servers manually, then regardless of the state of the "Set nameserver" box, your manual DNS servers will always be the only ones used.
+ * If you set your DNS servers manually, then regardless of the state of "Set nameserver", your manual DNS servers will always be the only ones used.
 
- * If you set your Search Domain(s) manually, then regardless of the state of the "Set nameserver" box, your manual Search Domains will always be the only ones used.
+ * If you set your Search Domain(s) manually, then regardless of the state of "Set nameserver", your manual Search Domains will always be the only ones used.
 
- * If you set your WINS servers manually, then regardless of the state of the "Set nameserver" box, your manual WINS servers will always be the only ones used.
+ * If you set your WINS servers manually, then regardless of the state of "Set nameserver", your manual WINS servers will always be the only ones used.
 
- * Each of these settings is independent of the others: if "Set nameserver" is checked, those settings not configured manually will be replaced by the settings obtained from the VPN server.  If "Set nameserver" is not checked, then as with Leopard/Tiger, no DNS/WINS settings will be applied.
+ * Each of these settings is independent of the others: if "Set nameserver" is selected, those settings not configured manually will be replaced by the settings obtained from the VPN server.  If "Do not set nameserver" is selected, then as with Leopard/Tiger, no DNS/WINS settings will be applied.
 
-*If your situation is not described above* (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and un-check the "Set nameserver" checkbox.
+*If your situation is not described above* (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and select "Set nameserver".
 
 ==Using openvpn-down-root.so==
 When using "Set nameserver" or your own down script for OpenVPN, it is usually necessary to avoid using the OpenVPN "user" and "group" options. These options cause OpenVPN to drop root privileges and take the privileges of the specified user and group. If this is done, then the down script that handles restarting connections when there is a transient problem fails, because it is run without root privileges. And restoring routes when a tunnel is disconnected fails, too.

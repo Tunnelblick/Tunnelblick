@@ -63,7 +63,7 @@ Each tab in the window contains a pane with the OpenVPN log for the connection a
 
     * "Set nameserver” causes scripts to be run before a connection is opened and after the connection is closed. The scripts save and restore DHCP DNS and WINS information. This checkbox is involved in Tunnelbick's setup for the configuration. See [wConfigT Configuring Tunnelblick].
 
-    * "Monitor connection" causes the network connection to be monitored for changes. It is available only when "Set nameserver" is checked. When a change is detected, the connection will be disconnected and reconnected.  This checkbox is involved in Tunnelbick's setup for the configuration. See [wConfigT Configuring Tunnelblick].
+    * "Monitor connection" causes the network connection to be monitored for changes. It is available only when "Set nameserver" is selected. When a change is detected, the connection will be disconnected and reconnected.  This checkbox is involved in Tunnelbick's setup for the configuration. See [wConfigT Configuring Tunnelblick].
 
 The "Details” window also contains five buttons:
 

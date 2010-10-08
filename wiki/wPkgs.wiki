@@ -71,7 +71,7 @@ A Configuration's Info.plist may also optionally contain entries (strings, numbe
 In a Deployed version of Tunnelblick, the forced-preferences in Deploy will override any Configuration-specified preferences. 
 
 ==Up and Down Scripts==
-If the Configuration contains up.tunnelblick.sh, down.tunnelblick.sh, up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is checked for the Configuration's configuration.
+If the Configuration contains up.tunnelblick.sh, down.tunnelblick.sh, up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is selected for the Configuration's configuration.
 
 For backward compatibility, scripts other than up.tunnelblick.sh and down.tunnelblick.sh will be used if they exist.
 

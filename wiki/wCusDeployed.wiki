@@ -20,7 +20,7 @@ If `Contents/Resources/Deploy` exists, Tunnelblick's behavior changes:
 
   Note: if configuration files are not in `Deploy`, their names may be changed by an unprivileged user. Any forced preferences for a configuration whose name has been changed will be ignored, because the forced preferences will be referring to the original configuration name.
   * If `Deploy` contains certificate and key files, those files can be referenced from configuration files by using the name of the file (i.e., no path need be given).
-  * If `Deploy` contains up/down scripts with specific names (see [#Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is checked, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
+  * If `Deploy` contains up/down scripts with specific names (see [#Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is selected, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
   * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
 
 Certificate and key files may usually be referenced within a configuration file without path information:
@@ -170,7 +170,7 @@ There are two *exceptions* to the way forced preferences work:
 See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
 
 ==Up and Down Scripts==
-If "Set nameserver" is checked, `Tunnelblick.app` starts OpenVPN with the "--up" and "--down" options specifying scripts to be run after the tunnel is established and before it is torn down. The standard scripts are `Contents/Resources/client.up.osx.sh` and `Contents/Resources/client.down.osx.sh` if "Monitor connection" is checked, and `Contents/Resources/client.nomonitor.up.osx.sh` and `Contents/Resources/client.nomonitor.down.osx.sh` if "Monitor connection" is not checked.
+If "Set nameserver" is selected, `Tunnelblick.app` starts OpenVPN with the "--up" and "--down" options specifying scripts to be run after the tunnel is established and before it is torn down. The standard scripts are `Contents/Resources/client.up.osx.sh` and `Contents/Resources/client.down.osx.sh` if "Monitor connection" is checked, and `Contents/Resources/client.nomonitor.up.osx.sh` and `Contents/Resources/client.nomonitor.down.osx.sh` if "Monitor connection" is not checked.
 
 However, if `Contents/Resources/Deploy/`_`config-name`_`.up.sh`, _`config-name`_`.down.sh`, _`config-name`_`.nomonitor.up.sh`, or _`config-name`_`.nomonitor.down.sh` exist, each will be used instead of the corresponding standard script.
 

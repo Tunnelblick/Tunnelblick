@@ -6,7 +6,7 @@ OpenVPN is such a powerful tool with so many options, and computer configuration
 
 This page assumes that you are successfully connected to a VPN server. If not, or if you aren't sure, look at [wCommonProblems Common Problems].
 
-*Troubleshooting this problem could be very simple: try connecting the VPN with and without "Set nameserver" checked. If one way or the other solves your problem, you're done!*
+*Troubleshooting this problem could be very simple: try connecting the VPN with and without "Set nameserver" selected. If one way or the other solves your problem, you're done!*
 
 ==If OpenVPN is connected to the server but you can't access the Internet==
 If OpenVPN connected to the server properly, but you are having trouble connecting to websites, the first thing to find out is if there is a DNS problem. To check that, try to access a website by using its IP address instead of its name. For example, try "http://129.42.58.216" instead of "http://www.ibm.com" and "http://66.249.81.104" instead of "http://www.google.com". If the IP address works, but the name doesn't, there is a DNS problem. (Consider the IP address to be "working" if any of the webpage loads.)

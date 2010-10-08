@@ -97,7 +97,7 @@ As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for
 
 ==Why are some checkboxes or buttons dimmed and disabled?==
 Under certain circumstances,  checkboxes or buttons may be disabled and will appear dimmed -- nothing happens when you click on them. Buttons and checkboxes are disabled when they cannot be used. Examples (from the Details… window):
-    * "Monitor connection" is disabled unless "Set nameserver" is checked, because "Set nameserver" is required in order to monitor the connection.
+    * "Monitor connection" is disabled unless "Set nameserver" is selected, because "Set nameserver" is required in order to monitor the connection.
     * "Share configuration" is disabled when the configuration is not a Tunnelblick VPN Configuration because only Tunnelblick VPN Configurations may be shared.
     * "Disconnect" is disabled when a configuration is not connected, and "Connect" is disabled when it is already connected.
     * "when computer starts" is disabled unless a configuration is shared or Deployed, because only shared or Deployed configurations may be automatically connected when the computer starts.
