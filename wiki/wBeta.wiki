@@ -11,6 +11,22 @@ When a new beta version is available, it is announced to the [http://groups.goog
 <font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 OR LATER*</font> 
 
 --------------------
+2010-10-08: *Tunnelblick 3.1beta16 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+  * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
+
+  * Adds the ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts).
+
+  * Adds the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.
+
+  * Includes localization-related code tweaks by Stefan Bethke and additional German localization by Stefan Bethke, Marcus Schneider, and 'Dr Hok'.
+
+ * Fixes a formatting error when displaying file permissions in error messages about being unable to change permissions.
+
+ * Fixes a problem causing a connection restart when 'Set nameserver' is used, a DHCP renewal occurs, and there are no WINS settings.
+
+ * Fixes issues when using OpenDirectory and the user's home directory is on a non-Mac platform.
+--------------------
 2010-09-09: *Tunnelblick 3.1beta14 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta14.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
  * Fixes a problem that, under certain circumstances, crashes client.down.tunnelblick.sh. (Issue 159.)

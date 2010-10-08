@@ -5,6 +5,33 @@
 
 ===========
 
+==3.1beta16 (2010-010-08)==
+  * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
+    * The following choices will always be displayed:
+      * 'Do not set nameserver' to not use any scripts                  (equivalent to not having a check in the old 'Set nameserver' checkbox')
+      * 'Set nameserver'        to use the standard Tunnelblick scripts (equivalent to having a check in the old 'Set nameserver' checkbox')
+    * The following two additional choices will be displayed only if custom scripts are not being used:
+      * 'Set nameserver (3.0b10)'      to use scripts from Tunnelblick 3.0b10 (for backward compatibility)
+      * 'Set nameserver (alternate 1)' to use scripts based on Ben Low's scripts from http://openvpn.net/archive/openvpn-users/2006-10/msg00120.html. These scripts:
+        * Implement multiple domains 'pushed' from the server
+        * Fix some issues with some TAP connections that cause 'write to TUN/TAP : Input/output error (code=5)' and other errors
+        * Do not implement 'Monitor connection'
+    * Note: Some Deployed versions of Tunnelblick and Tunnelblick VPN configurations may include custom scripts that will inhibit the display of these two additional choices.
+    * Running this version changes the 'useDNS' per-configuration preference from a boolean to a number. This is a downward-compatible change -- earlier versions of Tunnelblick may be run after running this version and modifying the 'Set nameserver' selection. The earlier version will consider anything other than 'Do not set nameserver' as if the 'Set nameserver' checkbox were checked.
+    * Warning: If Build 2054 changes the setting to 'Set nameserver (3.0b10)' or 'Set nameserver (alternate 1)', using an earlier version of Tunnelblick to modify the checkbox so it is checked will revert the setting back to 'Set nameserver'.
+
+  * Adds the ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts).
+  * Adds the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.
+  (See [wCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
+
+  * Includes localization-related code tweaks by Stefan Bethke and additional German localization by Stefan Bethke, Marcus Schneider, and 'Dr Hok'.
+
+ * Fixes a formatting error when displaying file permissions in error messages about being unable to change permissions.
+
+ * Fixes a problem causing a connection restart when 'Set nameserver' is used, a DHCP renewal occurs, and there are no WINS settings.
+
+ * Fixes issues when using OpenDirectory and the user's home directory is on a non-Mac platform.
+
 ==3.1beta14 (2010-09-09)==
  * Fixes Issue 159 problem that, under certain circumstances, crashes client.down.tunnelblick.sh 
  
