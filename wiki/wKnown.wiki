@@ -4,6 +4,8 @@
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
 The following are known problems or limitations in Tunnelblick version 3.0:
+  * A Standard user gets an error when trying to install Tunnelblick by double-clicking the icon on the .dmg disk image. A workaround is to drag and drop the icon onto the Applications folder; FInder will ask for an administrator username and password, then do the install.
+
   * If "Monitor connection" is checked, Tunnelblick monitors the network interface that connects to the VPN and will restart the connection if changes to DNS or WINS are detected. With some network configurations this causes repeated disconnects/reconnects every few seconds. To avoid this, uncheck "Monitor connection" in the tab for the problematic configuration on the "Details..." window..
 
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [wConfigT#The_%22Set_Nameserver%22_Check_Box_and_DNS_&_WINS_Sett Seting up Configurations] for details.
