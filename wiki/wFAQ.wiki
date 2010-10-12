@@ -115,7 +115,7 @@ Under certain circumstances,  checkboxes or buttons may be disabled and will app
 You can check the version of OpenVPN included in your copy of Tunnelblick by starting Tunnelblick, then selecting "Options…" from the Tunnelblick menu, then selecting "About…".
 
 ==Where can I go if my question is not answered here?==
-Take a look at the documents available in the [Documentation Tunnelblick Wiki]. If you don't find an answer there, try the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+Take a look at the documents available in the [Documentation Tunnelblick Wiki] and at the [http://openvpn.net/index.php/open-source/faq.html OpenVPN FAQ]. If you don't find an answer, try the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 ------------------
 
