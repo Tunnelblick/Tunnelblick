@@ -26,8 +26,8 @@
 
 @class NetSocket;
 
-BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN, BOOL  *restoreDeploy, BOOL * needsPkgRepair); 
-BOOL needToChangeOwnershipAndOrPermissions(void);
+BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN, BOOL  *restoreDeploy, BOOL * needsPkgRepair, BOOL inApplications); 
+BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
 BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
@@ -166,6 +166,8 @@ BOOL needToRepairPackages(void);
 -(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             removeConnection:                       (id)                sender;
+-(BOOL)             runInstallerWithArguments:              (NSArray *)         arguments
+                                authorization:              (AuthorizationRef)  authRef;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             unloadKextsFooOnly:                     (BOOL)              fooOnly; 
 -(BOOL)             userIsAnAdmin;

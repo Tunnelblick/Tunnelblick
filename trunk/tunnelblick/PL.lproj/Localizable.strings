@@ -23,6 +23,18 @@
 " (Shared)" = " (Współdzielona)"; /* Indicates a shared configuration */
 
 /* NEEDS TRANSLATION *//* Window text */
+" (To install in a different location, drag %@ to that location.)" = " (To install in a different location, drag %@ to that location.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+" Do you wish to install %@ to %@%@?\n\n%@" = " Do you wish to install %1$@ to %2$@%3$@?\n\n%4$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n%5$@";
+
+/* Window text */
+" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = " Tunnelblick nie może być uruchomiony z tej lokalizacji, musi zostać zainstalowany na lokalnym dysku twardym\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
 " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -39,9 +51,6 @@
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' został rozłączony";
-
-/* Window text */
-"(To install to a different location, drag %@ to that location.)" = "(Aby zainstalować w innej lokalizacji, przeciągnij %@ do tego miejsca.)";
 
 /* NEEDS TRANSLATION *//* OpenVPN Log message */
 "*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart message: %@";
@@ -95,13 +104,7 @@
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
 
 /* Window text */
-"An error occurred while trying to install Tunnelblick.app in %@" = "Wystąpił błąd podczas instalacji Tunnelblick.app w %@";
-
-/* Window text */
 "An error occurred while trying to launch %@" = "Wystąpił błąd podczas uruchamiania %@";
-
-/* Window text */
-"An error occurred while trying to move the previous version of %@ to the Trash.\n\nThe previous version is %@" = "Wystąpił błąd podczas przenoszenia poprzedniej wersji %1$@ do kosza.\n\nPoprzednia wersja to %2$@";
 
 /* Window text */
 "Anonymous unique ID" = "Anonimowy identyfikator";
@@ -232,14 +235,8 @@
 /* Window title */
 "Do you wish to connect?" = "Chcesz się połączyć?";
 
-/* Window text */
-"Do you wish to downgrade\n     %@\nto\n     %@?\n\nThe replaced version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Chcesz zmienić wersję\n     %@\nna\n     %@?\n\nPoprzednia wersja będzie umieszczona w koszu.\n\nKatalog instalcji: \"%@\"\n%@";
-
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to install %d configurations?" = "Do you wish to install %d configurations?";
-
-/* Window text */
-"Do you wish to install Tunnelblick in\n\"%@\"?\n\n%@" = "Czy chcesz zainstalować Tunnelblick w\n\"%1$@\"?\n\n%2$@";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to install one configuration?" = "Do you wish to install one configuration?";
@@ -250,26 +247,14 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to reinstall '%@'%@ version %@?" = "Do you wish to reinstall '%1$@'%2$@ version %3$@?";
 
-/* Window text */
-"Do you wish to reinstall\n     %@\nreplacing it with a fresh copy?\n\nThe old copy will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Chcesz przeinstalować\n     %@\nnadpisując go?\n\nStara kopia będzie umieszczona w koszu.\n\nKatalog instalacji: \"%@\"\n%@";
-
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Do you wish to replace '%1$@'%2$@ version %3$@ with version %4$@?";
-
-/* Window text */
-"Do you wish to upgrade\n     %@\nto\n     %@?\n\nThe old version will be put in the Trash.\n\nInstall location: \"%@\"\n%@" = "Chcesz zaktualizować\n     %@\ndo wersji\n     %@?\n\n.Katalog instalacji: \"%@\"\n%@";
 
 /* NEEDS TRANSLATION *//* Button */
 "Done" = "Done";
 
 /* Text on disk image */
 "Double-click to begin" = "Podwójnie kliknij aby rozpocząć";
-
-/* Window title */
-"Downgrade Tunnelblick?" = "Zainstalować starszą wersję?";
-
-/* Button */
-"Downgrade" = "Instaluj starszą wersję";
 
 /* Button */
 "Download" = "Ściągnij";
@@ -315,12 +300,6 @@
 
 /* NEEDS TRANSLATION *//* Button */
 "Install Sample" = "Install Sample";
-
-/* Window title */
-"Install Tunnelblick?" = "Zainstalować Tunnelblick?";
-
-/* Button */
-"Install" = "Zainstaluj";
 
 /* Window title */
 "Installation failed" = "Błąd instalacji";
@@ -447,12 +426,6 @@
 
 /* NEEDS TRANSLATION *//* Connection status */
 "RESOLVE" = "Resolving domain name";
-
-/* Window title */
-"Reinstall Tunnelblick?" = "Zainstalować Tunnelblick ponownie?";
-
-/* Button */
-"Reinstall" = "Zainstaluj ponownie";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Remove kexts?" = "Remove kexts?";
@@ -614,9 +587,6 @@
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick może zostać zaktualizowany, jeśli jego nazwa to 'Tunnelblick'. Zmieniłeś nazwę na %@, więc aktualizacje są wyłączone.";
 
 /* Window text */
-"Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = "Tunnelblick nie może być uruchomiony z tej lokalizacji, musi zostać zainstalowany na lokalnym dysku twardym\n\n";
-
-/* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick nie mógł zostać włączony z powodu problemu w konfiguracji. Więcej informacji znajdziesz w logu.";
 
 /* Window text */
@@ -673,17 +643,11 @@
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick wymaga OSX 10.4 lub nowszego\n     (\"Tiger\", \"Leopard\", lub \"Snow Leopard\")";
 
-/* Window text */
-"Tunnelblick was successfully downgraded.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Pomyślnie zainstalowano starszą wersję Tunnelblick.\n\nChcesz teraz uruchomić Tunnelblick?%@\n\n(Nazwa użytkownika i hasło Administratora będzie wymagane, żeby Tunnelblick mógł działać bezpiecznie.)";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?";
 
-/* Window text */
-"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick został poprawnie zainstalowany.\n\nChcesz teraz uruchomić Tunnelblick?%@\n\n(Nazwa użytkownika i hasło Administratora będzie wymagane, żeby Tunnelblick mógł działać bezpiecznie.)";
-
-/* Window text */
-"Tunnelblick was successfully reinstalled.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick został pomyślnie przeinstalowany.\n\nChcesz teraz uruchomić Tunnelblick?%@\n\n(Nazwa użytkownika i hasło Administratora będzie wymagane, żeby Tunnelblick mógł działać bezpiecznie.)";
-
-/* Window text */
-"Tunnelblick was successfully upgraded.\n\nDo you wish to launch Tunnelblick now?%@\n\n(An administrator username and password will be required so Tunnelblick can be secured.)" = "Tunnelblick został pomyślnie zaktualizowany.\n\nChcesz teraz uruchomić Tunnelblick?%@\n\n(Nazwa użytkownika i hasło Administratora będzie wymagane, żeby Tunnelblick mógł działać bezpiecznie.)";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was successfully replaced.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick was successfully replaced.\n\nDo you wish to launch Tunnelblick now?";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
@@ -698,25 +662,13 @@
 "Unable to Establish Communication" = "Unable to Establish Communication";
 
 /* Window title */
-"Unable to install Tunnelblick" = "Nie mogę zainstalować Tunnelblick";
-
-/* Window title */
 "Unable to launch Tunnelblick" = "Nie mogę uruchomić Tunnelblick";
-
-/* Window title */
-"Unable to move previous version to Trash" = "Nie można przenieść poprzedniej wersji do kosza";
 
 /* Button */
 "Unprotect and Modify" = "Przestań chronić i modyfikuj";
 
 /* Window title */
 "Updates are disabled" = "Aktualizacje są wyłączone";
-
-/* Window title */
-"Upgrade Tunnelblick?" = "Aktualizować Tunnelblick?";
-
-/* Button */
-"Upgrade" = "Aktualizuj";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
@@ -742,9 +694,6 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Warning!" = "Warning!";
 
-/* Window title */
-"Warning" = "Uwaga";
-
 /* NEEDS TRANSLATION *//* Window title */
 "Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
 
@@ -759,9 +708,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
-
-/* Window text */
-"You are currently running a different copy of Tunnelblick." = "Aktualnie uruchomiona jest inna instancja Tunnelblick.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.";
@@ -790,7 +736,7 @@
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Po aktualizacji, nie będzie możliwe korzystanie z Tunnelblick bez podania nazwy użytkownika i hasła Administratora.\n\nCzy na pewno sprawdzić dostępność aktualizacji?";
 /* NEEDS TRANSLATION *//* Window text */
-"\n\nIf you launch Tunnelblick now, one or more Tunnelblick VPN Configurations will be installed.\n\nIf you do not launch Tunnelblick now, they will not be installed.\n\n" = "\n\nIf you launch Tunnelblick now, one or more Tunnelblick VPN Configurations will be installed.\n\nIf you do not launch Tunnelblick now, they will not be installed.\n\n";
+"\n\nand install %d Tunnelblick VPN Configurations" = "\n\nand install %d Tunnelblick VPN Configurations";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "when Tunnelblick launches" = "when Tunnelblick launches";
