@@ -43,6 +43,7 @@ The following VPN service providers recommend or use Tunnelblick exclusively for
   * *[https://www.secure-tunnel.com Secure-Tunnel]*
   * *[http://www.smallvpn.com Small VPN]*
   * *[http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[https://vpnuk.info VPNUK]*
   * *[http://www.ultravpn.fr UltraVPN]*
   * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider VyprVPN]*
 
