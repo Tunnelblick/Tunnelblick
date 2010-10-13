@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
     int     retCode = 0;
     execPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
 
-    if (  ! checkOwnerAndPermissions([NSString stringWithUTF8String: argv[0]], 0, 0, @"4111")  ) {
+    if (  ! checkOwnerAndPermissions([NSString stringWithUTF8String: argv[0]], 0, 0, @"4555")  ) {
         fprintf(stderr, "openvpnstart has not been secured\n"
                 "You must have run Tunnelblick and entered an administrator password at least once to use openvpnstart\n");
         [pool drain];

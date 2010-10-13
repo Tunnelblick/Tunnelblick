@@ -3748,25 +3748,25 @@ BOOL needToChangeOwnershipAndOrPermissions(void)
 	NSString *clientNewAlt2UpPath   = [thisBundle pathForResource:@"client.2.up.tunnelblick.sh"     ofType:nil];
 	NSString *clientNewAlt2DownPath = [thisBundle pathForResource:@"client.2.down.tunnelblick.sh"   ofType:nil];
 	
-	// check openvpnstart owned by root, set uid, owner may execute
+	// check openvpnstart owned by root with suid and 544 permissions
 	const char *path = [openvpnstartPath UTF8String];
     struct stat sb;
 	if(stat(path,&sb)) {
         runUnrecoverableErrorPanel(@"Unable to determine status of \"openvpnstart\"");
 	}
-    
-	if (   ! (
-              (sb.st_mode & S_ISUID) // set uid bit is set
-              && (sb.st_mode & S_IXUSR) // owner may execute it
-              && (sb.st_uid == 0) // is owned by root
-              )
-        ) {
-		return YES;
+	if (   (sb.st_uid != 0)
+        || ((sb.st_mode & 07777) != 04555)  ) {
+        return YES;
 	}
 	
+    // check openvpn
+    if (  ! checkOwnerAndPermissions(openvpnPath, 0, 0, @"755")  ) {
+        return YES; // NSLog already called
+    }
+    
 	// check files which should be owned by root with 744 permissions
 	NSArray *root744Objects = [NSArray arrayWithObjects:
-                                    installerPath, openvpnPath, atsystemstartPath, leasewatchPath,
+                                    installerPath, atsystemstartPath, leasewatchPath,
                                     clientUpPath, clientDownPath,
                                     clientNoMonUpPath, clientNoMonDownPath,
                                     clientNewUpPath, clientNewDownPath,
