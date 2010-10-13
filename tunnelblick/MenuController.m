@@ -1733,6 +1733,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     // ***** End duplication of the effect of [self setSelectedModifyNameserverIndex: index] but without calling ourselves
     
+    [modifyNameserverPopUpButton setNeedsDisplay]; // Workaround for bug in OS X 10.4.11 ("Tiger") that causes misdraws
+    [monitorConnnectionCheckbox  setNeedsDisplay];
+    
     if (  [gTbDefaults canChangeValueForKey: useDNSKey]  ) {
         [modifyNameserverPopUpButton setEnabled: YES];
     } else {
