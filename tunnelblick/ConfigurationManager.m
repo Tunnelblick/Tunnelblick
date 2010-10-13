@@ -720,7 +720,7 @@ enum state_t {                      // These are the "states" of the guideState 
             nErrors++;
             [gFileMgr removeFileAtPath: target handler: nil];
         }
-        if (  [source hasPrefix: NSTemporaryDirectory()]  ) {
+        if (  [source hasPrefix: @"/tmp"]  ) {
             [gFileMgr removeFileAtPath: [source stringByDeletingLastPathComponent] handler: nil];
         }
     }
@@ -804,7 +804,6 @@ enum state_t {                      // These are the "states" of the guideState 
     NSString * pkgPkgVersion;
     NSString * pkgReplaceIdentical;
     NSString * pkgSharePackage;
-    NSString * pkgInstallWhenInstalling;
     
     NSString * infoPath = [pathToTblk stringByAppendingPathComponent: @"Contents/Info.plist"];
     NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
@@ -841,15 +840,9 @@ enum state_t {                      // These are the "states" of the guideState 
             pkgIsOK = FALSE;
         }
         
-        pkgInstallWhenInstalling = [self getLowerCaseStringForKey: @"TBInstallWhenInstallingTunnelblick" inDictionary: infoDict defaultTo: @"ask"];
-        okValues = [NSArray arrayWithObjects: @"no", @"yes", @"ask", nil];
-        if ( ! [okValues containsObject: pkgInstallWhenInstalling]  ) {
-            NSLog(@"Configuration installer: Invalid value '%@' (only 'yes', 'no', or 'ask' are allowed) for 'TBInstallWhenInstallingTunnelblick' in %@", pkgInstallWhenInstalling, infoPath);
-        }
-        
         NSString * key;
         NSArray * validKeys = [NSArray arrayWithObjects: @"CFBundleIdentifier", @"CFBundleVersion", @"CFBundleShortVersionString",
-                               @"TBPackageVersion", @"TBReplaceIdentical", @"TBSharePackage", @"TBInstallWhenInstallingTunnelblick", nil];
+                               @"TBPackageVersion", @"TBReplaceIdentical", @"TBSharePackage", nil];
         NSEnumerator * e = [infoDict keyEnumerator];
         while (  key = [e nextObject]  ) {
             if (  ! [validKeys containsObject: key]  ) {
@@ -1261,8 +1254,7 @@ enum state_t {                      // These are the "states" of the guideState 
 // Returns nil on error, or with the path to the .tblk
 -(NSString *) makeEmptyTblk: (NSString *) thePath withKey: (NSString *) key
 {
-    NSString * tempFolder = [NSTemporaryDirectory() stringByAppendingPathComponent:
-                             [NSString stringWithFormat:@"TunnelblickConfigInstallFolder-%d-%@", gSecuritySessionId, key]];
+    NSString * tempFolder = [NSString stringWithFormat:@"/tmp/Tunnelblick/ConfigInstallFolder-%d-%@", gSecuritySessionId, key];
     
     NSString * tempTblk = [tempFolder stringByAppendingPathComponent: [thePath lastPathComponent]];
     
@@ -1480,46 +1472,27 @@ enum state_t {                      // These are the "states" of the guideState 
 // Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
 -(BOOL)protectConfigurationFile: (NSString *) configFilePath usingAuth: (AuthorizationRef) authRef
 {
-    NSString * launchPath = [[NSBundle mainBundle] pathForResource: @"installer" ofType: nil];
     NSArray * arguments = [NSArray arrayWithObjects: @"0", @"0", configFilePath, nil];
     
-    OSStatus status;
-    BOOL okNow;
-    
+    NSLog(@"Securing configuration file %@", configFilePath);
+
     int i;
     for (i=0; i < 5; i++) {  // We retry this up to five times
-        status = [NSApplication executeAuthorized:launchPath withArguments: arguments withAuthorizationRef: authRef];
-        if (  status != 0  ) {
-            NSLog(@"Returned status of %d indicates failure of installer execution of %@: %@", status, launchPath, arguments);
-        }
-        
-        // installer creates a file to act as a flag that the installation failed. installer deletes it before a success return
-        // The filename needs the session ID to support fast user switching
-        NSString * installFailureFlagFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:
-                                                 [NSString stringWithFormat:@"TunnelblickInstallationFailed-%d.txt", (int) gSecuritySessionId]];
-        BOOL failed = [gFileMgr fileExistsAtPath: installFailureFlagFilePath];
-        if (  failed  ) {
-            NSLog(@"Presence of error file indicates failure of installer execution of %@: %@", launchPath, arguments);
-            [gFileMgr removeFileAtPath: installFailureFlagFilePath handler: nil];
-        }
-        
-        okNow = ! [self configNotProtected: configFilePath];
-        if (  okNow  ) {
+        if (   [[NSApp delegate] runInstallerWithArguments: arguments authorization: authRef]
+            && ( ! [self configNotProtected: configFilePath] )  ) {
             break;
         }
         
-        sleep(1);   //OS X caches info and if we secure and immediately check that it's been secured, sometimes it hasn't
+        sleep(1);
         
-        okNow = ! [self configNotProtected: configFilePath];
-        if (  okNow  ) {
+        if (  ! [self configNotProtected: configFilePath]  ) {
             break;
         }
         
-        NSLog(@"installer failed to protect the configuration; retrying");
+        NSLog(@"Securing the configuration file failed; retrying");
     }
     
-    if (  ! okNow  ) {
-        NSLog(@"Could not protect configuration. Failed installer execution of %@: %@", launchPath, arguments);
+    if (  [self configNotProtected: configFilePath]  ) {
         NSLog(@"Could not change ownership and/or permissions of configuration file %@", configFilePath);
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                          [self displayNameForPath: configFilePath],
@@ -1546,45 +1519,25 @@ enum state_t {                      // These are the "states" of the guideState 
     }
     
     NSString * moveFlag = (moveInstead ? @"1" : @"0");
-    
-    NSString * launchPath = [[NSBundle mainBundle] pathForResource: @"installer" ofType: nil];
     NSArray * arguments = [NSArray arrayWithObjects: @"0", @"0", targetPath, sourcePath, moveFlag, nil];
     
-    OSStatus status;
-    BOOL okNow;
     int i;
     for (i=0; i< 5; i++) {  // Retry up to five times
-        status = [NSApplication executeAuthorized:launchPath withArguments: arguments withAuthorizationRef: authRef];
-        if (  status != 0  ) {
-            NSLog(@"Returned status of %d indicates failure of installer execution of %@: %@", status, launchPath, arguments);
-        }
-        
-        // installer creates a file to act as a flag that the installation failed. installer deletes it before a success return
-        // The filename needs the session ID to support fast user switching
-        NSString * installFailureFlagFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:
-                                                 [NSString stringWithFormat:@"TunnelblickInstallationFailed-%d.txt", gSecuritySessionId]];
-        BOOL failed = [gFileMgr fileExistsAtPath: installFailureFlagFilePath];
-        if (  failed  ) {
-            NSLog(@"Presence of error file indicates failure of installer execution of %@: %@", launchPath, arguments);
-            [gFileMgr removeFileAtPath: installFailureFlagFilePath handler: nil];
-        }
-        
-        okNow = ! [self configNotProtected: targetPath];
-        if (  okNow  ) {
+        if (   [[NSApp delegate] runInstallerWithArguments: arguments authorization: authRef]
+            && ( ! [self configNotProtected: targetPath] )  ) {
             break;
         }
         
-        sleep(1);   //OS X caches info and if we secure and immediately check that it's been secured, sometimes it hasn't
+        sleep(1);
         
-        okNow = ! [self configNotProtected: targetPath];
-        if (  okNow  ) {
+        if (  ! [self configNotProtected: targetPath]  ) {
             break;
         }
         
-        NSLog(@"installer failed trying to copy and secure the configuration; retrying");
+        NSLog(@"Move or copy of configuration file failed; retrying");
     }
     
-    if (  ! okNow  ) {
+    if (  [self configNotProtected: targetPath]  ) {
         NSString * name = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
         if (  ! moveInstead  ) {
             if (  ! [gFileMgr contentsEqualAtPath: sourcePath andPath: targetPath]  ) {

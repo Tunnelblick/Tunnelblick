@@ -19,11 +19,12 @@
 
 #import <Foundation/Foundation.h>
 #import <Security/AuthSession.h>
+#import <stdio.h>
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 //
 // This program is called when something needs to be secured.
-// It accepts two to four arguments, and always does some standard housekeeping in
+// It accepts two to five arguments, and always does some standard housekeeping in
 // addition to the specific tasks specified by the command line arguments.
 //
 // Usage:
@@ -31,29 +32,29 @@
 //     installer secureTheApp  secureAllPackages   [ targetPathToSecure   [sourcePath]  [moveFlag] ]
 //
 // where
-//     secureTheApp      is "0", or "1" to secure Tunnelblick.app and all of its contents
+//     secureTheApp      is "0", or "1" to secure this Tunnelblick.app and all of its contents
+//                               or "2", to copy this app to /Applications/Tunnelblick.app and then secure the copy and its contents
+//                                       (Any existing /Applications/Tunnelblick.app will be moved to the Trash)
 //     secureAllPackages is "0", or "1" to secure all .tblk packages in Configurations, Shared, and the alternate configuration path
 //     targetPath        is the path to a configuration (.ovpn or .conf file, or .tblk package) to be secured
 //     sourcePath        is the path to be copied or moved to targetPath before securing targetPath
 //     moveFlag          is "0" to copy, "1" to move
 //
 // It does the following:
-//      (1) Restores the /Deploy folder from the backup copy if it does not exist and a backup copy does,
-//      (2) Moves the contents of the old configuration folder at /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
-//      (3) *** REMOVED ***
+//      (1) _Iff_ secureTheApp is "2", copies this app to /Applications
+//      (2) Restores the /Deploy folder from the backup copy if it does not exist and a backup copy does,
+//      (3) Moves the contents of the old configuration folder at /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //      (4) Creates /Library/Application Support/Tunnelblick/Shared if it doesn't exist and makes sure it is secured
-//      (5) _Iff_ the 1st command line argument is "1", secures Tunnelblick.app by setting the ownership and permissions of its components
-//      (6) _Iff_ the 1st command line argument is "1", makes a backup of the /Deploy folder if it exists
-//      (7) _Iff_ the 2nd command line argument is "1", secures all .tblk packages in the following folders:
+//      (5) _Iff_ secureTheApp is "1" or "2", secures Tunnelblick.app by setting the ownership and permissions of its components
+//      (6) _Iff_ secureTheApp is "1" or "2", makes a backup of the /Deploy folder if it exists
+//      (7) _Iff_ secureAllPackages, secures all .tblk packages in the following folders:
 //           /Library/Application Support/Tunnelblick/Shared
 //           /Library/Application Support/Tunnelblick/Users/<username>
 //           ~/Library/Application Support/Tunnelblick/Configurations
-//      (8) _Iff_ the 4th command line argument is given, copies or moves sourcePath to targetPath (copies unless moveFlag = @"1")
-//      (9) _Iff_ the 3rd command line argument is given, secures the .ovpn or .conf file or a .tblk package at that path
+//      (8) _Iff_ sourcePath is given, copies or moves sourcePath to targetPath (copies unless moveFlag = @"1")
+//      (9) _Iff_ targetPathToSecure is given, secures the .ovpn or .conf file or a .tblk package at that path
 //
-// Notes: (1), (2), (3), and (4) are done each time this command is invoked if they are needed (self-repair).
-//        (5) needs to be (and will be) done at first launch after Tunnelblick.app is updated
-//        (6) needs to be (and will be) done whenever Tunnelblick.app or Deploy is changed
+// Notes: (2), (3), and (4) are done each time this command is invoked if they are needed (self-repair).
 //        (8) is done when creating a shadow configuration file
 //                    or copying a .tblk to install it
 //                    or moving a .tblk to make it private or shared
@@ -64,7 +65,9 @@ NSFileManager * gFileMgr;       // [NSFileManager defaultManager]
 NSString      * gPrivatePath;   // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gSharedPath;    // Path to /Library/Application Support/Tunnelblick/Shared
 NSString      * gDeployPath;    // Path to Tunnelblick.app/Contents/Resources/Deploy
-
+NSString      * privilegedRunningFlagFilePath; // Path to file that we delete when we're done         (created by caller)
+NSString      * privilegedFailureFlagFilePath; // Path to file that we leave if we exit with an error (created by us)
+NSAutoreleasePool * pool;
 uid_t realUserID;               // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as)
 gid_t realGroupID;
 
@@ -76,19 +79,26 @@ BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
 BOOL makeFileUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
+void exit_failure();
 
 int main(int argc, char *argv[]) 
 {
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	pool = [NSAutoreleasePool new];
     
     extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
     gFileMgr = [NSFileManager defaultManager];
     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     gSharedPath = [@"/Library/Application Support/Tunnelblick/Shared" copy];
+
+	NSString * appResourcesPath;
+    if (  (argc > 1) && (strcmp(argv[1], "2") == 0)  ) {
+        appResourcesPath = @"/Applications/Tunnelblick.app/Contents/Resources";
+    } else {
+        appResourcesPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+    }
     
-	NSString * thisBundle           = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
-	gDeployPath                     = [thisBundle stringByAppendingPathComponent:@"Deploy"];
-    NSString * deployBkupHolderPath = [[[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: thisBundle]
+	gDeployPath                     = [appResourcesPath stringByAppendingPathComponent:@"Deploy"];
+    NSString * deployBkupHolderPath = [[[[[@"/Library/Application Support/Tunnelblick/Backup" stringByAppendingPathComponent: appResourcesPath]
                                           stringByDeletingLastPathComponent]
                                          stringByDeletingLastPathComponent]
                                         stringByDeletingLastPathComponent]
@@ -113,20 +123,21 @@ int main(int argc, char *argv[])
     if (  error != 0  ) {
         mySession = 0;
     }
-    NSString * installFailureFlagFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:
-                                             [NSString stringWithFormat:@"TunnelblickInstallationFailed-%d.txt", mySession]];
+    privilegedFailureFlagFilePath = [NSString stringWithFormat:@"/tmp/Tunnelblick/InstallationFailed-%d.txt", mySession];
 
-    [gFileMgr createFileAtPath: installFailureFlagFilePath contents: [NSData data] attributes: [NSDictionary dictionary]];
-    chown([installFailureFlagFilePath UTF8String], realUserID, realGroupID);
+    [gFileMgr createFileAtPath: privilegedFailureFlagFilePath contents: [NSData data] attributes: [NSDictionary dictionary]];
+    chown([privilegedFailureFlagFilePath UTF8String], realUserID, realGroupID);
+    
+    privilegedRunningFlagFilePath = [NSString stringWithFormat:@"/tmp/Tunnelblick/InstallationInProcess-%d.txt", mySession];
     
     if (  (argc < 3)  || (argc > 6)  ) {
         NSLog(@"Tunnelblick Installer: Wrong number of arguments -- expected 2 or 3, given %d", argc-1);
-        [pool release];
-        exit(EXIT_FAILURE);
+        exit_failure();
     }
     
-    BOOL secureApp     = strcmp(argv[1], "1") == 0;
-    BOOL secureTblks   = strcmp(argv[2], "1") == 0;
+    BOOL copyApp       =  strcmp(argv[1], "2") == 0;
+    BOOL secureApp     = (strcmp(argv[1], "1") == 0) || (strcmp(argv[1], "2") == 0);
+    BOOL secureTblks   =  strcmp(argv[2], "1") == 0;
     
     NSString * singlePathToSecure = nil;
     if (  argc > 3  ) {
@@ -143,6 +154,38 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (1)
+    // If secureTheApp = "2", move /Applications/Tunnelblick.app to the Trash, then copy this app to /Applications/Tunnelblick.app and secure it
+    
+    if (  copyApp  ) {
+        NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
+        NSString * targetPath = @"/Applications/Tunnelblick.app";
+        if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+            NSString * trashedPath = [[NSString stringWithFormat:
+                                       @"~/.Trash/Tunnelblick (deleted at %@).app",
+                                       [[[[NSDate alloc] init] autorelease] description]]
+                                      stringByExpandingTildeInPath];
+            
+            [gFileMgr removeFileAtPath: trashedPath handler: nil];  // Ignore errors if it doesn't exist
+            
+            if (  rename([targetPath UTF8String], [trashedPath UTF8String]) != 0  ) {
+                NSLog(@"Tunnelblick Installer: Unable to move %@ to the Trash", targetPath);
+                exit_failure();
+            } else {
+                NSLog(@"Tunnelblick Installer: Moved %@ to the Trash", targetPath);
+            }
+
+        }
+        
+        if (  ! [gFileMgr copyPath: currentPath toPath: targetPath handler: nil]  ) {
+            NSLog(@"Tunnelblick Installer: Unable to copy %@ to %@", currentPath, targetPath);
+            exit_failure();
+        } else {
+            NSLog(@"Tunnelblick Installer: Copied %@ to %@", currentPath, targetPath);
+        }
+    }
+        
+    //**************************************************************************************************************************
+    // (2)
     // If Resources/Deploy does not exist, but a backup of it does exist (happens when Tunnelblick.app has been updated)
     // Then restore it from the backup
     if (   [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
@@ -151,8 +194,7 @@ int main(int argc, char *argv[])
                  && isDir  )  ) {
             if (  ! [gFileMgr copyPath: deployBackupPath toPath: gDeployPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", gDeployPath);
-                [pool release];
-                exit(EXIT_FAILURE);
+                exit_failure();
             }
 
             NSLog(@"Tunnelblick Installer: Restored %@ from backup", gDeployPath);
@@ -160,7 +202,7 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (2)
+    // (3)
     // Deal with migration to new configuration path
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
     NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
@@ -168,12 +210,10 @@ int main(int argc, char *argv[])
     // Verify that new configuration folder exists
     if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
         NSLog(@"Tunnelblick Installer: Private configuration folder %@ does not exist", newConfigDirPath);
-        [pool release];
-        exit(EXIT_FAILURE);
+        exit_failure();
     } else if (  ! isDir  ) {
         NSLog(@"Tunnelblick Installer: %@ exists but is not a folder", newConfigDirPath);
-        [pool release];
-        exit(EXIT_FAILURE);
+        exit_failure();
     }
     
     // If old configurations folder exists (and is a folder):
@@ -189,25 +229,19 @@ int main(int argc, char *argv[])
                     // Delete the old configuration folder
                     if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
                         NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
-                        [pool release];
-                        exit(EXIT_FAILURE);
+                        exit_failure();
                     }
                 } else {
                     NSLog(@"Tunnelblick Installer: Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                    [pool release];
-                    exit(EXIT_FAILURE);
+                    exit_failure();
                 }
             } else {
                 NSLog(@"Tunnelblick Installer: %@ is not a symbolic link or a folder", oldConfigDirPath);
-                [pool release];
-                exit(EXIT_FAILURE);
+                exit_failure();
             }
         }
     }
 
-    //**************************************************************************************************************************
-    // (3) *** REMOVED ***
-    
     //**************************************************************************************************************************
     // (4)
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
@@ -216,8 +250,7 @@ int main(int argc, char *argv[])
     if (  result == 1  ) {
         NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", gSharedPath);
     } else if (  result == -1  ) {
-        [pool release];
-        exit(EXIT_FAILURE);
+        exit_failure();
     }
     
     //**************************************************************************************************************************
@@ -235,27 +268,27 @@ int main(int argc, char *argv[])
     //            all other files are set to 0644
     if ( secureApp ) {
         
-        NSString *installerPath         = [thisBundle stringByAppendingPathComponent:@"installer"];
-        NSString *openvpnstartPath      = [thisBundle stringByAppendingPathComponent:@"openvpnstart"];
-        NSString *openvpnPath           = [thisBundle stringByAppendingPathComponent:@"openvpn"];
-        NSString *atsystemstartPath     = [thisBundle stringByAppendingPathComponent:@"atsystemstart"];
-        NSString *leasewatchPath        = [thisBundle stringByAppendingPathComponent:@"leasewatch"];
-        NSString *clientUpPath          = [thisBundle stringByAppendingPathComponent:@"client.up.osx.sh"];
-        NSString *clientDownPath        = [thisBundle stringByAppendingPathComponent:@"client.down.osx.sh"];
-        NSString *clientNoMonUpPath     = [thisBundle stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"];
-        NSString *clientNoMonDownPath   = [thisBundle stringByAppendingPathComponent:@"client.nomonitor.down.osx.sh"];
-        NSString *infoPlistPath         = [[thisBundle stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
-        NSString *clientNewUpPath       = [thisBundle stringByAppendingPathComponent:@"client.up.tunnelblick.sh"];
-        NSString *clientNewDownPath     = [thisBundle stringByAppendingPathComponent:@"client.down.tunnelblick.sh"];
-        NSString *clientNewAlt1UpPath   = [thisBundle stringByAppendingPathComponent:@"client.1.up.tunnelblick.sh"];
-        NSString *clientNewAlt1DownPath = [thisBundle stringByAppendingPathComponent:@"client.1.down.tunnelblick.sh"];
-        NSString *clientNewAlt2UpPath   = [thisBundle stringByAppendingPathComponent:@"client.2.up.tunnelblick.sh"];
-        NSString *clientNewAlt2DownPath = [thisBundle stringByAppendingPathComponent:@"client.2.down.tunnelblick.sh"];
+        NSString *installerPath         = [appResourcesPath stringByAppendingPathComponent:@"installer"];
+        NSString *openvpnstartPath      = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"];
+        NSString *openvpnPath           = [appResourcesPath stringByAppendingPathComponent:@"openvpn"];
+        NSString *atsystemstartPath     = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"];
+        NSString *leasewatchPath        = [appResourcesPath stringByAppendingPathComponent:@"leasewatch"];
+        NSString *clientUpPath          = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"];
+        NSString *clientDownPath        = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"];
+        NSString *clientNoMonUpPath     = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"];
+        NSString *clientNoMonDownPath   = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.down.osx.sh"];
+        NSString *infoPlistPath         = [[appResourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+        NSString *clientNewUpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.up.tunnelblick.sh"];
+        NSString *clientNewDownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.down.tunnelblick.sh"];
+        NSString *clientNewAlt1UpPath   = [appResourcesPath stringByAppendingPathComponent:@"client.1.up.tunnelblick.sh"];
+        NSString *clientNewAlt1DownPath = [appResourcesPath stringByAppendingPathComponent:@"client.1.down.tunnelblick.sh"];
+        NSString *clientNewAlt2UpPath   = [appResourcesPath stringByAppendingPathComponent:@"client.2.up.tunnelblick.sh"];
+        NSString *clientNewAlt2DownPath = [appResourcesPath stringByAppendingPathComponent:@"client.2.down.tunnelblick.sh"];
         
         BOOL okSoFar = YES;
         okSoFar = okSoFar && checkSetOwnership(infoPlistPath, NO, 0, 0);
         
-        okSoFar = okSoFar && checkSetOwnership(thisBundle, YES, 0, 0);
+        okSoFar = okSoFar && checkSetOwnership(appResourcesPath, YES, 0, 0);
         
         okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,     @"4555", YES);
         
@@ -284,8 +317,7 @@ int main(int argc, char *argv[])
         
         if (  ! okSoFar  ) {
             NSLog(@"Tunnelblick Installer: Unable to secure Tunnelblick.app");
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
     }
     
@@ -303,8 +335,7 @@ int main(int argc, char *argv[])
                      && isDir  )  ) {
                 if (  ! [gFileMgr copyPath: gDeployPath toPath: deployOrigBackupPath handler:nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", gDeployPath);
-                    [pool release];
-                    exit(EXIT_FAILURE);
+                    exit_failure();
                 }
             }
             
@@ -313,8 +344,7 @@ int main(int argc, char *argv[])
             
             if (  ! [gFileMgr copyPath: gDeployPath toPath: deployBackupPath handler:nil]  ) {  // Make backup of current
                 NSLog(@"Tunnelblick Installer: Unable to make backup of %@", gDeployPath);
-                [pool release];
-                exit(EXIT_FAILURE);
+                exit_failure();
             }
         }
     }
@@ -382,8 +412,7 @@ int main(int argc, char *argv[])
         if (  ! [gFileMgr copyPath: singlePathToCopy toPath: dotPartialPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to copy %@ to %@", singlePathToCopy, dotPartialPath);
             [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
         
         BOOL errorHappened = FALSE; // Use this to defer error exit until after renaming xxx.partial to xxx
@@ -401,18 +430,15 @@ int main(int argc, char *argv[])
         if (  ! [gFileMgr movePath: dotPartialPath toPath: singlePathToSecure handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to rename %@ to %@", dotPartialPath, singlePathToSecure);
             [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
         
         if (  errorHappened  ) {
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
 
         if (  ! makeFileUnlockedAtPath(singlePathToSecure)  ) {
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
     }
     
@@ -435,21 +461,28 @@ int main(int argc, char *argv[])
             okSoFar = okSoFar && secureOneFolder(singlePathToSecure);
         } else {
             NSLog(@"Tunnelblick Installer: trying to secure unknown item at %@", singlePathToSecure);
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
         if (  ! okSoFar  ) {
             NSLog(@"Tunnelblick Installer: unable to secure %@", singlePathToSecure);
-            [pool release];
-            exit(EXIT_FAILURE);
+            exit_failure();
         }
     }
     
     // We remove this file to indicate that the installation succeeded because the return code doesn't propogate back to our caller
-    [gFileMgr removeFileAtPath: installFailureFlagFilePath handler: nil];
+    [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
     
+    [gFileMgr removeFileAtPath: privilegedRunningFlagFilePath handler: nil];
     [pool release];
     exit(EXIT_SUCCESS);
+}
+
+//**************************************************************************************************************************
+void exit_failure()
+{
+    [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
+    [pool release];
+    exit(EXIT_FAILURE);
 }
 
 //**************************************************************************************************************************
