@@ -202,6 +202,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         tunCount = 0;
         tapCount = 0;
         
+        selectedModifyNameserverIndex = -1; // Won't match any valid value, so when first set it will trigger a change notice
+        
         gFileMgr    = [NSFileManager defaultManager];
         
         gDeployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
