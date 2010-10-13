@@ -225,7 +225,8 @@ int main(int argc, char *argv[])
     // If requested, secure Tunnelblick.app by setting ownership of Info.plist and Resources and its contents to root:wheel,
     // and setting permissions as follows:
     //        Info.plist is set to 0644
-    //        openvpnstart is set to 04111 (SUID, execute only)
+    //        openvpnstart is set to 04555 (SUID)
+    //        openvpn is set to 0755
     //        Other executables and standard scripts are set to 0744
     //        For the contents of /Resources/Deploy and its subfolders:
     //            folders are set to 0755
@@ -256,12 +257,12 @@ int main(int argc, char *argv[])
         
         okSoFar = okSoFar && checkSetOwnership(thisBundle, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,      @"4111", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,     @"4555", YES);
         
         okSoFar = okSoFar && checkSetPermissions(infoPlistPath,         @"644", YES);
         
+        okSoFar = okSoFar && checkSetPermissions(openvpnPath,           @"755", YES);
         okSoFar = okSoFar && checkSetPermissions(installerPath,         @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(openvpnPath,           @"744", YES);
         okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,     @"744", YES);
         okSoFar = okSoFar && checkSetPermissions(leasewatchPath,        @"744", YES);
         okSoFar = okSoFar && checkSetPermissions(clientUpPath,          @"744", NO);
@@ -593,11 +594,11 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
     }
     
     int permsInt;
-    if      (  [permsShouldHave isEqualToString:  @"755"]  ) permsInt = 0755;
-    else if (  [permsShouldHave isEqualToString:  @"744"]  ) permsInt = 0744;
-    else if (  [permsShouldHave isEqualToString:  @"644"]  ) permsInt = 0644;
-    else if (  [permsShouldHave isEqualToString:  @"600"]  ) permsInt = 0600;
-    else if (  [permsShouldHave isEqualToString: @"4111"]  ) permsInt = 04111;
+    if      (  [permsShouldHave isEqualToString:  @"755"]  ) permsInt =  0755;
+    else if (  [permsShouldHave isEqualToString:  @"744"]  ) permsInt =  0744;
+    else if (  [permsShouldHave isEqualToString:  @"644"]  ) permsInt =  0644;
+    else if (  [permsShouldHave isEqualToString:  @"600"]  ) permsInt =  0600;
+    else if (  [permsShouldHave isEqualToString: @"4555"]  ) permsInt = 04555;
     else {
         NSLog(@"Tunnelblick Installer: invalid permsShouldHave = '%@' in checkSetPermissions function", permsShouldHave);
         return NO;
