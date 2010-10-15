@@ -149,10 +149,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             setupSparklePreferences;
 -(void)             startOrStopDurationsTimer;
 -(NSStatusItem *)   statusItem;
+-(NSString *)       timeLabelForConnection:                 (VPNConnection *)   connection;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             updateMenuAndLogWindow;
--(void)             updateTabLabels;
+-(void)             updateNavigationLabels;
 -(void)             updateUI;
 -(void)             validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) connection;
 -(void)             validateWhenConnectingForConnection:    (VPNConnection *)   connection;
@@ -849,7 +850,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
 	[statusItem setMenu: myVPNMenu];
-	
+    
 	statusMenuItem = [[NSMenuItem alloc] init];
 	[myVPNMenu addItem:statusMenuItem];
 	[myVPNMenu addItem:[NSMenuItem separatorItem]];
@@ -1366,7 +1367,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     [self toggleMenuItem: menuItem withPreferenceKey: @"showConnectedDurations"];
     [self startOrStopDurationsTimer];
-    [self updateTabLabels];
+    [self updateNavigationLabels];
 }
 
 // Starts or stops the timer for showing connection durations.
@@ -1382,7 +1383,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 if (  [[conn state] isEqualToString: @"CONNECTED"]) {
                     showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
                                                                            target:self
-                                                                         selector:@selector(updateTabLabels)
+                                                                         selector:@selector(updateNavigationLabels)
                                                                          userInfo:nil
                                                                           repeats:YES] retain];
                     return;
@@ -1593,7 +1594,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void)connectionStateDidChange:(id)connection
 {
-	[self updateTabLabels];
+	[self updateNavigationLabels];
     if (connection == [self selectedConnection]) 
 	{
 		[self validateConnectAndDisconnectButtonsForConnection: connection];
@@ -1774,38 +1775,48 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	
     [self validateWhenConnectingForConnection: connection];     // May disable other controls if 'when computer connects' is selected
 }
--(void)updateTabLabels
+-(void)updateNavigationLabels
 {
-	NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
-	NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
-	NSEnumerator *connectionEnumerator = [myConnectionArray objectEnumerator];
-	VPNConnection *myConnection;
-    
-	int i = 0;
-	while(myConnection = [connectionEnumerator nextObject]) {
-        NSString * cState = [myConnection state];
-        NSString * cTimeS = @"";
-        
-        // Get connection duration if preferences say to 
-        if (   [gTbDefaults boolForKey:@"showConnectedDurations"]
-            && [cState isEqualToString: @"CONNECTED"]    ) {
-            NSDate * csd = [myConnection connectedSinceDate];
-            NSTimeInterval ti = [csd timeIntervalSinceNow];
-            long cTimeL = (long) round(-ti);
-            if ( cTimeL >= 0 ) {
-                if ( cTimeL < 3600 ) {
-                    cTimeS = [NSString stringWithFormat:@" %li:%02li", cTimeL/60, cTimeL%60];
-                } else {
-                    cTimeS = [NSString stringWithFormat:@" %li:%02li:%02li", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
-                }
-            }
+    if (  logWindowIsUsingTabs  ) {
+        NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+        NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
+        NSEnumerator *connectionEnumerator = [myConnectionArray objectEnumerator];
+        VPNConnection *connection;
+        int i = 0;
+        while(connection = [connectionEnumerator nextObject]) {
+            NSString * label = [self timeLabelForConnection: connection];
+            [[tabView tabViewItemAtIndex:i] setLabel: label];
+            i++;
         }
-		NSString *label = [NSString stringWithFormat:@"%@ (%@%@)",[myConnection displayName], NSLocalizedString(cState, nil), cTimeS];
-		[[tabView tabViewItemAtIndex:i] setLabel:label];
-		i++;
+    } else {
+        NSString * dispName = [leftNavList objectAtIndex: selectedLeftNavListIndex];
+        VPNConnection  * connection = [myVPNConnectionDictionary objectForKey: dispName];
+        NSString * label = [self timeLabelForConnection: connection];
+        [[tabView tabViewItemAtIndex:0] setLabel: label];
 	}
 }
 
+-(NSString *) timeLabelForConnection: (VPNConnection *) connection
+{ 
+    NSString * cState = [connection state];
+    NSString * cTimeS = @"";
+    
+    // Get connection duration if preferences say to 
+    if (   [gTbDefaults boolForKey:@"showConnectedDurations"]
+        && [cState isEqualToString: @"CONNECTED"]    ) {
+        NSDate * csd = [connection connectedSinceDate];
+        NSTimeInterval ti = [csd timeIntervalSinceNow];
+        long cTimeL = (long) round(-ti);
+        if ( cTimeL >= 0 ) {
+            if ( cTimeL < 3600 ) {
+                cTimeS = [NSString stringWithFormat:@" %li:%02li", cTimeL/60, cTimeL%60];
+            } else {
+                cTimeS = [NSString stringWithFormat:@" %li:%02li:%02li", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
+            }
+        }
+    }
+    return [NSString stringWithFormat:@"%@ (%@%@)",[connection displayName], NSLocalizedString(cState, nil), cTimeS];
+}
 
 - (void) updateUI
 {
@@ -1951,18 +1962,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 - (VPNConnection*) selectedConnection
 /*" Returns the connection associated with the currently selected log tab or nil on error. "*/
 {
-	if (![tabView selectedTabViewItem]) {
-		[tabView selectFirstTabViewItem: nil];
-	}
-	
-    NSString* dispNm = [[tabView selectedTabViewItem] identifier];
-	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: dispNm];
-	NSArray *allConnections = [myVPNConnectionDictionary allValues];
-	if(connection) return connection;
-	else if([allConnections count]) return [allConnections objectAtIndex:0] ; 
-	else return nil;
+    NSString* dispNm;
+    if (  logWindowIsUsingTabs  ) {
+        if (![tabView selectedTabViewItem]) {
+            [tabView selectFirstTabViewItem: nil];
+        }
+        dispNm = [[tabView selectedTabViewItem] identifier];
+    } else {
+        dispNm = [leftNavList objectAtIndex: selectedLeftNavListIndex];
+    }
+    
+    VPNConnection* connection = [myVPNConnectionDictionary objectForKey: dispNm];
+    NSArray *allConnections = [myVPNConnectionDictionary allValues];
+    if(connection) return connection;
+    else if([allConnections count]) return [allConnections objectAtIndex:0] ; 
+    else return nil;
 }
-
 
 - (IBAction)connectButtonWasClicked:(id)sender
 {
@@ -2012,8 +2027,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [NSApp activateIgnoringOtherApps:YES];
         return;
     }
-    
-	NSEnumerator* e = [[[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
+    NSArray * allConfigsSorted = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+	NSEnumerator* e = [allConfigsSorted objectEnumerator];
 	NSTabViewItem* initialItem;
 	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
     if (  ! connection  ) {
@@ -2023,13 +2038,32 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
     
+    int maxNumberOfTabs;
+    id obj = [gTbDefaults objectForKey: @"maximumNumberOfTabs"];
+    if (  obj  ) {
+        maxNumberOfTabs = [obj intValue];
+    } else {
+        maxNumberOfTabs = 8;
+    }
+    
+    logWindowIsUsingTabs = (  [myVPNConnectionDictionary count] <= maxNumberOfTabs  );
+    
     // Set the window's size and position from preferences (saved when window is closed)
     // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
     NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
-        NSString * frame = [gTbDefaults objectForKey: @"detailsWindowFrame"];
-        if (  frame != nil  ) {
-            [logWindow setFrameFromString:frame];
+        NSString * frameString = [gTbDefaults objectForKey: @"detailsWindowFrame"];
+        if (  frameString != nil  ) {
+            [logWindow setFrameFromString:frameString];
+        }
+        frameString = [gTbDefaults objectForKey: @"detailsWindowLeftFrame"];
+        if (  frameString != nil  ) {
+            NSRect frame;
+            frame = NSRectFromString(frameString);
+            if (  frame.size.width < LEFT_NAV_AREA_MINIMUM_SIZE  ) {
+                frame.size.width = LEFT_NAV_AREA_MINIMUM_SIZE;
+            }
+            [leftSplitView setFrame: frame];
         }
     }
     
@@ -2038,27 +2072,58 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [initialItem setIdentifier: dispNm];
     [initialItem setLabel:      dispNm];
     
-    int curTabIndex = 0;
-    [tabView selectTabViewItemAtIndex:0];
-    BOOL haveSelectedAConnection = ! [connection isDisconnected];
-    while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
-        NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
-        dispNm = [connection displayName];
-        [newItem setIdentifier: dispNm];
-        [newItem setLabel:      dispNm];
-        [tabView addTabViewItem: newItem];
-        [newItem release];
-        ++curTabIndex;
-        if (  oldSelectedConnectionName  ) {
-            if (  [dispNm isEqualToString: oldSelectedConnectionName]  ) {
+    int leftNavIndexToSelect = 0;
+    
+    if (  logWindowIsUsingTabs  ) {
+        // Make the left navigation area very small
+        NSRect frameRect = [leftSplitView frame];
+        frameRect.size.width = LEFT_NAV_AREA_MINIMAL_SIZE;
+        [leftSplitView setFrame: frameRect];
+        [leftSplitView display];
+        
+        int curTabIndex = 0;
+        [tabView selectTabViewItemAtIndex:0];
+        BOOL haveSelectedAConnection = ! [connection isDisconnected];
+        while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
+            NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
+            dispNm = [connection displayName];
+            [newItem setIdentifier: dispNm];
+            [newItem setLabel:      dispNm];
+            [tabView addTabViewItem: newItem];
+            [newItem release];
+            ++curTabIndex;
+            if (  oldSelectedConnectionName  ) {
+                if (  [dispNm isEqualToString: oldSelectedConnectionName]  ) {
+                    [tabView selectTabViewItemAtIndex:curTabIndex];
+                    haveSelectedAConnection = YES;
+                    oldSelectedConnectionName = nil;
+                }
+            } else if (   ( ! haveSelectedAConnection )
+                       && ( ! [connection isDisconnected] )  ) {
                 [tabView selectTabViewItemAtIndex:curTabIndex];
                 haveSelectedAConnection = YES;
-                oldSelectedConnectionName = nil;
             }
-        } else if (   ( ! haveSelectedAConnection )
-                   && ( ! [connection isDisconnected] )  ) {
-            [tabView selectTabViewItemAtIndex:curTabIndex];
-            haveSelectedAConnection = YES;
+        }
+    } else {
+        [leftNavList release];
+        leftNavList = [[NSMutableArray alloc] initWithCapacity: [myVPNConnectionDictionary count]];
+        int curTabIndex = 0;
+        BOOL haveSelectedAConnection = ! [connection isDisconnected];
+        NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
+        while (connection = [myVPNConnectionDictionary objectForKey: [configEnum nextObject]]) {
+            [leftNavList addObject: [NSString stringWithString: [connection displayName]]];
+            if (  oldSelectedConnectionName  ) {
+                if (  [dispNm isEqualToString: oldSelectedConnectionName]  ) {
+                    [self setSelectedLeftNavListIndex: curTabIndex];
+                    haveSelectedAConnection = YES;
+                    oldSelectedConnectionName = nil;
+                }
+            } else if (   ( ! haveSelectedAConnection )
+                       && ( ! [connection isDisconnected] )  ) {
+                leftNavIndexToSelect = curTabIndex;
+                haveSelectedAConnection = YES;
+            }
+            ++curTabIndex;
         }
     }
     
@@ -2085,9 +2150,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [[[self selectedLogView] layoutManager] replaceTextStorage: store];
 	
-	[self tabView:tabView didSelectTabViewItem:initialItem];
-	
-	[self updateTabLabels];
+    if (  logWindowIsUsingTabs  ) {
+        [self tabView:tabView didSelectTabViewItem:initialItem];
+    } else {
+        [leftNavListView reloadData];
+        selectedLeftNavListIndex = -1;  // Force a change
+        [self setSelectedLeftNavListIndex: leftNavIndexToSelect];
+        [leftNavListView scrollRowToVisible: leftNavIndexToSelect];
+    }
+
+    [self updateNavigationLabels];
     
     // Set up a timer to update the tab labels with connections' duration times
     [self startOrStopDurationsTimer];
@@ -2096,6 +2168,26 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [logWindow makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
     logWindowIsOpen = TRUE;
+}
+
+-(int)numberOfRowsInTableView:(NSTableView *)aTableView
+{
+    if (  aTableView == leftNavListView  ) {
+        int n = [leftNavList count];
+        return n;
+    }
+    
+    return 0;
+}
+
+-(id) tableView:(NSTableView *) aTableView objectValueForTableColumn:(NSTableColumn *) aTableColumn row:(int) rowIndex
+{
+    if (  aTableView == leftNavListView  ) {
+        NSString * s = [leftNavList objectAtIndex: rowIndex];
+        return s;
+    }
+    
+    return nil;
 }
 
 // Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
@@ -2168,17 +2260,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         // Save the window's size and position in the preferences and save the TB version that saved them, BUT ONLY IF anything has changed
-        NSString * frame = [logWindow stringWithSavedFrame];
+        NSString * mainFrame = [logWindow stringWithSavedFrame];
+        NSString * leftFrame = nil;
+        if (  [leftSplitView frame].size.width > (LEFT_NAV_AREA_MINIMAL_SIZE + 5.0)  ) {
+            leftFrame = NSStringFromRect([leftSplitView frame]);
+        }
         NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
         BOOL saveIt = TRUE;
         if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
-            if (   [frame isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrame"]]    ) {
+            if (   [mainFrame isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrame"]]
+                && [leftFrame isEqualToString: [gTbDefaults objectForKey:@"detailsWindowLeftFrame"]]  ) {
                 saveIt = FALSE;
             }
         }
         
         if (saveIt) {
-            [gTbDefaults setObject: frame forKey: @"detailsWindowFrame"];
+            [gTbDefaults setObject: mainFrame forKey: @"detailsWindowFrame"];
+            if (  leftFrame  ) {
+                [gTbDefaults setObject: leftFrame forKey: @"detailsWindowLeftFrame"];
+            }
             [gTbDefaults setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
                             forKey: @"detailsWindowFrameVersion"];
             [gTbDefaults synchronize];
@@ -3600,7 +3700,7 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
-    NSLog(@"Installation or repair succeded");
+    NSLog(@"Installation or repair succeeded");
     return TRUE;
 }
 
@@ -4030,6 +4130,42 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 -(NSString *) customRunOnConnectPath
 {
     return customRunOnConnectPath;
+}
+
+-(int) selectedLeftNavListIndex
+{
+    return selectedLeftNavListIndex;
+}
+
+-(void) tableViewSelectionDidChange:(NSNotification *)notification
+{
+    [self performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
+}
+
+-(void) selectedLeftNavListIndexChanged
+{
+    int n = [leftNavListView selectedRow];
+    [self setSelectedLeftNavListIndex: n];
+}
+
+-(void) setSelectedLeftNavListIndex: (int) newValue
+{
+    if (  newValue != selectedLeftNavListIndex  ) {
+        selectedLeftNavListIndex = newValue;
+        [leftNavListView selectRowIndexes: [NSIndexSet indexSetWithIndex: newValue] byExtendingSelection: NO];
+        NSString * label = [leftNavList objectAtIndex: newValue];
+        [[tabView tabViewItemAtIndex:0] setLabel: label];
+        
+        [[[self selectedLogView] textStorage] setDelegate: nil];
+        VPNConnection* newConnection = [self selectedConnection];
+        NSTextView* logView = [self selectedLogView];
+        [logView setEditable: NO];
+        [[logView layoutManager] replaceTextStorage: [newConnection logStorage]];
+        [logView scrollRangeToVisible: NSMakeRange([[logView string] length]-1, 0)];
+        [[logView textStorage] setDelegate: self];
+        [self setLogWindowTitle];
+        [self validateDetailsWindowControls];
+    }
 }
 
 @end
