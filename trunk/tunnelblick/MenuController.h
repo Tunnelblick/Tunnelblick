@@ -46,9 +46,14 @@ BOOL needToRepairPackages(void);
     IBOutlet NSButton       * shareButton;
     IBOutlet NSTabView      * tabView;
     IBOutlet NSPopUpButton  * modifyNameserverPopUpButton;
+    IBOutlet NSSplitView    * splitView;
+    IBOutlet NSView         * leftSplitView;
+    IBOutlet NSView         * rightSplitView;
+    IBOutlet NSTableView    * leftNavListView;
+    IBOutlet NSTableColumn  * leftNavTableColumn;
 
     IBOutlet NSArrayController * modifyNameserverPopUpButtonArrayController;
-    IBOutlet id               myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
+    IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
@@ -78,8 +83,6 @@ BOOL needToRepairPackages(void);
 
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
-    BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
-    
     NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
 
     NSMutableDictionary     * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
@@ -92,8 +95,6 @@ BOOL needToRepairPackages(void);
     
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
-    BOOL                      logWindowIsOpen;              // Indicates if Details window is being displayed
-    
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
     NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
@@ -101,6 +102,19 @@ BOOL needToRepairPackages(void);
     NSTimer                 * hookupWatchdogTimer;              // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
+    
+    NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
+    //                                                         so the program can re-select. nil after re-selecting it
+    
+    NSMutableArray          * leftNavList;                  // Items in the left navigation list (strings with connections' display name)
+    
+    int                       selectedLeftNavListIndex;     // Index of the selected item in the left navigation list
+    
+    BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
+    
+    BOOL                      logWindowIsOpen;              // Indicates if Details window is being displayed
+    
+    BOOL                      logWindowIsUsingTabs;         // Indicates Details window is using tabs (and not using left-navigation)
     
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
     
@@ -110,9 +124,6 @@ BOOL needToRepairPackages(void);
     
     BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch
     //                                                         and therefore we can safely terminate unknown OpenVPN processes when quitting TB
-    
-    NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
-    //                                                         so the program can re-select. nil after re-selecting it
     
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
@@ -177,5 +188,7 @@ BOOL needToRepairPackages(void);
 -(int)              selectedModifyNameserverIndex;
 -(void)             setSelectedModifyNameserverIndex:       (int)               newValue;
 -(NSString *)       customRunOnConnectPath;
+-(int)              selectedLeftNavListIndex;
+-(void)             setSelectedLeftNavListIndex:            (int)               newValue;
 
 @end

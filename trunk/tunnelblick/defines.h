@@ -38,3 +38,12 @@
 //*************************************************************************************************
 // When more than this many lines are in the log display, lines are discarded from the top
 #define MAX_LOG_DISPLAY_LINES 10000
+
+
+//*************************************************************************************************
+// Size to use to minimize the left navigation area when it is inactive
+#define LEFT_NAV_AREA_MINIMAL_SIZE 8.0
+
+//*************************************************************************************************
+// Minimum size of the left navigation area when it is active
+#define LEFT_NAV_AREA_MINIMUM_SIZE 40.0
