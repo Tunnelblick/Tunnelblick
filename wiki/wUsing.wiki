@@ -53,17 +53,28 @@ Some deployed versions of Tunnelblick do not display the Options Submenu, in whi
 ==The "Details" Window==
 When the Tunnelblick menu is displayed, if you click on "Details…” a window similar to the following will appear:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-details-2010-05-12.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-details-2010-10-16.png
 
 The window will contain a tab for each configuration and the title of the window will show the name of the currently selected configuration and its availability (Private, Shared, or Deployed).
 
-Each tab in the window contains a pane with the OpenVPN log for the connection and controls that provide options for that connection. The title of the tab shows the current status of the configuration and, if connected, the time since it was connected. The controls for each configuration are:
+Each tab in the window contains a pane with the OpenVPN log for the connection and controls that provide options for that connection. The title of the tab shows the current status of the configuration and, if connected, the time since it was connected.
+
+When there are many connections, a tab for each connection will not fit on the screen. In this case, the "Details…" window will look similar to the following:
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-details-left-nav-2010-10-16.png
+
+In this version of the "Details…" window, there is an entry for each connection on the left side. The tab with the OpenVPN log and controls for the connection selected on the left side will be displayed on the right side. You may adjust the relative sizes of the left and right side by dragging the small dot between the two sides.
+
+The controls for each configuration (regardless of which window is displayed) are:
 
     * "Automatically connect” causes the configuration to be connected when Tunnelblick is launched (started) or when the computer starts, as indicated. You can only choose "when the computer starts" for  [wPkgs Tunnelblick VPN Configurations] or [wCusDeployed "Deployed"] configurations; that choice will be dimmed for configurations based on .ovpn or .conf files.
 
-    * "Set nameserver” causes scripts to be run before a connection is opened and after the connection is closed. The scripts save and restore DHCP DNS and WINS information. This checkbox is involved in Tunnelbick's setup for the configuration. See [wConfigT Configuring Tunnelblick].
+    * "Set nameserver” causes scripts to be run before a connection is opened and after the connection is closed. The scripts save and restore DHCP DNS and WINS information. This is involved in Tunnelblick's setup for the configuration. See [wConfigT Configuring Tunnelblick]. Other choices in the drop-down list are:
+      * "Do not set nameserver", which does not change DNS settings;
+      * "Set nameserver (3.0b10), which manipulates DNS settings the way that Tunnelblick 3.0b10 does; and
+      * "Set nameserver (alternate 1)", which manipulates DNS settings in a different way that is more compatible with some configurations.
 
-    * "Monitor connection" causes the network connection to be monitored for changes. It is available only when "Set nameserver" is selected. When a change is detected, the connection will be disconnected and reconnected.  This checkbox is involved in Tunnelbick's setup for the configuration. See [wConfigT Configuring Tunnelblick].
+    * "Monitor connection" causes the network connection to be monitored for changes. It is available only when "Set nameserver" is selected. When a change is detected, the connection will be disconnected and reconnected.  This checkbox is involved in Tunnelblick's setup for the configuration. See [wConfigT Configuring Tunnelblick].
 
 The "Details” window also contains five buttons:
 
@@ -91,7 +102,7 @@ You may use the standard keyboard shortcuts in the "Details" window:
 Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon, then (if it is visible) click on "Options", then on "About…” to open a window with information about the versions of Tunnelblick and OpenVPN that are running and a link to the Tunnelblick website.
 
 ==Using More than One VPN Configuration==
-You can have any number of configurations installed; each of the configurations will be available in the drop down menu and shown as a separate tab in the "Details” window.
+You can have any number of configurations installed; each of the configurations will be available in the drop down menu and shown as a separate tab (or left-side entry) in the "Details” window.
 
 ==Connecting to More than One VPN Simultaneously==
 Tunnelblick can maintain multiple simultaneous open connections to different VPNs.

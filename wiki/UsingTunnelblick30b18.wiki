@@ -50,7 +50,7 @@ Since these files are all located in the user's Library folder, they must be set
 
 "Shadow" copies of configuration files may also be located in /Library/Tunnelblick/username. (See "useShadowConfigurationFiles" in the "Preferences" section.)
 
-Within the Tunnelblick.app application, client up/down scripts are located in Tunnelblick.app/Contents/Resources (see the “Set nameserver” checkbox in the “OpenVPN Log Window” section). To access Tunnelblick.app/Contents in the Finder, control-click Tunnelblick.app in the Applications folder, then click on “Show Package Contents”.
+Within the Tunnelblick.app application, client up/down scripts are located in Tunnelblick.app/Contents/Resources (see the “Set nameserver” checkbox in the “Details… window” section). To access Tunnelblick.app/Contents in the Finder, control-click Tunnelblick.app in the Applications folder, then click on “Show Package Contents”.
 
 ==THE FIRST TIME TUNNELBLICK IS RUN BY EACH USER==
 When there are no configuration files in ~/Library/openvpn (which is usually the case the first time Tunnelblick is run by each user) the following screen will be displayed:
@@ -124,7 +124,7 @@ In addition, the “OpenVPN Log” window contains four buttons:
 
     * “Disconnect” closes the connection being displayed.
 
-You may use the standard keyboard shortcuts in the "OpenVPN Log" window: Command-C, Command-X, and Command-V for copy, cut, and paste; and Command-A, Command-M, Command-W, and Command-Q to select all the text in the log that is currently being displayed, minimize the window to the dock, close the window, and quit the program.
+You may use the standard keyboard shortcuts in the "Details…" window: Command-C, Command-X, and Command-V for copy, cut, and paste; and Command-A, Command-M, Command-W, and Command-Q to select all the text in the log that is currently being displayed, minimize the window to the dock, close the window, and quit the program.
 
 ==THE “ABOUT TUNNELBLICK” WINDOW==
 Click on the Tunnelblick icon in the Status Bar at the top of your screen between the time and the Spotlight icon, then click on “About Tunnelblick…” to open a window with information about the versions of Tunnelblick and OpenVPN that are running and a link to the Tunnelblick website.

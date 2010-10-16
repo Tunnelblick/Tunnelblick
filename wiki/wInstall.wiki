@@ -9,7 +9,7 @@ Note: there is no need to install OpenVPN separately - the Tunnelblick applicati
 
 First, download the latest disk image from the [DownloadsEntry Downloads page]. Double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a window similar to the following will appear:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-07-14.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-dmg-2010-10-16.png
 
 Double-click the Tunnelblick icon and a new window will appear, similar to the following:
 
@@ -17,15 +17,17 @@ http://tunnelblick.googlecode.com/files/using-tunnelblick-download-warning-2010-
 
 Click the "Open" button to continue and a new window will appear, similar to the following:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-install-2010-02-06.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-install-2010-10-16.png
 
 If you are reinstalling, upgrading, or downgrading Tunnelblick, the window will show the version number of the current copy and of the new copy. The current copy of Tunnelblick will be put in the Trash before it is replaced.
+
+The name and password of a computer administrator is needed to install Tunnelblick. Tunnelblick's imbedded OpenVPN needs root privileges because it needs to modify network settings by configuring new network devices, changing routes, and adding and removing nameservers. Because we don't want you to enter your administrator account name and password every time you start a VPN connection, Tunnelblick comes with a setuid root binary that allows it to start a VPN connection with super user rights. Tunnelblick uses your administrator account name and password so it can create this setuid root binary. Tunnelblick also secures itself from being modified.
 
 Click the "Install" button to copy Tunnelblick to your hard drive at the indicated location.
 
 Once that is done (it may take a couple of seconds), a new window will appear, similar to the following:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-launch-2010-02-06.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-launch-2010-10-16.png
 
 Click the "Launch" button to launch Tunnelblick
 
@@ -37,15 +39,8 @@ http://tunnelblick.googlecode.com/files/using-tunnelblick-running-2010-02-06.png
 
 Click the "Close VPN Connections and Stop Tunnelblick" to continue. After all connections are closed and Tunnelblick has quit, the new version of Tunnelblick will be launched. Continue with the following sections.
 
-==The First Time Tunnelblick is Run on a Computer==
-The first time a new installation of Tunnelblick is run on a computer and after a reinstall, upgrade, or downgrade, it will display the following screen:
-
-http://tunnelblick.googlecode.com/files/using-tunnelblick-password-2010-02-06.png
-
-Please enter the name and password of a computer administrator. Tunnelblick's imbedded OpenVPN needs root privileges because it needs to modify network settings by configuring new network devices, changing routes, and adding and removing nameservers. Because we don't want you to enter your administrator account name and password every time you start a VPN connection, Tunnelblick comes with a setuid root binary that allows it to start a VPN connection with super user rights. Tunnelblick uses your administrator account name and password so it can create this setuid root binary.
-
 ==The First Time Tunnelblick is Run by Each User==
-If this is the first time you have run Tunnelblick as a particular user, or the first time after some Tunnelblick upgrades, the following window will appear:
+If this is the first time you have run Tunnelblick as a particular user, or the first time after certain Tunnelblick upgrades, the following window will appear:
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-check-2010-02-06.png
 

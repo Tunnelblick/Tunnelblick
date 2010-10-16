@@ -1,13 +1,13 @@
-#summary Sidebar for 3.1beta16
-<br><font color="red">*NOTE: This wiki is for Tunnelblick 3.1beta16 only and describes features not available in earlier versions.*</font>
+#summary Sidebar for 3.1beta18
+<br><font color="red">*NOTE: This wiki is for Tunnelblick 3.1beta18 only and describes features not available in earlier versions.*</font>
 
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
-*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg Download Tunnelblick 3.1beta16]*<br><br>
+*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta18.dmg Download Tunnelblick 3.1beta18]*<br><br>
 *[wNews News]*<br><br>
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*<br>
 <hr>
-*Tunnelblick <font color="red">3.1beta16</font> Documentation*<br><br>
+*Tunnelblick <font color="red">3.1beta18</font> Documentation*<br><br>
 *Getting Started*
     [wWelcome Welcome to Tunnelblick]<br>
     [wWhatIs What is Tunnelblick?]<br>
@@ -46,6 +46,7 @@
     [wLocalize Localizing Tunnelblick]<br>
     [wTranslate Making Translations]<br>
 *Reference*
+    [DocumentationForTunnelblick_3_1beta18 What's New in 3.1beta18]<br>
     [DocumentationForTunnelblick_3_1beta16 What's New in 3.1beta16]<br>
     [DocumentationForTunnelblick_3_1beta14 What's New in 3.1beta14]<br>
     [DocumentationForTunnelblick_3_1beta12 What's New in 3.1beta12]<br>

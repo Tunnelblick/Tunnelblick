@@ -49,7 +49,7 @@
 
   * If a deployed configuration and/or a shared configuration and/or a private configuration have the same names, the deployed one will be displayed if it exists, otherwise the shared one will be displayed if it exists, and the other(s) will be hidden and unavailable. A warning will be issued to notify the user if any configurations are hidden.
 
-  * Shared configurations are indicated by '(Shared)' after their names in the Tunnelblick menu and in the title of the OpenVPN Log window, and private configurations are indicated by '(Private). If there are also deployed configurations, they are indicated by '(Deployed)' after their names.
+  * Shared configurations are indicated by '(Shared)' after their names in the Tunnelblick menu and in the title of the "Details…" window, and private configurations are indicated by '(Private). If there are also deployed configurations, they are indicated by '(Deployed)' after their names.
 
   * The 'Edit Configuration' button becomes 'Examine Configuration' when the configuration may not be edited, i.e., it is a Deployed or Shared configurations.
 

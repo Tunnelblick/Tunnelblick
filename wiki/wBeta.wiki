@@ -11,6 +11,17 @@ When a new beta version is available, it is announced to the [http://groups.goog
 <font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 OR LATER*</font> 
 
 --------------------
+2010-10-16: *Tunnelblick 3.1beta18 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta18.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+  * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
+
+  * Streamlines installation by double-clicking to have only one dialog box explaining what will be installed and asking for admin username/password.
+
+  * Fixes bug which prevented Standard users from installing Tunnelblick by double-clicking.
+
+  * Fixes bugs in automatic installation of .tblks when installing Tunnelblick.
+
+--------------------
 2010-10-08: *Tunnelblick 3.1beta16 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
   * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
@@ -92,7 +103,7 @@ This is mainly a bug-fix release, but it adds one new feature: It runs new scrip
 
 This is mainly a bug-fix release, but there are some new features:
 
- * The pipes for script output to OpenVPN log window are created on demand instead of when Tunnelblick launches, so if you have 50 configurations, Tunnelblick won't create 50 pipes when launched.
+ * The pipes for script output to "Details…" window are created on demand instead of when Tunnelblick launches, so if you have 50 configurations, Tunnelblick won't create 50 pipes when launched.
 
  * A DHCP renew which restores the original DNS and/or WINS information no longer causes the connection to restart. This new behavior can reversed be by setting Tunnelblick the boolean preferences '-doNotRestoreOnDnsReset' and/or '-doNotRestoreOnWinsReset' to TRUE.
 
