@@ -106,7 +106,15 @@ BOOL needToRepairPackages(void);
     NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
     //                                                         so the program can re-select. nil after re-selecting it
     
-    NSMutableArray          * leftNavList;                  // Items in the left navigation list (strings with connections' display name)
+    NSMutableArray          * leftNavList;                  // Items in the left navigation list as displayed to the user
+    //                                                         Each item is a string with either
+    //                                                         a folder name (possibly indented) or
+    //                                                         a connection name (possibly indented)
+
+    NSMutableArray          * leftNavDisplayNames;          // A string for each item in leftNavList
+    //                                                         Each item is a string with either
+    //                                                         An empty string (corresponding to a folder name entry in leftNavList) or
+    //                                                         The full display name for the corresponding connection
     
     int                       selectedLeftNavListIndex;     // Index of the selected item in the left navigation list
     

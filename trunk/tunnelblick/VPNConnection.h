@@ -29,7 +29,9 @@
     // or   /Library/Application Support/Tunnelblick/Shared
     // or   /Library/Application Support/Tunnelblick/User/<username>
     // or a subdirectory of one of them
-	NSString      * displayName;        // The configuration name as displayed to the user
+	NSString      * displayName;        // The configuration name, including directory prefix, as sometimes displayed to the user 
+    //                                     BUT only sometimes. In the menu and in the left navigation tabs, the leading
+    //                                     directory references are stripped out (e.g., abc/def/ghi.ovpn becomes just "ghi"
 
 	NSDate        * connectedSinceDate; // Initialized to time connection init'ed, set to current time upon connection
 	id              delegate;
