@@ -101,10 +101,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             createStatusItem;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             dmgCheck;
+-(int)              firstDifferentComponent:                (NSArray *)         a
+                          and:                              (NSArray *)         b;
 -(int)              getLoadedKextsMask;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
 -(void)             hookupToRunningOpenVPNs;
+-(NSString *)       indent:                                 (NSString *)        s
+                        by:                                 (int)               n;
 -(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
                                     andAction:              (SEL)               action
                                    andToolTip:              (NSString *)        tip
@@ -1789,7 +1793,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             i++;
         }
     } else {
-        NSString * dispName = [leftNavList objectAtIndex: selectedLeftNavListIndex];
+        NSString * dispName = [leftNavDisplayNames objectAtIndex: selectedLeftNavListIndex];
         VPNConnection  * connection = [myVPNConnectionDictionary objectForKey: dispName];
         NSString * label = [self timeLabelForConnection: connection];
         [[tabView tabViewItemAtIndex:0] setLabel: label];
@@ -1969,7 +1973,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         dispNm = [[tabView selectedTabViewItem] identifier];
     } else {
-        dispNm = [leftNavList objectAtIndex: selectedLeftNavListIndex];
+        dispNm = [leftNavDisplayNames objectAtIndex: selectedLeftNavListIndex];
     }
     
     VPNConnection* connection = [myVPNConnectionDictionary objectForKey: dispNm];
@@ -2105,13 +2109,46 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
         }
     } else {
-        [leftNavList release];
-        leftNavList = [[NSMutableArray alloc] initWithCapacity: [myVPNConnectionDictionary count]];
+        [leftNavList         release];
+        [leftNavDisplayNames release];
+        leftNavList         = [[NSMutableArray alloc] initWithCapacity: [myVPNConnectionDictionary count]];
+        leftNavDisplayNames = [[NSMutableArray alloc] initWithCapacity: [myVPNConnectionDictionary count]];
         int curTabIndex = 0;
         BOOL haveSelectedAConnection = ! [connection isDisconnected];
+        NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
         NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
         while (connection = [myVPNConnectionDictionary objectForKey: [configEnum nextObject]]) {
-            [leftNavList addObject: [NSString stringWithString: [connection displayName]]];
+            dispNm = [connection displayName];
+            NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
+            int firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
+
+            // Track any necessary "outdenting"
+            if (  firstDiff < [currentFolders count]  ) {
+                // Remove components from the end of currentFolders until we have a match
+                int i;
+                for (  i=0; i < ([currentFolders count]-firstDiff); i++  ) {
+                    [currentFolders removeLastObject];
+                }
+            }
+
+            // currentFolders and currentConfig now match, up to but not including the firstDiff-th entry
+
+            // Add a "folder" line for each folder in currentConfig starting with the first-Diff-th entry (if any)
+            int i;
+            for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
+                [leftNavDisplayNames addObject: @""];
+                NSString * folderName = [currentConfig objectAtIndex: i];
+                [leftNavList         addObject: [NSString stringWithString: 
+                                                 [self indent: folderName by: firstDiff+i]]];
+                [currentFolders addObject: folderName];
+                ++curTabIndex;
+            }
+            
+            // Add a "configuration" line
+            [leftNavDisplayNames addObject: [NSString stringWithString: [connection displayName]]];
+            [leftNavList         addObject: [NSString stringWithString: 
+                                             [self indent: [currentConfig lastObject] by: [currentConfig count]-1]]];
+            
             if (  oldSelectedConnectionName  ) {
                 if (  [dispNm isEqualToString: oldSelectedConnectionName]  ) {
                     [self setSelectedLeftNavListIndex: curTabIndex];
@@ -2168,6 +2205,27 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [logWindow makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
     logWindowIsOpen = TRUE;
+}
+
+-(int) firstDifferentComponent: (NSArray *) a and: (NSArray *) b
+{
+    int retVal = 0;
+    int i;
+    for (i=0;
+            (i < [a count]) 
+         && (i < [b count])
+         && [[a objectAtIndex: i] isEqual: [b objectAtIndex: i]];
+         i++  ) {
+        ++retVal;
+    }
+
+    return retVal;
+}
+
+-(NSString *) indent: (NSString *) s by: (int) n
+{
+    NSString * retVal = [NSString stringWithFormat:@"%*s%@", 3*n, "", s];
+    return retVal;
 }
 
 -(int)numberOfRowsInTableView:(NSTableView *)aTableView
@@ -4151,9 +4209,15 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 -(void) setSelectedLeftNavListIndex: (int) newValue
 {
     if (  newValue != selectedLeftNavListIndex  ) {
+        
+        // Don't allow selection of a "folder" row, only of a "configuration" row
+        while (  [[leftNavDisplayNames objectAtIndex: newValue] length] == 0) {
+            ++newValue;
+        }
+        
         selectedLeftNavListIndex = newValue;
         [leftNavListView selectRowIndexes: [NSIndexSet indexSetWithIndex: newValue] byExtendingSelection: NO];
-        NSString * label = [leftNavList objectAtIndex: newValue];
+        NSString * label = [[leftNavList objectAtIndex: newValue] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @" "]];
         [[tabView tabViewItemAtIndex:0] setLabel: label];
         
         [[[self selectedLogView] textStorage] setDelegate: nil];
