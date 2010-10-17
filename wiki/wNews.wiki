@@ -115,6 +115,8 @@ This is mainly a bug-fix release, but there are some new features:
 
 The full list of changes is in the [wRlsNotes Release Notes].
 
+--------------------
+
 *2010-05-14*: Tunnelblick 3.1beta02 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
 
 The full list of changes is in the [wRlsNotes Release Notes].
