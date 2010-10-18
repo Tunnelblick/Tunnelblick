@@ -3284,11 +3284,11 @@ static void signal_handler(int signalNumber)
         
         return [NSArray arrayWithObjects:
                 [NSDictionary dictionaryWithObjectsAndKeys:
-                 @"nConn",   @"key", sConn, @"value", NSLocalizedString(@"Configurations",      @"Window text"  ), @"displayKey", sConn, @"displayValue", nil],
+                 @"nConn",   @"key", sConn, @"value", NSLocalizedString(@"Configurations",      @"Window text" ), @"displayKey", sConn, @"displayValue", nil],
                 [NSDictionary dictionaryWithObjectsAndKeys:
-                 @"nSetDNS", @"key", sSN,   @"value", NSLocalizedString(@"Set nameserver",      @"Checkbox name"), @"displayKey", sSN,   @"displayValue", nil],
+                 @"nSetDNS", @"key", sSN,   @"value", NSLocalizedString(@"Set nameserver",      @"PopUpButton" ), @"displayKey", sSN,   @"displayValue", nil],
                 [NSDictionary dictionaryWithObjectsAndKeys:
-                 @"nPkgs  ", @"key", sPkg,  @"value", NSLocalizedString(@"VPN Connections",     @"Window text"  ), @"displayKey", sPkg,  @"displayValue", nil],
+                 @"nPkgs  ", @"key", sPkg,  @"value", NSLocalizedString(@"VPN Connections",     @"Window text" ), @"displayKey", sPkg,  @"displayValue", nil],
                 [NSDictionary dictionaryWithObjectsAndKeys:
                  @"nMonCon", @"key", sMC,   @"value", NSLocalizedString(@"Monitor connection", @"Checkbox name"), @"displayKey", sMC,   @"displayValue", nil],
                 [NSDictionary dictionaryWithObjectsAndKeys:
