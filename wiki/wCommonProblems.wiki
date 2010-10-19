@@ -99,6 +99,12 @@ then the file abcde.crt should be in the xyz subfolder of the folder with the co
 ==An OpenVPN log entry says "TLS Error: Auth Username/Password was not provided by peer"==
 Your client configuration file should include an "auth-user-pass" option.
 
+==A Console log entry says "script failed: could not execute external program"==
+An up or down script contains an error. Common causes:
+ * The use of a script file with Windows line breaks (CR-LF) instead of Unix/Mac line breaks (LF).
+ * The use of a script file that does not have execute permission for root.
+ * The use of a script file with syntax errors.
+
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
