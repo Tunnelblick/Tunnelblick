@@ -21,6 +21,13 @@ Look at lines near the end of the log for an error message.
 See [wConnectedBut Connects OK, But...].
 
 
+==A connection is established, but drops out or is restarted after a few minutes, or DNS stops working after a few minutes==
+This can have several causes:
+  * Another computer on your network is attempting to connect to the VPN using the same credentials.
+  * You have a version of Tunnelblick earlier than 3.1beta04 and have both "Set nameserver" and "Monitor connection" checked. When DHCP is renewed, the changes can cause earlier versions of Tunnelblick to restart the connection. Update to the latest version of Tunnelblick.
+  * You have "Monitor connection" UNchecked. When DHCP is renewed, the change is ignored (because "Monitor connection" isn't checked) and the VPN-supplied DNS server is replaced with the DHCP-supplied server. Often a DHCP-supplied server will only respond to queries which originate within that network. Since the DNS queries originate from the VPN, which is outside of that network, the queries will not be answered. Update to the latest version of Tunnelblick and put a check next to "Monitor network".
+
+
 ==An error messages says to see details in the Console Log==
 See [wConsoleLog The Console Log] for instructions on viewing the Console Log.
 
@@ -78,13 +85,6 @@ To unload kexts and allow Tunnelblick to load its own kexts, use the 'kextunload
 (The "sudo" is necessary because this command modifies the device driver. You will be asked for your administrator password.)
 
 
-==A connection is established, but drops out or is restarted after a few minutes, or DNS stops working after a few minutes==
-This can have several causes:
-  * Another computer on your network is attempting to connect to the VPN using the same credentials.
-  * You have a version of Tunnelblick earlier than 3.1beta04 and have both "Set nameserver" and "Monitor connection" checked. When DHCP is renewed, the changes can cause earlier versions of Tunnelblick to restart the connection. Update to the latest version of Tunnelblick.
-  * You have "Monitor connection" UNchecked. When DHCP is renewed, the change is ignored (because "Monitor connection" isn't checked) and the VPN-supplied DNS server is replaced with the DHCP-supplied server. Often a DHCP-supplied server will only respond to queries which originate within that network. Since the DNS queries originate from the VPN, which is outside of that network, the queries will not be answered. Update to the latest version of Tunnelblick and put a check next to "Monitor network".
-
-
 ==An OpenVPN log entry says "Cannot load certificate file XXX.crt: error: 02001002:system library:fopen:No such file or directory: error: 20074002:BIO routines:FILE_CTRL:system lib: error:140AD002:SSL routines:SSL_CTX_use_certificate_file:system lib "==
 Your certificate file (XXX.crt) was not found. Usually the file should be in the same folder as the configuration file, ~/Library/Tunnelblick/Configurations, not in a subfolder. For example, if the configuration file has a line such as
   cert abcde.crt
@@ -99,7 +99,7 @@ then the file abcde.crt should be in the xyz subfolder of the folder with the co
 ==An OpenVPN log entry says "TLS Error: Auth Username/Password was not provided by peer"==
 Your client configuration file should include an "auth-user-pass" option.
 
-==n OpenVPN log entry says "script failed: could not execute external program"==
+==An OpenVPN log entry says "script failed: could not execute external program"==
 An up or down script contains an error. Common causes:
  * The use of a script file with Windows line breaks (CR-LF) instead of Unix/Mac line breaks (LF).
  * The use of a script file that does not have execute permission for root.
