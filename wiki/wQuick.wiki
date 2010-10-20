@@ -6,7 +6,7 @@
 ==Installing Tunnelblick and Getting it Set Up==
 Here is what you need to get started using Tunnelblick:
  * A copy of the Tunnelblick installation disk image. You can download one from the [http://code.google.com/p/tunnelblick Tunnelblick project].
- * A [wPkgs Tunnelblick VPN Configuration] or an OpenVPN configuration file together with key and certificate files for encryption and authentication. You get either one from whoever set up your VPN (usually your company or a VPN service provider).
+ * A [wPkgs Tunnelblick VPN Configuration] or an OpenVPN configuration file together with key and certificate files for encryption. You get these from whoever set up your VPN -- usually your company or a VPN service provider (see [wGettingVPNService Getting VPN Service]).
  * The username and password of an administrator for your computer.
 
 To get started, double-click the disk image.
@@ -15,13 +15,11 @@ You may see a message saying that "'Tunnelblick.app' is an application downloade
 
 A window will open. Double-click the Tunnelblick icon in the window to start the installation process.
 
-You will be asked if you want to install/reinstall/upgrade/downgrade Tunnelblick. Click the "Install" button to install Tunnelblick to your Applications folder. If you are reinstalling, upgrading, or downgrading, your current copy of Tunnelblick will be put in the Trash before it is replaced.
+You will be asked if you want to install/reinstall/upgrade/downgrade Tunnelblick. Enter an administrator username and password and click "Install" to install Tunnelblick to your Applications folder. If you are reinstalling, upgrading, or downgrading, your current copy of Tunnelblick will be put in the Trash before it is replaced.
 
 After a few seconds, a new window will appear asking if you wish to launch Tunnelblick. Click the "Launch" button to launch Tunnelblick.
 
 If your computer is already running Tunnelblick, you will be asked if you wish to close all connections and quit the current copy. Click the button to do so.
-
-You will now see a window asking for an administrator username and password. Enter them and click "OK".
 
 You may see a window asking if you wish to check for updates automatically. Click a button to indicate your selection.
 
