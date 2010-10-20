@@ -33,21 +33,24 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 
 The following VPN service providers recommend or use Tunnelblick exclusively for Mac OS X.
 
+  * *[https://www.astrill.com/a3329ebd4 Astrill]* (Astrill contributes to Tunnelblick and you get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase if you use this link.)
+
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]*
-  * *[https://www.astrill.com/a3329ebd4 Astrill]* (Astrill contributes to Tunnelblick and you get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase if you use this link)
+  * *[http://www.tunnelblick.net/to.php?to=https://btguard.com BTGuard]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.comodo.com/trustconnect/overview.html Comodo TrustConnect]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.RoadWarriorVPN.com Road Warrior VPN.com]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.secure-tunnel.com Secure-Tunnel]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.supervpn.net Super VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.goldenfrog.com/vyprvpn/vpn-service-provider VyprVPN]*
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-10-01.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-10-20.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
