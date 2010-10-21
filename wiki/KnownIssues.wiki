@@ -23,6 +23,8 @@ The following are known problems or limitations in Tunnelblick version 3.0:
 
   * If "Set nameserver" is checked, all "up" and "down" options in the OpenVPN configuration file will be ignored. To work around this, include appropriate parts of the standard up/down scripts in your own scripts and do not check "Set nameserver". (The reason for this is that OpenVPN's "down-pre" option cannot be used with the standard "Set nameserver" down script, but may be used by custom scripts, so the two scripts cannot be used together.)
 
+  * If a custom up or down script contains Windows line breaks (CR-LF), it cannot be executed on OS X. The OpenVPN log displayed in the "Details…" window will show an error message of "script failed: could not execute external program". You must remove the CR characters so the file has standard Unix line breaks (LF). This is an OS X limitation.
+
   * Updates will fail if the name of Tunnelblick is not "Tunnelblick" or "Tunnelblick.app". To avoid this, rename the application temporarily, perform the update, then restore the original name. (You must change the name of the application itself, not the name of an alias or shortcut to the application.)
 
   * Localization is not complete. We need additional translations to Catalan, Chinese (both simplified and traditional), Spanish, French, Korean, Japanese, and Norwegian (Norsk Bokmål). If you can help with these or any other languages, please contact [http://code.google.com/u/jkbullard/ Jon].
