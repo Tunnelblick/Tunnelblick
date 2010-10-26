@@ -95,9 +95,6 @@
 "Quit" = "离开"; 
 
 /* NEEDS TRANSLATION *//* Button */
-"Remove" = "Remove";
-
-/* NEEDS TRANSLATION *//* Button */
 "Replace" = "Replace";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -401,9 +398,6 @@
 "Private Configuration Folder is Open" = "Private Configuration Folder is Open";
 
 /* NEEDS TRANSLATION *//* Window title */
-"Remove kexts?" = "Remove kexts?";
-
-/* NEEDS TRANSLATION *//* Window title */
 "Replace Existing Configuration?" = "Replace Existing Configuration?";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -566,9 +560,6 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "多重并行连线将被建立(%1$d 条连线已'设定域名服务器', %2$d 条连线未'设定域名服务器')."; 
 
 /* NEEDS TRANSLATION *//* Window text */
-"One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?" = "One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?";
-
-/* NEEDS TRANSLATION *//* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -704,7 +695,7 @@
 "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was successfully replaced.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick was successfully replaced.\n\nDo you wish to launch Tunnelblick now?";
+"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?" = "Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
