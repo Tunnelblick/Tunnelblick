@@ -35,7 +35,7 @@ The following VPN service providers recommend or use Tunnelblick exclusively for
 
   * *[https://www.astrill.com/a3329ebd4 Astrill]* (Astrill contributes to Tunnelblick and you get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase if you use this link.)
 
-  * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]* (VyprVPN contributes to Tunnelblick if you use this link.)
+  * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&opt= VyprVPN]* (VyprVPN contributes to Tunnelblick if you use this link.)
 
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]*
