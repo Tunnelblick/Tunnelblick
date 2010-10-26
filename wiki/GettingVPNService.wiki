@@ -33,6 +33,8 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 
   * *[https://www.astrill.com/a3329ebd4 Astrill]* (Astrill contributes to Tunnelblick and you get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase if you use this link.)
 
+  * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]* (VyprVPN contributes to Tunnelblick if you use this link.)
+
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://btguard.com BTGuard]*
@@ -46,7 +48,6 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]*
-  * *[http://www.tunnelblick.net/to.php?to=https://www.goldenfrog.com/vyprvpn/vpn-service-provider VyprVPN]*
 
 If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-10-20.)
 
