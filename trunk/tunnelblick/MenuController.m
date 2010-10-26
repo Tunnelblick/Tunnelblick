@@ -2464,17 +2464,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         if (   (bitMask & FOO_TAP_KEXT)
             || (bitMask & FOO_TUN_KEXT)  ) {
-            int result = TBRunAlertPanelExtended(NSLocalizedString(@"Remove kexts?", @"Window title"),
-                                                 NSLocalizedString(@"One or both of the 'foo.tap' and 'foo.tun' system driver files (yes, those really are their names!) are loaded. They were used by older versions of Tunnelblick, and will interfere with Tunnelblick's operation.\n\nDo you wish to remove the foo.tap and/or foo.tun kexts?", @"Window text"),
-                                                 NSLocalizedString(@"Ignore", @"Button"),
-                                                 NSLocalizedString(@"Remove", @"Button"),
-                                                 nil,
-                                                 @"skipAskingToUnloadFooKexts",
-                                                 NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Checkbox name"),
-                                                 nil);
-            if (  result == NSAlertDefaultReturn  ) {
-                bitMask = bitMask & (  ~(FOO_TAP_KEXT | FOO_TUN_KEXT)  );
-            }
+            NSLog(@"Unloading foo.tap and/or foo.tun kexts");
         }
         
         if (  tapCount != 0  ) {
@@ -3501,7 +3491,7 @@ static void signal_handler(int signalNumber)
                 authorizationText = [NSString stringWithFormat:
                                      NSLocalizedString(@" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@", @"Window text"),
                                      previousVersion, applicationsDisplayName, appVersion, tblksMsg, changeLocationText];
-                launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.\n\nDo you wish to launch Tunnelblick now?", @"Window text");
+                launchWindowText = NSLocalizedString(@"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?", @"Window text");
         } else {
             authorizationText = [NSString stringWithFormat:
                                  NSLocalizedString(@" Do you wish to install %@ to %@%@?\n\n%@", @"Window text"),
