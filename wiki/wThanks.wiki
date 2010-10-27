@@ -46,6 +46,12 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Stefan Bethke    </td> 
+    <td>      Localization code tweaks
+    </td>
+  </tr>
+
+  <tr>
     <td>      Waldemar Brodkorb    </td>
     <td>      Contributed to early code    </td>
   </tr>
@@ -111,12 +117,6 @@ Tunnelblick is made possible by the efforts of many people:
     </td>
   </tr>
 
-  <tr>
-    <td>      Stefan Bethke    </td> 
-    <td>      Localization code tweaks
-    </td>
-  </tr>
-
  <tr>
     <td colspan="2">
 <font size="4"><strong>Localization</strong></font></td>
@@ -152,14 +152,14 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      French    </td>
   </tr>
 
-  <tr>
-    <td>      Kyoungmin Kim    </td>
-    <td>      Korean    </td>
-  </tr>
-
    <tr>
     <td>      'Dr Hok'    </td>
     <td>      German    </td>
+  </tr>
+
+  <tr>
+    <td>      Kyoungmin Kim    </td>
+    <td>      Korean    </td>
   </tr>
 
  <tr>
