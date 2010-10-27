@@ -1,7 +1,7 @@
 #summary Common Problems
 #sidebar wSb
 <wiki:toc max_depth="2" />
-==It's complicated!==
+===It's complicated!===
 OpenVPN is such a powerful tool with so many options, and computer configurations are so varied, that it is impossible to have an exhaustive troubleshooting guide. This guide is meant for the most common setups, so if it doesn't apply to your situation, or doesn't help, ask the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] or the [http://news.gmane.org/gmane.network.openvpn.user OpenVPN users mailing list] for help. 
 
 ==How can you tell if OpenVPN connected to the server properly?==
@@ -36,6 +36,9 @@ See [wConsoleLog The Console Log] for instructions on viewing the Console Log.
 This is usually caused by a problem with the private configuration folder. (Tunnelblick sets this up, but if you accidentally delete a critical file or folder, this could happen.) The Console log will contain details about the specific problem. See [wFileLocations File Locations] for information about how the files and folders should be set up.
 
 (See [wConsoleLog The Console Log] for instructions on viewing the Console Log.)
+
+==An error message says "You have tried to connect using a configuration file that is the same as the sample configuration file installed by Tunnelblick"==
+This means that you have tried to connect to a VPN without setting up a configuration file. Consult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file. For more information, see [wGettingVPNService Getting VPN Service].
 
 
 ==An OpenVPN log entry says "potential route subnet conflict"==
