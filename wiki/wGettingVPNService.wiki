@@ -37,11 +37,12 @@ The following VPN service providers recommend or use Tunnelblick exclusively for
 
   * *[http://btguard.com/?a=tunnelblick BTGuard]* (BTGuard contributes to Tunnelblick if you use this link.)
 
+  * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]* (Comodo contributes to Tunnelblick if you use this link.)
+
   * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]* (VyprVPN contributes to Tunnelblick if you use this link.)
 
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.comodo.com/trustconnect/overview.html Comodo TrustConnect]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.RoadWarriorVPN.com Road Warrior VPN.com]*
