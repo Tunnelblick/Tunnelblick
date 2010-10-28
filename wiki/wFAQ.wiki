@@ -4,13 +4,13 @@
 <wiki:toc max_depth="2" />
 
 ==What is Tunnelblick?==
-  * *Explanation 1*: Tunnelblick is a program that can be used to securely connect a Mac running OS X to a remote network or the Internet, bypassing untrusted networks, censorship, and eavesdropping. It does this by creating a "Virtual Private Network", or "[http://en.wiktionary.org/wiki/Virtual_Private_Network VPN] `[`wiktionary.org`]`", to a VPN server using a program named "OpenVPN", which is included within the Tunnelblick application. When you connect through a VPN, your computer sends all network traffic through a "tunnel" to the VPN server, which then passes on your network traffic to a local network or the Internet. It is as if you were connecting to the network or Internet through the VPN server instead of your computer. Usually, all traffic between your computer and the VPN server is encrypted.
+  * *Explanation 1*: Tunnelblick is a program that can be used to securely connect a Mac running OS X to a remote network or the Internet, bypassing untrusted networks, censorship, and eavesdropping. It does this by creating a "Virtual Private Network", or "[http://en.wiktionary.org/wiki/Virtual_Private_Network VPN] `[`wiktionary.org`]`", to a VPN server using a program named "OpenVPN", which is included within the Tunnelblick application. When you connect through a VPN, your computer sends all network traffic through a "tunnel" to the VPN server, which then passes on your network traffic to a local network or the Internet. It is as if you were connecting to the network or Internet through the VPN server instead of your computer. All traffic between your computer and the VPN server is encrypted.
 
   VPNs are primarily used two ways, or sometimes both ways simultaneously:
     * To securely connect a computer to the Internet, even though it may be connecting through an untrusted network (a wireless network at a hotel or airport, for example); and
     * To securely connect a computer to a company's internal network or some part of it (a branch office, for example).
 
-  In addition to Tunnelblick, you need access to a VPN server. Your company may provide one, or you can obtain VPN service from any of several VPN service providers, or you can use another one of your computers or a router to act as a VPN server.
+  In addition to Tunnelblick, you need access to a VPN server. Your company may provide one, or you can obtain VPN service from any of several VPN service providers, or you can use another one of your computers or a router to act as a VPN server. See [wGettingVPNService Getting VPN Service] for details.
 
   * *Explanation 2*: Tunnelblick is a ready-to-use Graphic User Interface (GUI) for OpenVPN on Mac OS X. It provides easy-to-use control of OpenVPN server and/or client connections.
 
@@ -19,17 +19,28 @@
   Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
 ==Where is the documentation?==
-The Tunnelblick disk image includes an HTML document, "Using Tunnelblick", which provides extensive documentation on installing and using Tunnelblick. The most recent version of that document and several other documents are available in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
+The Tunnelblick disk image includes a link to the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
 
-==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Intel? PowerPC?==
+==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Panther? Intel? PowerPC?==
 Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
 
+Panther requires a very old version, [http://tunnelblick.googlecode.com/files/Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.0.1].
+
 ==What else do I need?==
-You need a VPN server to connect to. It could be a server at your company or at a VPN service provider, or it could be a VPN that you have set up yourself at home. (Search the Internet for "vpn service provider".)
+You need a VPN server to connect to. It could be a server at your company or at a VPN service provider, or it could be a VPN that you have set up yourself at home. See [wGettingVPNService Getting VPN Service] for details.
 
 What else you need depends on your situation:
   * If you have a "deployed" version of Tunnelblick (usually from a company or VPN service provider), you may not need anything else -- everything is usually included in the customized version of the Tunnelblick application that is distributed.
   * Otherwise, you need either a "configuration file" or enough information about the VPN to edit the sample configuration file that Tunnelblick will offer to install. You will probably also need certificate and key files for encryption. Your company or VPN service provider should provide them.
+
+==How do I know the VPN is working?==
+Tunnelblick indicates that the VPN is connected by showing the "open" tunnel in your menu bar (usually near the Spotlight icon).
+
+http://tunnelblick.googlecode.com/files/using-tunnelblick-open-2010-02-04.png
+
+But whether all traffic will be directed through the VPN depends on the settings in the OpenVPN configuration file. If the "redirect-gateway def1" option appears, then all traffic should go through the VPN.
+
+An easy way to check if web traffic is going through the VPN is to go to http://whatismyipaddress.com -- it should give the IP address of the OpenVPN server, not the address of your (OpenVPN client) computer. If it doesn't, then add the "redirect-gateway def1" option to your OpenVPN configuration file.
 
 ==How do I verify a download's SHA-1 checksum?==
 To get the "SHA-1" checksum of a file, use the following command in Terminal:
@@ -44,7 +55,7 @@ For example:
 }}}
 
 ==Where can I get old versions of Tunnelblick?==
-Older versions of Tunnelblick are available on the Downloads page, but they are hidden by default. On the Downloads page, select "Deprecated downloads" in the drop-down list next to "Search", then click the "Search" button. A list of all old versions of Tunnelblick will be displayed. (Ignore the files with names starting with "using-tunnelblick".)
+All available versions of Tunnelblick are available on the [DownloadsEntry Downloads] page.
 
 ==What is a "deployed" version of Tunnelblick?==
 A "deployed" version of Tunnelblick is a customized version of the program, which includes everything you need to connect to a VPN: the program itself, configuration file(s), and key and certificate files for encryption.
@@ -54,29 +65,31 @@ If you download Tunnelblick from [http://code.google.com/p/tunnelblick/ this web
 See the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick wiki] for detailed information about deployed versions of Tunnelblick.
 
 ==How do I install Tunnelblick?==
-Download the latest disk image from the featured downloads section on the [http://code.google.com/p/tunnelblick/ Tunnelblick project page]. Double-click it and a window will open with the Tunnelblick icon and the words "Double-click to begin". Double-click the Tunnelblick icon and you will be guided through the process of copying Tunnelblick to your Applications folder.  Reinstalls, upgrades, and downgrades will be recognized and the old version of the program is moved to the Trash before installing the new version.
+Download the latest disk image. Double-click it and a window will open with the Tunnelblick icon and the words "Double-click to begin". Double-click the Tunnelblick icon and you will be guided through the process of copying Tunnelblick to your Applications folder.  Reinstalls, upgrades, and downgrades will be recognized and the old version of the program is moved to the Trash before installing the new version.
 
-More detailed instructions are in the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki].
+More detailed instructions are in the [wInstall Installing Tunnelblick] wiki.
 
 ==I've installed Tunnelblick. Now what?==
 Start Tunnelblick by double-clicking it in Applications. It will step you through the process of setting up configuration files. When Tunnelblick is running, it will display the Tunnelblick icon in the status bar at the top of the screen on the right. Usually, the icon is located immediately between the time display and the Spotlight icon.
-Click on the Tunnelblick icon to reveal the Tunnelblick menu, then click on a configuration to connect using it, or click on "Details…" for a window with a tab and details for each configuration.
+Click on the Tunnelblick icon to reveal the Tunnelblick menu, then click on a configuration to connect using it, or click on "Details…" for a window with details for each configuration.
 
 ==How do I uninstall Tunnelblick?==
-Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files (see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for more information on these files). The tun/tap kernel extensions are contained within the .app package and are loaded only when needed directly from there.
+Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files. Tunnelblick may also have saved credentials in your Keychain. See [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick] for details.
 
 ==How do I update Tunnelblick?==
-Each time Tunnelblick is launched, it checks for updates automatically (if that was specified when Tunnelblick was installed) and displays a notice that an update is available.
+Each time Tunnelblick is launched, it checks for updates automatically (if that was specified when Tunnelblick was installed) and displays a notice that an update is available. (It also checks every week if it is running for more than a week.)
 
 (Note: Due to a bug in older versions of Tunnelblick, update notices are sometimes not visible. For versions of Tunnelblick earlier than 3.0b16, the user must display the "Details..." window and click in that window for the popup window to appear. For versions of Tunnelblick earlier than 3.0b24, the user must display the "Details..." window for the popup window to appear. For version 3.0b24 and later, update notices will be visible without any user action.)
 
-If automatic checking for updates is not enabled, there are two ways to update Tunnelblick manually:
+If automatic checking for updates is not enabled, there are three ways to update Tunnelblick manually:
 
-_Whichever method you chose, you will need and administrator username/password the first time a new copy of Tunnelblick is run._ All configurations and preferences will be used by the new version (even if it is a "deployed" version).
+_Whichever method you chose, you will need an administrator username/password the first time a new copy of Tunnelblick is run._ All configurations and preferences will be used by the new version (even if it is a "deployed" version).
 
   * You can update to the latest _stable_ version of Tunnelblick by starting Tunnelblick, selecting "Options…" from the Tunnelbilck menu, then selecting "Check for Updates Now". If an update is available, you will be guided through the update process. If you install an update, your old version will be moved to the Trash.
 
-  *If you are feeling a bit more adventurous, go to the [http://code.google.com/p/tunnelblick/downloads/list Tunnelblick Downloads page] and download a beta (experimental) version. Then follow the "[How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
+  * If you don't see an "Options…" menu selection, you are using a very old version of Tunnelblick. You'll need to download the version you wish to use (stable or beta) and follow the "[How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
+
+  * If you are feeling a bit more adventurous, go to the [http://code.google.com/p/tunnelblick/downloads/list Tunnelblick Downloads page] and download a beta (experimental) version. Then follow the "[How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
 
 ==Why does Tunnelblick need root privileges?==
 Tunnelblick needs root privileges the first time it is run for two reasons:
