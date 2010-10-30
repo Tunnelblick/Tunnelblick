@@ -1,6 +1,4 @@
-#summary Make a Donation with PayPal
-
-<a href="Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal" /></a>
+<a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal" /></a>
 
 
 
