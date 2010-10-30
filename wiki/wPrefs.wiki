@@ -13,10 +13,10 @@ When using a [wPkgs Tunnelblick VPN Configuration], it may contain preferences i
 Note: some preferences are stored as the opposite of the state of the corresponding check box: For example, the *_config-name_-notMonitoringConnection* preference is the opposite of the "Monitor Connection" check box
 
 ==Preferences in the "Options…" Submenu==
-Three preferences may be set or cleared by the user via the "Options…" submenu. See *placeIconInStandardPositionInStatusBar* and *doNotMonitorConfigurationFolder* in [Preferences_That_Control_What_Tunnelblick_Does Preferences That Control What Tunnelblick Does] and *updateCheckAutomatically* in [Preferences_That_Control_Updates Preferences That Control Updates]
+Three preferences may be set or cleared by the user via the "Options…" submenu. See *placeIconInStandardPositionInStatusBar* and *doNotMonitorConfigurationFolder* in [#Preferences_That_Control_What_Tunnelblick_Does Preferences That Control What Tunnelblick Does] and *updateCheckAutomatically* in [#Preferences_That_Control_Updates Preferences That Control Updates]
 
 ==Preferences in the "Details…"==
-Three preferences may be set or cleared by the user via check boxes on the "Details…" window tab for each configuration. See [Per-Configuration_Preferences Per-Configuration Preferences].
+Three preferences may be set or cleared by the user via check boxes on the "Details…" window tab for each configuration. See [#Per-Configuration_Preferences Per-Configuration Preferences].
 
 ==Modifying Preferences That are Not in the "Options…" Submenu or the "Details…"==
 All other preferences can be modified by
