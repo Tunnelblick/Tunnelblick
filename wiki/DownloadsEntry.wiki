@@ -1,5 +1,5 @@
 #summary Entry page for Downloads
-<font size="5">Downloads</font>
+<font size="5">*Downloads*</font>
 <wiki:toc max_depth="2" />
 <br>
 ==Stable Releases==
