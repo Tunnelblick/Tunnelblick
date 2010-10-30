@@ -1,10 +1,22 @@
-<a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal" /></a>
+<img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal" />
 
+*Tunnelblick is a free program, but donations are gratefully accepted!*
 
+*Donate with !PayPal or a major credit or debit card.*
 
 <table>
   <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=5.00">
-      <img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="Make a donation with PayPal - it's fast and secure!" /></a> <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=5.00">Make a $US 5 donation</a>
-   
- </td></tr>
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=5.00">*Donate $5 USD*</a>
+  </td></tr>
+  <tr><td valign="middle">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=10.00">*Donate $10 USD*</a>
+  </td></tr>
+  <tr><td valign="middle">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=25.00">*Donate $25 USD*</a>
+  </td></tr>
+  <tr><td valign="middle">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=0.00">*Donate an amount of your choice*</a> (any amount is appreciated)
+  </td></tr>
+</table>
+
+<h2>Thank you!</h2>
