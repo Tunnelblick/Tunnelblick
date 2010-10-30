@@ -215,7 +215,8 @@ int main(int argc, char* argv[])
 				"               to terminate the 'openvpn' process with the specified processID\n\n"
                 
 				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  ]  ]  ]  ]  ]\n\n"
-				"               to load tun.kext and tap.kext and start OpenVPN with the specified configuration file and options.\n\n"
+				"               to load the net.tunnelblick.tun and/or net.tunnelblick.tap kexts and start OpenVPN with the specified configuration file and options.\n"
+                "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
 				
 				"./openvpnstart postDisconnect  configName  cfgLocCode\n\n"
 				"               to run the post-disconnect.sh script inside a .tblk.\n\n"
@@ -663,6 +664,18 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 exit(233);
             }
         }
+    }
+
+    // Unload foo.tap and/or foo.tun if we load our tap and/or tun
+    unsigned int unloadMask = 0;
+    if (  bitMask & OUR_TAP_KEXT) {
+        unloadMask = FOO_TAP_KEXT;
+    }
+    if (  bitMask & OUR_TUN_KEXT) {
+        unloadMask = unloadMask | FOO_TUN_KEXT;
+    }
+    if (  unloadMask  ) {
+        unloadKexts( unloadMask );
     }
     
     loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );

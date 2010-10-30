@@ -2451,22 +2451,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }    
     
-// Unloads loaded tun/tap kexts if tunCount/tapCount is zero.
-// If fooOnly is TRUE, only the foo tun/tap kexts will be unloaded (if they are loaded, and without reference to the tunCount/tapCount)
--(void) unloadKextsFooOnly: (BOOL) fooOnly 
+// Unloads our loaded tun/tap kexts if tunCount/tapCount is zero.
+-(void) unloadKexts
 {
-    int bitMask = [self getLoadedKextsMask];
+    int bitMask = [self getLoadedKextsMask] & ( ~ (FOO_TAP_KEXT | FOO_TUN_KEXT)  );
     
-    if (  fooOnly  ) {
-        bitMask = bitMask & (FOO_TAP_KEXT | FOO_TUN_KEXT);
-    }
     if (  bitMask != 0  ) {
-        
-        if (   (bitMask & FOO_TAP_KEXT)
-            || (bitMask & FOO_TUN_KEXT)  ) {
-            NSLog(@"Unloading foo.tap and/or foo.tun kexts");
-        }
-        
         if (  tapCount != 0  ) {
             bitMask = bitMask & ( ~OUR_TAP_KEXT);
         }
@@ -2636,7 +2626,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
 	[NSApp callDelegateOnNetworkChange: NO];
     [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
-    [self unloadKextsFooOnly: NO];     // Unload .tun and .tap kexts
+    [self unloadKexts];     // Unload .tun and .tap kexts
 	if (  statusItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
     }
@@ -3047,8 +3037,6 @@ static void signal_handler(int signalNumber)
     
     AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
     myAuth = nil;
-    
-    [self unloadKextsFooOnly: YES];
     
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {

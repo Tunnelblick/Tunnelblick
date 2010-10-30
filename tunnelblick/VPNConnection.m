@@ -966,7 +966,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [[NSApp delegate] decrementTunCount];
         connectedWithTun = FALSE;
     }
-    [[NSApp delegate] unloadKextsFooOnly: NO];
+    [[NSApp delegate] unloadKexts];
     
     // Run the post-disconnect script, if any
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {

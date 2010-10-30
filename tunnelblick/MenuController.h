@@ -188,7 +188,7 @@ BOOL needToRepairPackages(void);
 -(BOOL)             runInstallerWithArguments:              (NSArray *)         arguments
                                 authorization:              (AuthorizationRef)  authRef;
 -(void)             setState:                               (NSString *)        newState;
--(void)             unloadKextsFooOnly:                     (BOOL)              fooOnly; 
+-(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
 
 // Getters and Setters
