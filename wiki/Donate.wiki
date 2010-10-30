@@ -1,5 +1,3 @@
-<img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate with PayPal" />
-
 *Tunnelblick is a free program, but donations are gratefully accepted!*
 
 *Donate with !PayPal or a major credit or debit card.*
