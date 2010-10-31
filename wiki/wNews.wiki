@@ -5,6 +5,12 @@
 
 --------------------
 
+2010-10-31: *Tunnelblick 3.1beta20 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta20.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+  * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [wPrefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".
+
+--------------------
+
 2010-10-16: *Tunnelblick 3.1beta18 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta18.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
   * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
