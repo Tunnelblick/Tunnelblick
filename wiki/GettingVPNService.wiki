@@ -31,7 +31,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 
   * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]*
 
-  * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible Browsing VPN]*
+  * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
 
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
  
