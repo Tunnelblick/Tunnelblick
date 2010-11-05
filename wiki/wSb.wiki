@@ -15,6 +15,7 @@
     [wGettingVPNService Getting VPN Service]<br>
     [wQuick Quick start guide]<br>
     [wHowHelp How you can help]<br>
+    [wFAQ FAQ]<br>
 *Installation, Setup, and Usage*
     [wInstall Installing Tunnelblick]<br>
     [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
