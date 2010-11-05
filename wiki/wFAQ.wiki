@@ -42,6 +42,9 @@ But whether all traffic will be directed through the VPN depends on the settings
 
 An easy way to check if web traffic is going through the VPN is to go to http://whatismyipaddress.com -- it should give the IP address of the OpenVPN server, not the address of your (OpenVPN client) computer. If it doesn't, then add the "redirect-gateway def1" option to your OpenVPN configuration file.
 
+==What if the Internet doesn't work after I make a connection?==
+See [wConnectedBut Connects to the VPN, but doesn't work].
+
 ==How do I verify a download's SHA-1 checksum?==
 To get the "SHA-1" checksum of a file, use the following command in Terminal:
 
