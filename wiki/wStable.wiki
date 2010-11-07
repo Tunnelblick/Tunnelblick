@@ -7,6 +7,6 @@ The most recent stable release for Mac OS X 10.4 and up is [http://code.google.c
 
 For Mac OS X 10.3 ("Panther"), the only release available is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.0.1].
 
-All available releases may be found on the [Downloads Downloads page].
+All available releases may be found on the [DownloadsEntry Downloads page].
 
-Cumulative [wReleaseNotes Release Notes] describe changes for all versions.
+Cumulative [wRlsNotes Release Notes] describe changes for all versions.
