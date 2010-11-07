@@ -93,7 +93,7 @@ The "Details…" window allows you to control several preferences for each confi
 
 For more details on "Set nameserver" see the following section.
 
-There are many other preferences that control Tunnelblick's behavior. See  the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].
+There are many other preferences that control Tunnelblick's behavior. See [Preferences Preferences].
 
 ==The "Set Nameserver" Check Box and DNS & WINS Settings==
 If you are using DHCP, wish to use DNS and WINS servers at the far end of the tunnel when connected, and the VPN server you are connecting to "pushes" DNS and WINS settings to your client, select "Set nameserver". (This is the situation for most users.)

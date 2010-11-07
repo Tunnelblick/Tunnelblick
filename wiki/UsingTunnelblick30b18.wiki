@@ -9,7 +9,7 @@ For more information, including wikis and a discussion group, see the [http://co
 This document describes how to use Tunnelblick version 3.0b18.
 
 *This document may be obsolete!* The latest versions of this document and related documents including release notes, FAQ, and instructions 
-for building Tunnelblick from the source code may be found in the [http://code.google.com/p/tunnelblick/w/list Tunnelblick Wiki].
+for building Tunnelblick from the source code may be found in the [Documentation Tunnelblick Documentation].
 
 This document contains the following sections:
 

@@ -2,10 +2,10 @@
 #sidebar xSb
 
 <hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg&can=1 Download Tunnelblick 3.0]*</font>
+<font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
 <hr>
 
-This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.0. For more details or changes from other versions to Tunnelblick 3.0, see the [http://code.google.com/p/tunnelblick/wiki/ReleaseNotes Tunnelblick Release Notes].
+This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.0. For more details or changes from other versions to Tunnelblick 3.0, see the [ReleaseNotes Tunnelblick Release Notes].
 
 ==Better Security==
   * Includes the latest stable version of OpenVPN.
@@ -41,7 +41,7 @@ This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.
   * Partial translations for Catalan, Chinese (both simplified and traditional), Spanish, French, and Korean. Thanks to Aleix Dorca, Aming Lau, Diego Rivera, Oliver Hill, and Kyoungmin Kim, respectively.
 
 <hr>
-<font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg&can=1 Download Tunnelblick 3.0]*</font>
+<font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*</font>
 <hr>
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===

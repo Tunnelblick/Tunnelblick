@@ -31,4 +31,4 @@
   
   If there is no version information, it is Tunnelblick version 3.0b9 or earlier.
 
-*[http://code.google.com/p/tunnelblick/w/list?can=1 All Documentation (unorganized list)]*
+*[http://code.google.com/p/tunnelblick/w/list All Documentation (unorganized list)]*

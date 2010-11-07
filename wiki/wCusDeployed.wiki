@@ -10,7 +10,7 @@ A deployed version of Tunnelblick is a customized version of `Tunnelblick.app` w
 
 A Deployed version can specify additional commands and submenus to be added to the Tunnelblick menu, including specific programs to be run when a menu item is chosen. A Deployed version can also specify programs to be run at the end of the Tunnelblick launch process and/or before a connection is attempted. These features are described in "[Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs].
 
-If you want information about _using_ Tunnelblick, see the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick wiki] or ask a question in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+If you want information about _using_ Tunnelblick, see [UsingTunnelblick Using Tunnelblick] or ask a question in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
 ==How it Works==
 You create a deployed version of Tunnelblick by putting a "Deploy" folder into the `Contents/Resources` folder of `Tunnelblick.app`. `Deploy` can contain any one or a combination of configuration files, certificate and key files, up/down scripts, and a "forced-preferences.plist" file. Since `Deploy` and its contents can not be modified by a non-administrator user, this is a secure way to ensure that your users do not tamper with any settings that you wish to protect.
@@ -21,7 +21,7 @@ If `Contents/Resources/Deploy` exists, Tunnelblick's behavior changes:
   Note: if configuration files are not in `Deploy`, their names may be changed by an unprivileged user. Any forced preferences for a configuration whose name has been changed will be ignored, because the forced preferences will be referring to the original configuration name.
   * If `Deploy` contains certificate and key files, those files can be referenced from configuration files by using the name of the file (i.e., no path need be given).
   * If `Deploy` contains up/down scripts with specific names (see [#Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is selected, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
-  * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
+  * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See[Preferences Preferences] for a list of all preferences.
   * If `Deploy` contains a "Menu" folder, Tunnelblick will add entries in it to the Tunnelblick menu and/or use entries in it to run programs (see  [#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs].
  
 Certificate and key files may usually be referenced within a configuration file without path information:
@@ -173,7 +173,7 @@ There are two *exceptions* to the way forced preferences work:
   * All forced preferences with a key beginning with "SU" are ignored. These preferences are used privately by Sparkle Updater (which Tunnelblick uses to update itself), and should not be used. Tunnelblick provides preferences (which can be forced) which control the update process and override these Sparkle preferences.
   * Forcing the _config-name_-keychainHasPrivateKey and _config-name_-keychainHasUsernameAndPassword preferences -- regardless of value -- prevent the user from storing or using passphrases, usernames, or passwords for that configuration in the Keychain. Dialog boxes will not include a "Save to Keychain" checkbox, and any passphrases, usernames, and passwords in the Keychain will be ignored.
 
-See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki] for a list of all preferences.
+See[Preferences Preferences] for a list of all preferences.
 
 ==Up and Down Scripts==
 If "Set nameserver" is selected, `Tunnelblick.app` starts OpenVPN with the "--up" and "--down" options specifying scripts to be run after the tunnel is established and before it is torn down. The standard scripts are `Contents/Resources/client.up.osx.sh` and `Contents/Resources/client.down.osx.sh` if "Monitor connection" is checked, and `Contents/Resources/client.nomonitor.up.osx.sh` and `Contents/Resources/client.nomonitor.down.osx.sh` if "Monitor connection" is not checked.

@@ -375,7 +375,7 @@
 
 ==3.0b28 (2010-02-24)==
 
-  * Wildcards for forced preferences (see the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick wiki]).
+  * Wildcards for forced preferences (see [DeployingTunnelblick Deploying Tunnelblick]).
   * Displays configuration name in title of "Details…" window.
   * Inserts full command line used for starting OpenVPN into the "Details…" window.
   * Full German localization. Many thanks to Markus Schneider.
@@ -395,7 +395,7 @@
   * Fixes problem editing configuration files on Tiger and Leopard by allowing non-admin users (without an administrator username/password) to unprotect the configuration file before invoking `TextEdit`. This ability can be disabled with the 'onlyAdminsCanUnprotectConfigurationFiles' preference. On Snow Leopard (which automatically unprotects files when they are modified), warns user that an administrator username/password will be required to connect if the configuration file is modified. Note: The 'Edit Configuration' button may be still disabled with a per-configuration  preference.
   * Enhancements: Displays command line used to launch 'openvpnstart' in the "Details…" window. Detects and gives a detailed error message if a configuration file is identical to the sample provided by Tunnelblick. Creates a "Launch Tunnelblick" link in the Configurations folder. Localizes paths that are displayed to the user -- for example, in French (FR), 'Library' becomes 'Bibliothèque'. Detects, complains, and quits if not running on OS X 10.4 ("Tiger") or above. Added Quick Start Guide to disk image.
   * Bug fixes: Fixes bug that caused crashes when started automatically on login on some versions of Leopard and Snow Leopard. Fixes bug that didn't localize the title for the "Details…" window. Fixes bug that displayed 'monitoring connection' when 'Set nameserver' is not checked. Fixes bug opening wrong copy of sample configuration file in `TextEdit`. Fixes bug that tries to to create Configurations folder when not necessary. Fixes bug that tried to create configuration file in Deploy. Fixes typo in dialog for remote home folders. Fixes sporadic failure to detect multiple simultaneous connections.
-  * Known Issues: See the [http://code.google.com/p/tunnelblick/wiki/KnownIssues Known Issues wiki].
+  * Known Issues: See the [KnownIssues Known Issues wiki].
 
 --------------------
 
@@ -424,7 +424,7 @@
   * Bug fixes: Fixes bug that sometimes caused authentication failures with usernames or passwords longer than 12 characters. Fixes bug that sometimes caused the 'Retry' button to be interpreted as 'Cancel' in the Authentication Failed dialog. Fixes bug that caused a connection attempt to fail with a 'script failed: could not execute external program' error if 'Set nameserver' is checked and there is a space character in the name of Tunnelblick.app or in the path to it. Fixes bug that caused 'Get Info' of Tunnelblick.app to show incorrect copyright information. Fixes bug that often caused loss of last few lines of OpenVPN Log before disconnecting. Fixes bug that sometimes caused problems restoring connections when awakening from sleep. Fixes bug that sometimes caused the Sparkle updater window to not appear on Snow Leopard. Fixes inconsistent logging of ownership/permissions repairs. Fixes bug that caused Tunnelblick to check for updates at launch even though preference to do so was cleared, not set. Fixes bug that ignored forced-preferences.plist when there was no configuration files in Deploy. Fixes bug with configuration files that are actually symbolic links. Fixes bug that didn't verify that ownership/permissions on Deploy contents copied correctly to backup. Complains with specific message in Console log if a configuration file needs repair but is locked. Fixes problems when a configuration file is a link.
 
 Known Issues:
-  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick the "Using Tunnelblick" wiki] for details.
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
   * Localization is not complete.
 
 --------------------
@@ -435,12 +435,12 @@ Known Issues:
   * Stores username in Keychain instead of preferences.
   * Stores shadow copies of configuration files in /Library/Application Support/Tunnelblick/Users/_username_ instead of /Library/Tunnelblick/_username_.
   * Bug fixes: Fixes bugs that interfere with storage or retrieval of usernames and passwords. Adds new configs to "Details…" window when it has been opened but is currently closed. Clears "Automatically launch Tunnelblick upon login" for error exits. Clean exit if 'running from .dmg' error. Fixes several memory and CF leaks. Fixes bug that caused attempt to kill openvpn process that had already been killed. Fixes potential problem detecting locked configuration files during shadow copying. Installer detects and reports errors making ownership and permission modifications.
-  * Enhancement: Creates openvpn-down-root.so and puts a copy of it in Tunnelblick.app/Contents/Resources, allowing use of OpenVPN 'user' and 'group' options by adding a line to the configuration file. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick Using Tunnelblick] wiki for details.
-  * Deployment enhancements: Several changes have been made which make it easy to create a customized version of Tunnelblick that can easily be deployed to multiple clients or installed once for all users of a computer. Configuration, key, and certificate files and up/down scripts can be put into a Deploy folder within Tunnelblick.app, and Tunnelblick will use them instead of using files in ~/Library/openvpn. These files are read-only, and, combined with read-only preference overrides, can create a tamper-proof application. Such deployed applications may be updated via the automatic update mechanism without losing the configuration information. Detailed information is available in the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick] wiki.
+  * Enhancement: Creates openvpn-down-root.so and puts a copy of it in Tunnelblick.app/Contents/Resources, allowing use of OpenVPN 'user' and 'group' options by adding a line to the configuration file. See[UsingTunnelblick Using Tunnelblick] for details.
+  * Deployment enhancements: Several changes have been made which make it easy to create a customized version of Tunnelblick that can easily be deployed to multiple clients or installed once for all users of a computer. Configuration, key, and certificate files and up/down scripts can be put into a Deploy folder within Tunnelblick.app, and Tunnelblick will use them instead of using files in ~/Library/openvpn. These files are read-only, and, combined with read-only preference overrides, can create a tamper-proof application. Such deployed applications may be updated via the automatic update mechanism without losing the configuration information. Detailed information is available in [DeployingTunnelblick Deploying Tunnelblick].
   * Other enhancements: Clarifies language in a few places. Adds a specific error message if unrecoverable error. Warns if all config files removed and gives a choice of quitting or installing and editing a sample config file. Warns if zero-length passphrase, username, or password. Adds Tunnelblick icon and the configuration name to all applicable dialog windows. Puts dialogs on top of other windows. 
 
 Known Issues:
-  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick "Using Tunnelblick" wiki] for details.
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
   * Localization is not complete.
 
 --------------------
@@ -455,7 +455,7 @@ Known Issues:
   * Does not work under Snow Leopard when booted into 64-bit mode. (Works when booted into 32-bit mode.)
   * The "--redirect-gateway" OpenVPN option fails silently, causing incorrect routing, if no flags are specified (which is a syntax error). Previously, a flag of "def1" was assumed.
   * Localization is not complete.
-  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick "Using Tunnelblick" wiki] for details.
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
 
 --------------------
 
@@ -481,7 +481,7 @@ Known Issues:
   * Does not work under Snow Leopard when booted into 64-bit mode. (Works when booted into 32-bit mode.)
   * The "--redirect-gateway" OpenVPN option fails silently, causing incorrect routing, if no flags are specified (which is a syntax error). Previously, a flag of "def1" was assumed.
   * Localization is not complete for French, German, Japanese, Korean, Norwegian, or Spanish.
-  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See the [http://code.google.com/p/tunnelblick/wiki/UsingTunnelblick "Using Tunnelblick" wiki] for details.
+  * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
 
 --------------------
 

@@ -28,7 +28,7 @@
     * If any unknown OpenVPN processes are running a few seconds after Tunnelblick is launched (i.e., after it has 'hooked up' to ones it started because of the 'when the computer starts' option), it pops up a window which gives the user the option to terminate them or ignore them. A checkbox in the window allows the user to 'Do not display this message again, always ignore'. There is a preference, 'hookupTimeout' that is the number of seconds to try, with a default of five seconds.
     * Note that these 'when the computer starts' configurations must not ask for usernames, passwords, or private keys. (There is no user to ask, and no Tunnelblick to pull them out of the Keychain and give to OpenVPN.)
 
- * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see http://code.google.com/p/tunnelblick/wiki/PackagesProposal for details):
+ * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see PackagesProposal for details):
 
     * A Tunnelblick VPN Configuration is an OS X folder with an extension of '.tblk'.
 

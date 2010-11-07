@@ -1,6 +1,6 @@
 Before *posting a new* Issue, please
 
-  * Take a look at the [KnownIssues Known Issues wiki] for the stable release or [wKnown Known Issues] and [wCommonProblems Common Problems] for a Beta release.
+  * Take a look at [KnownIssues Known Issues] for the stable release or [wKnown Known Issues] and [wCommonProblems Common Problems] for a Beta release.
 
   * Discuss the problem in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]. More people monitor the discussion group and you will probably receive help more quickly there than if you post an Issue.
 

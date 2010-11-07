@@ -111,7 +111,7 @@ When the Tunnelblick menu is displayed, if you hover over "Options", the Options
 
 http://tunnelblick.googlecode.com/files/using-tunnelblick-options-menu-2010-02-06.png
 
-Click on an item in the Options Submenu to change a preference, check for updates, or display the "About" window. For more details on preferences, see the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].
+Click on an item in the Options Submenu to change a preference, check for updates, or display the "About" window. For more details on preferences, see [Preferences Preferences].
 
 Some deployed versions of Tunnelblick do not display the Options Submenu (it is controlled by a preference), in which case the "Options" menu item is replaced by "About Tunnelblick..."
 
@@ -213,7 +213,7 @@ Example: If using a "deployed" version of Tunnelblick:
     plugin ../openvpn-down-root.so    ../client.down.osx.sh
 }}}
 ==Preferences==
-See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].
+See [Preferences Preferences].
 
 ==Uninstalling Tunnelblick==
 To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash. Other than the preferences and configuration files described in "File Locations", there are no other files installed -- OpenVPN, the tun/tap kernel extensions, and up/down scripts are contained within the Tunnelblick.app package and are loaded only when needed directly from there. Tunnelblick may store passphrases or passwords in the Keychain at the user's request.
@@ -221,18 +221,18 @@ To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to t
 ==Configuration Files==
 Each tunnel to be opened by Tunnelblick needs an OpenVPN configuration file. Tunnelblick considers any file located in ~/Library/Application Support/Tunnelblick/Configurations with an extension of .conf or .ovpn to be a configuration file, and presents each such file as a potential "connection”. (The "~" refers to your home folder.) Often these configuration files will be supplied to you. Refer to [http://openvpn.net/index.php/open-source/documentation/manuals/69-openvpn-21.html the OpenVPN documentation] for details about what the configuration file should contain. (Note that some OpenVPN options are available only on Windows.)
 
-When using a "deployed" version of Tunnelblick, configuration files are all located within the Tunnelblick application itself, so ~/Library/Application Support/Tunnelblick/Configurations is not used for configuration files (although it may be used for keys, certificates, and/or shell scripts). See the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick] wiki for details.
+When using a "deployed" version of Tunnelblick, configuration files are all located within the Tunnelblick application itself, so ~/Library/Application Support/Tunnelblick/Configurations is not used for configuration files (although it may be used for keys, certificates, and/or shell scripts). See [DeployingTunnelblick Deploying Tunnelblick] for details.
 
-Tunnelblick monitors the folder that contains the configuration files. If a configuration file is added, the new configuration is available immediately without restarting Tunnelblick or disturbing existing connections. If a  configuration is removed from the folder, any connection using that configuration is immediately disconnected. To disable this behavior, use "doNotMonitorConfigurationFolder". (See the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].)
+Tunnelblick monitors the folder that contains the configuration files. If a configuration file is added, the new configuration is available immediately without restarting Tunnelblick or disturbing existing connections. If a  configuration is removed from the folder, any connection using that configuration is immediately disconnected. To disable this behavior, use "doNotMonitorConfigurationFolder". (See [Preferences Preferences].)
 
-The configuration file may also be "shadow" copied to the /Library/Application Support Tunnelblick/Users/_username_ folder. This is done transparently for configuration files located on network volumes. The user should never manipulate this folder or its contents directly; Tunnelblick will do so automatically. (See "useShadowConfigurationFiles" in the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].)
+The configuration file may also be "shadow" copied to the /Library/Application Support Tunnelblick/Users/_username_ folder. This is done transparently for configuration files located on network volumes. The user should never manipulate this folder or its contents directly; Tunnelblick will do so automatically. (See "useShadowConfigurationFiles" in [Preferences Preferences].)
 
 If Tunnelblick's "Set nameserver” option is used:
     * Any "up” or "down” options in the configuration file will be ignored.
     * If any "user” or "group” options appear in the configuration file, DNS settings will not be restored when a tunnel is disconnected.
 
 ==File Locations==
-Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates your home folder.) Deployed versions of Tunnelblick may contain a "forced-preferences.plist" file within the Tunnelblick application itself; see the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick] wiki for details.
+Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates your home folder.) Deployed versions of Tunnelblick may contain a "forced-preferences.plist" file within the Tunnelblick application itself; see [DeployingTunnelblick Deploying Tunnelblick] for details.
 
 OpenVPN configuration files are stored in ~/Library/Application Support/Tunnelblick/Configurations. Usually the key and certificate files are stored there, too. Since these files are all located in the user's Library folder, they must be set up separately for each user.
 
@@ -240,9 +240,9 @@ Note 1: Prior to Tunnelblick version 3.0b24, configuration files were stored in 
 
 Note 2: _Deployed_ versions of Tunnelblick contain the configuration file(s), so they do not need to be set up for each user -- any user that can access Tunnelblick.app can connect to VPN.
 
-"Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. (See "useShadowConfigurationFiles" in the [http://code.google.com/p/tunnelblick/wiki/Preferences Preferences wiki].)
+"Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. (See "useShadowConfigurationFiles" in [Preferences Preferences].)
 
-See the [http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick Deploying Tunnelblick] wiki for details of file locations when using a deployed version of Tunnelblick.
+See [DeployingTunnelblick Deploying Tunnelblick] for details of file locations when using a deployed version of Tunnelblick.
 
 Within the Tunnelblick.app application, client up/down scripts and openvpn-down-root.so are located in Tunnelblick.app/Contents/Resources (see the "Set nameserver” checkbox in the "Details… window” section). To access Tunnelblick.app/Contents in the Finder, control-click Tunnelblick.app in the Applications folder, then click on "Show Package Contents”.
 

@@ -40,7 +40,7 @@ Instructions for your users are simple. For Tunnelblick 3.1beta18 and higher, fo
 
 Your users may then click on the Tunnelblick icon at the top right of the screen (next to the Spotlight icon) and click on a configuration to connect to a VPN.
 
-Much more elaborate "Deployed" versions can also be created -- you can have more control over what the user sees and can or cannot do -- see [http://code.google.com/p/tunnelblick/wiki/wCusDeployed Deploying Tunnelblick].
+Much more elaborate "Deployed" versions can also be created -- you can have more control over what the user sees and can or cannot do -- see [wCusDeployed Deploying Tunnelblick].
 
 ====A Note About Updates====
 When Tunnelblick updates itself with a new version from the Tunnelblick website, it preserves the Deploy folder. Thus, your users' configurations will remain intact.

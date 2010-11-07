@@ -10,7 +10,7 @@
 Tunnelblick uses three types of scripts: pre- and post- scripts, up- and down- scripts, and the leasewatch script.
 
 *pre- and post- scripts* are run before kexts (device drivers) are loaded and OpenVPN is started, and after OpenVPN has stopped and kexts are unloaded, respectively.
-  * Tunnelblick does not include any of these scripts; see the [http://code.google.com/p/tunnelblick/wiki/DownloadsEntry Downloads page] for user-contributed scripts.
+  * Tunnelblick does not include any of these scripts; see the [DownloadsEntry Downloads page] for user-contributed scripts.
   * They may be used in special circumstances -- for example, to make modifications to the network configuration when a tunnel is active.
   * The scripts must be named "pre-connect.sh" and "post-disconnect.sh"
   * The scripts can only be used in a [wPkgs Tunnelblick VPN Configuration] when using Tunnelblick 3.1beta06 or later.
