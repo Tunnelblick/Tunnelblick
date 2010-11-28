@@ -1,47 +1,75 @@
-OpenVPN Plugins
----------------
+OpenVPN -- A Secure tunneling daemon
 
-Starting with OpenVPN 2.0-beta17, compiled plugin modules are
-supported on any *nix OS which includes libdl or on Windows.
-One or more modules may be loaded into OpenVPN using
-the --plugin directive, and each plugin module is capable of
-intercepting any of the script callbacks which OpenVPN supports:
+Copyright (C) 2002-2010 OpenVPN Technologies, Inc. This program is free software;
+you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2
+as published by the Free Software Foundation.
 
-(1) up
-(2) down
-(3) route-up
-(4) ipchange
-(5) tls-verify
-(6) auth-user-pass-verify
-(7) client-connect
-(8) client-disconnect
-(9) learn-address
+*************************************************************************
 
-See the openvpn-plugin.h file in the top-level directory of the
-OpenVPN source distribution for more detailed information
-on the plugin interface.
+For the latest version of OpenVPN, go to:
 
-Included Plugins
-----------------
+	http://openvpn.net/
 
-auth-pam -- Authenticate using PAM and a split privilege
-            execution model which functions even if
-            root privileges or the execution environment
-            have been altered with --user/--group/--chroot.
-            Tested on Linux only.
+To Build and Install,
 
-down-root -- Enable the running of down scripts with root privileges
-             even if --user/--group/--chroot have been used
-             to drop root privileges or change the execution
-             environment.  Not applicable on Windows.
+	./configure
+	make
+	make install
 
-examples -- A simple example that demonstrates a portable
-            plugin, i.e. one which can be built for *nix
-            or Windows from the same source.
+or see the file INSTALL for more info.
 
-Building Plugins
-----------------
+*************************************************************************
 
-cd to the top-level directory of a plugin, and use the
-"make" command to build it.  The examples plugin is
-built using a build script, not a makefile.
+For detailed information on OpenVPN, including examples, see the man page
+  http://openvpn.net/man.html
+
+For a sample VPN configuration, see
+  http://openvpn.net/howto.html
+
+For a description of OpenVPN's underlying protocol,
+  see the file ssl.h included in the source distribution.
+
+*************************************************************************
+
+Other Files & Directories:
+
+* INSTALL-win32.txt -- installation instructions
+  for Windows
+
+* configure.ac -- script to rebuild our configure
+  script and makefile.
+
+* openvpn.spec -- RPM Spec file
+  To build an OpenVPN binary RPM, use the command:
+
+	rpmbuild -tb [tarball]
+
+  When you install the binary RPM, it will automatically
+  install sample-scripts/openvpn.init (see below)
+
+* sample-scripts/openvpn.init
+
+  A sample init script for OpenVPN.  See the file for
+  comments and additional information.
+
+* sample-scripts/verify-cn
+
+  A sample perl script which can be used with OpenVPN's
+  --tls-verify option to provide a customized authentication
+  test on embedded X509 certificate fields.
+
+* sample-keys/
+
+  Sample RSA keys and certificates.  DON'T USE THESE FILES
+  FOR ANYTHING OTHER THAN TESTING BECAUSE THEY ARE TOTALLY INSECURE.
+
+* sample-config-files/
+
+  A collection of OpenVPN config files and scripts from
+  the HOWTO at http://openvpn.net/howto.html
+
+* easy-rsa/
+
+  A simple guide to RSA key management, scripts included.
+  Also see http://openvpn.net/easyrsa.html
