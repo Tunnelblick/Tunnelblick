@@ -43,6 +43,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com/ privateinternetaccess]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.supervpn.net Super VPN]*
@@ -50,7 +51,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-10-27.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-11-30.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
