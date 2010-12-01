@@ -2,7 +2,7 @@
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[wNews News]*<br><br>
-*[DocumentationForTunnelblick_3_1beta20 Documentation for Tunnelblick Beta Releases]*<br>
+*[DocumentationForTunnelblick_3_1beta22 Documentation for Tunnelblick Beta Releases]*<br>
 <hr>
 *Tunnelblick 3.0 Documentation*<br>
 

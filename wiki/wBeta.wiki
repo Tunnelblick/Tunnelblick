@@ -11,6 +11,17 @@ When a new beta version is available, it is announced to the [http://groups.goog
 <font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 OR LATER*</font> 
 
 --------------------
+2010-12-01: *Tunnelblick 3.1beta22 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta22.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+  * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.
+  
+  * Adds a note to the OpenVPN log (in the Details… window) when the computer goes to sleep or wakes up and a connection is terminated/restarted.
+  
+  * Fixes a problem modifying 'Set nameserver' on other-than-the-first connection.
+
+  * Fixes an OpenVPN problem with special case route targets ('remote_host')
+
+--------------------
 2010-10-31: *Tunnelblick 3.1beta20 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta20.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
   * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [wPrefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".

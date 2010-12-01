@@ -3,13 +3,25 @@
 
 <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLIER BETA VERSIONS:*</font> The first time that you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
 
-===========
+--------------------
+
+==3.1beta22 (2010-12-01)==
+
+  * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.
+  
+  * Adds a note to the OpenVPN log (in the Details… window) when the computer goes to sleep or wakes up and a connection is terminated/restarted.
+  
+  * Fixes a problem modifying 'Set nameserver' on other-than-the-first connection.
+
+  * Fixes an OpenVPN problem with special case route targets ('remote_host')
+
+--------------------
 
 ==3.1beta20 (2010-10-31)==
 
   * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [wPrefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".
 
-===========
+--------------------
 
 ==3.1beta18 (2010-010-16)==
   * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
@@ -19,6 +31,8 @@
   * Fixes bug which prevented Standard users from installing Tunnelblick by double-clicking.
 
   * Fixes bugs in automatic installation of .tblks when installing Tunnelblick.
+
+--------------------
 
 ==3.1beta16 (2010-010-08)==
   * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
@@ -46,6 +60,8 @@
  * Fixes a problem causing a connection restart when 'Set nameserver' is used, a DHCP renewal occurs, and there are no WINS settings.
 
  * Fixes issues when using OpenDirectory and the user's home directory is on a non-Mac platform.
+
+--------------------
 
 ==3.1beta14 (2010-09-09)==
  * Fixes Issue 159 problem that, under certain circumstances, crashes client.down.tunnelblick.sh 
@@ -135,6 +151,8 @@
 
    ("sudo" is needed if Tunnelblick.app has been run at least once, because Tunnelblick secures the OpenVPN binary by making it owned and executable only by root.)
 
+--------------------
+
 ==3.1beta12 (2010-08-08)==
  * Includes Italian localization thanks to Pierpaolo Gulla (Grazie!).
 
@@ -155,6 +173,8 @@
  * Fixes bugs (race conditions) when the log view is being updated and when !MenuExtras are added.
 
  * Fixes bug with placement of the 'when computer starts' radio button in non-English versions of Tunnelblick.
+
+--------------------
 
 ==3.1beta10 (2010-07-29)==
  * Configurations located in subfolders are displayed in submenus of the main Tunnelblick menu.
@@ -184,6 +204,8 @@
  * Fixes bug that caused tun/tap kexts to fail to unload when a connection was closed
 
  * Fixes incorrect help message for 'openvpnstart'
+
+--------------------
 
 ==3.1beta08 (2010-07-10)==
   * Benji Greig has created an updated Tunnelblick icon that looks great in Coverflow. He has also created a distinctive icon for Tunnelblick VPN Configurations, and a new background image for the Disk Image. Thanks, Benji!
@@ -222,6 +244,8 @@
 
   * Fixes bug which causes format errors in the log display if a script generates log entries which don't have a "`*`" after the date/time. (Inserts a "`*`" in such entries in the log display.)
 
+--------------------
+
 ==3.1beta06 (2010-06-07)==
   * Takes into account both the 'dev-type' and 'dev' options in the configuration file when trying to determine if it is a 'tun' or 'tap' connection. Tunnelblick tries to determine that so it can load only the tap or tun kext (device driver) that is required. Note: there appears to be a bug in OpenVPN that makes the dev-type option fail; this does not help that problem.
 
@@ -236,6 +260,8 @@
   * Fixes bug that caused restarts to fail if a different configuration was disconnected at exactly the right (or wrong!) time.
 
   * Fixes bug that didn't clean up when installation of a .tblk package failed.
+
+--------------------
 
 ==3.1beta04 (2010-05-27)==
   * Creates pipes for script output to "Details…" window on demand instead of when Tunnelblick launches
