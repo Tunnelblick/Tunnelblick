@@ -122,7 +122,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                     withName:               (NSString *)        displayName;
 -(NSString *)       installationId;
 -(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
--(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons;
+-(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
+                                            logMessage:     (NSString *)        logMessage;
 -(void)             loadMenuIconSet;
 -(void)             makeSymbolicLink;
 -(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
@@ -2394,7 +2395,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // If possible, we try to use 'killall' to kill all processes named 'openvpn'
 // But if there are unknown open processes that the user wants running, or we have active daemon processes,
 //     then we must use 'kill' to kill each individual process that should be killed
--(void) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons
+-(void) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons logMessage: (NSString *) logMessage
 {
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
@@ -2419,6 +2420,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         || ( noUnknownOpenVPNsRunning && noActiveDaemons )  ) {
         
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
+        // But first append a log entry for each connection that will be restored
+        NSEnumerator * connectionEnum = [connectionsToRestore objectEnumerator];
+        while (  connection = [connectionEnum nextObject]) {
+            [connection addToLog: logMessage];
+        }
+        // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
+        if (  [connectionsToRestore count] != 0  ) {
+            sleep(1);
+        }
         NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
         NSTask* task = [[[NSTask alloc] init] autorelease];
         [task setLaunchPath: path];
@@ -2436,6 +2446,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                     || ( ! [gTbDefaults boolForKey: autoConnectKey]    )  ) {
                     pid_t procId = [connection pid];
                     if (  procId > 0  ) {
+                        [connection addToLog: logMessage];
                         NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
                         NSTask* task = [[[NSTask alloc] init] autorelease];
                         [task setLaunchPath: path];
@@ -2625,7 +2636,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
 	[NSApp callDelegateOnNetworkChange: NO];
-    [self killAllConnectionsIncludingDaemons: NO];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
+    [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     [self unloadKexts];     // Unload .tun and .tap kexts
 	if (  statusItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
@@ -3997,7 +4008,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
-	[self killAllConnectionsIncludingDaemons: YES];  // Kill any OpenVPN processes that still exist
+	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connection..."];  // Kill any OpenVPN processes that still exist
 }
 -(void)wokeUpFromSleep 
 {
@@ -4006,7 +4017,8 @@ void terminateBecauseOfBadConfiguration(void)
 	NSEnumerator *e = [connectionsToRestore objectEnumerator];
 	VPNConnection *connection;
 	while(connection = [e nextObject]) {
-		if(NSDebugEnabled) NSLog(@"Restoring Connection %@",[connection displayName]);
+		if(NSDebugEnabled) NSLog(@"Restoring Connection %@", [connection displayName]);
+        [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
 		[connection connect:self];
 	}
 }
