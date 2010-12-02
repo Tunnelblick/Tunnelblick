@@ -39,6 +39,7 @@ All other preferences can be modified by
   * * openvpnTerminationTimeout* (Number): The number of seconds that Tunnelblick should wait before considering a non-responsive OpenVPN connection to be closed. If zero, Tunnelblick will not consider the connection closed until the process exits.
 
 ==Preferences That Control What The User Sees==
+  * *menuIconSet* (String): If set, specifies the name of the folder of icons that Tunnelblick should use to display the connection status in the status bar (usually, near the Spotlight icon). The default is "TunnelBlick.TBMenuIcons". The folder must be located in Tunnelblick.app/Contents/Resources/IconSet.
   * *doNotShowForcedPreferenceMenuItems* (Boolean): If set, any preferences that are forced will not be displayed on the "Options…" submenu. If cleared or not present, such preferences are shown dimmed, and are disabled. The default is not present.
   * *doNotShowOptionsSubmenu* (Boolean): If set, the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
   * *doNotShowKeyboardShortcutSubmenu* (Boolean): If set, the "Keyboard Shortcuts" submenu of the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
