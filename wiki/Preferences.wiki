@@ -32,6 +32,7 @@ All other preferences can only be modified by (A) forcing them or (B) modifying 
   * *doNotCreateLaunchTunnelblickLinkinConfigurations* (Boolean): If set, no link will be created. If cleared or not present, Tunnelblick will create a link to itself in the `~/Library/Application Support/Tunnelblick/Configurations` folder each time it is started. The default is to create the link.
 
 ==Preferences That Control What The User Sees==
+  * *menuIconSet* (String): If set, specifies the name of the folder of icons that Tunnelblick should use to display the connection status in the status bar (usually, near the Spotlight icon). The default is "TunnelBlick.TBMenuIcons". The folder must be located in Tunnelblick.app/Contents/Resources/IconSet.
   * *doNotShowForcedPreferenceMenuItems* (Boolean): If set, any preferences that are forced will not be displayed on the "Options…" submenu. If cleared or not present, such preferences are shown dimmed, and are disabled. The default is not present.
   * *doNotShowOptionsSubmenu* (Boolean): If set, the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
   * *doNotShowCheckForUpdatesNowMenuItem* (Boolean): If set, the "Check for Updates Now" item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
