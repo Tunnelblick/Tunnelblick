@@ -5,6 +5,16 @@
 
 --------------------
 
+==3.1beta24 (2010-12-03)==
+
+ * Updates to use OpenSSL 1.0.0c, which fixes several security vulnerabilities.
+
+ * Searches for the icon set folder in Tunnelblick.app/Contents/Resources/Deploy and then in /Library/Application Support/Tunnelblick/Shared before defaulting to the version in Tunnelblick.app/Contents/Resources.
+
+ * Fixes bug that caused an unneeded folder (dmgFiles) to be built into Tunnelblick.app/Contents/Resources.
+
+--------------------
+
 ==3.1beta22 (2010-12-01)==
 
   * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.

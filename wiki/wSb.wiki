@@ -1,12 +1,12 @@
-#summary Sidebar for 3.1beta22
-<br><font color="red">*NOTE: This documentation is for Tunnelblick 3.1beta22 only and describes features not available in earlier versions.*</font><br><br>
+#summary Sidebar for 3.1beta24
+<br><font color="red">*NOTE: This documentation is for Tunnelblick 3.1beta24 only and describes features not available in earlier versions.*</font><br><br>
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*<br><br>
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
-*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta22.dmg Download Tunnelblick 3.1beta22]*<br><br>
+*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta24.dmg Download Tunnelblick 3.1beta24]*<br><br>
 *[wNews News]*<br><br>
 <hr>
-*Tunnelblick <font color="red">3.1beta22</font> Documentation*<br><br>
+*Tunnelblick <font color="red">3.1beta24</font> Documentation*<br><br>
 *Getting Started*
     [wWelcome Welcome to Tunnelblick]<br>
     [wWhatIs What is Tunnelblick?]<br>
@@ -55,6 +55,7 @@
     [wPrefs Preferences]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wFileLocations File Locations]<br><br>
+    [DocumentationForTunnelblick_3_1beta24 What's New in 3.1beta24]<br>
     [DocumentationForTunnelblick_3_1beta22 What's New in 3.1beta22]<br>
     [DocumentationForTunnelblick_3_1beta20 What's New in 3.1beta20]<br>
     [DocumentationForTunnelblick_3_1beta18 What's New in 3.1beta18]<br>
