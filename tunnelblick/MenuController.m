@@ -593,19 +593,31 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         menuIconSet = @"TunnelBlick.TBMenuIcons";
     }
     
+    // Search for the folder with the animated icon set in (1) Deploy and (2) Shared, before falling back on the copy in the app's Resources
+    BOOL isDir;
+    NSString * iconSetDir = [[gDeployPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+    if (  ! (   [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
+             && isDir )  ) {
+        iconSetDir = [[gSharedPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+        if (  ! (   [gConfigDirs containsObject: gSharedPath]
+                 && [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
+                 && isDir )  ) {
+            iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+        }
+    }
+    
     int nFrames = 0;
     int i=0;
     NSString *file;
     NSString *fullPath;
-    NSString *confDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent:menuIconSet];
-    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: confDir];
+    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: iconSetDir];
     NSArray *allObjects = [dirEnum allObjects];
     
     animImages = [[NSMutableArray alloc] init];
     
     for(i=0;i<[allObjects count];i++) {
         file = [allObjects objectAtIndex:i];
-        fullPath = [confDir stringByAppendingPathComponent:file];
+        fullPath = [iconSetDir stringByAppendingPathComponent:file];
         
         if (  itemIsVisible(fullPath)  ) {
             if ([[file pathExtension] isEqualToString: @"png"]) {
@@ -631,7 +643,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     // don't choke on a bad set of files, e.g., {0.png, 1abc.png, 2abc.png, 3.png, 4.png, 6.png}
     // (won't necessarily find all files, but won't try to load files that don't exist)
     for(i=0;i<nFrames;i++) {
-        fullPath = [confDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", i]];
+        fullPath = [iconSetDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png", i]];
         if (  itemIsVisible(fullPath)  ) {
             if ([gFileMgr fileExistsAtPath:fullPath]) {
                 NSImage *frame = [[NSImage alloc] initWithContentsOfFile:fullPath];

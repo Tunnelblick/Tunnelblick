@@ -67,7 +67,6 @@
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
-		63B78ADC1102419800734D73 /* dmgFiles in Resources */ = {isa = PBXBuildFile; fileRef = 63B78AD41102419800734D73 /* dmgFiles */; };
 		63BD86E81205BA39005B8E38 /* IT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* IT.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
@@ -586,7 +585,6 @@
 				63E372680FEB3FF00012DDE7 /* leasewatch in Resources */,
 				63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */,
 				63C043E61023660900E6C1D0 /* IconSets in Resources */,
-				63B78ADC1102419800734D73 /* dmgFiles in Resources */,
 				6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */,
 				6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */,
 				6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */,
