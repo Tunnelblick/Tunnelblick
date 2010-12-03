@@ -49,4 +49,4 @@ These scripts have been contributed by users and usually help deal with special 
 The above links include all available versions of the program.
 
 ==All files==
-[http://code.google.com/p/tunnelblick/downloads/list All files, including icons and images for the documentation]
+[http://code.google.com/p/tunnelblick/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount All files, including icons and images for the documentation]
