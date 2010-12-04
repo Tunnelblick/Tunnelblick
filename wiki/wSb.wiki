@@ -38,6 +38,7 @@
     [wCusDeployed "Deployed" versions]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wUsingScripts Using Scripts]<br>
+    [wIconAnimation Icon Animation]<br>
     [wCusDeployPkg Deployed vs. Tunnelblick VPN Configurations]<br>
     [wLocalize Localizing Tunnelblick]<br>
 *For Developers*
