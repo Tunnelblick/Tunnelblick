@@ -41,6 +41,11 @@ Next, either
   * Tunnelblick.app/Contents/Resources/Deploy; or
   * /Library/Application Support/Tunnelblick/Shared.
 
+What happens to your icon set when Tunnelblick is updated depends on where you put it:
+ * If it is in Tunnelblick.app/Contents/Resources/IconSet, it will be replaced with the standard icon set;
+ * If it is in Tunnelblick.app/Contents/Resources/Deploy, it will be restored after Tunnelblick is updated;
+ * If it is placed in /Library/Application Support/Tunnelblick/Shared, it will not be affected when Tunnelblick is updated.
+
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
