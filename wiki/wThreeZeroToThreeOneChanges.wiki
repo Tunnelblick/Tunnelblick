@@ -2,7 +2,7 @@
 #sidebar wSb
 
 ==Summary of Major Changes from Version 3.0 to Version 3.1==
-* A new kind of configuration, a 'Tunnelblick VPN Configuration', includes all information needed to make a connection (OpenVPN configuration file, certificates, keys, scripts, etc.)
+ * A new kind of configuration, a 'Tunnelblick VPN Configuration', includes all information needed to make a connection (OpenVPN configuration file, certificates, keys, scripts, etc.)
   * They may be shared among all users of a computer, or they may be private to a particular user.
   * They can be connected automatically when the computer starts. Tunnelblick can disconnect and connect (i.e., stop and start) them, and they will stay connected when Tunnelblick quits.
 
