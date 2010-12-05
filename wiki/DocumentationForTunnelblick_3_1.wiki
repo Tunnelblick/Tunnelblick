@@ -1,0 +1,44 @@
+#summary Documentation for Tunnelblick 3.1
+#sidebar xSb
+
+<hr>
+<font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1.dmg Download Tunnelblick 3.1]*</font>
+<hr>
+
+This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. For more details, see [wThreeZeroToThreeOneChanges Changes from Version 3.0 to Version 3.1]. For changes from other versions to Tunnelblick 3.1, see the [ReleaseNotes Tunnelblick Release Notes].
+
+* Better Security
+ * Includes the latest stable version of OpenVPN (OpenVPN 2.1.4)
+ * Imbeds the latest stable version of the OpenSLL library (OpenSSL 1.0.0c), which contains fixes for several security vulnerabilities
+
+* Better Usablility
+ * Streamlined installation
+ * Improved "wizard" guides the user through installation of new configurations
+ * Documentation reorganized and expanded
+ * A single, system-wide shortcut key displays the Tunnelblick menu
+
+* More Capabilities
+ * Configurations may be set to start when the computer starts
+ * Configurations can be shared with all users of a computer
+ * Additional ciphers and hashes are supported
+ * Displays large numbers of configurations more clearly
+ * Configuration files, keys and certificates may be packaged together; the package will be installed automatically when double-clicked.
+
+* Better Flexibility
+ * Tun and tap kexts are loaded dynamically
+ * Multiple "Set nameserver" choices offer different handling of DNS settings
+ * Pre-up and post-down scripts enable easy manipulation of tun/tap devices
+ * Additional menu commands may be added
+ * Scripts may be run when Tunnelblick is launched or a connection is attempted
+
+* Better Reliability
+ * DNS caches are now flushed after a connection is made and after it is disconnected
+ * DHCP renewals do not restart the connection
+
+<hr>
+<font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1.dmg Download Tunnelblick 3.1]*</font>
+<hr>
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
