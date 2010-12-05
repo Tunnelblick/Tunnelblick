@@ -1,5 +1,5 @@
 #summary Documentation for Tunnelblick 3.1
-#sidebar xSb
+#sidebar wSb
 
 <hr>
 <font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1.dmg Download Tunnelblick 3.1]*</font>
