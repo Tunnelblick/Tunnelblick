@@ -4,14 +4,14 @@
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
+    [wUsing Using Tunnelblick]<br>
+    [wGettingVPNService Getting VPN Service]<br>
     [wQuick Quick Start Guide]<br>
     [wFAQ FAQ]<br>
-    [wNews What's New]<br>
-    [wGettingVPNService Getting VPN Service]<br>
-    [wInstall Installing Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
-    [wUsing Using Tunnelblick]<br>
-    [wBeta Beta Releases]<br>
+    [wCommonProblems Common Problems]<br>
+    [wKnown Known Issues]<br>
+    [wPrefs Preferences]<br>
 
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
