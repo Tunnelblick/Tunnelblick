@@ -23,6 +23,7 @@ If `Contents/Resources/Deploy` exists, Tunnelblick's behavior changes:
   * If `Deploy` contains up/down scripts with specific names (see [#Up_and_Down_Scripts Up and Down Scripts]) and "Set nameserver" is selected, those scripts will automatically be used by Tunnelblick instead of the standard up/down scripts.
   * If `Deploy` contains a "forced-preferences.plist" file, Tunnelblick will use the preferences in it to override corresponding preferences in the user's `~/Library/Preferences/com.openvpn.tunnelblick.plist`. See [Forced_Preferences Forced Preferences] for details. See[Preferences Preferences] for a list of all preferences.
   * If `Deploy` contains a "Menu" folder, Tunnelblick will add entries in it to the Tunnelblick menu and/or use entries in it to run programs (see  [#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs].
+  * If `Deploy` contains an "IconSets" folder, Tunnelblick will search it for a set of images to use for animating the Tunnelbilck icon. See [wIconAnimation Icon Animation].
  
 Certificate and key files may usually be referenced within a configuration file without path information:
   * If `Deploy` contains _only_ `*.conf`, `*.ovpn`, `*.up.sh`, `*.down.sh`, and `forced-preferences.plist` files, the `~/Library/Application Support/Tunnelblick/Configurations` folder will be used as the target of the OpenVPN `--cd` option, which means that files in that folder may be specified in the configuration file without path information -- e.g., "key xxx.key".
