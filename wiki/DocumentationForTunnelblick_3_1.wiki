@@ -11,7 +11,7 @@ This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. 
  * Includes the latest stable version of OpenVPN (OpenVPN 2.1.4)
  * Imbeds the latest stable version of the OpenSLL library (OpenSSL 1.0.0c), which contains fixes for several security vulnerabilities
 
-* Better Usablility
+* Better Usability
  * Streamlined installation
  * Improved "wizard" guides the user through installation of new configurations
  * Documentation reorganized and expanded
