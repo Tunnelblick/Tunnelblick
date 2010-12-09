@@ -1534,6 +1534,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 [logWindow close];          // Have to do open/close/open or the leftNavList doesn't paint properly
                 [logWindow release];        //
                 logWindow = nil;            //
+                logWindowIsOpen = FALSE;    //
                 [self openLogWindow:self];  //
             }
         } else {
