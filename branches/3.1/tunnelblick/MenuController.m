@@ -1522,15 +1522,23 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening it
         BOOL logWindowWasOpen = logWindowIsOpen;
+        BOOL logWindowWasUsingTabs = logWindowIsUsingTabs;
         [logWindow close];
         [logWindow release];
         logWindow = nil;
+        logWindowIsOpen = FALSE;
         if (  logWindowWasOpen  ) {
             [self openLogWindow:self];
+            if (   logWindowWasUsingTabs
+                && ( ! logWindowIsUsingTabs)  ) {
+                [logWindow close];          // Have to do open/close/open or the leftNavList doesn't paint properly
+                [logWindow release];        //
+                logWindow = nil;            //
+                [self openLogWindow:self];  //
+            }
         } else {
             oldSelectedConnectionName = nil;
         }
-
     }
 }
 
@@ -2042,6 +2050,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     if (logWindow != nil) {
         [logWindow makeKeyAndOrderFront: self];
         [NSApp activateIgnoringOtherApps:YES];
+        logWindowIsOpen = TRUE;
         return;
     }
     NSArray * allConfigsSorted = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
