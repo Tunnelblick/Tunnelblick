@@ -1,0 +1,35 @@
+#include <winresrc.h>
+
+VS_VERSION_INFO VERSIONINFO
+	FILEVERSION 1,0,0,0
+	PRODUCTVERSION 1,07,0,0
+	FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+	FILEFLAGS 0x21L
+#else
+	FILEFLAGS 0x20L
+#endif
+	FILEOS 0x40004L
+	FILETYPE 0x1L
+	FILESUBTYPE 0x0L
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904b0"
+		BEGIN
+			VALUE "Comments", "Provided under the terms of the GNU General Public License (GPLv2.1+), or BSD.\0"
+			VALUE "CompanyName", "OpenSC Project\0"
+			VALUE "FileDescription", "pkcs11-helper - An easy way to access PKCS#11 modules\0"
+			VALUE "FileVersion", "1.0.0.0\0"
+			VALUE "InternalName", "pkcs11-helper\0"
+			VALUE "LegalCopyright", "Copyright © 2006-2008 Alon Bar-Lev <alon.barlev@gmail.com>\0"
+			VALUE "LegalTrademarks", "\0"
+			VALUE "OriginalFilename", "pkcs11-helper-1.dll\0"
+			VALUE "PrivateBuild", "\0"
+			VALUE "ProductName", "pkcs11-helper\0"
+			VALUE "ProductVersion", "1,07,0,0\0"
+			VALUE "SpecialBuild", " debug threading token data certificate slotevent openssl engine_crypto\0"
+		END
+	END
+END
+
