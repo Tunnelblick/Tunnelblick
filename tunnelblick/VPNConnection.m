@@ -460,6 +460,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
 {
+    NSString * oldRequestedState = requestedState;
     if (  userKnows  ) {
         requestedState = @"CONNECTED";
     }
@@ -492,6 +493,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
                                                  NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                                  nil);
             if (  button == NSAlertAlternateReturn  ) {
+                if (  userKnows  ) {
+                    requestedState = oldRequestedState;
+                }
                 return;
             }
         }
@@ -508,6 +512,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
 	NSArray *arguments = [self argumentsForOpenvpnstartForNow: YES];
     if (  arguments == nil  ) {
+        if (  userKnows  ) {
+            requestedState = oldRequestedState; // User cancelled
+        }
         return;
     }
 		
@@ -524,6 +531,15 @@ extern NSString * lastPartOfPath(NSString * thePath);
             int status = [task terminationStatus];
             if (  status != 0  ) {
                 NSLog(@"Tunnelblick runOnConnect item %@ returned %d; '%@' connect cancelled", path, status, displayName);
+                if (  userKnows  ) {
+                    TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
+                                    [NSString
+                                     stringWithFormat: NSLocalizedString(@"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d.", @"Window text"),
+                                     [self displayName],
+                                     status],
+                                    nil, nil, nil);
+                    requestedState = oldRequestedState;
+                }
                 return;
             }
         }
@@ -608,6 +624,15 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
         
         [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]];
+        [errPipe release];
+        if (  userKnows  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
+                            [NSString stringWithFormat:
+                             NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window", @"Window text"),
+                             [self displayName]],
+                            nil, nil, nil);
+            requestedState = oldRequestedState;
+        }
     } else {
         file = [errPipe fileHandleForReading];
         data = [file readDataToEndOfFile];
@@ -620,14 +645,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
             }
         }
         [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
-
+        [errPipe release];
+        [self setState: @"SLEEP"];
+        [self connectToManagementSocket];
     }
-    
-    [errPipe release];
-    
-	[self setState: @"SLEEP"];
-    
-	[self connectToManagementSocket];
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
@@ -823,6 +844,11 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"disconnect: while disconnecting");
         return;
     }
+    
+    if (  userKnows  ) {
+        requestedState = @"EXITING";
+    }
+
     areDisconnecting = TRUE;
     pthread_mutex_unlock( &areDisconnectingMutex );
     
