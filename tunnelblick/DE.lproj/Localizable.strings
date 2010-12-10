@@ -592,6 +592,9 @@
 "The VPN name cannot be empty.\n\nPlease enter a new name." = "Der VPN-Name muss ausgefüllt werden.\n\Bitte geben Sie einen neuen Namen ein.";
 
 /* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "Der Versuch %1$@ zu verbinden wurde abgebrochen: Das runOnConnect Skript gab folgenden Status aus: %2$d.";
+
+/* Window text */
 "The change will take effect the next time you connect." = "Die Veränderung wird ab der nächsten Verbindung angewandt.";
 
 /* Window text */
@@ -698,8 +701,12 @@
 
 /* Window text */
 "Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?" = "Tunnelblick wurde erfolgreich ersetzt.\n\nMöchten Sie die neue Version von Tunnelblick jetzt starten?";
+
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick konnte die Verbindung zum OpenVPN-Prozess für die Konfiguration „%1$@“ nicht innerhalb von  %2$d Sekunden herstellen. Der Versuch wird abgebrochen.";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window" = "Tunnelblick konnte OpenVPN nicht starten, um %@ zu verbinden. Weitere Details finden Sie im OpenVPN log im Details... Fenster";
 
 /* Window text */
 "Unable to Establish Communication" = "Verbindung fehlgeschlagen";

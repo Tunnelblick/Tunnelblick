@@ -605,13 +605,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             if (  [upscriptPath hasSuffix: @"tunnelblick.sh"]  ) {
                 upscriptCommand   = [upscriptCommand   stringByAppendingString: scriptOptions];
             } else {
-                fprintf(stderr, "Warning: up script %@ is not new version; not using '%@' options\n", upscriptPath, scriptOptions);
+                fprintf(stderr, "Warning: up script %s is not new version; not using '%s' options\n", [upscriptPath UTF8String], [scriptOptions UTF8String]);
             }
             
             if (  [downscriptPath hasSuffix: @"tunnelblick.sh"]  ) {
                 downscriptCommand = [downscriptCommand stringByAppendingString: scriptOptions];
             } else {
-                fprintf(stderr, "Warning: down script %@ is not new version; not using '%@' options\n", downscriptPath, scriptOptions);
+                fprintf(stderr, "Warning: down script %s is not new version; not using '%s' options\n", [downscriptPath UTF8String], [scriptOptions UTF8String]);
             }
         }
             
@@ -789,7 +789,7 @@ NSString * createOpenVPNLog(NSString* configurationPath, int port)
     
     if (  ! [gFileMgr createFileAtPath: logPath contents: [NSData data] attributes: logAttributes]  ) {
         NSString * msg = [NSString stringWithFormat: @"Warning: Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
-        fprintf(stderr, [msg UTF8String]);
+        fprintf(stderr, "%s", [msg UTF8String]);
     }
     
     return logPath;
@@ -833,7 +833,7 @@ NSString * createScriptLog(NSString* configurationPath, NSString* cmdLine)
     
     if (  ! [gFileMgr createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes]  ) {
         NSString * msg = [NSString stringWithFormat: @"Failed to create scripts log file at %@ with attributes %@", logPath, logAttributes];
-        fprintf(stderr, [msg UTF8String]);
+        fprintf(stderr, "%s", [msg UTF8String]);
     }
     
     return logPath;
@@ -882,8 +882,7 @@ BOOL deleteOpenVpnLogFiles(NSString * configurationPath)
             if (   [[filename pathExtension] isEqualToString: @"log"]
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
                 if (  ! [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
-                    NSString * msg = [NSString stringWithFormat: @"Error occurred trying to delete OpenVPN log file %@\n", oldFullPath];
-                    fprintf(stderr, [msg UTF8String]);
+                    fprintf(stderr, "Error occurred trying to delete OpenVPN log file %s\n", [oldFullPath UTF8String]);
                     errHappened = TRUE;
                 }
             }
@@ -951,23 +950,26 @@ void loadKexts(unsigned int bitMask)
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tun.kext"]];
     }
     
-	NSTask * task = [[[NSTask alloc] init] autorelease];
-
-    [task setLaunchPath:@"/sbin/kextload"];
-    
-    [task setArguments:arguments];
     becomeRoot();
 
     int status;
     int i;
     for (i=0; i < 5; i++) {
+        NSTask * task = [[NSTask alloc] init];
+        
+        [task setLaunchPath:@"/sbin/kextload"];
+        
+        [task setArguments:arguments];
+        
         [task launch];
         [task waitUntilExit];
         
         status = [task terminationStatus];
         if (  status == 0  ) {
+            [task release];
             break;
         }
+        [task release];
         sleep(1);
     }
     if (  status != 0  ) {
@@ -1106,7 +1108,7 @@ BOOL configNeedsRepair(void)
 		NSString* errMsg = [NSString stringWithFormat:@"Error: File %@ is owned by %@ and has permissions %@\n"
 							"Configuration files must be owned by root:wheel with permissions 0644\n",
 							configPath, fileOwner, octalString];
-		fprintf(stderr, [errMsg UTF8String]);
+		fprintf(stderr, "%s", [errMsg UTF8String]);
 		[pool drain];
 		exit(250);
 	}
