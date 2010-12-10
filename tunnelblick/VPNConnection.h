@@ -37,6 +37,8 @@
 	id              delegate;
 	NSString      * lastState;          // Known get/put externally as "state" and "setState", this is "EXITING", "CONNECTED", "SLEEP", etc.
     NSString      * tunOrTap;           // nil, "tun", or "tap", as determined by parsing the configuration file
+    NSString      * requestedState;     // State of connection that was last requested by user (or automation), or that the user is expecting
+    //                                  // after an error alert. Defaults to "EXITING" (meaning disconnected); the only other valid value is "CONNECTED" 
     LogDisplay    * logDisplay;         // Used to store and display the OpenVPN log
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
@@ -69,9 +71,11 @@
 
 -(NSDate *)         connectedSinceDate;
 
--(void)             connect:                    (id) sender;
+-(void)             connect:                    (id)                sender
+                  userKnows:                    (BOOL)              userKnows;
 
--(void)             disconnectAndWait:          (NSNumber *)    wait;
+-(void)             disconnectAndWait:          (NSNumber *)    wait
+                            userKnows:          (BOOL)          userKnows;
 
 -(NSString *)       displayName;
 
@@ -101,6 +105,8 @@
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
 
 -(pid_t)            pid;
+
+-(NSString *)       requestedState;
 
 -(void)             setDelegate:                (id)            newDelegate;
 

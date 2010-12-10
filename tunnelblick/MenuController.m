@@ -859,8 +859,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [statusItem setHighlightMode:YES];
     [statusItem setMenu:nil];
 	[myVPNMenu release]; myVPNMenu = nil;
-	[[myVPNConnectionDictionary allValues] makeObjectsPerformSelector:@selector(disconnectAndWait:) withObject: [NSNumber numberWithBool: YES]];
-	[myVPNConnectionDictionary removeAllObjects];
 	
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
@@ -870,7 +868,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[myVPNMenu addItem:statusMenuItem];
 	[myVPNMenu addItem:[NSMenuItem separatorItem]];
     
-	[myConfigDictionary release];
     myConfigDictionary = [[[[ConfigurationManager defaultManager] getConfigurations] mutableCopy] retain];
     
     // Add each connection to the menu
@@ -1522,15 +1519,24 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening it
         BOOL logWindowWasOpen = logWindowIsOpen;
+        BOOL logWindowWasUsingTabs = logWindowIsUsingTabs;
         [logWindow close];
         [logWindow release];
         logWindow = nil;
+        logWindowIsOpen = FALSE;
         if (  logWindowWasOpen  ) {
             [self openLogWindow:self];
+            if (   logWindowWasUsingTabs
+                && ( ! logWindowIsUsingTabs)  ) {
+                [logWindow close];          // Have to do open/close/open or the leftNavList doesn't paint properly
+                [logWindow release];        //
+                logWindow = nil;            //
+                logWindowIsOpen = FALSE;    //
+                [self openLogWindow:self];  //
+            }
         } else {
             oldSelectedConnectionName = nil;
         }
-
     }
 }
 
@@ -1571,7 +1577,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
     if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
-        [myConnection disconnectAndWait: [NSNumber numberWithBool: NO]];
+        [myConnection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
         
         TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
                         [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick has disconnected '%@' because its configuration file has been removed.", @"Window text"), dispNm],
@@ -1850,9 +1856,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]) ) { 
-		// override while in transitional state
-		// Any other state shows "transitional" image:
-		//[statusItem setImage: transitionalImage];
+		//  Anything other than connected or disconnected shows the animation
 		if (![theAnim isAnimating])
 		{
 			//NSLog(@"Starting Animation");
@@ -1998,12 +2002,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (IBAction)connectButtonWasClicked:(id)sender
 {
-    [[self selectedConnection] connect: sender]; 
+    [[self selectedConnection] connect: sender userKnows: YES]; 
 }
 
 - (IBAction)disconnectButtonWasClicked:(id)sender
 {
-    [[self selectedConnection] disconnectAndWait: [NSNumber numberWithBool: YES]];      
+    [[self selectedConnection] disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      
 }
 
 - (IBAction) checkForUpdates: (id) sender
@@ -2042,6 +2046,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     if (logWindow != nil) {
         [logWindow makeKeyAndOrderFront: self];
         [NSApp activateIgnoringOtherApps:YES];
+        logWindowIsOpen = TRUE;
         return;
     }
     NSArray * allConfigsSorted = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
@@ -2466,7 +2471,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                         [task launch];
                         [task waitUntilExit];
                     } else {
-                        [connection disconnectAndWait: [NSNumber numberWithBool: NO]];
+                        [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
                     }
                 }
             }
@@ -2555,8 +2560,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	while (connection = [e nextObject]) {
 		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
 			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection displayName]);
-			[connection disconnectAndWait: [NSNumber numberWithBool: YES]];
-			[connection connect:self];
+			[connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: NO];
+			[connection connect:self userKnows: NO];
 		} else {
 			if (NSDebugEnabled) NSLog(@"Not Resetting connection: %@, waiting...",[connection displayName]);
 		}
@@ -2724,10 +2729,48 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 - (void) setState: (NSString*) newState
 // Be sure to call this in main thread only
 {
-    [newState retain];
-    [lastState release];
-    lastState = newState;
-	[self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    // Decide how to display the Tunnelblick icon:
+    // Ignore the newState argument and look at the configurations:
+    //   If any configuration should be open but isn't, then show animation
+    //   If any configuration should be closed but isn't, then show animation
+    //   Otherwise, if any configurations are open, show open
+    //              else show closed
+    BOOL atLeastOneIsConnected = FALSE;
+    NSString * newDisplayState = @"EXITING";
+    VPNConnection * connection;
+    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    while (  connection = [connEnum nextObject]  ) {
+        NSString * curState = [connection state];
+        NSString * reqState = [connection requestedState];
+        if        (  [reqState isEqualToString: @"CONNECTED"]  ) {
+            if (  [curState isEqualToString: @"CONNECTED"]  ) {
+                atLeastOneIsConnected = TRUE;
+            } else {
+                newDisplayState = @"ANIMATED";
+                break;
+            }
+        } else if (  [reqState isEqualToString: @"EXITING"]  ) {
+            if (   ! [curState isEqualToString: @"EXITING"]  ) {
+                newDisplayState = @"ANIMATED";
+                break;
+            }
+        } else {
+            NSLog(@"Internal program error: invalid requestedState = %@", reqState);
+        }
+    }
+    
+    if (   atLeastOneIsConnected
+        && [newDisplayState isEqualToString: @"EXITING"]  ) {
+        newDisplayState = @"CONNECTED";
+    }
+    
+    // Display that unless it is already being displayed
+    if (  ![newDisplayState isEqualToString: lastState]  ) {
+        [newDisplayState retain];
+        [lastState release];
+        lastState = newDisplayState;
+        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    }
 }
 
 -(void)addConnection:(id)sender 
@@ -3087,7 +3130,7 @@ static void signal_handler(int signalNumber)
         if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
             if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-onSystemStart"]]  ) {
                 if (  ![myConnection isConnected]  ) {
-                    [myConnection connect:self];
+                    [myConnection connect:self userKnows: YES];
                 }
             }
         }
@@ -4031,7 +4074,7 @@ void terminateBecauseOfBadConfiguration(void)
 	while(connection = [e nextObject]) {
 		if(NSDebugEnabled) NSLog(@"Restoring Connection %@", [connection displayName]);
         [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
-		[connection connect:self];
+		[connection connect:self userKnows: YES];
 	}
 }
 int runUnrecoverableErrorPanel(msg) 
