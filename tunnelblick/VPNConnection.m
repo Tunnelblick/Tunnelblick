@@ -97,6 +97,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 		connectedSinceDate = [[NSDate alloc] init];
         logDisplay = [[LogDisplay alloc] initWithConfigurationPath: inPath];
         lastState = @"EXITING";
+        requestedState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
         tryingToHookup = FALSE;
         isHookedup = FALSE;
@@ -422,6 +423,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
     return [[displayName retain] autorelease];
 }
 
+-(NSString *) requestedState
+{
+    return requestedState;
+}
+
 - (void) setManagementSocket: (NetSocket*) socket
 {
     [socket retain];
@@ -432,7 +438,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 - (void) dealloc
 {
-    [self disconnectAndWait: [NSNumber numberWithBool: YES]];
+    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
     [logDisplay release];
     [managementSocket close];
     [managementSocket setDelegate: nil];
@@ -452,8 +458,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
     tunOrTap = nil;
 }
 
-- (void) connect: (id) sender
+- (void) connect: (id) sender userKnows: (BOOL) userKnows
 {
+    if (  userKnows  ) {
+        requestedState = @"CONNECTED";
+    }
+    
     if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
         // Count the total number of connections and what their "Set nameserver" status was at the time of connection
         int numConnections = 1;
@@ -782,9 +792,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
 - (IBAction) toggle: (id) sender
 {
 	if (![self isDisconnected]) {
-		[self disconnectAndWait: [NSNumber numberWithBool: YES]];
+		[self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
 	} else {
-		[self connect: sender];
+		[self connect: sender userKnows: YES];
 	}
 }
 
@@ -797,8 +807,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Start disconnecting by killing the OpenVPN process or signaling through the management interface
 // Waits for up to 5 seconds for the disconnection to occur if "wait" is TRUE
-- (void) disconnectAndWait: (NSNumber *) wait 
+- (void) disconnectAndWait: (NSNumber *) wait userKnows:(BOOL)userKnows
 {
+    if (  userKnows  ) {
+        requestedState = @"EXITING";
+    }
+
     if (  [self isDisconnected]  ) {
         return;
     }
@@ -893,7 +907,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     TBRunAlertPanel(NSLocalizedString(@"OpenVPN Not Responding", @"Window title"),
                     [NSString stringWithFormat: NSLocalizedString(@"OpenVPN is not responding to disconnect requests.\n\n"
-                                                                  "There is a known bug in OpenVPN version 2.2 that sometimes"
+                                                                  "There is a known bug in OpenVPN version 2.1 that sometimes"
                                                                   " causes a delay of one or two minutes before it responds to such requests.\n\n"
                                                                   "Tunnelblick will continue to try to disconnect for up to %d seconds.\n\n"
                                                                   "The connection will be unavailable until OpenVPN disconnects or %d seconds elapse,"
@@ -1154,7 +1168,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                         [myAuthAgent deleteCredentialsFromKeychain];
                     }
                     if (  (alertVal != NSAlertDefaultReturn) && (alertVal != NSAlertAlternateReturn)  ) {	// If cancel or error then disconnect
-                        [self disconnectAndWait: [NSNumber numberWithBool: YES]];
+                        [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User knows about it from the alert)
                         return;
                     }
                 }
@@ -1170,10 +1184,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 					NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
 					NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
 					if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
-                    if(myPassphrase){
+                    if(  myPassphrase != nil  ){
                         [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
                     } else {
-                        [self disconnectAndWait: [NSNumber numberWithBool: YES]];
+                        [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
                     }
 
                 } else if ([line rangeOfString: @"Auth"].length) {
@@ -1182,11 +1196,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     [myAuthAgent performAuthentication];
                     NSString *myPassword = [myAuthAgent password];
                     NSString *myUsername = [myAuthAgent username];
-                    if(myUsername && myPassword){
+                    if(  (myUsername != nil) && (myPassword != nil)  ){
                         [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
                         [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
                     } else {
-                        [self disconnectAndWait: [NSNumber numberWithBool: YES]];
+                        [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
                     }
                 
                 } else {
