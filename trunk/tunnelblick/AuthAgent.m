@@ -176,7 +176,13 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
     
-    if (    ! (  usernameLocal && passwordLocal && ([usernameLocal length] > 0) && ([passwordLocal length] > 0)  )    ) {
+    if (   usernameLocal
+        && passwordLocal
+        && ([usernameLocal length] > 0)
+        && ([passwordLocal length] > 0)  ) {
+        wasFromKeychain = TRUE;
+    } else {
+        wasFromKeychain = FALSE;
         // Ask for username and password
 
         NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
@@ -287,7 +293,11 @@ extern TBUserDefaults  * gTbDefaults;
     
     if (passphraseLocal == nil) {
         passphraseLocal = [self askForPrivateKey];
+        wasFromKeychain = FALSE;
+    } else {
+        wasFromKeychain = TRUE;
     }
+
     [self setPassphrase:passphraseLocal];
 }
 
@@ -414,6 +424,10 @@ extern TBUserDefaults  * gTbDefaults;
         [configName release];
         configName = [value copy];
     }
+}
+
+-(BOOL) authenticationWasFromKeychain {
+    return wasFromKeychain;
 }
 
 @end
