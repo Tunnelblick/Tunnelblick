@@ -656,6 +656,11 @@ enum state_t {                      // These are the "states" of the guideState 
     }
     
     if (  [sourceList count] == 0  ) {
+        if (  [errList count] != 0  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                            NSLocalizedString(@"There was a problem with one or more configurations. Details are in the Console Log\n\n", @"Window text"),
+                            nil, nil, nil);
+        }
         return;
     }
     
@@ -810,19 +815,19 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (  infoDict  ) {
         pkgId = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: infoDict defaultTo: nil];
-        if (  pkgId  ) {
-            if (  [pkgId length] == 0  ) {
-                pkgId = [pathToTblk lastPathComponent];
-            }
-        }
         
         pkgVersion = [self getLowerCaseStringForKey: @"CFBundleVersion" inDictionary: infoDict defaultTo: nil];
         
         //  pkgShortVersionString = [self getLowerCaseStringForKey: @"CFBundleShortVersionString" inDictionary: infoDict defaultTo: nil];
         
         pkgPkgVersion = [self getLowerCaseStringForKey: @"TBPackageVersion" inDictionary: infoDict defaultTo: nil];
-        if (  ! [pkgPkgVersion isEqualToString: @"1"]  ) {
-            NSLog(@"Configuration installer: Unknown 'TBPackageVersion' = '%@' (only '1' is allowed) in %@", pkgPkgVersion, infoPath);
+        if (  pkgPkgVersion  ) {
+            if (  ! [pkgPkgVersion isEqualToString: @"1"]  ) {
+                NSLog(@"Configuration installer: Unknown 'TBPackageVersion' = '%@' (only '1' is allowed) in %@", pkgPkgVersion, infoPath);
+                pkgIsOK = FALSE;
+            }
+        } else {
+            NSLog(@"Configuration installer: Missing 'TBPackageVersion' in %@", infoPath);
             pkgIsOK = FALSE;
         }
         
@@ -918,7 +923,8 @@ enum state_t {                      // These are the "states" of the guideState 
             if (  [[oldDisplayFirstPart pathExtension] isEqualToString: @"tblk"]  ) {
                 NSDictionary * oldInfo = [NSDictionary dictionaryWithContentsOfFile: [path stringByAppendingPathComponent: @"Contents/Info.plist"]];
                 NSString * oldVersion = [oldInfo objectForKey: @"CFBundleVersion"];
-                if (  [[oldInfo objectForKey: @"CFBundleIdentifier"] isEqualToString: pkgId]) {
+                NSString * oldIdentifier = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: oldInfo defaultTo: nil];
+                if (  [oldIdentifier isEqualToString: pkgId]) {
                     if (  [pkgReplaceIdentical isEqualToString: @"no"]  ) {
                         NSLog(@"Configuration installer: Tunnelblick VPN Configuration %@ has NOT been installed: TBReplaceOption=NO.", tryDisplayName);
                         return nil;
