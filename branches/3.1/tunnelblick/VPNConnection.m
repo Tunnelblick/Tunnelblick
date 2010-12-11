@@ -1202,6 +1202,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     if (NSDebugEnabled) NSLog(@"Server wants user private key.");
                     [myAuthAgent setAuthMode:@"privateKey"];
                     [myAuthAgent performAuthentication];
+                    if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+                        [self addToLog: @"*Tunnelblick: Obtained VPN passphrase from the Keychain"];
+                    }
                     NSString *myPassphrase = [myAuthAgent passphrase];
 					NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
 					NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
@@ -1216,6 +1219,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
                     [myAuthAgent setAuthMode:@"password"];
                     [myAuthAgent performAuthentication];
+                    if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+                        [self addToLog: @"*Tunnelblick: Obtained VPN username and password from the Keychain"];
+                    }
                     NSString *myPassword = [myAuthAgent password];
                     NSString *myUsername = [myAuthAgent username];
                     if(  (myUsername != nil) && (myPassword != nil)  ){
