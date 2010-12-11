@@ -49,6 +49,8 @@
     // These are keys for the preferences.
     NSString * passphrasePreferenceKey;     // Keys for accessing user preference for passphrase and username that indicates that they are stored in the keychain
     NSString * usernamePreferenceKey;       // We don't need one for the password because if the username is stored, so is the password
+    
+    BOOL wasFromKeychain;                   // Last performAuthentication data came from the Keychain    
 }
 
 // PUBLIC METHODS:
@@ -64,5 +66,6 @@
 -(id)           initWithConfigName:                 (NSString *)inConfigName;
 -(void)         performAuthentication;
 -(BOOL)         keychainHasCredentials;
+-(BOOL)         authenticationWasFromKeychain;
 
 @end
