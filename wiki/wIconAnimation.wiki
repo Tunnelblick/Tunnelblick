@@ -18,31 +18,31 @@ Tunnelblick displays the VPN connection status using the Tunnelblick icon in the
 A folder containing a set of these images meant to be used together is called an "icon set".
 
 Tunnelblick comes with one folder containing the standard icon set built-in. It is located within the Tunnelblick application itself, at
- Tunnelblick.app/Contents/Resources/IconSets/TunnelBlick.TBMenuIcons.
+ Tunnelblick.app/Contents/Resources/!IconSets/TunnelBlick.TBMenuIcons.
 
 When Tunnelblick is launched, it looks for an icon set to use in three places, in the following order:
- #. Tunnelblick.app/Contents/Resources/Deploy/IconSet/TunnelBlick.TBMenuIcons;
- #. /Library/Application Support/Tunnelblick/Shared/IconSet/TunnelBlick.TBMenuIcons; and
- #. Tunnelblick.app/Contents/Resources/IconSet/TunnelBlick.TBMenuIcons.
+ #. Tunnelblick.app/Contents/Resources/Deploy/!IconSets/!TunnelBlick.TBMenuIcons;
+ #. /Library/Application Support/Tunnelblick/Shared/!IconSets/!TunnelBlick.TBMenuIcons; and
+ #. Tunnelblick.app/Contents/Resources/!IconSet/!TunnelBlick.TBMenuIcons.
 
-Note: The "menuIconSet" preference, if present, specifies the name of the folder (within the "IconSets" folder) that contains the icon set to be used. If not present, this defaults to "TunnelBlick.TBMenuIcons".
+Note: The "menuIconSet" preference, if present, specifies the name of the folder (within the "!IconSets" folder) that contains the icon set to be used. If not present, this defaults to "!TunnelBlick.TBMenuIcons".
 
 ==Custom Icon Sets==
 Custom icon sets can be used to override the standard icon set.
 
-First, create a folder named "TunnelBlick.TBMenuIcons" containing the images. The images must be named:
+First, create a folder named "!TunnelBlick.TBMenuIcons" containing the images. The images must be named:
  * "open.png": this is the icon used to indicate an open tunnel (a VPN connection is active)
  * "closed.png": this is the icon used to indicate a closed tunnel (no VPN connection is active)
  * "1.png", "2.png", "3.png", etc.: these icons are used in sequence to indicate a transition from open to closed or closed to open.
 
 Next, either
- #. Replace the Tunnelblick.app/Contents/Resources/IconSet/TunnelBlick.TBMenuIcons folder with your folder; or
- #. Create an "IconSets" folder, place your folder inside it, and place it in either
+ #. Replace the Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons folder with your folder; or
+ #. Create an "!IconSets" folder, place your folder inside it, and place it in either
   * Tunnelblick.app/Contents/Resources/Deploy; or
   * /Library/Application Support/Tunnelblick/Shared.
 
 What happens to your icon set when Tunnelblick is updated depends on where you put it:
- * If it is in Tunnelblick.app/Contents/Resources/IconSet, it will be replaced with the standard icon set;
+ * If it is in Tunnelblick.app/Contents/Resources/!IconSet, it will be replaced with the standard icon set;
  * If it is in Tunnelblick.app/Contents/Resources/Deploy, it will be restored after Tunnelblick is updated;
  * If it is placed in /Library/Application Support/Tunnelblick/Shared, it will not be affected when Tunnelblick is updated.
 
