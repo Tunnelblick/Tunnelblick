@@ -31,6 +31,7 @@
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "ConfigurationManager.h"
+#import "NSFileManager+TB.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
@@ -232,7 +233,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             }
 
         } else if (  [gFileMgr contentsEqualAtPath: plistPath andPath: libPath]  ) {
-            [gFileMgr removeFileAtPath: plistPath handler: nil];
+            [gFileMgr tbRemoveFileAtPath:plistPath handler: nil];
             return YES; // .plist contents are the same, so we needn't do anything
         }
     }
@@ -265,11 +266,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (  inAuthRef == nil  ) {
         if (  startIt  ) {
             NSLog(@"Connect '%@' when computer starts cancelled by user", [self displayName]);
-            [gFileMgr removeFileAtPath: plistPath handler: nil];
+            [gFileMgr tbRemoveFileAtPath:plistPath handler: nil];
             return NO;
         } else {
             NSLog(@"NOT connect '%@' when computer starts cancelled by user", [self displayName]);
-            [gFileMgr removeFileAtPath: plistPath handler: nil];
+            [gFileMgr tbRemoveFileAtPath:plistPath handler: nil];
             return YES;
         }
     }
@@ -290,7 +291,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     BOOL didIt = FALSE;
     for (i=0; i < 5; i++) {
         if (  [gFileMgr fileExistsAtPath: flagPath]  ) {
-            if (  ! [gFileMgr removeFileAtPath: flagPath handler: nil]  ) {
+            if (  ! [gFileMgr tbRemoveFileAtPath:flagPath handler: nil]  ) {
                 NSLog(@"Unable to remove temporary file %@", flagPath);
             }
         }
@@ -330,11 +331,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
         AuthorizationFree(inAuthRef, kAuthorizationFlagDefaults);
     }
     
-    if (  ! [gFileMgr removeFileAtPath: flagPath handler: nil]  ) {
+    if (  ! [gFileMgr tbRemoveFileAtPath:flagPath handler: nil]  ) {
         NSLog(@"Unable to remove temporary file %@", flagPath);
     }
 
-    if (  ! [gFileMgr removeFileAtPath: plistPath handler: nil]  ) {
+    if (  ! [gFileMgr tbRemoveFileAtPath:plistPath handler: nil]  ) {
         NSLog(@"Unable to remove temporary file %@", plistPath);
     }
     
@@ -385,7 +386,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                                 daemonDescription,              @"ServiceDescription",
                                 nil];
     
-    [gFileMgr removeFileAtPath: plistPath handler: nil];
+    [gFileMgr tbRemoveFileAtPath:plistPath handler: nil];
     if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
         NSLog(@"Unable to create %@", plistPath);
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Problem", @"Window title"),

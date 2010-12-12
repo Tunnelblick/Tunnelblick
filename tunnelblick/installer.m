@@ -20,6 +20,7 @@
 #import <Foundation/Foundation.h>
 #import <Security/AuthSession.h>
 #import <stdio.h>
+#import "NSFileManager+TB.h"
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 //
@@ -165,7 +166,7 @@ int main(int argc, char *argv[])
                                        [[[[NSDate alloc] init] autorelease] description]]
                                       stringByExpandingTildeInPath];
             
-            [gFileMgr removeFileAtPath: trashedPath handler: nil];  // Ignore errors if it doesn't exist
+            [gFileMgr tbRemoveFileAtPath:trashedPath handler: nil];  // Ignore errors if it doesn't exist
             
             if (  rename([targetPath UTF8String], [trashedPath UTF8String]) != 0  ) {
                 NSLog(@"Tunnelblick Installer: Unable to move %@ to the Trash", targetPath);
@@ -176,7 +177,7 @@ int main(int argc, char *argv[])
 
         }
         
-        if (  ! [gFileMgr copyPath: currentPath toPath: targetPath handler: nil]  ) {
+        if (  ! [gFileMgr tbCopyPath: currentPath toPath: targetPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Unable to copy %@ to %@", currentPath, targetPath);
             exit_failure();
         } else {
@@ -192,7 +193,7 @@ int main(int argc, char *argv[])
         && isDir  ) {
         if (  ! (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
                  && isDir  )  ) {
-            if (  ! [gFileMgr copyPath: deployBackupPath toPath: gDeployPath handler:nil]  ) {
+            if (  ! [gFileMgr tbCopyPath: deployBackupPath toPath: gDeployPath handler: nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", gDeployPath);
                 exit_failure();
             }
@@ -218,7 +219,7 @@ int main(int argc, char *argv[])
     
     // If old configurations folder exists (and is a folder):
     // Move its contents to the new configurations folder and delete it
-    NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
     if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
         if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
             if (  isDir  ) {
@@ -227,7 +228,7 @@ int main(int argc, char *argv[])
                     NSLog(@"Tunnelblick Installer: Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
                     secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
                     // Delete the old configuration folder
-                    if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+                    if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
                         NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
                         exit_failure();
                     }
@@ -333,16 +334,16 @@ int main(int argc, char *argv[])
             
             if (  ! (   [gFileMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
                      && isDir  )  ) {
-                if (  ! [gFileMgr copyPath: gDeployPath toPath: deployOrigBackupPath handler:nil]  ) {
+                if (  ! [gFileMgr tbCopyPath: gDeployPath toPath: deployOrigBackupPath handler: nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", gDeployPath);
                     exit_failure();
                 }
             }
             
-            [gFileMgr removeFileAtPath:deployPrevBackupPath handler:nil];                       // Make original backup. Ignore errors -- original backup may not exist yet
-            [gFileMgr movePath: deployBackupPath toPath: deployPrevBackupPath handler: nil];    // Make backup of previous backup. Ignore errors -- previous backup may not exist yet
+            [gFileMgr tbRemoveFileAtPath:deployPrevBackupPath handler: nil];                       // Make original backup. Ignore errors -- original backup may not exist yet
+            [gFileMgr tbMovePath: deployBackupPath toPath: deployPrevBackupPath handler: nil];    // Make backup of previous backup. Ignore errors -- previous backup may not exist yet
             
-            if (  ! [gFileMgr copyPath: gDeployPath toPath: deployBackupPath handler:nil]  ) {  // Make backup of current
+            if (  ! [gFileMgr tbCopyPath: gDeployPath toPath: deployBackupPath handler: nil]  ) {  // Make backup of current
                 NSLog(@"Tunnelblick Installer: Unable to make backup of %@", gDeployPath);
                 exit_failure();
             }
@@ -408,10 +409,10 @@ int main(int argc, char *argv[])
         // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
         // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
         NSString * dotPartialPath = [singlePathToSecure stringByAppendingPathExtension: @"partial"];
-        [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
-        if (  ! [gFileMgr copyPath: singlePathToCopy toPath: dotPartialPath handler: nil]  ) {
+        [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
+        if (  ! [gFileMgr tbCopyPath: singlePathToCopy toPath: dotPartialPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to copy %@ to %@", singlePathToCopy, dotPartialPath);
-            [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
+            [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
             exit_failure();
         }
         
@@ -420,16 +421,16 @@ int main(int argc, char *argv[])
         // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
         // about duplicate configuration names.
         if (  moveNotCopy  ) {
-            if (  ! [gFileMgr removeFileAtPath: singlePathToCopy handler: nil]  ) {
+            if (  ! [gFileMgr tbRemoveFileAtPath:singlePathToCopy handler: nil]  ) {
                 NSLog(@"Tunnelblick Installer: Failed to delete %@", singlePathToCopy);
                 errorHappened = TRUE;
             }
         }
 
-        [gFileMgr removeFileAtPath: singlePathToSecure handler: nil];
-        if (  ! [gFileMgr movePath: dotPartialPath toPath: singlePathToSecure handler: nil]  ) {
+        [gFileMgr tbRemoveFileAtPath:singlePathToSecure handler: nil];
+        if (  ! [gFileMgr tbMovePath: dotPartialPath toPath: singlePathToSecure handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to rename %@ to %@", dotPartialPath, singlePathToSecure);
-            [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
+            [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
             exit_failure();
         }
         
@@ -470,9 +471,9 @@ int main(int argc, char *argv[])
     }
     
     // We remove this file to indicate that the installation succeeded because the return code doesn't propogate back to our caller
-    [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
+    [gFileMgr tbRemoveFileAtPath:privilegedFailureFlagFilePath handler: nil];
     
-    [gFileMgr removeFileAtPath: privilegedRunningFlagFilePath handler: nil];
+    [gFileMgr tbRemoveFileAtPath:privilegedRunningFlagFilePath handler: nil];
     [pool release];
     exit(EXIT_SUCCESS);
 }
@@ -480,7 +481,7 @@ int main(int argc, char *argv[])
 //**************************************************************************************************************************
 void exit_failure()
 {
-    [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
+    [gFileMgr tbRemoveFileAtPath:privilegedFailureFlagFilePath handler: nil];
     [pool release];
     exit(EXIT_FAILURE);
 }
@@ -499,7 +500,7 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
                 NSLog(@"Tunnelblick Installer: Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath);
                 return NO;
             } else {
-                if (  ! [gFileMgr movePath: fullFromPath toPath: fullToPath handler: nil]  ) {
+                if (  ! [gFileMgr tbMovePath: fullFromPath toPath: fullToPath handler: nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to move %@ to %@", fullFromPath, fullToPath);
                     return NO;
                 }
@@ -513,7 +514,7 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
 //**************************************************************************************************************************
 BOOL createSymLink(NSString * fromPath, NSString * toPath)
 {
-    if (  [gFileMgr createSymbolicLinkAtPath: fromPath pathContent: toPath]  ) {
+    if (  [gFileMgr tbCreateSymbolicLinkAtPath: fromPath pathContent: toPath]  ) {
         // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
         if (  0 != lchown([fromPath UTF8String], realUserID, realGroupID)  ) {
             NSLog(@"Tunnelblick Installer: Error: Unable to change ownership of symbolic link %@\nError was '%s'", fromPath, strerror(errno));
@@ -538,11 +539,11 @@ BOOL makeFileUnlockedAtPath(NSString * path)
     int i;
     int maxTries = 5;
     for (i=0; i <= maxTries; i++) {
-        curAttributes = [gFileMgr fileAttributesAtPath: path traverseLink:YES];
+        curAttributes = [gFileMgr tbFileAttributesAtPath: path traverseLink:YES];
         if (  ! [curAttributes fileIsImmutable]  ) {
             break;
         }
-        [gFileMgr changeFileAttributes: newAttributes atPath: path];
+        [gFileMgr tbChangeFileAttributes: newAttributes atPath: path];
         sleep(1);
     }
     
@@ -559,7 +560,7 @@ BOOL makeFileUnlockedAtPath(NSString * path)
 // Returns YES on success, NO on failure
 BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid)
 {
-    NSDictionary * atts = [[NSFileManager defaultManager] fileAttributesAtPath: path traverseLink: YES];
+    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
     if (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
         && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  ) {
         return YES;
@@ -584,7 +585,7 @@ BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid)
         while ( file = [dirEnum nextObject]  ) {
             if (  itemIsVisible(file)  ) {
                 NSString * filePath = [path stringByAppendingPathComponent: file];
-                atts = [[NSFileManager defaultManager] fileAttributesAtPath: filePath traverseLink: YES];
+                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: YES];
                 if (   ! [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
                     || ! [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  ) {
                     if (  chown([filePath UTF8String], uid, gid) != 0  ) {
@@ -613,7 +614,7 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
         return YES;
     }
 
-    NSDictionary *atts = [gFileMgr fileAttributesAtPath: path traverseLink:YES];
+    NSDictionary *atts = [gFileMgr tbFileAttributesAtPath: path traverseLink:YES];
     unsigned long perms = [atts filePosixPermissions];
     NSString *octalPerms = [NSString stringWithFormat:@"%o",perms];
     
@@ -638,7 +639,7 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
     }
     
     NSDictionary * attsToSet = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: permsInt], NSFilePosixPermissions, nil];
-    if (  ! [gFileMgr changeFileAttributes: attsToSet atPath: path]  ) {
+    if (  ! [gFileMgr tbChangeFileAttributes: attsToSet atPath: path]  ) {
         NSLog(@"Tunnelblick Installer: Unable to change permissions to 0%@ on %@",
               permsShouldHave,
               path);
@@ -671,14 +672,14 @@ int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permis
     
     if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
         && isDir  ) {
-        NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
+        NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: dirPath traverseLink: YES];
         if (   [[attributes objectForKey: NSFilePosixPermissions    ] isEqualToNumber: permissionsAsNumber]
             && [[attributes objectForKey: NSFileOwnerAccountID      ] isEqualToNumber: ownerAsNumber      ]
             && [[attributes objectForKey: NSFileGroupOwnerAccountID ] isEqualToNumber: groupAsNumber      ]  ) {
             return 0;
         }
         
-        if (  ! [gFileMgr changeFileAttributes: attributesShouldHave atPath: dirPath] ) {
+        if (  ! [gFileMgr tbChangeFileAttributes: attributesShouldHave atPath: dirPath] ) {
             NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lo, owner:group to %d:%d", dirPath, permissions, owner, group);
             return -1;
         }
@@ -693,7 +694,7 @@ int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permis
     }
     
     // Parent directory exists. Create the directory we want
-    if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: attributesShouldHave] ) {
+    if (  ! [gFileMgr tbCreateDirectoryAtPath: dirPath attributes: attributesShouldHave] ) {
         NSLog(@"Tunnelblick Installer: Unable to create directory %@ with permissions %lu, owner:group of %d:%d", dirPath, permissions, owner, group);
         return -1;
     }

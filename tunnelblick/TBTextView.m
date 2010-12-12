@@ -81,7 +81,7 @@
             NSWindow *window = nil;
             while(window = [e nextObject]) {
                 if (  [[window title] hasPrefix:NSLocalizedString(@"Details - Tunnelblick",  @"Window title")]  ) {
-                    [window performClose:nil ];
+                    [window performClose:nil];
                     return YES;
                 }
             }
