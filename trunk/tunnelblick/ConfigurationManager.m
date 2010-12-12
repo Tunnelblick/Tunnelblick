@@ -26,6 +26,7 @@
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
 #import "TBUserDefaults.h"
+#import "NSFileManager+TB.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
@@ -407,19 +408,19 @@ enum state_t {                      // These are the "states" of the guideState 
     
     // Although the documentation for copyPath:toPath:handler: says that the file's ownership and permissions are copied, the ownership
     // of a file owned by root is NOT copied. Instead, the owner is the currently logged-in user:group, which is *exactly* what we want!
-    [gFileMgr removeFileAtPath: configTempPath handler: nil];
-    if (  ! [gFileMgr copyPath: actualConfigPath toPath: configTempPath handler: nil]  ) {
+    [gFileMgr tbRemoveFileAtPath:configTempPath handler: nil];
+    if (  ! [gFileMgr tbCopyPath: actualConfigPath toPath: configTempPath handler: nil]  ) {
         NSLog(@"Unable to copy %@ to %@", actualConfigPath, configTempPath);
         return FALSE;
     }
     
-    [gFileMgr removeFileAtPath: configBackupPath handler: nil];
-    if (  ! [gFileMgr movePath: actualConfigPath toPath: configBackupPath handler: nil]  ) {
+    [gFileMgr tbRemoveFileAtPath:configBackupPath handler: nil];
+    if (  ! [gFileMgr tbMovePath: actualConfigPath toPath: configBackupPath handler: nil]  ) {
         NSLog(@"Unable to rename %@ to %@", actualConfigPath, configBackupPath);
         return FALSE;
     }
     
-    if (  ! [gFileMgr movePath: configTempPath toPath: actualConfigPath handler: nil]  ) {
+    if (  ! [gFileMgr tbMovePath: configTempPath toPath: actualConfigPath handler: nil]  ) {
         NSLog(@"Unable to rename %@ to %@", configTempPath, actualConfigPath);
         return FALSE;
     }
@@ -723,10 +724,10 @@ enum state_t {                      // These are the "states" of the guideState 
                           warnDialog: NO
                          moveNotCopy: NO]  ) {
             nErrors++;
-            [gFileMgr removeFileAtPath: target handler: nil];
+            [gFileMgr tbRemoveFileAtPath:target handler: nil];
         }
         if (  [source hasPrefix: @"/tmp"]  ) {
-            [gFileMgr removeFileAtPath: [source stringByDeletingLastPathComponent] handler: nil];
+            [gFileMgr tbRemoveFileAtPath:[source stringByDeletingLastPathComponent] handler: nil];
         }
     }
     
@@ -1103,7 +1104,7 @@ enum state_t {                      // These are the "states" of the guideState 
 -(NSString *) getPackageToInstall: (NSString *) thePath withKey: (NSString *) key;
 
 {
-    NSMutableArray * pkgList = [[gFileMgr directoryContentsAtPath: thePath] mutableCopy];
+    NSMutableArray * pkgList = [[gFileMgr tbDirectoryContentsAtPath: thePath] mutableCopy];
     if (  ! pkgList  ) {
         return nil;
     }
@@ -1150,7 +1151,7 @@ enum state_t {                      // These are the "states" of the guideState 
         && [gFileMgr fileExistsAtPath: firstItem isDirectory: &isDir]
         && isDir  ) {
         [pkgList release];
-        pkgList = [[gFileMgr directoryContentsAtPath: firstItem] mutableCopy];
+        pkgList = [[gFileMgr tbDirectoryContentsAtPath: firstItem] mutableCopy];
         searchPath = [[firstItem copy] autorelease];
     } else {
         searchPath = [[thePath copy] autorelease];
@@ -1227,7 +1228,7 @@ enum state_t {                      // These are the "states" of the guideState 
             newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
         }
 
-        if (  ! [gFileMgr copyPath: oldPath toPath: newPath handler: nil]  ) {
+        if (  ! [gFileMgr tbCopyPath: oldPath toPath: newPath handler: nil]  ) {
             NSLog(@"Unable to copy %@ to %@", oldPath, newPath);
             [pkgList release];
             return nil;
@@ -1248,7 +1249,7 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * source = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
     NSString * target = [emptyTblk stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
-    if (  ! [gFileMgr copyPath: source toPath: target handler: nil]  ) {
+    if (  ! [gFileMgr tbCopyPath: source toPath: target handler: nil]  ) {
         NSLog(@"Unable to copy sample configuration file to %@", target);
         return nil;
     }
@@ -1266,7 +1267,7 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * tempResources = [tempTblk stringByAppendingPathComponent: @"Contents/Resources"];
     
-    [gFileMgr removeFileAtPath: tempFolder handler: nil];
+    [gFileMgr tbRemoveFileAtPath:tempFolder handler: nil];
     
     int result = createDir(tempResources, 0755);    // Creates all intermediate directories as needed
     if (  result == -1  ) {
@@ -1437,7 +1438,7 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
     
-    NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:configFile traverseLink:YES];
+    NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:configFile traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSString *octalString = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
@@ -1451,7 +1452,7 @@ enum state_t {                      // These are the "states" of the guideState 
 
 -(BOOL) checkPermissions: (NSString *) permsShouldHave forPath: (NSString *) path
 {
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath: path traverseLink:YES];
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSString *octalString = [NSString stringWithFormat:@"%o",perms];
     
@@ -1747,7 +1748,7 @@ enum state_t {                      // These are the "states" of the guideState 
                         break;
                     }
                     
-                    [gFileMgr removeFileAtPath: targetPath handler: nil];
+                    [gFileMgr tbRemoveFileAtPath:targetPath handler: nil];
                 }
                 
                 if (  createDir(targetPath, 0755) == -1  ) {
@@ -1761,7 +1762,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 NSString * targetConfigPath = [targetPath stringByAppendingPathComponent: @"config.ovpn"];
                 
                 NSString * sourcePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
-                if (  ! [gFileMgr copyPath: sourcePath toPath: targetConfigPath handler: nil]  ) {
+                if (  ! [gFileMgr tbCopyPath: sourcePath toPath: targetConfigPath handler: nil]  ) {
                     NSLog(@"Installation failed. Not able to copy %@ to %@", sourcePath, targetConfigPath);
                     TBRunAlertPanel(NSLocalizedString(@"Installation failed", @"Window title"),
                                     NSLocalizedString(@"Tunnelblick could not create the sample configuration", @"Window text"),
@@ -1958,7 +1959,7 @@ enum state_t {                      // These are the "states" of the guideState 
                         break;
                     }
                     
-                    [gFileMgr removeFileAtPath: targetPath handler: nil];
+                    [gFileMgr tbRemoveFileAtPath:targetPath handler: nil];
                 }
                 
                 if (    createDir(targetPath, 0755) == -1    ) {

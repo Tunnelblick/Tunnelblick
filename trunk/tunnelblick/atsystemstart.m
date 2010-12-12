@@ -41,6 +41,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Security/AuthSession.h>
+#import "NSFileManager+TB.h"
 
 NSAutoreleasePool   * pool;
 NSString            * flagFilePath;
@@ -115,7 +116,7 @@ int main(int argc, char* argv[])
 void setStart(NSString * libPath, NSString * plistPath)
 {
     if (  [[NSFileManager defaultManager] fileExistsAtPath: libPath]  ) {
-        if ( ! [[NSFileManager defaultManager] removeFileAtPath: libPath handler: nil]  ) {
+        if ( ! [[NSFileManager defaultManager] tbRemoveFileAtPath:libPath handler: nil]  ) {
             NSLog(@"Unable to delete %@", libPath);
             createFlagFile();
             [pool drain];
@@ -131,7 +132,7 @@ void setStart(NSString * libPath, NSString * plistPath)
         exit(EXIT_FAILURE);
     }
 
-    if (  ! [[NSFileManager defaultManager] copyPath: plistPath toPath: libPath handler: nil]  ) {
+    if (  ! [[NSFileManager defaultManager] tbCopyPath: plistPath toPath: libPath handler: nil]  ) {
         NSLog(@"Unable to copy %@ to %@", plistPath, libPath);
         createFlagFile();
         [pool drain];
@@ -150,7 +151,7 @@ void setStart(NSString * libPath, NSString * plistPath)
 void setNoStart(NSString * libPath)
 {
     if (  [[NSFileManager defaultManager] fileExistsAtPath: libPath]  ) {
-        if ( ! [[NSFileManager defaultManager] removeFileAtPath: libPath handler: nil]  ) {
+        if ( ! [[NSFileManager defaultManager] tbRemoveFileAtPath:libPath handler: nil]  ) {
             NSLog(@"Unable to delete %@", libPath);
             createFlagFile();
             [pool drain];

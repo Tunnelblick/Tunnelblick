@@ -22,6 +22,7 @@
 #import <netinet/in.h>
 #import <sys/stat.h>
 #import "defines.h"
+#import "NSFileManager+TB.h"
 
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
@@ -881,7 +882,7 @@ BOOL deleteOpenVpnLogFiles(NSString * configurationPath)
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
             if (   [[filename pathExtension] isEqualToString: @"log"]
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
-                if (  ! [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
+                if (  ! [gFileMgr tbRemoveFileAtPath:oldFullPath handler: nil]  ) {
                     fprintf(stderr, "Error occurred trying to delete OpenVPN log file %s\n", [oldFullPath UTF8String]);
                     errHappened = TRUE;
                 }
@@ -1092,7 +1093,7 @@ BOOL processExists(pid_t pid)
 //Returns NO if configuration file is secure, otherwise complains and exits
 BOOL configNeedsRepair(void)
 {
-	NSDictionary*	fileAttributes	= [gFileMgr fileAttributesAtPath:configPath traverseLink:YES];
+	NSDictionary*	fileAttributes	= [gFileMgr tbFileAttributesAtPath:configPath traverseLink:YES];
     
 	if (fileAttributes == nil) {
 		fprintf(stderr, "Error: %s does not exist\n", [configPath UTF8String]);
@@ -1256,7 +1257,7 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
         return YES;
     }
     
-    NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
+    NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSString *permissionsOctal = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
@@ -1287,7 +1288,7 @@ BOOL createDir(NSString * d, unsigned long perms)
     
     NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
 
-    if (  ! [gFileMgr createDirectoryAtPath: d attributes: dirAttributes] ) {
+    if (  ! [gFileMgr tbCreateDirectoryAtPath: d attributes: dirAttributes] ) {
         NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
     }
     

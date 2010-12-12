@@ -21,6 +21,7 @@
 #import "helper.h"
 #import "TBUserDefaults.h"
 #import "NSApplication+SystemVersion.h"
+#import "NSFileManager+TB.h"
 
 // PRIVATE FUNCTIONS:
 NSString     * openVPNVersion           (void);
@@ -140,12 +141,12 @@ int createDir(NSString * dirPath, unsigned long permissions)
                 || [dirPath hasSuffix: @"/Library/Application Support"]  ) {
                 return 0;
             }
-            NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
+            NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: dirPath traverseLink: YES];
             NSNumber * oldPermissionsAsNumber = [attributes objectForKey: NSFilePosixPermissions];
             if (  [oldPermissionsAsNumber isEqualToNumber: permissionsAsNumber] ) {
                 return 0;
             }
-            if (  [gFileMgr changeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
+            if (  [gFileMgr tbChangeFileAttributes: permissionsAsAttribute atPath: dirPath] ) {
                 return 1;
             }
             NSLog(@"Warning: Unable to change permissions on %@ from %lo to %lo", dirPath, [oldPermissionsAsNumber longValue], permissions);
@@ -163,7 +164,7 @@ int createDir(NSString * dirPath, unsigned long permissions)
     }
     
     // Parent directory exists. Create the directory we want
-    if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
+    if (  ! [gFileMgr tbCreateDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
         if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
             && isDir  ) {
             NSLog(@"Warning: Created directory %@ but unable to set permissions to %lu", dirPath, permissions);
@@ -272,7 +273,7 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
         return YES;
     }
     
-    NSDictionary *fileAttributes = [gFileMgr fileAttributesAtPath:fPath traverseLink:YES];
+    NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSString *permissionsOctal = [NSString stringWithFormat:@"%o",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];

@@ -32,7 +32,7 @@ BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
 
-@interface MenuController : NSObject
+@interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSTextStorageDelegate,NSWindowDelegate>
 {
     IBOutlet id               onLaunchRadioButton;
     IBOutlet id               onSystemStartRadioButton;

@@ -34,6 +34,7 @@
 #import "TBUserDefaults.h"
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
+#import "NSFileManager+TB.h"
 
 
 // These are global variables rather than class variables to make access to them easier
@@ -324,10 +325,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
                 NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
                 NSString * launchTunnelblickSymlinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                NSString * linkContents = [gFileMgr pathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath];
+                NSString * linkContents = [gFileMgr tbPathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath];
                 if (  linkContents == nil  ) {
-                    [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil];
-                    if (  [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                    [gFileMgr tbRemoveFileAtPath:launchTunnelblickSymlinkPath handler: nil];
+                    if (  [gFileMgr tbCreateSymbolicLinkAtPath: launchTunnelblickSymlinkPath
                                                    pathContent: pathToThisApp]  ) {
                         NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
                     } else {
@@ -335,10 +336,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                     }
                 } else if (  ! [linkContents isEqualToString: pathToThisApp]  ) {
                     ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
-                    if (  ! [gFileMgr removeFileAtPath: launchTunnelblickSymlinkPath handler: nil]  ) {
+                    if (  ! [gFileMgr tbRemoveFileAtPath:launchTunnelblickSymlinkPath handler: nil]  ) {
                         NSLog(@"Unable to remove %@", launchTunnelblickSymlinkPath);
                     }
-                    if (  [gFileMgr createSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                    if (  [gFileMgr tbCreateSymbolicLinkAtPath: launchTunnelblickSymlinkPath
                                                    pathContent: pathToThisApp]  ) {
                         NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
                     } else {
@@ -411,15 +412,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     BOOL isDir;
     NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/openvpn"];
-    NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
     if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
         // A symbolic link exists
-        if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: gPrivatePath]  ) {
+        if (  ! [[gFileMgr tbPathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: gPrivatePath]  ) {
             NSLog(@"Warning: %@ exists and is a symbolic link but does not reference %@. Attempting repair...", oldConfigDirPath, gPrivatePath);
-            if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
+            if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
                 NSLog(@"Warning: Unable to remove %@", oldConfigDirPath);
             }
-            if (  ! [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+            if (  ! [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
                                            pathContent: gPrivatePath]  ) {
                 NSLog(@"Warning: Unable to change symbolic link %@ to point to %@", oldConfigDirPath, gPrivatePath);
             }
@@ -440,8 +441,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                     }
                 }
                 if (  isEmpty  ) {
-                    if (  [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
-                        if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+                    if (  [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
+                        if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
                                                      pathContent: gPrivatePath]  ) {
                             NSLog(@"Replaceed %@ with a symbolic link to %@", oldConfigDirPath, gPrivatePath);
                         } else {
@@ -457,7 +458,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 NSLog(@"Warning: %@ exists but is not a symbolic link or a folder.", oldConfigDirPath);
             }
         } else {
-            if (  [gFileMgr createSymbolicLinkAtPath: oldConfigDirPath
+            if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldConfigDirPath
                                          pathContent: gPrivatePath]  ) {
                 NSLog(@"Created a symbolic link to %@ at %@", gPrivatePath, oldConfigDirPath);
             } else {
@@ -3610,7 +3611,7 @@ static void signal_handler(int signalNumber)
         }
         
         response = TBRunAlertPanel(launchWindowTitle,
-                                   [NSString stringWithFormat: launchWindowText],
+                                   launchWindowText,
                                    NSLocalizedString(@"Launch", "Button"), // Default button
                                    NSLocalizedString(@"Quit", "Button"), // Alternate button
                                    nil);
@@ -3743,7 +3744,7 @@ static void signal_handler(int signalNumber)
         if (  needsRestoreDeploy  ) [msg appendString: NSLocalizedString(@"  • Restore configuration(s) from the backup\n", @"Window text")];
         if (  needsPkgRepair      ) [msg appendString: NSLocalizedString(@"  • Secure Tunnelblick VPN Configurations\n", @"Window text")];
         
-        NSLog(msg);
+        NSLog(@"%@", msg);
         
         // Get an AuthorizationRef and use executeAuthorized to run the installer
         myAuth= [NSApplication getAuthorizationRef: msg];
@@ -3826,7 +3827,7 @@ static void signal_handler(int signalNumber)
     if (  status != 0  ) {
         NSLog(@"Returned status of %d indicates failure of installer execution of %@: %@", status, launchPath, arguments);
         if (  [gFileMgr fileExistsAtPath: privilegedFailureFlagFilePath]  ) {
-            [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
+            [gFileMgr tbRemoveFileAtPath:privilegedFailureFlagFilePath handler: nil];
         }
         return FALSE;
     }
@@ -3842,7 +3843,7 @@ static void signal_handler(int signalNumber)
     }
     
     if (  [gFileMgr fileExistsAtPath: privilegedFailureFlagFilePath]  ) {
-        [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
+        [gFileMgr tbRemoveFileAtPath:privilegedFailureFlagFilePath handler: nil];
         NSLog(@"Presence of error file indicates failure executing %@: %@", launchPath, arguments);
         return FALSE;
     }
@@ -3884,7 +3885,7 @@ BOOL needToMoveLibraryOpenVPN(void)
     }
     
     // OLD location must either be a directory, or a symbolic link to the NEW location
-    NSDictionary * fileAttributes = [gFileMgr fileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+    NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
     if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
         if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
             if (  isDir  ) {
@@ -3902,7 +3903,7 @@ BOOL needToMoveLibraryOpenVPN(void)
         }
     } else {
         // ~/Library/openvpn is a symbolic link
-        if (  ! [[gFileMgr pathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
+        if (  ! [[gFileMgr tbPathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
             NSLog(@"%@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
             return YES; // Installer will repair this
         }
