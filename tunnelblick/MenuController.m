@@ -185,6 +185,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
+        terminatingAtUserRequest = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
@@ -576,10 +577,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     // Remove us from the login items if terminates manually...
     [NSApp setAutoLaunchOnLogin: NO];
+    terminatingAtUserRequest = TRUE;
     [NSApp terminate: sender];
 }
 
-
+-(BOOL) terminatingAtUserRequest
+{
+    return terminatingAtUserRequest;
+}
 
 - (void) awakeFromNib
 {
