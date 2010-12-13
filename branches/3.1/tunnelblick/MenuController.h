@@ -133,6 +133,8 @@ BOOL needToRepairPackages(void);
     BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch
     //                                                         and therefore we can safely terminate unknown OpenVPN processes when quitting TB
     
+    BOOL                      terminatingAtUserRequest;     // Indicates that we are terminating because the user Quit or Command-Q-ed
+    
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
@@ -198,5 +200,6 @@ BOOL needToRepairPackages(void);
 -(NSString *)       customRunOnConnectPath;
 -(int)              selectedLeftNavListIndex;
 -(void)             setSelectedLeftNavListIndex:            (int)               newValue;
+-(BOOL)             terminatingAtUserRequest;
 
 @end
