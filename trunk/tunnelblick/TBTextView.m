@@ -18,6 +18,7 @@
 
 #import "TBTextView.h"
 #import "NSApplication+LoginItem.h"
+#import "MenuController.h"
 
 @implementation TBTextView
 
@@ -44,8 +45,7 @@
         NSString * c = [e charactersIgnoringModifiers];
 
         if (         [c isEqual: @"q"]  ) {     // Command-Q - Quit
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate: self];
+            [[NSApp delegate] quit: self];
             return YES;
 
         } else if (  [c isEqual: @"c"]  ) {     // Command-C - Copy to pasteboard

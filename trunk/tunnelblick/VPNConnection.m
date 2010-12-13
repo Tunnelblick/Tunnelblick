@@ -1336,7 +1336,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     lastState = newState;
 
     if (   [lastState isEqualToString: @"EXITING"]
-        && [requestedState isEqualToString: @"CONNECTED"]  ) {
+        && [requestedState isEqualToString: @"CONNECTED"]
+        && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
         TBRunAlertPanelExtended(NSLocalizedString(@"Unexpected disconnection", @"Window title"),
                                 [NSString stringWithFormat: NSLocalizedString(@"'%@' has been unexpectedly disconnected.", @"Window text"), [self displayName]],
                                 nil, nil, nil,
