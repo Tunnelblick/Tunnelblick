@@ -137,39 +137,78 @@ int main(int argc, char* argv[])
             
         } else if( strcmp(command, "postDisconnect") == 0) {
             if (  argc == 4) {
-				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
-                unsigned  cfgLocCode = atoi(argv[3]);
                 NSString * configPrefix = nil;
-                switch (cfgLocCode) {
-                    case 0:
-                        configPrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
-                        break;
-                    case 1:
-                        configPrefix = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@", NSUserName()];
-                        break;
-                    case 2:
-                        configPrefix = [execPath stringByAppendingPathComponent: @"Deploy"];
-                        break;
-                    case 3:
-                        configPrefix = [NSString stringWithString: @"/Library/Application Support/Tunnelblick/Shared"];
-                        break;
-                    default:
-                        break;
+				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                if (  [configFile hasSuffix: @"tblk"]  ) {
+                    unsigned  cfgLocCode = atoi(argv[3]);
+                    switch (cfgLocCode) {
+                        case 0:
+                            configPrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+                            break;
+                        case 1:
+                            configPrefix = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@", NSUserName()];
+                            break;
+                        case 2:
+                            configPrefix = [execPath stringByAppendingPathComponent: @"Deploy"];
+                            break;
+                        case 3:
+                            configPrefix = [NSString stringWithString: @"/Library/Application Support/Tunnelblick/Shared"];
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 if (  configPrefix  ) {
-                    syntaxError = FALSE;
                     configPath = [configPrefix stringByAppendingPathComponent: configFile];
                     configPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
                     if (  [gFileMgr fileExistsAtPath: configPath]  ) {
                         if (  checkOwnerAndPermissions(configPath, 0, 0, @"744")  ) {
                             runAsRoot(configPath, [NSArray array]);
+                            syntaxError = FALSE;
                         } else {
                             fprintf(stderr, "Error: %s is not secured\n", [configPath UTF8String]);
                         }
                     } else {
-                        fprintf(stderr, "Error: openvpnstart postDisconnect cannot find file %s\n", [configPath UTF8String]);
+                        fprintf(stderr, "Error: openvpnstart cannot find file %s\n", [configPath UTF8String]);
                     }
-
+                }
+            }
+        } else if( strcmp(command, "connected") == 0) {
+            if (  argc == 4) {
+                NSString * configPrefix = nil;
+				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                if (  [configFile hasSuffix: @"tblk"]  ) {
+                    unsigned  cfgLocCode = atoi(argv[3]);
+                    switch (cfgLocCode) {
+                        case 0:
+                            configPrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+                            break;
+                        case 1:
+                            configPrefix = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@", NSUserName()];
+                            break;
+                        case 2:
+                            configPrefix = [execPath stringByAppendingPathComponent: @"Deploy"];
+                            break;
+                        case 3:
+                            configPrefix = [NSString stringWithString: @"/Library/Application Support/Tunnelblick/Shared"];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (  configPrefix  ) {
+                    configPath = [configPrefix stringByAppendingPathComponent: configFile];
+                    configPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
+                    if (  [gFileMgr fileExistsAtPath: configPath]  ) {
+                        if (  checkOwnerAndPermissions(configPath, 0, 0, @"744")  ) {
+                            runAsRoot(configPath, [NSArray array]);
+                            syntaxError = FALSE;
+                        } else {
+                            fprintf(stderr, "Error: %s is not secured\n", [configPath UTF8String]);
+                        }
+                    } else {
+                        fprintf(stderr, "Error: openvpnstart cannot find file %s\n", [configPath UTF8String]);
+                    }
                 }
             }
 		} else if( strcmp(command, "start") == 0 ) {
@@ -221,6 +260,9 @@ int main(int argc, char* argv[])
 				
 				"./openvpnstart postDisconnect  configName  cfgLocCode\n\n"
 				"               to run the post-disconnect.sh script inside a .tblk.\n\n"
+				
+				"./openvpnstart connected  configName  cfgLocCode\n\n"
+				"               to run the connected.sh script inside a .tblk.\n\n"
 				
 				"Where:\n\n"
                 
