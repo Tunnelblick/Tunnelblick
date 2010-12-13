@@ -780,9 +780,9 @@ enum state_t {                      // These are the "states" of the guideState 
 
     NSString * subfolder = nil;
     NSString * filePathWithoutTblk = [filePath stringByDeletingLastPathComponent];
-    NSRange outerTblkRange = [filePathWithoutTblk rangeOfString: @".tblk"];
+    NSRange outerTblkRange = [filePathWithoutTblk rangeOfString: @".tblk/"];
     if (  outerTblkRange.length != 0  ) {
-        subfolder = [filePathWithoutTblk substringWithRange: NSMakeRange(outerTblkRange.location + 5, [filePathWithoutTblk length] - outerTblkRange.location - 5)];
+        subfolder = [filePathWithoutTblk substringWithRange: NSMakeRange(outerTblkRange.location + outerTblkRange.length, [filePathWithoutTblk length] - outerTblkRange.location - outerTblkRange.length)];
     }
 
     BOOL pkgIsOK = TRUE;     // Assume it is OK to install the package
