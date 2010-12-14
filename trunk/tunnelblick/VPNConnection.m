@@ -1348,14 +1348,38 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     } else if (  [newState isEqualToString: @"CONNECTED"]  ) {
         // Run the connected script, if any
         if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * connectedScriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
-            if (  [gFileMgr fileExistsAtPath: connectedScriptPath]  ) {
+            NSString * scriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
+            if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
                 NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
                 NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
                 if (   startArguments
                     && ( ! [[startArguments objectAtIndex: 5] isEqualToString: @"1"] )  ) {
                     NSArray * arguments = [NSArray arrayWithObjects:
                                            @"connected",
+                                           [startArguments objectAtIndex: 1],    // configFile
+                                           [startArguments objectAtIndex: 5],    // cfgLocCode
+                                           nil];
+                    
+                    NSTask * task = [[NSTask alloc] init];
+                    [task setLaunchPath: path];
+                    [task setArguments: arguments];
+                    [task launch];
+                    [task waitUntilExit];
+                    [task release];
+                }
+            }
+        }
+    } else if (  [newState isEqualToString: @"RECONNECTING"]  ) {
+        // Run the reconnecting script, if any
+        if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+            NSString * scriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/reconnecting.sh"];
+            if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+                NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+                NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
+                if (   startArguments
+                    && ( ! [[startArguments objectAtIndex: 5] isEqualToString: @"1"] )  ) {
+                    NSArray * arguments = [NSArray arrayWithObjects:
+                                           @"reconnecting",
                                            [startArguments objectAtIndex: 1],    // configFile
                                            [startArguments objectAtIndex: 5],    // cfgLocCode
                                            nil];
