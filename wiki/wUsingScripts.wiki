@@ -14,6 +14,7 @@ Tunnelblick uses three types of scripts: pre- and post- scripts, up- and down- s
   * They may be used in special circumstances -- for example, to make modifications to the network configuration when a tunnel is active.
   * The scripts must be named "pre-connect.sh" and "post-disconnect.sh"
   * The scripts can only be used in a [wPkgs Tunnelblick VPN Configuration] when using Tunnelblick 3.1beta06 or later.
+  * The post-disconnect script is not run unless Tunnelblick is running at the time the disconnection occurs. (This only affects 'connect when computer starts' configurations.)
 
 *up- and down- scripts* are run immediately after connecting, and immediately after disconnecting, respectively. 
   * The scripts are run only when "Set nameserver" is selected.
