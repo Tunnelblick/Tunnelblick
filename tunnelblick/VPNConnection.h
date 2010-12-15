@@ -27,7 +27,7 @@
     //      Tunnelblick.app/Contents/Resources/Deploy
     // or   ~/Library/Application Support/Tunnelblick/Configurations
     // or   /Library/Application Support/Tunnelblick/Shared
-    // or   /Library/Application Support/Tunnelblick/User/<username>
+    // or   /Library/Application Support/Tunnelblick/Users/<username>
     // or a subdirectory of one of them
 	NSString      * displayName;        // The configuration name, including directory prefix, as sometimes displayed to the user 
     //                                     BUT only sometimes. In the menu and in the left navigation tabs, the leading
