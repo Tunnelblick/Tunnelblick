@@ -41,6 +41,7 @@ TBCONFIG="$config"
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
 # then convert to regular config     /Users/Jonathan/Library/Application Support/Tunnelblick/Configurations/Folder/Subfolder/config.ovpn
 #      to get the script log path
+# Note: "/Users/..." works even if the home directory has a different path; it is used in the name of the script log file, and is not used as a path to get to anything.
 TBALTPREFIX="/Library/Application Support/Tunnelblick/Users/"
 TBALTPREFIXLEN="${#TBALTPREFIX}"
 TBCONFIGSTART="${TBCONFIG:0:$TBALTPREFIXLEN}"

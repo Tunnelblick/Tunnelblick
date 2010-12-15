@@ -466,9 +466,19 @@ extern NSFileManager        * gFileMgr;
 
 // Returns a path for a script log file
 // It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of ".script.log"
+//
+// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
+// of creating the filename -- we never try to access /Users/username...). We do this because
+// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
+// folder may be located in a non-standard location (on a remote volume for example).
 -(NSString *) constructScriptLogPath
 {
-    NSMutableString * logPath = [[self configurationPath] mutableCopy];
+    NSMutableString * logPath;
+    if (  [configurationPath hasPrefix: NSHomeDirectory()]  ) {
+        logPath = [[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [configurationPath substringFromIndex: [NSHomeDirectory() length]]] mutableCopy];
+    } else {
+        logPath = [[self configurationPath] mutableCopy];
+    }
     if (  [[[self configurationPath] pathExtension] isEqualToString: @"tblk"]) {
         [logPath appendString: @"/Contents/Resources/config.ovpn"];
     }
@@ -486,9 +496,20 @@ extern NSFileManager        * gFileMgr;
 //      * "openvpn"; and
 //      * "log"
 // So what we actually do is search for a file with the specified encoded configuration path, and return the path to that file.
+//
+// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
+// of creating the filename -- we never try to access /Users/username...). We do this because
+// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
+// folder may be located in a non-standard location (on a remote volume for example).
 -(NSString *) constructOpenvpnLogPath
 {
-    NSMutableString * encodedConfigPath = [[[self configurationPath] mutableCopy] autorelease];
+    NSMutableString * encodedConfigPath;
+    if (  [configurationPath hasPrefix: NSHomeDirectory()]  ) {
+        encodedConfigPath = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [configurationPath substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
+    } else {
+        encodedConfigPath = [[[self configurationPath] mutableCopy] autorelease];
+    }
+
     [encodedConfigPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [encodedConfigPath length])];
     [encodedConfigPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [encodedConfigPath length])];
     NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", LOG_DIR, encodedConfigPath];
