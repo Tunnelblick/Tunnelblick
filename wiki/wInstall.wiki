@@ -58,9 +58,12 @@ To launch Tunnelblick after setting up configuration and other files, double-cli
 If Tunnelblick is running when you log out, shut down, or restart your computer, it will automatically be launched when you log in.
 
 ==Uninstalling Tunnelblick==
-To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to the Trash.
+To uninstall Tunnelblick:
+ # Disconnect any open connections.
+ # Change any configurations that are set to connect when the computer starts to connect when Tunnelblick is launched.
+ # Move Tunnelblick.app from the Applications folder to the Trash.
 
- * Other than the preferences and configuration files described in [wFileLocations File Locations], there are no other files installed -- OpenVPN, scripts, and the tun/tap kernel extensions are contained within Tunnelblick and are loaded only when needed directly from there.
+ * Other than the preferences, configuration files, and !LaunchDaemon files described in [wFileLocations File Locations], there are no other files installed -- OpenVPN, scripts, and the tun/tap kernel extensions are contained within Tunnelblick and are loaded only when needed directly from there.
  * Tunnelblick may store passphrases or passwords in the Keychain at the user's request.
  * Tunnelblick version 3.1beta02 and later automatically unload the tun and tap kexts when you disconnect; otherwise you can unload them by restarting your computer or manually with the "kextunload" Terminal command. (Usually it doesn't matter if they are loaded unless you are using other VPN software.)
 
