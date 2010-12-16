@@ -4127,6 +4127,29 @@ int runUnrecoverableErrorPanel(msg)
 -(IBAction) onSystemStartRadioButtonWasClicked: (id) sender
 {
 	if([[sender cellAtRow: 0 column: 0] state]) {
+        // Warn user if .tblk and contains scripts that may not run if connecting when computer starts
+        NSString * basePath = [[self selectedConnection] configPath];
+        if (  [[basePath pathExtension] isEqualToString: @"tblk"]  ) {
+            NSString * connectedPath      = [basePath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
+            NSString * reconnectingPath   = [basePath stringByAppendingPathComponent: @"Contents/Resources/reconnecting.sh"];
+            NSString * postDisconnectPath = [basePath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
+            if (   [gFileMgr fileExistsAtPath: connectedPath]
+                || [gFileMgr fileExistsAtPath: reconnectingPath]
+                || [gFileMgr fileExistsAtPath: postDisconnectPath]  ) {
+                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
+                                                     NSLocalizedString(@"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this connection starts when the computer starts, these scripts may not be executed.\n\nDo you wish to have this connection start when the computer starts?", @"Window text"),
+                                                     NSLocalizedString(@"Connect When Computer Starts", @"Button"),
+                                                     NSLocalizedString(@"Cancel", @"Button"),
+                                                     nil,
+                                                     @"skipWarningAboutOnComputerStartAndTblkScripts",
+                                                     NSLocalizedString(@"Do not ask again", @"Checkbox name"),
+                                                     nil);
+                if (  result == NSAlertAlternateReturn  ) {
+                    [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
+                    return;
+                }
+            }
+        }
 		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
 	} else {
 		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
