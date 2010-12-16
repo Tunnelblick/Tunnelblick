@@ -295,8 +295,8 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     NSString * infoShort   = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString * infoBuild   = [bundle objectForInfoDictionaryKey:@"Build"];
     
-    if (  [[infoVersion class] isSubclassOfClass: [NSString class]] && [infoVersion rangeOfString: @"."].location == NSNotFound  ) {
-        // No "." in CFBundleVersion, so it is a build number, which means that the CFBundleShortVersionString has what we want
+    if (  [[infoVersion class] isSubclassOfClass: [NSString class]] && [infoVersion rangeOfString: @"3.0b"].location == NSNotFound  ) {
+        // No "3.0b" in CFBundleVersion, so it is a build number, which means that the CFBundleShortVersionString has what we want
         return [NSString stringWithFormat: @"Tunnelblick %@", infoShort];
     }
     

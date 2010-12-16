@@ -20,7 +20,7 @@
  *
  * It sets up to either run, or not run, openvpnstart with specified arguments at system startup.
  *
- * A launchd plist for running openvpnstart must be located in /tmp/tunnelblick-atsystemstart.SESSION.plist, where SESSION is the 
+ * A launchd plist for running openvpnstart must be located in /tmp/tunnelblick/atsystemstart.SESSION.plist, where SESSION is the 
  * session ID (to work with fast user switching). The "Label" entry from the plist is used to identify the specific connection
  * openvpnstart is making.
  *
@@ -32,9 +32,10 @@
  * Otherwise, the file /Library/LaunchDaemons/LABEL.plist will be deleted, so it will not be used
  * to run openvpnstart at system startup.
  *
- * LABEL is the "Label" entry from the plist. It must be "net.tunnelblick.startup.NAME", where NAME is the configuration's display name.
+ * LABEL is the "Label" entry from the plist. It must be "net.tunnelblick.startup.NAME", where NAME is the configuration's display name
+ * with hypens, slashes, and dots encoded as --, -S, -D, respectively.
  *
- * When finished, this program creates a file, /tmp/tunnelblick-atsystemstart.SESSION.done, where SESSION is the 
+ * When finished, this program creates a file, /tmp/tunnelblick/atsystemstart.SESSION.done, where SESSION is the 
  * session ID (to work with fast user switching) to indicate that it has finished. The file is owned by the user
  * so the Tunnelblick GUI can delete it. (We do this because executeAuthorized does not wait for the task to complete before returning.)
  */
@@ -67,8 +68,8 @@ int main(int argc, char* argv[])
 	BOOL syntaxError = TRUE;
     
     if (  argc == 2  ) {
-        NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick-atsystemstart.%d.plist", (int) securitySessionId];
-        flagFilePath         = [NSString stringWithFormat: @"/tmp/tunnelblick-atsystemstart.%d.done", (int) securitySessionId];
+        NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.plist", (int) securitySessionId];
+        flagFilePath         = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.done", (int) securitySessionId];
 
         NSDictionary * plistDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
         
@@ -133,6 +134,9 @@ void setStart(NSString * libPath, NSString * plistPath)
 
     if (  ! [[NSFileManager defaultManager] copyPath: plistPath toPath: libPath handler: nil]  ) {
         NSLog(@"Unable to copy %@ to %@", plistPath, libPath);
+        if (  chown([plistPath UTF8String], getuid(), getgid()) != 0  ) {
+            NSLog(@"Unable to restore ownership of %@", plistPath);
+        }
         createFlagFile();
         [pool drain];
         exit(EXIT_FAILURE);
