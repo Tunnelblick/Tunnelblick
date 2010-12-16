@@ -2770,13 +2770,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         newDisplayState = @"CONNECTED";
     }
     
-    // Display that unless it is already being displayed
-    if (  ![newDisplayState isEqualToString: lastState]  ) {
-        [newDisplayState retain];
-        [lastState release];
-        lastState = newDisplayState;
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-    }
+    [newDisplayState retain];
+    [lastState release];
+    lastState = newDisplayState;
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 -(void)addConnection:(id)sender 
