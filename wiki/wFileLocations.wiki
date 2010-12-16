@@ -10,7 +10,7 @@ The Tunnelblick application, Tunnelblick.app, is usually stored in /Applications
 The OpenVPN program, openvpn-down-root.so, the "tun" and "tap" kext driver files, and standard client up/down scripts are included with, and contained within, Tunnelblick.app.
 
 ==Log Files==
-Log files are stored in /tmp/tunnelblick. The log files for a configuration are created or deleted and recreated each time the connection is made. There are two log files for each configuration, and OpenVPN log file and a scripts log file. The contents of the files are merged in the display in Tunnelblick's "Details…" window.
+Log files are stored in /tmp/tunnelblick. The log files for a configuration are created or deleted and recreated each time the connection is made. There are two log files for each configuration, an OpenVPN log file and a scripts log file. The contents of the files are merged in the display in Tunnelblick's "Details…" window.
 
 ==Key and Certificate Files==
 These may be stored anywhere, but typically they are stored in the same folder as the configuration (.ovpn or .conf) file. Key and certificate files associated with a Tunnelblick VPN Configuration (.tblk) are stored inside the configuration itself.
@@ -37,6 +37,9 @@ There are four places configuration files may be stored:
   * "Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. See "useShadowConfigurationFiles" in [Preferences Preferences] for details. Shadow copies are created and maintained by Tunnelblick.
 
 Note: Prior to Tunnelblick version 3.0b24, private configuration files were stored in ~/Library/openvpn. Version 3.0b24 and later versions automatically move that folder to its new location, and replace it with a symbolic link to the new location.
+
+==LaunchDaemons==
+If a configurations are set to connect when the computer starts, it has a .plist file located in /Library/LaunchDaemons. These .plist files are all named starting with "net.tunnelblick.startup."
 
 ==Preferences==
 A user's Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates your home folder.)
