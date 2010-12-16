@@ -38,8 +38,8 @@ There are four places configuration files may be stored:
 
 Note: Prior to Tunnelblick version 3.0b24, private configuration files were stored in ~/Library/openvpn. Version 3.0b24 and later versions automatically move that folder to its new location, and replace it with a symbolic link to the new location.
 
-==LaunchDaemons==
-If a configurations are set to connect when the computer starts, it has a .plist file located in /Library/LaunchDaemons. These .plist files are all named starting with "net.tunnelblick.startup."
+==!LaunchDaemons==
+If a configurations are set to connect when the computer starts, it has a .plist file located in /Library/!LaunchDaemons. These .plist files are all named starting with "net.tunnelblick.startup."
 
 ==Preferences==
 A user's Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates your home folder.)
