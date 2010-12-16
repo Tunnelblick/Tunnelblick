@@ -24,6 +24,12 @@
 #import "defines.h"
 #import "NSFileManager+TB.h"
 
+// cfgLocCode values for the location of the configuration file
+#define CFG_LOC_PRIVATE   0
+#define CFG_LOC_ALTERNATE 1
+#define CFG_LOC_DEPLOY    2
+#define CFG_LOC_SHARED    3
+
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
 int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
 int     setupLog            (NSString* logPath);
@@ -55,7 +61,7 @@ unsigned int getFreePort    (void);         //Returns a free port
 
 BOOL	isOpenvpn			(pid_t pid);	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn")
 BOOL	configNeedsRepair	(void);			//Returns NO if configuration file is secure, otherwise complains and returns YES
-BOOL	tblkNeedsRepair     (void);			//Returns NO if .tblk package is secure, otherwise complains and returns YES
+BOOL	tblkNeedsRepair     (BOOL inPrivateFolder);//Returns NO if .tblk package is secure, otherwise complains and returns YES
 BOOL    checkOwnerAndPermissions (NSString * fPath, // Returns YES if file doesn't exist, or has the specified ownership and permissions
                                   uid_t      uid,
                                   gid_t      gid,
@@ -314,18 +320,20 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     // Determine path to the configuration file and the --cd folder
 	nonShadowConfigPath = nil;
     switch (cfgLocCode) {
-        case 0:
+        case CFG_LOC_PRIVATE:
             cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
             configPath = [cdFolderPath stringByAppendingPathComponent:configFile];
             break;
             
-        case 1:
+        case CFG_LOC_ALTERNATE:
             cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
             configPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), configFile];
-            nonShadowConfigPath = [NSString stringWithFormat: @"/Users/%@/Library/Application Support/Tunnelblick/Configurations/%@", NSUserName(), configFile];
+            // Note: We set nonShadowConfigPath to start with "/Users/..." even if the home directory has a different path;
+            // it is used in the name of the script log file, and is not used as a path to get to anything.
+            nonShadowConfigPath = [NSString stringWithFormat:@"/Users/%@/Library/Application Support/Tunnelblick/Configurations/%@", NSUserName(), configFile];
             break;
             
-        case 2:
+        case CFG_LOC_DEPLOY:
             cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
             configPath = [deployDirPath stringByAppendingPathComponent: configFile];
             // If Deploy contains anything other than *.conf, *.ovpn, *.up.sh, *.down.sh, *.tblk, and forced-preferences.plist files
@@ -365,7 +373,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             }
             break;
             
-        case 3:
+        case CFG_LOC_SHARED:
             if (  ! [[configFile pathExtension] isEqualToString: @"tblk"]) {
                 fprintf(stderr, "Only Tunnelblick VPN Configurations (.tblk packages) may connect from /Library/Application Support/Tunnelblick/Shared\n");
                 [pool drain];
@@ -384,7 +392,8 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
  
         // A .tblk package: check that it is secured, override any code above that sets directoryPath, and set the actual configuration path
-        if (  tblkNeedsRepair()  ) {
+        BOOL inPrivateFolder = (cfgLocCode == CFG_LOC_PRIVATE);
+        if (  tblkNeedsRepair(inPrivateFolder)  ) {
             [pool drain];
             exit(241);
         }
@@ -448,7 +457,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     // This would normally be the case, but if someone's custom build inserts replacements for the old scripts, we will use the replacements instead of the new scripts
     
     if(  useScripts != 0  ) {  // 'Set nameserver' specified, so use our standard scripts or Deploy/<config>.up.sh and Deploy/<config>.down.sh
-        if (  cfgLocCode == 2  ) {
+        if (  cfgLocCode == CFG_LOC_DEPLOY  ) {
             NSString * deployScriptPath                 = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
             NSString * deployUpscriptPath               = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@up.sh",               scriptNumString]];
             NSString * deployDownscriptPath             = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@down.sh",             scriptNumString]];
@@ -836,6 +845,11 @@ NSString * createOpenVPNLog(NSString* configurationPath, int port)
 //      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
 //      * the port number; and
 //      * "log"
+//
+// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
+// of creating the filename -- we never try to access /Users/username...). We do this because
+// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
+// folder may be located in a non-standard location (on a remote volume for example).
 NSString * constructOpenVPNLogPath(NSString * configurationPath, NSString * openvpnstartArgs, int port)
 {
     NSMutableString * logPath;
@@ -877,6 +891,11 @@ NSString * createScriptLog(NSString* configurationPath, NSString* cmdLine)
 
 // Returns a path for a script log file.
 // It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of "log"
+//
+// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
+// of creating the filename -- we never try to access /Users/username...). We do this because
+// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
+// folder may be located in a non-standard location (on a remote volume for example).
 NSString * constructScriptLogPath(NSString * configurationPath)
 {
     NSMutableString * logPath;
@@ -1237,7 +1256,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments)
 }
 
 // Returns YES if a .tblk package is not secured
-BOOL tblkNeedsRepair(void)
+BOOL tblkNeedsRepair(BOOL inPrivateFolder)
 {
     NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
     NSString * file;
@@ -1256,7 +1275,7 @@ BOOL tblkNeedsRepair(void)
         if (  itemIsVisible(filePath)  ) {
             if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
                 && isDir  ) {
-                if (  [filePath hasPrefix: @"/Users"]                               // Private folder (i.e., not shared, alternate, or deployed)
+                if (  inPrivateFolder                                               // Private folder (i.e., not shared, alternate, or deployed)
                     && ( ! [filePath hasPrefix: execPath] )                         // .tblk and .tblk/Contents/Resource can be owned by anyone
                     && (   [ext isEqualToString: @"tblk"]
                         || [filePath hasSuffix: @".tblk/Contents/Resources"]  )  ) {
