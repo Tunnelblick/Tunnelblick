@@ -200,11 +200,17 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(BOOL) checkConnectOnSystemStart: (BOOL) startIt withAuth: (AuthorizationRef) inAuthRef
 {
-    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", [self displayName]];
+    // Encode slashes and periods in the displayName so the result can act as a single component in a file name
+    NSMutableString * daemonNameWithoutSlashes = [[[self displayName] mutableCopy] autorelease];
+    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
     
     NSString * libPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
 
-    NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick-atsystemstart.%d.plist", (int) gSecuritySessionId];
+    NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.plist", (int) gSecuritySessionId];
     
     if (  ! startIt  ) {
         if (  ! [gFileMgr fileExistsAtPath: libPath]  ) {
@@ -284,7 +290,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     // The multiple tries are an attempt to make sure the program tries, even if the sleep(1) didn't clear up
     // whatever problem caused the bogus results -- for example, under heavy load perhaps sleep(1) isn't enough.
     
-    NSString * flagPath = [NSString stringWithFormat: @"/tmp/tunnelblick-atsystemstart.%d.done", (int) gSecuritySessionId];
+    NSString * flagPath = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.done", (int) gSecuritySessionId];
 
     int i;
     OSStatus status;
