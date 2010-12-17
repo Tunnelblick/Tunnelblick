@@ -4066,7 +4066,11 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
-	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connection..."];  // Kill any OpenVPN processes that still exist
+	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
+    // Wait until all OpenVPN processes have terminated
+    while (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
+        usleep(100000);
+    }
 }
 -(void)wokeUpFromSleep 
 {
