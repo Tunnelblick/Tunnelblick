@@ -5,6 +5,38 @@
 
 --------------------
 
+==3.1.1 (2010-12-18)==
+
+ * Fixes a problem with the left navigation sometimes not being displayed properly when the Details… window does not have left navigation but adding a configuration changes it to have left navigation.
+
+ * Fixes a problem installing Tunnelblick VPN Configurations (.tblk packages) that have a CFBundleIdentifier containing upper-case letters.
+
+ * Fixes a problem when a .tblk that is being installed has a path which includes a component which includes the string '.tblk'
+
+ * Fixes a problem checking permissions on configuration file when user's home folder is not the usual /Users/username folder -- for example, when it is on a network volume (Issue 163).
+
+ * Fixes a problem with the Tunnelblick icon not displaying correctly for multiple simultaneous connections. Now the icon is a closed tunnel if all configurations that the user expects to be closed are in fact closed, is an open tunnel if all configurations that the user expects to be open are in fact open; otherwise the icon is an animation -- neither open nor closed.
+
+ * Fixes a problem trying to set a configuration that is in a subfolder to connect at system start.
+
+ * Fixes openvpnstart crashes when certain errors occurred. (Tunnelblick itself did not crash.)
+
+ * Fixes problems when using 'shadow' configuration files.
+
+ * Warns the user when certain unexpected disconnections occur.
+
+ * Adds a message to the OpenVPN log displayed in the Details… window when Tunnelblick obtains a VPN passphrase or username/password from the Keychain.
+
+ * Waits to go to sleep until all OpenVPN processes have terminated, unless the 'doNotPutOffSleepUntilOpenVPNsTerminate' boolean preference is set true.
+
+ * Changes Tunnelblick icon animation and open tunnel icon to show yellow beyond the tunnel, brightening the icon subtly. To use the old icon animation, set the 'menuIconSet' preference to the string '!TunnelBlick-black-white.TBMenuIcons'.
+ 
+ * Fixes the inability to display the build number when the Tunnelblick version number that has a period in the build number (as do these 3.1.1 builds).
+
+ * Fixes a typographical error in an error message referring to a known problem in OpenVPN 2.1 -- the error message incorrectly referred to OpenVPN 2.2.
+
+--------------------
+
 ==3.1 (2010-12-05)==
 
  * Only the version and build numbers were updated.

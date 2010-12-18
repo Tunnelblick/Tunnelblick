@@ -5,6 +5,12 @@
 
 --------------------
 
+2010-12-18: *Tunnelblick 3.1.1 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.1.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+
+ * Fixes several problems and warns the user about unexpected disconnections.
+
+--------------------
+
 2010-12-05: *Tunnelblick 3.1 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
  * Only the version and build numbers were updated.
