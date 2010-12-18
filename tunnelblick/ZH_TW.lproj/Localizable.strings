@@ -446,6 +446,9 @@
 "Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
+"Unexpected disconnection" = "Unexpected disconnection";
+
+/* NEEDS TRANSLATION *//* Window title */
 "Updates are disabled" = "Updates are disabled";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -513,6 +516,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"'%@' has been unexpectedly disconnected." = "'%@' has been unexpectedly disconnected.";
 
 /* Window text */
 "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>建基於 Tunnelblick, 自由軟體由 <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a> 提供";

@@ -448,6 +448,9 @@
 "Unable to launch Tunnelblick" = "Tunnelblick kann nicht geöffnet werden";
 
 /* Window title */
+"Unexpected disconnection" = "Unerwarteter Verbindungsabbruch";
+
+/* Window title */
 "Updates are disabled" = "Updates sind deaktiviert";
 
 /* Window title */
@@ -515,6 +518,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "Es existiert bereits eine Datei „%@“ auf dem Schreibtisch.\n\nMöchten Sie sie ersetzen?";
+
+/* Window text */
+"'%@' has been unexpectedly disconnected." = "'%@' wurde unerwartet getrennt.";
 
 /* Window text */
 "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Bassierend auf Tunnelblick, einer freien Software, verfügbar unter <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
