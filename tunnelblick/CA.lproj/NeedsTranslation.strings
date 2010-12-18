@@ -209,6 +209,9 @@
 "Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN Configuration Installation";
 
 /* Window title */
+"Unexpected disconnection" = "Unexpected disconnection";
+
+/* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
 
 /* Window title */
@@ -267,6 +270,9 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
+
+/* Window text */
+"'%@' has been unexpectedly disconnected." = "'%@' has been unexpectedly disconnected.";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
