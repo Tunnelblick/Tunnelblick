@@ -29,7 +29,7 @@
 
  * Waits to go to sleep until all OpenVPN processes have terminated, unless the 'doNotPutOffSleepUntilOpenVPNsTerminate' boolean preference is set true.
 
- * Changes Tunnelblick icon animation and open tunnel icon to show yellow beyond the tunnel, brightening the icon subtly. To use the old icon animation, set the 'menuIconSet' preference to the string '!TunnelBlick-black-white.TBMenuIcons'.
+ * Changes Tunnelblick icon animation and open tunnel icon to show yellow beyond the tunnel, brightening the icon subtly. To use the old icon animation, set the 'menuIconSet' preference to the string '!TunnelBlick-black-white.TBMenuIcons'. Many thanks to Wes Plate for this new icon set.
  
  * Fixes the inability to display the build number when the Tunnelblick version number that has a period in the build number (as do these 3.1.1 builds).
 
