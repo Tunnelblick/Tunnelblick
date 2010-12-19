@@ -90,9 +90,9 @@ _Whichever method you chose, you will need an administrator username/password th
 
   * You can update to the latest _stable_ version of Tunnelblick by starting Tunnelblick, selecting "Options…" from the Tunnelbilck menu, then selecting "Check for Updates Now". If an update is available, you will be guided through the update process. If you install an update, your old version will be moved to the Trash.
 
-  * If you don't see an "Options…" menu selection, you are using a very old version of Tunnelblick. You'll need to download the version you wish to use (stable or beta) and follow the "[How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
+  * If you don't see an "Options…" menu selection, you are using a very old version of Tunnelblick. You'll need to download the version you wish to use (stable or beta) and follow the "[#How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
 
-  * If you are feeling a bit more adventurous, go to the [DownloadsEntry Downloads page] and download the latest beta (experimental) version. Then follow the "[How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
+  * If you are feeling a bit more adventurous, go to the [DownloadsEntry Downloads page] and download the latest beta (experimental) version. Then follow the "[#How_do_I_install_Tunnelblick? How do I install Tunnelblick?]" instructions above.
 
 ==Why does Tunnelblick need root privileges?==
 Tunnelblick needs root privileges the first time it is run for two reasons:
