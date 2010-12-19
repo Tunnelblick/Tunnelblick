@@ -35,8 +35,6 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
  
-  * *[https://www.secure-tunnel.com/members/members_affiliate_resources.cfm?linkID=5641536DD9756984 Secure-Tunnel]*
-
   * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]*
 </td></tr></table>
 
@@ -46,6 +44,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com Private Internet Access]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.secure-tunnel.com Secure-Tunnel]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.supervpn.net Super VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
