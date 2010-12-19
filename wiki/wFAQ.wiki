@@ -109,7 +109,7 @@ This is a security issue. OpenVPN configuration files allow you to specify up/do
 ==Why are routes not restored when closing my VPN connection?==
 You are probably using the 'user' or 'group' directive in your OpenVPN client configuration file. If you use it, the OpenVPN process will drop privileges after startup which is additional security measure. However, OpenVPN needs root privileges for restoring the route back to their original state. In short: don't use it.
 
-As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. Together with a per-configuration preference, this allows the use of 'user' and 'group'. See[UsingTunnelblick Using Tunnelblick] for details on how to do this.
+As of version 3.0b22, Tunnelblick contains the "openvpn-down-root.so" plugin for OpenVPN. Together with a per-configuration preference, this allows the use of 'user' and 'group'. See [UsingTunnelblick Using Tunnelblick] for details on how to do this.
 
 ==Why are some checkboxes or buttons dimmed and disabled?==
 Under certain circumstances,  checkboxes or buttons may be disabled and will appear dimmed -- nothing happens when you click on them. Buttons and checkboxes are disabled when they cannot be used. Examples (from the Details… window):
