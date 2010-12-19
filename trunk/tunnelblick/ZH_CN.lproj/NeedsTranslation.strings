@@ -11,6 +11,9 @@
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 
 /* Button */
+"Connect When Computer Starts" = "Connect When Computer Starts";
+
+/* Button */
 "Create Tunnelblick VPN Configuration" = "Create Tunnelblick VPN Configuration";
 
 /* Button */
@@ -111,6 +114,9 @@
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+
+/* Checkbox name */
+"Do not ask again, always connect" = "Do not ask again, always connect";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
@@ -420,6 +426,9 @@
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "There was a problem with one or more configurations. Details are in the Console Log\n\n";
+
+/* Window text */
+"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?" = "This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?";
 
 /* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately.";

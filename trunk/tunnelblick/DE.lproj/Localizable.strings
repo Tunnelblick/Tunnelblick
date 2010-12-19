@@ -29,6 +29,9 @@
 "Close VPN Connections and Stop Tunnelblick" = "VPN-Verbindung trennen und Tunnelblick beenden";
 
 /* Button */
+"Connect When Computer Starts" = "Beim Einschalten des Computers verbinden";
+
+/* Button */
 "Connect"= "Verbinden";
 
 /* Button */
@@ -201,6 +204,10 @@
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Nicht wieder fragen und immer ignorieren";
+
+/* Checkbox name */
+
+"Do not ask again, always connect" = "Nicht wieder fragen und immer verbinden";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Für diese Konfiguration nicht mehr darauf hinweisen";
@@ -635,6 +642,9 @@
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Bei einer oder mehreren Konfigurationen ist ein Problem aufgetreten. Details finden Sie in der Konsole.\n\n";
+
+/* Window text */
+"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?" = "Diese Tunnelblick VPN Konfiguration beinhaltet ein oder mehrere Ereignisbenachrichtigungs-Skripte, welche nicht ausgeführt werden, solange Tunnelblick nicht beim Eintritt des Ereignisses läuft.\n\nWenn diese Konfiguration beim Einschalten des Computers eine Verbindung herstellt, werden diese Skripte möglicherweise nicht ausgeführt.\n\nMöchten Sie, dass diese Konfiguration eine Verbindung beim Einschalten des Computers herstellt?";
 
 /* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Öffnen Sie eine Tunnelblick-VPN-Konfiguration (Suffix „.tblk“), um sie zu installieren.\n\nDie neue Konfiguration steht sofort zur Verfügung.";
