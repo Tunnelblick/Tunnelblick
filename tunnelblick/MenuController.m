@@ -4142,13 +4142,13 @@ int runUnrecoverableErrorPanel(msg)
             if (   [gFileMgr fileExistsAtPath: connectedPath]
                 || [gFileMgr fileExistsAtPath: reconnectingPath]
                 || [gFileMgr fileExistsAtPath: postDisconnectPath]  ) {
-                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window title"),
-                                                     NSLocalizedString(@"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this connection starts when the computer starts, these scripts may not be executed.\n\nDo you wish to have this connection start when the computer starts?", @"Window text"),
+                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
+                                                     NSLocalizedString(@"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?", @"Window text"),
                                                      NSLocalizedString(@"Connect When Computer Starts", @"Button"),
                                                      NSLocalizedString(@"Cancel", @"Button"),
                                                      nil,
                                                      @"skipWarningAboutOnComputerStartAndTblkScripts",
-                                                     NSLocalizedString(@"Do not ask again", @"Checkbox name"),
+                                                     NSLocalizedString(@"Do not ask again, always connect", @"Checkbox name"),
                                                      nil);
                 if (  result == NSAlertAlternateReturn  ) {
                     [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];

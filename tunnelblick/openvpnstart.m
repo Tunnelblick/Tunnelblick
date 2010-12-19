@@ -673,6 +673,23 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     
     loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
     
+    if (  tblkPath  ) {
+        NSString * postTunTapPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/post-tun-tap-load.sh"];
+        if (  [gFileMgr fileExistsAtPath: postTunTapPath]  ) {
+            if (  ! checkOwnerAndPermissions(postTunTapPath, 0, 0, @"744")  ) {
+                fprintf(stderr, "Error: %s has not been secured", [postTunTapPath UTF8String]);
+                [pool drain];
+                exit(234);
+            }
+            int result = runAsRoot(postTunTapPath, [NSArray array]);
+            if (  result != 0 ) {
+                fprintf(stderr, "Error: %s failed with return code %d", [postTunTapPath UTF8String], result);
+                [pool drain];
+                exit(233);
+            }
+        }
+    }
+    
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
 	[task setArguments:arguments];
