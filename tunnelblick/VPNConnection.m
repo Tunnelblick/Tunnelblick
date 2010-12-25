@@ -1336,17 +1336,17 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [lastState release];
     lastState = newState;
 
-    if (   [lastState isEqualToString: @"EXITING"]
-        && [requestedState isEqualToString: @"CONNECTED"]
-        && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
-        TBRunAlertPanelExtended(NSLocalizedString(@"Unexpected disconnection", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"'%@' has been unexpectedly disconnected.", @"Window text"), [self displayName]],
-                                nil, nil, nil,
-                                @"skipWarningAboutUnexpectedDisconnections",
-                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                nil);
-        requestedState = @"EXITING";
-    }
+//    if (   [lastState isEqualToString: @"EXITING"]
+//        && [requestedState isEqualToString: @"CONNECTED"]
+//        && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
+//        TBRunAlertPanelExtended(NSLocalizedString(@"Unexpected disconnection", @"Window title"),
+//                                [NSString stringWithFormat: NSLocalizedString(@"'%@' has been unexpectedly disconnected.", @"Window text"), [self displayName]],
+//                                nil, nil, nil,
+//                                @"skipWarningAboutUnexpectedDisconnections",
+//                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+//                                nil);
+//        requestedState = @"EXITING";
+//    }
     
     [[NSApp delegate] performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
     [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
