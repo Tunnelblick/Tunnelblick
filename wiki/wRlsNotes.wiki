@@ -5,6 +5,12 @@
 
 --------------------
 
+==3.1.2 (2010-12-25)==
+
+ * Removed the 'warns the user when certain unexpected disconnections occur' feature added in the 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. I expect that this feature will return in more robust form in a future beta release.
+
+--------------------
+
 ==3.1.1 (2010-12-18)==
 
  * Fixes a problem with the left navigation sometimes not being displayed properly when the Details… window does not have left navigation but adding a configuration changes it to have left navigation.
