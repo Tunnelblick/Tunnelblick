@@ -6,7 +6,7 @@
 --------------------
 
 2010-12-18: *Tunnelblick 3.1.2 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.2.dmg available for download]*.
- * Removed the 'warns the user when certain unexpected disconnections occur' feature added in the 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. I expect that this feature will return in more robust form in a future beta release.
+ * Removes the 'warns the user when certain unexpected disconnections occur' feature added in the 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. This feature will return in more robust form in a future beta release.
 
 --------------------
 
