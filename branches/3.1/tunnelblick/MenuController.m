@@ -4068,6 +4068,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
+	terminatingAtUserRequest = TRUE;
 	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
     if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
         // Wait until all OpenVPN processes have terminated
