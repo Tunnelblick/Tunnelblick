@@ -70,14 +70,17 @@ See [DeployingTunnelblick Deploying Tunnelblick] for detailed information about 
 ==How do I install Tunnelblick?==
 Download the latest disk image. Double-click it and a window will open with the Tunnelblick icon and the words "Double-click to begin". Double-click the Tunnelblick icon and you will be guided through the process of copying Tunnelblick to your Applications folder.  Reinstalls, upgrades, and downgrades will be recognized and the old version of the program is moved to the Trash before installing the new version.
 
-More detailed instructions are in [wInstall Installing Tunnelblick].
-
 ==I've installed Tunnelblick. Now what?==
 Start Tunnelblick by double-clicking it in Applications. It will step you through the process of setting up configuration files. When Tunnelblick is running, it will display the Tunnelblick icon in the status bar at the top of the screen on the right. Usually, the icon is located immediately between the time display and the Spotlight icon.
 Click on the Tunnelblick icon to reveal the Tunnelblick menu, then click on a configuration to connect using it, or click on "Details…" for a window with details for each configuration.
 
 ==How do I uninstall Tunnelblick?==
 Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files. Tunnelblick may also have saved credentials in your Keychain. See [wInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick] for details.
+
+==How do I revert to an earlier version of  Tunnelblick?==
+For Tunnelblick 3.1beta18 (2010-010-16) and later, download the disk image with the version you wish to install (all available versions are on the [DownloadsEntry Downloads Page]. Double-click it and a window will open with the Tunnelblick icon and the words "Double-click to begin". Double-click the Tunnelblick icon and you will be guided through the process.  Reinstalls, upgrades, and downgrades will be recognized and the old version of the program is moved to the Trash before installing the new version.
+
+For earlier versions of Tunnelblick, you'll have to drag your existing version (usually found in /Applications) to the Trash and then drag and drop the version on the disk image to /Applications.
 
 ==How do I update Tunnelblick?==
 Each time Tunnelblick is launched, it checks for updates automatically (if that was specified when Tunnelblick was installed) and displays a notice that an update is available. (It also checks every week if it is running for more than a week.)
