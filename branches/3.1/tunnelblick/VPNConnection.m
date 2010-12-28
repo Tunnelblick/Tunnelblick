@@ -856,11 +856,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     BOOL disconnectionComplete = FALSE;
 
-    if (  pid > 0  ) {
+    pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
+    if (  thePid > 0  ) {
         [self killProcess];
         if (  [wait boolValue]  ) {
             // Wait up to five seconds for the OpenVPN process to disappear
-            disconnectionComplete = [NSApp waitUntilNoProcessWithID: pid];
+            disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
         }
     } else {
         if([managementSocket isConnected]) {
