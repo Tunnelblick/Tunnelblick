@@ -489,7 +489,7 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * devOption = [self parseString: cfgContents forOption: @"dev"];
     NSString * devOptionFirst3Chars = [[devOption copy] autorelease];
-    if (  [devOption length] >= 3  ) {
+    if (  [devOption length] > 3  ) {
         devOptionFirst3Chars = [devOption substringToIndex: 3];
     }
     devOptionFirst3Chars = [devOptionFirst3Chars lowercaseString];
@@ -522,7 +522,7 @@ enum state_t {                      // These are the "states" of the guideState 
     unsigned int mainEnd = mainRng.length;
     
     unsigned int curPos = 0;
-    while (  curPos < mainRng.length  ) {
+    while (  curPos < mainEnd  ) {
         mainRng.location = curPos;
         mainRng.length = mainEnd - curPos;
         
@@ -530,13 +530,18 @@ enum state_t {                      // These are the "states" of the guideState 
         NSRange restRng = [cfgContents rangeOfCharacterFromSet: notWhitespaceNotNewline
                                                        options: 0
                                                          range: mainRng];
-        if (  restRng.length != 0  ) {
+        if (  restRng.length == 0  ) {
+            break;
+        } else {
             curPos = restRng.location;
+            mainRng.location = restRng.location;
+            mainRng.length   = mainEnd - mainRng.location;
         }
         
         // If option is next
         NSRange optRng = NSMakeRange(curPos, [option length]);
-        if (  [[cfgContents substringWithRange: optRng] caseInsensitiveCompare: option] == NSOrderedSame  ) {
+        if (   (  (optRng.location + optRng.length) <= mainEnd  )
+            && [[cfgContents substringWithRange: optRng] caseInsensitiveCompare: option] == NSOrderedSame  ) {
             
             // Skip mandatory whitespace between option and rest of line
             mainRng.location = optRng.location + optRng.length;
@@ -568,7 +573,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                                options: 0
                                                  range: mainRng];
         if (  restRng.length == 0 ) {
-            curPos = mainRng.length;
+            curPos = mainEnd;
         } else {
             curPos = restRng.location + restRng.length;
         }
