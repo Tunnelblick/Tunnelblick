@@ -837,10 +837,6 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 // Waits for up to 5 seconds for the disconnection to occur if "wait" is TRUE
 - (void) disconnectAndWait: (NSNumber *) wait userKnows:(BOOL)userKnows
 {
-    if (  userKnows  ) {
-        requestedState = @"EXITING";
-    }
-
     if (  [self isDisconnected]  ) {
         return;
     }
@@ -861,11 +857,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     BOOL disconnectionComplete = FALSE;
 
-    if (  pid > 0  ) {
+    pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
+    if (  thePid > 0  ) {
         [self killProcess];
         if (  [wait boolValue]  ) {
             // Wait up to five seconds for the OpenVPN process to disappear
-            disconnectionComplete = [NSApp waitUntilNoProcessWithID: pid];
+            disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
         }
     } else {
         if([managementSocket isConnected]) {
@@ -985,6 +982,10 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
+// The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
+// The 'connected.sh' and 'reconnecting.sh' scripts are by this class's setState: method
+// The 'disconnect.sh' script is run here
+//
 // Call on main thread only
 -(void) hasDisconnected
 {
@@ -1341,15 +1342,19 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [lastState release];
     lastState = newState;
 
-    if (   [lastState isEqualToString: @"EXITING"]
+    // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
+    // The 'connected.sh' and 'reconnecting.sh' scripts are run here
+    // The 'disconnect.sh' script is run by this class's hasDisconnected method
+    if (   [newState isEqualToString: @"EXITING"]
         && [requestedState isEqualToString: @"CONNECTED"]
         && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
-        TBRunAlertPanelExtended(NSLocalizedString(@"Unexpected disconnection", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"'%@' has been unexpectedly disconnected.", @"Window text"), [self displayName]],
-                                nil, nil, nil,
-                                @"skipWarningAboutUnexpectedDisconnections",
-                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                nil);
+// REMOVED because it causes problems when the screensaver is on:
+//        TBRunAlertPanelExtended(NSLocalizedString(@"Unexpected disconnection", @"Window title"),
+//                                [NSString stringWithFormat: NSLocalizedString(@"'%@' has been unexpectedly disconnected.", @"Window text"), [self displayName]],
+//                                nil, nil, nil,
+//                                @"skipWarningAboutUnexpectedDisconnections",
+//                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+//                                nil);
         requestedState = @"EXITING";
     } else if (  [newState isEqualToString: @"CONNECTED"]  ) {
         // Run the connected script, if any
