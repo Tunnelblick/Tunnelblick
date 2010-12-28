@@ -2737,7 +2737,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     // Decide how to display the Tunnelblick icon:
     // Ignore the newState argument and look at the configurations:
-    //   If any configuration should be open but isn't, then show animation
+    //   If any configuration should be open but isn't open and isn't closed, then show animation
     //   If any configuration should be closed but isn't, then show animation
     //   Otherwise, if any configurations are open, show open
     //              else show closed
@@ -2748,10 +2748,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     while (  connection = [connEnum nextObject]  ) {
         NSString * curState = [connection state];
         NSString * reqState = [connection requestedState];
-        if        (  [reqState isEqualToString: @"CONNECTED"]  ) {
+        if (      [reqState isEqualToString: @"CONNECTED"]  ) {
             if (  [curState isEqualToString: @"CONNECTED"]  ) {
                 atLeastOneIsConnected = TRUE;
-            } else {
+            } else if (  ! [curState isEqualToString: @"EXITING"]  ) {
                 newDisplayState = @"ANIMATED";
                 break;
             }
@@ -2770,10 +2770,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         newDisplayState = @"CONNECTED";
     }
     
-    [newDisplayState retain];
-    [lastState release];
-    lastState = newDisplayState;
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    // Display that unless it is already being displayed
+    if (  ![newDisplayState isEqualToString: lastState]  ) {
+        [newDisplayState retain];
+        [lastState release];
+        lastState = newDisplayState;
+        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+    }
 }
 
 -(void)addConnection:(id)sender 
@@ -4066,7 +4069,8 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestore = [connectionArray mutableCopy];
-	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
+    terminatingAtUserRequest = TRUE;
+    [self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
     if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
         // Wait until all OpenVPN processes have terminated
         while (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
