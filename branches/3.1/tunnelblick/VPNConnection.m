@@ -159,7 +159,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
 
     [self setPort: inPortNumber];
+    
     tryingToHookup = TRUE;
+    requestedState = @"CONNECTED";
     [self connectToManagementSocket];
 }
 

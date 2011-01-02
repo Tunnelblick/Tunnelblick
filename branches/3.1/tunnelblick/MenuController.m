@@ -124,7 +124,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
 -(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
                                             logMessage:     (NSString *)        logMessage;
--(void)             loadMenuIconSet;
+-(BOOL)             loadMenuIconSet;
 -(void)             makeSymbolicLink;
 -(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
@@ -179,6 +179,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
                             NSLocalizedString(@"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")", @"Window text"),
                             nil, nil, nil);
+            [NSApp setAutoLaunchOnLogin: NO];
             [NSApp terminate:self];
             
         }
@@ -354,7 +355,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
         
-        [self loadMenuIconSet];
+        if (  ! [self loadMenuIconSet]  ) {
+            [NSApp setAutoLaunchOnLogin: NO];
+            [NSApp terminate: self];
+        }
         
 		[self createStatusItem];
 		
@@ -504,6 +508,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [useShadowCopiesItem release];
     [monitorConfigurationDirItem release];
     [putIconNearSpotlightItem release];
+    [useOriginalIconItem release];
     [optionsSubmenu release];
     [optionsItem release];
     [detailsItem release];
@@ -591,7 +596,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[self initialiseAnim];
 }
 
-- (void) loadMenuIconSet
+- (BOOL) loadMenuIconSet
 {
     NSString *menuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
     if (  menuIconSet == nil  ) {
@@ -608,6 +613,24 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                  && [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
                  && isDir )  ) {
             iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+            if (  ! (   [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
+                     && isDir )  ) {
+                // Can't find the specified icon set
+                if (   [menuIconSet isEqualToString: @"TunnelBlick.TBMenuIcons"]
+                    || [menuIconSet isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
+                    NSLog(@"Error: Standard icon set '%@' is missing from Tunnelblick.app/Contents/Resources/IconSets", menuIconSet);
+                    return FALSE;
+                }
+                iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: @"TunnelBlick.TBMenuIcons"];
+                if (  [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
+                    && isDir  ) {
+                    NSLog(@"Icon set '%@' not found. Using standard 'TunnelBlick.TBMenuIcons' icon set", menuIconSet);
+                    menuIconSet = @"TunnelBlick.TBMenuIcons";
+                } else {
+                    NSLog(@"Error: Cannot find icon set '%@', and the standard icon set 'TunnelBlick.TBMenuIcons' is missing from Tunnelblick.app/Contents/Resources/IconSets", menuIconSet);
+                    return FALSE;
+                }
+            }
         }
     }
     
@@ -657,6 +680,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
         }
     }
+    
+    if (   (mainImage == nil)
+        || (connectedImage == nil)
+        || ([animImages count] == 0)  ) {
+        NSLog(@"Icon set '%@' does not have required images", menuIconSet);
+        return FALSE;
+    }
+    
+    return TRUE;
 }
 
 - (void) initialiseAnim
@@ -693,6 +725,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                                 atIndentationLevel: 1
                                                   andPreferenceKey: @"placeIconInStandardPositionInStatusBar"
                                                            negated: YES];
+        
+        useOriginalIconItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Original Icon", @"Menu item")
+                                                    andAction: @selector(toggleUseOriginalIcon:)
+                                                   andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
+                                           atIndentationLevel: 1
+                                             andPreferenceKey: @"menuIconSet"
+                                                      negated: NO];
         
         monitorConfigurationDirItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Monitor the Configuration Folder", @"Menu item")
                                                             andAction: @selector(toggleMonitorConfigurationDir:)
@@ -789,6 +828,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [aboutItem setAction: @selector(openAboutWindow:)];
     
     if (   putIconNearSpotlightItem
+        || useOriginalIconItem
         || monitorConfigurationDirItem
         || showConnectedDurationsItem
         || warnAboutSimultaneousItem
@@ -801,6 +841,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         if (  preferencesTitleItem              ) { [optionsSubmenu addItem: preferencesTitleItem           ]; }
         if (  putIconNearSpotlightItem          ) { [optionsSubmenu addItem: putIconNearSpotlightItem       ]; }
+        if (  useOriginalIconItem               ) { [optionsSubmenu addItem: useOriginalIconItem            ]; }
         if (  monitorConfigurationDirItem       ) { [optionsSubmenu addItem: monitorConfigurationDirItem    ]; }
         if (  warnAboutSimultaneousItem         ) { [optionsSubmenu addItem: warnAboutSimultaneousItem      ]; }
         if (  showConnectedDurationsItem        ) { [optionsSubmenu addItem: showConnectedDurationsItem     ]; }
@@ -816,6 +857,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         if (   putIconNearSpotlightItem
+            || useOriginalIconItem
             || monitorConfigurationDirItem
             || warnAboutSimultaneousItem
             || showConnectedDurationsItem
@@ -1221,7 +1263,32 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         [menuItem setIndentationLevel: indentLevel];
         [menuItem setRepresentedObject: prefKey];
-        BOOL state = [gTbDefaults boolForKey:prefKey];
+        
+        BOOL state;
+        if (  [prefKey isEqualToString: @"menuIconSet"]  ) {
+            id obj = [gTbDefaults objectForKey: @"menuIconSet"];
+            if (   [[obj class] isSubclassOfClass: [NSString class]]  ) {
+                if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
+                    state = TRUE;
+                } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
+                    state = FALSE;
+                } else {
+                    [menuItem release];
+                    return nil;
+                }
+            } else {
+                if (  obj  ) {
+                    [menuItem release];
+                    return nil;
+                } else {
+                    // No menuIconSet preference, so default to standard yellow-at-the-end-of-the-tunnel icon, not the gray icon
+                    state = FALSE;
+                }
+            }
+        } else {
+            state = [gTbDefaults boolForKey:prefKey];
+        }
+        
         state = negatePref ? ! state : state;
         if (  state  ) {
             [menuItem setState: NSOnState];
@@ -1244,6 +1311,23 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [anItem setState: NSOnState];
         } else {
             [anItem setState: NSOffState];
+        }
+    } else if (  act == @selector(toggleUseOriginalIcon:)  ) {
+        id obj = [gTbDefaults objectForKey: @"menuIconSet"];
+        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+            if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
+                [anItem setState: NSOnState];
+            } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
+                [anItem setState: NSOffState];
+            } else {
+                [anItem setState: NSOffState];
+                return NO;
+            }
+        } else {
+            [anItem setState: NSOffState];
+            if (  obj  ) {
+                return NO;
+            }
         }
     } else if (  act == @selector(toggleMonitorConfigurationDir:)  ) {
         if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
@@ -1356,6 +1440,58 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)togglePlaceIconNearSpotlight: (NSMenuItem *) menuItem
 {
     [self toggleMenuItem: menuItem withPreferenceKey: @"placeIconInStandardPositionInStatusBar"];
+}
+
+-(void)toggleUseOriginalIcon: (NSMenuItem *) item
+{
+    BOOL wasOn = FALSE;
+    id obj = [gTbDefaults objectForKey: @"menuIconSet"];
+    if (   [[obj class] isSubclassOfClass: [NSString class]]  ) {
+        if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
+            // Currently ON, turn it OFF
+            [gTbDefaults removeObjectForKey: @"menuIconSet"];
+            [gTbDefaults synchronize];
+            [item setState: NSOffState];
+            wasOn = TRUE;
+        } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
+            // Currently OFF, turn it ON
+            [gTbDefaults setObject: @"TunnelBlick-black-white.TBMenuIcons" forKey: @"menuIconSet"];
+            [gTbDefaults synchronize];
+            [item setState: NSOnState];
+        } else {
+            NSLog(@"Preference 'menuIconSet' does not have a recognized value");
+        }
+
+    } else {
+        if (  obj  ) {
+            NSLog(@"Preference 'menuIconSet' is not a string");
+        } else {
+            // Currently OFF, turn it ON
+            [gTbDefaults setObject: @"TunnelBlick-black-white.TBMenuIcons" forKey: @"menuIconSet"];
+            [gTbDefaults synchronize];
+            [item setState: NSOnState];
+        }
+    }
+    
+    if (  ! [self loadMenuIconSet]  ) {
+        // Problem loading the icon set. Revert to previous setting
+        if (  wasOn  ) {
+            [gTbDefaults setObject: @"TunnelBlick-black-white.TBMenuIcons" forKey: @"menuIconSet"];
+            [gTbDefaults synchronize];
+            [item setState: NSOnState];
+        } else {
+            [gTbDefaults removeObjectForKey: @"menuIconSet"];
+            [gTbDefaults synchronize];
+            [item setState: NSOffState];
+        }
+        if (  ! [self loadMenuIconSet]  ) {
+            NSLog(@"Unable to reload icon set");
+            [NSApp setAutoLaunchOnLogin: NO];
+            [NSApp terminate:self];
+        }
+    }
+    [self setState: @""];       // Update the state of the icon (ignores argument)
+    [self activateStatusMenu];  // Redraw the icon, etc.
 }
 
 -(void)toggleMonitorConfigurationDir: (NSMenuItem *) menuItem
@@ -1875,7 +2011,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 			[theAnim stopAnimation];
 		}
         
-        if (connectionNumber > 0 ) {
+        if (  [lastState isEqualToString:@"CONNECTED"]  ) {
             [statusItem setImage: connectedImage];
         } else {
             [statusItem setImage: mainImage];

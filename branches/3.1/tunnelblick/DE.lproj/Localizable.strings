@@ -191,6 +191,9 @@
 "Takes effect with the next connection" = "Wird ab der nächsten Verbindung angewandt";
 
 /* Menu item */
+"Use Original Icon" = "Original Icon benutzen";
+
+/* Menu item */
 "Use Shadow Copies of Configuration Files" = "Schattenkopien der Konfigurationsdateien nutzen";
 
 /* Menu item */
