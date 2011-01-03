@@ -55,7 +55,7 @@ This means that both the remote network and your local network are using the 192
 
 
 ==An OpenVPN log entry says "Message hash algorithm 'SHA512' not found (OpenSSL)"==
-Note: As of Tunnelblick version 3.1, this message should no longer appear on any version of OS X because OpenSSL is built into Tunnelblick.
+Note: As of Tunnelblick version 3.1beta14 (2010-09-09), this message should no longer appear because OpenSSL is built into Tunnelblick.
 
 
 ==An OpenVPN log entry says "Cannot allocate TUN/TAP dev dynamically"==
