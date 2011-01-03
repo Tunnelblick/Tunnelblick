@@ -85,6 +85,9 @@
 /* Menu item */
 "No VPN Configurations Available" = "No VPN Configurations Available";
 
+/* Menu item */
+"Use Original Icon" = "Use Original Icon";
+
 /* Checkbox name */
 "Automatically connect" = "Automatically connect";
 
