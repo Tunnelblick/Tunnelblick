@@ -1266,23 +1266,33 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         BOOL state;
         if (  [prefKey isEqualToString: @"menuIconSet"]  ) {
-            id obj = [gTbDefaults objectForKey: @"menuIconSet"];
-            if (   [[obj class] isSubclassOfClass: [NSString class]]  ) {
-                if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
-                    state = TRUE;
-                } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
-                    state = FALSE;
-                } else {
-                    [menuItem release];
-                    return nil;
-                }
+            BOOL isDir;
+            if (   [gTbDefaults boolForKey: @"doNotShowUseOriginalIconMenuItem"]
+                || ( ! (   [gFileMgr fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets/TunnelBlick-black-white.TBMenuIcons"] isDirectory: &isDir]
+                        && isDir )
+                   )
+               ) {
+                [menuItem release];
+                return nil;
             } else {
-                if (  obj  ) {
-                    [menuItem release];
-                    return nil;
+                id obj = [gTbDefaults objectForKey: @"menuIconSet"];
+                if (   [[obj class] isSubclassOfClass: [NSString class]]  ) {
+                    if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
+                        state = TRUE;
+                    } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
+                        state = FALSE;
+                    } else {
+                        [menuItem release];
+                        return nil;
+                    }
                 } else {
-                    // No menuIconSet preference, so default to standard yellow-at-the-end-of-the-tunnel icon, not the gray icon
-                    state = FALSE;
+                    if (  obj  ) {
+                        [menuItem release];
+                        return nil;
+                    } else {
+                        // No menuIconSet preference, so default to standard yellow-at-the-end-of-the-tunnel icon, not the gray icon
+                        state = FALSE;
+                    }
                 }
             }
         } else {
