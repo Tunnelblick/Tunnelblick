@@ -49,13 +49,13 @@ The easiest way to fix this is usually to change the addresses of your local LAN
 After changing the LAN address, you should restart all computers (and other network devices including network printers), so they start using addresses in the new address range.
 
 Example:
- WARNING: potential route subnet conflict between local LAN [192.168.1.0/255.255.255.0] and remote VPN [192.168.1.0/255.255.255.0] 
+ `WARNING: potential route subnet conflict between local LAN [192.168.1.0/255.255.255.0] and remote VPN [192.168.1.0/255.255.255.0]`
 
 This means that both the remote network and your local network are using the 192.168.1.`*` range of IP addresses. So change your local network to use, for example, 192.168.5.`*`, or 192.168.23.`*`. If you get the same warning message, try another address range.
 
 
 ==An OpenVPN log entry says "Message hash algorithm 'SHA512' not found (OpenSSL)"==
-This means that the configuration and the server are trying to use a message hash algorithm that Tunnelblick doesn't know about. To run on OS X 10.4-10.6 with the same binary, Tunnelblick assumes that only the hash and encryption algorithms available on OS X 10.4 are available, regardless of which version of OS X you are running. A workaround (which involves creating a customized build of Tunnelblick from the source code) is described in  http://code.google.com/p/tunnelblick/issues/detail?id=82.
+Note: As of Tunnelblick version 3.1, this message should no longer appear on any version of OS X because OpenSSL is built into Tunnelblick.
 
 
 ==An OpenVPN log entry says "Cannot allocate TUN/TAP dev dynamically"==
