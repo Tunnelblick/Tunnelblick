@@ -109,6 +109,9 @@
 /* Menu item tooltip */
 "Takes effect at the next check for updates" = "Takes effect at the next check for updates";
 
+/* Menu item */
+"Use Original Icon" = "Use Original Icon";
+
 /* Checkbox name */
 "Automatically connect" = "Automatically connect";
 

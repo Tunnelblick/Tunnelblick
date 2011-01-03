@@ -193,6 +193,9 @@
 /* NEEDS TRANSLATION *//* Menu item tooltip */
 "Takes effect with the next connection" = "Takes effect with the next connection";
 
+/* NEEDS TRANSLATION *//* Menu item */
+"Use Original Icon" = "Use Original Icon";
+
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Usa Copie di sicurezza dei File di Configurazione";
 

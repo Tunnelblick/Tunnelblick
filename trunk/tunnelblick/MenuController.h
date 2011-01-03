@@ -62,6 +62,7 @@ BOOL needToRepairPackages(void);
     NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
     NSMenuItem              * preferencesTitleItem;         //    "Preferences" menu item (just used as a title)
     NSMenuItem              * putIconNearSpotlightItem;     //      "Put Icon Near the Spotlight Icon" menu item
+    NSMenuItem              * useOriginalIconItem;          //      "Use Original Icon" menu item
     NSMenuItem              * monitorConfigurationDirItem;  //      "Monitor the Configuration Folder" menu item
     NSMenuItem              * showConnectedDurationsItem;   //      "Show Connection Timers" menu item
     NSMenuItem              * warnAboutSimultaneousItem;    //      "Warn About Simultaneous Connections" menu item
@@ -174,6 +175,7 @@ BOOL needToRepairPackages(void);
 -(IBAction)         toggleUseShadowCopies:                  (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleAutoCheckForUpdates:              (NSMenuItem *)      item;   // On Options submenu
 -(IBAction)         toggleReportAnonymousInfo:              (NSMenuItem *)      item;   // On Options submenu
+-(IBAction)         toggleUseOriginalIcon:                  (NSMenuItem *)      item;   // On Options submenu
 
 // General methods
 -(void)             addConnection:                          (id)                sender;
