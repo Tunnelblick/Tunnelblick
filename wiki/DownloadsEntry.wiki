@@ -1,5 +1,11 @@
 #summary Entry page for Downloads
-<font size="5">*Downloads*</font><br><br>
+<font size="5">*Downloads*</font>
+<table><tr>
+<td valign="middle"><a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a></td>
+<td valign="middle">Tunnelblick is free, but donations are gratefully appreciated!</td>
+</tr></table>
+<br>
+
 _Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see the [GettingVPNService VPN Service Providers page]._
 <wiki:toc max_depth="2" />
 <br>
