@@ -1,6 +1,12 @@
 #summary Entry page for the Documentation
 = Documentation =
 
+<table><tr>
+<td valign="middle"><a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a></td>
+<td valign="middle">Tunnelblick is free, but donations are gratefully appreciated!</td>
+</tr></table>
+<br>
+
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
