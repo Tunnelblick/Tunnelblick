@@ -172,6 +172,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
         if ( ! isHookedup  ) {
             [self setPort: 0];
+            requestedState = @"EXITING";
             
             NSLog(@"Stopped trying to establish communications with an existing OpenVPN process for '%@' after %d seconds", [self displayName], gHookupTimeout);
             NSString * msg = [NSString stringWithFormat:
