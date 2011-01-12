@@ -609,7 +609,7 @@ BOOL configNeedsRepair(void)
 		NSString* errMsg = [NSString stringWithFormat:@"Error: File %@ is owned by %@ and has permissions %@\n"
 							"Configuration files must be owned by root:wheel with permissions 0644\n",
 							configPath, fileOwner, octalString];
-		fprintf(stderr, [errMsg UTF8String]);
+		fprintf(stderr, "%s", [errMsg UTF8String]);
 		[pool drain];
 		exit(250);
 	}
