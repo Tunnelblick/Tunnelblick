@@ -55,16 +55,4 @@
     [wPrefs Preferences]<br>
     [wPkgs Tunnelblick VPN Configurations]<br>
     [wFileLocations File Locations]<br><br>
-    [DocumentationForTunnelblick_3_1 What's New in 3.1]<br><br>
-    [DocumentationForTunnelblick_3_1beta24 What's New in 3.1beta24]<br>
-    [DocumentationForTunnelblick_3_1beta22 What's New in 3.1beta22]<br>
-    [DocumentationForTunnelblick_3_1beta20 What's New in 3.1beta20]<br>
-    [DocumentationForTunnelblick_3_1beta18 What's New in 3.1beta18]<br>
-    [DocumentationForTunnelblick_3_1beta16 What's New in 3.1beta16]<br>
-    [DocumentationForTunnelblick_3_1beta14 What's New in 3.1beta14]<br>
-    [DocumentationForTunnelblick_3_1beta12 What's New in 3.1beta12]<br>
-    [DocumentationForTunnelblick_3_1beta10 What's New in 3.1beta10]<br>
-    [DocumentationForTunnelblick_3_1beta08 What's New in 3.1beta08]<br>
-    [DocumentationForTunnelblick_3_1beta06 What's New in 3.1beta06]<br>
-    [DocumentationForTunnelblick_3_1beta04 What's New in 3.1beta04]<br>
-    [DocumentationForTunnelblick_3_1beta02 What's New in 3.1beta02]
+    [DocumentationForTunnelblick_3_1 What's New in 3.1]
