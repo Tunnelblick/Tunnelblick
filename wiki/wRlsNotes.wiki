@@ -1,7 +1,17 @@
 #summary Release Notes - Tunnelblick
 #sidebar wSb
 
-<font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLY 3.1BETA VERSIONS:*</font> The first time that you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
+=Release Notes for Tunnelblick 3.1=
+
+--------------------
+
+==Security Vulnerability==
+A bug causing an exploitable security problem exists in most Tunnelblick versions before 3.1.1. It allows an unprivileged user to gain root privileges on any Mac OS X system with a vulnerable version of Tunnelblick installed. All users of Tunnelblick are advised to update to the latest version. For more information including instructions for updating, see the [vulnerability2011-01-12-FAQ 2011-01-12 Vulnerability FAQ]. Thanks to [http://www.subreption.com Subreption, LLC] for pointing out the security implications of this bug.
+
+Versions which are NOT vulnerable:
+ 3.1.1 and later<br>
+ 3.0b10 and earlier<br>
+ 3.0.1 (created for those users who cannot upgrade to 3.1.1)
 
 --------------------
 
@@ -262,6 +272,8 @@
 --------------------
 
 ==3.1beta08 (2010-07-10)==
+  <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLY 3.1BETA VERSIONS:*</font> The first time that you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
+
   * Benji Greig has created an updated Tunnelblick icon that looks great in Coverflow. He has also created a distinctive icon for Tunnelblick VPN Configurations, and a new background image for the Disk Image. Thanks, Benji!
 
   * Log processing and display have been rewritten:
@@ -445,6 +457,14 @@
 
   * Fixed bug that caused unnecessary check of ownership/permissions of Tunnelblick.app/Contents/Resources/Deploy.
 
+--------------------
+
+==3.0.1 (2011-01-12)==
+
+ * Fixes bug that causes a serious [vulnerability2011-01-12-FAQ security vulnerability].
+ * Fixes bugs relating to forced-preferences.plist wildcards used in Deployed versions of Tunnelblick.
+ * Added full Norwegian localization and added missing German localization of one string.
+ 
 --------------------
 
 ==3.0 (2010-03-03)==

@@ -1,13 +1,35 @@
 #summary Release Notes - Tunnelblick
 #sidebar xSb
 
-*PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
+=Release Notes for Tunnelblick 3.0=
 
-For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick website].
+[wRlsNotes Release Notes for Tunnelblick 3.1]
+
+--------------------
+
+==Security Vulnerability==
+A bug causing an exploitable security problem exists in most Tunnelblick versions before 3.1.1. It allows an unprivileged user to gain root privileges on any Mac OS X system with a vulnerable version of Tunnelblick installed. All users of Tunnelblick are advised to update to the latest version. For more information including instructions for updating, see the [vulnerability2011-01-12-FAQ 2011-01-12 Vulnerability FAQ]. Thanks to [http://www.subreption.com Subreption, LLC] for pointing out the security implications of this bug.
+
+Versions which are NOT vulnerable:
+ 3.1.1 and later<br>
+ 3.0b10 and earlier<br>
+ 3.0.1 (created for those users who cannot upgrade to 3.1.1)
+
+--------------------
+
+==3.0.1 (2011-01-12)==
+
+ * Fixes bug that causes a serious [vulnerability2011-01-12-FAQ security vulnerability].
+ * Fixes bugs relating to forced-preferences.plist wildcards used in Deployed versions of Tunnelblick.
+ * Added full Norwegian localization and added missing German localization of one string.
+ 
+--------------------
 
 ==3.0 (2010-03-03)==
   * Fixes incorrect display of 'Automatically Check for Updates' preference on first run after some updates.
   * Out of beta!
+
+--------------------
 
 ==3.0b28 (2010-02-24)==
 
@@ -15,6 +37,8 @@ For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick 
   * Displays configuration name in title of "Details…" window.
   * Inserts full command line used for starting OpenVPN into the "Details…" window.
   * Full German localization. Many thanks to Markus Schneider.
+
+--------------------
 
 ==3.0b26 (2010-02-09)==
   * Now uses OpenVPN version 2.1.1.
@@ -30,6 +54,8 @@ For more information, see the [http://code.google.com/p/tunnelblick Tunnelblick 
   * Enhancements: Displays command line used to launch 'openvpnstart' in the "Details…" window. Detects and gives a detailed error message if a configuration file is identical to the sample provided by Tunnelblick. Creates a "Launch Tunnelblick" link in the Configurations folder. Localizes paths that are displayed to the user -- for example, in French (FR), 'Library' becomes 'Bibliothèque'. Detects, complains, and quits if not running on OS X 10.4 ("Tiger") or above. Added Quick Start Guide to disk image.
   * Bug fixes: Fixes bug that caused crashes when started automatically on login on some versions of Leopard and Snow Leopard. Fixes bug that didn't localize the title for the "Details…" window. Fixes bug that displayed 'monitoring connection' when 'Set nameserver' is not checked. Fixes bug opening wrong copy of sample configuration file in `TextEdit`. Fixes bug that tries to to create Configurations folder when not necessary. Fixes bug that tried to create configuration file in Deploy. Fixes typo in dialog for remote home folders. Fixes sporadic failure to detect multiple simultaneous connections.
   * Known Issues: See [KnownIssues Known Issues].
+
+--------------------
 
 ==3.0b24 (2009-12-12)==
   * New 'Monitor connection' checkbox in the "Details…" window (defaults to checked). When checked, Tunnelblick monitors connection interfaces as it has since 3.0b18. When unchecked, Tunnelblick ignores connection interface changes, as version 3.0b10 did. This allows more users to use the latest version (some users couldn't because of repeated restarts caused by Tunnelblick detecting connection interface changes). Please note that OpenVPN itself restarts connections under certain circumstances. New scripts are used when 'Monitor connection' is not checked and 'Set DNS' is checked: client.nomonitor.up.osx.sh and client.nomonitor.down.osx.sh.
@@ -59,6 +85,8 @@ Known Issues:
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
   * Localization is not complete.
 
+--------------------
+
 ==3.0b22 (2009-11-01)==
   * Includes OpenVPN version 2.1_rc20, which fixes problems with the "redirect-gateway" option.
   * Includes the 32/64-bit version of tuntap, which fixes problems running Tunnelblick on Snow Leopard under the 64-bit kernel. Thanks to the tuntap project, to Mohammad A. Haque for Xcode help, and to Jean-Philippe Jung for testing.
@@ -73,6 +101,8 @@ Known Issues:
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
   * Localization is not complete.
 
+--------------------
+
 ==3.0b20 (2009-10-09)==
   * Fixes issues with "Set nameserver" on Snow Leopard.
   * Inhibits console message that tun and tap are already loaded.
@@ -84,6 +114,8 @@ Known Issues:
   * The "--redirect-gateway" OpenVPN option fails silently, causing incorrect routing, if no flags are specified (which is a syntax error). Previously, a flag of "def1" was assumed.
   * Localization is not complete.
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
+
+--------------------
 
 ==3.0b18 (2009-09-23)==
   * Implements different behavior when configuration files change: when a configuration file is added, all connections are maintained. When a configuration file is deleted, only the corresponding connection is disconnected (and an alert window is displayed). In either case, the menu and Log window reflect the change immediately without restarting Tunnelblick. Changes to a configuration file's contents or metadata are ignored (but will be used the next time a connection is attempted).
@@ -109,6 +141,8 @@ Known Issues:
   * Localization is not complete for French, German, Japanese, Korean, Norwegian, or Spanish.
   * The standard scripts that "Set nameserver" uses handle DNS for most common setups. You must use custom scripts to do anything else. See [UsingTunnelblick Using Tunnelblick] for details.
 
+--------------------
+
 ==3.0b16 (2009-08-22)==
 
   * Upgraded to OpenVPN version 2.1_rc19
@@ -122,6 +156,8 @@ Known Issues:
       * Do not support multiple simultaneous connections
       * Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously)
       * Do not remove manual DNS entries (i.e., the manual nameserver will continue to be used even when the tunnel is open even if the OpenVPN "redirect-gateway" option is specified)
+
+--------------------
 
 ==3.0b14 (2009-08-10)==
 
@@ -164,6 +200,8 @@ Known Issues:
       * Do not support multiple nameservers for multiple domains (e.g., local nameserver and remote nameserver simultaneously)
       * Do not remove manual DNS entries (i.e., the manual nameserver will continue to be used even when the tunnel is open even if the OpenVPN "redirect-gateway" option is specified)
 
+--------------------
+
 ==3.0b10 (2008-11-20)==
   
   * fix linking problem that resulted in lzo compression not working on PowerPC 
@@ -182,6 +220,8 @@ Known Issues:
   * kill all openvpn processes on quit. fixes a rare condition where openvpn processes would be left over on Tunnelblick  quit
   * Add German, French, Japanese, Korean and Norwegian translations
   
+--------------------
+
 ==3.0b9 (2008-07-24)==
 
   * Fixed the crash on Leopard

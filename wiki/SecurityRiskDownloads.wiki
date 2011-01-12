@@ -1,0 +1,117 @@
+#summary Entry page for Downloads with security risks
+<font size="5" color="red">*Security Risk Downloads*</font>
+
+<font color="red">
+*A bug causing an [vulnerability2011-01-12-FAQ exploitable security problem] exists in these versions of Tunnelblick.*
+
+*DO NOT USE OR INSTALL THESE VERSIONS!*
+</font>
+
+Tunnelblick versions that are NOT vulnerable are available on the [DownloadsEntry Downloads] page.
+
+<table border="1" valign="top"><tr>
+<td valign="top"><table border="0" cellpadding="10" valign="top">
+<tr>
+<td valign="top">*Version 3.1*</td><td valign="top">*Released*</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.dmg Tunnelblick 3.1 (build 2190)]</td><td valign="top">2010-12-05</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta24.dmg Tunnelblick 3.1beta24 (build 2177)]</td><td valign="top">2010-12-03</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta22.dmg Tunnelblick 3.1beta22 (build 2169)]</td><td valign="top">2010-12-01</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta20.dmg Tunnelblick 3.1beta20 (build 2132)]</td><td valign="top">2010-10-31</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta18.dmg Tunnelblick 3.1beta18 (build 2078)]</td><td valign="top">2010-10-16</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg Tunnelblick 3.1beta16 (build 2061)]</td><td valign="top">2010-10-08</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta14.dmg Tunnelblick 3.1beta14 (build 2023)]</td><td valign="top">2010-09-09</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg Tunnelblick 3.1beta12 (build 1998)]</td><td valign="top">2010-08-08</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg Tunnelblick 3.1beta10 (build 1969)]</td><td valign="top">2010-07-29</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg Tunnelblick 3.1beta08 (build 1935)]</td><td valign="top">2010-07-10</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg Tunnelblick 3.1beta06 (build 1890)]</td><td valign="top">2010-06-07</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg Tunnelblick 3.1beta04 (build 1745)]</td><td valign="top">2010-05-27</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg Tunnelblick 3.1beta02 (build 1718)]</td><td valign="top">2010-05-14</td>
+</tr>
+
+</table></td>
+
+<td valign="top"><table border="0" cellpadding="10" valign="top">
+<tr>
+<td valign="top">*Version 3.0*</td><td valign="top">*Released*</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Tunnelblick 3.0 (build 1437)]</td><td valign="top">2010-03-09</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b28.dmg Tunnelblick 3.0b28 (build 1422)]</td><td valign="top">2010-02-24</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b26.dmg Tunnelblick 3.0b26 (build 1395)]</td><td valign="top">2010-02-09</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b24.dmg Tunnelblick 3.0b24]</td><td valign="top">2009-12-12</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b22.dmg Tunnelblick 3.0b22]</td><td valign="top">2009-11-01</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b20.dmg Tunnelblick 3.0b20]</td><td valign="top">2009-10-09</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b18.dmg Tunnelblick 3.0b18]</td><td valign="top">2009-09-23</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b16.dmg Tunnelblick 3.0b16]</td><td valign="top">2009-08-22</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b14.dmg Tunnelblick 3.0b14]</td><td valign="top">2009-08-10</td>
+</tr>
+
+</table></td></tr></table>
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

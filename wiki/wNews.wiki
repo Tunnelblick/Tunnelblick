@@ -5,24 +5,31 @@
 
 --------------------
 
-2010-12-25: *Tunnelblick 3.1.2 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.2.dmg available for download]*.
+2011-01-12: *Security Vulnerability*
+ A bug causing an exploitable security problem exists in most Tunnelblick versions before 3.1.1. It allows an unprivileged user to gain root privileges on any Mac OS X system with a vulnerable version of Tunnelblick installed. All users of Tunnelblick are advised to update to the latest version. For more information including instructions for updating, see the [vulnerability2011-01-12-FAQ 2011-01-12 Vulnerability FAQ].
+ 
+ Thanks to [http://www.subreption.com Subreption, LLC] for pointing out the security implications of this bug.
+
+--------------------
+
+2010-12-25: *Tunnelblick 3.1.2 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.2.dmg available for download]*.
  * Removes the 'warns the user when certain unexpected disconnections occur' feature added in version 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. This feature will return in more robust form in a future beta release.
 
 --------------------
 
-2010-12-18: *Tunnelblick 3.1.1 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.1.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-12-18: *Tunnelblick 3.1.1 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.1.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
 
  * Fixes several problems and warns the user about unexpected disconnections.
 
 --------------------
 
-2010-12-05: *Tunnelblick 3.1 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-12-05: *Tunnelblick 3.1 is available*. Full details are in the [wRlsNotes Release Notes].
 
  * Only the version and build numbers were updated.
 
 --------------------
 
-2010-12-03: *Tunnelblick 3.1beta24 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta24.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-12-03: *Tunnelblick 3.1beta24 is availble*. Full details are in the [wRlsNotes Release Notes].
 
  * Updates to use OpenSSL 1.0.0c, which fixes several security vulnerabilities.
 
@@ -32,7 +39,7 @@
 
 --------------------
 
-2010-12-01: *Tunnelblick 3.1beta22 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta22.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-12-01: *Tunnelblick 3.1beta22 is available*. Full details are in the [wRlsNotes Release Notes].
 
   * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.
   
@@ -44,13 +51,13 @@
 
 --------------------
 
-2010-10-31: *Tunnelblick 3.1beta20 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta20.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-10-31: *Tunnelblick 3.1beta20 is available*. Full details are in the [wRlsNotes Release Notes].
 
   * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [wPrefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".
 
 --------------------
 
-2010-10-16: *Tunnelblick 3.1beta18 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta18.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-10-16: *Tunnelblick 3.1beta18 is available*. Full details are in the [wRlsNotes Release Notes].
 
   * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
 
@@ -62,7 +69,7 @@
 
 --------------------
 
-2010-10-08: *Tunnelblick 3.1beta16 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-10-08: *Tunnelblick 3.1beta16 is available*. Full details are in the [wRlsNotes Release Notes].
 
   * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
 
@@ -80,7 +87,7 @@
 
 --------------------
 
-2010-09-09: *Tunnelblick 3.1beta14 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta14.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-09-09: *Tunnelblick 3.1beta14 is available*. Full details are in the [wRlsNotes Release Notes].
 
  * Fixes a problem that, under certain circumstances, crashes client.down.tunnelblick.sh. (Issue 159.)
 
@@ -90,7 +97,7 @@
 
 --------------------
 
-2010-08-08: *Tunnelblick 3.1beta12 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-08-08: *Tunnelblick 3.1beta12 is available*. Full details are in the [wRlsNotes Release Notes].
 
 New features include:
 
@@ -106,7 +113,7 @@ New features include:
  
 --------------------
 
-2010-07-29: *Tunnelblick 3.1beta10 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-07-29: *Tunnelblick 3.1beta10 is availble*. Full details are in the [wRlsNotes Release Notes].
 
 This beta includes an important bug fix:
 
@@ -122,7 +129,7 @@ New features include:
 
 --------------------
 
-2010-07-10: *Tunnelblick 3.1beta08 is now [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-07-10: *Tunnelblick 3.1beta08 is availble*. Full details are in the [wRlsNotes Release Notes].
 
 In addition to fixing bugs, this release adds several new features:
  * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
@@ -140,7 +147,7 @@ In addition to fixing bugs, this release adds several new features:
 
 --------------------
 
-*2010-06-07*: Tunnelblick 3.1beta06 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
+2010-06-07: *Tunnelblick 3.1beta06 is availble*.
 
 This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
 
@@ -148,7 +155,7 @@ The full list of changes is in the [wRlsNotes Release Notes].
 
 --------------------
 
-*2010-05-27*: Tunnelblick 3.1beta04 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
+2010-05-27: *Tunnelblick 3.1beta04 is availble*.
 
 This is mainly a bug-fix release, but there are some new features:
 
@@ -162,7 +169,7 @@ The full list of changes is in the [wRlsNotes Release Notes].
 
 --------------------
 
-*2010-05-14*: Tunnelblick 3.1beta02 is available on the <font color="red">*[wBeta Beta Releases page]*</font>.
+2010-05-14: *Tunnelblick 3.1beta02 is available*.
 
 The full list of changes is in the [wRlsNotes Release Notes].
 

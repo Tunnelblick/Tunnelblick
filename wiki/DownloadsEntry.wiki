@@ -12,22 +12,15 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 ==Stable Releases==
 A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [wBeta beta release], but may be more reliable.
     _For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard")_ <br>
-      _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.2.dmg Tunnelblick 3.1.2]*_ (2010-12-25)<br><br>
+      _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.2.dmg Tunnelblick 3.1.2 (build 2190.2258)]*_ released 2010-12-25<br><br>
 
     _For OS X 10.3 ("Panther")_ <br>
-      _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.01]*_ (2005-08-30)<br>
+      _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.01]*_ released 2005-08-30<br>
 
 ==Beta Releases==
 A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
     _For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard")_ <br>
       No new beta versions of Tunnelblick are available since the release of Tunnelblick stable version 3.1. For deprecated beta versions, see [http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2#Deprecated_Versions_of_Tunnelblick Deprecated Versions of Tunnelblick].
-
-==User-Contributed==
-These downloads have been contributed by users and usually help deal with special circumstances. They are not endorsed or checked by the Tunnelblick project or Google, and you use them at your own risk. To contribute a download, please email project owner [http://code.google.com/u/jkbullard/ Jon].
-
-<font color="red">Note: scripts are executed as root.</font> [wUsingScripts Instructions for using scripts].
-
-    * *Scripts to Unload Cisco Tun Kext*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-001-pre-post.zip user-contributed-001-pre-post.zip]*_ Contributed by petiepooo. These scripts unload the Cisco !AnyConnect tun kext before a Tunnelblick connection is started, and reload the Cisco tun kext after a Tunnelblick connection is stopped. (The Cisco kext interferes with Tunnelblick's operation of tun connections.) Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher.
 
 ==Deprecated Versions==
 
@@ -37,35 +30,25 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 <font color="red">*If you are having problems with the latest stable version, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
-    _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.1.dmg Tunnelblick 3.1.1]*_ (2010-12-18)<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.dmg Tunnelblick 3.1] (2010-12-05)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta24.dmg Tunnelblick 3.1beta24] (2010-12-03)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta22.dmg Tunnelblick 3.1beta22] (2010-12-01)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta20.dmg Tunnelblick 3.1beta20] (2010-10-31)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta18.dmg Tunnelblick 3.1beta18] (2010-10-16)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg Tunnelblick 3.1beta16] (2010-10-08)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta14.dmg Tunnelblick 3.1beta14] (2010-09-09)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta12.dmg Tunnelblick 3.1beta12] (2010-08-08)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta10.dmg Tunnelblick 3.1beta10] (2010-07-29)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta08.dmg Tunnelblick 3.1beta08] (2010-07-10)<br>    
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta06.dmg Tunnelblick 3.1beta06] (2010-06-07)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta04.dmg Tunnelblick 3.1beta04] (2010-05-27)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta02.dmg Tunnelblick 3.1beta02] (2010-05-14)<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Tunnelblick 3.0] (2010-03-09)<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b28.dmg Tunnelblick 3.0b28] (2010-02-24)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b26.dmg Tunnelblick 3.0b26] (2010-02-09)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b24.dmg Tunnelblick 3.0b24] (2009-12-12)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b22.dmg Tunnelblick 3.0b22] (2009-11-01)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b20.dmg Tunnelblick 3.0b20] (2009-10-09)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b18.dmg Tunnelblick 3.0b18] (2009-09-23)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b16.dmg Tunnelblick 3.0b16] (2009-08-22)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b14.dmg Tunnelblick 3.0b14] (2009-08-10)<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b10.dmg Tunnelblick 3.0b10] (2008-11-20)<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b9.dmg Tunnelblick 3.0b9] (2008-07-24)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg Tunnelblick 3.0b8] (2008-07-17)<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg Tunnelblick 3.0b7] (2008-07-07)<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.1.dmg Tunnelblick 3.1.1 (build 2190.2248)] released 2010-12-18<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.1.dmg Tunnelblick 3.0.1 (build 1437.2278)] released 2011-01-12<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b10.dmg Tunnelblick 3.0b10] released 2008-11-20<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b9.dmg Tunnelblick 3.0b9] released 2008-07-24<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg Tunnelblick 3.0b8] released 2008-07-17<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg Tunnelblick 3.0b7] released 2008-07-07
+
+==Other Versions==
+A bug causing an [vulnerability2011-01-12-FAQ exploitable security problem] exists in some versions of Tunnelblick. These versions are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+
+==User-Contributed==
+These downloads have been contributed by users and usually help deal with special circumstances. They are not endorsed or checked by the Tunnelblick project or Google, and you use them at your own risk. To contribute a download, please email project owner [http://code.google.com/u/jkbullard/ Jon].
+
+<font color="red">Note: scripts are executed as root.</font> [wUsingScripts Instructions for using scripts].
+
+    * *Scripts to Unload Cisco Tun Kext*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-001-pre-post.zip user-contributed-001-pre-post.zip]*_ Contributed by petiepooo. These scripts unload the Cisco !AnyConnect tun kext before a Tunnelblick connection is started, and reload the Cisco tun kext after a Tunnelblick connection is stopped. (The Cisco kext interferes with Tunnelblick's operation of tun connections.) Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher.
+
+==Icons and Images==
 
 The above links include all available versions of the program.
 
-==All files==
-[http://code.google.com/p/tunnelblick/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount All files, including icons and images for the documentation]
+[http://code.google.com/p/tunnelblick/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount All files], including icons and images for the documentation and Tunnelblick versions which include a security vulnerability.

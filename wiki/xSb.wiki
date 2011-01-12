@@ -3,7 +3,7 @@
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*<br><br>
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
-*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.dmg Download Tunnelblick 3.0]*<br><br>
+*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.1.dmg Download Tunnelblick 3.0.1]*<br><br>
 *[wNews News]*<br><br>
 <hr>
 *Tunnelblick 3.0 Documentation*<br>
