@@ -461,7 +461,7 @@ Versions which are NOT vulnerable:
 
 ==3.0.1 (2011-01-12)==
 
- * Fixes bug that causes a serious [vulnerability2011-01-12-FAQ security vulnerability].
+ * Fixes bug that causes a serious [vulnerability20110112FAQ security vulnerability].
  * Fixes bugs relating to forced-preferences.plist wildcards used in Deployed versions of Tunnelblick.
  * Added full Norwegian localization and added missing German localization of one string.
  
