@@ -49,9 +49,10 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.tunnelblick.net/to.php?to=http://www.supervpn.net Super VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2010-11-30.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-15.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
