@@ -21,23 +21,24 @@ If you have a router running DD-WRT, you can use [http://www.dd-wrt.com/wiki/ind
 ==VPN Service Providers==
 Another way to get access to a VPN server is to use a VPN service provider, an organization that makes its VPN servers available (free or for a fee). Some provide you with a customized, and possibly renamed, version of Tunnelblick.
 
-Many VPN service providers recommend or use Tunnelblick exclusively for Mac OS X.
-
-<table border="1"><tr><td>
+<table><tr><td>
+<table border="1" width="100%"><tr><td>
 The following VPN service providers  contribute to Tunnelblick if you use these links
   * *[https://www.astrill.com/a3329ebd4 Astrill]* (You get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase.)
-
   * *[http://btguard.com/?a=tunnelblick BTGuard]*
-
   * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]*
-
   * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
-
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
- 
   * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]*
 </td></tr></table>
 
+<table border="1" width="100%"><tr><td>
+The following VPN service providers have donated to Tunnelblick
+  * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
+</td></tr></table>
+
+<table border="1" width="100%"><tr><td>
+The following VPN service providers  recommend or use Tunnelblick exclusively for OS X
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
@@ -52,8 +53,10 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
+</td></tr></table>
+</td></tr></table>
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-15.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-17.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
