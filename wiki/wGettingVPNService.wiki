@@ -54,7 +54,6 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 
 
-http://www.vpninchina.com
 If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-15.)
 
 
