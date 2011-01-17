@@ -39,16 +39,17 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 </td></tr></table>
 
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com Private Internet Access]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.secure-tunnel.com Secure-Tunnel]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.supervpn.net Super VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 
