@@ -20,7 +20,7 @@
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
-    [UsingTunnelblick Installing and Using Tunnelblick]<br><br>
+    [UsingTunnelblick Installing and Using Tunnelblick]<br>
     [GettingVPNService Getting VPN Service]<br>
     [FAQ FAQ]<br>
     [QuickStartGuide Quick Start Guide]<br>
