@@ -11,23 +11,21 @@
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wUsing Using Tunnelblick]<br>
-    [wGettingVPNService Getting VPN Service]<br>
+    [wConfigT Setting up Configurations]<br>
+    [wRlsNotes Release Notes]<br>
     [wQuick Quick Start Guide]<br>
     [wFAQ FAQ]<br>
-    [wConfigT Setting up Configurations]<br>
-    [wCommonProblems Common Problems]<br>
-    [wKnown Known Issues]<br>
-    [wPrefs Preferences]<br>
+    [wGettingVPNService Getting VPN Service]<br>
 
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
-    [QuickStartGuide Quick Start Guide]<br>
-    [FAQ FAQ]<br>
-    [DocumentationForTunnelblick_3_0 What's New]<br>
-    [GettingVPNService Getting VPN Service]<br>
     [UsingTunnelblick Installing and Using Tunnelblick]<br><br>
-
+    [GettingVPNService Getting VPN Service]<br>
+    [FAQ FAQ]<br>
+    [QuickStartGuide Quick Start Guide]<br>
+    [KnownIssues Known Issues]
+ 
 *To determine which version of Tunnelblick you are using:*
   # Find Tunnelblick.app (it is usually in the /Applications folder).
   # Click on Tunnelblick.app to select it
