@@ -35,6 +35,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 <table border="1" width="100%"><tr><td>
 The following VPN service providers have donated to Tunnelblick
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
 </td></tr></table>
 
 <table border="1" width="100%"><tr><td>
@@ -49,14 +50,13 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.secure-tunnel.com Secure-Tunnel]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.supervpn.net Super VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 </td></tr></table>
 </td></tr></table>
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-17.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-19.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
