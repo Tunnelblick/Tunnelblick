@@ -2,7 +2,7 @@
 <font size="5" color="red">*Security Risk Downloads*</font>
 
 <font color="red">
-*A bug causing an [vulnerability2011-01-12-FAQ exploitable security problem] exists in these versions of Tunnelblick.*
+*A bug causing an [vulnerability20110112FAQ exploitable security problem] exists in these versions of Tunnelblick.*
 
 *DO NOT USE OR INSTALL THESE VERSIONS!*
 </font>
