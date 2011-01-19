@@ -38,7 +38,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg Tunnelblick 3.0b7] released 2008-07-07
 
 ==Other Versions==
-A bug causing an [vulnerability2011-01-12-FAQ exploitable security problem] exists in some versions of Tunnelblick. These versions are available on the [SecurityRiskDownloads Security Risk Downloads] page.
+A bug causing an [vulnerability20110112FAQ exploitable security problem] exists in some versions of Tunnelblick. These versions are available on the [SecurityRiskDownloads Security Risk Downloads] page.
 
 ==User-Contributed==
 These downloads have been contributed by users and usually help deal with special circumstances. They are not endorsed or checked by the Tunnelblick project or Google, and you use them at your own risk. To contribute a download, please email project owner [http://code.google.com/u/jkbullard/ Jon].
