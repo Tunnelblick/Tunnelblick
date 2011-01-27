@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Jonathan K. Bullard
+ * Copyright (c) 2010, 2011 Jonathan K. Bullard
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -16,163 +16,165 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/* This program must be run as root via executeAuthorized.
+/* This program must be run as root via executeAuthorized so it can make modifications to /Library/LaunchDaemons.
  *
  * It sets up to either run, or not run, openvpnstart with specified arguments at system startup.
+ * It does this by placing, or removing, a .plist file in /Library/LaunchDaemons
  *
- * A launchd plist for running openvpnstart must be located in /tmp/tunnelblick/atsystemstart.SESSION.plist, where SESSION is the 
- * session ID (to work with fast user switching). The "Label" entry from the plist is used to identify the specific connection
- * openvpnstart is making.
+ * This command is called with its own single argument followed by the arguments to run "openvpnstart start" with
+ * If the first argument is "1", this program will set up to RUN openvpnstart at system startup with the rest of the arguments.
+ * If the first argument is "0", this program will set up to NOT RUN openvpnstart at system startup with the rest of the arguments.
  *
- * This program accepts a single command line argument.
+ * Note: Although this program returns EXIT_SUCCESS or EXIT_FAILURE, that code is not returned to the invoker of executeAuthorized.
+ * The code returned by executeAuthorized indicates only success or failure to launch this program. Thus, the invoking program must
+ * determine whether or not this program completed its task successfully.
  *
- * If the command line argument is "1", the plist is copied to /Library/LaunchDaemons/LABEL.plist
- * so it will be used to run openvpnstart at system startup.
- *
- * Otherwise, the file /Library/LaunchDaemons/LABEL.plist will be deleted, so it will not be used
- * to run openvpnstart at system startup.
- *
- * LABEL is the "Label" entry from the plist. It must be "net.tunnelblick.startup.NAME", where NAME is the configuration's display name
- * with hypens, slashes, and dots encoded as --, -S, -D, respectively.
- *
- * When finished, this program creates a file, /tmp/tunnelblick/atsystemstart.SESSION.done, where SESSION is the 
- * session ID (to work with fast user switching) to indicate that it has finished. The file is owned by the user
- * so the Tunnelblick GUI can delete it. (We do this because executeAuthorized does not wait for the task to complete before returning.)
  */
 
 #import <Foundation/Foundation.h>
-#import <Security/AuthSession.h>
+#import "defines.h"
+
+// Indices into argv[] for items we use. The first is an argument to this program; the other two are arguments to openvpnstart
+#define ARG_LOAD_FLAG    1
+#define ARG_CFG_FILENAME 3
+#define ARG_CFG_LOC      7
 
 NSAutoreleasePool   * pool;
-NSString            * flagFilePath;
 
-void setStart(NSString * libPath, NSString * plistPath);
-void setNoStart(NSString * libPath);
-void createFlagFile(void);
-
+void        setNoStart(NSString * plistPath);
+void        setStart(NSString * plistPath, NSString * daemonDescription, NSString * daemonLabel, int argc, char* argv[]);
+NSString *  getWorkingDirectory(int argc, char* argv[]);
+void        errorExit(void);
 
 //**************************************************************************************************************************
 int main(int argc, char* argv[])
 {
     pool = [[NSAutoreleasePool alloc] init];
-
-    // Use a session ID in temporary files to support fast user switching
-    SecuritySessionId securitySessionId;
-    OSStatus error;
-    SessionAttributeBits sessionInfo;
-    error = SessionGetInfo(callerSecuritySession, &securitySessionId, &sessionInfo);
-    if (  error != 0  ) {
-        securitySessionId = 0;
+    
+    // Validate our arguments
+    if (   (argc < 5)
+        || (argc > 10)
+        || (   ( strcmp(argv[ARG_LOAD_FLAG], "0") != 0 )
+            && ( strcmp(argv[ARG_LOAD_FLAG], "1") != 0 )
+            )
+        ) {
+        NSLog(@"Argument #%d must be 0 or 1 and there must be between 5 to 10 (inclusive) arguments altogether. argc = %d; argv[%d] = '%s'", ARG_LOAD_FLAG, argc, ARG_LOAD_FLAG, argv[ARG_LOAD_FLAG]);
+        errorExit();
     }
     
-	BOOL syntaxError = TRUE;
+    // Get a description and label for the daemon, and the path for the .plist
+    NSString * displayName = [[NSString stringWithUTF8String: argv[ARG_CFG_FILENAME]] stringByDeletingPathExtension];
     
-    if (  argc == 2  ) {
-        NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.plist", (int) securitySessionId];
-        flagFilePath         = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.done", (int) securitySessionId];
-
-        NSDictionary * plistDict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-        
-        if (  ! plistDict  ) {
-            NSLog(@"File not found or error loading it: %@", plistPath);
-            syntaxError = FALSE;
-        } else {
-        
-            NSString * label = [plistDict objectForKey: @"Label"];
-            
-            if (  ! label  ) {
-                NSLog(@"No 'Label' in %@", plistPath);
-                syntaxError = FALSE;
-            } else if (  ! [label hasPrefix: @"net.tunnelblick.startup."]  ) {
-                NSLog(@"Invalid 'Label' (must start with 'net.tunnelblick.startup.') in %@", plistPath);
-                syntaxError = FALSE;
-            } else {
-            
-                NSString * libPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", label];
-                
-                if (  atoi(argv[1]) == 1   ) {
-                    setStart(libPath, plistPath);
-                    syntaxError = FALSE;
-                } else {
-                    setNoStart(libPath);
-                    syntaxError = FALSE;
-                }
-            }
-        }
+    NSString * daemonDescription = [NSString stringWithFormat: @"Processes Tunnelblick 'Connect when system starts' for VPN configuration '%@'", displayName];
+    
+    // Create a name for the daemon, consisting of the display name but with "path" characters (slashes and periods) escaped.
+    // This is done because a display name might look like "abc/def.ghi/jkl" and we need something that can be a single path component without an extension.
+    NSMutableString * sanitizedDaemonName = [[displayName mutableCopy] autorelease];
+    [sanitizedDaemonName replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
+    [sanitizedDaemonName replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
+    [sanitizedDaemonName replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [sanitizedDaemonName length])];
+    
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", sanitizedDaemonName];
+    
+    NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
+    
+    if (  strcmp(argv[ARG_LOAD_FLAG], "0") == 0  ) {
+        setNoStart(plistPath);
+    } else {
+        setStart(plistPath, daemonDescription, daemonLabel, argc, argv);
     }
     
-    if (  syntaxError  ) {
-        fprintf(stderr, "Syntax error");
-        createFlagFile();
-        [pool drain];
-        exit(EXIT_FAILURE);
-    }
-    
-    createFlagFile();
     [pool drain];
     exit(EXIT_SUCCESS);
 }
 
-void setStart(NSString * libPath, NSString * plistPath)
+void setNoStart(NSString * plistPath)
 {
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: libPath]  ) {
-        if ( ! [[NSFileManager defaultManager] removeFileAtPath: libPath handler: nil]  ) {
-            NSLog(@"Unable to delete %@", libPath);
-            createFlagFile();
-            [pool drain];
-            exit(EXIT_FAILURE);
-        }
-    }
-    
-    // File must be owned by root:wheel to be copied into /Library/LaunchDaemons/
-    if (  chown([plistPath UTF8String], 0, 0) != 0  ) {
-        NSLog(@"Unable to change ownership of %@ to root:wheel", plistPath);
-        createFlagFile();
-        [pool drain];
-        exit(EXIT_FAILURE);
-    }
-
-    if (  ! [[NSFileManager defaultManager] copyPath: plistPath toPath: libPath handler: nil]  ) {
-        NSLog(@"Unable to copy %@ to %@", plistPath, libPath);
-        if (  chown([plistPath UTF8String], getuid(), getgid()) != 0  ) {
-            NSLog(@"Unable to restore ownership of %@", plistPath);
-        }
-        createFlagFile();
-        [pool drain];
-        exit(EXIT_FAILURE);
-    }
-
-    if (  chown([plistPath UTF8String], getuid(), getgid()) != 0  ) {
-        NSLog(@"Unable to restore ownership of %@", plistPath);
-        createFlagFile();
-        [pool drain];
-        exit(EXIT_FAILURE);
-    }
-    
-}
-
-void setNoStart(NSString * libPath)
-{
-    if (  [[NSFileManager defaultManager] fileExistsAtPath: libPath]  ) {
-        if ( ! [[NSFileManager defaultManager] removeFileAtPath: libPath handler: nil]  ) {
-            NSLog(@"Unable to delete %@", libPath);
-            createFlagFile();
-            [pool drain];
-            exit(EXIT_FAILURE);
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if (  [fm pathContentOfSymbolicLinkAtPath: plistPath] == nil  ) {
+        if (  [fm fileExistsAtPath: plistPath]  ) {
+            if ( ! [fm removeFileAtPath: plistPath handler: nil]  ) {
+                NSLog(@"Unable to delete existing plist file %@", plistPath);
+                errorExit();
+            }
+        } else {
+            NSLog(@"Does not exist, so cannot delete %@", plistPath);
+            errorExit();
         }
     } else {
-        NSLog(@"Does not exist, so do not need to delete %@", libPath);
+        NSLog(@"Symbolic link not allowed at %@", plistPath);
+        errorExit();
     }
-
 }
 
-void createFlagFile(void)
+void setStart(NSString * plistPath, NSString * daemonDescription, NSString * daemonLabel, int argc, char* argv[])
 {
-    if (  [[NSFileManager defaultManager] createFileAtPath: flagFilePath contents: [NSData data] attributes: nil]  ) {
-        if (  chown([flagFilePath UTF8String], getuid(), getgid()) != 0  ) {
-            NSLog(@"Unable to make %d:%d owner of %@", getuid(), getgid(), flagFilePath);
-        }
-    } else {
-        NSLog(@"Unable to create temporary file %@", flagFilePath);
+    // Note: When creating the .plist, we don't use the "Program" key, because we want the first argument to be the path to the program,
+    // so openvpnstart can know where it is, so it can find other Tunnelblick compenents.
+    
+    NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+    
+    NSMutableArray * arguments = [NSMutableArray arrayWithObject: openvpnstartPath];
+    int i;
+    for (i=2; i<argc; i++) {
+        [arguments addObject: [NSString stringWithUTF8String: argv[i]]];
+    }
+    
+    NSString * workingDirectory = getWorkingDirectory(argc, argv);
+    
+    NSDictionary * plistDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                daemonLabel,                    @"Label",
+                                arguments,                      @"ProgramArguments",
+                                workingDirectory,               @"WorkingDirectory",
+                                daemonDescription,              @"ServiceDescription",
+                                [NSNumber numberWithBool: YES], @"onDemand",
+                                [NSNumber numberWithBool: YES], @"RunAtLoad",
+                                nil];
+    
+    if (  [[NSFileManager defaultManager] pathContentOfSymbolicLinkAtPath: plistPath] != nil  ) {
+        NSLog(@"Symbolic link not allowed at %@", plistPath);
+        errorExit();
+    }
+    
+    if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
+        NSLog(@"Unable to write plist file %@", plistPath);
+        errorExit();
     }
 }
+
+NSString * getWorkingDirectory(int argc, char* argv[])
+{
+    NSString * cfgFile = [NSString stringWithUTF8String: argv[ARG_CFG_FILENAME]];
+
+    NSString * extension = [cfgFile pathExtension];
+    if (  ! [extension isEqualToString: @"tblk"]) {
+        NSLog(@"Only Tunnelblick VPN Configurations (.tblk packages) may connect when the computer starts\n");
+        errorExit();
+    }
+    
+    NSString * cfgPath = nil;
+    
+    unsigned  cfgLocCode = 0;
+    if (  argc > ARG_CFG_LOC  ) {
+        cfgLocCode = atoi(argv[ARG_CFG_LOC]);
+    }
+    
+    if (  cfgLocCode == CFG_LOC_DEPLOY  ) {
+        NSString * deployDirectory = [[NSBundle mainBundle] pathForResource: @"Deploy" ofType: nil];
+        cfgPath = [deployDirectory stringByAppendingPathComponent: cfgFile];
+    } else if (cfgLocCode == CFG_LOC_SHARED  ) {
+        cfgPath = [@"/Library/Application Support/Tunnelblick/Shared" stringByAppendingPathComponent: cfgFile];
+    } else {
+        NSLog(@"Invalid cfgLocCode = %d", cfgLocCode);
+        errorExit();
+    }
+    
+    NSString * workingDirectory = [cfgPath stringByAppendingPathComponent: @"Contents/Resources"];
+    return workingDirectory;
+}
+
+void errorExit(void)
+{
+    [pool drain];
+    exit(EXIT_FAILURE);
+}    

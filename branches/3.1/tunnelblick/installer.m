@@ -1,6 +1,6 @@
 /*
- *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009, 2010 by Angelo Laub
- *  Contributions by Jonathan K. Bullard
+ *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
+ *  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -18,8 +18,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <Security/AuthSession.h>
 #import <stdio.h>
+#import "defines.h"
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 //
@@ -45,28 +45,27 @@
 //      (2) Restores the /Deploy folder from the backup copy if it does not exist and a backup copy does,
 //      (3) Moves the contents of the old configuration folder at /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //      (4) Creates /Library/Application Support/Tunnelblick/Shared if it doesn't exist and makes sure it is secured
-//      (5) _Iff_ secureTheApp is "1" or "2", secures Tunnelblick.app by setting the ownership and permissions of its components
-//      (6) _Iff_ secureTheApp is "1" or "2", makes a backup of the /Deploy folder if it exists
-//      (7) _Iff_ secureAllPackages, secures all .tblk packages in the following folders:
+//      (5) Creates the log directory if it doesn't exist and makes sure it is secured
+//      (6) _Iff_ secureTheApp is "1" or "2", secures Tunnelblick.app by setting the ownership and permissions of its components.
+//      (7) _Iff_ secureTheApp is "1" or "2", makes a backup of the /Deploy folder if it exists
+//      (8) _Iff_ secureAllPackages, secures all .tblk packages in the following folders:
 //           /Library/Application Support/Tunnelblick/Shared
 //           /Library/Application Support/Tunnelblick/Users/<username>
 //           ~/Library/Application Support/Tunnelblick/Configurations
-//      (8) _Iff_ sourcePath is given, copies or moves sourcePath to targetPath (copies unless moveFlag = @"1")
-//      (9) _Iff_ targetPathToSecure is given, secures the .ovpn or .conf file or a .tblk package at that path
+//      (9) _Iff_ sourcePath is given, copies or moves sourcePath to targetPath (copies unless moveFlag = @"1")
+//     (10) _Iff_ targetPathToSecure is given, secures the .ovpn or .conf file or a .tblk package at that path
 //
-// Notes: (2), (3), and (4) are done each time this command is invoked if they are needed (self-repair).
-//        (8) is done when creating a shadow configuration file
+// Notes: (2), (3), (4), and (5) are done each time this command is invoked if they are needed (self-repair).
+//        (9) is done when creating a shadow configuration file
 //                    or copying a .tblk to install it
 //                    or moving a .tblk to make it private or shared
-//        (9) is done when repairing a shadow configuration file or after copying or moving a .tblk
+//        (10) is done when repairing a shadow configuration file or after copying or moving a .tblk
 
 NSArray       * extensionsFor600Permissions;
 NSFileManager * gFileMgr;       // [NSFileManager defaultManager]
 NSString      * gPrivatePath;   // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gSharedPath;    // Path to /Library/Application Support/Tunnelblick/Shared
 NSString      * gDeployPath;    // Path to Tunnelblick.app/Contents/Resources/Deploy
-NSString      * privilegedRunningFlagFilePath; // Path to file that we delete when we're done         (created by caller)
-NSString      * privilegedFailureFlagFilePath; // Path to file that we leave if we exit with an error (created by us)
 NSAutoreleasePool * pool;
 uid_t realUserID;               // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as)
 gid_t realGroupID;
@@ -111,24 +110,6 @@ int main(int argc, char *argv[])
     realGroupID = getgid();
     
     BOOL isDir;
-    
-    // We create a file to act as a flag that the installation failed. We delete it before a success return.
-    // We do this because under certain circumstances (on Tiger?), [task terminationStatus] doesn't return the correct value
-    // We make it owned by the regular user so the Tunnelblick program that started us can delete it after dealing with the error
-    // The filename includes the session ID to support fast user switching
-    OSStatus error;
-    SecuritySessionId mySession;
-    SessionAttributeBits sessionInfo;
-    error = SessionGetInfo(callerSecuritySession, &mySession, &sessionInfo);
-    if (  error != 0  ) {
-        mySession = 0;
-    }
-    privilegedFailureFlagFilePath = [NSString stringWithFormat:@"/tmp/Tunnelblick/InstallationFailed-%d.txt", mySession];
-
-    [gFileMgr createFileAtPath: privilegedFailureFlagFilePath contents: [NSData data] attributes: [NSDictionary dictionary]];
-    chown([privilegedFailureFlagFilePath UTF8String], realUserID, realGroupID);
-    
-    privilegedRunningFlagFilePath = [NSString stringWithFormat:@"/tmp/Tunnelblick/InstallationInProcess-%d.txt", mySession];
     
     if (  (argc < 3)  || (argc > 6)  ) {
         NSLog(@"Tunnelblick Installer: Wrong number of arguments -- expected 2 or 3, given %d", argc-1);
@@ -255,6 +236,17 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (5)
+    // Create log directory if it does not already exist, and make sure it is owned by root with 755 permissions
+    
+    result = createDirWithPermissionAndOwnership(LOG_DIR, 0755, 0, 0);
+    if (  result == 1  ) {
+        NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", LOG_DIR);
+    } else if (  result == -1  ) {
+        exit_failure();
+    }
+    
+    //**************************************************************************************************************************
+    // (6)
     // If requested, secure Tunnelblick.app by setting ownership of Info.plist and Resources and its contents to root:wheel,
     // and setting permissions as follows:
     //        Info.plist is set to 0644
@@ -322,7 +314,7 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (6)
+    // (7)
     // If Resources/Deploy exists, back it up -- saving the first configuration and the two most recent
     if ( secureApp ) {
         
@@ -350,7 +342,7 @@ int main(int argc, char *argv[])
     }
         
     //**************************************************************************************************************************
-    // (7)
+    // (8)
     // If requested, secure all .tblk packages
     if (  secureTblks  ) {
         NSString * sharedPath  = @"/Library/Application Support/Tunnelblick/Shared";
@@ -389,7 +381,7 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (8)
+    // (9)
     // If requested, copy or move a single file or .tblk package
     // Like the NSFileManager "movePath:toPath:handler" method, we move by copying, then deleting, because we may be moving
     // from one disk to another (e.g., home folder on network to local hard drive)
@@ -443,7 +435,7 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (9)
+    // (10)
     // If requested, secure a single file or .tblk package
     if (  singlePathToSecure  ) {
         BOOL okSoFar = TRUE;
@@ -469,10 +461,6 @@ int main(int argc, char *argv[])
         }
     }
     
-    // We remove this file to indicate that the installation succeeded because the return code doesn't propogate back to our caller
-    [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
-    
-    [gFileMgr removeFileAtPath: privilegedRunningFlagFilePath handler: nil];
     [pool release];
     exit(EXIT_SUCCESS);
 }
@@ -480,7 +468,6 @@ int main(int argc, char *argv[])
 //**************************************************************************************************************************
 void exit_failure()
 {
-    [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
     [pool release];
     exit(EXIT_FAILURE);
 }

@@ -124,7 +124,7 @@ if [ "$TBCONFIGSTART" = "$TBALTPREFIX" ] ; then
 fi
 
 CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
-SCRIPT_LOG_FILE="/tmp/tunnelblick/logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
+SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
 
 # Do something only if the server pushed something
 if [ "$foreign_option_1" == "" ]; then

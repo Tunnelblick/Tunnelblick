@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Jonathan Bullard
+ * Copyright (c) 2010, 2011 Jonathan Bullard
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -19,7 +19,14 @@
 //*************************************************************************************************
 // Paths:
 // Note: The standard up script refers to the log directory without using this header file
-#define LOG_DIR   @"/tmp/tunnelblick/logs"
+#define LOG_DIR   @"/Library/Application Support/Tunnelblick/Logs"
+
+
+// Values for the location of the configuration file (cfgLocCode argument to openvpnstart) 
+#define CFG_LOC_PRIVATE   0
+#define CFG_LOC_ALTERNATE 1
+#define CFG_LOC_DEPLOY    2
+#define CFG_LOC_SHARED    3
 
 
 //*************************************************************************************************
