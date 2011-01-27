@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009, 2010 Angelo Laub
+ * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
  * Contributions by Dirk Theisen and Jonathan K. Bullard
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,20 +23,15 @@
 #import <sys/stat.h>
 #import "defines.h"
 
-// cfgLocCode values for the location of the configuration file
-#define CFG_LOC_PRIVATE   0
-#define CFG_LOC_ALTERNATE 1
-#define CFG_LOC_DEPLOY    2
-#define CFG_LOC_SHARED    3
+int     startVPN                   (NSString * configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
 
-//Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int     startVPN			(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
-int     setupLog            (NSString* logPath);
-NSString * constructOpenVPNLogPath (NSString * configurationPath, NSString * openvpnstartArgs, int port);
-NSString * constructScriptLogPath (NSString * configurationPath);
-NSString * createOpenVPNLog (NSString* configurationPath, int port);
-NSString * createScriptLog  (NSString* configurationPath, NSString* cmdLine);
-BOOL    deleteOpenVpnLogFiles (NSString * configurationPath);
+NSString * createOpenVPNLog        (NSString * configurationFile, unsigned cfgLocCode, int port);
+NSString * createScriptLog         (NSString * configurationFile, unsigned cfgLocCode, NSString* cmdLine);
+NSString * constructOpenVPNLogPath (NSString * configurationFile, unsigned cfgLocCode, NSString * openvpnstartArgString, int port);
+NSString * constructScriptLogPath  (NSString * configurationFile, unsigned cfgLocCode);
+NSString * constructLogBase        (NSString * configurationFile, unsigned cfgLocCode);
+void       deleteLogFiles          (NSString * configurationFile, unsigned cfgLocCode);
+
 int     runAsRoot           (NSString * thePath, NSArray * theArguments);
 
 void    startOpenVPNWithNoArgs(void);        //Runs OpenVPN with no arguments, to get info including version #
@@ -61,7 +56,7 @@ BOOL    checkOwnerAndPermissions (NSString * fPath, // Returns YES if file doesn
                                   gid_t      gid,
                                   NSString * permsShouldHave);
 
-BOOL    itemIsVisible       (NSString * path); // Returns NO if path or any component of path is invisible (compenent starts with a '.')
+BOOL    itemIsVisible       (NSString * path); //Returns NO if path or any component of path is invisible (any component starts with a '.')
 BOOL    createDir           (NSString * d, unsigned long perms);
 
 NSString * configPathFromTblkPath(NSString * path);
@@ -69,7 +64,6 @@ NSString *escaped(NSString *string);        // Returns an escaped version of a s
 
 NSAutoreleasePool   * pool;
 NSString			* configPath;           //Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
-NSString            * nonShadowConfigPath;  // Path to original configuration path if configPath is a shadow copy configuration path
 NSString			* execPath;             //Path to folder containing this executable, openvpn, tap.kext, tun.kext, client.up.osx.sh, and client.down.osx.sh
 NSFileManager       * gFileMgr;
 NSString            * startArgs;            //String with an underscore-delimited list of the following arguments to openvpnstart start: useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask 
@@ -139,6 +133,14 @@ int main(int argc, char* argv[])
 				killOneOpenvpn(pid);
 				syntaxError = FALSE;
 			}
+            
+        } else if( strcmp(command, "deleteLogs") == 0 ) {
+			if (argc == 4) {
+				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                unsigned cfgLocCode = atoi(argv[3]);
+                deleteLogFiles(configFile, cfgLocCode);
+                syntaxError = FALSE;
+            }
             
         } else if( strcmp(command, "postDisconnect") == 0) {
             if (  argc == 4) {
@@ -220,6 +222,9 @@ int main(int argc, char* argv[])
 				"./openvpnstart kill   processId\n"
 				"               to terminate the 'openvpn' process with the specified processID\n\n"
                 
+                "./openvpnstart deleteLogs   configName   cfgLocCode\n"
+                "               to delete all log files associated with a configuration\n\n"
+                
 				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  ]  ]  ]  ]  ]\n\n"
 				"               to load the net.tunnelblick.tun and/or net.tunnelblick.tap kexts and start OpenVPN with the specified configuration file and options.\n"
                 "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
@@ -230,8 +235,6 @@ int main(int argc, char* argv[])
 				"Where:\n\n"
                 
 				"processId  is the process ID of the openvpn process to kill\n\n"
-                
-				"configPath is the full path to the configuration file, so that the log file associated with the configuration can be deleted\n\n"
                 
 				"configName is the name of the configuration file (a .conf or .ovpn file, or .tblk package)\n\n"
                 
@@ -334,7 +337,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     }
 
     // Determine path to the configuration file and the --cd folder
-	nonShadowConfigPath = nil;
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
             cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
@@ -344,9 +346,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         case CFG_LOC_ALTERNATE:
             cdFolderPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
             configPath = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@/%@", NSUserName(), configFile];
-            // Note: We set nonShadowConfigPath to start with "/Users/..." even if the home directory has a different path;
-            // it is used in the name of the script log file, and is not used as a path to get to anything.
-            nonShadowConfigPath = [NSString stringWithFormat:@"/Users/%@/Library/Application Support/Tunnelblick/Configurations/%@", NSUserName(), configFile];
             break;
             
         case CFG_LOC_DEPLOY:
@@ -437,14 +436,9 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         port = getFreePort();
     }
     
-    // Create OpenVPN log directory if necessary, delete old OpenVPN log files, and create a new, empty OpenVPN log file
-    createDir(LOG_DIR, 0777);
-    deleteOpenVpnLogFiles(configPath);
-    if (  nonShadowConfigPath  ) {
-        deleteOpenVpnLogFiles(nonShadowConfigPath);
-    }
-    
-    NSString * logPath = createOpenVPNLog(configPath, port);
+    // Delete old OpenVPN log files and script log files for this configuration, and create a new, empty OpenVPN log file (we create the script log later)
+    deleteLogFiles(configFile, cfgLocCode);
+    NSString * logPath = createOpenVPNLog(configFile, cfgLocCode, port);
     
     // default arguments to openvpn command line
 	NSMutableArray* arguments = [NSMutableArray arrayWithObjects:
@@ -656,7 +650,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     }
 	
     // Create a new script log which includes the command line used to start openvpn
-    createScriptLog(configPath, cmdLine);
+    createScriptLog(configFile, cfgLocCode, cmdLine);
     
     if (  tblkPath  ) {
         NSString * preConnectPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/pre-connect.sh"];
@@ -789,12 +783,11 @@ int killAllOpenvpn(void)
 
 //**************************************************************************************************************************
 // Sets up the OpenVPN log file. The filename itself encodes the configuration file path, openvpnstart arguments, and port info.
-// The log file is created with permissions allowing anyone to read it. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
-NSString * createOpenVPNLog(NSString* configurationPath, int port)
+// The log file is created with permissions allowing everyone read/write access. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
+NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, int port)
 {
-    NSString * logPath = constructOpenVPNLogPath(configurationPath, startArgs, port);
-    
-    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0744] forKey: NSFilePosixPermissions];
+    NSString * logPath = constructOpenVPNLogPath(configurationFile, cfgLocCode, startArgs, port);
+    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
     
     if (  ! [gFileMgr createFileAtPath: logPath contents: [NSData data] attributes: logAttributes]  ) {
         NSString * msg = [NSString stringWithFormat: @"Warning: Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
@@ -809,37 +802,20 @@ NSString * createOpenVPNLog(NSString* configurationPath, int port)
 //      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
 //      * the port number; and
 //      * "log"
-//
-// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
-// of creating the filename -- we never try to access /Users/username...). We do this because
-// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
-// folder may be located in a non-standard location (on a remote volume for example).
-NSString * constructOpenVPNLogPath(NSString * configurationPath, NSString * openvpnstartArgs, int port)
+NSString * constructOpenVPNLogPath(NSString * configurationFile, unsigned cfgLocCode, NSString * openvpnstartArgString, int port)
 {
-    NSMutableString * logPath;
-    if (  nonShadowConfigPath  ) {
-        logPath = [nonShadowConfigPath mutableCopy];
-    } else {
-        logPath = [configurationPath mutableCopy];
-    }
-    if (  [[configurationPath pathExtension] isEqualToString: @"tblk"]) {
-        [logPath appendString: @"/Contents/Resources/config.ovpn"];
-    }
-    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
-    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.%@.%d.openvpn.log", LOG_DIR, logPath, openvpnstartArgs, port];
-    [logPath release];
+    NSString * logBase = constructLogBase(configurationFile, cfgLocCode);
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.%@.%d.openvpn.log", LOG_DIR, logBase, openvpnstartArgString, port];
     return returnVal;
 }
 
 //**************************************************************************************************************************
 // Sets up a new script log file. The filename itself encodes the configuration file path.
-// It is created with permissions allowing everyone full access
-NSString * createScriptLog(NSString* configurationPath, NSString* cmdLine)
+// The log file is created with permissions allowing everyone read/write access
+NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSString* cmdLine)
 {
-    NSString * logPath = constructScriptLogPath(configurationPath);
-    
-    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0777] forKey: NSFilePosixPermissions];
+    NSString * logPath = constructScriptLogPath(configurationFile, cfgLocCode);
+    NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
 
     NSCalendarDate * date = [NSCalendarDate date];
     NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart: %@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], cmdLine];
@@ -854,39 +830,61 @@ NSString * createScriptLog(NSString* configurationPath, NSString* cmdLine)
 }
 
 // Returns a path for a script log file.
-// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of "log"
-//
-// If the configuration file is in the home folder, we pretend it is in /Users/username instead (just for the purpose
-// of creating the filename -- we never try to access /Users/username...). We do this because
-// the scripts have access to the username, but don't have access to the actual location of the home folder, and the home
-// folder may be located in a non-standard location (on a remote volume for example).
-NSString * constructScriptLogPath(NSString * configurationPath)
+// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extensions of "script.log"
+NSString * constructScriptLogPath(NSString * configurationFile, unsigned cfgLocCode)
 {
-    NSMutableString * logPath;
-    if (  nonShadowConfigPath  ) {
-        logPath = [nonShadowConfigPath mutableCopy];
-    } else {
-        logPath = [configurationPath mutableCopy];
-    }
-    if (  [[configurationPath pathExtension] isEqualToString: @"tblk"]) {
-        [logPath appendString: @"/Contents/Resources/config.ovpn"];
-    }
-    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
-    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logPath];
-    
-    [logPath release];
+    NSString * logBase = constructLogBase(configurationFile, cfgLocCode);
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logBase];
     return returnVal;
 }
 
-//**************************************************************************************************************************
-// Deletes OpenVPN log files associated with a specified configuration file
-BOOL deleteOpenVpnLogFiles(NSString * configurationPath)
+NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode)
 {
-    BOOL errHappened = FALSE;
+    // Get a "standardized" path to the configuration file to construct the name of the log file
+    // This standardized path is used only for constructing the name of the log file, and is NOT used as a path to get to anything.
+    //
+    // We use this standardized path to construct the name because scripts have access to the username, but don't have access to the
+    // actual location of the home folder, and the home folder may be located in a non-standard location (on a remote volume for example).
+    // So scripts can construct the name of the log file, and from that, the path to the log file, using only the username.
+    //
+    // For shadow copies or private configurations, the path is constructed from a "standardized" path to the private config file:
+    //      /Users/_USERNAME_/Library/Application Support/Tunnelblick/Configurations/Folder/Subfolder/config.ovpn
+    //
+    // If the configuration file is a .tblk, the path to the actual configuration file inside it is used.
+
+    NSString * configPrefix = nil;
+    switch (cfgLocCode) {
+        case CFG_LOC_PRIVATE:
+        case CFG_LOC_ALTERNATE:
+            configPrefix = [NSString stringWithFormat: @"/Users/%@/Library/Application Support/Tunnelblick/Configurations", NSUserName()];
+            break;
+        case CFG_LOC_DEPLOY:
+            configPrefix = [execPath stringByAppendingPathComponent: @"Deploy"];
+            break;
+        case CFG_LOC_SHARED:
+            configPrefix = [NSString stringWithString: @"/Library/Application Support/Tunnelblick/Shared"];
+            break;
+        default:
+            return FALSE;
+    }
     
-    NSString * logPath = constructOpenVPNLogPath(configurationPath, @"XX", 0); // openvpnstart args and port # don't matter because we strip them off
+    NSMutableString * base = [[[configPrefix stringByAppendingPathComponent: configurationFile] mutableCopy] autorelease];
+    if (  [[base pathExtension] isEqualToString: @"tblk"]  ) {
+        [base appendString: @"/Contents/Resources/config.ovpn"];
+    }
     
+    [base replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [base length])];
+    [base replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [base length])];
+ 
+    return [[base copy] autorelease];
+}
+
+//**************************************************************************************************************************
+// Deletes OpenVPN log files and script log files associated with a specified configuration file and location code
+void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
+{
+    // Delete ALL log files for the specified configuration file and location code, whatever port or start args are encoded into their names
+    NSString * logPath = constructOpenVPNLogPath(configurationFile, cfgLocCode, @"XX", 0); // openvpnstart args and port # don't matter
     NSString * logPathPrefix = [[[[logPath stringByDeletingPathExtension]
                                   stringByDeletingPathExtension]
                                  stringByDeletingPathExtension]
@@ -902,13 +900,19 @@ BOOL deleteOpenVpnLogFiles(NSString * configurationPath)
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
                 if (  ! [gFileMgr removeFileAtPath: oldFullPath handler: nil]  ) {
                     fprintf(stderr, "Error occurred trying to delete OpenVPN log file %s\n", [oldFullPath UTF8String]);
-                    errHappened = TRUE;
                 }
             }
         }
     }
-
-    return errHappened;
+    
+    // Delete the script log file
+    NSString * scriptLogPath = constructScriptLogPath(configurationFile, cfgLocCode);
+    
+    if (  [gFileMgr fileExistsAtPath: scriptLogPath]  ) {
+        if (  ! [gFileMgr removeFileAtPath: scriptLogPath handler: nil]  ) {
+            fprintf(stderr, "Error occurred trying to delete script log file %s\n", [scriptLogPath UTF8String]);
+        }
+    }
 }
 
 //**************************************************************************************************************************

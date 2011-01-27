@@ -3,7 +3,7 @@
  * Contributions by Dirk Theisen <dirk@objectpark.org>, 
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb,
- *                  Jonathan K. Bullard
+ *                  Jonathan K. Bullard Copyright (c) 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -21,7 +21,6 @@
  */
 
 #import <Foundation/NSDebug.h>
-#import <Security/AuthSession.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
 #import <uuid/uuid.h>
@@ -44,7 +43,6 @@ NSString              * gSharedPath;          // Path to /Library/Application Su
 TBUserDefaults        * gTbDefaults;          // Our preferences
 NSFileManager         * gFileMgr;             // [NSFileManager defaultManager]
 NSDictionary          * gOpenVPNVersionDict;  // Dictionary with OpenVPN version information
-SecuritySessionId       gSecuritySessionId;   // Session ID used to create temporary files
 unsigned int            gHookupTimeout;       // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                               or zero to keep trying indefinitely
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
@@ -100,6 +98,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
+-(void)             deleteLogs;
 -(void)             dmgCheck;
 -(int)              firstDifferentComponent:                (NSArray *)         a
                           and:                              (NSArray *)         b;
@@ -192,14 +191,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         showDurationsTimer = nil;
         
-        // Use a session ID in temporary files to support fast user switching
-        OSStatus error;
-        SessionAttributeBits sessionInfo;
-        error = SessionGetInfo(callerSecuritySession, &gSecuritySessionId, &sessionInfo);
-        if (  error != 0  ) {
-            gSecuritySessionId = 0;
-        }
-        
         dotTblkFileList = nil;
         oldSelectedConnectionName = nil;
         hotKeySubmenuItemThatIsOn = nil;
@@ -221,13 +212,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[NSApp setDelegate: self];
 		
         userIsAnAdmin = isUserAnAdmin();
-        
-        // Create folder for OpenVPN log and scripts log if necessary
-        if (  createDir(LOG_DIR, 0777) == -1  ) {
-            NSLog(@"Warning: Tunnelblick was unable to create a temporary log folder at %@", LOG_DIR);
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate:self];
-        }
         
         // Create private configurations folder if necessary
         createDir(gPrivatePath, 0755);
@@ -2074,22 +2058,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) setLogWindowTitle
 {
-    NSString * locationMessage = @"";
-    if (  [gConfigDirs count] > 1  ) {
-        NSString * path = [[self selectedConnection] configPath];
-        if (  [path hasPrefix: gDeployPath]) {
-            locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
-        } else if (  [path hasPrefix: gSharedPath]) {
-            locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
-        } else {
-            locationMessage =  NSLocalizedString(@" (Private)", @"Window title");
-        }
-    }
-    
     [logWindow setTitle: [NSString stringWithFormat: @"%@ - %@%@",
                           NSLocalizedString(@"Details - Tunnelblick", @"Window title"),
                           [[self selectedConnection] displayName],
-                          locationMessage]];
+                          [[self selectedConnection] displayLocation]]];
 	
 }
 
@@ -2721,9 +2693,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 // If there aren't ANY config files in the config folders 
 // then guide the user
+//
+// When Sparkle updates us while we're running, it moves us to the Trash, then replaces us, then terminates us, then launches the new copy.
+// Thus there is a time when there may not be a Deploy folder (if the update doesn't have one and we will restore from the backup).
+// We don't want to complain to the user about not having any configurations, though. So if we had deployed configurations when we were launched,
+// then we ignore the absense of configurations -- the relaunch will restore the old Deploy folder with its configurations.
 -(void) checkNoConfigurations
 {
-    if (  ignoreNoConfigs || [myConfigDictionary count] != 0  ) {
+    if (   ignoreNoConfigs
+        || ( [myConfigDictionary count] != 0 )
+        || [[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] // True only if we had configurations in Deploy when launched
+        ) {
         return;
     }
     
@@ -2806,11 +2786,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[NSApp callDelegateOnNetworkChange: NO];
     [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     [self unloadKexts];     // Unload .tun and .tap kexts
+    [self deleteLogs];
 	if (  statusItem  ) {
         [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
     }
 }
 
+-(void) deleteLogs
+{
+    VPNConnection * connection;
+    NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+    while (connection = [e nextObject]) {
+        [connection deleteLogs];
+    }
+}
 
 -(void)saveMonitorConnectionCheckboxState:(BOOL)inBool
 {
@@ -3400,7 +3389,7 @@ static void signal_handler(int signalNumber)
                 NSTask* task = [[[NSTask alloc] init] autorelease];
                 [task setLaunchPath: path]; 
                 [task setArguments:arguments];
-                [task setCurrentDirectoryPath: @"/tmp"];
+                [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we need to specify something
                 [task launch];
                 [task waitUntilExit];
                 noUnknownOpenVPNsRunning = YES;
@@ -3755,7 +3744,7 @@ static void signal_handler(int signalNumber)
                                         copyApp: TRUE
                                       repairApp: TRUE
                              moveLibraryOpenVPN: TRUE
-                                 repairPackages: FALSE]  ) {
+                                 repairPackages: TRUE]  ) {
             // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
             [NSApp terminate:self];
         }
@@ -3902,50 +3891,64 @@ static void signal_handler(int signalNumber)
             NSLog(@"Installation or repair cancelled");
             return FALSE;
         }
+        
+        // NOTE: We do NOT free myAuth here. It may be used to install .tblk packages, so we free it when we
+        // are finished launching, in applicationDidFinishLaunching
     }
         
     NSLog(@"Beginning installation or repair");
 
-    int i;
-    BOOL okNow;
+    NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:2] autorelease];
     
-    for (i=0; i < 5; i++) {
-        NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:2] autorelease];
-        
-        if (  needsAppRepair || needsMoveConfigs || copyAppToApplications  ) {
-            if (  copyAppToApplications  ) {
-                [arguments addObject:@"2"];
-            } else {
-                [arguments addObject:@"1"];
-            }
+    if (  needsAppRepair || needsMoveConfigs || copyAppToApplications  ) {
+        if (  copyAppToApplications  ) {
+            [arguments addObject:@"2"];
         } else {
-            [arguments addObject:@"0"];
-        }
-        if (  needsPkgRepair  ) {
             [arguments addObject:@"1"];
-        } else {
-            [arguments addObject:@"0"];
         }
-        
-        
-        if (   [self runInstallerWithArguments: arguments authorization: myAuth]
-            && ( okNow = ( ! needToRunInstaller(&needsAppRepair, &needsMoveConfigs, &needsRestoreDeploy, &needsPkgRepair, copyAppToApplications) ) )  ) {
-            break;
-        }
-        
-        sleep(1);
-        
-        okNow = ! needToRunInstaller( &needsAppRepair, &needsMoveConfigs, &needsRestoreDeploy, &needsPkgRepair, copyAppToApplications );
-        if (  okNow  ) {
-            break;
-        }
-        
-        NSLog(@"Installation or repair failed; retrying");
+    } else {
+        [arguments addObject:@"0"];
+    }
+    if (  needsPkgRepair  ) {
+        [arguments addObject:@"1"];
+    } else {
+        [arguments addObject:@"0"];
     }
     
-    // NOTE: We do NOT free myAuth here. It may be used to install .tblk packages, so we free it when we are finished launching
-    
-    if (  ! okNow  ) {
+    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
+
+    BOOL okNow = FALSE;
+    int i;
+    for (i=0; i<5; i++) {
+        if (  i != 0  ) {
+            usleep( i * 500000 );
+            NSLog(@"Retrying execution of installer");
+        }
+        
+        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: myAuth] ) {
+            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+            useconds_t sleepTime;
+            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+                usleep(sleepTime);
+                
+                if (  okNow = ( ! needToRunInstaller(&needsAppRepair, &needsMoveConfigs, &needsRestoreDeploy, &needsPkgRepair, copyAppToApplications) )  ) {
+                    break;
+                }
+            }
+            
+            if (  okNow  ) {
+                break;
+            } else {
+                NSLog(@"Timed out waiting for installer execution to finish");
+            }
+        } else {
+            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
+        }
+    }
+        
+    if (   (! okNow )
+        && needToRunInstaller(&needsAppRepair, &needsMoveConfigs, &needsRestoreDeploy, &needsPkgRepair, copyAppToApplications)  ) {
         NSLog(@"Installation or repair failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
                         NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
@@ -3956,50 +3959,6 @@ static void signal_handler(int signalNumber)
     NSLog(@"Installation or repair succeeded");
     return TRUE;
 }
-
--(BOOL) runInstallerWithArguments: (NSArray *) arguments authorization: (AuthorizationRef) authRef
-{
-    // We create a file that indicates that the installer is running. The installer deletes it after it finishes, and we see that deletion as a signal that it is done
-    // The filename needs the session ID to support fast user switching
-    NSString * privilegedRunningFlagFilePath = [NSString stringWithFormat:@"/tmp/Tunnelblick/InstallationInProcess-%d.txt", gSecuritySessionId];
-    if (  ! [gFileMgr createFileAtPath: privilegedRunningFlagFilePath
-                              contents: [NSData data]
-                            attributes: [NSDictionary dictionary]]  ) {
-        NSLog(@"Unable to create flag file %@", privilegedRunningFlagFilePath);
-    }
-    
-    // Similarly, installer creates a file to act as a flag that the installation failed. installer deletes it before a success return
-    NSString * privilegedFailureFlagFilePath = [NSString stringWithFormat:@"/tmp/Tunnelblick/InstallationFailed-%d.txt", gSecuritySessionId];
-    
-    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
-    
-    OSStatus status = [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef];
-    if (  status != 0  ) {
-        NSLog(@"Returned status of %d indicates failure of installer execution of %@: %@", status, launchPath, arguments);
-        if (  [gFileMgr fileExistsAtPath: privilegedFailureFlagFilePath]  ) {
-            [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
-        }
-        return FALSE;
-    }
-    
-    int counter = 0;   // Wait up to twenty seconds for the inProgress file to disappear
-    while (   (counter++ < 20)
-           && [gFileMgr fileExistsAtPath: privilegedRunningFlagFilePath]  ) {
-        sleep(1);
-    }
-    
-    if (  counter > 19  ) {
-        NSLog(@"Timed out waiting for installer to finish. %@ still exists", privilegedRunningFlagFilePath);
-    }
-    
-    if (  [gFileMgr fileExistsAtPath: privilegedFailureFlagFilePath]  ) {
-        [gFileMgr removeFileAtPath: privilegedFailureFlagFilePath handler: nil];
-        NSLog(@"Presence of error file indicates failure executing %@: %@", launchPath, arguments);
-        return FALSE;
-    }
-    
-    return TRUE;
-}    
 
 // Checks whether the installer needs to be run
 // Returns with the respective arguments set YES or NO, and returns YES if any is YES. Otherwise returns NO.
@@ -4136,6 +4095,16 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         if (  folderContentsNeedToBeSecuredAtPath(deployPath)  ) {
             return YES;
         }
+    }
+    
+    // check that log directory exists and has proper ownership and permissions
+    if (  ! (   [gFileMgr fileExistsAtPath: LOG_DIR isDirectory: &isDir]
+             && isDir )  ) {
+        NSLog(@"Need to create log directory");
+        return YES;
+    }
+    if (  ! checkOwnerAndPermissions(LOG_DIR, 0, 0, @"755")  ) {
+        return YES; // NSLog already called
     }
     
     // check permissions of files in the Deploy backup, also (if any)        

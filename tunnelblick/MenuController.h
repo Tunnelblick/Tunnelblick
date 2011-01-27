@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen, Jens Ohlig, Waldemar Brodkorb
+ *                  Jonathan K. Bullard Copyright (c) 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -189,8 +190,6 @@ BOOL needToRepairPackages(void);
 -(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             removeConnection:                       (id)                sender;
--(BOOL)             runInstallerWithArguments:              (NSArray *)         arguments
-                                authorization:              (AuthorizationRef)  authRef;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;

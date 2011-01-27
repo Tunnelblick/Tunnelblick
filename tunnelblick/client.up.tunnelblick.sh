@@ -37,11 +37,11 @@ while [ {$#} ] ; do
 done
 
 TBCONFIG="$config"
-# Note: The script log path is constructed from the path of the regular config file, not the shadow copy
+# Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
 # then convert to regular config     /Users/Jonathan/Library/Application Support/Tunnelblick/Configurations/Folder/Subfolder/config.ovpn
 #      to get the script log path
-# Note: "/Users/..." works even if the home directory has a different path; it is used in the name of the script log file, and is not used as a path to get to anything.
+# "/Users/..." works even if the home directory has a different path; it is used in the name of the log file, and is not used as a path to get to anything.
 TBALTPREFIX="/Library/Application Support/Tunnelblick/Users/"
 TBALTPREFIXLEN="${#TBALTPREFIX}"
 TBCONFIGSTART="${TBCONFIG:0:$TBALTPREFIXLEN}"
@@ -53,7 +53,7 @@ if [ "$TBCONFIGSTART" = "$TBALTPREFIX" ] ; then
 fi
 
 CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
-SCRIPT_LOG_FILE="/tmp/tunnelblick/logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
+SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
 
 # Do something only if the server pushed something
 if [ "$foreign_option_1" == "" ]; then

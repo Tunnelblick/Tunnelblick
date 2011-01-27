@@ -4,7 +4,7 @@
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
 //  Copyright (c) 2004 Objectpark Software. All rights reserved.
-//  Modified by Jonathan K. Bullard Sun Jan 17 2010.
+//  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -286,7 +286,7 @@
     // Add an icon and a prompt to the authorization dialog
     //
     // One would think that we could use an icon in Resources, but that doesn't work. Apparently if the path is too long
-    // the icon won't be displayed. It works if the icon is in /tmp. In addition, it seems to require a 32x32 png.
+    // the icon won't be displayed. It works if the icon is in a temporary directory. In addition, it seems to require a 32x32 png.
     // We create the icon dynamically so if the main Tunnelblick icon changes, the authorization dialog will show the new icon.
 
     NSString * tmpAuthIconPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickAuthIcon.png"];

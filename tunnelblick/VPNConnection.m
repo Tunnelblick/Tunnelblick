@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+ *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
+ *  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -19,7 +20,6 @@
 #import <CoreServices/CoreServices.h>
 #import <Foundation/NSDebug.h>
 #import <pthread.h>
-#import <Security/AuthSession.h>
 #import <signal.h>
 #import "defines.h"
 #import "VPNConnection.h"
@@ -35,10 +35,10 @@
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
 extern NSString             * gSharedPath;
+extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
 extern NSDictionary         * gOpenVPNVersionDict;
-extern SecuritySessionId      gSecuritySessionId;
 extern unsigned int           gHookupTimeout;
 
 extern NSString * firstPartOfPath(NSString * thePath);
@@ -61,8 +61,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
 
--(BOOL)             makePlistFileForAtPath:     (NSString *)        plistPath
-                                 withLabel:     (NSString *)        daemonLabel;
+-(BOOL)             makeDictionary:             (NSDictionary * *)  dict
+                         withLabel:             (NSString *)        daemonLabel
+                  openvpnstartArgs:             (NSMutableArray * *)openvpnstartArgs;
 
 -(void)             processLine:                (NSString *)        line;
 
@@ -105,6 +106,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         areDisconnecting = FALSE;
         connectedWithTap = FALSE;
         connectedWithTun = FALSE;
+        logFilesMayExist = FALSE;
         
         // If a package, set preferences that haven't been defined yet
         if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
@@ -191,11 +193,44 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
 }
 
+// Deletes log files if not "on system start" and have tried to connect with this configuration during this launch of Tunnelblick
+-(void) deleteLogs
+{
+    if (  logFilesMayExist  ) {
+        NSString * autoConnectKey   = [displayName stringByAppendingString: @"autoConnect"];
+        NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
+        if (   ( ! [gTbDefaults boolForKey: autoConnectKey] )
+            || ( ! [gTbDefaults boolForKey: onSystemStartKey] )  ) {
+            int cfgLocCode;
+            if (  [configPath hasPrefix: gPrivatePath]  ) {
+                cfgLocCode = CFG_LOC_PRIVATE;
+            } else if (  [configPath hasPrefix: gSharedPath]  ) {
+                cfgLocCode = CFG_LOC_SHARED;
+            } else if (  [configPath hasPrefix: gDeployPath]  ) {
+                cfgLocCode = CFG_LOC_DEPLOY;
+            } else {
+                NSLog(@"Configuration is in unknown location; path is %@", configPath);
+                return;
+            }
+            
+            NSString *openvpnstartPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpnstart"];
+            NSTask* task = [[[NSTask alloc] init] autorelease];
+            [task setLaunchPath: openvpnstartPath];
+            [task setArguments: [NSArray arrayWithObjects: @"deleteLogs", lastPartOfPath(configPath), [NSString stringWithFormat:@"%d", cfgLocCode], nil]];
+            [task launch];
+            [task waitUntilExit];
+            if (  [task terminationStatus] != EXIT_SUCCESS  ) {
+                NSLog(@"Error deleting log files for %@", displayName);
+            }
+        }
+    }
+}
+    
 // User wants to connect, or not connect, the configuration when the system starts.
 // Returns TRUE if can and will connect, FALSE otherwise
 //
 // Needs and asks for administrator username/password to make a change if a change is necessary and authRef is nil.
-// (authRef is non-nil only when Tunnelblick is in the process of launching, and only when it was used for something else.
+// (authRef is non-nil only when Tunnelblick is in the process of launching, and only when it was used for something else.)
 //
 // A change is necesary if changing connect/not connect status, or if preference changes would change
 // the .plist file used to connect when the system starts
@@ -210,15 +245,16 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
     NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
     
-    NSString * libPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
+    NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
 
-    NSString * plistPath = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.plist", (int) gSecuritySessionId];
+    NSDictionary * dict;
+    NSMutableArray * openvpnstartArgs;
     
     if (  ! startIt  ) {
-        if (  ! [gFileMgr fileExistsAtPath: libPath]  ) {
+        if (  ! [gFileMgr fileExistsAtPath: plistPath]  ) {
             return NO; // Don't want to connect at system startup and no .plist in /Library/LaunchDaemons, so return that we ARE NOT connecting at system start
         }
-        if (  ! [self makePlistFileForAtPath: plistPath withLabel: daemonLabel]  ) {
+        if (  ! [self makeDictionary: &dict withLabel: daemonLabel openvpnstartArgs: &openvpnstartArgs]  ) {
             // Don't want to connect at system startup, but .plist exists in /Library/LaunchDaemons
             // User cancelled when asked about openvpn-down-root.so, so return that we ARE connecting at system start
             return YES;
@@ -230,8 +266,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
             return NO;
         }
         
-        if (  ! [self makePlistFileForAtPath: plistPath withLabel: daemonLabel]  ) {
-            if (  [gFileMgr fileExistsAtPath: libPath]  ) {
+        if (  ! [self makeDictionary: &dict withLabel: daemonLabel openvpnstartArgs: &openvpnstartArgs]  ) {
+            if (  [gFileMgr fileExistsAtPath: plistPath]  ) {
                 // Want to connect at system start and a .plist exists, but user cancelled, so fall through to remove the .plist
                 startIt = FALSE;
                 // (Fall through to remove .plist)
@@ -240,18 +276,20 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 return NO;
             }
 
-        } else if (  [gFileMgr contentsEqualAtPath: plistPath andPath: libPath]  ) {
-            [gFileMgr removeFileAtPath: plistPath handler: nil];
-            return YES; // .plist contents are the same, so we needn't do anything
+        } else if (  [gFileMgr fileExistsAtPath: plistPath]  ) {
+            // Want to connect at system start and a .plist exists. If it is the same as the .plist we need, we're done
+            if (  [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
+                return YES; // .plist contents are the same, so we needn't do anything, but indicate it will start at system start
+            }
         }
     }
     
-    // Use executeAuthorized to run "atsystemstart" to replace or remove the .plist in /Library/LaunchDaemons
 	NSBundle *thisBundle = [NSBundle mainBundle];
 	NSString *launchPath = [thisBundle pathForResource:@"atsystemstart" ofType:nil];
     
-    NSString * arg = ( startIt ? @"1" : @"0" );
-    NSArray *  arguments = [NSArray arrayWithObject: arg];
+    // Convert openvpnstart arguments to atsystemstart arguments by replacing the launch path with the atsystemstart parameter
+    NSMutableArray * arguments = [[openvpnstartArgs mutableCopy] autorelease];
+    [arguments replaceObjectAtIndex: 0 withObject: ( startIt ? @"1" : @"0" )];
     
     BOOL freeAuthRef = NO;
     if (  inAuthRef == nil  ) {
@@ -268,141 +306,116 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
         
         inAuthRef= [NSApplication getAuthorizationRef: msg];
-        freeAuthRef = YES;
+        freeAuthRef = (inAuthRef != nil);
     }
     
     if (  inAuthRef == nil  ) {
         if (  startIt  ) {
             NSLog(@"Connect '%@' when computer starts cancelled by user", [self displayName]);
-            [gFileMgr removeFileAtPath: plistPath handler: nil];
             return NO;
         } else {
             NSLog(@"NOT connect '%@' when computer starts cancelled by user", [self displayName]);
-            [gFileMgr removeFileAtPath: plistPath handler: nil];
             return YES;
         }
     }
     
-    // The return code from executeAuthorized is NOT the code returned by the executed program. A 0 code
-    // does not mean that the program succeeded. So we make sure that what we wanted the program to do was
-    // actually done.
-    //
-    // There also is a problem doing that test -- without the sleep(1), the test often says that the program
-    // did not succeed, even though it did. Probably an OS X cache problem of some sort.
-    // The multiple tries are an attempt to make sure the program tries, even if the sleep(1) didn't clear up
-    // whatever problem caused the bogus results -- for example, under heavy load perhaps sleep(1) isn't enough.
-    
-    NSString * flagPath = [NSString stringWithFormat: @"/tmp/tunnelblick/atsystemstart.%d.done", (int) gSecuritySessionId];
-
+    BOOL okNow = FALSE; // Assume failure
     int i;
-    OSStatus status;
-    BOOL didIt = FALSE;
-    for (i=0; i < 5; i++) {
-        if (  [gFileMgr fileExistsAtPath: flagPath]  ) {
-            if (  ! [gFileMgr removeFileAtPath: flagPath handler: nil]  ) {
-                NSLog(@"Unable to remove temporary file %@", flagPath);
-            }
+    for (i=0; i<5; i++) {
+        if (  i != 0  ) {
+            usleep( i * 500000 );
+            NSLog(@"Retrying execution of atsystemstart");
         }
+        
+        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: inAuthRef]  ) {
+            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+            useconds_t sleepTime;
+            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+                usleep(sleepTime);
+                
+                if (  startIt) {
+                    if (  [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
+                        okNow = TRUE;
+                        break;
+                    }
+                } else {
+                    if (  ! [gFileMgr fileExistsAtPath: plistPath]  ) {
+                        okNow = TRUE;
+                        break;
+                    }
+                }
+            }
             
-        status = [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: inAuthRef];
-        if (  status != 0  ) {
-            NSLog(@"Returned status of %d indicates failure of execution of %@: %@", status, launchPath, arguments);
-        }
-        
-        int j;
-        for (j=0; j < 6; j++) {
-            if (  [gFileMgr contentsAtPath: flagPath]  ) {
+            if (  okNow  ) {
                 break;
-            }
-            sleep(1);
-        }
-
-        if (  ! [gFileMgr contentsAtPath: flagPath]  ) {
-            NSLog(@"Timeout (5 seconds) waiting for atsystemstart execution to finish");
-        }
-        
-        if (  startIt  ) {
-            if (  [gFileMgr contentsEqualAtPath: plistPath andPath: libPath]  ) {
-                didIt = TRUE;
-                break;
+            } else {
+                NSLog(@"Timed out waiting for atsystemstart execution to finish");
             }
         } else {
-            if (  ! [gFileMgr fileExistsAtPath: libPath]  ) {
-                didIt = TRUE;
-                break;
-            }
+            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
         }
-        sleep(1);
     }
     
     if (  freeAuthRef  ) {
         AuthorizationFree(inAuthRef, kAuthorizationFlagDefaults);
     }
     
-    if (  ! [gFileMgr removeFileAtPath: flagPath handler: nil]  ) {
-        NSLog(@"Unable to remove temporary file %@", flagPath);
-    }
-
-    if (  ! [gFileMgr removeFileAtPath: plistPath handler: nil]  ) {
-        NSLog(@"Unable to remove temporary file %@", plistPath);
-    }
-    
-    if (  ! didIt  ) {
-        if (  startIt  ) {
-            NSLog(@"Set up to connect '%@' when computer starts failed; tried 5 times", [self displayName]);
+    if (  startIt) {
+        if (   okNow
+            || [dict isEqualToDictionary: [NSDictionary dictionaryWithContentsOfFile: plistPath]]  ) {
+            NSLog(@"%@ will be connected using '%@' when the computer starts"    ,
+                  [self displayName],
+                  [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil]);
+            return YES;
+        } else {
+            NSLog(@"Failed to set up to connect '%@' when computer starts", [self displayName]);
+            return NO;
+        }
+    } else {
+        if (   okNow
+            || ( ! [gFileMgr fileExistsAtPath: plistPath] )  ) {
+            NSLog(@"%@ will NOT be connected when the computer starts", [self displayName]);
             return NO;
         } else {
-            NSLog(@"Set up to NOT connect '%@' when computer starts failed; tried 5 times", [self displayName]);
+            NSLog(@"Failed to set up to NOT connect '%@' when computer starts", [self displayName]);
             return YES;
         }
-        
     }
-
-    if (  startIt  ) {
-        NSLog(@"%@ will be connected using '%@' when the computer starts"    ,
-              [self displayName],
-              [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil]);
-    } else {
-        NSLog(@"%@ will NOT be connected when the computer starts", [self displayName]);
-    }
-
-    return startIt;
 }
 
-// Returns YES on success, NO if user cancelled out of dialog 
--(BOOL) makePlistFileForAtPath: (NSString *) plistPath withLabel: (NSString *) daemonLabel
+// Returns YES on success, NO if user cancelled out of a dialog 
+-(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
     // Don't use the "Program" key, because we want the first argument to be the path to the program,
     // so openvpnstart can know where it is, so it can find other Tunnelblick compenents.
     NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    NSMutableArray  * arguments = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
-    if (  ! arguments  ) {
+    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
+    if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
     
-    [arguments insertObject: openvpnstartPath atIndex: 0];
+    [*openvpnstartArgs insertObject: openvpnstartPath atIndex: 0];
     
     NSString * daemonDescription = [NSString stringWithFormat: @"Processes Tunnelblick 'Connect when system starts' for VPN configuration '%@'",
                                     [self displayName]];
     
-    NSDictionary * plistDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                daemonLabel,                    @"Label",
-                                arguments,                      @"ProgramArguments",
-                                [NSNumber numberWithBool: YES], @"onDemand",
-                                [NSNumber numberWithBool: YES], @"RunAtLoad",
-                                firstPartOfPath(configPath),    @"WorkingDirectory",
-                                daemonDescription,              @"ServiceDescription",
-                                nil];
-    
-    [gFileMgr removeFileAtPath: plistPath handler: nil];
-    if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
-        NSLog(@"Unable to create %@", plistPath);
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Problem", @"Window title"),
-                        NSLocalizedString(@"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.", @"Window text"),
-                        nil, nil, nil);
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
+    NSString * workingDirectory;
+    if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+        workingDirectory = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
+    } else {
+        workingDirectory = firstPartOfPath(configPath);
     }
+    
+    *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+             daemonLabel,                    @"Label",
+             *openvpnstartArgs,              @"ProgramArguments",
+             workingDirectory,               @"WorkingDirectory",
+             daemonDescription,              @"ServiceDescription",
+             [NSNumber numberWithBool: YES], @"onDemand",
+             [NSNumber numberWithBool: YES], @"RunAtLoad",
+             nil];
+    
     return YES;
 }
 
@@ -510,6 +523,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
     
+    logFilesMayExist = TRUE;
     authenticationFailed = NO;
     
     areDisconnecting = FALSE;
@@ -1158,6 +1172,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     isHookedup = TRUE;
     tryingToHookup = FALSE;
     
+    logFilesMayExist = TRUE;
+    
     if (![line hasPrefix: @">"]) {
         // Output in response to command to OpenVPN
 		[self setPIDFromLine:line];
@@ -1271,6 +1287,39 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+// Returns an empty string, " (Private)", " (Shared)", or " (Deployed)" if there are configurations in more than one location
+-(NSString *) displayLocation
+{
+    NSString * locationMessage = @"";
+    unsigned havePrivate  = 0;
+    unsigned haveShared   = 0;
+    unsigned haveDeployed = 0;
+    NSString * path;
+    NSEnumerator * configEnum = [[[NSApp delegate] myConfigDictionary] objectEnumerator];
+    while (   ( path = [configEnum nextObject] )
+           && ( (havePrivate + haveShared + haveDeployed) < 2) ) {
+        if (  [path hasPrefix: gPrivatePath]  ) {
+            havePrivate = 1;
+        } else if (  [path hasPrefix: gSharedPath]  ) {
+            haveShared = 1;
+        } else {
+            haveDeployed =1;
+        }
+    }
+    
+    if (  (havePrivate + haveShared + haveDeployed) > 1  ) {
+        path = [self configPath];
+        if (  [path hasPrefix: gDeployPath]) {
+            locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
+        } else if (  [path hasPrefix: gSharedPath]) {
+            locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
+        } else {
+            locationMessage =  NSLocalizedString(@" (Private)", @"Window title");
+        }
+    }
+    
+    return locationMessage;
+}
 
 // Returns contents of the log display
 -(NSTextStorage *) logStorage
@@ -1418,15 +1467,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             itemName = [itemName substringFromIndex: lastSlashRange.location + 1];
         }
         
-        NSString * locationMessage = @"";
-        if (  [gConfigDirs count] > 1  ) {
-            if (  [[connection configPath] hasPrefix: gDeployPath]  ) {
-                locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
-            } else if (  [[connection configPath] hasPrefix: gSharedPath]  ) {
-                locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
-            }
-        }
-        NSString *itemTitle = [NSString stringWithFormat:commandString, itemName, locationMessage];
+        NSString *itemTitle = [NSString stringWithFormat:commandString,
+                               itemName,
+                               [self displayLocation]];
         [anItem setTitle:itemTitle];
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: [connection configPath]];
