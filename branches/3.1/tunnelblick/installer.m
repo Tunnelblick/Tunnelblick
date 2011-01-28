@@ -645,9 +645,16 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
 //        -1 if an error occurred. A directory was not created or the permissions were not changed, and an error message was put in the log.
 int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group)
 {
+    // Don't try to create or set ownership/permissions on
+    //       /Library/Application Support
+    //   or ~/Library/Application Support
+    if (  [dirPath hasSuffix: @"/Library/Application Support"]  ) {
+        return 0;
+    }
+    
     NSNumber     * permissionsAsNumber  = [NSNumber numberWithUnsignedLong: permissions];
-    NSNumber     * ownerAsNumber        = [NSNumber numberWithInt:          owner];
-    NSNumber     * groupAsNumber        = [NSNumber numberWithInt:          group];
+    NSNumber     * ownerAsNumber        = [NSNumber numberWithUnsignedLong: (unsigned long) owner];
+    NSNumber     * groupAsNumber        = [NSNumber numberWithUnsignedLong: (unsigned long) group];
     
     NSDictionary * attributesShouldHave = [NSDictionary dictionaryWithObjectsAndKeys:
                                            permissionsAsNumber, NSFilePosixPermissions,
