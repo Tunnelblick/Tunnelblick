@@ -5,16 +5,6 @@
 
 The following are known problems or limitations in Tunnelblick version 3.1:
 
-  * Installation of Tunnelblick 3.1.3 fails on OS X 10.4 ("Tiger"). To work around this problem:
-    # Make sure you have tried to install Tunnelblick 3.1.3 and been notified of a failure to install or repair
-    # Make sure you are logged in as an administrator for the computer
-    # Make sure Tunnelblick is not running
-    # Launch /Applications/Terminal.app
-    # Type in the following, all on one line, followed by the return key (you can copy/paste):
-     sudo   chown   0:0   "/Library/Application Support/Tunnelblick/Logs"<br>
-     (You will be asked to enter your administrator password. It won't show as you type it; when you are finished, press the return key)
-   Launch Tunnelblick 3.1.3.
-
   * If "Monitor connection" is checked, Tunnelblick monitors the network interface that connects to the VPN and will restart the connection if changes to DNS or WINS are detected. With some network configurations this causes repeated disconnects/reconnects every few seconds. To avoid this, uncheck "Monitor connection" in the tab for the problematic configuration on the "Details..." window. Please post your complete log (showing the problem with "Monitor connection" checked) to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] so we can fix this problem. (Be sure to cross out any sensitive information such as server IP addresses before you post your log.)
 
   * The standard script that "Set nameserver" uses handles DNS for most common setups. For other situations, the "Alternate 1" script may work, or you can use custom scripts. See [wConfigT#The_%22Set_Nameserver%22_Check_Box_and_DNS_&_WINS_Sett Setting up Configurations] for details.

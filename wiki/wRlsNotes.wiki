@@ -15,6 +15,12 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+==3.1.4 (2011-01-28)==
+
+ * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").
+
+--------------------
+
 ==3.1.3 (2011-01-27)==
 
  * Fixes a security vulnerability which affects all earlier Tunnelblick 3.1 versions (but not any 3.0 versions).
