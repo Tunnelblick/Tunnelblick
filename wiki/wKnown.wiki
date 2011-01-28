@@ -6,6 +6,7 @@
 The following are known problems or limitations in Tunnelblick version 3.1:
 
   * Installation of Tunnelblick 3.1.3 fails on OS X 10.4 ("Tiger"). To work around this problem:
+    # Make sure you have tried to install Tunnelblick 3.1.3 and been notified of a failure to install or repair
     # Make sure you are logged in as an administrator for the computer
     # Make sure Tunnelblick is not running
     # Launch /Applications/Terminal.app
