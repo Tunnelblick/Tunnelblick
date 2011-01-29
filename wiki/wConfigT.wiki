@@ -74,6 +74,13 @@ If you are using manual settings, different versions of OS X behave differently.
 
 *If your situation is not described above* (e.g., if you use manual DNS settings and wish to use DNS servers at the far end of a tunnel when connected, or you wish to use the OS X ability to use different nameservers for different domains), you must create your own up/down scripts and select "Set nameserver".
 
+==The OpenVPN --user and --group options and openvpn-down-root.so==
+When using "Set nameserver" or your own down script for OpenVPN, it is usually necessary to avoid using the OpenVPN "user" and "group" options in the configuration file. These options cause OpenVPN to drop root privileges and take the privileges of the specified user and group (usually, "nobody"). If this is done, then the down script that handles restarting connections when there is a transient problem fails, because it is run without root privileges. Restoring routes when a tunnel is disconnected fails, also.
+
+However, Tunnelblick includes the "openvpn-down-root.so" plugin for OpenVPN. When this plugin is activated, OpenVPN still drops root privileges and runs as the specified user:group after a connection is made, but runs the down script run as root:wheel, so reconnecting after transient network problems works.
+
+When you try to connect with a configuration that includes the "user" and/or "group" options in the configuration file. Tunnelblick will ask if you wish to use the openvpn-down-root plugin. Answer in the affirmative and Tunnelblick will use the plugin each time it makes a connection. OpenVPN will still be unable to make route changes after the initial connection; they have to be made in the scripts.
+
 ==When and How to NOT Use a Tunnelblick VPN Configuration==
 Although Tunnelblick VPN Configurations are able to be shared and connected when your computer starts, they are only available on the latest versions of Tunnelblick (starting with Tunnelblick 3.1beta02). If you are using an older version of Tunnelblick or distributing a configuration to users of older versions of Tunnelblick, you must use only the OpenVPN configuration file (.ovpn or .conf extension). It must be located in
 
