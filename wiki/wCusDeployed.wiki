@@ -181,11 +181,6 @@ If "Set nameserver" is selected, `Tunnelblick.app` starts OpenVPN with the "--up
 
 However, if `Contents/Resources/Deploy/`_`config-name`_`.up.sh`, _`config-name`_`.down.sh`, _`config-name`_`.nomonitor.up.sh`, or _`config-name`_`.nomonitor.down.sh` exist, each will be used instead of the corresponding standard script.
 
-==Using openvpn-down-root.so==
-Using a Deployed version of Tunnelblick allows you to use relative path references to openvpn-down-root.so in a configuration file instead of the absolute path references which are otherwise required. This means that moving `Tunnelblick.app` to another location on the hard drive does not cause errors.
-
-If a _config-name_-useDownRootPlugin" preference exists (forced or otherwise), Tunnelblick will use the openvpn-down-root.so plugin. The down-script that it references will be the script described  [#Up_and_Down_Scripts Up and Down Scripts].
-
 ==What is Needed to Make a Deployed Version==
 To make a deployed version of Tunnelblick, you need whatever is required to connect to your VPN.
 
