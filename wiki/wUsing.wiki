@@ -1,7 +1,7 @@
 #summary Using Tunnelblick
 #sidebar wSb
 
-This document describes how to use Tunnelblick version 3.1beta02.
+This document describes how to use Tunnelblick version 3.1.
 
 <wiki:toc max_depth="2" />
 
