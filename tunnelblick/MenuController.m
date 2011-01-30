@@ -3756,6 +3756,7 @@ static void signal_handler(int signalNumber)
                                    nil);
         if (  response == NSAlertDefaultReturn  ) {
             // Launch the program in /Applications
+            sleep(5);
             if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
                 TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
                                 [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
