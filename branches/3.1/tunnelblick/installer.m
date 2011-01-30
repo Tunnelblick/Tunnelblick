@@ -72,7 +72,7 @@ gid_t realGroupID;
 
 BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
-int  createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group);
+BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group);
 BOOL createSymLink(NSString * fromPath, NSString * toPath);
 BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     if (  (argc > 1) && (strcmp(argv[1], "2") == 0)  ) {
         appResourcesPath = @"/Applications/Tunnelblick.app/Contents/Resources";
     } else {
-        appResourcesPath = [[NSString stringWithUTF8String:argv[0]] stringByDeletingLastPathComponent];
+        appResourcesPath = [[gFileMgr stringWithFileSystemRepresentation: argv[0] length: strlen(argv[0])] stringByDeletingLastPathComponent];
     }
     
 	gDeployPath                     = [appResourcesPath stringByAppendingPathComponent:@"Deploy"];
@@ -122,11 +122,11 @@ int main(int argc, char *argv[])
     
     NSString * singlePathToSecure = nil;
     if (  argc > 3  ) {
-        singlePathToSecure = [NSString stringWithUTF8String: argv[3]];
+        singlePathToSecure = [gFileMgr stringWithFileSystemRepresentation: argv[3] length: strlen(argv[3])];
     }
     NSString * singlePathToCopy = nil;
     if (  argc > 4  ) {
-        singlePathToCopy = [NSString stringWithUTF8String: argv[4]];
+        singlePathToCopy = [gFileMgr stringWithFileSystemRepresentation: argv[4] length: strlen(argv[4])];
     }
     BOOL moveNotCopy = FALSE;
     if (  argc > 5  ) {
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (1)
-    // If secureTheApp = "2", move /Applications/Tunnelblick.app to the Trash, then copy this app to /Applications/Tunnelblick.app and secure it
+    // If secureTheApp = "2", move /Applications/Tunnelblick.app to the Trash, then copy this app to /Applications/Tunnelblick.app
     
     if (  copyApp  ) {
         NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
             
             [gFileMgr removeFileAtPath: trashedPath handler: nil];  // Ignore errors if it doesn't exist
             
-            if (  rename([targetPath UTF8String], [trashedPath UTF8String]) != 0  ) {
+            if (  rename([gFileMgr fileSystemRepresentationWithPath: targetPath], [gFileMgr fileSystemRepresentationWithPath: trashedPath]) != 0  ) {
                 NSLog(@"Tunnelblick Installer: Unable to move %@ to the Trash", targetPath);
                 exit_failure();
             } else {
@@ -227,10 +227,7 @@ int main(int argc, char *argv[])
     // (4)
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
     
-    int result = createDirWithPermissionAndOwnership(gSharedPath, 0755, 0, 0);
-    if (  result == 1  ) {
-        NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", gSharedPath);
-    } else if (  result == -1  ) {
+    if (  ! createDirWithPermissionAndOwnership(gSharedPath, 0755, 0, 0)  ) {
         exit_failure();
     }
     
@@ -238,10 +235,7 @@ int main(int argc, char *argv[])
     // (5)
     // Create log directory if it does not already exist, and make sure it is owned by root with 755 permissions
     
-    result = createDirWithPermissionAndOwnership(LOG_DIR, 0755, 0, 0);
-    if (  result == 1  ) {
-        NSLog(@"Tunnelblick Installer: Created or changed permissions for %@", LOG_DIR);
-    } else if (  result == -1  ) {
+    if (  ! createDirWithPermissionAndOwnership(LOG_DIR, 0755, 0, 0)  ) {
         exit_failure();
     }
     
@@ -321,7 +315,10 @@ int main(int argc, char *argv[])
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {
             
-            createDirWithPermissionAndOwnership(deployBkupHolderPath, 0755, 0, 0);    // Create the folder that holds the backup folders if it doesn't already exist
+            // Create the folder that holds the backup folders if it doesn't already exist
+            if (  ! createDirWithPermissionAndOwnership(deployBkupHolderPath, 0755, 0, 0)  ) {
+                exit_failure();
+            }
             
             if (  ! (   [gFileMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
                      && isDir  )  ) {
@@ -388,13 +385,16 @@ int main(int argc, char *argv[])
     if (  singlePathToCopy  ) {
         // Create the enclosing folder(s) if necessary. Owned by root unless if in gPrivatePath, in which case it is owned by the user
         NSString * enclosingFolder = [singlePathToSecure stringByDeletingLastPathComponent];
-        int own = 0;
-        int grp = 0;
+        uid_t own = 0;
+        gid_t grp = 0;
         if (  [singlePathToSecure hasPrefix: gPrivatePath]  ) {
             own = realUserID;
             grp = realGroupID;
         }
-        createDirWithPermissionAndOwnership(enclosingFolder, 0755, own, grp);
+        
+        if (  ! createDirWithPermissionAndOwnership(enclosingFolder, 0755, own, grp)  ) {
+            exit_failure();
+        }
         
         // Copy the file or package to a ".partial" file/folder first, then rename it
         // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
@@ -502,7 +502,7 @@ BOOL createSymLink(NSString * fromPath, NSString * toPath)
 {
     if (  [gFileMgr createSymbolicLinkAtPath: fromPath pathContent: toPath]  ) {
         // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
-        if (  0 != lchown([fromPath UTF8String], realUserID, realGroupID)  ) {
+        if (  0 != lchown([gFileMgr fileSystemRepresentationWithPath: fromPath], realUserID, realGroupID)  ) {
             NSLog(@"Tunnelblick Installer: Error: Unable to change ownership of symbolic link %@\nError was '%s'", fromPath, strerror(errno));
             return NO;
         } else {
@@ -557,7 +557,7 @@ BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid)
         return NO;
     }
     
-    if (  chown([path UTF8String], uid, gid) != 0  ) {
+    if (  chown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid) != 0  ) {
         NSLog(@"Tunnelblick Installer: Unable to change ownership to %d:%d on %@\nError was '%s'", (int) uid, (int) gid, path, strerror(errno));
         return NO;
     }
@@ -574,7 +574,7 @@ BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid)
                 atts = [[NSFileManager defaultManager] fileAttributesAtPath: filePath traverseLink: YES];
                 if (   ! [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
                     || ! [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  ) {
-                    if (  chown([filePath UTF8String], uid, gid) != 0  ) {
+                    if (  chown([gFileMgr fileSystemRepresentationWithPath: filePath], uid, gid) != 0  ) {
                         NSLog(@"Tunnelblick Installer: Unable to change ownership to %d:%d on %@\nError was '%s'", (int) uid, (int) gid, filePath, strerror(errno));
                         return NO;
                     }
@@ -613,86 +613,69 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
         return NO;
     }
     
-    int permsInt;
-    if      (  [permsShouldHave isEqualToString:  @"755"]  ) permsInt =  0755;
-    else if (  [permsShouldHave isEqualToString:  @"744"]  ) permsInt =  0744;
-    else if (  [permsShouldHave isEqualToString:  @"644"]  ) permsInt =  0644;
-    else if (  [permsShouldHave isEqualToString:  @"600"]  ) permsInt =  0600;
-    else if (  [permsShouldHave isEqualToString: @"4555"]  ) permsInt = 04555;
+    mode_t permsMode;
+    if      (  [permsShouldHave isEqualToString:  @"755"]  ) permsMode =  0755;
+    else if (  [permsShouldHave isEqualToString:  @"744"]  ) permsMode =  0744;
+    else if (  [permsShouldHave isEqualToString:  @"644"]  ) permsMode =  0644;
+    else if (  [permsShouldHave isEqualToString:  @"600"]  ) permsMode =  0600;
+    else if (  [permsShouldHave isEqualToString: @"4555"]  ) permsMode = 04555;
     else {
         NSLog(@"Tunnelblick Installer: invalid permsShouldHave = '%@' in checkSetPermissions function", permsShouldHave);
         return NO;
     }
     
-    NSDictionary * attsToSet = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: permsInt], NSFilePosixPermissions, nil];
-    if (  ! [gFileMgr changeFileAttributes: attsToSet atPath: path]  ) {
-        NSLog(@"Tunnelblick Installer: Unable to change permissions to 0%@ on %@",
-              permsShouldHave,
-              path);
+    if (  chmod([gFileMgr fileSystemRepresentationWithPath: path], permsMode) != 0  ) {
+        NSLog(@"Tunnelblick Installer: Unable to change permissions to 0%@ on %@", permsShouldHave, path);
         return NO;
-    } else {
-        NSLog(@"Tunnelblick Installer: Changed permissions to 0%@ on %@", permsShouldHave, path);
     }
-    
+
+    NSLog(@"Tunnelblick Installer: Changed permissions to 0%@ on %@", permsShouldHave, path);
     return YES;
 }
 
 //**************************************************************************************************************************
 // Function to create a directory with specified ownership and permissions
 // Recursively creates all intermediate directories (with the same ownership and permissions) as needed
-// Returns 1 if the directory was created or ownership or permissions modified
-//         0 if the directory already exists with the specified ownership and permissions
-//        -1 if an error occurred. A directory was not created or the permissions were not changed, and an error message was put in the log.
-int createDirWithPermissionAndOwnership(NSString * dirPath, unsigned long permissions, int owner, int group)
+// Returns YES if the directory existed with the specified ownership and permissions or has been created with them
+BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group)
 {
-    // Don't try to create or set ownership/permissions on
+    // Don't try to create or set ownership or permissions on
     //       /Library/Application Support
     //   or ~/Library/Application Support
     if (  [dirPath hasSuffix: @"/Library/Application Support"]  ) {
-        return 0;
+        return YES;
     }
     
-    NSNumber     * permissionsAsNumber  = [NSNumber numberWithUnsignedLong: permissions];
-    NSNumber     * ownerAsNumber        = [NSNumber numberWithUnsignedLong: (unsigned long) owner];
-    NSNumber     * groupAsNumber        = [NSNumber numberWithUnsignedLong: (unsigned long) group];
-    
-    NSDictionary * attributesShouldHave = [NSDictionary dictionaryWithObjectsAndKeys:
-                                           permissionsAsNumber, NSFilePosixPermissions,
-                                           ownerAsNumber,       NSFileOwnerAccountID,
-                                           groupAsNumber,       NSFileGroupOwnerAccountID,
-                                           nil];
     BOOL isDir;
     
-    if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
-        && isDir  ) {
-        NSDictionary * attributes = [gFileMgr fileAttributesAtPath: dirPath traverseLink: YES];
-        if (   [[attributes objectForKey: NSFilePosixPermissions    ] isEqualToNumber: permissionsAsNumber]
-            && [[attributes objectForKey: NSFileOwnerAccountID      ] isEqualToNumber: ownerAsNumber      ]
-            && [[attributes objectForKey: NSFileGroupOwnerAccountID ] isEqualToNumber: groupAsNumber      ]  ) {
-            return 0;
+    if (  ! (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
+             && isDir )  ) {
+        // No such directory. Create its parent directory if necessary
+        NSString * parentPath = [dirPath stringByDeletingLastPathComponent];
+        if (  ! createDirWithPermissionAndOwnership(parentPath, permissions, owner, group)  ) {
+            return NO;
         }
         
-        if (  ! [gFileMgr changeFileAttributes: attributesShouldHave atPath: dirPath] ) {
-            NSLog(@"Tunnelblick Installer: Unable to change permissions on %@ to %lo, owner:group to %d:%d", dirPath, permissions, owner, group);
-            return -1;
+        // Parent directory exists. Create the directory we want
+        if (  mkdir([gFileMgr fileSystemRepresentationWithPath: dirPath], (mode_t) permissions) != 0  ) {
+            NSLog(@"Tunnelblick Installer: Unable to create directory %@", dirPath);
+            return NO;
         }
-        
-        return 1;
+
+        NSLog(@"Tunnelblick Installer: Created directory %@", dirPath);
+    }
+
+    
+    // Directory exists. Check/set ownership and permissions
+    if (  ! checkSetOwnership(dirPath, NO, owner, group)  ) {
+        return NO;
+    }
+    NSString * permissionsAsString = [NSString stringWithFormat: @"%o", (int) permissions];
+    if (  ! checkSetPermissions(dirPath, permissionsAsString, YES)  ) {
+        return NO;
     }
     
-    // No such directory. Create its parent directory (recurse) if necessary
-    int result = createDirWithPermissionAndOwnership([dirPath stringByDeletingLastPathComponent], permissions, owner, group);
-    if (  result == -1  ) {
-        return -1;
-    }
-    
-    // Parent directory exists. Create the directory we want
-    if (  ! [gFileMgr createDirectoryAtPath: dirPath attributes: attributesShouldHave] ) {
-        NSLog(@"Tunnelblick Installer: Unable to create directory %@ with permissions %lu, owner:group of %d:%d", dirPath, permissions, owner, group);
-        return -1;
-    }
-    
-    return 1;
+    return YES;
 }
 
 //**************************************************************************************************************************
