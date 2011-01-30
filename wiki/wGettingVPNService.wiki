@@ -59,7 +59,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-21.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-30.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
