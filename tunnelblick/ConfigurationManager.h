@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011 Jonathan K. Bullard. All rights reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -28,7 +28,6 @@
  *  and installing .tblk packages
  */
 
-#import <Security/Security.h>
 #import "VPNConnection.h"
 
 @interface ConfigurationManager : NSObject {
