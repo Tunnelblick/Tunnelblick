@@ -473,19 +473,20 @@ extern NSFileManager        * gFileMgr;
 // folder may be located in a non-standard location (on a remote volume for example).
 -(NSString *) constructScriptLogPath
 {
-    NSMutableString * logPath;
+    NSMutableString * logBase;
     if (  [configurationPath hasPrefix: NSHomeDirectory()]  ) {
-        logPath = [[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [configurationPath substringFromIndex: [NSHomeDirectory() length]]] mutableCopy];
+        logBase = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [configurationPath substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
     } else {
-        logPath = [[self configurationPath] mutableCopy];
+        logBase = [[[self configurationPath] mutableCopy] autorelease];
     }
+    
     if (  [[[self configurationPath] pathExtension] isEqualToString: @"tblk"]) {
-        [logPath appendString: @"/Contents/Resources/config.ovpn"];
+        [logBase appendString: @"/Contents/Resources/config.ovpn"];
     }
-    [logPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logPath length])];
-    [logPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logPath length])];
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logPath];
-    [logPath release];
+    
+    [logBase replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logBase length])];
+    [logBase replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logBase length])];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logBase];
     return returnVal;
 }
 
@@ -503,16 +504,20 @@ extern NSFileManager        * gFileMgr;
 // folder may be located in a non-standard location (on a remote volume for example).
 -(NSString *) constructOpenvpnLogPath
 {
-    NSMutableString * encodedConfigPath;
+    NSMutableString * logBase;
     if (  [configurationPath hasPrefix: NSHomeDirectory()]  ) {
-        encodedConfigPath = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [configurationPath substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
+        logBase = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [configurationPath substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
     } else {
-        encodedConfigPath = [[[self configurationPath] mutableCopy] autorelease];
+        logBase = [[[self configurationPath] mutableCopy] autorelease];
     }
-
-    [encodedConfigPath replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [encodedConfigPath length])];
-    [encodedConfigPath replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [encodedConfigPath length])];
-    NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", LOG_DIR, encodedConfigPath];
+    
+    if (  [[logBase pathExtension] isEqualToString: @"tblk"]  ) {
+        [logBase appendString: @"/Contents/Resources/config.ovpn"];
+    }
+    
+    [logBase replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logBase length])];
+    [logBase replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logBase length])];
+    NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", LOG_DIR, logBase];
 
     NSString * filename;
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];

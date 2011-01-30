@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Jonathan K. Bullard. All rights reserved.
+ * Copyright 2010, 2011 Jonathan K. Bullard. All rights reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -17,9 +17,7 @@
  */
 
 #import "ConfigurationManager.h"
-#import <Security/Security.h>
-#import <Security/AuthSession.h>
-#import <Security/AuthorizationTags.h>
+#import <unistd.h>
 #import <sys/param.h>
 #import <sys/mount.h>
 #import "helper.h"
@@ -34,7 +32,6 @@ extern NSString             * gSharedPath;
 extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
-extern SecuritySessionId      gSecuritySessionId;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 extern NSString * lastPartOfPath(NSString * thePath);
@@ -731,7 +728,8 @@ enum state_t {                      // These are the "states" of the guideState 
             nErrors++;
             [gFileMgr tbRemoveFileAtPath:target handler: nil];
         }
-        if (  [source hasPrefix: @"/tmp"]  ) {
+        NSRange r = [source rangeOfString: @"/TunnelblickTemporaryDotTblk-"];
+        if (  r.length != 0  ) {
             [gFileMgr tbRemoveFileAtPath:[source stringByDeletingLastPathComponent] handler: nil];
         }
     }
@@ -1266,15 +1264,42 @@ enum state_t {                      // These are the "states" of the guideState 
 // Returns nil on error, or with the path to the .tblk
 -(NSString *) makeEmptyTblk: (NSString *) thePath withKey: (NSString *) key
 {
-    NSString * tempFolder = [NSString stringWithFormat:@"/tmp/Tunnelblick/ConfigInstallFolder-%d-%@", gSecuritySessionId, key];
+    //**********************************************************************************************
+    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
+
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
+    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
+    
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        NSLog(@"Unable to allocate memory for a temporary directory name");
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate:self];
+    }
+    
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+    
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    if (  ! dirPath  ) {
+        NSLog(@"Unable to create a temporary directory");
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate:self];
+    }
+    
+    NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                                 length: strlen(tempDirectoryNameCString)];
+    free(tempDirectoryNameCString);
+    
+    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    //**********************************************************************************************
     
     NSString * tempTblk = [tempFolder stringByAppendingPathComponent: [thePath lastPathComponent]];
     
     NSString * tempResources = [tempTblk stringByAppendingPathComponent: @"Contents/Resources"];
     
-    [gFileMgr tbRemoveFileAtPath:tempFolder handler: nil];
-    
-    int result = createDir(tempResources, 0755);    // Creates all intermediate directories as needed
+    int result = createDir(tempResources, 0755);    // Creates intermediate directory "Contents", too
     if (  result == -1  ) {
         return nil;
     }
@@ -1480,31 +1505,48 @@ enum state_t {                      // These are the "states" of the guideState 
     return TRUE;   // Network volume or error accessing the file's data.
 }
 
-// Attempts to set ownership/permissions on a config file to root:wheel/0644
+// Attempts to protect a configuration file
 // Returns TRUE if succeeded, FALSE if failed, having already output an error message to the console log
 -(BOOL)protectConfigurationFile: (NSString *) configFilePath usingAuth: (AuthorizationRef) authRef
 {
+    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
+
     NSArray * arguments = [NSArray arrayWithObjects: @"0", @"0", configFilePath, nil];
     
     NSLog(@"Securing configuration file %@", configFilePath);
-
-    int i;
-    for (i=0; i < 5; i++) {  // We retry this up to five times
-        if (   [[NSApp delegate] runInstallerWithArguments: arguments authorization: authRef]
-            && ( ! [self configNotProtected: configFilePath] )  ) {
-            break;
-        }
-        
-        sleep(1);
-        
-        if (  ! [self configNotProtected: configFilePath]  ) {
-            break;
-        }
-        
-        NSLog(@"Securing the configuration file failed; retrying");
-    }
     
-    if (  [self configNotProtected: configFilePath]  ) {
+    BOOL okNow = FALSE; // Assume failure
+    int i;
+    for (i=0; i<5; i++) {
+        if (  i != 0  ) {
+            usleep( i * 500000 );
+            NSLog(@"Retrying execution of installer");
+        }
+
+        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
+            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+            useconds_t sleepTime;
+            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+                usleep(sleepTime);
+                
+                if (  okNow = ( ! [self configNotProtected: configFilePath] ) ) {
+                    break;
+                }
+            }
+            
+            if (  okNow  ) {
+                break;
+            } else {
+                NSLog(@"Timed out waiting for installer execution to succeed");
+            }
+        } else {
+            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
+        }
+    }
+        
+    if (   ( ! okNow )
+        && [self configNotProtected: configFilePath]  ) {
         NSLog(@"Could not change ownership and/or permissions of configuration file %@", configFilePath);
         TBRunAlertPanel([NSString stringWithFormat:@"%@: %@",
                          [self displayNameForPath: configFilePath],
@@ -1532,24 +1574,40 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * moveFlag = (moveInstead ? @"1" : @"0");
     NSArray * arguments = [NSArray arrayWithObjects: @"0", @"0", targetPath, sourcePath, moveFlag, nil];
+    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
     
+    BOOL okNow = FALSE; // Assume failure
     int i;
-    for (i=0; i< 5; i++) {  // Retry up to five times
-        if (   [[NSApp delegate] runInstallerWithArguments: arguments authorization: authRef]
-            && ( ! [self configNotProtected: targetPath] )  ) {
-            break;
+    for (i=0; i<5; i++) {
+        if (  i != 0  ) {
+            usleep( i * 500000 );
+            NSLog(@"Retrying execution of installer");
         }
         
-        sleep(1);
-        
-        if (  ! [self configNotProtected: targetPath]  ) {
-            break;
+        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
+            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+            useconds_t sleepTime;
+            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+                usleep(sleepTime);
+                
+                if (  okNow = ( ! [self configNotProtected: targetPath] ) ) {
+                    break;
+                }
+            }
+            
+            if (  okNow  ) {
+                break;
+            } else {
+                NSLog(@"Timed out waiting for installer execution to succeed");
+            }
+        } else {
+            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
         }
-        
-        NSLog(@"Move or copy of configuration file failed; retrying");
     }
-    
-    if (  [self configNotProtected: targetPath]  ) {
+
+    if (   ( ! okNow )
+        && [self configNotProtected: targetPath]  ) {
         NSString * name = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
         if (  ! moveInstead  ) {
             if (  ! [gFileMgr contentsEqualAtPath: sourcePath andPath: targetPath]  ) {
@@ -1603,43 +1661,52 @@ enum state_t {                      // These are the "states" of the guideState 
         return TRUE;
     }
     
-    NSString * subfolderPath = [folderPath stringByDeletingLastPathComponent];
-    if (  ! [self makeSureFolderExistsAtPath: subfolderPath usingAuth: authRef]  ) {
+    NSString * parentFolderPath = [folderPath stringByDeletingLastPathComponent];
+    if (  ! [self makeSureFolderExistsAtPath: parentFolderPath usingAuth: authRef]  ) {
         return FALSE;
     }
     
     NSString *launchPath = @"/bin/mkdir";
-	NSArray *arguments = [NSArray arrayWithObjects:folderPath, nil];
-    OSStatus status;
-	int i;
-    
-	for (i=0; i <= 5; i++) {
-		status = [NSApplication executeAuthorized:launchPath withArguments:arguments withAuthorizationRef:authRef];
-        if (  status != 0  ) {
-            NSLog(@"Returned status of %d indicates failure of execution of %@: %@", status, launchPath, arguments);
+	NSArray *arguments = [NSArray arrayWithObject:folderPath];
+
+    BOOL okNow = FALSE; // Assume failure
+    int i;
+    for (i=0; i<5; i++) {
+        if (  i != 0  ) {
+            usleep( i * 500000 );
+            NSLog(@"Retrying execution of mkdir");
         }
         
-		if (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir] 
-            && isDir  ) {
-			break;
-		}
-        
-        sleep(1);   //OS X caches info or something and if we create it and immediately check that it's been created, sometimes it hasn't
-        
-		if (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir] 
-            && isDir  ) {
-			break;
-		}
-        
-        NSLog(@"mkdir failed; retrying");
-	}
+        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef]  ) {
+            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+            useconds_t sleepTime;
+            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+                usleep(sleepTime);
+                
+                if (  okNow =  (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir] 
+                                && isDir )   ){
+                    break;
+                }
+            }
+            
+            if (  okNow  ) {
+                break;
+            } else {
+                NSLog(@"Timed out waiting for mkdir execution to succeed");
+            }
+        } else {
+            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
+        }
+    }
     
-    if (   [gFileMgr fileExistsAtPath: folderPath isDirectory: &isDir]
-        && isDir  ) {
+    if (   okNow
+        || (   [gFileMgr fileExistsAtPath: folderPath isDirectory: &isDir]
+            && isDir )  ) {
         return TRUE;
     }
     
-    NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration in 5 attempts. OSStatus %ld.", folderPath, status);
+    NSLog(@"Tunnelblick could not create folder %@ for the alternate configuration.", folderPath);
     TBRunAlertPanel(NSLocalizedString(@"Not connecting", @"Window title"),
                     NSLocalizedString(@"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.", @"Window text"),
                     nil,

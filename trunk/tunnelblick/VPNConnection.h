@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+ *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
+ *  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -55,6 +56,7 @@
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
     BOOL            connectedWithTap;   // True iff last connection was made loading our tap kext
     BOOL            connectedWithTun;   // True iff last connection was made loading our tun kext
+    BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
 }
 
 // PUBLIC METHODS:
@@ -74,8 +76,12 @@
 -(void)             connect:                    (id)                sender
                   userKnows:                    (BOOL)              userKnows;
 
+-(void)             deleteLogs;
+
 -(void)             disconnectAndWait:          (NSNumber *)    wait
                             userKnows:          (BOOL)          userKnows;
+
+-(NSString *)       displayLocation;
 
 -(NSString *)       displayName;
 

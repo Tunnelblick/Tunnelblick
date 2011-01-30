@@ -1,6 +1,6 @@
 /*
  *  Copyright (c) 2005, 2006, 2007, 2008, 2009 Angelo Laub
- *  Contributions by Jonathan K. Bullard
+ *  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -136,9 +136,8 @@ int createDir(NSString * dirPath, unsigned long permissions)
     
     if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]  ) {
         if (  isDir  ) {
-            // Don't try to change permissions of /tmp, /Library/Application Support, or ~/Library/Application Support
-            if (   [dirPath isEqualToString: @"/tmp"]
-                || [dirPath hasSuffix: @"/Library/Application Support"]  ) {
+            // Don't try to change permissions of /Library/Application Support or ~/Library/Application Support
+            if (  [dirPath hasSuffix: @"/Library/Application Support"]  ) {
                 return 0;
             }
             NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: dirPath traverseLink: YES];
