@@ -33,7 +33,7 @@ Tunnelblick Configurations are folders with an extension of ".tblk". The extensi
 
 Configurations may be nested one level deep. That is, a Configuration may contain within it other Configurations. When such a Configuration is installed, it installs all of the Configurations within it. The Configurations within it may not include Configurations, however -- only one level of included Configurations is allowed.
 
-The contents of a Tunnelblick VPN Configuration are arranged as follows *after installation* (they should not be arranged this way prior to installation, they should all just be at the top level of the .tblk, and the configuration file may have any name before installation):
+The contents of a Tunnelblick VPN Configuration are arranged as follows *after installation* (files should not be arranged this way prior to installation, all files should all just be at the top level of the .tblk, and the configuration file may have any name before installation):
 
 {{{
     sample.tblk/
