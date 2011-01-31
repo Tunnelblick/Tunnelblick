@@ -26,6 +26,7 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 The following VPN service providers  contribute to Tunnelblick if you use these links
   * *[https://www.astrill.com/a3329ebd4 Astrill]* (You get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase.)
   * *[http://btguard.com/?a=tunnelblick BTGuard]*
+  * *[http://www.bananasecure.com/members/idevaffiliate.php?id=271 Banana VPN]*
   * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]*
   * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
@@ -59,7 +60,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-30.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-01-31.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
