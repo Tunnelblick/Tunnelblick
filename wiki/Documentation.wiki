@@ -7,7 +7,7 @@
 </tr></table>
 <br>
 
-*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*
+*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wUsing Using Tunnelblick]<br>
@@ -17,7 +17,7 @@
     [wFAQ FAQ]<br>
     [wGettingVPNService Getting VPN Service]<br>
 
-*[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*
+*[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [UsingTunnelblick Installing and Using Tunnelblick]<br>
