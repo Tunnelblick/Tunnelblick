@@ -15,6 +15,12 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+==3.1.5 (2011-02-01)==
+
+ * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
+
+--------------------
+
 ==3.1.4 (2011-01-28)==
 
  * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").

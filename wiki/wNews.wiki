@@ -5,6 +5,11 @@
 
 --------------------
 
+2011-02-01: *Tunnelblick 3.1.5 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.5.dmg available for download]*.
+ * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
+
+--------------------
+
 2011-01-28: *Tunnelblick 3.1.4 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.4.dmg available for download]*.
  * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").
  
