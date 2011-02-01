@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+ * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  * Contributions by Dirk Theisen <dirk@objectpark.org>, 
  *                  Jens Ohlig, 
- *                  Waldemar Brodkorb,
- *                  Jonathan K. Bullard Copyright (c) 2010, 2011
+ *                  Waldemar Brodkorb
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -3757,6 +3757,7 @@ static void signal_handler(int signalNumber)
                                    nil);
         if (  response == NSAlertDefaultReturn  ) {
             // Launch the program in /Applications
+            sleep(5);
             if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
                 TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
                                 [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
@@ -3808,7 +3809,7 @@ static void signal_handler(int signalNumber)
         return TRUE;
     }
     
-    const char * fileName = [path UTF8String];
+    const char * fileName = [gFileMgr fileSystemRepresentationWithPath: path];
     struct statfs stats_buf;
     
     if (  0 == statfs(fileName, &stats_buf)  ) {
@@ -3926,7 +3927,7 @@ static void signal_handler(int signalNumber)
             NSLog(@"Retrying execution of installer");
         }
         
-        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: myAuth] ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: myAuth] ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;
@@ -4051,10 +4052,10 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     NSString *infoPlistPath         = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
 
 	// check openvpnstart owned by root with suid and 544 permissions
-	const char *path = [openvpnstartPath UTF8String];
+	const char *path = [gFileMgr fileSystemRepresentationWithPath: openvpnstartPath];
     struct stat sb;
-	if(stat(path,&sb)) {
-        NSLog(@"Unable to determine status of \"openvpnstart\"");
+	if (  stat(path, &sb)  != 0  ) {
+        NSLog(@"Unable to determine status of openvpnstart\nError was '%s'", strerror(errno));
         return YES;
 	}
 	if (   (sb.st_uid != 0)
