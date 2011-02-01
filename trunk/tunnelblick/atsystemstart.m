@@ -31,7 +31,6 @@
  * The code returned by executeAuthorized indicates only success or failure to launch this program. Thus, the invoking program must
  * determine whether or not this program completed its task successfully.
  *
->>>>>>> .merge-right.r1337
  */
 
 #import <Foundation/Foundation.h>
@@ -101,7 +100,7 @@ void setNoStart(NSString * plistPath)
     NSFileManager * fm = [NSFileManager defaultManager];
     if (  [fm tbPathContentOfSymbolicLinkAtPath: plistPath] == nil  ) {
         if (  [fm fileExistsAtPath: plistPath]  ) {
-            if ( ! [fm removeFileAtPath: plistPath handler: nil]  ) {
+            if ( ! [fm tbRemoveFileAtPath: plistPath handler: nil]  ) {
                 NSLog(@"Tunnelblick atsystemstart: Unable to delete existing plist file %@", plistPath);
                 errorExit();
             }
@@ -127,6 +126,7 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
     for (i=2; i<argc; i++) {
         [arguments addObject: [NSString stringWithUTF8String: argv[i]]];
     }
+    
     NSString * workingDirectory = getWorkingDirectory(argc, argv);
     
     NSDictionary * plistDict = [NSDictionary dictionaryWithObjectsAndKeys:
