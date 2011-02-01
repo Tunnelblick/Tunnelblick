@@ -1491,7 +1491,7 @@ enum state_t {                      // These are the "states" of the guideState 
 // Returns TRUE if a file is on a remote volume or statfs on it fails, FALSE otherwise
 -(BOOL) onRemoteVolume:(NSString *)cfgPath
 {
-    const char * fileName = [cfgPath UTF8String];
+    const char * fileName = [gFileMgr fileSystemRepresentationWithPath: cfgPath];
     struct statfs stats_buf;
     
     if (  0 == statfs(fileName, &stats_buf)  ) {
@@ -1522,7 +1522,7 @@ enum state_t {                      // These are the "states" of the guideState 
             NSLog(@"Retrying execution of installer");
         }
 
-        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;
@@ -1583,7 +1583,7 @@ enum state_t {                      // These are the "states" of the guideState 
             NSLog(@"Retrying execution of installer");
         }
         
-        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;

@@ -3,8 +3,8 @@
 //  MenuCalendar
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
-//  Copyright (c) 2004 Objectpark Software. All rights reserved.
-//  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
+//  Copyright 2004 Objectpark Software. All rights reserved.
+//  Contributions by Jonathan K. Bullard Copyright 2010, 2011
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -22,10 +22,15 @@
 #import <AppKit/AppKit.h>
 #import <sys/sysctl.h>
 #import <sys/types.h>
+#import <sys/stat.h>
 #import <signal.h>
 #import "NSApplication+LoginItem.h"
 #import "NSArray+cArray.h"
 #import "UKLoginItemRegistry/UKLoginItemRegistry.h"
+
+// The following external, global variable is used by functions in this file and must be declared and set elsewhere before the
+// functions in this file are called:
+extern NSFileManager * gFileMgr;
 
 @implementation NSApplication (LoginItem)
 
@@ -342,8 +347,9 @@
 	if (myStatus) printf("Status: %ld\n", myStatus);
 	return myAuthorizationRef;
 }
+
 +(OSStatus) executeAuthorized:(NSString *)toolPath withArguments:(NSArray *)arguments withAuthorizationRef:(AuthorizationRef) myAuthorizationRef {
-	const char * myToolPath = [toolPath UTF8String];
+	const char * myToolPath = [gFileMgr fileSystemRepresentationWithPath: toolPath];
 	char **myArguments = [arguments cArray];
 	OSStatus myStatus;
 	AuthorizationFlags myFlags = kAuthorizationFlagDefaults;
@@ -357,4 +363,52 @@
 	return myStatus;
 }
 
+// Creates a flag file, runs executeAuthorized, then waits for up to 6.35 seconds for the flag file to disappear
+// Returns YES if the executeAuthorize succeeded (which may or may not mean execution has completed; it may have timed out or been unable to create the flag file)
++(BOOL) waitForExecuteAuthorized: (NSString *) toolPath withArguments: (NSArray *) arguments withAuthorizationRef: (AuthorizationRef) myAuthorizationRef {
+    
+    // Create flag file or indicate there isn't one
+    char * path = "/tmp/tunnelblick-authorized-running";
+    BOOL noFlagFile = FALSE;
+    int fd = open(path, O_RDONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    if (fd < 0) {
+        NSLog(@"Unable to create flag file %s\nError was '%s'", path, strerror(errno));
+        noFlagFile = TRUE;
+    } else {
+        if (  0 != close(fd)  ) {
+            NSLog(@"Unable to close flag file %s with file descriptor %d\nError was '%s'", path, fd, strerror(errno));
+        }
+    }
+    
+    if (  EXIT_SUCCESS != [NSApplication executeAuthorized: toolPath withArguments: arguments withAuthorizationRef: myAuthorizationRef]  ) {
+        if (  ! noFlagFile  ) {
+            if (  0 != unlink(path)  ) {
+                NSLog(@"Unable to delete %s", path);
+            }
+        }
+        return NO;
+    }
+    
+    if (  noFlagFile  ) {
+        return YES;
+    }
+    
+    // Try for up to 6.35 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+    // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+    useconds_t sleepTime;
+    struct stat sb;
+    for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+        usleep(sleepTime);
+        
+        if (  0 != stat(path, &sb)  ) {
+            return YES; // flag file has been deleted, indicating we're done
+        }
+    }
+    
+    NSLog(@"Timed out waiting for %s to disappear indicting %@ finished", path, [toolPath lastPathComponent]);
+    if (  0 != unlink(path)  ) {
+        NSLog(@"Unable to delete %s", path);
+    }
+    return YES;
+}
 @end

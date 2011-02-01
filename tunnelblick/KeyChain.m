@@ -1,6 +1,7 @@
 /*
- * Copyright (c) 2004 Angelo Laub
+ * Copyright 2004 Angelo Laub
  * Fixes by Dirk Theisen <dirk@objectpark.org> 
+ *  Contributions by Jonathan K. Bullard Copyright 2010, 2011
  * 
  *
  *  This program is free software; you can redistribute it and/or modify

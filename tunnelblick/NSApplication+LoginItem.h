@@ -3,7 +3,8 @@
 //  MenuCalendar
 //
 //  Created by Dirk Theisen on Thu Feb 26 2004.
-//  Copyright (c) 2004 Objectpark Software. All rights reserved.
+//  Copyright 2004 Objectpark Software. All rights reserved.
+//  Contributions by Jonathan K. Bullard Copyright 2010, 2011
 //
 //  Permission to use, copy, modify, and distribute this software for any
 //  purpose with or without fee is hereby granted, provided that the above
@@ -39,5 +40,9 @@
 +(OSStatus)         executeAuthorized:          (NSString *)        toolPath
                         withArguments:          (NSArray *)         arguments
                  withAuthorizationRef:          (AuthorizationRef)  myAuthorizationRef;
+
++(BOOL)         waitForExecuteAuthorized:       (NSString *)        toolPath
+                           withArguments:       (NSArray *)         arguments
+                    withAuthorizationRef:       (AuthorizationRef)  myAuthorizationRef;
 
 @end

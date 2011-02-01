@@ -1,6 +1,7 @@
 /*
- * Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
- * Contributions by Dirk Theisen and Jonathan K. Bullard
+ * Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Angelo Laub
+ * Contributions by Dirk Theisen
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -20,7 +21,6 @@
 #import <Foundation/Foundation.h>
 #import <sys/sysctl.h>
 #import <netinet/in.h>
-#import <sys/stat.h>
 #import "defines.h"
 
 int     startVPN                   (NSString * configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);

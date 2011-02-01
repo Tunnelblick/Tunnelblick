@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2011 Jonathan K. Bullard
+ * Copyright 2010, 2011 Jonathan K. Bullard
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2
@@ -25,6 +25,8 @@
  * If the first argument is "1", this program will set up to RUN openvpnstart at system startup with the rest of the arguments.
  * If the first argument is "0", this program will set up to NOT RUN openvpnstart at system startup with the rest of the arguments.
  *
+ * When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
+ *
  * Note: Although this program returns EXIT_SUCCESS or EXIT_FAILURE, that code is not returned to the invoker of executeAuthorized.
  * The code returned by executeAuthorized indicates only success or failure to launch this program. Thus, the invoking program must
  * determine whether or not this program completed its task successfully.
@@ -32,6 +34,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <sys/stat.h>
 #import "defines.h"
 
 // Indices into argv[] for items we use. The first is an argument to this program; the other two are arguments to openvpnstart
@@ -45,6 +48,7 @@ void        setNoStart(NSString * plistPath);
 void        setStart(NSString * plistPath, NSString * daemonDescription, NSString * daemonLabel, int argc, char* argv[]);
 NSString *  getWorkingDirectory(int argc, char* argv[]);
 void        errorExit(void);
+void        deleteFlagFile(void);
 
 //**************************************************************************************************************************
 int main(int argc, char* argv[])
@@ -58,7 +62,7 @@ int main(int argc, char* argv[])
             && ( strcmp(argv[ARG_LOAD_FLAG], "1") != 0 )
             )
         ) {
-        NSLog(@"Argument #%d must be 0 or 1 and there must be between 5 to 10 (inclusive) arguments altogether. argc = %d; argv[%d] = '%s'", ARG_LOAD_FLAG, argc, ARG_LOAD_FLAG, argv[ARG_LOAD_FLAG]);
+        NSLog(@"Tunnelblick atsystemstart: Argument #%d must be 0 or 1 and there must be between 5 to 10 (inclusive) arguments altogether. argc = %d; argv[%d] = '%s'", ARG_LOAD_FLAG, argc, ARG_LOAD_FLAG, argv[ARG_LOAD_FLAG]);
         errorExit();
     }
     
@@ -84,6 +88,8 @@ int main(int argc, char* argv[])
         setStart(plistPath, daemonDescription, daemonLabel, argc, argv);
     }
     
+    deleteFlagFile();
+
     [pool drain];
     exit(EXIT_SUCCESS);
 }
@@ -94,15 +100,15 @@ void setNoStart(NSString * plistPath)
     if (  [fm pathContentOfSymbolicLinkAtPath: plistPath] == nil  ) {
         if (  [fm fileExistsAtPath: plistPath]  ) {
             if ( ! [fm removeFileAtPath: plistPath handler: nil]  ) {
-                NSLog(@"Unable to delete existing plist file %@", plistPath);
+                NSLog(@"Tunnelblick atsystemstart: Unable to delete existing plist file %@", plistPath);
                 errorExit();
             }
         } else {
-            NSLog(@"Does not exist, so cannot delete %@", plistPath);
+            NSLog(@"Tunnelblick atsystemstart: Does not exist, so cannot delete %@", plistPath);
             errorExit();
         }
     } else {
-        NSLog(@"Symbolic link not allowed at %@", plistPath);
+        NSLog(@"Tunnelblick atsystemstart: Symbolic link not allowed at %@", plistPath);
         errorExit();
     }
 }
@@ -132,12 +138,12 @@ void setStart(NSString * plistPath, NSString * daemonDescription, NSString * dae
                                 nil];
     
     if (  [[NSFileManager defaultManager] pathContentOfSymbolicLinkAtPath: plistPath] != nil  ) {
-        NSLog(@"Symbolic link not allowed at %@", plistPath);
+        NSLog(@"Tunnelblick atsystemstart: Symbolic link not allowed at %@", plistPath);
         errorExit();
     }
     
     if (  ! [plistDict writeToFile: plistPath atomically: YES]  ) {
-        NSLog(@"Unable to write plist file %@", plistPath);
+        NSLog(@"Tunnelblick atsystemstart: Unable to write plist file %@", plistPath);
         errorExit();
     }
 }
@@ -148,7 +154,7 @@ NSString * getWorkingDirectory(int argc, char* argv[])
 
     NSString * extension = [cfgFile pathExtension];
     if (  ! [extension isEqualToString: @"tblk"]) {
-        NSLog(@"Only Tunnelblick VPN Configurations (.tblk packages) may connect when the computer starts\n");
+        NSLog(@"Tunnelblick atsystemstart: Only Tunnelblick VPN Configurations (.tblk packages) may connect when the computer starts\n");
         errorExit();
     }
     
@@ -165,7 +171,7 @@ NSString * getWorkingDirectory(int argc, char* argv[])
     } else if (cfgLocCode == CFG_LOC_SHARED  ) {
         cfgPath = [@"/Library/Application Support/Tunnelblick/Shared" stringByAppendingPathComponent: cfgFile];
     } else {
-        NSLog(@"Invalid cfgLocCode = %d", cfgLocCode);
+        NSLog(@"Tunnelblick atsystemstart: Invalid cfgLocCode = %d", cfgLocCode);
         errorExit();
     }
     
@@ -175,6 +181,25 @@ NSString * getWorkingDirectory(int argc, char* argv[])
 
 void errorExit(void)
 {
+    deleteFlagFile();
+    
     [pool drain];
     exit(EXIT_FAILURE);
-}    
+}
+
+void deleteFlagFile(void)
+{
+    char * path = "/tmp/tunnelblick-authorized-running";
+    struct stat sb;
+	if (  0 == stat(path, &sb)  ) {
+        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
+            if (  0 != unlink(path)  ) {
+                NSLog(@"Tunnelblick atsystemstart: Unable to delete %s", path);
+            }
+        } else {
+            NSLog(@"Tunnelblick atsystemstart: %s is not a regular file; st_mode = 0%o", path, sb.st_mode);
+        }
+    } else {
+        NSLog(@"Tunnelblick atsystemstart: stat of %s failed\nError was '%s'", path, strerror(errno));
+    }
+}
