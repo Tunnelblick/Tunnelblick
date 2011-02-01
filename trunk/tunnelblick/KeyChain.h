@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004 Angelo Laub
+ * Copyright 2004 Angelo Laub
  *
  *
  *  This program is free software; you can redistribute it and/or modify
