@@ -1,6 +1,6 @@
 /*
- *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- *  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
+ *  Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
+ *  Contributions by Jonathan K. Bullard Copyright 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -18,7 +18,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <stdio.h>
+#import <sys/stat.h>
 #import "defines.h"
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
@@ -55,6 +55,8 @@
 //      (9) _Iff_ sourcePath is given, copies or moves sourcePath to targetPath (copies unless moveFlag = @"1")
 //     (10) _Iff_ targetPathToSecure is given, secures the .ovpn or .conf file or a .tblk package at that path
 //
+// When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
+//
 // Notes: (2), (3), (4), and (5) are done each time this command is invoked if they are needed (self-repair).
 //        (9) is done when creating a shadow configuration file
 //                    or copying a .tblk to install it
@@ -74,11 +76,12 @@ BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
 BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group);
 BOOL createSymLink(NSString * fromPath, NSString * toPath);
+void deleteFlagFile(void);
 BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
 BOOL makeFileUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
-void exit_failure();
+void errorExit();
 
 int main(int argc, char *argv[]) 
 {
@@ -113,7 +116,7 @@ int main(int argc, char *argv[])
     
     if (  (argc < 3)  || (argc > 6)  ) {
         NSLog(@"Tunnelblick Installer: Wrong number of arguments -- expected 2 or 3, given %d", argc-1);
-        exit_failure();
+        errorExit();
     }
     
     BOOL copyApp       =  strcmp(argv[1], "2") == 0;
@@ -150,7 +153,7 @@ int main(int argc, char *argv[])
             
             if (  rename([gFileMgr fileSystemRepresentationWithPath: targetPath], [gFileMgr fileSystemRepresentationWithPath: trashedPath]) != 0  ) {
                 NSLog(@"Tunnelblick Installer: Unable to move %@ to the Trash", targetPath);
-                exit_failure();
+                errorExit();
             } else {
                 NSLog(@"Tunnelblick Installer: Moved %@ to the Trash", targetPath);
             }
@@ -159,7 +162,7 @@ int main(int argc, char *argv[])
         
         if (  ! [gFileMgr copyPath: currentPath toPath: targetPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Unable to copy %@ to %@", currentPath, targetPath);
-            exit_failure();
+            errorExit();
         } else {
             NSLog(@"Tunnelblick Installer: Copied %@ to %@", currentPath, targetPath);
         }
@@ -175,7 +178,7 @@ int main(int argc, char *argv[])
                  && isDir  )  ) {
             if (  ! [gFileMgr copyPath: deployBackupPath toPath: gDeployPath handler:nil]  ) {
                 NSLog(@"Tunnelblick Installer: Unable to restore %@ from backup", gDeployPath);
-                exit_failure();
+                errorExit();
             }
 
             NSLog(@"Tunnelblick Installer: Restored %@ from backup", gDeployPath);
@@ -191,10 +194,10 @@ int main(int argc, char *argv[])
     // Verify that new configuration folder exists
     if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
         NSLog(@"Tunnelblick Installer: Private configuration folder %@ does not exist", newConfigDirPath);
-        exit_failure();
+        errorExit();
     } else if (  ! isDir  ) {
         NSLog(@"Tunnelblick Installer: %@ exists but is not a folder", newConfigDirPath);
-        exit_failure();
+        errorExit();
     }
     
     // If old configurations folder exists (and is a folder):
@@ -210,15 +213,15 @@ int main(int argc, char *argv[])
                     // Delete the old configuration folder
                     if (  ! [gFileMgr removeFileAtPath: oldConfigDirPath handler: nil]  ) {
                         NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
-                        exit_failure();
+                        errorExit();
                     }
                 } else {
                     NSLog(@"Tunnelblick Installer: Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                    exit_failure();
+                    errorExit();
                 }
             } else {
                 NSLog(@"Tunnelblick Installer: %@ is not a symbolic link or a folder", oldConfigDirPath);
-                exit_failure();
+                errorExit();
             }
         }
     }
@@ -228,7 +231,7 @@ int main(int argc, char *argv[])
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
     
     if (  ! createDirWithPermissionAndOwnership(gSharedPath, 0755, 0, 0)  ) {
-        exit_failure();
+        errorExit();
     }
     
     //**************************************************************************************************************************
@@ -236,7 +239,7 @@ int main(int argc, char *argv[])
     // Create log directory if it does not already exist, and make sure it is owned by root with 755 permissions
     
     if (  ! createDirWithPermissionAndOwnership(LOG_DIR, 0755, 0, 0)  ) {
-        exit_failure();
+        errorExit();
     }
     
     //**************************************************************************************************************************
@@ -303,7 +306,7 @@ int main(int argc, char *argv[])
         
         if (  ! okSoFar  ) {
             NSLog(@"Tunnelblick Installer: Unable to secure Tunnelblick.app");
-            exit_failure();
+            errorExit();
         }
     }
     
@@ -317,14 +320,14 @@ int main(int argc, char *argv[])
             
             // Create the folder that holds the backup folders if it doesn't already exist
             if (  ! createDirWithPermissionAndOwnership(deployBkupHolderPath, 0755, 0, 0)  ) {
-                exit_failure();
+                errorExit();
             }
             
             if (  ! (   [gFileMgr fileExistsAtPath: deployOrigBackupPath isDirectory: &isDir]
                      && isDir  )  ) {
                 if (  ! [gFileMgr copyPath: gDeployPath toPath: deployOrigBackupPath handler:nil]  ) {
                     NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", gDeployPath);
-                    exit_failure();
+                    errorExit();
                 }
             }
             
@@ -333,7 +336,7 @@ int main(int argc, char *argv[])
             
             if (  ! [gFileMgr copyPath: gDeployPath toPath: deployBackupPath handler:nil]  ) {  // Make backup of current
                 NSLog(@"Tunnelblick Installer: Unable to make backup of %@", gDeployPath);
-                exit_failure();
+                errorExit();
             }
         }
     }
@@ -393,7 +396,7 @@ int main(int argc, char *argv[])
         }
         
         if (  ! createDirWithPermissionAndOwnership(enclosingFolder, 0755, own, grp)  ) {
-            exit_failure();
+            errorExit();
         }
         
         // Copy the file or package to a ".partial" file/folder first, then rename it
@@ -404,7 +407,7 @@ int main(int argc, char *argv[])
         if (  ! [gFileMgr copyPath: singlePathToCopy toPath: dotPartialPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to copy %@ to %@", singlePathToCopy, dotPartialPath);
             [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
-            exit_failure();
+            errorExit();
         }
         
         BOOL errorHappened = FALSE; // Use this to defer error exit until after renaming xxx.partial to xxx
@@ -422,15 +425,15 @@ int main(int argc, char *argv[])
         if (  ! [gFileMgr movePath: dotPartialPath toPath: singlePathToSecure handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to rename %@ to %@", dotPartialPath, singlePathToSecure);
             [gFileMgr removeFileAtPath: dotPartialPath handler: nil];
-            exit_failure();
+            errorExit();
         }
         
         if (  errorHappened  ) {
-            exit_failure();
+            errorExit();
         }
 
         if (  ! makeFileUnlockedAtPath(singlePathToSecure)  ) {
-            exit_failure();
+            errorExit();
         }
     }
     
@@ -453,21 +456,44 @@ int main(int argc, char *argv[])
             okSoFar = okSoFar && secureOneFolder(singlePathToSecure);
         } else {
             NSLog(@"Tunnelblick Installer: trying to secure unknown item at %@", singlePathToSecure);
-            exit_failure();
+            errorExit();
         }
         if (  ! okSoFar  ) {
             NSLog(@"Tunnelblick Installer: unable to secure %@", singlePathToSecure);
-            exit_failure();
+            errorExit();
         }
     }
+    
+    deleteFlagFile();
     
     [pool release];
     exit(EXIT_SUCCESS);
 }
 
 //**************************************************************************************************************************
-void exit_failure()
+
+void deleteFlagFile(void)
 {
+    char * path = "/tmp/tunnelblick-authorized-running";
+    struct stat sb;
+	if (  0 == stat(path, &sb)  ) {
+        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
+            if (  0 != unlink(path)  ) {
+                NSLog(@"Tunnelblick Installer: Unable to delete %s", path);
+            }
+        } else {
+            NSLog(@"Tunnelblick Installer: %s is not a regular file; st_mode = 0%o", path, sb.st_mode);
+        }
+    } else {
+        NSLog(@"Tunnelblick Installer: stat of %s failed\nError was '%s'", path, strerror(errno));
+    }
+}
+
+//**************************************************************************************************************************
+void errorExit()
+{
+    deleteFlagFile();
+
     [pool release];
     exit(EXIT_FAILURE);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2010 Jonathan Bullard
+ * Copyright 2009, 2010 Jonathan Bullard
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2

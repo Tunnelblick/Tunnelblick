@@ -1,6 +1,6 @@
 /*
- *  Copyright (c) 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- *  Contributions by Jonathan K. Bullard Copyright (c) 2010, 2011
+ *  Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
+ *  Contributions by Jonathan K. Bullard Copyright 2010, 2011
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
@@ -327,7 +327,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
             NSLog(@"Retrying execution of atsystemstart");
         }
         
-        if (  EXIT_SUCCESS == [NSApplication executeAuthorized: launchPath withArguments: arguments withAuthorizationRef: inAuthRef]  ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: inAuthRef]  ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;
