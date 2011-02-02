@@ -7,9 +7,7 @@ A *"beta"* version of a program is a version that has been tested internally and
 
 When a new beta version is available, it is announced to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
 
---------------------
-
-No new beta versions of Tunnelblick are available since the release of Tunnelblick stable version 3.1. For deprecated beta versions, see [DownloadsEntry?tm=2#Deprecated_Versions_of_Tunnelblick Deprecated Versions of Tunnelblick].
+Beta versions (if any) are available on the [DownloadsEntry?tm=2 Downloads] page.
 
 ------------------
 

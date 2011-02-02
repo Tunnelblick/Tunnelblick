@@ -9,6 +9,7 @@ A Tunnelblick VPN Configuration (a "Configuration") is a folder with an extensio
  * Configurations may be automatically installed when Tunnelblick is installed by including them in the Tunnelblick disk image.
  * Configurations may be set up to connect when the computer starts, and persist through logins and logouts.
  * Configurations may contain identification and version information to assist in version control.
+ * Configurations may contain scripts that are run at particular points in the connection process.
  * Installing a Configuration "secures" it by setting ownership and permissions on its contents.
  * Installing a Configuration requires a computer administrator username/password (as does Tunnelblick installation).
  * A Configuration installed as private will be "shadow copied" to the boot drive if it is on a volume which cannot be secured (e.g., a network volume or a volume on an external drive) or if the "Use Shadow Copies" preference is set.
@@ -41,8 +42,8 @@ The contents of a Tunnelblick VPN Configuration are arranged as follows *after i
             (Optional) Info.plist
             Resources/
                 config.ovpn, containing OpenVPN configuration information
-                (Optional) shell scripts: up.tunnelblick.sh, down.tunnelblick.sh
-                (Optional) shell scripts: pre-connect.sh, post-disconnect.sh
+                (Optional) up/down shell scripts
+                (Optional) Tunnelblick shell scripts
                 (Optional, deprecated shell scripts) up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh
                 (Optional) key, certificate, and/or other shell script files
 }}}
@@ -69,15 +70,15 @@ A Configuration's Info.plist may also optionally contain entries (strings, numbe
 
 In a Deployed version of Tunnelblick, the forced-preferences in Deploy will override any Configuration-specified preferences. 
 
-==Up and Down Scripts==
+==Up/Down Shell Scripts==
 If the Configuration contains up.tunnelblick.sh, down.tunnelblick.sh, up.sh, down.sh, nomonitor.up.sh, and/or nomonitor.down.sh, those shell scripts will be used instead of Tunnelblick's standard scripts, or scripts in Deploy, when connecting with the Configuration and "Set nameserver" is selected for the Configuration's configuration.
 
 For backward compatibility, scripts other than up.tunnelblick.sh and down.tunnelblick.sh will be used if they exist.
 
 In a Deployed version of Tunnelblick, a Configuration's up/down scripts will override the corresponding scripts in Deploy.
 
-==Pre-Connect and Post-Disconnect Scripts==
-If the Configuration includes "pre-connect.sh" and "post-disconnect.sh" scripts, they will be executed (as root) before connecting and/or after disconnecting. This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded. (If the scripts load special kexts, you can use the "-doNotLoadTapKext" and "-doNotLoadTunKext" preferences to cause Tunnelblick to not try to load its own kexts.)
+==Tunnelblick Shell Scripts==
+If the Configuration includes pre-connect.sh, post-tun-tap-load.sh, connected.sh, reconnecting.sh, post-disconnect.sh scripts, they will be executed (as root) at the corresponding point in the connection process. This allows manipulation of kexts and/or the network configuration and user notification of events. (If the scripts load special kexts, you can use the "-doNotLoadTapKext" and "-doNotLoadTunKext" preferences to cause Tunnelblick to not try to load its own kexts.) post-tun-tap-load.sh, connected.sh, and reconnecting.sh are available in Tunnelblick 3.2beta02 and later only. See [wUsingScripts Using Scripts] for more details.
 
 ==Automatic Installation==
 When Tunnelblick itself is installed by double-clicking Tunnelblick.app on a disk image or other volume from which it cannot be used, all Configurations in the "auto-install" and ".auto-install" folders that are in the same folder that contains the Tunnelblick.app being installed are installed (subject to [wPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [wPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).

@@ -15,6 +15,31 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+==3.2beta02 (2011-02-02)==
+
+ * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
+   * The 'pre-connect.sh' script is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
+   * The 'post-tun-tap-load.sh' script is executed (as root) after Tunnelblick unloads and/or loads the tun or tap kexts (whether or not any unload or load takes place). Thus, the script is executed immediately before starting OpenVPN.
+   * The 'connected.sh' script is executed (as root) when a configuration connects. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
+   * The 'reconnecting.sh' script is executed (as root) when OpenVPN loses the VPN connection and is trying to reconnect. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
+   * The 'post-disconnect.sh' script is executed (as root) after OpenVPN has closed the connection. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
+
+ * Fixes problem installing Tunnelblick via double-click when the user's home folder is not on the same volume as /Applications/Tunnelblick.app
+
+ * Warns the user a configuration is set to to start when the computer starts and it is a Tunnelblick VPN Configuration (.tblk package) which includes a 'connected.sh', 'reconnecting.sh', or 'post-disconnect.sh' script. Those scripts are not executed unless Tunnelblick itself is running when the event occurs, which may not be the case for 'when computer starts' configurations.
+
+ * Tunnelblick (but not third-party) preparation for OS X 10.7 (Lion), including isolating deprecated methods and changes for GCC 4.2. Warnings about 'object file compiled with -mlong-branch' when building Tunnelblick are now _gone_ -- building Tunnelblick generates warnings only for third-party software. (Still generates code for OS X 10.4, 10.5, and 10.6)
+
+ * Fixes a few small memory leaks: one VPNConnection objects per sleep/wake cycle, two NSStrings per connect/disconnect, one NSMutableArray and two NSImages each time the "Use Original Icon" menu command is clicked, several objects each time executeAuthorized is run, and Issue 171.
+
+ * Removed 5 second delay before launching Tunnelblick after installation
+
+ * Removed references to "intValueOfBuildForBundle" because it is no longer used
+
+ * Updated copyright notices and added Free Software Foundation license URL
+
+--------------------
+
 ==3.1.5 (2011-02-01)==
 
  * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.

@@ -7,16 +7,25 @@
 
 *All scripts are run as root* so they can make network configuration changes; thus caution is advised when modifying these scripts or using customized scripts.
 
-Tunnelblick uses three types of scripts: pre- and post- scripts, up- and down- scripts, and the leasewatch script.
+Tunnelblick uses three types of scripts: Tunnelblick VPN Configuration scripts, up- and down- scripts, and the leasewatch script.
 
-*pre- and post- scripts* are run before kexts (device drivers) are loaded and OpenVPN is started, and after OpenVPN has stopped and kexts are unloaded, respectively.
-  * Tunnelblick does not include any of these scripts; see the [DownloadsEntry Downloads page] for user-contributed scripts.
-  * They may be used in special circumstances -- for example, to make modifications to the network configuration when a tunnel is active.
-  * The scripts must be named "pre-connect.sh" and "post-disconnect.sh"
-  * The scripts can only be used in a [wPkgs Tunnelblick VPN Configuration] when using Tunnelblick 3.1beta06 or later.
-  * The post-disconnect script is not run unless Tunnelblick is running at the time the disconnection occurs. (This only affects 'connect when computer starts' configurations.)
+The up script and the connected.sh script are both run when a connection is made; the order in which they are run is not defined.
 
-*up- and down- scripts* are run immediately after connecting, and immediately after disconnecting, respectively. 
+The down script and the post-disconnect.sh script are both run when a configuration is disconnected; the order in which they are run is not defined.
+
+*Tunnelblick VPN Configuration scripts* shell scripts that are run by Tunnelblick at particular points in the connection process.
+ * They are only available in [wPkgs Tunnelblick VPN Configurations] (available in Tunnelblick 3.1beta06 or later).
+ * Tunnelblick does not include any of these scripts; see the [DownloadsEntry Downloads page] for user-contributed scripts.
+ * They may be used in special circumstances -- for example, to make modifications to the network configuration when a tunnel is active.
+ * The post-disconnect script is not run unless Tunnelblick is running at the time the disconnection occurs. (This may not be the case for 'connect when computer starts' configurations.)
+ * The following scripts may be used (they must have these exact names):
+   * *pre-connect.sh* is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
+   * *post-tun-tap-load.sh* is executed (as root) after Tunnelblick unloads and/or loads the tun or tap kexts (whether or not any unload or load takes place). Thus, the script is executed immediately before starting OpenVPN. Available in Tunnelblick 3.2beta02 and later only.
+   * *connected.sh* is executed (as root) when a configuration connects. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations. Available in Tunnelblick 3.2beta02 and later only.
+   * *reconnecting.sh* is executed (as root) when OpenVPN loses the VPN connection and is trying to reconnect. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations. Available in Tunnelblick 3.2beta02 and later only.
+   * *post-disconnect.sh* is executed (as root) after OpenVPN has closed the connection. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
+
+*up- and down- scripts* are shell scripts that are run by OpenVPN immediately after connecting, and immediately after disconnecting, respectively. 
   * The scripts are run only when "Set nameserver" is selected.
   * To run the scripts, Tunnelblick passes OpenVPN "--up", "--down" options. This means that any "up" or "down" options specified in the OpenVPN configuration file are ignored. To use your own custom scripts from within the configuration file, select "Do not set nameserver".
   * Tunnelblick includes a standard up script and a standard down script (client.up.tunnelblick.sh and client.down.tunnelblick.sh, respectively) that are used if no other scripts are present. They are located in Tunnelblick.app/Contents/Resources. The scripts save the current DNS configuration and accept "pushed" configurations from the VPN server when the VPN is connected, and restore the DNS configurations when the VPN is disconnected. If "Monitor connection" is checked, the up script sets up to run the leasewatch script when a network configuration change is detected.

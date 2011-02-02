@@ -5,18 +5,31 @@
 
 --------------------
 
-2011-02-01: *Tunnelblick 3.1.5 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.5.dmg available for download]*.
- * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
+2011-02-02: *Tunnelblick 3.2beta02 is [DownloadsEntry?tm=2 available for download]*. Full details are in the [wRlsNotes Release Notes].
+ * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
+   * pre-connect.sh
+   * post-tun-tap-load.sh
+   * connected.sh
+   * reconnecting.sh
+   * post-disconnect.sh
+ For more details, see [wPkgs Tunnelblick VPN Configurations] and [wUsingScripts Using Scripts].
+ * Fixes problem installing Tunnelblick via double-click when the user's home folder is not on the same volume as /Applications/Tunnelblick.app
+
+ * Other minor changes
 
 --------------------
 
-2011-01-28: *Tunnelblick 3.1.4 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.4.dmg available for download]*.
- * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").
+2011-02-01: *Tunnelblick 3.1.5 is [DownloadsEntry?tm=2 available for download]*.
+ Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
+
+--------------------
+
+2011-01-28: *Tunnelblick 3.1.4 is available*.
+ Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").
  
 --------------------
 
-*2011-01-28: OS X 10.4 ("Tiger") Installation Failure*
-
+2011-01-28: *OS X 10.4 ("Tiger") Installation Failure*
  Installing or updating to Tunnelblick 3.1.3 on OS X 10.4 ("Tiger") fails. See the first entry in <a href="http://code.google.com/p/tunnelblick/wiki/wKnown">Known Issues</a> for a workaround.
  
 --------------------
@@ -33,12 +46,12 @@
 
 --------------------
 
-2010-12-25: *Tunnelblick 3.1.2 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.2.dmg available for download]*.
+2010-12-25: *Tunnelblick 3.1.2 is available*.
  * Removes the 'warns the user when certain unexpected disconnections occur' feature added in version 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. This feature will return in more robust form in a future beta release.
 
 --------------------
 
-2010-12-18: *Tunnelblick 3.1.1 is [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.1.dmg available for download]*. Full details are in the [wRlsNotes Release Notes].
+2010-12-18: *Tunnelblick 3.1.1 is available*. Full details are in the [wRlsNotes Release Notes].
 
  * Fixes several problems and warns the user about unexpected disconnections.
 
@@ -50,7 +63,7 @@
 
 --------------------
 
-2010-12-03: *Tunnelblick 3.1beta24 is availble*. Full details are in the [wRlsNotes Release Notes].
+2010-12-03: *Tunnelblick 3.1beta24 is available*. Full details are in the [wRlsNotes Release Notes].
 
  * Updates to use OpenSSL 1.0.0c, which fixes several security vulnerabilities.
 
@@ -134,7 +147,7 @@ New features include:
  
 --------------------
 
-2010-07-29: *Tunnelblick 3.1beta10 is availble*. Full details are in the [wRlsNotes Release Notes].
+2010-07-29: *Tunnelblick 3.1beta10 is available*. Full details are in the [wRlsNotes Release Notes].
 
 This beta includes an important bug fix:
 
@@ -150,7 +163,7 @@ New features include:
 
 --------------------
 
-2010-07-10: *Tunnelblick 3.1beta08 is availble*. Full details are in the [wRlsNotes Release Notes].
+2010-07-10: *Tunnelblick 3.1beta08 is available*. Full details are in the [wRlsNotes Release Notes].
 
 In addition to fixing bugs, this release adds several new features:
  * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
@@ -168,7 +181,7 @@ In addition to fixing bugs, this release adds several new features:
 
 --------------------
 
-2010-06-07: *Tunnelblick 3.1beta06 is availble*.
+2010-06-07: *Tunnelblick 3.1beta06 is available*.
 
 This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
 
@@ -176,7 +189,7 @@ The full list of changes is in the [wRlsNotes Release Notes].
 
 --------------------
 
-2010-05-27: *Tunnelblick 3.1beta04 is availble*.
+2010-05-27: *Tunnelblick 3.1beta04 is available*.
 
 This is mainly a bug-fix release, but there are some new features:
 
