@@ -1,7 +1,7 @@
 #summary Release Notes - Tunnelblick
 #sidebar wSb
 
-=Release Notes for Tunnelblick 3.1=
+=Release Notes for Tunnelblick=
 
 --------------------
 
