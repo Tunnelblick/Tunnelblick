@@ -1,12 +1,14 @@
 /*
  *  Created by Angelo Laub on 7/5/06
- *  Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
+ * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
  *
- *  This program is free software; you can redistribute it and/or modify
+ *  This file is part of Tunnelblick.
+ *
+ *  Tunnelblick is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
  *  as published by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful,
+ *  Tunnelblick is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -15,6 +17,7 @@
  *  along with this program (see the file COPYING included with this
  *  distribution); if not, write to the Free Software Foundation, Inc.,
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *  or see http://www.gnu.org/licenses/.
  */
 
 #import "NSArray+cArray.h"
@@ -36,6 +39,19 @@
 	}
 	myCArray[i] = NULL;
 	return myCArray;
+}
+
+void freeCArray(char ** theArray)
+{
+    // Free the individual strings in the array
+    int i = 0;
+    while (  theArray[i] != NULL  ) {
+        free(theArray[i]);
+        i++;
+    }
+    
+    // Free the array itself
+    free(theArray);
 }
 
 @end

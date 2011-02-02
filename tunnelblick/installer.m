@@ -1,12 +1,14 @@
 /*
- *  Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
- *  Contributions by Jonathan K. Bullard Copyright 2010, 2011
+ * Copyright 2004, 2005, 2006, 2007, 2008, 2009 by Angelo Laub
+ * Contributions by Jonathan K. Bullard Copyright 2010, 2011
  *
- *  This program is free software; you can redistribute it and/or modify
+ *  This file is part of Tunnelblick.
+ *
+ *  Tunnelblick is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
  *  as published by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful,
+ *  Tunnelblick is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -15,10 +17,12 @@
  *  along with this program (see the file COPYING included with this
  *  distribution); if not, write to the Free Software Foundation, Inc.,
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *  or see http://www.gnu.org/licenses/.
  */
 
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
+#import <AppKit/AppKit.h>
 #import "defines.h"
 #import "NSFileManager+TB.h"
 
@@ -145,20 +149,16 @@ int main(int argc, char *argv[])
         NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
         NSString * targetPath = @"/Applications/Tunnelblick.app";
         if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-            NSString * trashedPath = [[NSString stringWithFormat:
-                                       @"~/.Trash/Tunnelblick (deleted at %@).app",
-                                       [[[[NSDate alloc] init] autorelease] description]]
-                                      stringByExpandingTildeInPath];
-            
-            [gFileMgr tbRemoveFileAtPath:trashedPath handler: nil];  // Ignore errors if it doesn't exist
-            
-            if (  rename([gFileMgr fileSystemRepresentationWithPath: targetPath], [gFileMgr fileSystemRepresentationWithPath: trashedPath]) != 0  ) {
+            if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
+                                                               source: @"/Applications"
+                                                          destination: @""
+                                                                files: [NSArray arrayWithObject:@"Tunnelblick.app"]
+                                                                  tag: nil]  ) {
+                NSLog(@"Tunnelblick Installer: Moved %@ to the Trash", targetPath);
+            } else {
                 NSLog(@"Tunnelblick Installer: Unable to move %@ to the Trash", targetPath);
                 errorExit();
-            } else {
-                NSLog(@"Tunnelblick Installer: Moved %@ to the Trash", targetPath);
             }
-
         }
         
         if (  ! [gFileMgr tbCopyPath: currentPath toPath: targetPath handler: nil]  ) {
