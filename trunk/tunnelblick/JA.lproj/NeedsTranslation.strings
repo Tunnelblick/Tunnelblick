@@ -506,7 +506,7 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
-"Copyright © 2004-2010 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2010 Angelo Laub and others. All rights reserved.";
+"Copyright © 2004-2011 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2011 Angelo Laub and others. All rights reserved.";
 
 /* Window text */
 "Do you wish to install %d configurations?" = "Do you wish to install %d configurations?";
