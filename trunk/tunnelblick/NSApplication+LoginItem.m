@@ -359,7 +359,7 @@ extern NSFileManager * gFileMgr;
 		(myAuthorizationRef, myToolPath, myFlags, myArguments,
 		 // 15
 		 NULL);
-	free(myArguments);
+	freeCArray(myArguments);
 	return myStatus;
 }
 

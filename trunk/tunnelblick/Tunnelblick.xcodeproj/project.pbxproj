@@ -57,6 +57,8 @@
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
+		635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
+		635CA9A812F9DD3000287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
 		635CBBDF10F3B3D600BF529B /* ZH_CN.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */; };
 		635CBBE310F3B3E700BF529B /* ZH_TW.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 635CBBE010F3B3E700BF529B /* ZH_TW.lproj */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
@@ -214,6 +216,7 @@
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635CA45212F8285D00287298 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		635CA99F12F9DCE300287298 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_CN.lproj; sourceTree = "<group>"; };
 		635CBBE010F3B3E700BF529B /* ZH_TW.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_TW.lproj; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
@@ -259,6 +262,7 @@
 			files = (
 				63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */,
 				61BC4DA00E2FA31F00F24255 /* Foundation.framework in Frameworks */,
+				635CA9A812F9DD3000287298 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +284,7 @@
 				61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */,
 				63C504291178E21100340D13 /* Security.framework in Frameworks */,
 				6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */,
+				635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +380,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6165CC8A0E9072A5007312DC /* RouteManager.h */,
 				6165CC8B0E9072A5007312DC /* RouteManager.m */,
+				635CA99F12F9DCE300287298 /* AppKit.framework */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";

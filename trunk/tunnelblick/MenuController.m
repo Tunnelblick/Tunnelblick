@@ -5,11 +5,13 @@
  *                  Waldemar Brodkorb
  * Contributions by Jonathan K. Bullard Copyright 2010, 2011
  *
- *  This program is free software; you can redistribute it and/or modify
+ *  This file is part of Tunnelblick.
+ *
+ *  Tunnelblick is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2
  *  as published by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful,
+ *  Tunnelblick is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -18,6 +20,7 @@
  *  along with this program (see the file COPYING included with this
  *  distribution); if not, write to the Free Software Foundation, Inc.,
  *  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *  or see http://www.gnu.org/licenses/.
  */
 
 #import <Foundation/NSDebug.h>
@@ -121,7 +124,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                   afterIndex:               (int)               theIndex
                                     withName:               (NSString *)        displayName;
 -(NSString *)       installationId;
--(int)              intValueOfBuildForBundle:               (NSBundle *)        theBundle;
 -(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
                                             logMessage:     (NSString *)        logMessage;
 -(BOOL)             loadMenuIconSet;
@@ -626,6 +628,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: iconSetDir];
     NSArray *allObjects = [dirEnum allObjects];
     
+    [animImages release];
     animImages = [[NSMutableArray alloc] init];
     
     for(i=0;i<[allObjects count];i++) {
@@ -637,9 +640,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 NSString *name = [[file lastPathComponent] stringByDeletingPathExtension];
                 
                 if (  [name isEqualToString:@"closed"]) {
+                    [mainImage release];
                     mainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     
                 } else if(  [name isEqualToString:@"open"]) {
+                    [connectedImage release];
                     connectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     
                 } else {
@@ -678,20 +683,23 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) initialiseAnim
 {
-    int i;
-	// theAnim is an NSAnimation instance variable
-	theAnim = [[NSAnimation alloc] initWithDuration:2.0
-                                     animationCurve:NSAnimationLinear];
-	[theAnim setFrameRate:7.0];
-	[theAnim setDelegate:self];
-	
-    for (i=1; i<=[animImages count]; i++)
-    {
-        NSAnimationProgress p = ((float)i)/((float)[animImages count]);
-        [theAnim addProgressMark:p];
+    if (  theAnim == nil  ) {
+        int i;
+        // theAnim is an NSAnimation instance variable
+        theAnim = [[NSAnimation alloc] initWithDuration:2.0
+                                         animationCurve:NSAnimationLinear];
+        [theAnim setFrameRate:7.0];
+        [theAnim setDelegate:self];
+        
+        for (i=1; i<=[animImages count]; i++)
+        {
+            NSAnimationProgress p = ((float)i)/((float)[animImages count]);
+            [theAnim addProgressMark:p];
+        }
+        [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
     }
-	[theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
 }
+
 // Initial creation of the menu
 -(void) createMenu 
 {	
@@ -900,7 +908,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[myVPNMenu addItem:statusMenuItem];
 	[myVPNMenu addItem:[NSMenuItem separatorItem]];
     
-    myConfigDictionary = [[[[ConfigurationManager defaultManager] getConfigurations] mutableCopy] retain];
+    myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] mutableCopy];
     
     // Add each connection to the menu
     NSString * dispNm;
@@ -2517,7 +2525,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
     NSAttributedString * credits = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
     
-    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2010 Angelo Laub and others. All rights reserved.", @"Window text");
+    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2011 Angelo Laub and others. All rights reserved.", @"Window text");
     
     NSDictionary * aboutPanelDict;
     aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -3757,7 +3765,6 @@ static void signal_handler(int signalNumber)
                                    nil);
         if (  response == NSAlertDefaultReturn  ) {
             // Launch the program in /Applications
-            sleep(5);
             if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {
                 TBRunAlertPanel(NSLocalizedString(@"Unable to launch Tunnelblick", @"Window title"),
                                 [NSString stringWithFormat: NSLocalizedString(@"An error occurred while trying to launch %@", @"Window text"), tbInApplicationsDisplayName],
@@ -3820,37 +3827,6 @@ static void signal_handler(int signalNumber)
         NSLog(@"statfs on %@ failed; assuming cannot run from that volume\nError was '%s'", path, strerror(errno));
     }
     return TRUE;   // Network volume or error accessing the file's data.
-}
-
-// After  r357, the build number is in Info.plist as "CFBundleVersion"
-// From   r126 through r357, the build number was in Info.plist as "Build"
-// Before r126, there was no build number
--(int)intValueOfBuildForBundle: (NSBundle *) theBundle
-{
-    int result = 0;
-    id infoVersion = [theBundle objectForInfoDictionaryKey: @"CFBundleVersion"];
-    
-    id appBuild;
-    if (   [[infoVersion class] isSubclassOfClass: [NSString class]]
-        && [infoVersion rangeOfString: @"."].location == NSNotFound  ) {
-        // No "." in version, so it is a build number
-        appBuild   = infoVersion;
-    } else {
-        // "." in version, so build must be separate
-        appBuild   = [theBundle objectForInfoDictionaryKey: @"Build"];
-    }
-    
-    if (  appBuild  ) {
-        if (  [[appBuild class] isSubclassOfClass: [NSString class]]  ) {
-            NSString * tmpString = appBuild;
-            result = [tmpString intValue];
-        } else if (  [[appBuild class] isSubclassOfClass: [NSNumber class]] ) {
-            NSNumber * tmpNumber = appBuild;
-            result = [tmpNumber intValue];
-        }
-    }
-    
-    return result;
 }
 
 // Invoked when a folder containing configurations has changed.
@@ -4205,6 +4181,8 @@ void terminateBecauseOfBadConfiguration(void)
         [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
 		[connection connect:self userKnows: YES];
 	}
+    
+    [connectionsToRestore release];
 }
 int runUnrecoverableErrorPanel(msg) 
 {
