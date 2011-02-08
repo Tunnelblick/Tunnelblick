@@ -206,4 +206,9 @@ BOOL needToRepairPackages(void);
 -(void)             setSelectedLeftNavListIndex:            (int)               newValue;
 -(BOOL)             terminatingAtUserRequest;
 
+// AppleScript support
+
+-(BOOL)             application:                            (NSApplication *)   sender
+             delegateHandlesKey:                            (NSString *)        key;
+-(NSArray *)        applescriptConfigurationList;
 @end
