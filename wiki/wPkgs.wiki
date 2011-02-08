@@ -22,6 +22,11 @@ You can create a Configuration by collecting together one configuration file and
 
 Example: a Configuration named "Main Office.tblk" is a Tunnelblick VPN Configuration that will appear in Tunnelblick as the "Main Office" configuration unless that name conflicts with an existing name (see [wPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
+==File References in the OpenVPN Configuration File==
+Within the OpenVPN configuration file itself, refer to other files, such as key or certificate files, without using a path or path prefix -- just use the name of the file.
+
+Example: Refer to the "xyz.key" file in the OpenVPN configuration file as "key xyz.key", not "key abc/xyz.key".
+
 ==Installation==
 Installation of a Configuration can be done manually by double-clicking it or by dragging it to a Tunnelblick icon in Finder. (A Configuration _cannot_ be dragged to the Tunnelblick icon in the Status Bar.) Installation can also be done automatically when Tunnelblick is installed from a disk image or certain other other volumes (see [wPkgs#Automatic_Installation Automatic Installation]).
 
@@ -48,11 +53,6 @@ The contents of a Tunnelblick VPN Configuration are arranged as follows *after i
                 (Optional) key, certificate, and/or other shell script files
 }}}
 The name of the Configuration (without ".tblk") is used as the display name of the configuration unless it conflicts with an existing name (see [wPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
-
-==File References in the OpenVPN Configuration File==
-Within the OpenVPN configuration file itself, refer to other files, such as key or certificate files, without using a path or path prefix -- just use the name of the file.
-
-Example: Refer to the "xyz.key" file in the OpenVPN configuration file as "key xyz.key", not "key abc/xyz.key".
 
 ==Info.plist==
 Info.plist is optional. If it exists, it must be an OS X property list file, with keys from the following table. The only mandatory key is TBPackageVersion; all others are optional.
