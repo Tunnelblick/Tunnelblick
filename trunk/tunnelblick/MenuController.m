@@ -4407,4 +4407,26 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     }
 }
 
+//*********************************************************************************************************
+//
+// AppleScript support
+//
+//*********************************************************************************************************
+
+-(BOOL) application: (NSApplication *) sender delegateHandlesKey: (NSString *) key
+{
+    if ([key isEqual:@"applescriptConfigurationList"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+-(NSArray *) applescriptConfigurationList
+{
+    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+    NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
+    return myConnectionArray;
+}
+
 @end

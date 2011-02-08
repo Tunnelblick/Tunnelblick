@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Tunnelblick Terminology">
+	<suite name="Tunnelblick Suite" code="tblk" description="Tunnelblick AppleScript support">
+		
+		<class name="application" code="capp" description="">
+			<cocoa class="NSApplication"/>
+			<element type="configuration" access="r">
+				<cocoa key="applescriptConfigurationList"/>
+			</element>
+		</class>
+		
+		<class name="configuration" code="TBco" description="A VPN configuration." plural="configurations">
+			<cocoa class="VPNConnection"/>
+			<property name="name" code="TBnm" type="text" access="r" description="Name of the configuration.">
+				<cocoa key="displayName"/>
+			</property>
+			<property name="state" code="TBst" type="text" access="r"
+				      description="State of the configuration. 'EXITING' means disconnecting or disconnected. 'CONNECTED' means connected. Other values show progress towards a connection.">
+				<cocoa key="state"/>
+			</property>
+			<property name="autoconnect" code="TBac" type="text" access="r" description="'LAUNCH' means the configuration will be connected automatically when Tunnelblick launches. 'START' means the configuration will be connected automatically when the computer starts. 'NO' means the configuration will not be connected automatically.">
+				<cocoa key="autoConnect"/>
+			</property>
+		</class>
+				
+		<command name="connect" code="TBLKConn" description="Connect a VPN configuration.">
+			<cocoa class="ApplescriptConnect"/>
+			<direct-parameter description="Name of configuration to connect." type="text"/>
+			<result type="boolean" description="Returns true if a connection is being attempted, false if the configuration is already connected."/>
+		</command>
+		<command name="disconnect" code="TBLKDisc" description="Disconnect a VPN configuration.">
+			<cocoa class="ApplescriptDisconnect"/>
+			<direct-parameter description="Name of configuration to disconnect." type="text"/>
+			<result type="boolean" description="Returns true if a disconnection is being attempted, false if the configuration is already disconnected."/>
+		</command>
+		<command name="connect all" code="TBLKCona" description="Connect all unconnected VPN configurations.">
+			<cocoa class="ApplescriptConnectAll"/>
+			<result type="integer" description="Returns the number of configurations for which a connection is being attempted."/>
+		</command>
+		<command name="disconnect all" code="TBLKDisa" description="Disconnect all connected VPN configurations.">
+			<cocoa class="ApplescriptDisconnectAll"/>
+			<result type="integer" description="Returns the number of configurations for which a disconnection is being attempted."/>
+		</command>
+		<command name="disconnect all except when computer starts" code="TBLKDisb" description="Disconnect all connected VPN configurations except 'when computer starts' configurations.">
+			<cocoa class="ApplescriptDisconnectAllBut"/>
+			<result type="integer" description="Returns the number of configurations for which a disconnection is being attempted."/>
+		</command>
+		
+	</suite>
+</dictionary>
