@@ -56,6 +56,7 @@
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
+		635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 635C80451300353000DB27AE /* ApplescriptCommands.m */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
 		635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
 		635CA9A812F9DD3000287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
@@ -66,6 +67,7 @@
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
+		63A3CC2A12FB45E7008BC1A2 /* Tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 63A3CC2912FB45E7008BC1A2 /* Tunnelblick.sdef */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
@@ -215,6 +217,8 @@
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
+		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
 		635CA45212F8285D00287298 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		635CA99F12F9DCE300287298 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZH_CN.lproj; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
+		63A3CC2912FB45E7008BC1A2 /* Tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = Tunnelblick.sdef; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
 		63AE8596116CCF7A00D36CB1 /* PL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL.lproj; sourceTree = "<group>"; };
@@ -298,6 +303,8 @@
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
+				635C80441300353000DB27AE /* ApplescriptCommands.h */,
+				635C80451300353000DB27AE /* ApplescriptCommands.m */,
 				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
 				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
@@ -399,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
+				63A3CC2912FB45E7008BC1A2 /* Tunnelblick.sdef */,
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
@@ -610,6 +618,7 @@
 				63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */,
 				63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */,
 				635CA45312F8285D00287298 /* COPYING in Resources */,
+				63A3CC2A12FB45E7008BC1A2 /* Tunnelblick.sdef in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +709,7 @@
 				63E8427C117A147500529DE2 /* ConfigurationManager.m in Sources */,
 				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

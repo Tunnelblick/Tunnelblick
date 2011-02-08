@@ -34,11 +34,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.2beta03 (build 2350)</string>
+	<string>3.2beta03 (build 2351)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>2350</string>
+	<string>2351</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -51,5 +51,9 @@
 	<string>http://tunnelblick.net/appcast.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>OSAScriptingDefinition</key>
+	<string>Tunnelblick.sdef</string>
 </dict>
 </plist>

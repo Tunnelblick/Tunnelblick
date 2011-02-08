@@ -1614,4 +1614,37 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+//*********************************************************************************************************
+//
+// AppleScript support
+//
+//*********************************************************************************************************
+
+- (NSScriptObjectSpecifier *)objectSpecifier
+{
+    NSScriptClassDescription* appDesc = (NSScriptClassDescription*)[NSApp classDescription]; 
+    
+    return [[[NSNameSpecifier alloc] 
+             initWithContainerClassDescription:appDesc 
+             containerSpecifier:nil 
+             key:@"applescriptConfigurationList" 
+             name:[self displayName]] autorelease]; 
+} 
+
+- (NSString *) autoConnect
+{
+    NSString* autoConnectkey = [[self displayName] stringByAppendingString: @"autoConnect"];
+    NSString* systemStartkey = [[self displayName] stringByAppendingString: @"-onSystemStart"];
+    
+    if (  [gTbDefaults boolForKey: autoConnectkey]  ) {
+        if (  [gTbDefaults boolForKey: systemStartkey]  ) {
+            return @"START";
+        }
+
+        return @"LAUNCH";
+    }
+    
+    return @"NO";
+}
+
 @end
