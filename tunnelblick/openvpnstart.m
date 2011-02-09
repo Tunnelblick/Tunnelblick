@@ -547,7 +547,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
         
         // BUT MAY OVERRIDE THE ABOVE if there are scripts in the .tblk
-        if (  [[configPath pathExtension] isEqualToString: @"tblk"]) {
+        if (  tblkPath  ) {
             NSString * tblkUpscriptPath             = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@up.sh",               scriptNumString]];
             NSString * tblkDownscriptPath           = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@down.sh",             scriptNumString]];
             NSString * tblkUpscriptNoMonitorPath    = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@nomonitor.up.sh",     scriptNumString]];
