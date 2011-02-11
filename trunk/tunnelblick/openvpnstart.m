@@ -408,8 +408,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             exit(236);
         }
         cdFolderPath = [configPath stringByAppendingPathComponent: @"Contents/Resources"];
-        [cfg retain];
-        [configPath release];
         configPath = cfg;
     } else {
         // Not a .tblk package: check that it is secured
