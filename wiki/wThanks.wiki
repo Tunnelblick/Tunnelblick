@@ -183,6 +183,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Jeremy W. Sherman      </td>
+    <td>      French    </td>
+  </tr>
+
+  <tr>
     <td>      François Varas      </td>
     <td>      French    </td>
   </tr>
