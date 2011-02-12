@@ -440,9 +440,6 @@
 "Tunnelblick Error" = "Error de Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick Problem" = "Tunnelblick Problem";
-
-/* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick VPN Configuration Installation Error" = "Tunnelblick VPN Configuration Installation Error";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -663,9 +660,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";

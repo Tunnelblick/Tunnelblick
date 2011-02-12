@@ -266,9 +266,6 @@
 "This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?" = "This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?";
 
 /* Window title */
-"Tunnelblick Problem" = "Tunnelblick Problem";
-
-/* Window title */
 "Tunnelblick VPN Configuration Installation Error" = "Tunnelblick VPN Configuration Installation Error";
 
 /* Window title */
@@ -447,9 +444,6 @@
 
 /* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
-
-/* Window text */
-"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
