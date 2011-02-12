@@ -443,9 +443,6 @@
 "Tunnelblick Error" = "Tunnelblick-Fehler";
 
 /* Window title */
-"Tunnelblick Problem" = "Tunnelblick-Problem";
-
-/* Window title */
 "Tunnelblick VPN Configuration Installation Error" = "Tunnelblick-VPN-Konfiguration Installationsfehler";
 
 /* Window title */
@@ -666,9 +663,6 @@
 
 /* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick konnte die Zugriffsrechte der Konfigurationsdatei nicht ändern um sie zu sichern. Details finden Sie in der Konsole.";
-
-/* Window text */
-"Tunnelblick could not continue because it was unable to create a temporary file. Please examine the Console Log for details." = "Tunnelblick muss beendet werden, weil keine temopräre Datei angelegt werden kann. Details finden Sie in der Konsole.";
 
 /* Window text */
 "Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick kann die Konfiguration „%@“ nicht kopieren. Details finden Sie in der Konsole.";
