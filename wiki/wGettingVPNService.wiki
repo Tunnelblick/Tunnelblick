@@ -51,7 +51,6 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=https://www.privateinternetaccess.com Private Internet Access]*
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
-  * *[http://www.tunnelblick.net/to.php?to=http://www.secure-tunnel.com Secure-Tunnel]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
@@ -61,7 +60,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-02-04.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-02-15.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
