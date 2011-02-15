@@ -26,7 +26,7 @@ Versions which are NOT vulnerable:
 
  * Fixes problem installing Tunnelblick via double-click when the user's home folder is not on the same volume as /Applications/Tunnelblick.app
 
- * Warns the user a configuration is set to to start when the computer starts and it is a Tunnelblick VPN Configuration (.tblk package) which includes a 'connected.sh', 'reconnecting.sh', or 'post-disconnect.sh' script. Those scripts are not executed unless Tunnelblick itself is running when the event occurs, which may not be the case for 'when computer starts' configurations.
+ * Warns the user if a configuration is set to to connect when the computer starts and it is a Tunnelblick VPN Configuration (.tblk package) which includes a 'connected.sh', 'reconnecting.sh', or 'post-disconnect.sh' script. Those scripts are not executed unless Tunnelblick itself is running when the event occurs, which may not be the case for 'when computer starts' configurations.
 
  * Tunnelblick (but not third-party) preparation for OS X 10.7 (Lion), including isolating deprecated methods and changes for GCC 4.2. Warnings about 'object file compiled with -mlong-branch' when building Tunnelblick are now _gone_ -- building Tunnelblick generates warnings only for third-party software. (Still generates code for OS X 10.4, 10.5, and 10.6)
 
