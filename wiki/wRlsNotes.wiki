@@ -1,21 +1,27 @@
 #summary Release Notes - Tunnelblick
 #sidebar wSb
 
-=Release Notes for Tunnelblick=
+*<font size="3">Release Notes for Tunnelblick</font>*
+
+<wiki:toc max_depth="2" />
 
 --------------------
 
-==Security Vulnerabilities==
-Bugs causing security vulnerabilities exist in Tunnelblick versions 3.1, 3.1.1, and 3.1.2. All users of Tunnelblick are advised to update to the latest version. For more information including instructions for updating, see the [vulnerability20110127FAQ 2011-01-27 Vulnerability FAQ].
+*<font size="3" color="red">Security Vulnerabilities</font>*
+Bugs causing security vulnerabilities exist in several versions of Tunnelblick. All users of Tunnelblick are advised to update to the latest version. For more information on the vulnerabilities including instructions for updating, see the [vulnerability20110127FAQ 2011-01-27 Vulnerability FAQ] or [vulnerability20110112FAQ 2011-01-12 Vulnerability FAQ].
 
 Versions which are NOT vulnerable:
  3.1.3 and later<br>
- 3.0b10 and earlier<br>
- 3.0.1 (created for those users who cannot upgrade to 3.1.1)
+ 3.0.1 (created for those users who cannot upgrade to 3.1.1)<br>
+ 3.0b10 and earlier
 
 --------------------
 
-==3.2beta02 (2011-02-02)==
+==Version 3.2==
+
+--------------------
+
+*3.2beta02 (2011-02-02)*
 
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * The 'pre-connect.sh' script is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
@@ -40,19 +46,23 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1.5 (2011-02-01)==
+==Version 3.1==
+
+--------------------
+
+*3.1.5 (2011-02-01)*
 
  * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
 
 --------------------
 
-==3.1.4 (2011-01-28)==
+*3.1.4 (2011-01-28)*
 
  * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").
 
 --------------------
 
-==3.1.3 (2011-01-27)==
+*3.1.3 (2011-01-27)*
 
  * Fixes a security vulnerability which affects all earlier Tunnelblick 3.1 versions (but not any 3.0 versions).
 
@@ -81,13 +91,13 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1.2 (2010-12-25)==
+*3.1.2 (2010-12-25)*
 
  * Removes the 'warns the user when certain unexpected disconnections occur' feature added in version 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. This feature will return in more robust form in a future beta release.
 
 --------------------
 
-==3.1.1 (2010-12-18)==
+*3.1.1 (2010-12-18)*
 
  * Fixes a problem with the left navigation sometimes not being displayed properly when the Details… window does not have left navigation but adding a configuration changes it to have left navigation.
 
@@ -119,13 +129,13 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1 (2010-12-05)==
+*3.1 (2010-12-05)*
 
  * Only the version and build numbers were updated.
 
 --------------------
 
-==3.1beta24 (2010-12-03)==
+*3.1beta24 (2010-12-03)*
 
  * Updates to use OpenSSL 1.0.0c, which fixes several security vulnerabilities.
 
@@ -135,7 +145,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta22 (2010-12-01)==
+*3.1beta22 (2010-12-01)*
 
   * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.
   
@@ -147,13 +157,13 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta20 (2010-10-31)==
+*3.1beta20 (2010-10-31)*
 
   * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [wPrefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".
 
 --------------------
 
-==3.1beta18 (2010-010-16)==
+*3.1beta18 (2010-010-16)*
   * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
 
   * Streamlines installation by double-clicking to have only one dialog box explaining what will be installed and asking for admin username/password.
@@ -164,7 +174,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta16 (2010-010-08)==
+*3.1beta16 (2010-010-08)*
   * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
     * The following choices will always be displayed:
       * 'Do not set nameserver' to not use any scripts                  (equivalent to not having a check in the old 'Set nameserver' checkbox')
@@ -193,7 +203,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta14 (2010-09-09)==
+*3.1beta14 (2010-09-09)*
  * Fixes Issue 159 problem that, under certain circumstances, crashes client.down.tunnelblick.sh 
  
  * Includes OpenVPN version 2.1.3.
@@ -283,7 +293,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta12 (2010-08-08)==
+*3.1beta12 (2010-08-08)*
  * Includes Italian localization thanks to Pierpaolo Gulla (Grazie!).
 
  * Implements a single, system-wide keyboard shortcut (command-option-F1 by default) to expose the Tunnelblick menu.
@@ -306,7 +316,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta10 (2010-07-29)==
+*3.1beta10 (2010-07-29)*
  * Configurations located in subfolders are displayed in submenus of the main Tunnelblick menu.
 
  * The 'wizard' that runs when there are no configurations present or when the user selects 'Add a configuration…' has been enhanced.
@@ -337,7 +347,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta08 (2010-07-10)==
+*3.1beta08 (2010-07-10)*
   <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLY 3.1BETA VERSIONS:*</font> The first time that you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.
 
   * Benji Greig has created an updated Tunnelblick icon that looks great in Coverflow. He has also created a distinctive icon for Tunnelblick VPN Configurations, and a new background image for the Disk Image. Thanks, Benji!
@@ -378,7 +388,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta06 (2010-06-07)==
+*3.1beta06 (2010-06-07)*
   * Takes into account both the 'dev-type' and 'dev' options in the configuration file when trying to determine if it is a 'tun' or 'tap' connection. Tunnelblick tries to determine that so it can load only the tap or tun kext (device driver) that is required. Note: there appears to be a bug in OpenVPN that makes the dev-type option fail; this does not help that problem.
 
  * Runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
@@ -395,7 +405,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta04 (2010-05-27)==
+*3.1beta04 (2010-05-27)*
   * Creates pipes for script output to "Details…" window on demand instead of when Tunnelblick launches
 
   * Deletes logs for 'when computer starts' connections when they are disconnected
@@ -447,7 +457,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.1beta02 (2010-05-14)==
+*3.1beta02 (2010-05-14)*
   * Polish (PL) localization by Grzegorz Danecki. Dziękuję bardzo!
   * Additional Norwegian (Bokmål, NB) localization by Jon Luberth. Tusen takk!
   * Additional French (FR) localisation by François Varas. Merci beaucoup!
@@ -525,7 +535,11 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.0.1 (2011-01-12)==
+==Version 3.0==
+
+--------------------
+
+*3.0.1 (2011-01-12)*
 
  * Fixes bug that causes a serious [vulnerability20110112FAQ security vulnerability].
  * Fixes bugs relating to forced-preferences.plist wildcards used in Deployed versions of Tunnelblick.
@@ -533,13 +547,13 @@ Versions which are NOT vulnerable:
  
 --------------------
 
-==3.0 (2010-03-03)==
+*3.0 (2010-03-03)*
   * Fixes incorrect display of 'Automatically Check for Updates' preference on first run after some updates.
   * Out of beta!
 
 --------------------
 
-==3.0b28 (2010-02-24)==
+*3.0b28 (2010-02-24)*
 
   * Wildcards for forced preferences (see [DeployingTunnelblick Deploying Tunnelblick]).
   * Displays configuration name in title of "Details…" window.
@@ -548,7 +562,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.0b26 (2010-02-09)==
+*3.0b26 (2010-02-09)*
   * Now uses OpenVPN version 2.1.1.
   * Adds Chinese localization (both simplified and traditional). Many thanks to Aming Lau.
   * Installation has been simplified: The Tunnelblick disk image gives instructions to "Double-click to begin" in several languages. Double-clicking starts a small installer. The installer detects installs/reinstalls/upgrades/downgrades and puts the current copy of Tunnelblick.app in the Trash before replacing it, then offers to launch the new version. Warns about other copies of Tunnelblick running during an install and offers to stop them. (Simply copying Tunnelblick.app to /Applications or elsewhere on the hard drive still works, too.)
@@ -565,7 +579,7 @@ Versions which are NOT vulnerable:
 
 --------------------
 
-==3.0b24 (2009-12-12)==
+*3.0b24 (2009-12-12)*
   * New 'Monitor connection' checkbox in the "Details…" window (defaults to checked). When checked, Tunnelblick monitors connection interfaces as it has since 3.0b18. When unchecked, Tunnelblick ignores connection interface changes, as version 3.0b10 did. This allows more users to use the latest version (some users couldn't because of repeated restarts caused by Tunnelblick detecting connection interface changes). Please note that OpenVPN itself restarts connections under certain circumstances. New scripts are used when 'Monitor connection' is not checked and 'Set DNS' is checked: client.nomonitor.up.osx.sh and client.nomonitor.down.osx.sh.
   * New 'Options' submenu has entries to change commonly used preferences, check for updates, and view the 'About…' window.
   * Tun/tap kernel extensions are loaded when Tunnelblick launches and unloaded when Tunnelblick quits.
@@ -595,7 +609,7 @@ Known Issues:
 
 --------------------
 
-==3.0b22 (2009-11-01)==
+*3.0b22 (2009-11-01)*
   * Includes OpenVPN version 2.1_rc20, which fixes problems with the "redirect-gateway" option.
   * Includes the 32/64-bit version of tuntap, which fixes problems running Tunnelblick on Snow Leopard under the 64-bit kernel. Thanks to the tuntap project, to Mohammad A. Haque for Xcode help, and to Jean-Philippe Jung for testing.
   * Stores username in Keychain instead of preferences.
@@ -611,7 +625,7 @@ Known Issues:
 
 --------------------
 
-==3.0b20 (2009-10-09)==
+*3.0b20 (2009-10-09)*
   * Fixes issues with "Set nameserver" on Snow Leopard.
   * Inhibits console message that tun and tap are already loaded.
   * Sends details of some error messages to the "Details…" window instead of the Console log.
@@ -625,7 +639,7 @@ Known Issues:
 
 --------------------
 
-==3.0b18 (2009-09-23)==
+*3.0b18 (2009-09-23)*
   * Implements different behavior when configuration files change: when a configuration file is added, all connections are maintained. When a configuration file is deleted, only the corresponding connection is disconnected (and an alert window is displayed). In either case, the menu and Log window reflect the change immediately without restarting Tunnelblick. Changes to a configuration file's contents or metadata are ignored (but will be used the next time a connection is attempted).
   * Works with home folders on network volumes and/or when the home folder is not permitted to have files owned by root. This is implemented transparently with "shadow" copies of configuration files. It is automatic if the config file is on a network volume or if Tunnelblick's "useShadowConfigurationFiles" preference is set.
   * Moves "Set nameserver" checkbox to avoid inadvertent changes.
@@ -651,7 +665,7 @@ Known Issues:
 
 --------------------
 
-==3.0b16 (2009-08-22)==
+*3.0b16 (2009-08-22)*
 
   * Upgraded to OpenVPN version 2.1_rc19
   * Additional French translations (contributed by Oliver Hill)
@@ -667,7 +681,7 @@ Known Issues:
 
 --------------------
 
-==3.0b14 (2009-08-10)==
+*3.0b14 (2009-08-10)*
 
   * Fixed issues where DNS settings were not saved properly, and when DHCP is renewed (contributed by Diego Rivera)
   * Added support for PKCS#11 and Security Tokens, e.g. Aladdin eToken (contributed by Xaver Loppenstedt)
@@ -710,7 +724,7 @@ Known Issues:
 
 --------------------
 
-==3.0b10 (2008-11-20)==
+*3.0b10 (2008-11-20)*
   
   * fix linking problem that resulted in lzo compression not working on PowerPC 
   * prevent user from launching tunnelblick directly from the dmg
@@ -730,7 +744,7 @@ Known Issues:
   
 --------------------
 
-==3.0b9 (2008-07-24)==
+*3.0b9 (2008-07-24)*
 
   * Fixed the crash on Leopard
   * Fixes the slow shutdown issue
