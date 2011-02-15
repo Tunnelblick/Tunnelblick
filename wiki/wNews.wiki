@@ -5,7 +5,7 @@
 
 --------------------
 
-2011-02-02: *Tunnelblick 3.2beta02 is [DownloadsEntry?tm=2 available for download]*. Full details are in the [wRlsNotes Release Notes].
+2011-02-02: *Tunnelblick 3.2beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * pre-connect.sh
    * post-tun-tap-load.sh
@@ -19,7 +19,7 @@
 
 --------------------
 
-2011-02-01: *Tunnelblick 3.1.5 is [DownloadsEntry?tm=2 available for download]*.
+2011-02-01: *Tunnelblick 3.1.5 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
 
 --------------------
