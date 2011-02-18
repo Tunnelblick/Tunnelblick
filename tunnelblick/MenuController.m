@@ -47,7 +47,7 @@ NSString              * gSharedPath;          // Path to /Library/Application Su
 TBUserDefaults        * gTbDefaults;          // Our preferences
 NSFileManager         * gFileMgr;             // [NSFileManager defaultManager]
 NSDictionary          * gOpenVPNVersionDict;  // Dictionary with OpenVPN version information
-unsigned int            gHookupTimeout;       // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
+unsigned                gHookupTimeout;       // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                               or zero to keep trying indefinitely
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
@@ -106,10 +106,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             dmgCheck;
 -(int)              firstDifferentComponent:                (NSArray *)         a
                           and:                              (NSArray *)         b;
--(int)              getLoadedKextsMask;
+-(unsigned)         getLoadedKextsMask;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
--(void)             hookupToRunningOpenVPNs;
+-(BOOL)             hookupToRunningOpenVPNs;
 -(NSString *)       indent:                                 (NSString *)        s
                         by:                                 (int)               n;
 -(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
@@ -151,6 +151,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             setLogWindowTitle;
 -(void)             setTitle:                               (NSString *)        newTitle
                    ofControl:                               (id)                theControl;
+-(BOOL)             setupHookupWatchdogTimer;
 -(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
                         andModifierKeys:                    (UInt32)            modifierKeys;
 -(void)             setupSparklePreferences;
@@ -163,7 +164,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             updateNavigationLabels;
 -(void)             updateUI;
 -(void)             validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) connection;
--(void)             validateWhenConnectingForConnection:    (VPNConnection *)   connection;
 -(void)             validateDetailsWindowControls;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void)             watcher:                                (UKKQueue *)        kq
@@ -368,27 +368,39 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         [[NSNotificationCenter defaultCenter] addObserver: self 
-                                                 selector: @selector(logNeedsScrolling:) 
+                                                 selector: @selector(logNeedsScrollingHandler:) 
                                                      name: @"LogDidChange" 
                                                    object: nil];
 		
-		// In case the systemUIServer restarts, we observed this notification.
-		// We use it to prevent to end up with a statusItem right of Spotlight:
+		
+        // In case the systemUIServer restarts, we observed this notification.
+		// We use it to prevent ending up with a statusItem to the right of Spotlight:
 		[[NSDistributedNotificationCenter defaultCenter] addObserver: self 
-															selector: @selector(menuExtrasWereAdded:) 
+															selector: @selector(menuExtrasWereAddedHandler:) 
 																name: @"com.apple.menuextra.added" 
 															  object: nil];
         
+        
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
-															   selector: @selector(willGoToSleep)
-																   name: @"NSWorkspaceWillSleepNotification"
+															   selector: @selector(willGoToSleepHandler:)
+																   name: NSWorkspaceWillSleepNotification
 																 object:nil];
 		
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
-															   selector: @selector(wokeUpFromSleep)
-																   name: @"NSWorkspaceDidWakeNotification"
+															   selector: @selector(wokeUpFromSleepHandler:)
+																   name: NSWorkspaceDidWakeNotification
 																 object:nil];
 		
+        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                               selector: @selector(didBecomeActiveUserHandler:)
+                                                                   name: NSWorkspaceSessionDidBecomeActiveNotification
+                                                                 object: nil];
+        
+        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                               selector: @selector(didBecomeInactiveUserHandler:)
+                                                                   name: NSWorkspaceSessionDidResignActiveNotification
+                                                                 object: nil];
+        
         ignoreNoConfigs = TRUE;    // We ignore the "no configurations" situation until we've processed application:openFiles:
 		
         updater = [[SUUpdater alloc] init];
@@ -470,7 +482,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [gTbDefaults release];
     [oldSelectedConnectionName release];
     [connectionArray release];
-    [connectionsToRestore release];
+    [connectionsToRestoreOnWakeup release];
+    [connectionsToRestoreOnUserActive release];
     [gDeployPath release];
     [dotTblkFileList release];
     [lastState release];
@@ -479,6 +492,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [myVPNConnectionDictionary release];
     [myVPNMenu release];
     [showDurationsTimer release];
+    [hookupWatchdogTimer invalidate];
     [hookupWatchdogTimer release];
     [theAnim release];
     [updater release];
@@ -559,7 +573,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
-- (void) menuExtrasWereAdded: (NSNotification*) n
+- (void) menuExtrasWereAddedHandler: (NSNotification*) n
 {
 	[self performSelectorOnMainThread: @selector(createStatusItem) withObject: nil waitUntilDone: NO];
 }
@@ -1548,11 +1562,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
     } else {
         // Timer is active. Stop it if not enabled or if no tunnels are connected.
-        if (  ! [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
-            [showDurationsTimer invalidate];
-            [showDurationsTimer release];
-            showDurationsTimer = nil;
-        } else {
+        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
             NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
             while (  conn = [connEnum nextObject]  ) {
@@ -1560,11 +1570,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                     return;
                 }
             }
-            
-            [showDurationsTimer invalidate];
-            [showDurationsTimer release];
-            showDurationsTimer = nil;
         }
+        
+        [showDurationsTimer invalidate];
+        [showDurationsTimer release];
+        showDurationsTimer = nil;
     }
 }
 
@@ -1938,7 +1948,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[autoConnectCheckbox setState:NSOffState];
 	}
 	
-    [self validateWhenConnectingForConnection: connection];     // May disable other controls if 'when computer connects' is selected
+    if (  ! [connection tryingToHookup]  ) {
+        [self validateWhenConnectingForConnection: connection];     // May disable other controls if 'when computer connects' is selected
+    }
 }
 -(void)updateNavigationLabels
 {
@@ -2084,7 +2096,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                                    forModes: nil];
 }
 
-- (void) logNeedsScrolling: (NSNotification*) aNotification
+- (void) logNeedsScrollingHandler: (NSNotification*) aNotification
 {
     [self performSelectorOnMainThread: @selector(doLogScrolling:) withObject: [aNotification object] waitUntilDone: NO];
 }
@@ -2570,12 +2582,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
         // But first append a log entry for each connection that will be restored
-        NSEnumerator * connectionEnum = [connectionsToRestore objectEnumerator];
+        NSEnumerator * connectionEnum = [connectionsToRestoreOnWakeup objectEnumerator];
         while (  connection = [connectionEnum nextObject]) {
             [connection addToLog: logMessage];
         }
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
-        if (  [connectionsToRestore count] != 0  ) {
+        if (  [connectionsToRestoreOnWakeup count] != 0  ) {
             sleep(1);
         }
         NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
@@ -2614,7 +2626,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // Unloads our loaded tun/tap kexts if tunCount/tapCount is zero.
 -(void) unloadKexts
 {
-    int bitMask = [self getLoadedKextsMask] & ( ~ (FOO_TAP_KEXT | FOO_TUN_KEXT)  );
+    unsigned bitMask = [self getLoadedKextsMask] & ( ~ (FOO_TAP_KEXT | FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
     
     if (  bitMask != 0  ) {
         if (  tapCount != 0  ) {
@@ -2643,11 +2655,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 // Returns with a bitmask of kexts that are loaded that can be unloaded
 // Launches "kextstat" to get the list of loaded kexts, and does a simple search
--(int) getLoadedKextsMask
+-(unsigned) getLoadedKextsMask
 {
     NSString * exePath = @"/usr/sbin/kextstat";
 
-    NSTask * task = [[NSTask alloc] init];
+    NSTask * task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath: exePath];
 
     NSArray  *arguments = [NSArray array];
@@ -2660,13 +2672,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [task launch];
     
-    NSData * data = [file readDataToEndOfFile];
+    [task waitUntilExit];
     
-    [task release];
+    OSStatus status = [task terminationStatus];
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"Warning: kextstat failed to list loaded kexts. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+
+    NSData * data = [file readDataToEndOfFile];
     
     NSString * string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
     
-    int bitMask = 0;
+    unsigned bitMask = 0;
 
     if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
         bitMask = bitMask | FOO_TAP_KEXT;
@@ -2864,8 +2882,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         BOOL coss = [connection checkConnectOnSystemStart: onSystemStart withAuth: myAuth];
 		NSString* systemStartkey = [name stringByAppendingString: @"-onSystemStart"];
         if (  [gTbDefaults boolForKey: systemStartkey] != coss  ) {
-            [gTbDefaults setBool: coss forKey: systemStartkey];
-            [gTbDefaults synchronize];
+            if (  [gTbDefaults canChangeValueForKey: systemStartkey]  ) {
+                [gTbDefaults setBool: coss forKey: systemStartkey];
+                [gTbDefaults synchronize];
+                NSLog(@"The '%@' preference was changed to %@", systemStartkey, (coss ? @"TRUE" : @"FALSE") );
+            } else {
+                NSLog(@"The '%@' preference could not be changed to %@ because it is a forced preference", systemStartkey, (coss ? @"TRUE" : @"FALSE") );
+            }
         }
         
         NSString * autoConnectKey = [name stringByAppendingString: @"autoConnect"];
@@ -3241,14 +3264,18 @@ static void signal_handler(int signalNumber)
     
     [self checkNoConfigurations];
 
+    if (  [self hookupToRunningOpenVPNs]  ) {
+        [self setupHookupWatchdogTimer];
+    }
+    
     // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
-        [self validateWhenConnectingForConnection: connection];
+        if (  ! [connection tryingToHookup]  ) {
+            [self validateWhenConnectingForConnection: connection];
+        }
     }
-    
-    [self hookupToRunningOpenVPNs];
     
     AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
     myAuth = nil;
@@ -3285,6 +3312,22 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    [NSApp setAutoLaunchOnLogin: YES];
+    
+    if (  hotKeyModifierKeys != 0  ) {
+        [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
+    }
+
+    launchFinished = TRUE;
+}
+
+// Returns TRUE if a hookupWatchdog timer was created or already exists
+-(BOOL) setupHookupWatchdogTimer
+{
+    if (  hookupWatchdogTimer  ) {
+        return TRUE;
+    }
+    
     gHookupTimeout = 5; // Default
     id hookupTimeout;
     if (  hookupTimeout = [gTbDefaults objectForKey: @"hookupTimeout"]  ) {
@@ -3294,21 +3337,16 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    if (  gHookupTimeout  != 0) {
-        hookupWatchdogTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) gHookupTimeout
-                                                               target: self
-                                                             selector: @selector(hookupWatchdogHandler)
-                                                             userInfo: nil
-                                                              repeats: NO];
+    if (  gHookupTimeout == 0) {
+        return FALSE;
     }
     
-    [NSApp setAutoLaunchOnLogin: YES];
-    
-    if (  hotKeyModifierKeys != 0  ) {
-        [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
-    }
-
-    launchFinished = TRUE;
+    hookupWatchdogTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) gHookupTimeout
+                                                           target: self
+                                                         selector: @selector(hookupWatchdogHandler)
+                                                         userInfo: nil
+                                                          repeats: NO];
+    return TRUE;
 }
 
 -(void) addPath: (NSString *) path toMonitorQueue: (UKKQueue *) queue
@@ -3353,12 +3391,13 @@ static void signal_handler(int signalNumber)
 
 -(void) hookupWatchdogHandler
 {
+    hookupWatchdogTimer = nil;  // NSTimer invalidated it and takes care of releasing it
 	[self performSelectorOnMainThread: @selector(hookupWatchdog) withObject: nil waitUntilDone: NO];
 }
 
 -(void) hookupWatchdog
 {
-    NSMutableArray * pids = [NSApp pIdsForOpenVPNProcesses];
+    NSMutableArray * pids = [NSApp pIdsForOpenVPNMainProcesses];
     
     VPNConnection * connection;
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
@@ -3371,9 +3410,7 @@ static void signal_handler(int signalNumber)
                 }
             }
         } else {
-            if (  [connection tryingToHookup]  ) {
-                [connection stopTryingToHookup];
-            }
+            [connection stopTryingToHookup];
         }
     }
     
@@ -3408,6 +3445,7 @@ static void signal_handler(int signalNumber)
         noUnknownOpenVPNsRunning = YES;
     }
 
+    [self reconnectAfterBecomeActiveUser];  // Now that we've hooked up everything we can, connect anything else we need to
 }
 
 // Sparkle delegate:
@@ -3556,10 +3594,14 @@ static void signal_handler(int signalNumber)
 //
 // The [connection tryToHookupToPort:] method corresponding to the configuration file is used to set
 // the connection's port # and initiate communications to get the process ID for that instance of OpenVPN
+//
+// Returns TRUE if started trying to hook up to one or more running OpenVPN processes
 
--(void) hookupToRunningOpenVPNs
+-(BOOL) hookupToRunningOpenVPNs
 {
-    if (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
+    BOOL tryingToHookupToOpenVPN = FALSE;
+    
+    if (  [[NSApp pIdsForOpenVPNMainProcesses] count] != 0  ) {
         NSString * filename;
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
         while (  filename = [dirEnum nextObject]  ) {
@@ -3582,12 +3624,17 @@ static void signal_handler(int signalNumber)
                         }
                         NSString * displayName = [keysForConfig objectAtIndex: 0];
                         VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
-                        [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
+                        if (  connection  ) {
+                            [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
+                            tryingToHookupToOpenVPN = TRUE;
+                        }
                     }
                 }
             }
         }
     }
+    
+    return tryingToHookupToOpenVPN;
 }
 
 // Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by openvpnstart
@@ -4157,10 +4204,10 @@ void terminateBecauseOfBadConfiguration(void)
     [NSApp terminate: nil];
 }
 
--(void)willGoToSleep
+-(void)willGoToSleepHandler: (NSNotification *) n
 {
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
-	connectionsToRestore = [connectionArray mutableCopy];
+	connectionsToRestoreOnWakeup = [connectionArray copy];
 	terminatingAtUserRequest = TRUE;
 	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
     if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
@@ -4170,11 +4217,16 @@ void terminateBecauseOfBadConfiguration(void)
         }
     }
 }
--(void)wokeUpFromSleep 
+-(void) wokeUpFromSleepHandler: (NSNotification *) n
+{
+    [self performSelectorOnMainThread: @selector(wokeUpFromSleep) withObject:nil waitUntilDone:NO];
+}
+
+-(void)wokeUpFromSleep
 {
 	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep");
 	
-	NSEnumerator *e = [connectionsToRestore objectEnumerator];
+	NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
 	VPNConnection *connection;
 	while(connection = [e nextObject]) {
 		if(NSDebugEnabled) NSLog(@"Restoring Connection %@", [connection displayName]);
@@ -4182,8 +4234,68 @@ void terminateBecauseOfBadConfiguration(void)
 		[connection connect:self userKnows: YES];
 	}
     
-    [connectionsToRestore release];
+    [connectionsToRestoreOnWakeup release];
+    connectionsToRestoreOnWakeup = nil;
 }
+-(void)didBecomeInactiveUserHandler: (NSNotification *) n
+{
+    [self performSelectorOnMainThread: @selector(didBecomeInactiveUser) withObject:nil waitUntilDone:NO];
+}
+
+-(void)didBecomeInactiveUser
+{
+    // Remember current connections so they can be restored if/when we become the active user
+    connectionsToRestoreOnUserActive = [connectionArray copy];
+    
+    // For each open connection, either reInitialize it or disconnect it
+    NSEnumerator * e = [connectionArray objectEnumerator];
+	VPNConnection * connection;
+	while (  connection = [e nextObject]  ) {
+        if (  [connection shouldDisconnectWhenBecomeInactiveUser]  ) {
+            [connection addToLog: @"*Tunnelblick: Disconnecting because user became inactive"];
+            [connection disconnectAndWait: [NSNumber numberWithInt: 5] userKnows: YES];
+        } else {
+            [connection addToLog: @"*Tunnelblick: Stopping communication with OpenVPN because user became inactive"];
+            [connection reInitialize];
+        }
+    }
+}
+
+-(void)didBecomeActiveUserHandler: (NSNotification *) n
+{
+    [self performSelectorOnMainThread: @selector(didBecomeActiveUser) withObject:nil waitUntilDone:NO];
+}
+
+-(void)didBecomeActiveUser
+{
+    [self hookupToRunningOpenVPNs];
+    if (  [self setupHookupWatchdogTimer]  ) {
+        return; // reconnectAfterBecomeActiveUser will be done when the hookup timer times out or there are no more hookups pending
+    }
+    
+    // Wait a second to give hookups a chance to happen, then restore connections after processing the hookups
+    sleep(1);   
+    
+    [self performSelectorOnMainThread: @selector(reconnectAfterBecomeActiveUser) withObject: nil waitUntilDone: YES];
+}
+
+-(void)reconnectAfterBecomeActiveUser
+{
+   // Reconnect configurations that were connected before this user was switched out and that aren't connected now
+    NSEnumerator * e = [connectionsToRestoreOnUserActive objectEnumerator];
+	VPNConnection * connection;
+	while(connection = [e nextObject]) {
+        if (  ! [connection isHookedup]  ) {
+            [connection stopTryingToHookup];
+            [connection addToLog: @"*Tunnelblick: Attempting to reconnect because user became active"];
+            [connection connect:self userKnows: YES];
+        }
+    }
+    
+    [connectionsToRestoreOnUserActive release];
+    connectionsToRestoreOnUserActive = nil;
+}
+
 int runUnrecoverableErrorPanel(msg) 
 {
 	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
@@ -4405,6 +4517,16 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
         [self setLogWindowTitle];
         [self validateDetailsWindowControls];
     }
+}
+
+-(NSArray *) connectionArray
+{
+    return [[connectionArray retain] autorelease];
+}
+
+-(NSArray *) connectionsToRestoreOnUserActive
+{
+    return [[connectionsToRestoreOnUserActive retain] autorelease];
 }
 
 //*********************************************************************************************************
