@@ -146,6 +146,56 @@ extern NSFileManager * gFileMgr;
     return(retArray);
 }
 
+// Like pIdsForOpenVPNProcesses, but only returns main OpenVPN processes, not down-root processes
+-(NSMutableArray *) pIdsForOpenVPNMainProcesses
+{
+    NSMutableArray * inPids = [NSApp pIdsForOpenVPNProcesses];
+    NSMutableArray * outPids = [NSMutableArray arrayWithCapacity: [inPids count]];
+    
+    if (  [inPids count] == 0  ) {
+        return inPids;
+    }
+    
+    int i;
+    for (  i=0; i < [inPids count]; i++  ) {
+        NSNumber * pidAsNSNumber = [inPids objectAtIndex: i];
+        unsigned pid = [pidAsNSNumber unsignedIntValue];
+        
+        NSTask * task = [[[NSTask alloc] init] autorelease];
+        NSPipe * stdPipe = [[[NSPipe alloc] init] autorelease];
+        
+        [task setLaunchPath: @"/bin/ps"];
+        [task setArguments:  [NSArray arrayWithObjects: @"-o", @"rss=", @"-p", [NSString stringWithFormat: @"%u", pid], nil]];
+        [task setStandardOutput: stdPipe];
+        
+        [task launch];
+        [task waitUntilExit];
+        OSStatus status = [task terminationStatus];
+        
+        // Get output from ps command
+        NSFileHandle * file = [stdPipe fileHandleForReading];
+        NSData * data = [file readDataToEndOfFile];
+        [file closeFile];
+        NSString * psOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+        psOutput = [psOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        if (   status == EXIT_SUCCESS  ) {
+            if (  [psOutput length] != 0  ) {
+                unsigned sizeInKB = atoi([psOutput UTF8String]);
+                if (  sizeInKB >= 1024  ) {  // Assumes OpenVPN itself is >= 1024KB, and openvpn-down-root.so is < 1024KB. In OpenVPN 2.1.4 they are 2300KB and 244KB, respectively
+                    [outPids addObject: pidAsNSNumber];
+                }
+            } else {
+                NSLog(@"'/bin/ps -o rss= -p %u' failed -- no output from the command\n'%s'", pid);
+            }
+        } else {
+            NSLog(@"'/bin/ps -o rss= -p %u' failed with error %d\n'%s'", pid, errno, strerror(errno));
+        }
+    }
+    
+    return outPids;
+}
+
 // Waits up to five seconds for a process to be gone
 // (Modified version of NSApplication+LoginItem's killOtherInstances)
 // Returns TRUE if process has terminated, otherwise returns FALSE

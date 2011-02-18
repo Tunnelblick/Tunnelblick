@@ -27,6 +27,7 @@
 - (int)             countOtherInstances;
 
 - (NSMutableArray *)pIdsForOpenVPNProcesses;
+- (NSMutableArray *)pIdsForOpenVPNMainProcesses;
 
 - (BOOL)            waitUntilNoProcessWithID:   (pid_t)             pid;
 

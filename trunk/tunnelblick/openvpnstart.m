@@ -49,6 +49,7 @@ void	killOneOpenvpn		(pid_t pid);	//Returns having killed an openvpn process, or
 int		killAllOpenvpn		(void);			//Kills all openvpn processes and returns the number of processes that were killed. May complain and exit
 void    waitUntilAllGone    (void);         //Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 
+unsigned getLoadedKextsMask (void);
 void	loadKexts			(unsigned int bitMask);	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void	unloadKexts			(unsigned int bitMask);	//Tries to UNload kexts. Will complain and exit if can't become root
 void	becomeRoot			(void);			//Returns as root, having setuid(0) if necessary; complains and exits if can't become root
@@ -171,13 +172,12 @@ int main(int argc, char* argv[])
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
 						unsigned int bitMask = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
-                        startArgs = [[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy];
+                        startArgs = [[[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy] autorelease];
                         if (   (cfgLocCode < 4)
                             && (bitMask < 1024)  ) {
                             retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask);
                             syntaxError = FALSE;
                         }
-                        [startArgs release];
 					}
 				}
 			}
@@ -262,7 +262,8 @@ int main(int argc, char* argv[])
                 "                            bit 2 is 1 to unload foo.tun\n"
                 "                            bit 3 is 1 to unload foo.tap\n"
                 "                            bit 4 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
-                "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n\n"
+                "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
+                "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
                 
 				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n"
                 "bitMask defaults to 0x03.\n\n"
@@ -568,7 +569,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
         
         // Process script options if scripts are "new" scripts
-        NSMutableString * scriptOptions = [[NSMutableString alloc] initWithCapacity: 16];
+        NSMutableString * scriptOptions = [[[NSMutableString alloc] initWithCapacity: 16] autorelease];
 
         if (  ! noMonitor  ) {
             [scriptOptions appendString: @" -m"];
@@ -609,7 +610,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             || ([downscriptCommand length] > 199  )) {
             fprintf(stderr, "Warning: Path for up and/or down script is very long. OpenVPN truncates the command line that starts each script to 255 characters, which may cause problems. Examine the OpenVPN log in Tunnelblick's \"Details...\" window carefully.");
         }
-        [scriptOptions release];
         
         if (  (useScripts & 2) != 0  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
@@ -656,19 +656,35 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
     }
 
-    // Unload foo.tap and/or foo.tun if we load our tap and/or tun
-    unsigned int unloadMask = 0;
+    // Unload foo.tun/tap iff we are loading the new net.tunnelblick.tun/tap and foo.tun/tap are loaded
+    unsigned unloadMask  = 0;
+    unsigned loadedKexts = getLoadedKextsMask();
+
     if (  bitMask & OUR_TAP_KEXT) {
-        unloadMask = FOO_TAP_KEXT;
+        if (  loadedKexts & FOO_TAP_KEXT  ) {
+            unloadMask = FOO_TAP_KEXT;
+        }
     }
     if (  bitMask & OUR_TUN_KEXT) {
-        unloadMask = unloadMask | FOO_TUN_KEXT;
+        if (  loadedKexts & FOO_TUN_KEXT  ) {
+            unloadMask = unloadMask | FOO_TUN_KEXT;
+        }
     }
     if (  unloadMask  ) {
         unloadKexts( unloadMask );
     }
     
-    loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
+    // Load the new net.tunnelblick.tun/tap if bitMask says to and they aren't already loaded
+    unsigned loadMask = bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT);
+    if (  loadedKexts & OUR_TAP_KEXT  ) {
+        loadMask = loadMask & ( ~ OUR_TAP_KEXT );
+    }
+    if (  loadedKexts & OUR_TUN_KEXT  ) {
+        loadMask = loadMask & ( ~ OUR_TUN_KEXT );
+    }
+    if (  loadMask  ) {
+        loadKexts(loadMask);
+    }
     
     if (  tblkPath  ) {
         NSString * postTunTapPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/post-tun-tap-load.sh"];
@@ -697,10 +713,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
    
     int retCode = [task terminationStatus];
     if (  retCode != 0  ) {
-        if (  retCode != 1  ) {
-            fprintf(stderr, "Error: OpenVPN returned with status %d\n", retCode);
-        } else {
+        if (  retCode == 1  ) {
             fprintf(stderr, "Error: OpenVPN returned with status %d. Possible error in configuration file. See \"All Messages\" in Console for details\n", retCode);
+        } else {
+            fprintf(stderr, "Error: OpenVPN returned with status %d\n", retCode);
         }
         [pool drain];
 		exit(242);
@@ -754,15 +770,19 @@ BOOL runScript(NSString * scriptName,
                                      stringByAppendingPathComponent: scriptName];
             if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
                 if (  checkOwnerAndPermissions(scriptPath, 0, 0, @"744")  ) {
-                    runAsRoot(scriptPath, [NSArray array]);
-                    returnValue = TRUE;
+                    int result = runAsRoot(scriptPath, [NSArray array]);
+                    if (  result != EXIT_SUCCESS  ) {
+                        fprintf(stderr, "Error: %s failed with status = %d\n", [scriptPath UTF8String], result);
+                    }
+                    returnValue = TRUE; // Even if script failed, it was run
                 } else {
-                    fprintf(stderr, "Error: %s is not secured\n", [configPath UTF8String]);
+                    fprintf(stderr, "Error: %s is not secured\n", [scriptPath UTF8String]);
                 }
             } else {
-                fprintf(stderr, "Error: openvpnstart cannot find file %s\n", [configPath UTF8String]);
+                fprintf(stderr, "Error: openvpnstart cannot find file %s\n", [scriptPath UTF8String]);
             }
         }
+
     }
 
     return returnValue;
@@ -1023,6 +1043,54 @@ void waitUntilAllGone(void)
     }
 }
 
+// Launches "kextstat" to get the list of loaded kexts, and does a simple search
+unsigned getLoadedKextsMask(void)
+{
+    NSString * kextstatPath = @"/usr/sbin/kextstat";
+    
+    NSTask * task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath: kextstatPath];
+    
+    NSArray  *arguments = [NSArray array];
+    [task setArguments: arguments];
+    
+    NSPipe * pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+    
+    NSFileHandle * file = [pipe fileHandleForReading];
+    
+    [task launch];
+    
+    [task waitUntilExit];
+
+    int status = [task terminationStatus];
+    if (  status != EXIT_SUCCESS  ) {
+        fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+    
+    NSData * data = [file readDataToEndOfFile];
+    
+    NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    
+    unsigned bitMask = 0;
+    
+    if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
+        bitMask = bitMask | FOO_TAP_KEXT;
+    }
+    if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
+        bitMask = bitMask | FOO_TUN_KEXT;
+    }
+    if (  [string rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
+        bitMask = bitMask | OUR_TAP_KEXT;
+    }
+    if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
+        bitMask = bitMask | OUR_TUN_KEXT;
+    }
+    
+    return bitMask;
+}
+
 //**************************************************************************************************************************
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void loadKexts(unsigned int bitMask)
@@ -1045,7 +1113,7 @@ void loadKexts(unsigned int bitMask)
     int status;
     int i;
     for (i=0; i < 5; i++) {
-        NSTask * task = [[NSTask alloc] init];
+        NSTask * task = [[[NSTask alloc] init] autorelease];
         
         [task setLaunchPath:@"/sbin/kextload"];
         
@@ -1056,10 +1124,8 @@ void loadKexts(unsigned int bitMask)
         
         status = [task terminationStatus];
         if (  status == 0  ) {
-            [task release];
             break;
         }
-        [task release];
         sleep(1);
     }
     if (  status != 0  ) {

@@ -27,6 +27,7 @@
 #import <Security/Security.h>
 #import "Sparkle/SUUpdater.h"
 #import "UKKQueue/UKKQueue.h"
+#import "VPNConnection.h"
 
 @class NetSocket;
 
@@ -96,7 +97,9 @@ BOOL needToRepairPackages(void);
     
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
     
-    NSMutableArray          * connectionsToRestore;         // VPNConnections to be restored when awaken from sleep
+    NSArray                 * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
+    
+    NSArray                 * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
     
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
@@ -192,13 +195,17 @@ BOOL needToRepairPackages(void);
 -(NSMutableDictionary *)    myConfigDictionary;
 -(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
+-(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
+-(void)             validateWhenConnectingForConnection:    (VPNConnection *)   connection;
 
 // Getters and Setters
 
+-(NSArray *)        connectionArray;
+-(NSArray *)        connectionsToRestoreOnUserActive;
 -(int)              selectedModifyNameserverIndex;
 -(void)             setSelectedModifyNameserverIndex:       (int)               newValue;
 -(NSString *)       customRunOnConnectPath;

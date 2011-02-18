@@ -43,7 +43,7 @@ extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
 extern NSDictionary         * gOpenVPNVersionDict;
-extern unsigned int           gHookupTimeout;
+extern unsigned               gHookupTimeout;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 
@@ -55,6 +55,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             connectToManagementSocket;
 
+-(void)             didHookup;
+
+-(void)             disconnectFromManagmentSocket;
+
 -(void)             flushDnsCache;
 
 -(void)             forceKillWatchdogHandler;
@@ -62,6 +66,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             forceKillWatchdog;
 
 -(unsigned int)     getFreePort;
+
+-(BOOL)             hasLaunchDaemon;
 
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
 
@@ -85,6 +91,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             setPort:                    (unsigned int)      inPort;
 
+-(void)             setPreferencesFromOpenvnpstartArgString: (NSString *) openvpnstartArgString;
+
+-(BOOL)             setPreference:              (BOOL)              value
+                              key:              (NSString *)        key;
+
 -(void)             tellUserAboutDisconnectWait;
 
 @end
@@ -96,14 +107,14 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (self = [super init]) {
         configPath = [inPath copy];
         displayName = [inDisplayName copy];
-        portNumber = 0;
         managementSocket = nil;
-		pid = 0;
 		connectedSinceDate = [[NSDate alloc] init];
         logDisplay = [[LogDisplay alloc] initWithConfigurationPath: inPath];
         lastState = @"EXITING";
         requestedState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
+        portNumber = 0;
+		pid = 0;
         tryingToHookup = FALSE;
         isHookedup = FALSE;
         tunOrTap = nil;
@@ -132,6 +143,26 @@ extern NSString * lastPartOfPath(NSString * thePath);
     return self;
 }
 
+// Reinitializes a connection -- as if we quit Tunnelblick and then relaunched
+-(void) reInitialize
+{
+    [self disconnectFromManagmentSocket];
+    [connectedSinceDate release]; connectedSinceDate = [[NSDate alloc] init];
+    // Don't change logDisplay -- we want to keep it
+    [lastState          release]; lastState = @"EXITING";
+    [requestedState     release]; requestedState = @"EXITING";
+    [myAuthAgent        release]; myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
+    [tunOrTap           release]; tunOrTap = nil;
+    portNumber       = 0;
+    pid              = 0;
+    tryingToHookup   = FALSE;
+    isHookedup       = FALSE;
+    areDisconnecting = FALSE;
+    connectedWithTap = FALSE;
+    connectedWithTun = FALSE;
+    logFilesMayExist = FALSE;
+}
+
 -(void) tryToHookupToPort: (int) inPortNumber
      withOpenvpnstartArgs: (NSString *) inStartArgs
 {
@@ -145,30 +176,174 @@ extern NSString * lastPartOfPath(NSString * thePath);
         return;
     }
 
-    [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
+    [self setPort: inPortNumber];
+    
+    
+    // We set preferences of any configuration that we try to hookup, because this might be a new user who hasn't run Tunnelblick,
+    // and they may be hooking up to a configuration that started when the computer starts.
+    [self setPreferencesFromOpenvnpstartArgString: inStartArgs];
 
+    tryingToHookup = TRUE;
+    requestedState = @"CONNECTED";
+    [self connectToManagementSocket];
+}
+
+// Decodes arguments to openvpnstart and sets preferences from them
+//
+// We could do it by extracting arguments from the launchd .plist, but that won't work for a configuration that isn't set to
+// connect when the computer starts. So we do it by decoding the arguments to openvpnstart that are part of the filename of the log file.
+    
+-(void) setPreferencesFromOpenvnpstartArgString: (NSString *) openvpnstartArgString
+{
+    NSArray * openvpnstartArgs = [openvpnstartArgString componentsSeparatedByString: @"_"];
+    
+    unsigned useScripts = [[openvpnstartArgs objectAtIndex: 0] intValue];
+    //  unsigned skipScrSec = [[openvpnstartArgs objectAtIndex: 1] intValue];  // Skip - no preference for this
+    unsigned cfgLocCode = [[openvpnstartArgs objectAtIndex: 2] intValue];
+    unsigned noMonitor  = [[openvpnstartArgs objectAtIndex: 3] intValue];
+    unsigned bitMask    = [[openvpnstartArgs objectAtIndex: 4] intValue];
+    
+    BOOL configPathBad = FALSE;
+    switch (  cfgLocCode & 0x3  ) {
+            
+        case CFG_LOC_PRIVATE:
+        case CFG_LOC_ALTERNATE:
+            if (! [configPath hasPrefix: gPrivatePath] ) {
+                configPathBad = TRUE;
+            }
+            break;
+            
+        case CFG_LOC_DEPLOY:
+            if (! [configPath hasPrefix: gDeployPath] ) {
+                configPathBad = TRUE;
+            }
+            break;
+            
+        case CFG_LOC_SHARED:
+            if (! [configPath hasPrefix: gSharedPath] ) {
+                configPathBad = TRUE;
+            }
+            break;
+            
+        default:
+            configPathBad = TRUE;
+            break;
+    }
+    if (  configPathBad  ) {
+        NSLog(@"cfgLocCode in log file for %@ doesn't match configuration path", [self displayName]);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: self];
+    }
+    
+    BOOL prefsChangedOK = TRUE;
+    
+    // Set preferences from the ones used when connection was made
+    // They are extracted from the openvpnstart args in the log filename
+    
+    BOOL prefUseScripts  = (useScripts & 0x1) == 0x1;
+    unsigned prefScriptNum = useScripts >> 2;
+    if (  prefScriptNum > 2  ) { // Disallow invalid script numbers
+        prefScriptNum = 0;
+        prefsChangedOK = FALSE;
+    }
+    
+    NSString * keyUseDNS = [displayName stringByAppendingString: @"useDNS"];
+    NSNumber * prefUseDNS;
+    if (  prefUseScripts  ) {
+        prefUseDNS = [NSNumber numberWithInt: (prefScriptNum+1)];
+    } else {
+        prefUseDNS = [NSNumber numberWithInt: 0];
+    }
+    if (  [prefUseDNS isNotEqualTo: [gTbDefaults objectForKey: keyUseDNS]]  ) {
+        if (  [gTbDefaults canChangeValueForKey: keyUseDNS]  ) {
+            [gTbDefaults setObject: prefUseDNS forKey: keyUseDNS];
+            NSLog(@"The '%@' preference was changed to %@ because that was encoded in the filename of the log file", keyUseDNS, prefUseDNS);
+        } else {
+            NSLog(@"The '%@' preference could not be changed to %@ (which was encoded in the log filename) because it is a forced preference", keyUseDNS, prefUseDNS);
+            prefsChangedOK = FALSE;
+        }
+    }
+    
+    //  BOOL prefUseDownRoot = (useScripts & 0x2) == 0x2;  // Skip - no preference for this
+    
+    BOOL prefNoMonitor = (noMonitor != 0);
+    NSString * keyNoMonitor = [displayName stringByAppendingString: @"-notMonitoringConnection"];
+    prefsChangedOK = prefsChangedOK && [self setPreference: prefNoMonitor key: keyNoMonitor];
+    
+    BOOL prefRestoreDNS  = ! (bitMask & RESTORE_ON_DNS_RESET)  == RESTORE_ON_DNS_RESET;
+    NSString * keyRestoreDNS = [displayName stringByAppendingString: @"-doNotRestoreOnDnsReset"];
+    prefsChangedOK = prefsChangedOK && [self setPreference: prefRestoreDNS key: keyRestoreDNS];
+    
+    BOOL prefRestoreWINS = ! (bitMask & RESTORE_ON_WINS_RESET) == RESTORE_ON_WINS_RESET;
+    NSString * keyRestoreWINS = [displayName stringByAppendingString: @"-doNotRestoreOnWinsReset"];
+    prefsChangedOK = prefsChangedOK && [self setPreference: prefRestoreWINS key: keyRestoreWINS];
+    
+    BOOL prefUseTap = (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT;
+    BOOL prefUseTun = (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT;
+    if (  prefUseTap && prefUseTun  ) {
+        NSLog(@"Both -loadTapKext and -loadTunKext are set in filename of log for %@", [self displayName]);
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: self];
+    }
+    NSString * keyUseTap = [displayName stringByAppendingString: @"-loadTapKext"];
+    NSString * keyUseTun = [displayName stringByAppendingString: @"-loadTunKext"];
+    if (  prefUseTap ) {
+        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyUseTun];
+    } else {
+        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyUseTap];
+    }
+    
+    NSString * keyAutoConnect = [displayName stringByAppendingString: @"autoConnect"];
+    NSString * keyOnSystemStart = [displayName stringByAppendingString: @"-onSystemStart"];
+    if (  [self hasLaunchDaemon]  ) {
+        prefsChangedOK = prefsChangedOK && [self setPreference: TRUE key: keyAutoConnect];
+        prefsChangedOK = prefsChangedOK && [self setPreference: TRUE key: keyOnSystemStart];
+    } else {
+        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyAutoConnect];
+        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyOnSystemStart];
+    }
+    
+    if (  ! prefsChangedOK  ) {
+        [NSApp setAutoLaunchOnLogin: NO]; // Error messages have already been logged
+        [NSApp terminate: self];
+    }
+    
     // Keep track of the number of tun and tap kexts that openvpnstart loaded
-    NSArray * openvpnstartArgs = [inStartArgs componentsSeparatedByString: @"_"];
-    unsigned bitMask = [[openvpnstartArgs lastObject] intValue];
-    if (  (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT ) {
+    if (  prefUseTap  ) {
         [[NSApp delegate] incrementTapCount];
         connectedWithTap = TRUE;
     } else {
         connectedWithTap = FALSE;
     }
     
-    if (  (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT ) {
+    if (  prefUseTun ) {
         [[NSApp delegate] incrementTunCount];
         connectedWithTun = TRUE;
     } else {
         connectedWithTun = FALSE;
     }
+}
 
-    [self setPort: inPortNumber];
+// Returns TRUE if didn't need to change preference, or preference was changed, or FALSE if preference could not be set
+-(BOOL) setPreference: (BOOL) value key: (NSString *) key
+{
+    if (  [gTbDefaults boolForKey: key] != value  ) {
+        if (  [gTbDefaults canChangeValueForKey: key]  ) {
+            [gTbDefaults setBool: value forKey: key];
+            NSLog(@"The '%@' preference was changed to %@ because that was encoded in the filename of the log file", key, (value ? @"TRUE" : @"FALSE") );
+        } else {
+            NSLog(@"The '%@' preference could not be changed to %@ (which was encoded in the log filename) because it is a forced preference", key, (value ? @"TRUE" : @"FALSE") );
+            return FALSE;
+        }
+    }
     
-    tryingToHookup = TRUE;
-    requestedState = @"CONNECTED";
-    [self connectToManagementSocket];
+    return TRUE;
+}
+
+-(BOOL) hasLaunchDaemon
+{
+    NSString * daemonPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/net.tunnelblick.startup.%@.plist", [self displayName]];
+    return [gFileMgr fileExistsAtPath: daemonPath];
 }
 
 -(void) stopTryingToHookup
@@ -197,7 +372,27 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
 }
 
-// Deletes log files if not "on system start" and have tried to connect with this configuration during this launch of Tunnelblick
+-(void) didHookup
+{
+    [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
+    
+    [self addToLog: @"*Tunnelblick: Established communication with OpenVPN"];
+    
+    [[NSApp delegate] validateWhenConnectingForConnection: self];
+}
+
+-(BOOL) shouldDisconnectWhenBecomeInactiveUser
+{
+    NSString * autoConnectkey      = [[self displayName] stringByAppendingString: @"autoConnect"];
+    NSString * systemStartkey      = [[self displayName] stringByAppendingString: @"-onSystemStart"];
+    NSString * doNotDisconnectKey  = [[self displayName] stringByAppendingString: @"-doNotDisconnectOnFastUserSwitch"];
+    BOOL connectWhenComputerStarts = [gTbDefaults boolForKey: autoConnectkey] && [gTbDefaults boolForKey: systemStartkey];
+    BOOL prefToNotDisconnect       = [gTbDefaults boolForKey: doNotDisconnectKey];
+    
+    return ! ( connectWhenComputerStarts || prefToNotDisconnect );
+}
+
+// Deletes log files if not "on system start"
 -(void) deleteLogs
 {
     if (  logFilesMayExist  ) {
@@ -531,11 +726,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
     authenticationFailed = NO;
     
     areDisconnecting = FALSE;
+    tryingToHookup = TRUE;
+    isHookedup = FALSE;
     
-    [managementSocket close];
-    [managementSocket setDelegate: nil];
-    [managementSocket release];
-    managementSocket = nil;
+    [self disconnectFromManagmentSocket];
     
 	NSArray *arguments = [self argumentsForOpenvpnstartForNow: YES];
     if (  arguments == nil  ) {
@@ -852,6 +1046,15 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
 }
 
+-(void) disconnectFromManagmentSocket
+{
+    if (  managementSocket  ) {
+        [managementSocket close];
+        [managementSocket setDelegate: nil];
+        [managementSocket release];
+        managementSocket = nil;
+    }
+}
 static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Start disconnecting by killing the OpenVPN process or signaling through the management interface
@@ -1018,11 +1221,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setState:@"EXITING"];
     pthread_mutex_unlock( &lastStateMutex );
     
-    [managementSocket close]; [managementSocket setDelegate: nil];
-    [managementSocket release]; managementSocket = nil;
+    [self disconnectFromManagmentSocket];
     portNumber = 0;
     pid = 0;
     areDisconnecting = FALSE;
+    isHookedup = FALSE;
+    tryingToHookup = FALSE;
     
     [[NSApp delegate] removeConnection:self];
     
@@ -1178,8 +1382,27 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) processLine: (NSString*) line
 {
-    isHookedup = TRUE;
-    tryingToHookup = FALSE;
+    if (   tryingToHookup
+        && ( ! isHookedup )  ) {
+        isHookedup = TRUE;
+        tryingToHookup = FALSE;
+        [self didHookup];
+        if (  [[NSApp delegate] connectionsToRestoreOnUserActive]  ) {
+            BOOL stillTrying = FALSE;
+            NSEnumerator * e = [[[NSApp delegate] myVPNConnectionDictionary] objectEnumerator];
+            VPNConnection * connection;
+            while (  connection = [e nextObject]  ) {
+                if (  [connection tryingToHookup]  ) {
+                    stillTrying = TRUE;
+                    break;
+                }
+            }
+            
+            if (  ! stillTrying  ) {
+                [[NSApp delegate] reconnectAfterBecomeActiveUser];
+            }
+        }
+    }
     
     logFilesMayExist = TRUE;
     
