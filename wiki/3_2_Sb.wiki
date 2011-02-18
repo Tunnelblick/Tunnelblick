@@ -17,7 +17,7 @@
     [3_2_FAQ FAQ]<br>
 *Installation, Setup, and Usage*
     [3_2_Install Installing Tunnelblick]<br>
-    <a href="code.google.com/p/tunnelblick/wiki/3_2_Install#Uninstalling_Tunnelblick">Uninstalling Tunnelblick</a><br>
+    <a href="https:code.google.com/p/tunnelblick/wiki/3_2_Install#Uninstalling_Tunnelblick">Uninstalling Tunnelblick</a><br>
     [3_2_ConfigT Setting up Tunnelblick]<br>
     [3_2_ConfigO Configuring OpenVPN]<br>
     [3_2_Server Tunnelblick as a VPN Server]<br><br>
