@@ -1,0 +1,72 @@
+#summary How to build Tunnelblick from the source code
+#sidebar 3_2_Sb
+
+*HOW TO BUILD TUNNELBLICK FROM THE SOURCE CODE*
+
+<wiki:toc max_depth="2" />
+
+==INTRODUCTION==
+
+Usually, people install and use a "release" -- an easy-to-use version -- of Tunnelblick. The most recent release is always in the "Featured downloads" section of the project homepage and is a .dmg file. It's easy to install Tunnelblick from this .dmg.
+
+As project developers and members make changes (bug fixes and improvements) to Tunnelblick, they are added to the source code and tested. When "enough" (whatever that means) changes have been made and tested, a new release is prepared by the Tunnelblick project developers and made available.
+
+Sometimes, especially when changes are extensive, a "beta", or testing, release is prepared and made available to everyone brave enough to try it. The beta version allows for more thorough testing by more people, and the beta label warns people that the version is not fully tested and that they should be careful using it.
+
+Because Tunnelblick is distributed using the "GPL" license, the source code itself is also available, including the source code for changes before they are incorporated into a release. That means that anyone with sufficient technical skills can create their own release and test it or use it as they see fit. Following are brief instructions for doing that.
+
+*These instructions are very long because they are very detailed.*
+
+==PRELIMINARY STEPS==
+First, as of Tunnelblick source code revision 232, you need to be running Snow Leopard (OS X 10.6.x). Although Tunnelblick will run on Tiger (OS X 10.4.x) and Leopard (OS X 10.5.x) as well as Snow Leopard, it must be built (developed and compiled) into a release on Snow Leopard, because only Snow Leopard supports the 32/64-bit version of "tuntap", third-party software used by Tunnelblick to make network connections. The 32/64-bit version of tuntap is required to run Tunnelblick on Snow Leopard using the 64-bit kernel.
+
+(Prior to Tunnelblick source code revision 232, you needed to be running Leopard and Xcode 3.1.1 or above to build Tunnelblick. See "Building on Leopard", below.)
+
+Second, you must download and install Xcode 3.2.x if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode.app", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is at least version 3.2.1.) If you don't have Xcode, download the version for Mac-only development from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions. *You must add the optional "10.4 SDK" (Software Development Kit) for Tunnelblick to build correctly.*
+
+==DOWNLOAD THE SOURCE CODE==
+Third, you must download the Tunnelblick source code. Start a terminal session (double-click "Terminal" in the Applications folder). Type the following into the Terminal window: "cd " (without the quotes). That is, the letter c, the letter d, and a space. Open a new Finder window by clicking on Finder in the Dock. Navigate to the place you would like to save the Tunnelblick source code (your Documents folder, for example, or the Desktop) and then hold down the command key on the keyboard (the cloverleaf or apple key) and press the up-arrow key once. You now have a view of the folder which contains the folder you want to store the source code in (and it contains other things, too). Drag the folder in which you want to store the source code to the Terminal window, then let release it. The path to the folder you want to store the source code will be automatically typed for you! Click on the Terminal window, then press the "return" key. Click and drag the following line into the terminal window, too:
+
+svn checkout http://tunnelblick.googlecode.com/svn/trunk/ tunnelblick-read-only
+
+and press the "return" key. This will download the latest version of the Tunnelblick source code from the web and store it in a new folder named "tunnelblick-read-only". ("read-only" means that you cannot commit any modifications you make back to the repository. It does NOT mean that the copy you get is "read only" as far as making changes to it.) Remember, the latest version has not been tested thoroughly, so you take your chances!
+
+To get an older version of the source code (for example, for a release), see [GettingSource Getting source code for Tunnelblick].
+
+==SET XCODE TO CREATE A "RELEASE" FOR 10.4==
+Fourth, you should set up Xcode to create a "Release" build instead of a "Debug" build. Navigate to the "tunnelblick-read-only" folder that was created above, double-click the the "tunnelblick" folder within it, then double-click "Tunnelblick.xcodeproj". That will start Xcode in a new window with the Tunnelblick project. Click "Build" in the menu bar, then click "Build Results". That will open a new window. In that window click on the drop-down button at the top left that says something like "10.4 | Debug | Tunnelblick | i386", and under the "Active configuration" heading, click on "Release". The button should now read "10.4 | Release | Tunnelblick | i386". If it doesn't show "10.4", specify that in the same way as you specified "Release".
+
+==BUILD A RELEASE==
+Finally! You are ready to build a release of Tunnelblick. In the "Build Results" window, click the "Build" button. The build process will start, and a series of status messages will be displayed. There should be no errors, but see [#BUILD_WARNINGS BUILD WARNINGS] about warnings that are considered "normal".
+
+The first time a build is done, it may take several minutes, even on a relatively fast computer, so be patient. (Subsequent builds, which do not usually rebuild OpenVPN or the Tun/Tap kexts, are quicker.)
+
+When the build is complete, "Build succeeded" will appear at the bottom of the Build Results window. (It takes another 30-60 seconds to finish creating the .dmg file after "Build succeeded" appears). You have made a Tunnelblick release!
+
+If you have not installed Rosetta before starting the build, OS X will prompt you to do so. It may be necessary to redo the build in this case. Before you rebuild, delete the "tunnelblick-read-only/tunnelblick/build" folder and the "tunnelblick-read-only/third_party/built" document, to ensure a complete, clean, build.
+
+At this point, you might want to make a copy of your current Tunnelblick.app in case the new one doesn't work for you.
+
+Your release .dmg file is at tunnelblick-read-only/tunnelblick/build/Release/Tunnelblick.dmg. Double-click it and, in the resulting window, drag the Tunnelblick.app to the Applications shortcut to copy it to your Applications folder. Or see more detailed instructions for installing and using Tunnelblick in "Using Tunnelblick", which is contained in the .dmg file.
+
+Good luck!
+
+== BUILD WARNINGS==
+ * For versions of Tunnelblick prior to r2021, Xcode 3.2.2 and higher causes four warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.) After you clean, you have to build again, of course.
+ * Build 2013 and higher causes eight warning messages to appear when building OpenVPN. These warnings may be ignored. There are three 'incompatible pointer type' and one 'assignment discards qualifiers'; each warning is repeated twice (once each for PowerPC and intel.)
+ * Otherwise, three or four warnings are normal, all complaining about "Object file compiled with -mlong-branch...". (These warnings come from a bug in Apple's Software Development Kit and can be ignored.)
+
+ So the first time Tunnelblick is built from source:
+ * For versions of Tunnelblick prior to r2021, there will be 16 warnings. After that (unless a third_party component is modified), there will be eight warnings until a "Clean All Targets" is performed. After that, there will be four warnings each time Tunnelblick is built.
+ * For versions of Tunnelblick after r2020, there will be 12 warnings. After that (unless a third_party component is modified), there will be four warnings each time Tunnelblick is built.
+
+==BUILDING ON LEOPARD==
+It is possible to build versions of Tunnelblick prior to revision 232 on Leopard. The instructions above should be followed, except:
+  * Xcode 3.1.1 or higher is required.
+  * To download revision 231 (the last version which can be built on Leopard), use the following command instead of the command given above (note the change in boldface):
+
+      svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

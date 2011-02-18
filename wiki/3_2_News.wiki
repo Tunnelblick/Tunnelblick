@@ -1,0 +1,220 @@
+#summary The Latest News About Tunnelblick
+#sidebar 3_2_Sb
+
+<font color="red">*IMPORTANT: SEE THE [3_2_RlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
+
+--------------------
+
+2011-02-02: *Tunnelblick 3.2beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [3_2_RlsNotes Release Notes].
+ * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
+   * pre-connect.sh
+   * post-tun-tap-load.sh
+   * connected.sh
+   * reconnecting.sh
+   * post-disconnect.sh
+ For more details, see [3_2_Pkgs Tunnelblick VPN Configurations] and [3_2_UsingScripts Using Scripts].
+ * Fixes problem installing Tunnelblick via double-click when the user's home folder is not on the same volume as /Applications/Tunnelblick.app
+
+ * Other minor changes
+
+--------------------
+
+2011-02-01: *Tunnelblick 3.1.5 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
+
+--------------------
+
+2011-01-28: *Tunnelblick 3.1.4 is available*.
+ Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger").
+ 
+--------------------
+
+2011-01-28: *OS X 10.4 ("Tiger") Installation Failure*
+ Installing or updating to Tunnelblick 3.1.3 on OS X 10.4 ("Tiger") fails. See the first entry in <a href="http://code.google.com/p/tunnelblick/wiki/wKnown">Known Issues</a> for a workaround.
+ 
+--------------------
+
+2011-01-27: *Security Vulnerability*
+ A bug causing a security vulnerability exists in Tunnelblick versions 3.1, 3.1.1, and 3.1.2. It allows an unprivileged user to erase the contents of any file, including important system files, on any Mac OS X system with a vulnerable version of Tunnelblick installed. As far as is known as of 2011-01-27, the bug cannot be used to take control of the system or obtain root access. All users of Tunnelblick are advised to update to the latest version. For more information including instructions for updating, see the [vulnerability20110127FAQ 2011-01-27 Vulnerability FAQ].
+
+--------------------
+
+2011-01-12: *Security Vulnerability*
+ A bug causing an exploitable security problem exists in most Tunnelblick versions before 3.1.1. It allows an unprivileged user to gain root privileges on any Mac OS X system with a vulnerable version of Tunnelblick installed. All users of Tunnelblick are advised to update to the latest version. For more information including instructions for updating, see the [vulnerability20110112FAQ 2011-01-12 Vulnerability FAQ].
+ 
+ Thanks to [http://www.subreption.com Subreption, LLC] for pointing out the security implications of this bug.
+
+--------------------
+
+2010-12-25: *Tunnelblick 3.1.2 is available*.
+ * Removes the 'warns the user when certain unexpected disconnections occur' feature added in version 3.1.1 because it caused Tunnelblick to hang under certain conditions of sleep/wake cycles and/or screensavers. This feature will return in more robust form in a future beta release.
+
+--------------------
+
+2010-12-18: *Tunnelblick 3.1.1 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+ * Fixes several problems and warns the user about unexpected disconnections.
+
+--------------------
+
+2010-12-05: *Tunnelblick 3.1 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+ * Only the version and build numbers were updated.
+
+--------------------
+
+2010-12-03: *Tunnelblick 3.1beta24 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+ * Updates to use OpenSSL 1.0.0c, which fixes several security vulnerabilities.
+
+ * Searches for the icon set folder in Tunnelblick.app/Contents/Resources/Deploy and then in /Library/Application Support/Tunnelblick/Shared before defaulting to the version in Tunnelblick.app/Contents/Resources.
+
+ * Fixes bug that caused an unneeded folder (dmgFiles) to be built into Tunnelblick.app/Contents/Resources.
+
+--------------------
+
+2010-12-01: *Tunnelblick 3.1beta22 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+  * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.
+  
+  * Adds a note to the OpenVPN log (in the Details… window) when the computer goes to sleep or wakes up and a connection is terminated/restarted.
+  
+  * Fixes a problem modifying 'Set nameserver' on other-than-the-first connection.
+
+  * Fixes an OpenVPN problem with special case route targets ('remote_host')
+
+--------------------
+
+2010-10-31: *Tunnelblick 3.1beta20 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+  * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [3_2_Prefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".
+
+--------------------
+
+2010-10-16: *Tunnelblick 3.1beta18 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+  * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
+
+  * Streamlines installation by double-clicking to have only one dialog box explaining what will be installed and asking for admin username/password.
+
+  * Fixes bug which prevented Standard users from installing Tunnelblick by double-clicking.
+
+  * Fixes bugs in automatic installation of .tblks when installing Tunnelblick.
+
+--------------------
+
+2010-10-08: *Tunnelblick 3.1beta16 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+  * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
+
+  * Adds the ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts).
+  * Adds the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.
+  (See [3_2_CusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
+
+  * Includes localization-related code tweaks by Stefan Bethke and additional German localization by Stefan Bethke, Marcus Schneider, and 'Dr Hok'.
+
+ * Fixes a formatting error when displaying file permissions in error messages about being unable to change permissions.
+
+ * Fixes a problem causing a connection restart when 'Set nameserver' is used, a DHCP renewal occurs, and there are no WINS settings.
+
+ * Fixes issues when using OpenDirectory and the user's home directory is on a non-Mac platform.
+
+--------------------
+
+2010-09-09: *Tunnelblick 3.1beta14 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+ * Fixes a problem that, under certain circumstances, crashes client.down.tunnelblick.sh. (Issue 159.)
+
+ * Thanks to Mohammad A. Haque, this release imbeds the  OpenSSL version. 1.0.0a library into the included OpenVPN binary. This adds support for over 60 additional digests, ciphers, and TLS ciphers.
+
+ * Includes OpenVPN version 2.1.3.
+
+--------------------
+
+2010-08-08: *Tunnelblick 3.1beta12 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+New features include:
+
+ * Italian localization thanks to Pierpaolo Gulla (Grazie!).
+
+ * Implements a single, system-wide keyboard shortcut (command-option-F1 by default) to expose the Tunnelblick menu.
+
+ * No longer displays Tooltips by default.
+
+ * Terminates faster if going to sleep or if no unknown OpenVPN processes exist and no 'when computer starts' configurations are connected.
+
+ * Fixes several bugs and includes a workaround for an OpenVPN bug.
+ 
+--------------------
+
+2010-07-29: *Tunnelblick 3.1beta10 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+This beta includes an important bug fix:
+
+  * Fixes bugs in the shadow copy mechanism that caused connect failures, log-hookup failures, and (possibly) other problems. Thanks to Jim Bo for pointing out the first problem and suggesting a solution. The bugs were introduced in 3.1beta08.
+
+New features include:
+
+ * Configurations located in subfolders are displayed in submenus of the main Tunnelblick menu.
+
+ * When a Tunnelblick VPN Configuration (.tblk package) is installed, all Tunnelblick VPN Configurations within it will be installed. If these 'inner' configurations are inside subfolders of the outer .tblk, they will be installed as subfolders of the configurations folders and will appear in submenus of the main Tunnelblick menu.
+
+ * Automatic installation of configurations from the .dmg has changed: Only one Tunnelblick VPN Configuration (.tblk packages) in the '.auto-install' or '.auto-install' folders and their subfolders is installed.
+
+--------------------
+
+2010-07-10: *Tunnelblick 3.1beta08 is available*. Full details are in the [3_2_RlsNotes Release Notes].
+
+In addition to fixing bugs, this release adds several new features:
+ * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
+
+  * Log processing and display have been rewritten:
+    * Log files are created each time a connection is made.
+    * When displaying the log, the entries are merged such that script log entries follow OpenVPN log entries that have the same date/time.
+    * The log display now shows the most recent 10000 entries. Earlier entries are not displayed, but are in the log files stored in /tmp/tunnelblick/logs.
+
+  * The DNS cache is flushed after a tunnel is established and after it is torn down. This is enabled by default but may be disabled by the per-connection "-doNotFlushCache" preference.
+
+  * Tunnelblick VPN Configurations (.tblk packages) may now be shadow copied.
+
+  * Configurations (.conf, .ovpn, and .tblk) may be stored in subfolders. Note that .tblk configurations are installed at the top level of the shared or private folder; they must then be moved to a subfolder if that is desired.
+
+--------------------
+
+2010-06-07: *Tunnelblick 3.1beta06 is available*.
+
+This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
+
+The full list of changes is in the [3_2_RlsNotes Release Notes].
+
+--------------------
+
+2010-05-27: *Tunnelblick 3.1beta04 is available*.
+
+This is mainly a bug-fix release, but there are some new features:
+
+  * The pipes for script output to "Details…" window are created on demand instead of when Tunnelblick launches, so if you have 50 configurations, Tunnelblick won't create 50 pipes when launched.
+
+  * A DHCP renew which restores the original DNS and/or WINS information no longer causes the connection to restart. This new behavior can reversed be by setting Tunnelblick the boolean preferences '-doNotRestoreOnDnsReset' and/or '-doNotRestoreOnWinsReset' to TRUE.
+
+  * The up, down, and leasewatch scripts have been modified to implement options for the scripts which Tunnelblick causes OpenVPN to put first (before OpenVPN parameters) in the command line which starts the up/down scripts.
+
+The full list of changes is in the [3_2_RlsNotes Release Notes].
+
+--------------------
+
+2010-05-14: *Tunnelblick 3.1beta02 is available*.
+
+The full list of changes is in the [3_2_RlsNotes Release Notes].
+
+New features include:
+
+ * *Tunnelblick VPN Configurations*: All of the files associated with one configuration may be collected together and put into a Tunnelblick VPN Configuration. Tunnelblick VPN Configurations include features such as version control that make them easy to use for distribution to multiple Tunnelblick users.
+
+ * *Shared configurations*: Tunnelblick VPN Configurations may be shared by all users of a computer without being installed for each user individually. A button on the "Details…" window switches a configuration from Shared to Private or Private to Shared.
+
+ * *Connect when computer starts*: Shared and Deployed Tunnelblick VPN Configurations may be set to automatically connect when the computer starts, before anyone is logged in. Such connections can persist through login and logout and may be controlled by Tunnelblick when a user is logged in.
+
+ * *Tunnelblick deals with the .tun and .tap kexts more flexibly*.
+
+*Please give feedback on the new features* or report problems in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
