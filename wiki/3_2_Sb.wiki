@@ -1,11 +1,12 @@
-#summary Sidebar for 3.1
+#summary Sidebar for 3.2
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
 *[3_2_News News]*<br><br>
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*<br><br>
+*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*<br><br>
 <hr>
-*Tunnelblick <font color="red">3.1</font> Documentation*<br><br>
+*Tunnelblick <font color="red">3.2</font> Documentation*<br><br>
 *Getting Started*
     [3_2_Welcome Welcome to Tunnelblick]<br>
     [3_2_WhatIs What is Tunnelblick?]<br>
