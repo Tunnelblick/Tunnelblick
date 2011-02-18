@@ -1,5 +1,5 @@
 #summary Frequently Asked Questions
-#sidebar wSb
+#sidebar 3.2/wSb
 
 <wiki:toc max_depth="2" />
 
