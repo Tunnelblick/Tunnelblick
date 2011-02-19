@@ -1,7 +1,7 @@
-#summary !AppleScript Support
+#summary AppleScript Support
 #sidebar wSb
 
-*<font size="4">AppleScript Support</font><br>
+*<font size="4">!AppleScript Support</font><br>
 
 <wiki:toc max_depth="2" />
 
