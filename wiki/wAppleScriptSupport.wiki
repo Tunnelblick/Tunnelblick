@@ -1,4 +1,4 @@
-#summary AppleScript Support
+#summary !AppleScript Support
 #sidebar wSb
 
 *<font size="4">AppleScript Support</font><br>
@@ -7,7 +7,7 @@
 
 Tunnelblick 3.2beta04 and above may be controlled using AppleScript.
 
-AppleScripts may connect, disconnect, or list configurations.
+!AppleScripts may connect, disconnect, or list configurations.
 
 Please note that the verbs only _initiate_ actions. The "connect" verb, for example, is the equivalent of clicking the "Connect" button. It returns immediately after starting an attempt to connect using a particular configuration and does not indicate the connection has been accomplished successfully.
 
