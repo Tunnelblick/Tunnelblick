@@ -4286,9 +4286,12 @@ void terminateBecauseOfBadConfiguration(void)
 	VPNConnection * connection;
 	while(connection = [e nextObject]) {
         if (  ! [connection isHookedup]  ) {
-            [connection stopTryingToHookup];
-            [connection addToLog: @"*Tunnelblick: Attempting to reconnect because user became active"];
-            [connection connect:self userKnows: YES];
+            NSString * key = [[connection displayName] stringByAppendingString: @"-doNotReconnectOnFastUserSwitch"];
+            if (  ! [gTbDefaults boolForKey: key]  ) {
+                [connection stopTryingToHookup];
+                [connection addToLog: @"*Tunnelblick: Attempting to reconnect because user became active"];
+                [connection connect: self userKnows: YES];
+            }
         }
     }
     
