@@ -21,6 +21,30 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.2beta04 (2011-02-19)*
+
+ * Adds [wAppleScriptSupport AppleScript support].
+
+ * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!
+
+ * Includes OpenSSL 1.0.0d.
+
+ * Unloading of the foo.tap and foo.tun kexts is now attempted only if they are already loaded (previously, it was always attempted and errors were ignored).
+
+ * Fixes problems with fast user switching (previously, user switches were ignored, which caused problems if Tunnelblick was used by more than one user and could cause the icon to indicate no VPN connection when one existed):
+   * When a user is switched out, all configurations that are not set to "connect when computer starts" will be disconnected unless the per-connection "-doNotDisconnectOnFastUserSwitch" preference is set true.
+   * When a user is switched in, Tunnelblick will attempt to connect any configurations that were connected at the time the user was switched out but are no longer connected unless the per-connection "-doNotReconnectOnFastUserSwitch" preference is set true.
+
+ * Fixes potential race condition when computer wakes up.
+
+ * Fixes bug that can cause unnecessary warnings about unknown OpenVPN processes.
+
+ * Fixes bug that caused up/down scripts in .tblks to not be executed.
+
+ * Fixes bug that can cause crashes after connecting to a VPN.
+
+--------------------
+
 *3.2beta02 (2011-02-02)*
 
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):

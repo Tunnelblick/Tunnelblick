@@ -5,6 +5,21 @@
 
 --------------------
 
+2011-02-19: *Tunnelblick 3.2beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
+ * Adds [wAppleScriptSupport AppleScript support].
+ * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!
+ * Includes OpenSSL 1.0.0d.
+ * Unloading of the foo.tap and foo.tun kexts is now attempted only if they are already loaded (previously, it was always attempted and errors were ignored).
+ * Fixes problems with fast user switching and fixes several bugs.
+
+--------------------
+
+2011-02-08: *Tunnelblick not affected by OpenSSL security flaw*
+
+ Tunnelblick versions 3.1.5, 3.2beta02, and 3.0.1 are not affected by the [http://www.openssl.org/news/secadv_20110208.txt OpenSSL security flaw] announced today.
+
+--------------------
+
 2011-02-02: *Tunnelblick 3.2beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * pre-connect.sh
