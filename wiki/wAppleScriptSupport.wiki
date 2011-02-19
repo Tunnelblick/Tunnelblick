@@ -5,7 +5,7 @@
 
 <wiki:toc max_depth="2" />
 
-Tunnelblick 3.2beta04 and above may be controlled using AppleScript.
+Tunnelblick 3.2beta04 and above may be controlled using !AppleScript.
 
 !AppleScripts may connect, disconnect, or list configurations.
 
@@ -13,7 +13,7 @@ Please note that the verbs only _initiate_ actions. The "connect" verb, for exam
 
 <hr>
 
-==AppleScript Dictionary==
+==!AppleScript Dictionary==
 
 *
 application* _n_ :
