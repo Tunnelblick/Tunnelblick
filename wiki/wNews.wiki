@@ -5,6 +5,11 @@
 
 --------------------
 
+2011-02-19: *Tunnelblick 3.1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
+ * Fixes a bug that caused up/down scripts in Tunnelblick VPN Configurations (.tblks) to be ignored.
+
+--------------------
+
 2011-02-19: *Tunnelblick 3.2beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
  * Adds [wAppleScriptSupport AppleScript support].
  * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!

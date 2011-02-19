@@ -74,6 +74,12 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.1.6 (2011-02-19)
+
+ * Fixes a bug that caused up/down scripts in Tunnelblick VPN Configurations (.tblks) to be ignored.
+
+--------------------
+
 *3.1.5 (2011-02-01)*
 
  * Fixes a bug causing installation/repair failures on OS X 10.4 ("Tiger") PPC.
