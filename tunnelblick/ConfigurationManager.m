@@ -786,6 +786,9 @@ enum state_t {                      // These are the "states" of the guideState 
     NSRange outerTblkRange = [filePathWithoutTblk rangeOfString: @".tblk/"];
     if (  outerTblkRange.length != 0  ) {
         subfolder = [filePathWithoutTblk substringWithRange: NSMakeRange(outerTblkRange.location + outerTblkRange.length, [filePathWithoutTblk length] - outerTblkRange.location - outerTblkRange.length)];
+        if (  [subfolder isEqualToString: @"Contents/Resources"]  ) {
+            subfolder = nil;
+        }
     }
 
     BOOL pkgIsOK = TRUE;     // Assume it is OK to install the package
@@ -1583,28 +1586,15 @@ enum state_t {                      // These are the "states" of the guideState 
             NSLog(@"Retrying execution of installer");
         }
         
-        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
-            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
-            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
-            useconds_t sleepTime;
-            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
-                usleep(sleepTime);
-                
-                if (  okNow = ( ! [self configNotProtected: targetPath] ) ) {
-                    break;
-                }
-            }
-            
-            if (  okNow  ) {
-                break;
-            } else {
-                NSLog(@"Timed out waiting for installer execution to succeed");
-            }
-        } else {
+        if (  ! [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
         }
+        
+        if (  okNow = ( ! [self configNotProtected: targetPath] )  ) {
+            break;
+        }
     }
-
+    
     if (   ( ! okNow )
         && [self configNotProtected: targetPath]  ) {
         NSString * name = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
