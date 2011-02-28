@@ -4,6 +4,11 @@
 ===It's complicated!===
 OpenVPN is such a powerful tool with so many options, and computer configurations are so varied, that it is impossible to have an exhaustive troubleshooting guide. This guide is meant for the most common setups, so if it doesn't apply to your situation, or doesn't help, ask the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] or the [http://news.gmane.org/gmane.network.openvpn.user OpenVPN users mailing list] for help. 
 
+==I used a different program and uninstalled it, but with Tunnelblick all I can see are my old configurations!==
+The different program (for example, Urban Shield) uses a customized version of Tunnelblick that makes backups of their configurations and restores them when Tunnelblick starts up, and also hides all other configurations. To solve this problem:
+ # Rename the /Library/Application Support/Tunnelblick folder to be named Tunnelblick.old. (This will hide the backup, so Tunnelblick doesn't see it and doesn't restore it.)
+ # Reinstall Tunnelblick from the .dmg (disk image)
+ 
 ==How can you tell if OpenVPN connected to the server properly?==
   # Click on the Tunnelblick icon at the top of the display.
   # See what appears in the drop-down list for the configuration you are trying to troubleshoot:
