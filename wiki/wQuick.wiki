@@ -3,6 +3,9 @@
 
 <wiki:toc max_depth="2" />
 
+*Special note for those who may have installed RaptorVPN or Urban Shield VPN or other VPN software*: These installations have backups that must be removed before installing Tunnelblick. See [https://groups.google.com/d/topic/tunnelblick-discuss/s368xGP5Qpk/discussion this Discussion Group thread].
+
+
 ==Installing Tunnelblick and Getting it Set Up==
 Here is what you need to get started using Tunnelblick:
  * Access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [GettingVPNService Getting VPN Service].
