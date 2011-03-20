@@ -26,7 +26,7 @@ There are two types of configuration files:
 
 <font color="red">Note: Tunnelblick VPN Configurations should always be installed by double-clicking them.</font> If you just move or copy them they may not be work correctly.
 
-There are four places configuration files may be stored:
+There are five places configuration files may be stored:
 
   * Private configurations, including both types of files, are stored in '~/Library/Application Support/Tunnelblick/Configurations'. Since these files are all located in the user's Library folder, they must be set up separately for each user. (Note that the "~" in the path indicates the user's home folder; thus the folder is actually located somewhere such as /Users/username/Library/Application Support/Tunnelblick/Configurations. Do not confuse this Library folder with the /Library folder located at the root of the filesystem.)
 
@@ -35,6 +35,8 @@ There are four places configuration files may be stored:
   * [DeployingTunnelblick Deployed configurations], including both types of files, are stored within the Contents/Resources folder of Tunnelblick.app itself. They do not need to be set up for each user, and are accessible to all users of the computer with access to the application. (To access the internal contents of Tunnelblick.app  in the Finder, control-click Tunnelblick.app in the Applications folder  and click "Show Package Contents”.)
 
   * "Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. See "useShadowConfigurationFiles" in [Preferences Preferences] for details. Shadow copies are created and maintained by Tunnelblick.
+
+  * Backup copies of Deployed configurations are stored in subfolders of /Library/Application Support/Tunnelblick/Backup. These configurations will be restored if a version of Tunnelblick which is not a Deployed version is installed, making it into a Deployed version.
 
 Note: Prior to Tunnelblick version 3.0b24, private configuration files were stored in ~/Library/openvpn. Version 3.0b24 and later versions automatically move that folder to its new location, and replace it with a symbolic link to the new location.
 
