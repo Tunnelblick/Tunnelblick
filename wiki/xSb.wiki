@@ -6,7 +6,7 @@
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 and 3.2 Documentation]*<br><br>
 <font color="red">*_(This documentation is for Tunnelblick 3.0 only.)*</font><br><br>
 <hr>
-*Tunnelblick <font color="red">3.0/font> Documentation*<br>
+*Tunnelblick <font color="red">3.0</font> Documentation*<br>
 
     [FAQ Frequently Asked Questions]<br>
     [QuickStartGuide Quick Start Guide]<br>
