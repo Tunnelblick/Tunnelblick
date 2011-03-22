@@ -1,10 +1,10 @@
 #summary Sidebar for 3.0 wiki
-<br><font color="red">*NOTE: This documentation is for Tunnelblick 3.0 only.*</font><br><br>
-*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*<br><br>
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
-*[https://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2g Download Tunnelblick]*<br><br>
+*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
 *[wNews News]*<br><br>
+*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 and 3.2 Documentation]*<br><br>
+<font color="red">*_(This documentation is for Tunnelblick 3.0 only.)*</font><br><br>
 <hr>
 *Tunnelblick 3.0 Documentation*<br>
 
