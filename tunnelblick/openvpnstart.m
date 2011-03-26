@@ -23,6 +23,8 @@
 #import <netinet/in.h>
 #import "defines.h"
 
+#define DEFAULT_LOAD_UNLOAD_KEXTS_MASK 3
+
 int     startVPN                   (NSString * configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
 
 NSString * createOpenVPNLog        (NSString * configurationFile, unsigned cfgLocCode, int port);
@@ -99,11 +101,14 @@ int main(int argc, char* argv[])
 			}
 		} else if( strcmp(command, "loadKexts") == 0 ) {
 			if (argc == 2) {
-                loadKexts(0);
+                loadKexts(DEFAULT_LOAD_UNLOAD_KEXTS_MASK);
 				syntaxError = FALSE;
             } else if (  argc == 3 ) {
                 unsigned int bitMask = atoi(argv[2]);
                 if (  bitMask < 4  ) {
+                    if (  bitMask == 0  ) {
+                        bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                    }
                     loadKexts(bitMask);
                     syntaxError = FALSE;
                 }
@@ -111,11 +116,14 @@ int main(int argc, char* argv[])
             
 		} else if( strcmp(command, "unloadKexts") == 0 ) {
 			if (argc == 2) {
-                unloadKexts(0);
+                unloadKexts(DEFAULT_LOAD_UNLOAD_KEXTS_MASK);
 				syntaxError = FALSE;
             } else if (  argc == 3 ) {
                 unsigned int bitMask = atoi(argv[2]);
                 if (  bitMask < 16  ) {
+                    if (  bitMask == 0  ) {
+                        bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                    }
                     unloadKexts(bitMask);
                     syntaxError = FALSE;
                 }
@@ -189,7 +197,12 @@ int main(int argc, char* argv[])
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
-						unsigned int bitMask = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
+						
+                        unsigned  bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                        if (  argc > 8  ) {
+                            bitMask    = atoi(argv[8]);
+                        }
+                        
                         startArgs = [[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy];
                         if (   (cfgLocCode < 4)
                             && (bitMask < 1024)  ) {
@@ -332,10 +345,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     
     NSString * cdFolderPath;
     
-    if (  bitMask == 0  ) {
-        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
-    }
-
     // Determine path to the configuration file and the --cd folder
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
@@ -671,17 +680,20 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 
     // Unload foo.tap and/or foo.tun if we load our tap and/or tun
     unsigned int unloadMask = 0;
-    if (  bitMask & OUR_TAP_KEXT) {
+    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
         unloadMask = FOO_TAP_KEXT;
     }
-    if (  bitMask & OUR_TUN_KEXT) {
+    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
         unloadMask = unloadMask | FOO_TUN_KEXT;
     }
-    if (  unloadMask  ) {
+    if (  unloadMask != 0  ) {
         unloadKexts( unloadMask );
     }
     
-    loadKexts(  bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT)  );
+    unsigned int loadMask = bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT);
+    if (  loadMask != 0) {
+        loadKexts(  loadMask  );
+    }
     
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
@@ -960,16 +972,16 @@ void waitUntilAllGone(void)
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void loadKexts(unsigned int bitMask)
 {
-    if (  bitMask == 0  ) {
-        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
+    if (  ( bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT) ) == 0  ) {
+        return;
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
     
-    if (  OUR_TAP_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tap.kext"]];
     }
-    if (  OUR_TUN_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tun.kext"]];
     }
     
@@ -1007,24 +1019,24 @@ void loadKexts(unsigned int bitMask)
 // We ignore errors because this is a non-critical function, and the unloading fails if a kext is in use
 void unloadKexts(unsigned int bitMask)
 {
-    if (  bitMask == 0  ) {
-        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
+    if (  ( bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT | FOO_TAP_KEXT | FOO_TUN_KEXT) ) == 0  ) {
+        return;
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 10];
     
     [arguments addObject: @"-q"];
     
-    if (  OUR_TAP_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tap", nil]];
     }
-    if (  OUR_TUN_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tun", nil]];
     }
-    if (  FOO_TAP_KEXT & bitMask  ) {
+    if (  (bitMask & FOO_TAP_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tap", nil]];
     }
-    if (  FOO_TUN_KEXT & bitMask  ) {
+    if (  (bitMask & FOO_TUN_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tun", nil]];
     }
     
