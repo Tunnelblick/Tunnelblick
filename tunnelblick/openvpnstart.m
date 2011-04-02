@@ -27,6 +27,8 @@
 #import "defines.h"
 #import "NSFileManager+TB.h"
 
+#define DEFAULT_LOAD_UNLOAD_KEXTS_MASK 3
+
 int     startVPN                   (NSString * configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
 
 NSString * createOpenVPNLog        (NSString * configurationFile, unsigned cfgLocCode, int port);
@@ -35,6 +37,8 @@ NSString * constructOpenVPNLogPath (NSString * configurationFile, unsigned cfgLo
 NSString * constructScriptLogPath  (NSString * configurationFile, unsigned cfgLocCode);
 NSString * constructLogBase        (NSString * configurationFile, unsigned cfgLocCode);
 void       deleteLogFiles          (NSString * configurationFile, unsigned cfgLocCode);
+
+NSString * newTemporaryDirectoryPath(void);
 
 int     runAsRoot           (NSString * thePath, NSArray * theArguments);
 
@@ -109,11 +113,14 @@ int main(int argc, char* argv[])
 			}
 		} else if( strcmp(command, "loadKexts") == 0 ) {
 			if (argc == 2) {
-                loadKexts(0);
+                loadKexts(DEFAULT_LOAD_UNLOAD_KEXTS_MASK);
 				syntaxError = FALSE;
             } else if (  argc == 3 ) {
                 unsigned int bitMask = atoi(argv[2]);
                 if (  bitMask < 4  ) {
+                    if (  bitMask == 0  ) {
+                        bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                    }
                     loadKexts(bitMask);
                     syntaxError = FALSE;
                 }
@@ -121,11 +128,14 @@ int main(int argc, char* argv[])
             
 		} else if( strcmp(command, "unloadKexts") == 0 ) {
 			if (argc == 2) {
-                unloadKexts(0);
+                unloadKexts(DEFAULT_LOAD_UNLOAD_KEXTS_MASK);
 				syntaxError = FALSE;
             } else if (  argc == 3 ) {
                 unsigned int bitMask = atoi(argv[2]);
                 if (  bitMask < 16  ) {
+                    if (  bitMask == 0  ) {
+                        bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                    }
                     unloadKexts(bitMask);
                     syntaxError = FALSE;
                 }
@@ -171,7 +181,12 @@ int main(int argc, char* argv[])
 						BOOL      skipScrSec = FALSE; if( (argc > 5) && (atoi(argv[5]) == 1) ) skipScrSec = TRUE;
 						unsigned  cfgLocCode = 0;     if(  argc > 6  )                         cfgLocCode = atoi(argv[6]);
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
-						unsigned int bitMask = 0;     if(  argc > 8  )                         bitMask    = atoi(argv[8]);
+                        
+                        unsigned  bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                        if (  argc > 8  ) {
+                            bitMask = atoi(argv[8]);
+                        }
+                        
                         startArgs = [[[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy] autorelease];
                         if (   (cfgLocCode < 4)
                             && (bitMask < 1024)  ) {
@@ -320,10 +335,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     
     NSString * cdFolderPath;
     
-    if (  bitMask == 0  ) {
-        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
-    }
-
     // Determine path to the configuration file and the --cd folder
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
@@ -660,29 +671,29 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     unsigned unloadMask  = 0;
     unsigned loadedKexts = getLoadedKextsMask();
 
-    if (  bitMask & OUR_TAP_KEXT) {
-        if (  loadedKexts & FOO_TAP_KEXT  ) {
+    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
+        if (  (loadedKexts & FOO_TAP_KEXT) != 0  ) {
             unloadMask = FOO_TAP_KEXT;
         }
     }
-    if (  bitMask & OUR_TUN_KEXT) {
-        if (  loadedKexts & FOO_TUN_KEXT  ) {
+    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
+        if (  (loadedKexts & FOO_TUN_KEXT) != 0  ) {
             unloadMask = unloadMask | FOO_TUN_KEXT;
         }
     }
-    if (  unloadMask  ) {
+    if (  unloadMask != 0  ) {
         unloadKexts( unloadMask );
     }
     
     // Load the new net.tunnelblick.tun/tap if bitMask says to and they aren't already loaded
     unsigned loadMask = bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT);
-    if (  loadedKexts & OUR_TAP_KEXT  ) {
+    if (  (loadedKexts & OUR_TAP_KEXT) != 0   ) {
         loadMask = loadMask & ( ~ OUR_TAP_KEXT );
     }
-    if (  loadedKexts & OUR_TUN_KEXT  ) {
+    if (  (loadedKexts & OUR_TUN_KEXT) != 0  ) {
         loadMask = loadMask & ( ~ OUR_TUN_KEXT );
     }
-    if (  loadMask  ) {
+    if (  loadMask != 0  ) {
         loadKexts(loadMask);
     }
     
@@ -1043,9 +1054,32 @@ void waitUntilAllGone(void)
     }
 }
 
+// Returns with a bitmask of kexts that are loaded that can be unloaded
 // Launches "kextstat" to get the list of loaded kexts, and does a simple search
 unsigned getLoadedKextsMask(void)
 {
+    NSString * tempDir = newTemporaryDirectoryPath();
+    if (  tempDir == nil  ) {
+        fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+    
+    NSString * kextOutputPath = [tempDir stringByAppendingPathComponent: @"Tunnelblick-kextstat-output.txt"];
+    if (  ! [gFileMgr createFileAtPath: kextOutputPath contents: [NSData data] attributes: nil]  ) {
+        fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+        [tempDir release];
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+    
+    NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
+    if (  ! kextOutputHandle  ) {
+        fprintf(stderr, "Warning: Unable to create temporary output file for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+        [tempDir release];
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+    
     NSString * kextstatPath = @"/usr/sbin/kextstat";
     
     NSTask * task = [[[NSTask alloc] init] autorelease];
@@ -1054,22 +1088,23 @@ unsigned getLoadedKextsMask(void)
     NSArray  *arguments = [NSArray array];
     [task setArguments: arguments];
     
-    NSPipe * pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    NSFileHandle * file = [pipe fileHandleForReading];
+    [task setStandardOutput: kextOutputHandle];
     
     [task launch];
     
     [task waitUntilExit];
-
-    int status = [task terminationStatus];
+    
+    [kextOutputHandle closeFile];
+    
+    OSStatus status = [task terminationStatus];
     if (  status != EXIT_SUCCESS  ) {
         fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
         return (FOO_TAP_KEXT | FOO_TUN_KEXT);
     }
     
-    NSData * data = [file readDataToEndOfFile];
+    NSData * data = [gFileMgr contentsAtPath: kextOutputPath];
+    
+    [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
     
     NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     
@@ -1091,20 +1126,54 @@ unsigned getLoadedKextsMask(void)
     return bitMask;
 }
 
+NSString * newTemporaryDirectoryPath(void)
+{
+    //**********************************************************************************************
+    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
+    
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
+    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
+    
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        fprintf(stderr, "Unable to allocate memory for a temporary directory name");
+        return nil;
+    }
+    
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+    
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    if (  ! dirPath  ) {
+        fprintf(stderr, "Unable to create a temporary directory");
+        return nil;
+    }
+    
+    NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                                 length: strlen(tempDirectoryNameCString)];
+    free(tempDirectoryNameCString);
+    
+    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    //**********************************************************************************************
+    
+    return [tempFolder retain];
+}
+
 //**************************************************************************************************************************
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void loadKexts(unsigned int bitMask)
 {
-    if (  bitMask == 0  ) {
-        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
+    if (  ( bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT) ) == 0  ) {
+        return;
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
     
-    if (  OUR_TAP_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tap.kext"]];
     }
-    if (  OUR_TUN_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tun.kext"]];
     }
     
@@ -1140,24 +1209,24 @@ void loadKexts(unsigned int bitMask)
 // We ignore errors because this is a non-critical function, and the unloading fails if a kext is in use
 void unloadKexts(unsigned int bitMask)
 {
-    if (  bitMask == 0  ) {
-        bitMask = OUR_TAP_KEXT | OUR_TUN_KEXT;
+    if (  ( bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT | FOO_TAP_KEXT | FOO_TUN_KEXT) ) == 0  ) {
+        return;
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 10];
     
     [arguments addObject: @"-q"];
     
-    if (  OUR_TAP_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tap", nil]];
     }
-    if (  OUR_TUN_KEXT & bitMask  ) {
+    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tun", nil]];
     }
-    if (  FOO_TAP_KEXT & bitMask  ) {
+    if (  (bitMask & FOO_TAP_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tap", nil]];
     }
-    if (  FOO_TUN_KEXT & bitMask  ) {
+    if (  (bitMask & FOO_TUN_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tun", nil]];
     }
     
@@ -1388,15 +1457,15 @@ BOOL tblkNeedsRepair(BOOL inPrivateFolder)
                 }
             } else if ( [ext isEqualToString:@"sh"]  ) {
                 if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
-                    return YES; // NSLog already called
+                    return YES; // fprintf already called
                 }
             } else if (  [extensionsFor600Permissions containsObject: ext]  ) {     // keys, certs, etc. are 600
                 if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"600")  ) {
-                    return YES; // NSLog already called
+                    return YES; // fprintf already called
                 }
             } else {
                 if (  ! checkOwnerAndPermissions(filePath, 0, 0,  @"644")  ) {      // everything else is 644, including .conf and .ovpn
-                    return YES; // NSLog already called
+                    return YES; // fprintf already called
                 }
             }
         }
@@ -1424,7 +1493,7 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
         return YES;
     }
     
-    NSLog(@"File %@ has permissions: %@, is owned by %@:%@ and needs repair", fPath, permissionsOctal, fileOwner, fileGroup);
+    fprintf(stderr, "File %s has permissions: %s, is owned by %d:%d and needs repair", [fPath UTF8String], [permissionsOctal UTF8String], [fileOwner intValue], [fileGroup intValue]);
     return NO;
 }
 
@@ -1444,7 +1513,7 @@ BOOL createDir(NSString * d, unsigned long perms)
     NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
 
     if (  ! [gFileMgr tbCreateDirectoryAtPath: d attributes: dirAttributes] ) {
-        NSLog(@"Tunnelblick Installer: Unable to create directory %@", d);
+        fprintf(stderr, "Tunnelblick Installer: Unable to create directory %s", [d UTF8String]);
     }
     
     return YES;

@@ -1,0 +1,60 @@
+/* Connection status */
+"TCP_CONNECT" = "Making TCP connection";
+
+/* Connection status */
+"UDP_CONNECT" = "Making UDP connection";
+
+/* Window title */
+"Connection Status" = "Connection Status";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
+
+/* Window text */
+" and install %d configurations" = " and install %d configurations";
+
+/* Window text */
+" and install one configuration" = " and install one configuration";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d Tunnelblick VPN Configurations were uninstalled successfully.";
+
+/* Window text */
+"Do you wish to install %d configurations" = "Do you wish to install %d configurations";
+
+/* Window text */
+"Do you wish to uninstall %d configurations" = "Do you wish to uninstall %d configurations";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "Do you wish to uninstall '%1$@'%2$@ version %3$@?";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Do you wish to uninstall one configuration";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "One Tunnelblick VPN Configuration was installed successfully.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "One Tunnelblick VPN Configuration was uninstalled successfully.";
+
+/* Window text */
+"There was a problem with %d configurations. Details are in the Console Log\n\n" = "There was a problem with %d configurations. Details are in the Console Log\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "There was a problem with one configuration. Details are in the Console Log\n\n";
+
+/* Window text */
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations.";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN Configurations were installed successfully.";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nOne Tunnelblick VPN Configuration was installed successfully.";
+

@@ -31,6 +31,7 @@
  *  and installing .tblk packages
  */
 
+#import "defines.h"
 #import "VPNConnection.h"
 
 @interface ConfigurationManager : NSObject {
@@ -55,7 +56,9 @@
                                          andKey:        (NSString *)        key;
 
 -(void)                     openDotTblkPackages:        (NSArray *)         filePaths
-                                      usingAuth:        (AuthorizationRef)  authRef;
+                                      usingAuth:        (AuthorizationRef)  authRef
+                        skipConfirmationMessage:        (BOOL)              skipConfirmMsg
+                              skipResultMessage:        (BOOL)              skipResultMsg;
 
 -(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
                                      forConnection:     (VPNConnection *)   connection;

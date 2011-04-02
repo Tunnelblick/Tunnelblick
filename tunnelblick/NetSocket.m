@@ -468,7 +468,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	
 	// Reference our incoming buffer, we cut down some overhead when the requested amount is the same length as our incoming buffer
 	if( amountToRead == [mIncomingBuffer length] )
-		readData = mIncomingBuffer;
+		readData = [mIncomingBuffer retain];
 	else
 		readData = [[NSData alloc] initWithBytesNoCopy:(void*)[mIncomingBuffer bytes] length:amountToRead freeWhenDone:NO];
 	
@@ -490,9 +490,8 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 		[readString release];
 	}
 	
-	// Release our buffer if it is not our incoming data buffer
-	if( readData != mIncomingBuffer )
-		[readData release];
+	// Release our buffer
+	[readData release];
 	
 	return amountToRead;
 }
@@ -573,7 +572,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	
 	// Reference our incoming buffer, we cut down some overhead when the requested amount is the same length as our incoming buffer
 	if( amountToRead == [mIncomingBuffer length] )
-		readData = mIncomingBuffer;
+		readData = [mIncomingBuffer retain];
 	else
 		readData = [[NSData alloc] initWithBytesNoCopy:(void*)[mIncomingBuffer bytes] length:amountToRead freeWhenDone:NO];
 	
@@ -589,9 +588,8 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 		[mIncomingBuffer replaceBytesInRange:NSMakeRange( 0, amountToRead ) withBytes:NULL length:0];
 	}
 	
-	// Release our buffer if it is not our incoming data buffer
-	if( readData != mIncomingBuffer )
-		[readData release];
+	// Release our buffer
+	[readData release];
 	
 	return readString;
 }

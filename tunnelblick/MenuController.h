@@ -26,16 +26,25 @@
 #import <Carbon/Carbon.h>
 #import <Security/Security.h>
 #import "Sparkle/SUUpdater.h"
+#import "defines.h"
 #import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
+#import "ConfigurationUpdater.h"
 
 @class NetSocket;
 
-BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN, BOOL  *restoreDeploy, BOOL * needsPkgRepair, BOOL inApplications); 
+BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
+                        BOOL * moveLibraryOpenVPN,
+                        BOOL * restoreDeploy,
+                        BOOL * needsPkgRepair,
+                        BOOL * needsBundleCopy,
+                        BOOL inApplications); 
+
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
 BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
+BOOL needToCopyBundle(void);
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSTextStorageDelegate,NSWindowDelegate>
 {
@@ -77,13 +86,13 @@ BOOL needToRepairPackages(void);
     NSMenu                  * hotKeySubmenu;                //      Shortcut Key Submenu
     NSMenuItem              * hotKeySubmenuItem;            //      Shortcut Key Item in Options menu
     NSMenuItem              * addConfigurationItem;         //    "Add Configuration..." menu item
+
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
 
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
-    int                       animNumFrames;                // # of images
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
@@ -101,15 +110,19 @@ BOOL needToRepairPackages(void);
     
     NSArray                 * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
     
+    NSMutableArray          * pIDsWeAreTryingToHookUpTo;    // List of process IDs for processes we are trying to hookup to
+    
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
     NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
 	
-    NSTimer                 * hookupWatchdogTimer;              // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
+    NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
+
+    ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
     
     NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
     //                                                         so the program can re-select. nil after re-selecting it
@@ -137,6 +150,8 @@ BOOL needToRepairPackages(void);
     BOOL                      ignoreNoConfigs;              // Indicates that the absense of any configuration files should be ingored. This is used to prevent the creation
     //                                                         of a link to Tunnelblick in the Configurations folder in checkNoConfigurations from
     //                                                         triggering a second invocation of it because of the filesystem change when the link is created
+    
+    BOOL                      checkingForNoConfigs;         // Used to avoid infinite recursion
     
     BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch
     //                                                         and therefore we can safely terminate unknown OpenVPN processes when quitting TB
@@ -188,6 +203,8 @@ BOOL needToRepairPackages(void);
 -(void)             addConnection:                          (id)                sender;
 -(void)             cleanup;
 -(unsigned)         decrementTapCount;
+-(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
+-(void)             installConfigurationsUpdateInBundleAtPath: (NSString *)     path;
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
@@ -197,13 +214,21 @@ BOOL needToRepairPackages(void);
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
+-(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
 -(void)             validateWhenConnectingForConnection:    (VPNConnection *)   connection;
+-(void)             statusWindowController:                 (id)                ctl
+                        finishedWithChoice:                 (StatusWindowControllerChoice) choice
+                            forDisplayName:                 (NSString *)        theName;
+
 
 // Getters and Setters
 
+-(NSArray *)        animImages;
+-(NSImage *)        connectedImage;
+-(NSImage *)        mainImage;
 -(NSArray *)        connectionArray;
 -(NSArray *)        connectionsToRestoreOnUserActive;
 -(int)              selectedModifyNameserverIndex;
@@ -212,6 +237,7 @@ BOOL needToRepairPackages(void);
 -(int)              selectedLeftNavListIndex;
 -(void)             setSelectedLeftNavListIndex:            (int)               newValue;
 -(BOOL)             terminatingAtUserRequest;
+-(SUUpdater *)      updater;
 
 // AppleScript support
 

@@ -51,6 +51,7 @@
 		63216D90125778C0004EDB57 /* client.1.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */; };
 		63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */; };
 		6337527D101A1EBD00775AA2 /* TBTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6337527C101A1EBD00775AA2 /* TBTextView.m */; };
+		633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633DF4581312B13100B8606C /* ConfigurationManager.m */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
@@ -67,11 +68,14 @@
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
+		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
+		639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A10FE132AC9D800754C2A /* StatusWindowController.m */; };
 		63A3CC2A12FB45E7008BC1A2 /* Tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 63A3CC2912FB45E7008BC1A2 /* Tunnelblick.sdef */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
+		63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B9CFA4132C73DD009EC6D0 /* WebKit.framework */; };
 		63BD86E81205BA39005B8E38 /* IT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* IT.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63BF3E1310A2ED7F00AC8A59 /* CA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BF3E1010A2ED7F00AC8A59 /* CA.lproj */; };
@@ -79,11 +83,11 @@
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
-		63E8427C117A147500529DE2 /* ConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E8427B117A147500529DE2 /* ConfigurationManager.m */; };
 		63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F2AD9C12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
+		63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -213,6 +217,7 @@
 		63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.up.tunnelblick.sh; sourceTree = "<group>"; };
 		6337527B101A1EBD00775AA2 /* TBTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTextView.h; sourceTree = "<group>"; };
 		6337527C101A1EBD00775AA2 /* TBTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTextView.m; sourceTree = "<group>"; };
+		633DF4581312B13100B8606C /* ConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationManager.m; sourceTree = "<group>"; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -229,6 +234,9 @@
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
+		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
+		639A10FE132AC9D800754C2A /* StatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusWindowController.m; sourceTree = "<group>"; };
+		639A10FF132AC9D800754C2A /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
 		63A3CC2912FB45E7008BC1A2 /* Tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = Tunnelblick.sdef; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
@@ -236,6 +244,7 @@
 		63B5E31811E34D69007D99DB /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
 		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
+		63B9CFA4132C73DD009EC6D0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
 		63BF3E1010A2ED7F00AC8A59 /* CA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CA.lproj; sourceTree = "<group>"; };
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
@@ -244,9 +253,10 @@
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
-		63E8427B117A147500529DE2 /* ConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationManager.m; sourceTree = "<group>"; };
 		63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+TB.h"; sourceTree = "<group>"; };
 		63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+TB.m"; sourceTree = "<group>"; };
+		63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationUpdater.h; sourceTree = "<group>"; };
+		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB23E101099514400CC52D3 /* openvpn-down-root.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "openvpn-down-root.so"; path = "../third_party/openvpn/plugin/down-root/openvpn-down-root.so"; sourceTree = SOURCE_ROOT; };
@@ -290,6 +300,7 @@
 				63C504291178E21100340D13 /* Security.framework in Frameworks */,
 				6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */,
 				635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */,
+				63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,29 +311,25 @@
 			isa = PBXGroup;
 			children = (
 				63DAFD5311CBA9F4002F9F91 /* defines.h */,
+				6185E73E0E76045D0009C2FD /* helper.h */,
+				6185E73F0E76045D0009C2FD /* helper.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				635C80441300353000DB27AE /* ApplescriptCommands.h */,
 				635C80451300353000DB27AE /* ApplescriptCommands.m */,
-				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
-				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
-				6337527B101A1EBD00775AA2 /* TBTextView.h */,
-				6337527C101A1EBD00775AA2 /* TBTextView.m */,
-				638E695F1097725500587933 /* TBUserDefaults.h */,
-				638E69601097725500587933 /* TBUserDefaults.m */,
-				6185E73E0E76045D0009C2FD /* helper.h */,
-				6185E73F0E76045D0009C2FD /* helper.m */,
-				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
-				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
-				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
-				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
-				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
-				63E8427B117A147500529DE2 /* ConfigurationManager.m */,
-				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
-				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
 				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
 				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
+				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
+				633DF4581312B13100B8606C /* ConfigurationManager.m */,
+				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
+				63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */,
+				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
+				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
+				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
+				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
+				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
+				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
 				61BC4B6B0E2F9EBC00F24255 /* NetSocket.h */,
 				61BC4B6C0E2F9EBC00F24255 /* NetSocket.m */,
 				61BC4B6D0E2F9EBC00F24255 /* NetSocket+Text.h */,
@@ -337,6 +344,14 @@
 				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
 				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
+				639A10FF132AC9D800754C2A /* StatusWindowController.h */,
+				639A10FE132AC9D800754C2A /* StatusWindowController.m */,
+				6337527B101A1EBD00775AA2 /* TBTextView.h */,
+				6337527C101A1EBD00775AA2 /* TBTextView.m */,
+				638E695F1097725500587933 /* TBUserDefaults.h */,
+				638E69601097725500587933 /* TBUserDefaults.m */,
+				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
+				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
 				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
 				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 			);
@@ -388,6 +403,7 @@
 				6165CC8A0E9072A5007312DC /* RouteManager.h */,
 				6165CC8B0E9072A5007312DC /* RouteManager.m */,
 				635CA99F12F9DCE300287298 /* AppKit.framework */,
+				63B9CFA4132C73DD009EC6D0 /* WebKit.framework */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";
@@ -439,6 +455,7 @@
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
 				61BC4DB10E2FA3C300F24255 /* LogWindow.nib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.nib */,
+				639A10EA132AC74B00754C2A /* StatusWindow.xib */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -563,6 +580,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tunnelblick" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -619,6 +637,7 @@
 				63216D91125778C0004EDB57 /* client.1.up.tunnelblick.sh in Resources */,
 				635CA45312F8285D00287298 /* COPYING in Resources */,
 				63A3CC2A12FB45E7008BC1A2 /* Tunnelblick.sdef in Resources */,
+				639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,10 +725,12 @@
 				6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */,
 				6311306411041B89003435F1 /* LoginItemsAE.c in Sources */,
 				6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */,
-				63E8427C117A147500529DE2 /* ConfigurationManager.m in Sources */,
 				63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */,
 				63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
 				635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */,
+				63FB74EE1311D4BC002F4E7F /* ConfigurationUpdater.m in Sources */,
+				633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */,
+				639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

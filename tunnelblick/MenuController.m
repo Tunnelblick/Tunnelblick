@@ -38,16 +38,17 @@
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
 
-
 // These are global variables rather than class variables to make access to them easier
-NSMutableArray        * gConfigDirs;          // Array of paths to configuration directories currently in use
-NSString              * gDeployPath;          // Path to Tunnelblick.app/Contents/Resources/Deploy
-NSString              * gPrivatePath;         // Path to ~/Library/Application Support/Tunnelblick/Configurations
-NSString              * gSharedPath;          // Path to /Library/Application Support/Tunnelblick/Shared
-TBUserDefaults        * gTbDefaults;          // Our preferences
-NSFileManager         * gFileMgr;             // [NSFileManager defaultManager]
-NSDictionary          * gOpenVPNVersionDict;  // Dictionary with OpenVPN version information
-unsigned                gHookupTimeout;       // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
+NSMutableArray        * gConfigDirs;            // Array of paths to configuration directories currently in use
+NSString              * gDeployPath;            // Path to Tunnelblick.app/Contents/Resources/Deploy
+NSString              * gPrivatePath;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
+NSString              * gSharedPath;            // Path to /Library/Application Support/Tunnelblick/Shared
+TBUserDefaults        * gTbDefaults;            // Our preferences
+NSFileManager         * gFileMgr;               // [NSFileManager defaultManager]
+NSDictionary          * gOpenVPNVersionDict;    // Dictionary with OpenVPN version information
+BOOL                    gTunnelblickIsQuitting; // Flag that Tunnelblick is in the process of quitting
+BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
+unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                               or zero to keep trying indefinitely
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
@@ -91,6 +92,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             activateStatusMenu;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
+-(BOOL)             application:                            (NSApplication *)   theApplication
+                      openFiles:                            (NSArray * )        filePaths
+        skipConfirmationMessage:                            (BOOL)              skipConfirmMsg
+              skipResultMessage:                            (BOOL)              skipResultMsg;
+
 -(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
@@ -137,10 +143,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
               fromMonitorQueue:                             (UKKQueue *)        queue;
 -(void)             runCustomMenuItem:                      (NSMenuItem *)      item;
 -(BOOL)             runInstallerRestoreDeploy:              (BOOL)              restore
-                                      copyApp:              (BOOL)              copyIt
+                                      copyApp:              (BOOL)              copyApp
                                     repairApp:              (BOOL)              repairIt
                            moveLibraryOpenVPN:              (BOOL)              moveConfigs
-                               repairPackages:              (BOOL)              repairPkgs;
+                               repairPackages:              (BOOL)              repairPkgs
+                                   copyBundle:              (BOOL)              copyBundle;
 -(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
 -(void)             saveOnSystemStartRadioButtonState:      (BOOL)              onSystemStart
                                         forConnection:      (VPNConnection *)   connection;
@@ -189,6 +196,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
         terminatingAtUserRequest = FALSE;
+        gTunnelblickIsQuitting = FALSE;
+        gComputerIsGoingToSleep = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
@@ -233,12 +242,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         BOOL needsMoveLibraryOpenVPN;
         BOOL needsRestoreDeploy;
         BOOL needsPkgRepair;
-        if (  needToRunInstaller( &needsChangeOwnershipAndOrPermissions, &needsMoveLibraryOpenVPN, &needsRestoreDeploy, &needsPkgRepair, FALSE )  ) {
+        BOOL needsBundleCopy;
+        if (  needToRunInstaller(&needsChangeOwnershipAndOrPermissions,
+                                 &needsMoveLibraryOpenVPN,
+                                 &needsRestoreDeploy,
+                                 &needsPkgRepair,
+                                 &needsBundleCopy,
+                                 FALSE )  ) {
             if (  ! [self runInstallerRestoreDeploy: needsRestoreDeploy
-                                            copyApp: FALSE
+                                            copyApp: NO
                                           repairApp: needsChangeOwnershipAndOrPermissions
                                  moveLibraryOpenVPN: needsMoveLibraryOpenVPN
-                                     repairPackages: needsPkgRepair]  ) {
+                                     repairPackages: needsPkgRepair
+                                         copyBundle: needsBundleCopy]  ) {
                 // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
                 [NSApp setAutoLaunchOnLogin: NO];
                 [NSApp terminate:self];
@@ -404,7 +420,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         ignoreNoConfigs = TRUE;    // We ignore the "no configurations" situation until we've processed application:openFiles:
 		
         updater = [[SUUpdater alloc] init];
-        
+        myConfigUpdater = [[ConfigurationUpdater alloc] init]; // Set up a separate Sparkle Updater for configurations   
     }
     
     return self;
@@ -496,6 +512,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [hookupWatchdogTimer release];
     [theAnim release];
     [updater release];
+    [myConfigUpdater release];
     [gOpenVPNVersionDict release];
     [customMenuScripts release];
     [customRunOnLaunchPath release];
@@ -519,7 +536,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [hotKeySubmenu release];
     [statusMenuItem release];
     [statusItem release];
-    
     [super dealloc];
 }
 
@@ -794,7 +810,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [addConfigurationItem setTarget: self];
             [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
         }
-        
+
         if (  ! [gTbDefaults boolForKey:@"doNotShowKeyboardShortcutSubmenu"]  ) {
             hotKeySubmenu = [[NSMenu alloc] init];
             [hotKeySubmenu setTitle: NSLocalizedString(@"Keyboard Shortcut", @"Menu item")];
@@ -1657,18 +1673,24 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
     // Remove configurations that are no longer available
-	e = [myConfigDictionary keyEnumerator];
+	NSMutableArray * removeList = [NSMutableArray arrayWithCapacity: 10];
+    e = [myConfigDictionary keyEnumerator];
     while (dispNm = [e nextObject]) {
         BOOL sameDispNm = [curConfigsDict objectForKey: dispNm] != nil;
-        
         if (  ! sameDispNm  ) {
-            [self deleteExistingConfig: dispNm]; // No new config with same name
-            needToUpdateLogWindow = TRUE;
+            [removeList addObject: [[dispNm copy] autorelease]]; // No new config with same name
         }
+    }
+    e = [removeList objectEnumerator];
+    while (  dispNm = [e nextObject]  ) {
+        [self deleteExistingConfig: dispNm];
+        needToUpdateLogWindow = TRUE;
     }
     
 	// If there aren't any configuration files left, deal with that
-    [self checkNoConfigurations];
+    if (  ! checkingForNoConfigs  ) {
+        [self checkNoConfigurations];
+    }
     
     if (  needToUpdateLogWindow  ) {
         // Add or remove configurations from the Log window (if it is open) by closing and reopening it
@@ -2182,6 +2204,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         } else {
             NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
         }
+        
+        [myConfigUpdater startWithUI: YES]; // Display the UI
     }
 }
 
@@ -2657,35 +2681,53 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // Launches "kextstat" to get the list of loaded kexts, and does a simple search
 -(unsigned) getLoadedKextsMask
 {
-    NSString * exePath = @"/usr/sbin/kextstat";
-
+    NSString * tempDir = newTemporaryDirectoryPath();
+    NSString * kextOutputPath = [tempDir stringByAppendingPathComponent: @"Tunnelblick-kextstat-output.txt"];
+    if (  ! [gFileMgr createFileAtPath: kextOutputPath contents: [NSData data] attributes: nil]  ) {
+        fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+        [tempDir release];
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+    NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
+    if (  ! kextOutputHandle  ) {
+        fprintf(stderr, "Warning: Unable to create temporary output file for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+        [tempDir release];
+        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+    }
+    
+    NSString * kextstatPath = @"/usr/sbin/kextstat";
+    
     NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: exePath];
-
+    [task setLaunchPath: kextstatPath];
+    
     NSArray  *arguments = [NSArray array];
     [task setArguments: arguments];
     
-    NSPipe * pipe = [NSPipe pipe];
-    [task setStandardOutput: pipe];
-    
-    NSFileHandle * file = [pipe fileHandleForReading];
+    [task setStandardOutput: kextOutputHandle];
     
     [task launch];
     
     [task waitUntilExit];
     
+    [kextOutputHandle closeFile];
+    
     OSStatus status = [task terminationStatus];
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"Warning: kextstat failed to list loaded kexts. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
         return (FOO_TAP_KEXT | FOO_TUN_KEXT);
     }
-
-    NSData * data = [file readDataToEndOfFile];
     
-    NSString * string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    NSData * data = [gFileMgr contentsAtPath: kextOutputPath];
+    
+    [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+    [tempDir release];
+    
+    NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     
     unsigned bitMask = 0;
-
+    
     if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
         bitMask = bitMask | FOO_TAP_KEXT;
     }
@@ -2698,8 +2740,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
         bitMask = bitMask | OUR_TUN_KEXT;
     }
-    
-    [string release];
     
     return bitMask;
 }
@@ -2729,8 +2769,18 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     if (   ignoreNoConfigs
         || ( [myConfigDictionary count] != 0 )
-        || [[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] // True only if we had configurations in Deploy when launched
+        || (   ([gConfigDirs count] != 0)
+            && [[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] ) // True only if we had configurations in Deploy when launched
         ) {
+        return;
+    }
+    
+    // Make sure we notice any configurations that have just been installed
+    checkingForNoConfigs = TRUE;    // Avoid infinite recursion
+    [self activateStatusMenu];
+    checkingForNoConfigs = FALSE;
+    
+    if (  [myConfigDictionary count] != 0  ) {
         return;
     }
     
@@ -2806,6 +2856,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(void)cleanup 
 {
+    gTunnelblickIsQuitting = TRUE;
     if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
         UnregisterEventHotKey(hotKeyRef);
     }
@@ -2852,8 +2903,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		NSString* key = [[connection displayName] stringByAppendingString: @"useDNS"];
         NSNumber * num = [NSNumber numberWithInt: (int) inValue];
         id obj = [gTbDefaults objectForKey: key];
-        if (   ( ! [[obj class] isSubclassOfClass: [num class]] )
-            || ( ! [num isEqualToNumber: obj] )  ) {
+        BOOL saveIt = FALSE;
+        if (  ! obj  ) {                                                // If no preference
+            if (  inValue != 1  ) {                                     // and the new one is not 1
+                saveIt = TRUE;                                          // Then save the new one
+            }
+        } else {
+            if (   ( ! [[obj class] isSubclassOfClass: [num class]] )   // If preference is not a number
+                || ( ! [num isEqualToNumber: obj] )  ) {                // Or is not equal to the new one
+                saveIt = TRUE;                                          // Then save the new one
+            }
+        }
+        
+        if (  saveIt  ) {
             [gTbDefaults setObject: num forKey: key];
             [gTbDefaults synchronize];
             if (  ! [connection isDisconnected]  ) {
@@ -2864,6 +2926,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
     }
 }
+
 -(void)saveAutoLaunchCheckboxState:(BOOL)inBool
 {
 	VPNConnection* connection = [self selectedConnection];
@@ -2995,15 +3058,167 @@ static void signal_handler(int signalNumber)
     }	
 }
 
+
+// Invoked by Tunnelblick modifications to Sparkle with the path to a .bundle with updated configurations to install
+-(void) installConfigurationsUpdateInBundleAtPathHandler: (NSString *) path
+{
+    [self performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPath:)
+                           withObject: path 
+                        waitUntilDone: YES];
+}
+
+-(void) installConfigurationsUpdateInBundleAtPath: (NSString *) path
+{
+    if (  ! path  ) {
+        NSLog(@"Configuration update installer: Not installing configurations update: Invalid path to update");
+        return;
+    }
+    
+    // Get version of bundle whose contents we are installing, so we can (later) update /Library/Application Support/.../Tunnelblick Configurations.bundle
+    NSString * plistPath = [path stringByAppendingPathComponent: @"Contents/Info.plist"];
+    NSDictionary * dict  = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+    NSString * version   = [dict objectForKey: @"CFBundleVersion"];
+    if (  ! version  ) {
+        NSLog(@"Configuration update installer: Not installing configurations update: No version information in %@", plistPath);
+        return;
+    }
+    NSString * versionShortString = [dict objectForKey: @"CFBundleShortVersionString"];
+    
+    // Install the updated configurations
+    BOOL gotMyAuth = FALSE;
+    
+    BOOL isDir;
+    NSString * installFolder = [path stringByAppendingPathComponent: @"Contents/Resources/Install"];
+    if (  [gFileMgr fileExistsAtPath: installFolder isDirectory: &isDir]
+        && isDir  ) {
+        // Install folder should consist of zero or more .tblks -- make an array of their paths
+        NSMutableArray * paths = [NSMutableArray arrayWithCapacity: 16];
+        NSString * fileName;
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: installFolder];
+        while (  fileName = [dirEnum nextObject]  ) {
+            [dirEnum skipDescendents];
+            NSString * fullPath = [installFolder stringByAppendingPathComponent: fileName];
+            if (  itemIsVisible(fullPath)  ) {
+                if (  [[fileName pathExtension] isEqualToString: @"tblk"]  ) {
+                    [paths addObject: fullPath];
+                } else {
+                    NSLog(@"Configuration update installer: Item %@ is not a .tblk and has been ignored", fullPath);
+                }
+            }
+        }
+        
+        if (  [paths count] != 0  ) {
+            if ( ! myAuth  ) {
+                NSString * msg = NSLocalizedString(@"Tunnelblick needs to install one or more Tunnelblick VPN Configurations.", @"Window text");
+                myAuth = [NSApplication getAuthorizationRef: msg];
+                gotMyAuth = TRUE;
+            }
+            
+            if (  ! myAuth  ) {
+                NSLog(@"Configuration update installer: The Tunnelblick installation was cancelled by the user.");
+                return;
+            }
+            
+            [self application: nil openFiles: paths skipConfirmationMessage: YES skipResultMessage: YES];   // Install .tblks
+            
+        } else {
+            NSLog(@"Configuration update installer: Not installing update: No items to install in %@", installFolder);
+            return;
+        }
+    } else {
+        NSLog(@"Configuration update installer: Not installing update: %@ does not exist", installFolder);
+        return;
+    }
+    
+    // Set the version # in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Info.plist
+    // and remove the bundle's Contents/Resources/Install folder that contains the updates so we don't update with them again
+    if ( ! myAuth  ) {
+        NSString * msg = NSLocalizedString(@"Tunnelblick needs to install one or more Tunnelblick VPN Configurations.", @"Window text");
+        myAuth = [NSApplication getAuthorizationRef: msg];
+        gotMyAuth = TRUE;
+    }
+    
+    if (  ! myAuth  ) {
+        NSLog(@"Configuration update installer: The Tunnelblick installation was cancelled by the user.");
+        return;
+    }
+    
+    NSString * masterPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
+
+    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
+    NSArray * arguments = [NSArray arrayWithObjects: [NSString stringWithFormat: @"%u", INSTALLER_SET_VERSION], version, versionShortString, nil];
+    
+    BOOL okNow = FALSE; // Assume failure
+    int i;
+    for (i=0; i<5; i++) {
+        if (  i != 0  ) {
+            usleep( i * 500000 );
+            NSLog(@"Configuration update installer: Retrying execution of installer");
+        }
+        
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: myAuth] ) {
+            // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
+            // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+            useconds_t sleepTime;
+            for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+                usleep(sleepTime);
+                
+                NSDictionary * masterDict = [NSDictionary dictionaryWithContentsOfFile: masterPlistPath];
+                if (  okNow = [version isEqualToString: [masterDict objectForKey: @"CFBundleVersion"]]  ) {
+                    break;
+                }
+            }
+            
+            if (  okNow  ) {
+                break;
+            } else {
+                NSLog(@"Configuration update installer: Timed out waiting for installer execution to succeed");
+            }
+        } else {
+            NSLog(@"Configuration update installer: Failed to execute %@: %@", launchPath, arguments);
+        }
+    }
+    
+    
+    if (   ! okNow  ) {
+        NSDictionary * masterDict = [NSDictionary dictionaryWithContentsOfFile: masterPlistPath];
+        if (  ! [version isEqualToString: [masterDict objectForKey: @"CFBundleVersion"]]  ) {
+            NSLog(@"Configuration update installer: Unable to update CFBundleVersion in %@", masterPlistPath);
+        }
+    }
+    
+    if (  gotMyAuth  ) {
+        AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
+        myAuth = nil;
+    }
+}
+
 // Invoked when the user double-clicks on one or more .tblk packages,
 //                  or drags and drops one or more .tblk package(s) onto Tunnelblick
-- (BOOL)application: (NSApplication * )theApplication openFiles: (NSArray * )filePaths
+- (BOOL)application: (NSApplication * )theApplication
+          openFiles: (NSArray * )filePaths
+{
+    return [self application: theApplication openFiles: filePaths skipConfirmationMessage: NO skipResultMessage: NO];
+}
+
+
+-(BOOL)             application: (NSApplication *) theApplication
+                      openFiles: (NSArray * )      filePaths
+        skipConfirmationMessage: (BOOL)            skipConfirmMsg
+              skipResultMessage: (BOOL)            skipResultMsg
+
 {
     // If we have finished launching Tunnelblick, we open the file(s) now
     // otherwise the file(s) opening launched us, but we have not initialized completely.
     // so we store the paths and open the file(s) later, in applicationDidFinishLaunching.
     if (  launchFinished  ) {
-        [[ConfigurationManager defaultManager] openDotTblkPackages: filePaths usingAuth: myAuth];
+        BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
+        ignoreNoConfigs = TRUE;
+        [[ConfigurationManager defaultManager] openDotTblkPackages: filePaths
+                                                         usingAuth: myAuth
+                                           skipConfirmationMessage: skipConfirmMsg
+                                                 skipResultMessage: skipResultMsg];
+        ignoreNoConfigs = oldIgnoreNoConfigs;
     } else {
         if (  ! dotTblkFileList  ) {
             dotTblkFileList = [NSMutableArray arrayWithArray: filePaths];
@@ -3029,6 +3244,8 @@ static void signal_handler(int signalNumber)
     //
     // We do this check each time Tunnelblick is launched, to allow deployers to "un-force" this at some later time and have
     // the user asked for his/her preference.
+    
+    [myConfigUpdater setup];    // Set up to run the configuration updater
 
     BOOL forcingAutoChecksAndSendProfile = (  ! [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically" ]  )
     && ( ! [gTbDefaults canChangeValueForKey: @"updateSendProfileInfo"]  );
@@ -3243,9 +3460,25 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    if (  dotTblkFileList  ) {
-        [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList usingAuth: myAuth];
+    // Install configuration updates if any are available
+    NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
+    if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
+        launchFinished = TRUE;  // Fake out openFiles so it installs the .tblk(s) immediately
+        [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
+        launchFinished = FALSE;
     }
+    
+    if (  dotTblkFileList  ) {
+        BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
+        ignoreNoConfigs = TRUE;
+        [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList
+                                                         usingAuth: myAuth
+                                           skipConfirmationMessage: YES
+                                                 skipResultMessage: YES];
+        ignoreNoConfigs = oldIgnoreNoConfigs;
+    }
+    
+    [myConfigUpdater startWithUI: NO];    // Start checking for configuration updates in the background (when the application updater is finished)
     
     // Set up to monitor configuration folders
     myQueue = [UKKQueue sharedFileWatcher];
@@ -3264,9 +3497,8 @@ static void signal_handler(int signalNumber)
     
     [self checkNoConfigurations];
 
-    if (  [self hookupToRunningOpenVPNs]  ) {
-        [self setupHookupWatchdogTimer];
-    }
+    [self hookupToRunningOpenVPNs];
+    [self setupHookupWatchdogTimer];
     
     // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
@@ -3276,9 +3508,6 @@ static void signal_handler(int signalNumber)
             [self validateWhenConnectingForConnection: connection];
         }
     }
-    
-    AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
-    myAuth = nil;
     
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
@@ -3296,12 +3525,30 @@ static void signal_handler(int signalNumber)
             }
         }
     }
-    
-    // Process "Automatically connect on launch" checkboxes
+
+    // Process connections that should be restored on relaunch (from updating configurations)
     VPNConnection * myConnection;
+    NSArray * restoreList = [gTbDefaults objectForKey: @"connectionsToRestoreOnLaunch"];
+    if (   restoreList
+        && ( [restoreList count] != 0 )  ) {
+        NSString * dispNm;
+        NSEnumerator * listEnum = [restoreList objectEnumerator];
+        while (dispNm = [listEnum nextObject]) {
+            myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+            if (   myConnection
+                && ( ! [myConnection isConnected] )  ) {
+                [myConnection connect:self userKnows: YES];
+            }
+        }
+        [gTbDefaults removeObjectForKey: @"connectionsToRestoreOnLaunch"];
+        [gTbDefaults synchronize];
+    }
+    
+    // Process "Automatically connect on launch" checkboxes (but skip any that were restored on relaunch above)
     NSString * dispNm;
     NSEnumerator * e = [myConfigDictionary keyEnumerator];
-    while (dispNm = [e nextObject]) {
+    while (   (dispNm = [e nextObject])
+           && ( [restoreList indexOfObject: dispNm] == NSNotFound)  ) {
         myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
         if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
             if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-onSystemStart"]]  ) {
@@ -3318,6 +3565,9 @@ static void signal_handler(int signalNumber)
         [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
     }
 
+    AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
+    myAuth = nil;
+    
     launchFinished = TRUE;
 }
 
@@ -3397,16 +3647,16 @@ static void signal_handler(int signalNumber)
 
 -(void) hookupWatchdog
 {
-    NSMutableArray * pids = [NSApp pIdsForOpenVPNMainProcesses];
-    
+    // Remove process IDs from the pIDsWeAreTryingToHookUpTo list for connections that have hooked up successfully
     VPNConnection * connection;
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     while (  connection = [connEnum nextObject]  ) {
         if (  [connection isHookedup]  ) {
-            NSNumber * processId = [NSNumber numberWithInt: (int) [connection pid]];
-            if (  processId != 0  ) {
-                if (  [pids containsObject: processId]  ) {
-                    [pids removeObject: processId];
+            pid_t thePid = [connection pid];
+            if (  thePid != 0  ) {
+                NSNumber * processId = [NSNumber numberWithInt: (int) thePid];
+                if (  [pIDsWeAreTryingToHookUpTo containsObject: processId]  ) {
+                    [pIDsWeAreTryingToHookUpTo removeObject: processId];
                 }
             }
         } else {
@@ -3414,7 +3664,7 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    if (  [pids count]  ) {
+   if (  [pIDsWeAreTryingToHookUpTo count]  ) {
         int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
                                              NSLocalizedString(@"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?", @"Window text"),
                                              NSLocalizedString(@"Ignore", @"Button"),
@@ -3425,7 +3675,7 @@ static void signal_handler(int signalNumber)
                                              nil);
         if (  result == NSAlertAlternateReturn  ) {
             NSNumber * pidNumber;
-            NSEnumerator * pidsEnum = [pids objectEnumerator];
+            NSEnumerator * pidsEnum = [pIDsWeAreTryingToHookUpTo objectEnumerator];
             while (  pidNumber = [pidsEnum nextObject]  ) {
                 
                 NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
@@ -3446,6 +3696,26 @@ static void signal_handler(int signalNumber)
     }
 
     [self reconnectAfterBecomeActiveUser];  // Now that we've hooked up everything we can, connect anything else we need to
+}
+
+-(void) saveConnectionsToRestoreOnRelaunch
+{
+    NSMutableArray * restoreList = [NSMutableArray arrayWithCapacity: 8];
+    NSEnumerator * connEnum = [connectionArray objectEnumerator];
+    VPNConnection * connection;
+    while (  connection = [connEnum nextObject]  ) {
+        NSString* autoConnectKey   = [[connection displayName] stringByAppendingString: @"autoConnect"];
+        NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
+        if (  ! (   [gTbDefaults boolForKey: autoConnectKey]
+                 && [gTbDefaults boolForKey: onSystemStartKey] )  ) {
+            [restoreList addObject: [connection displayName]];
+        }
+    }
+    
+    if (  [restoreList count] != 0) {
+        [gTbDefaults setObject: restoreList forKey: @"connectionsToRestoreOnLaunch"];
+        [gTbDefaults synchronize];
+    }
 }
 
 // Sparkle delegate:
@@ -3582,6 +3852,14 @@ static void signal_handler(int signalNumber)
     return FALSE;
 }
 
+-(void) setPIDsWeAreTryingToHookUpTo: (NSArray *) newValue
+{
+    if (  pIDsWeAreTryingToHookUpTo != newValue) {
+        [pIDsWeAreTryingToHookUpTo release];
+        pIDsWeAreTryingToHookUpTo = [newValue retain];
+    }
+}
+
 // This method tries to "hook up" to any running OpenVPN processes.
 //
 // (If no OpenVPN processes exist, there's nothing to hook up to, so we skip all this)
@@ -3601,7 +3879,8 @@ static void signal_handler(int signalNumber)
 {
     BOOL tryingToHookupToOpenVPN = FALSE;
     
-    if (  [[NSApp pIdsForOpenVPNMainProcesses] count] != 0  ) {
+    [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNMainProcesses]];
+    if (  [pIDsWeAreTryingToHookUpTo count] != 0  ) {
         NSString * filename;
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
         while (  filename = [dirEnum nextObject]  ) {
@@ -3796,13 +4075,22 @@ static void signal_handler(int signalNumber)
         }
         
         // Install this program and secure it
-        if (  ! [self runInstallerRestoreDeploy: TRUE
-                                        copyApp: TRUE
-                                      repairApp: TRUE
-                             moveLibraryOpenVPN: TRUE
-                                 repairPackages: TRUE]  ) {
+        if (  ! [self runInstallerRestoreDeploy: YES
+                                        copyApp: YES
+                                      repairApp: YES
+                             moveLibraryOpenVPN: YES
+                                 repairPackages: YES
+                                     copyBundle: YES]  ) {
             // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
             [NSApp terminate:self];
+        }
+        
+        // Install configurations from Tunnelblick Configurations.bundle if any were copied
+        NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
+        if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
+            launchFinished = TRUE;  // Fake out openFiles so it installs the .tblk(s) immediately
+            [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
+            launchFinished = FALSE;
         }
         
         response = TBRunAlertPanel(launchWindowTitle,
@@ -3878,35 +4166,47 @@ static void signal_handler(int signalNumber)
 
 // Invoked when a folder containing configurations has changed.
 -(void) watcher: (UKKQueue*) kq receivedNotification: (NSString*) nm forPath: (NSString*) fpath {
-    [self performSelectorOnMainThread: @selector(activateStatusMenu) withObject: nil waitUntilDone: YES];
+    if (  ! ignoreNoConfigs  ) {
+        [self performSelectorOnMainThread: @selector(activateStatusMenu) withObject: nil waitUntilDone: YES];
+    }
 }
 
 // Runs the installer to backup/restore Resources/Deploy and/or repair ownership/permissions of critical files and/or move the config folder
-// restore     should be TRUE if Resources/Deploy should be restored from its backup
-// repairIt    should be TRUE if needsRepair() returned TRUE
-// moveIt      should be TRUE if /Library/openvpn needs to be moved to /Library/Application Support/Tunnelblick/Configurations
-// repairPkgs  should be TRUE if .tblk packages should have their ownership/permissions repaired
-// inAuthRef   should be nil or an AuthorizationRef
+// restoreDeploy should be TRUE if Resources/Deploy should be restored from its backup
+// copyApp       should be TRUE if need to copy Tunnelblick.app to /Applications
+// repairApp     should be TRUE if needsRepair() returned TRUE
+// moveConfigs   should be TRUE if /Library/openvpn needs to be moved to /Library/Application Support/Tunnelblick/Configurations
+// repairPkgs    should be TRUE if .tblk packages should have their ownership/permissions repaired
+// copyBundle    should be TRUE if need to move /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Resources/Deploy
+//                                         to Tunnelblick.app/Contents/Resources/Deploy
+//
 // Returns TRUE if ran successfully, FALSE if failed
--(BOOL) runInstallerRestoreDeploy: (BOOL) restoreDeploy copyApp: (BOOL) copyIt repairApp: (BOOL) repairApp moveLibraryOpenVPN: (BOOL) moveConfigs repairPackages: (BOOL) repairPkgs
+-(BOOL) runInstallerRestoreDeploy: (BOOL) restoreDeploy
+                          copyApp: (BOOL) copyApp
+                        repairApp: (BOOL) repairApp
+               moveLibraryOpenVPN: (BOOL) moveConfigs
+                   repairPackages: (BOOL) repairPkgs
+                       copyBundle: (BOOL) copyBundle
 {
-    if (  ! (restoreDeploy || copyIt || repairApp || moveConfigs  || repairPkgs)  ) {
+    if (  ! (restoreDeploy || copyApp || repairApp || moveConfigs  || repairPkgs || copyBundle)  ) {
         return YES;
     }
     
     // Use our own copies of the arguments
     BOOL needsRestoreDeploy = restoreDeploy;
-    BOOL copyAppToApplications = copyIt;
-    BOOL needsAppRepair     = repairApp;
-    BOOL needsPkgRepair     = repairPkgs;
+    BOOL needsCopyApp       = copyApp;
+    BOOL needsRepairApp     = repairApp;
     BOOL needsMoveConfigs   = moveConfigs;
+    BOOL needsRepairPkgs    = repairPkgs;
+    BOOL needsCopyBundle    = copyBundle;
     
     if (  myAuth == nil  ) {
         NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
-        if (  needsAppRepair      ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
+        if (  needsRepairApp      ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
         if (  needsMoveConfigs    ) [msg appendString: NSLocalizedString(@"  • Repair the private configurations folder\n", @"Window text")];
         if (  needsRestoreDeploy  ) [msg appendString: NSLocalizedString(@"  • Restore configuration(s) from the backup\n", @"Window text")];
-        if (  needsPkgRepair      ) [msg appendString: NSLocalizedString(@"  • Secure Tunnelblick VPN Configurations\n", @"Window text")];
+        if (   needsRepairPkgs
+            || needsCopyBundle    ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
         
         NSLog(@"%@", msg);
         
@@ -3925,20 +4225,20 @@ static void signal_handler(int signalNumber)
 
     NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:2] autorelease];
     
-    if (  needsAppRepair || needsMoveConfigs || copyAppToApplications  ) {
-        if (  copyAppToApplications  ) {
-            [arguments addObject:@"2"];
-        } else {
-            [arguments addObject:@"1"];
-        }
-    } else {
-        [arguments addObject:@"0"];
+    unsigned arg1 = 0;
+    if (  needsCopyApp  ) {
+        arg1 = arg1 | INSTALLER_COPY_APP;
     }
-    if (  needsPkgRepair  ) {
-        [arguments addObject:@"1"];
-    } else {
-        [arguments addObject:@"0"];
+    if (  needsRepairApp  ) {
+        arg1 = arg1 | INSTALLER_SECURE_APP;
     }
+    if (  needsRepairPkgs  ) {
+        arg1 = arg1 | INSTALLER_SECURE_TBLKS;
+    }
+    if (  needsCopyBundle  ) {
+        arg1 = arg1 | INSTALLER_COPY_BUNDLE;
+    }
+    [arguments addObject: [NSString stringWithFormat: @"%u", arg1]];
     
     NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
 
@@ -3957,7 +4257,12 @@ static void signal_handler(int signalNumber)
             for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
                 usleep(sleepTime);
                 
-                if (  okNow = ( ! needToRunInstaller(&needsAppRepair, &needsMoveConfigs, &needsRestoreDeploy, &needsPkgRepair, copyAppToApplications) )  ) {
+                if (  okNow = ( ! needToRunInstaller(&needsRepairApp,
+                                                     &needsMoveConfigs,
+                                                     &needsRestoreDeploy,
+                                                     &needsRepairPkgs,
+                                                     &needsCopyBundle,
+                                                     needsCopyApp) )  ) {
                     break;
                 }
             }
@@ -3973,7 +4278,12 @@ static void signal_handler(int signalNumber)
     }
         
     if (   (! okNow )
-        && needToRunInstaller(&needsAppRepair, &needsMoveConfigs, &needsRestoreDeploy, &needsPkgRepair, copyAppToApplications)  ) {
+        && needToRunInstaller(&needsRepairApp,
+                              &needsMoveConfigs,
+                              &needsRestoreDeploy,
+                              &needsRepairPkgs,
+                              &needsCopyBundle,
+                              needsCopyApp)  ) {
         NSLog(@"Installation or repair failed");
         TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
                         NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
@@ -3987,14 +4297,20 @@ static void signal_handler(int signalNumber)
 
 // Checks whether the installer needs to be run
 // Returns with the respective arguments set YES or NO, and returns YES if any is YES. Otherwise returns NO.
-BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions, BOOL * moveLibraryOpenVPN, BOOL  *restoreDeploy, BOOL * needsPkgRepair, BOOL inApplications) 
+BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
+                        BOOL * moveLibraryOpenVPN,
+                        BOOL * restoreDeploy,
+                        BOOL * needsPkgRepair,
+                        BOOL * needsBundleCopy,
+                        BOOL inApplications) 
 {
     *moveLibraryOpenVPN = needToMoveLibraryOpenVPN();
     *changeOwnershipAndOrPermissions = needToChangeOwnershipAndOrPermissions(inApplications);
-    *restoreDeploy = needToRestoreDeploy();
-    *needsPkgRepair = needToRepairPackages();
+    *restoreDeploy   = needToRestoreDeploy();
+    *needsPkgRepair  = needToRepairPackages();
+    *needsBundleCopy = needToCopyBundle();
     
-    return ( * moveLibraryOpenVPN || * changeOwnershipAndOrPermissions || * restoreDeploy || * needsPkgRepair );
+    return ( * moveLibraryOpenVPN || * changeOwnershipAndOrPermissions || * restoreDeploy || * needsPkgRepair || * needsBundleCopy );
 }
 
 BOOL needToMoveLibraryOpenVPN(void)
@@ -4195,6 +4511,42 @@ BOOL needToRepairPackages(void)
     return NO;
 }
 
+BOOL needToCopyBundle()
+{
+    NSString * appConfigurationsBundlePath = [[[NSBundle mainBundle] resourcePath]
+                                              stringByAppendingPathComponent: @"Tunnelblick Configurations.bundle"];
+    
+    BOOL isDir;
+    
+    if (   [gFileMgr fileExistsAtPath: appConfigurationsBundlePath isDirectory: &isDir]
+        && isDir  ) {
+        
+        NSString * appConfigBundlePlistPath = [appConfigurationsBundlePath stringByAppendingPathComponent: @"Contents/Info.plist"];
+        NSDictionary * appDict = [NSDictionary dictionaryWithContentsOfFile: appConfigBundlePlistPath];
+        NSString * appVersion = [appDict objectForKey: @"CFBundleVersion"];
+        if (  appVersion  ) {
+            if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
+                NSString * libPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
+                NSDictionary * libDict = [NSDictionary dictionaryWithContentsOfFile: libPlistPath];
+                NSString * libVersion = [libDict objectForKey: @"CFBundleVersion"];
+                if (  libVersion  ) {
+                    if (  [appVersion compare: libVersion options: NSNumericSearch]  == NSOrderedDescending  ) {
+                        return YES;  // App has higher version than /Library...
+                    }
+                } else {
+                    return YES;  // No version info in /Library... copy
+                }
+            } else {
+                return YES;  // No /Library... copy
+            }
+        } else {
+            NSLog(@"Tunnelblick Installer: No CFBundleVersion in %@", appConfigurationsBundlePath);
+        }
+    }
+    
+    return NO;
+}
+
 void terminateBecauseOfBadConfiguration(void)
 {
     TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Problem", @"Window title"),
@@ -4206,6 +4558,7 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)willGoToSleepHandler: (NSNotification *) n
 {
+    gComputerIsGoingToSleep = TRUE;
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
 	connectionsToRestoreOnWakeup = [connectionArray copy];
 	terminatingAtUserRequest = TRUE;
@@ -4224,6 +4577,7 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)wokeUpFromSleep
 {
+    gComputerIsGoingToSleep = FALSE;
 	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep");
 	
 	NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
@@ -4253,7 +4607,7 @@ void terminateBecauseOfBadConfiguration(void)
 	while (  connection = [e nextObject]  ) {
         if (  [connection shouldDisconnectWhenBecomeInactiveUser]  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting because user became inactive"];
-            [connection disconnectAndWait: [NSNumber numberWithInt: 5] userKnows: YES];
+            [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
         } else {
             [connection addToLog: @"*Tunnelblick: Stopping communication with OpenVPN because user became inactive"];
             [connection reInitialize];
@@ -4522,6 +4876,11 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     }
 }
 
+-(SUUpdater *) updater
+{
+    return [[updater retain] autorelease];
+}
+
 -(NSArray *) connectionArray
 {
     return [[connectionArray retain] autorelease];
@@ -4530,6 +4889,29 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 -(NSArray *) connectionsToRestoreOnUserActive
 {
     return [[connectionsToRestoreOnUserActive retain] autorelease];
+}
+
+//*********************************************************************************************************
+//
+// StatusWindowController support
+//
+//*********************************************************************************************************
+
+-(void) statusWindowController: (id)                     ctl
+      finishedWithChoice: (StatusWindowControllerChoice) choice
+          forDisplayName: (NSString *)             theName
+{
+    if (  choice == statusWindowControllerCancelChoice  ) {
+        VPNConnection * connection = [myVPNConnectionDictionary objectForKey: theName];
+        if (  connection  ) {
+            [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
+        } else {
+            NSLog(@"Invalid displayName -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
+        }
+    } else {
+        NSLog(@"Invalid choice -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
+        
+    }
 }
 
 //*********************************************************************************************************
@@ -4552,6 +4934,27 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
     NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
     return myConnectionArray;
+}
+
+//*********************************************************************************************************
+//
+// Getters and Setters
+//
+//*********************************************************************************************************
+
+-(NSArray *) animImages
+{
+    return [[animImages retain] autorelease];
+}
+
+-(NSImage *) connectedImage
+{
+    return [[connectedImage retain] autorelease];
+}
+
+-(NSImage *) mainImage
+{
+    return [[mainImage retain] autorelease];
 }
 
 @end

@@ -205,12 +205,13 @@ extern NSFileManager * gFileMgr;
     struct kinfo_proc* info;
     size_t length;
     int count, i, j;
-    BOOL found;
+    BOOL found = FALSE;
     
     // KERN_PROC_ALL has 3 elements, all others have 4
     int level = 3;
     
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
+        NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #1: errno = %d\n%s", errno, strerror(errno));
         return FALSE;
     }
     
@@ -220,37 +221,43 @@ extern NSFileManager * gFileMgr;
             sleep(1);
         }
         // Allocate memory for info structure:
-        if (!(info = NSZoneMalloc(NULL, length))) {
-            return FALSE;
-        }
-        
-        if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
-            NSZoneFree(NULL, info);
-            return FALSE;
-        }
-        
-        // Calculate number of processes:
-        count = length / sizeof(struct kinfo_proc);
-        found = FALSE;
-        for (i = 0; i < count; i++) {
-            if (  info[i].kp_proc.p_pid == pid  ) {
-                found = TRUE;
-                break;
+        if (  (info = NSZoneMalloc(NULL, length)) != 0  ) {
+            
+            if (  sysctl(mib, level, info, &length, NULL, 0) == 0  ) {
+                // Calculate number of processes:
+                count = length / sizeof(struct kinfo_proc);
+                found = FALSE;
+                for (i = 0; i < count; i++) {
+                    if (  info[i].kp_proc.p_pid == pid  ) {
+                        found = TRUE;
+                        break;
+                    }
+                    
+                }
+                
+                NSZoneFree(NULL, info);
+                
+                if (  ! found  ) {
+                    return TRUE;
+                }
+                
+            } else {
+                NSZoneFree(NULL, info);
+                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %d errno = %d\n%s", length, errno, strerror(errno));
             }
             
+        } else {
+            NSLog(@"Error: waitUntilNoProcessWithID: NSZoneMalloc failed");
         }
-        NSZoneFree(NULL, info);
-        if (  ! found  ) {
-            break;
-        }
+        
     }
     
-    if (  found  ) {
-        NSLog(@"Error: Timeout (5 seconds) waiting for OpenVPN process %d to terminate", pid);
-        return FALSE;
+    if (  ! found  ) {
+        return TRUE;
     }
-    
-    return TRUE;
+
+    NSLog(@"Error: Timeout (5 seconds) waiting for OpenVPN process %d to terminate", pid);
+    return FALSE;
 }
 
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 

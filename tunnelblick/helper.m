@@ -24,6 +24,7 @@
 #import "helper.h"
 #import "TBUserDefaults.h"
 #import "NSApplication+SystemVersion.h"
+#import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 
 // PRIVATE FUNCTIONS:
@@ -639,6 +640,42 @@ BOOL isUserAnAdmin(void)
     return (rng.location != NSNotFound);
 }
 
+NSString * newTemporaryDirectoryPath(void)
+{
+    //**********************************************************************************************
+    // Start of code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
+    
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
+    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
+    
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        NSLog(@"Unable to allocate memory for a temporary directory name");
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
+    
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+    
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    if (  ! dirPath  ) {
+        NSLog(@"Unable to create a temporary directory");
+        [NSApp setAutoLaunchOnLogin: NO];
+        [NSApp terminate: nil];
+    }
+    
+    NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                                 length: strlen(tempDirectoryNameCString)];
+    free(tempDirectoryNameCString);
+    
+    // End of code from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    //**********************************************************************************************
+    
+    return [tempFolder retain];
+}
+
 // This method is never invoked. It is a place to put strings which are used in the DMG or the .nib or come from OpenVPN
 // They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.
 void localizableStrings(void)
@@ -657,5 +694,7 @@ void localizableStrings(void)
     NSLocalizedString(@"RECONNECTING",  @"Connection status");
     NSLocalizedString(@"RESOLVE",       @"Connection status");
     NSLocalizedString(@"SLEEP",         @"Connection status");
+    NSLocalizedString(@"TCP_CONNECT",   @"Connection status");
+    NSLocalizedString(@"UDP_CONNECT",   @"Connection status");
     NSLocalizedString(@"WAIT",          @"Connection status");
 }
