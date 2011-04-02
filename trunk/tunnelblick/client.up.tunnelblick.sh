@@ -68,7 +68,7 @@ trim() {
 	echo ${@}
 }
 
-LEASEWATCHER_PLIST_PATH="$(dirname "${0}")/LeaseWatch.plist"
+LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch.plist"
 
 OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
 

@@ -31,6 +31,8 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
 int            createDir                (NSString * d,
                                          unsigned long perms);
 
+NSString     * newTemporaryDirectoryPath(void);
+
 NSString     * escaped                  (NSString * string);
 
 BOOL           itemIsVisible            (NSString * path);

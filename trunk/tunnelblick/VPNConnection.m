@@ -25,16 +25,15 @@
 #import <pthread.h>
 #import <signal.h>
 #import "defines.h"
+#import "ConfigurationManager.h"
 #import "VPNConnection.h"
+#import "helper.h"
 #import "KeyChain.h"
-#import "NetSocket.h"
+#import "MenuController.h"
 #import "NetSocket+Text.h"
 #import "NSApplication+LoginItem.h"
-#import "helper.h"
-#import "MenuController.h"
-#import "TBUserDefaults.h"
-#import "ConfigurationManager.h"
 #import "NSFileManager+TB.h"
+#import "TBUserDefaults.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
@@ -44,6 +43,8 @@ extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
 extern NSDictionary         * gOpenVPNVersionDict;
 extern unsigned               gHookupTimeout;
+extern BOOL                   gTunnelblickIsQuitting;
+extern BOOL                   gComputerIsGoingToSleep;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 
@@ -51,9 +52,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 @interface VPNConnection()          // PRIVATE METHODS
 
+-(void)             afterFailureHandler:            (NSDictionary *)dict;
+
 -(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
 
 -(void)             connectToManagementSocket;
+
+-(void)             credentialsHaveBeenAskedFor:    (NSDictionary *)dict;
 
 -(void)             didHookup;
 
@@ -79,6 +84,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             processState:               (NSString *)        newState
                            dated:               (NSString *)        dateTime;
+
+-(void)             provideCredentials:         (NSString *)        parameterString
+                                  line:         (NSString *)        line;
 
 -(void)             setBit:                     (unsigned int)      bit
                     inMask:                     (unsigned int *)    bitMaskPtr
@@ -116,12 +124,18 @@ extern NSString * lastPartOfPath(NSString * thePath);
         portNumber = 0;
 		pid = 0;
         tryingToHookup = FALSE;
+        initialHookupTry = TRUE;
         isHookedup = FALSE;
         tunOrTap = nil;
         areDisconnecting = FALSE;
         connectedWithTap = FALSE;
         connectedWithTun = FALSE;
         logFilesMayExist = FALSE;
+        authFailed       = FALSE;
+        credentialsAskedFor = FALSE;
+        showingStatusWindow = FALSE;
+        
+        userWantsState   = userWantsUndecided;
         
         // If a package, set preferences that haven't been defined yet
         if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
@@ -348,7 +362,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void) stopTryingToHookup
 {
-    if (  tryingToHookup  ) {
+    if (   tryingToHookup
+        && initialHookupTry  ) {
         tryingToHookup = FALSE;
 
         if ( ! isHookedup  ) {
@@ -670,6 +685,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [displayName release];
     [connectedSinceDate release];
     [myAuthAgent release];
+    [statusScreen release];
     [super dealloc];
 }
 
@@ -677,6 +693,27 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     [tunOrTap release];
     tunOrTap = nil;
+}
+
+-(void) showStatusWindow
+{
+    if (  ! (   gTunnelblickIsQuitting
+             || gComputerIsGoingToSleep )  ) {
+        if (  ! showingStatusWindow  ) {
+            if (  [gTbDefaults boolForKey: @"showStatusWindow"]  ) {
+                if (  ! statusScreen) {
+                    statusScreen = [[StatusWindowController alloc] initWithDelegate: self];
+                } else {
+                    [statusScreen enableCancelButton];
+                }
+
+                [statusScreen setName: displayName];
+                [statusScreen setStatus: NSLocalizedString(lastState, @"Connection status")];
+                [statusScreen zoomToWindow];
+                showingStatusWindow = TRUE;
+            }
+        }
+    }
 }
 
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
@@ -723,9 +760,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     
     logFilesMayExist = TRUE;
-    authenticationFailed = NO;
+    authFailed = FALSE;
+    credentialsAskedFor = FALSE;
+    userWantsState = userWantsUndecided;
     
     areDisconnecting = FALSE;
+    initialHookupTry = FALSE;
     tryingToHookup = TRUE;
     isHookedup = FALSE;
     
@@ -766,6 +806,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
     
+    [gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
     
 	NSTask* task = [[[NSTask alloc] init] autorelease];
     
@@ -868,6 +909,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
         [errPipe release];
         [self setState: @"SLEEP"];
+        [self showStatusWindow];
         [self connectToManagementSocket];
     }
 }
@@ -1376,6 +1418,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self setConnectedSinceDate: date];
             [self flushDnsCache];
             
+            [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         }
     }
 }
@@ -1427,73 +1470,61 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             
         } else if ([command isEqualToString: @"PASSWORD"]) {
             if ([line rangeOfString: @"Failed"].length) {
-                if (NSDebugEnabled) NSLog(@"Passphrase or user/auth verification failed");
-                authenticationFailed = YES;
-            } else {
-                // Password request from server. If it comes immediately after a failure, inform user and ask what to do
-                if (  authenticationFailed  ) {
-                    authenticationFailed = NO;
-                    id buttonWithDifferentCredentials = nil;
-                    if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
-                        if ([myAuthAgent keychainHasCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
-                            buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
-                        }
-                    }
-                    int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self displayName], NSLocalizedString(@"Authentication failed", @"Window title")],
-                                                   NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
-                                                   NSLocalizedString(@"Try again", @"Button"),  // Default
-                                                   buttonWithDifferentCredentials,              // Alternate
-                                                   NSLocalizedString(@"Cancel", @"Button"));    // Other
-                    if (alertVal == NSAlertAlternateReturn) {
-                        [myAuthAgent deleteCredentialsFromKeychain];
-                    }
-                    if (  (alertVal != NSAlertDefaultReturn) && (alertVal != NSAlertAlternateReturn)  ) {	// If cancel or error then disconnect
-                        [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User knows about it from the alert)
-                        return;
+                
+                authFailed = TRUE;
+                userWantsState = userWantsUndecided;
+                credentialsAskedFor = FALSE;
+                
+                id buttonWithDifferentCredentials = nil;
+                if (  [myAuthAgent authMode]  ) {               // Handle "auto-login" --  we were never asked for credentials, so authMode was never set
+                    if ([myAuthAgent keychainHasCredentials]) { //                         so credentials in Keychain (if any) were never used, so we needn't delete them to rery
+                        buttonWithDifferentCredentials = NSLocalizedString(@"Try again with different credentials", @"Button");
                     }
                 }
-
-                // Find out whether the server wants a private key or user/auth:
-                NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
-                NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
-                if (pwrange_need.length && pwrange_password.length) {
-                    if (NSDebugEnabled) NSLog(@"Server wants user private key.");
-                    [myAuthAgent setAuthMode:@"privateKey"];
-                    [myAuthAgent performAuthentication];
-                    if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-                        [self addToLog: @"*Tunnelblick: Obtained VPN passphrase from the Keychain"];
-                    }
-                    NSString *myPassphrase = [myAuthAgent passphrase];
-					NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
-					NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
-					if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
-                    if(  myPassphrase != nil  ){
-                        [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
-                    } else {
-                        [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
-                    }
-
-                } else if ([line rangeOfString: @"Auth"].length) {
-                    if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
-                    [myAuthAgent setAuthMode:@"password"];
-                    [myAuthAgent performAuthentication];
-                    if (  [myAuthAgent authenticationWasFromKeychain]  ) {
-                        [self addToLog: @"*Tunnelblick: Obtained VPN username and password from the Keychain"];
-                    }
-                    NSString *myPassword = [myAuthAgent password];
-                    NSString *myUsername = [myAuthAgent username];
-                    if(  (myUsername != nil) && (myPassword != nil)  ){
-                        [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
-                        [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
-                    } else {
-                        [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
-                    }
-                
+                int alertVal = TBRunAlertPanel([NSString stringWithFormat:@"%@: %@", [self displayName], NSLocalizedString(@"Authentication failed", @"Window title")],
+                                               NSLocalizedString(@"The credentials (passphrase or username/password) were not accepted by the remote VPN server.", @"Window text"),
+                                               NSLocalizedString(@"Try again", @"Button"),  // Default
+                                               buttonWithDifferentCredentials,              // Alternate
+                                               NSLocalizedString(@"Cancel", @"Button"));    // Other
+                if (alertVal == NSAlertDefaultReturn) {
+                    userWantsState = userWantsRetry;                // User wants to retry
+                    
+                } else if (alertVal == NSAlertAlternateReturn) {
+                    [myAuthAgent deleteCredentialsFromKeychain];    // User wants to retry after deleting credentials
+                    userWantsState = userWantsRetry;
                 } else {
-                    NSLog(@"Unrecognized PASSWORD command from OpenVPN management interface has been ignored:\n%@", line);
+                    userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
+                }
+                
+                [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                 target: self
+                                               selector: @selector(afterFailureHandler:)
+                                               userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                          parameterString, @"parameterString",
+                                                          line, @"line", nil]
+                                                repeats: NO];
+            } else {
+                // Password request from server.
+                if (  authFailed  ) {
+                    if (  userWantsState == userWantsUndecided  ) {
+                        // We don't know what to do yet: repeat this again later
+                        credentialsAskedFor = TRUE;
+                        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for user to make decision
+                                                         target: self
+                                                       selector: @selector(credentialsHaveBeenAskedForHandler:)
+                                                       userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                  parameterString, @"parameterString",
+                                                                  line, @"line", nil]
+                                                        repeats: NO];
+                    } else if (  userWantsState == userWantsRetry  ) {
+                        // User wants to retry; send the credentials
+                        [self provideCredentials: parameterString line: line];
+                    } // else user wants to abandon, so just ignore the request for credentials
+                } else {
+                    [self provideCredentials: parameterString line: line];
                 }
             }
-
+            
         } else if ([command isEqualToString:@"NEED-OK"]) {
             // NEED-OK: MSG:Please insert TOKEN
             if ([line rangeOfString: @"Need 'token-insertion-request' confirmation"].length) {
@@ -1516,6 +1547,134 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 }
             }
         }
+    }
+}
+
+-(void) afterFailureHandler: (NSDictionary *) dict
+{
+	[self performSelectorOnMainThread: @selector(afterFailure:) withObject: dict waitUntilDone: NO];
+}
+
+-(void) afterFailure: (NSDictionary *) dict
+{
+    if (   credentialsAskedFor  ) {
+        [self credentialsHaveBeenAskedFor: dict];
+    } else {
+        if (  [self isDisconnected]  ) {
+            if (  userWantsState == userWantsRetry  ) {
+                [self connect: self userKnows: YES];
+            } else if (  userWantsState == userWantsAbandon  ) {
+                authFailed = FALSE;                 // (Don't retry)
+                credentialsAskedFor = FALSE;
+                userWantsState = userWantsUndecided;
+            } else {
+                // credentialsHaveBeenAskedFor has handled things
+            }
+        } else {
+            // Wait until either credentials have been asked for or tunnel is disconnected
+            [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                             target: self
+                                           selector: @selector(afterFailureHandler:)
+                                           userInfo: dict
+                                            repeats: NO];
+        }
+    }
+}
+
+-(void) credentialsHaveBeenAskedForHandler: (NSDictionary *) dict
+{
+    [self performSelectorOnMainThread: @selector(credentialsHaveBeenAskedFor) withObject: dict waitUntilDone: NO];
+}
+
+-(void) credentialsHaveBeenAskedFor: (NSDictionary *) dict
+{
+    // Only do something if the credentials are still being asked for
+    // Otherwise, afterFailure has already taken care of things and we can just forget about it
+    if (  credentialsAskedFor  ) {
+        if (  [self isDisconnected]  ) {
+            if (  userWantsState == userWantsRetry) {
+                NSLog(@"Warning: User asked to retry and OpenVPN asked for credentials but OpenVPN has already disconnected; reconnecting %@", displayName);
+                [self connect: self userKnows: YES];
+                
+            } else if (  userWantsState == userWantsAbandon  ) {
+                NSLog(@"Warning: User asked to to abandon connection and OpenVPN has already disconnected; ignoring OpenVPN request for credentials for %@", displayName);
+                authFailed = FALSE;
+                credentialsAskedFor = FALSE;
+                userWantsState = userWantsUndecided;
+                
+            } else {
+                // OpenVPN asked for credentials, then disconnected, but user hasn't decided what to do -- wait for user to decide what to do
+                [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                 target: self
+                                               selector: @selector(afterFailureHandler:)
+                                               userInfo: dict
+                                                repeats: NO];
+            }
+        } else {
+            if (  userWantsState == userWantsRetry) {
+                [self provideCredentials: [dict objectForKey: @"parameterString"] line: [dict objectForKey: @"line"]];
+                
+            } else if (  userWantsState == userWantsAbandon  ) {
+                authFailed = FALSE;
+                credentialsAskedFor = FALSE;
+                userWantsState = userWantsUndecided;
+                
+            } else {
+                // OpenVPN asked for credentials, but user hasn't decided what to do -- wait for user to decide what to do
+                [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                 target: self
+                                               selector: @selector(afterFailureHandler:)
+                                               userInfo: dict
+                                                repeats: NO];
+            }
+        }
+    }
+}
+
+-(void) provideCredentials: (NSString *) parameterString line: (NSString *) line
+{
+    authFailed = FALSE;
+    credentialsAskedFor = FALSE;
+    userWantsState = userWantsUndecided;
+    
+    // Find out whether the server wants a private key or user/auth:
+    NSRange pwrange_need = [parameterString rangeOfString: @"Need \'"];
+    NSRange pwrange_password = [parameterString rangeOfString: @"\' password"];
+    if (pwrange_need.length && pwrange_password.length) {
+        if (NSDebugEnabled) NSLog(@"Server wants user private key.");
+        [myAuthAgent setAuthMode:@"privateKey"];
+        [myAuthAgent performAuthentication];
+        if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+            [self addToLog: @"*Tunnelblick: Obtained VPN passphrase from the Keychain"];
+        }
+        NSString *myPassphrase = [myAuthAgent passphrase];
+        NSRange tokenNameRange = NSMakeRange(pwrange_need.length, pwrange_password.location - 6 );
+        NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
+        if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
+        if(  myPassphrase != nil  ){
+            [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding]; 
+        } else {
+            [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
+        }
+        
+    } else if ([line rangeOfString: @"Auth"].length) {
+        if (NSDebugEnabled) NSLog(@"Server wants user auth/pass.");
+        [myAuthAgent setAuthMode:@"password"];
+        [myAuthAgent performAuthentication];
+        if (  [myAuthAgent authenticationWasFromKeychain]  ) {
+            [self addToLog: @"*Tunnelblick: Obtained VPN username and password from the Keychain"];
+        }
+        NSString *myPassword = [myAuthAgent password];
+        NSString *myUsername = [myAuthAgent username];
+        if(  (myUsername != nil) && (myPassword != nil)  ){
+            [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
+            [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
+        } else {
+            [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
+        }
+        
+    } else {
+        NSLog(@"Unrecognized PASSWORD command from OpenVPN management interface has been ignored:\n%@", line);
     }
 }
 
@@ -1659,6 +1818,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 }
             }
         }
+        [gTbDefaults setObject: displayName forKey: @"lastConnectedDisplayName"];
     } else if (  [newState isEqualToString: @"RECONNECTING"]  ) {
         // Run the reconnecting script, if any
         if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
@@ -1685,8 +1845,41 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
+    if (   [gTbDefaults boolForKey: @"showAllStatusChanges"]
+        || [newState isEqualToString: @"RECONNECTING"]  ) {
+        [self showStatusWindow];
+    }
+    
+    [statusScreen setStatus: newState];
+    
+    if (  showingStatusWindow  ) {
+        if (   [newState isEqualToString: @"CONNECTED"]
+            || [newState isEqualToString: @"EXITING"]  ) {
+            // Wait one second, then zoom to the Tunnelblick icon
+            [NSTimer scheduledTimerWithTimeInterval:1.0
+                                             target: self
+                                           selector:@selector(zoomToTunnelblickIcon)
+                                           userInfo:nil
+                                            repeats:NO];
+        }
+    }
+
     [[NSApp delegate] performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
     [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
+}
+
+// Animate zooming to the Tunnelblick icon (actually, we shrink to a point near the top right corner of the screen that has the menu bar)
+-(void) zoomToTunnelblickIcon
+{
+    if (  ! (   gTunnelblickIsQuitting
+             || gComputerIsGoingToSleep )  ) {
+        if (   [self isConnected]
+            || (   [self isDisconnected]
+                && ( ! authFailed  ) )  ) {
+                [statusScreen zoomToIcon];
+                showingStatusWindow = FALSE;
+            }
+    }
 }
 
 - (unsigned int) getFreePort

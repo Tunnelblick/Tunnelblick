@@ -37,6 +37,11 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void)         setUsername:                        (NSString *)value;
 
+-(void) setUsernameKeychain: (KeyChain *) newKeyChain;
+-(void) setPasswordKeychain: (KeyChain *) newKeyChain;
+-(void) setPassphrasePreferenceKey: (NSString *) newKey;
+-(void) setUsernamePreferenceKey: (NSString *) newKey;
+
 -(NSArray *)    getUsernameAndPassword;
 -(void)         performPasswordAuthentication;
 -(void)         performPrivateKeyAuthentication;
@@ -61,6 +66,8 @@ extern TBUserDefaults  * gTbDefaults;
 
         passphrasePreferenceKey = [[NSString alloc] initWithFormat:@"%@-keychainHasPrivateKey",             [self configName]   ];
         usernamePreferenceKey   = [[NSString alloc] initWithFormat:@"%@-keychainHasUsernameAndPassword",    [self configName]   ];
+        
+        usedUniversalCredentials = NO;
     }
     return self;
 }
@@ -173,20 +180,45 @@ extern TBUserDefaults  * gTbDefaults;
     NSString * usernameLocal = nil;
     NSString * passwordLocal = nil;
 
-    if (  [gTbDefaults boolForKey:usernamePreferenceKey] && [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) { // Using this preference avoids accessing Keychain unless it has something
+    if (   [gTbDefaults boolForKey:usernamePreferenceKey]
+        && [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) { // Using this preference avoids accessing Keychain unless it has something
         usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
         if ( usernameLocal ) {
             passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
         }
     }
     
+    usedUniversalCredentials = NO;
+    
     if (   usernameLocal
         && passwordLocal
         && ([usernameLocal length] > 0)
         && ([passwordLocal length] > 0)  ) {
+        // Connection-specific credentials
+        
+    } else if (   [gTbDefaults boolForKey: @"keychainHasUniversalUsernameAndPassword"]  ) {
+        // No connection-specific credentials, but universal credentials exist 
+        [self setUsernameKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"]];
+        [self setPasswordKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"]];
+        [self setPassphrasePreferenceKey: [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey", [self configName]]];
+        [self setUsernamePreferenceKey:   [[NSString alloc] initWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
+        usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
+        if ( usernameLocal ) {
+            passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
+        }
+        usedUniversalCredentials = YES;
+    }
+    if (   usernameLocal
+        && passwordLocal
+        && ([usernameLocal length] > 0)
+        && ([passwordLocal length] > 0)  ) {
+        
         wasFromKeychain = TRUE;
+        
     } else {
         wasFromKeychain = FALSE;
+        usedUniversalCredentials = NO;
+        
         // Ask for username and password
 
         NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
@@ -432,6 +464,43 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(BOOL) authenticationWasFromKeychain {
     return wasFromKeychain;
+}
+
+-(BOOL) usedUniversalCredentials
+{
+    return usedUniversalCredentials;
+}
+
+-(void) setUsernameKeychain: (KeyChain *) newKeyChain
+{
+    if (  usernameKeychain != newKeyChain  ) {
+        [usernameKeychain release];
+        usernameKeychain = [newKeyChain retain];
+    }
+}
+
+-(void) setPasswordKeychain: (KeyChain *) newKeyChain
+{
+    if (  passwordKeychain != newKeyChain  ) {
+        [passwordKeychain release];
+        passwordKeychain = [newKeyChain retain];
+    }
+}
+
+-(void) setPassphrasePreferenceKey: (NSString *) newKey
+{
+    if (  passphrasePreferenceKey != newKey  ) {
+        [passphrasePreferenceKey release];
+        passphrasePreferenceKey = [newKey retain];
+    }
+}
+
+-(void) setUsernamePreferenceKey: (NSString *) newKey
+{
+    if (  usernamePreferenceKey != newKey  ) {
+        [usernamePreferenceKey release];
+        usernamePreferenceKey = [newKey retain];
+    }
 }
 
 @end

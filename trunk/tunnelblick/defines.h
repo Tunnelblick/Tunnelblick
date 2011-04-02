@@ -23,6 +23,7 @@
 // Paths:
 // Note: The standard up script refers to the log directory without using this header file
 #define LOG_DIR   @"/Library/Application Support/Tunnelblick/Logs"
+#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
 
 
 // Values for the location of the configuration file (cfgLocCode argument to openvpnstart) 
@@ -46,6 +47,17 @@
 
 
 //*************************************************************************************************
+// Bit masks for bitMask parameter of installer
+#define INSTALLER_COPY_APP      0x01
+#define INSTALLER_COPY_BUNDLE   0x02
+#define INSTALLER_SECURE_APP    0x04
+#define INSTALLER_SECURE_TBLKS  0x08
+#define INSTALLER_SET_VERSION   0x10
+#define INSTALLER_MOVE_NOT_COPY 0x20
+#define INSTALLER_DELETE        0x40
+
+
+//*************************************************************************************************
 // When more than this many lines are in the log display, lines are discarded from the top
 #define MAX_LOG_DISPLAY_LINES 10000
 
@@ -57,3 +69,11 @@
 //*************************************************************************************************
 // Minimum size of the left navigation area when it is active
 #define LEFT_NAV_AREA_MINIMUM_SIZE 40.0
+
+
+//*************************************************************************************************
+// Return values for StatusWindowController
+typedef enum
+{
+	statusWindowControllerCancelChoice
+} StatusWindowControllerChoice;

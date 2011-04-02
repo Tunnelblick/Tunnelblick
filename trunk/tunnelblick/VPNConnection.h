@@ -24,8 +24,23 @@
 #import "AuthAgent.h"
 #import "NetSocket.h"
 #import "LogDisplay.h"
+#import "StatusWindowController.h"
 
-@interface VPNConnection : NSObject {
+typedef enum
+{
+	authStateIdle,
+	authStateFailed
+} VPNConnectionAuthState;
+
+typedef enum
+{
+	userWantsUndecided,
+	userWantsRetry,
+    userWantsAbandon
+} VPNConnectionUserWantsState;
+
+@interface VPNConnection : NSObject <NSWindowDelegate>
+{
     NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file or .tblk package)
     // The configuration file MUST reside (for security reasons) in
     //      Tunnelblick.app/Contents/Resources/Deploy
@@ -47,19 +62,25 @@
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
     NSTimer       * forceKillTimer;     // Used to keep trying to kill a (temporarily, we hope) non-responsive OpenVPN process
+    StatusWindowController * statusScreen;    // Status window, may or may not be displayed
     unsigned int    forceKillTimeout;   // Number of seconds to wait before forcing a disconnection
     unsigned int    forceKillInterval;  // Number of seconds between tries to kill a non-responsive OpenVPN process
     unsigned int    forceKillWaitSoFar; // Number of seconds since forceKillTimer was first set for this disconnection attempt
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
+    VPNConnectionUserWantsState
+                    userWantsState;     // Indicates what the user wants to do about authorization failures
+    BOOL            authFailed;         // Indicates authorization failed
+    BOOL            credentialsAskedFor;// Indicates whether credentials have been asked for but not provided
     BOOL            usedModifyNameserver;// True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
-    BOOL            authenticationFailed; // True iff a message from OpenVPN has been received that password/passphrase authentication failed and the user hasn't been notified yet
-    BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an existing instance of OpenVPN
+    BOOL            tryingToHookup;     // True iff this connection is trying to hook up to an instance of OpenVPN
+    BOOL            initialHookupTry;   // True iff this is the initial hookup try (not as a result of a connection attempt)
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
     BOOL            connectedWithTap;   // True iff last connection was made loading our tap kext
     BOOL            connectedWithTun;   // True iff last connection was made loading our tun kext
     BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
+    BOOL            showingStatusWindow; // True iff displaying statusScreen
 }
 
 // PUBLIC METHODS:

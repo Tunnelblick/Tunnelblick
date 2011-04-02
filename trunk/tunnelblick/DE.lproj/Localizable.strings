@@ -280,6 +280,12 @@
 /* Connection status */
 "SLEEP" = "Warten auf Hintergrundprozess"; // translate "Waiting for Demon Process"!
 
+/* NEEDS TRANSLATION *//* Connection status */
+"TCP_CONNECT" = "Making TCP connection";
+
+/* NEEDS TRANSLATION *//* Connection status */
+"UDP_CONNECT" = "Making UDP connection";
+
 /* Connection status */
 "WAIT" = "Warten auf Server-Antwort";   // Please translate "Waiting for Server Response"
 
@@ -340,6 +346,9 @@
 /* Window title */
 "Configuration(s) Ignored" = "Konfiguration(en) ignoriert";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Connection Status" = "Connection Status";
+
 /* Window title */
 "Could Not Copy Configuration" = "Die Konfiguration kann nicht kopiert werden";
 
@@ -348,6 +357,9 @@
 
 /* Window title */
 "Could Not Secure Configuration" = "Die Konfiguration kann nicht gesichert werden";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
 
 /* Window title */
 "Create and Edit a Sample Configuration?" = "Beispielkonfiguration anlegen?";
@@ -457,6 +469,9 @@
 /* Window title */
 "Unexpected disconnection" = "Unerwarteter Verbindungsabbruch";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
+
 /* Window title */
 "Updates are disabled" = "Updates sind deaktiviert";
 
@@ -497,7 +512,7 @@
 "  • Restore configuration(s) from the backup\n" = "  • ein oder mehrere Konfigurationen aus dem Backup zurücksichern\n";
 
 /* Window text */
-"  • Secure Tunnelblick VPN Configurations\n" = "  • Tunnelblick-VPN-Konfigurationen sichern\n";
+"  • Secure configurations\n" = "  • Tunnelblick-VPN-Konfigurationen sichern\n";
 
 /* Window text */
 " (To install in a different location, drag %@ to that location.)" = " (Um in einen anderen Ort zu installieren, ziehen Sie %@ an diesen Ort.)";
@@ -517,8 +532,17 @@
 /* Window text */
 " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick benötigt Administrator-Rechte, um „%@“ beim Hochfahren des Computers nicht mehr zu verbinden.";
 
+/* NEEDS TRANSLATION *//* Window text */
+" and install %d configurations" = " and install %d configurations";
+
+/* NEEDS TRANSLATION *//* Window text */
+" and install one configuration" = " and install one configuration";
+
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick-VPN-Konfigurationen erfolgreich installiert.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d Tunnelblick VPN Configurations were uninstalled successfully.";
 
 /* Window text */
 "%d configurations were not installed. See the Console Log for details." = "%d Konfigurationen wurden nicht installiert. Details finden Sie in der Konsole.";
@@ -553,11 +577,8 @@
 /* Window text */
 "Copyright © 2004-2011 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2011 Angelo Laub und andere. Alle Rechte vorbehalten.";
 
-/* Window text */
-"Do you wish to install %d configurations?" = "Möchten Sie %d Konfigurationen installieren?";
-
-/* Window text */
-"Do you wish to install one configuration?" = "Möchten Sie eine Konfiguration installieren?";
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to install %d configurations" = "Do you wish to install %d configurations";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Möchten die Sie die Konfiguration „%@“ für alle Benutzer installieren?\n\n";
@@ -568,11 +589,26 @@
 /* Window text */
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Möchten Sie „%1$@“%2$@ Version %3$@ durch Version %4$@ ersetzen?";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to uninstall %d configurations" = "Do you wish to uninstall %d configurations";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "Do you wish to uninstall '%1$@'%2$@ version %3$@?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Do you wish to uninstall one configuration" = "Do you wish to uninstall one configuration";
+
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Die Installation von Tunnelblick-VPN-Konfigurationsdatenein (.tblk) ist deaktiviert.";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Mehrere Verbindungen würden gleichzeitig hergestellt (%d mit „Nameserver festlegen“, %d ohne „Nameserver festlegen“).";
+
+/* NEEDS TRANSLATION *//* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "One Tunnelblick VPN Configuration was installed successfully.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "One Tunnelblick VPN Configuration was uninstalled successfully.";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Ein oder mehrere OpenVPN-Prozesse sind aktiv, die nicht von Tunnelblick gemanagt werden. Sie können den Betrieb von Tunnelblick stören. Möchten Sie diese Prozesse beenden?";
@@ -594,9 +630,6 @@
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Bitte stecken Sie das Token „%@“ an und klicken Sie „OK“";
-
-/* Window text */
-"The Tunnelblick VPN Configuration was installed successfully." = "Die Tunnelblick-VPN-Konfiguration wurde erfolgreich installiert.";
 
 /* Window text */
 "The VPN name '%@' is already in use.\n\nPlease enter a new name." = "Der VPN-Name „%@“ wird bereits verwendet.\n\Bitte geben Sie einen neuen Namen ein.";
@@ -640,6 +673,12 @@
 /* Window text */
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Es gibt zwei Arten von Konfigurationsdateien:\n\n     • Tunnelblick-VPN-Konfigurationen (Suffix „.tblk“)\n\n     • OpenVPN-Konfigurationen (Suffix „.ovpn“ or „.conf“)\n\nWelche Art von Datei haben Sie?\n\n";
 
+/* NEEDS TRANSLATION *//* Window text */
+"There was a problem with %d configurations. Details are in the Console Log\n\n" = "There was a problem with %d configurations. Details are in the Console Log\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "There was a problem with one configuration. Details are in the Console Log\n\n";
+
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Bei einer oder mehreren Konfigurationen ist ein Problem aufgetreten. Details finden Sie in der Konsole.\n\n";
 
@@ -682,6 +721,9 @@
 /* Window text */
 "Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick kann die Konfiguration „%@“ nicht sichern. Details finden Sie in der Konsole.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.";
+
 /* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick konnte die Konfigurationsdatei nicht entsichern. Details finden Sie in der Konsole.\n\nMöchten Sie die Konfigurationsdatei einsehen, obwohl Sie sie nicht ändern können?";
 
@@ -690,6 +732,9 @@
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick muss eine Schattenkopie der Konfigurationsdatei erstellen.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations.";
 
 /* Window text */
 "Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick muss eine oder mehrere Tunnelblick-VPN-Konfiguration installieren.";
@@ -753,6 +798,12 @@
 
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Sie können Tunnelblick nach einem Update nur benutzen, wenn Sie über Administratorrechte verfügen.\n\nMöchten Sie nach Updates suchen?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN Configurations were installed successfully.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nOne Tunnelblick VPN Configuration was installed successfully.";
 
 /* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\nund %d Tunnelblick VPN Configurations installieren";
