@@ -74,6 +74,13 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.1.7 (2011-04-03)
+
+ * Fixes problems causing tun/tap kexts to be loaded even though preferences specify that the kext(s) are not to be loaded.
+ * Fixes a problem with installing some Tunnelblick VPN Configurations (.tblk).
+
+--------------------
+
 *3.1.6 (2011-02-19)
 
  * Fixes a bug that caused up/down scripts in Tunnelblick VPN Configurations (.tblks) to be ignored.

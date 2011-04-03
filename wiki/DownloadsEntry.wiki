@@ -14,7 +14,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 ==Stable Releases==
 A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [wBeta beta release], but may be more reliable.
     _For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard")_ <br>
-      _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.6.dmg Tunnelblick 3.1.6 (build 2190.2392)]*_ released 2011-02-19<br><br>
+      _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)]*_ released 2011-04-03<br><br>
 
     _For OS X 10.3 ("Panther")_ <br>
       _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.01]*_ released 2005-08-30<br>
@@ -37,6 +37,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 <font color="red">*If you are having problems with the latest stable version, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta02.dmg Tunnelblick 3.2beta02 (build 2344)] released 2011-02-02<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.6.dmg Tunnelblick 3.1.6 (build 2190.2392)] released 2011-02-19<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.5.dmg Tunnelblick 3.1.5 (build 2190.2336)] released 2011-02-01<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.4.dmg Tunnelblick 3.1.4 (build 2190.2313)] released 2011-01-28<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.3.dmg Tunnelblick 3.1.3 (build 2190.2305)] released 2011-01-27<br><br>
