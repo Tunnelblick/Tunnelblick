@@ -197,6 +197,9 @@
 "Perform installation?" = "Perform installation?";
 
 /* Window title */
+"Please enter a username and password." = "Please enter a username and password.";
+
+/* Window title */
 "Private Configuration Folder is Open" = "Private Configuration Folder is Open";
 
 /* Window title */
@@ -225,6 +228,12 @@
 
 /* Window title */
 "Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN Configuration Installation";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
 
 /* Window title */
 "Unexpected disconnection" = "Unexpected disconnection";
@@ -308,7 +317,13 @@
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
 
 /* Window text */
+"A passphrase is required to connect to\n  %@" = "A passphrase is required to connect to\n  %@";
+
+/* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
 
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";

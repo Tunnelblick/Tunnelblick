@@ -22,7 +22,7 @@
 //*************************************************************************************************
 //
 // Tunnelblick was written using many NSFileManager methods that were deprecated in 10.5.
-// Such invocations have been changed to instead invoke to the methods implemented here.
+// Such invocations have been changed to instead invoke the methods implemented here.
 // (Isolating the deprecated calls in one place should make changes easier to implement.)
 //
 // In the code below, we use 10.5 methods if they are available, otherwise we use 10.4 methods.

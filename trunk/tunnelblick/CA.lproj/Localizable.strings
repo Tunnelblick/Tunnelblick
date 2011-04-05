@@ -406,11 +406,11 @@
 /* NEEDS TRANSLATION *//* Window title */
 "OpenVPN Not Responding" = "OpenVPN Not Responding";
 
-/* Window title */
-"Passphrase" = "Mot clau";
-
 /* NEEDS TRANSLATION *//* Window title */
 "Perform installation?" = "Perform installation?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Please enter a username and password." = "Please enter a username and password.";
 
 /* Window title */
 "Please insert token" = "Si us plau introdueix el token";
@@ -460,6 +460,12 @@
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick està funcionant";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+
 /* Window title */
 "Unable to launch Tunnelblick" = "No s'ha pogut arrencar Tunnelblick";
 
@@ -474,9 +480,6 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
-
-/* Window title */
-"Username and password" = "Nom d'usuari i contrasenya";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Warning!" = "Warning!";
@@ -557,7 +560,13 @@
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
 
 /* NEEDS TRANSLATION *//* Window text */
+"A passphrase is required to connect to\n  %@" = "A passphrase is required to connect to\n  %@";
+
+/* NEEDS TRANSLATION *//* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
 
 /* Window text */
 "All configuration files in %@ have been removed. Tunnelblick must quit." = "Els arxius de configuració en %@ s'han eliminat. Tunnelblick ha de tancar-se.";
@@ -621,9 +630,6 @@
 
 /* Window text */
 "Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
-
-/* Window text */
-"Please enter VPN username/password combination." = "Si us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Si us plau introdueix el token \"%@\", i prem sobre \"D'acord\"";
