@@ -11,6 +11,15 @@
 "Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
 
 /* Window title */
+"Please enter a username and password." = "Please enter a username and password.";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+
+/* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
 
 /* Window text */
@@ -21,6 +30,12 @@
 
 /* Window text */
 "%d Tunnelblick VPN Configurations were uninstalled successfully." = "%d Tunnelblick VPN Configurations were uninstalled successfully.";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@" = "A passphrase is required to connect to\n  %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
 
 /* Window text */
 "Do you wish to install %d configurations" = "Do you wish to install %d configurations";

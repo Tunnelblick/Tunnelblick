@@ -23,13 +23,15 @@
 #import "AuthAgent.h"
 #import "helper.h"
 #import "TBUserDefaults.h"
+#import "LoginWindowController.h"
+#import "PassphraseWindowController.h"
 
 extern TBUserDefaults  * gTbDefaults;
 
 @interface AuthAgent()          // PRIVATE METHODS
 
--(NSString *)   configName;
--(void)         setConfigName:                      (NSString *)value;
+-(NSString *)   displayName;
+-(void)         setDisplayName:                      (NSString *)value;
 
 -(void)         setPassphrase:                      (NSString *)value;
 
@@ -54,18 +56,18 @@ extern TBUserDefaults  * gTbDefaults;
 {
 	if (inConfigName == nil) return nil;
     if (self = [super init]) {
-        [self setConfigName:inConfigName];
+        [self setDisplayName:inConfigName];
         
         passphrase = nil;
         username   = nil;
         password   = nil;
         
-        passphraseKeychain      = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self configName]] withAccountName: @"privateKey" ];
-        usernameKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self configName]] withAccountName: @"username"   ];
-        passwordKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self configName]] withAccountName: @"password"   ];
+        passphraseKeychain      = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"privateKey" ];
+        usernameKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"username"   ];
+        passwordKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"password"   ];
 
-        passphrasePreferenceKey = [[NSString alloc] initWithFormat:@"%@-keychainHasPrivateKey",             [self configName]   ];
-        usernamePreferenceKey   = [[NSString alloc] initWithFormat:@"%@-keychainHasUsernameAndPassword",    [self configName]   ];
+        passphrasePreferenceKey = [[NSString alloc] initWithFormat:@"%@-keychainHasPrivateKey",             [self displayName]   ];
+        usernamePreferenceKey   = [[NSString alloc] initWithFormat:@"%@-keychainHasUsernameAndPassword",    [self displayName]   ];
         
         usedUniversalCredentials = NO;
     }
@@ -74,7 +76,10 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void) dealloc
 {
-    [configName                 release];
+    [[loginScreen window] close];
+    
+    [loginScreen                release];
+    [displayName                release];
     
     [passphrase                 release];
     [username                   release];
@@ -100,62 +105,38 @@ extern TBUserDefaults  * gTbDefaults;
         return nil;
     }
     
-    /* Dictionary for the panel.  */
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
-    [dict setObject:[NSString stringWithFormat:@"%@: %@",
-                     [self configName],
-                     NSLocalizedString(@"Passphrase", @"Window title")]                 forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
-    [dict setObject:NSLocalizedString(@"Please enter VPN passphrase.", @"Window text")  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-    if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
-        [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox name")            forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
-    }
-    [dict setObject:@""                                                                 forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-    [dict setObject:NSLocalizedString(@"OK", @"Button")                                 forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-    [dict setObject:NSLocalizedString(@"Cancel", @"Button")                             forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
-    [dict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                            pathForResource:@"tunnelblick"
-                                            ofType: @"icns"]]                           forKey:(NSString *)kCFUserNotificationIconURLKey];
+    wasFromKeychain = FALSE;
+    usedUniversalCredentials = NO;
     
     NSString * passphraseLocal;
-
-    SInt32 error;
-    CFUserNotificationRef notification;
-    CFOptionFlags response;
     
-    // Get a non-blank passphrase from the user (or return nil if cancelled or error)
-    BOOL firstTimeThrough = TRUE;
-    do {
-        if (  firstTimeThrough  ) {
-            firstTimeThrough = FALSE;
-        } else {
-            CFRelease(notification);
-            [dict removeObjectForKey: (NSString *)kCFUserNotificationAlertMessageKey];
-            [dict setObject:NSLocalizedString(@"The passphrase must not be empty!\nPlease enter VPN passphrase.", @"Window text")
-                     forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-        }
-
-        notification = CFUserNotificationCreate(NULL, 30, CFUserNotificationSecureTextField(0), &error, (CFDictionaryRef)dict);
-
-        if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
-            CFRelease(notification);    // Couldn't receive a response
-            [dict release];
-            return nil;
-        }
-        
-        if((response & 0x3) != kCFUserNotificationDefaultResponse) {
-            CFRelease(notification);    // User clicked "Cancel"
-            [dict release];
-            return nil;
-        }
-
-        // Get the passphrase from the textfield
-        passphraseLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0) retain] autorelease];
-    } while(  [passphraseLocal length] == 0  );
-        
-    if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
-        if((response & CFUserNotificationCheckBoxChecked(0))) {
+    if (  ! passphraseScreen  ) {
+        passphraseScreen = [[PassphraseWindowController alloc] initWithDelegate: self];
+    } else {
+        [passphraseScreen redisplay];
+    }
+    
+    // Always clear the password
+    [[passphraseScreen passphrase] setStringValue: @""];
+    
+    NSInteger result = [NSApp runModalForWindow: [passphraseScreen window]];
+    
+    if (   (result != NSRunStoppedResponse)
+        && (result != NSRunAbortedResponse)  ) {
+        NSLog(@"Unrecognized response %l from runModalForWindow ignored", (long) result);
+    }
+    
+    if (  result != NSRunStoppedResponse  ) {
+        [[passphraseScreen window] close];
+        return nil;
+    }
+    
+    passphraseLocal = [[passphraseScreen passphrase] stringValue];
+    
+    if (  [passphraseScreen saveInKeychain]  ) {
+        if (  [gTbDefaults canChangeValueForKey: passphrasePreferenceKey]  ) {
             [passphraseKeychain deletePassword];
-            if([passphraseKeychain setPassword:passphraseLocal] != 0) {
+            if (  [passphraseKeychain setPassword: passphraseLocal] != 0  ) {
                 NSLog(@"Could not store passphrase in Keychain");
             }
             [gTbDefaults setBool: YES forKey: passphrasePreferenceKey];
@@ -163,8 +144,8 @@ extern TBUserDefaults  * gTbDefaults;
         }
     }
     
-    CFRelease(notification);
-    [dict release];
+    [[passphraseScreen window] close];
+
     return passphraseLocal;
 }
 
@@ -200,7 +181,7 @@ extern TBUserDefaults  * gTbDefaults;
         // No connection-specific credentials, but universal credentials exist 
         [self setUsernameKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"]];
         [self setPasswordKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"]];
-        [self setPassphrasePreferenceKey: [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey", [self configName]]];
+        [self setPassphrasePreferenceKey: [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey", [self displayName]]];
         [self setUsernamePreferenceKey:   [[NSString alloc] initWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
         usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
         if ( usernameLocal ) {
@@ -216,83 +197,58 @@ extern TBUserDefaults  * gTbDefaults;
         wasFromKeychain = TRUE;
         
     } else {
+        
+        // Ask for username and password
         wasFromKeychain = FALSE;
         usedUniversalCredentials = NO;
         
-        // Ask for username and password
-
-        NSMutableDictionary* dict = [[NSMutableDictionary alloc] initWithCapacity:7];
-        [dict setObject:[NSString stringWithFormat:@"%@: %@",
-                         [self configName],
-                         NSLocalizedString(@"Username and password", @"Window title")]                          forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
-        [dict setObject:NSLocalizedString(@"Please enter VPN username/password combination.", @"Window text")   forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-        if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
-            [dict setObject:NSLocalizedString(@"Save in Keychain", @"Checkbox name")                                forKey:(NSString *)kCFUserNotificationCheckBoxTitlesKey];
+        if (  ! loginScreen  ) {
+            loginScreen = [[LoginWindowController alloc] initWithDelegate: self];
+        } else {
+            [loginScreen redisplay];
         }
-        [dict setObject:[NSArray arrayWithObjects:NSLocalizedString(@"Username:", @"Textbox name"),
-                         NSLocalizedString(@"Password:", @"Textbox name"),
-                         nil]                                                                                   forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
-        [dict setObject:NSLocalizedString(@"OK", @"Button")                                                     forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
-        [dict setObject:NSLocalizedString(@"Cancel", @"Button")                                                 forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
-        [dict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                                pathForResource:@"tunnelblick"
-                                                ofType: @"icns"]]                           forKey:(NSString *)kCFUserNotificationIconURLKey];
+
+        if (   usernameLocal
+            && ([usernameLocal length] != 0)  ) {
+            [[loginScreen username] setStringValue: usernameLocal];
+        }
+
+        // Always clear the password
+        [[loginScreen password] setStringValue: @""];
         
-        SInt32 error;
-        CFOptionFlags response;
-        CFUserNotificationRef notification;
+        NSInteger result = [NSApp runModalForWindow: [loginScreen window]];
         
-        // Get a non-blank username and a non-blank password from the user (or return nil if cancelled or error)
-        BOOL firstTimeThrough = TRUE;
-        do {
-            if (  firstTimeThrough  ) {
-                firstTimeThrough = FALSE;
-            } else {
-                CFRelease(notification);
-                [dict removeObjectForKey: (NSString *)kCFUserNotificationAlertMessageKey];
-                [dict setObject:NSLocalizedString(@"The username and the password must not be empty!\nPlease enter VPN username/password combination.", @"Window text")
-                         forKey:(NSString *)kCFUserNotificationAlertMessageKey];
-            }
-            
-            notification = CFUserNotificationCreate(NULL, 0, CFUserNotificationSecureTextField(1), &error, (CFDictionaryRef)dict);
-            
-            /* If we couldn't receive a response, return NULL. */
-            if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
-                CFRelease(notification);
-                [dict release];
-                return nil;
-            }
-            
-            if((response & 0x3) != kCFUserNotificationDefaultResponse) { //user clicked on cancel
-                CFRelease(notification);
-                [dict release];
-                return nil;
-            }
-            
-            /* Get the username and password from the textfield. */
-            usernameLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0) retain] autorelease];
-            passwordLocal = [[(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 1) retain] autorelease];
-        } while (  [usernameLocal isEqualToString:@""] || [passwordLocal isEqualToString:@""]  );
-            
-        if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
-            if((response & CFUserNotificationCheckBoxChecked(0))) { // if checkbox is checked, store in keychain
+        if (   (result != NSRunStoppedResponse)
+            && (result != NSRunAbortedResponse)  ) {
+            NSLog(@"Unrecognized response %l from runModalForWindow ignored", (long) result);
+        }
+        
+        if (  result != NSRunStoppedResponse  ) {
+            [[loginScreen window] close];
+            return nil;
+        }
+
+        usernameLocal = [[loginScreen username] stringValue];
+        passwordLocal = [[loginScreen password] stringValue];
+        
+        if (  [loginScreen saveInKeychain]  ) {
+            if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
                 [usernameKeychain deletePassword];
-                if (  [usernameKeychain setPassword:usernameLocal] != 0  ) {
+                if (  [usernameKeychain setPassword: usernameLocal] != 0  ) {
                     NSLog(@"Could not save username in Keychain");
                 }
                 [passwordKeychain deletePassword];
-                if (  [passwordKeychain setPassword:passwordLocal] != 0  ) {
+                if (  [passwordKeychain setPassword: passwordLocal] != 0  ) {
                     NSLog(@"Could not save password in Keychain");
                 }
                 [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
                 [gTbDefaults synchronize];
             }
         }
-            
-        CFRelease(notification);
-        [dict release];
+        
+        [[loginScreen window] close];
     }
-
+    
     NSArray * array = [NSArray arrayWithObjects: usernameLocal, passwordLocal, nil];
     return array;
 }
@@ -451,14 +407,14 @@ extern TBUserDefaults  * gTbDefaults;
         passphrase = [value copy];
     }
 }
-- (NSString *)configName {
-    return [[configName retain] autorelease];
+- (NSString *)displayName {
+    return [[displayName retain] autorelease];
 }
 
-- (void)setConfigName:(NSString *)value {
-    if (configName != value) {
-        [configName release];
-        configName = [value copy];
+- (void)setDisplayName:(NSString *)value {
+    if (displayName != value) {
+        [displayName release];
+        displayName = [value copy];
     }
 }
 

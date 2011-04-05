@@ -32,9 +32,16 @@
 
 #import "KeyChain.h"
 
-@interface AuthAgent : NSObject {
-	NSString * authMode;                // Either @"privateKey" or @"password", depending on type of authentication desired
-	NSString * configName;              // Name of configuration file (filename EXCLUDING the extension)
+@class LoginWindowController;
+@class PassphraseWindowController;
+
+@interface AuthAgent : NSObject
+{
+    LoginWindowController * loginScreen;            // The window for logging into the VPN
+    PassphraseWindowController * passphraseScreen;  // The window for logging into the VPN
+    
+    NSString * authMode;                    // Either @"privateKey" or @"password", depending on type of authentication desired
+	NSString * displayName;                 // Name of configuration file (filename EXCLUDING the extension)
     
     // Passphrase for "privateKey" authentication, username & password for "password" authentication
     // The appropriate ones are set by the performAuthentication method, and come either from the keychain, or from asking the user for them
@@ -66,6 +73,7 @@
 -(NSString *)   passphrase;
 -(NSString *)   password;
 -(NSString *)   username;
+-(NSString *)   displayName;
 
 -(void)         deleteCredentialsFromKeychain;
 -(id)           initWithConfigName:                 (NSString *)inConfigName;

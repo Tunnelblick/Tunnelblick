@@ -50,7 +50,6 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
     name   = @"(unknown connection)";
     status = @"(unknown status)";
     
-    thisIsUs = [[NSNumber numberWithBool: TRUE] retain];
     delegate = [theDelegate retain];
     
     return self;
@@ -58,44 +57,42 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
 
 -(void) awakeFromNib
 {
-    if (  thisIsUs  ) {
-        [[self window] setTitle: NSLocalizedString(@"Connection Status", @"Window title")];
-        
-        [self setTitle: NSLocalizedString(@"Cancel" , @"Button") ofControl: cancelButton ];
-        
-        [[self nameTFC]   setStringValue: name   ];
-
-        [[self statusTFC] setStringValue: status ];
-        
-        [self initialiseAnim];
-        
-        [self enableCancelButton];
-        
-        // The normal frame is centered or comes from preferences
-        NSString * normalFrameString = [gTbDefaults objectForKey: @"statusWindowFrame"];
-        if (  normalFrameString  ) {
-            normalFrame = NSRectFromString(normalFrameString);
-            [[self window] setFrame: normalFrame display: YES];
-        } else {
-            [[self window] center];
-            normalFrame = [[self window] frame];
-        }
-        
-        // The icon frame is in the upper-left corner of the screen with the menu bar
-        NSRect screen = [[[NSScreen screens] objectAtIndex: 0] frame];
-        iconFrame = NSMakeRect(screen.origin.x + screen.size.width - 70.0,
-                               screen.origin.y + screen.size.height - 9.0,
-                               1.0,
-                               1.0); // (... 0, 0) doesn't work on OS X 10.4
-        
-        // Zoom from the icon frame
-        [[self window] setFrame: iconFrame display: YES animate: NO];
-        [[self window] display];
-        [self showWindow: self];
-        [[self window] setFrame: normalFrame display: YES animate: YES];
-        [NSApp activateIgnoringOtherApps:YES];
-        [[self window] makeKeyAndOrderFront: self];
-     }
+    [[self window] setTitle: NSLocalizedString(@"Connection Status", @"Window title")];
+    
+    [self setTitle: NSLocalizedString(@"Cancel" , @"Button") ofControl: cancelButton ];
+    
+    [[self nameTFC]   setStringValue: name   ];
+    
+    [[self statusTFC] setStringValue: status ];
+    
+    [self initialiseAnim];
+    
+    [self enableCancelButton];
+    
+    // The normal frame is centered or comes from preferences
+    NSString * normalFrameString = [gTbDefaults objectForKey: @"statusWindowFrame"];
+    if (  normalFrameString  ) {
+        normalFrame = NSRectFromString(normalFrameString);
+        [[self window] setFrame: normalFrame display: YES];
+    } else {
+        [[self window] center];
+        normalFrame = [[self window] frame];
+    }
+    
+    // The icon frame is in the upper-left corner of the screen with the menu bar
+    NSRect screen = [[[NSScreen screens] objectAtIndex: 0] frame];
+    iconFrame = NSMakeRect(screen.origin.x + screen.size.width - 70.0,
+                           screen.origin.y + screen.size.height - 9.0,
+                           1.0,
+                           1.0); // (... 0, 0) doesn't work on OS X 10.4
+    
+    // Zoom from the icon frame
+    [[self window] setFrame: iconFrame display: YES animate: NO];
+    [[self window] display];
+    [self showWindow: self];
+    [[self window] setFrame: normalFrame display: YES animate: YES];
+    [NSApp activateIgnoringOtherApps:YES];
+    [[self window] makeKeyAndOrderFront: self];
 }
 
 // Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
@@ -139,7 +136,7 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
         animImages     = [[[NSApp delegate] animImages]     retain];
         connectedImage = [[[NSApp delegate] connectedImage] retain];
         mainImage      = [[[NSApp delegate] mainImage]      retain];
-
+        
         for (i=1; i<=[animImages count]; i++) {
             NSAnimationProgress p = ((float)i)/((float)[animImages count]);
             [theAnim addProgressMark:p];
@@ -189,7 +186,7 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
 - (IBAction) cancelButtonWasClicked: sender
 {
     [sender setEnabled: NO];
-	[[NSApp delegate] statusWindowController: self finishedWithChoice: statusWindowControllerCancelChoice forDisplayName: [[self delegate] name]];
+	[[NSApp delegate] statusWindowController: self finishedWithChoice: statusWindowControllerCancelChoice forDisplayName: [self name]];
 }
 
 - (void) dealloc
@@ -208,7 +205,6 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
     [connectedImage release];
     [mainImage      release];
     
-    [thisIsUs       release];
     [delegate       release];
     
 	[super dealloc];

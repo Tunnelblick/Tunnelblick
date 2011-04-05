@@ -40,8 +40,6 @@
     NSImage                  * connectedImage;  // Image to display when one or more connections are active
     NSImage                  * mainImage;       // Image to display when there are no connections active
     
-    NSNumber                 * thisIsUs;        // Used to process awakeFromNib only for us, not our NSWindowController parent
-
     id                         delegate;
 }
 

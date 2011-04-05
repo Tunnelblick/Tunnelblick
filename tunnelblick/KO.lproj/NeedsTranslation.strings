@@ -323,6 +323,9 @@
 "Perform installation?" = "Perform installation?";
 
 /* Window title */
+"Please enter a username and password." = "Please enter a username and password.";
+
+/* Window title */
 "Private Configuration Folder is Open" = "Private Configuration Folder is Open";
 
 /* Window title */
@@ -363,6 +366,12 @@
 
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick is currently running";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
 
 /* Window title */
 "Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
@@ -458,7 +467,13 @@
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
 
 /* Window text */
+"A passphrase is required to connect to\n  %@" = "A passphrase is required to connect to\n  %@";
+
+/* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
 
 /* Window text */
 "All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
