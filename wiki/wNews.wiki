@@ -5,6 +5,14 @@
 
 --------------------
 
+2011-04-06: *Tunnelblick 3.2beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Allows copy/paste of usernames, passwords, and passphrases in the VPN login window. (For security reasons, passwords and passphrases may only be pasted.)
+ * Fixes a bug that sometimes failed to alert the user when a VPN username/password or passphrase failed to be authenticated.
+ * Allows Tunnelblick VPN Configurations ('.tblk' packages) to be uninstalled.
+ * Includes several other enhancements and bug fixes.
+ See the [wRlsNotes Release Notes] for details.
+--------------------
+
 2011-04-03: *Tunnelblick 3.1.7 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Fixes problems causing tun/tap kexts to be loaded even though preferences specify that the kext(s) are not to be loaded.
  * Fixes a problem with installing some Tunnelblick VPN Configurations (.tblk).

@@ -21,6 +21,38 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.2beta06 (2011-04-06)*
+
+ * Allows copy/paste of usernames, passwords, and passphrases in the VPN login window. (For security reasons, passwords and passphrases may only be pasted.)
+
+ * Fixes a bug that sometimes failed to alert the user when a VPN username/password or passphrase failed to be authenticated, making it work better with some OpenVPN servers. (There is still a bug in OpenVPN which causes Tunnelblick to fail to report some failures; this bug is fixed in OpenVPN 2.2rc, which Tunnelblick betas will start using 'soon'.)
+
+ * Allows Tunnelblick VPN Configurations ('.tblk' packages) to be uninstalled. If a Tunnelblick VPN Configuration is double-clicked and the 'TBUninstall' key is included in its Info.plist (with any value), the installed configuration that has corresponding attributes (install location, bundle ID) will be uninstalled. If the key is the string 'ignoreError' (without the quote marks), any failures in the uninstall process will not be reported to the user.
+
+ * Allows the deletion of backups of the Deploy folder by installing a version of Tunnelblick.app which includes an empty /Contents/Resources/Deploy folder. (This allows a user to install a fresh un-Deployed Tunnelblick over a Deployed version.)
+
+ * Moves LeaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
+
+ * Adds translations of additional OpenVPN connection status.
+
+ * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in NetSocket.m.
+
+ * Fixes a bug that sometimes caused unnecessary 'The change will take effect the next time you connect' messages.
+
+ * Fixes a bug that sometimes caused Tunnelblick to be unable to establish communications with OpenVPN.
+
+ * Fixes a bug that sometimes -- on OS X 10.4 ('Tiger') only -- caused Tunnelblick to hang while quitting or connecting to a VPN server.
+
+ * Fixes a problem that installed nested Tunnelblick VPN Configurations (.tblk packages) incorrectly.
+
+ * Fixes a bug that caused Tunnelblick to refuse to install Tunnelblick VPN Configurations if they contained subfolders.
+
+ * Fixes a bug that caused a Console log entry that a flag file does not exist after installing certain Tunnelblick VPN Configurations (.tblk).
+
+ * Fixes a bug that caused tun/tap kexts to be loaded even though preferences specify that the kext(s) are not to be loaded.
+
+--------------------
+
 *3.2beta04 (2011-02-19)*
 
  * Adds [wAppleScriptSupport AppleScript support].
