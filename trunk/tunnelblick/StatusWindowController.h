@@ -26,11 +26,7 @@
 {
     IBOutlet NSButton        * cancelButton;
     IBOutlet NSTextFieldCell * statusTFC;
-    IBOutlet NSTextFieldCell * nameTFC;
     IBOutlet NSImageView     * animationIV;
-    
-    NSRect                     normalFrame;     // Normal frame for the window (when not zoomed to the icon)
-    NSRect                     iconFrame;       // Icon frame for the window (when zoomed to the icon)
     
     NSString                 * name;            // Name we are displaying - displayName of configuration
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration
@@ -39,6 +35,11 @@
     NSMutableArray           * animImages;      // Images
     NSImage                  * connectedImage;  // Image to display when one or more connections are active
     NSImage                  * mainImage;       // Image to display when there are no connections active
+    
+    CGFloat                    originalWidth;   // Width of window frame with original title ("XXXX...")
+    CGFloat                    currentWidth;    // Width of window frame currently
+    
+    BOOL                       isOpen;          // Flag for animating window fade-in and fade-out
     
     id                         delegate;
 }
@@ -49,14 +50,14 @@
 
 -(id)         delegate;
 
--(void)       enableCancelButton;
+-(void)       fadeIn;
+-(void)       fadeOut;
+
+-(void)       restore;
 
 -(NSString *) name;
 -(void)       setName:                (NSString *) newName;
 
 -(void)       setStatus:              (NSString *) theStatus;
-
--(void)       zoomToIcon;
--(void)       zoomToWindow;
 
 @end

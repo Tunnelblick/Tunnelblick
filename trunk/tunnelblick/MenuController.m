@@ -536,6 +536,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [hotKeySubmenu release];
     [statusMenuItem release];
     [statusItem release];
+    
     [super dealloc];
 }
 
@@ -3569,6 +3570,7 @@ static void signal_handler(int signalNumber)
     myAuth = nil;
     
     launchFinished = TRUE;
+    
 }
 
 // Returns TRUE if a hookupWatchdog timer was created or already exists

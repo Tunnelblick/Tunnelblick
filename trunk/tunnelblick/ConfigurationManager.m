@@ -481,6 +481,13 @@ enum state_t {                      // These are the "states" of the guideState 
                     return @"Cancel";
                 }
             }
+        
+        if (   (   [gTbDefaults boolForKey: useDownRootPluginKey]
+                && [gTbDefaults canChangeValueForKey: useDownRootPluginKey] )
+            && (! (userOption || groupOption))  ) {
+            [gTbDefaults removeObjectForKey: useDownRootPluginKey];
+            NSLog(@"Removed '%@' preference", useDownRootPluginKey);
+        }
     }
     
     NSString * devTypeOption = [[self parseString: cfgContents forOption: @"dev-type"] lowercaseString];

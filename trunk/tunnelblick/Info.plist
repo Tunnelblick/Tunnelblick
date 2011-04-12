@@ -34,11 +34,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.2beta07 (build 2418)</string>
+	<string>3.2beta07 (build 2421)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>2418</string>
+	<string>2421</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -55,9 +55,5 @@
 	<true/>
 	<key>OSAScriptingDefinition</key>
 	<string>Tunnelblick.sdef</string>
-	<key>TunnelblickVPNBaseURL</key>
-	<string>http://www.spotflux.com</string>
-	<key>TunnelblickVPNTOSURL</key>
-	<string>http://code.google.com/p/tunnelblick/</string>
 </dict>
 </plist>

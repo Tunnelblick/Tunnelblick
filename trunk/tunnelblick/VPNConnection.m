@@ -704,12 +704,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 if (  ! statusScreen) {
                     statusScreen = [[StatusWindowController alloc] initWithDelegate: self];
                 } else {
-                    [statusScreen enableCancelButton];
+                    [statusScreen restore];
                 }
 
                 [statusScreen setName: displayName];
                 [statusScreen setStatus: NSLocalizedString(lastState, @"Connection status")];
-                [statusScreen zoomToWindow];
+                [statusScreen fadeIn];
                 showingStatusWindow = TRUE;
             }
         }
@@ -1855,10 +1855,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  showingStatusWindow  ) {
         if (   [newState isEqualToString: @"CONNECTED"]
             || [newState isEqualToString: @"EXITING"]  ) {
-            // Wait one second, then zoom to the Tunnelblick icon
+            // Wait one second, then fade away
             [NSTimer scheduledTimerWithTimeInterval:1.0
                                              target: self
-                                           selector:@selector(zoomToTunnelblickIcon)
+                                           selector:@selector(fadeAway)
                                            userInfo:nil
                                             repeats:NO];
         }
@@ -1868,15 +1868,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
 }
 
-// Animate zooming to the Tunnelblick icon (actually, we shrink to a point near the top right corner of the screen that has the menu bar)
--(void) zoomToTunnelblickIcon
+-(void) fadeAway
 {
     if (  ! (   gTunnelblickIsQuitting
              || gComputerIsGoingToSleep )  ) {
         if (   [self isConnected]
             || (   [self isDisconnected]
                 && ( ! authFailed  ) )  ) {
-                [statusScreen zoomToIcon];
+                [statusScreen fadeOut];
                 showingStatusWindow = FALSE;
             }
     }
