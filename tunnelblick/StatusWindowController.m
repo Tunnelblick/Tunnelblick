@@ -129,7 +129,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
     
     [self setSizeAndPosition];
     [self showWindow: self];
-    [self fadeOut];
+    [self fadeIn];
 }
 
 // Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
