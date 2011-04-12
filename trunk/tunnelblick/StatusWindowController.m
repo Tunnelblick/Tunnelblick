@@ -129,6 +129,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
     
     [self setSizeAndPosition];
     [self showWindow: self];
+    [self initialiseAnim];
     [self fadeIn];
 }
 
