@@ -110,7 +110,7 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
-BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid);
+BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
 BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group);
 BOOL createSymLink(NSString * fromPath, NSString * toPath);
@@ -819,49 +819,90 @@ BOOL makeFileUnlockedAtPath(NSString * path)
 }
 
 //**************************************************************************************************************************
-// Changes ownership of a file or folder if necessary to the specified user/group.
-// If "recurse" is TRUE, also changes ownership on all contents of a folder (except invisible items)
+// Changes ownership of a file or folder to the specified user/group if necessary.
+// If "deeply" is TRUE, also changes ownership on all contents of a folder (except invisible items)
 // Returns YES on success, NO on failure
-BOOL checkSetOwnership(NSString * path, BOOL recurse, uid_t uid, gid_t gid)
+BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
 {
+    BOOL changedBase = FALSE;
+    BOOL changedDeep = FALSE;
+    
     NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
-    if (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
-        && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  ) {
-        return YES;
+    if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
+             && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  )  ) {
+        if (  [atts fileIsImmutable]  ) {
+            NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d because it is locked",
+                  path,
+                  (int) uid,
+                  (int) gid);
+            return NO;
+        }
+        
+        if (  chown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid) != 0  ) {
+            NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d\nError was '%s'",
+                  path,
+                  (int) uid,
+                  (int) gid,
+                  strerror(errno));
+            return NO;
+        }
+        
+        changedBase = TRUE;
     }
     
-    if (  [atts fileIsImmutable]  ) {
-        NSLog(@"Tunnelblick Installer: Unable to change ownership because item is locked: %@", path);
-        return NO;
-    }
-    
-    if (  chown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid) != 0  ) {
-        NSLog(@"Tunnelblick Installer: Unable to change ownership to %d:%d on %@\nError was '%s'", (int) uid, (int) gid, path, strerror(errno));
-        return NO;
-    }
-    
-    NSString * recurseNote = @"";
-    
-    if (  recurse  ) {
-        recurseNote = @" and its contents";
+    if (  deeply  ) {
         NSString * file;
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
         while ( file = [dirEnum nextObject]  ) {
-            if (  itemIsVisible(file)  ) {
-                NSString * filePath = [path stringByAppendingPathComponent: file];
+            NSString * filePath = [path stringByAppendingPathComponent: file];
+            if (  itemIsVisible(filePath)  ) {
                 atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: YES];
-                if (   ! [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
-                    || ! [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  ) {
-                    if (  chown([gFileMgr fileSystemRepresentationWithPath: filePath], uid, gid) != 0  ) {
-                        NSLog(@"Tunnelblick Installer: Unable to change ownership to %d:%d on %@\nError was '%s'", (int) uid, (int) gid, filePath, strerror(errno));
+                if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
+                         && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  )  ) {
+                    if (  [atts fileIsImmutable]  ) {
+                        NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d because it is locked",
+                              filePath,
+                              (int) uid,
+                              (int) gid);
                         return NO;
                     }
+                    
+                    if (  chown([gFileMgr fileSystemRepresentationWithPath: filePath], uid, gid) != 0  ) {
+                        NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d\nError was '%s'",
+                              filePath,
+                              (int) uid,
+                              (int) gid,
+                              strerror(errno));
+                        return NO;
+                    }
+
+                    changedDeep = TRUE;
                 }
             }
         }
     }
     
-    NSLog(@"Tunnelblick Installer: Changed ownership to %d:%d on %@%@", (int) uid, (int) gid,  path, recurseNote);
+    if (  changedBase ) {
+        if (  changedDeep  ) {
+            NSLog(@"Tunnelblick Installer: Changed ownership of %@ and its contents to %d:%d",
+                  path,
+                  (int) uid,
+                  (int) gid);
+        } else {
+            NSLog(@"Tunnelblick Installer: Changed ownership of %@ to %d:%d",
+                  path,
+                  (int) uid,
+                  (int) gid);
+        }
+    } else {
+        if (  changedDeep  ) {
+            NSLog(@"Tunnelblick Installer: Changed ownership of the contents of %@ to %d:%d",
+                  path,
+                  (int) uid,
+                  (int) gid);
+        }
+    }
+    
     return YES;
 }
 

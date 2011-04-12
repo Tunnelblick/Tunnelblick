@@ -77,7 +77,7 @@ case "${OSVER}" in
 		HIDE_SNOW_LEOPARD=""
 		HIDE_LEOPARD="#"
 		;;
-	10.6 )
+	10.6 | 10.7 )
 		HIDE_SNOW_LEOPARD="#"
 		HIDE_LEOPARD=""
 		;;
@@ -90,6 +90,9 @@ unset vForOptions
 unset vDNS
 unset vWINS
 unset vOptions
+
+# We sleep here to allow time for OS X to process DHCP, DNS, and WINS settings
+sleep 2
 
 while vForOptions=foreign_option_$nOptionIndex; [ -n "${!vForOptions}" ]; do
 	{
@@ -154,7 +157,7 @@ if [ ${#vDNS[*]} -eq 0 ] ; then
 	ALL_DNS="${STATIC_DNS}"
 elif [ -n "${STATIC_DNS}" ] ; then
 	case "${OSVER}" in
-		10.6 )
+		10.6 | 10.7 )
 			# Do nothing - in 10.6 we don't aggregate our configurations, apparently
 			DYN_DNS="false"
 			ALL_DNS="${STATIC_DNS}"
@@ -189,7 +192,7 @@ if [ ${#vWINS[*]} -eq 0 ] ; then
 	ALL_WINS="${STATIC_WINS}"
 elif [ -n "${STATIC_WINS}" ] ; then
 	case "${OSVER}" in
-		10.6 )
+		10.6 | 10.7 )
 			# Do nothing - in 10.6 we don't aggregate our configurations, apparently
 			DYN_WINS="false"
 			ALL_WINS="${STATIC_WINS}"
@@ -222,7 +225,7 @@ readonly DYN_WINS ALL_WINS
 # We double-check that our search domain isn't already on the list
 SEARCH_DOMAIN="${domain}"
 case "${OSVER}" in
-	10.6 )
+	10.6 | 10.7 )
 		# Do nothing - in 10.6 we don't aggregate our configurations, apparently
 		if [ -n "${STATIC_SEARCH}" ] ; then
 			ALL_SEARCH="${STATIC_SEARCH}"

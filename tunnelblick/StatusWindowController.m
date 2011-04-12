@@ -25,15 +25,15 @@
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 
-TBUserDefaults        * gTbDefaults;            // Our preferences
+TBUserDefaults * gTbDefaults;         // Our preferences
 
-@interface StatusWindowController() // Private methods
+@interface StatusWindowController()   // Private methods
 
 -(void)              initialiseAnim;
 
--(NSTextFieldCell *) statusTFC;
+-(void)              setSizeAndPosition;
 
--(NSTextFieldCell *) nameTFC;
+-(NSTextFieldCell *) statusTFC;
 
 -(void)              setTitle:        (NSString *) newTitle ofControl: (id) theControl;
 
@@ -47,52 +47,89 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
         return nil;
     }
     
-    name   = @"(unknown connection)";
-    status = @"(unknown status)";
+    [super setShouldCascadeWindows: NO];    // We always set the window's position
+    
+    name   = @"";
+    status = @"";
+    
+    originalWidth = 0.0;
+    currentWidth  = 0.0;
+    
+    isOpen = FALSE;
     
     delegate = [theDelegate retain];
     
     return self;
 }
 
+-(void) restore
+{
+    [cancelButton setEnabled: YES];
+    [self setSizeAndPosition];
+    [[self window] display];
+    [self showWindow: self];
+    [self fadeIn];
+}
+
+// Sets the frame for the window so the entire title (name of connection) is visible
+// and the window is in the upper-right corner of the screen
+-(void) setSizeAndPosition
+{
+    if (  originalWidth == 0.0  ) {
+        originalWidth = [NSWindow minFrameWidthWithTitle: [[self window] title] styleMask: NSHUDWindowMask];
+    }
+
+    NSWindow * panel = [self window];
+    NSRect panelFrame = [panel frame];
+    
+    // Adjust the width of the window to fit the complete title
+    // But never make it smaller than the original window, or larger than will fit on the screen
+    NSRect screen = [[[NSScreen screens] objectAtIndex: 0] visibleFrame];
+    if (  currentWidth == 0.0  ) {
+        currentWidth = [NSWindow minFrameWidthWithTitle: [panel title] styleMask: NSHUDWindowMask];
+    }
+    CGFloat newWidth = [NSWindow minFrameWidthWithTitle: name styleMask: NSHUDWindowMask];
+    if (  newWidth < originalWidth  ) {
+        newWidth = originalWidth;
+    }
+    CGFloat sizeChange = (CGFloat) newWidth - currentWidth;
+    if (  sizeChange > 0.0  )  {
+        if (  newWidth < (screen.size.width - 20.0)  ) {
+            panelFrame.size.width = newWidth;
+        } else {
+            panelFrame.size.width = screen.size.width;
+        }
+    }
+    
+    [panel setTitle: name];
+
+    // Put the window in the upper-right corner of the screen
+    NSRect normalFrame = NSMakeRect(screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0,
+                                    screen.origin.y + screen.size.height - panelFrame.size.height - 10.0,
+                                    panelFrame.size.width,
+                                    panelFrame.size.height);
+    
+    [panel setFrame: normalFrame display: YES];
+    currentWidth = normalFrame.size.width;
+}
+
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Connection Status", @"Window title")];
+    [[self statusTFC] setStringValue: status ];
+    [[self statusTFC] setTextColor: [NSColor whiteColor]];
     
     [self setTitle: NSLocalizedString(@"Cancel" , @"Button") ofControl: cancelButton ];
     
-    [[self nameTFC]   setStringValue: name   ];
+    [cancelButton setEnabled: YES];
     
-    [[self statusTFC] setStringValue: status ];
-    
-    [self initialiseAnim];
-    
-    [self enableCancelButton];
-    
-    // The normal frame is centered or comes from preferences
-    NSString * normalFrameString = [gTbDefaults objectForKey: @"statusWindowFrame"];
-    if (  normalFrameString  ) {
-        normalFrame = NSRectFromString(normalFrameString);
-        [[self window] setFrame: normalFrame display: YES];
-    } else {
-        [[self window] center];
-        normalFrame = [[self window] frame];
+    if (  ! runningOnLeopardOrNewer()  ) {
+        [[self window] setBackgroundColor: [NSColor blackColor]];
+        [[self window] setAlphaValue: 0.77];
     }
     
-    // The icon frame is in the upper-left corner of the screen with the menu bar
-    NSRect screen = [[[NSScreen screens] objectAtIndex: 0] frame];
-    iconFrame = NSMakeRect(screen.origin.x + screen.size.width - 70.0,
-                           screen.origin.y + screen.size.height - 9.0,
-                           1.0,
-                           1.0); // (... 0, 0) doesn't work on OS X 10.4
-    
-    // Zoom from the icon frame
-    [[self window] setFrame: iconFrame display: YES animate: NO];
-    [[self window] display];
+    [self setSizeAndPosition];
     [self showWindow: self];
-    [[self window] setFrame: normalFrame display: YES animate: YES];
-    [NSApp activateIgnoringOtherApps:YES];
-    [[self window] makeKeyAndOrderFront: self];
+    [self fadeOut];
 }
 
 // Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
@@ -111,16 +148,6 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
         oldPos.origin.x = oldPos.origin.x - (widthChange/2);
         [theControl setFrame:oldPos];
     }
-}
-
--(void) zoomToIcon
-{
-    [[self window] setFrame: iconFrame display: YES animate: YES];
-}
-
--(void) zoomToWindow
-{
-    [[self window] setFrame: normalFrame display: YES animate: YES];
 }
 
 -(void) initialiseAnim
@@ -161,26 +188,33 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
 	}
 }
 
-- (void)windowWillClose:(NSNotification *)n
+-(void) fadeIn
 {
-    [gTbDefaults setObject: NSStringFromRect(normalFrame) forKey: @"statusWindowFrame"];
+	if (  ! isOpen  ) {
+		[NSApp activateIgnoringOtherApps: YES];
+		[[self window] makeKeyAndOrderFront: self];
+        NSWindow * window = [self window];
+        if (   [window respondsToSelector: @selector(animator)]
+            && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
+            [[window animator] setAlphaValue: 1.0];
+        }
+		isOpen = YES;
+	}
 }
 
--(void) windowDidMove:(NSNotification *)notification
+-(void) fadeOut
 {
-    // We save the new position as a preference, but only if the user moved the window.
-    // We ignore small movements (5 pixels or fewer), and we ignore the move if the size is not the "normal" size
-    // This combination lets us ignore the zooming to/from the icon and the initial setting up of the window
-    if (  normalFrame.size.width != 0  ) {
-        NSRect currentFrame = [[self window] frame];
-        if (   ( abs(  (int) normalFrame.origin.x - (int) currentFrame.origin.x ) > 5)
-            && ( abs(  (int) normalFrame.origin.y - (int) currentFrame.origin.y ) > 5)
-            && ( currentFrame.size.width == normalFrame.size.width )
-            && ( currentFrame.size.height == normalFrame.size.height )) {
-            normalFrame.origin.x = currentFrame.origin.x;
-            normalFrame.origin.y = currentFrame.origin.y;
+	if (  isOpen  ) {
+        NSWindow * window = [self window];
+        if (   [window respondsToSelector: @selector(animator)]
+            && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
+            [[window animator] setAlphaValue:0.0];
+        } else {
+            [window close];
         }
-    }
+
+		isOpen = NO;
+	}
 }
 
 - (IBAction) cancelButtonWasClicked: sender
@@ -193,7 +227,6 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
 {
     [cancelButton   release];
     
-    [nameTFC        release];
     [statusTFC      release];
     [animationIV    release];
     
@@ -215,11 +248,6 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
     return [NSString stringWithFormat:@"%@", [self class]];
 }
 
--(NSTextFieldCell *) nameTFC
-{
-    return [[nameTFC retain] autorelease];
-}
-
 -(NSTextFieldCell *) statusTFC
 {
     return [[statusTFC retain] autorelease];
@@ -236,7 +264,7 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
         [name release];
         name = [newName retain];
     }
-    [[self nameTFC] setStringValue: newName];
+    [[self window] setTitle: newName];
 }
 
 -(void) setStatus: (NSString *) theStatus
@@ -246,23 +274,19 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
         status = [theStatus retain];
     }        
     [[self statusTFC] setStringValue: NSLocalizedString(theStatus, @"Connection status")];
-    if (  [theStatus isEqualToString: @"EXITING"]  ) {
+    if (   [theStatus isEqualToString: @"EXITING"]
+        || [theStatus isEqualToString: @"RECONNECTING"]) {
         [statusTFC setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: mainImage];
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
-        [statusTFC setTextColor: [NSColor redColor]];
+        [statusTFC setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
         [animationIV setImage: connectedImage];
     } else {
-        [statusTFC setTextColor: [NSColor blackColor]];
+        [statusTFC setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];
     }
-}
-
--(void) enableCancelButton
-{
-    [cancelButton setEnabled: YES];
 }
 
 -(id) delegate
