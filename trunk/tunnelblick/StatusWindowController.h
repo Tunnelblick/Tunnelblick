@@ -32,9 +32,6 @@
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration
     
     NSAnimation              * theAnim;         // For animation in the window
-    NSMutableArray           * animImages;      // Images
-    NSImage                  * connectedImage;  // Image to display when one or more connections are active
-    NSImage                  * mainImage;       // Image to display when there are no connections active
     
     CGFloat                    originalWidth;   // Width of window frame with original title ("XXXX...")
     CGFloat                    currentWidth;    // Width of window frame currently
