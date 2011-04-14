@@ -161,12 +161,8 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         [theAnim setFrameRate:7.0];
         [theAnim setDelegate:self];
         
-        animImages     = [[[NSApp delegate] animImages]     retain];
-        connectedImage = [[[NSApp delegate] connectedImage] retain];
-        mainImage      = [[[NSApp delegate] mainImage]      retain];
-        
-        for (i=1; i<=[animImages count]; i++) {
-            NSAnimationProgress p = ((float)i)/((float)[animImages count]);
+        for (i=1; i<=[[[NSApp delegate] largeAnimImages] count]; i++) {
+            NSAnimationProgress p = ((float)i)/((float)[[[NSApp delegate] largeAnimImages] count]);
             [theAnim addProgressMark:p];
         }
         [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
@@ -185,7 +181,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
 -(void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
 	if (animation == theAnim) {
-        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
+        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[[NSApp delegate] largeAnimImages] objectAtIndex:lround(progress * [[[NSApp delegate] largeAnimImages] count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -234,11 +230,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
     [name           release];
     [status         release];
     
-    [theAnim        release];
-    [animImages     release];
-    [connectedImage release];
-    [mainImage      release];
-    
+    [theAnim        release];    
     [delegate       release];
     
 	[super dealloc];
@@ -279,11 +271,11 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         || [theStatus isEqualToString: @"RECONNECTING"]) {
         [statusTFC setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
-        [animationIV setImage: mainImage];
+        [animationIV setImage: [[NSApp delegate] largeMainImage]];
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
         [statusTFC setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
-        [animationIV setImage: connectedImage];
+        [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
     } else {
         [statusTFC setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];

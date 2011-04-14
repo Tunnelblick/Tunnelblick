@@ -621,7 +621,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         menuIconSet = @"TunnelBlick.TBMenuIcons";
     }
     
-    return [self loadMenuIconSet: menuIconSet main: &mainImage connecting: &connectedImage anim: &animImages];
+    return [self loadMenuIconSet: menuIconSet
+                            main: &mainImage
+                      connecting: &connectedImage
+                            anim: &animImages]
+    
+    &&     [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
+                            main: &largeMainImage
+                      connecting: &largeConnectedImage
+                            anim: &largeAnimImages];
 }
     
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
@@ -4899,6 +4907,21 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 -(NSArray *) connectionsToRestoreOnUserActive
 {
     return [[connectionsToRestoreOnUserActive retain] autorelease];
+}
+
+-(NSMutableArray *) largeAnimImages
+{
+    return [[largeAnimImages retain] autorelease];
+}
+
+-(NSImage *) largeConnectedImage
+{
+    return [[largeConnectedImage retain] autorelease];
+}
+
+-(NSImage *) largeMainImage
+{
+    return [[largeMainImage retain] autorelease];
 }
 
 //*********************************************************************************************************

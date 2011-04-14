@@ -96,6 +96,10 @@ BOOL needToCopyBundle(void);
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
+    NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the the Status Window
+    NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
+    NSImage                 * largeMainImage;               // Image to display when there are no connections active
+
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
     NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
@@ -234,6 +238,9 @@ BOOL needToCopyBundle(void);
 -(NSImage *)        mainImage;
 -(NSArray *)        connectionArray;
 -(NSArray *)        connectionsToRestoreOnUserActive;
+-(NSMutableArray *) largeAnimImages;
+-(NSImage *)        largeConnectedImage;
+-(NSImage *)        largeMainImage;
 -(int)              selectedModifyNameserverIndex;
 -(void)             setSelectedModifyNameserverIndex:       (int)               newValue;
 -(NSString *)       customRunOnConnectPath;
