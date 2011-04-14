@@ -2118,9 +2118,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) setLogWindowTitle
 {
-    [logWindow setTitle: [NSString stringWithFormat: @"%@ - %@%@",
+    NSString * name = [[self selectedConnection] displayName];
+    if (  [name isEqualToString: @"Tunnelblick"]  ) {
+        name = @"";
+    } else {
+        name = [NSString stringWithFormat: @" - %@", name];
+    }
+
+    [logWindow setTitle: [NSString stringWithFormat: @"%@%@%@",
                           NSLocalizedString(@"Details - Tunnelblick", @"Window title"),
-                          [[self selectedConnection] displayName],
+                          name,
                           [[self selectedConnection] displayLocation]]];
 	
 }
