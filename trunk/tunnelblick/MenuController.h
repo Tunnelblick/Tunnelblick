@@ -208,7 +208,10 @@ BOOL needToCopyBundle(void);
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
-
+-(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
+                               main:                        (NSImage **)        ptrMainImage
+                         connecting:                        (NSImage **)        ptrConnectedImage
+                               anim:                        (NSMutableArray **) ptrAnimImages;
 -(NSMutableDictionary *)    myConfigDictionary;
 -(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
