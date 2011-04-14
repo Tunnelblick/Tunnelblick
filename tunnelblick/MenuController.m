@@ -614,38 +614,46 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[self initialiseAnim];
 }
 
-- (BOOL) loadMenuIconSet
+-(BOOL) loadMenuIconSet
 {
     NSString *menuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
     if (  menuIconSet == nil  ) {
         menuIconSet = @"TunnelBlick.TBMenuIcons";
     }
     
+    return [self loadMenuIconSet: menuIconSet main: &mainImage connecting: &connectedImage anim: &animImages];
+}
+    
+-(BOOL) loadMenuIconSet: (NSString *)        iconSetName
+                   main: (NSImage **)        ptrMainImage
+             connecting: (NSImage **)        ptrConnectedImage
+                   anim: (NSMutableArray **) ptrAnimImages
+{
     // Search for the folder with the animated icon set in (1) Deploy and (2) Shared, before falling back on the copy in the app's Resources
     BOOL isDir;
-    NSString * iconSetDir = [[gDeployPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+    NSString * iconSetDir = [[gDeployPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: iconSetName];
     if (  ! (   [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
              && isDir )  ) {
-        iconSetDir = [[gSharedPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+        iconSetDir = [[gSharedPath stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: iconSetName];
         if (  ! (   [gConfigDirs containsObject: gSharedPath]
                  && [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
                  && isDir )  ) {
-            iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: menuIconSet];
+            iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: iconSetName];
             if (  ! (   [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
                      && isDir )  ) {
                 // Can't find the specified icon set
-                if (   [menuIconSet isEqualToString: @"TunnelBlick.TBMenuIcons"]
-                    || [menuIconSet isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
-                    NSLog(@"Error: Standard icon set '%@' is missing from Tunnelblick.app/Contents/Resources/IconSets", menuIconSet);
+                if (   [iconSetName isEqualToString: @"TunnelBlick.TBMenuIcons"]
+                    || [iconSetName isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
+                    NSLog(@"Error: Standard icon set '%@' is missing from Tunnelblick.app/Contents/Resources/IconSets", iconSetName);
                     return FALSE;
                 }
                 iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: @"TunnelBlick.TBMenuIcons"];
                 if (  [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
                     && isDir  ) {
-                    NSLog(@"Icon set '%@' not found. Using standard 'TunnelBlick.TBMenuIcons' icon set", menuIconSet);
-                    menuIconSet = @"TunnelBlick.TBMenuIcons";
+                    NSLog(@"Icon set '%@' not found. Using standard 'TunnelBlick.TBMenuIcons' icon set", iconSetName);
+                    iconSetName = @"TunnelBlick.TBMenuIcons";
                 } else {
-                    NSLog(@"Error: Cannot find icon set '%@', and the standard icon set 'TunnelBlick.TBMenuIcons' is missing from Tunnelblick.app/Contents/Resources/IconSets", menuIconSet);
+                    NSLog(@"Error: Cannot find icon set '%@', and the standard icon set 'TunnelBlick.TBMenuIcons' is missing from Tunnelblick.app/Contents/Resources/IconSets", iconSetName);
                     return FALSE;
                 }
             }
@@ -659,8 +667,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: iconSetDir];
     NSArray *allObjects = [dirEnum allObjects];
     
-    [animImages release];
-    animImages = [[NSMutableArray alloc] init];
+    [*ptrAnimImages release];
+    *ptrAnimImages = [[NSMutableArray alloc] init];
     
     for(i=0;i<[allObjects count];i++) {
         file = [allObjects objectAtIndex:i];
@@ -671,12 +679,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 NSString *name = [[file lastPathComponent] stringByDeletingPathExtension];
                 
                 if (  [name isEqualToString:@"closed"]) {
-                    [mainImage release];
-                    mainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [*ptrMainImage release];
+                    *ptrMainImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     
                 } else if(  [name isEqualToString:@"open"]) {
-                    [connectedImage release];
-                    connectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
+                    [*ptrConnectedImage release];
+                    *ptrConnectedImage = [[NSImage alloc] initWithContentsOfFile:fullPath];
                     
                 } else {
                     if(  [[file lastPathComponent] isEqualToString:@"0.png"]) {  //[name intValue] returns 0 on failure, so make sure we find the first frame
@@ -696,16 +704,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (  itemIsVisible(fullPath)  ) {
             if ([gFileMgr fileExistsAtPath:fullPath]) {
                 NSImage *frame = [[NSImage alloc] initWithContentsOfFile:fullPath];
-                [animImages addObject:frame];
+                [*ptrAnimImages addObject:frame];
                 [frame release];
             }
         }
     }
     
-    if (   (mainImage == nil)
-        || (connectedImage == nil)
-        || ([animImages count] == 0)  ) {
-        NSLog(@"Icon set '%@' does not have required images", menuIconSet);
+    if (   (*ptrMainImage == nil)
+        || (*ptrConnectedImage == nil)
+        || ([*ptrAnimImages count] == 0)  ) {
+        NSLog(@"Icon set '%@' does not have required images", iconSetName);
         return FALSE;
     }
     
