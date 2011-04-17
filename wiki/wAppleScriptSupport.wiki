@@ -5,6 +5,8 @@
 
 <wiki:toc max_depth="2" />
 
+This document is about AppleScript Support -- making Tunnelblick do things via scripting. Tunnelblick itself also uses scripts; see [wUsingScripts Using Scripts].
+
 Tunnelblick 3.2beta04 and above may be controlled using !AppleScript.
 
 !AppleScripts may connect, disconnect, or list configurations.
