@@ -17,7 +17,7 @@ The different program (for example, Urban Shield) uses a customized version of T
     * If the entry shows *- Connect xyz*, Tunnelblick is *trying to connect* configuration xyz
 
 ==If OpenVPN is not connected to the server==
-If OpenVPN can't connect to the server, there should be one or more error messages in the OpenVPN log to indicate what the problem is. To see the OpenVPN log, click on the Tunnelblick icon, click on "Details…", then click on the tab corresponding to the configuration you are troubleshooting. The OpenVPN log is the large area of white text on a black background. (It contains messages from Tunnelblick in addition to the messages from OpenVPN.)
+If OpenVPN can't connect to the server, there should be one or more error messages in the OpenVPN log to indicate what the problem is. To see the OpenVPN log, click on the Tunnelblick icon, click on "Details…", then click on the tab corresponding to the configuration you are troubleshooting. The OpenVPN log is the large area of black text on a white background. (It contains messages from Tunnelblick in addition to the messages from OpenVPN.)
 
 Look at lines near the end of the log for an error message.
 
