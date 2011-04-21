@@ -1939,9 +1939,24 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     oldPos.origin.x = oldPos.origin.x + widthChange;
     [monitorConnnectionCheckbox setFrame:oldPos];
     
+    int index = -1;
 	NSString *useDNSKey = [displayName stringByAppendingString:@"useDNS"];
-    int index = [connection useDNSStatus];
-
+    int useDNSPreferenceValue = [connection useDNSStatus];
+    NSString * useDNSStringValue = [NSString stringWithFormat: @"%d", useDNSPreferenceValue];
+    NSArray * setNameserverEntries = [modifyNameserverPopUpButtonArrayController content];
+    int i;
+    for (i=0; i<[setNameserverEntries count]; i++) {
+        NSDictionary * dictForEntry = [setNameserverEntries objectAtIndex: i];
+        if (  [[dictForEntry objectForKey: @"value"] isEqualToString: useDNSStringValue]  ) {
+            index = i;
+            break;
+        }
+    }
+    if (  index == -1  ) {
+        NSLog(@"Invalid value for '%@' preference. Using 'Do not set nameserver'", useDNSKey);
+        index = 0;
+    }
+    
     // ***** Duplicate the effect of [self setSelectedModifyNameserverIndex: index] but without calling ourselves
     if (  index != selectedModifyNameserverIndex  ) {
         selectedModifyNameserverIndex = index;
@@ -1962,14 +1977,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	
 	NSString *notMonitorConnectionKey = [displayName stringByAppendingString:@"-notMonitoringConnection"];
     if (   [gTbDefaults canChangeValueForKey: notMonitorConnectionKey]
-        && ([connection useDNSStatus] == 1)  ) {
+        && (   ([connection useDNSStatus] == 1)
+            || ([connection useDNSStatus] == 4) )  ) {
         [monitorConnnectionCheckbox setEnabled: YES];
     } else {
         [monitorConnnectionCheckbox setEnabled: NO];
 	}
     
 	if(   ( ! [gTbDefaults boolForKey:notMonitorConnectionKey] )
-       && ( [connection useDNSStatus] == 1 )  ) {
+       && (   ([connection useDNSStatus] == 1)
+           || ([connection useDNSStatus] == 4) )  ) {
 		[monitorConnnectionCheckbox setState:NSOnState];
 	} else {
 		[monitorConnnectionCheckbox setState:NSOffState];
@@ -2924,8 +2941,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
 	VPNConnection* connection = [self selectedConnection];
 	if(connection != nil) {
+        // Look up new value for preference
+        NSArray * setNameserverEntries = [modifyNameserverPopUpButtonArrayController content];
+        NSDictionary * dictForEntry = [setNameserverEntries objectAtIndex: inValue];    
+        NSNumber * num = [NSNumber numberWithInt: [[dictForEntry objectForKey: @"value"] intValue]];
+        
 		NSString* key = [[connection displayName] stringByAppendingString: @"useDNS"];
-        NSNumber * num = [NSNumber numberWithInt: (int) inValue];
         id obj = [gTbDefaults objectForKey: key];
         BOOL saveIt = FALSE;
         if (  ! obj  ) {                                                // If no preference
@@ -4397,11 +4418,13 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         resourcesPath = [[NSBundle mainBundle] resourcePath];
 	}
     
-	NSString *installerPath         = [resourcesPath stringByAppendingPathComponent: @"installer"                      ];
 	NSString *openvpnstartPath      = [resourcesPath stringByAppendingPathComponent: @"openvpnstart"                   ];
 	NSString *openvpnPath           = [resourcesPath stringByAppendingPathComponent: @"openvpn"                        ];
 	NSString *atsystemstartPath     = [resourcesPath stringByAppendingPathComponent: @"atsystemstart"                  ];
+	NSString *installerPath         = [resourcesPath stringByAppendingPathComponent: @"installer"                      ];
+	NSString *ssoPath               = [resourcesPath stringByAppendingPathComponent: @"standardize-scutil-output"      ];
 	NSString *leasewatchPath        = [resourcesPath stringByAppendingPathComponent: @"leasewatch"                     ];
+	NSString *leasewatch3Path       = [resourcesPath stringByAppendingPathComponent: @"leasewatch3"                     ];
 	NSString *clientUpPath          = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"               ];
 	NSString *clientDownPath        = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"             ];
 	NSString *clientNoMonUpPath     = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"     ];
@@ -4412,6 +4435,8 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	NSString *clientNewAlt1DownPath = [resourcesPath stringByAppendingPathComponent: @"client.1.down.tunnelblick.sh"   ];
 	NSString *clientNewAlt2UpPath   = [resourcesPath stringByAppendingPathComponent: @"client.2.up.tunnelblick.sh"     ];
 	NSString *clientNewAlt2DownPath = [resourcesPath stringByAppendingPathComponent: @"client.2.down.tunnelblick.sh"   ];
+	NSString *clientNewAlt3UpPath   = [resourcesPath stringByAppendingPathComponent: @"client.3.up.tunnelblick.sh"     ];
+	NSString *clientNewAlt3DownPath = [resourcesPath stringByAppendingPathComponent: @"client.3.down.tunnelblick.sh"   ];
     NSString *deployPath            = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
     NSString *infoPlistPath         = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
 
@@ -4434,13 +4459,14 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     
 	// check files which should be owned by root with 744 permissions
 	NSArray *root744Objects = [NSArray arrayWithObjects:
-                                    installerPath, atsystemstartPath, leasewatchPath,
-                                    clientUpPath, clientDownPath,
-                                    clientNoMonUpPath, clientNoMonDownPath,
-                                    clientNewUpPath, clientNewDownPath,
-                                    clientNewAlt1UpPath, clientNewAlt1DownPath,
-                                    clientNewAlt2UpPath, clientNewAlt2DownPath,
-                                    nil];
+                               atsystemstartPath, installerPath, ssoPath, leasewatchPath, leasewatch3Path,
+                               clientUpPath, clientDownPath,
+                               clientNoMonUpPath, clientNoMonDownPath,
+                               clientNewUpPath, clientNewDownPath,
+                               clientNewAlt1UpPath, clientNewAlt1DownPath,
+                               clientNewAlt2UpPath, clientNewAlt2DownPath,
+                               clientNewAlt3UpPath, clientNewAlt3DownPath,
+                               nil];
 	NSEnumerator *e = [root744Objects objectEnumerator];
 	NSString *currentPath;
 	while(currentPath = [e nextObject]) {

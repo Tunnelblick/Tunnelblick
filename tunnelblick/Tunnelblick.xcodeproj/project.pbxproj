@@ -66,6 +66,9 @@
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
 		6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */; };
 		638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6388569F134B8056008DF8C1 /* PassphraseWindow.xib */; };
+		638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A1FE0135CB82500FB932C /* standardize-scutil-output.m */; };
+		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
+		638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
@@ -85,6 +88,10 @@
 		63C043E61023660900E6C1D0 /* IconSets in Resources */ = {isa = PBXBuildFile; fileRef = 63C043DC1023660900E6C1D0 /* IconSets */; };
 		63C504291178E21100340D13 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		63CBFCDB134A8CB400C3469A /* LogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63CBFCDA134A8CB400C3469A /* LogWindow.xib */; };
+		63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */; };
+		63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */; };
+		63D92584135DAEE1001FF627 /* LeaseWatch3.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63D92580135DAEE1001FF627 /* LeaseWatch3.plist.template */; };
+		63D92585135DAEE1001FF627 /* leasewatch3 in Resources */ = {isa = PBXBuildFile; fileRef = 63D92581135DAEE1001FF627 /* leasewatch3 */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
 		63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
@@ -120,6 +127,13 @@
 			remoteGlobalIDString = 6317943D118D7E820057ACAF;
 			remoteInfo = atsystemstart;
 		};
+		638A200E135CC4C000FB932C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 638A1FFB135CC35100FB932C;
+			remoteInfo = "standardize-scutil-output";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -131,11 +145,12 @@
 			files = (
 				631795FC118DC79B0057ACAF /* atsystemstart in CopyFiles */,
 				6140EF9A0E3C334E00C5B93A /* openvpn in CopyFiles */,
-				ADB23E111099514400CC52D3 /* openvpn-down-root.so in CopyFiles */,
-				616A49190E38D0DE00477476 /* tap.kext in CopyFiles */,
-				616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */,
 				61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */,
 				61BC4DAB0E2FA33C00F24255 /* installer in CopyFiles */,
+				638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */,
+				616A49190E38D0DE00477476 /* tap.kext in CopyFiles */,
+				616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */,
+				ADB23E111099514400CC52D3 /* openvpn-down-root.so in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +251,9 @@
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
 		6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassphraseWindowController.m; sourceTree = "<group>"; };
 		6388569F134B8056008DF8C1 /* PassphraseWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PassphraseWindow.xib; sourceTree = "<group>"; };
+		638A1FE0135CB82500FB932C /* standardize-scutil-output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "standardize-scutil-output.m"; sourceTree = "<group>"; };
+		638A1FFC135CC35100FB932C /* standardize-scutil-output */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "standardize-scutil-output"; sourceTree = BUILT_PRODUCTS_DIR; };
+		638A2004135CC41C00FB932C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
@@ -259,6 +277,10 @@
 		63C043DC1023660900E6C1D0 /* IconSets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IconSets; sourceTree = "<group>"; };
 		63C504281178E21100340D13 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63CBFCDA134A8CB400C3469A /* LogWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWindow.xib; sourceTree = "<group>"; };
+		63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.3.down.tunnelblick.sh; sourceTree = "<group>"; };
+		63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.3.up.tunnelblick.sh; sourceTree = "<group>"; };
+		63D92580135DAEE1001FF627 /* LeaseWatch3.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch3.plist.template; sourceTree = "<group>"; };
+		63D92581135DAEE1001FF627 /* leasewatch3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch3; sourceTree = "<group>"; };
 		63DAFD5311CBA9F4002F9F91 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
@@ -300,6 +322,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		638A1FFA135CC35100FB932C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,12 +351,8 @@
 			isa = PBXGroup;
 			children = (
 				63DAFD5311CBA9F4002F9F91 /* defines.h */,
-				63ABFE901349E370003DEB64 /* UI */,
 				6185E73E0E76045D0009C2FD /* helper.h */,
 				6185E73F0E76045D0009C2FD /* helper.m */,
-				63179443118D7EC20057ACAF /* atsystemstart.m */,
-				61BC4D9D0E2FA2F300F24255 /* installer.m */,
-				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				635C80441300353000DB27AE /* ApplescriptCommands.h */,
 				635C80451300353000DB27AE /* ApplescriptCommands.m */,
 				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
@@ -361,6 +387,7 @@
 				638E69601097725500587933 /* TBUserDefaults.m */,
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
 				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
+				63ABFE901349E370003DEB64 /* UI */,
 				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
 				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 			);
@@ -397,6 +424,7 @@
 				61BC4BC10E2F9FE900F24255 /* openvpnstart */,
 				61BC4D6B0E2FA06900F24255 /* installer */,
 				6317943E118D7E820057ACAF /* atsystemstart */,
+				638A1FFC135CC35100FB932C /* standardize-scutil-output */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -413,6 +441,7 @@
 				6165CC8B0E9072A5007312DC /* RouteManager.m */,
 				635CA99F12F9DCE300287298 /* AppKit.framework */,
 				63B9CFA4132C73DD009EC6D0 /* WebKit.framework */,
+				638A2004135CC41C00FB932C /* Foundation.framework */,
 			);
 			name = Tunnelblick;
 			sourceTree = "<group>";
@@ -420,9 +449,13 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				63B78AD41102419800734D73 /* dmgFiles */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				63179443118D7EC20057ACAF /* atsystemstart.m */,
+				61BC4D9D0E2FA2F300F24255 /* installer.m */,
+				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
+				638A1FE0135CB82500FB932C /* standardize-scutil-output.m */,
+				63B78AD41102419800734D73 /* dmgFiles */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -435,10 +468,15 @@
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
+				63D92581135DAEE1001FF627 /* leasewatch3 */,
+				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
+				63D92580135DAEE1001FF627 /* LeaseWatch3.plist.template */,
 				63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */,
 				63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */,
 				634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */,
 				634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */,
+				63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */,
+				63D9257E135DAEE1001FF627 /* client.3.down.tunnelblick.sh */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
 				63B5E31811E34D69007D99DB /* tunnelblick.icns */,
 				63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */,
@@ -447,7 +485,6 @@
 				6353818E1116031F00D68E83 /* dsa_pub.pem */,
 				635CA45212F8285D00287298 /* COPYING */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
-				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
 				616A49090E38D0D400477476 /* tap.kext */,
 				616A490A0E38D0D400477476 /* tun.kext */,
 				615F74860ED3A4C2007F6F0A /* English.lproj */,
@@ -572,6 +609,22 @@
 			productReference = 6317943E118D7E820057ACAF /* atsystemstart */;
 			productType = "com.apple.product-type.tool";
 		};
+		638A1FFB135CC35100FB932C /* standardize-scutil-output */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 638A2000135CC36F00FB932C /* Build configuration list for PBXNativeTarget "standardize-scutil-output" */;
+			buildPhases = (
+				638A1FF9135CC35100FB932C /* Sources */,
+				638A1FFA135CC35100FB932C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "standardize-scutil-output";
+			productName = "standardize-scutil-output";
+			productReference = 638A1FFC135CC35100FB932C /* standardize-scutil-output */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D1107260486CEB800E47090 /* Tunnelblick */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Tunnelblick" */;
@@ -590,6 +643,7 @@
 				631795DD118DC57E0057ACAF /* PBXTargetDependency */,
 				61BC4D960E2FA28700F24255 /* PBXTargetDependency */,
 				61BC4D980E2FA28700F24255 /* PBXTargetDependency */,
+				638A200F135CC4C000FB932C /* PBXTargetDependency */,
 			);
 			name = Tunnelblick;
 			productInstallPath = "$(HOME)/Applications";
@@ -622,6 +676,7 @@
 				61BC4BC00E2F9FE900F24255 /* openvpnstart */,
 				61BC4D6A0E2FA06900F24255 /* installer */,
 				6317943D118D7E820057ACAF /* atsystemstart */,
+				638A1FFB135CC35100FB932C /* standardize-scutil-output */,
 			);
 		};
 /* End PBXProject section */
@@ -664,6 +719,10 @@
 				63CBFCDB134A8CB400C3469A /* LogWindow.xib in Resources */,
 				638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */,
 				6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */,
+				63D92582135DAEE1001FF627 /* client.3.down.tunnelblick.sh in Resources */,
+				63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */,
+				63D92584135DAEE1001FF627 /* LeaseWatch3.plist.template in Resources */,
+				63D92585135DAEE1001FF627 /* leasewatch3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,6 +785,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		638A1FF9135CC35100FB932C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -779,6 +846,11 @@
 			isa = PBXTargetDependency;
 			target = 6317943D118D7E820057ACAF /* atsystemstart */;
 			targetProxy = 631795DC118DC57E0057ACAF /* PBXContainerItemProxy */;
+		};
+		638A200F135CC4C000FB932C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 638A1FFB135CC35100FB932C /* standardize-scutil-output */;
+			targetProxy = 638A200E135CC4C000FB932C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -898,6 +970,52 @@
 			};
 			name = Release;
 		};
+		638A1FFE135CC35100FB932C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+			};
+			name = Debug;
+		};
+		638A1FFF135CC35100FB932C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -998,6 +1116,15 @@
 			buildConfigurations = (
 				63179440118D7E830057ACAF /* Debug */,
 				63179441118D7E830057ACAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		638A2000135CC36F00FB932C /* Build configuration list for PBXNativeTarget "standardize-scutil-output" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				638A1FFE135CC35100FB932C /* Debug */,
+				638A1FFF135CC35100FB932C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

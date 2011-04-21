@@ -267,8 +267,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         status = [theStatus retain];
     }        
     [[self statusTFC] setStringValue: NSLocalizedString(theStatus, @"Connection status")];
-    if (   [theStatus isEqualToString: @"EXITING"]
-        || [theStatus isEqualToString: @"RECONNECTING"]) {
+    if (   [theStatus isEqualToString: @"EXITING"]  ) {
         [statusTFC setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeMainImage]];

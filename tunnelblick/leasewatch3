@@ -1,6 +1,6 @@
 #!/bin/bash -e
-#
-# 2011-04-18 modified to use standardize-scutil-output
+
+# leasewatch3 - renamed from leasewatch 2011-04-18
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
@@ -14,7 +14,6 @@ TUNNELBLICK_CONFIG="$(/usr/sbin/scutil <<-EOF
 	quit
 EOF)"
 
-ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
 ARG_RESTORE_ON_WINS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnWINSReset :' | sed -e 's/^.*: //g')"
 SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLogFile :' | sed -e 's/^.*: //g')"
@@ -28,11 +27,14 @@ PSID="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*Service :' | sed -e
 # ..._NOW is the current value
 # ..._GOOD is the expected (computed) post-VPN value
 
-# Give the new network configuration a chance to settle down
-sleep 1
-
 if (( M=${PROCESS:-0} )) ; then
-
+    # This is what scutil returns for a non-existant key
+    SCUTIL_NO_SUCH_KEY="  No such key"
+    # This is what client.up.tunnelblick.up stores into State:/Network/OpenVPN/OldDNS and State:/Network/OpenVPN/OldSMB for a non-existant key
+    # DON'T CHANGE the indenting of the 2nd and 3rd lines; they are part of the string:
+    TB_NO_SUCH_KEY="<dictionary> {
+  TunnelblickNoSuchKey : true
+}"
 	# What's the correct DNS info?
 	DNS_GOOD="$(/usr/sbin/scutil <<-EOF
 		open
@@ -51,7 +53,10 @@ if (( M=${PROCESS:-0} )) ; then
 		show State:/Network/Global/DNS
 		quit
 	EOF)"
-
+    # Make it match TB_NO_SUCH_KEY if there is no such key
+	if [ "${DNS_NOW}" = "${SCUTIL_NO_SUCH_KEY}" ] ; then
+        DNS_NOW="${TB_NO_SUCH_KEY}"
+    fi
 	# What's the correct WINS info?
     WINS_GOOD="$(/usr/sbin/scutil <<-EOF
 		open
@@ -70,16 +75,11 @@ if (( M=${PROCESS:-0} )) ; then
 		show State:/Network/Global/SMB
 		quit
 	EOF)"
-    
-    # "Standardize" the output from scutil
-    SSO_PATH="$(dirname "${0}")/standardize-scutil-output"
-    DNS_GOOD="$(echo "$DNS_GOOD"   | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    DNS_OLD="$(echo "$DNS_OLD"     | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    DNS_NOW="$(echo "$DNS_NOW"     | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    WINS_GOOD="$(echo "$WINS_GOOD" | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    WINS_OLD="$(echo "$WINS_OLD"   | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    WINS_NOW="$(echo "$WINS_NOW"   | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    
+    # Make it match TB_NO_SUCH_KEY if there is no such key
+	if [ "${WINS_NOW}" = "${SCUTIL_NO_SUCH_KEY}" ] ; then
+        WINS_NOW="${TB_NO_SUCH_KEY}"
+    fi
+
     # If the DNS configuration has changed
     # Then if it is the way it was pre-VPN
     #      Then if OK to do so, restore to the post-VPN configuration

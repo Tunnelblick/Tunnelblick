@@ -257,7 +257,10 @@
 "Set nameserver (3.0b10)" = "Changer serveur de noms (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (alternate %d)" = "Changer server de noms (alternative %d)";
+"Set nameserver (3.1)" = "Changer serveur de noms  (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Changer server de noms (alternative 1)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Utiliser DNS distant";
@@ -360,9 +363,6 @@
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuration(s) pas utilisée(s)";
-
-/* NEEDS TRANSLATION *//* Window title */
-"Connection Status" = "Connection Status";
 
 /* Window title */
 "Could Not Copy Configuration" = "Configuration n’a pas pu être copiée";
@@ -487,9 +487,6 @@
 /* Window title */
 "Unable to launch Tunnelblick" = "Impossible de démarrer Tunnelblick";
 
-/* Window title */
-"Unexpected disconnection" = "Déconnexion imprévue";
-
 /* NEEDS TRANSLATION *//* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
 
@@ -567,9 +564,6 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "« %@ » existe déjà dans le Bureau.\n\nVoudriez-vous le remplacer ?";
-
-/* Window text */
-"'%@' has been unexpectedly disconnected." = "La connexion « %@ » a été rompue inopinément.";
 
 /* Window text */
 "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basé sur Tunnelblick, logiciel libre disponible sur <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
