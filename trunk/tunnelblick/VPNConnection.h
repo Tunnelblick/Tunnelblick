@@ -62,6 +62,8 @@ typedef enum
 	NetSocket     * managementSocket;   // Used to communicate with the OpenVPN process created for this connection
 	AuthAgent     * myAuthAgent;
     NSTimer       * forceKillTimer;     // Used to keep trying to kill a (temporarily, we hope) non-responsive OpenVPN process
+    NSSound       * tunnelDownSound;    // Sound to play when tunnel is broken down
+    NSSound       * tunnelUpSound;      // Sound to play when tunnel is established
     StatusWindowController * statusScreen;    // Status window, may or may not be displayed
     unsigned int    forceKillTimeout;   // Number of seconds to wait before forcing a disconnection
     unsigned int    forceKillInterval;  // Number of seconds between tries to kill a non-responsive OpenVPN process

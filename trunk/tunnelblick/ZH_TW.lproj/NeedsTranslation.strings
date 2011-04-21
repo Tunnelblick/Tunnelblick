@@ -140,7 +140,10 @@
 "Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (alternate %d)" = "Set nameserver (alternate %d)";
+"Set nameserver (3.1)" = "Set nameserver (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
 /* Text on disk image */
 "Double-click to begin" = "Double-click to begin";
@@ -195,9 +198,6 @@
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
-
-/* Window title */
-"Connection Status" = "Connection Status";
 
 /* Window title */
 "Could Not Copy Configuration" = "Could Not Copy Configuration";
@@ -299,9 +299,6 @@
 "Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
 
 /* Window title */
-"Unexpected disconnection" = "Unexpected disconnection";
-
-/* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
 
 /* Window title */
@@ -375,9 +372,6 @@
 
 /* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
-
-/* Window text */
-"'%@' has been unexpectedly disconnected." = "'%@' has been unexpectedly disconnected.";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";

@@ -121,6 +121,24 @@ extern NSString * lastPartOfPath(NSString * thePath);
         lastState = @"EXITING";
         requestedState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
+        NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
+        NSString * upSoundName = [gTbDefaults objectForKey: upSoundKey];
+        if (  upSoundName  ) {
+            tunnelUpSound   = [NSSound soundNamed: upSoundName];
+            if (  ! tunnelUpSound  ) {
+                NSLog(@"%@ '%@' not found; using 'Glass'", upSoundKey, upSoundName);
+                tunnelUpSound = [NSSound soundNamed: @"Glass"];
+            }
+        }
+        NSString * downSoundKey  = [displayName stringByAppendingString: @"-tunnelDownSoundName"];
+        NSString * downSoundName = [gTbDefaults objectForKey: downSoundKey];
+        if (  downSoundName  ) {
+            tunnelDownSound = [NSSound soundNamed: downSoundName];
+            if (  ! tunnelDownSound  ) {
+                NSLog(@"%@ '%@' not found; using 'Basso'", downSoundKey, downSoundName);
+                tunnelDownSound = [NSSound soundNamed: @"Basso"];
+            }
+        }
         portNumber = 0;
 		pid = 0;
         tryingToHookup = FALSE;
@@ -686,6 +704,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [connectedSinceDate release];
     [myAuthAgent release];
     [statusScreen release];
+    [tunnelUpSound release];
+    [tunnelDownSound release];
+    
     [super dealloc];
 }
 
@@ -1025,8 +1046,26 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
+    NSString * leasewatchOptionsKey = [displayName stringByAppendingString: @"-leasewatchOptions"];
+    NSString * leasewatchOptions = [gTbDefaults objectForKey: leasewatchOptionsKey];
+    if (  leasewatchOptions  ) {
+        if (  [leasewatchOptions hasPrefix: @"-i"]  ) {
+            NSCharacterSet * optionCharacterSet = [NSCharacterSet characterSetWithCharactersInString: @"dasngw"];
+            NSRange r = [[leasewatchOptions substringFromIndex: 2] rangeOfCharacterFromSet: [optionCharacterSet invertedSet]];
+            if (  r.length != 0  ) {
+                NSLog(@"Invalid '%@' preference (must start with '-i', then have only 'd', 'a', 's', 'n', 'g', 'w'). Ignoring the preference.", leasewatchOptionsKey);
+                leasewatchOptions = @"";
+            }
+        } else {
+            NSLog(@"Invalid '%@' preference (must start with '-i'). Ignoring the preference.", leasewatchOptionsKey);
+            leasewatchOptions = @"";
+        }
+    } else {
+        leasewatchOptions = @"";
+    }
+        
     NSArray * args = [NSArray arrayWithObjects:
-                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, nil];
+                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, nil];
     return args;
 }
 
@@ -1786,15 +1825,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   [newState isEqualToString: @"EXITING"]
         && [requestedState isEqualToString: @"CONNECTED"]
         && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
-// REMOVED because it causes problems when the screensaver is on:
-//        TBRunAlertPanelExtended(NSLocalizedString(@"Unexpected disconnection", @"Window title"),
-//                                [NSString stringWithFormat: NSLocalizedString(@"'%@' has been unexpectedly disconnected.", @"Window text"), [self displayName]],
-//                                nil, nil, nil,
-//                                @"skipWarningAboutUnexpectedDisconnections",
-//                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-//                                nil);
-//        requestedState = @"EXITING";
+        [tunnelDownSound play];
     } else if (  [newState isEqualToString: @"CONNECTED"]  ) {
+        [tunnelUpSound play];
         // Run the connected script, if any
         if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
             NSString * scriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
@@ -1820,6 +1853,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         [gTbDefaults setObject: displayName forKey: @"lastConnectedDisplayName"];
     } else if (  [newState isEqualToString: @"RECONNECTING"]  ) {
+        [tunnelDownSound play];
         // Run the reconnecting script, if any
         if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
             NSString * scriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/reconnecting.sh"];
@@ -1971,6 +2005,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 // Returns an array of NSDictionary objects with entries for the 'Set nameserver' popup button for this connection
+// The "value" entry is the value of the xxxUseDNS preference for that entry
 -(NSArray *) modifyNameserverOptionList
 {
     // Figure out whether to use the standard scripts or 'custom' scripts
@@ -2015,16 +2050,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (   custom  ) {
         return [[[NSArray alloc] initWithObjects:
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",          @"PopUpButton"), @"name", @"0", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",                 @"PopUpButton"), @"name", @"1", @"value", nil],
                  nil] autorelease];
     } else {
         return [[[NSArray alloc] initWithObjects:
                  [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Do not set nameserver",        @"PopUpButton"), @"name", @"0", @"value", nil],
                  [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver",               @"PopUpButton"), @"name", @"1", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"3", @"value", nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat:
-                                                              NSLocalizedString(@"Set nameserver (alternate %d)", @"PopUpButton"), 1] , @"name", @"2", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.1)",         @"PopUpButton"), @"name", @"4", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"2", @"value", nil],
+                 [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (alternate 1)", @"PopUpButton"), @"name", @"3", @"value", nil],
                  nil] autorelease];
     }
 }

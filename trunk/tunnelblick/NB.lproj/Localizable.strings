@@ -239,7 +239,10 @@
 "Set nameserver (3.0b10)" = "Set nameserver (3.0b10)";
 
 /* NEEDS TRANSLATION *//* PopUpButton */
-"Set nameserver (alternate %d)" = "Set nameserver (alternate %d)";
+"Set nameserver (3.1)" = "Set nameserver (3.1)";
+
+/* NEEDS TRANSLATION *//* PopUpButton */
+"Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Sett Navntjener";
@@ -342,9 +345,6 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
-
-/* NEEDS TRANSLATION *//* Window title */
-"Connection Status" = "Connection Status";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Could Not Copy Configuration" = "Could Not Copy Configuration";
@@ -470,9 +470,6 @@
 "Unable to launch Tunnelblick" = "Klarer ikke starte Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
-"Unexpected disconnection" = "Unexpected disconnection";
-
-/* NEEDS TRANSLATION *//* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
 
 /* Window title */
@@ -549,9 +546,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
-
-/* NEEDS TRANSLATION *//* Window text */
-"'%@' has been unexpectedly disconnected." = "'%@' has been unexpectedly disconnected.";
 
 /* Window text */
 "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basert på Tunnelblick, gratis programvare tilgjengelig fra <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";

@@ -1,4 +1,7 @@
 #!/bin/bash -e
+#
+# 2011-04-18 Changed from client.up.tunnelblick.sh to client.3.up.tunnelblick.sh and to use leasewatch3
+
 trap "" TSTP
 trap "" HUP
 trap "" INT
@@ -13,7 +16,6 @@ ARG_MONITOR_NETWORK_CONFIGURATION="false"
 ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
-ARG_IGNORE_OPTION_FLAGS=""
 
 while [ {$#} ] ; do
     if [  "$1" = "-m" ] ; then                              # Handle the arguments we know about
@@ -27,9 +29,6 @@ while [ {$#} ] ; do
         shift
     elif [  "$1" = "-a" ] ; then
         ARG_TAP="true"
-        shift
-    elif [  "${1:0:2}" = "-i" ] ; then
-        ARG_IGNORE_OPTION_FLAGS="${1}"
         shift
     else
         if [  "${1:0:1}" = "-" ] ; then                     # Shift out Tunnelblick arguments (they start with "-") that we don't understand
@@ -61,9 +60,9 @@ SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DAS
 
 # Do something only if the server pushed something
 if [ "$foreign_option_1" == "" ]; then
-    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: No network configuration changes need to be made" >> "${SCRIPT_LOG_FILE}"
+    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: No network configuration changes need to be made" >> "${SCRIPT_LOG_FILE}"
     if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-        echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Will NOT monitor for other network configuration changes" >> "${SCRIPT_LOG_FILE}"
+        echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Will NOT monitor for other network configuration changes" >> "${SCRIPT_LOG_FILE}"
     fi
 	exit 0
 fi
@@ -72,9 +71,20 @@ trim() {
 	echo ${@}
 }
 
-LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch.plist"
+LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch3.plist"
 
 OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
+
+case "${OSVER}" in
+	10.4 | 10.5 )
+		HIDE_SNOW_LEOPARD=""
+		HIDE_LEOPARD="#"
+		;;
+	10.6 | 10.7 )
+		HIDE_SNOW_LEOPARD="#"
+		HIDE_LEOPARD=""
+		;;
+esac
 
 nOptionIndex=1
 nNameServerIndex=1
@@ -83,6 +93,9 @@ unset vForOptions
 unset vDNS
 unset vWINS
 unset vOptions
+
+# We sleep here to allow time for OS X to process DHCP, DNS, and WINS settings
+sleep 2
 
 while vForOptions=foreign_option_$nOptionIndex; [ -n "${!vForOptions}" ]; do
 	{
@@ -264,22 +277,7 @@ fi
 # then save old and new DNS and WINS settings
 # PPID is a bash-script variable that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
 # config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
-echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Up to two 'No such key' warnings are normal and may be ignored" >> "${SCRIPT_LOG_FILE}"
-
-# If DNS is manually set, it overrides the DHCP setting, which isn't reflected in 'State:/Network/Service/${PSID}/DNS'
-if echo "${STATIC_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
-    CORRECT_OLD_DNS_KEY="Setup:"
-else
-    CORRECT_OLD_DNS_KEY="State:"
-fi
-
-# If WINS is manually set, it overrides the DHCP setting, which isn't reflected in 'State:/Network/Service/${PSID}/DNS'
-if echo "${STATIC_WINS_CONFIG}" | grep -q "WINSAddresses" ; then
-    CORRECT_OLD_WINS_KEY="Setup:"
-else
-    CORRECT_OLD_WINS_KEY="State:"
-fi
-
+echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Up to two 'No such key' warnings are normal and may be ignored" >> "${SCRIPT_LOG_FILE}"
 scutil <<- EOF
 	open
 	d.init
@@ -290,60 +288,63 @@ scutil <<- EOF
     d.add MonitorNetwork "${ARG_MONITOR_NETWORK_CONFIGURATION}"
     d.add RestoreOnDNSReset   "${ARG_RESTORE_ON_DNS_RESET}"
     d.add RestoreOnWINSReset  "${ARG_RESTORE_ON_WINS_RESET}"
-    d.add IgnoreOptionFlags  "${ARG_IGNORE_OPTION_FLAGS}"
 	set State:/Network/OpenVPN
 
 	# First, back up the device's current DNS and WINS configurations
     # Indicate 'no such key' by a dictionary with a single entry: "TunnelblickNoSuchKey : true"
     d.init
     d.add TunnelblickNoSuchKey true
-    get ${CORRECT_OLD_DNS_KEY}/Network/Service/${PSID}/DNS
+    get State:/Network/Service/${PSID}/DNS
 	set State:/Network/OpenVPN/OldDNS
 	
     d.init
     d.add TunnelblickNoSuchKey true
-    get ${CORRECT_OLD_WINS_KEY}/Network/Service/${PSID}/SMB
+    get State:/Network/Service/${PSID}/SMB
 	set State:/Network/OpenVPN/OldSMB
 
 	# Second, initialize the new DNS map
 	d.init
+	${HIDE_SNOW_LEOPARD}d.add DomainName ${domain}
 	${NO_DNS}d.add ServerAddresses * ${vDNS[*]}
 	${NO_SEARCH}d.add SearchDomains * ${SEARCH_DOMAIN}
-	d.add DomainName ${domain}
+	${HIDE_LEOPARD}d.add DomainName ${domain}
 	set State:/Network/Service/${PSID}/DNS
 
 	# Third, initialize the WINS map
 	d.init
+	${HIDE_SNOW_LEOPARD}${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	${NO_WINS}d.add WINSAddresses * ${vWINS[*]}
-	${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
+	${HIDE_LEOPARD}${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	set State:/Network/Service/${PSID}/SMB
 
 	# Now, initialize the maps that will be compared against the system-generated map
 	# which means that we will have to aggregate configurations of statically-configured
 	# nameservers, and statically-configured search domains
 	d.init
+	${HIDE_SNOW_LEOPARD}d.add DomainName ${domain}
 	${AGG_DNS}d.add ServerAddresses * ${ALL_DNS}
 	${AGG_SEARCH}d.add SearchDomains * ${ALL_SEARCH}
-	d.add DomainName ${domain}
+	${HIDE_LEOPARD}d.add DomainName ${domain}
 	set State:/Network/OpenVPN/DNS
 
 	d.init
+	${HIDE_SNOW_LEOPARD}${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	${AGG_WINS}d.add WINSAddresses * ${ALL_WINS}
-	${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
+	${HIDE_LEOPARD}${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	set State:/Network/OpenVPN/SMB
 
 	# We're done
 	quit
 EOF
 
-echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Saved the DNS and WINS configurations for later use" >> "${SCRIPT_LOG_FILE}"
+echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Saved the DNS and WINS configurations for later use" >> "${SCRIPT_LOG_FILE}"
 
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
     # Generate an updated plist with a per-configuration path
-    LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch.plist.template"
+    LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch3.plist.template"
     sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
     launchctl load "${LEASEWATCHER_PLIST_PATH}"
-    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Set up to monitor system configuration with leasewatch" >> "${SCRIPT_LOG_FILE}"
+    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.up.tunnelblick.sh: Set up to monitor system configuration with leasewatch" >> "${SCRIPT_LOG_FILE}"
 fi
 
 exit 0

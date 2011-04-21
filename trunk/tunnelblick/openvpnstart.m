@@ -29,7 +29,7 @@
 
 #define DEFAULT_LOAD_UNLOAD_KEXTS_MASK 3
 
-int     startVPN                   (NSString * configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask);
+int     startVPN                   (NSString * configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask, NSString * leasewatchOptions);
 
 NSString * createOpenVPNLog        (NSString * configurationFile, unsigned cfgLocCode, int port);
 NSString * createScriptLog         (NSString * configurationFile, unsigned cfgLocCode, NSString* cmdLine);
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
             syntaxError = ! runScript(@"reconnecting.sh", argc, argv[2], argv[3]);
 
 		} else if( strcmp(command, "start") == 0 ) {
-			if (  (argc > 3) && (argc < 10)  ) {
+			if (  (argc > 3) && (argc < 11)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
 				if(strlen(argv[3]) < 6 ) {
 					unsigned int port = atoi(argv[3]);
@@ -183,14 +183,31 @@ int main(int argc, char* argv[])
 						BOOL      noMonitor  = FALSE; if( (argc > 7) && (atoi(argv[7]) == 1) ) noMonitor  = TRUE;
                         
                         unsigned  bitMask = DEFAULT_LOAD_UNLOAD_KEXTS_MASK;
+                        NSString * leasewatchOptions = @"-i";
                         if (  argc > 8  ) {
                             bitMask = atoi(argv[8]);
+                            
+                            if (  argc > 9  ) {
+                                leasewatchOptions = [NSString stringWithUTF8String: argv[9]];
+                                if (  [leasewatchOptions length] != 0  ) {
+                                    if (  [leasewatchOptions hasPrefix: @"-i"]  ) {
+                                        NSCharacterSet * optionCharacterSet = [NSCharacterSet characterSetWithCharactersInString: @"dasngw"];
+                                        NSRange r = [[leasewatchOptions substringFromIndex: 2] rangeOfCharacterFromSet: [optionCharacterSet invertedSet]];
+                                        if (  r.length != 0  ) {
+                                            leasewatchOptions = nil;
+                                        }
+                                    } else {
+                                        leasewatchOptions =nil;
+                                    }
+                                }
+                            }
                         }
                         
-                        startArgs = [[[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy] autorelease];
                         if (   (cfgLocCode < 4)
-                            && (bitMask < 1024)  ) {
-                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask);
+                            && (bitMask < 1024)
+                            && leasewatchOptions  ) {
+                            startArgs = [[[NSString stringWithFormat: @"%d_%d_%d_%d_%d", useScripts, (unsigned) skipScrSec, cfgLocCode, (unsigned) noMonitor, bitMask] copy] autorelease];
+                            retCode = startVPN(configFile, port, useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask, leasewatchOptions);
                             syntaxError = FALSE;
                         }
 					}
@@ -221,10 +238,6 @@ int main(int argc, char* argv[])
                 "./openvpnstart deleteLogs   configName   cfgLocCode\n"
                 "               to delete all log files associated with a configuration\n\n"
                 
-				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  ]  ]  ]  ]  ]\n\n"
-				"               to load the net.tunnelblick.tun and/or net.tunnelblick.tap kexts and start OpenVPN with the specified configuration file and options.\n"
-                "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
-				
 				"./openvpnstart postDisconnect  configName  cfgLocCode\n\n"
 				"               to run the post-disconnect.sh script inside a .tblk.\n\n"
 				
@@ -233,6 +246,10 @@ int main(int argc, char* argv[])
 				
 				"./openvpnstart reconnecting  configName  cfgLocCode\n\n"
 				"               to run the reconnecting.sh script inside a .tblk.\n\n"
+				
+				"./openvpnstart start  configName  mgtPort  [useScripts  [skipScrSec  [cfgLocCode  [noMonitor  [bitMask  [leasewatchOptions  ]]  ]  ]  ]  ]\n\n"
+				"               to load the net.tunnelblick.tun and/or net.tunnelblick.tap kexts and start OpenVPN with the specified configuration file and options.\n"
+                "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
 				
 				"Where:\n\n"
                 
@@ -280,6 +297,16 @@ int main(int argc, char* argv[])
                 "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
                 "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
                 
+                "leasewatchOptions is a string containing characters indicating options for leasewatch.\n"
+                "           The string must start with '-i', which may be followed\n"
+                "           by any of the following characters in any order:\n"
+                "           d - ignore Domain\n"
+                "           a - ignore DomainAddresses\n"
+                "           s - ignore SearchDomains\n"
+                "           n - ignore NetBIOSName\n"
+                "           g - ignore Workgroup\n"
+                "           w - ignore WINSAddresses\n\n"
+                
 				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n"
                 "bitMask defaults to 0x03.\n\n"
                 
@@ -304,7 +331,7 @@ int main(int argc, char* argv[])
 
 //**************************************************************************************************************************
 //Tries to start an openvpn connection. May complain and exit if can't become root or if OpenVPN returns with error
-int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask)
+int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSec, unsigned cfgLocCode, BOOL noMonitor, unsigned int bitMask, NSString * leasewatchOptions)
 {
 	NSString * openvpnPath             = [execPath stringByAppendingPathComponent: @"openvpn"];
 	NSString * downRootPath            = [execPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
@@ -597,6 +624,11 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         if (   ((bitMask & OUR_TAP_KEXT) != 0)
         	&& ((bitMask & OUR_TUN_KEXT) == 0)  ) {
             [scriptOptions appendString: @" -a"];   // TAP only
+        }
+        
+        if (  [leasewatchOptions length] > 2  ) {
+            [scriptOptions appendString: @" "];
+            [scriptOptions appendString: leasewatchOptions];
         }
 
         NSString * upscriptCommand   = escaped(upscriptPath);   // Must escape these since they are the first part of a command line

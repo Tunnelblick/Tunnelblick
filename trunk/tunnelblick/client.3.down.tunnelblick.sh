@@ -1,4 +1,7 @@
 #!/bin/bash -e
+#
+# 2011-04-18 Changed from client.3.down.tunnelblick.sh to client.3.down.tunnelblick.sh
+
 trap "" TSTP
 trap "" HUP
 trap "" INT
@@ -24,7 +27,6 @@ SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLo
 # Don't need: ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_RESTORE_ON_WINS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnWINSReset :' | sed -e 's/^.*: //g')"
 # Don't need: PROCESS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
-# Don't need: ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 
 # Issue warning if the primary service ID has changed
 PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
@@ -33,13 +35,13 @@ PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
 	quit
 EOF)"
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
-    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.down.tunnelblick.sh: Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}" >> "${SCRIPT_LOG_FILE}"
+    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.down.tunnelblick.sh: Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}" >> "${SCRIPT_LOG_FILE}"
 fi
 
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
     launchctl unload "${LEASEWATCHER_PLIST_PATH}"
-    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.down.tunnelblick.sh: Cancelled monitoring of system configuration changes" >> "${SCRIPT_LOG_FILE}"
+    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.down.tunnelblick.sh: Cancelled monitoring of system configuration changes" >> "${SCRIPT_LOG_FILE}"
 fi
 
 # Restore configurations
@@ -87,7 +89,7 @@ else
 EOF
 fi
 
-echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.down.tunnelblick.sh: Restored the DNS and WINS configurations" >> "${SCRIPT_LOG_FILE}"
+echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.down.tunnelblick.sh: Restored the DNS and WINS configurations" >> "${SCRIPT_LOG_FILE}"
 
 # Remove our system configuration data
 scutil <<- EOF
