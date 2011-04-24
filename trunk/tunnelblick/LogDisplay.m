@@ -22,6 +22,8 @@
 #import "defines.h"
 #import "LogDisplay.h"
 #import "MenuController.h"
+#import "NSFileManager+TB.h"
+#import "LogWindowController.h"
 
 extern NSFileManager        * gFileMgr;
 
@@ -46,7 +48,7 @@ extern NSFileManager        * gFileMgr;
 -(NSRange)      rangeOfLineBeforeLineThatStartsAt: (long)       lineStartIndex
                                          inString: (NSString *) text;
 
--(void)         loadLogs;
+-(void)         loadLogs:               (BOOL)                  skipToStartOfLineInOpenvpnLog;
 
 -(void)         logChangedAtPath:       (NSString *)            logPath
                      usePosition:       (unsigned long long *)  logPositionPtr
@@ -69,7 +71,8 @@ extern NSFileManager        * gFileMgr;
 -(NSString *)   lastScriptEntryTime;
 -(NSString *)   openvpnLogPath;
 -(NSString *)   scriptLogPath;
--(void)         setLastOpenvpnEntryTime: (NSString *)           newValue;
+-(void)         setLastEntryTime:       (NSString *)            newValue;
+-(void)         setLastOpenvpnEntryTime:(NSString *)            newValue;
 -(void)         setLastScriptEntryTime: (NSString *)            newValue;
 -(void)         setOpenvpnLogPath:      (NSString *)            newValue;
 -(void)         setScriptLogPath:       (NSString *)            newValue;
@@ -88,11 +91,12 @@ extern NSFileManager        * gFileMgr;
 
         monitorQueue = nil;
         
+        lastEntryTime        = @"0000-00-00 00:00:00";
         lastOpenvpnEntryTime = @"0000-00-00 00:00:00";
         lastScriptEntryTime  = @"0000-00-00 00:00:00";
         
         openvpnLogPosition = 0;
-        scriptLogPosition = 0;
+        scriptLogPosition  = 0;
         
         logStorage = [[NSTextStorage alloc] init];
         [self clear];
@@ -137,22 +141,49 @@ extern NSFileManager        * gFileMgr;
 // Starts (or restarts) monitoring newly-created log files.
 -(void) startMonitoringLogFiles
 {
-    openvpnLogPosition = 0;
-    scriptLogPosition = 0;
-    
-    [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
-    [self setScriptLogPath:  [self constructScriptLogPath]];
-
     [monitorQueue release];
     monitorQueue = [[UKKQueue alloc] init];
-
+    
     [monitorQueue setDelegate: self];
     [monitorQueue setAlwaysNotify: YES];
     
-    [self loadLogs];
+    [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
+    [self setScriptLogPath:  [self constructScriptLogPath]];
+    
+    // The script log is usually pretty short, so we scan all of it
+    scriptLogPosition = 0;
+    
+    // The OpenVPN log may be huge (verb level 9 can generates several megabyte per second)
+    //  so we only scan the last part -- we assume 100 bytes per line, so we scan only the last 100 * MAX_LOG_DISPLAY_LINES bytes
+    NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: [self openvpnLogPath] traverseLink: NO];
+    NSNumber * fileSizeAsNumber;
+    unsigned long long fileSize;
+    if (  fileSizeAsNumber = [attributes objectForKey:NSFileSize]  ) {
+        fileSize = [fileSizeAsNumber unsignedLongLongValue];
+    } else {
+        fileSize = 0;
+    }
+    
+    BOOL skipToStartOfLineInOpenvpnLog = FALSE;
+    unsigned long long amountToExamine = 100ull * MAX_LOG_DISPLAY_LINES;
+    if (  fileSize > amountToExamine  ) {
+        openvpnLogPosition = fileSize - amountToExamine;
+        skipToStartOfLineInOpenvpnLog = TRUE;
+    } else {
+        openvpnLogPosition = 0;
+    }
+    
+    [self loadLogs: skipToStartOfLineInOpenvpnLog];
     
     [monitorQueue addPathToQueue: [self openvpnLogPath]];
     [monitorQueue addPathToQueue: [self scriptLogPath]];
+}
+
+// Stops) monitoring newly-created log files.
+-(void) stopMonitoringLogFiles
+{
+    [monitorQueue release];
+    monitorQueue = nil;
 }
 
 // Does the initial load of the logs, inserting entries from them in the "correct" chronological order.
@@ -160,13 +191,22 @@ extern NSFileManager        * gFileMgr;
 // any script log entries for that same time.
 // Since the log files are in chronological order, we can and do append to (rather than insert into) the log display,
 // which is much less processing intensive.
--(void) loadLogs
+-(void) loadLogs: (BOOL) skipToStartOfLineInOpenvpnLog
 {
+    [[[NSApp delegate] logScreen] indicateWaiting];
+    
     NSString * openvpnString = [self contentsOfPath: [self openvpnLogPath] usePosition: &openvpnLogPosition];
     NSString * scriptString  = [self contentsOfPath: [self scriptLogPath]  usePosition: &scriptLogPosition];
     
     unsigned openvpnStringPosition = 0;
     unsigned scriptStringPosition  = 0;
+    
+    if (  skipToStartOfLineInOpenvpnLog  ) {
+        NSRange r = [openvpnString rangeOfCharacterFromSet: [NSCharacterSet newlineCharacterSet]];
+        if (  r.length != 0  ) {
+            openvpnStringPosition = r.location + 1;
+        }
+    }
     
     NSString * oLine = [self nextLineInString: &openvpnString fromPosition: &openvpnStringPosition fromOpenvpnLog: YES];
     NSString * sLine = [self nextLineInString: &scriptString  fromPosition: &scriptStringPosition  fromOpenvpnLog: NO];
@@ -200,6 +240,8 @@ extern NSFileManager        * gFileMgr;
             sLine = [self nextLineInString: &scriptString fromPosition: &scriptStringPosition fromOpenvpnLog: NO];
         }
     }
+    
+    [[[NSApp delegate] logScreen] indicateNotWaiting];
 }
 
 -(NSString *) contentsOfPath: (NSString *) logPath usePosition: (unsigned long long *) logPosition
@@ -320,12 +362,51 @@ extern NSFileManager        * gFileMgr;
 }
 
 // Invoked when either log file has changed.
--(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath {
-    if (  [[[fpath stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
-        [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: YES];
+-(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath
+{
+    // Do some primitive throttling -- only queue three requests per second
+    long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
+    if (  rightNow == secondWeLastQueuedAChange  ) {
+        numberOfRequestsInThatSecond++;
+        if (  numberOfRequestsInThatSecond > 3) {
+            if (  ! watchdogTimer  ) {
+                // Set a timer to queue a request later. (This will happen at most once per second.)
+                watchdogTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0
+                                                                 target: self
+                                                               selector: @selector(watchdogTimedOutHandler:)
+                                                               userInfo: fpath
+                                                                repeats: NO];
+            }
+            return;
+        }
     } else {
-        [self performSelectorOnMainThread: @selector(scriptLogChanged) withObject: nil waitUntilDone: YES];
+        secondWeLastQueuedAChange    = rightNow;
+        numberOfRequestsInThatSecond = 0;
     }
+
+    if (  monitorQueue  ) {
+        if (  [[[fpath stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
+            [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: YES];
+        } else {
+            [self performSelectorOnMainThread: @selector(scriptLogChanged) withObject: nil waitUntilDone: YES];
+        }
+    }
+}
+
+-(void) watchdogTimedOutHandler: (NSTimer *) timer
+{
+    watchdogTimer = nil;
+    
+    NSString * fpath = [timer userInfo];
+    
+    if (  monitorQueue  ) {
+        if (  [[[fpath stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
+            [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: YES];
+        } else {
+            [self performSelectorOnMainThread: @selector(scriptLogChanged) withObject: nil waitUntilDone: YES];
+        }
+    }
+    
 }
 
 -(void) openvpnLogChanged
@@ -375,20 +456,20 @@ extern NSFileManager        * gFileMgr;
         text = [logStorage string];
     }
     
-    NSString * lineDateTime;
+    NSString * lineTime;
     if (   [line length] < 19
         || [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @" "]  ) {
         if (  isFromOpenvpnLog  ) {
-            lineDateTime = [self lastOpenvpnEntryTime];
+            lineTime = [self lastOpenvpnEntryTime];
         } else {
-            lineDateTime = [self lastScriptEntryTime];
+            lineTime = [self lastScriptEntryTime];
         }
     } else {
-        lineDateTime = [line substringWithRange: NSMakeRange(0, 19)];
+        lineTime = [line substringWithRange: NSMakeRange(0, 19)];
         if (  isFromOpenvpnLog  ) {
-            [self setLastOpenvpnEntryTime: lineDateTime];
+            [self setLastOpenvpnEntryTime: lineTime];
         } else {
-            [self setLastScriptEntryTime:  lineDateTime];
+            [self setLastScriptEntryTime:  lineTime];
         }
     }
 
@@ -397,15 +478,26 @@ extern NSFileManager        * gFileMgr;
     // Special case: Nothing in log. Just append to it.
     if (  textRng.length == 0  ) {
         [logStorage appendAttributedString: msgAS];
+        [self setLastEntryTime: lineTime];
+        [self didAddLineToLogDisplay];
+        return;
+    }
+    
+    // Special case: time is the same or greater than last entry in the log. Just append to it.
+    NSComparisonResult result = [lastEntryTime compare: lineTime];
+    if (  result != NSOrderedDescending  ) {
+        [logStorage appendAttributedString: msgAS];
+        [self setLastEntryTime: lineTime];
         [self didAddLineToLogDisplay];
         return;
     }
     
     // Search backwards through the display
     NSRange currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: textRng.length inString: text];
+    unsigned numberOfLinesSkippedBackward = 0;
 
     while (  currentLineRng.length != 0  ) {
-        NSComparisonResult result = [lineDateTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]];
+        NSComparisonResult result = [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]];
         
         if (  result == NSOrderedDescending  ) {
             [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
@@ -419,22 +511,38 @@ extern NSFileManager        * gFileMgr;
                 currentFromOpenVPN = ! [[text substringWithRange: NSMakeRange(currentLineRng.location+20, 1)] isEqualToString: @"*"];
             }
             if (  ! (isFromOpenvpnLog ^ currentFromOpenVPN)  ) {
-                 [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
-                [self didAddLineToLogDisplay];
-                return;
+                if (  numberOfLinesSkippedBackward == 0  ) {
+                    [logStorage appendAttributedString: msgAS];
+                    [self setLastEntryTime: lineTime];
+                    [self didAddLineToLogDisplay];
+                    return;
+                } else {
+                    [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
+                    [self didAddLineToLogDisplay];
+                    return;
+                }
             }
             if (  ! isFromOpenvpnLog  ) {
-                [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
-                [self didAddLineToLogDisplay];
-                return;
+                if (  numberOfLinesSkippedBackward == 0  ) {
+                    [logStorage appendAttributedString: msgAS];
+                    [self setLastEntryTime: lineTime];
+                    [self didAddLineToLogDisplay];
+                    return;
+                } else {
+                    [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
+                    [self didAddLineToLogDisplay];
+                    return;
+                }
             }
         }
         
         currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: currentLineRng.location inString: text];
+        numberOfLinesSkippedBackward++;
     }
     
     if (  [logStorage length] == 0  ) {
         [logStorage appendAttributedString: msgAS];
+        [self setLastEntryTime: lineTime];
     } else {
         [logStorage insertAttributedString: msgAS atIndex: 0];
     }
@@ -569,6 +677,13 @@ extern NSFileManager        * gFileMgr;
 -(NSTextStorage *) logStorage
 {
     return logStorage;
+}
+
+-(void) setLastEntryTime: (NSString *) newValue
+{
+    [newValue retain];
+    [lastEntryTime release];
+    lastEntryTime = newValue;
 }
 
 -(void) setLastOpenvpnEntryTime: (NSString *) newValue

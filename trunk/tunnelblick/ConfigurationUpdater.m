@@ -138,7 +138,7 @@ extern NSFileManager        * gFileMgr;
         }
         [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) waitTime
                                          target: self
-                                       selector: @selector(startFromTimer:)
+                                       selector: @selector(startFromTimerHandler:)
                                        userInfo: [NSNumber numberWithBool: withUI]
                                         repeats: NO];
         return;
@@ -153,7 +153,7 @@ extern NSFileManager        * gFileMgr;
     }
 }
 
--(void) startFromTimer: (NSTimer *) timer
+-(void) startFromTimerHandler: (NSTimer *) timer
 {
     [self startWithUI: [[timer userInfo] boolValue]];
 }

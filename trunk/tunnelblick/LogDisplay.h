@@ -40,6 +40,13 @@
     
     NSString      * lastOpenvpnEntryTime;           // Date/time of most-recently-inserted entry from OpenVPN log file
     NSString      * lastScriptEntryTime;            // Date/time of most-recently-inserted entry from script log file
+    
+    NSString      * lastEntryTime;                  // Date/time of last entry in the log window
+    
+    // Used to throttle requests so we don't use too much CPU time processing bursts of changes to the log files
+    long            secondWeLastQueuedAChange;      // Seconds since 1/1/2001 that we last queued a request to process a change to a log file
+    unsigned        numberOfRequestsInThatSecond;   // Number of requests we've queued in that second
+    NSTimer       * watchdogTimer;                  // Timer to queue a request to process a change to a log file
 }
 
 -(LogDisplay *)     initWithConfigurationPath:      (NSString *) inConfigPath;
@@ -51,5 +58,6 @@
 -(NSTextStorage *)  logStorage;
 
 -(void)             startMonitoringLogFiles;
+-(void)             stopMonitoringLogFiles;
 
 @end

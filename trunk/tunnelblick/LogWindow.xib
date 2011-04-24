@@ -25,7 +25,7 @@
 		<object class="NSMutableArray" key="IBDocument.RootObjects" id="775545288">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSCustomObject" id="212841637">
-				<string key="NSClassName">MenuController</string>
+				<string key="NSClassName">LogWindowController</string>
 			</object>
 			<object class="NSCustomObject" id="1008115515">
 				<string key="NSClassName">FirstResponder</string>
@@ -36,7 +36,7 @@
 			<object class="NSWindowTemplate" id="445280757">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{223, 277}, {898, 489}}</string>
+				<string key="NSWindowRect">{{223, 279}, {898, 487}}</string>
 				<int key="NSWTFlags">1350041600</int>
 				<string key="NSWindowTitle">OpenVPN Log Output</string>
 				<object class="NSMutableString" key="NSWindowClass">
@@ -52,6 +52,25 @@
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSCustomView" id="477038650">
+							<reference key="NSNextResponder" ref="83747719"/>
+							<int key="NSvFlags">292</int>
+							<object class="NSMutableArray" key="NSSubviews">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSProgressIndicator" id="1066944255">
+									<reference key="NSNextResponder" ref="477038650"/>
+									<int key="NSvFlags">1325</int>
+									<object class="NSPSMatrix" key="NSDrawMatrix"/>
+									<string key="NSFrame">{{20, 20}, {32, 32}}</string>
+									<reference key="NSSuperview" ref="477038650"/>
+									<int key="NSpiFlags">28682</int>
+									<double key="NSMaxValue">100</double>
+								</object>
+							</object>
+							<string key="NSFrame">{{483, 230}, {72, 72}}</string>
+							<reference key="NSSuperview" ref="83747719"/>
+							<string key="NSClassName">NSView</string>
+						</object>
 						<object class="NSSplitView" id="872091777">
 							<reference key="NSNextResponder" ref="83747719"/>
 							<int key="NSvFlags">274</int>
@@ -684,7 +703,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 																		<reference key="NSSuperview" ref="40939307"/>
 																		<reference key="NSTarget" ref="40939307"/>
 																		<string key="NSAction">_doScroller:</string>
-																		<double key="NSCurValue">0.375</double>
+																		<double key="NSCurValue">1</double>
 																		<double key="NSPercent">0.94932430982589722</double>
 																	</object>
 																	<object class="NSScroller" id="517790225">
@@ -824,12 +843,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
-							<string key="NSFrameSize">{898, 489}</string>
+							<string key="NSFrame">{{0, -2}, {898, 489}}</string>
 							<reference key="NSSuperview" ref="83747719"/>
 							<bool key="NSIsVertical">YES</bool>
 						</object>
 					</object>
-					<string key="NSFrameSize">{898, 489}</string>
+					<string key="NSFrameSize">{898, 487}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -1177,6 +1196,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 					<int key="connectionID">285</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">progressIndicator</string>
+						<reference key="source" ref="212841637"/>
+						<reference key="destination" ref="1066944255"/>
+					</object>
+					<int key="connectionID">289</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1223,6 +1250,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="872091777"/>
+							<reference ref="477038650"/>
 						</object>
 						<reference key="parent" ref="445280757"/>
 					</object>
@@ -1549,6 +1577,20 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="84621108"/>
 						<reference key="parent" ref="119428895"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">290</int>
+						<reference key="object" ref="477038650"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1066944255"/>
+						</object>
+						<reference key="parent" ref="83747719"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">288</int>
+						<reference key="object" ref="1066944255"/>
+						<reference key="parent" ref="477038650"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1603,6 +1645,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>26.IBPluginDependency</string>
 					<string>26.ImportedFromIB2</string>
 					<string>262.IBPluginDependency</string>
+					<string>288.IBPluginDependency</string>
+					<string>288.IBViewBoundsToFrameTransform</string>
+					<string>290.IBViewBoundsToFrameTransform</string>
 					<string>37.IBPluginDependency</string>
 					<string>37.ImportedFromIB2</string>
 					<string>41.IBPluginDependency</string>
@@ -1683,12 +1728,19 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDqgAAwzcAAA</bytes>
+					</object>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">AUOgAABDBQAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{47, 516}, {898, 489}}</string>
+					<string>{{48, 518}, {898, 487}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{47, 516}, {898, 489}}</string>
+					<string>{{48, 518}, {898, 487}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<string>{213, 107}</string>
@@ -1728,7 +1780,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">285</int>
+			<int key="maxID">290</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1742,16 +1794,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">MenuController</string>
-					<string key="superclassName">NSObject</string>
+					<string key="className">LogWindowController</string>
+					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addConfigurationWasClicked:</string>
-							<string>addConnection:</string>
 							<string>autoConnectPrefButtonWasClicked:</string>
-							<string>checkForUpdates:</string>
 							<string>clearLogButtonWasClicked:</string>
 							<string>connectButtonWasClicked:</string>
 							<string>disconnectButtonWasClicked:</string>
@@ -1759,17 +1808,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>monitorConnectionPrefButtonWasClicked:</string>
 							<string>onLaunchRadioButtonWasClicked:</string>
 							<string>onSystemStartRadioButtonWasClicked:</string>
-							<string>openLogWindow:</string>
-							<string>quit:</string>
-							<string>removeConnection:</string>
 							<string>shareConfigButtonWasClicked:</string>
-							<string>toggleAutoCheckForUpdates:</string>
-							<string>toggleMonitorConfigurationDir:</string>
-							<string>togglePlaceIconNearSpotlight:</string>
-							<string>toggleReportAnonymousInfo:</string>
-							<string>toggleUseOriginalIcon:</string>
-							<string>toggleUseShadowCopies:</string>
-							<string>toggleWarnAboutSimultaneous:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1782,29 +1821,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addConfigurationWasClicked:</string>
-							<string>addConnection:</string>
 							<string>autoConnectPrefButtonWasClicked:</string>
-							<string>checkForUpdates:</string>
 							<string>clearLogButtonWasClicked:</string>
 							<string>connectButtonWasClicked:</string>
 							<string>disconnectButtonWasClicked:</string>
@@ -1812,34 +1835,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>monitorConnectionPrefButtonWasClicked:</string>
 							<string>onLaunchRadioButtonWasClicked:</string>
 							<string>onSystemStartRadioButtonWasClicked:</string>
-							<string>openLogWindow:</string>
-							<string>quit:</string>
-							<string>removeConnection:</string>
 							<string>shareConfigButtonWasClicked:</string>
-							<string>toggleAutoCheckForUpdates:</string>
-							<string>toggleMonitorConfigurationDir:</string>
-							<string>togglePlaceIconNearSpotlight:</string>
-							<string>toggleReportAnonymousInfo:</string>
-							<string>toggleUseOriginalIcon:</string>
-							<string>toggleUseShadowCopies:</string>
-							<string>toggleWarnAboutSimultaneous:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">addConfigurationWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">addConnection:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">autoConnectPrefButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">checkForUpdates:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1871,48 +1872,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">openLogWindow:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">quit:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">removeConnection:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">shareConfigButtonWasClicked:</string>
 								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleAutoCheckForUpdates:</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleMonitorConfigurationDir:</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">togglePlaceIconNearSpotlight:</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleReportAnonymousInfo:</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleUseOriginalIcon:</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleUseShadowCopies:</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleWarnAboutSimultaneous:</string>
-								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 						</object>
 					</object>
@@ -1932,13 +1893,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>modifyNameserverPopUpButton</string>
 							<string>modifyNameserverPopUpButtonArrayController</string>
 							<string>monitorConnnectionCheckbox</string>
-							<string>myVPNMenu</string>
 							<string>onLaunchRadioButton</string>
 							<string>onSystemStartRadioButton</string>
+							<string>progressIndicator</string>
 							<string>rightSplitView</string>
 							<string>shareButton</string>
 							<string>splitView</string>
-							<string>statusMenuItem</string>
 							<string>tabView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1955,13 +1915,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>NSPopUpButton</string>
 							<string>NSArrayController</string>
 							<string>NSButton</string>
-							<string>NSMenu</string>
 							<string>id</string>
 							<string>id</string>
+							<string>NSProgressIndicator</string>
 							<string>NSView</string>
 							<string>NSButton</string>
 							<string>NSSplitView</string>
-							<string>NSMenuItem</string>
 							<string>NSTabView</string>
 						</object>
 					</object>
@@ -1981,13 +1940,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>modifyNameserverPopUpButton</string>
 							<string>modifyNameserverPopUpButtonArrayController</string>
 							<string>monitorConnnectionCheckbox</string>
-							<string>myVPNMenu</string>
 							<string>onLaunchRadioButton</string>
 							<string>onSystemStartRadioButton</string>
+							<string>progressIndicator</string>
 							<string>rightSplitView</string>
 							<string>shareButton</string>
 							<string>splitView</string>
-							<string>statusMenuItem</string>
 							<string>tabView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -2041,16 +1999,16 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">myVPNMenu</string>
-								<string key="candidateClassName">NSMenu</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">onLaunchRadioButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">onSystemStartRadioButton</string>
 								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">progressIndicator</string>
+								<string key="candidateClassName">NSProgressIndicator</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">rightSplitView</string>
@@ -2065,10 +2023,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">NSSplitView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">statusMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">tabView</string>
 								<string key="candidateClassName">NSTabView</string>
 							</object>
@@ -2076,26 +2030,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">MenuController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MenuController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">validateLogButtons:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">validateLogButtons:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">validateLogButtons:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBUserSource</string>
-						<string key="minorKey"/>
+						<string key="minorKey">LogWindowController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2688,6 +2623,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSProgressIndicator</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSProgressIndicator.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">NSResponder</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
@@ -2822,6 +2765,25 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSWindowScripting.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSWindowController</string>
+					<string key="superclassName">NSResponder</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">showWindow:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">showWindow:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">showWindow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSWindowController.h</string>
 					</object>
 				</object>
 			</object>
