@@ -34,6 +34,7 @@
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
+#import "LogWindowController.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
@@ -52,7 +53,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 @interface VPNConnection()          // PRIVATE METHODS
 
--(void)             afterFailureHandler:            (NSDictionary *)dict;
+-(void)             afterFailureHandler:            (NSTimer *)     timer;
 
 -(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
 
@@ -407,11 +408,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void) didHookup
 {
-    [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
-    
+    [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
     [self addToLog: @"*Tunnelblick: Established communication with OpenVPN"];
-    
-    [[NSApp delegate] validateWhenConnectingForConnection: self];
+    [[[NSApp delegate] logScreen] validateWhenConnectingForConnection: self];
 }
 
 -(BOOL) shouldDisconnectWhenBecomeInactiveUser
@@ -927,7 +926,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart message: %@", @"OpenVPN Log message"), openvpnstartOutput]];
             }
         }
-        [logDisplay startMonitoringLogFiles];   // Start monitoring the log files, and display any existing contents
+        [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
         [errPipe release];
         [self setState: @"SLEEP"];
         [self showStatusWindow];
@@ -1589,9 +1588,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(void) afterFailureHandler: (NSDictionary *) dict
+-(void) afterFailureHandler: (NSTimer *) timer
 {
-	[self performSelectorOnMainThread: @selector(afterFailure:) withObject: dict waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(afterFailure:) withObject: [timer userInfo] waitUntilDone: NO];
 }
 
 -(void) afterFailure: (NSDictionary *) dict
@@ -1620,9 +1619,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(void) credentialsHaveBeenAskedForHandler: (NSDictionary *) dict
+-(void) credentialsHaveBeenAskedForHandler: (NSTimer *) timer
 {
-    [self performSelectorOnMainThread: @selector(credentialsHaveBeenAskedFor) withObject: dict waitUntilDone: NO];
+    [self performSelectorOnMainThread: @selector(credentialsHaveBeenAskedFor) withObject: [timer userInfo] waitUntilDone: NO];
 }
 
 -(void) credentialsHaveBeenAskedFor: (NSDictionary *) dict
@@ -2061,6 +2060,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                  [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (3.0b10)",      @"PopUpButton"), @"name", @"2", @"value", nil],
                  [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Set nameserver (alternate 1)", @"PopUpButton"), @"name", @"3", @"value", nil],
                  nil] autorelease];
+    }
+}
+
+-(void) startMonitoringLogFiles
+{
+    if (  logFilesMayExist  ) {
+        [logDisplay startMonitoringLogFiles];
+    }
+}
+
+-(void) stopMonitoringLogFiles
+{
+    if (  logFilesMayExist  ) {
+        [logDisplay stopMonitoringLogFiles];
     }
 }
 

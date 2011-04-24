@@ -37,6 +37,7 @@
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
+#import "LogWindowController.h"
 
 // These are global variables rather than class variables to make access to them easier
 NSMutableArray        * gConfigDirs;            // Array of paths to configuration directories currently in use
@@ -46,6 +47,7 @@ NSString              * gSharedPath;            // Path to /Library/Application 
 TBUserDefaults        * gTbDefaults;            // Our preferences
 NSFileManager         * gFileMgr;               // [NSFileManager defaultManager]
 NSDictionary          * gOpenVPNVersionDict;    // Dictionary with OpenVPN version information
+AuthorizationRef        gAuthorization;         // Used to call installer
 BOOL                    gTunnelblickIsQuitting; // Flag that Tunnelblick is in the process of quitting
 BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
 unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
@@ -103,21 +105,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                        toPort:              (int *)             portPtr
                                   toStartArgs:              (NSString * *)      startArgsPtr;
 -(NSArray *)        findTblksToInstallInPath:               (NSString *)        thePath;
--(void)             fixWhenConnectingButtons;
 -(void)             checkNoConfigurations;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             deleteLogs;
 -(void)             dmgCheck;
--(int)              firstDifferentComponent:                (NSArray *)         a
-                          and:                              (NSArray *)         b;
 -(unsigned)         getLoadedKextsMask;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
 -(BOOL)             hookupToRunningOpenVPNs;
--(NSString *)       indent:                                 (NSString *)        s
-                        by:                                 (int)               n;
 -(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
                                     andAction:              (SEL)               action
                                    andToolTip:              (NSString *)        tip
@@ -148,30 +145,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                            moveLibraryOpenVPN:              (BOOL)              moveConfigs
                                repairPackages:              (BOOL)              repairPkgs
                                    copyBundle:              (BOOL)              copyBundle;
--(void)             saveMonitorConnectionCheckboxState:     (BOOL)              inBool;
--(void)             saveOnSystemStartRadioButtonState:      (BOOL)              onSystemStart
-                                        forConnection:      (VPNConnection *)   connection;
--(void)             saveAutoLaunchCheckboxState:            (BOOL)              inBool;
--(void)             saveUseNameserverPopupButtonState:      (unsigned)          inValue;
--(VPNConnection *)  selectedConnection;
--(NSTextView *)     selectedLogView;
--(void)             setLogWindowTitle;
--(void)             setTitle:                               (NSString *)        newTitle
-                   ofControl:                               (id)                theControl;
 -(BOOL)             setupHookupWatchdogTimer;
 -(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
                         andModifierKeys:                    (UInt32)            modifierKeys;
 -(void)             setupSparklePreferences;
--(void)             startOrStopDurationsTimer;
 -(NSStatusItem *)   statusItem;
--(NSString *)       timeLabelForConnection:                 (VPNConnection *)   connection;
 -(void)             toggleMenuItem:                         (NSMenuItem *)      item
                  withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             updateMenuAndLogWindow;
 -(void)             updateNavigationLabels;
 -(void)             updateUI;
--(void)             validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) connection;
--(void)             validateDetailsWindowControls;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void)             watcher:                                (UKKQueue *)        kq
        receivedNotification:                                (NSString *)        nm
@@ -201,10 +184,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
-        showDurationsTimer = nil;
-        
         dotTblkFileList = nil;
-        oldSelectedConnectionName = nil;
+        showDurationsTimer = nil;
         hotKeySubmenuItemThatIsOn = nil;
         customRunOnLaunchPath = nil;
         customRunOnConnectPath = nil;
@@ -381,9 +362,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
 		[self createMenu];
         
+        logScreen = [[LogWindowController alloc] init];
+        
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
-        [[NSNotificationCenter defaultCenter] addObserver: self 
+        [[NSNotificationCenter defaultCenter] addObserver: logScreen 
                                                  selector: @selector(logNeedsScrollingHandler:) 
                                                      name: @"LogDidChange" 
                                                    object: nil];
@@ -489,6 +472,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) dealloc
 {
+    [showDurationsTimer release];
     [animImages release];
     [connectedImage release];
     [mainImage release];
@@ -496,7 +480,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [gConfigDirs release];
     
     [gTbDefaults release];
-    [oldSelectedConnectionName release];
     [connectionArray release];
     [connectionsToRestoreOnWakeup release];
     [connectionsToRestoreOnUserActive release];
@@ -507,7 +490,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [myConfigDictionary release];
     [myVPNConnectionDictionary release];
     [myVPNMenu release];
-    [showDurationsTimer release];
     [hookupWatchdogTimer invalidate];
     [hookupWatchdogTimer release];
     [theAnim release];
@@ -536,6 +518,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [hotKeySubmenu release];
     [statusMenuItem release];
     [statusItem release];
+    [logScreen release];
     
     [super dealloc];
 }
@@ -1611,6 +1594,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
+-(void)updateNavigationLabels
+{
+    [logScreen updateNavigationLabels];
+}
+
 -(void)toggleUseShadowCopies: (NSMenuItem *) menuItem
 {
     [self toggleMenuItem: menuItem withPreferenceKey: @"useShadowConfigurationFiles"];
@@ -1710,26 +1698,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
     if (  needToUpdateLogWindow  ) {
-        // Add or remove configurations from the Log window (if it is open) by closing and reopening it
-        BOOL logWindowWasOpen = logWindowIsOpen;
-        BOOL logWindowWasUsingTabs = logWindowIsUsingTabs;
-        [logWindow close];
-        [logWindow release];
-        logWindow = nil;
-        logWindowIsOpen = FALSE;
-        if (  logWindowWasOpen  ) {
-            [self openLogWindow:self];
-            if (   logWindowWasUsingTabs
-                && ( ! logWindowIsUsingTabs)  ) {
-                [logWindow close];          // Have to do open/close/open or the leftNavList doesn't paint properly
-                [logWindow release];        //
-                logWindow = nil;            //
-                logWindowIsOpen = FALSE;    //
-                [self openLogWindow:self];  //
-            }
-        } else {
-            oldSelectedConnectionName = nil;
-        }
+        [logScreen update];
     }
 }
 
@@ -1809,246 +1778,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 - (void)connectionStateDidChange:(id)connection
 {
 	[self updateNavigationLabels];
-    if (connection == [self selectedConnection]) 
-	{
-		[self validateConnectAndDisconnectButtonsForConnection: connection];
-	}	
-}
-
-// Validates (disables or enables) the Connect and Disconnect buttons in the Details... window
--(void) validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) connection
-{
-    NSString * displayName = [connection displayName];
-    
-    NSString * disableConnectButtonKey    = [displayName stringByAppendingString: @"-disableConnectButton"];
-    NSString * disableDisconnectButtonKey = [displayName stringByAppendingString: @"-disableDisconnectButton"];
-    [connectButton setEnabled: (   [connection isDisconnected]
-                                && ( ! [gTbDefaults boolForKey: disableConnectButtonKey] )  )];
-    [disconnectButton setEnabled:(   ( ! [connection isDisconnected] )
-                                  && ( ! [gTbDefaults boolForKey: disableDisconnectButtonKey] )  )];
-}
-
-// Validates the "when Tunnelblick launches" and "when the computer starts" radio buttons for the specified connection
--(void) validateWhenConnectingForConnection: (VPNConnection *) connection
-{
-    NSString * displayName      = [connection displayName];
-    NSString * autoConnectKey   = [displayName stringByAppendingString:@"autoConnect"];
-    NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
-    
-    if (   [gTbDefaults boolForKey:autoConnectKey]  ) {
-        if (  [gTbDefaults boolForKey: onSystemStartKey]  ) {
-            if (  [[connection configPath] hasPrefix: gPrivatePath]  ) {
-                // onSystemStart pref, but this is a private configuration, so force the pref off
-                if (  [gTbDefaults canChangeValueForKey: onSystemStartKey]  ) {
-                    [gTbDefaults setBool: FALSE forKey: onSystemStartKey];  // Shouldn't be set, so clear it
-                    [self saveOnSystemStartRadioButtonState: TRUE forConnection: connection];
-                    NSLog(@"The '-onSystemStart' preference was set but it has been cleared because '%@' is a private configuration", displayName);
-                } else {
-                    NSLog(@"The '-onSystemStart' preference for '%@' is being forced, but will be ignored because it is a private configuration", displayName);
-                }
-            } else {
-                [self saveOnSystemStartRadioButtonState: TRUE forConnection: connection];
-            }
-        } else {
-            [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
-        }
-    } else {
-        [self saveOnSystemStartRadioButtonState: FALSE forConnection: connection];
-    }
-    
-    if (   [gTbDefaults boolForKey:autoConnectKey]
-        && [gTbDefaults canChangeValueForKey: autoConnectKey]
-        && [gTbDefaults canChangeValueForKey: onSystemStartKey]  ) {
-        if (  [[connection configPath] hasPrefix: gPrivatePath]  ) {
-            [onSystemStartRadioButton setEnabled: NO];
-            [onLaunchRadioButton      setEnabled: NO];
-        } else {
-            [onSystemStartRadioButton setEnabled: YES];
-            [onLaunchRadioButton      setEnabled: YES];
-        }
-        
-        if (   [gTbDefaults boolForKey: autoConnectKey]
-            && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-            [autoConnectCheckbox         setEnabled: NO];        // Disable other controls for daemon connections because otherwise
-            [modifyNameserverPopUpButton setEnabled: NO];        // we have to update the daemon's .plist to reflect changes, and
-            [monitorConnnectionCheckbox  setEnabled: NO];        // that requires admin authorization for each change
-            [shareButton                 setEnabled: NO];
-        }
-    } else {
-        [onLaunchRadioButton      setEnabled: NO];
-        [onSystemStartRadioButton setEnabled: NO];
-    }
-}    
-
-// Validates (sets and disables or enables) all of the controls in the Details... window (including the Connect and Disconnect buttons)
--(void) validateDetailsWindowControls
-{
-    VPNConnection* connection = [self selectedConnection];
-    
-    NSString * displayName = [connection displayName];
-    
-    [self validateConnectAndDisconnectButtonsForConnection: connection];
-
-	// The "Edit configuration" button is also the "Examine Configuration" button so first we indicate which it is
-    if (  [[ConfigurationManager defaultManager] userCanEditConfiguration: [[self selectedConnection] configPath]]  ) {
-        [self setTitle: NSLocalizedString(@"Edit configuration", @"Button") ofControl: editButton];
-    } else {
-        [self setTitle: NSLocalizedString(@"Examine configuration", @"Button") ofControl: editButton];
-    }
-    
-    NSString *disableEditConfigKey = [displayName stringByAppendingString:@"disableEditConfiguration"];
-    if (  [gTbDefaults boolForKey:disableEditConfigKey]  ) {
-        [editButton setEnabled: NO];
-    } else {
-        [editButton setEnabled: YES];
-    }
-    
-	// The "Share configuration" button is also the "Make configuration private" button and it is only active when it is a .tblk configuration
-    NSString *disableShareConfigKey = [displayName stringByAppendingString:@"disableShareConfigurationButton"];
-    if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
-        NSString * path = [[self selectedConnection] configPath];
-        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-            if (  [path hasPrefix: gSharedPath]  ) {
-                [self setTitle: NSLocalizedString(@"Make configuration private", @"Button") ofControl: shareButton];
-                [shareButton setEnabled: YES];
-            } else if (  [path hasPrefix: gPrivatePath]  ) {
-                [self setTitle: NSLocalizedString(@"Share configuration"       , @"Button") ofControl: shareButton];
-                [shareButton setEnabled: YES];
-            } else {
-                // Deployed, so we don't offer to share it or make it private
-                [self setTitle: NSLocalizedString(@"Share configuration"       , @"Button") ofControl: shareButton];
-                [shareButton setEnabled: NO];
-            }
-        } else {
-            [self setTitle: NSLocalizedString(@"Share configuration"           , @"Button") ofControl: shareButton];
-            [shareButton setEnabled: NO];
-        }
-    } else {
-        [shareButton setEnabled: NO];
-    }
-    
-    // Set up the 'Set nameserver' popup button with localized values
-    [modifyNameserverPopUpButtonArrayController setContent: [connection modifyNameserverOptionList]];
-    
-    // If the width of the 'Set nameserver' popup button changes, shift the 'Monitor connection' checkbox left or right as needed
-    NSRect oldRect = [modifyNameserverPopUpButton frame];
-    [modifyNameserverPopUpButton sizeToFit];
-    NSRect newRect = [modifyNameserverPopUpButton frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    NSRect oldPos = [monitorConnnectionCheckbox frame];
-    oldPos.origin.x = oldPos.origin.x + widthChange;
-    [monitorConnnectionCheckbox setFrame:oldPos];
-    
-    int index = -1;
-	NSString *useDNSKey = [displayName stringByAppendingString:@"useDNS"];
-    int useDNSPreferenceValue = [connection useDNSStatus];
-    NSString * useDNSStringValue = [NSString stringWithFormat: @"%d", useDNSPreferenceValue];
-    NSArray * setNameserverEntries = [modifyNameserverPopUpButtonArrayController content];
-    int i;
-    for (i=0; i<[setNameserverEntries count]; i++) {
-        NSDictionary * dictForEntry = [setNameserverEntries objectAtIndex: i];
-        if (  [[dictForEntry objectForKey: @"value"] isEqualToString: useDNSStringValue]  ) {
-            index = i;
-            break;
-        }
-    }
-    if (  index == -1  ) {
-        NSLog(@"Invalid value for '%@' preference. Using 'Do not set nameserver'", useDNSKey);
-        index = 0;
-    }
-    
-    // ***** Duplicate the effect of [self setSelectedModifyNameserverIndex: index] but without calling ourselves
-    if (  index != selectedModifyNameserverIndex  ) {
-        selectedModifyNameserverIndex = index;
-        [modifyNameserverPopUpButton selectItemAtIndex: index];
-        [self saveUseNameserverPopupButtonState: (unsigned) index];
-        //[self validateDetailsWindowControls]; DO NOT DO THIS -- recurses infinitely. That is why we do this duplicate code instead of invoking setSelectedModifyNameserverIndex:
-    }
-    // ***** End duplication of the effect of [self setSelectedModifyNameserverIndex: index] but without calling ourselves
-    
-    [modifyNameserverPopUpButton setNeedsDisplay]; // Workaround for bug in OS X 10.4.11 ("Tiger") that causes misdraws
-    [monitorConnnectionCheckbox  setNeedsDisplay];
-    
-    if (  [gTbDefaults canChangeValueForKey: useDNSKey]  ) {
-        [modifyNameserverPopUpButton setEnabled: YES];
-    } else {
-        [modifyNameserverPopUpButton setEnabled: NO];
-	}
-	
-	NSString *notMonitorConnectionKey = [displayName stringByAppendingString:@"-notMonitoringConnection"];
-    if (   [gTbDefaults canChangeValueForKey: notMonitorConnectionKey]
-        && (   ([connection useDNSStatus] == 1)
-            || ([connection useDNSStatus] == 4) )  ) {
-        [monitorConnnectionCheckbox setEnabled: YES];
-    } else {
-        [monitorConnnectionCheckbox setEnabled: NO];
-	}
-    
-	if(   ( ! [gTbDefaults boolForKey:notMonitorConnectionKey] )
-       && (   ([connection useDNSStatus] == 1)
-           || ([connection useDNSStatus] == 4) )  ) {
-		[monitorConnnectionCheckbox setState:NSOnState];
-	} else {
-		[monitorConnnectionCheckbox setState:NSOffState];
-	}
-    
-    NSString *autoConnectKey = [displayName stringByAppendingString:@"autoConnect"];
-    if (  [gTbDefaults canChangeValueForKey: autoConnectKey]  ) {
-        [autoConnectCheckbox setEnabled: YES];
-    } else {
-        [autoConnectCheckbox setEnabled: NO];
-    }
-	if (  [gTbDefaults boolForKey: autoConnectKey]  ) {
-		[autoConnectCheckbox setState:NSOnState];
-	} else {
-		[autoConnectCheckbox setState:NSOffState];
-	}
-	
-    if (  ! [connection tryingToHookup]  ) {
-        [self validateWhenConnectingForConnection: connection];     // May disable other controls if 'when computer connects' is selected
-    }
-}
--(void)updateNavigationLabels
-{
-    if (  logWindowIsUsingTabs  ) {
-        NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
-        NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
-        NSEnumerator *connectionEnumerator = [myConnectionArray objectEnumerator];
-        VPNConnection *connection;
-        int i = 0;
-        while(connection = [connectionEnumerator nextObject]) {
-            NSString * label = [self timeLabelForConnection: connection];
-            [[tabView tabViewItemAtIndex:i] setLabel: label];
-            i++;
-        }
-    } else {
-        NSString * dispName = [leftNavDisplayNames objectAtIndex: selectedLeftNavListIndex];
-        VPNConnection  * connection = [myVPNConnectionDictionary objectForKey: dispName];
-        NSString * label = [self timeLabelForConnection: connection];
-        [[tabView tabViewItemAtIndex:0] setLabel: label];
-	}
-}
-
--(NSString *) timeLabelForConnection: (VPNConnection *) connection
-{ 
-    NSString * cState = [connection state];
-    NSString * cTimeS = @"";
-    
-    // Get connection duration if preferences say to 
-    if (   [gTbDefaults boolForKey:@"showConnectedDurations"]
-        && [cState isEqualToString: @"CONNECTED"]    ) {
-        NSDate * csd = [connection connectedSinceDate];
-        NSTimeInterval ti = [csd timeIntervalSinceNow];
-        long cTimeL = (long) round(-ti);
-        if ( cTimeL >= 0 ) {
-            if ( cTimeL < 3600 ) {
-                cTimeS = [NSString stringWithFormat:@" %li:%02li", cTimeL/60, cTimeL%60];
-            } else {
-                cTimeS = [NSString stringWithFormat:@" %li:%02li:%02li", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
-            }
-        }
-    }
-    return [NSString stringWithFormat:@"%@ (%@%@)",[connection displayName], NSLocalizedString(cState, nil), cTimeS];
+    [logScreen validateConnectAndDisconnectButtonsForConnection: connection];
 }
 
 - (void) updateUI
@@ -2108,113 +1838,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	}
 }
 
-- (void) tabView: (NSTabView*) inTabView willSelectTabViewItem: (NSTabViewItem*) tabViewItem
-{
-    NSView* view = [[inTabView selectedTabViewItem] view];
-    [tabViewItem setView: view];
-    [[[self selectedLogView] textStorage] setDelegate: nil];
-}
-
-- (void) tabView: (NSTabView*) inTabView didSelectTabViewItem: (NSTabViewItem*) tabViewItem
-{
-    VPNConnection* newConnection = [self selectedConnection];
-    NSTextView* logView = [self selectedLogView];
-    [logView setEditable: NO];
-    [[logView layoutManager] replaceTextStorage: [newConnection logStorage]];
-    //[logView setSelectedRange: NSMakeRange([[logView textStorage] length],[[logView textStorage] length])];
-	[logView scrollRangeToVisible: NSMakeRange([[logView string] length]-1, 0)];
-	
-    [[logView textStorage] setDelegate: self];
-    
-    [self setLogWindowTitle];
-    
-    selectedModifyNameserverIndex = -1; // Won't match any valid value, so when first set it will trigger a change notice
-    
-    [self validateDetailsWindowControls];
-}
-
-- (void) setLogWindowTitle
-{
-    NSString * name = [[self selectedConnection] displayName];
-    if (  [name isEqualToString: @"Tunnelblick"]  ) {
-        name = @"";
-    } else {
-        name = [NSString stringWithFormat: @" - %@", name];
-    }
-
-    [logWindow setTitle: [NSString stringWithFormat: @"%@%@%@",
-                          NSLocalizedString(@"Details - Tunnelblick", @"Window title"),
-                          name,
-                          [[self selectedConnection] displayLocation]]];
-	
-}
-
-- (void) textStorageDidProcessEditing: (NSNotification*) aNotification
-{
-    NSNotification *notification = [NSNotification notificationWithName: @"LogDidChange" 
-                                                                 object: [self selectedLogView]];
-    [[NSNotificationQueue defaultQueue] enqueueNotification: notification 
-                                               postingStyle: NSPostWhenIdle
-                                               coalesceMask: NSNotificationCoalescingOnName | NSNotificationCoalescingOnSender 
-                                                   forModes: nil];
-}
-
-- (void) logNeedsScrollingHandler: (NSNotification*) aNotification
-{
-    [self performSelectorOnMainThread: @selector(doLogScrolling:) withObject: [aNotification object] waitUntilDone: NO];
-}
-
--(void) doLogScrolling: (NSTextView *) textView
-{
-    [textView scrollRangeToVisible: NSMakeRange([[textView string] length]-1, 0)];
-}
-
-- (NSTextView*) selectedLogView
-{
-    NSTextView* result = [[[[[tabView selectedTabViewItem] view] subviews] lastObject] documentView];
-    return result;
-}
-
-- (IBAction) clearLogButtonWasClicked: (id) sender
-{
-    [[self selectedConnection] clearLog];
-}
-
 - (NSString *) openVPNLogHeader
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
     return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@; %@", major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()]);
-}
-
-- (VPNConnection*) selectedConnection
-/*" Returns the connection associated with the currently selected log tab or nil on error. "*/
-{
-    NSString* dispNm;
-    if (  logWindowIsUsingTabs  ) {
-        if (![tabView selectedTabViewItem]) {
-            [tabView selectFirstTabViewItem: nil];
-        }
-        dispNm = [[tabView selectedTabViewItem] identifier];
-    } else {
-        dispNm = [leftNavDisplayNames objectAtIndex: selectedLeftNavListIndex];
-    }
-    
-    VPNConnection* connection = [myVPNConnectionDictionary objectForKey: dispNm];
-    NSArray *allConnections = [myVPNConnectionDictionary allValues];
-    if(connection) return connection;
-    else if([allConnections count]) return [allConnections objectAtIndex:0] ; 
-    else return nil;
-}
-
-- (IBAction)connectButtonWasClicked:(id)sender
-{
-    [[self selectedConnection] connect: sender userKnows: YES]; 
-}
-
-- (IBAction)disconnectButtonWasClicked:(id)sender
-{
-    [[self selectedConnection] disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      
 }
 
 - (IBAction) checkForUpdates: (id) sender
@@ -2249,329 +1877,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [myConfigUpdater startWithUI: YES]; // Display the UI
     }
 }
-
-- (IBAction) openLogWindow: (id) sender
-{
-    if (logWindow != nil) {
-        [logWindow makeKeyAndOrderFront: self];
-        [NSApp activateIgnoringOtherApps:YES];
-        logWindowIsOpen = TRUE;
-        return;
-    }
-    NSArray * allConfigsSorted = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
-	NSEnumerator* e = [allConfigsSorted objectEnumerator];
-	NSTabViewItem* initialItem;
-	VPNConnection* connection = [myVPNConnectionDictionary objectForKey: [e nextObject]];
-    if (  ! connection  ) {
-        NSLog(@"Internal program error: openLogWindow: but there are no configurations");
-        return;
-    }
-    
-    [NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
-    
-    int maxNumberOfTabs;
-    id obj = [gTbDefaults objectForKey: @"maximumNumberOfTabs"];
-    if (  obj  ) {
-        maxNumberOfTabs = [obj intValue];
-    } else {
-        maxNumberOfTabs = 8;
-    }
-    
-    logWindowIsUsingTabs = (  [myVPNConnectionDictionary count] <= maxNumberOfTabs  );
-    
-    // Set the window's size and position from preferences (saved when window is closed)
-    // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
-    NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
-        NSString * frameString = [gTbDefaults objectForKey: @"detailsWindowFrame"];
-        if (  frameString != nil  ) {
-            [logWindow setFrameFromString:frameString];
-        }
-        frameString = [gTbDefaults objectForKey: @"detailsWindowLeftFrame"];
-        if (  frameString != nil  ) {
-            NSRect frame;
-            frame = NSRectFromString(frameString);
-            if (  frame.size.width < LEFT_NAV_AREA_MINIMUM_SIZE  ) {
-                frame.size.width = LEFT_NAV_AREA_MINIMUM_SIZE;
-            }
-            [leftSplitView setFrame: frame];
-        }
-    }
-    
-    initialItem = [tabView tabViewItemAtIndex: 0];
-    NSString * dispNm = [connection displayName];
-    [initialItem setIdentifier: dispNm];
-    [initialItem setLabel:      dispNm];
-    
-    int leftNavIndexToSelect = 0;
-    
-    if (  logWindowIsUsingTabs  ) {
-        // Make the left navigation area very small
-        NSRect frameRect = [leftSplitView frame];
-        frameRect.size.width = LEFT_NAV_AREA_MINIMAL_SIZE;
-        [leftSplitView setFrame: frameRect];
-        [leftSplitView display];
-        
-        int curTabIndex = 0;
-        [tabView selectTabViewItemAtIndex:0];
-        BOOL haveSelectedAConnection = ! [connection isDisconnected];
-        while (connection = [myVPNConnectionDictionary objectForKey: [e nextObject]]) {
-            NSTabViewItem* newItem = [[NSTabViewItem alloc] init];
-            dispNm = [connection displayName];
-            [newItem setIdentifier: dispNm];
-            [newItem setLabel:      dispNm];
-            [tabView addTabViewItem: newItem];
-            [newItem release];
-            ++curTabIndex;
-            if (  oldSelectedConnectionName  ) {
-                if (  [dispNm isEqualToString: oldSelectedConnectionName]  ) {
-                    [tabView selectTabViewItemAtIndex:curTabIndex];
-                    haveSelectedAConnection = YES;
-                    oldSelectedConnectionName = nil;
-                }
-            } else if (   ( ! haveSelectedAConnection )
-                       && ( ! [connection isDisconnected] )  ) {
-                [tabView selectTabViewItemAtIndex:curTabIndex];
-                haveSelectedAConnection = YES;
-            }
-        }
-    } else {
-        [leftNavList         release];
-        [leftNavDisplayNames release];
-        leftNavList         = [[NSMutableArray alloc] initWithCapacity: [myVPNConnectionDictionary count]];
-        leftNavDisplayNames = [[NSMutableArray alloc] initWithCapacity: [myVPNConnectionDictionary count]];
-        int curTabIndex = 0;
-        BOOL haveSelectedAConnection = ! [connection isDisconnected];
-        NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
-        NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
-        while (connection = [myVPNConnectionDictionary objectForKey: [configEnum nextObject]]) {
-            dispNm = [connection displayName];
-            NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
-            int firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
-
-            // Track any necessary "outdenting"
-            if (  firstDiff < [currentFolders count]  ) {
-                // Remove components from the end of currentFolders until we have a match
-                int i;
-                for (  i=0; i < ([currentFolders count]-firstDiff); i++  ) {
-                    [currentFolders removeLastObject];
-                }
-            }
-
-            // currentFolders and currentConfig now match, up to but not including the firstDiff-th entry
-
-            // Add a "folder" line for each folder in currentConfig starting with the first-Diff-th entry (if any)
-            int i;
-            for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
-                [leftNavDisplayNames addObject: @""];
-                NSString * folderName = [currentConfig objectAtIndex: i];
-                [leftNavList         addObject: [NSString stringWithString: 
-                                                 [self indent: folderName by: firstDiff+i]]];
-                [currentFolders addObject: folderName];
-                ++curTabIndex;
-            }
-            
-            // Add a "configuration" line
-            [leftNavDisplayNames addObject: [NSString stringWithString: [connection displayName]]];
-            [leftNavList         addObject: [NSString stringWithString: 
-                                             [self indent: [currentConfig lastObject] by: [currentConfig count]-1]]];
-            
-            if (  oldSelectedConnectionName  ) {
-                if (  [dispNm isEqualToString: oldSelectedConnectionName]  ) {
-                    [self setSelectedLeftNavListIndex: curTabIndex];
-                    haveSelectedAConnection = YES;
-                    oldSelectedConnectionName = nil;
-                }
-            } else if (   ( ! haveSelectedAConnection )
-                       && ( ! [connection isDisconnected] )  ) {
-                leftNavIndexToSelect = curTabIndex;
-                haveSelectedAConnection = YES;
-            }
-            ++curTabIndex;
-        }
-    }
-    
-	[logWindow setDelegate:self];
-    
-	[self setLogWindowTitle];
-    
-	// Localize buttons and checkboxes, shifting their neighbors left or right as needed
-    // NOTE: We don't localize the contents of modifyNameserverPopUpButton because they are localized when they are inserted into it by
-    //       validateDetailsWindowControls, which also does any necessary shifting of its neighbor, the 'Monitor connection' checkbox.
-    
-    [self setTitle: NSLocalizedString(@"Clear log"                  , @"Button")        ofControl: clearButton                ];
-    [self setTitle: NSLocalizedString(@"Edit configuration"         , @"Button")        ofControl: editButton                 ];
-    [self setTitle: NSLocalizedString(@"Share configuration"        , @"Button")        ofControl: shareButton                ];
-    [self setTitle: NSLocalizedString(@"Connect"                    , @"Button")        ofControl: connectButton              ];
-    [self setTitle: NSLocalizedString(@"Disconnect"                 , @"Button")        ofControl: disconnectButton           ];
-    [self setTitle: NSLocalizedString(@"Monitor connection"         , @"Checkbox name") ofControl: monitorConnnectionCheckbox ];
-    [self setTitle: NSLocalizedString(@"Automatically connect"      , @"Checkbox name") ofControl: autoConnectCheckbox        ];
-    [self setTitle: NSLocalizedString(@"when Tunnelblick launches"  , @"Checkbox name") ofControl: onLaunchRadioButton        ];
-    [self setTitle: NSLocalizedString(@"when computer starts"       , @"Checkbox name") ofControl: onSystemStartRadioButton   ];
-    
-	VPNConnection * myConnection = [self selectedConnection];
-	NSTextStorage * store = [myConnection logStorage];
-    
-    [[[self selectedLogView] layoutManager] replaceTextStorage: store];
-	
-    if (  logWindowIsUsingTabs  ) {
-        [self tabView:tabView didSelectTabViewItem:initialItem];
-    } else {
-        [leftNavListView reloadData];
-        selectedLeftNavListIndex = -1;  // Force a change
-        [self setSelectedLeftNavListIndex: leftNavIndexToSelect];
-        [leftNavListView scrollRowToVisible: leftNavIndexToSelect];
-    }
-
-    [self updateNavigationLabels];
-    
-    // Set up a timer to update the tab labels with connections' duration times
-    [self startOrStopDurationsTimer];
-	
-    [logWindow display];
-    [logWindow makeKeyAndOrderFront: self];
-    [NSApp activateIgnoringOtherApps:YES];
-    logWindowIsOpen = TRUE;
-}
-
--(int) firstDifferentComponent: (NSArray *) a and: (NSArray *) b
-{
-    int retVal = 0;
-    int i;
-    for (i=0;
-            (i < [a count]) 
-         && (i < [b count])
-         && [[a objectAtIndex: i] isEqual: [b objectAtIndex: i]];
-         i++  ) {
-        ++retVal;
-    }
-
-    return retVal;
-}
-
--(NSString *) indent: (NSString *) s by: (int) n
-{
-    NSString * retVal = [NSString stringWithFormat:@"%*s%@", 3*n, "", s];
-    return retVal;
-}
-
--(int)numberOfRowsInTableView:(NSTableView *)aTableView
-{
-    if (  aTableView == leftNavListView  ) {
-        int n = [leftNavList count];
-        return n;
-    }
-    
-    return 0;
-}
-
--(id) tableView:(NSTableView *) aTableView objectValueForTableColumn:(NSTableColumn *) aTableColumn row:(int) rowIndex
-{
-    if (  aTableView == leftNavListView  ) {
-        NSString * s = [leftNavList objectAtIndex: rowIndex];
-        return s;
-    }
-    
-    return nil;
-}
-
-// Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl
-{
-    NSRect oldRect = [theControl frame];
-	
-    if (   [theControl isEqual: onLaunchRadioButton]
-        || [theControl isEqual: onSystemStartRadioButton]  ) {
-        id cell = [theControl cellAtRow: 0 column: 0];
-        [cell setTitle: newTitle];
-    } else {
-        [theControl setTitle: newTitle];
-    }
-    [theControl sizeToFit];
-    
-    NSRect newRect = [theControl frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    NSRect oldPos;
-    
-    if (   [theControl isEqual: connectButton]                      // Shift the control itself left/right if necessary
-        || [theControl isEqual: disconnectButton]  ) {
-        oldPos = [theControl frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [theControl setFrame:oldPos];
-    }
-
-    if (  [theControl isEqual: clearButton]  )  {                   // If the Clear log button changes, shift the Edit and Share buttons right/left
-        oldPos = [editButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [editButton setFrame:oldPos];
-        oldPos = [shareButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [shareButton setFrame:oldPos];
-    } else if (  [theControl isEqual: editButton]  )  {             // If the Edit button changes, shift the Share button right/left
-        oldPos = [shareButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [shareButton setFrame:oldPos];
-    } else if (  [theControl isEqual: connectButton]  )  {          // If the Connect button changes, shift the Disconnect button left/right
-        oldPos = [disconnectButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [disconnectButton setFrame:oldPos];
-    } else if (  [theControl isEqual: autoConnectCheckbox]  ) {     // If the Auto Connect checkbox changes, shift the On Launch and On Computer Startup buttons left/right
-        oldPos = [onLaunchRadioButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [onLaunchRadioButton setFrame:oldPos];
-        oldPos = [onSystemStartRadioButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [onSystemStartRadioButton setFrame:oldPos];
-    } else if (  [theControl isEqual: onLaunchRadioButton]  ) {     // If the On Launch checkbox changes, shift the On Computer Startup button left/right
-        oldPos = [onSystemStartRadioButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [onSystemStartRadioButton setFrame:oldPos];
-    } else if (  [theControl isEqual: onLaunchRadioButton]  ) {     // If the On Launch radio button changes, shift the On System Startup button left/right
-        oldPos = [onSystemStartRadioButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [onSystemStartRadioButton setFrame:oldPos];
-    }
-}
-
-// Invoked when the Details... window (logWindow) will close
-- (void)windowWillClose:(NSNotification *)n
-{
-    if ( [n object] == logWindow ) {
-        // Stop and release the timer used to update the duration displays
-        if (showDurationsTimer != nil) {
-            [showDurationsTimer invalidate];
-            [showDurationsTimer release];
-            showDurationsTimer = nil;
-        }
-        
-        // Save the window's size and position in the preferences and save the TB version that saved them, BUT ONLY IF anything has changed
-        NSString * mainFrame = [logWindow stringWithSavedFrame];
-        NSString * leftFrame = nil;
-        if (  [leftSplitView frame].size.width > (LEFT_NAV_AREA_MINIMAL_SIZE + 5.0)  ) {
-            leftFrame = NSStringFromRect([leftSplitView frame]);
-        }
-        NSString * tbVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-        BOOL saveIt = TRUE;
-        if (  [tbVersion isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrameVersion"]]    ) {
-            if (   [mainFrame isEqualToString: [gTbDefaults objectForKey:@"detailsWindowFrame"]]
-                && [leftFrame isEqualToString: [gTbDefaults objectForKey:@"detailsWindowLeftFrame"]]  ) {
-                saveIt = FALSE;
-            }
-        }
-        
-        if (saveIt) {
-            [gTbDefaults setObject: mainFrame forKey: @"detailsWindowFrame"];
-            if (  leftFrame  ) {
-                [gTbDefaults setObject: leftFrame forKey: @"detailsWindowLeftFrame"];
-            }
-            [gTbDefaults setObject: [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-                            forKey: @"detailsWindowFrameVersion"];
-            [gTbDefaults synchronize];
-        }
-        logWindowIsOpen = FALSE;
-    }
-}
-
 
 - (IBAction) openAboutWindow: (id) sender
 // Uses the "...WithOptions" version of orderFrontStandardAboutPanel so all localization can be in Localizable.strings files
@@ -2844,43 +2149,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [[ConfigurationManager defaultManager] addConfigurationGuide];
 }
 
--(IBAction) editConfigButtonWasClicked: (id) sender
+-(IBAction) openLogWindow: (id) sender
 {
-    VPNConnection * connection = [self selectedConnection];
-	[[ConfigurationManager defaultManager] editConfigurationAtPath: [connection configPath] forConnection: connection];
-}
-
--(IBAction) shareConfigButtonWasClicked: (id) sender
-{
-    NSString * disableShareConfigKey = [[[self selectedConnection] displayName] stringByAppendingString:@"disableShareConfigurationButton"];
-    if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
-        NSString * path = [[self selectedConnection] configPath];
-        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-            int result;
-            if (  [path hasPrefix: gSharedPath]  ) {
-                result = TBRunAlertPanel(NSLocalizedString(@"Make Configuration Private?", @"Window title"),
-                                             NSLocalizedString(@"This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?", @"Window title"),
-                                         NSLocalizedString(@"Make configuration private", @"Button"),   // Default button
-                                         NSLocalizedString(@"Cancel", @"Button"),                       // Alternate button
-                                             nil);
-                
-            } else if (  [path hasPrefix: gPrivatePath]  ) {
-                result = TBRunAlertPanel(NSLocalizedString(@"Share Configuration?", @"Window title"),
-                                         NSLocalizedString(@"This configuration is private -- only you can use it.\n\nDo you wish to make it shared, so that all other users of this computer can use it?", @"Window title"),
-                                         NSLocalizedString(@"Share configuration", @"Button"),  // Default button
-                                         NSLocalizedString(@"Cancel", @"Button"),               // Alternate button
-                                         nil);
-            } else {
-                // Deployed, so can't share or make private
-                return;
-            }
-            
-            if (  result == NSAlertDefaultReturn  ) {
-                oldSelectedConnectionName = [[self selectedConnection] displayName];
-                [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
-            }
-        }
-    }
+    [logScreen openLogWindow];
 }
 
 - (void) networkConfigurationDidChange
@@ -2920,92 +2191,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
--(void)saveMonitorConnectionCheckboxState:(BOOL)inBool
-{
-	VPNConnection* connection = [self selectedConnection];
-	if(connection != nil) {
-		NSString* key = [[connection displayName] stringByAppendingString: @"-notMonitoringConnection"];
-        if (  [gTbDefaults boolForKey: key] != (! inBool)  ) {
-            [gTbDefaults setObject: [NSNumber numberWithBool: ! inBool] forKey: key];
-            [gTbDefaults synchronize];
-            if (  ! [connection isDisconnected]  ) {
-                TBRunAlertPanel(NSLocalizedString(@"Configuration Change", @"Window title"),
-                                NSLocalizedString(@"The change will take effect the next time you connect.", @"Window text"),
-                                nil, nil, nil);
-            }
-        }
-    }
-}
-
--(void)saveUseNameserverPopupButtonState:(unsigned)inValue
-{
-	VPNConnection* connection = [self selectedConnection];
-	if(connection != nil) {
-        // Look up new value for preference
-        NSArray * setNameserverEntries = [modifyNameserverPopUpButtonArrayController content];
-        NSDictionary * dictForEntry = [setNameserverEntries objectAtIndex: inValue];    
-        NSNumber * num = [NSNumber numberWithInt: [[dictForEntry objectForKey: @"value"] intValue]];
-        
-		NSString* key = [[connection displayName] stringByAppendingString: @"useDNS"];
-        id obj = [gTbDefaults objectForKey: key];
-        BOOL saveIt = FALSE;
-        if (  ! obj  ) {                                                // If no preference
-            if (  inValue != 1  ) {                                     // and the new one is not 1
-                saveIt = TRUE;                                          // Then save the new one
-            }
-        } else {
-            if (   ( ! [[obj class] isSubclassOfClass: [num class]] )   // If preference is not a number
-                || ( ! [num isEqualToNumber: obj] )  ) {                // Or is not equal to the new one
-                saveIt = TRUE;                                          // Then save the new one
-            }
-        }
-        
-        if (  saveIt  ) {
-            [gTbDefaults setObject: num forKey: key];
-            [gTbDefaults synchronize];
-            if (  ! [connection isDisconnected]  ) {
-                TBRunAlertPanel(NSLocalizedString(@"Configuration Change", @"Window title"),
-                                NSLocalizedString(@"The change will take effect the next time you connect.", @"Window text"),
-                                nil, nil, nil);
-            }
-        }
-    }
-}
-
--(void)saveAutoLaunchCheckboxState:(BOOL)inBool
-{
-	VPNConnection* connection = [self selectedConnection];
-	if(connection != nil) {
-		NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
-		[gTbDefaults setObject: [NSNumber numberWithBool: inBool] forKey: autoConnectKey];
-		[gTbDefaults synchronize];
-	}
-}
-
--(void)saveOnSystemStartRadioButtonState: (BOOL) onSystemStart
-                           forConnection: (VPNConnection *) connection
-{
-	if(connection != nil) {
-        NSString * name = [connection displayName];
-        BOOL coss = [connection checkConnectOnSystemStart: onSystemStart withAuth: myAuth];
-		NSString* systemStartkey = [name stringByAppendingString: @"-onSystemStart"];
-        if (  [gTbDefaults boolForKey: systemStartkey] != coss  ) {
-            if (  [gTbDefaults canChangeValueForKey: systemStartkey]  ) {
-                [gTbDefaults setBool: coss forKey: systemStartkey];
-                [gTbDefaults synchronize];
-                NSLog(@"The '%@' preference was changed to %@", systemStartkey, (coss ? @"TRUE" : @"FALSE") );
-            } else {
-                NSLog(@"The '%@' preference could not be changed to %@ because it is a forced preference", systemStartkey, (coss ? @"TRUE" : @"FALSE") );
-            }
-        }
-        
-        NSString * autoConnectKey = [name stringByAppendingString: @"autoConnect"];
-        BOOL col = ( ! coss ) && [gTbDefaults boolForKey: autoConnectKey];
-        
-        [[onLaunchRadioButton      cellAtRow: 0 column: 0]  setState: (int) col];
-        [[onSystemStartRadioButton cellAtRow: 0 column: 0]  setState: (int) coss];
-	}
-}
 - (void) setState: (NSString*) newState
 // Be sure to call this in main thread only
 {
@@ -3153,13 +2338,13 @@ static void signal_handler(int signalNumber)
         }
         
         if (  [paths count] != 0  ) {
-            if ( ! myAuth  ) {
+            if ( ! gAuthorization  ) {
                 NSString * msg = NSLocalizedString(@"Tunnelblick needs to install one or more Tunnelblick VPN Configurations.", @"Window text");
-                myAuth = [NSApplication getAuthorizationRef: msg];
+                gAuthorization = [NSApplication getAuthorizationRef: msg];
                 gotMyAuth = TRUE;
             }
             
-            if (  ! myAuth  ) {
+            if (  ! gAuthorization  ) {
                 NSLog(@"Configuration update installer: The Tunnelblick installation was cancelled by the user.");
                 return;
             }
@@ -3177,13 +2362,13 @@ static void signal_handler(int signalNumber)
     
     // Set the version # in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Info.plist
     // and remove the bundle's Contents/Resources/Install folder that contains the updates so we don't update with them again
-    if ( ! myAuth  ) {
+    if ( ! gAuthorization  ) {
         NSString * msg = NSLocalizedString(@"Tunnelblick needs to install one or more Tunnelblick VPN Configurations.", @"Window text");
-        myAuth = [NSApplication getAuthorizationRef: msg];
+        gAuthorization = [NSApplication getAuthorizationRef: msg];
         gotMyAuth = TRUE;
     }
     
-    if (  ! myAuth  ) {
+    if (  ! gAuthorization  ) {
         NSLog(@"Configuration update installer: The Tunnelblick installation was cancelled by the user.");
         return;
     }
@@ -3201,7 +2386,7 @@ static void signal_handler(int signalNumber)
             NSLog(@"Configuration update installer: Retrying execution of installer");
         }
         
-        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: myAuth] ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: gAuthorization] ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;
@@ -3233,8 +2418,8 @@ static void signal_handler(int signalNumber)
     }
     
     if (  gotMyAuth  ) {
-        AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
-        myAuth = nil;
+        AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+        gAuthorization = nil;
     }
 }
 
@@ -3260,7 +2445,7 @@ static void signal_handler(int signalNumber)
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
         ignoreNoConfigs = TRUE;
         [[ConfigurationManager defaultManager] openDotTblkPackages: filePaths
-                                                         usingAuth: myAuth
+                                                         usingAuth: gAuthorization
                                            skipConfirmationMessage: skipConfirmMsg
                                                  skipResultMessage: skipResultMsg];
         ignoreNoConfigs = oldIgnoreNoConfigs;
@@ -3517,7 +2702,7 @@ static void signal_handler(int signalNumber)
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
         ignoreNoConfigs = TRUE;
         [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList
-                                                         usingAuth: myAuth
+                                                         usingAuth: gAuthorization
                                            skipConfirmationMessage: YES
                                                  skipResultMessage: YES];
         ignoreNoConfigs = oldIgnoreNoConfigs;
@@ -3550,7 +2735,7 @@ static void signal_handler(int signalNumber)
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection tryingToHookup]  ) {
-            [self validateWhenConnectingForConnection: connection];
+            [logScreen validateWhenConnectingForConnection: connection];
         }
     }
     
@@ -3593,7 +2778,8 @@ static void signal_handler(int signalNumber)
     NSString * dispNm;
     NSEnumerator * e = [myConfigDictionary keyEnumerator];
     while (   (dispNm = [e nextObject])
-           && ( [restoreList indexOfObject: dispNm] == NSNotFound)  ) {
+           && (   (! restoreList)
+               || ( [restoreList indexOfObject: dispNm] == NSNotFound) )  ) {
         myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
         if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
             if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-onSystemStart"]]  ) {
@@ -3610,8 +2796,8 @@ static void signal_handler(int signalNumber)
         [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
     }
 
-    AuthorizationFree(myAuth, kAuthorizationFlagDefaults);
-    myAuth = nil;
+    AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
+    gAuthorization = nil;
     
     launchFinished = TRUE;
     
@@ -4075,8 +3261,8 @@ static void signal_handler(int signalNumber)
         }
         
         // Get authorization to install and secure
-        myAuth = [NSApplication getAuthorizationRef: [preMessage stringByAppendingString: authorizationText]];
-        if (  ! myAuth  ) {
+        gAuthorization = [NSApplication getAuthorizationRef: [preMessage stringByAppendingString: authorizationText]];
+        if (  ! gAuthorization  ) {
             NSLog(@"The Tunnelblick installation was cancelled by the user.");
             [NSApp terminate:self];
         }
@@ -4246,7 +3432,7 @@ static void signal_handler(int signalNumber)
     BOOL needsRepairPkgs    = repairPkgs;
     BOOL needsCopyBundle    = copyBundle;
     
-    if (  myAuth == nil  ) {
+    if (  gAuthorization == nil  ) {
         NSMutableString * msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
         if (  needsRepairApp      ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
         if (  needsMoveConfigs    ) [msg appendString: NSLocalizedString(@"  • Repair the private configurations folder\n", @"Window text")];
@@ -4257,13 +3443,13 @@ static void signal_handler(int signalNumber)
         NSLog(@"%@", msg);
         
         // Get an AuthorizationRef and use executeAuthorized to run the installer
-        myAuth= [NSApplication getAuthorizationRef: msg];
-        if(myAuth == nil) {
+        gAuthorization= [NSApplication getAuthorizationRef: msg];
+        if(gAuthorization == nil) {
             NSLog(@"Installation or repair cancelled");
             return FALSE;
         }
         
-        // NOTE: We do NOT free myAuth here. It may be used to install .tblk packages, so we free it when we
+        // NOTE: We do NOT free gAuthorization here. It may be used to install .tblk packages, so we free it when we
         // are finished launching, in applicationDidFinishLaunching
     }
         
@@ -4296,7 +3482,7 @@ static void signal_handler(int signalNumber)
             NSLog(@"Retrying execution of installer");
         }
         
-        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: myAuth] ) {
+        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: gAuthorization] ) {
             // Try for up to 6.35 seconds to verify that installer succeeded -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
             // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
             useconds_t sleepTime;
@@ -4718,84 +3904,6 @@ int runUnrecoverableErrorPanel(msg)
     exit(2);
 }
 
--(IBAction) autoConnectPrefButtonWasClicked: (id) sender
-{
-	if([sender state]) {
-		[self saveAutoLaunchCheckboxState:TRUE];
-	} else {
-		[self saveAutoLaunchCheckboxState:FALSE];
-	}
-    [self validateDetailsWindowControls];
-}
-
--(IBAction) monitorConnectionPrefButtonWasClicked: (id) sender
-{
-	if([sender state]) {
-		[self saveMonitorConnectionCheckboxState:TRUE];
-	} else {
-		[self saveMonitorConnectionCheckboxState:FALSE];
-	}
-    [self validateDetailsWindowControls];
-}
-
--(IBAction) onLaunchRadioButtonWasClicked: (id) sender
-{
-	if([[sender cellAtRow: 0 column: 0] state]) {
-		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
-	} else {
-		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
-	}
-    [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
-}
-
--(IBAction) onSystemStartRadioButtonWasClicked: (id) sender
-{
-	if([[sender cellAtRow: 0 column: 0] state]) {
-        // Warn user if .tblk and contains scripts that may not run if connecting when computer starts
-        NSString * basePath = [[self selectedConnection] configPath];
-        if (  [[basePath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * connectedPath      = [basePath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
-            NSString * reconnectingPath   = [basePath stringByAppendingPathComponent: @"Contents/Resources/reconnecting.sh"];
-            NSString * postDisconnectPath = [basePath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
-            if (   [gFileMgr fileExistsAtPath: connectedPath]
-                || [gFileMgr fileExistsAtPath: reconnectingPath]
-                || [gFileMgr fileExistsAtPath: postDisconnectPath]  ) {
-                int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
-                                                     NSLocalizedString(@"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?", @"Window text"),
-                                                     NSLocalizedString(@"Connect When Computer Starts", @"Button"),
-                                                     NSLocalizedString(@"Cancel", @"Button"),
-                                                     nil,
-                                                     @"skipWarningAboutOnComputerStartAndTblkScripts",
-                                                     NSLocalizedString(@"Do not ask again, always connect", @"Checkbox name"),
-                                                     nil);
-                if (  result == NSAlertAlternateReturn  ) {
-                    [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
-                    return;
-                }
-            }
-        }
-		[self saveOnSystemStartRadioButtonState: TRUE forConnection: [self selectedConnection]];
-	} else {
-		[self saveOnSystemStartRadioButtonState: FALSE forConnection: [self selectedConnection]];
-	}
-    [self performSelectorOnMainThread:@selector(fixWhenConnectingButtons) withObject:nil waitUntilDone:NO];
-}
-
-// We use this to get around a problem with our use of the "when Tunnelblick launches" and "when the computer starts" radio buttons.
-// If the user clicks the button but then cancels, OS X changes the state of the button _after_ our WasClicked handler. So
-// we set both buttons to the way they should be _after_ OS X makes that change.
--(void) fixWhenConnectingButtons
-{
-    VPNConnection * connection = [self selectedConnection];
-    if (  connection  ) {
-        NSString* key = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
-        BOOL preferenceValue = [gTbDefaults boolForKey: key];
-        [[onSystemStartRadioButton cellAtRow: 0 column: 0]  setState:   preferenceValue];
-        [[onLaunchRadioButton      cellAtRow: 0 column: 0]  setState: ! preferenceValue];
-        [self validateDetailsWindowControls];
-    }
-}
-
 -(void) hotKeySubmenuItemWasClicked: (NSMenuItem *) fKey
 {
     if (  fKey == hotKeySubmenuItemThatIsOn  ) {
@@ -4859,104 +3967,6 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return noErr;
 }
 
--(NSStatusItem *) statusItem
-{
-    return statusItem;
-}
-    
--(int) selectedModifyNameserverIndex
-{
-    return selectedModifyNameserverIndex;
-}
-
--(void) setSelectedModifyNameserverIndex: (int) newValue
-{
-    // We duplicate this code in validateDetailsWindowControls but without calling itself
-    if (  newValue != selectedModifyNameserverIndex  ) {
-        selectedModifyNameserverIndex = newValue;
-        [modifyNameserverPopUpButton selectItemAtIndex: newValue];
-        [self saveUseNameserverPopupButtonState: (unsigned) newValue];
-        [self validateDetailsWindowControls];   // The code in validateDetailsWindowControls DOES NOT do this
-    }
-}
-
--(NSString *) customRunOnConnectPath
-{
-    return customRunOnConnectPath;
-}
-
--(int) selectedLeftNavListIndex
-{
-    return selectedLeftNavListIndex;
-}
-
--(void) tableViewSelectionDidChange:(NSNotification *)notification
-{
-    [self performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
-}
-
--(void) selectedLeftNavListIndexChanged
-{
-    int n = [leftNavListView selectedRow];
-    [self setSelectedLeftNavListIndex: n];
-}
-
--(void) setSelectedLeftNavListIndex: (int) newValue
-{
-    if (  newValue != selectedLeftNavListIndex  ) {
-        
-        // Don't allow selection of a "folder" row, only of a "configuration" row
-        while (  [[leftNavDisplayNames objectAtIndex: newValue] length] == 0) {
-            ++newValue;
-        }
-        
-        selectedLeftNavListIndex = newValue;
-        [leftNavListView selectRowIndexes: [NSIndexSet indexSetWithIndex: newValue] byExtendingSelection: NO];
-        NSString * label = [[leftNavList objectAtIndex: newValue] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @" "]];
-        [[tabView tabViewItemAtIndex:0] setLabel: label];
-        
-        [[[self selectedLogView] textStorage] setDelegate: nil];
-        VPNConnection* newConnection = [self selectedConnection];
-        NSTextView* logView = [self selectedLogView];
-        [logView setEditable: NO];
-        [[logView layoutManager] replaceTextStorage: [newConnection logStorage]];
-        [logView scrollRangeToVisible: NSMakeRange([[logView string] length]-1, 0)];
-        [[logView textStorage] setDelegate: self];
-        [self setLogWindowTitle];
-        [self validateDetailsWindowControls];
-    }
-}
-
--(SUUpdater *) updater
-{
-    return [[updater retain] autorelease];
-}
-
--(NSArray *) connectionArray
-{
-    return [[connectionArray retain] autorelease];
-}
-
--(NSArray *) connectionsToRestoreOnUserActive
-{
-    return [[connectionsToRestoreOnUserActive retain] autorelease];
-}
-
--(NSMutableArray *) largeAnimImages
-{
-    return [[largeAnimImages retain] autorelease];
-}
-
--(NSImage *) largeConnectedImage
-{
-    return [[largeConnectedImage retain] autorelease];
-}
-
--(NSImage *) largeMainImage
-{
-    return [[largeMainImage retain] autorelease];
-}
-
 //*********************************************************************************************************
 //
 // StatusWindowController support
@@ -5007,6 +4017,56 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 // Getters and Setters
 //
 //*********************************************************************************************************
+
+-(NSStatusItem *) statusItem
+{
+    return statusItem;
+}
+
+-(NSTimer *) showDurationsTimer
+{
+    return showDurationsTimer;
+}
+
+-(LogWindowController *) logScreen
+{
+    return logScreen;
+}
+
+-(NSString *) customRunOnConnectPath
+{
+    return customRunOnConnectPath;
+}
+
+-(SUUpdater *) updater
+{
+    return [[updater retain] autorelease];
+}
+
+-(NSArray *) connectionArray
+{
+    return [[connectionArray retain] autorelease];
+}
+
+-(NSArray *) connectionsToRestoreOnUserActive
+{
+    return [[connectionsToRestoreOnUserActive retain] autorelease];
+}
+
+-(NSMutableArray *) largeAnimImages
+{
+    return [[largeAnimImages retain] autorelease];
+}
+
+-(NSImage *) largeConnectedImage
+{
+    return [[largeConnectedImage retain] autorelease];
+}
+
+-(NSImage *) largeMainImage
+{
+    return [[largeMainImage retain] autorelease];
+}
 
 -(NSArray *) animImages
 {

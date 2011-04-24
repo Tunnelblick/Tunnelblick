@@ -31,6 +31,7 @@
 #import "VPNConnection.h"
 #import "ConfigurationUpdater.h"
 
+@class LogWindowController;
 @class NetSocket;
 
 BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
@@ -48,25 +49,6 @@ BOOL needToCopyBundle(void);
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSTextStorageDelegate,NSWindowDelegate>
 {
-    IBOutlet id               onLaunchRadioButton;
-    IBOutlet id               onSystemStartRadioButton;
-    IBOutlet NSButton       * autoConnectCheckbox;
-    IBOutlet NSButton       * clearButton;
-    IBOutlet NSButton       * connectButton;
-    IBOutlet NSButton       * disconnectButton;
-    IBOutlet NSButton       * editButton;
-    IBOutlet NSWindow       * logWindow;
-    IBOutlet NSButton       * monitorConnnectionCheckbox;
-    IBOutlet NSButton       * shareButton;
-    IBOutlet NSTabView      * tabView;
-    IBOutlet NSPopUpButton  * modifyNameserverPopUpButton;
-    IBOutlet NSSplitView    * splitView;
-    IBOutlet NSView         * leftSplitView;
-    IBOutlet NSView         * rightSplitView;
-    IBOutlet NSTableView    * leftNavListView;
-    IBOutlet NSTableColumn  * leftNavTableColumn;
-
-    IBOutlet NSArrayController * modifyNameserverPopUpButtonArrayController;
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
@@ -86,7 +68,6 @@ BOOL needToCopyBundle(void);
     NSMenu                  * hotKeySubmenu;                //      Shortcut Key Submenu
     NSMenuItem              * hotKeySubmenuItem;            //      Shortcut Key Item in Options menu
     NSMenuItem              * addConfigurationItem;         //    "Add Configuration..." menu item
-
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
@@ -99,14 +80,14 @@ BOOL needToCopyBundle(void);
     NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the the Status Window
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
+    
+    LogWindowController     * logScreen;                    // Log window ("Details..." window)
 
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
     NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
 
     NSMutableDictionary     * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
-    
-    AuthorizationRef          myAuth;                       // Used to call installer
     
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
     
@@ -128,26 +109,7 @@ BOOL needToCopyBundle(void);
 
     ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
     
-    NSString                * oldSelectedConnectionName;    // The name of the selected connection (if any) before a making a private configuration public or vice-versa
-    //                                                         so the program can re-select. nil after re-selecting it
-    
-    NSMutableArray          * leftNavList;                  // Items in the left navigation list as displayed to the user
-    //                                                         Each item is a string with either
-    //                                                         a folder name (possibly indented) or
-    //                                                         a connection name (possibly indented)
-
-    NSMutableArray          * leftNavDisplayNames;          // A string for each item in leftNavList
-    //                                                         Each item is a string with either
-    //                                                         An empty string (corresponding to a folder name entry in leftNavList) or
-    //                                                         The full display name for the corresponding connection
-    
-    int                       selectedLeftNavListIndex;     // Index of the selected item in the left navigation list
-    
     BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
-    
-    BOOL                      logWindowIsOpen;              // Indicates if Details window is being displayed
-    
-    BOOL                      logWindowIsUsingTabs;         // Indicates Details window is using tabs (and not using left-navigation)
     
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
     
@@ -171,25 +133,11 @@ BOOL needToCopyBundle(void);
     UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
     NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use or nil if no hot key active
 
-    int                       selectedModifyNameserverIndex;// Holds index of the selected 'Set nameserver' option
-
     NSMutableArray          * customMenuScripts;            // Array of paths to the scripts for custom menu items
     int                       customMenuScriptIndex;        // Index used while building the customMenuScripts array
     NSString                * customRunOnLaunchPath;        // Path of a file to be executed before processing "connect when Tunnelblick launches" configurations
     NSString                * customRunOnConnectPath;       // Path of a file to be executed before making a connection
 }
-
-// Button and checkbox actions
--(IBAction)         monitorConnectionPrefButtonWasClicked:  (id)                sender;
--(IBAction)         autoConnectPrefButtonWasClicked:        (id)                sender;
--(IBAction)         onLaunchRadioButtonWasClicked:          (id)                sender;
--(IBAction)         onSystemStartRadioButtonWasClicked:     (id)                sender;
--(IBAction)         clearLogButtonWasClicked:               (id)                sender;
--(IBAction)         connectButtonWasClicked:                (id)                sender;
--(IBAction)         disconnectButtonWasClicked:             (id)                sender;
--(IBAction)         editConfigButtonWasClicked:             (id)                sender;
--(IBAction)         shareConfigButtonWasClicked:            (id)                sender;
--(IBAction)         addConfigurationWasClicked:             (id)                sender;
 
 // Menu actions
 -(IBAction)         checkForUpdates:                        (id)                sender;
@@ -225,7 +173,6 @@ BOOL needToCopyBundle(void);
 -(void)             setState:                               (NSString *)        newState;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
--(void)             validateWhenConnectingForConnection:    (VPNConnection *)   connection;
 -(void)             statusWindowController:                 (id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
                             forDisplayName:                 (NSString *)        theName;
@@ -241,11 +188,10 @@ BOOL needToCopyBundle(void);
 -(NSMutableArray *) largeAnimImages;
 -(NSImage *)        largeConnectedImage;
 -(NSImage *)        largeMainImage;
--(int)              selectedModifyNameserverIndex;
--(void)             setSelectedModifyNameserverIndex:       (int)               newValue;
+-(LogWindowController *) logScreen;
 -(NSString *)       customRunOnConnectPath;
--(int)              selectedLeftNavListIndex;
--(void)             setSelectedLeftNavListIndex:            (int)               newValue;
+-(NSTimer *)        showDurationsTimer;
+-(void)             startOrStopDurationsTimer;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
 

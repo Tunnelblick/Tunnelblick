@@ -148,6 +148,9 @@ typedef enum
 
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
 
+-(void)             startMonitoringLogFiles;
+-(void)             stopMonitoringLogFiles;
+
 -(NSString*)        state;
 
 -(void)             stopTryingToHookup;
