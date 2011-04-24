@@ -140,7 +140,7 @@ Versions which are NOT vulnerable:
  
  This menu item is not displayed:
   * If the 'doNotShowUseOriginalIconMenuItem' preference item exists and is true; or
-  * If Tunnelblick.app/Contents/Resources/IconSets/!TunnelBlick-black-white.TBMenuIcons does not exist; or
+  * If Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick-black-white.TBMenuIcons does not exist; or
   * If the 'menuIconSet' preference exists and contains anything other than '!TunnelBlick.TBMenuIcons' or '!TunnelBlick-black-white.TBMenuIcons'.
 
  * Displays "(Private)", "(Shared)", or "(Deployed)" after a configuration name only if more than one type of configuration is present.
