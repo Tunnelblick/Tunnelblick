@@ -759,7 +759,7 @@ Known Issues:
   * Animation improvements, including the ability to have "icon sets" (contributed by Raal Goff). Note: the user interface for this feature is not included yet
   * Fixed issue with "Set nameserver" and "Auto connect on launch" checkboxes being cleared on quit if the "Details…" window was never displayed
   * Fixed issue which caused disconnects when any file in ~/Library/openvpn was accessed (for example, by backup software). (Note that changing, adding, or deleting any configuration files will close all open connections)
-  * Fixed issue with failed authentication: now handled gracefully: allows cancel or retry. If credentials are stored in the KeyChain, also allows retry with new credentials (by deleting the old credentials before the retry)
+  * Fixed issue with failed authentication: now handled gracefully: allows cancel or retry. If credentials are stored in the Keychain, also allows retry with new credentials (by deleting the old credentials before the retry)
   * Fixed issue with multiple connections with same username; separate passwords are now kept for each username
   * Fixed issue in dialog about configuration files - the correct path is now shown: "~/Library" instead of "/Library"
   * Command-C, Command-X, Command-V (copy, cut, paste) and Command-A, Command-M, Command-W, and Command-Q (select all, minimize to the Dock, close window, and quit Tunnelblick) now work properly from the "Details…" window
