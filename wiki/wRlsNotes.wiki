@@ -11,7 +11,7 @@
 Bugs causing security vulnerabilities exist in several versions of Tunnelblick. All users of Tunnelblick are advised to update to the latest version. For more information on the vulnerabilities including instructions for updating, see the [vulnerability20110127FAQ 2011-01-27 Vulnerability FAQ] or [vulnerability20110112FAQ 2011-01-12 Vulnerability FAQ].
 
 Versions which are NOT vulnerable:
- 3.2 (all)
+ 3.2 (all)<br>
  3.1.3 and later<br>
  3.0.1 (created for those users who cannot upgrade to 3.1.1)<br>
  3.0b10 and earlier
@@ -140,8 +140,8 @@ Versions which are NOT vulnerable:
  
  This menu item is not displayed:
   * If the 'doNotShowUseOriginalIconMenuItem' preference item exists and is true; or
-  * If Tunnelblick.app/Contents/Resources/IconSets/TunnelBlick-black-white.TBMenuIcons does not exist; or
-  * If the 'menuIconSet' preference exists and contains anything other than 'TunnelBlick.TBMenuIcons' or 'TunnelBlick-black-white.TBMenuIcons'.
+  * If Tunnelblick.app/Contents/Resources/IconSets/!TunnelBlick-black-white.TBMenuIcons does not exist; or
+  * If the 'menuIconSet' preference exists and contains anything other than '!TunnelBlick.TBMenuIcons' or '!TunnelBlick-black-white.TBMenuIcons'.
 
  * Displays "(Private)", "(Shared)", or "(Deployed)" after a configuration name only if more than one type of configuration is present.
 
@@ -269,7 +269,7 @@ Versions which are NOT vulnerable:
 
  * Fixes a problem causing a connection restart when 'Set nameserver' is used, a DHCP renewal occurs, and there are no WINS settings.
 
- * Fixes issues when using OpenDirectory and the user's home directory is on a non-Mac platform.
+ * Fixes issues when using !OpenDirectory and the user's home directory is on a non-Mac platform.
 
 --------------------
 
@@ -803,7 +803,7 @@ Known Issues:
   * let buffered openvpn log messages appear in the GUI log
   * possible fix for the crash if password is mistyped when using username/password authentication
   * add version number to plist file
-  * don't restart connections on NetworkDidChange notification. fixes issue where existing connections would be reset when starting multiple simultaneous vpn connections.
+  * don't restart connections on !NetworkDidChange notification. fixes issue where existing connections would be reset when starting multiple simultaneous vpn connections.
   * always use --script-security 2 so users are allowed to supply custom up/down scripts. needed for OpenVPN 2.1
   * add missing example config file
   * properly escape special chars in username or password/passphrase before passing them over to the management interface. fixes issue where the password/passphrase was not accepted when it contained backslashes or " chars.
