@@ -32,11 +32,11 @@ Versions which are NOT vulnerable:
 
  * Allows the deletion of backups of the Deploy folder by installing a version of Tunnelblick.app which includes an empty /Contents/Resources/Deploy folder. (This allows a user to install a fresh un-Deployed Tunnelblick over a Deployed version.)
 
- * Moves LeaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
+ * Moves !LeaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
 
  * Adds translations of additional OpenVPN connection status.
 
- * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in NetSocket.m.
+ * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in !NetSocket.m.
 
  * Fixes a bug that sometimes caused unnecessary 'The change will take effect the next time you connect' messages.
 
