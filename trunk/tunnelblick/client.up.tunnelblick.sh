@@ -141,6 +141,9 @@ fi
 if [ -n "${STATIC_WINS_CONFIG}" ] ; then
 	readonly STATIC_WORKGROUP="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )")"
 fi
+if echo "${STATIC_WINS_CONFIG}" | grep -q "NetBIOSName" ; then
+	readonly STATIC_NETBIOSNAME="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )")"
+fi
 
 if [ ${#vDNS[*]} -eq 0 ] ; then
 	DYN_DNS="false"
@@ -249,6 +252,9 @@ fi
 if [ -z "${STATIC_WORKGROUP}" ] ; then
 	NO_WG="#"
 fi
+if [ -z "${STATIC_NETBIOSNAME}" ] ; then
+	NO_NB="#"
+fi
 if [ -z "${ALL_DNS}" ] ; then
 	AGG_DNS="#"
 fi
@@ -314,6 +320,7 @@ scutil <<- EOF
 
 	# Third, initialize the WINS map
 	d.init
+	${NO_NB}d.add NetBIOSName ${STATIC_NETBIOSNAME}
 	${NO_WINS}d.add WINSAddresses * ${vWINS[*]}
 	${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	set State:/Network/Service/${PSID}/SMB
@@ -328,6 +335,7 @@ scutil <<- EOF
 	set State:/Network/OpenVPN/DNS
 
 	d.init
+	${NO_NB}d.add NetBIOSName ${STATIC_NETBIOSNAME}
 	${AGG_WINS}d.add WINSAddresses * ${ALL_WINS}
 	${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 	set State:/Network/OpenVPN/SMB
