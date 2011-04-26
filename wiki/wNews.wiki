@@ -8,7 +8,7 @@
 2011-04-26: *Tunnelblick 3.2beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * No longer uses the down-root plugin if there are no 'user' or 'group' options in the configuration file. (The 'XXX-useDownRootPlugin' preference is removed in this situation.)
  * 'Monitor connection' is more tolerant of unimportant changes and may be customized.
- * Improvements to logging make it much less CPU intensive, allowing higher 'verb' levels without performance degradation.
+ * Higher 'verb' levels may be used without performance degradation.
  * Fixes several bugs.
  See the [wRlsNotes Release Notes] for details.
  
