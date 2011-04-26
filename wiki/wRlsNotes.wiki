@@ -30,6 +30,7 @@ Versions which are NOT vulnerable:
   * Allows scutil's output keys to be in any order.
   * Only monitors DomainName, ServerAddresses, and SearchDomains for DNS and NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
   * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the DomainName, ServerAddresses, SearchDomains, NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore all WINS/SMB changes, use '-ingw' (without the quotation marks).
+  * New 'Set nameserver (3.1)' setting allows use of older 'Set nameserver' scripts.
 
  * Higher 'verb' levels may be used without performance degradation:
   * Tunnelblick doesn't process log files until you view the log in the Details… window. So you can capture the log using high verb levels, disconnect, and then view the last 10,000 lines (approximately) of the log in Tunnelblick. If you need access to the entire log, you can find it in the /Library/Application Support/Tunnelblick/Logs folder. The log is overwritten each time you connect, and is deleted when Tunnelblick exits.
