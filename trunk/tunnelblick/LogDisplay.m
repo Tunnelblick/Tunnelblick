@@ -135,7 +135,6 @@ extern NSFileManager        * gFileMgr;
 {
     [logStorage deleteCharactersInRange: NSMakeRange(0, [logStorage length])];
     [self addToLog: [[NSApp delegate] openVPNLogHeader]];
-    nLinesBeingDisplayed = 1;
     
     // Pretend that the line we just displayed came from OpenVPN so we will insert _after_ it
     [self setLastOpenvpnEntryTime: [self lastScriptEntryTime]];
@@ -158,7 +157,7 @@ extern NSFileManager        * gFileMgr;
     scriptLogPosition = 0;
     
     // The OpenVPN log may be huge (verb level 9 can generates several megabyte per second)
-    //  so we only scan the last part -- we assume 100 bytes per line, so we scan only the last 100 * MAX_LOG_DISPLAY_LINES bytes
+    //  so we only scan the last part -- only the last MAX_LOG_DISPLAY_SIZE bytes
     NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: [self openvpnLogPath] traverseLink: NO];
     NSNumber * fileSizeAsNumber;
     unsigned long long fileSize;
@@ -169,7 +168,7 @@ extern NSFileManager        * gFileMgr;
     }
     
     BOOL skipToStartOfLineInOpenvpnLog = FALSE;
-    unsigned long long amountToExamine = 100ull * MAX_LOG_DISPLAY_LINES;
+    NSUInteger amountToExamine = MAX_LOG_DISPLAY_SIZE;
     if (  fileSize > amountToExamine  ) {
         openvpnLogPosition = fileSize - amountToExamine;
         skipToStartOfLineInOpenvpnLog = TRUE;
@@ -251,31 +250,12 @@ extern NSFileManager        * gFileMgr;
     }
     
     // Now insert the log entries made by Tunnelblick that were saved earlier
-    // We do this backwards (last line first) so they are inserted in the proper order
     if (  [oldLogStorage length] != 0  ) {
-        NSRange rSubstring = NSMakeRange(0, [oldLogStorage length] - 1);
-        NSRange rLf;
-        while (  NSNotFound != (rLf = [oldLogStorage rangeOfString: @"\n" options: NSBackwardsSearch range: rSubstring]).location  ) {
-            
-            if (  rLf.location == rSubstring.length  ) {
-                rSubstring.length--; // empty line -- ignore it
-            } else {
-                sLine = [oldLogStorage substringWithRange: NSMakeRange(rLf.location +1, rSubstring.length - rLf.location)];
-                [self insertLine: sLine beforeTunnelblickEntries: YES beforeOpenVPNEntries: YES fromOpenVPNLog: NO];
-                rSubstring.length = rLf.location;
-            }
-        }
-        
-        // Insert first line (No LF before it)
-        rLf = [oldLogStorage rangeOfString: @"\n"];
-        if (  rLf.length == 0) {
-            sLine = [oldLogStorage stringByAppendingString: @"\n"];
-        } else {
-            sLine = [oldLogStorage substringWithRange: NSMakeRange(0, rLf.location + 1)];
-        }
-        [self insertLine: sLine beforeTunnelblickEntries: YES beforeOpenVPNEntries: YES fromOpenVPNLog: NO];
+        NSAttributedString * aString = [[NSAttributedString alloc] initWithString: oldLogStorage];
+        [logStorage insertAttributedString: aString atIndex: 0];
+        [aString release];
     }
-    
+
     [oldLogStorage release];
     
     [[[NSApp delegate] logScreen] indicateNotWaiting];
@@ -451,23 +431,26 @@ extern NSFileManager        * gFileMgr;
 // We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
 -(void) didAddLineToLogDisplay
 {
-    nLinesBeingDisplayed++;
-    if (  nLinesBeingDisplayed > MAX_LOG_DISPLAY_LINES  ) {
-        // Remove 10% of the lines in the display
+    NSUInteger currentLength = [logStorage length];
+    if (  currentLength > MAX_LOG_DISPLAY_SIZE  ) {
+        // Remove 10% of the contents of the display
+        NSUInteger charsToRemove = currentLength / 10;
+        if (  charsToRemove < 1000  ) {
+            charsToRemove = 1000;
+        }
+        // Find first LF after that, and remove up to and including that LF
         NSString * text = [logStorage string];
-        NSRange rSubstring = NSMakeRange(0, [text length]);
-        unsigned nLinesToRemove = MAX_LOG_DISPLAY_LINES / 10;
-        if (  nLinesToRemove < 1  ) {
-            nLinesToRemove = 1;
+        NSRange rLf = [text rangeOfString: @"\n" options: 0 range: NSMakeRange(charsToRemove, [text length] - charsToRemove)];
+        if (  NSNotFound == rLf.location  ) {
+            // Or first LF before that
+            rLf = [text rangeOfString: @"\n" options: NSBackwardsSearch range: NSMakeRange(charsToRemove, [text length] - charsToRemove)];
+            if (  NSNotFound == rLf.location  ) {
+                // Or just remove that number of characters
+                rLf.location = charsToRemove;
+            }
         }
-        int i;
-        for (  i=0; i<nLinesToRemove; i++  ) {
-            NSRange rNextLF  = [text rangeOfString: @"\n" options: 0 range: rSubstring];
-            rSubstring.location = rNextLF.location + 1;
-            rSubstring.length   = [text length] - rSubstring.location;
-        }
-        [logStorage deleteCharactersInRange: NSMakeRange(0, rSubstring.location)];
-        nLinesBeingDisplayed = nLinesBeingDisplayed - nLinesToRemove;
+        
+        [logStorage deleteCharactersInRange: NSMakeRange(0, rLf.location +1)];
     }
 }
 

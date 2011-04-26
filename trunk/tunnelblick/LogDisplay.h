@@ -36,8 +36,6 @@
     unsigned long long openvpnLogPosition;          // NSFileHandle offsetInFile we have read up to
     unsigned long long scriptLogPosition;
     
-    unsigned        nLinesBeingDisplayed;
-    
     NSString      * lastOpenvpnEntryTime;           // Date/time of most-recently-inserted entry from OpenVPN log file
     NSString      * lastScriptEntryTime;            // Date/time of most-recently-inserted entry from script log file
     

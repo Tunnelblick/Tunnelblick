@@ -58,8 +58,8 @@
 
 
 //*************************************************************************************************
-// When more than this many lines are in the log display, lines are discarded from the top
-#define MAX_LOG_DISPLAY_LINES 10000
+// When more than this many bytes are in the log display, lines are discarded from the top
+#define MAX_LOG_DISPLAY_SIZE 1000000
 
 
 //*************************************************************************************************
