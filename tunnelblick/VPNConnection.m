@@ -790,6 +790,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     isHookedup = FALSE;
     
     [self disconnectFromManagmentSocket];
+
+    [self clearLog];
     
 	NSArray *arguments = [self argumentsForOpenvpnstartForNow: YES];
     if (  arguments == nil  ) {
@@ -926,7 +928,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart message: %@", @"OpenVPN Log message"), openvpnstartOutput]];
             }
         }
-        [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
+//        [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
         [errPipe release];
         [self setState: @"SLEEP"];
         [self showStatusWindow];
