@@ -5,12 +5,22 @@
 
 --------------------
 
+2011-04-26: *Tunnelblick 3.2beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * No longer uses the down-root plugin if there are no 'user' or 'group' options in the configuration file. (The 'XXX-useDownRootPlugin' preference is removed in this situation.)
+ * 'Monitor connection' is more tolerant of unimportant changes and may be customized.
+ * Improvements to logging make it much less CPU intensive, allowing higher 'verb' levels without performance degradation.
+ * Fixes several bugs.
+ See the [wRlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-04-06: *Tunnelblick 3.2beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Allows copy/paste of usernames, passwords, and passphrases in the VPN login window. (For security reasons, passwords and passphrases may only be pasted.)
  * Fixes a bug that sometimes failed to alert the user when a VPN username/password or passphrase failed to be authenticated.
  * Allows Tunnelblick VPN Configurations ('.tblk' packages) to be uninstalled.
  * Includes several other enhancements and bug fixes.
  See the [wRlsNotes Release Notes] for details.
+
 --------------------
 
 2011-04-03: *Tunnelblick 3.1.7 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
