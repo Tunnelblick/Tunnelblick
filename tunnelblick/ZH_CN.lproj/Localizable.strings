@@ -22,9 +22,6 @@
 /* Button */
 "Cancel" = "取消"; 
 
-/* Button */
-"Clear log" = "清除日志档"; 
-
 /* NEEDS TRANSLATION *//* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 

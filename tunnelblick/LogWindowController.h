@@ -42,7 +42,6 @@
     IBOutlet id               onSystemStartRadioButton;
     IBOutlet NSButton       * autoConnectCheckbox;
     IBOutlet NSButton       * monitorConnnectionCheckbox;
-    IBOutlet NSButton       * clearButton;
     IBOutlet NSButton       * editButton;
     IBOutlet NSButton       * shareButton;
     IBOutlet NSButton       * connectButton;
@@ -77,7 +76,6 @@
 
 // Button and checkbox actions
 -(IBAction)         autoConnectPrefButtonWasClicked:        (id)                sender;
--(IBAction)         clearLogButtonWasClicked:               (id)                sender;
 -(IBAction)         connectButtonWasClicked:                (id)                sender;
 -(IBAction)         disconnectButtonWasClicked:             (id)                sender;
 -(IBAction)         editConfigButtonWasClicked:             (id)                sender;

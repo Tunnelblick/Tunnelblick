@@ -22,9 +22,6 @@
 /* Button */
 "Cancel" = "Cancelar";
 
-/* Button */
-"Clear log" = "Limpiar bitácoras";
-
 /* NEEDS TRANSLATION *//* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 
