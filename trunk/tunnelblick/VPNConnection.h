@@ -79,8 +79,8 @@ typedef enum
     BOOL            initialHookupTry;   // True iff this is the initial hookup try (not as a result of a connection attempt)
     BOOL            isHookedup;         // True iff this connection is hooked up to an existing instance of OpenVPN
     BOOL            areDisconnecting;   // True iff the we are in the process of disconnecting
-    BOOL            connectedWithTap;   // True iff last connection was made loading our tap kext
-    BOOL            connectedWithTun;   // True iff last connection was made loading our tun kext
+    BOOL            loadedOurTap;       // True iff last connection loaded our tap kext
+    BOOL            loadedOurTun;       // True iff last connection loaded our tun kext
     BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
     BOOL            showingStatusWindow; // True iff displaying statusScreen
 }

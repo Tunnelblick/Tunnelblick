@@ -147,8 +147,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         isHookedup = FALSE;
         tunOrTap = nil;
         areDisconnecting = FALSE;
-        connectedWithTap = FALSE;
-        connectedWithTun = FALSE;
+        loadedOurTap = FALSE;
+        loadedOurTun = FALSE;
         logFilesMayExist = FALSE;
         authFailed       = FALSE;
         credentialsAskedFor = FALSE;
@@ -191,8 +191,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     tryingToHookup   = FALSE;
     isHookedup       = FALSE;
     areDisconnecting = FALSE;
-    connectedWithTap = FALSE;
-    connectedWithTun = FALSE;
+    loadedOurTap = FALSE;
+    loadedOurTun = FALSE;
     logFilesMayExist = FALSE;
 }
 
@@ -303,27 +303,22 @@ extern NSString * lastPartOfPath(NSString * thePath);
     NSString * keyNoMonitor = [displayName stringByAppendingString: @"-notMonitoringConnection"];
     prefsChangedOK = prefsChangedOK && [self setPreference: prefNoMonitor key: keyNoMonitor];
     
-    BOOL prefRestoreDNS  = ! (bitMask & RESTORE_ON_DNS_RESET)  == RESTORE_ON_DNS_RESET;
+    BOOL prefRestoreDNS  = ! (bitMask & OPENVPNSTART_RESTORE_ON_DNS_RESET)  == OPENVPNSTART_RESTORE_ON_DNS_RESET;
     NSString * keyRestoreDNS = [displayName stringByAppendingString: @"-doNotRestoreOnDnsReset"];
     prefsChangedOK = prefsChangedOK && [self setPreference: prefRestoreDNS key: keyRestoreDNS];
     
-    BOOL prefRestoreWINS = ! (bitMask & RESTORE_ON_WINS_RESET) == RESTORE_ON_WINS_RESET;
+    BOOL prefRestoreWINS = ! (bitMask & OPENVPNSTART_RESTORE_ON_WINS_RESET) == OPENVPNSTART_RESTORE_ON_WINS_RESET;
     NSString * keyRestoreWINS = [displayName stringByAppendingString: @"-doNotRestoreOnWinsReset"];
     prefsChangedOK = prefsChangedOK && [self setPreference: prefRestoreWINS key: keyRestoreWINS];
     
-    BOOL prefUseTap = (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT;
-    BOOL prefUseTun = (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT;
-    if (  prefUseTap && prefUseTun  ) {
-        NSLog(@"Both -loadTapKext and -loadTunKext are set in filename of log for %@", [self displayName]);
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: self];
+    if ( loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT  ) {
+        NSString * keyLoadTun = [displayName stringByAppendingString: @"-loadTunKext"];
+        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyLoadTun];
     }
-    NSString * keyUseTap = [displayName stringByAppendingString: @"-loadTapKext"];
-    NSString * keyUseTun = [displayName stringByAppendingString: @"-loadTunKext"];
-    if (  prefUseTap ) {
-        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyUseTun];
-    } else {
-        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyUseTap];
+
+    if (  loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT ) {
+        NSString * keyLoadTap = [displayName stringByAppendingString: @"-loadTapKext"];
+        prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyLoadTap];
     }
     
     NSString * keyAutoConnect = [displayName stringByAppendingString: @"autoConnect"];
@@ -342,18 +337,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     
     // Keep track of the number of tun and tap kexts that openvpnstart loaded
-    if (  prefUseTap  ) {
+    if (  loadedOurTap  ) {
         [[NSApp delegate] incrementTapCount];
-        connectedWithTap = TRUE;
-    } else {
-        connectedWithTap = FALSE;
     }
     
-    if (  prefUseTun ) {
+    if (  loadedOurTun ) {
         [[NSApp delegate] incrementTunCount];
-        connectedWithTun = TRUE;
-    } else {
-        connectedWithTun = FALSE;
     }
 }
 
@@ -865,18 +854,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
                      [escapedArguments componentsJoinedByString: @" "]]];
     
     unsigned bitMask = [[arguments objectAtIndex: 7] intValue];
-    if (  (bitMask & OUR_TAP_KEXT) == OUR_TAP_KEXT ) {
+    if (  loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT  ) {
         [[NSApp delegate] incrementTapCount];
-        connectedWithTap = TRUE;
-    } else {
-        connectedWithTap = FALSE;
     }
     
-    if (  (bitMask & OUR_TUN_KEXT) == OUR_TUN_KEXT ) {
+    if (  loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT ) {
         [[NSApp delegate] incrementTunCount];
-        connectedWithTun = TRUE;
-    } else {
-        connectedWithTun = FALSE;
     }
     
 	[task setArguments:arguments];
@@ -961,7 +944,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     // Parse configuration file to catch "user" or "group" options and get tun/tap key
     if (  ! tunOrTap  ) {
         tunOrTap = [[[ConfigurationManager defaultManager] parseConfigurationPath: configPath forConnection: self] copy];
-        // tunOrTap == nil means couldn't find 'tun' or 'tap', which is OK and we continue, but 'Cancel' means we cancel whatever we're doing
+        // tunOrTap == 'Cancel' means we cancel whatever we're doing
         if (  [tunOrTap isEqualToString: @"Cancel"]  ) {
             [tunOrTap release];
             tunOrTap = nil;
@@ -1022,13 +1005,17 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
 
     unsigned int bitMask = 0;
+    if (  [tunOrTap isEqualToString: @"tap"]  ) {
+        bitMask = bitMask | OPENVPNSTART_USE_TAP;
+    }
+
     NSString * noTapKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTapKext"];
     NSString * yesTapKextKey = [[self displayName] stringByAppendingString: @"-loadTapKext"];
     if (  ! [gTbDefaults boolForKey: noTapKextKey]  ) {
         if (   ( ! tunOrTap )
             || [tunOrTap isEqualToString: @"tap"]
             || [gTbDefaults boolForKey: yesTapKextKey]  ) {
-            bitMask = bitMask | OUR_TAP_KEXT;
+            bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
         }
     }
     
@@ -1038,12 +1025,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if (   ( ! tunOrTap )
             || [tunOrTap isEqualToString: @"tun"]
             || [gTbDefaults boolForKey: yesTunKextKey]  ) {
-            bitMask = bitMask | OUR_TUN_KEXT;
+            bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
         }
     }
     
-    [self setBit: RESTORE_ON_WINS_RESET  inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"   inverted: YES];
-    [self setBit: RESTORE_ON_DNS_RESET   inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"    inverted: YES];
+    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET  inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"   inverted: YES];
+    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET   inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"    inverted: YES];
     
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     
@@ -1313,13 +1300,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [[NSApp delegate] removeConnection:self];
     
     // Unload tun/tap if not used by any other processes
-    if (  connectedWithTap  ) {
+    if (  loadedOurTap  ) {
         [[NSApp delegate] decrementTapCount];
-        connectedWithTap = FALSE;
+        loadedOurTap = FALSE;
     }
-    if (  connectedWithTun  ) {
+    if (  loadedOurTun  ) {
         [[NSApp delegate] decrementTunCount];
-        connectedWithTun = FALSE;
+        loadedOurTun = FALSE;
     }
     [[NSApp delegate] unloadKexts];
     

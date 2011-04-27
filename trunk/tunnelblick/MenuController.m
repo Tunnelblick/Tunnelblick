@@ -1996,15 +1996,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // Unloads our loaded tun/tap kexts if tunCount/tapCount is zero.
 -(void) unloadKexts
 {
-    unsigned bitMask = [self getLoadedKextsMask] & ( ~ (FOO_TAP_KEXT | FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
+    unsigned bitMask = [self getLoadedKextsMask] & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
     
     if (  bitMask != 0  ) {
         if (  tapCount != 0  ) {
-            bitMask = bitMask & ( ~OUR_TAP_KEXT);
+            bitMask = bitMask & ( ~OPENVPNSTART_OUR_TAP_KEXT);
         }
         
         if (  tunCount != 0  ) {
-            bitMask = bitMask & ( ~OUR_TUN_KEXT);
+            bitMask = bitMask & ( ~OPENVPNSTART_OUR_TUN_KEXT);
         }
         
         if (  bitMask != 0  ) {
@@ -2033,14 +2033,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
         [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
         [tempDir release];
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
     if (  ! kextOutputHandle  ) {
         fprintf(stderr, "Warning: Unable to create temporary output file for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
         [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
         [tempDir release];
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSString * kextstatPath = @"/usr/sbin/kextstat";
@@ -2062,7 +2062,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     OSStatus status = [task terminationStatus];
     if (  status != EXIT_SUCCESS  ) {
         fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSData * data = [gFileMgr contentsAtPath: kextOutputPath];
@@ -2075,16 +2075,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     unsigned bitMask = 0;
     
     if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
-        bitMask = bitMask | FOO_TAP_KEXT;
+        bitMask = bitMask | OPENVPNSTART_FOO_TAP_KEXT;
     }
     if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
-        bitMask = bitMask | FOO_TUN_KEXT;
+        bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
     }
     if (  [string rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
-        bitMask = bitMask | OUR_TAP_KEXT;
+        bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
     }
     if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
-        bitMask = bitMask | OUR_TUN_KEXT;
+        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
     return bitMask;
