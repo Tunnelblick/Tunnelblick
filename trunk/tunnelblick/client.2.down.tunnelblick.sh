@@ -126,15 +126,6 @@ fi
 CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
 SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
 
-# Do something only if the server pushed something
-if [ "$foreign_option_1" == "" ]; then
-    echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: No network configuration changes need to be made" >> "${SCRIPT_LOG_FILE}"
-    if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-        echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.up.tunnelblick.sh: Will NOT monitor for other network configuration changes" >> "${SCRIPT_LOG_FILE}"
-    fi
-	exit 0
-fi
-
 trim() {
 	echo ${@}
 }

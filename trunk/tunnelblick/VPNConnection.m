@@ -1335,6 +1335,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
+    [[NSApp delegate] updateNavigationLabels];
+    
     [self flushDnsCache];
 
 }
@@ -1428,23 +1430,25 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self hasDisconnected];                     // Sets lastState and does processing only once
     } else {
         
-        [self setState: newState];
-        
-        if([newState isEqualToString: @"RECONNECTING"]) {
-            [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
-            
-        } else if ([newState isEqualToString: @"CONNECTED"]) {
+        if ([newState isEqualToString: @"CONNECTED"]) {
             NSDate *date; 
             if (  dateTime) {
                 date = [NSCalendarDate dateWithTimeIntervalSince1970: [dateTime intValue]];
             } else {
                 date = [[[NSDate alloc] init] autorelease];
             }
+            [self setConnectedSinceDate: date];            
+            [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
+        }
+        
+        [self setState: newState];
+        
+        if([newState isEqualToString: @"RECONNECTING"]) {
+            [managementSocket writeString: @"hold release\r\n" encoding: NSASCIIStringEncoding];
             
+        } else if ([newState isEqualToString: @"CONNECTED"]) {
             [[NSApp delegate] addConnection:self];
-            [self setConnectedSinceDate: date];
             [self flushDnsCache];
-            
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         }
     }
