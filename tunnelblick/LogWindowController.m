@@ -480,8 +480,14 @@ extern AuthorizationRef       gAuthorization;
         [logWindow makeKeyAndOrderFront: self];
         [NSApp activateIgnoringOtherApps:YES];
         logWindowIsOpen = TRUE;
+        
+        if (  ! [[NSApp delegate] showDurationsTimer]  ) {  // Start the timer used to update the duration displays
+            [[NSApp delegate] startOrStopDurationsTimer];
+        }
+        
         return;
     }
+    
     NSArray * allConfigsSorted = [[[[NSApp delegate] myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	NSEnumerator* e = [allConfigsSorted objectEnumerator];
 	NSTabViewItem* initialItem;
@@ -757,10 +763,8 @@ extern AuthorizationRef       gAuthorization;
 
     if ( [n object] == logWindow ) {
         // Stop and release the timer used to update the duration displays
-        NSTimer * timer = [[NSApp delegate] showDurationsTimer];
-        if (  timer != nil  ) {
-            [timer invalidate];
-            timer = nil;
+        if (  [[NSApp delegate] showDurationsTimer]  ) {
+            [[NSApp delegate] startOrStopDurationsTimer];
         }
         
         // Save the window's size and position in the preferences and save the TB version that saved them, BUT ONLY IF anything has changed
