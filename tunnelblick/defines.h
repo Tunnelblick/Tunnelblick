@@ -36,14 +36,15 @@
 //*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
 // For openvpn's start, loadkexts, and unloadkexts sub-commands:
-#define OUR_TUN_KEXT     1
-#define OUR_TAP_KEXT     2
+#define OPENVPNSTART_OUR_TUN_KEXT           1
+#define OPENVPNSTART_OUR_TAP_KEXT           2
 // For openvpn's  start and unloadkexts sub-commands:
-#define FOO_TUN_KEXT     4
-#define FOO_TAP_KEXT     8
+#define OPENVPNSTART_FOO_TUN_KEXT           4
+#define OPENVPNSTART_FOO_TAP_KEXT           8
 // For openvpn's  start sub-command
-#define RESTORE_ON_DNS_RESET     16
-#define RESTORE_ON_WINS_RESET    32
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET  16
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET 32
+#define OPENVPNSTART_USE_TAP               64
 
 
 //*************************************************************************************************

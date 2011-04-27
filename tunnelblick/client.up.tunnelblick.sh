@@ -292,11 +292,11 @@ scutil <<- EOF
 	d.add PID # ${PPID}
 	d.add Service ${PSID}
     d.add LeaseWatcherPlistPath "${LEASEWATCHER_PLIST_PATH}"
-    d.add ScriptLogFile "${SCRIPT_LOG_FILE}"
-    d.add MonitorNetwork "${ARG_MONITOR_NETWORK_CONFIGURATION}"
-    d.add RestoreOnDNSReset   "${ARG_RESTORE_ON_DNS_RESET}"
-    d.add RestoreOnWINSReset  "${ARG_RESTORE_ON_WINS_RESET}"
-    d.add IgnoreOptionFlags  "${ARG_IGNORE_OPTION_FLAGS}"
+    d.add ScriptLogFile         "${SCRIPT_LOG_FILE}"
+    d.add MonitorNetwork        "${ARG_MONITOR_NETWORK_CONFIGURATION}"
+    d.add RestoreOnDNSReset     "${ARG_RESTORE_ON_DNS_RESET}"
+    d.add RestoreOnWINSReset    "${ARG_RESTORE_ON_WINS_RESET}"
+    d.add IgnoreOptionFlags     "${ARG_IGNORE_OPTION_FLAGS}"
 	set State:/Network/OpenVPN
 
 	# First, back up the device's current DNS and WINS configurations

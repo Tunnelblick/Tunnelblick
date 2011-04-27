@@ -295,6 +295,7 @@ int main(int argc, char* argv[])
                 "                            bit 3 is 1 to unload foo.tap\n"
                 "                            bit 4 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
                 "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
+                "                            bit 6 is 1 to indicate a TAP connection is being made; 0 to indicate a TUN connection is being made\n"
                 "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
                 
                 "leasewatchOptions is a string containing characters indicating options for leasewatch.\n"
@@ -613,16 +614,15 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             [scriptOptions appendString: @" -m"];
         }
         
-        if (  (bitMask & RESTORE_ON_WINS_RESET) != 0  ) {
+        if (  (bitMask & OPENVPNSTART_RESTORE_ON_WINS_RESET) != 0  ) {
             [scriptOptions appendString: @" -w"];
         }
 
-        if (  (bitMask & RESTORE_ON_DNS_RESET) != 0  ) {
+        if (  (bitMask & OPENVPNSTART_RESTORE_ON_DNS_RESET) != 0  ) {
             [scriptOptions appendString: @" -d"];
         }
         
-        if (   ((bitMask & OUR_TAP_KEXT) != 0)
-        	&& ((bitMask & OUR_TUN_KEXT) == 0)  ) {
+        if (  (bitMask & OPENVPNSTART_USE_TAP) != 0  ) {
             [scriptOptions appendString: @" -a"];   // TAP only
         }
         
@@ -703,14 +703,14 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     unsigned unloadMask  = 0;
     unsigned loadedKexts = getLoadedKextsMask();
 
-    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
-        if (  (loadedKexts & FOO_TAP_KEXT) != 0  ) {
-            unloadMask = FOO_TAP_KEXT;
+    if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
+        if (  (loadedKexts & OPENVPNSTART_FOO_TAP_KEXT) != 0  ) {
+            unloadMask = OPENVPNSTART_FOO_TAP_KEXT;
         }
     }
-    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
-        if (  (loadedKexts & FOO_TUN_KEXT) != 0  ) {
-            unloadMask = unloadMask | FOO_TUN_KEXT;
+    if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
+        if (  (loadedKexts & OPENVPNSTART_FOO_TUN_KEXT) != 0  ) {
+            unloadMask = unloadMask | OPENVPNSTART_FOO_TUN_KEXT;
         }
     }
     if (  unloadMask != 0  ) {
@@ -718,12 +718,12 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     }
     
     // Load the new net.tunnelblick.tun/tap if bitMask says to and they aren't already loaded
-    unsigned loadMask = bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT);
-    if (  (loadedKexts & OUR_TAP_KEXT) != 0   ) {
-        loadMask = loadMask & ( ~ OUR_TAP_KEXT );
+    unsigned loadMask = bitMask & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT);
+    if (  (loadedKexts & OPENVPNSTART_OUR_TAP_KEXT) != 0   ) {
+        loadMask = loadMask & ( ~ OPENVPNSTART_OUR_TAP_KEXT );
     }
-    if (  (loadedKexts & OUR_TUN_KEXT) != 0  ) {
-        loadMask = loadMask & ( ~ OUR_TUN_KEXT );
+    if (  (loadedKexts & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
+        loadMask = loadMask & ( ~ OPENVPNSTART_OUR_TUN_KEXT );
     }
     if (  loadMask != 0  ) {
         loadKexts(loadMask);
@@ -1093,7 +1093,7 @@ unsigned getLoadedKextsMask(void)
     NSString * tempDir = newTemporaryDirectoryPath();
     if (  tempDir == nil  ) {
         fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSString * kextOutputPath = [tempDir stringByAppendingPathComponent: @"Tunnelblick-kextstat-output.txt"];
@@ -1101,7 +1101,7 @@ unsigned getLoadedKextsMask(void)
         fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
         [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
         [tempDir release];
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
@@ -1109,7 +1109,7 @@ unsigned getLoadedKextsMask(void)
         fprintf(stderr, "Warning: Unable to create temporary output file for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
         [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
         [tempDir release];
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSString * kextstatPath = @"/usr/sbin/kextstat";
@@ -1131,7 +1131,7 @@ unsigned getLoadedKextsMask(void)
     OSStatus status = [task terminationStatus];
     if (  status != EXIT_SUCCESS  ) {
         fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        return (FOO_TAP_KEXT | FOO_TUN_KEXT);
+        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSData * data = [gFileMgr contentsAtPath: kextOutputPath];
@@ -1143,16 +1143,16 @@ unsigned getLoadedKextsMask(void)
     unsigned bitMask = 0;
     
     if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
-        bitMask = bitMask | FOO_TAP_KEXT;
+        bitMask = bitMask | OPENVPNSTART_FOO_TAP_KEXT;
     }
     if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
-        bitMask = bitMask | FOO_TUN_KEXT;
+        bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
     }
     if (  [string rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
-        bitMask = bitMask | OUR_TAP_KEXT;
+        bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
     }
     if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
-        bitMask = bitMask | OUR_TUN_KEXT;
+        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
     }
     
     return bitMask;
@@ -1196,16 +1196,16 @@ NSString * newTemporaryDirectoryPath(void)
 //Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 void loadKexts(unsigned int bitMask)
 {
-    if (  ( bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT) ) == 0  ) {
+    if (  ( bitMask & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT) ) == 0  ) {
         return;
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
     
-    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
+    if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tap.kext"]];
     }
-    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
+    if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
         [arguments addObject: [execPath stringByAppendingPathComponent: @"tun.kext"]];
     }
     
@@ -1241,7 +1241,7 @@ void loadKexts(unsigned int bitMask)
 // We ignore errors because this is a non-critical function, and the unloading fails if a kext is in use
 void unloadKexts(unsigned int bitMask)
 {
-    if (  ( bitMask & (OUR_TAP_KEXT | OUR_TUN_KEXT | FOO_TAP_KEXT | FOO_TUN_KEXT) ) == 0  ) {
+    if (  ( bitMask & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT | OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT) ) == 0  ) {
         return;
     }
     
@@ -1249,16 +1249,16 @@ void unloadKexts(unsigned int bitMask)
     
     [arguments addObject: @"-q"];
     
-    if (  (bitMask & OUR_TAP_KEXT) != 0  ) {
+    if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tap", nil]];
     }
-    if (  (bitMask & OUR_TUN_KEXT) != 0  ) {
+    if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"net.tunnelblick.tun", nil]];
     }
-    if (  (bitMask & FOO_TAP_KEXT) != 0  ) {
+    if (  (bitMask & OPENVPNSTART_FOO_TAP_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tap", nil]];
     }
-    if (  (bitMask & FOO_TUN_KEXT) != 0  ) {
+    if (  (bitMask & OPENVPNSTART_FOO_TUN_KEXT) != 0  ) {
         [arguments addObjectsFromArray: [NSArray arrayWithObjects: @"-b", @"foo.tun", nil]];
     }
     
