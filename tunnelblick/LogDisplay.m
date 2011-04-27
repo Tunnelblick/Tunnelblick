@@ -59,6 +59,9 @@ extern NSFileManager        * gFileMgr;
 -(void)         openvpnLogChanged;
 -(void)         scriptLogChanged;
 
+-(NSString *)   nextLineInTunnelblickString: (NSString * *)     stringPtr
+                               fromPosition: (unsigned *)       positionPtr;
+
 -(NSString *)   nextLineInScriptString: (NSString * *)          stringPtr
                     fromPosition:       (unsigned *)            positionPtr;
 
@@ -200,14 +203,15 @@ extern NSFileManager        * gFileMgr;
     
     // Save, then clear, the current contents of the log, which consists of messages from Tunnelblick (as opposed to
     // messages from the script log or OpenVPN log)
-    NSString * oldLogStorage = [[logStorage string] copy];
+    NSString * tunnelblickString = [[logStorage string] copy];
     [logStorage deleteCharactersInRange: NSMakeRange(0, [logStorage length])];
     
     NSString * openvpnString = [self contentsOfPath: [self openvpnLogPath] usePosition: &openvpnLogPosition];
     NSString * scriptString  = [self contentsOfPath: [self scriptLogPath]  usePosition: &scriptLogPosition];
     
-    unsigned openvpnStringPosition = 0;
-    unsigned scriptStringPosition  = 0;
+    unsigned tunnelblickStringPosition = 0;
+    unsigned openvpnStringPosition     = 0;
+    unsigned scriptStringPosition      = 0;
     
     if (  skipToStartOfLineInOpenvpnLog  ) {
         NSRange r = [openvpnString rangeOfCharacterFromSet: [NSCharacterSet newlineCharacterSet]];
@@ -216,47 +220,128 @@ extern NSFileManager        * gFileMgr;
         }
     }
     
-    NSString * oLine = [self nextLinesInOpenVPNString: &openvpnString fromPosition: &openvpnStringPosition];
-    NSString * sLine = [self nextLineInScriptString:   &scriptString  fromPosition: &scriptStringPosition ];
+    NSString * tLine = [self nextLineInTunnelblickString: &tunnelblickString fromPosition: &tunnelblickStringPosition];
+    NSString * oLine = [self nextLinesInOpenVPNString:    &openvpnString     fromPosition: &openvpnStringPosition    ];
+    NSString * sLine = [self nextLineInScriptString:      &scriptString      fromPosition: &scriptStringPosition     ];
     
+    NSString * tLineDateTime = @"0000-00-00 00:00:00";
     NSString * oLineDateTime = @"0000-00-00 00:00:00";
     NSString * sLineDateTime = @"0000-00-00 00:00:00";
     
-    while (   (oLine != nil)
+    while (   (tLine != nil)
+           || (oLine != nil)
            || (sLine != nil)  ) {
+        
+        if (  tLine  ) {
+            if (  ! [tLine hasPrefix: @" "]  ) {
+                tLineDateTime = [tLine substringToIndex: 19];
+            }            
+        }
         if (  oLine  ) {
-            if (  sLine  ) {
-                if (  ! [oLine hasPrefix: @" "]  ) {
-                    oLineDateTime = [oLine substringToIndex: 19];
-                }
-                if (  ! [sLine hasPrefix: @" "]  ) {
-                    sLineDateTime = [sLine substringToIndex: 19];
-                }
-                if (  [oLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
-                    [self appendLine: oLine fromOpenvpnLog: YES];
-                    oLine = [self nextLinesInOpenVPNString: &openvpnString fromPosition: &openvpnStringPosition];
+            if (  ! [oLine hasPrefix: @" "]  ) {
+                oLineDateTime = [oLine substringToIndex: 19];
+            }            
+        }
+        if (  sLine  ) {
+            if (  ! [sLine hasPrefix: @" "]  ) {
+                sLineDateTime = [sLine substringToIndex: 19];
+            }            
+        }
+        
+        if (  tLine  ) {
+            if (  oLine  ) {
+                if (  sLine  ) {
+                    // Have tLine, oLine, and sLine
+                    if (  [tLineDateTime compare: oLineDateTime] != NSOrderedDescending ) {
+                        if (  [tLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
+                            [self appendLine: tLine fromOpenvpnLog: NO];
+                            tLine = [self nextLineInTunnelblickString: &tunnelblickString
+                                                         fromPosition: &tunnelblickStringPosition];
+                        } else {
+                            [self appendLine: sLine fromOpenvpnLog: NO];
+                            sLine = [self nextLineInScriptString: &scriptString
+                                                    fromPosition: &scriptStringPosition];
+                        }
+                    } else {
+                        if (  [oLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
+                            [self appendLine: oLine fromOpenvpnLog: YES];
+                            oLine = [self nextLinesInOpenVPNString: &openvpnString
+                                                      fromPosition: &openvpnStringPosition];
+                        } else {
+                            [self appendLine: sLine fromOpenvpnLog: NO];
+                            sLine = [self nextLineInScriptString: &scriptString
+                                                    fromPosition: &scriptStringPosition];
+                        }
+                    }
                 } else {
-                    [self appendLine: sLine fromOpenvpnLog: NO];
-                    sLine = [self nextLineInScriptString:   &scriptString  fromPosition: &scriptStringPosition ];
+                    // Have tLine and oLine but not sLine
+                    if (  [tLineDateTime compare: oLineDateTime] != NSOrderedDescending ) {
+                        [self appendLine: tLine fromOpenvpnLog: NO];
+                        tLine = [self nextLineInTunnelblickString: &tunnelblickString
+                                                     fromPosition: &tunnelblickStringPosition];
+                    } else {
+                        [self appendLine: oLine fromOpenvpnLog: YES];
+                        oLine = [self nextLinesInOpenVPNString: &openvpnString
+                                                  fromPosition: &openvpnStringPosition];
+                    }
                 }
             } else {
-                [self appendLine: oLine fromOpenvpnLog: YES];
-                oLine = [self nextLinesInOpenVPNString: &openvpnString fromPosition: &openvpnStringPosition];
+                // Have tLine, don't have oLine
+                if (  sLine  ) {
+                    // Have tLine and sLine but not oLine
+                    if (  [tLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
+                        [self appendLine: tLine fromOpenvpnLog: NO];
+                        tLine = [self nextLineInTunnelblickString: &tunnelblickString
+                                                     fromPosition: &tunnelblickStringPosition];
+                    } else {
+                        [self appendLine: sLine fromOpenvpnLog: NO];
+                        sLine = [self nextLineInScriptString: &scriptString
+                                                fromPosition: &scriptStringPosition];
+                    }
+                } else {
+                    // Only have tLine
+                    [self appendLine: tLine fromOpenvpnLog: NO];
+                    tLine = [self nextLineInTunnelblickString: &tunnelblickString
+                                                 fromPosition: &tunnelblickStringPosition];
+                }
             }
         } else {
-            [self appendLine: sLine fromOpenvpnLog: NO];
-            sLine = [self nextLineInScriptString: &scriptString fromPosition: &scriptStringPosition];
+            // Don't have tLine
+            if (  oLine  ) {
+                if (  sLine  ) {
+                    // Have oLine and sLine but not tLine
+                    if (  [oLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
+                        [self appendLine: oLine fromOpenvpnLog: YES];
+                        oLine = [self nextLinesInOpenVPNString: &openvpnString
+                                                  fromPosition: &openvpnStringPosition];
+                    } else {
+                        [self appendLine: sLine fromOpenvpnLog: NO];
+                        sLine = [self nextLineInScriptString: &scriptString
+                                                fromPosition: &scriptStringPosition];
+                    }
+                } else {
+                    // Only have oLine
+                    [self appendLine: oLine fromOpenvpnLog: YES];
+                    oLine = [self nextLinesInOpenVPNString: &openvpnString
+                                              fromPosition: &openvpnStringPosition];
+                }
+            } else {
+                // Only have sLine
+                if (  sLine  ) {
+                    [self appendLine: sLine fromOpenvpnLog: NO];
+                    sLine = [self nextLineInScriptString: &scriptString
+                                            fromPosition: &scriptStringPosition];
+                }
+            }
         }
     }
     
-    // Now insert the log entries made by Tunnelblick that were saved earlier
-    if (  [oldLogStorage length] != 0  ) {
-        NSAttributedString * aString = [[NSAttributedString alloc] initWithString: oldLogStorage];
-        [logStorage insertAttributedString: aString atIndex: 0];
-        [aString release];
+    if (  skipToStartOfLineInOpenvpnLog  ) {
+        NSString * replacementLine = [NSString stringWithFormat: @"0000-00-00 00:00:00 *Tunnelblick: Some entries have been removed because the log is too long\n"];
+        [self insertLine: replacementLine beforeTunnelblickEntries: YES beforeOpenVPNEntries: YES fromOpenVPNLog: NO];
     }
-
-    [oldLogStorage release];
+    
+    [tunnelblickString release];
     
     [[[NSApp delegate] logScreen] indicateNotWaiting];
 }
@@ -278,6 +363,32 @@ extern NSFileManager        * gFileMgr;
     
     NSString * scriptLogContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     return scriptLogContents;
+}
+
+// Returns the next line from the string of a tunnelblick log
+// A \n is appended to the line if it doesn't end in one
+// If the at the end of the string, nil is returned
+-(NSString *) nextLineInTunnelblickString: (NSString * *) stringPtr fromPosition: (unsigned *) positionPtr
+{
+    NSString * line;
+    unsigned stringLength = [*stringPtr length];
+    NSRange stringRng = NSMakeRange(*positionPtr, stringLength - *positionPtr);
+    NSRange lfRng = [*stringPtr rangeOfString: @"\n" options: 0 range: stringRng];
+    if ( lfRng.location == NSNotFound) {
+        if (  [*stringPtr length] != *positionPtr  ) {
+            line = [*stringPtr substringWithRange: stringRng];
+            line = [line stringByAppendingString: @"\n"];
+            *positionPtr = stringLength;
+        } else {
+            return nil;
+        }
+    } else {
+        NSRange lineRng = NSMakeRange(*positionPtr, lfRng.location + 1 - *positionPtr);
+        line = [*stringPtr substringWithRange: lineRng];
+        *positionPtr += lineRng.length;
+    }
+    
+    return line;
 }
 
 // Returns the next line from the string of a script log
@@ -450,7 +561,8 @@ extern NSFileManager        * gFileMgr;
             }
         }
         
-        [logStorage deleteCharactersInRange: NSMakeRange(0, rLf.location +1)];
+        NSString * replacementLine = [NSString stringWithFormat: @"0000-00-00 00:00:00 *Tunnelblick: Some entries have been removed because the log is too long\n"];
+        [logStorage replaceCharactersInRange: NSMakeRange(0, rLf.location +1) withString: replacementLine];
     }
 }
 
