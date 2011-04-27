@@ -40,9 +40,6 @@
 "Cancel"	= "Annuler";
 
 /* Button */
-"Clear log" = "Effacer le journal";
-
-/* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Fermer les connections VPN et arreter Tunnelblick";
 
 /* Button */

@@ -623,7 +623,6 @@ extern AuthorizationRef       gAuthorization;
     // NOTE: We don't localize the contents of modifyNameserverPopUpButton because they are localized when they are inserted into it by
     //       validateDetailsWindowControls, which also does any necessary shifting of its neighbor, the 'Monitor connection' checkbox.
     
-    [self setTitle: NSLocalizedString(@"Clear log"                  , @"Button")        ofControl: clearButton                ];
     [self setTitle: NSLocalizedString(@"Edit configuration"         , @"Button")        ofControl: editButton                 ];
     [self setTitle: NSLocalizedString(@"Share configuration"        , @"Button")        ofControl: shareButton                ];
     [self setTitle: NSLocalizedString(@"Connect"                    , @"Button")        ofControl: connectButton              ];
@@ -724,14 +723,7 @@ extern AuthorizationRef       gAuthorization;
         [theControl setFrame:oldPos];
     }
     
-    if (  [theControl isEqual: clearButton]  )  {                   // If the Clear log button changes, shift the Edit and Share buttons right/left
-        oldPos = [editButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [editButton setFrame:oldPos];
-        oldPos = [shareButton frame];
-        oldPos.origin.x = oldPos.origin.x + widthChange;
-        [shareButton setFrame:oldPos];
-    } else if (  [theControl isEqual: editButton]  )  {             // If the Edit button changes, shift the Share button right/left
+    if (  [theControl isEqual: editButton]  )  {             // If the Edit button changes, shift the Share button right/left
         oldPos = [shareButton frame];
         oldPos.origin.x = oldPos.origin.x + widthChange;
         [shareButton setFrame:oldPos];
@@ -807,11 +799,6 @@ extern AuthorizationRef       gAuthorization;
 		[self saveAutoLaunchCheckboxState:FALSE];
 	}
     [self validateDetailsWindowControls];
-}
-
-- (IBAction) clearLogButtonWasClicked: (id) sender
-{
-    [[self selectedConnection] clearLog];
 }
 
 - (IBAction)connectButtonWasClicked:(id)sender
@@ -1081,7 +1068,6 @@ extern AuthorizationRef       gAuthorization;
     [onLaunchRadioButton release];
     [onSystemStartRadioButton release];
     [autoConnectCheckbox release];
-    [clearButton release];
     [connectButton release];
     [disconnectButton release];
     [editButton release];
