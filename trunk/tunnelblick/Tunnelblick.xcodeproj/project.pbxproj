@@ -81,6 +81,7 @@
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
+		63B5EFDC13693F0A006BC27B /* PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63B5EFD913693F0A006BC27B /* PT.lproj */; };
 		63B9CFA5132C73DD009EC6D0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B9CFA4132C73DD009EC6D0 /* WebKit.framework */; };
 		63BD86E81205BA39005B8E38 /* IT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63BD86E41205BA39005B8E38 /* IT.lproj */; };
 		63BE10FA1178E8EF0001B38D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
@@ -271,6 +272,7 @@
 		63AE8596116CCF7A00D36CB1 /* PL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL.lproj; sourceTree = "<group>"; };
 		63B5E31811E34D69007D99DB /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
+		63B5EFD913693F0A006BC27B /* PT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PT.lproj; sourceTree = "<group>"; };
 		63B78AD41102419800734D73 /* dmgFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dmgFiles; sourceTree = "<group>"; };
 		63B9CFA4132C73DD009EC6D0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		63BD86E41205BA39005B8E38 /* IT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = IT.lproj; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
+				63B5EFD913693F0A006BC27B /* PT.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
 				63CBFCDA134A8CB400C3469A /* LogWindow.xib */,
@@ -728,6 +731,7 @@
 				63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */,
 				63D92584135DAEE1001FF627 /* LeaseWatch3.plist.template in Resources */,
 				63D92585135DAEE1001FF627 /* leasewatch3 in Resources */,
+				63B5EFDC13693F0A006BC27B /* PT.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
