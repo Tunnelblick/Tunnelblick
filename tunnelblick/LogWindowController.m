@@ -1064,6 +1064,7 @@ extern AuthorizationRef       gAuthorization;
         [[logView textStorage] setDelegate: self];
         [self setLogWindowTitle];
         [self validateDetailsWindowControls];
+        [newConnection startMonitoringLogFiles];
     }
 }
 

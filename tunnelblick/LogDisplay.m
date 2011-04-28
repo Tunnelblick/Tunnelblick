@@ -47,6 +47,11 @@ extern NSFileManager        * gFileMgr;
 -(NSString *)   constructOpenvpnLogPath;
 -(NSString *)   constructScriptLogPath;
     
+-(NSUInteger) indexAfter:               (NSUInteger)            n
+                  string:               (NSString *)            s
+                inString:               (NSString *)            text
+                   range:               (NSRange)               r;
+
 -(NSRange)      rangeOfLineBeforeLineThatStartsAt: (long)       lineStartIndex
                                          inString: (NSString *) text;
 
@@ -233,19 +238,26 @@ extern NSFileManager        * gFileMgr;
            || (sLine != nil)  ) {
         
         if (  tLine  ) {
-            if (  ! [tLine hasPrefix: @" "]  ) {
-                tLineDateTime = [tLine substringToIndex: 19];
+            if (  [tLine length] > 19  ) {
+                if (  ! [tLine hasPrefix: @" "]  ) {
+                    tLineDateTime = [tLine substringToIndex: 19];
+                }
             }            
         }
         if (  oLine  ) {
-            if (  ! [oLine hasPrefix: @" "]  ) {
-                oLineDateTime = [oLine substringToIndex: 19];
-            }            
+            if (  [oLine length] > 19  ) {
+                if (  ! [oLine hasPrefix: @" "]  ) {
+                    oLineDateTime = [oLine substringToIndex: 19];
+                }
+            }
         }
         if (  sLine  ) {
-            if (  ! [sLine hasPrefix: @" "]  ) {
-                sLineDateTime = [sLine substringToIndex: 19];
-            }            
+            if (  [sLine length] > 19  ) {
+                if (  ! [sLine hasPrefix: @" "]  ) {
+                    sLineDateTime = [sLine substringToIndex: 19];
+                }
+            }
+            
         }
         
         if (  tLine  ) {
@@ -337,13 +349,31 @@ extern NSFileManager        * gFileMgr;
     }
     
     if (  skipToStartOfLineInOpenvpnLog  ) {
-        NSString * replacementLine = [NSString stringWithFormat: @"0000-00-00 00:00:00 *Tunnelblick: Some entries have been removed because the log is too long\n"];
-        [self insertLine: replacementLine beforeTunnelblickEntries: YES beforeOpenVPNEntries: YES fromOpenVPNLog: NO];
+        NSAttributedString * msgAS = [[NSAttributedString alloc] initWithString:
+                                      [NSString stringWithFormat: @"                    *Tunnelblick: Some entries have been removed because the log is too long.\n"]];
+        NSString * text = [logStorage string];
+        NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
+        [logStorage insertAttributedString: msgAS atIndex: start];
     }
     
     [tunnelblickString release];
     
     [[[NSApp delegate] logScreen] indicateNotWaiting];
+}
+
+-(NSUInteger) indexAfter: (NSUInteger) n string: (NSString *) s inString: (NSString *) text range: (NSRange) r
+{
+    // Find the n-th string
+    NSRange rStartAt = r;
+    NSRange rLf;
+    unsigned i = 0;
+    while (   ( NSNotFound != (rLf = [text rangeOfString: @"\n" options: 0 range: rStartAt] ).location )
+           && (i++ < n)  ) {
+        rStartAt.location = rLf.location + 1;
+        rStartAt.length   = [text length] - rStartAt.location;
+    }
+    
+    return rStartAt.location;
 }
 
 -(NSString *) contentsOfPath: (NSString *) logPath usePosition: (unsigned long long *) logPosition
@@ -549,20 +579,17 @@ extern NSFileManager        * gFileMgr;
         if (  charsToRemove < 1000  ) {
             charsToRemove = 1000;
         }
-        // Find first LF after that, and remove up to and including that LF
-        NSString * text = [logStorage string];
-        NSRange rLf = [text rangeOfString: @"\n" options: 0 range: NSMakeRange(charsToRemove, [text length] - charsToRemove)];
-        if (  NSNotFound == rLf.location  ) {
-            // Or first LF before that
-            rLf = [text rangeOfString: @"\n" options: NSBackwardsSearch range: NSMakeRange(charsToRemove, [text length] - charsToRemove)];
-            if (  NSNotFound == rLf.location  ) {
-                // Or just remove that number of characters
-                rLf.location = charsToRemove;
-            }
-        }
         
-        NSString * replacementLine = [NSString stringWithFormat: @"0000-00-00 00:00:00 *Tunnelblick: Some entries have been removed because the log is too long\n"];
-        [logStorage replaceCharactersInRange: NSMakeRange(0, rLf.location +1) withString: replacementLine];
+        // Find the fourth LF, and remove starting after that, to preserve the first four lines
+        NSString * text = [logStorage string];
+        NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
+        
+        // Find the first LF after the stuff we need to delete and delete up to that
+        NSUInteger end = [self indexAfter: 1 string: @"\n" inString: text range: NSMakeRange(start + charsToRemove, [text length] - start - charsToRemove)];
+
+        NSRange rangeToDelete = NSMakeRange(start, end - start);
+        NSString * replacementLine = [NSString stringWithFormat: @"\n                    *Tunnelblick: Some entries have been removed because the log is too long\n"];
+        [logStorage replaceCharactersInRange: rangeToDelete withString: replacementLine];
     }
 }
 
