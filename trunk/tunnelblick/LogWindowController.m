@@ -499,12 +499,14 @@ extern AuthorizationRef       gAuthorization;
     
     [NSBundle loadNibNamed: @"LogWindow" owner: self]; // also sets tabView etc.
     
-    int maxNumberOfTabs;
+    int maxNumberOfTabs = 8;
     id obj = [gTbDefaults objectForKey: @"maximumNumberOfTabs"];
     if (  obj  ) {
-        maxNumberOfTabs = [obj intValue];
-    } else {
-        maxNumberOfTabs = 8;
+        if (  [obj respondsToSelector: @selector(intValue)]  ) {
+            maxNumberOfTabs = [obj intValue];
+        } else {
+            NSLog(@"'maximumNumberOfTabs' preference is being ignored because it is not a number");
+        }
     }
     
     logWindowIsUsingTabs = (  [[[NSApp delegate] myVPNConnectionDictionary] count] <= maxNumberOfTabs  );
@@ -930,11 +932,20 @@ extern AuthorizationRef       gAuthorization;
 	if(connection != nil) {
         // Look up new value for preference
         NSArray * setNameserverEntries = [modifyNameserverPopUpButtonArrayController content];
-        NSDictionary * dictForEntry = [setNameserverEntries objectAtIndex: inValue];    
-        NSNumber * num = [NSNumber numberWithInt: [[dictForEntry objectForKey: @"value"] intValue]];
+        NSDictionary * dictForEntry = [setNameserverEntries objectAtIndex: inValue];
+        id obj = [dictForEntry objectForKey: @"value"];
+        int i = 0;
+        if (  obj  ) {
+            if (  [obj respondsToSelector: @selector(intValue)]  ) {
+                i = [obj intValue];
+            } else {
+                NSLog(@"Invalid value for 'modifyNameserverPopUpButtonArrayController' entry; using 'Do not set nameserver'");
+            }
+        }
+        NSNumber * num = [NSNumber numberWithInt: i];
         
 		NSString* key = [[connection displayName] stringByAppendingString: @"useDNS"];
-        id obj = [gTbDefaults objectForKey: key];
+        obj = [gTbDefaults objectForKey: key];
         BOOL saveIt = FALSE;
         if (  ! obj  ) {                                                // If no preference
             if (  inValue != 1  ) {                                     // and the new one is not 1

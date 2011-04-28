@@ -24,8 +24,10 @@
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
 #import "LogWindowController.h"
+#import "TBUserDefaults.h"
 
 extern NSFileManager        * gFileMgr;
+extern TBUserDefaults       * gTbDefaults;
 
 @interface LogDisplay() // PRIVATE METHODS
 
@@ -112,6 +114,22 @@ extern NSFileManager        * gFileMgr;
         openvpnLogPosition = 0;
         scriptLogPosition  = 0;
         
+        maxLogDisplaySize = 100000;
+        NSString * maxLogDisplaySizeKey = @"maxLogDisplaySize";
+        id obj = [gTbDefaults objectForKey: maxLogDisplaySizeKey];
+        if (  obj  ) {
+            if (  [obj respondsToSelector: @selector(intValue)]  ) {
+                unsigned maxSize = [obj intValue];
+                if (  maxSize < 10000  ) {
+                    NSLog(@"'%@' preference ignored because it is less than 10000. Using %d", maxLogDisplaySizeKey, maxLogDisplaySize);
+                } else {
+                    maxLogDisplaySize = maxSize;
+                }
+            } else {
+                NSLog(@"'%@' preference ignored because it is not a number", maxLogDisplaySizeKey);
+            }
+        }
+        
         logStorage = [[NSTextStorage alloc] init];
         [self clear];
     }
@@ -178,7 +196,7 @@ extern NSFileManager        * gFileMgr;
     }
     
     BOOL skipToStartOfLineInOpenvpnLog = FALSE;
-    NSUInteger amountToExamine = MAX_LOG_DISPLAY_SIZE;
+    NSUInteger amountToExamine = maxLogDisplaySize;
     if (  fileSize > amountToExamine  ) {
         openvpnLogPosition = fileSize - amountToExamine;
         skipToStartOfLineInOpenvpnLog = TRUE;
@@ -570,7 +588,7 @@ extern NSFileManager        * gFileMgr;
 // We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
 -(void) didAddLineToLogDisplay
 {
-    if (  [logStorage length] > MAX_LOG_DISPLAY_SIZE  ) {
+    if (  [logStorage length] > maxLogDisplaySize  ) {
         [self pruneLog];
     }
 }

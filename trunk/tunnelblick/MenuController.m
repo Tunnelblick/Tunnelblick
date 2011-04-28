@@ -2813,9 +2813,10 @@ static void signal_handler(int signalNumber)
     gHookupTimeout = 5; // Default
     id hookupTimeout;
     if (  hookupTimeout = [gTbDefaults objectForKey: @"hookupTimeout"]  ) {
-        if (   [[hookupTimeout class]  isSubclassOfClass: [NSNumber class]]
-            || [[hookupTimeout class]  isSubclassOfClass: [NSString class]]) {
+        if (  [hookupTimeout respondsToSelector: @selector(intValue)]  ) {
             gHookupTimeout = [hookupTimeout intValue];
+        } else {
+            NSLog(@"'hookupTimeout' preference is being ignored because it is not a number");
         }
     }
     
