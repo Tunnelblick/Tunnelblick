@@ -1987,7 +1987,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  useObj == nil  ) {
 		return 1;   // Preference is not set, so use default value
 	} else {
-        if (  [[useObj class] isSubclassOfClass: [NSNumber class]]  ) {
+        if (  [useObj respondsToSelector: @selector(intValue)]  ) {
             return [useObj intValue];
         } else {
             NSLog(@"Preference '%@' is not a number; it has value %@. Assuming 'Do not set nameserver'", key, useObj);

@@ -49,14 +49,18 @@ extern NSFileManager        * gFileMgr;
                         NSTimeInterval interval = 60*60; // Default is one hour
                         id checkInterval = [infoPlist objectForKey: @"SUScheduledCheckInterval"];
                         if (  checkInterval  ) {
-                            int i = (NSTimeInterval) [checkInterval intValue];
-                            if (  i == 0  ) {
-                                NSLog(@"SUScheduledCheckInterval in %@ is invalid or zero", plistPath);
+                            if (  [checkInterval respondsToSelector: @selector(intValue)]  ) {
+                                NSTimeInterval i = (NSTimeInterval) [checkInterval intValue];
+                                if (  i == 0  ) {
+                                    NSLog(@"SUScheduledCheckInterval in %@ is invalid or zero", plistPath);
+                                } else {
+                                    interval = i;
+                                }
                             } else {
-                                interval = i;
+                                NSLog(@"SUScheduledCheckInterval in %@ is invalid", plistPath);
                             }
                         }
-
+                        
                         // Copy a skeleton of the bundle to a temporary folder (so it is writable by the updater, which runs as a user)
                         NSString * tempBundlePath = [[newTemporaryDirectoryPath() autorelease]
                                                      stringByAppendingPathComponent: [CONFIGURATION_UPDATES_BUNDLE_PATH lastPathComponent]];

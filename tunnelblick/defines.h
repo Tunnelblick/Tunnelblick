@@ -59,11 +59,6 @@
 
 
 //*************************************************************************************************
-// When more than this many bytes are in the log display, lines are discarded from the top
-#define MAX_LOG_DISPLAY_SIZE 1000000
-
-
-//*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive
 #define LEFT_NAV_AREA_MINIMAL_SIZE 8.0
 
