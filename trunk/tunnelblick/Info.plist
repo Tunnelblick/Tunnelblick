@@ -34,11 +34,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.2beta09 (build 2455)</string>
+	<string>3.2beta09 (build 2456)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>2455</string>
+	<string>2456</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
