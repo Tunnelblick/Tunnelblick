@@ -47,10 +47,10 @@ extern NSFileManager        * gFileMgr;
 -(NSString *)   constructOpenvpnLogPath;
 -(NSString *)   constructScriptLogPath;
     
--(NSUInteger) indexAfter:               (NSUInteger)            n
-                  string:               (NSString *)            s
-                inString:               (NSString *)            text
-                   range:               (NSRange)               r;
+-(NSUInteger)   indexAfter:             (NSUInteger)            n
+                    string:             (NSString *)            s
+                  inString:             (NSString *)            text
+                     range:             (NSRange)               r;
 
 -(NSRange)      rangeOfLineBeforeLineThatStartsAt: (long)       lineStartIndex
                                          inString: (NSString *) text;
@@ -72,6 +72,8 @@ extern NSFileManager        * gFileMgr;
 
 -(NSString *)   nextLinesInOpenVPNString:(NSString * *)         stringPtr
                     fromPosition:       (unsigned *)            positionPtr;
+
+-(void)         pruneLog;
 
 -(void)         watcher:                (UKKQueue *)            kq
    receivedNotification:                (NSString *)            nm
@@ -349,11 +351,7 @@ extern NSFileManager        * gFileMgr;
     }
     
     if (  skipToStartOfLineInOpenvpnLog  ) {
-        NSAttributedString * msgAS = [[NSAttributedString alloc] initWithString:
-                                      [NSString stringWithFormat: @"                    *Tunnelblick: Some entries have been removed because the log is too long.\n"]];
-        NSString * text = [logStorage string];
-        NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
-        [logStorage insertAttributedString: msgAS atIndex: start];
+        [self pruneLog];
     }
     
     [tunnelblickString release];
@@ -572,25 +570,29 @@ extern NSFileManager        * gFileMgr;
 // We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
 -(void) didAddLineToLogDisplay
 {
-    NSUInteger currentLength = [logStorage length];
-    if (  currentLength > MAX_LOG_DISPLAY_SIZE  ) {
-        // Remove 10% of the contents of the display
-        NSUInteger charsToRemove = currentLength / 10;
-        if (  charsToRemove < 1000  ) {
-            charsToRemove = 1000;
-        }
-        
-        // Find the fourth LF, and remove starting after that, to preserve the first four lines
-        NSString * text = [logStorage string];
-        NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
-        
-        // Find the first LF after the stuff we need to delete and delete up to that
-        NSUInteger end = [self indexAfter: 1 string: @"\n" inString: text range: NSMakeRange(start + charsToRemove, [text length] - start - charsToRemove)];
-
-        NSRange rangeToDelete = NSMakeRange(start, end - start);
-        NSString * replacementLine = [NSString stringWithFormat: @"\n                    *Tunnelblick: Some entries have been removed because the log is too long\n"];
-        [logStorage replaceCharactersInRange: rangeToDelete withString: replacementLine];
+    if (  [logStorage length] > MAX_LOG_DISPLAY_SIZE  ) {
+        [self pruneLog];
     }
+}
+
+-(void) pruneLog
+{
+    // Remove 10% of the contents of the display
+    NSUInteger charsToRemove = [logStorage length] / 10;
+    if (  charsToRemove < 100  ) {
+        charsToRemove = 100;
+    }
+    
+    // Find the fourth LF, and remove starting after that, to preserve the first four lines
+    NSString * text = [logStorage string];
+    NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
+    
+    // Find the first LF after the stuff we need to delete and delete up to that
+    NSUInteger end = [self indexAfter: 1 string: @"\n" inString: text range: NSMakeRange(start + charsToRemove, [text length] - start - charsToRemove)];
+    
+    NSRange rangeToDelete = NSMakeRange(start, end - start);
+    NSString * replacementLine = [NSString stringWithFormat: @"\n                    *Tunnelblick: Some entries have been removed because the log is too long\n"];
+    [logStorage replaceCharactersInRange: rangeToDelete withString: replacementLine];
 }
 
 // Invoked when either log file has changed.
