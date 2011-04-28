@@ -40,6 +40,10 @@ All other preferences can be modified by
 
 ==Preferences That Control What The User Sees==
   * *menuIconSet* (String): If set, specifies the name of the folder of icons that Tunnelblick should use to display the connection status in the status bar (usually, near the Spotlight icon). The default is "!TunnelBlick.TBMenuIcons". The folder may appear in several locations; see [wIconAnimation Icon Animation].
+
+doNotShowConnectionSubmenus
+
+  * *doNotShowConnectionSubmenus* (Boolean): If set, each configuration is shown as a single menu item even if it is in a subfolder. (It is shown as "Connect folder1/folder2/config".). If cleared or not present, configurations in subfolders display only the subfolder name, and reveal contents of the subfolder only when moused-over. The default is not present.
   * *doNotShowForcedPreferenceMenuItems* (Boolean): If set, any preferences that are forced will not be displayed on the "Options…" submenu. If cleared or not present, such preferences are shown dimmed, and are disabled. The default is not present.
   * *doNotShowOptionsSubmenu* (Boolean): If set, the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
   * *doNotShowKeyboardShortcutSubmenu* (Boolean): If set, the "Keyboard Shortcuts" submenu of the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
