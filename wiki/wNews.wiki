@@ -5,6 +5,15 @@
 
 --------------------
 
+2011-04-29: *Tunnelblick 3.2beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Includes OpenVPN 2.2 and PKCS#11 1.08.
+ * Includes complete Portuguese localization by Denis Volpato Martins. Thanks, Denis!
+ * Removes the 'Clear log' button from the Details… window. (It is no longer needed because the log display is cleared at the start of each connection and its size is limited to 100,000 characters. This limit can be overridden by the 'maxLogDisplaySize' preference.).
+ * Fixes several bugs.
+ See the [wRlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-04-26: *Tunnelblick 3.2beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * No longer uses the down-root plugin if there are no 'user' or 'group' options in the configuration file. (The 'XXX-useDownRootPlugin' preference is removed in this situation.)
  * 'Monitor connection' is more tolerant of unimportant changes and may be customized.

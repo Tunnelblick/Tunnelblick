@@ -22,6 +22,28 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.2beta10 (2011-04-29)*
+
+ * Includes OpenVPN 2.2 and PKCS#11 1.08.
+ 
+ * Includes complete Portuguese localization by Denis Volpato Martins. Thanks, Denis!
+ 
+ * Removes the 'Clear log' button from the Details… window. (It is no longer needed because the log display is cleared at the start of each connection and its size is limited to 100,000 characters. This limit can be overridden by the 'maxLogDisplaySize' preference.).
+ 
+ * Uses much less CPU time processing the log at high 'verb' levels.
+ 
+ * Fixes bug that failed to properly deal with NetBIOSName when monitoring the connection.
+ 
+ * Fixes bug that sometimes caused kexts to not be unloaded.
+ 
+ * Fixes bugs when using  TAP, DHCP, and 'Set nameserver (alternate 1)'
+ 
+ * Fixes bugs causing the connection time display to freeze.
+ 
+ * Adds messages to the Console log that invalid user-supplied values are being ignored (usually preference values or Info.plist entries).
+
+--------------------
+
 *3.2beta08 (2011-04-26)*
 
  * No longer uses the down-root plugin if there are no 'user' or 'group' options in the configuration file. (The 'XXX-useDownRootPlugin' preference is removed in this situation.)
