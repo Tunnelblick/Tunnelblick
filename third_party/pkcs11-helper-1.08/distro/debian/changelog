@@ -1,0 +1,35 @@
+libpkcs11-helper1 (1.03-0) unstable; urgency=low
+
+  * New maintainer
+  * New upstream release
+  * renamed to libpkcs11-helper1 (lintian check)
+  * removed *.la
+  * size_t printf 64bit fixups (debug).
+  * Certificate session period fixup, thank to Leo Pohl for reporting.
+
+ -- Sandro Wefel (testlaeufer) <sandro.wefel@informatik.uni-halle.de>  Mon, 23 Apr 2007 08:59:16 +0200
+
+pkcs11-helper (1.02-99.0saw0) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * upgrade to version 1.03 beta 1
+    - use --with-apidocdir for the path to the api docs
+
+ -- Sandro Wefel (testlaeufer) <sandro.wefel@informatik.uni-halle.de>  Fri, 16 Feb 2007 15:54:41 +0100
+
+pkcs11-helper (1.02-1.0saw1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * api docs added to pkcs11-helper-dev
+  * license information updated
+  * fix dependencies
+
+ -- Sandro Wefel (testlaeufer) <sandro.wefel@informatik.uni-halle.de>  Sun, 11 Feb 2007 17:44:13 +0100
+
+pkcs11-helper (1.02-1.0saw0) unstable; urgency=low
+
+  * Initial release 
+    - based on version 1.02 from 2007-10-05
+
+ -- Sandro Wefel (testlaeufer) <sandro.wefel@informatik.uni-halle.de>  Mon, 29 Jan 2007 16:56:30 +0100
+

@@ -1,0 +1,9 @@
+pkcs11h_token_deserializeTokenId
+pkcs11h_token_duplicateTokenId
+pkcs11h_token_ensureAccess
+pkcs11h_token_enumTokenIds
+pkcs11h_token_freeTokenId
+pkcs11h_token_freeTokenIdList
+pkcs11h_token_login
+pkcs11h_token_sameTokenId
+pkcs11h_token_serializeTokenId
