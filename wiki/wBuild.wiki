@@ -52,18 +52,20 @@ Your release .dmg file is at tunnelblick-read-only/tunnelblick/build/Release/Tun
 Good luck!
 
 == BUILD WARNINGS==
- * For versions of Tunnelblick prior to r2021, Xcode 3.2.2 and higher causes four warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.) After you clean, you have to build again, of course.
+ * *As of r1464, there should be no warnings issued when Tunnelblick is built. It is still necessary to "Clean all" before building, however.*
+
+ * For versions of Tunnelblick prior to r1021, Xcode 3.2.2 and higher causes four warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.) After you clean, you have to build again, of course.
  * Build 2013 and higher causes eight warning messages to appear when building OpenVPN. These warnings may be ignored. There are three 'incompatible pointer type' and one 'assignment discards qualifiers'; each warning is repeated twice (once each for PowerPC and intel.)
  * Otherwise, three or four warnings are normal, all complaining about "Object file compiled with -mlong-branch...". (These warnings come from a bug in Apple's Software Development Kit and can be ignored.)
 
  So the first time Tunnelblick is built from source:
- * For versions of Tunnelblick prior to r2021, there will be 16 warnings. After that (unless a third_party component is modified), there will be eight warnings until a "Clean All Targets" is performed. After that, there will be four warnings each time Tunnelblick is built.
- * For versions of Tunnelblick after r2020, there will be 12 warnings. After that (unless a third_party component is modified), there will be four warnings each time Tunnelblick is built.
+ * For versions of Tunnelblick prior to r1021, there will be 16 warnings. After that (unless a third_party component is modified), there will be eight warnings until a "Clean All Targets" is performed. After that, there will be four warnings each time Tunnelblick is built.
+ * For versions of Tunnelblick after r1020, there will be 12 warnings. After that (unless a third_party component is modified), there will be four warnings each time Tunnelblick is built.
 
 ==BUILDING ON LEOPARD==
-It is possible to build versions of Tunnelblick prior to revision 232 on Leopard. The instructions above should be followed, except:
+It is possible to build versions of Tunnelblick prior to r232 on Leopard. The instructions above should be followed, except:
   * Xcode 3.1.1 or higher is required.
-  * To download revision 231 (the last version which can be built on Leopard), use the following command instead of the command given above (note the change in boldface):
+  * To download r231 (the last version which can be built on Leopard), use the following command instead of the command given above (note the change in boldface):
 
       svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
 
