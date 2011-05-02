@@ -10,11 +10,11 @@
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
+    [wQuick Quick Start Guide]<br><br>
     [wInstall Installing Tunnelblick]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wRlsNotes Release Notes]<br>
-    [wQuick Quick Start Guide]<br>
     [wFAQ FAQ]<br>
     [wGettingVPNService Getting VPN Service]<br>
 
