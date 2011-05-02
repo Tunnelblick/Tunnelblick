@@ -917,7 +917,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
     
     detailsItem = [[NSMenuItem alloc] init];
-    [detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
+    [detailsItem setTitle: NSLocalizedString(@"View Details...", @"Menu item")];
     // We set the target and action below, but only if there are any configurations,
     // so it is dimmed/disabled if there aren't any configuratinos
     
@@ -935,8 +935,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[statusItem setMenu: myVPNMenu];
     
 	statusMenuItem = [[NSMenuItem alloc] init];
+    [statusMenuItem setTarget: self];
+    [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
+
 	[myVPNMenu addItem:statusMenuItem];
-	[myVPNMenu addItem:[NSMenuItem separatorItem]];
+	
+    [myVPNMenu addItem:[NSMenuItem separatorItem]];
     
     myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] mutableCopy];
     
@@ -1339,7 +1343,21 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     // We set the on/off state from the CURRENT preferences, not the preferences when launched.
     SEL act = [anItem action];
-    if (  act == @selector(togglePlaceIconNearSpotlight:)  ) {
+    if (  act == @selector(disconnectAllMenuItemWasClicked:)  ) {
+        unsigned nConnections = [connectionArray count];
+        NSString * myState;
+        if (  nConnections == 0  ) {
+            myState = NSLocalizedString(@"Tunnelblick: 0 connections", @"Status message");
+            [statusMenuItem setTitle: myState];
+            return NO;
+        } else if (  nConnections == 1) {
+            myState = NSLocalizedString(@"Tunnelblick: Disconnect 1 connection", @"Status message");
+            [statusMenuItem setTitle: myState];
+        } else {
+            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect %d connections", @"Status message"),nConnections];
+            [statusMenuItem setTitle: myState];
+        }
+    } else if (  act == @selector(togglePlaceIconNearSpotlight:)  ) {
         if (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  ) {
             [anItem setState: NSOnState];
         } else {
@@ -1783,16 +1801,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) updateUI
 {
-	unsigned connectionNumber = [connectionArray count];
-	NSString *myState;
-	if(connectionNumber == 1) {
-		myState = NSLocalizedString(@"Tunnelblick: 1 connection active.", @"Status message");
-	} else {
-		myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: %d connections active.", @"Status message"),connectionNumber];
-	}
-	
-    [statusMenuItem setTitle: myState];
     if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
+        unsigned nConnections = [connectionArray count];
+        NSString * myState;
+        if (  nConnections == 0  ) {
+            myState = NSLocalizedString(@"Tunnelblick: 0 connections", @"Status message");
+        } else if (  nConnections == 1) {
+            myState = NSLocalizedString(@"Tunnelblick: Disconnect 1 connection", @"Status message");
+        } else {
+            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect %d connections", @"Status message"),nConnections];
+        }	
         [statusItem setToolTip: myState];
 	}
     
@@ -1891,10 +1909,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
     // Using [[NSBundle mainBundle] resourcePath: ALSO seems to not work (don't know why, maybe the same reason)
     // The workaround is to create the path "by hand" and use that.
+    // ALSO, we break up the string after the "T" in Tunnelblick so it doesn't get replaced by global search/replace when a customizer gives Tunnelblick
+    // a new name.
     NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
 	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
     if (  htmlFromFile  ) {
-        basedOnHtml  = NSLocalizedString(@"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
+        basedOnHtml  = NSLocalizedString(@"<br><br>Based on T" "unnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
     } else {
         htmlFromFile = @"<br><br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
     }
@@ -2147,6 +2167,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(IBAction) addConfigurationWasClicked: (id) sender
 {
     [[ConfigurationManager defaultManager] addConfigurationGuide];
+}
+
+-(IBAction) disconnectAllMenuItemWasClicked: (id) sender
+{
+    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * connection;
+    while (  connection = [connEnum nextObject]  ) {
+        if (  ! [connection isDisconnected]  ) {
+            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+        }
+    }
 }
 
 -(IBAction) openLogWindow: (id) sender
@@ -3587,8 +3618,7 @@ BOOL needToMoveLibraryOpenVPN(void)
     } else {
         // ~/Library/openvpn is a symbolic link
         if (  ! [[gFileMgr tbPathContentOfSymbolicLinkAtPath: oldConfigDirPath] isEqualToString: newConfigDirPath]  ) {
-            NSLog(@"%@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
-            return YES; // Installer will repair this
+            NSLog(@"Warning: %@ exists and is a symbolic link but does not reference %@", oldConfigDirPath, newConfigDirPath);
         }
     }
 
