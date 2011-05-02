@@ -18,6 +18,8 @@
     [wFAQ FAQ]<br>
     [wGettingVPNService Getting VPN Service]<br>
 
+<hr>
+
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
@@ -26,7 +28,9 @@
     [FAQ FAQ]<br>
     [QuickStartGuide Quick Start Guide]<br>
     [KnownIssues Known Issues]
- 
+
+<hr>
+
 *To determine which version of Tunnelblick you are using:*
   # Find Tunnelblick.app (it is usually in the /Applications folder).
   # Click on Tunnelblick.app to select it
