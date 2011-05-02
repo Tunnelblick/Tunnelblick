@@ -1,25 +1,11 @@
-/* FAITES ATTENTION :
- * Après que vous êtes fini(e) avec la traduction,
- * veuillez vérifier que les détails particuliers soient
- * observés, en particulier:
- *    * Remplacer " ?", " !", " ;", " :", "« ", et " »" par le version
- *      correspondant qui remplace l’éspace " " par le charactère Unicode
- *      "NARROW NO-BREAK SPACE" (U+202F), " ". 
- *    * Remplacer l’apostrophe droit "'" avec l’apostrophe apropriée
- *      (généralement, c’est l’apostrophe « typographique » : "’").
- *      Aussi remplacer trois points (...) par de points de suspension (…).
- *      N’utilisez pas « Rechercher et remplacer » pour ces changements,
- *      parce que le texte anglais doit ne pas être changée.
- *    * Du texte par exemple doit être entre guillemets (« et »), pas
- *      entre les marques de quotations double (" ou “ et ”).
- * Merci pour votre assistance !
- * -- Jeremy W. Sherman, 20120212T0455Z-5
- */
-/* Status message */
-"Tunnelblick: %d connections active." = "Tunnelblick: %d connexions actives.";
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: 0 connections" = "Tunnelblick: 0 connections";
 
-/* Status message */
-"Tunnelblick: 1 connection active." = "Tunnelblick: 1 connexion active.";
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: Disconnect %d connections" = "Tunnelblick: Disconnect %d connections";
+
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: Disconnect 1 connection" = "Tunnelblick: Disconnect 1 connection";
 
 /* Textbox name */
 "Password:" = "Mot de passe:";
@@ -147,9 +133,6 @@
 /* Menu item */
 "Connect %@%@" = "Connecter %@%@";
 
-/* Menu item */
-"Details..." = "Détails…";
-
 /* Menu item tooltip */
 /* J'suppose que le sujet soit "l'option de menu", donc féminine. */
 "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Désactivée parce que logiciel de mises à jour Sparkle ne répond pas à setAutomaticallyChecksForUpdates:";
@@ -213,6 +196,9 @@
 
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Utiliser clichés instantanés de configurations";
+
+/* Menu item */
+"View Details..." = "Détails…";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "Prévenir contre connexions simultanées";
