@@ -1,8 +1,11 @@
-/* Status message */
-"Tunnelblick: %d connections active." = "Tunnelblick: %d 個有效連線.";
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: 0 connections" = "Tunnelblick: 0 connections";
 
-/* Status message */
-"Tunnelblick: 1 connection active." = "Tunnelblick: 1 個有效連線.";
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: Disconnect %d connections" = "Tunnelblick: Disconnect %d connections";
+
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: Disconnect 1 connection" = "Tunnelblick: Disconnect 1 connection";
 
 /* Textbox name */
 "Password:" = "密碼:";
@@ -130,9 +133,6 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "Connect %@%@" = "Connect %@%@";
 
-/* Menu item */
-"Details..." = "詳情…";
-
 /* NEEDS TRANSLATION *//* Menu item tooltip */
 "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
 
@@ -195,6 +195,9 @@
 
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "使用影子複本設定檔";
+
+/* Menu item */
+"View Details..." = "詳情…";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "當同時連線時作出警告";

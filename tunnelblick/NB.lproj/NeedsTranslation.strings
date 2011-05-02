@@ -1,3 +1,12 @@
+/* Status message */
+"Tunnelblick: 0 connections" = "Tunnelblick: 0 connections";
+
+/* Status message */
+"Tunnelblick: Disconnect %d connections" = "Tunnelblick: Disconnect %d connections";
+
+/* Status message */
+"Tunnelblick: Disconnect 1 connection" = "Tunnelblick: Disconnect 1 connection";
+
 /* Button */
 "All Users" = "All Users";
 

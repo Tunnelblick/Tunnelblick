@@ -1,8 +1,11 @@
-/* Status message */
-"Tunnelblick: %d connections active." = "Tunnelblick: Aktywnych połączeń: %d.";
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: 0 connections" = "Tunnelblick: 0 connections";
 
-/* Status message */
-"Tunnelblick: 1 connection active." = "Tunnelblick: 1 połączenie aktywne.";
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: Disconnect %d connections" = "Tunnelblick: Disconnect %d connections";
+
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: Disconnect 1 connection" = "Tunnelblick: Disconnect 1 connection";
 
 /* Textbox name */
 "Password:" = "Hasło:";
@@ -130,9 +133,6 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "Connect %@%@" = "Connect %@%@";
 
-/* Menu item */
-"Details..." = "Szczegóły...";
-
 /* Menu item tooltip */
 "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Wyłączone, ponieważ Sparkle Updater nie odpowiada na setAutomaticallyChecksForUpdates:";
 
@@ -195,6 +195,9 @@
 
 /* Menu item */
 "Use Shadow Copies of Configuration Files" = "Używaj kopii plików konfiguracyjnych";
+
+/* Menu item */
+"View Details..." = "Szczegóły...";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "Ostrzegaj przed połączeniami równoległymi";
