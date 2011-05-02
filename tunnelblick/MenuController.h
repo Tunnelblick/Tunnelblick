@@ -53,7 +53,7 @@ BOOL needToCopyBundle(void);
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
-	NSMenuItem              * detailsItem;                  // "Details..." item for menu
+	NSMenuItem              * detailsItem;                  // "View Details..." item for menu
     NSMenuItem              * optionsItem;                  // "Options" item for menu
     NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
     NSMenuItem              * preferencesTitleItem;         //    "Preferences" menu item (just used as a title)
@@ -140,6 +140,7 @@ BOOL needToCopyBundle(void);
 }
 
 // Menu actions
+-(IBAction)         disconnectAllMenuItemWasClicked:        (id)                sender;
 -(IBAction)         checkForUpdates:                        (id)                sender;
 -(IBAction)         openLogWindow:                          (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;

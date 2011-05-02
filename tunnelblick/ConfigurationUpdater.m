@@ -61,16 +61,11 @@ extern NSFileManager        * gFileMgr;
                             }
                         }
                         
-                        // Copy a skeleton of the bundle to a temporary folder (so it is writable by the updater, which runs as a user)
+                        // Copy the bundle to a temporary folder (so it is writable by the updater, which runs as a user)
                         NSString * tempBundlePath = [[newTemporaryDirectoryPath() autorelease]
                                                      stringByAppendingPathComponent: [CONFIGURATION_UPDATES_BUNDLE_PATH lastPathComponent]];
-                        NSString * contentsPath = [tempBundlePath stringByAppendingPathComponent: @"Contents"];
-                        NSString * targetInfoPlistPath = [contentsPath stringByAppendingPathComponent: @"Info.plist"];
-                        NSString * sourceInfoPlistPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Info.plist"];
                         
-                        if (   [gFileMgr tbCreateDirectoryAtPath: tempBundlePath attributes: [NSDictionary dictionary]]
-                            && [gFileMgr tbCreateDirectoryAtPath: contentsPath attributes: [NSDictionary dictionary]]
-                            && [gFileMgr tbCopyPath: sourceInfoPlistPath toPath: targetInfoPlistPath handler: nil]  ) {
+                        if (   [gFileMgr tbCopyPath: CONFIGURATION_UPDATES_BUNDLE_PATH toPath: tempBundlePath handler: nil]  ) {
                             NSBundle * tempBundle = [NSBundle bundleWithPath: tempBundlePath];
                             if (  tempBundle  ) {
                                 if (  self = [super init]  ) {
