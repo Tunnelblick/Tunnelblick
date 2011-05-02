@@ -10,6 +10,7 @@
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
+    [wInstall Installing Tunnelblick]<br>
     [wUsing Using Tunnelblick]<br>
     [wConfigT Setting up Configurations]<br>
     [wRlsNotes Release Notes]<br>
