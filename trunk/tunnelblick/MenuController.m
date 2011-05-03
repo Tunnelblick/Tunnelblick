@@ -211,12 +211,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         [self dmgCheck];    // If running from a place that can't do suid (e.g., a disk image), this method does not return
 		
-        // Try to create a symbolic link to the private configurations folder from its old place (~/Library/openvpn)
-        // May fail if old place hasn't been moved yet, so we do it again later anyway.
-        // The installer can't do this on some networked home directories because root on this
-        // computer may not have permission to modify the home directory on the network server.
-        [self makeSymbolicLink];
-        
         // Run the installer only if necessary. The installer restores Resources/Deploy and/or repairs permissions,
         // moves the config folder if it hasn't already been moved, and backs up Resources/Deploy if it exists
         BOOL needsChangeOwnershipAndOrPermissions;
@@ -242,7 +236,35 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
         }
         
-        // Try again to create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
+        // If this is the first time we are using the new CFBundleIdentifier
+        //    Rename the old preferences so we can access them with the new CFBundleIdentifier
+        //    And create a link to the new preferences from the old preferences (make the link read-only)
+        if (  [[[NSBundle mainBundle] bundleIdentifier] isEqualToString: @"net.tunnelblick.tunnelblick"]  ) {
+            NSString * oldPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/com.openvpn.tunnelblick.plist"];
+            NSString * newPreferencesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"];
+            if (  ! [gFileMgr fileExistsAtPath: newPreferencesPath]  ) {
+                if (  [gFileMgr fileExistsAtPath: oldPreferencesPath]  ) {
+                    if (  [gFileMgr tbMovePath: oldPreferencesPath toPath: newPreferencesPath handler: nil]  ) {
+                        NSLog(@"Renamed existing preferences from %@ to %@", [oldPreferencesPath lastPathComponent], [newPreferencesPath lastPathComponent]);
+                        if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
+                                                       pathContent: newPreferencesPath]  ) {
+                            NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+                            if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
+                                NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
+                            } else {
+                                NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
+                            }
+                        } else {
+                            NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+                        }
+                    } else {
+                        NSLog(@"Warning: Unable to rename old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
+                    }
+                }
+            }
+        }
+            
+    // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
         // configuration folder contents to the new place)
         [self makeSymbolicLink];
         

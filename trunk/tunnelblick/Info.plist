@@ -28,17 +28,19 @@
 	<key>CFBundleIconFile</key>
 	<string>tunnelblick.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.openvpn.tunnelblick</string>
+	<string>net.tunnelblick.tunnelblick</string>
+	<key>CFBundleName</key>
+	<string>Tunnelblick</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.2beta11 (build 2473)</string>
+	<string>3.2beta11 (build 2474)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>2473</string>
+	<string>2474</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
