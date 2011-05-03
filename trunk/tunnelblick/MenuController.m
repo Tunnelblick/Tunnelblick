@@ -1347,14 +1347,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         unsigned nConnections = [connectionArray count];
         NSString * myState;
         if (  nConnections == 0  ) {
-            myState = NSLocalizedString(@"Tunnelblick: 0 connections", @"Status message");
+            myState = NSLocalizedString(@"Tunnelblick: No Connections", @"Status message");
             [statusMenuItem setTitle: myState];
             return NO;
         } else if (  nConnections == 1) {
-            myState = NSLocalizedString(@"Tunnelblick: Disconnect 1 connection", @"Status message");
+            myState = NSLocalizedString(@"Tunnelblick: Disconnect All (1 Connection)", @"Status message");
             [statusMenuItem setTitle: myState];
         } else {
-            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect %d connections", @"Status message"),nConnections];
+            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect All (%d Connections)", @"Status message"),nConnections];
             [statusMenuItem setTitle: myState];
         }
     } else if (  act == @selector(togglePlaceIconNearSpotlight:)  ) {
@@ -1805,11 +1805,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         unsigned nConnections = [connectionArray count];
         NSString * myState;
         if (  nConnections == 0  ) {
-            myState = NSLocalizedString(@"Tunnelblick: 0 connections", @"Status message");
+            myState = NSLocalizedString(@"Tunnelblick: No Connections", @"Status message");
         } else if (  nConnections == 1) {
-            myState = NSLocalizedString(@"Tunnelblick: Disconnect 1 connection", @"Status message");
+            myState = NSLocalizedString(@"Tunnelblick: Disconnect All (1 Connection)", @"Status message");
         } else {
-            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect %d connections", @"Status message"),nConnections];
+            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect All (%d Connections)", @"Status message"),nConnections];
         }	
         [statusItem setToolTip: myState];
 	}
