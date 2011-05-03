@@ -1,11 +1,11 @@
 /* Status message */
-"Tunnelblick: 0 connections" = "Tunnelblick: 0 connections";
+"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
 
 /* Status message */
-"Tunnelblick: Disconnect %d connections" = "Tunnelblick: Disconnect %d connections";
+"Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
 
 /* Status message */
-"Tunnelblick: Disconnect 1 connection" = "Tunnelblick: Disconnect 1 connection";
+"Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
 
 /* Textbox name */
 "Password:" = "Password:";

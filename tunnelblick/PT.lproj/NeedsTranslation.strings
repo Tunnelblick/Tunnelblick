@@ -1,0 +1,9 @@
+/* Status message */
+"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
+
+/* Status message */
+"Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
+
+/* Status message */
+"Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
+
