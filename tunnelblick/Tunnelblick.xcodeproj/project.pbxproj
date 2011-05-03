@@ -749,7 +749,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ${CONFIGURATION} = \"Release\" ]; then\n\n\n# Staging folder\nTMPDMG=build/Release/${PROJECT_NAME}\n\n# Folder with files for the .dmg (.DS_Store, background folder which contains background.png background image)\nDMG_FILES=dmgFiles\n\n# Remove the existing \"staging\" folder and copy the application into it\nrm -rf $TMPDMG\nmkdir -p $TMPDMG\ncp -p -R build/Release/${PROJECT_NAME}.app $TMPDMG\n\n# Copy link to documentation to the staging folder\ncp -p \"Online Documentation.webloc\" $TMPDMG\n\n# Copy the background folder and its background.png file, then make the folder invisible in the Finder\ncp -p -R $DMG_FILES/background $TMPDMG\nsetfile -a V \"$TMPDMG/background\"\n\n# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\ncp -p -R $DMG_FILES/dotDS_Store \"$TMPDMG/.DS_Store\"\nsetfile -a V \"$TMPDMG/.DS_Store\"\n\n# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\nrm -rf build/Release/${PROJECT_NAME}.dmg\nhdiutil create -noscrub -srcfolder $TMPDMG build/Release/${PROJECT_NAME}.dmg\n\n\nfi";
+			shellScript = "# Sign the binary tools and the Tunnelblick application itself\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/installer\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH\n\nif [ ${CONFIGURATION} = \"Release\" ]; then\n\n\t# Staging folder\n\tTMPDMG=build/Release/${PROJECT_NAME}\n\n\t# Folder with files for the .dmg (.DS_Store, background folder which contains background.png background image)\n\tDMG_FILES=dmgFiles\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -rf $TMPDMG\n\tmkdir -p $TMPDMG\n\tcp -p -R build/Release/${PROJECT_NAME}.app $TMPDMG\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" $TMPDMG\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R $DMG_FILES/background $TMPDMG\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R $DMG_FILES/dotDS_Store \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -rf build/Release/${PROJECT_NAME}.dmg\n\thdiutil create -noscrub -srcfolder $TMPDMG build/Release/${PROJECT_NAME}.dmg\n\nfi";
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -885,6 +885,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
 				ZERO_LINK = YES;
@@ -899,6 +905,12 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
 				ZERO_LINK = NO;
@@ -914,6 +926,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
 				ZERO_LINK = YES;
@@ -928,6 +946,12 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
 				ZERO_LINK = NO;
@@ -947,6 +971,10 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
 					"-framework",
 					Foundation,
 					"-framework",
@@ -969,6 +997,10 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
 					"-framework",
 					Foundation,
 					"-framework",
@@ -993,6 +1025,10 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
 					"-framework",
 					Foundation,
 					"-framework",
@@ -1015,6 +1051,10 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
 					"-framework",
 					Foundation,
 					"-framework",
