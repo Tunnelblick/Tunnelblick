@@ -81,10 +81,10 @@ The following preferences must each be prefixed by the name of your configuratio
   * *useDNS* (Number): Determines if Tunnelblick will use scripts before and after a connection is made and if so, which scripts. Which scripts depend on the value: 1 uses the standard scripts to save and restore the computer's DNS and WINS settings, 2 uses the scripts provided in Tunnelblick 3.0b10, 3 uses scripts  from http://openvpn.net/archive/openvpn-users/2006-10/msg00120.html. If 0 or not present, no scripts are run by Tunnelblick (the user may specify scripts in the configuration file). The user may specify this by setting "Set Nameserver" on the "Details…" window tab for the configuration. The default is 1. Note: if this value is non-zero, any "up" and "down" options in the configuration file will be ignored.
   * *-notMonitoringConnection* (Boolean): If cleared or not present, Tunnelblick will monitor the network and restart the connection if changes to the network DNS or WINS configurations are detected. If set, no monitoring will be done. The user may specify this using the "Monitor Connection" check box on the "Details…" window tab for the configuration. This preference is ignored, and the check box is disabled, if the "useDNS" preference is not set to 1 (i.e., the "Set Nameserver" is not specified). The default is cleared (check box checked).
   * *-doNotRestoreOnDnsReset* and *-doNotRestoreOnWinsReset* (Boolean): If set, a DHCP renew which restores the original, pre-VPN DNS or WINS information will restart the connection. If cleared or not present, the post-VPN information will replace the DHCP-supplied information. The default is not present.
-  * *-leasewatchOptions* (String): If set, contains '-i' followed by letters indicating DNS/WINS changes that should be ignored. The default is not present. If not present and monitoring the connection, changes to the following parameters will be restored or cause a reconnection attempt:
-    * DomainName
-    * ServerAddresses
-    * SearchDomains
+  * *-leasewatchOptions* (String, available in Tunnelblick 3.2beta08 and later): If set, contains '-i' followed by letters indicating DNS/WINS changes that should be ignored. The default is not present. If not present and monitoring the connection, changes to the following parameters will be restored or cause a reconnection attempt:
+    * !DomainName
+    * !ServerAddresses
+    * !SearchDomains
     * NetBIOSName
     * Workgroup
     * WINSAddresses
