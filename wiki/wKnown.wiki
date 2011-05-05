@@ -9,7 +9,9 @@ The following are known problems or limitations in Tunnelblick version 3.1:
 
   * The standard script that "Set nameserver" uses handles DNS for most common setups. For other situations, the "Alternate 1" script may work, or you can use custom scripts. See [wConfigT#The_%22Set_Nameserver%22_Check_Box_and_DNS_&_WINS_Sett Setting up Configurations] for details.
 
-  * The standard script that "Set nameserver" uses does not implement pushing domain information from the server (only DNS and WINS information).  The "Alternate 1" script may do this; let us know either way by posting on  the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
+  * The standard script that "Set nameserver" uses does not implement pushing domain information from the server (only DNS and WINS information). Try to connect using "Set nameserver (alternate 1)" in Tunnelblick 3.2beta10 or later.
+
+  * When attempting to connect to a VPN using a TAP connection, OpenVPN may display a series of "write to TUN/TAP : Input/output error (code=5)" error messages. Although a few of these messages are normal, if they continue to be displayed for more than a few seconds, try to connect using "Set nameserver (alternate 1)" in Tunnelblick 3.2beta10 or later.
 
   * When attempting to connect to a VPN, Tunnelblick may fail to load tun.kext or tap.kext. This can happen when another program, or another version of Tunnelblick, has loaded different versions of tun.kext and tap.kext. A For example, the Cisco VPN client loads conflicting kexts at system startup, and they must be unloaded for Tunnelblick to work. Viscosity loads tun.kext and tap.kext when it is running. This problem may be avoided (for Viscosity) by quitting Viscosity, or (for Cisco) by using the [DownloadsEntry#User-Contributed_Scripts user-contributed script] designed for that purpose.
 
