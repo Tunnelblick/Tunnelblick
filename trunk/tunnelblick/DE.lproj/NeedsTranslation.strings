@@ -1,11 +1,17 @@
 /* Status message */
-"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
+"Tunnelblick: %d Connections" = "Tunnelblick: %d Connections";
+
+/* Status message */
+"Tunnelblick: 1 Connection" = "Tunnelblick: 1 Connection";
 
 /* Status message */
 "Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
 
 /* Status message */
 "Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
+
+/* Status message */
+"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
 
 /* Connection status */
 "TCP_CONNECT" = "Making TCP connection";

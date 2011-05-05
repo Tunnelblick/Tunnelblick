@@ -1,11 +1,17 @@
 /* NEEDS TRANSLATION *//* Status message */
-"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
+"Tunnelblick: %d Connections" = "Tunnelblick: %d Connections";
+
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: 1 Connection" = "Tunnelblick: 1 Connection";
 
 /* NEEDS TRANSLATION *//* Status message */
 "Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
 
 /* NEEDS TRANSLATION *//* Status message */
 "Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
+
+/* NEEDS TRANSLATION *//* Status message */
+"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
 
 /* Textbox name */
 "Password:" = "密码:"; 
