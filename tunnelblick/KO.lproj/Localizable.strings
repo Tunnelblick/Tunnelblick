@@ -203,7 +203,7 @@
 "Use Shadow Copies of Configuration Files" = "Use Shadow Copies of Configuration Files";
 
 /* Menu item */
-"View Details..." = "상세보기…";
+"Details..." = "상세보기…";
 
 /* NEEDS TRANSLATION *//* Menu item */
 "Warn About Simultaneous Connections" = "Warn About Simultaneous Connections";

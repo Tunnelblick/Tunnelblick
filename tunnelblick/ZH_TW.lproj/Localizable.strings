@@ -203,7 +203,7 @@
 "Use Shadow Copies of Configuration Files" = "使用影子複本設定檔";
 
 /* Menu item */
-"View Details..." = "詳情…";
+"Details..." = "詳情…";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "當同時連線時作出警告";

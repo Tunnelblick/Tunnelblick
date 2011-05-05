@@ -203,7 +203,7 @@
 "Use Shadow Copies of Configuration Files" = "Usa Copie di sicurezza dei File di Configurazione";
 
 /* Menu item */
-"View Details..." = "Dettagli…";
+"Details..." = "Dettagli…";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "Attenzione alle connessioni simultanee";
