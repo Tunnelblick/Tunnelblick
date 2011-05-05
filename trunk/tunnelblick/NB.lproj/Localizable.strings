@@ -203,7 +203,7 @@
 "Use Shadow Copies of Configuration Files" = "Bruk skyggekopien av konfigurasjonsfilene";
 
 /* Menu item */
-"View Details..." = "Detaljer…";
+"Details..." = "Detaljer…";
 
 /* Menu item */
 "Warn About Simultaneous Connections" = "Advar om samtidige oppkoblinger";

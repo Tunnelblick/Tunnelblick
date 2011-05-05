@@ -939,7 +939,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
     
     detailsItem = [[NSMenuItem alloc] init];
-    [detailsItem setTitle: NSLocalizedString(@"View Details...", @"Menu item")];
+    [detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
     // We set the target and action below, but only if there are any configurations,
     // so it is dimmed/disabled if there aren't any configuratinos
     
