@@ -1825,15 +1825,15 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {
     if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
         unsigned nConnections = [connectionArray count];
-        NSString * myState;
+        NSString * toolTip;
         if (  nConnections == 0  ) {
-            myState = NSLocalizedString(@"Tunnelblick: No Connections", @"Status message");
+            toolTip = NSLocalizedString(@"Tunnelblick: No Connections", @"Status message");
         } else if (  nConnections == 1) {
-            myState = NSLocalizedString(@"Tunnelblick: Disconnect All (1 Connection)", @"Status message");
+            toolTip = NSLocalizedString(@"Tunnelblick: 1 Connection", @"Status message");
         } else {
-            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect All (%d Connections)", @"Status message"),nConnections];
+            toolTip = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: %d Connections", @"Status message"), nConnections];
         }	
-        [statusItem setToolTip: myState];
+        [statusItem setToolTip: toolTip];
 	}
     
 	if (   (![lastState isEqualToString:@"EXITING"])
