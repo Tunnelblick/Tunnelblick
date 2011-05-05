@@ -178,7 +178,7 @@ set State:/Network/Service/DHCP-$dev/DNS
 EOF
          fi
 
-     }
+     } &
 
 else
 
