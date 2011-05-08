@@ -82,13 +82,14 @@ This problem indicates a problem with the tun/tap kexts.
 ==An OpenVPN log entry says "Tunnelblick: openvpnstart status #247: Error: Unable to load tun and tap kexts. Status = 71"==
 See the following entry.
 ==An OpenVPN log entry says "Tunnelblick: openvpnstart status #247: Error: Unable to load net.tunnelblick.tun and/or net.tunnelblick.tap kexts in 5 tries. Status = 71"==
-This means that Tunnelblick was unable to load the tun and/or tap kexts (device drivers) it needs to make a VPN connection. Usually that is because there are incompatible kexts already loaded. Recent versions of Tunnelblick try to be "good citizens" by loading kexts only when needed, and unloading them when they are no longer needed. However, some other VPN clients (Cisco AnyConnect SSL VPN, for example) load their own, incompatible kexts when the computer is started and leave them loaded, whether or not a VPN connection is in use.
+This means that Tunnelblick was unable to load the tun and/or tap kexts (device drivers) it needs to make a VPN connection. Usually that is because there are incompatible kexts already loaded. Recent versions of Tunnelblick try to be "good citizens" by loading kexts only when needed, and unloading them when they are no longer needed. However, some other VPN clients (Cisco !AnyConnect SSL VPN, for example) load their own, incompatible kexts when the computer is started and leave them loaded, whether or not a VPN connection is in use. (Some non-VPN software also loads incompatible kexts -- for example, Pogoplug loads a "com.pogoplug.xcetun" tun kext which interferes with Tunnelblick's tun kext.)
 
 To find out if this is what is causing the problem, use the "kextstat" command in a Terminal window. It will list all of the loaded kexts. Usually the tun and/or tap kexts show up at or near the end of the list. Common tun/taps are:
   * net.tunnelblick.tun and net.tunnelblick.tap: These are the kexts used by current versions of Tunnelblick. The appropriate one (tun or tap) is loaded when a connection is requested, and unloaded when it is disconnected.
   * foo.tun and foo.tap: These are obsolete Tunnelblick kexts, loaded when an older version of Tunnelblick is launched (and unloaded when the computer restarts). If Tunnelblick detects them, it will offer to unload them before connecting.
   * com.cisco.cscotun: This is Cisco AnyConnect SSL VPN kext. Cisco's installer causes it to be loaded when the computer starts.
   * com.viscosityvpn.Viscosity.tun and com.viscosityvpn.Viscosity.tap: These are kexts used by the Viscosity VPN client.
+  * com.pogoplug.xcetun: This kext is associated with Pogoplug.
 
 To unload kexts and allow Tunnelblick to load its own kexts, use the 'kextunload" Terminal command to unload each loaded tun and tap kext individually. For example, to unload com.viscosityvpn.Viscosity.tun, type the following:
 
