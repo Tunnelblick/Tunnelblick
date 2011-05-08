@@ -1958,8 +1958,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
         // setting menu command title depending on current status:
         NSString *commandString; 
-        if ([[connection state] isEqualToString:@"CONNECTED"]) commandString = NSLocalizedString(@"Disconnect %@%@", @"Menu item");
-        else commandString = NSLocalizedString(@"Connect %@%@", @"Menu item");
+        if (  ! [[connection state] isEqualToString:@"EXITING"]  ) {
+            commandString = NSLocalizedString(@"Disconnect %@%@", @"Menu item");
+        } else {
+            commandString = NSLocalizedString(@"Connect %@%@", @"Menu item");
+        }
         
         // Remove submenu prefix if using submenus
         NSString * itemName = [connection displayName];
