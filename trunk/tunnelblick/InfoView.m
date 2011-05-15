@@ -93,7 +93,8 @@
 {
     requestedPosition = 0.0;
     restartAtTop = YES;
-    startTime = [NSDate timeIntervalSinceReferenceDate] + 3.0;
+    startTime = [NSDate timeIntervalSinceReferenceDate] + 2.0;  // Time between initial display and start of scrolling (but it also
+                                                                // takes time to scroll to the bottom of the display before moving the text)
     [infoCreditTV scrollPoint:NSMakePoint( 0.0, 0.0 )];
     
     scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 0.03 
@@ -109,7 +110,7 @@
     if ([NSDate timeIntervalSinceReferenceDate] >= startTime) {
         if (  restartAtTop  ) {
             // Reset the startTime
-            startTime = [NSDate timeIntervalSinceReferenceDate] + 3.0;
+            startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;  // Time to allow for fade in at top before scrolling
             restartAtTop = NO;
             
             // Fade back in
@@ -126,7 +127,7 @@
         CGFloat actualPosition = [[infoCreditSV contentView] bounds].origin.y;
         if (  requestedPosition > actualPosition + 10.0  ) {
             // Reset the startTime
-            startTime = [NSDate timeIntervalSinceReferenceDate] + 3.0;
+            startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;  // Time from fading out at end to fade in at top
             
             // Reset the position
             requestedPosition = 0.0;
