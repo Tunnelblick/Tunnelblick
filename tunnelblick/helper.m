@@ -28,7 +28,6 @@
 #import "NSFileManager+TB.h"
 
 // PRIVATE FUNCTIONS:
-NSString     * openVPNVersion           (void);
 NSDictionary * parseVersion             (NSString * string);
 NSRange        rangeOfDigits            (NSString * s);
 void           localizableStrings       (void);
@@ -675,6 +674,65 @@ NSString * newTemporaryDirectoryPath(void)
     
     return [tempFolder retain];
 }
+
+// From http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/registering_help/registering_help.html#//apple_ref/doc/uid/TP30000903-CH207-CHDGHHDF
+OSStatus RegisterMyHelpBook(void)
+{
+    OSStatus err = noErr;
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        
+        CFBundleRef myApplicationBundle;
+        CFURLRef myBundleURL;
+        
+        myApplicationBundle = NULL;
+        myBundleURL = NULL;
+        
+        myApplicationBundle = CFBundleGetMainBundle();// 1
+        if (myApplicationBundle == NULL) {err = fnfErr; goto bail;}
+        
+        myBundleURL = CFBundleCopyBundleURL(myApplicationBundle);// 2
+        if (myBundleURL == NULL) {err = fnfErr; goto bail;}
+        
+        err = AHRegisterHelpBookWithURL(myBundleURL);// 3
+    }
+    
+bail:
+    return err;
+}
+
+
+// Modified from http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/using_ah_functions/using_ah_functions.html#//apple_ref/doc/uid/TP30000903-CH208-CIHFABIE
+OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
+{
+    OSStatus err = fnfErr;
+    
+    if (  runningOnLeopardOrNewer()  ) {
+        
+        CFBundleRef myApplicationBundle = NULL;
+        CFStringRef myBookName = NULL;
+        
+        myApplicationBundle = CFBundleGetMainBundle();// 1
+        if (myApplicationBundle == NULL) {err = fnfErr; goto bail;}// 2
+        
+        myBookName = CFBundleGetValueForInfoDictionaryKey(// 3
+                                                          myApplicationBundle,
+                                                          CFSTR("CFBundleHelpBookName"));
+        
+        if (myBookName == NULL) {err = fnfErr; goto bail;}
+        
+        if (CFGetTypeID(myBookName) != CFStringGetTypeID()) {// 4
+            err = paramErr;
+            goto bail;
+        }
+        
+        err = AHGotoPage (myBookName, pagePath, anchorName);// 5
+    }
+    
+bail:
+    return err;
+}
+
 
 // This method is never invoked. It is a place to put strings which are used in the DMG or the .nib or come from OpenVPN
 // They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.

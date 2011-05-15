@@ -99,6 +99,8 @@ typedef enum
 
 -(NSDate *)         connectedSinceDate;
 
+-(NSString *)       connectTimeString;
+
 -(void)             connect:                    (id)                sender
                   userKnows:                    (BOOL)              userKnows;
 

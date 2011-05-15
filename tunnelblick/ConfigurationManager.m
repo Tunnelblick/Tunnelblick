@@ -512,7 +512,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 || [devOptionFirst3Chars isEqualToString: @"tap"]  )  )  ) {
         NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.", @"Window text"),
                [connection displayName]];
-        NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"skipWarningAboutNoTunOrTap"];
+        NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutNoTunOrTap"];
         TBRunAlertPanelExtended(NSLocalizedString(@"No 'dev tun' or 'dev tap' found", @"Window title"), 
                                 msg,
                                 nil, nil, nil,

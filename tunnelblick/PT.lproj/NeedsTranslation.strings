@@ -1,15 +1,108 @@
 /* Status message */
-"Tunnelblick: %d Connections" = "Tunnelblick: %d Connections";
+"%d Connections" = "%d Connections";
 
 /* Status message */
-"Tunnelblick: 1 Connection" = "Tunnelblick: 1 Connection";
+"Disconnect  All (%@)" = "Disconnect  All (%@)";
 
 /* Status message */
-"Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
+"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
 
 /* Status message */
-"Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
+"No Active Connections" = "No Active Connections";
 
-/* Status message */
-"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"100 MB" = "100 MB";
+
+/* Button */
+"Check Now" = "Check Now";
+
+/* Button */
+"Monochrome icon" = "Monochrome icon";
+
+/* Button */
+"Never show" = "Never show";
+
+/* Button */
+"Reset Disabled Warnings" = "Reset Disabled Warnings";
+
+/* Button */
+"Show when connection status changes" = "Show when connection status changes";
+
+/* Button */
+"Show while connecting" = "Show while connecting";
+
+/* Button */
+"Standard icon" = "Standard icon";
+
+/* Menu item */
+"Add a VPN..." = "Add a VPN...";
+
+/* Menu item */
+"Preferences..." = "Preferences...";
+
+/* Menu item */
+"VPN Details..." = "VPN Details...";
+
+/* Checkbox name */
+"Check for updates automatically" = "Check for updates automatically";
+
+/* Checkbox name */
+"Display connection submenus" = "Display connection submenus";
+
+/* Checkbox name */
+"Display connection timers" = "Display connection timers";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
+
+/* Checkbox name */
+"Place next to Spotlight icon" = "Place next to Spotlight icon";
+
+/* Checkbox name */
+"Use shadow copies of configuration files" = "Use shadow copies of configuration files";
+
+/* Window text */
+"(Never checked)" = "(Never checked)";
+
+/* Window text */
+"Configurations:" = "Configurations:";
+
+/* Window text */
+"Connection window:" = "Connection window:";
+
+/* Window text */
+"Icon:" = "Icon:";
+
+/* Window text */
+"Keyboard shortcut:" = "Keyboard shortcut:";
+
+/* Window text */
+"Last checked: %@" = "Last checked: %@";
+
+/* Window text */
+"Maximum log display size:" = "Maximum log display size:";
+
+/* Window text */
+"Menu:" = "Menu:";
+
+/* Window text */
+"Updates:" = "Updates:";
+
+/* Window text */
+"Warnings:" = "Warnings:";
 

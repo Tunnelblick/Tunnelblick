@@ -1,23 +1,38 @@
 /* NEEDS TRANSLATION *//* Status message */
-"Tunnelblick: %d Connections" = "Tunnelblick: %d Connections";
+"%d Connections" = "%d Connections";
 
 /* NEEDS TRANSLATION *//* Status message */
-"Tunnelblick: 1 Connection" = "Tunnelblick: 1 Connection";
+"Disconnect  All (%@)" = "Disconnect  All (%@)";
 
 /* NEEDS TRANSLATION *//* Status message */
-"Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
+"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
 
 /* NEEDS TRANSLATION *//* Status message */
-"Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
-
-/* NEEDS TRANSLATION *//* Status message */
-"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
+"No Active Connections" = "No Active Connections";
 
 /* Textbox name */
 "Password:" = "Contrasenya:";
 
 /* Textbox name */
 "Username:" = "Nom d'usuari:";
+
+/* NEEDS TRANSLATION *//* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* NEEDS TRANSLATION *//* Button */
+"1 MB" = "1 MB";
+
+/* NEEDS TRANSLATION *//* Button */
+"10 KB" = "10 KB";
+
+/* NEEDS TRANSLATION *//* Button */
+"10 MB" = "10 MB";
+
+/* NEEDS TRANSLATION *//* Button */
+"100 KB" = "100 KB";
+
+/* NEEDS TRANSLATION *//* Button */
+"100 MB" = "100 MB";
 
 /* NEEDS TRANSLATION *//* Button */
 "All Users" = "All Users";
@@ -30,6 +45,9 @@
 
 /* Button */
 "Cancel" = "Cancel·lar";
+
+/* NEEDS TRANSLATION *//* Button */
+"Check Now" = "Check Now";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Tancar connexions VPN i parar el Tunnelblick";
@@ -88,6 +106,12 @@
 /* NEEDS TRANSLATION *//* Button */
 "Make configuration private" = "Make configuration private";
 
+/* NEEDS TRANSLATION *//* Button */
+"Monochrome icon" = "Monochrome icon";
+
+/* NEEDS TRANSLATION *//* Button */
+"Never show" = "Never show";
+
 /* Button */
 "OK" = "D'acord";
 
@@ -107,7 +131,19 @@
 "Replace" = "Replace";
 
 /* NEEDS TRANSLATION *//* Button */
+"Reset Disabled Warnings" = "Reset Disabled Warnings";
+
+/* NEEDS TRANSLATION *//* Button */
 "Share configuration" = "Share configuration";
+
+/* NEEDS TRANSLATION *//* Button */
+"Show when connection status changes" = "Show when connection status changes";
+
+/* NEEDS TRANSLATION *//* Button */
+"Show while connecting" = "Show while connecting";
+
+/* NEEDS TRANSLATION *//* Button */
+"Standard icon" = "Standard icon";
 
 /* NEEDS TRANSLATION *//* Button */
 "Terminate" = "Terminate";
@@ -124,26 +160,14 @@
 /* Button */
 "Unprotect and Modify" = "Desprotegir i Modificar";
 
-/* Menu item */
-"About..." = "Quant a…";
-
 /* NEEDS TRANSLATION *//* Menu item */
-"Add a Configuration..." = "Add a Configuration...";
-
-/* Menu item */
-"Automatically Check for Updates" = "Cercar actualitzacions automàticament";
+"Add a VPN..." = "Add a VPN...";
 
 /* Menu item */
 "Check For Updates Now" = "Cercar actualitzacions ara";
 
 /* NEEDS TRANSLATION *//* Menu item */
 "Connect %@%@" = "Connect %@%@";
-
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
-
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:" = "Disabled because Sparkle Updater does not respond to setSendsSystemProfile:";
 
 /* NEEDS TRANSLATION *//* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
@@ -158,58 +182,28 @@
 "Disconnect %@%@" = "Disconnect %@%@";
 
 /* NEEDS TRANSLATION *//* Menu item */
-"Keyboard Shortcut" = "Keyboard Shortcut";
-
-/* Menu item */
-"Monitor the Configuration Folder" = "Monitoritzar la carpeta de configuració";
-
-/* NEEDS TRANSLATION *//* Menu item */
 "No VPN Configurations Available" = "No VPN Configurations Available";
 
-/* Menu item */
-"Options" = "Opcions";
-
-/* Menu item */
-"Place Icon Near the Spotlight Icon" = "Col·locar la icona propera a la icona de l'Spotlight";
-
-/* Menu item */
-"Preferences" = "Preferències";
+/* NEEDS TRANSLATION *//* Menu item */
+"Preferences..." = "Preferences...";
 
 /* Menu item */
 "Quit Tunnelblick" = "Sortir de Tunnelblick";
 
-/* Menu item */
-"Send Anonymous System Profile" = "Enviar informació anònima del sistema";
-
-/* Menu item */
-"Show Connection Timers" = "Mostrar els comptadors de la connexió";
-
-/* Menu item tooltip */
-"Takes effect at the next check for updates" = "S'aplica en la propera comprovació d'actualitzacions";
-
-/* Menu item tooltip */
-"Takes effect immediately" = "S'aplica immediatament";
-
-/* Menu item tooltip */
-"Takes effect the next time Tunnelblick is launched" = "S'aplica la propera vegada que Tunnelblick s'executi";
-
-/* Menu item tooltip */
-"Takes effect with the next connection" = "S'aplica amb la propera connexió";
-
 /* NEEDS TRANSLATION *//* Menu item */
-"Use Original Icon" = "Use Original Icon";
-
-/* Menu item */
-"Use Shadow Copies of Configuration Files" = "Utilitzar còpies 'shadow' dels arxius de configuració";
-
-/* Menu item */
-"Details..." = "Detalls…";
-
-/* Menu item */
-"Warn About Simultaneous Connections" = "Avisa sobre connexions simultànies";
+"VPN Details..." = "VPN Details...";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Automatically connect" = "Automatically connect";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Check for updates automatically" = "Check for updates automatically";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Display connection submenus" = "Display connection submenus";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Display connection timers" = "Display connection timers";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
@@ -229,8 +223,17 @@
 /* Checkbox name */
 "Monitor connection" = "Monitoritzar la connexió";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Place next to Spotlight icon" = "Place next to Spotlight icon";
+
 /* Checkbox name */
 "Save in Keychain" = "Guardar en el gestor de claus";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Use shadow copies of configuration files" = "Use shadow copies of configuration files";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "when Tunnelblick launches" = "when Tunnelblick launches";
@@ -553,8 +556,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
-/* Window text */
-"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Basat en Tunnelblick, programari lliure disponible a <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* NEEDS TRANSLATION *//* Window text */
+"(Never checked)" = "(Never checked)";
 
 /* NEEDS TRANSLATION *//* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
@@ -580,8 +583,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
-/* Window text */
-"Copyright © 2004-2011 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2011 Angelo Laub i altres. Tots els drets reservats.";
+/* NEEDS TRANSLATION *//* Window text */
+"Configurations:" = "Configurations:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Connection window:" = "Connection window:";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to install %d configurations" = "Do you wish to install %d configurations";
@@ -605,7 +611,22 @@
 "Do you wish to uninstall one configuration" = "Do you wish to uninstall one configuration";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Icon:" = "Icon:";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Keyboard shortcut:" = "Keyboard shortcut:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Last checked: %@" = "Last checked: %@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Maximum log display size:" = "Maximum log display size:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Menu:" = "Menu:";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Es crearien múltiples connexions simultànies (%1$d amb 'Configurar el servidor de noms', %2$d sense 'Configurar el servidor de noms').";
@@ -773,7 +794,13 @@
 "Unable to Establish Communication" = "Unable to Establish Communication";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Updates:" = "Updates:";
+
+/* NEEDS TRANSLATION *//* Window text */
 "VPN Connections" = "VPN Connections";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Warnings:" = "Warnings:";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";

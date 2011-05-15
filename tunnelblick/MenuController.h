@@ -30,7 +30,7 @@
 #import "UKKQueue/UKKQueue.h"
 #import "VPNConnection.h"
 #import "ConfigurationUpdater.h"
-
+#import "MyPrefsWindowController.h"
 @class LogWindowController;
 @class NetSocket;
 
@@ -54,6 +54,7 @@ BOOL needToCopyBundle(void);
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
 	NSMenuItem              * detailsItem;                  // "Details..." item for menu
+    NSMenuItem              * preferencesItem;             //    "Preferences..." item for menu
     NSMenuItem              * optionsItem;                  // "Options" item for menu
     NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
     NSMenuItem              * preferencesTitleItem;         //    "Preferences" menu item (just used as a title)
@@ -132,6 +133,7 @@ BOOL needToCopyBundle(void);
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
     UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
     NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use or nil if no hot key active
+    int                       hotKeyCurrentIndex;           // Index of the hot key that is currently in use (0 = none, else 1...12)
 
     NSMutableArray          * customMenuScripts;            // Array of paths to the scripts for custom menu items
     int                       customMenuScriptIndex;        // Index used while building the customMenuScripts array
@@ -141,26 +143,28 @@ BOOL needToCopyBundle(void);
 
 // Menu actions
 -(IBAction)         disconnectAllMenuItemWasClicked:        (id)                sender;
--(IBAction)         checkForUpdates:                        (id)                sender;
 -(IBAction)         openLogWindow:                          (id)                sender;
+-(IBAction)         openPreferencesWindow:                  (id)                sender;
+-(IBAction)         addConfigurationWasClicked:             (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
--(IBAction)         togglePlaceIconNearSpotlight:           (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         toggleMonitorConfigurationDir:          (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         toggleWarnAboutSimultaneous:            (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         toggleUseShadowCopies:                  (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         toggleAutoCheckForUpdates:              (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         toggleReportAnonymousInfo:              (NSMenuItem *)      item;   // On Options submenu
--(IBAction)         toggleUseOriginalIcon:                  (NSMenuItem *)      item;   // On Options submenu
 
 // General methods
 -(void)             addConnection:                          (id)                sender;
+-(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
+-(void)             changedDisplayConnectionSubmenusSettings;
+-(void)             changedDisplayConnectionTimersSettings;
+-(void)             changedMonitorConfigurationFoldersSettings;
+-(void)             checkForUpdates:                        (id)                sender;
 -(void)             cleanup;
+-(void)             createLinkToApp;
+-(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
 -(void)             installConfigurationsUpdateInBundleAtPath: (NSString *)     path;
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
+-(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
@@ -171,7 +175,9 @@ BOOL needToCopyBundle(void);
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
 -(void)             saveConnectionsToRestoreOnRelaunch;
+-(void)             setHotKeyIndex:                         (int)               newIndex;
 -(void)             setState:                               (NSString *)        newState;
+-(void)             setupSparklePreferences;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
 -(void)             statusWindowController:                 (id)                ctl

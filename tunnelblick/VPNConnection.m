@@ -709,7 +709,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (  ! (   gTunnelblickIsQuitting
              || gComputerIsGoingToSleep )  ) {
         if (  ! showingStatusWindow  ) {
-            if (  [gTbDefaults boolForKey: @"showStatusWindow"]  ) {
+            NSString * statusPref = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
+            if (  ! [statusPref isEqualToString: @"neverShow"]  ) {
                 if (  ! statusScreen) {
                     statusScreen = [[StatusWindowController alloc] initWithDelegate: self];
                 } else {
@@ -1073,6 +1074,28 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 - (NSDate *)connectedSinceDate {
     return [[connectedSinceDate retain] autorelease];
+}
+
+-(NSString *) connectTimeString
+{
+    // Get connection duration if preferences say to 
+    if (   [gTbDefaults boolForKey:@"showConnectedDurations"]
+        && [[self state] isEqualToString: @"CONNECTED"]    ) {
+        NSString * cTimeS = @"";
+        NSDate * csd = [self connectedSinceDate];
+        NSTimeInterval ti = [csd timeIntervalSinceNow];
+        long cTimeL = (long) round(-ti);
+        if ( cTimeL >= 0 ) {
+            if ( cTimeL < 3600 ) {
+                cTimeS = [NSString stringWithFormat:@" (%li:%02li)", cTimeL/60, cTimeL%60];
+            } else {
+                cTimeS = [NSString stringWithFormat:@" (%li:%02li:%02li)", cTimeL/3600, (cTimeL/60) % 60, cTimeL%60];
+            }
+        }
+        return cTimeS;
+    } else {
+        return @"";
+    }
 }
 
 - (void)setConnectedSinceDate:(NSDate *)value {
@@ -1871,7 +1894,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
-    if (   [gTbDefaults boolForKey: @"showAllStatusChanges"]
+    NSString * statusPref = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
+    if (   [statusPref isEqualToString: @"showWhenChanges"]
         || [newState isEqualToString: @"RECONNECTING"]  ) {
         [self showStatusWindow];
     }
@@ -1974,7 +1998,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         
         NSString *itemTitle = [NSString stringWithFormat:commandString,
                                itemName,
-                               [self displayLocation]];
+                               [self connectTimeString]];
         [anItem setTitle:itemTitle];
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: [connection configPath]];

@@ -73,6 +73,8 @@
 
 -(void)             removeObjectForKey:         (NSString *)        key;
 
+-(void)             removeAllObjectsWithSuffix: (NSString *)        key;
+
 -(void)             synchronize;
 
 @end

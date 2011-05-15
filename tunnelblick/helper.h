@@ -46,6 +46,7 @@ NSString     * deconstructOpenVPNLogPath(NSString * logPath,
                                          NSString * * startArgsPtr);
 
 NSString     * tunnelblickVersion       (NSBundle * bundle);
+NSString     * openVPNVersion           (void);
 NSDictionary * getOpenVPNVersion        (void);
 
 int            TBRunAlertPanel          (NSString * title,
@@ -68,3 +69,7 @@ BOOL           isUserAnAdmin            (void);
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
+
+OSStatus       RegisterMyHelpBook       (void);
+OSStatus       MyGotoHelpPage           (CFStringRef pagePath, 
+                                         CFStringRef anchorName);

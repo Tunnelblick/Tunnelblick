@@ -52,12 +52,16 @@ BOOL                    gTunnelblickIsQuitting; // Flag that Tunnelblick is in t
 BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
 unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                               or zero to keep trying indefinitely
+unsigned                gMaximumLogSize;        // Maximum size (bytes) of buffer used to display the log
+
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
 
 void terminateBecauseOfBadConfiguration(void);
 
 OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData);
+OSStatus RegisterMyHelpBook(void);
+
 
 extern BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave);
@@ -99,7 +103,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         skipConfirmationMessage:                            (BOOL)              skipConfirmMsg
               skipResultMessage:                            (BOOL)              skipResultMsg;
 
--(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
                                        toPort:              (int *)             portPtr
@@ -107,7 +110,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(NSArray *)        findTblksToInstallInPath:               (NSString *)        thePath;
 -(void)             checkNoConfigurations;
 -(void)             createMenu;
--(void)             createStatusItem;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             deleteLogs;
 -(void)             dmgCheck;
@@ -129,7 +131,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(NSString *)       installationId;
 -(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
                                             logMessage:     (NSString *)        logMessage;
--(BOOL)             loadMenuIconSet;
 -(void)             makeSymbolicLink;
 -(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
@@ -148,10 +149,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(BOOL)             setupHookupWatchdogTimer;
 -(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
                         andModifierKeys:                    (UInt32)            modifierKeys;
--(void)             setupSparklePreferences;
 -(NSStatusItem *)   statusItem;
--(void)             toggleMenuItem:                         (NSMenuItem *)      item
-                 withPreferenceKey:                         (NSString *)        prefKey;
 -(void)             updateMenuAndLogWindow;
 -(void)             updateNavigationLabels;
 -(void)             updateUI;
@@ -249,10 +247,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                         if (  [gFileMgr tbCreateSymbolicLinkAtPath: oldPreferencesPath
                                                        pathContent: newPreferencesPath]  ) {
                             NSLog(@"Created a symbolic link from old preferences at %@ to %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
-                            if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
-                                NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
-                            } else {
-                                NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
+                            if (  lchmod != 0  ) {
+                                if (  lchmod([oldPreferencesPath fileSystemRepresentation], S_IRUSR+S_IRGRP+S_IROTH) == EXIT_SUCCESS  ) {
+                                    NSLog(@"Made the symbolic link read-only at %@", oldPreferencesPath);
+                                } else {
+                                    NSLog(@"Warning: Unable to make the symbolic link read-only at %@", oldPreferencesPath);
+                                }
                             }
                         } else {
                             NSLog(@"Warning: Unable to create a symbolic link from the old preferences at %@ to the new preferences %@", oldPreferencesPath, [newPreferencesPath lastPathComponent]);
@@ -264,7 +264,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
         }
             
-    // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
+        // Create a symbolic link to the private configurations folder, after having run the installer (which may have moved the
         // configuration folder contents to the new place)
         [self makeSymbolicLink];
         
@@ -327,38 +327,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
         }
         
-        // Create a link to this application in the private configurations folder if we are using it
-        if (  [gConfigDirs containsObject: gPrivatePath]  ) {
-            if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
-                NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
-                NSString * launchTunnelblickSymlinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
-                NSString * linkContents = [gFileMgr tbPathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath];
-                if (  linkContents == nil  ) {
-                    [gFileMgr tbRemoveFileAtPath:launchTunnelblickSymlinkPath handler: nil];
-                    if (  [gFileMgr tbCreateSymbolicLinkAtPath: launchTunnelblickSymlinkPath
-                                                   pathContent: pathToThisApp]  ) {
-                        NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
-                    } else {
-                        NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
-                    }
-                } else if (  ! [linkContents isEqualToString: pathToThisApp]  ) {
-                    ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
-                    if (  ! [gFileMgr tbRemoveFileAtPath:launchTunnelblickSymlinkPath handler: nil]  ) {
-                        NSLog(@"Unable to remove %@", launchTunnelblickSymlinkPath);
-                    }
-                    if (  [gFileMgr tbCreateSymbolicLinkAtPath: launchTunnelblickSymlinkPath
-                                                   pathContent: pathToThisApp]  ) {
-                        NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
-                    } else {
-                        NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
-                    }
-                }
-            }
-        }
+        [self createLinkToApp];
         
         gOpenVPNVersionDict = [getOpenVPNVersion() copy];
         
-        myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         connectionArray = [[[NSMutableArray alloc] init] retain];
         
         if (  ! [self loadMenuIconSet]  ) {
@@ -380,6 +352,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             hotKeyModifierKeys = (UInt32) [code unsignedIntValue];
         } else {
             hotKeyModifierKeys = cmdKey+optionKey;
+        }
+        
+        myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] mutableCopy];
+        
+        myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
+        NSString * dispNm;
+        NSArray *keyArray = [myConfigDictionary allKeys];
+        NSEnumerator * e = [keyArray objectEnumerator];
+        while (dispNm = [e nextObject]) {
+            NSString * cfgPath = [myConfigDictionary objectForKey: dispNm];
+            
+            // configure connection object:
+            VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
+                                                                    withDisplayName: dispNm];
+            [myConnection setDelegate:self];
+            [myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
         
 		[self createMenu];
@@ -492,6 +480,38 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }    
 
+-(void) createLinkToApp
+{
+    // Create a link to this application in the private configurations folder if we are using it
+    if (  [gConfigDirs containsObject: gPrivatePath]  ) {
+        if (  ! [gTbDefaults boolForKey: @"doNotCreateLaunchTunnelblickLinkinConfigurations"]  ) {
+            NSString * pathToThisApp = [[NSBundle mainBundle] bundlePath];
+            NSString * launchTunnelblickSymlinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
+            NSString * linkContents = [gFileMgr tbPathContentOfSymbolicLinkAtPath: launchTunnelblickSymlinkPath];
+            if (  linkContents == nil  ) {
+                [gFileMgr tbRemoveFileAtPath:launchTunnelblickSymlinkPath handler: nil];
+                if (  [gFileMgr tbCreateSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                                               pathContent: pathToThisApp]  ) {
+                    NSLog(@"Created 'Launch Tunnelblick' link in Configurations folder; links to %@", pathToThisApp);
+                } else {
+                    NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
+                }
+            } else if (  ! [linkContents isEqualToString: pathToThisApp]  ) {
+                ignoreNoConfigs = TRUE; // We're dealing with no configs already, and will either quit or create one
+                if (  ! [gFileMgr tbRemoveFileAtPath:launchTunnelblickSymlinkPath handler: nil]  ) {
+                    NSLog(@"Unable to remove %@", launchTunnelblickSymlinkPath);
+                }
+                if (  [gFileMgr tbCreateSymbolicLinkAtPath: launchTunnelblickSymlinkPath
+                                               pathContent: pathToThisApp]  ) {
+                    NSLog(@"Replaced 'Launch Tunnelblick' link in Configurations folder; now links to %@", pathToThisApp);
+                } else {
+                    NSLog(@"Unable to create 'Launch Tunnelblick' link in Configurations folder linking to %@", pathToThisApp);
+                }
+            }
+        }
+    }
+}
+
 - (void) dealloc
 {
     [showDurationsTimer release];
@@ -534,6 +554,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [optionsSubmenu release];
     [optionsItem release];
     [detailsItem release];
+    [preferencesItem release];
     [quitItem release];
     [hotKeySubmenuItemThatIsOn release];
     [hotKeySubmenuItem release];
@@ -587,7 +608,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [bar _insertStatusItem: statusItem withPriority: priority];
     } else {
         // Standard placement of icon in Status Bar
-        if (  ! statusItem  ) {
+        if (  statusItem  ) {
+            [bar removeStatusItem: statusItem];
+            [statusItem release];
+            if (  (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
+                [statusItem setHighlightMode:YES];
+                [statusItem setMenu: myVPNMenu];
+                [self updateUI];
+            } else {
+                NSLog(@"Can't insert icon in Status Bar");
+            }
+        } else {
             if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
                 NSLog(@"Can't insert icon in Status Bar");
             }
@@ -730,6 +761,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         return FALSE;
     }
     
+    [self updateUI];    // Display the new image
+    
     return TRUE;
 }
 
@@ -752,197 +785,33 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
-// Initial creation of the menu
 -(void) createMenu 
-{	
-    hotKeySubmenu = nil;
-    
-    if (  ! [gTbDefaults boolForKey:@"doNotShowOptionsSubmenu"]  ) {
-        
-        preferencesTitleItem = [[NSMenuItem alloc] init];
-        [preferencesTitleItem setTitle: NSLocalizedString(@"Preferences", @"Menu item")];
-        [preferencesTitleItem setTarget: self];
-        [preferencesTitleItem setAction: @selector(togglePreferencesTitle:)];
-        
-        putIconNearSpotlightItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Place Icon Near the Spotlight Icon", @"Menu item")
-                                                         andAction: @selector(togglePlaceIconNearSpotlight:)
-                                                        andToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")
-                                                atIndentationLevel: 1
-                                                  andPreferenceKey: @"placeIconInStandardPositionInStatusBar"
-                                                           negated: YES];
-        
-        useOriginalIconItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Original Icon", @"Menu item")
-                                                    andAction: @selector(toggleUseOriginalIcon:)
-                                                   andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
-                                           atIndentationLevel: 1
-                                             andPreferenceKey: @"menuIconSet"
-                                                      negated: NO];
-        
-        monitorConfigurationDirItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Monitor the Configuration Folder", @"Menu item")
-                                                            andAction: @selector(toggleMonitorConfigurationDir:)
-                                                           andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
-                                                   atIndentationLevel: 1
-                                                     andPreferenceKey: @"doNotMonitorConfigurationFolder"
-                                                              negated: YES];
-        
-        useShadowCopiesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Use Shadow Copies of Configuration Files", @"Menu item")
-                                                    andAction: @selector(toggleUseShadowCopies:)
-                                                   andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
-                                           atIndentationLevel: 1
-                                             andPreferenceKey: @"useShadowConfigurationFiles"
-                                                      negated: NO];
-        
-        autoCheckForUpdatesItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Automatically Check for Updates", @"Menu item")
-                                                        andAction: @selector(toggleAutoCheckForUpdates:)
-                                                       andToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")
-                                               atIndentationLevel: 1
-                                                 andPreferenceKey: @"updateCheckAutomatically"
-                                                          negated: NO];
-        
-        //        warnAboutSimultaneousItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Warn About Simultaneous Connections", @"Menu item")
-        //                                                          andAction: @selector(toggleWarnAboutSimultaneous:)
-        //                                                         andToolTip: NSLocalizedString(@"Takes effect with the next connection", @"Menu item tooltip")
-        //                                                 atIndentationLevel: 1
-        //                                                   andPreferenceKey: @"skipWarningAboutSimultaneousConnections"
-        //                                                            negated: YES];
-        //        
-        //        showConnectedDurationsItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Show Connection Timers", @"Menu item")
-        //                                                          andAction: @selector(toggleConnectionTimers:)
-        //                                                         andToolTip: NSLocalizedString(@"Takes effect immediately", @"Menu item tooltip")
-        //                                                 atIndentationLevel: 1
-        //                                                   andPreferenceKey: @"showConnectedDurations"
-        //                                                            negated: NO];
-        //        
-        //        reportAnonymousInfoItem = [self initPrefMenuItemWithTitle: NSLocalizedString(@"Send Anonymous System Profile", @"Menu item")
-        //                                                        andAction: @selector(toggleReportAnonymousInfo:)
-        //                                                       andToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")
-        //                                               atIndentationLevel: 1
-        //                                                 andPreferenceKey: @"updateSendProfileInfo"
-        //                                                          negated: NO];
-        //
-        if (  ! [gTbDefaults boolForKey:@"doNotShowCheckForUpdatesNowMenuItem"]  ) {
-            checkForUpdatesNowItem = [[NSMenuItem alloc] init];
-            [checkForUpdatesNowItem setTitle: NSLocalizedString(@"Check For Updates Now", @"Menu item")];
-            [checkForUpdatesNowItem setTarget: self];
-            [checkForUpdatesNowItem setAction: @selector(checkForUpdates:)];
-        }
-        if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
-            addConfigurationItem = [[NSMenuItem alloc] init];
-            [addConfigurationItem setTitle: NSLocalizedString(@"Add a Configuration...", @"Menu item")];
-            [addConfigurationItem setTarget: self];
-            [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
-        }
-
-        if (  ! [gTbDefaults boolForKey:@"doNotShowKeyboardShortcutSubmenu"]  ) {
-            hotKeySubmenu = [[NSMenu alloc] init];
-            [hotKeySubmenu setTitle: NSLocalizedString(@"Keyboard Shortcut", @"Menu item")];
-            
-            // Virtual Key Codes for F1...F16. Taken from Snow Leopard HIToolBox/Events.h
-            int j;
-            for (j=0; j<16; j++) {
-                if (  fKeyCode[j] == hotKeyKeyCode  ) {
-                    break;
-                }
-            }
-            int i;
-            // We allow F1...F12 so the menu isn't too long (and MacBook keyboards only go that high, anyway)
-            for (i=0; i<12; i++) {
-                hotKeySubmenuItem =  [[NSMenuItem alloc] init];
-                const unichar cmdOptionChars[] = {0x2318,' ',0x2325};
-                NSString * cmdOptionString = [NSString stringWithCharacters: cmdOptionChars
-                                                             length: sizeof cmdOptionChars / sizeof * cmdOptionChars];
-                [hotKeySubmenuItem setTitle: [NSString stringWithFormat: @"%@ F%d", cmdOptionString , i+1]];
-                [hotKeySubmenuItem setTarget: self];
-                [hotKeySubmenuItem setAction: @selector(hotKeySubmenuItemWasClicked:)];
-                [hotKeySubmenuItem setRepresentedObject: [NSNumber numberWithInt: i]];
-                if (  i == j  ) {
-                    [hotKeySubmenuItem setState: NSOnState];
-                    hotKeySubmenuItemThatIsOn = [hotKeySubmenuItem retain];
-                } else {
-                    [hotKeySubmenuItem setState: NSOffState];
-                }
-                
-                [hotKeySubmenu addItem: hotKeySubmenuItem];
-            }
-        }
-    }
-    
-    aboutItem = [[NSMenuItem alloc] init];
-    [aboutItem setTitle: NSLocalizedString(@"About...", @"Menu item")];
-    [aboutItem setTarget: self];
-    [aboutItem setAction: @selector(openAboutWindow:)];
-    
-    if (   putIconNearSpotlightItem
-        || useOriginalIconItem
-        || monitorConfigurationDirItem
-        || showConnectedDurationsItem
-        || warnAboutSimultaneousItem
-        || useShadowCopiesItem
-        || autoCheckForUpdatesItem
-        || reportAnonymousInfoItem
-        || checkForUpdatesNowItem
-        ) {
-        optionsSubmenu = [[NSMenu alloc] initWithTitle:@"Options SubMenu Title"];
-        
-        if (  preferencesTitleItem              ) { [optionsSubmenu addItem: preferencesTitleItem           ]; }
-        if (  putIconNearSpotlightItem          ) { [optionsSubmenu addItem: putIconNearSpotlightItem       ]; }
-        if (  useOriginalIconItem               ) { [optionsSubmenu addItem: useOriginalIconItem            ]; }
-        if (  monitorConfigurationDirItem       ) { [optionsSubmenu addItem: monitorConfigurationDirItem    ]; }
-        if (  warnAboutSimultaneousItem         ) { [optionsSubmenu addItem: warnAboutSimultaneousItem      ]; }
-        if (  showConnectedDurationsItem        ) { [optionsSubmenu addItem: showConnectedDurationsItem     ]; }
-        if (  useShadowCopiesItem               ) { [optionsSubmenu addItem: useShadowCopiesItem            ]; }
-        if (  autoCheckForUpdatesItem  ) { [optionsSubmenu addItem: autoCheckForUpdatesItem ]; }
-        if (  reportAnonymousInfoItem  ) { [optionsSubmenu addItem: reportAnonymousInfoItem ]; }
-        if (  hotKeySubmenu  ) {
-            hotKeySubmenuItem = [[NSMenuItem alloc] init];
-            [hotKeySubmenuItem setTitle: NSLocalizedString(@"Keyboard Shortcut", @"Menu item")];
-            [hotKeySubmenuItem setIndentationLevel: 1];
-            [hotKeySubmenuItem setSubmenu: hotKeySubmenu];
-            [optionsSubmenu addItem: hotKeySubmenuItem];
-        }
-        
-        if (   putIconNearSpotlightItem
-            || useOriginalIconItem
-            || monitorConfigurationDirItem
-            || warnAboutSimultaneousItem
-            || showConnectedDurationsItem
-            || useShadowCopiesItem
-            || autoCheckForUpdatesItem
-            || reportAnonymousInfoItem
-            || hotKeySubmenu  ) {
-            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
-        }
-
-        if (  addConfigurationItem  ) {
-            [optionsSubmenu addItem: addConfigurationItem];
-            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
-        }
-    
-        if (  checkForUpdatesNowItem  ) { [optionsSubmenu addItem: checkForUpdatesNowItem   ]; }
-        
-        if (   checkForUpdatesNowItem
-            && aboutItem  ) {
-            [optionsSubmenu addItem: [NSMenuItem separatorItem]];
-        }
-        
-        if (  aboutItem  ) { [optionsSubmenu addItem: aboutItem]; }
-        
-        optionsItem = [[NSMenuItem alloc] init];
-        [optionsItem setTitle: NSLocalizedString(@"Options", @"Menu item")];
-        [optionsItem setSubmenu: optionsSubmenu];
-        
-    } else {
-        optionsItem = nil;
-    }
-    
+{
+    [noConfigurationsItem release];
     noConfigurationsItem = [[NSMenuItem alloc] init];
     [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
     
+    [detailsItem release];
     detailsItem = [[NSMenuItem alloc] init];
-    [detailsItem setTitle: NSLocalizedString(@"Details...", @"Menu item")];
+    [detailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
     // We set the target and action below, but only if there are any configurations,
     // so it is dimmed/disabled if there aren't any configuratinos
     
+    if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
+        [addConfigurationItem release];
+        addConfigurationItem = [[NSMenuItem alloc] init];
+        [addConfigurationItem setTitle: NSLocalizedString(@"Add a VPN...", @"Menu item")];
+        [addConfigurationItem setTarget: self];
+        [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
+    }
+    
+    [preferencesItem release];
+    preferencesItem = [[NSMenuItem alloc] init];
+    [preferencesItem setTitle: NSLocalizedString(@"Preferences...", @"Menu item")];
+    [preferencesItem setTarget: self];
+    [preferencesItem setAction: @selector(openPreferencesWindow:)];
+    
+    [quitItem release];
     quitItem = [[NSMenuItem alloc] init];
     [quitItem setTitle: NSLocalizedString(@"Quit Tunnelblick", @"Menu item")];
     [quitItem setTarget: self];
@@ -950,12 +819,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [statusItem setHighlightMode:YES];
     [statusItem setMenu:nil];
-	[myVPNMenu release]; myVPNMenu = nil;
 	
+    [myVPNMenu release];
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
 	[statusItem setMenu: myVPNMenu];
     
+    [statusMenuItem release];
 	statusMenuItem = [[NSMenuItem alloc] init];
     [statusMenuItem setTarget: self];
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
@@ -964,53 +834,45 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	
     [myVPNMenu addItem:[NSMenuItem separatorItem]];
     
-    myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] mutableCopy];
-    
     // Add each connection to the menu
     NSString * dispNm;
     NSArray *keyArray = [myConfigDictionary allKeys];
 	NSEnumerator * e = [keyArray objectEnumerator];
     while (dispNm = [e nextObject]) {
-		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-		NSString * cfgPath = [myConfigDictionary objectForKey: dispNm];
-        
         // configure connection object:
-		VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
-                                                                withDisplayName: dispNm];
-		[myConnection setDelegate:self];
-        
-		[myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
+		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
+		VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
         
         // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
 		[connectionItem setTarget:myConnection]; 
 		[connectionItem setAction:@selector(toggle:)];
         
-        [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
+        [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: dispNm];
 	}
     
     if (  [myConfigDictionary count] == 0  ) {
         [myVPNMenu addItem: noConfigurationsItem];
-        if (  addConfigurationItem  ) {
-            [myVPNMenu addItem: [[addConfigurationItem copy] autorelease]]; // Use a copy because the original is used in the Options... submenu
-        }
     } else {
         [detailsItem setTarget: self];
         [detailsItem setAction: @selector(openLogWindow:)];
     }
+    
+    [myVPNMenu addItem: [NSMenuItem separatorItem]];
+
+    if (  addConfigurationItem  ) {
+        [myVPNMenu addItem: addConfigurationItem];
+    }
+
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
     
 	[myVPNMenu addItem: detailsItem];
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
+    
+	[myVPNMenu addItem: preferencesItem];
 	
-    if (  optionsItem  ) {
-        [myVPNMenu addItem: optionsItem];
-    } else {
-        [myVPNMenu addItem: aboutItem];
-    }
-    [myVPNMenu addItem: [NSMenuItem separatorItem]];
-    
     [self addCustomMenuItems];
-    
+    [myVPNMenu addItem: [NSMenuItem separatorItem]];
+
     [myVPNMenu addItem: quitItem];
     
 }
@@ -1237,6 +1099,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
+-(void) changedDisplayConnectionSubmenusSettings
+{
+    [self createMenu];
+}
+
 -(void) removeConnectionWithDisplayName: (NSString *) theName FromMenu: (NSMenu *) theMenu afterIndex: (int) theIndex
 {
     int i;
@@ -1369,111 +1236,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         unsigned nConnections = [connectionArray count];
         NSString * myState;
         if (  nConnections == 0  ) {
-            myState = NSLocalizedString(@"Tunnelblick: No Connections", @"Status message");
+            myState = NSLocalizedString(@"No Active Connections", @"Status message");
             [statusMenuItem setTitle: myState];
             return NO;
         } else if (  nConnections == 1) {
-            myState = NSLocalizedString(@"Tunnelblick: Disconnect All (1 Connection)", @"Status message");
+            NSString * name = nil;
+            if (  [connectionArray count] > 0  ) {
+                name = [[connectionArray objectAtIndex: 0] displayName];
+            }
+            if (  ! name  ) {
+                name = @"1 connection";
+            }
+            myState = [NSString stringWithFormat: NSLocalizedString(@"Disconnect  All (%@)", @"Status message"), name];
             [statusMenuItem setTitle: myState];
         } else {
-            myState = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: Disconnect All (%d Connections)", @"Status message"),nConnections];
+            myState = [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections];
             [statusMenuItem setTitle: myState];
-        }
-    } else if (  act == @selector(togglePlaceIconNearSpotlight:)  ) {
-        if (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
-    } else if (  act == @selector(toggleUseOriginalIcon:)  ) {
-        id obj = [gTbDefaults objectForKey: @"menuIconSet"];
-        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-            if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
-                [anItem setState: NSOnState];
-            } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
-                [anItem setState: NSOffState];
-            } else {
-                [anItem setState: NSOffState];
-                return NO;
-            }
-        } else {
-            [anItem setState: NSOffState];
-            if (  obj  ) {
-                return NO;
-            }
-        }
-    } else if (  act == @selector(toggleMonitorConfigurationDir:)  ) {
-        if (  ! [gTbDefaults boolForKey:@"doNotMonitorConfigurationFolder"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
-    } else if (  act == @selector(toggleWarnAboutSimultaneous:)  ) {
-        if (  ! [gTbDefaults boolForKey:@"skipWarningAboutSimultaneousConnections"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
-    } else if (  act == @selector(toggleConnectionTimers:)  ) {
-        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
-    } else if (  act == @selector(toggleUseShadowCopies:)  ) {
-        if (  [gTbDefaults boolForKey:@"useShadowConfigurationFiles"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
-    } else if (  act == @selector(toggleReportAnonymousInfo:)  ) {
-        if (  [gTbDefaults boolForKey:@"updateSendProfileInfo"]  ) {
-            [anItem setState: NSOnState];
-        } else {
-            [anItem setState: NSOffState];
-        }
-        if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
-            && ( ! userIsAnAdmin )  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
-            }
-            return NO;
-        } else if (  ! [updater respondsToSelector:@selector(setSendsSystemProfile:)]  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:", @"Menu item tooltip")];
-            }
-            return NO;
-        }
-        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Takes effect at the next check for updates", @"Menu item tooltip")];
-        }
-    } else if (  act == @selector(toggleAutoCheckForUpdates:)  ) {
-        [anItem setState: NSOffState];
-        
-        [self setupSparklePreferences]; // If first run, Sparkle may have changed the auto update preference
-        
-        if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
-            && ( ! userIsAnAdmin )  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
-            }
-            return NO;
-        } else if (  ! [updater respondsToSelector:@selector(setAutomaticallyChecksForUpdates:)]  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:", @"Menu item tooltip")];
-            }
-            return NO;
-        } else if (  ! [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
-            }
-            return NO;
-        }
-        if (  [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
-            [anItem setState: NSOnState];
-        }
-        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-            [anItem setToolTip: NSLocalizedString(@"Takes effect the next time Tunnelblick is launched", @"Menu item tooltip")];
         }
     } else if (  act == @selector(checkForUpdates:)  ) {
         if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
@@ -1510,88 +1288,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     return YES;
 }
 
--(void)togglePlaceIconNearSpotlight: (NSMenuItem *) menuItem
+-(void) changedDisplayConnectionTimersSettings
 {
-    [self toggleMenuItem: menuItem withPreferenceKey: @"placeIconInStandardPositionInStatusBar"];
-}
-
--(void)toggleUseOriginalIcon: (NSMenuItem *) item
-{
-    BOOL wasOn = FALSE;
-    id obj = [gTbDefaults objectForKey: @"menuIconSet"];
-    if (   [[obj class] isSubclassOfClass: [NSString class]]  ) {
-        if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
-            // Currently ON, turn it OFF
-            [gTbDefaults removeObjectForKey: @"menuIconSet"];
-            [gTbDefaults synchronize];
-            [item setState: NSOffState];
-            wasOn = TRUE;
-        } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
-            // Currently OFF, turn it ON
-            [gTbDefaults setObject: @"TunnelBlick-black-white.TBMenuIcons" forKey: @"menuIconSet"];
-            [gTbDefaults synchronize];
-            [item setState: NSOnState];
-        } else {
-            NSLog(@"Preference 'menuIconSet' does not have a recognized value");
-        }
-
-    } else {
-        if (  obj  ) {
-            NSLog(@"Preference 'menuIconSet' is not a string");
-        } else {
-            // Currently OFF, turn it ON
-            [gTbDefaults setObject: @"TunnelBlick-black-white.TBMenuIcons" forKey: @"menuIconSet"];
-            [gTbDefaults synchronize];
-            [item setState: NSOnState];
-        }
-    }
-    
-    if (  ! [self loadMenuIconSet]  ) {
-        // Problem loading the icon set. Revert to previous setting
-        if (  wasOn  ) {
-            [gTbDefaults setObject: @"TunnelBlick-black-white.TBMenuIcons" forKey: @"menuIconSet"];
-            [gTbDefaults synchronize];
-            [item setState: NSOnState];
-        } else {
-            [gTbDefaults removeObjectForKey: @"menuIconSet"];
-            [gTbDefaults synchronize];
-            [item setState: NSOffState];
-        }
-        if (  ! [self loadMenuIconSet]  ) {
-            NSLog(@"Unable to reload icon set");
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate:self];
-        }
-    }
-    [self setState: @""];       // Update the state of the icon (ignores argument)
-    [self activateStatusMenu];  // Redraw the icon, etc.
-}
-
--(void)toggleMonitorConfigurationDir: (NSMenuItem *) menuItem
-{
-    [self toggleMenuItem: menuItem withPreferenceKey: @"doNotMonitorConfigurationFolder"];
-    if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
-        int i;
-        for (i = 0; i < [gConfigDirs count]; i++) {
-            [self removePath: [gConfigDirs objectAtIndex: i] fromMonitorQueue: myQueue];
-        }
-    } else {
-        int i;
-        for (i = 0; i < [gConfigDirs count]; i++) {
-            [self addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
-        }
-        [self activateStatusMenu];
-    }
-}
-
--(void)toggleWarnAboutSimultaneous: (NSMenuItem *) menuItem
-{
-    [self toggleMenuItem: menuItem withPreferenceKey: @"skipWarningAboutSimultaneousConnections"];
-}
-
--(void)toggleConnectionTimers: (NSMenuItem *) menuItem
-{
-    [self toggleMenuItem: menuItem withPreferenceKey: @"showConnectedDurations"];
     [self startOrStopDurationsTimer];
     [self updateNavigationLabels];
 }
@@ -1637,54 +1335,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)updateNavigationLabels
 {
     [logScreen updateNavigationLabels];
-}
-
--(void)toggleUseShadowCopies: (NSMenuItem *) menuItem
-{
-    [self toggleMenuItem: menuItem withPreferenceKey: @"useShadowConfigurationFiles"];
-}
-
--(void)toggleAutoCheckForUpdates: (NSMenuItem *) menuItem
-{
-    if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
-        if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
-            // Was OFF, trying to change to ON
-            if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-                [self toggleMenuItem: menuItem withPreferenceKey: @"updateCheckAutomatically"];
-                [updater setAutomaticallyChecksForUpdates: YES];
-            } else {
-                NSLog(@"'Automatically Check for Updates' change ignored because the name of the application has been changed");
-            }
-        } else {
-            // Was ON, change to OFF
-            [self toggleMenuItem: menuItem withPreferenceKey: @"updateCheckAutomatically"];
-            [updater setAutomaticallyChecksForUpdates: NO];
-        }
-    } else {
-        NSLog(@"'Automatically Check for Updates' change ignored because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
-    }
-}
-
--(void)toggleReportAnonymousInfo: (NSMenuItem *) menuItem
-{
-    if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
-        [self toggleMenuItem: menuItem withPreferenceKey: @"updateSendProfileInfo"];
-        [updater setSendsSystemProfile: [gTbDefaults boolForKey:@"updateSendProfileInfo"]];
-    } else {
-        NSLog(@"'Send Anonymous System Profile' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
-    }
-}
-
--(void)toggleMenuItem: (NSMenuItem *) menuItem withPreferenceKey: (NSString *) prefKey
-{
-    [gTbDefaults setBool: ! [gTbDefaults boolForKey:prefKey] forKey:prefKey];
-    [gTbDefaults synchronize];
-    
-    if (  [menuItem state] == NSOnState  ) {
-        [menuItem setState: NSOffState];
-    } else {
-        [menuItem setState:NSOnState];
-    }
 }
 
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
@@ -1760,11 +1410,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [myVPNMenu removeItemAtIndex: itemIx];
     }
     
-    itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"Add a Configuration...", @"Menu item")];
-    if (  itemIx  != -1) {
-        [myVPNMenu removeItemAtIndex: itemIx];
-    }
-    
     [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
     
     [detailsItem setTarget: self];
@@ -1798,10 +1443,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [myVPNMenu insertItem: noConfigurationsItem atIndex: 2];
         }
         
-        itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"Add a Configuration...", @"Menu item")];
+        itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"Add a VPN...", @"Menu item")];
         if (   (itemIx  == -1)
             && addConfigurationItem  ) {
-            [myVPNMenu insertItem: [[addConfigurationItem copy] autorelease] atIndex: 3]; // Use a copy because the original is used in the Options... submenu
+            [myVPNMenu insertItem: [[addConfigurationItem copy] autorelease] atIndex: 3]; // Use a copy because the original is used in elsewhere
         }
         
         [detailsItem setTarget: nil];
@@ -1827,11 +1472,18 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         unsigned nConnections = [connectionArray count];
         NSString * toolTip;
         if (  nConnections == 0  ) {
-            toolTip = NSLocalizedString(@"Tunnelblick: No Connections", @"Status message");
+            toolTip = NSLocalizedString(@"No Active Connections", @"Status message");
         } else if (  nConnections == 1) {
-            toolTip = NSLocalizedString(@"Tunnelblick: 1 Connection", @"Status message");
+            NSString * oneStatus = nil;
+            if (  [connectionArray count] > 0  ) {
+                oneStatus = [[[connectionArray objectAtIndex: 0] displayName] stringByAppendingString: @" is Connected"];
+            }
+            if (  ! oneStatus  ) {
+                oneStatus = @"1 connection";
+            }
+            toolTip = NSLocalizedString(oneStatus, @"Status message");
         } else {
-            toolTip = [NSString stringWithFormat:NSLocalizedString(@"Tunnelblick: %d Connections", @"Status message"), nConnections];
+            toolTip = [NSString stringWithFormat:NSLocalizedString(@"%d Connections", @"Status message"), nConnections];
         }	
         [statusItem setToolTip: toolTip];
 	}
@@ -1916,53 +1568,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         [myConfigUpdater startWithUI: YES]; // Display the UI
     }
-}
-
-- (IBAction) openAboutWindow: (id) sender
-// Uses the "...WithOptions" version of orderFrontStandardAboutPanel so all localization can be in Localizable.strings files
-{
-    NSImage  * appIcon      = [NSImage imageNamed:@"tunnelblick.icns"];
-    NSString * appName      = @"Tunnelblick";
-    NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);
-    NSString * version      = @"";
-	
-    NSString * basedOnHtml  = @"<br><br>";
-    // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html" inDirectory: @"Deploy"] doesn't work -- it is apparently cached by OS X.
-    // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
-    // Using [[NSBundle mainBundle] resourcePath: ALSO seems to not work (don't know why, maybe the same reason)
-    // The workaround is to create the path "by hand" and use that.
-    // ALSO, we break up the string after the "T" in Tunnelblick so it doesn't get replaced by global search/replace when a customizer gives Tunnelblick
-    // a new name.
-    NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
-	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
-    if (  htmlFromFile  ) {
-        basedOnHtml  = NSLocalizedString(@"<br><br>Based on T" "unnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
-    } else {
-        htmlFromFile = @"<br><br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
-    }
-    NSString * html         = [NSString stringWithFormat:@"%@%@%@%@%@",
-                               @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
-                               openVPNVersion(),
-							   htmlFromFile,
-                               basedOnHtml,
-							   @"</div></center><body></html>"];
-    NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
-    NSAttributedString * credits = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
-    
-    NSString * copyright    = NSLocalizedString(@"Copyright © 2004-2011 Angelo Laub and others. All rights reserved.", @"Window text");
-    
-    NSDictionary * aboutPanelDict;
-    aboutPanelDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                      appIcon, @"ApplicationIcon",
-                      appName, @"ApplicationName",
-                      appVersion, @"ApplicationVersion",
-                      version, @"Version",
-                      credits, @"Credits",
-                      copyright, @"Copyright",
-                      nil];
-    
-    [NSApp orderFrontStandardAboutPanelWithOptions:aboutPanelDict];
-    [NSApp activateIgnoringOtherApps:YES];                          // Force About window to front (if it already exists and is covered by another window)
 }
 
 // If possible, we try to use 'killall' to kill all processes named 'openvpn'
@@ -2197,9 +1802,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isDisconnected]  ) {
-            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
         }
     }
+}
+
+-(IBAction) openPreferencesWindow: (id) sender
+{
+    [[MyPrefsWindowController sharedPrefsWindowController] showWindow: nil];
+    [NSApp activateIgnoringOtherApps:YES];  // Force Preferences window to front (if it already exists and is covered by another window)
+
 }
 
 -(IBAction) openLogWindow: (id) sender
@@ -2792,6 +2404,9 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    // Register the help book
+    RegisterMyHelpBook();
+    
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
         NSTask* task = [[[NSTask alloc] init] autorelease];
@@ -2853,7 +2468,6 @@ static void signal_handler(int signalNumber)
     gAuthorization = nil;
     
     launchFinished = TRUE;
-    
 }
 
 // Returns TRUE if a hookupWatchdog timer was created or already exists
@@ -2883,6 +2497,22 @@ static void signal_handler(int signalNumber)
                                                          userInfo: nil
                                                           repeats: NO];
     return TRUE;
+}
+
+-(void) changedMonitorConfigurationFoldersSettings
+{
+    if (  [gTbDefaults boolForKey: @"doNotMonitorConfigurationFolder"]  ) {
+        int i;
+        for (i = 0; i < [gConfigDirs count]; i++) {
+            [[NSApp delegate] removePath: [gConfigDirs objectAtIndex: i] fromMonitorQueue: myQueue];
+        }
+    } else {
+        int i;
+        for (i = 0; i < [gConfigDirs count]; i++) {
+            [[NSApp delegate] addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
+        }
+        [[NSApp delegate] activateStatusMenu];
+    }
 }
 
 -(void) addPath: (NSString *) path toMonitorQueue: (UKKQueue *) queue
@@ -3985,6 +3615,19 @@ int runUnrecoverableErrorPanel(msg)
         
         [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyModifierKeys] forKey:  @"keyboardShortcutModifiers"];
         [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyKeyCode]      forKey:  @"keyboardShortcutKeyCode"];
+    }
+}
+
+-(void) setHotKeyIndex: (int) newIndex
+{
+    hotKeyCurrentIndex = newIndex;
+
+    if (  newIndex == 0  ) {
+        UnregisterEventHotKey(hotKeyRef);        
+        hotKeyModifierKeys = 0;
+        hotKeyKeyCode = 0;
+    } else {
+        [self setupHotKeyWithCode: fKeyCode[newIndex-1] andModifierKeys:  cmdKey + optionKey];
     }
 }
 
