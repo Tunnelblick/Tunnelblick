@@ -536,6 +536,10 @@ extern unsigned         gMaximumLogSize;
                  defaultsTo: (BOOL)       defaultsTo
 {
     int value = defaultsTo;
+    if (  inverted  ) {
+        value = ! value;
+    }
+    
     id obj = [gTbDefaults objectForKey: preferenceKey];
     if (  obj != nil  ) {
         if (  [obj respondsToSelector: @selector(intValue)]  ) {
