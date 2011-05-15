@@ -1548,6 +1548,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     userWantsState = userWantsRetry;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
+                    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      // (User requested it by cancelling)
                 }
                 
                 [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
@@ -1827,6 +1828,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     return [[self state] isEqualToString:@"EXITING"];
 }
 
+-(BOOL) authFailed
+{
+    return authFailed;
+}
+
 - (void) setState: (NSString*) newState
 	// Be sure to call this in main thread only
 {
@@ -1922,12 +1928,24 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     if (  ! (   gTunnelblickIsQuitting
              || gComputerIsGoingToSleep )  ) {
-        if (   [self isConnected]
-            || (   [self isDisconnected]
-                && ( ! authFailed  ) )  ) {
-                [statusScreen fadeOut];
-                showingStatusWindow = FALSE;
+        BOOL okToFade = TRUE;   // Assume OK to fade, but don't fade if any connection is being attempted or any auth failed
+        VPNConnection * connection;
+        NSEnumerator * connectionEnum = [[[NSApp delegate] connectionArray] objectEnumerator];
+        while (  connection = [connectionEnum nextObject]  ) {
+            if (   ( ! [connection isConnected]    )            // Don't fade if any connection is being  attempted
+                && ( ! [connection isDisconnected] )  ) {
+                okToFade = FALSE;
+                break;
             }
+            if (  [connection authFailed]  ) {                  // or if any auth failed
+                okToFade = FALSE;
+                break;
+            }
+        }
+        if (  okToFade  ) {
+            [statusScreen fadeOut];
+            showingStatusWindow = FALSE;
+        }
     }
 }
 

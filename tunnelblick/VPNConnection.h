@@ -90,6 +90,8 @@ typedef enum
 
 -(void)             addToLog:                   (NSString *)        text;
 
+-(BOOL)             authFailed;
+
 -(BOOL)             checkConnectOnSystemStart:  (BOOL)              startIt
                                      withAuth:  (AuthorizationRef)  inAuthRef;
 
