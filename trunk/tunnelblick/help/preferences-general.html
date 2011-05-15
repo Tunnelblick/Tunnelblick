@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.35">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+    span.Apple-tab-span {white-space:pre}
+  </style>
+</head>
+<body>
+<p class="p1"><b>General Preferences</b></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><img src="images/preferences-general.png"></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Keyboard Shortcut</b></p>
+<p class="p2"><br></p>
+<p class="p4">You may choose a key that, when pressed in combination with other keys, activates the Tunnelblick icon on the menu bar. This keyboard shortcut may be used whenever Tunnelblick is running (showing in the menu bar), even if another application is active. The shortcut is activated by holding the Command (Apple or cloverleaf) key and the Option (Alt) key and pressing one of the Function keys F1 through F12. Note that on Apple laptops the Function keys require the "fn" key to be depressed, so on an Apple laptop, you would hold three keys -- Command, Option, and "fn", while pressing one of the F1 through F12 keys.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Maximum log display size</b></p>
+<p class="p2"><br></p>
+<p class="p4">Tunnelblick's "VPN Details…" window shows a log of activity. You may choose the size of the log that is kept for display. A smaller size (10 KB or 100 KB) takes up little memory or CPU time; a larger size (1 MB, 10 MB, or 100 MB) can result in high memory and CPU usage.</p>
+<p class="p2"><br></p>
+<p class="p4">Logs vary in size because the OpenVPN "verb" option lets you specify how much detail is to be logged. You can specify minimal logging (verb 1), moderate logging of connection and disconnection information (verb level 3, the OpenVPN default), or extremely detailed logging (verb levels 8 and 9). Verb level 9, for example, can generate several megabytes per minute of log data when a lot of traffic is routed through the VPN.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Warnings</b></p>
+<p class="p5"><br></p>
+<p class="p4">Sometimes Tunnelblick displays warning windows which include an option "Do not warn about this again". You may reset these selections, so that you will be warned by each window (should the situation which the window warns about occurs).</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Configurations</b></p>
+<p class="p2"><br></p>
+<p class="p4">Most configuration settings are made in the "VPN Details…" window and apply to only one configuration at a time. However, two preferences affect all configurations:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>• <b>Use shadow copies of configuration files</b>: Usually, Tunnelblick uses the original of a private configuration file. Usually, if the original (in the user's home folder) is located on certain types of filesystems (remote, or external or thumb drives), Tunnelblick will automatically maintain and use a copy on the boot drive. If Tunnelblick can use a copy on the non-boot drive, it will. Sometimes that can cause problems, and selecting this option forces Tunnelblick to maintain and use a copy on the boot drive.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>• <b>Monitor the configuration folder for changes</b>: Usually, Tunnelblick monitors the configuration folders: as configurations are added or removed, Tunnelblick will adjust it's menu and the "VPN Details…" window accordingly. If the private configuration folder is located on a remote filesystem, however, that can sometimes cause extra network traffic. To avoid that, clear this checkbox. If it is cleared, you will need to relaunch Tunnelblick, or turn this option on (and then back off, if you wish) before Tunnelblick will include new configurations and remove old configurations from it's menu and the "VPN Details…" window.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Configurations</b></p>
+<p class="p2"><br></p>
+<p class="p4">Tunnelblick can check for updates. You can choose whether or not to have Tunnelblick do this automatically, or you can check manually.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>•<b> Check for updates automatically</b>: When checked, Tunnelblick will check for updates each time it is launched, and every 24 hours thereafter.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>• <b>Check Now</b>: You can check for updates at any time by clicking the "Check Now" button.</p>
+<p class="p2"><br></p>
+<p class="p4">Tunnelblick checks for updates by sending a query the Tunnelblick website. If an update is available, you will be asked if you wish to download and install the update, decide later, or skip that particular update.</p>
+</body>
+</html>

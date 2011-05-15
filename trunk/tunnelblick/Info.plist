@@ -36,11 +36,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.2beta11 (build 2483)</string>
+	<string>3.2beta11 (build 2486)</string>
 	<key>CFBundleSignature</key>
 	<string>OVPN</string>
 	<key>CFBundleVersion</key>
-	<string>2483</string>
+	<string>2486</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -57,5 +57,9 @@
 	<true/>
 	<key>OSAScriptingDefinition</key>
 	<string>tunnelblick.sdef</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>help</string>
+	<key>CFBundleHelpBookName</key>
+	<string>Tunnelblick Help</string>
 </dict>
 </plist>

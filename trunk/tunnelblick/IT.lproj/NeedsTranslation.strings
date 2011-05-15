@@ -1,17 +1,14 @@
 /* Status message */
-"Tunnelblick: %d Connections" = "Tunnelblick: %d Connections";
+"%d Connections" = "%d Connections";
 
 /* Status message */
-"Tunnelblick: 1 Connection" = "Tunnelblick: 1 Connection";
+"Disconnect  All (%@)" = "Disconnect  All (%@)";
 
 /* Status message */
-"Tunnelblick: Disconnect All (%d Connections)" = "Tunnelblick: Disconnect All (%d Connections)";
+"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
 
 /* Status message */
-"Tunnelblick: Disconnect All (1 Connection)" = "Tunnelblick: Disconnect All (1 Connection)";
-
-/* Status message */
-"Tunnelblick: No Connections" = "Tunnelblick: No Connections";
+"No Active Connections" = "No Active Connections";
 
 /* Textbox name */
 "Password:" = "Password:";
@@ -20,16 +17,52 @@
 "Username:" = "Username:";
 
 /* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
+"1 MB" = "1 MB";
+
+/* Button */
+"10 KB" = "10 KB";
+
+/* Button */
+"10 MB" = "10 MB";
+
+/* Button */
+"100 KB" = "100 KB";
+
+/* Button */
+"100 MB" = "100 MB";
+
+/* Button */
+"Check Now" = "Check Now";
+
+/* Button */
 "Connect When Computer Starts" = "Connect When Computer Starts";
+
+/* Button */
+"Monochrome icon" = "Monochrome icon";
+
+/* Button */
+"Never show" = "Never show";
+
+/* Button */
+"Reset Disabled Warnings" = "Reset Disabled Warnings";
+
+/* Button */
+"Show when connection status changes" = "Show when connection status changes";
+
+/* Button */
+"Show while connecting" = "Show while connecting";
+
+/* Button */
+"Standard icon" = "Standard icon";
+
+/* Menu item */
+"Add a VPN..." = "Add a VPN...";
 
 /* Menu item */
 "Connect %@%@" = "Connect %@%@";
-
-/* Menu item tooltip */
-"Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:" = "Disabled because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:";
-
-/* Menu item tooltip */
-"Disabled because Sparkle Updater does not respond to setSendsSystemProfile:" = "Disabled because Sparkle Updater does not respond to setSendsSystemProfile:";
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
@@ -44,22 +77,19 @@
 "Disconnect %@%@" = "Disconnect %@%@";
 
 /* Menu item */
-"Keyboard Shortcut" = "Keyboard Shortcut";
-
-/* Menu item tooltip */
-"Takes effect at the next check for updates" = "Takes effect at the next check for updates";
-
-/* Menu item tooltip */
-"Takes effect immediately" = "Takes effect immediately";
-
-/* Menu item tooltip */
-"Takes effect the next time Tunnelblick is launched" = "Takes effect the next time Tunnelblick is launched";
-
-/* Menu item tooltip */
-"Takes effect with the next connection" = "Takes effect with the next connection";
+"Preferences..." = "Preferences...";
 
 /* Menu item */
-"Use Original Icon" = "Use Original Icon";
+"VPN Details..." = "VPN Details...";
+
+/* Checkbox name */
+"Check for updates automatically" = "Check for updates automatically";
+
+/* Checkbox name */
+"Display connection submenus" = "Display connection submenus";
+
+/* Checkbox name */
+"Display connection timers" = "Display connection timers";
 
 /* Checkbox name */
 "Do not ask again, always connect" = "Do not ask again, always connect";
@@ -68,7 +98,16 @@
 "Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
 
 /* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
+
+/* Checkbox name */
+"Place next to Spotlight icon" = "Place next to Spotlight icon";
+
+/* Checkbox name */
 "Save in Keychain" = "Save in Keychain";
+
+/* Checkbox name */
+"Use shadow copies of configuration files" = "Use shadow copies of configuration files";
 
 /* PopUpButton */
 "Do not set nameserver" = "Do not set nameserver";
@@ -341,7 +380,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
 /* Window text */
-"<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+"(Never checked)" = "(Never checked)";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
@@ -368,7 +407,10 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
-"Copyright © 2004-2011 Angelo Laub and others. All rights reserved." = "Copyright © 2004-2011 Angelo Laub and others. All rights reserved.";
+"Configurations:" = "Configurations:";
+
+/* Window text */
+"Connection window:" = "Connection window:";
 
 /* Window text */
 "Do you wish to install %d configurations" = "Do you wish to install %d configurations";
@@ -392,7 +434,22 @@
 "Do you wish to uninstall one configuration" = "Do you wish to uninstall one configuration";
 
 /* Window text */
+"Icon:" = "Icon:";
+
+/* Window text */
 "Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
+
+/* Window text */
+"Keyboard shortcut:" = "Keyboard shortcut:";
+
+/* Window text */
+"Last checked: %@" = "Last checked: %@";
+
+/* Window text */
+"Maximum log display size:" = "Maximum log display size:";
+
+/* Window text */
+"Menu:" = "Menu:";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
@@ -558,6 +615,12 @@
 
 /* Window text */
 "Unable to Establish Communication" = "Unable to Establish Communication";
+
+/* Window text */
+"Updates:" = "Updates:";
+
+/* Window text */
+"Warnings:" = "Warnings:";
 
 /* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";

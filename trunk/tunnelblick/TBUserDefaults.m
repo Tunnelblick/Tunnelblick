@@ -20,6 +20,7 @@
  */
 
 #import "TBUserDefaults.h"
+#import "MenuController.h"
 
 @interface TBUserDefaults()       // PRIVATE METHODS
 
@@ -143,6 +144,18 @@
     } else {
         [userDefaults removeObjectForKey: key];
         [userDefaults synchronize];
+    }
+}
+
+
+// Brute force -- try to remove key ending with the suffix for all configurations
+-(void) removeAllObjectsWithSuffix: (NSString *) key
+{
+    NSEnumerator * dictEnum = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
+    NSString * displayName;
+    while (  displayName = [dictEnum nextObject]  ) {
+        NSString * fullKey = [displayName stringByAppendingString: key];
+        [self removeObjectForKey: fullKey];
     }
 }
 

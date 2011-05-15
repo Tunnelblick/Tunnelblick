@@ -66,6 +66,9 @@
 // Minimum size of the left navigation area when it is active
 #define LEFT_NAV_AREA_MINIMUM_SIZE 40.0
 
+//*************************************************************************************************
+// Maximum number of tabs to allow when left up to the program
+#define MAX_TABS_LIMIT 8
 
 //*************************************************************************************************
 // Return values for StatusWindowController
