@@ -51,6 +51,18 @@ Your release .dmg file is at tunnelblick-read-only/tunnelblick/build/Release/Tun
 
 Good luck!
 
+== DIGITAL SIGNATURES==
+Digital signatures are available in Tunnelblick 3.2beta12 and later.
+
+You cannot digitally sign as if you were the Tunnelblick project issuing an official release, but you can add your own digital signature if you wish.
+
+If you _don't_ add your own digital signature:
+ * The built application will not include any digital signature.
+ * Warnings will be issued during the build process. (You can ignore these warnings).
+ * When the built application is used, users will be asked to grant the program access to each item saved in the user's Keychain. 
+
+To add your own digital signature to the built application, simply create a signing certificate with Common Name 'TunnelblickSigning' using Keychain Access (see instructions at http://developer.apple.com/library/mac/#documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html#//apple_ref/doc/uid/TP40005929-CH4-SW1). A certificate with that Common Name will be used automatically by the build scripts.
+
 == BUILD WARNINGS==
  * *As of r1464, there should be no warnings issued when Tunnelblick is built. It is still necessary to "Clean all" before building, however.*
 
@@ -61,6 +73,8 @@ Good luck!
  So the first time Tunnelblick is built from source:
  * For versions of Tunnelblick prior to r1021, there will be 16 warnings. After that (unless a third_party component is modified), there will be eight warnings until a "Clean All Targets" is performed. After that, there will be four warnings each time Tunnelblick is built.
  * For versions of Tunnelblick after r1020, there will be 12 warnings. After that (unless a third_party component is modified), there will be four warnings each time Tunnelblick is built.
+
+ * Warnings during the build process that a target is already signed may appear if building the application but not rebuilding that particular target. These warnings may be ignored.
 
 ==BUILDING ON LEOPARD==
 It is possible to build versions of Tunnelblick prior to r232 on Leopard. The instructions above should be followed, except:

@@ -46,6 +46,8 @@ If a configurations are set to connect when the computer starts, it has a .plist
 ==Preferences==
 A user's Tunnelblick preferences are contained in ~/Library/Preferences/com.openvpn.tunnelblick.plist. (The "~” indicates your home folder.)
 
+Note: In Tunnelblick 3.2beta12 and later, preferences are stored in `~/Library/Preferences/net.tunnelblick.tunnelblick.plist`.
+
 Deployed versions of Tunnelblick may contain a "forced-preferences.plist" file within the Tunnelblick application itself. They are used to override the user's normal preferences; see [DeployingTunnelblick Deploying Tunnelblick] for details.
 
 Tunnelblick VPN Configurations may also include preference defaults,  which are used to initialize the user's preferences (which may then be changed by the user).

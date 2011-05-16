@@ -6,6 +6,8 @@
 ==Overview==
 Tunnelblick's preferences for a user are stored in `~/Library/Preferences/com.openvpn.tunnelblick.plist`.
 
+Note: In Tunnelblick 3.2beta12 and later, preferences are stored in `~/Library/Preferences/net.tunnelblick.tunnelblick.plist`.
+
 If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See [DeployingTunnelblick Deploying Tunnelblick] for more details.
 
 When using a [wPkgs Tunnelblick VPN Configuration], it may contain preferences in its Info.plist. Values of those preferences are used if the user has not specified different values. The use may also change the values after they are loaded from Info.plist.
@@ -15,15 +17,21 @@ Note: some preferences are stored as the opposite of the state of the correspond
 ==Preferences in the "Options…" Submenu==
 Three preferences may be set or cleared by the user via the "Options…" submenu. See *placeIconInStandardPositionInStatusBar* and *doNotMonitorConfigurationFolder* in [#Preferences_That_Control_What_Tunnelblick_Does Preferences That Control What Tunnelblick Does] and *updateCheckAutomatically* in [#Preferences_That_Control_Updates Preferences That Control Updates]
 
-==Preferences in the "Details…"==
-Three preferences may be set or cleared by the user via check boxes on the "Details…" window tab for each configuration. See [#Per-Configuration_Preferences Per-Configuration Preferences].
+==Preferences in the "Preferences" Window==
+In Tunnelblick 3.2beta12 and later, most preferences may be modified in the "Preferences" window and the "Options…" submenu is no longer available.
 
-==Modifying Preferences That are Not in the "Options…" Submenu or the "Details…"==
+==Configuration Settings in the "Details…"==
+Three settings are implemented as preferences and may be modifed by the user via check boxes on the "Details…" window tab for each configuration. See [#Per-Configuration_Settings Per-Configuration Settings].
+
+==Modifying Preferences That are Not in the "Preferences" Window, the "Options…" Submenu, or the "Details…" window==
 All other preferences can be modified by
  * Forcing them (see [wCusDeployed "Deployed" Versions]).
- * Modifying them in `~/Library/Preferences/com.openvpn.tunnelblick.plist` using Apple's "Property List Editor.app". “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs. The Developer Tools installs Property List Editor.app in /Developer/Applications/Utilities.
+ * Modifying them in the preferences file using Apple's "Property List Editor.app". “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs. The Developer Tools installs Property List Editor.app in /Developer/Applications/Utilities.
  * Modifying them by using the "defaults" commands in Terminal.app. For example, to disable the display of the duration of connections in the tabs of the Details… window, use
      `defaults    write    com.openvpn.tunnelblick "showConnectedDurations"    -bool    no`
+     
+     or, for Tunnelblick 3.2beta12 and later, use
+     `defaults    write    net.tunnelblick.tunnelblick "showConnectedDurations"    -bool    no`
 
 ==Preferences That Control What Tunnelblick Does==
   * *placeIconInStandardPositionInStatusBar* (Boolean): If set, the Tunnelblick icon will be positioned normally, to the left of the other icons at the time Tunnelblick is started. If cleared or not present, the Tunnelblick icon will be placed between the time display and the Spotlight icon. The default is not present.
@@ -74,7 +82,7 @@ Most of Tunnelblick's warning messages include a "Do not warn about this again" 
     # Private .tblk configurations
     # Private .ovpn and .conf configurations
 
-==Per-Configuration Preferences==
+==Per-Configuration Settings==
 The following preferences must each be prefixed by the name of your configuration as it is displayed when you click the Tunnelblick icon or in the Details… window. (Usually that is the name of the configuration file without the extension, but it can be different if you have configurations in subfolders.) For example, if a configuration is named "xyz", the preferences would be named "xyzautoConnect", "xyz-keychainHasUsernameAndPassword", etc.
   * *autoConnect* (Boolean): If set, Tunnelblick will connect using the configuration when it Tunnelblick is launched if the -onSystemStart preference is not present or is false, or when the computer starts if the -onSystemStart preference is true. If cleared or not present, the user must connect manually. The user may specify this using the "Automatically connect" check box on the "Details…" window tab for the configuration. The default is not present.
   * *-onSystemStart* (Boolean): If set and autoConnect is also set, the configuration will be connected when the computer starts instead of when Tunnelblick launches. The  default is not present (check box not checked). The user may set this by selecting the "when computer starts" radio button in the Details… window.
@@ -97,7 +105,7 @@ The following preferences must each be prefixed by the name of your configuratio
   * *-keychainHasUsernameAndPassword* (Boolean): If set, the user's Keychain contains the connection's username and password, and Tunnelblick will use them when needed without interacting with the user. If cleared or not present, the user will be asked for the username and password if the connection requires it. This preference is set when the user checks the "Save to Keychain" check box on the dialog which asks for the username and password. If this preference is forced, it has a special meaning: the check box is not displayed, the username and password are not stored in the user's Keychain, and the user is asked each time the connection requires them. The default is not present.
   * *-doNotParseConfigurationFile* (Boolean): If set, Tunnelblick will not parse the configuration file for 'dev tun', 'dev tap', 'user', and 'group' options, and both tun and tap kexts will be loaded when making a VPN connection.
   * *-skipWarningAboutDownroot* (Boolean): If set, the warning about 'user' and/or 'group' options requiring the use of the 'openvpn-down-root.so' plugin will be disabled.
-  * *disableEditConfiguration* (Boolean): If set, the "Edit Configuration" button on the "Details…" window tab for the configuration will be dimmed and disabled. If cleared or not present, the button will be enabled. The default is not present.
+  * *-disableEditConfiguration* (Boolean): If set, the "Edit Configuration" button on the "Details…" window tab for the configuration will be dimmed and disabled. If cleared or not present, the button will be enabled. The default is not present.
   * *-disableConnectButton* (Boolean): If set, the "Connect" button will be disabled.
   * *-disableDisconnectButton* (Boolean): If set, the "Disconnect" button will be disabled.
   * *-doNotLoadTapKext* (Boolean): If set, the standard tap kext will not be loaded.

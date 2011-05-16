@@ -22,6 +22,50 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.2beta12 (2011-05-16)*
+
+ * Tunnelblick has a window for preferences. Configuration settings are still modified on the 'Details…' window.
+
+ * Tunnelblick optionally displays a new, animated 'connecting' window as a configuration is being connected or reconnected. When the connection succeeds the window disappears. Display of the window is controlled by a preference which is set in the new preference window.
+
+ * Menu streamlining:
+   * The 'Options…' submenu has been replaced by the 'Preferences…' item.
+   * The top line of the menu now allows the user to 'Disconnect All' configurations. It continues to display the number of active connections, and, if there is only one active connection, now displays the name of that connection.
+   * The 'Details…' menu item has been renamed to 'VPN Details…'.
+   * The 'Disconnect…' menu items now optionally display connection times.
+   * The 'Add a Configuration…' menu item has been renamed to "Add a VPN…" and moved from the 'Options…' submenu to the main menu.
+
+ * Preferences changes:
+   * Most preference changes take effect immediately; none require relaunching Tunnelblick.
+   * The keyboard shortcut may be any of Command-Option-F1 through Command-Option-F12.
+   * The 'skipWarningAboutNoTunOrTap' preference has been renamed to '-skipWarningAboutNoTunOrTap' (it was missing the '-').
+   * Preferences are now stored in ~/Library/Application Support/Preferences/net.tunnelblick.tunnelblick.plist (because Tunnelblick's CFBundleIdentifier is now 'net.tunnelblick.tunnelblick'). The existing preferences file is renamed appropriately and a symbolic link to the new preferences file is put in its place when this version of Tunnelblick is first launched.
+
+ * Adds digital signatures to Tunnnelblick.app so that the popups each time Tunnelblick is updated that ask whether Tunnelblick can access the Keychain will no longer appear (after they do for this update). Note: this only works on OS 10.5 ("Leopard") and above.
+
+ * A symbolic link at ~/Library/openvpn that does not point to ~/Library/Application Support/Tunnelblick no longer forces Tunnelblick to quit. Instead, a warning is issued in the Console log.
+
+ * The 'VPN Details…' window has a minimum sizeto avoid a problem with OS X changing the button layout.
+
+ * Fixes a bug that caused Tunnelblick to display the icon animation even though a user has requested that a connection attempt be cancelled after authentication fails.
+
+ * Fixes a bug that caused the tooltip for the Tunnelblick icon and the status message (the first line of the menu exposed when you click the Tunnelblick icon) to display the wrong number of connections.
+
+ * Fixes mislabeling of menu 'connection' items to clarify that they may be disconnected at any time they are not already disconnected.
+
+ * Fixes a bug that caused 'Set nameserver (alternate 1)' to fail for some TAP connections.
+
+ * Fixes a bug that did not allow Tunnelblick to launch on some OS X 10.4 ('Tiger') installations.
+
+ * Fixes problem (since 3.2beta08) that user cannot set a configuration to connect or not connect when the computer starts. Note: configurations already set to start when the computer starts continued to work; this bug only affected trying to change a configuration from/to connecting when the computer starts.
+
+*If you build (compile) Tunnelblick:*
+ * You should create a signing certificate with Common Name 'TunnelblickSigning' using Keychain Access (see instructions at http://developer.apple.com/library/mac/#documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html#//apple_ref/doc/uid/TP40005929-CH4-SW1). A certificate with that Common Name will be used automatically by the build scripts. If it is not present, no signing will take place and warnings will be issued during the build process.
+
+ * Warnings during the build process that a target is already signed may appear if building the application but not rebuilding that particular target. These warnings may be ignored.
+
+--------------------
+
 *3.2beta10 (2011-04-29)*
 
  * Includes OpenVPN 2.2 and PKCS#11 1.08.

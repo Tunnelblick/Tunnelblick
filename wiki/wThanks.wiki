@@ -41,6 +41,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Dave Batton    </td>
+    <td>      DBPrefsWindowController    </td>
+  </tr>
+
+  <tr>
     <td>      Michael Schloh von Bennewit    </td>
     <td>      64-bit enabling and testing    </td>
   </tr>
