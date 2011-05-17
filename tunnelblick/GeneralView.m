@@ -88,11 +88,6 @@ extern TBUserDefaults * gTbDefaults;
     [warningsTFC                        setTitle: NSLocalizedString(@"Warnings:",                 @"Window text")];
     [resetDisabledWarningsButton        setTitle: NSLocalizedString(@"Reset Disabled Warnings",   @"Button")];
     [resetDisabledWarningsButton sizeToFit];
-    
-    if (  runningOnLeopardOrNewer()  ) {
-        [generalHelpButton setEnabled: YES];
-        [generalHelpButton setHidden:  NO];
-    }
 }
 
 

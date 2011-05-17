@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J3250</string>
+		<string key="IBDocument.SystemVersion">10J4138</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -47,7 +47,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSButton" id="870598289">
 						<reference key="NSNextResponder" ref="179044330"/>
-						<int key="NSvFlags">-2147483380</int>
+						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{718, 16}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="179044330"/>
 						<bool key="NSEnabled">YES</bool>
@@ -690,12 +690,12 @@
 					</object>
 					<object class="NSButton" id="1062712738">
 						<reference key="NSNextResponder" ref="847392221"/>
-						<int key="NSvFlags">-2147483380</int>
+						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{718, 16}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="847392221"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="675089623">
-							<int key="NSCellFlags">604110336</int>
+							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents"/>
 							<reference key="NSSupport" ref="644301394"/>

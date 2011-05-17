@@ -2404,9 +2404,6 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    // Register the help book
-    RegisterMyHelpBook();
-    
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
         NSTask* task = [[[NSTask alloc] init] autorelease];

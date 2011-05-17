@@ -70,6 +70,5 @@ BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
 
-OSStatus       RegisterMyHelpBook       (void);
 OSStatus       MyGotoHelpPage           (CFStringRef pagePath, 
                                          CFStringRef anchorName);

@@ -105,11 +105,6 @@ extern NSFileManager  * gFileMgr;
                             nil];
     [appearanceConnectionWindowDisplayCriteriaArrayController setContent: cwContent];
     [appearanceConnectionWindowDisplayCriteriaButton sizeToFit];
-    
-    if (  runningOnLeopardOrNewer()  ) {
-        [appearanceHelpButton setEnabled: YES];
-        [appearanceHelpButton setHidden:  NO];
-    }
 }
 
 -(NSArray *) getIconSets
