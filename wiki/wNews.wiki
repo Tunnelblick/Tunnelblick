@@ -1,7 +1,7 @@
 #summary The Latest News About Tunnelblick
 #sidebar wSb
 
-<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
+<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] for 3.1beta08 IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
 
 --------------------
 
