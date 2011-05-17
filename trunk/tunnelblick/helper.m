@@ -675,39 +675,13 @@ NSString * newTemporaryDirectoryPath(void)
     return [tempFolder retain];
 }
 
-// From http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/registering_help/registering_help.html#//apple_ref/doc/uid/TP30000903-CH207-CHDGHHDF
-OSStatus RegisterMyHelpBook(void)
-{
-    OSStatus err = noErr;
-    
-    if (  runningOnLeopardOrNewer()  ) {
-        
-        CFBundleRef myApplicationBundle;
-        CFURLRef myBundleURL;
-        
-        myApplicationBundle = NULL;
-        myBundleURL = NULL;
-        
-        myApplicationBundle = CFBundleGetMainBundle();// 1
-        if (myApplicationBundle == NULL) {err = fnfErr; goto bail;}
-        
-        myBundleURL = CFBundleCopyBundleURL(myApplicationBundle);// 2
-        if (myBundleURL == NULL) {err = fnfErr; goto bail;}
-        
-        err = AHRegisterHelpBookWithURL(myBundleURL);// 3
-    }
-    
-bail:
-    return err;
-}
-
 
 // Modified from http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/using_ah_functions/using_ah_functions.html#//apple_ref/doc/uid/TP30000903-CH208-CIHFABIE
 OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
 {
     OSStatus err = fnfErr;
     
-    if (  runningOnLeopardOrNewer()  ) {
+    if (  runningOnSnowLeopardOrNewer()  ) {
         
         CFBundleRef myApplicationBundle = NULL;
         CFStringRef myBookName = NULL;
@@ -727,6 +701,16 @@ OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
         }
         
         err = AHGotoPage (myBookName, pagePath, anchorName);// 5
+    } else {
+        NSString * pagePathS = (NSString *) pagePath;
+        NSString * fullPath = [[NSBundle mainBundle] pathForResource: pagePathS ofType: nil inDirectory: @"help"];
+        if (  fullPath  ) {
+            err = ( [[NSWorkspace sharedWorkspace] openFile: fullPath] ) 
+            ? 0
+            : fnfErr;
+        } else {
+            NSLog(@"Unable to locate %@ in 'help' resource folder", pagePathS);
+        }
     }
     
 bail:
