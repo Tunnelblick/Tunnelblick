@@ -25,6 +25,7 @@ A stable release is a version that has been tested as thoroughly as possible and
 A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
     _For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard")_ <br>
       _*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta12.dmg Tunnelblick 3.2beta12 (build 2490)]*_ released 2011-05-16<br><br>
+*NOTE: 3.2beta12 may not work on OS X 10.5 "Leopard".* A fix is expected to be released 2011-05-17 or 2011-05-18. Until then, please use Tunnelblick 3.2beta10, available below in [#Deprecated_Versions Deprecated Versions].
 
 <hr>
 
