@@ -23,6 +23,14 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.2beta14 (2011-05-17)*
+
+ * Fixes a crash on startup on OS X 10.4 ("Tiger") and 10.5 ("Leopard").
+
+ * Fixes a typo in the help page for the "Appearance" preferences.
+
+--------------------
+
 *3.2beta12 (2011-05-16)*
 
  * Tunnelblick has a window for preferences. Configuration settings are still modified on the 'Details…' window.

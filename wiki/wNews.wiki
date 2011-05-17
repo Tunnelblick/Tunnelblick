@@ -5,6 +5,13 @@
 
 --------------------
 
+2011-05-17: *Tunnelblick 3.2beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Fixes a crash on startup on OS X 10.4 ("Tiger") and 10.5 ("Leopard").
+ * Fixes a typo in the help page for the "Appearance" preferences.
+ See the [wRlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-05-16: *Tunnelblick 3.2beta12 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Tunnelblick now has a preferences window.
  * The Tunnelblick menu has been streamlined.
