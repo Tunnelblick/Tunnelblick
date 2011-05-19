@@ -1499,7 +1499,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 oneStatus = [[connectionArray objectAtIndex: 0] displayName];
             }
             if (  oneStatus  ) {
-                oneStatus = [oneStatus stringByAppendingString: NSLocalizedString(@" is Connected", @"Status message")];
+                oneStatus = [NSString stringWithFormat: NSLocalizedString(@"%@ is Connected", @"Status message"), oneStatus];
             } else {
                 oneStatus = NSLocalizedString(@"1 connection", @"status message");
             }
