@@ -39,6 +39,10 @@
 #import "NSFileManager+TB.h"
 #import "LogWindowController.h"
 
+#ifdef INCLUDE_VPNSERVICE
+#import "VPNService.h"
+#endif
+
 // These are global variables rather than class variables to make access to them easier
 NSMutableArray        * gConfigDirs;            // Array of paths to configuration directories currently in use
 NSString              * gDeployPath;            // Path to Tunnelblick.app/Contents/Resources/Deploy
@@ -563,6 +567,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [statusItem release];
     [logScreen release];
     
+#ifdef INCLUDE_VPNSERVICE
+    [vpnService release];
+    [registerForTunnelblickItem release];
+#endif
+    
     [super dealloc];
 }
 
@@ -791,6 +800,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     noConfigurationsItem = [[NSMenuItem alloc] init];
     [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
     
+#ifdef INCLUDE_VPNSERVICE
+    registerForTunnelblickItem = [[NSMenuItem alloc] init];
+    [registerForTunnelblickItem setTitle: NSLocalizedString(@"Register for Tunnelblick...", @"Menu item")];
+    [registerForTunnelblickItem setTarget: self];
+    [registerForTunnelblickItem setAction: @selector(registerForTunnelblickWasClicked:)];
+#endif
+    
     [detailsItem release];
     detailsItem = [[NSMenuItem alloc] init];
     [detailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
@@ -861,10 +877,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
     if (  addConfigurationItem  ) {
         [myVPNMenu addItem: addConfigurationItem];
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
     }
 
+#ifdef INCLUDE_VPNSERVICE
+    [myVPNMenu addItem: registerForTunnelblickItem];
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
-    
+#endif
+
 	[myVPNMenu addItem: detailsItem];
 	[myVPNMenu addItem: [NSMenuItem separatorItem]];
     
@@ -2464,6 +2484,18 @@ static void signal_handler(int signalNumber)
     AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
     gAuthorization = nil;
     
+#ifdef INCLUDE_VPNSERVICE
+    if (  vpnService = [[VPNService alloc] init]  ) {
+        if (  [vpnService respondsToSelector: @selector(showOnLaunchScreen)]) {
+            [vpnService showOnLaunchScreen];
+        } else {
+            NSLog(@"VPNService enabled but vpnService object does not respond to showOnLaunchScreen");
+        }
+    } else {
+        NSLog(@"VPNService enabled but vpnService object is NULL");
+    }
+#endif
+    
     launchFinished = TRUE;
 }
 
@@ -3659,6 +3691,57 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     [statusI popUpStatusItemMenu: [statusI menu]];
     return noErr;
 }
+
+#ifdef INCLUDE_VPNSERVICE
+//*********************************************************************************************************
+//
+// VPNService screen support
+//
+//*********************************************************************************************************
+
+-(IBAction) registerForTunnelblickWasClicked: (id) sender
+{
+    [vpnService showRegisterForTunneblickVPNScreen];
+}
+
+-(BOOL) tryToConnect: (NSString *) displayName
+{
+    VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+    if (  connection  ) {
+        [self setVPNServiceConnectDisplayName: displayName];
+        [connection connect: self userKnows: YES];
+        return YES;
+    }
+    
+    TBRunAlertPanel(NSLocalizedString(@"No configuration available", @"Window title"),
+                    [NSString stringWithFormat:
+                     NSLocalizedString(@"There is no configuration named '%@' installed.\n\n"
+                                       "Try reinstalling Tunnelblick from a disk image.", @"Window text"),
+                     displayName],
+                    nil,nil,nil);
+    [NSApp activateIgnoringOtherApps:YES];
+    return NO;
+}
+
+-(VPNService *) vpnService
+{
+    return [[vpnService retain] autorelease];
+}
+
+
+-(NSString *) vpnServiceConnectDisplayName
+{
+    return [[vpnServiceConnectDisplayName retain] autorelease];
+}
+
+-(void) setVPNServiceConnectDisplayName: (NSString *) newValue
+{
+    if ( vpnServiceConnectDisplayName != newValue  ) {
+        [vpnServiceConnectDisplayName release];
+        vpnServiceConnectDisplayName = [newValue retain];
+    }
+}
+#endif
 
 //*********************************************************************************************************
 //

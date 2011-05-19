@@ -34,6 +34,10 @@
 @class LogWindowController;
 @class NetSocket;
 
+#ifdef INCLUDE_VPNSERVICE
+@class VPNService;
+#endif
+
 BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
                         BOOL * moveLibraryOpenVPN,
                         BOOL * restoreDeploy,
@@ -69,6 +73,11 @@ BOOL needToCopyBundle(void);
     NSMenu                  * hotKeySubmenu;                //      Shortcut Key Submenu
     NSMenuItem              * hotKeySubmenuItem;            //      Shortcut Key Item in Options menu
     NSMenuItem              * addConfigurationItem;         //    "Add Configuration..." menu item
+    
+#ifdef INCLUDE_VPNSERVICE
+    NSMenuItem              * registerForTunnelblickItem;//    "Register for Tunnelblick..." menu item
+#endif
+    
     NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
     NSMenuItem              * aboutItem;                    //    "About..." item for menu
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
@@ -139,6 +148,13 @@ BOOL needToCopyBundle(void);
     int                       customMenuScriptIndex;        // Index used while building the customMenuScripts array
     NSString                * customRunOnLaunchPath;        // Path of a file to be executed before processing "connect when Tunnelblick launches" configurations
     NSString                * customRunOnConnectPath;       // Path of a file to be executed before making a connection
+    
+#ifdef INCLUDE_VPNSERVICE
+    VPNService              * vpnService;                   // VPNService object. if it responds to doVPNService, doVPNService is invoked at end of
+    //                                                      // application:didFinishLaunching. The object persists until Tunnelblick terminates
+    
+    NSString                * vpnServiceConnectDisplayName; // Display name of connection that VPNService is trying to connect
+#endif
 }
 
 // Menu actions
@@ -201,6 +217,15 @@ BOOL needToCopyBundle(void);
 -(void)             startOrStopDurationsTimer;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
+
+#ifdef INCLUDE_VPNSERVICE
+// VPNService support
+-(IBAction)         registerForTunnelblickWasClicked:       (id)                sender;
+-(BOOL)             tryToConnect:                           (NSString *)        displayName;
+-(VPNService *)     vpnService;
+-(NSString *)       vpnServiceConnectDisplayName;
+-(void)             setVPNServiceConnectDisplayName:        (NSString *)        newValue;
+#endif
 
 // AppleScript support
 

@@ -76,3 +76,7 @@ typedef enum
 {
 	statusWindowControllerCancelChoice
 } StatusWindowControllerChoice;
+
+//*************************************************************************************************
+// Comment out (with "//") the following line to EXclude the VPNService feature
+//#define INCLUDE_VPNSERVICE 1
