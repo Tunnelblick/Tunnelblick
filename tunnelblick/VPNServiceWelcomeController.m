@@ -53,14 +53,14 @@
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Welcome!", @"Window title")];
+    [[self window] setTitle: NSLocalizedString(@"Welcome!", @"Window title  VPNService")];
     
-    [self setTitle: NSLocalizedString(@"Next" , @"Button") ofControl: nextButton ];
+    [self setTitle: NSLocalizedString(@"Next" , @"Button VPNService") ofControl: nextButton ];
     
     [[self welcomeTFC] setStringValue: NSLocalizedString(@"Congratulations! Your account has been created"
                                                          " You should receive an email from Tunnelblick soon."
                                                          " Follow the instructions in the email to verify your"
-                                                         " email address and then click 'Next'.", @"Window text")];
+                                                         " email address and then click 'Next'.", @"Window text VPNService")];
     [[self window] center];
     [NSApp activateIgnoringOtherApps:YES];
     [[self window] makeKeyAndOrderFront: self];

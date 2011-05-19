@@ -52,17 +52,17 @@
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Tunnelblick - Free VPN", @"Window title")];
+    [[self window] setTitle: NSLocalizedString(@"Tunnelblick - Free VPN", @"Window title  VPNService")];
     
     NSString * imagePath = [[NSBundle mainBundle] pathForResource: @"VPNService-Intro" ofType: @"png"];
     [introIV setImage: [[[NSImage alloc] initWithContentsOfFile: imagePath] autorelease]];
     
-    [self setTitle: NSLocalizedString(@"Quit"                   , @"Button") ofControl: quitButton          ];
-    [self setTitle: NSLocalizedString(@"Create a Free Account"  , @"Button") ofControl: createAccountButton ];
-    [self setTitle: NSLocalizedString(@"Login",                   @"Button") ofControl: loginButton         ];
+    [self setTitle: NSLocalizedString(@"Quit"                   , @"Button VPNService") ofControl: quitButton          ];
+    [self setTitle: NSLocalizedString(@"Create a Free Account"  , @"Button VPNService") ofControl: createAccountButton ];
+    [self setTitle: NSLocalizedString(@"Login",                   @"Button VPNService") ofControl: loginButton         ];
     
     [[self introTFC] setStringValue: NSLocalizedString(@"Tunnelblick allows you to explore the Internet freely without restrictions "
-                                                       "while simultaneously securing your Internet connection.", @"Window text")];
+                                                       "while simultaneously securing your Internet connection.", @"Window text VPNService")];
     [[self window] center];
     [NSApp activateIgnoringOtherApps:YES];
     [[self window] makeKeyAndOrderFront: self];

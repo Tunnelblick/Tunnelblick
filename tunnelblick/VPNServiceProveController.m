@@ -54,7 +54,7 @@
     delegate = [theDelegate retain];
     id obj = [theDelegate getCaptchaImage];
     if (  ( ! [[obj class] isSubclassOfClass: [NSImage class]] )  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title"),
+        TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title  VPNService"),
                         obj,
                         nil,nil,nil);
         [self autorelease];
@@ -72,7 +72,7 @@
     if (  captchaImageView  ) {
         id obj = [[self delegate] getCaptchaImage];
         if (  ( ! [[obj class] isSubclassOfClass: [NSImage class]] )  ) {
-            TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title"),
+            TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title  VPNService"),
                             obj,
                             nil,nil,nil);
             [NSApp activateIgnoringOtherApps:YES];
@@ -102,12 +102,12 @@
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Prove You are Human", @"Window title")];
+    [[self window] setTitle: NSLocalizedString(@"Prove You are Human", @"Window title  VPNService")];
     
     
-    [self setTitle: NSLocalizedString(@"Back"                , @"Button") ofControl: backButton   ];
-    [self setTitle: NSLocalizedString(@"Get Different Image" , @"Button") ofControl: refreshButton];
-    [self setTitle: NSLocalizedString(@"Next"                , @"Button") ofControl: nextButton   ];
+    [self setTitle: NSLocalizedString(@"Back"                , @"Button VPNService") ofControl: backButton   ];
+    [self setTitle: NSLocalizedString(@"Get Different Image" , @"Button VPNService") ofControl: refreshButton];
+    [self setTitle: NSLocalizedString(@"Next"                , @"Button VPNService") ofControl: nextButton   ];
     
     // Move the Refresh button to the middle of the space between the Back and Next buttons
     NSRect backRect = [backButton frame];
@@ -116,8 +116,8 @@
     refreshRect.origin.x = (nextRect.origin.x + backRect.origin.x + backRect.size.width - refreshRect.size.width) / 2;
     [refreshButton setFrame: refreshRect];
     
-    [[self proveTFC]         setStringValue: NSLocalizedString(@"Please type the characters in the image and click next.", @"Window text")];
-    [[self captchaTFC]       setStringValue: NSLocalizedString(@"Type the characters above:", @"Window text")];
+    [[self proveTFC]         setStringValue: NSLocalizedString(@"Please type the characters in the image and click next.", @"Window text VPNService")];
+    [[self captchaTFC]       setStringValue: NSLocalizedString(@"Type the characters above:", @"Window text VPNService")];
     
     [[self captchaImageView] setImage: [self captchaImage]];
     
@@ -172,8 +172,8 @@
 {
     NSLog(@"value='%@'", [[self captchaTF] stringValue]);
     if (  [[[self captchaTF] stringValue] length] == 0  ) {
-        TBRunAlertPanel(NSLocalizedString(@"You Must Type the Characters", @"Window title"),
-                        NSLocalizedString(@"You must type the characters in the image to proceed.", @"Window text"),
+        TBRunAlertPanel(NSLocalizedString(@"You Must Type the Characters", @"Window title  VPNService"),
+                        NSLocalizedString(@"You must type the characters in the image to proceed.", @"Window text VPNService"),
                         nil,nil,nil);
         [NSApp activateIgnoringOtherApps:YES];
         return;
@@ -193,7 +193,7 @@
         [self changeCaptchaImage: obj]; 
         return;
     }
-    TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title"),
+    TBRunAlertPanel(NSLocalizedString(@"Cannot obtain image", @"Window title  VPNService"),
                     obj,
                     nil,nil,nil);
     [NSApp activateIgnoringOtherApps:YES];

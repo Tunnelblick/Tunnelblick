@@ -62,13 +62,13 @@
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Terms of Service", @"Window title")];
+    [[self window] setTitle: NSLocalizedString(@"Terms of Service", @"Window title  VPNService")];
     
-    [self setTitle: NSLocalizedString(@"Accept" , @"Button") ofControl: acceptButton ];
-    [self setTitle: NSLocalizedString(@"Reject", @"Button") ofControl: rejectButton ];
+    [self setTitle: NSLocalizedString(@"Accept" , @"Button VPNService") ofControl: acceptButton ];
+    [self setTitle: NSLocalizedString(@"Reject", @"Button VPNService") ofControl: rejectButton ];
     
     [[self termsOfServiceHeaderTFC] setStringValue: NSLocalizedString(@"Please read our Terms of Service and indicate"
-                                                                      " your acceptance or rejection of them.", @"Window text")];
+                                                                      " your acceptance or rejection of them.", @"Window text VPNService")];
     tosFrameStartCount = 1;
     [self reloadTermsOfService];
     
@@ -120,9 +120,9 @@
 
 -(void)webView: (WebView *) wv didFailProvisionalLoadWithError: (NSError *) error forFrame: (WebFrame *) wf
 {
-    TBRunAlertPanel(NSLocalizedString(@"Failed to load Terms of Service", @"Window title"),
+    TBRunAlertPanel(NSLocalizedString(@"Failed to load Terms of Service", @"Window title  VPNService"),
                     [NSString stringWithFormat: @"%@\n%@",
-                     NSLocalizedString(@"The Terms of Service could not be loaded:", @"Window text"),
+                     NSLocalizedString(@"The Terms of Service could not be loaded:", @"Window text VPNService"),
                      [[error userInfo] objectForKey: @"NSLocalizedDescription"]],
                     nil,nil,nil);
     [progressIndicator stopAnimation: self];

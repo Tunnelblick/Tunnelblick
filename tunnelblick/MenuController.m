@@ -802,7 +802,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
 #ifdef INCLUDE_VPNSERVICE
     registerForTunnelblickItem = [[NSMenuItem alloc] init];
-    [registerForTunnelblickItem setTitle: NSLocalizedString(@"Register for Tunnelblick...", @"Menu item")];
+    [registerForTunnelblickItem setTitle: NSLocalizedString(@"Register for Tunnelblick...", @"Menu item VPNService")];
     [registerForTunnelblickItem setTarget: self];
     [registerForTunnelblickItem setAction: @selector(registerForTunnelblickWasClicked:)];
 #endif
@@ -1496,10 +1496,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         } else if (  nConnections == 1) {
             NSString * oneStatus = nil;
             if (  [connectionArray count] > 0  ) {
-                oneStatus = [[[connectionArray objectAtIndex: 0] displayName] stringByAppendingString: @" is Connected"];
+                oneStatus = [[connectionArray objectAtIndex: 0] displayName];
             }
-            if (  ! oneStatus  ) {
-                oneStatus = @"1 connection";
+            if (  oneStatus  ) {
+                oneStatus = [oneStatus stringByAppendingString: NSLocalizedString(@" is Connected", @"Status message")];
+            } else {
+                oneStatus = NSLocalizedString(@"1 connection", @"status message");
             }
             toolTip = NSLocalizedString(oneStatus, @"Status message");
         } else {
@@ -3713,10 +3715,10 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
         return YES;
     }
     
-    TBRunAlertPanel(NSLocalizedString(@"No configuration available", @"Window title"),
+    TBRunAlertPanel(NSLocalizedString(@"No configuration available", @"Window title VPNService"),
                     [NSString stringWithFormat:
                      NSLocalizedString(@"There is no configuration named '%@' installed.\n\n"
-                                       "Try reinstalling Tunnelblick from a disk image.", @"Window text"),
+                                       "Try reinstalling Tunnelblick from a disk image.", @"Window text VPNService"),
                      displayName],
                     nil,nil,nil);
     [NSApp activateIgnoringOtherApps:YES];
