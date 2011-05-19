@@ -1,5 +1,5 @@
 /* NEEDS TRANSLATION *//* Status message */
-" is Connected" = " is Connected";
+"%@ is Connected" = "%@ is Connected";
 
 /* NEEDS TRANSLATION *//* Status message */
 "%d Connections" = "%d Connections";
