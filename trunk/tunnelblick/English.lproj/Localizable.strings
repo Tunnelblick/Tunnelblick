@@ -43,12 +43,10 @@
 /* Button */
 "Always use the plugin" = "Always use the plugin";
 
-/* Button
-   Button VPNService */
+/* Button */
 "Back" = "Back";
 
-/* Button
-   Button VPNService */
+/* Button */
 "Cancel" = "Cancel";
 
 /* Menu item */ /* Button */
@@ -136,8 +134,7 @@
 /* Button */
 "OpenVPN Configuration(s)" = "OpenVPN Configuration(s)";
 
-/* Button
-   Button VPNService */
+/* Button */
 "Quit" = "Quit";
 
 /* Button */
@@ -659,8 +656,7 @@
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
 
-/* Window text
-   Window text VPNService */
+/* Window text */
 "Password:" = "Password:";
 
 /* Window text */
