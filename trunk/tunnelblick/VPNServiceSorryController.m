@@ -55,12 +55,12 @@
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Sorry", @"Window title")];
+    [[self window] setTitle: NSLocalizedString(@"Sorry", @"Window title  VPNService")];
     
-    [self setTitle: NSLocalizedString(@"Quit", @"Button") ofControl: quitButton];
-    [self setTitle: NSLocalizedString(@"Back", @"Button") ofControl: backButton];
+    [self setTitle: NSLocalizedString(@"Quit", @"Button VPNService") ofControl: quitButton];
+    [self setTitle: NSLocalizedString(@"Back", @"Button VPNService") ofControl: backButton];
     
-    [[self sorryTFC] setStringValue: [NSString stringWithFormat: NSLocalizedString(@"Sorry, but your request for an account could not be processed:\n     %@", @"Window text"),
+    [[self sorryTFC] setStringValue: [NSString stringWithFormat: NSLocalizedString(@"Sorry, but your request for an account could not be processed:\n     %@", @"Window text VPNService"),
                                       [self vpnServiceReasonForRegistrationFailure]]];
     [[self window] center];
     [NSApp activateIgnoringOtherApps:YES];

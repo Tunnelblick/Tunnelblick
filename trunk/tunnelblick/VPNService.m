@@ -396,7 +396,7 @@ extern TBUserDefaults * gTbDefaults;
 {
     NSString * tos = [self getResponseFrom: tosUrlString];
     if (  ! tos  ) {
-        return NSLocalizedString(@"Terms of service are unavailable.", "Window text");
+        return NSLocalizedString(@"Terms of service are unavailable.", @"Window text VPNService");
     }
     return tos;
 }
@@ -413,20 +413,20 @@ extern TBUserDefaults * gTbDefaults;
     NSString * getSessionToken = [NSString stringWithFormat: @"%@/api/s.php", baseUrlString];
     [self setSessionToken: [[self getResponseFrom: getSessionToken] retain]];
     if (  ! sessionToken  ) {
-        return NSLocalizedString(@"Could not get a session token", "Window text");
+        return NSLocalizedString(@"Could not get a session token", @"Window text VPNService");
     }
     if (  [sessionToken length] > 100  ) {
-        return NSLocalizedString(@"Session token too long", "Window text");
+        return NSLocalizedString(@"Session token too long", @"Window text VPNService");
     }
     if (  ! [[self encode: sessionToken] isEqualToString: sessionToken] ) {
-        return NSLocalizedString(@"Session token requires encoding", "Window text");
+        return NSLocalizedString(@"Session token requires encoding", @"Window text VPNService");
     }
     
     // Get captcha image
     NSString * getCaptchaURL = [NSString stringWithFormat: @"%@/api/c.php?sid=%@", baseUrlString, sessionToken];
     [self setCaptchaImage: [self getImageFrom: getCaptchaURL]];
     if (  ! captchaImage  ) {
-        return NSLocalizedString(@"Could not get a captcha image", "Window text");
+        return NSLocalizedString(@"Could not get a captcha image", @"Window text VPNService");
     }
     
     return [[captchaImage retain] autorelease];
@@ -443,9 +443,9 @@ extern TBUserDefaults * gTbDefaults;
     if (  [registrationResponse hasPrefix: @"OK"]  ) {
         [self setReasonForRegistrationFailure: nil];
     } else if (  [registrationResponse hasPrefix: @"USER_EXISTS"]  ) {
-        [self setReasonForRegistrationFailure: [NSString stringWithFormat: NSLocalizedString(@"Email address %@ is already registered for an account", "Window text"), [self emailAddress]]];
+        [self setReasonForRegistrationFailure: [NSString stringWithFormat: NSLocalizedString(@"Email address %@ is already registered for an account", @"Window text VPNService"), [self emailAddress]]];
     } else {
-        [self setReasonForRegistrationFailure: [NSString stringWithFormat: NSLocalizedString(@"Unable to check account status:\n     %@", "Window text"), registrationResponse]];
+        [self setReasonForRegistrationFailure: [NSString stringWithFormat: NSLocalizedString(@"Unable to check account status:\n     %@", @"Window text VPNService"), registrationResponse]];
     }
     
     return [[reasonForRegistrationFailure retain] autorelease];
@@ -473,25 +473,25 @@ extern TBUserDefaults * gTbDefaults;
     
     NSString * registration = [self getResponseFrom: getRegisteredURL];
     if (  ! registration  ) {
-        return NSLocalizedString(@"Could not check registration", @"Window text");
+        return NSLocalizedString(@"Could not check registration", @"Window text VPNService");
     }
     if (  [registration hasPrefix: @"OK"]  ) {
         return nil;
     }
     if (  [registration hasPrefix: @"error:captcha"]  ) {
-        return NSLocalizedString(@"The text you entered did not match the text in the Captcha image.", @"Window text");
+        return NSLocalizedString(@"The text you entered did not match the text in the Captcha image.", @"Window text VPNService");
     }
     if (  [registration hasPrefix: @"error:invalid_email"]  ) {
-        return NSLocalizedString(@"The email address you entered was not a valid email address.", @"Window text");
+        return NSLocalizedString(@"The email address you entered was not a valid email address.", @"Window text VPNService");
     }
     if (  [registration hasPrefix: @"error:no_sid_provided"]  ) {
-        return NSLocalizedString(@"No valid session token.", @"Window text");
+        return NSLocalizedString(@"No valid session token.", @"Window text VPNService");
     }
     if (  [registration hasPrefix: @"error:user_exists_pending"]  ) {
-        return NSLocalizedString(@"You have already registered but not yet confirmed your email address.", @"Window text");
+        return NSLocalizedString(@"You have already registered but not yet confirmed your email address.", @"Window text VPNService");
     }
     if (  [registration hasPrefix: @"error:user_exists"]  ) {
-        return NSLocalizedString(@"You have already registered.", @"Window text");
+        return NSLocalizedString(@"You have already registered.", @"Window text VPNService");
     }
     return registration;
 }
@@ -500,13 +500,13 @@ extern TBUserDefaults * gTbDefaults;
 {
     // Check registration of email address
     if (  ! emailAddress) {
-        return NSLocalizedString(@"Unable to check registration for empty email address", @"Window text");
+        return NSLocalizedString(@"Unable to check registration for empty email address", @"Window text VPNService");
     }
     NSString * encodedEmailAddress = [self encode: address];
     NSString * checkRegistrationURL = [NSString stringWithFormat: @"%@/api/q.php?u=%@", baseUrlString, encodedEmailAddress];
     NSString * checkRegistration = [self getResponseFrom: checkRegistrationURL];
     if (  ! checkRegistration  ) {
-        return NSLocalizedString(@"Could not check registration", @"Window text");
+        return NSLocalizedString(@"Could not check registration", @"Window text VPNService");
     }
     if (  [checkRegistration hasPrefix: @"USER_EXISTS"]  ) {
         return @"YES"; // DO NOT localize!
@@ -525,7 +525,7 @@ extern TBUserDefaults * gTbDefaults;
     
     NSURL * realURL = [NSURL URLWithString: url];
     if (  ! realURL  ) {
-        return [NSString stringWithFormat: NSLocalizedString(@"Invalid URL: %@", @"Window text"), url];
+        return [NSString stringWithFormat: NSLocalizedString(@"Invalid URL: %@", @"Window text VPNService"), url];
     }
     
     NSURLRequest * urlRequest = [NSURLRequest requestWithURL: realURL
@@ -536,7 +536,7 @@ extern TBUserDefaults * gTbDefaults;
                                     returningResponse: &urlResponse
                                                 error: &urlError];
     if (  [urlData length] == 0  ) {
-        return NSLocalizedString(@"Unable to connect to server", @"Window text");
+        return NSLocalizedString(@"Unable to connect to server", @"Window text VPNService");
     }
     
     NSString * responseString = [[[NSString alloc] initWithBytes:[urlData bytes]
@@ -553,7 +553,7 @@ extern TBUserDefaults * gTbDefaults;
     
     NSURL * realURL = [NSURL URLWithString: url];
     if (  ! realURL  ) {
-        return [NSString stringWithFormat: NSLocalizedString(@"Invalid URL: %@", @"Window text"), url];
+        return [NSString stringWithFormat: NSLocalizedString(@"Invalid URL: %@", @"Window text VPNService"), url];
     }
     NSURLRequest * urlRequest = [NSURLRequest requestWithURL: realURL
                                                  cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -563,7 +563,7 @@ extern TBUserDefaults * gTbDefaults;
                                     returningResponse: &urlResponse
                                                 error: &urlError];
     if (  ! urlData  ) {
-        return NSLocalizedString(@"Unable to connect to server", @"Window text");
+        return NSLocalizedString(@"Unable to connect to server", @"Window text VPNService");
     }
     
     NSImage * responseImage = [[[NSImage alloc] initWithData: urlData] autorelease];

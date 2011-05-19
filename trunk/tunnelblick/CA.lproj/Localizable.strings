@@ -1,5 +1,11 @@
 /* NEEDS TRANSLATION *//* Status message */
+" is Connected" = " is Connected";
+
+/* NEEDS TRANSLATION *//* Status message */
 "%d Connections" = "%d Connections";
+
+/* NEEDS TRANSLATION *//* status message */
+"1 connection" = "1 connection";
 
 /* NEEDS TRANSLATION *//* Status message */
 "Disconnect  All (%@)" = "Disconnect  All (%@)";
@@ -102,6 +108,10 @@
 
 /* Button */
 "Launch" = "Arrencar";
+
+/* NEEDS TRANSLATION *//* Button VPNService
+   Window title  VPNService */
+"Login" = "Login";
 
 /* NEEDS TRANSLATION *//* Button */
 "Make configuration private" = "Make configuration private";
@@ -837,4 +847,163 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\nand install %d Tunnelblick VPN Configurations";
+
+/* NEEDS TRANSLATION *//* Button VPNService */
+"Accept" = "Accept";
+
+/* NEEDS TRANSLATION *//* Button VPNService */
+"Create a Free Account" = "Create a Free Account";
+
+/* NEEDS TRANSLATION *//* Button VPNService */
+"Get Different Image" = "Get Different Image";
+
+/* NEEDS TRANSLATION *//* Button VPNService */
+"Next" = "Next";
+
+/* NEEDS TRANSLATION *//* Button VPNService */
+"Reject" = "Reject";
+
+/* NEEDS TRANSLATION *//* Menu item VPNService */
+"Register for Tunnelblick..." = "Register for Tunnelblick...";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Cannot obtain image" = "Cannot obtain image";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Cannot register" = "Cannot register";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Email not verified" = "Email not verified";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Entries required" = "Entries required";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Failed to load Terms of Service" = "Failed to load Terms of Service";
+
+/* NEEDS TRANSLATION *//* Window title VPNService */
+"No configuration available" = "No configuration available";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Password entries must match" = "Password entries must match";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Prove You are Human" = "Prove You are Human";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Register with Tunnelblick" = "Register with Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Sorry" = "Sorry";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Terms of Service" = "Terms of Service";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"Welcome!" = "Welcome!";
+
+/* NEEDS TRANSLATION *//* Window title  VPNService */
+"You Must Type the Characters" = "You Must Type the Characters";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Confirm password:" = "Confirm password:";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Could not check registration" = "Could not check registration";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Could not get a captcha image" = "Could not get a captcha image";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Could not get a session token" = "Could not get a session token";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Email address:" = "Email address:";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Invalid URL: %@" = "Invalid URL: %@";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"No valid session token." = "No valid session token.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Please read our Terms of Service and indicate your acceptance or rejection of them.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Session token requires encoding" = "Session token requires encoding";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Session token too long" = "Session token too long";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Terms of service are unavailable." = "Terms of service are unavailable.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"The password entries must match to proceed." = "The password entries must match to proceed.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "To create your free Tunnelblick account we need your email address and a password of your choosing.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Type the characters above:" = "Type the characters above:";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Unable to connect to server" = "Unable to connect to server";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"You have already registered." = "You have already registered.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+
+/* NEEDS TRANSLATION *//* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
 

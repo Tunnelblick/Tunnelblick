@@ -65,21 +65,21 @@
 
 -(void) awakeFromNib
 {
-    [[self window] setTitle: NSLocalizedString(@"Register with Tunnelblick", @"Window title")];
+    [[self window] setTitle: NSLocalizedString(@"Register with Tunnelblick", @"Window title  VPNService")];
     
     if (  cancelNotBackButton  ) {
-        [self setTitle: NSLocalizedString(@"Cancel" , @"Button") ofControl: cancelBackButton ];
+        [self setTitle: NSLocalizedString(@"Cancel" , @"Button VPNService") ofControl: cancelBackButton ];
     } else {
-        [self setTitle: NSLocalizedString(@"Back"   , @"Button") ofControl: cancelBackButton ];
+        [self setTitle: NSLocalizedString(@"Back"   , @"Button VPNService") ofControl: cancelBackButton ];
     }
-    [self setTitle:     NSLocalizedString(@"Next"   , @"Button") ofControl: nextButton ];
+    [self setTitle:     NSLocalizedString(@"Next"   , @"Button VPNService") ofControl: nextButton ];
     
     [[self createAccountTFC]   setStringValue: NSLocalizedString(@"To create your free Tunnelblick account we need your email address"
-                                                                 " and a password of your choosing.", @"Window text")];
+                                                                 " and a password of your choosing.", @"Window text VPNService")];
     
-    [[self emailAddressTFC]    setStringValue: NSLocalizedString(@"Email address:",    @"Window text")];
-    [[self passwordTFC]        setStringValue: NSLocalizedString(@"Password:",         @"Window text")];
-    [[self passwordConfirmTFC] setStringValue: NSLocalizedString(@"Confirm password:", @"Window text")];
+    [[self emailAddressTFC]    setStringValue: NSLocalizedString(@"Email address:",    @"Window text VPNService")];
+    [[self passwordTFC]        setStringValue: NSLocalizedString(@"Password:",         @"Window text VPNService")];
+    [[self passwordConfirmTFC] setStringValue: NSLocalizedString(@"Confirm password:", @"Window text VPNService")];
     
     [[self emailAddressTF]    setStringValue: [[self delegate] emailAddress]];
     [[self passwordTF]        setStringValue: [[self delegate] password]];
@@ -95,9 +95,9 @@
     cancelNotBackButton = showCancel;
     
     if (  showCancel  ) {
-        [self setTitle: NSLocalizedString(@"Cancel",  @"Button") ofControl: cancelBackButton ];
+        [self setTitle: NSLocalizedString(@"Cancel",  @"Button VPNService") ofControl: cancelBackButton ];
     } else {
-        [self setTitle: NSLocalizedString(@"Back",    @"Button") ofControl: cancelBackButton ];
+        [self setTitle: NSLocalizedString(@"Back",    @"Button VPNService") ofControl: cancelBackButton ];
     }
     
     [[self emailAddressTF]    setStringValue: [[self delegate] emailAddress]];
@@ -162,20 +162,20 @@
                 [[self delegate] setPassword: [self password]];
                 [[self delegate] vpnServiceCreateAccount: self finishedWithChoice: VPNServiceCreateAccountNextChoice];
             } else {
-                TBRunAlertPanel(NSLocalizedString(@"Cannot register", @"Window title"),
+                TBRunAlertPanel(NSLocalizedString(@"Cannot register", @"Window title  VPNService"),
                                 reason,
                                 nil,nil,nil);
                 [NSApp activateIgnoringOtherApps:YES];
             }
         } else {
-            TBRunAlertPanel(NSLocalizedString(@"Password entries must match", @"Window title"),
-                            NSLocalizedString(@"The password entries must match to proceed.", @"Window text"),
+            TBRunAlertPanel(NSLocalizedString(@"Password entries must match", @"Window title  VPNService"),
+                            NSLocalizedString(@"The password entries must match to proceed.", @"Window text VPNService"),
                             nil,nil,nil);
             [NSApp activateIgnoringOtherApps:YES];
         }
     } else {
-        TBRunAlertPanel(NSLocalizedString(@"Entries required", @"Window title"),
-                        NSLocalizedString(@"You must enter an email address, password, and password confirmation to proceed.", @"Window text"),
+        TBRunAlertPanel(NSLocalizedString(@"Entries required", @"Window title  VPNService"),
+                        NSLocalizedString(@"You must enter an email address, password, and password confirmation to proceed.", @"Window text VPNService"),
                         nil,nil,nil);
         [NSApp activateIgnoringOtherApps:YES];
     }
