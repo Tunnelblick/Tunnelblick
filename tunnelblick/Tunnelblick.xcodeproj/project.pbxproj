@@ -80,7 +80,6 @@
 		638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
-		63920C17137E983300862A71 /* description.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63920C15137E983300862A71 /* description.rtf */; };
 		63920C18137E983300862A71 /* credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63920C16137E983300862A71 /* credits.rtf */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
@@ -121,6 +120,7 @@
 		63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE213848338007E39AB /* VPNServiceSorryController.m */; };
 		63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE413848338007E39AB /* VPNServiceTermsOfServiceController.m */; };
 		63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */; };
+		63ECF4781386802F000286AD /* description.html in Resources */ = {isa = PBXBuildFile; fileRef = 63ECF4771386802F000286AD /* description.html */; };
 		63EEBD93137EF4C3001BFFD8 /* help in Resources */ = {isa = PBXBuildFile; fileRef = 63EEBD8C137EF4C3001BFFD8 /* help */; };
 		63F2AD9B12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
 		63F2AD9C12AD5F1600826724 /* NSFileManager+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */; };
@@ -300,7 +300,6 @@
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
-		63920C15137E983300862A71 /* description.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = description.rtf; sourceTree = "<group>"; };
 		63920C16137E983300862A71 /* credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = credits.rtf; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -355,6 +354,7 @@
 		63E56EE513848338007E39AB /* VPNServiceWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNServiceWelcomeController.h; sourceTree = "<group>"; };
 		63E56EE613848338007E39AB /* VPNServiceWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNServiceWelcomeController.m; sourceTree = "<group>"; };
 		63E8427A117A147500529DE2 /* ConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationManager.h; sourceTree = "<group>"; };
+		63ECF4771386802F000286AD /* description.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = description.html; sourceTree = "<group>"; };
 		63EEBD8C137EF4C3001BFFD8 /* help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = help; sourceTree = "<group>"; };
 		63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+TB.h"; sourceTree = "<group>"; };
 		63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+TB.m"; sourceTree = "<group>"; };
@@ -541,8 +541,8 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				63EEBD8C137EF4C3001BFFD8 /* help */,
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
-				63920C15137E983300862A71 /* description.rtf */,
 				63920C16137E983300862A71 /* credits.rtf */,
+				63ECF4771386802F000286AD /* description.html */,
 				635ECD091378B7C400F67F8D /* General.png */,
 				635ECD0B1378B7E600F67F8D /* Appearance.png */,
 				635ECDC41378CD3200F67F8D /* Info.tiff */,
@@ -869,7 +869,6 @@
 				635ECD0A1378B7C400F67F8D /* General.png in Resources */,
 				635ECD0C1378B7E600F67F8D /* Appearance.png in Resources */,
 				635ECDC51378CD3200F67F8D /* Info.tiff in Resources */,
-				63920C17137E983300862A71 /* description.rtf in Resources */,
 				63920C18137E983300862A71 /* credits.rtf in Resources */,
 				63EEBD93137EF4C3001BFFD8 /* help in Resources */,
 				63E56EC413848194007E39AB /* VPNServiceCreateAccount.xib in Resources */,
@@ -879,6 +878,7 @@
 				63E56EC813848194007E39AB /* VPNServiceSorry.xib in Resources */,
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
+				63ECF4781386802F000286AD /* description.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
