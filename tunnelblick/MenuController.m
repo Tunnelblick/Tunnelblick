@@ -874,15 +874,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
-
+    
+#ifdef INCLUDE_VPNSERVICE
+    if (  registerForTunnelblickItem  ) {
+        [myVPNMenu addItem: registerForTunnelblickItem];
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+    }
+#else
     if (  addConfigurationItem  ) {
         [myVPNMenu addItem: addConfigurationItem];
         [myVPNMenu addItem: [NSMenuItem separatorItem]];
     }
-
-#ifdef INCLUDE_VPNSERVICE
-    [myVPNMenu addItem: registerForTunnelblickItem];
-    [myVPNMenu addItem: [NSMenuItem separatorItem]];
 #endif
 
 	[myVPNMenu addItem: detailsItem];
