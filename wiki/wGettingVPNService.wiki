@@ -36,6 +36,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 
 <table border="1" width="100%"><tr><td>
 The following VPN service providers have donated to Tunnelblick within the past year
+  * *[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
@@ -46,6 +47,7 @@ The following VPN service providers have donated to Tunnelblick within the past 
 The following VPN service providers  recommend or use Tunnelblick exclusively for OS X
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=https://www.fbvpn.com FBVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.onebuckvpn.com OneBuckVPN]*
@@ -55,8 +57,14 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpn-38.com/en VPN-38]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.vpnsecure.me VPN-S]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
+  * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 </td></tr></table>
 </td></tr></table>
