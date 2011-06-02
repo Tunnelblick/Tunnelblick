@@ -25,8 +25,8 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 <table border="1" width="100%"><tr><td>
 The following VPN service providers  contribute to Tunnelblick if you use these links
   * *[https://www.astrill.com/a3329ebd4 Astrill]* (You get a 10% discount on a 1-year purchase or a 5% discount on a 6-month purchase.)
-  * *[http://www.bananasecure.com/members/idevaffiliate.php?id=271 Banana VPN]*
   * *[http://btguard.com/?a=tunnelblick BTGuard]*
+  * *[http://www.bananasecure.com/members/idevaffiliate.php?id=271 Banana VPN]*
   * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]*
   * *[https://sales.hotspotvpn.com/info.asp?rid=tunnelblick&pid=2&tc=1 HotSpotVPN]*
   * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
@@ -36,6 +36,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 
 <table border="1" width="100%"><tr><td>
 The following VPN service providers have donated to Tunnelblick within the past year
+  * *[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
@@ -46,6 +47,7 @@ The following VPN service providers have donated to Tunnelblick within the past 
 The following VPN service providers  recommend or use Tunnelblick exclusively for OS X
   * *[http://www.tunnelblick.net/to.php?to=http://www.acevpn.com Ace VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=https://www.fbvpn.com FBVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.onebuckvpn.com OneBuckVPN]*
@@ -55,8 +57,14 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
+  * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpn-38.com/en.html VPN-38]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.vpnsecure.me VPN-S]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
+  * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 </td></tr></table>
 </td></tr></table>
