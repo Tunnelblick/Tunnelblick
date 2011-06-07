@@ -8,7 +8,7 @@
 "1 connection" = "1 connection";
 
 /* NEEDS TRANSLATION *//* Status message */
-"Disconnect  All (%@)" = "Disconnect  All (%@)";
+"Disconnect All (%@)" = "Disconnect All (%@)";
 
 /* NEEDS TRANSLATION *//* Status message */
 "Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
@@ -1128,7 +1128,7 @@
 "Confirm password:" = "Confirm password:";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
-"Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "Could not check registration" = "Could not check registration";
