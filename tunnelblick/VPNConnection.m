@@ -445,6 +445,23 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
     }
 }
+
+
+// Returns TRUE if this configuration will be connected when the system starts via a launchd .plist
+-(BOOL) launchdPlistWillConnectOnSystemStart
+{
+    // Encode slashes and periods in the displayName so the result can act as a single component in a file name
+    NSMutableString * daemonNameWithoutSlashes = [[[self displayName] mutableCopy] autorelease];
+    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+    
+    NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
+    
+    NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
+    
+    return [gFileMgr fileExistsAtPath: plistPath];
+}
     
 // User wants to connect, or not connect, the configuration when the system starts.
 // Returns TRUE if can and will connect, FALSE otherwise
@@ -455,7 +472,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 // A change is necesary if changing connect/not connect status, or if preference changes would change
 // the .plist file used to connect when the system starts
 
--(BOOL) checkConnectOnSystemStart: (BOOL) startIt withAuth: (AuthorizationRef) inAuthRef
+-(BOOL) checkConnectOnSystemStart: (BOOL)              startIt
+                         withAuth: (AuthorizationRef)  inAuthRef;
 {
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
     NSMutableString * daemonNameWithoutSlashes = [[[self displayName] mutableCopy] autorelease];
@@ -2113,6 +2131,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  logFilesMayExist  ) {
         [logDisplay stopMonitoringLogFiles];
     }
+}
+
+-(NSString *) openvpnLogPath
+{
+    return [logDisplay openvpnLogPath];
 }
 
 //*********************************************************************************************************

@@ -26,6 +26,7 @@
 #import "NSApplication+SystemVersion.h"
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
+#import "MenuController.h"
 
 // PRIVATE FUNCTIONS:
 NSDictionary * parseVersion             (NSString * string);
@@ -681,7 +682,7 @@ OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
 {
     OSStatus err = fnfErr;
     
-    if (  runningOnSnowLeopardOrNewer()  ) {
+    if (  FALSE && runningOnSnowLeopardOrNewer()  ) {   // DISABLE THIS -- IT DOESN'T WORK CONSISTENTLY
         
         CFBundleRef myApplicationBundle = NULL;
         CFStringRef myBookName = NULL;
@@ -716,6 +717,69 @@ OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
 bail:
     return err;
 }
+
+NSString * TBGetString(NSString * msg)
+{
+    NSMutableDictionary* panelDict = [[NSMutableDictionary alloc] initWithCapacity:6];
+    [panelDict setObject:NSLocalizedString(@"Name Required", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
+    [panelDict setObject:msg                                                  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
+    [panelDict setObject:@""                                                  forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
+    [panelDict setObject:NSLocalizedString(@"OK", @"Button")                  forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
+    [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")              forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
+    [panelDict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                                 pathForResource:@"tunnelblick"
+                                                 ofType: @"icns"]]            forKey:(NSString *)kCFUserNotificationIconURLKey];
+    SInt32 error;
+    CFUserNotificationRef notification;
+    CFOptionFlags response;
+    
+    // Get a name from the user
+    notification = CFUserNotificationCreate(NULL, 30, 0, &error, (CFDictionaryRef)panelDict);
+    [panelDict release];
+    
+    if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
+        CFRelease(notification);    // Couldn't receive a response
+        NSLog(@"Could not get a string from the user.\n\nAn unknown error occured.");
+        return nil;
+    }
+    
+    if((response & 0x3) != kCFUserNotificationDefaultResponse) {
+        CFRelease(notification);    // User clicked "Cancel"
+        return nil;
+    }
+    
+    // Get the new name from the textfield
+    NSString * returnString = [(NSString*)CFUserNotificationGetResponseValue(notification, kCFUserNotificationTextFieldValuesKey, 0)
+                               stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    CFRelease(notification);
+    return returnString;
+}
+
+
+// Call with a message to display and the path of a configuration that will be renamed or installed.
+// Returns with nil if cancelled, otherwise the display name of a configuration that sourcePath can be renamed to or installed to
+NSString * TBGetDisplayName(NSString * msg,
+                            NSString * sourcePath)
+{
+    NSString * newName = TBGetString(msg);
+    while (  newName  ) {
+        NSRange rng = [newName rangeOfString: @"/"];
+        if (  rng.length != 0) {
+            newName = TBGetString([@"Names must not contain slashes (\"/\") --only enter that part of the name that comes after any slashes\n\n" stringByAppendingString: msg]);
+        } else if (  [newName length] == 0  ) {
+            newName = TBGetString([@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" stringByAppendingString: msg]);
+        } else {
+            NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @".conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
+            if (  nil == [[[NSApp delegate] myConfigDictionary] objectForKey: lastPartOfPath(targetPath)]  ) {
+                break;
+            }
+            newName = TBGetString([@"That name is being used.\n\n" stringByAppendingString: msg]);
+        }
+    }
+    
+    return newName;
+}
+
 
 
 // This method is never invoked. It is a place to put strings which are used in the DMG or the .nib or come from OpenVPN

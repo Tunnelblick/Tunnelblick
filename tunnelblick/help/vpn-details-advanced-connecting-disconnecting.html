@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta name="AppleTitle" content="Tunnelblick Help"></meta>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Tunnelblick VPN Details Advanced Settings Connecting/Disconnecting Tab Help</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.35">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #f91c0a}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><b>Tunnelblick Advanced Settings Window</b></p>
+<p class="p2"><br></p>
+<p class="p3">Tunnelblick's Advanced Settings Window contains less-used settings for the configuration that is selected in the VPN Details Window.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Most users do not need to change the settings in this window.</b></p>
+<p class="p2"><br></p>
+<p class="p3">Each setting is controlled by a checkbox:</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><b>Scan configuration file for problems before connecting</b>. When checked, Tunnelblick will scan the OpenVPN configuration file for problems before each attempt at connecting.</li>
+  <li class="li3"><b>Use Tunnelblick tun/tap drivers</b>: Tunnelblick contains its own tun/tap drivers. When checked, Tunnelblick will load the appropriate driver before attempting to make a connection if the driver is not already loaded. The driver will be unloaded until all configurations using the driver have been disconnected.</li>
+  <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>. When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Two checkboxes control what Tunnelblick does when a system "Fast User Switch" occurs:</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li>
+  <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in, if the configuration was connected before the user switched out.</li>
+</ul>
+</body>
+</html>

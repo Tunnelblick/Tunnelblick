@@ -66,16 +66,6 @@ enum state_t {                      // These are the "states" of the guideState 
 
 -(BOOL)         configNotProtected:         (NSString *)                configFile;
 
--(BOOL)         copyConfigPath:             (NSString *)                sourcePath
-                        toPath:             (NSString *)                targetPath
-                  usingAuthRef:             (AuthorizationRef)          authRef
-                    warnDialog:             (BOOL)                      warn
-                   moveNotCopy:             (BOOL)                      moveInstead;
-
--(BOOL)         deleteConfigPath:           (NSString *)                targetPath
-                    usingAuthRef:           (AuthorizationRef)          authRef
-                      warnDialog:           (BOOL)                      warn;
-
 -(NSString *)   displayNameForPath:         (NSString *)                thePath;
 
 -(NSString *)   getLowerCaseStringForKey:   (NSString *)                key

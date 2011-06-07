@@ -32,6 +32,7 @@
 #import "ConfigurationUpdater.h"
 #import "MyPrefsWindowController.h"
 @class LogWindowController;
+@class VPNDetailsWindowController;
 @class NetSocket;
 
 #ifdef INCLUDE_VPNSERVICE
@@ -91,7 +92,8 @@ BOOL needToCopyBundle(void);
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     
-    LogWindowController     * logScreen;                    // Log window ("Details..." window)
+//    LogWindowController     * logScreen;                    // Log window ("Details..." window)
+    VPNDetailsWindowController * logScreen;                 // Log window ("VPN Details..." window)
 
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
@@ -211,7 +213,7 @@ BOOL needToCopyBundle(void);
 -(NSMutableArray *) largeAnimImages;
 -(NSImage *)        largeConnectedImage;
 -(NSImage *)        largeMainImage;
--(LogWindowController *) logScreen;
+-(VPNDetailsWindowController *) logScreen;
 -(NSString *)       customRunOnConnectPath;
 -(NSTimer *)        showDurationsTimer;
 -(void)             startOrStopDurationsTimer;

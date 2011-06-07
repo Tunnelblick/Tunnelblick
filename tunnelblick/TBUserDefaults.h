@@ -61,9 +61,18 @@
 
 -(BOOL)             canChangeValueForKey:       (NSString *)        key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
 
+-(BOOL)             copyPreferencesFrom:        (NSString *)        sourceDisplayName
+                                     to:        (NSString *)        targetDisplayName;
+
 -(BOOL)             boolForKey:                 (NSString *)        key;    // Note: returns [object boolValue], which works only on booleans until OS X 10.5
 
+-(BOOL)             movePreferencesFrom:        (NSString *)        sourceDisplayName
+                                     to:        (NSString *)        targetDisplayName;
+
 -(id)               objectForKey:               (NSString *)        key;
+
+-(void)             scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
+                                              displayName: (NSString *) dictName;
 
 -(void)             setBool:                    (BOOL)              value
                      forKey:                    (NSString *)        key;
@@ -71,9 +80,11 @@
 -(void)             setObject:                  (id)                value
                        forKey:                  (NSString *)        key;
 
+-(void)             removeAllObjectsWithSuffix: (NSString *)        key;
+
 -(void)             removeObjectForKey:         (NSString *)        key;
 
--(void)             removeAllObjectsWithSuffix: (NSString *)        key;
+-(BOOL)             removePreferencesFor:       (NSString *)        displayName;
 
 -(void)             synchronize;
 

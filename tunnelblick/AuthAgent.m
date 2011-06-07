@@ -33,12 +33,6 @@ extern TBUserDefaults  * gTbDefaults;
 -(NSString *)   displayName;
 -(void)         setDisplayName:                      (NSString *)value;
 
--(void)         setPassphrase:                      (NSString *)value;
-
--(void)         setPassword:                        (NSString *)value;
-
--(void)         setUsername:                        (NSString *)value;
-
 -(void) setUsernameKeychain: (KeyChain *) newKeyChain;
 -(void) setPasswordKeychain: (KeyChain *) newKeyChain;
 -(void) setPassphrasePreferenceKey: (NSString *) newKey;

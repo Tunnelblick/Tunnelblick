@@ -131,6 +131,8 @@ typedef enum
 
 -(BOOL)             isDisconnected;
 
+-(BOOL)             launchdPlistWillConnectOnSystemStart;
+
 -(NSArray *)        modifyNameserverOptionList;
 
 -(void)             netsocket:                  (NetSocket *)   socket
@@ -139,6 +141,8 @@ typedef enum
 -(void)             netsocketConnected:         (NetSocket *)   socket;
 
 -(void)             netsocketDisconnected:      (NetSocket *)   inSocket;
+
+-(NSString *)       openvpnLogPath;
 
 -(pid_t)            pid;
 

@@ -42,6 +42,16 @@
 
 -(void)                     addConfigurationGuide;
 
+-(BOOL)                     copyConfigPath:             (NSString *)                sourcePath
+                                    toPath:             (NSString *)                targetPath
+                              usingAuthRef:             (AuthorizationRef)          authRef
+                                warnDialog:             (BOOL)                      warn
+                               moveNotCopy:             (BOOL)                      moveInstead;
+
+-(BOOL)                     deleteConfigPath:           (NSString *)        targetPath
+                                usingAuthRef:           (AuthorizationRef)  authRef
+                                  warnDialog:           (BOOL)              warn;
+
 -(void)                     editConfigurationAtPath:    (NSString *)        thePath
                                       forConnection:    (VPNConnection *)   connection;
 
