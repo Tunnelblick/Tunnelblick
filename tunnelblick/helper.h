@@ -49,6 +49,9 @@ NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * openVPNVersion           (void);
 NSDictionary * getOpenVPNVersion        (void);
 
+NSString     * localizeNonLiteral        (NSString * status,
+                                         NSString * type);
+
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
