@@ -57,7 +57,7 @@
     
     [self setTitle: NSLocalizedString(@"Next" , @"Button VPNService") ofControl: nextButton ];
     
-    [[self welcomeTFC] setStringValue: NSLocalizedString(@"Congratulations! Your account has been created"
+    [[self welcomeTFC] setStringValue: NSLocalizedString(@"Congratulations! Your account has been created."
                                                          " You should receive an email from Tunnelblick soon."
                                                          " Follow the instructions in the email to verify your"
                                                          " email address and then click 'Next'.", @"Window text VPNService")];

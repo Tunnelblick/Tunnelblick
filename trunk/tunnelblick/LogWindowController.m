@@ -371,7 +371,7 @@ extern AuthorizationRef       gAuthorization;
             }
         }
     }
-    return [NSString stringWithFormat:@"%@ (%@%@)",[connection displayName], NSLocalizedString(cState, nil), cTimeS];
+    return [NSString stringWithFormat:@"%@ (%@%@)",[connection displayName], localizeNonLiteral(cState, nil), cTimeS];
 }
 
 - (void) tabView: (NSTabView*) inTabView willSelectTabViewItem: (NSTabViewItem*) tabViewItem

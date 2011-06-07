@@ -266,7 +266,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         [status release];
         status = [theStatus retain];
     }        
-    [[self statusTFC] setStringValue: NSLocalizedString(theStatus, @"Connection status")];
+    [[self statusTFC] setStringValue: localizeNonLiteral(theStatus, @"Connection status")];
     if (   [theStatus isEqualToString: @"EXITING"]  ) {
         [statusTFC setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];

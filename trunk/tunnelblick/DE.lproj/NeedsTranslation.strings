@@ -326,7 +326,7 @@
 "There was a problem with one configuration. Details are in the Console Log\n\n" = "There was a problem with one configuration. Details are in the Console Log\n\n";
 
 /* Window text */
-"Too may duplicate configurations already exist." = "Too may duplicate configurations already exist.";
+"Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
 
 /* Window text */
 "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.";

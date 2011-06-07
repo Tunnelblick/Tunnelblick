@@ -121,7 +121,7 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(void) setStatus: (NSString *) newStatus
 {
-    [configurationStatusTFC setTitle: NSLocalizedString(newStatus, @"Connection status")];
+    [configurationStatusTFC setTitle: localizeNonLiteral(newStatus, @"Connection status")];
 }                                                            
 
 
@@ -129,7 +129,7 @@ extern TBUserDefaults       * gTbDefaults;
 {
     if ( showingSettingsSheet  ) {
         NSString * state = [connection state];
-        NSString * localizedStatus = NSLocalizedString(state, @"Connection status");
+        NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
         if (  [state isEqualToString: @"CONNECTED"]  ) {
             NSString * time = [connection connectTimeString];
             [configurationStatusTFC setTitle: [NSString stringWithFormat: @"%@%@",

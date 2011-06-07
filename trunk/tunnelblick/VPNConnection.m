@@ -736,7 +736,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 }
 
                 [statusScreen setName: displayName];
-                [statusScreen setStatus: NSLocalizedString(lastState, @"Connection status")];
+                [statusScreen setStatus: localizeNonLiteral(lastState, @"Connection status")];
                 [statusScreen fadeIn];
                 showingStatusWindow = TRUE;
             }

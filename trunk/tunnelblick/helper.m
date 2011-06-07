@@ -781,6 +781,12 @@ NSString * TBGetDisplayName(NSString * msg,
 }
 
 
+// This method translates and returns non-literal OpenVPN message.
+// It is used to consolidate the use of NSLocalizedString(non-literal-string...) in one place to minimize warnings from genstrings.
+NSString * localizeNonLiteral(NSString * msg, NSString * type)
+{
+    return NSLocalizedString(status, type);
+}
 
 // This method is never invoked. It is a place to put strings which are used in the DMG or the .nib or come from OpenVPN
 // They are here so that automated tools that deal with strings (such as the "getstrings" command) will include them.

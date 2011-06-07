@@ -1164,7 +1164,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSMenu * subMenu = [[[NSMenu alloc] init] autorelease];
     if (  [self addCustomMenuItemsFromFolder: [folder stringByAppendingPathComponent: file] toMenu: subMenu]  ) {
         NSMenuItem * subMenuItem = [[[NSMenuItem alloc] init] autorelease];
-        [subMenuItem setTitle: NSLocalizedString([self menuNameFromFilename: file], @"Menu item")];
+        [subMenuItem setTitle: localizeNonLiteral([self menuNameFromFilename: file], @"Menu item")];
         [subMenuItem setSubmenu: subMenu];
         [theMenu addItem: subMenuItem];
         return TRUE;
@@ -1176,7 +1176,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void) addOneCustomMenuItem: (NSString *) file fromFolder: (NSString *) folder toMenu: (NSMenu *) theMenu
 {
     NSMenuItem * item = [[[NSMenuItem alloc] init] autorelease];
-    [item setTitle: NSLocalizedString([self menuNameFromFilename: file], @"Menu item")];
+    [item setTitle: localizeNonLiteral([self menuNameFromFilename: file], @"Menu item")];
     [item setTarget: self];
     [item setAction: @selector(runCustomMenuItem:)];
     [item setTag: customMenuScriptIndex++];
@@ -1377,7 +1377,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (  ! name  ) {
                 name = @"1 connection";
             }
-            myState = [NSString stringWithFormat: NSLocalizedString(@"Disconnect  All (%@)", @"Status message"), name];
+            myState = [NSString stringWithFormat: NSLocalizedString(@"Disconnect All (%@)", @"Status message"), name];
             [statusMenuItem setTitle: myState];
         } else {
             myState = [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections];
@@ -1613,7 +1613,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             } else {
                 oneStatus = NSLocalizedString(@"1 connection", @"status message");
             }
-            toolTip = NSLocalizedString(oneStatus, @"Status message");
+            toolTip = localizeNonLiteral(oneStatus, @"Status message");
         } else {
             toolTip = [NSString stringWithFormat:NSLocalizedString(@"%d Connections", @"Status message"), nConnections];
         }	

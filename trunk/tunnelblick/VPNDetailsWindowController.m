@@ -198,7 +198,7 @@ extern AuthorizationRef       gAuthorization;
 {
     VPNConnection* newConnection = [self selectedConnection];
     NSString * state = [newConnection state];
-    NSString * localizedStatus = NSLocalizedString(state, @"Connection status");
+    NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
     if (  [state isEqualToString: @"CONNECTED"]  ) {
         NSString * time = [newConnection connectTimeString];
         [configurationStatusTFC setTitle: [NSString stringWithFormat: @"%@%@",
@@ -945,7 +945,7 @@ extern AuthorizationRef       gAuthorization;
         NSString * dispNm = [newConnection displayName];
         [configurationNameTFC setTitle: [NSString stringWithFormat: @"%@:", dispNm]];
         
-        NSString * status = NSLocalizedString([newConnection state], "Connection status");
+        NSString * status = localizeNonLiteral([newConnection state], @"Connection status");
         [configurationStatusTFC setTitle: status];
         
         [[logView textStorage] setDelegate: nil];
@@ -1411,7 +1411,7 @@ extern AuthorizationRef       gAuthorization;
     
     if (  copyNumber > 99  ) {
         TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
-                        NSLocalizedString(@"Too may duplicate configurations already exist.", @"Window text"),
+                        NSLocalizedString(@"Too many duplicate configurations already exist.", @"Window text"),
                         nil, nil, nil);
         return;
     }
