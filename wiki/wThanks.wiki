@@ -178,6 +178,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Denis Volpato Martins    </td>
+    <td>      Portugese    </td>
+  </tr>
+
+  <tr>
     <td>      Diego Rivera    </td>
     <td>      Spanish    </td>
   </tr>
