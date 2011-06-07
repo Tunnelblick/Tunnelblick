@@ -24,6 +24,8 @@
 #import "StatusWindowController.h"
 #import "MenuController.h"
 #import "TBUserDefaults.h"
+#import "helper.h"
+
 
 TBUserDefaults * gTbDefaults;         // Our preferences
 
