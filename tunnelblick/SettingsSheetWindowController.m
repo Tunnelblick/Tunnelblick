@@ -26,6 +26,7 @@
 #import "MenuController.h"
 #import "ConfigurationManager.h"
 #import "VPNDetailsWindowController.h"
+#import "helper.h"
 
 
 extern NSString             * gPrivatePath;
