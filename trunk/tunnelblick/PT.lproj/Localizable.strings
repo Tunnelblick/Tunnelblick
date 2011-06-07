@@ -1,20 +1,20 @@
-/* NEEDS TRANSLATION *//* Status message */
-"%@ is Connected" = "%@ is Connected";
+/* Status message */
+"%@ is Connected" = "%@ está Conectado";
 
-/* NEEDS TRANSLATION *//* Status message */
-"%d Connections" = "%d Connections";
+/* Status message */
+"%d Connections" = "%d Conexões";
 
-/* NEEDS TRANSLATION *//* status message */
-"1 connection" = "1 connection";
+/* status message */
+"1 connection" = "1 conexão";
 
-/* NEEDS TRANSLATION *//* Status message */
-"Disconnect  All (%@)" = "Disconnect  All (%@)";
+/* Status message */
+"Disconnect  All (%@)" = "Desconectar Todas (%@)";
 
-/* NEEDS TRANSLATION *//* Status message */
-"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
+/* Status message */
+"Disconnect All (%d Connections)" = "Desconectar Todas (%d Conexões)";
 
-/* NEEDS TRANSLATION *//* Status message */
-"No Active Connections" = "No Active Connections";
+/* Status message */
+"No Active Connections" = "Nenhuma Conexão Ativa";
 
 /* Textbox name */
 "Password:" = "Senha:";
@@ -25,20 +25,23 @@
 /* NEEDS TRANSLATION *//* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "1 MB" = "1 MB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 KB" = "10 KB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 MB" = "10 MB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "100 KB" = "100 KB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "100 MB" = "100 MB";
+
+/* NEEDS TRANSLATION *//* Button */
+"Advanced..." = "Advanced...";
 
 /* Button */
 "All Users" = "Todos os Usuários";
@@ -55,8 +58,8 @@
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Verificar Atualizações Agora";
 
-/* NEEDS TRANSLATION *//* Button */
-"Check Now" = "Check Now";
+/* Button */
+"Check Now" = "Verificar Agora";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Fechar as Conexões VPN e Parar o Tunnelblick";
@@ -67,11 +70,20 @@
 /* Button */
 "Connect" = "Conectar";
 
+/* NEEDS TRANSLATION *//* Button */
+"Copy Log to Clipboard" = "Copy Log to Clipboard";
+
 /* Button */
 "Create Tunnelblick VPN Configuration" = "Criar uma Configuração VPN do Tunnelblick VPN";
 
 /* Button */
 "Create sample configuration and edit it" = "Criar configuração de amostra e editá-la";
+
+/* NEEDS TRANSLATION *//* Button */
+"Delete Credentials" = "Delete Credentials";
+
+/* NEEDS TRANSLATION *//* Button */
+"Delete" = "Delete";
 
 /* Button */
 "Disconnect" = "Desconectar";
@@ -112,18 +124,20 @@
 /* Button */
 "Launch" = "Iniciar";
 
-/* NEEDS TRANSLATION *//* Button VPNService
-   Window title  VPNService */
-"Login" = "Login";
-
 /* Button */
 "Make configuration private" = "Tornar configurações privadas";
 
 /* NEEDS TRANSLATION *//* Button */
-"Monochrome icon" = "Monochrome icon";
+"Manually" = "Manually";
+
+/* Button */
+"Monochrome icon" = "Ícone monocromático";
+
+/* Button */
+"Never show" = "Nunca exibir";
 
 /* NEEDS TRANSLATION *//* Button */
-"Never show" = "Never show";
+"None" = "None";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "OK" = "OK";
@@ -143,20 +157,26 @@
 /* Button */
 "Replace" = "Substituir";
 
+/* Button */
+"Reset Disabled Warnings" = "Restaurar Avisos Desativados";
+
 /* NEEDS TRANSLATION *//* Button */
-"Reset Disabled Warnings" = "Reset Disabled Warnings";
+"Restart connection" = "Restart connection";
+
+/* NEEDS TRANSLATION *//* Button */
+"Restore" = "Restore";
 
 /* Button */
 "Share configuration" = "Compartilhar configuração";
 
-/* NEEDS TRANSLATION *//* Button */
-"Show when connection status changes" = "Show when connection status changes";
+/* Button */
+"Show when connection status changes" = "Exibir quando o estado da conexão mudar";
 
-/* NEEDS TRANSLATION *//* Button */
-"Show while connecting" = "Show while connecting";
+/* Button */
+"Show while connecting" = "Exibir enquanto conecta";
 
-/* NEEDS TRANSLATION *//* Button */
-"Standard icon" = "Standard icon";
+/* Button */
+"Standard icon" = "Ícone padrão";
 
 /* Button */
 "Terminate" = "Terminar";
@@ -173,11 +193,20 @@
 /* Button */
 "Unprotect and Modify" = "Desproteger e Modificar";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Add a VPN..." = "Add a VPN...";
+/* NEEDS TRANSLATION *//* Button */
+"When Tunnelblick launches" = "When Tunnelblick launches";
+
+/* NEEDS TRANSLATION *//* Button */
+"When computer starts" = "When computer starts";
+
+/* Menu item */
+"Add a VPN..." = "Adicionar uma VPN...";
 
 /* Menu item */
 "Connect %@%@" = "Conectar a %@%@";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain...";
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Desativado porque o nome da aplicação foi alterada";
@@ -191,29 +220,62 @@
 /* Menu item */
 "Disconnect %@%@" = "Desconectar de %@%@";
 
+/* NEEDS TRANSLATION *//* Menu Item */
+"Duplicate Configuration..." = "Duplicate Configuration...";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File...";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Edit OpenVPN configuration file..." = "Edit OpenVPN configuration file...";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File...";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Hide Configuration on Tunnelblick Menu" = "Hide Configuration on Tunnelblick Menu";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Make Configuration Private..." = "Make Configuration Private...";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Make Configuration Shared..." = "Make Configuration Shared...";
+
 /* Menu item */
 "No VPN Configurations Available" = "Nenhuma Configuração de VPN Disponível";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Preferences..." = "Preferences...";
+/* Menu item */
+"Preferences..." = "Preferências...";
 
 /* Menu item */
 "Quit Tunnelblick" = "Encerrar Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"VPN Details..." = "VPN Details...";
+/* NEEDS TRANSLATION *//* Menu Item */
+"Rename Configuration..." = "Rename Configuration...";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* NEEDS TRANSLATION *//* Menu Item */
+"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
+
+/* Menu item */
+"VPN Details..." = "Informações da VPN...";
 
 /* Checkbox name */
 "Automatically connect" = "Conectar automaticamente";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+/* Checkbox name */
+"Check for updates automatically" = "Verificar atualizações automaticamente";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
-"Display connection submenus" = "Display connection submenus";
+"Disconnect when user switches out" = "Disconnect when user switches out";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display connection timers" = "Display connection timers";
+/* Checkbox name */
+"Display connection submenus" = "Exibir submenus de conexão";
+
+/* Checkbox name */
+"Display connection timers" = "Exibir cronômetro de conexão";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Não perguntar novamente, sempre 'Ignorar'";
@@ -228,22 +290,37 @@
 "Do not warn about this again" = "Não avisar sobre isso novamente";
 
 /* Checkbox name */
-"Do not warn about this again, always 'Examine'" = "Não avisar sobre isso novamente, sempre 'Examine'";
+"Do not warn about this again, always 'Examine'" = "Não avisar sobre isso novamente, sempre 'Examinar'";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
 
 /* Checkbox name */ /* System profile item */
 "Monitor connection" = "Monitorar conexão";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
-"Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
+"Monitor network settings" = "Monitor network settings";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitorar as alterações das pastas de configuração";
+
+/* Checkbox name */
+"Place next to Spotlight icon" = "Colocar próximo ao ícone do Spotlight";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+"Reconnect when user switches in" = "Reconnect when user switches in";
 
 /* Checkbox name */
 "Save in Keychain" = "Salvar em Chaves";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
-"Use shadow copies of configuration files" = "Use shadow copies of configuration files";
+"Scan configuration file for problems before connecting" = "Scan configuration file for problems before connecting";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Use Tunnelblick tun/tap drivers" = "Use Tunnelblick tun/tap drivers";
+
+/* Checkbox name */
+"Use shadow copies of configuration files" = "Usar copias de sombra dos arquivos de configuração";
 
 /* Checkbox name */
 "when Tunnelblick launches" = "quando o Tunnelblick for iniciado";
@@ -341,8 +418,14 @@
 /* Window title */
 "'%@' has been disconnected" = "'%@' foi desconectado";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Active connection" = "Active connection";
+
 /* Window title */
 "Add a Configuration" = "Adicionar uma Configuração";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Alert sounds" = "Alert sounds";
 
 /* Window title */
 "Alert" = "Alerta";
@@ -381,13 +464,16 @@
 "Create and Edit a Sample Configuration?" = "Criar e Editar uma Configuraçõa de Amostra?";
 
 /* Window title */
-"Details - Tunnelblick" = "Detalhes - Tunnelblick";
+"Details - Tunnelblick" = "Informações - Tunnelblick";
 
 /* Window title */
 "Do you wish to connect?" = "Deseja conectar?";
 
 /* Window title */
 "Examine the configuration file?" = "Examinar o arquivo de configuração?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"File not found" = "File not found";
 
 /* Window title */
 "Install Configuration For All Users?" = "Instalar Configuração Para Todos os Usuários?";
@@ -407,14 +493,23 @@
 /* Window title */
 "Installing a Tunnelblick VPN Configuration" = "Instalando uma Configuração de VPN do Tunnelblick";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Log" = "Log";
+
 /* Window title */
 "Make Configuration Private?" = "Tornar Configuração Privada?";
 
 /* Window title */
 "Name In Use" = "Nome em Uso";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Name Required" = "Name Required";
+
 /* Window title */
 "No 'dev tun' or 'dev tap' found" = "Nenhum 'dev tun' ou 'dev tap' encontrado";
+
+/* NEEDS TRANSLATION *//* Window title */
+"No Credentials" = "No Credentials";
 
 /* Window title */
 "Not connecting" = "Não conectando";
@@ -427,6 +522,9 @@
 
 /* Window title */
 "Perform installation?" = "Realizar instalação?";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Please Confirm" = "Please Confirm";
 
 /* Window title */
 "Please enter a username and password." = "Favor digitar um usuário e senha.";
@@ -448,6 +546,9 @@
 
 /* Window title */
 "Sample Configuration Created" = "Configuração de Amostra Criada";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Settings" = "Settings";
 
 /* Window title */
 "Share Configuration?" = "Compartilhar Configuração?";
@@ -479,6 +580,9 @@
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick está sendo executado";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick" = "Tunnelblick";
+
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Login Exigido";
 
@@ -499,6 +603,9 @@
 
 /* Window title */
 "Warning!" = "Aviso!";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Warning" = "Warning";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Aviso: Processos do OpenVPN desconhecidos";
@@ -532,6 +639,9 @@
 
 /* Window text */
 " (To install in a different location, drag %@ to that location.)" = " (Para instalar em um local diferente, arraste %@ para este local.)";
+
+/* NEEDS TRANSLATION *//* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n%@" = " Deseja instalar %1$@ ao %2$@%3$@?\n\n%4$@";
@@ -567,7 +677,13 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' já existe na Mesa.\n\nGostaria de substituí-lo?";
 
 /* NEEDS TRANSLATION *//* Window text */
-"(Never checked)" = "(Never checked)";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+
+/* Window text */
+"(Never checked)" = "(Nunca marcado)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"(if connected when user switched out)" = "(if connected when user switched out)";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "Uma configuração não foi instalada. Veja o Log do Console para detalhes.";
@@ -590,14 +706,29 @@
 /* Window text */
 "Anonymous unique ID" = "ID único anônimo";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?";
+
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurações são normalmente instalados de arquivos fornecidos pelo seu gerente de redes ou provedor de serviço VPN.\n\nArquivos de configuração tem extensões de .tblk, .ovpn, ou .conf.\n\n(Pode haver outros arquivos associados com a configuração que podem possuir outras extensões; ignore-os por agora.)\n\nVocê possui algum arquivo de configuração?\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Configurations:" = "Configurations:";
+/* Window text */
+"Configurations:" = "Configurações:";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Connection window:" = "Connection window:";
+"Connect:" = "Connect:";
+
+/* Window text */
+"Connection window:" = "Janela de conexão:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Connection:" = "Connection:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"DNS servers:" = "DNS servers:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
 
 /* Window text */
 "Do you wish to install %d configurations" = "Deseja instalar %d configurações";
@@ -621,25 +752,37 @@
 "Do you wish to uninstall one configuration" = "Deseja desinstalar uma configuração";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Icon:" = "Icon:";
+"Domain:" = "Domain:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Fast User Switching" = "Fast User Switching";
+
+/* Window text */
+"Icon:" = "Ícone:";
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Instalação de pacotes .tblk não são permitidos";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Keyboard shortcut:" = "Keyboard shortcut:";
+/* Window text */
+"Keyboard shortcut:" = "Atalho do teclado:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Last checked: %@" = "Last checked: %@";
+/* Window text */
+"Last checked: %@" = "Última verificação: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Maximum log display size:" = "Maximum log display size:";
+/* Window text */
+"Maximum log display size:" = "Tamanho máx. de amostra do log";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Menu:" = "Menu:";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Múltiplas conexões simultâneas seriam criadas (%1$d com 'Definir nameserver', %2$d sem 'Definir nameserver').";
+
+/* NEEDS TRANSLATION *//* Window text */
+"NetBIOS name:" = "NetBIOS name:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Network setting" = "Network setting";
 
 /* Window text */
 "One Tunnelblick VPN Configuration was installed successfully." = "Uma Configuração VPN do Tunnelblick foi instalada com sucesso.";
@@ -664,6 +807,18 @@
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Favor isnerir token \"%@\", então clique \"OK\"";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Search domain:" = "Search domain:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
 
 /* Window text */
 "The VPN name '%@' is already in use.\n\nPlease enter a new name." = "A VPN nome '%@' já está em uso.\n\nFavor digitar um novo nome.";
@@ -725,6 +880,9 @@
 /* Window text */
 "To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Para instalá-lo como uma Configuração VPN do Tunnelblick:\n\n1. Mova ou copie um arquivo de configuração do OpenVPN (extensão .ovpn ou .conf) na pasta 'Configuração VPN Vazia do Tunnelblick' que foi criada na Mesa.\n\n2. Mova ou copie qualquer arquivo de chave ou certificado associados com a configuração na pasta.\n\n3. Renomeie a pasta para o nome que você quer que o Tunnelblick utilize para a configuração.\n\n4. Adicione uma extensão de .tblk no final do nome da pasta.\n\n5. Dê um duplo-clique na pasta para fazer sua instalação.\n\nA nova configuração estará disponível imediatamente no Tunnelblick.\n\n(Para sua conveniência, a pasta foi aberta na janela do Finder.)";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Too may duplicate configurations already exist." = "Too may duplicate configurations already exist.";
+
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "A Configuração VPN '%@' do Tunnelblick está vazia. Deseja instalar uma configuração de amostra com este nome?";
 
@@ -760,6 +918,9 @@
 
 /* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "O Tunnelblick não pode desproteger o arquivo de configuração. Detalhes estão no Log do Console.\n\nDeseja examinar o arquivo de configuração apesar de não poder modificá-lo?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "O Tunnelblick desconectou '%@' porque seu arquivo de configuração foi removido.";
@@ -804,13 +965,34 @@
 "Unable to Establish Communication" = "Não é Possível Estabelecer Comunicação";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Updates:" = "Updates:";
+"Unexpected disconnection:" = "Unexpected disconnection:";
+
+/* Window text */
+"Updates:" = "Atualizações:";
 
 /* Window text */
 "VPN Connections" = "Conexões VPN";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Warnings:" = "Warnings:";
+"WINS servers:" = "WINS servers:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Warning: One or more preferences could not be duplicated. See the Console Log for details.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
+
+/* Window text */
+"Warnings:" = "Avisos:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"When changes to anything else" = "When changes to anything else";
+
+/* NEEDS TRANSLATION *//* Window text */
+"When changes to pre-VPN value" = "When changes to pre-VPN value";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Workgroup:" = "Workgroup:";
 
 /* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Você gostaria de\n\n     • Criar uma configuração de amostra na Mesa\n             e\n     • Abrir seu arquivo de configuração do OpenVPN no Editor de Texto para poder modificá-lo e então conectar à sua VPN?\n\n";
@@ -818,17 +1000,47 @@
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Você não pode instalar uma configuração VPN do Tunnelblick de uma cópia instalada.\n\nUm administrador pode copiar a instalação e realizar a instalação a partir da cópia.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot make a configuration which is set to start when the computer starts to be private." = "You cannot make a configuration which is set to start when the computer starts to be private.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You have asked to duplicate '%@'." = "You have asked to duplicate '%@'.";
+
 /* Window text */
 "You have asked to make the '%@' configuration private, instead of shared." = "Você pediu para tornar a configuração '%@' privada, ao invés de compartilhada.";
 
 /* Window text */
 "You have asked to make the '%@' configuration shared, instead of private." = "Você pediu para tornar a configuração '%@' compartilhada, ao invés de privada.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"You have asked to rename '%@' to '%@'." = "You have asked to rename '%1$@' to '%2$@'.";
+
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Você tentou utilizar um arquivo de configuração que é igual ao arquivo de configuração de amostra instalado pelo Tunnelblick. O arquivo de configuração deve ser modificado para conectar a uma VPN. Você também pode precisar de outros arquivos, como arquivos de certificado e chave, para conectar a VPN.\n\nConsulte seu administrador de rede ou seu provedor de serviço VPN para obter os arquivos e configuração e outros arquivos ou a informação que você precisa para modificar o arquivo de amostra.\n\nA documentação do OpenVPN está disponível em\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
 
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Você pode exminar o arquivo de configuração, mas se você planeja modificá-lo, deverá desprotegê-lo agora. Se você desproteger o arquivo de configuração agora, você precisará fornecer um usuário e senha de administrador a próxima vez que conectar utilizando ela.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not delete a Deployed configuration." = "You may not delete a Deployed configuration.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not delete a configuration unless it is disconnected." = "You may not delete a configuration unless it is disconnected.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not delete a configuration which is set to start when the computer starts." = "You may not delete a configuration which is set to start when the computer starts.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not duplicate a Deployed configuration." = "You may not duplicate a Deployed configuration.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "You may not duplicate a configuration which is set to start when the computer starts.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not rename a Deployed configuration." = "You may not rename a Deployed configuration.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You may not rename a configuration which is set to start when the computer starts." = "You may not rename a configuration which is set to start when the computer starts.";
 
 /* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Você deve reinstalar o Tunnelblick. Favor mover o Tunnelblick para a Lixeira e fazer download de uma cópia atualizada. O problema foi:\n\n%@";
@@ -839,6 +1051,9 @@
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Você não poderá utilizar o Tunnelblick após atualiza a não ser que você forneça um usuário e senha de administrador.\n\nTem certeza que deseja verificar se há atualizações?";
 
+/* NEEDS TRANSLATION *//* Window text */
+"\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted.";
+
 /* Window text */
 "\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Configurações VPN do Tunnelblick foram instaladas com sucesso.";
 
@@ -848,162 +1063,165 @@
 /* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\ne instalar %d Configurações VPN do Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Accept" = "Accept";
+/* Button VPNService */
+"Accept" = "Aceitar";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+/* Button VPNService */
+"Create a Free Account" = "Criar uma Conta Gratuita";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Get Different Image" = "Get Different Image";
+/* Button VPNService */
+"Get Different Image" = "Obter Imagem Diferente";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Next" = "Next";
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button VPNService *//* Window title VPNService */
+"Login" = "Login";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Reject" = "Reject";
+/* Button VPNService */
+"Next" = "Próximo";
 
-/* NEEDS TRANSLATION *//* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick...";
+/* Button VPNService */
+"Reject" = "Rejeitar";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+/* Menu item VPNService */
+"Register for Tunnelblick..." = "Registre-se para o Tunnelblick...";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Cannot register" = "Cannot register";
+/* Window title  VPNService */
+"Cannot obtain image" = "Não pode obter imagem";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Email not verified" = "Email not verified";
+/* Window title  VPNService */
+"Cannot register" = "Não pode registrar";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Entries required" = "Entries required";
+/* Window title  VPNService */
+"Email not verified" = "Email não verificado";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+/* Window title  VPNService */
+"Entries required" = "Entradas obrigatórias";
 
-/* NEEDS TRANSLATION *//* Window title VPNService */
-"No configuration available" = "No configuration available";
+/* Window title  VPNService */
+"Failed to load Terms of Service" = "Falhou ao carregar Termos de Serviço";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+/* Window title VPNService */
+"No configuration available" = "Nenhuma configuração disponível";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+/* Window title  VPNService */
+"Password entries must match" = "Entradas de senha precisam ser iguais";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+/* Window title  VPNService */
+"Prove You are Human" = "Prove que Você é Humano";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Sorry" = "Sorry";
+/* Window title  VPNService */
+"Register with Tunnelblick" = "Registrar com Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+/* Window title  VPNService */
+"Sorry" = "Desculpe";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+/* Window title  VPNService */
+"Terms of Service" = "Termos de Service";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Welcome!" = "Welcome!";
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - VPN Gratuita";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+/* Window title  VPNService */
+"Welcome!" = "Bem-vindo!";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+/* Window title  VPNService */
+"You Must Type the Characters" = "Você Precisa Digitar os Caracteres";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+/* Window text VPNService */
+"Confirm password:" = "Confirmar senha:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Could not check registration" = "Could not check registration";
+/* Window text VPNService */
+"Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Parabéns! Sua conta foi criada. Você deverá receber um e-mail do Tunnelblick em breve. Siga as instruções no e-mail para verificar seu endereço e e-mail e então clique 'Próximo'.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Could not get a captcha image" = "Could not get a captcha image";
+/* Window text VPNService */
+"Could not check registration" = "Não pôde verificar o registro";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Could not get a session token" = "Could not get a session token";
+/* Window text VPNService */
+"Could not get a captcha image" = "Não pôde obter a imagem captcha";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
+/* Window text VPNService */
+"Could not get a session token" = "Não pôde obter o token de sessão";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Email address:" = "Email address:";
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "O endereço de email %@ já está registrado em uma conta";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
+/* Window text VPNService */
+"Email address:" = "Endereço de email:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"No valid session token." = "No valid session token.";
+/* Window text VPNService */
+"Invalid URL: %@" = "URL Inválida: %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Please read our Terms of Service and indicate your acceptance or rejection of them.";
+/* Window text VPNService */
+"No valid session token." = "Nenhum token de sessão válido.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
+/* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Por favor leia nossos Termos de Serviço e indique se aceita ou rejeita.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Session token requires encoding" = "Session token requires encoding";
+/* Window text VPNService */
+"Please type the characters in the image and click next." = "Por favor digite os caracteres na imagem e clique Próximo.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Session token too long" = "Session token too long";
+/* Window text VPNService */
+"Session token requires encoding" = "Token de sessão requer codificação";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
+/* Window text VPNService */
+"Session token too long" = "Token de sessão muito longo";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
+/* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "Desculpe, mas sua requisição para uma conta não pôde ser processado:\n     %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
+/* Window text VPNService */
+"Terms of service are unavailable." = "Termos de serviço não está disponível.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "O Termos de Serviço não pôde ser carregado:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
+/* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "O endereço de e-mail não foi verificado.\n\nVocê não poderá fazer login e usar a VPN até que o endereço de email seja verificado seguindo as instruções no e-mail enviado para você pelo Tunnelblick quando você registrou para o serviço.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "O endereço de email que você digitou não é um endereço de email válido.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
+/* Window text VPNService */
+"The password entries must match to proceed." = "As entradas de senha precisam ser iguais para continuar.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "O texto que você digitou não combina com o texto na imagem Captcha.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "To create your free Tunnelblick account we need your email address and a password of your choosing.";
+/* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Não há configuração com o nome '%@' instalada.\n\nTente reinstalar o Tunnelblick de uma imagem de disco.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
+/* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Para criar sua conta gratuita do Tunnelblick nós precisamos do seu endereço de email e uma senha de sua escolha.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Type the characters above:" = "Type the characters above:";
+/* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick permite que você explore a Internet livremente sem restrições enquanto simultaneamente protege sua conexão com a Internet.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
+/* Window text VPNService */
+"Type the characters above:" = "Digite os caracteres acima:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "Não é possível verificar o estado da conta:\n     %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "Não foi possível verificar o registro de um endereço de e-mail vazio";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+/* Window text VPNService */
+"Unable to connect to server" = "Não é possível conectar ao servidor";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You have already registered." = "You have already registered.";
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "Você já registrou mas ainda não confirmou seu endereço de e-mail.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+/* Window text VPNService */
+"You have already registered." = "Você já está registrado.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+/* Window text VPNService */
+"You must enter an email address and password to login." = "Você precisa digitar um endereço de email e uma senha para fazer o login.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "Você precisa digitar um endereço de email, senha, e confirmação de senha para continuar.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "Você precisa digitar os caracteres na imagem para continuar.";
+
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "O estado da sua conta não pôde ser verificado:\n     %@.";
 
