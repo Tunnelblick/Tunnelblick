@@ -1,277 +1,222 @@
-/* Status message */
-"%@ is Connected" = "%@ is Connected";
-
-/* Status message */
-"%d Connections" = "%d Connections";
-
-/* status message */
-"1 connection" = "1 connection";
-
-/* Status message */
-"Disconnect  All (%@)" = "Disconnect  All (%@)";
-
-/* Status message */
-"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
-
-/* Status message */
-"No Active Connections" = "No Active Connections";
-
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
-"1 MB" = "1 MB";
+"Advanced..." = "Advanced...";
 
 /* Button */
-"10 KB" = "10 KB";
+"Copy Log to Clipboard" = "Copy Log to Clipboard";
 
 /* Button */
-"10 MB" = "10 MB";
+"Delete Credentials" = "Delete Credentials";
 
 /* Button */
-"100 KB" = "100 KB";
+"Delete" = "Delete";
 
 /* Button */
-"100 MB" = "100 MB";
+"Manually" = "Manually";
 
 /* Button */
-"Check Now" = "Check Now";
-
-/* Button VPNService
-   Window title  VPNService */
-"Login" = "Login";
+"None" = "None";
 
 /* Button */
-"Monochrome icon" = "Monochrome icon";
+"Restart connection" = "Restart connection";
 
 /* Button */
-"Never show" = "Never show";
+"Restore" = "Restore";
 
 /* Button */
-"Reset Disabled Warnings" = "Reset Disabled Warnings";
+"When Tunnelblick launches" = "When Tunnelblick launches";
 
 /* Button */
-"Show when connection status changes" = "Show when connection status changes";
+"When computer starts" = "When computer starts";
 
-/* Button */
-"Show while connecting" = "Show while connecting";
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain...";
 
-/* Button */
-"Standard icon" = "Standard icon";
+/* Menu Item */
+"Duplicate Configuration..." = "Duplicate Configuration...";
 
-/* Menu item */
-"Add a VPN..." = "Add a VPN...";
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File...";
 
-/* Menu item */
-"Preferences..." = "Preferences...";
+/* Menu Item */
+"Edit OpenVPN configuration file..." = "Edit OpenVPN configuration file...";
 
-/* Menu item */
-"VPN Details..." = "VPN Details...";
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File...";
+
+/* Menu Item */
+"Hide Configuration on Tunnelblick Menu" = "Hide Configuration on Tunnelblick Menu";
+
+/* Menu Item */
+"Make Configuration Private..." = "Make Configuration Private...";
+
+/* Menu Item */
+"Make Configuration Shared..." = "Make Configuration Shared...";
+
+/* Menu Item */
+"Rename Configuration..." = "Rename Configuration...";
+
+/* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
 
 /* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+"Disconnect when user switches out" = "Disconnect when user switches out";
 
 /* Checkbox name */
-"Display connection submenus" = "Display connection submenus";
+"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
 
 /* Checkbox name */
-"Display connection timers" = "Display connection timers";
+"Monitor network settings" = "Monitor network settings";
 
 /* Checkbox name */
-"Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
+"Reconnect when user switches in" = "Reconnect when user switches in";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+"Scan configuration file for problems before connecting" = "Scan configuration file for problems before connecting";
 
 /* Checkbox name */
-"Use shadow copies of configuration files" = "Use shadow copies of configuration files";
+"Use Tunnelblick tun/tap drivers" = "Use Tunnelblick tun/tap drivers";
+
+/* Window title */
+"Active connection" = "Active connection";
+
+/* Window title */
+"Alert sounds" = "Alert sounds";
+
+/* Window title */
+"File not found" = "File not found";
+
+/* Window title */
+"Log" = "Log";
+
+/* Window title */
+"Name Required" = "Name Required";
+
+/* Window title */
+"No Credentials" = "No Credentials";
+
+/* Window title */
+"Please Confirm" = "Please Confirm";
+
+/* Window title */
+"Settings" = "Settings";
+
+/* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Warning" = "Warning";
 
 /* Window text */
-"(Never checked)" = "(Never checked)";
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@";
 
 /* Window text */
-"Configurations:" = "Configurations:";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
 
 /* Window text */
-"Connection window:" = "Connection window:";
+"(if connected when user switched out)" = "(if connected when user switched out)";
 
 /* Window text */
-"Icon:" = "Icon:";
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?";
 
 /* Window text */
-"Keyboard shortcut:" = "Keyboard shortcut:";
+"Connect:" = "Connect:";
 
 /* Window text */
-"Last checked: %@" = "Last checked: %@";
+"Connection:" = "Connection:";
 
 /* Window text */
-"Maximum log display size:" = "Maximum log display size:";
+"DNS servers:" = "DNS servers:";
 
 /* Window text */
-"Menu:" = "Menu:";
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
 
 /* Window text */
-"Updates:" = "Updates:";
+"Domain:" = "Domain:";
 
 /* Window text */
-"Warnings:" = "Warnings:";
+"Fast User Switching" = "Fast User Switching";
 
-/* Button VPNService */
-"Accept" = "Accept";
+/* Window text */
+"NetBIOS name:" = "NetBIOS name:";
 
-/* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+/* Window text */
+"Network setting" = "Network setting";
 
-/* Button VPNService */
-"Get Different Image" = "Get Different Image";
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
 
-/* Button VPNService */
-"Next" = "Next";
+/* Window text */
+"Search domain:" = "Search domain:";
 
-/* Button VPNService */
-"Reject" = "Reject";
+/* Window text */
+"Set DNS/WINS:" = "Set DNS/WINS:";
 
-/* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick...";
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
 
-/* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+/* Window text */
+"Too may duplicate configurations already exist." = "Too may duplicate configurations already exist.";
 
-/* Window title  VPNService */
-"Cannot register" = "Cannot register";
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
-/* Window title  VPNService */
-"Email not verified" = "Email not verified";
+/* Window text */
+"Unexpected disconnection:" = "Unexpected disconnection:";
 
-/* Window title  VPNService */
-"Entries required" = "Entries required";
+/* Window text */
+"WINS servers:" = "WINS servers:";
 
-/* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+/* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Warning: One or more preferences could not be duplicated. See the Console Log for details.";
 
-/* Window title VPNService */
-"No configuration available" = "No configuration available";
+/* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
 
-/* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+/* Window text */
+"When changes to anything else" = "When changes to anything else";
 
-/* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+/* Window text */
+"When changes to pre-VPN value" = "When changes to pre-VPN value";
 
-/* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+/* Window text */
+"Workgroup:" = "Workgroup:";
 
-/* Window title  VPNService */
-"Sorry" = "Sorry";
+/* Window text */
+"You cannot make a configuration which is set to start when the computer starts to be private." = "You cannot make a configuration which is set to start when the computer starts to be private.";
 
-/* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+/* Window text */
+"You have asked to duplicate '%@'." = "You have asked to duplicate '%@'.";
 
-/* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+/* Window text */
+"You have asked to rename '%@' to '%@'." = "You have asked to rename '%1$@' to '%2$@'.";
 
-/* Window title  VPNService */
-"Welcome!" = "Welcome!";
+/* Window text */
+"You may not delete a Deployed configuration." = "You may not delete a Deployed configuration.";
 
-/* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+/* Window text */
+"You may not delete a configuration unless it is disconnected." = "You may not delete a configuration unless it is disconnected.";
 
-/* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+/* Window text */
+"You may not delete a configuration which is set to start when the computer starts." = "You may not delete a configuration which is set to start when the computer starts.";
 
-/* Window text VPNService */
-"Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
+/* Window text */
+"You may not duplicate a Deployed configuration." = "You may not duplicate a Deployed configuration.";
 
-/* Window text VPNService */
-"Could not check registration" = "Could not check registration";
+/* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "You may not duplicate a configuration which is set to start when the computer starts.";
 
-/* Window text VPNService */
-"Could not get a captcha image" = "Could not get a captcha image";
+/* Window text */
+"You may not rename a Deployed configuration." = "You may not rename a Deployed configuration.";
 
-/* Window text VPNService */
-"Could not get a session token" = "Could not get a session token";
+/* Window text */
+"You may not rename a configuration which is set to start when the computer starts." = "You may not rename a configuration which is set to start when the computer starts.";
 
-/* Window text VPNService */
-"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
-
-/* Window text VPNService */
-"Email address:" = "Email address:";
-
-/* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
-
-/* Window text VPNService */
-"No valid session token." = "No valid session token.";
-
-/* Window text VPNService */
-"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Please read our Terms of Service and indicate your acceptance or rejection of them.";
-
-/* Window text VPNService */
-"Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
-
-/* Window text VPNService */
-"Session token requires encoding" = "Session token requires encoding";
-
-/* Window text VPNService */
-"Session token too long" = "Session token too long";
-
-/* Window text VPNService */
-"Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
-
-/* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
-
-/* Window text VPNService */
-"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
-
-/* Window text VPNService */
-"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
-
-/* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
-
-/* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
-
-/* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
-
-/* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
-
-/* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "To create your free Tunnelblick account we need your email address and a password of your choosing.";
-
-/* Window text VPNService */
-"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
-
-/* Window text VPNService */
-"Type the characters above:" = "Type the characters above:";
-
-/* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
-
-/* Window text VPNService */
-"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
-
-/* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
-
-/* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
-
-/* Window text VPNService */
-"You have already registered." = "You have already registered.";
-
-/* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
-
-/* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
-
-/* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
-
-/* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+/* Window text */
+"\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted.";
 

@@ -35,6 +35,9 @@
 "100 MB" = "100 MB";
 
 /* Button */
+"Advanced..." = "Advanced...";
+
+/* Button */
 "All Users" = "All Users";
 
 /* Button */
@@ -56,10 +59,19 @@
 "Connect When Computer Starts" = "Connect When Computer Starts";
 
 /* Button */
+"Copy Log to Clipboard" = "Copy Log to Clipboard";
+
+/* Button */
 "Create Tunnelblick VPN Configuration" = "Create Tunnelblick VPN Configuration";
 
 /* Button */
 "Create sample configuration and edit it" = "Create sample configuration and edit it";
+
+/* Button */
+"Delete Credentials" = "Delete Credentials";
+
+/* Button */
+"Delete" = "Delete";
 
 /* Button */
 "Do not use the plugin" = "Do not use the plugin";
@@ -94,18 +106,20 @@
 /* Button */
 "Launch" = "Launch";
 
-/* Button VPNService
-   Window title  VPNService */
-"Login" = "Login";
-
 /* Button */
 "Make configuration private" = "Make configuration private";
+
+/* Button */
+"Manually" = "Manually";
 
 /* Button */
 "Monochrome icon" = "Monochrome icon";
 
 /* Button */
 "Never show" = "Never show";
+
+/* Button */
+"None" = "None";
 
 /* Button */
 "Only Me" = "Only Me";
@@ -121,6 +135,12 @@
 
 /* Button */
 "Reset Disabled Warnings" = "Reset Disabled Warnings";
+
+/* Button */
+"Restart connection" = "Restart connection";
+
+/* Button */
+"Restore" = "Restore";
 
 /* Button */
 "Share configuration" = "Share configuration";
@@ -146,6 +166,12 @@
 /* Button */
 "Unprotect and Modify" = "Unprotect and Modify";
 
+/* Button */
+"When Tunnelblick launches" = "When Tunnelblick launches";
+
+/* Button */
+"When computer starts" = "When computer starts";
+
 /* Menu item */
 "Add a VPN..." = "Add a VPN...";
 
@@ -154,6 +180,9 @@
 
 /* Menu item */
 "Connect %@%@" = "Connect %@%@";
+
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain...";
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
@@ -167,11 +196,41 @@
 /* Menu item */
 "Disconnect %@%@" = "Disconnect %@%@";
 
+/* Menu Item */
+"Duplicate Configuration..." = "Duplicate Configuration...";
+
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File...";
+
+/* Menu Item */
+"Edit OpenVPN configuration file..." = "Edit OpenVPN configuration file...";
+
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File...";
+
+/* Menu Item */
+"Hide Configuration on Tunnelblick Menu" = "Hide Configuration on Tunnelblick Menu";
+
+/* Menu Item */
+"Make Configuration Private..." = "Make Configuration Private...";
+
+/* Menu Item */
+"Make Configuration Shared..." = "Make Configuration Shared...";
+
 /* Menu item */
 "No VPN Configurations Available" = "No VPN Configurations Available";
 
 /* Menu item */
 "Preferences..." = "Preferences...";
+
+/* Menu Item */
+"Rename Configuration..." = "Rename Configuration...";
+
+/* Menu Item */
+"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
 
 /* Menu item */
 "VPN Details..." = "VPN Details...";
@@ -181,6 +240,9 @@
 
 /* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";
+
+/* Checkbox name */
+"Disconnect when user switches out" = "Disconnect when user switches out";
 
 /* Checkbox name */
 "Display connection submenus" = "Display connection submenus";
@@ -204,7 +266,13 @@
 "Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
 
 /* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
+
+/* Checkbox name */
 "Monitor connection" = "Monitor connection";
+
+/* Checkbox name */
+"Monitor network settings" = "Monitor network settings";
 
 /* Checkbox name */
 "Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
@@ -213,7 +281,16 @@
 "Place next to Spotlight icon" = "Place next to Spotlight icon";
 
 /* Checkbox name */
+"Reconnect when user switches in" = "Reconnect when user switches in";
+
+/* Checkbox name */
 "Save in Keychain" = "Save in Keychain";
+
+/* Checkbox name */
+"Scan configuration file for problems before connecting" = "Scan configuration file for problems before connecting";
+
+/* Checkbox name */
+"Use Tunnelblick tun/tap drivers" = "Use Tunnelblick tun/tap drivers";
 
 /* Checkbox name */
 "Use shadow copies of configuration files" = "Use shadow copies of configuration files";
@@ -300,7 +377,13 @@
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* Window title */
+"Active connection" = "Active connection";
+
+/* Window title */
 "Add a Configuration" = "Add a Configuration";
+
+/* Window title */
+"Alert sounds" = "Alert sounds";
 
 /* Window title */
 "Alert" = "Alert";
@@ -348,6 +431,9 @@
 "Examine the configuration file?" = "Examine the configuration file?";
 
 /* Window title */
+"File not found" = "File not found";
+
+/* Window title */
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
 
 /* Window Title */
@@ -366,13 +452,22 @@
 "Installing a Tunnelblick VPN Configuration" = "Installing a Tunnelblick VPN Configuration";
 
 /* Window title */
+"Log" = "Log";
+
+/* Window title */
 "Make Configuration Private?" = "Make Configuration Private?";
 
 /* Window title */
 "Name In Use" = "Name In Use";
 
 /* Window title */
+"Name Required" = "Name Required";
+
+/* Window title */
 "No 'dev tun' or 'dev tap' found" = "No 'dev tun' or 'dev tap' found";
+
+/* Window title */
+"No Credentials" = "No Credentials";
 
 /* Window title */
 "Not connecting" = "Not connecting";
@@ -385,6 +480,9 @@
 
 /* Window title */
 "Perform installation?" = "Perform installation?";
+
+/* Window title */
+"Please Confirm" = "Please Confirm";
 
 /* Window title */
 "Please enter a username and password." = "Please enter a username and password.";
@@ -406,6 +504,9 @@
 
 /* Window title */
 "Sample Configuration Created" = "Sample Configuration Created";
+
+/* Window title */
+"Settings" = "Settings";
 
 /* Window title */
 "Share Configuration?" = "Share Configuration?";
@@ -438,6 +539,9 @@
 "Tunnelblick is currently running" = "Tunnelblick is currently running";
 
 /* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Login Required";
 
 /* Window title */
@@ -457,6 +561,9 @@
 
 /* Window title */
 "Warning!" = "Warning!";
+
+/* Window title */
+"Warning" = "Warning";
 
 /* Window title */
 "Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
@@ -492,6 +599,9 @@
 " (To install in a different location, drag %@ to that location.)" = " (To install in a different location, drag %@ to that location.)";
 
 /* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@";
+
+/* Window text */
 " Do you wish to install %@ to %@%@?\n\n%@" = " Do you wish to install %1$@ to %2$@%3$@?\n\n%4$@";
 
 /* Window text */
@@ -525,7 +635,13 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
 
 /* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
+
+/* Window text */
 "(Never checked)" = "(Never checked)";
+
+/* Window text */
+"(if connected when user switched out)" = "(if connected when user switched out)";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
@@ -549,13 +665,28 @@
 "Anonymous unique ID" = "Anonymous unique ID";
 
 /* Window text */
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?";
+
+/* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
 "Configurations:" = "Configurations:";
 
 /* Window text */
+"Connect:" = "Connect:";
+
+/* Window text */
 "Connection window:" = "Connection window:";
+
+/* Window text */
+"Connection:" = "Connection:";
+
+/* Window text */
+"DNS servers:" = "DNS servers:";
+
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
 
 /* Window text */
 "Do you wish to install %d configurations" = "Do you wish to install %d configurations";
@@ -579,6 +710,12 @@
 "Do you wish to uninstall one configuration" = "Do you wish to uninstall one configuration";
 
 /* Window text */
+"Domain:" = "Domain:";
+
+/* Window text */
+"Fast User Switching" = "Fast User Switching";
+
+/* Window text */
 "Icon:" = "Icon:";
 
 /* Window text */
@@ -600,6 +737,12 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
 
 /* Window text */
+"NetBIOS name:" = "NetBIOS name:";
+
+/* Window text */
+"Network setting" = "Network setting";
+
+/* Window text */
 "One Tunnelblick VPN Configuration was installed successfully." = "One Tunnelblick VPN Configuration was installed successfully.";
 
 /* Window text */
@@ -619,6 +762,18 @@
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
+
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
+
+/* Window text */
+"Search domain:" = "Search domain:";
+
+/* Window text */
+"Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
 
 /* Window text */
 "The VPN name '%@' is already in use.\n\nPlease enter a new name." = "The VPN name '%@' is already in use.\n\nPlease enter a new name.";
@@ -681,6 +836,9 @@
 "To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)";
 
 /* Window text */
+"Too may duplicate configurations already exist." = "Too may duplicate configurations already exist.";
+
+/* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
 
 /* Window text */
@@ -715,6 +873,9 @@
 
 /* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
@@ -759,13 +920,34 @@
 "Unable to Establish Communication" = "Unable to Establish Communication";
 
 /* Window text */
+"Unexpected disconnection:" = "Unexpected disconnection:";
+
+/* Window text */
 "Updates:" = "Updates:";
 
 /* Window text */
 "VPN Connections" = "VPN Connections";
 
 /* Window text */
+"WINS servers:" = "WINS servers:";
+
+/* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Warning: One or more preferences could not be duplicated. See the Console Log for details.";
+
+/* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
+
+/* Window text */
 "Warnings:" = "Warnings:";
+
+/* Window text */
+"When changes to anything else" = "When changes to anything else";
+
+/* Window text */
+"When changes to pre-VPN value" = "When changes to pre-VPN value";
+
+/* Window text */
+"Workgroup:" = "Workgroup:";
 
 /* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
@@ -774,10 +956,19 @@
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.";
 
 /* Window text */
+"You cannot make a configuration which is set to start when the computer starts to be private." = "You cannot make a configuration which is set to start when the computer starts to be private.";
+
+/* Window text */
+"You have asked to duplicate '%@'." = "You have asked to duplicate '%@'.";
+
+/* Window text */
 "You have asked to make the '%@' configuration private, instead of shared." = "You have asked to make the '%@' configuration private, instead of shared.";
 
 /* Window text */
 "You have asked to make the '%@' configuration shared, instead of private." = "You have asked to make the '%@' configuration shared, instead of private.";
+
+/* Window text */
+"You have asked to rename '%@' to '%@'." = "You have asked to rename '%1$@' to '%2$@'.";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -786,11 +977,35 @@
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it.";
 
 /* Window text */
+"You may not delete a Deployed configuration." = "You may not delete a Deployed configuration.";
+
+/* Window text */
+"You may not delete a configuration unless it is disconnected." = "You may not delete a configuration unless it is disconnected.";
+
+/* Window text */
+"You may not delete a configuration which is set to start when the computer starts." = "You may not delete a configuration which is set to start when the computer starts.";
+
+/* Window text */
+"You may not duplicate a Deployed configuration." = "You may not duplicate a Deployed configuration.";
+
+/* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "You may not duplicate a configuration which is set to start when the computer starts.";
+
+/* Window text */
+"You may not rename a Deployed configuration." = "You may not rename a Deployed configuration.";
+
+/* Window text */
+"You may not rename a configuration which is set to start when the computer starts." = "You may not rename a configuration which is set to start when the computer starts.";
+
+/* Window text */
 "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@";
 /* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick.";
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
+/* Window text */
+"\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted.";
+
 /* Window text */
 "\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN Configurations were installed successfully.";
 
@@ -808,6 +1023,9 @@
 
 /* Button VPNService */
 "Get Different Image" = "Get Different Image";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Login";
 
 /* Button VPNService */
 "Next" = "Next";
