@@ -85,7 +85,6 @@
 -(IBAction)         shareConfigButtonWasClicked:            (id)                sender;
 
 // General methods
--(void)             connectionHasTerminated:                (VPNConnection *)   connection;
 -(void)             hookedUpOrStartedConnection:            (VPNConnection *)   connection;
 -(void)             indicateWaiting;
 -(void)             indicateNotWaiting;

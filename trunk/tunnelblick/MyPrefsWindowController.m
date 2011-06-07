@@ -30,7 +30,8 @@
 
 extern TBUserDefaults * gTbDefaults;
 extern unsigned         gMaximumLogSize;
-
+extern NSArray        * gProgramPreferences;
+extern NSArray        * gConfigurationPreferences;
 
 @interface MyPrefsWindowController()
 
@@ -126,6 +127,7 @@ extern unsigned         gMaximumLogSize;
         [self setSelectedKeyboardShortcutIndex: kbsIx];
     }
     
+    [[generalPrefsView keyboardShortcutButton] setEnabled: [gTbDefaults canChangeValueForKey: @"keyboardShortcutIndex"]];
     
     // Select the log size
     
@@ -176,6 +178,8 @@ extern unsigned         gMaximumLogSize;
     } else {
         NSLog(@"Invalid selectedMaximumLogSizeIndex %d; maximum is %d", logSizeIx, [list count]-1);
     }
+    
+    [[generalPrefsView maximumLogSizeButton] setEnabled: [gTbDefaults canChangeValueForKey: @"maximumLogSize"]];
 }
 
 
@@ -247,32 +251,42 @@ extern unsigned         gMaximumLogSize;
 
 -(IBAction) resetDisabledWarningsButtonWasClicked: (id) sender
 {
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutReprotectingConfigurationFile"];
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutSimultaneousConnections"];
-    [gTbDefaults removeObjectForKey: @"skipWarningThatCannotModifyConfigurationFile"];
-    [gTbDefaults removeObjectForKey: @"skipWarningThatNameChangeDisabledUpdates"];
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutNonAdminUpdatingTunnelblick"];
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutUnknownOpenVpnProcesses"];
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutIgnoredConfigurations"];
+    NSString * key;
+    NSEnumerator * arrayEnum = [gProgramPreferences objectEnumerator];
+    while (   key = [arrayEnum nextObject]  ) {
+        if (  [key hasPrefix: @"skipWarning"]  ) {
+            if (  [gTbDefaults objectForKey: key]  ) {
+                if (  [gTbDefaults canChangeValueForKey: key]  ) {
+                    [gTbDefaults removeObjectForKey: key];
+                }
+            }
+        }
+    }
     
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt"];
-    [gTbDefaults removeObjectForKey: @"skipWarningAboutOnComputerStartAndTblkScripts"];
-    
-    [gTbDefaults removeAllObjectsWithSuffix: @"-skipWarningAboutDownroot"];
-    [gTbDefaults removeAllObjectsWithSuffix: @"-skipWarningAboutNoTunOrTap"];
-    [gTbDefaults removeAllObjectsWithSuffix: @"-skipWarningUnableToToEstablishOpenVPNLink"];
+    arrayEnum = [gConfigurationPreferences objectEnumerator];
+    while (   key = [arrayEnum nextObject]  ) {
+        if (  [key hasPrefix: @"-skipWarning"]  ) {
+            [gTbDefaults removeAllObjectsWithSuffix: key];
+        }
+    }
 }
 
 
 -(IBAction) generalHelpButtonWasClicked: (id) sender
 {
-    MyGotoHelpPage(CFSTR("preferences-general.html"), NULL);
+    OSStatus err;
+    if (err = MyGotoHelpPage(CFSTR("preferences-general.html"), NULL)  ) {
+        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    }
 }
 
 
 -(IBAction) appearanceHelpButtonWasClicked: (id) sender
 {
-    MyGotoHelpPage(CFSTR("preferences-appearance.html"), NULL);
+    OSStatus err;
+    if (err = MyGotoHelpPage(CFSTR("preferences-appearance.html"), NULL)  ) {
+        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    }
 }
 
 
@@ -386,6 +400,7 @@ extern unsigned         gMaximumLogSize;
         [self setSelectedAppearanceIconSetIndex: iconSetIx];
     }
     
+    [[appearancePrefsView appearanceIconSetButton] setEnabled: [gTbDefaults canChangeValueForKey: @"menuIconSet"]];
 
     // Set up the checkboxes
     
@@ -432,6 +447,8 @@ extern unsigned         gMaximumLogSize;
     } else {
         NSLog(@"Invalid displayCriteriaIx %d; maximum is %d", displayCriteriaIx, [list count]-1);
     }
+    
+    [[appearancePrefsView appearanceConnectionWindowDisplayCriteriaButton] setEnabled: [gTbDefaults canChangeValueForKey: @"connectionWindowDisplayCriteria"]];
 }
 
 

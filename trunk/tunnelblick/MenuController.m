@@ -38,6 +38,7 @@
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
 #import "LogWindowController.h"
+#import "VPNDetailsWindowController.h"
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"
@@ -52,6 +53,8 @@ TBUserDefaults        * gTbDefaults;            // Our preferences
 NSFileManager         * gFileMgr;               // [NSFileManager defaultManager]
 NSDictionary          * gOpenVPNVersionDict;    // Dictionary with OpenVPN version information
 AuthorizationRef        gAuthorization;         // Used to call installer
+NSArray               * gProgramPreferences;    // E.g., 'placeIconInStandardPositionInStatusBar'
+NSArray               * gConfigurationPreferences; // E.g., '-onSystemStart'
 BOOL                    gTunnelblickIsQuitting; // Flag that Tunnelblick is in the process of quitting
 BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
 unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
@@ -136,7 +139,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
                                             logMessage:     (NSString *)        logMessage;
 -(void)             makeSymbolicLink;
--(NSString *)       menuNameForItem:                        (NSMenuItem *)      theItem;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
                                            FromMenu:        (NSMenu *)          theMenu
@@ -207,6 +209,119 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[NSApp setDelegate: self];
 		
         userIsAnAdmin = isUserAnAdmin();
+        
+        gProgramPreferences = [[NSArray arrayWithObjects:
+                                @"skipWarningAboutReprotectingConfigurationFile",
+                                @"skipWarningAboutSimultaneousConnections",
+                                @"skipWarningThatCannotModifyConfigurationFile",
+                                @"skipWarningThatNameChangeDisabledUpdates",
+                                @"skipWarningAboutNonAdminUpdatingTunnelblick",
+                                @"skipWarningAboutUnknownOpenVpnProcesses",
+                                @"skipWarningAboutOnComputerStartAndTblkScripts",
+                                @"skipWarningAboutIgnoredConfigurations",
+                                @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",
+                                
+                                @"NSSplitView Subview Frames DetailsSplitViewSize",
+                                @"NSWindow Frame SettingsSheetWindow",
+                                @"placeIconInStandardPositionInStatusBar",
+                                @"doNotMonitorConfigurationFolder",
+                                @"onlyAdminsCanUnprotectConfigurationFiles",
+                                @"standardApplicationPath",
+                                @"doNotCreateLaunchTunnelblickLinkinConfigurations",
+                                @"useShadowConfigurationFiles",
+                                @"disableShareConfigurationButton",
+                                @"usePrivateConfigurationsWithDeployedOnes",
+                                @"hookupTimeout",
+                                @"openvpnTerminationInterval",
+                                @"openvpnTerminationTimeout",
+                                @"maxLogDisplaySize",
+                                @"menuIconSet",
+                                @"doNotShowConnectionSubmenus",
+                                @"doNotShowForcedPreferenceMenuItems",
+                                @"doNotShowOptionsSubmenu",
+                                @"doNotShowKeyboardShortcutSubmenu",
+                                @"doNotShowCheckForUpdatesNowMenuItem",
+                                @"doNotShowAddConfigurationMenuItem",
+                                @"showConnectedDurations",
+                                @"maximumNumberOfTabs",
+                                @"updateCheckAutomatically",
+                                @"updateSendProfileInfo",
+                                @"updateCheckInterval",
+                                @"updateFeedURL",
+                                @"updateAutomatically",
+                                @"onlyAdminCanUpdate",
+                                @"updateUUID",
+                                
+                                @"haveDealtWithSparkle1dot5b6",
+                                @"detailsWindowFrame",
+                                @"detailsWindowFrameVersion",
+                                @"SUEnableAutomaticChecks",
+                                @"SUSendProfileInfo",
+                                @"SUAutomaticallyUpdate",
+                                @"SULastCheckTime",
+                                @"SULastProfileSubmissionDate",
+                                @"SUHasLaunchedBefore",
+                                
+                                @"connectionWindowDisplayCriteria",
+                                @"detailsWindowLeftFrame",
+                                @"showTooltips",
+                                @"maximumLogSize",
+                                @"lastConnectedDisplayName",
+                                @"installationUID",
+                                @"NSWindow Frame ConnectingWindow",
+                                @"keyboardShortcutIndex",
+                                @"showStatusWindow",
+                                
+                                @"WebKitDefaultFontSize",
+                                @"WebKitStandardFont",
+                                nil] retain];
+        
+        gConfigurationPreferences = [[NSArray arrayWithObjects:
+                                      @"-skipWarningAboutDownroot",
+                                      @"-skipWarningAboutNoTunOrTap",
+                                      @"-skipWarningUnableToToEstablishOpenVPNLink",
+                                      
+                                      @"autoConnect",
+                                      @"-onSystemStart",
+                                      @"useDNS",
+                                      @"-notMonitoringConnection",
+                                      @"-doNotRestoreOnDnsReset",
+                                      @"-doNotRestoreOnWinsReset",
+                                      @"-leasewatchOptions",
+                                      @"-doNotDisconnectOnFastUserSwitch",
+                                      @"-doNotReconnectOnFastUserSwitch",
+                                      @"-doNotFlushCache",
+                                      @"-useDownRootPlugin",
+                                      @"-keychainHasPrivateKey",
+                                      @"-keychainHasUsernameAndPassword",
+                                      @"-doNotParseConfigurationFile",
+                                      @"-disableEditConfiguration",
+                                      @"-disableConnectButton",
+                                      @"-disableDisconnectButton",
+                                      @"-doNotLoadTapKext",
+                                      @"-doNotLoadTunKext",
+                                      @"-loadTapKext",
+                                      @"-loadTunKext",
+                                      
+                                      @"-changeDNSServersAction",
+                                      @"-changeDomainAction",
+                                      @"-changeSearchDomainAction",
+                                      @"-changeWINSServersAction",
+                                      @"-changeNetBIOSNameAction",
+                                      @"-changeWorkgroupAction",
+                                      @"-changeOtherDNSServersAction",
+                                      @"-changeOtherDomainAction",
+                                      @"-changeOtherSearchDomainAction",
+                                      @"-changeOtherWINSServersAction",
+                                      @"-changeOtherNetBIOSNameAction",
+                                      @"-changeOtherWorkgroupAction",
+                                      @"-lastConnectionSucceeded",
+                                      @"-tunnelDownSoundName",
+                                      @"-tunnelUpSoundName",
+                                      @"-doNotDisconnectWhenTunnelblickQuits",
+                                      @"-doNotReconnectOnUnexpectedDisconnect",
+                                      @"-doNotShowOnTunnelblickMenu",
+                                      nil] retain];
         
         // Create private configurations folder if necessary
         createDir(gPrivatePath, 0755);
@@ -283,6 +398,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         if (  [gTbDefaults objectForKey: @"showConnectedDurations"] == nil  ) {
             [gTbDefaults setBool: TRUE forKey: @"showConnectedDurations"];
         }
+        
+        [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Forced preferences"];
+        dict = [NSDictionary dictionaryWithContentsOfFile: [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"]];
+        [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Preferences"];
         
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .tblk packages or .conf or .ovpn files,
         // Then make it the first entry in gConfigDirs
@@ -376,7 +495,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
 		[self createMenu];
         
-        logScreen = [[LogWindowController alloc] init];
+        logScreen = [[VPNDetailsWindowController alloc] init];
         
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
@@ -915,7 +1034,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (   [menuItem submenu]  ) {    // item is a submenu
                 menuItemTitle = [menuItem title];
             } else {                                                            // item is a connection item
-                menuItemTitle = [self menuNameForItem: menuItem];
+                menuItemTitle = [[menuItem target] displayName];
             }
             
             if (  [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedDescending  ) {
@@ -967,17 +1086,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     // Insert the original item we wanted to (now that the submenu has been created)
     [self insertConnectionMenuItem: theItem IntoMenu: theMenu afterIndex: theIndex withName: theName];
-}
-
--(NSString *) menuNameForItem: (NSMenuItem *) theItem
-{
-    NSString * theName = [[theItem target] displayName];
-    NSRange    slashRange = [theName rangeOfString: @"/" options: NSBackwardsSearch];
-    if (  slashRange.length == 0  ) {
-        return theName;
-    }
-    
-    return [theName substringFromIndex: slashRange.location + 1];
 }
 
 -(void) addCustomMenuItems
@@ -1142,7 +1250,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (   [menuItem submenu]  ) {          // item is a submenu
                 menuItemTitle = [menuItem title];
             } else {                                // item is a connection item
-                menuItemTitle = [self menuNameForItem: menuItem];
+                menuItemTitle = [[menuItem target] displayName];
             }
             
             if (  [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedSame  ) {
@@ -2544,7 +2652,7 @@ static void signal_handler(int signalNumber)
         for (i = 0; i < [gConfigDirs count]; i++) {
             [[NSApp delegate] addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
         }
-        [[NSApp delegate] activateStatusMenu];
+        [self activateStatusMenu];
     }
 }
 
@@ -3808,7 +3916,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return showDurationsTimer;
 }
 
--(LogWindowController *) logScreen
+-(VPNDetailsWindowController *) logScreen
 {
     return logScreen;
 }

@@ -116,14 +116,6 @@ extern AuthorizationRef       gAuthorization;
     [progressIndicator stopAnimation: self];
 }
 
--(void) connectionHasTerminated: (VPNConnection *) connection
-{
-    if (   connection
-        && ( connection == [self selectedConnection] )  ) {
-        [connection stopMonitoringLogFiles];
-    }
-}
-
 -(void) hookedUpOrStartedConnection: (VPNConnection *) connection
 {
     if (   connection

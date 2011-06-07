@@ -22,9 +22,13 @@
 #import "TBUserDefaults.h"
 #import "MenuController.h"
 
+
+NSArray * gProgramPreferences;
+NSArray * gConfigurationPreferences;
+
 @interface TBUserDefaults()       // PRIVATE METHODS
 
--(id) forcedObjectForKey: (NSString *) key;
+-(id)   forcedObjectForKey:                    (NSString *) key;
 
 @end
 
@@ -165,7 +169,135 @@
     [userDefaults synchronize];
 }
 
-// PRIVATE METHOD
+-(BOOL) movePreferencesFrom: (NSString *) sourceDisplayName
+                         to: (NSString *) targetDisplayName
+{
+    if (  ! userDefaults  ) {
+        return TRUE;
+    }
+    
+    if (  [sourceDisplayName isEqualToString: targetDisplayName]  ) {
+        NSLog(@"copyPreferencesFrom:to: ignored because target '%@' is the same as source", targetDisplayName);
+        return FALSE;
+    }
+    
+    BOOL problemsFound = FALSE;
+    
+    // First, remove all preferences for the target configuration
+    if (  ! [self removePreferencesFor: targetDisplayName]  ) {
+        problemsFound = TRUE;
+    }
+    
+    // Then, add the non-forced preferences from the source configuration
+    NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
+    NSString * preferenceSuffix;
+    while (  preferenceSuffix = [arrayEnum nextObject]  ) {
+        NSString * sourceKey = [sourceDisplayName stringByAppendingString: preferenceSuffix];
+        NSString * targetKey = [targetDisplayName stringByAppendingString: preferenceSuffix];
+        id obj;
+        if (  obj = [userDefaults objectForKey: sourceKey]  ) {
+            if (  [self canChangeValueForKey: targetKey]  ) {
+                [userDefaults setObject: obj forKey: targetKey];
+            } else {
+                NSLog(@"Preference '%@' is forced and cannot be set.", targetKey);
+                problemsFound = TRUE;
+            }
+        }
+    }
+    
+    // Then, remove all preferences for the source configuration
+    if (  ! [self removePreferencesFor: sourceDisplayName]  ) {
+        problemsFound = TRUE;
+    }
+    
+    return ! problemsFound;
+}
+
+
+-(BOOL) copyPreferencesFrom: (NSString *) sourceDisplayName
+                         to: (NSString *) targetDisplayName
+{
+    if (  ! userDefaults  ) {
+        return TRUE;
+    }
+
+    if (  [sourceDisplayName isEqualToString: targetDisplayName]  ) {
+        NSLog(@"copyPreferencesFrom:to: ignored because target '%@' is the same as source", targetDisplayName);
+        return FALSE;
+    }
+    
+    BOOL problemsFound = FALSE;
+    
+    // First, remove all preferences for the target configuration
+    if (  ! [self removePreferencesFor: targetDisplayName]  ) {
+        problemsFound = TRUE;
+    }
+    
+    // Then, add the non-forced preferences from the source configuration
+    NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
+    NSString * preferenceSuffix;
+    while (  preferenceSuffix = [arrayEnum nextObject]  ) {
+        NSString * sourceKey = [sourceDisplayName stringByAppendingString: preferenceSuffix];
+        NSString * targetKey = [targetDisplayName stringByAppendingString: preferenceSuffix];
+        id obj;
+        if (  obj = [userDefaults objectForKey: sourceKey]  ) {
+            if (  [self canChangeValueForKey: targetKey]  ) {
+                [userDefaults setObject: obj forKey: targetKey];
+            } else {
+                NSLog(@"Preference '%@' is forced and cannot be set.", targetKey);
+                problemsFound = TRUE;
+            }
+        }
+    }
+    
+    return ! problemsFound;
+}
+
+
+-(BOOL) removePreferencesFor: (NSString *) displayName
+{
+    BOOL problemsFound = FALSE;
+    NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
+    NSString * preferenceSuffix;
+    while (  preferenceSuffix = [arrayEnum nextObject]  ) {
+        NSString * key = [displayName stringByAppendingString: preferenceSuffix];
+        if (  [userDefaults objectForKey: key]  ) {
+            if (  [self canChangeValueForKey: key]  ) {
+                [userDefaults removeObjectForKey: key];
+            } else {
+                NSLog(@"Preference '%@' is forced and cannot be removed.", key);
+                problemsFound = TRUE;
+            }
+        }
+    }
+    
+    return ! problemsFound;
+}
+
+
+-(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict displayName: (NSString *) dictName
+{
+    NSEnumerator * dictEnum = [dict keyEnumerator];
+    NSString * preferenceKey;
+    while (  preferenceKey = [dictEnum nextObject]  ) {
+        if (  ! [gProgramPreferences containsObject: preferenceKey]  ) {
+            NSEnumerator * prefEnum = [gConfigurationPreferences objectEnumerator];
+            NSString * knownKey;
+            BOOL found = FALSE;
+            while (  knownKey = [prefEnum nextObject]  ) {
+                if (  [preferenceKey hasSuffix: knownKey]  ) {
+                    found = TRUE;
+                    break;
+                }
+            }
+            if (  ! found  ) {
+                NSLog(@"Warning: %@ contain unknown preference '%@'", dictName, preferenceKey);
+            }
+        }
+    }
+}
+
+
 // Checks for a forced object for a key, implementing wildcard matches
 -(id) forcedObjectForKey: (NSString *) key
 {

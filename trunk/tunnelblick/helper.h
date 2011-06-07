@@ -49,6 +49,9 @@ NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * openVPNVersion           (void);
 NSDictionary * getOpenVPNVersion        (void);
 
+NSString     * TBGetDisplayName         (NSString * msg,
+                                         NSString * sourcePath);
+
 int            TBRunAlertPanel          (NSString * title,
                                          NSString * msg,
                                          NSString * defaultButtonLabel,

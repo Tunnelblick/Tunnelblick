@@ -74,6 +74,9 @@
 -(NSString *)   password;
 -(NSString *)   username;
 -(NSString *)   displayName;
+-(void)         setPassphrase:                      (NSString *)value;
+-(void)         setPassword:                        (NSString *)value;
+-(void)         setUsername:                        (NSString *)value;
 
 -(void)         deleteCredentialsFromKeychain;
 -(id)           initWithConfigName:                 (NSString *)inConfigName;

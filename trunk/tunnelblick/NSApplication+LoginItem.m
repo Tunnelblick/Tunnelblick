@@ -348,10 +348,11 @@ extern NSFileManager * gFileMgr;
     // Add an icon and a prompt to the authorization dialog
     //
     // One would think that we could use an icon in Resources, but that doesn't work. Apparently if the path is too long
-    // the icon won't be displayed. It works if the icon is in a temporary directory. In addition, it seems to require a 32x32 png.
+    // the icon won't be displayed. It works if the icon is in /tmp. (Not if it is in NSTemporaryDirectory() -- path too long.)
+    // In addition, it seems to require a 32x32 png.
     // We create the icon dynamically so if the main Tunnelblick icon changes, the authorization dialog will show the new icon.
 
-    NSString * tmpAuthIconPath = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickAuthIcon.png"];
+    NSString * tmpAuthIconPath = @"/tmp/TunnelblickAuthIcon.png";
     
     // START OF CODE adapted from comment 7 on http://cocoadev.com/forums/comments.php?DiscussionID=1215    //
                                                                                                             //

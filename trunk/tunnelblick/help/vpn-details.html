@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta name="AppleTitle" content="Tunnelblick Help"></meta>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Tunnelblick VPN Details Window Help</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1038.35">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    span.Apple-tab-span {white-space:pre}
+    ul.ul1 {list-style-type: disc}
+    ul.ul2 {list-style-type: hyphen}
+  </style>
+</head>
+<body>
+<p class="p1"><b>Tunnelblick VPN Details Window</b></p>
+<p class="p2"><br></p>
+<p class="p3">Tunnelblick's VPN Details Window shows information about a configuration and provides a way to change the configurations settings. On the left side of the window is a list of configurations and buttons to act on the selected configuration. On the right side of the window the name of the configuration and its current status is displayed, along with tabs for the configuration's log and settings, and buttons to connect and disconnect the configuration.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Configuration List</b></p>
+<p class="p2"><br></p>
+<p class="p3">The left side of the window contains a list of the configurations. Below the list are three buttons for operating on the configurations:</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-converted-space">    </span>• The "add configuration" button, which looks like a plus sign, guides the user through the process of adding a configuration.</p>
+<p class="p3"><span class="Apple-converted-space">    </span>• The "delete configuration button", which looks like a minus sign, deletes the selected configuration</p>
+<p class="p3"><span class="Apple-converted-space">    </span>• The "manage configurations" button, which looks like a gear with a triangle next to it, displays configuration management options:</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><b>Rename Configuration…</b> renames the selected configuration</li>
+  <li class="li3"><b>Duplicate Configuration…</b> duplicates the selected configuration, including it's settings</li>
+  <li class="li3"><b>Make Configuration Private/Shared…</b> makes the selected configuration private or shared</li>
+  <li class="li3"><b>Show/Hide Configuration in Tunnelblick Menu</b> makes the selected configuration display or not display in the Tunnelblick menu.</li>
+  <li class="li3"><b>Edit/Examine OpenVPN Configuration File…</b> Opens the OpenVPN configuration file (.ovpn or .conf) file for the selected configuration in TextEdit for editing or examination</li>
+  <li class="li3"><b>Show OpenVPN Log in Finder</b> opens a Finder window with the OpenVPN log file for the selected configuration selected</li>
+  <li class="li3"><b>Delete Configuration's Credentials in Keychain…</b> removes the selected credentials (username, password, and/or private key) from the user's Login Keychain.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p4"><b>Connect and Disconnect Buttons</b></p>
+<p class="p2"><br></p>
+<p class="p3">The <b>Connect</b> and <b>Disconnect</b> buttons may be used at any time to connect or disconnect the configuration selected in the left section.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Log Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">The <b>Log</b> tab contains the contents of the Tunnelblick log for the configuration selected in the left section and a button to copy the log to the Mac Clipboard. The Tunnelblick log contains the OpenVPN log along with entries about Tunnelblick's operations on the</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Settings Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">The <b>Settings</b> tab contains commonly-used settings for the selected connection:</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><b>Connect</b> determines when the configuration is connected: <b>Manually</b>, <b>When Tunnelblick is launched</b>, and <b>When computer starts</b>.</li>
+  <li class="li3"><b>Set DNS/WINS</b> determines the up/down scripts that Tunnelblick uses to modify DNS and WINS network settings for the selected configuration.</li>
+  <ul class="ul2">
+    <li class="li3"><b>Do not set nameserver</b>: Tunnelblick will not use up/down scripts and will not modify DNS and WINS network settings</li>
+    <li class="li3"><b>Set nameserver</b>: Tunnelblick will use its standard up/down scripts or scripts provided in the Tunnelblick VPN Configuration (.tblk)</li>
+    <li class="li3"><b>Set nameserver (3.1)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.1</li>
+    <li class="li3"><b>Set nameserver (3.0b10)</b>: Tunnelblick will use its standard up/down scripts from Tunnelblick version 3.0b10</li>
+    <li class="li3"><b>Set nameserver (alternate 1)</b>: Tunnelblick will use its alternate up/down scripts from Tunnelblick version 3.1</li>
+  </ul>
+</ul>
+<ul class="ul1">
+  <li class="li3"><b>Monitor network settings</b> determines whether or not Tunnelblick will monitor network settings for changes while the selected configuration is connected. This may be done to react to DHCP renewals or other network changes.</li>
+  <li class="li3"><b>Alert sounds</b> determine the sounds that Tunnelblick plays when the selected configuration connects or unexpectedly disconnects.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>The <b>Advanced…</b> button opens a window with less-used settings for the selected configuration.</p>
+</body>
+</html>

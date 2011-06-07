@@ -60,4 +60,6 @@
 -(void)             startMonitoringLogFiles;
 -(void)             stopMonitoringLogFiles;
 
+-(NSString *)       openvpnLogPath;
+
 @end

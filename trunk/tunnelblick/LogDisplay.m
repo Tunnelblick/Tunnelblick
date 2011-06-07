@@ -85,7 +85,6 @@ extern TBUserDefaults       * gTbDefaults;
 -(NSString *)   configurationPath;
 -(NSString *)   lastOpenvpnEntryTime;
 -(NSString *)   lastScriptEntryTime;
--(NSString *)   openvpnLogPath;
 -(NSString *)   scriptLogPath;
 -(void)         setLastEntryTime:       (NSString *)            newValue;
 -(void)         setLastOpenvpnEntryTime:(NSString *)            newValue;
@@ -913,32 +912,32 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(NSString *) configurationPath
 {
-    return configurationPath;
+    return [[configurationPath retain] autorelease];
 }
 
 -(NSString *) lastOpenvpnEntryTime
 {
-    return lastOpenvpnEntryTime;
+    return [[lastOpenvpnEntryTime retain] autorelease];
 }
 
 -(NSString *) lastScriptEntryTime
 {
-    return lastScriptEntryTime;
+    return [[lastScriptEntryTime retain] autorelease];
 }
 
 -(NSString *) openvpnLogPath
 {
-    return openvpnLogPath;
+    return [[openvpnLogPath retain] autorelease];
 }
 
 -(NSString *) scriptLogPath
 {
-    return scriptLogPath;
+    return [[scriptLogPath retain] autorelease];
 }
 
 -(NSTextStorage *) logStorage
 {
-    return logStorage;
+    return [[logStorage retain] autorelease];
 }
 
 -(void) setLastEntryTime: (NSString *) newValue

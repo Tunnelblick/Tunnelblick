@@ -110,6 +110,7 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
+void errorExitIfAnySymlinkInPath(NSString * path, int testPoint);
 BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
 BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group);
@@ -203,6 +204,7 @@ int main(int argc, char *argv[])
         NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
         NSString * targetPath = @"/Applications/Tunnelblick.app";
         if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
+            errorExitIfAnySymlinkInPath(targetPath, 1);
             if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
                                                                source: @"/Applications"
                                                           destination: @""
@@ -565,6 +567,7 @@ int main(int argc, char *argv[])
             grp = gRealGroupID;
         }
         
+        errorExitIfAnySymlinkInPath(enclosingFolder, 2);
         if (  ! createDirWithPermissionAndOwnership(enclosingFolder, 0755, own, grp)  ) {
             errorExit();
         }
@@ -573,6 +576,7 @@ int main(int argc, char *argv[])
         // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
         // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
         NSString * dotPartialPath = [firstPath stringByAppendingPathExtension: @"partial"];
+        errorExitIfAnySymlinkInPath(dotPartialPath, 3);
         [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
         if (  ! [gFileMgr tbCopyPath: secondPath toPath: dotPartialPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to copy %@ to %@", secondPath, dotPartialPath);
@@ -585,12 +589,14 @@ int main(int argc, char *argv[])
         // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
         // about duplicate configuration names.
         if (  moveNotCopy  ) {
+            errorExitIfAnySymlinkInPath(secondPath, 4);
             if (  ! [gFileMgr tbRemoveFileAtPath:secondPath handler: nil]  ) {
                 NSLog(@"Tunnelblick Installer: Failed to delete %@", secondPath);
                 errorHappened = TRUE;
             }
         }
 
+        errorExitIfAnySymlinkInPath(firstPath, 5);
         [gFileMgr tbRemoveFileAtPath:firstPath handler: nil];
         if (  ! [gFileMgr tbMovePath: dotPartialPath toPath: firstPath handler: nil]  ) {
             NSLog(@"Tunnelblick Installer: Failed to rename %@ to %@", dotPartialPath, firstPath);
@@ -647,6 +653,7 @@ int main(int argc, char *argv[])
             || [ext isEqualToString: @"conf"]
             || [ext isEqualToString: @"tblk"]  ) {
             if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
+                errorExitIfAnySymlinkInPath(firstPath, 6);
                 if (  ! [gFileMgr tbRemoveFileAtPath: firstPath handler: nil]  ) {
                     NSLog(@"Tunnelblick Installer: unable to remove %@", firstPath);
                 } else {
@@ -958,6 +965,23 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
 
     NSLog(@"Tunnelblick Installer: Changed permissions to 0%@ on %@", permsShouldHave, path);
     return YES;
+}
+
+void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
+{
+    NSString * curPath = path;
+    while (   curPath
+           && ! [curPath isEqualToString: @"/"]  ) {
+        if (  [gFileMgr fileExistsAtPath: curPath]  ) {
+            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
+            if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+                NSLog(@"Tunnelblick Installer: Apparent symlink attack detected at test point %d: Symlink is at %@, full path being tested is %@", testPoint, curPath, path);
+                errorExit();
+            }
+        }
+        
+        curPath = [curPath stringByDeletingLastPathComponent];
+    }
 }
 
 //**************************************************************************************************************************

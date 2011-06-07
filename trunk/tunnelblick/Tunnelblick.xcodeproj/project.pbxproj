@@ -71,6 +71,8 @@
 		635ECE601378EA1F00F67F8D /* GeneralView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE5F1378EA1F00F67F8D /* GeneralView.m */; };
 		635ECE631378EA4000F67F8D /* AppearanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE621378EA4000F67F8D /* AppearanceView.m */; };
 		635ECE6C1378EA7000F67F8D /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635ECE6B1378EA7000F67F8D /* InfoView.m */; };
+		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
+		6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
 		6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */; };
@@ -78,6 +80,8 @@
 		638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A1FE0135CB82500FB932C /* standardize-scutil-output.m */; };
 		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
+		638CA2421386CCCF00B28FA1 /* VPNDetailsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 638CA2411386CCCF00B28FA1 /* VPNDetailsWindow.xib */; };
+		638CA2471386CE7A00B28FA1 /* VPNDetailsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 638CA2461386CE7A00B28FA1 /* VPNDetailsWindowController.m */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		63920C18137E983300862A71 /* credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63920C16137E983300862A71 /* credits.rtf */; };
@@ -289,6 +293,9 @@
 		635ECE621378EA4000F67F8D /* AppearanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppearanceView.m; sourceTree = "<group>"; };
 		635ECE6A1378EA7000F67F8D /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		635ECE6B1378EA7000F67F8D /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
+		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
+		6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSheetWindowController.h; sourceTree = "<group>"; };
+		6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSheet.xib; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		6387F0F4135604240021E41B /* tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = tunnelblick.sdef; sourceTree = "<group>"; };
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
@@ -297,6 +304,9 @@
 		638A1FE0135CB82500FB932C /* standardize-scutil-output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "standardize-scutil-output.m"; sourceTree = "<group>"; };
 		638A1FFC135CC35100FB932C /* standardize-scutil-output */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "standardize-scutil-output"; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A2004135CC41C00FB932C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		638CA2411386CCCF00B28FA1 /* VPNDetailsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VPNDetailsWindow.xib; sourceTree = "<group>"; };
+		638CA2451386CE7A00B28FA1 /* VPNDetailsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNDetailsWindowController.h; sourceTree = "<group>"; };
+		638CA2461386CE7A00B28FA1 /* VPNDetailsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNDetailsWindowController.m; sourceTree = "<group>"; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
@@ -461,7 +471,6 @@
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
 				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
 				63E56ED51384831C007E39AB /* VPNService */,
-				635ECCF71378886E00F67F8D /* Preferences */,
 				63ABFE901349E370003DEB64 /* UI */,
 				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
 				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
@@ -538,6 +547,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				63EEBD8C137EF4C3001BFFD8 /* help */,
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
@@ -584,6 +594,7 @@
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
 				63CBFCDA134A8CB400C3469A /* LogWindow.xib */,
+				638CA2411386CCCF00B28FA1 /* VPNDetailsWindow.xib */,
 				63ABFE9E1349F086003DEB64 /* LoginWindow.xib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
 				6388569F134B8056008DF8C1 /* PassphraseWindow.xib */,
@@ -649,8 +660,13 @@
 		63ABFE901349E370003DEB64 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				635ECCF71378886E00F67F8D /* Preferences */,
 				63F7CD4C13623F5A0072020D /* LogWindowController.h */,
 				63F7CD4D13623F5A0072020D /* LogWindowController.m */,
+				638CA2451386CE7A00B28FA1 /* VPNDetailsWindowController.h */,
+				638CA2461386CE7A00B28FA1 /* VPNDetailsWindowController.m */,
+				6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */,
+				6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */,
 				63ABFE9A1349E435003DEB64 /* LoginWindowController.h */,
 				63ABFE9B1349E435003DEB64 /* LoginWindowController.m */,
 				6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */,
@@ -879,6 +895,8 @@
 				63E56EC913848194007E39AB /* VPNServiceTermsOfService.xib in Resources */,
 				63E56ECA13848194007E39AB /* VPNServiceWelcome.xib in Resources */,
 				63ECF4781386802F000286AD /* description.html in Resources */,
+				638CA2421386CCCF00B28FA1 /* VPNDetailsWindow.xib in Resources */,
+				6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -996,6 +1014,8 @@
 				63E56EEC13848338007E39AB /* VPNServiceSorryController.m in Sources */,
 				63E56EED13848338007E39AB /* VPNServiceTermsOfServiceController.m in Sources */,
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
+				638CA2471386CE7A00B28FA1 /* VPNDetailsWindowController.m in Sources */,
+				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
