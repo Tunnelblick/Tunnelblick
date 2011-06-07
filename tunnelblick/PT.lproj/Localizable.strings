@@ -8,7 +8,7 @@
 "1 connection" = "1 conexão";
 
 /* Status message */
-"Disconnect  All (%@)" = "Desconectar Todas (%@)";
+"Disconnect All (%@)" = "Desconectar Todas (%@)";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Desconectar Todas (%d Conexões)";
@@ -1130,7 +1130,7 @@
 "Confirm password:" = "Confirmar senha:";
 
 /* Window text VPNService */
-"Congratulations! Your account has been created You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Parabéns! Sua conta foi criada. Você deverá receber um e-mail do Tunnelblick em breve. Siga as instruções no e-mail para verificar seu endereço e e-mail e então clique 'Próximo'.";
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Parabéns! Sua conta foi criada. Você deverá receber um e-mail do Tunnelblick em breve. Siga as instruções no e-mail para verificar seu endereço e e-mail e então clique 'Próximo'.";
 
 /* Window text VPNService */
 "Could not check registration" = "Não pôde verificar o registro";
