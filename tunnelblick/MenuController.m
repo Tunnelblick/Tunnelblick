@@ -37,8 +37,11 @@
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
-#import "LogWindowController.h"
-#import "VPNDetailsWindowController.h"
+#import "MyPrefsWindowController.h"
+#import "ConfigurationUpdater.h"
+#import "UKKQueue/UKKQueue.h"
+#import "Sparkle/SUUpdater.h"
+#import "VPNConnection.h"
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"
@@ -185,6 +188,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         terminatingAtUserRequest = FALSE;
         gTunnelblickIsQuitting = FALSE;
         gComputerIsGoingToSleep = FALSE;
+        areLoggingOutOrShuttingDown = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
@@ -221,8 +225,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"skipWarningAboutIgnoredConfigurations",
                                 @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",
                                 
-                                @"NSSplitView Subview Frames DetailsSplitViewSize",
-                                @"NSWindow Frame SettingsSheetWindow",
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
                                 @"onlyAdminsCanUnprotectConfigurationFiles",
@@ -234,7 +236,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"hookupTimeout",
                                 @"openvpnTerminationInterval",
                                 @"openvpnTerminationTimeout",
-                                @"maxLogDisplaySize",
                                 @"menuIconSet",
                                 @"doNotShowConnectionSubmenus",
                                 @"doNotShowForcedPreferenceMenuItems",
@@ -244,17 +245,30 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"doNotShowAddConfigurationMenuItem",
                                 @"showConnectedDurations",
                                 @"maximumNumberOfTabs",
+                                @"onlyAdminCanUpdate",
+                                @"connectionWindowDisplayCriteria",
+                                @"showTooltips",
+                                @"maxLogDisplaySize",
+                                @"lastConnectedDisplayName",
+                                @"installationUID",
+                                @"keyboardShortcutIndex",
+                                @"showStatusWindow",
+                                
                                 @"updateCheckAutomatically",
                                 @"updateSendProfileInfo",
                                 @"updateCheckInterval",
                                 @"updateFeedURL",
                                 @"updateAutomatically",
-                                @"onlyAdminCanUpdate",
                                 @"updateUUID",
                                 
-                                @"haveDealtWithSparkle1dot5b6",
-                                @"detailsWindowFrame",
+                                @"NSWindow Frame SettingsSheetWindow",
+                                @"NSWindow Frame ConnectingWindow",
                                 @"detailsWindowFrameVersion",
+                                @"detailsWindowFrame",
+                                @"detailsWindowLeftFrame",
+                                
+                                @"haveDealtWithSparkle1dot5b6",
+                                
                                 @"SUEnableAutomaticChecks",
                                 @"SUSendProfileInfo",
                                 @"SUAutomaticallyUpdate",
@@ -262,18 +276,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"SULastProfileSubmissionDate",
                                 @"SUHasLaunchedBefore",
                                 
-                                @"connectionWindowDisplayCriteria",
-                                @"detailsWindowLeftFrame",
-                                @"showTooltips",
-                                @"maximumLogSize",
-                                @"lastConnectedDisplayName",
-                                @"installationUID",
-                                @"NSWindow Frame ConnectingWindow",
-                                @"keyboardShortcutIndex",
-                                @"showStatusWindow",
                                 
                                 @"WebKitDefaultFontSize",
                                 @"WebKitStandardFont",
+                                
+                                @"ApplicationCrashedAfterRelaunch",
                                 nil] retain];
         
         gConfigurationPreferences = [[NSArray arrayWithObjects:
@@ -495,7 +502,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
 		[self createMenu];
         
-        logScreen = [[VPNDetailsWindowController alloc] init];
+        // logScreen is a MyPrefsWindowController, but the sharedPrefsWindowController is a DBPrefsWindowController
+        logScreen = (id) [MyPrefsWindowController sharedPrefsWindowController];
         
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
@@ -516,6 +524,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
 															   selector: @selector(willGoToSleepHandler:)
 																   name: NSWorkspaceWillSleepNotification
+																 object:nil];
+		
+		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+															   selector: @selector(willLogoutOrShutdownHandler:)
+																   name: NSWorkspaceWillPowerOffNotification
 																 object:nil];
 		
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
@@ -676,7 +689,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [useOriginalIconItem release];
     [optionsSubmenu release];
     [optionsItem release];
-    [detailsItem release];
     [preferencesItem release];
     [quitItem release];
     [hotKeySubmenuItemThatIsOn release];
@@ -762,8 +774,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (IBAction) quit: (id) sender
 {
-    // Remove us from the login items if terminates manually...
-    [NSApp setAutoLaunchOnLogin: NO];
     terminatingAtUserRequest = TRUE;
     [NSApp terminate: sender];
 }
@@ -926,12 +936,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [registerForTunnelblickItem setAction: @selector(registerForTunnelblickWasClicked:)];
 #endif
     
-    [detailsItem release];
-    detailsItem = [[NSMenuItem alloc] init];
-    [detailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
-    // We set the target and action below, but only if there are any configurations,
-    // so it is dimmed/disabled if there aren't any configuratinos
-    
     if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
         [addConfigurationItem release];
         addConfigurationItem = [[NSMenuItem alloc] init];
@@ -942,7 +946,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [preferencesItem release];
     preferencesItem = [[NSMenuItem alloc] init];
-    [preferencesItem setTitle: NSLocalizedString(@"Preferences...", @"Menu item")];
+    [preferencesItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
     [preferencesItem setTarget: self];
     [preferencesItem setAction: @selector(openPreferencesWindow:)];
     
@@ -974,22 +978,21 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSArray *keyArray = [myConfigDictionary allKeys];
 	NSEnumerator * e = [keyArray objectEnumerator];
     while (dispNm = [e nextObject]) {
-        // configure connection object:
-		NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-		VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
-        
-        // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
-		[connectionItem setTarget:myConnection]; 
-		[connectionItem setAction:@selector(toggle:)];
-        
-        [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: dispNm];
-	}
+        if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-doNotShowOnTunnelblickMenu"]]  ) {
+            // configure connection object:
+            NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
+            VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+            
+            // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
+            [connectionItem setTarget:myConnection]; 
+            [connectionItem setAction:@selector(toggle:)];
+            
+            [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: dispNm];
+        }
+    }
     
     if (  [myConfigDictionary count] == 0  ) {
         [myVPNMenu addItem: noConfigurationsItem];
-    } else {
-        [detailsItem setTarget: self];
-        [detailsItem setAction: @selector(openLogWindow:)];
     }
     
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
@@ -1006,9 +1009,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 #endif
 
-	[myVPNMenu addItem: detailsItem];
-	[myVPNMenu addItem: [NSMenuItem separatorItem]];
-    
 	[myVPNMenu addItem: preferencesItem];
 	
     [self addCustomMenuItems];
@@ -1542,9 +1542,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
     
-    [detailsItem setTarget: self];
-    [detailsItem setAction: @selector(openLogWindow:)];
-    
     [myConfigDictionary setObject: path forKey: dispNm];
 }
 
@@ -1578,9 +1575,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             && addConfigurationItem  ) {
             [myVPNMenu insertItem: [[addConfigurationItem copy] autorelease] atIndex: 3]; // Use a copy because the original is used in elsewhere
         }
-        
-        [detailsItem setTarget: nil];
-        [detailsItem setAction: nil];
     }
 }
 
@@ -1946,20 +1940,18 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 }
 
--(IBAction) openLogWindow: (id) sender
-{
-    [logScreen openLogWindow];
-}
-
 - (void) networkConfigurationDidChange
 {
 	if (NSDebugEnabled) NSLog(@"Got networkConfigurationDidChange notification!!");
 	[self resetActiveConnections];
 }
 
-- (void) applicationWillTerminate: (NSNotification*) notification 
-{	
-    if (NSDebugEnabled) NSLog(@"App will terminate");
+- (void) applicationWillTerminate: (NSNotification*) notification
+{
+    terminatingAtUserRequest = TRUE;
+    if (  ! areLoggingOutOrShuttingDown  ) {
+        [NSApp setAutoLaunchOnLogin: NO];
+    }
 	[self cleanup];
 }
 
@@ -3617,6 +3609,12 @@ void terminateBecauseOfBadConfiguration(void)
     [NSApp terminate: nil];
 }
 
+
+-(void) willLogoutOrShutdownHandler: (NSNotification *) n
+{
+    areLoggingOutOrShuttingDown = TRUE;
+}
+
 -(void)willGoToSleepHandler: (NSNotification *) n
 {
     gComputerIsGoingToSleep = TRUE;
@@ -3916,7 +3914,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return showDurationsTimer;
 }
 
--(VPNDetailsWindowController *) logScreen
+-(MyPrefsWindowController *) logScreen
 {
     return logScreen;
 }

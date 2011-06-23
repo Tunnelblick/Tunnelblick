@@ -25,8 +25,8 @@
 #import "TBUserDefaults.h"
 #import "MenuController.h"
 #import "ConfigurationManager.h"
-#import "VPNDetailsWindowController.h"
 #import "helper.h"
+#import "MyPrefsWindowController.h"
 
 
 extern NSString             * gPrivatePath;

@@ -21,11 +21,12 @@
 
 
 #import <Cocoa/Cocoa.h>
-
+#import "defines.h"
 
 @interface GeneralView : NSView {
     
     IBOutlet NSTextFieldCell    * configurationFilesTFC;
+
     IBOutlet NSButton           * useShadowCopiesCheckbox;
     IBOutlet NSButton           * monitorConfigurationFolderCheckbox;
     
@@ -45,19 +46,19 @@
     IBOutlet NSTextFieldCell    * warningsTFC;
     IBOutlet NSButton           * resetDisabledWarningsButton;
     
-    IBOutlet NSButton           * generalHelpButton;
+    IBOutlet NSButton           * preferencesGeneralHelpButton;
 }
 
--(NSButton *)                     useShadowCopiesCheckbox;
--(NSButton *)                     monitorConfigurationFolderCheckbox;
+TBPROPERTY_READONLY(NSButton *,          useShadowCopiesCheckbox)
+TBPROPERTY_READONLY(NSButton *,          monitorConfigurationFolderCheckbox)
 
--(NSButton *)                     updatesCheckAutomaticallyCheckbox;
--(NSTextFieldCell *)              updatesLastCheckedTFC;
+TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)
+TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
 
--(NSArrayController *)            keyboardShortcutArrayController;
--(NSButton *)                     keyboardShortcutButton;
+TBPROPERTY_READONLY(NSArrayController *, keyboardShortcutArrayController)
+TBPROPERTY_READONLY(NSButton *,          keyboardShortcutButton)
 
--(NSArrayController *)            maximumLogSizeArrayController;
--(NSButton *)                     maximumLogSizeButton;
+TBPROPERTY_READONLY(NSArrayController *, maximumLogSizeArrayController)
+TBPROPERTY_READONLY(NSButton *,          maximumLogSizeButton)
 
 @end

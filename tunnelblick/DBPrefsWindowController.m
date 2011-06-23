@@ -3,6 +3,10 @@
 //
 
 #import "DBPrefsWindowController.h"
+#import "TBUserDefaults.h"
+
+
+extern TBUserDefaults * gTbDefaults;
 
 
 static DBPrefsWindowController *_sharedPrefsWindowController = nil;
@@ -74,17 +78,23 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // Create a new window to display the preference views.
     // If the developer attached a window to this controller
     // in Interface Builder, it gets replaced with this one.
-	NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,1000,1000)
+    
+    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,760,390)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
+                                                               NSResizableWindowMask |
 															   NSMiniaturizableWindowMask)
 													  backing:NSBackingStoreBuffered
 													    defer:YES] autorelease];
 	[self setWindow:window];
+    
+    [self setShouldCascadeWindows: NO];
+    
 	contentSubview = [[[NSView alloc] initWithFrame:[[[self window] contentView] frame]] autorelease];
-	[contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable)];
+	[contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
 	[[[self window] contentView] addSubview:contentSubview];
 	[[self window] setShowsToolbarButton:NO];
+    [[self window] setContentMinSize: NSMakeSize(760, 390)];
 }
 
 
@@ -214,9 +224,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	NSString *firstIdentifier = [toolbarIdentifiers objectAtIndex:0];
 	[[[self window] toolbar] setSelectedItemIdentifier:firstIdentifier];
 	[self displayViewForIdentifier:firstIdentifier animate:NO];
-	
-	[[self window] center];
-    
+
 	[super showWindow:sender];
 }
 
@@ -312,22 +320,16 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 			[[self window] setFrame:[self frameForView:newView] display:YES animate:animate];
 		}
 		
-        // BEGIN: Modified for Tunnelblick -- adds " - Tunnelblick" at end of window title
-        
-        NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-        NSString *appName = [[NSFileManager defaultManager] displayNameAtPath: bundlePath];
-        if (  [appName hasSuffix: @"app"]  ) {
-            appName = [appName substringToIndex: [appName length] - 4];
-        }
-        NSString * windowLabel = [NSString stringWithFormat: @"%@ - %@", [[toolbarItems objectForKey:identifier] label], appName];
-		[[self window] setTitle: windowLabel];
-        
-        //		[[self window] setTitle:[[toolbarItems objectForKey:identifier] label]];
-
-
-        // END: Modified for Tunnelblick -- adds " - Tunnelblick" at end of window title
+        [[self window] setTitle:[self windowTitle: [[toolbarItems objectForKey:identifier] label]]];
 
     }
+}
+
+
+- (NSString *)windowTitle: (NSString *) currentItemLabel
+// Subclasses can override this.
+{
+    return currentItemLabel;
 }
 
 
@@ -335,26 +337,36 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 #pragma mark Cross-Fading Methods
 
 
-// BEGIN: Added for Tunnelblick Info animation
-
 // Override in subclass if desired
--(void) oldViewWillDisappear
+-(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
 {
 }
 
 
 // Override in subclass if desired
--(void) newViewWillAppear
+-(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
 {
 }
-
-// END: Added for Tunnelblick Info animation
 
 
 - (void)crossFadeView:(NSView *)oldView withView:(NSView *)newView
 {
 	[viewAnimation stopAnimation];
 	
+    NSString * identifier = nil;
+    NSArray * keyArray = [toolbarViews allKeysForObject: oldView];
+    if (  [keyArray count] == 1  ) {
+        identifier = [keyArray objectAtIndex: 0];
+    }
+    [self oldViewWillDisappear: oldView identifier: identifier];
+    
+    identifier = nil;
+    keyArray = [toolbarViews allKeysForObject: newView];
+    if (  [keyArray count] == 1  ) {
+        identifier = [keyArray objectAtIndex: 0];
+    }
+    [self newViewWillAppear: newView identifier: identifier];
+    
     if ([self shiftSlowsAnimation] && [[[self window] currentEvent] modifierFlags] & NSShiftKeyMask)
 		[viewAnimation setDuration:1.25];
     else
@@ -382,11 +394,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
                                resizeDictionary,
                                nil];
 	
-    // BEGIN: Added for Tunnelblick InfoView animation
-    [self oldViewWillDisappear];
-    [self newViewWillAppear];
-    // END: Added for Tunnelblick InfoView animation
-    
     [viewAnimation setViewAnimations:animationArray];
 	[viewAnimation startAnimation];
 }

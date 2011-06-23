@@ -99,13 +99,13 @@
     }
 }
 
--(void) oldViewWillDisappear
+-(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
 {
     [scrollTimer invalidate];
 }
 
 
--(void) newViewWillAppear
+-(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
 {
     requestedPosition = 0.0;
     restartAtTop = YES;
@@ -141,7 +141,7 @@
         }
         
         CGFloat actualPosition = [[infoCreditSV contentView] bounds].origin.y;
-        if (  requestedPosition > actualPosition + 10.0  ) {
+        if (  requestedPosition > actualPosition + 200.0  ) {
             // Reset the startTime
             startTime = [NSDate timeIntervalSinceReferenceDate] + 1.0;  // Time from fading out at end to fade in at top
             

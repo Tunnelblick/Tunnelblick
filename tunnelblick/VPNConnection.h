@@ -122,8 +122,6 @@ typedef enum
 
 -(void)             invalidateConfigurationParse;
 
--(NSTextStorage *)  logStorage;
-
 -(BOOL)             tryingToHookup;
 -(BOOL)             isHookedup;
 

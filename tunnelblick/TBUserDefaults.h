@@ -47,7 +47,7 @@
 // It returns TRUE otherwise
 
 @interface TBUserDefaults : NSObject {
-
+    
     NSDictionary   * forcedDefaults;                // nil, or an NSDictionary of preferences which may contain wildcards   -- used by tunnelblickd and the GUI
     NSDictionary   * secondaryDefaults;             // nil, or an NSDictionary of preferences (from Shared Info.plists)     -- used by tunnelblickd
     NSUserDefaults * userDefaults;                  // nil, or [NSUserDefaults standardUserDefaults]                        -- used by the GUI
@@ -59,33 +59,35 @@
 
 // The following methods are implemented. They are like the corresponding NSUserPreferences methods
 
--(BOOL)             canChangeValueForKey:       (NSString *)        key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
+-(BOOL) boolForKey:                 (NSString *)        key;    // Note: returns [object boolValue], which works only on booleans until OS X 10.5
 
--(BOOL)             copyPreferencesFrom:        (NSString *)        sourceDisplayName
-                                     to:        (NSString *)        targetDisplayName;
+-(id)   objectForKey:               (NSString *)        key;
 
--(BOOL)             boolForKey:                 (NSString *)        key;    // Note: returns [object boolValue], which works only on booleans until OS X 10.5
+-(void) setBool:                    (BOOL)              value
+         forKey:                    (NSString *)        key;
 
--(BOOL)             movePreferencesFrom:        (NSString *)        sourceDisplayName
-                                     to:        (NSString *)        targetDisplayName;
+-(void) setObject:                  (id)                value
+           forKey:                  (NSString *)        key;
 
--(id)               objectForKey:               (NSString *)        key;
+-(void) removeObjectForKey:         (NSString *)        key;
 
--(void)             scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
-                                              displayName: (NSString *) dictName;
+-(void) synchronize;
 
--(void)             setBool:                    (BOOL)              value
-                     forKey:                    (NSString *)        key;
+// The following methods are extensions used by Tunnelblick
 
--(void)             setObject:                  (id)                value
-                       forKey:                  (NSString *)        key;
+-(BOOL) canChangeValueForKey:                 (NSString *) key;    // Returns TRUE if key can be modified, FALSE if it can't (because it being overridden)
 
--(void)             removeAllObjectsWithSuffix: (NSString *)        key;
+-(BOOL) copyPreferencesFrom:                  (NSString *) sourceDisplayName
+                         to:                  (NSString *) targetDisplayName;
 
--(void)             removeObjectForKey:         (NSString *)        key;
+-(BOOL) movePreferencesFrom:                  (NSString *) sourceDisplayName
+                         to:                  (NSString *) targetDisplayName;
 
--(BOOL)             removePreferencesFor:       (NSString *)        displayName;
+-(BOOL) removePreferencesFor:                 (NSString *) displayName;
 
--(void)             synchronize;
+-(void) removeAllObjectsWithSuffix:           (NSString *) key;
+
+-(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
+                                  displayName: (NSString *) dictName;
 
 @end

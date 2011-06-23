@@ -43,7 +43,7 @@
     BOOL                          restartAtTop;
 }
 
--(void) oldViewWillDisappear;
--(void) newViewWillAppear;
+-(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier;
+-(void) newViewWillAppear:    (NSView *) view identifier: (NSString *) identifier;
 
 @end

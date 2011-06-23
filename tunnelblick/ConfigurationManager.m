@@ -271,22 +271,23 @@ enum state_t {                      // These are the "states" of the guideState 
         targetPath = [gPrivatePath stringByAppendingPathComponent: @"openvpn.conf"];
     }
     
+    NSString * targetConfig;
     if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
-        NSString * targetConfig;
         targetConfig = configPathFromTblkPath(targetPath);
         if (  ! targetConfig  ) {
             NSLog(@"No configuration file in %@", targetPath);
             return;
         }
-        targetPath = targetConfig;
+    } else {
+        targetConfig = targetPath;
     }
     
     // To allow users to edit and save a configuration file, we allow the user to unprotect the file before editing. 
     // This is because TextEdit cannot save a file if it is protected (owned by root with 644 permissions).
     // But we only do this if the user can write to the file's parent directory, since TextEdit does that to save
-    if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
-        BOOL userCanEdit = [self userCanEditConfiguration: thePath];
-        BOOL isWritable = [gFileMgr isWritableFileAtPath: targetPath];
+    if (  [gFileMgr fileExistsAtPath: targetConfig]  ) {
+        BOOL userCanEdit = [self userCanEditConfiguration: targetConfig];
+        BOOL isWritable = [gFileMgr isWritableFileAtPath: targetConfig];
         if (  userCanEdit && (! isWritable)  ) {
             // Ask if user wants to unprotect the configuration file
             int button = TBRunAlertPanelExtended(NSLocalizedString(@"The configuration file is protected", @"Window title"),
@@ -317,7 +318,7 @@ enum state_t {                      // These are the "states" of the guideState 
     
     [connection invalidateConfigurationParse];
     
-    [[NSWorkspace sharedWorkspace] openFile: targetPath withApplication: @"TextEdit"];
+    [[NSWorkspace sharedWorkspace] openFile: targetConfig withApplication: @"TextEdit"];
 }
 
 // Make a private configuration shared, or a shared configuration private
@@ -391,27 +392,28 @@ enum state_t {                      // These are the "states" of the guideState 
         actualConfigPath = actualPath;
     }
     
-    NSString * parentFolder = [actualConfigPath stringByDeletingLastPathComponent];
+    NSString * parentFolder = [filePath stringByDeletingLastPathComponent];
     if (  ! [gFileMgr isWritableFileAtPath: parentFolder]  ) {
         NSLog(@"No write permission on configuration file's parent directory %@", parentFolder);
         return FALSE;
     }
     
+    // Copy the actual configuration file (the .ovpn or .conf file) to a temporary copy,
+    // then delete the original and rename the copy back to the original
+    // This changes the ownership from root to the current user
+    // Although the documentation for copyPath:toPath:handler: says that the file's ownership and permissions are copied,
+    // the ownership of a file owned by root is NOT copied.
+    // Instead, the copy's owner is the currently logged-in user:group -- which is *exactly* what we want!
     NSString * configTempPath   = [actualConfigPath stringByAppendingPathExtension:@"temp"];
-    NSString * oldExtension = [actualConfigPath pathExtension];
-    NSString * configBackupPath = [[[actualConfigPath stringByDeletingPathExtension] stringByAppendingString:@"-previous"] stringByAppendingPathExtension: oldExtension];
-    
-    // Although the documentation for copyPath:toPath:handler: says that the file's ownership and permissions are copied, the ownership
-    // of a file owned by root is NOT copied. Instead, the owner is the currently logged-in user:group, which is *exactly* what we want!
     [gFileMgr tbRemoveFileAtPath:configTempPath handler: nil];
+    
     if (  ! [gFileMgr tbCopyPath: actualConfigPath toPath: configTempPath handler: nil]  ) {
         NSLog(@"Unable to copy %@ to %@", actualConfigPath, configTempPath);
         return FALSE;
     }
     
-    [gFileMgr tbRemoveFileAtPath:configBackupPath handler: nil];
-    if (  ! [gFileMgr tbMovePath: actualConfigPath toPath: configBackupPath handler: nil]  ) {
-        NSLog(@"Unable to rename %@ to %@", actualConfigPath, configBackupPath);
+    if (  ! [gFileMgr tbRemoveFileAtPath: actualConfigPath handler: nil]  ) {
+        NSLog(@"Unable to delete %@", actualConfigPath);
         return FALSE;
     }
     

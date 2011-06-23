@@ -37,6 +37,8 @@
 //                  Added some code to supress compiler warnings from unused parameters.
 //                  Fixed a couple of objects that weren't being properly released.
 //
+//
+//  10 June 2011:   Modified for use in Tunnelblick
 
 
 #import <Cocoa/Cocoa.h>
@@ -61,6 +63,7 @@
 - (void)setupToolbar;
 - (void)addView:(NSView *)view label:(NSString *)label;
 - (void)addView:(NSView *)view label:(NSString *)label image:(NSImage *)image;
+- (NSString *)windowTitle:(NSString *)currentItemLabel;
 
 - (BOOL)crossFade;
 - (void)setCrossFade:(BOOL)fade;

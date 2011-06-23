@@ -34,7 +34,7 @@
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
-#import "LogWindowController.h"
+#import "MyPrefsWindowController.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
@@ -119,6 +119,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         managementSocket = nil;
 		connectedSinceDate = [[NSDate alloc] init];
         logDisplay = [[LogDisplay alloc] initWithConfigurationPath: inPath];
+        [logDisplay setConnection: self];
         lastState = @"EXITING";
         requestedState = @"EXITING";
 		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
@@ -914,7 +915,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         if (  userKnows  ) {
             TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
                             [NSString stringWithFormat:
-                             NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window", @"Window text"),
+                             NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window", @"Window text"),
                              [self displayName]],
                             nil, nil, nil);
             requestedState = oldRequestedState;
@@ -1452,16 +1453,19 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     @try {
         NSArray* parameters = [line componentsSeparatedByString: @","];
-        NSString *stateString = [parameters objectAtIndex:1];
-        if (  [stateString length] > 3  ) {
-            NSArray * validStates = [NSArray arrayWithObjects:
-                                     @"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED",  @"CONNECTING",
-                                     @"EXITING", @"GET_CONFIG", @"RECONNECTING", @"RESOLVE", @"SLEEP", @"WAIT", nil];
-            if (  [validStates containsObject: stateString]  ) {
-                [self processState: stateString dated: [parameters objectAtIndex: 0]];
+        if (  [parameters count] > 1  ) {
+            NSString *stateString = [parameters objectAtIndex:1];
+            if (  [stateString length] > 3  ) {
+                NSArray * validStates = [NSArray arrayWithObjects:
+                                         @"ADD_ROUTES", @"ASSIGN_IP", @"AUTH", @"CONNECTED",  @"CONNECTING",
+                                         @"EXITING", @"GET_CONFIG", @"RECONNECTING", @"RESOLVE", @"SLEEP", @"TCP_CONNECT", @"UDP_CONNECT", @"WAIT", nil];
+                if (  [validStates containsObject: stateString]  ) {
+                    [self processState: stateString dated: [parameters objectAtIndex: 0]];
+                }
             }
         }
     } @catch(NSException *exception) {
+        NSLog(@"Caught exception in setStateFromLine: \"%@\"", line);
     }
 }
 
@@ -1783,12 +1787,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     return locationMessage;
-}
-
-// Returns contents of the log display
--(NSTextStorage *) logStorage
-{
-    return [logDisplay logStorage];
 }
 
 // Adds a message to the log display with the current date/time
@@ -2121,16 +2119,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) startMonitoringLogFiles
 {
-    if (  logFilesMayExist  ) {
-        [logDisplay startMonitoringLogFiles];
-    }
+    [logDisplay startMonitoringLogFiles];
 }
 
 -(void) stopMonitoringLogFiles
 {
-    if (  logFilesMayExist  ) {
-        [logDisplay stopMonitoringLogFiles];
-    }
+    [logDisplay stopMonitoringLogFiles];
 }
 
 -(NSString *) openvpnLogPath

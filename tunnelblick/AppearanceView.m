@@ -143,39 +143,14 @@ extern NSFileManager  * gFileMgr;
 //***************************************************************************************************************
 // Getters
 
--(NSButton *) appearanceDisplayConnectionSubmenusCheckbox
-{
-    return [[appearanceDisplayConnectionSubmenusCheckbox retain] autorelease];
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceIconSetArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceIconSetButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearancePlaceIconNearSpotlightCheckbox)
 
--(NSButton *) appearanceDisplayConnectionTimersCheckbox
-{
-    return [[appearanceDisplayConnectionTimersCheckbox retain] autorelease];
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionSubmenusCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionTimersCheckbox)
 
--(NSButton *) appearancePlaceIconNearSpotlightCheckbox
-{
-    return [[appearancePlaceIconNearSpotlightCheckbox retain] autorelease];
-}
-
--(NSArrayController *) appearanceIconSetArrayController
-{
-    return [[appearanceIconSetArrayController retain] autorelease];
-}
-
--(NSButton *) appearanceIconSetButton
-{
-    return [[appearanceIconSetButton retain] autorelease];
-}
-
--(NSArrayController *) appearanceConnectionWindowDisplayCriteriaArrayController
-{
-    return [[appearanceConnectionWindowDisplayCriteriaArrayController retain] autorelease];
-}
-
--(NSButton *) appearanceConnectionWindowDisplayCriteriaButton
-{
-    return [[appearanceConnectionWindowDisplayCriteriaButton retain] autorelease];
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
 
 @end

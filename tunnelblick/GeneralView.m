@@ -80,7 +80,6 @@ extern TBUserDefaults * gTbDefaults;
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"100 KB", @"Button"), @"name", [NSNumber numberWithUnsignedInt:      100*1024], @"value", nil],
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(  @"1 MB", @"Button"), @"name", [NSNumber numberWithUnsignedInt:     1024*1024], @"value", nil],
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString( @"10 MB", @"Button"), @"name", [NSNumber numberWithUnsignedInt:  10*1024*1024], @"value", nil],
-                            [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"100 MB", @"Button"), @"name", [NSNumber numberWithUnsignedInt: 100*1024*1024], @"value", nil],
                             nil];
     [maximumLogSizeArrayController setContent: mlsContent];
     [maximumLogSizeButton sizeToFit];
@@ -94,46 +93,16 @@ extern TBUserDefaults * gTbDefaults;
 //***************************************************************************************************************
 // Getters
 
--(NSButton *) useShadowCopiesCheckbox
-{
-    return [[useShadowCopiesCheckbox retain] autorelease];
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          useShadowCopiesCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          monitorConfigurationFolderCheckbox)
 
--(NSButton *) monitorConfigurationFolderCheckbox
-{
-    return [[monitorConfigurationFolderCheckbox retain] autorelease];
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
 
--(NSButton *) updatesCheckAutomaticallyCheckbox
-{
-    return [[updatesCheckAutomaticallyCheckbox retain] autorelease];
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, keyboardShortcutArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          keyboardShortcutButton)
 
--(NSTextFieldCell *) updatesLastCheckedTFC
-{
-    return [[updatesLastCheckedTFC retain] autorelease];
-}
-
--(NSArrayController *) keyboardShortcutArrayController
-{
-    return [[keyboardShortcutArrayController retain] autorelease];
-}
-
--(NSButton *) keyboardShortcutButton
-{
-    return [[keyboardShortcutButton retain] autorelease];
-}
-
-
--(NSArrayController *) maximumLogSizeArrayController
-{
-    return [[maximumLogSizeArrayController retain] autorelease];
-}
-
--(NSButton *) maximumLogSizeButton
-{
-    return [[maximumLogSizeButton retain] autorelease];
-}
-
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, maximumLogSizeArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
 
 @end
