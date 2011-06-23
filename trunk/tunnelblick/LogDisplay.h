@@ -23,13 +23,18 @@
 #import "UKKQueue/UKKQueue.h"
 
 
-@interface LogDisplay : NSObject {
+@class VPNConnection;
 
+
+@interface LogDisplay : NSObject {
+    
+    NSMutableString * tbLog;                        // Entries from the Tunnelblick log (as opposed to the OpenVPN or script log)
+    
     NSString      * configurationPath;
     NSString      * openvpnLogPath;
     NSString      * scriptLogPath;
 
-    NSTextStorage * logStorage;                     // Contains the log being displayed (or that part of log since it was cleared)
+    VPNConnection * connection;
 
     UKKQueue      * monitorQueue;                   // nil, or queue to monitor log files for changes
     
@@ -55,11 +60,13 @@
 
 -(void)             clear;
 
--(NSTextStorage *)  logStorage;
-
 -(void)             startMonitoringLogFiles;
 -(void)             stopMonitoringLogFiles;
 
--(NSString *)       openvpnLogPath;
+TBPROPERTY_READONLY(NSMutableString *, tbLog)
+
+TBPROPERTY_READONLY(NSString *, openvpnLogPath)
+
+TBPROPERTY(VPNConnection *, connection, setConnection)
 
 @end

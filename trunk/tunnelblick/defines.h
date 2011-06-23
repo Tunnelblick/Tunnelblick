@@ -78,5 +78,86 @@ typedef enum
 } StatusWindowControllerChoice;
 
 //*************************************************************************************************
+// Tiger-compatible macros that implement something like @property and @synthesize
+//
+// The 'type' argument is the type of the variable
+// The 'name' and 'setname' arguments are the name of the variable and the name with initial capital prefixed by set
+// The 'copyRetain' argument is either copy or retain
+//
+// Note that objects and non-objects use different TBSYNTHESIZE... macros
+
+#define TBPROPERTY(type, name, setname) \
+-(type) name;                           \
+-(void) setname: (type) newValue;       \
+
+
+#define TBPROPERTY_READONLY(type, name) \
+-(type) name;                           \
+
+
+#define TBPROPERTY_WRITEONLY(type, name, setname) \
+-(void) setname: (type) newValue;                 \
+
+
+
+#define TBSYNTHESIZE_OBJECT(copyRetain, type, name, setname) \
+-(type) name                                                 \
+{                                                            \
+    return [[name copyRetain] autorelease];                  \
+}                                                            \
+                                                             \
+-(void) setname: (type) newValue                             \
+{                                                            \
+    [newValue retain];                                       \
+    [name release];                                          \
+    name = newValue;                                         \
+}                                                            \
+
+
+#define TBSYNTHESIZE_OBJECT_GET(copyRetain, type, name) \
+-(type) name                                            \
+{                                                       \
+    return [[name copyRetain] autorelease];             \
+}                                                       \
+
+
+#define TBSYNTHESIZE_OBJECT_SET(type, name, setname) \
+-(void) setname: (type) newValue                     \
+{                                                    \
+    [newValue retain];                               \
+    [name release];                                  \
+    name = newValue;                                 \
+}                                                    \
+
+
+
+
+#define TBSYNTHESIZE_NONOBJECT(type, name, setname) \
+-(type) name                                        \
+{                                                   \
+    return name;                                    \
+}                                                   \
+                                                    \
+-(void) setname: (type) newValue                    \
+{                                                   \
+    name = newValue;                                \
+}
+
+
+#define TBSYNTHESIZE_NONOBJECT_GET(type, name) \
+-(type) name                                   \
+{                                              \
+    return name;                               \
+}                                              \
+
+
+#define TBSYNTHESIZE_NONOBJECT_SET(type, name, setname) \
+-(void) setname: (type) newValue                        \
+{                                                       \
+    name = newValue;                                    \
+}                                                       \
+
+
+//*************************************************************************************************
 // Comment out (with "//") the following line to EXclude the VPNService feature
 //#define INCLUDE_VPNSERVICE 1

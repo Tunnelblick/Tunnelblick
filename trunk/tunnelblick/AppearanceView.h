@@ -21,7 +21,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-
+#import "defines.h"
 
 @interface AppearanceView : NSView {
     
@@ -41,14 +41,14 @@
     IBOutlet NSButton           * appearanceHelpButton;
 }
 
--(NSButton *)                     appearanceDisplayConnectionSubmenusCheckbox;
--(NSButton *)                     appearanceDisplayConnectionTimersCheckbox;
--(NSButton *)                     appearancePlaceIconNearSpotlightCheckbox;
+TBPROPERTY_READONLY(NSArrayController *, appearanceIconSetArrayController)
+TBPROPERTY_READONLY(NSButton *,          appearanceIconSetButton)
+TBPROPERTY_READONLY(NSButton *,          appearancePlaceIconNearSpotlightCheckbox)
 
--(NSArrayController *)            appearanceIconSetArrayController;
--(NSButton *)                     appearanceIconSetButton;
+TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionSubmenusCheckbox)
+TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionTimersCheckbox)
 
--(NSArrayController *)            appearanceConnectionWindowDisplayCriteriaArrayController;
--(NSButton *)                     appearanceConnectionWindowDisplayCriteriaButton;
+TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
+TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)
 
 @end

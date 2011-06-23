@@ -27,11 +27,15 @@
 #import "NSApplication+LoginItem.h"
 #import "NSFileManager+TB.h"
 #import "MenuController.h"
+#import "AuthAgent.h"
 
 // PRIVATE FUNCTIONS:
 NSDictionary * parseVersion             (NSString * string);
 NSRange        rangeOfDigits            (NSString * s);
 void           localizableStrings       (void);
+BOOL           copyOrMoveCredentials    (NSString * fromDisplayName,
+                                         NSString * toDisplayName,
+                                         BOOL moveNotCopy);
 
 // The following external, global variables are used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
@@ -780,6 +784,71 @@ NSString * TBGetDisplayName(NSString * msg,
     return newName;
 }
 
+
+BOOL copyCredentials(NSString * fromDisplayName, NSString * toDisplayName)
+{
+    return copyOrMoveCredentials(fromDisplayName, toDisplayName, FALSE);
+}
+
+BOOL moveCredentials(NSString * fromDisplayName, NSString * toDisplayName)
+{
+    return copyOrMoveCredentials(fromDisplayName, toDisplayName, TRUE);
+}
+
+BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName, BOOL moveNotCopy)
+{
+    NSString * myPassphrase = nil;
+    NSString * myUsername = nil;
+    NSString * myPassword = nil;
+    
+    AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName] autorelease];
+    [myAuthAgent setAuthMode: @"privateKey"];
+    if (  [myAuthAgent keychainHasCredentials]  ) {
+        [myAuthAgent performAuthentication];
+        myPassphrase = [myAuthAgent passphrase];
+        if (  moveNotCopy) {
+            [myAuthAgent deleteCredentialsFromKeychain];
+        }
+    }
+    [myAuthAgent setAuthMode: @"password"];
+    if (  [myAuthAgent keychainHasCredentials]  ) {
+        [myAuthAgent performAuthentication];
+        myUsername = [myAuthAgent username];
+        myPassword   = [myAuthAgent password];
+        if (  moveNotCopy) {
+            [myAuthAgent deleteCredentialsFromKeychain];
+        }
+    }
+    
+    KeyChain * passphraseKeychain = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"privateKey" ];
+    KeyChain * usernameKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"username"   ];
+    KeyChain * passwordKeychain   = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString: toDisplayName] withAccountName: @"password"   ];
+    
+    if (  myPassphrase  ) {
+        [passphraseKeychain deletePassword];
+        if (  [passphraseKeychain setPassword: myPassphrase] != 0  ) {
+            NSLog(@"Could not store passphrase in Keychain");
+        }
+    }
+    if (  myUsername  ) {
+        [usernameKeychain deletePassword];
+        if (  [usernameKeychain setPassword: myUsername] != 0  ) {
+            NSLog(@"Could not store username in Keychain");
+        }
+    }
+    if (  myPassword  ) {
+        [passwordKeychain deletePassword];
+        if (  [passwordKeychain setPassword: myPassword] != 0  ) {
+            NSLog(@"Could not store password in Keychain");
+        }
+    }
+    
+    [passphraseKeychain release];
+    [usernameKeychain   release];
+    [passwordKeychain   release];
+     
+    return TRUE;
+}
 
 // This method translates and returns non-literal OpenVPN message.
 // It is used to consolidate the use of NSLocalizedString(non-literal-string...) in one place to minimize warnings from genstrings.

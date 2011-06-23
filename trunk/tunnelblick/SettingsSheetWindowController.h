@@ -22,8 +22,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class VPNDetailsWindowController;
-
 typedef enum
 {
 	sharedConfiguration,

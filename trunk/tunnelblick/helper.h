@@ -31,6 +31,12 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
 int            createDir                (NSString * d,
                                          unsigned long perms);
 
+BOOL           copyCredentials          (NSString * fromDisplayName,
+                                         NSString * toDisplayName);
+
+BOOL           moveCredentials          (NSString * fromDisplayName,
+                                         NSString * toDisplayName);
+
 NSString     * newTemporaryDirectoryPath(void);
 
 NSString     * escaped                  (NSString * string);

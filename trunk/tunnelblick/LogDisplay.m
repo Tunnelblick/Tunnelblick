@@ -19,12 +19,14 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import <pthread.h>
 #import "defines.h"
 #import "LogDisplay.h"
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
-#import "LogWindowController.h"
 #import "TBUserDefaults.h"
+#import "MyPrefsWindowController.h"
+#import "ConfigurationsView.h"
 
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
@@ -32,12 +34,14 @@ extern TBUserDefaults       * gTbDefaults;
 @interface LogDisplay() // PRIVATE METHODS
 
 -(void)         appendLine:             (NSString *)            line
-            fromOpenvpnLog:             (BOOL)                  isFromOpenvpnLog;
+            fromOpenvpnLog:             (BOOL)                  isFromOpenvpnLog
+        fromTunnelblickLog:             (BOOL)                  isFromTunnelblickLog;
 
 -(void)         insertLine:             (NSString *)            line
   beforeTunnelblickEntries:             (BOOL)                  beforeTunnelblickEntries
       beforeOpenVPNEntries:             (BOOL)                  beforeOpenVPNEntries
-            fromOpenVPNLog:             (BOOL)                  fromOpenVPNLog;
+            fromOpenVPNLog:             (BOOL)                  isfromOpenVPNLog
+        fromTunnelblickLog:             (BOOL)                  isFromTunnelblickLog;
 
 -(void)         didAddLineToLogDisplay;
 
@@ -49,6 +53,8 @@ extern TBUserDefaults       * gTbDefaults;
 -(NSString *)   constructOpenvpnLogPath;
 -(NSString *)   constructScriptLogPath;
     
+-(void)         doLogScrolling;
+
 -(NSUInteger)   indexAfter:             (NSUInteger)            n
                     string:             (NSString *)            s
                   inString:             (NSString *)            text
@@ -62,6 +68,8 @@ extern TBUserDefaults       * gTbDefaults;
 -(void)         logChangedAtPath:       (NSString *)            logPath
                      usePosition:       (unsigned long long *)  logPositionPtr
                   fromOpenvpnLog:       (BOOL)                  isFromOpenvpnLog;
+
+-(NSTextStorage *) logStorage;
 
 -(void)         openvpnLogChanged;
 -(void)         scriptLogChanged;
@@ -96,7 +104,9 @@ extern TBUserDefaults       * gTbDefaults;
 
 @implementation LogDisplay
 
--(LogDisplay *) initWithConfigurationPath: (NSString *) inConfigPath;
+static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
+
+-(LogDisplay *) initWithConfigurationPath: (NSString *) inConfigPath
 {
 	if (  self = [super init]  ) {
         
@@ -129,8 +139,9 @@ extern TBUserDefaults       * gTbDefaults;
             }
         }
         
-        logStorage = [[NSTextStorage alloc] init];
-        [self clear];
+        tbLog = [[NSMutableString alloc] init];
+        NSString * header = [[NSApp delegate] openVPNLogHeader];
+        [self addToLog: header];
     }
     
     return self;
@@ -142,7 +153,7 @@ extern TBUserDefaults       * gTbDefaults;
 	[configurationPath release];
     [openvpnLogPath release];
     [scriptLogPath release];
-	[logStorage release];
+	[tbLog release];
     [lastOpenvpnEntryTime release];
     [lastScriptEntryTime release];
     [super dealloc];
@@ -153,19 +164,51 @@ extern TBUserDefaults       * gTbDefaults;
 {
     NSCalendarDate * date = [NSCalendarDate date];
     NSString * dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"], text];
+    
+    BOOL fromTunnelblick = [text hasPrefix: @"*Tunnelblick: "];
+    
+    if (  [self logStorage]  ) {
+        [self insertLine: dateText beforeTunnelblickEntries: NO beforeOpenVPNEntries: NO fromOpenVPNLog: NO fromTunnelblickLog: fromTunnelblick];
+    } else {
+        if (  fromTunnelblick  ) {
+            [tbLog appendString: dateText];
+        }
+    }
 
-	[self insertLine: dateText beforeTunnelblickEntries: NO beforeOpenVPNEntries: NO fromOpenVPNLog: NO];
 }
 
-// Clears the log display, displaying only the header line
+// Clears the log so it shows only the header line
 -(void) clear
 {
-    [logStorage deleteCharactersInRange: NSMakeRange(0, [logStorage length])];
+    // Clear the log in the display if it is being shown
+    pthread_mutex_lock( &logStorageMutex );
+    NSTextStorage * logStore = [self logStorage];
+    if (  logStore  ) {
+        [logStore beginEditing];
+        [logStore deleteCharactersInRange: NSMakeRange(0, [logStore length])];
+        [logStore endEditing];
+    }
+    pthread_mutex_unlock( &logStorageMutex );
+    
+    // Clear the Tunnelblick log entries, too
+    [tbLog deleteCharactersInRange: NSMakeRange(0, [tbLog length])];
+    
     [self addToLog: [[NSApp delegate] openVPNLogHeader]];
     
-    // Pretend that the line we just displayed came from OpenVPN so we will insert _after_ it
+    // Pretend that the header line we just displayed came from OpenVPN so we will insert _after_ it
     [self setLastOpenvpnEntryTime: [self lastScriptEntryTime]];
     [self setLastScriptEntryTime: nil];
+    
+    if (  logStore  ) {
+        [self performSelectorOnMainThread: @selector(doLogScrolling) withObject: nil waitUntilDone: NO];
+    }
+}
+
+-(void) doLogScrolling
+{
+    if (  [self logStorage]  ) {
+        [[[NSApp delegate] logScreen] doLogScrollingForConnection: [self connection]];
+    }
 }
 
 // Starts (or restarts) monitoring newly-created log files.
@@ -223,12 +266,24 @@ extern TBUserDefaults       * gTbDefaults;
 // which is much less processing intensive.
 -(void) loadLogs: (BOOL) skipToStartOfLineInOpenvpnLog
 {
-    [[[NSApp delegate] logScreen] indicateWaiting];
+    NSTextStorage * logStore = [self logStorage];
+    if (  ! logStore  ) {
+        NSLog(@"loadLogs invoked but not displaying log for that connection");
+        return;             // Don't do anything if we aren't displaying the log for this connection
+    }
     
-    // Save, then clear, the current contents of the log, which consists of messages from Tunnelblick (as opposed to
-    // messages from the script log or OpenVPN log)
-    NSString * tunnelblickString = [[logStorage string] copy];
-    [logStorage deleteCharactersInRange: NSMakeRange(0, [logStorage length])];
+    [[[NSApp delegate] logScreen] indicateWaitingForConnection: connection];
+    
+    // Save, then clear, the current contents of the tbLog
+    NSString * tunnelblickString = [[self tbLog] copy];
+    [tbLog deleteCharactersInRange: NSMakeRange(0, [tbLog length])];
+    
+    // Clear the contents of the display
+    pthread_mutex_lock( &logStorageMutex );
+    [logStore beginEditing];
+    [logStore deleteCharactersInRange: NSMakeRange(0, [logStore length])];
+    [logStore endEditing];
+    pthread_mutex_unlock( &logStorageMutex );
     
     NSString * openvpnString = [self contentsOfPath: [self openvpnLogPath] usePosition: &openvpnLogPosition];
     NSString * scriptString  = [self contentsOfPath: [self scriptLogPath]  usePosition: &scriptLogPosition];
@@ -285,21 +340,21 @@ extern TBUserDefaults       * gTbDefaults;
                     // Have tLine, oLine, and sLine
                     if (  [tLineDateTime compare: oLineDateTime] != NSOrderedDescending ) {
                         if (  [tLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
-                            [self appendLine: tLine fromOpenvpnLog: NO];
+                            [self appendLine: tLine fromOpenvpnLog: NO fromTunnelblickLog: YES];
                             tLine = [self nextLineInTunnelblickString: &tunnelblickString
                                                          fromPosition: &tunnelblickStringPosition];
                         } else {
-                            [self appendLine: sLine fromOpenvpnLog: NO];
+                            [self appendLine: sLine fromOpenvpnLog: NO fromTunnelblickLog: NO];
                             sLine = [self nextLineInScriptString: &scriptString
                                                     fromPosition: &scriptStringPosition];
                         }
                     } else {
                         if (  [oLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
-                            [self appendLine: oLine fromOpenvpnLog: YES];
+                            [self appendLine: oLine fromOpenvpnLog: YES fromTunnelblickLog: NO];
                             oLine = [self nextLinesInOpenVPNString: &openvpnString
                                                       fromPosition: &openvpnStringPosition];
                         } else {
-                            [self appendLine: sLine fromOpenvpnLog: NO];
+                            [self appendLine: sLine fromOpenvpnLog: NO fromTunnelblickLog: NO];
                             sLine = [self nextLineInScriptString: &scriptString
                                                     fromPosition: &scriptStringPosition];
                         }
@@ -307,11 +362,11 @@ extern TBUserDefaults       * gTbDefaults;
                 } else {
                     // Have tLine and oLine but not sLine
                     if (  [tLineDateTime compare: oLineDateTime] != NSOrderedDescending ) {
-                        [self appendLine: tLine fromOpenvpnLog: NO];
+                        [self appendLine: tLine fromOpenvpnLog: NO fromTunnelblickLog: YES];
                         tLine = [self nextLineInTunnelblickString: &tunnelblickString
                                                      fromPosition: &tunnelblickStringPosition];
                     } else {
-                        [self appendLine: oLine fromOpenvpnLog: YES];
+                        [self appendLine: oLine fromOpenvpnLog: YES fromTunnelblickLog: NO];
                         oLine = [self nextLinesInOpenVPNString: &openvpnString
                                                   fromPosition: &openvpnStringPosition];
                     }
@@ -321,17 +376,17 @@ extern TBUserDefaults       * gTbDefaults;
                 if (  sLine  ) {
                     // Have tLine and sLine but not oLine
                     if (  [tLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
-                        [self appendLine: tLine fromOpenvpnLog: NO];
+                        [self appendLine: tLine fromOpenvpnLog: NO fromTunnelblickLog: YES];
                         tLine = [self nextLineInTunnelblickString: &tunnelblickString
                                                      fromPosition: &tunnelblickStringPosition];
                     } else {
-                        [self appendLine: sLine fromOpenvpnLog: NO];
+                        [self appendLine: sLine fromOpenvpnLog: NO fromTunnelblickLog: NO];
                         sLine = [self nextLineInScriptString: &scriptString
                                                 fromPosition: &scriptStringPosition];
                     }
                 } else {
                     // Only have tLine
-                    [self appendLine: tLine fromOpenvpnLog: NO];
+                    [self appendLine: tLine fromOpenvpnLog: NO fromTunnelblickLog: YES];
                     tLine = [self nextLineInTunnelblickString: &tunnelblickString
                                                  fromPosition: &tunnelblickStringPosition];
                 }
@@ -342,24 +397,24 @@ extern TBUserDefaults       * gTbDefaults;
                 if (  sLine  ) {
                     // Have oLine and sLine but not tLine
                     if (  [oLineDateTime compare: sLineDateTime] != NSOrderedDescending ) {
-                        [self appendLine: oLine fromOpenvpnLog: YES];
+                        [self appendLine: oLine fromOpenvpnLog: YES fromTunnelblickLog: NO];
                         oLine = [self nextLinesInOpenVPNString: &openvpnString
                                                   fromPosition: &openvpnStringPosition];
                     } else {
-                        [self appendLine: sLine fromOpenvpnLog: NO];
+                        [self appendLine: sLine fromOpenvpnLog: NO fromTunnelblickLog: NO];
                         sLine = [self nextLineInScriptString: &scriptString
                                                 fromPosition: &scriptStringPosition];
                     }
                 } else {
                     // Only have oLine
-                    [self appendLine: oLine fromOpenvpnLog: YES];
+                    [self appendLine: oLine fromOpenvpnLog: YES fromTunnelblickLog: NO];
                     oLine = [self nextLinesInOpenVPNString: &openvpnString
                                               fromPosition: &openvpnStringPosition];
                 }
             } else {
                 // Only have sLine
                 if (  sLine  ) {
-                    [self appendLine: sLine fromOpenvpnLog: NO];
+                    [self appendLine: sLine fromOpenvpnLog: NO fromTunnelblickLog: NO];
                     sLine = [self nextLineInScriptString: &scriptString
                                             fromPosition: &scriptStringPosition];
                 }
@@ -373,7 +428,8 @@ extern TBUserDefaults       * gTbDefaults;
     
     [tunnelblickString release];
     
-    [[[NSApp delegate] logScreen] indicateNotWaiting];
+    [self doLogScrolling];
+    [[[NSApp delegate] logScreen] indicateNotWaitingForConnection: connection];
 }
 
 -(NSUInteger) indexAfter: (NSUInteger) n string: (NSString *) s inString: (NSString *) text range: (NSRange) r
@@ -396,8 +452,7 @@ extern TBUserDefaults       * gTbDefaults;
     // Open file, seek to current position, read to end of file, note new current position, close file
     NSFileHandle * file;
     if (  ! (file = [NSFileHandle fileHandleForReadingAtPath: logPath])  ) {
-        NSLog(@"contentsOfPath: no such log file: %@", logPath);
-        *logPosition = -1;
+        *logPosition = 0;
         return @"";
     }
     
@@ -566,10 +621,21 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 // Appends a line to the log display
--(void) appendLine: (NSString *) line fromOpenvpnLog: (BOOL) isFromOpenvpnLog
+-(void) appendLine: (NSString *) line fromOpenvpnLog: (BOOL) isFromOpenvpnLog fromTunnelblickLog: (BOOL) isFromTunnelblickLog
 {
-    NSAttributedString * msgAS = [[[NSAttributedString alloc] initWithString: line] autorelease];
-    [logStorage appendAttributedString: msgAS];
+    if (  isFromTunnelblickLog  ) {
+        [tbLog appendString: line];
+    }
+    
+    pthread_mutex_lock( &logStorageMutex );
+    NSTextStorage * logStore = [self logStorage];
+    if (  logStore  ) {
+        NSAttributedString * msgAS = [[[NSAttributedString alloc] initWithString: line] autorelease];
+        [logStore beginEditing];
+        [logStore appendAttributedString: msgAS];
+        [logStore endEditing];
+    }
+    pthread_mutex_unlock( &logStorageMutex );
     
     if (  [line length] > 18 ) {
         if (  ! [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @"\n"]  ) {
@@ -587,29 +653,43 @@ extern TBUserDefaults       * gTbDefaults;
 // We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
 -(void) didAddLineToLogDisplay
 {
-    if (  [logStorage length] > maxLogDisplaySize  ) {
+    if (  [[self logStorage] length] > maxLogDisplaySize  ) {
         [self pruneLog];
     }
 }
 
 -(void) pruneLog
 {
-    // Remove 10% of the contents of the display
-    NSUInteger charsToRemove = [logStorage length] / 10;
-    if (  charsToRemove < 100  ) {
-        charsToRemove = 100;
+    // Find the fourth LF, and remove starting after that, to preserve the first four lines
+
+    pthread_mutex_lock( &logStorageMutex );
+    NSTextStorage * logStore = [self logStorage];
+    if (  logStore  ) {
+        [logStore beginEditing];
+        
+        NSString * text = [logStore string];
+        
+        // Remove 10% of the contents of the display
+        NSUInteger charsToRemove = [text length] / 10;
+        if (  charsToRemove < 100  ) {
+            charsToRemove = 100;
+        }
+        
+        NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
+        
+        // Find the first LF after the stuff we need to delete and delete up to that
+        NSUInteger end = [self indexAfter: 1 string: @"\n" inString: text range: NSMakeRange(start + charsToRemove, [text length] - start - charsToRemove)];
+        
+        NSRange rangeToDelete = NSMakeRange(start, end - start);
+        NSString * replacementLine = [NSString stringWithFormat: @"\n                    *Tunnelblick: Some entries have been removed because the log is too long\n\n"];
+        [logStore replaceCharactersInRange: rangeToDelete withString: replacementLine];
+        
+        [logStore endEditing];
     }
     
-    // Find the fourth LF, and remove starting after that, to preserve the first four lines
-    NSString * text = [logStorage string];
-    NSUInteger start = [self indexAfter: 4 string: @"\n" inString: text range: NSMakeRange(0, [text length])];
+    pthread_mutex_unlock( &logStorageMutex );
     
-    // Find the first LF after the stuff we need to delete and delete up to that
-    NSUInteger end = [self indexAfter: 1 string: @"\n" inString: text range: NSMakeRange(start + charsToRemove, [text length] - start - charsToRemove)];
-    
-    NSRange rangeToDelete = NSMakeRange(start, end - start);
-    NSString * replacementLine = [NSString stringWithFormat: @"\n                    *Tunnelblick: Some entries have been removed because the log is too long\n"];
-    [logStorage replaceCharactersInRange: rangeToDelete withString: replacementLine];
+    [self doLogScrolling];
 }
 
 // Invoked when either log file has changed.
@@ -694,119 +774,172 @@ extern TBUserDefaults       * gTbDefaults;
     }
     
     while ( line ) {
-        [self insertLine: line beforeTunnelblickEntries: isFromOpenvpnLog beforeOpenVPNEntries: NO fromOpenVPNLog: isFromOpenvpnLog];
+        [self insertLine: line beforeTunnelblickEntries: isFromOpenvpnLog beforeOpenVPNEntries: NO fromOpenVPNLog: isFromOpenvpnLog fromTunnelblickLog: NO];
         if (  isFromOpenvpnLog  ) {
             line = [self nextLinesInOpenVPNString: &logString fromPosition:  &logStringPosition];
         } else {
             line = [self nextLineInScriptString:   &logString fromPosition:  &logStringPosition];
         }
     }
+    
+    [self doLogScrolling];
 }
 
 // Inserts a line into the log display at the "correct" position
 // The "correct" order is that all OpenVPN log entries for a particular date/time come before
 // any script log entries for that same time.
--(void) insertLine: (NSString *) line beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries  beforeOpenVPNEntries: (BOOL) beforeOpenVPNEntries fromOpenVPNLog: (BOOL) fromOpenVPNLog
+-(void)       insertLine: (NSString *) line
+beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
+    beforeOpenVPNEntries: (BOOL) beforeOpenVPNEntries
+          fromOpenVPNLog: (BOOL) isFromOpenVPNLog
+      fromTunnelblickLog: (BOOL) isFromTunnelblickLog;
 {
-    NSString * text = nil;
-
-    NSAttributedString * msgAS = [[[NSAttributedString alloc] initWithString: line] autorelease];
-
-    if (  ! text  ) {
-        text = [logStorage string];
+    if (  isFromTunnelblickLog  ) {
+        [tbLog appendString: line];
     }
     
-    NSString * lineTime;
-    if (   [line length] < 19
-        || [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @" "]  ) {
-        if (  fromOpenVPNLog  ) {
-            lineTime = [self lastOpenvpnEntryTime];
-        } else {
-            lineTime = [self lastScriptEntryTime];
-        }
-    } else {
-        lineTime = [line substringWithRange: NSMakeRange(0, 19)];
-        if (  fromOpenVPNLog  ) {
-            [self setLastOpenvpnEntryTime: lineTime];
-        } else {
-            [self setLastScriptEntryTime:  lineTime];
-        }
-    }
-
-    NSRange textRng = NSMakeRange(0, [text length]);
-    
-    // Special case: Nothing in log. Just append to it.
-    if (  textRng.length == 0  ) {
-        [logStorage appendAttributedString: msgAS];
-        [self setLastEntryTime: lineTime];
-        [self didAddLineToLogDisplay];
-        return;
-    }
-    
-    // Special case: time is the same or greater than last entry in the log. Just append to it.
-    NSComparisonResult result = [lastEntryTime compare: lineTime];
-    if (  result != NSOrderedDescending  ) {
-        [logStorage appendAttributedString: msgAS];
-        [self setLastEntryTime: lineTime];
-        [self didAddLineToLogDisplay];
-        return;
-    }
-    
-    // Search backwards through the display
-    NSRange currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: textRng.length inString: text];
-    unsigned numberOfLinesSkippedBackward = 0;
-
-    while (  currentLineRng.length != 0  ) {
-        NSComparisonResult result = [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]];
+    pthread_mutex_lock( &logStorageMutex );  // Note: unlock/endEditing in several places
+    NSTextStorage * logStore = [self logStorage];
+    if (  logStore  ) {
+        [logStore beginEditing];
         
-        if (  result == NSOrderedDescending  ) {
-            [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
+        NSString * text = nil;
+        
+        NSAttributedString * msgAS = [[[NSAttributedString alloc] initWithString: line] autorelease];
+        
+        if (  ! text  ) {
+            text = [logStore string];
+        }
+        
+        NSString * lineTime;
+        if (   [line length] < 19
+            || [[line substringWithRange: NSMakeRange(0, 1)] isEqualToString: @" "]  ) {
+            if (  isFromOpenVPNLog  ) {
+                lineTime = [self lastOpenvpnEntryTime];
+            } else {
+                lineTime = [self lastScriptEntryTime];
+            }
+        } else {
+            lineTime = [line substringWithRange: NSMakeRange(0, 19)];
+            if (  isFromOpenVPNLog  ) {
+                [self setLastOpenvpnEntryTime: lineTime];
+            } else {
+                [self setLastScriptEntryTime:  lineTime];
+            }
+        }
+        
+        NSRange textRng = NSMakeRange(0, [text length]);
+        
+        // Special case: Nothing in log. Just append to it.
+        if (  textRng.length == 0  ) {
+            [logStore appendAttributedString: msgAS];
+            
+            [logStore endEditing];
+            pthread_mutex_unlock( &logStorageMutex );
+            
+            [self setLastEntryTime: lineTime];
             [self didAddLineToLogDisplay];
             return;
         }
         
-        if (   (result == NSOrderedSame)
-            && ( ! (beforeTunnelblickEntries && beforeOpenVPNEntries) )  ) {
-            BOOL currentFromOpenVPN = TRUE;
-            if ( currentLineRng.length > 20  ) {
-                currentFromOpenVPN = ! [[text substringWithRange: NSMakeRange(currentLineRng.location+20, 1)] isEqualToString: @"*"];
-            }
-            if (  ! (beforeTunnelblickEntries ^ currentFromOpenVPN)  ) {
-                if (  numberOfLinesSkippedBackward == 0  ) {
-                    [logStorage appendAttributedString: msgAS];
-                    [self setLastEntryTime: lineTime];
-                    [self didAddLineToLogDisplay];
-                    return;
-                } else {
-                    [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
-                    [self didAddLineToLogDisplay];
-                    return;
-                }
-            }
-            if (  ! beforeTunnelblickEntries  ) {
-                if (  numberOfLinesSkippedBackward == 0  ) {
-                    [logStorage appendAttributedString: msgAS];
-                    [self setLastEntryTime: lineTime];
-                    [self didAddLineToLogDisplay];
-                    return;
-                } else {
-                    [logStorage insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
-                    [self didAddLineToLogDisplay];
-                    return;
-                }
-            }
+        // Special case: time is the same or greater than last entry in the log. Just append to it.
+        NSComparisonResult result = [lastEntryTime compare: lineTime];
+        if (  result != NSOrderedDescending  ) {
+            [logStore appendAttributedString: msgAS];
+            
+            [logStore endEditing];
+            pthread_mutex_unlock( &logStorageMutex );
+            
+            [self setLastEntryTime: lineTime];
+            [self didAddLineToLogDisplay];
+            return;
         }
         
-        currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: currentLineRng.location inString: text];
-        numberOfLinesSkippedBackward++;
+        // Search backwards through the display
+        NSRange currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: textRng.length inString: text];
+        unsigned numberOfLinesSkippedBackward = 0;
+        
+        while (  currentLineRng.length != 0  ) {
+            NSComparisonResult result = [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]];
+            
+            if (  result == NSOrderedDescending  ) {
+                [logStore insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
+                
+                [logStore endEditing];
+                pthread_mutex_unlock( &logStorageMutex );
+                
+                [self didAddLineToLogDisplay];
+                return;
+            }
+            
+            if (   (result == NSOrderedSame)
+                && ( ! (beforeTunnelblickEntries && beforeOpenVPNEntries) )  ) {
+                BOOL currentFromOpenVPN = TRUE;
+                if ( currentLineRng.length > 20  ) {
+                    currentFromOpenVPN = ! [[text substringWithRange: NSMakeRange(currentLineRng.location+20, 1)] isEqualToString: @"*"];
+                }
+                if (  ! (beforeTunnelblickEntries ^ currentFromOpenVPN)  ) {
+                    if (  numberOfLinesSkippedBackward == 0  ) {
+                        [logStore appendAttributedString: msgAS];
+                        
+                        [logStore endEditing];
+                        pthread_mutex_unlock( &logStorageMutex );
+                        
+                        [self setLastEntryTime: lineTime];
+                        [self didAddLineToLogDisplay];
+                        return;
+                    } else {
+                        [logStore insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
+                        
+                        [logStore endEditing];
+                        pthread_mutex_unlock( &logStorageMutex );
+                        
+                        [self didAddLineToLogDisplay];
+                        return;
+                    }
+                }
+                if (  ! beforeTunnelblickEntries  ) {
+                    if (  numberOfLinesSkippedBackward == 0  ) {
+                        [logStore appendAttributedString: msgAS];
+                        
+                        [logStore endEditing];
+                        pthread_mutex_unlock( &logStorageMutex );
+                        
+                        [self setLastEntryTime: lineTime];
+                        [self didAddLineToLogDisplay];
+                        return;
+                    } else {
+                        [logStore insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
+                        
+                        [logStore endEditing];
+                        pthread_mutex_unlock( &logStorageMutex );
+                        
+                        [self didAddLineToLogDisplay];
+                        return;
+                    }
+                }
+            }
+            
+            currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: currentLineRng.location inString: text];
+            numberOfLinesSkippedBackward++;
+        }
+        
+        if (  [logStore length] == 0  ) {
+            [logStore appendAttributedString: msgAS];
+            
+            [logStore endEditing];
+            pthread_mutex_unlock( &logStorageMutex );
+            
+            [self setLastEntryTime: lineTime];
+        } else {
+            [logStore insertAttributedString: msgAS atIndex: 0];
+            
+            [logStore endEditing];
+            pthread_mutex_unlock( &logStorageMutex );
+            
+        }
     }
     
-    if (  [logStorage length] == 0  ) {
-        [logStorage appendAttributedString: msgAS];
-        [self setLastEntryTime: lineTime];
-    } else {
-        [logStorage insertAttributedString: msgAS atIndex: 0];
-    }
     [self didAddLineToLogDisplay];
 }
 
@@ -903,76 +1036,41 @@ extern TBUserDefaults       * gTbDefaults;
             }
         }
     }
-    NSLog(@"constructOpenvpnLogPath: Cannot find OpenVPN log file for %@", [self configurationPath]);
     return nil;
 }
 
 //*********************************************************************************************************
-// Getters and Setters:
 
--(NSString *) configurationPath
-{
-    return [[configurationPath retain] autorelease];
-}
-
--(NSString *) lastOpenvpnEntryTime
-{
-    return [[lastOpenvpnEntryTime retain] autorelease];
-}
-
--(NSString *) lastScriptEntryTime
-{
-    return [[lastScriptEntryTime retain] autorelease];
-}
-
--(NSString *) openvpnLogPath
-{
-    return [[openvpnLogPath retain] autorelease];
-}
-
--(NSString *) scriptLogPath
-{
-    return [[scriptLogPath retain] autorelease];
-}
-
+// Returns the NSLogStorage object for the NSTextView that contains the log
+// BUT only if it is the log for this configuration. (If not, returns nil.)
 -(NSTextStorage *) logStorage
 {
-    return [[logStorage retain] autorelease];
+    MyPrefsWindowController * wc = [[NSApp delegate] logScreen];
+    if (  wc  ) {
+        if (  [self connection] == [wc selectedConnection]  ) {
+            ConfigurationsView      * cv = [wc configurationsPrefsView];
+            NSTextView              * lv = [cv logView];
+            NSTextStorage           * ts = [lv textStorage];
+            return ts;
+        }
+    }
+    
+    return nil;
 }
 
--(void) setLastEntryTime: (NSString *) newValue
-{
-    [newValue retain];
-    [lastEntryTime release];
-    lastEntryTime = newValue;
-}
 
--(void) setLastOpenvpnEntryTime: (NSString *) newValue
-{
-    [newValue retain];
-    [lastOpenvpnEntryTime release];
-    lastOpenvpnEntryTime = newValue;
-}
+TBSYNTHESIZE_OBJECT(retain, VPNConnection *, connection, setConnection)
 
--(void) setLastScriptEntryTime: (NSString *) newValue
-{
-    [newValue retain];
-    [lastScriptEntryTime release];
-    lastScriptEntryTime = newValue;
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSString *,      configurationPath)
 
--(void) setOpenvpnLogPath: (NSString *) newValue
-{
-    [newValue retain];
-    [openvpnLogPath release];
-    openvpnLogPath = newValue;
-}
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableString *, tbLog)
 
--(void) setScriptLogPath: (NSString *) newValue
-{
-    [newValue retain];
-    [scriptLogPath release];
-    scriptLogPath = newValue;
-}
+TBSYNTHESIZE_OBJECT_SET(NSString *, lastEntryTime, setLastEntryTime)
+
+TBSYNTHESIZE_OBJECT(retain, NSString *, lastOpenvpnEntryTime, setLastOpenvpnEntryTime)
+TBSYNTHESIZE_OBJECT(retain, NSString *, lastScriptEntryTime,  setLastScriptEntryTime)
+
+TBSYNTHESIZE_OBJECT(retain, NSString *, scriptLogPath,   setScriptLogPath)
+TBSYNTHESIZE_OBJECT(retain, NSString *, openvpnLogPath,  setOpenvpnLogPath)
 
 @end

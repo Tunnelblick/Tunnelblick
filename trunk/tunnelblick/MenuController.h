@@ -25,19 +25,20 @@
 
 #import <Carbon/Carbon.h>
 #import <Security/Security.h>
-#import "Sparkle/SUUpdater.h"
 #import "defines.h"
-#import "UKKQueue/UKKQueue.h"
-#import "VPNConnection.h"
-#import "ConfigurationUpdater.h"
-#import "MyPrefsWindowController.h"
-@class LogWindowController;
-@class VPNDetailsWindowController;
+
+
+@class VPNConnection;
+@class SUUpdater;
+@class UKKQueue;
+@class ConfigurationUpdater;
+@class MyPrefsWindowController;
 @class NetSocket;
 
 #ifdef INCLUDE_VPNSERVICE
 @class VPNService;
 #endif
+
 
 BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
                         BOOL * moveLibraryOpenVPN,
@@ -52,13 +53,13 @@ BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
 BOOL needToCopyBundle(void);
 
-@interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate,NSTextStorageDelegate,NSWindowDelegate>
+
+@interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
-	NSMenuItem              * detailsItem;                  // "Details..." item for menu
     NSMenuItem              * preferencesItem;             //    "Preferences..." item for menu
     NSMenuItem              * optionsItem;                  // "Options" item for menu
     NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
@@ -92,8 +93,7 @@ BOOL needToCopyBundle(void);
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     
-//    LogWindowController     * logScreen;                    // Log window ("Details..." window)
-    VPNDetailsWindowController * logScreen;                 // Log window ("VPN Details..." window)
+    MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
 
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
@@ -113,13 +113,15 @@ BOOL needToCopyBundle(void);
     
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
     
-    NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the Details... Window (i.e, logWindow)
+    NSTimer                 * showDurationsTimer;           // Used to periodically update display of connections' durations in the VPNDetails... Window
 	
     NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
 
     ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
+    
+    BOOL                      areLoggingOutOrShuttingDown;  // Flag that NSWorkspaceWillPowerOffNotification was received
     
     BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
@@ -160,8 +162,6 @@ BOOL needToCopyBundle(void);
 }
 
 // Menu actions
--(IBAction)         disconnectAllMenuItemWasClicked:        (id)                sender;
--(IBAction)         openLogWindow:                          (id)                sender;
 -(IBAction)         openPreferencesWindow:                  (id)                sender;
 -(IBAction)         addConfigurationWasClicked:             (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
@@ -213,7 +213,7 @@ BOOL needToCopyBundle(void);
 -(NSMutableArray *) largeAnimImages;
 -(NSImage *)        largeConnectedImage;
 -(NSImage *)        largeMainImage;
--(VPNDetailsWindowController *) logScreen;
+-(MyPrefsWindowController *) logScreen;
 -(NSString *)       customRunOnConnectPath;
 -(NSTimer *)        showDurationsTimer;
 -(void)             startOrStopDurationsTimer;
