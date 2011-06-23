@@ -38,9 +38,6 @@
 "100 KB" = "100 KB";
 
 /* NEEDS TRANSLATION *//* Button */
-"100 MB" = "100 MB";
-
-/* NEEDS TRANSLATION *//* Button */
 "Advanced..." = "Advanced...";
 
 /* Button */
@@ -60,9 +57,6 @@
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "VPN-Verbindung trennen und Tunnelblick beenden";
-
-/* Button */
-"Connect When Computer Starts" = "Beim Einschalten des Computers verbinden";
 
 /* Button */
 "Connect"= "Verbinden";
@@ -93,12 +87,6 @@
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "Download" = "Download";
-
-/* Button */
-"Edit configuration" = "Konfiguration bearbeiten";
-
-/* Button */
-"Examine configuration" = "Konfiguration überprüfen";
 
 /* Button */
 "Examine" = "Überprüfen";
@@ -244,9 +232,6 @@
 /* Menu item */
 "No VPN Configurations Available" = "Keine VPN-Konfigurationen verfügbar";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Preferences..." = "Preferences...";
-
 /* Menu item */
 "Quit Tunnelblick" = "Tunnelblick beenden";
 
@@ -262,9 +247,6 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "VPN Details..." = "VPN Details...";
 
-/* Checkbox name */
-"Automatically connect" = "Automatisch verbinden";
-
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";
 
@@ -279,10 +261,6 @@
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Nicht wieder fragen und immer ignorieren";
-
-/* Checkbox name */
-
-"Do not ask again, always connect" = "Nicht wieder fragen und immer verbinden";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Für diese Konfiguration nicht mehr darauf hinweisen";
@@ -322,14 +300,6 @@
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Use shadow copies of configuration files" = "Use shadow copies of configuration files";
-
-/* better English one: "Launch Tunnelblick now to also install one or more Tunnelblick VPN Configurations. If you decide to launch Tunnelblick later, you will need to install these configurations yourself."
-
-/* Checkbox name */
-"when Tunnelblick launches" = "beim Start von Tunnelblick";
-
-/* Checkbox name */
-"when computer starts" = "beim Einschalten des Computers";
 
 /* PopUpButton */
 "Do not set nameserver" = "Nameserver nicht festlegen";
@@ -441,9 +411,6 @@
 
 /* Window title */
 "Authentication failed" = "Authentifizierung gescheitert";
-
-/* Window title */
-"Configuration Change" = "Konfiguration bearbeiten";
 
 /* Window title */
 "Configuration Installation Error" = "Fehler bei der Installation der Konfiguration";
@@ -833,9 +800,6 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "Der Versuch %1$@ zu verbinden wurde abgebrochen: Das runOnConnect Skript gab folgenden Status aus: %2$d.";
 
 /* Window text */
-"The change will take effect the next time you connect." = "Die Veränderung wird ab der nächsten Verbindung angewandt.";
-
-/* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Die Konfigurationsdatei für „%@“ enthält offenbar die Optionen „user“ und/oder “group“ und ein Skript, das beim Trennen der Verbindung ausgeführt wird. (Entweder ist die Option „Nameserver nicht festlegen“ nicht aktiv, oder die Konfigurationdatei enthält die Option „down“.)\n\nWahrscheinlich kann die Verbindung nach einer Trennung nur dann erfolgreich wiederhergestellt werden, wenn das Plugin „openvpn-down-root.so“ verwendet wird.\n\nMöchten Sie das Plugin aktivieren?";
 
 /* Window text */
@@ -873,9 +837,6 @@
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Bei einer oder mehreren Konfigurationen ist ein Problem aufgetreten. Details finden Sie in der Konsole.\n\n";
-
-/* Window text */
-"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?" = "Diese Tunnelblick VPN Konfiguration beinhaltet ein oder mehrere Ereignisbenachrichtigungs-Skripte, welche nicht ausgeführt werden, solange Tunnelblick nicht beim Eintritt des Ereignisses läuft.\n\nWenn diese Konfiguration beim Einschalten des Computers eine Verbindung herstellt, werden diese Skripte möglicherweise nicht ausgeführt.\n\nMöchten Sie, dass diese Konfiguration eine Verbindung beim Einschalten des Computers herstellt?";
 
 /* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Öffnen Sie eine Tunnelblick-VPN-Konfiguration (Suffix „.tblk“), um sie zu installieren.\n\nDie neue Konfiguration steht sofort zur Verfügung.";
@@ -961,8 +922,8 @@
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick konnte die Verbindung zum OpenVPN-Prozess für die Konfiguration „%1$@“ nicht innerhalb von  %2$d Sekunden herstellen. Der Versuch wird abgebrochen.";
 
-/* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window" = "Tunnelblick konnte OpenVPN nicht starten, um %@ zu verbinden. Weitere Details finden Sie im OpenVPN log im Details... Fenster";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
 
 /* Window text */
 "Unable to Establish Communication" = "Verbindung fehlgeschlagen";

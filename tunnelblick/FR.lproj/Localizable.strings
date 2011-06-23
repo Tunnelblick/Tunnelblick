@@ -38,9 +38,6 @@
 "100 KB" = "100 KB";
 
 /* NEEDS TRANSLATION *//* Button */
-"100 MB" = "100 MB";
-
-/* NEEDS TRANSLATION *//* Button */
 "Advanced..." = "Advanced...";
 
 /* Button */
@@ -60,9 +57,6 @@
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Fermer les connections VPN et arreter Tunnelblick";
-
-/* Button */
-"Connect When Computer Starts" = "Se connecter lors du démarrage";
 
 /* Button */
 "Connect"    = "Connecter";
@@ -93,12 +87,6 @@
 
 /* Button */
 "Download" = "Télécharger";
-
-/* Button */
-"Edit configuration" = "Modifier la configuration";
-
-/* Button */
-"Examine configuration" = "Éxaminer configuration";
 
 /* Button */
 "Examine" = "Examiner";
@@ -244,9 +232,6 @@
 /* Menu item */
 "No VPN Configurations Available" = "Pas de configuration VPN disponible";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Preferences..." = "Preferences...";
-
 /* Menu item */
 "Quit Tunnelblick" = "Quitter Tunnelblick";
 
@@ -262,9 +247,6 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "VPN Details..." = "VPN Details...";
 
-/* Checkbox name */
-"Automatically connect" = "Connecter automatiquement";
-
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";
 
@@ -279,9 +261,6 @@
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "N’Interroger pas encore ; toujours « Ignorer »";
-
-/* Checkbox name */
-"Do not ask again, always connect" = "N’Interroger pas encore ; toujours connecter";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Ne prévenir pas encore contre cette chose pour cette configuration";
@@ -321,12 +300,6 @@
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Use shadow copies of configuration files" = "Use shadow copies of configuration files";
-
-/* Checkbox name */
-"when Tunnelblick launches" = "quand Tunnelblick se lance";
-
-/* Checkbox name */
-"when computer starts" = "quand l’ordinateur démarre";
 
 /* PopUpButton */
 "Do not set nameserver" = "Ne changer pas serveur de noms";
@@ -438,9 +411,6 @@
 
 /* Window title */
 "Authentication failed" = "Authentification échouée";
-
-/* Window title */
-"Configuration Change" = "Changement de configuration";
 
 /* Window title */
 "Configuration Installation Error" = "Érreur d’installation de configuration";
@@ -830,9 +800,6 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "L’essai de faire connecter « %1$@ » a été annulé :  le script « runOnConnect » s’est terminé avec l’état : %2$d.";
 
 /* Window text */
-"The change will take effect the next time you connect." = "Le changement prend effet la prochaine fois que vous connectez.";
-
-/* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Le fichier de configuration pour « %@ » semble utiliser les choix « possesseur » et/ou « groupe », mais il utilise un script de déconnexion (La choix « Ne changer pas serveur de noms » n’est pas choisie, ou il y a une phrase « down » dans le fichier de configuration.)\n\nIl est probable que redémarrer la connexion – quelque chose qui se passe automatiquement quand la connexion soit perdue – va échouer, à moins que le plugin OpenVPN « openvpn-down-root.so » soit utilisé.\n\nVoudriez-vous utiliser ce plugin ?";
 
 /* Window text */
@@ -870,9 +837,6 @@
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Il y a un problème avec une ou plusieures configurations. Les détails restent dans les Messages Console.\n\n";
-
-/* Window text */
-"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?" = "Cette configuration de VPN Tunnelblick contient un ou plusieurs scripts de notification d’événement, qui n’exécutent pas sans que Tunnelblick soit lancé avant que l’événement se produise.\n\nSi cette configuration connecte lorsque l’ordinateur démarre, ces scripts peuvent ne pas être exécutés.\n\nVoudriez-vous vraiment que cette configuration connecte lorsque l’ordinateur démarre ?";
 
 /* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Pour installer une configuration de VPN Tunnelblick (ayant l’extension « .tblk »), double-cliquez sur la.\n\nLa nouvelle configuration sera disponible dans Tunnelblick immédiatement.";
@@ -958,8 +922,8 @@
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick n’a pas pu établir des communications avec un processus OpenVPN déjà existant pour « %1$@ » après %2$d secondes. La tentative d’établir des communications a été annulée.";
 
-/* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window" = "Tunnelblick n’a pas pu lancer OpenVPN pour faire connection « %@ ». Pour de détails, veuillez voir les messages de OpenVPN dans la fenêtre « Détails… »";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
 
 /* Window text */
 "Unable to Establish Communication" = "Établissement des communications échouée";
