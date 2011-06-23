@@ -38,9 +38,6 @@
 "100 KB" = "100 KB";
 
 /* NEEDS TRANSLATION *//* Button */
-"100 MB" = "100 MB";
-
-/* NEEDS TRANSLATION *//* Button */
 "Advanced..." = "Advanced...";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -60,9 +57,6 @@
 
 /* NEEDS TRANSLATION *//* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
-
-/* NEEDS TRANSLATION *//* Button */
-"Connect When Computer Starts" = "Connect When Computer Starts";
 
 /* Button */
 "Connect"= "接続";
@@ -93,12 +87,6 @@
 
 /* NEEDS TRANSLATION *//* Button */
 "Download" = "Download";
-
-/* Button */
-"Edit configuration" = "環境設定ファイルの編集";
-
-/* NEEDS TRANSLATION *//* Button */
-"Examine configuration" = "Examine configuration";
 
 /* NEEDS TRANSLATION *//* Button */
 "Examine" = "Examine";
@@ -244,9 +232,6 @@
 /* NEEDS TRANSLATION *//* Menu item */
 "No VPN Configurations Available" = "No VPN Configurations Available";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Preferences..." = "Preferences...";
-
 /* Menu item */
 "Quit Tunnelblick" = "終了 Tunnelblick";
 
@@ -263,9 +248,6 @@
 "VPN Details..." = "VPN Details...";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
-"Automatically connect" = "Automatically connect";
-
-/* NEEDS TRANSLATION *//* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
@@ -279,9 +261,6 @@
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
-
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not ask again, always connect" = "Do not ask again, always connect";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
@@ -321,12 +300,6 @@
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Use shadow copies of configuration files" = "Use shadow copies of configuration files";
-
-/* NEEDS TRANSLATION *//* Checkbox name */
-"when Tunnelblick launches" = "when Tunnelblick launches";
-
-/* NEEDS TRANSLATION *//* Checkbox name */
-"when computer starts" = "when computer starts";
 
 /* NEEDS TRANSLATION *//* PopUpButton */
 "Do not set nameserver" = "Do not set nameserver";
@@ -438,9 +411,6 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Authentication failed" = "Authentication failed";
-
-/* NEEDS TRANSLATION *//* Window title */
-"Configuration Change" = "Configuration Change";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Configuration Installation Error" = "Configuration Installation Error";
@@ -830,9 +800,6 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "The attempt to connect %1$@ has been cancelled: the runOnConnect script returned status: %2$d.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"The change will take effect the next time you connect." = "The change will take effect the next time you connect.";
-
-/* NEEDS TRANSLATION *//* Window text */
 "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -870,9 +837,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "There was a problem with one or more configurations. Details are in the Console Log\n\n";
-
-/* NEEDS TRANSLATION *//* Window text */
-"This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?" = "This Tunnelblick VPN Configuration contains one or more event notification scripts which will not be executed unless Tunnelblick is running at the time the event happens.\n\nIf this configuration connects when the computer starts, these scripts may not be executed.\n\nDo you wish to have this configuration connect when the computer starts?";
 
 /* NEEDS TRANSLATION *//* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately.";
@@ -959,7 +923,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the Details... window";
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Unable to Establish Communication" = "Unable to Establish Communication";

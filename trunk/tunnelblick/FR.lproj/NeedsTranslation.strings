@@ -32,9 +32,6 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"100 MB" = "100 MB";
-
-/* Button */
 "Advanced..." = "Advanced...";
 
 /* Button */
@@ -111,9 +108,6 @@
 
 /* Menu Item */
 "Make Configuration Shared..." = "Make Configuration Shared...";
-
-/* Menu item */
-"Preferences..." = "Preferences...";
 
 /* Menu Item */
 "Rename Configuration..." = "Rename Configuration...";
@@ -336,6 +330,9 @@
 
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations.";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
 
 /* Window text */
 "Unexpected disconnection:" = "Unexpected disconnection:";
