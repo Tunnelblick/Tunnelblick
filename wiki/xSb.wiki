@@ -3,7 +3,8 @@
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
 *[News News]*<br><br>
-*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 and 3.2 Documentation]*<br><br>
+*[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Documentation]*<br><br>
+*[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 Documentation]*<br><br>
 <font color="red">*_(This documentation is for Tunnelblick 3.0 only.)*</font><br><br>
 <hr>
 *Tunnelblick <font color="red">3.0</font> Documentation*<br>
