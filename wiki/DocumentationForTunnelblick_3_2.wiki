@@ -35,7 +35,7 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2. 
    * Fixes problems with Fast User Switching.
    * Fixes problems using TAP, DHCP, and 'Set nameserver (alternate 1)'.
    * Fixes failure to to alert the user when a VPN username/password or passphrase fails. Offers to try using different credentials.
-   * And many more… (See the [wRlsNotes Release Notes] for details.
+   * And many more… (See the [RlsNotes Release Notes] for details.
 
 <hr>
 <font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
