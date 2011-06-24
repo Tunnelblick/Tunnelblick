@@ -5,7 +5,7 @@ A stable release is a version that has been tested as thoroughly as possible and
 
 All available releases may be found on the [DownloadsEntry Downloads page].
 
-Cumulative [wRlsNotes Release Notes] describe changes for all versions.
+Cumulative [RlsNotes Release Notes] describe changes for all versions.
 
 ------------------
 

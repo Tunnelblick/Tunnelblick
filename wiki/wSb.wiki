@@ -2,7 +2,7 @@
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
-*[wNews News]*<br><br>
+*[News News]*<br><br>
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*<br><br>
 <hr>
 *Tunnelblick <font color="red">3.1</font> and <font color="red">3.2</font> Documentation*<br><br>
@@ -31,7 +31,7 @@
 *Releases*
     [wStable Stable Releases]<br>
     [wBeta Beta Releases]<br>
-    [wRlsNotes Release notes]<br>
+    [RlsNotes Release notes]<br>
 *Customized Versions*
     [wDistribute Distributing Tunnelblick]<br>
     [wCusDeployed "Deployed" versions]<br>
@@ -49,7 +49,7 @@
     [wFAQ FAQ]<br>
     [wThanks Thanks]<br>
     [wKnown Known Issues]<br>
-    [wRlsNotes Release notes]<br>
+    [RlsNotes Release notes]<br>
     [wAppleScriptSupport AppleScript Support]<br>
     [wGettingVPNService Getting VPN Service]<br>
     [wSysReq System requirements]<br>

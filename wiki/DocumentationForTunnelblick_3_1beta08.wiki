@@ -5,7 +5,7 @@
 <font size="3">*[http://tunnelblick.googlecode.com/files/Tunnelblick_3.1beta08.dmg Download Tunnelblick 3.1beta08]*</font>
 <hr>
 
-*[wRlsNotes Full Release Notes]*
+*[RlsNotes Full Release Notes]*
 
 ==What's New in Tunnelblick 3.1beta08 (Changes from 3.1beta06)==
   * <font color="red">*IMPORTANT NOTE FOR THOSE USING "WHEN COMPUTER STARTS" WITH EARLIER BETA VERSIONS:*</font> When you update to Tunnelblick 3.1beta08 or above from 3.1beta02 - 3.1beta06, Tunnelblick will not recognize any *running* "when computer starts" configurations. Five to ten seconds after you start Tunnelblick, they will be identified as unknown OpenVPN processes and you will be given the choice to leave them alone or disconnect them. You should chose to disconnect them in this dialog and then manually connect them in Tunnelblick. (You do not need to do this immediately, but you will not be able to control them with Tunnelblick. The dialog will appear each time you start Tunnelblick if these connections are still active.) This need only be done once, and is not necessary if there are no "when computer starts" configurations that are connected at the time you update.

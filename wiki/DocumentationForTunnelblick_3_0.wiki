@@ -3,7 +3,7 @@
 
 *<font color="red">Note: Tunnelblick 3.0 is not the latest stable version of Tunnelblick. See the [DownloadsEntry Downloads page] for the latest stable version of Tunnelblick.</font>*
 
-This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.0. For more details or changes from other versions to Tunnelblick 3.0, see the [ReleaseNotes Tunnelblick Release Notes].
+This is a summary of major changes from Tunnelblick version 3.0b10 to version 3.0. For more details or changes from other versions to Tunnelblick 3.0, see the [RlsNotes Tunnelblick Release Notes].
 
 ==Better Security==
   * Includes the latest stable version of OpenVPN.

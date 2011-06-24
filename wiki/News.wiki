@@ -1,14 +1,26 @@
 #summary The Latest News About Tunnelblick
-#sidebar wSb
 
-<font color="red">*IMPORTANT: SEE THE [wRlsNotes RELEASE NOTES] for 3.1beta08 IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
+<font color="red">*IMPORTANT: SEE THE [RlsNotes RELEASE NOTES] for 3.1beta08 IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
 
+--------------------
+
+2011-06-24: *Tunnelblick 3.2beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Portuguese localization by Denis Volpato Martins. Thanks!
+ * Includes a single up/down script pair for Set nameserver which works for both tun and tap devices. Thanks to Nick Williams!
+ * Implements a new simplified menu and a new 'VPN Details…' window:
+  * Allows easy management of configurations, including renaming, duplicating, and removing them, and the ability to remove a configuration's credentials from the Keychain.
+  * Includes a new GUI for modifying configuration settings, program preferences, and the appearance of the Tunnelblick icon and menu.
+ * Optionally plays a sound when the connection is completed or unexpectedly terminated or restarted. By default, the system's 'Glass' sound is used as the tunnel up sound, and the system's 'Basso' sound is used as the tunnel unexpectedly down sound.
+ * Includes several new features for VPN service providers.
+ * Fixes several bugs and includes additional security protections.
+ See the [RlsNotes Release Notes] for details.
+ 
 --------------------
 
 2011-05-17: *Tunnelblick 3.2beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Fixes a crash on startup on OS X 10.4 ("Tiger") and 10.5 ("Leopard").
  * Fixes a typo in the help page for the "Appearance" preferences.
- See the [wRlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
@@ -17,7 +29,7 @@
  * The Tunnelblick menu has been streamlined.
  * Tunnelblick is digitally signed to avoid asking the user for permission to access the Keychain.
  * Contains other enhancements and fixes several bugs.
- See the [wRlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
@@ -26,7 +38,7 @@
  * Includes complete Portuguese localization by Denis Volpato Martins. Thanks, Denis!
  * Removes the 'Clear log' button from the Details… window. (It is no longer needed because the log display is cleared at the start of each connection and its size is limited to 100,000 characters. This limit can be overridden by the 'maxLogDisplaySize' preference.).
  * Fixes several bugs.
- See the [wRlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
@@ -35,7 +47,7 @@
  * 'Monitor connection' is more tolerant of unimportant changes and may be customized.
  * Higher 'verb' levels may be used without performance degradation.
  * Fixes several bugs.
- See the [wRlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
@@ -44,7 +56,7 @@
  * Fixes a bug that sometimes failed to alert the user when a VPN username/password or passphrase failed to be authenticated.
  * Allows Tunnelblick VPN Configurations ('.tblk' packages) to be uninstalled.
  * Includes several other enhancements and bug fixes.
- See the [wRlsNotes Release Notes] for details.
+ See the [RlsNotes Release Notes] for details.
 
 --------------------
 
@@ -54,12 +66,12 @@
 
 --------------------
 
-2011-02-19: *Tunnelblick 3.1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
+2011-02-19: *Tunnelblick 3.1.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
  * Fixes a bug that caused up/down scripts in Tunnelblick VPN Configurations (.tblks) to be ignored.
 
 --------------------
 
-2011-02-19: *Tunnelblick 3.2beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
+2011-02-19: *Tunnelblick 3.2beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
  * Adds [wAppleScriptSupport AppleScript support].
  * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!
  * Includes OpenSSL 1.0.0d.
@@ -74,7 +86,7 @@
 
 --------------------
 
-2011-02-02: *Tunnelblick 3.2beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [wRlsNotes Release Notes].
+2011-02-02: *Tunnelblick 3.2beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * pre-connect.sh
    * post-tun-tap-load.sh
@@ -120,19 +132,19 @@
 
 --------------------
 
-2010-12-18: *Tunnelblick 3.1.1 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-12-18: *Tunnelblick 3.1.1 is available*. Full details are in the [RlsNotes Release Notes].
 
  * Fixes several problems and warns the user about unexpected disconnections.
 
 --------------------
 
-2010-12-05: *Tunnelblick 3.1 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-12-05: *Tunnelblick 3.1 is available*. Full details are in the [RlsNotes Release Notes].
 
  * Only the version and build numbers were updated.
 
 --------------------
 
-2010-12-03: *Tunnelblick 3.1beta24 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-12-03: *Tunnelblick 3.1beta24 is available*. Full details are in the [RlsNotes Release Notes].
 
  * Updates to use OpenSSL 1.0.0c, which fixes several security vulnerabilities.
 
@@ -142,7 +154,7 @@
 
 --------------------
 
-2010-12-01: *Tunnelblick 3.1beta22 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-12-01: *Tunnelblick 3.1beta22 is available*. Full details are in the [RlsNotes Release Notes].
 
   * Updated to include OpenVPN 2.1.4 and OpenSSL 1.0.0b.
   
@@ -154,13 +166,13 @@
 
 --------------------
 
-2010-10-31: *Tunnelblick 3.1beta20 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-10-31: *Tunnelblick 3.1beta20 is available*. Full details are in the [RlsNotes Release Notes].
 
   * Removed confusing question when Tunnelblick is launched and foo.tap and/or foo.tun (old Tunnelblick kexts) are loaded. The question asked if foo.tun and foo.tap should be unloaded. Now they are unloaded only as needed to make a connection: foo.tap is unloaded if net.tunnelblick.tap is being loaded for the connection, and foo.tun is unloaded if net.tunnelblick.tun is being loaded for the connection. The 'skipAskingToUnloadFooKexts' preference is no longer used. To override Tunnelblick's automatic loading of the tun or tap kexts required for a connection, see the following per-configuration [wPrefs Preferences]: "-doNotLoadTunKext", "-doNotLoadTapKext", "-loadTunKext", and "-loadTapKext".
 
 --------------------
 
-2010-10-16: *Tunnelblick 3.1beta18 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-10-16: *Tunnelblick 3.1beta18 is available*. Full details are in the [RlsNotes Release Notes].
 
   * When there are more than eight configurations, the Details… window changes to display a list of connections on the left side and a single tab with the log and controls on the right. This was done because of OS X problems when there are a large numbers of tabs. The 'maximumNumberOfTabs' preference specifies the maximum number of tabs to display; if there are more than that many configurations, the display will change as described above. The preference defaults to 8. Set this preference to 0 to always show configurations in a list on the left.
 
@@ -172,7 +184,7 @@
 
 --------------------
 
-2010-10-08: *Tunnelblick 3.1beta16 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-10-08: *Tunnelblick 3.1beta16 is available*. Full details are in the [RlsNotes Release Notes].
 
   * Replaces the 'Set nameserver' checkbox with a drop-down list that can display additional choices to allow different up/down scripts to be used.
 
@@ -190,7 +202,7 @@
 
 --------------------
 
-2010-09-09: *Tunnelblick 3.1beta14 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-09-09: *Tunnelblick 3.1beta14 is available*. Full details are in the [RlsNotes Release Notes].
 
  * Fixes a problem that, under certain circumstances, crashes client.down.tunnelblick.sh. (Issue 159.)
 
@@ -200,7 +212,7 @@
 
 --------------------
 
-2010-08-08: *Tunnelblick 3.1beta12 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-08-08: *Tunnelblick 3.1beta12 is available*. Full details are in the [RlsNotes Release Notes].
 
 New features include:
 
@@ -216,7 +228,7 @@ New features include:
  
 --------------------
 
-2010-07-29: *Tunnelblick 3.1beta10 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-07-29: *Tunnelblick 3.1beta10 is available*. Full details are in the [RlsNotes Release Notes].
 
 This beta includes an important bug fix:
 
@@ -232,7 +244,7 @@ New features include:
 
 --------------------
 
-2010-07-10: *Tunnelblick 3.1beta08 is available*. Full details are in the [wRlsNotes Release Notes].
+2010-07-10: *Tunnelblick 3.1beta08 is available*. Full details are in the [RlsNotes Release Notes].
 
 In addition to fixing bugs, this release adds several new features:
  * Benji Greig has updated the Tunnelblick icon for Coverflow and created a distinctive icon for Tunnelblick VPN Configurations and a new background image for the disk image. Thanks, Benji!
@@ -254,7 +266,7 @@ In addition to fixing bugs, this release adds several new features:
 
 This is mainly a bug-fix release, but it adds one new feature: It runs new scripts, pre-connect.sh and post-disconnect.sh, as root before connecting and/or after disconnecting if the scripts exist. (They must be in a .tblk package). This allows manipulation of kexts and/or the network configuration before the tun/tap kexts are loaded and OpenVPN is run and after OpenVPN exits and the kexts are unloaded.
 
-The full list of changes is in the [wRlsNotes Release Notes].
+The full list of changes is in the [RlsNotes Release Notes].
 
 --------------------
 
@@ -268,13 +280,13 @@ This is mainly a bug-fix release, but there are some new features:
 
   * The up, down, and leasewatch scripts have been modified to implement options for the scripts which Tunnelblick causes OpenVPN to put first (before OpenVPN parameters) in the command line which starts the up/down scripts.
 
-The full list of changes is in the [wRlsNotes Release Notes].
+The full list of changes is in the [RlsNotes Release Notes].
 
 --------------------
 
 2010-05-14: *Tunnelblick 3.1beta02 is available*.
 
-The full list of changes is in the [wRlsNotes Release Notes].
+The full list of changes is in the [RlsNotes Release Notes].
 
 New features include:
 

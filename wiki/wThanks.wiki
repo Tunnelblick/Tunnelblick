@@ -46,6 +46,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Michael Bianco    </td>
+    <td>      Button images    </td>
+  </tr>
+
+  <tr>
     <td>      Michael Schloh von Bennewit    </td>
     <td>      64-bit enabling and testing    </td>
   </tr>
@@ -61,7 +66,12 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      Contributed to early code    </td>
   </tr>
 
-  <tr>
+   <tr>
+    <td>      Math Campbell    </td>
+    <td>      Button image    </td>
+  </tr>
+
+ <tr>
     <td>      Raal Goff    </td>
     <td>      Animation, icon sets code    </td>
   </tr>
@@ -119,6 +129,12 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Michael Williams    </td> 
     <td>      Multiple configuration folders
+    </td>
+  </tr>
+
+  <tr>
+    <td>      Nick Williams    </td> 
+    <td>      Up/Down scripts
     </td>
   </tr>
 

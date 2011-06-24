@@ -23,6 +23,44 @@ Versions which are NOT vulnerable:
 
 --------------------
 
+*3.2beta16 (2011-06-24)*
+
+ * Portuguese localization by Denis Volpato Martins. Thanks!
+
+ * Includes a single up/down script pair for Set nameserver which works for both tun and tap devices. Thanks to Nick Williams!
+
+ * Implements a new simplified menu, which moves all options and preferences to a new 'VPN Details…' window.
+
+ * The new 'VPN Details…' window:
+  * Allows easy management of configurations, including renaming, duplicating, and removing them, and the ability to remove a configuration's credentials from the Keychain.
+  * Includes a new GUI for modifying configuration settings, program preferences, and the appearance of the Tunnelblick icon and menu.
+
+ * Optionally plays a sound when the connection is completed or unexpectedly terminated or restarted. By default, the system's 'Glass' sound is used as the tunnel up sound, and the system's 'Basso' sound is used as the tunnel unexpectedly down sound.
+
+ * Implements a new facility for installing configurations at the time Tunnelblick is installed, and updating them at any time thereafter.
+  * Installation of these configurations is triggered by including them in 'Tunnelblick Configurations.bundle' in Tunnelblick.app/Contents/Resources/. Thus they can be distributed as part of the normal Tunnelblick update mechanism.
+  * The configurations are 'Tunnelblick VPN Configurations' (.tblk packages) and include all the options such configurations provide.
+  * The configurations may be updated automatically, separate from the application.
+  * Configuration updates (like Tunnelblick updates) must be digitally signed, or be transmitted over an SSL connection.
+  * Configuration updates do not modify Tunnelblick.app, so they do not require modifying the digital signature of Tunnelblick.app.
+  * The 'Tunnelblick Configurations.bundle' includes Info.plist entries that specify a URL for checking for and obtaining updates.
+
+ * Includes sample code for a VPN service provider to allow signup for service from a Tunnelblick menu command. This includes several screens stepping the user through acceptance of terms of service, password assignment, etc. an interacts with a service provider's webserver. It is implemented as a compile-time option, turned off in the source code at present. (This was developed for a VPN service provider, but is being released in generic form under the GPL as a part of Tunnelblick.)
+
+ * Implements a new 'universal login' facility that allows a single username/password combination stored in the Keychain to be used for all configurations that do not have a separate username/password combination in the Keychain. This facility was designed to be used by the above VPN service provider signup code (although it does not presently use it).
+
+ * Fixes problem with Tunnelblick icon not appearing in security dialogs.
+
+ * Fixes problem displaying help on Snow Leopard.
+ 
+ * Fixes problem with displaying logs for multiple configurations.
+
+ * Implements 'reset all warnings' better.
+
+ * Includes additional protection against symlink attacks.
+
+--------------------
+
 *3.2beta14 (2011-05-17)*
 
  * Fixes a crash on startup on OS X 10.4 ("Tiger") and 10.5 ("Leopard").

@@ -2,7 +2,7 @@
 *[http://code.google.com/p/tunnelblick Tunnelblick Project home]*<br><br>
 *[http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
-*[wNews News]*<br><br>
+*[News News]*<br><br>
 *[DocumentationForTunnelblick_3_1 Tunnelblick 3.1 and 3.2 Documentation]*<br><br>
 <font color="red">*_(This documentation is for Tunnelblick 3.0 only.)*</font><br><br>
 <hr>
@@ -15,7 +15,7 @@
     [KnownIssues Known Issues]<br><br>
 
     [DocumentationForTunnelblick_3_0 What's New in Tunnelblick 3.0]<br>
-    [ReleaseNotes Release Notes]<br>
+    [RlsNotes Release Notes]<br>
 
     [Preferences Preferences]<br>
     [AddingTranslations Adding an Additional Language]<br>
