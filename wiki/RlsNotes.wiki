@@ -8,17 +8,6 @@
 
 --------------------
 
-*<font size="3" color="red">Security Vulnerabilities</font>*
-Bugs causing security vulnerabilities exist in several versions of Tunnelblick. All users of Tunnelblick are advised to update to the latest version. For more information on the vulnerabilities including instructions for updating, see the [vulnerability20110127FAQ 2011-01-27 Vulnerability FAQ] or [vulnerability20110112FAQ 2011-01-12 Vulnerability FAQ].
-
-Versions which are NOT vulnerable:
- 3.2 (all)<br>
- 3.1.3 and later<br>
- 3.0.1<br>
- 3.0b10 and earlier
-
---------------------
-
 ==Version 3.2==
 
 --------------------
