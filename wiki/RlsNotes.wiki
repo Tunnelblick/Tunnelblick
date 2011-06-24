@@ -24,7 +24,7 @@
   * Allows easy management of configurations, including renaming, duplicating, and removing them, and the ability to remove a configuration's credentials from the Keychain.
   * Includes a new GUI for modifying configuration settings, program preferences, and the appearance of the Tunnelblick icon and menu.
 
- * Optionally plays a sound when the connection is completed or unexpectedly terminated or restarted. By default, the system's 'Glass' sound is used as the tunnel up sound, and the system's 'Basso' sound is used as the tunnel unexpectedly down sound.
+ * Optionally plays a sound when the connection is completed or unexpectedly terminated or restarted.
 
  * Implements a new facility for installing configurations at the time Tunnelblick is installed, and updating them at any time thereafter.
   * Installation of these configurations is triggered by including them in 'Tunnelblick Configurations.bundle' in Tunnelblick.app/Contents/Resources/. Thus they can be distributed as part of the normal Tunnelblick update mechanism.
