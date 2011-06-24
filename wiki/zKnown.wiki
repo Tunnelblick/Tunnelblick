@@ -1,0 +1,34 @@
+#summary Known Issues
+#sidebar zSb
+
+*PLEASE* discuss any problems on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion List].
+
+The following are known problems or limitations in Tunnelblick version 3.1:
+
+  * If "Monitor connection" is checked, Tunnelblick monitors the network interface that connects to the VPN and will restart the connection if changes to DNS or WINS are detected. With some network configurations this causes repeated disconnects/reconnects every few seconds. To avoid this, uncheck "Monitor connection" for the problematic configuration on the "VPN Details…" window. Please post your complete log (showing the problem with "Monitor connection" checked) to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group] so we can fix this problem. (Be sure to cross out any sensitive information such as server IP addresses before you post your log.)
+
+  * The standard script that "Set nameserver" uses handles DNS for most common setups. For other situations, the "Alternate 1" script may work, or you can use custom scripts. See [zConfigT#The_%22Set_Nameserver%22_Check_Box_and_DNS_&_WINS_Sett Setting up Configurations] for details.
+
+  * The standard script that "Set nameserver" uses does not implement pushing domain information from the server (only DNS and WINS information). Try to connect using "Set nameserver (alternate 1)" in Tunnelblick 3.2beta10 or later.
+
+  * When attempting to connect to a VPN using a TAP connection, OpenVPN may display a series of "write to TUN/TAP : Input/output error (code=5)" error messages. Although a few of these messages are normal, if they continue to be displayed for more than a few seconds, try to connect using "Set nameserver (alternate 1)" in Tunnelblick 3.2beta10 or later.
+
+  * When attempting to connect to a VPN, Tunnelblick may fail to load tun.kext or tap.kext. This can happen when another program, or another version of Tunnelblick, has loaded different versions of tun.kext and tap.kext. A For example, the Cisco VPN client loads conflicting kexts at system startup, and they must be unloaded for Tunnelblick to work. Viscosity loads tun.kext and tap.kext when it is running. This problem may be avoided (for Viscosity) by quitting Viscosity, or (for Cisco) by using the [DownloadsEntry#User-Contributed_Scripts user-contributed script] designed for that purpose.
+
+  * Under some circumstances, traffic between two computers on a LAN may be routed through a bridged VPN. See [http://code.google.com/p/tunnelblick/issues/detail?id=154#c10 Issue 154 comment 10].
+
+  * If "Set nameserver" is selected, all "up" and "down" options in the OpenVPN configuration file will be ignored. To work around this, include appropriate parts of the standard up/down scripts in your own scripts and select "Do not set nameserver". (The reason for this is that OpenVPN's "down-pre" option cannot be used with the standard "Set nameserver" down script, but may be used by custom scripts, so the two scripts cannot be used together.)
+
+  * High values for the OpenVPN "verb" option may cause high (99+ %) CPU use by Tunnelblick. Reduce the "verb" value in the OpenVPN configuration file to 3 or lower for best performance.
+
+  * If a custom up or down script contains Windows line breaks (CR-LF), it cannot be executed on OS X. The OpenVPN log displayed in the "VPN Details…" window will show an error message of "script failed: could not execute external program". You must remove the CR characters so the file has standard Unix line breaks (LF). This is an OS X limitation.
+
+  * Usernames, passwords, and private keys may contain only printable [http://www.asciitable.com ASCII] characters (including punctuation). They may not contain Unicode characters or "extended character set" characters.
+
+  * Updates will fail if the name of Tunnelblick is not "Tunnelblick" or "Tunnelblick.app". To avoid this, rename the application temporarily, perform the update, then restore the original name. (You must change the name of the application itself, not the name of an alias or shortcut to the application.)
+
+  * Localization is not complete. We need additional translations to German, Catalan, Chinese (both simplified and traditional), Spanish, French, Korean, Japanese, and Norwegian (Norsk Bokmål). If you can help with these or any other languages, please contact [http://code.google.com/u/jkbullard/ Jon].
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===

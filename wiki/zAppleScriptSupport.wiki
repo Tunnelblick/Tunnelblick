@@ -1,0 +1,131 @@
+#summary AppleScript Support
+#sidebar zSb
+
+*<font size="4">!AppleScript Support</font><br>
+
+<wiki:toc max_depth="2" />
+
+This document is about !AppleScript Support -- making Tunnelblick do things via scripting. Tunnelblick itself also uses scripts; see [zUsingScripts Using Scripts].
+
+Tunnelblick 3.2beta04 and above may be controlled using !AppleScript.
+
+!AppleScripts may connect, disconnect, or list configurations.
+
+Please note that the verbs only _initiate_ actions. The "connect" verb, for example, is the equivalent of clicking the "Connect" button. It returns immediately after starting an attempt to connect using a particular configuration and does not indicate the connection has been accomplished successfully.
+
+<hr>
+
+==!AppleScript Dictionary==
+
+*
+application* _n_ :
+
+ contains _configurations_.
+
+*
+configuration* _n_ : A VPN configuration.
+
+ contained by _application_.
+
+ properties
+
+*
+ name *(text, r/o) : Name of the configuration.
+
+*
+ state* (text, r/o) : State of the configuration. 
+   'EXITING' means disconnecting or disconnected.<br>
+   'CONNECTED' means connected.<br>
+   Other values show progress towards a connection.
+
+*
+  autoconnect* (text, r/o) : 
+   'LAUNCH' means the configuration will be connected automatically when Tunnelblick launches.<br>
+   'START' means the configuration will be connected automatically when the computer starts.<br>
+   'NO' means the configuration will not be connected automatically.
+
+*
+connect *_v_ : Connect a VPN configuration.
+
+*
+ connect* text : Name of configuration to connect.<br>
+  → boolean : Returns true if a connection is being attempted, false if the configuration is already connected.
+
+*
+disconnect *_v_ : Disconnect a VPN configuration.
+
+*
+ disconnect* text : Name of configuration to disconnect.<br>
+  → boolean : Returns true if a disconnection is being attempted, false if the configuration is already disconnected.
+
+*
+connect all *_v_ : Connect all unconnected VPN configurations.
+
+*
+ connect all*
+  → integer : Returns the number of configurations for which a connection is being attempted.
+
+*
+disconnect all *_v_ : Disconnect all connected VPN configurations.
+
+*
+ disconnect all*
+  → integer : Returns the number of configurations for which a disconnection is being attempted.
+
+*
+disconnect all except when computer starts* _v_ : Disconnect all connected VPN configurations except 'when computer starts' configurations.
+
+*
+ disconnect all except when computer starts*
+  → integer : Returns the number of configurations for which a disconnection is being attempted.
+
+<hr>
+
+==Examples==
+
+tell application "Tunnelblick"
+
+ get configurations
+  --> {configuration "Work", configuration "Work-Development", configuration "Home", configuration "Test"}
+
+ disconnect all
+  --> 0
+
+ connect "Work-Development"
+  --> true
+
+ disconnect (get name of second configuration)
+  get name of configuration 2
+   --> "Work-Development"
+  disconnect "Work-Development"
+   --> true
+
+ connect (get name of first configuration where state = "EXITING")
+  get name of configuration 1 whose state = "EXITING"
+   --> "Work"
+  connect "Work"
+   --> true
+
+ disconnect all except when computer starts
+  --> 1
+
+ get state of second configuration
+  --> "EXITING"
+
+ get state of first configuration where name = "Work"
+  --> "EXITING"
+
+ get name of configurations
+  --> {"Work", "Work-Development", "Home", "Test"}
+
+ get state of configurations
+  --> {"EXITING", "EXITING", "EXITING", "EXITING"}
+
+ get autoconnect of configurations
+  --> {"NO", "NO", "NO", "NO"}
+
+end tell
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

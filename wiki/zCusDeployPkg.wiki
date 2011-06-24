@@ -1,0 +1,28 @@
+#summary "Deployed" Compared to "Configurations"
+#sidebar zSb
+
+==Comparing Tunnelblick VPN Configurations ("Configurations")  and Deployed Versions of Tunnelblick==
+  * Configurations in two Deployed versions may not be combined.
+  * Configurations in Deployed versions may optionally be combined with Configurations and .ovpn and .conf configurations.
+
+  * Deployed versions contain configurations within Tunnelblick.app
+  * Configurations are copied to ~/Library/Application Support/Tunnelblick/Configurations or /Library/Application Support/Tunnelblick/Shared, depending on whether they are private or shared.
+
+  * Deployed versions use "forced-preferences.plist" to force any Tunnelblick preference. The user cannot change the forced preferences. Wildcards may be used to specify preferences for multiple configurations.
+  * Configurations use Info.plist to provide default values for preferences of that configuration. The user may change the preferences. No wildcards are allowed.
+
+  * The Deploy folder is backed up each time Tunnelblick is launched if contents of Deploy have changed. The Deploy folder is restored from the backup if a Tunnelblick which does not contain the Deploy folder is launched from the same location. This means that once a Deployed version is launched and the backup is created, the launch of a "fresh" copy of Tunnelblick (one without a Deploy folder) from the same location will change that "fresh" version into a Deployed version. This is how the built-in updater can update Tunnelblick without losing the Deploy folder. If the updated "fresh" version of Tunnelblick contains Deploy, that (presumably new) version of Deploy will replace the old version (and then be backed up).
+  * No backups of a Configuration are created. However, note that the installation of a Configuration involves copying the Configuration, leaving the original unchanged.
+
+  * Deployed versions ask for a computer administrator username/password only once, on the first launch of Tunnelblick. At that time, the program itself and all Deployed configurations are secured.
+  * Non-deployed versions ask for  a computer administrator username/password on the first launch of Tunnelblick and when a Configuration is installed.
+
+  * In Deployed versions: key, certificate, script etc. files are referred to in the configuration file relative to /Deploy.
+  * In Configurations: key, certificate, script etc. files are referred to in the configuration file relative to /Resources. That is, they are referred relative to the folder which contains the OpenVPN configuration file.
+
+  * Configurations may contain identifier and version information that is be used by Tunnelblick to manage updates.
+  * Although Deployed versions may contain identifier or version information, Tunnelblick does not use that information.
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
