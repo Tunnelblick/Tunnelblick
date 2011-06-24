@@ -5,6 +5,7 @@
 *[News News]*<br><br>
 *[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Documentation]*<br><br>
 *[DocumentationForTunnelblick_3_0 Tunnelblick 3.0 Documentation]*<br><br>
+<font color="red">*_(This documentation is for Tunnelblick 3.1 only.)*</font><br><br>
 <hr>
 *Tunnelblick <font color="red">3.1</font> Documentation*<br><br>
 *Getting Started*
