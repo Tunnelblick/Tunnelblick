@@ -1,7 +1,5 @@
 #summary The Latest News About Tunnelblick
 
---------------------
-
 2011-06-24: *Tunnelblick 3.2beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Portuguese localization by Denis Volpato Martins. Thanks!
  * Includes a single up/down script pair for Set nameserver which works for both tun and tap devices. Thanks to Nick Williams!
