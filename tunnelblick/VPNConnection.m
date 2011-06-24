@@ -2132,6 +2132,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     return [logDisplay openvpnLogPath];
 }
 
+TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelUpSound,   setTunnelUpSound)
+TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelDownSound, setTunnelDownSound)
+
+
 //*********************************************************************************************************
 //
 // AppleScript support
