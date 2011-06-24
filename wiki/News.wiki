@@ -1,7 +1,5 @@
 #summary The Latest News About Tunnelblick
 
-<font color="red">*IMPORTANT: SEE THE [RlsNotes RELEASE NOTES] for 3.1beta08 IF YOU HAVE USED "WHEN COMPUTER STARTS" WITH 3.1beta02 - 3.1beta06 BUT HAVE NOT USED 3.1beta08 or LATER.*</font> 
-
 --------------------
 
 2011-06-24: *Tunnelblick 3.2beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
