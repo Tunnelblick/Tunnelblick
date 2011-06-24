@@ -170,6 +170,9 @@ typedef enum
 
 -(BOOL)             usedModifyNameserver;
 
+TBPROPERTY_WRITEONLY(NSSound *, tunnelUpSound, setTunnelUpSound)
+TBPROPERTY_WRITEONLY(NSSound *, tunnelDownSound, setTunnelDownSound)
+
 //*********************************************************************************************************
 //
 // AppleScript support

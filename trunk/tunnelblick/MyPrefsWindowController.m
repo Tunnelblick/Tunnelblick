@@ -77,8 +77,7 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
-              preference: (NSString *)          preference
-               defaultIs: (NSString *)          defaultIs;
+              preference: (NSString *)          preference;
 
 -(void) setValueForCheckbox: (NSButton *) checkbox
               preferenceKey: (NSString *) preferenceKey
@@ -311,14 +310,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
                 arrayController: [configurationsPrefsView soundOnConnectArrayController]
-                     preference: @"-tunnelUpSoundName"
-                      defaultIs: @"Glass"];
+                     preference: @"-tunnelUpSoundName"];
     
     
     [self setupSoundButton: [configurationsPrefsView soundOnDisconnectButton]
                 arrayController: [configurationsPrefsView soundOnDisconnectArrayController]
-                     preference: @"-tunnelDownSoundName"
-                      defaultIs: @"Basso"];
+                     preference: @"-tunnelDownSoundName"];
     
     // Set up a timer to update connection times
     [[NSApp delegate] startOrStopDurationsTimer];
@@ -491,7 +488,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
               preference: (NSString *)          preference
-               defaultIs: (NSString *)          defaultIs
 {
     NSUInteger ix = NSNotFound;
     NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
@@ -510,20 +506,6 @@ static BOOL firstTimeShowingWindow = TRUE;
             } else {
                 ix = ix + 1;
             }
-        }
-        
-    } else {
-        ix = [[configurationsPrefsView sortedSounds] indexOfObject: defaultIs];
-        if (  ix == NSNotFound  ) {
-            if (  [[configurationsPrefsView sortedSounds] count] > 0  ) {
-                NSString * substituteSoundName = [[configurationsPrefsView sortedSounds] objectAtIndex: 0];
-                NSLog(@"Default sound '%@' for preference '%@' is not available, using sound '%@'", defaultIs, key, substituteSoundName);
-                ix = 1;
-            } else {
-                NSLog(@"Ignoring '%@' preference because no sounds are available", key);
-            }
-        } else {
-            ix = ix + 1;
         }
     }
     
@@ -2184,10 +2166,22 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
                 NSString * newName;
                 if (  newValue == 0) {
                     newName = @"None";
+                    VPNConnection * connection = [self selectedConnection];
+                    if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
+                        [connection setTunnelUpSound: nil];
+                    } else {
+                        [connection setTunnelDownSound: nil];
+                    }
                 } else {
                     newName = [[configurationsPrefsView sortedSounds] objectAtIndex: newValue - 1];
                     NSSound * sound = [NSSound soundNamed: newName];
                     if (  sound  ) {
+                        VPNConnection * connection = [self selectedConnection];
+                        if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
+                            [connection setTunnelUpSound: sound];
+                        } else {
+                            [connection setTunnelDownSound: sound];
+                        }
                         if (  ! doNotPlaySounds  ) {
                             [sound play];
                         }
