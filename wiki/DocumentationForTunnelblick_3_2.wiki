@@ -1,0 +1,46 @@
+#summary Documentation for Tunnelblick 3.2
+#sidebar zSb
+
+<hr>
+<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
+<hr>
+
+This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. For more details, see [wThreeZeroToThreeOneChanges Changes from Version 3.0 to Version 3.1]. For changes from other versions to Tunnelblick 3.1, see the [RlsNotes Tunnelblick Release Notes].
+
+Better Security
+ * Includes the latest stable versions of OpenVPN (2.2.0), and PKCS#11 (1.08).
+ * Imbeds the latest stable version of the OpenSSL library (1.0.d).
+ * Includes additional protection against symlink attacks.
+
+Better Usability
+ * The Tunnelblick menu has been streamlined.
+ * The new "VPN Details…" window lets you:
+  * Manage configurations -- you can easily add, delete, duplicate, and rename configurations, remove Keychain credentials, etc.
+  * Change configuration settings
+  * Change Tunnelblick's behavior and appearance.
+ * Tunnelblick now allows copy/cut/paste of usernames and paste of passwords and passphrases.
+ * Tunnelblick is now less sensitive to minor network changes.
+ * Tunnelblick includes complete French and Portuguese localization by Jeremy W. Sherman and Denis Volpato Martins, respectively.
+ * The Tunnelblick application is now digitally signed, so that the user will not be asked to authorize Tunnelblick to use the Keychain each time the program is updated (on OS X 10.5 "Leopard" and above).
+
+More Capabilities
+ * [wAppleScriptSupport AppleScript support].
+ * Scripts may be automatically run before and tun/tap kexts are loaded, after a connection has been made, when a reconnection attempt is being made, and after a connection has been disconnected. For more details, see [wUsingScripts Using Scripts].
+ * The status message (the first line of the menu exposed when you click the Tunnelblick icon) allows you to disconnect all open connections with one click.
+ * Higher 'verb' levels may be used without performance degradation.
+ * Tunnelblick VPN Configurations ('.tblk' packages) may now be uninstalled or reinstalled by double-clicking.
+
+Better Reliability
+ * Fixes several bugs, including:
+   * Fixes problems with Fast User Switching.
+   * Fixes problems using TAP, DHCP, and 'Set nameserver (alternate 1)'.
+   * Fixes failure to to alert the user when a VPN username/password or passphrase fails. Offers to try using different credentials.
+   * And many more… (See the [wRlsNotes Release Notes] for details.
+
+<hr>
+<font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
+<hr>
+
+------------------
+
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
