@@ -31,6 +31,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[https://sales.hotspotvpn.com/info.asp?rid=tunnelblick&pid=2&tc=1 HotSpotVPN]*
   * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
+  * *[http://www.vpnsecure.me/?xyz=21 VPN.S]*
   * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]*
 </td></tr></table>
 
@@ -61,16 +62,16 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpn-38.com/en.html VPN-38]*
-  * *[http://www.tunnelblick.net/to.php?to=https://www.vpnsecure.me VPN-S]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
+  * *[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*
 </td></tr></table>
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-03-04.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-06-24.)
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to Tunnelblick.
 
