@@ -610,10 +610,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Hide Configuration on Tunnelblick Menu"  , @"Menu Item")];
         }
         
-        [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setEnabled: YES];
-        [[configurationsPrefsView showOpenvpnLogMenuItem]               setEnabled: YES];
-        [[configurationsPrefsView removeCredentialsMenuItem]            setEnabled: YES];
-        
+        [[configurationsPrefsView removeConfigurationButton]            setEnabled: YES];
+        [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: YES];
         
         // right split view
         
@@ -892,7 +890,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  authorization == nil  ) {
         // Get an AuthorizationRef and use executeAuthorized to run the installer to delete the file
         NSString * msg = [NSString stringWithFormat: 
-                          NSLocalizedString(@" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@", @"Window text"),
+                          NSLocalizedString(@" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@", @"Window text"),
                           displayName,
                           notDeletingOtherFilesMsg];
         authorization = [NSApplication getAuthorizationRef: msg];

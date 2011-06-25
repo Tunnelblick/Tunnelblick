@@ -681,7 +681,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [checkForUpdatesNowItem release];
     [vpnDetailsItem release];
     [quitItem release];
-    [hotKeySubmenu release];
     [statusMenuItem release];
     [statusItem release];
     [logScreen release];
