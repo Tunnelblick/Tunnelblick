@@ -60,21 +60,9 @@ BOOL needToCopyBundle(void);
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
-    NSMenuItem              * preferencesItem;             //    "Preferences..." item for menu
-    NSMenuItem              * optionsItem;                  // "Options" item for menu
-    NSMenu                  * optionsSubmenu;               //    Submenu for "Options"
-    NSMenuItem              * preferencesTitleItem;         //    "Preferences" menu item (just used as a title)
-    NSMenuItem              * putIconNearSpotlightItem;     //      "Put Icon Near the Spotlight Icon" menu item
-    NSMenuItem              * useOriginalIconItem;          //      "Use Original Icon" menu item
-    NSMenuItem              * monitorConfigurationDirItem;  //      "Monitor the Configuration Folder" menu item
-    NSMenuItem              * showConnectedDurationsItem;   //      "Show Connection Timers" menu item
-    NSMenuItem              * warnAboutSimultaneousItem;    //      "Warn About Simultaneous Connections" menu item
-    NSMenuItem              * useShadowCopiesItem;          //      "Use Shadow Copies of Configuration Files" menu item
-    NSMenuItem              * autoCheckForUpdatesItem;      //      "Automatically Check for Updates" menu item
-    NSMenuItem              * reportAnonymousInfoItem;      //      "Report Anonymous System Info" menu item
+    NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
     NSMenu                  * hotKeySubmenu;                //      Shortcut Key Submenu
-    NSMenuItem              * hotKeySubmenuItem;            //      Shortcut Key Item in Options menu
-    NSMenuItem              * addConfigurationItem;         //    "Add Configuration..." menu item
+    NSMenuItem              * addConfigurationItem;         //    "Add a VPN..." menu item
     
 #ifdef INCLUDE_VPNSERVICE
     NSMenuItem              * registerForTunnelblickItem;//    "Register for Tunnelblick..." menu item
@@ -145,7 +133,6 @@ BOOL needToCopyBundle(void);
     EventHotKeyRef            hotKeyRef;                    // Reference for the current hot key
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
     UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
-    NSMenuItem              * hotKeySubmenuItemThatIsOn;    // Menu item for the hot key that is currently in use or nil if no hot key active
     int                       hotKeyCurrentIndex;           // Index of the hot key that is currently in use (0 = none, else 1...12)
 
     NSMutableArray          * customMenuScripts;            // Array of paths to the scripts for custom menu items

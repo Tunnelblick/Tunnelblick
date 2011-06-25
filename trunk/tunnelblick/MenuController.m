@@ -194,7 +194,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         dotTblkFileList = nil;
         showDurationsTimer = nil;
-        hotKeySubmenuItemThatIsOn = nil;
         customRunOnLaunchPath = nil;
         customRunOnConnectPath = nil;
         customMenuScripts = nil;
@@ -680,19 +679,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [aboutItem release];
     [checkForUpdatesNowItem release];
-    [reportAnonymousInfoItem release];
-    [autoCheckForUpdatesItem release];
-    [warnAboutSimultaneousItem release];
-    [useShadowCopiesItem release];
-    [monitorConfigurationDirItem release];
-    [putIconNearSpotlightItem release];
-    [useOriginalIconItem release];
-    [optionsSubmenu release];
-    [optionsItem release];
-    [preferencesItem release];
+    [vpnDetailsItem release];
     [quitItem release];
-    [hotKeySubmenuItemThatIsOn release];
-    [hotKeySubmenuItem release];
     [hotKeySubmenu release];
     [statusMenuItem release];
     [statusItem release];
@@ -945,11 +933,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [addConfigurationItem setAction: @selector(addConfigurationWasClicked:)];
     }
     
-    [preferencesItem release];
-    preferencesItem = [[NSMenuItem alloc] init];
-    [preferencesItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
-    [preferencesItem setTarget: self];
-    [preferencesItem setAction: @selector(openPreferencesWindow:)];
+    [vpnDetailsItem release];
+    vpnDetailsItem = [[NSMenuItem alloc] init];
+    [vpnDetailsItem setTitle: NSLocalizedString(@"VPN Details...", @"Menu item")];
+    [vpnDetailsItem setTarget: self];
+    [vpnDetailsItem setAction: @selector(openPreferencesWindow:)];
     
     [quitItem release];
     quitItem = [[NSMenuItem alloc] init];
@@ -994,6 +982,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     if (  [myConfigDictionary count] == 0  ) {
         [myVPNMenu addItem: noConfigurationsItem];
+        [myVPNMenu addItem: addConfigurationItem];
     }
     
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
@@ -1003,14 +992,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         [myVPNMenu addItem: registerForTunnelblickItem];
         [myVPNMenu addItem: [NSMenuItem separatorItem]];
     }
-#else
-    if (  addConfigurationItem  ) {
-        [myVPNMenu addItem: addConfigurationItem];
-        [myVPNMenu addItem: [NSMenuItem separatorItem]];
-    }
 #endif
 
-	[myVPNMenu addItem: preferencesItem];
+	[myVPNMenu addItem: vpnDetailsItem];
 	
     [self addCustomMenuItems];
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
@@ -1034,6 +1018,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
             if (   [menuItem submenu]  ) {    // item is a submenu
                 menuItemTitle = [menuItem title];
+            } else if (  [[menuItem title] isEqualToString: NSLocalizedString(@"Add a VPN...", @"Menu item")]  ) {
+                break;
             } else {                                                            // item is a connection item
                 menuItemTitle = [[menuItem target] displayName];
             }
@@ -3725,37 +3711,6 @@ int runUnrecoverableErrorPanel(msg)
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://tunnelblick.net/"]];
 	}
     exit(2);
-}
-
--(void) hotKeySubmenuItemWasClicked: (NSMenuItem *) fKey
-{
-    if (  fKey == hotKeySubmenuItemThatIsOn  ) {
-        UnregisterEventHotKey(hotKeyRef);
-        
-        [hotKeySubmenuItemThatIsOn setState: NSOffState];
-        [hotKeySubmenuItemThatIsOn release];
-        hotKeySubmenuItemThatIsOn = nil;
-        
-        hotKeyModifierKeys = 0;
-        hotKeyKeyCode = 0;
-        
-        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"keyboardShortcutModifiers"];
-        [gTbDefaults setObject: [NSNumber numberWithInt: 0] forKey: @"keyboardShortcutKeyCode"];
-    } else {
-        [hotKeySubmenuItemThatIsOn setState: NSOffState];
-        [hotKeySubmenuItemThatIsOn release];
-        hotKeySubmenuItemThatIsOn = nil;
-        
-        int fIndex = [[fKey representedObject] intValue];
-
-        [self setupHotKeyWithCode: fKeyCode[fIndex] andModifierKeys:  cmdKey + optionKey];
-        
-        hotKeySubmenuItemThatIsOn = [fKey retain];
-        [hotKeySubmenuItemThatIsOn setState: NSOnState];
-        
-        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyModifierKeys] forKey:  @"keyboardShortcutModifiers"];
-        [gTbDefaults setObject: [NSNumber numberWithInt: hotKeyKeyCode]      forKey:  @"keyboardShortcutKeyCode"];
-    }
 }
 
 -(void) setHotKeyIndex: (int) newIndex

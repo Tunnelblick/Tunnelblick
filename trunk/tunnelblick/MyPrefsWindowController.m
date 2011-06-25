@@ -241,9 +241,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
-- (void) tabView: (NSTabView*) inTabView didSelectTabViewItem: (NSTabViewItem*) tabViewItem
+-(BOOL) tabView: (NSTabView *) inTabView shouldSelectTabViewItem: (NSTabViewItem *) tabViewItem
 {
-    NSLog(@"tabView:willSelectTabViewItem: invoked");
+    if (  [self selectedConnection]  ) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(void) tabView: (NSTabView *) inTabView didSelectTabViewItem: (NSTabViewItem *) tabViewItem
+{
     if (  inTabView == [configurationsPrefsView configurationsTabView]  ) {
         if (  tabViewItem == [configurationsPrefsView logTabViewItem]  ) {
             [[self selectedConnection] startMonitoringLogFiles];
@@ -276,84 +284,79 @@ static BOOL firstTimeShowingWindow = TRUE;
     authorization = 0;
     doNotPlaySounds = FALSE;
     
-    
     [self setupLeftNavigationToDisplayName: nil];   // MUST DO THIS FIRST SO A CONFIGURATION IS SELECTED
     
-    VPNConnection * connection = [self selectedConnection];
-    
-    if (  ! connection  ) {
-        return;
-    }
-        
-        
     // Right split view
     
     [[configurationsPrefsView configurationsTabView] setDelegate: self];
     
-    // The configuration's name was put in configurationNameTFC by setupLeftNavigationToDisplayName, above
-    
-    [self updateConnectionStatusAndTime];
-    
-    // Right split view - Log tab
-    
-    [self indicateNotWaitingForConnection: [self selectedConnection]];
-    
+    VPNConnection * connection = [self selectedConnection];
     
     // Right split view - Settings tab
+
+    if (  connection  ) {
     
-    [self validateWhenToConnect: [self selectedConnection]];
-    
-    // Set up setNameserverPopUpButton with localized content that varies with the connection
-    NSInteger ix = 0;
-    NSArray * content = [connection modifyNameserverOptionList];
-    [[configurationsPrefsView setNameserverArrayController] setContent: content];
-    [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
-    
-    // Select the appropriate Set nameserver entry
-    NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
-    id obj = [gTbDefaults objectForKey: key];
-    if (  obj != nil  ) {
-        if (  [obj respondsToSelector: @selector(intValue)]  ) {
-            ix = (NSInteger) [obj intValue];
-            if (  ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
-                NSLog(@"%@ preference ignored: value %d too large", key, ix);
-                ix = 0;
+        [self updateConnectionStatusAndTime];
+        
+        // Right split view - Log tab
+        
+        [self indicateNotWaitingForConnection: [self selectedConnection]];
+        
+        
+        [self validateWhenToConnect: [self selectedConnection]];
+        
+        // Set up setNameserverPopUpButton with localized content that varies with the connection
+        NSInteger ix = 0;
+        NSArray * content = [connection modifyNameserverOptionList];
+        [[configurationsPrefsView setNameserverArrayController] setContent: content];
+        [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
+        
+        // Select the appropriate Set nameserver entry
+        NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
+        id obj = [gTbDefaults objectForKey: key];
+        if (  obj != nil  ) {
+            if (  [obj respondsToSelector: @selector(intValue)]  ) {
+                ix = (NSInteger) [obj intValue];
+                if (  ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
+                    NSLog(@"%@ preference ignored: value %d too large", key, ix);
+                    ix = 0;
+                }
+            } else {
+                NSLog(@"%@ preference ignored: invalid value; must be a number", key);
             }
         } else {
-            NSLog(@"%@ preference ignored: invalid value; must be a number", key);
+            // Default is "Set namserver"
+            ix = 1;
         }
-    } else {
-        // Default is "Set namserver"
-        ix = 1;
+        
+        [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
+        [self setSelectedSetNameserverIndex: ix];
+        [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
+        
+        if (  [self forceDisableOfNetworkMonitoring]  ) {
+            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
+            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
+        } else {
+            [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
+                            key: @"-notMonitoringConnection"
+                       inverted: YES];
+            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
+        }
+        
+        [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
+               arrayController: [configurationsPrefsView soundOnConnectArrayController]
+                    preference: @"-tunnelUpSoundName"];
+        
+        
+        [self setupSoundButton: [configurationsPrefsView soundOnDisconnectButton]
+               arrayController: [configurationsPrefsView soundOnDisconnectArrayController]
+                    preference: @"-tunnelDownSoundName"];
+        
+        // Set up a timer to update connection times
+        [[NSApp delegate] startOrStopDurationsTimer];
     }
     
-    [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
-    [self setSelectedSetNameserverIndex: ix];
-    [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
-    
-    if (  [self forceDisableOfNetworkMonitoring]  ) {
-        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
-        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
-    } else {
-        [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
-                        key: @"-notMonitoringConnection"
-                   inverted: YES];
-        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
-    }
-    
-    [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
-                arrayController: [configurationsPrefsView soundOnConnectArrayController]
-                     preference: @"-tunnelUpSoundName"];
-    
-    
-    [self setupSoundButton: [configurationsPrefsView soundOnDisconnectButton]
-                arrayController: [configurationsPrefsView soundOnDisconnectArrayController]
-                     preference: @"-tunnelDownSoundName"];
-    
-    // Set up a timer to update connection times
-    [[NSApp delegate] startOrStopDurationsTimer];
-    
-	[self validateDetailsWindowControls];   // Set windows enabled/disabled
+    [self validateDetailsWindowControls];   // Set windows enabled/disabled
 }
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
@@ -626,22 +629,20 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self validateWhenToConnect: [self selectedConnection]];
         
     } else {
-        [[configurationsPrefsView makePrivateOrSharedMenuItem]          setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
-        [[configurationsPrefsView showOnTunnelblickMenuMenuItem]        setTitle: NSLocalizedString(@"Hide Configuration on Tunnelblick Menu"  , @"Menu Item")];
-        [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setTitle: NSLocalizedString(@"Edit OpenVPN configuration file...", @"Menu Item")];
+        
+        [[configurationsPrefsView configurationNameTFC]   setTitle: @""];
+        [[configurationsPrefsView configurationStatusTFC] setTitle: @""];
+        
+        [[configurationsPrefsView removeConfigurationButton]            setEnabled: NO];
+        [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: NO];
+        
+        // The "Log" and "Settings" items can't be selected because tabView:shouldSelectTabViewItem: will return NO if there is no selected connection
+        
+        [[configurationsPrefsView progressIndicator]                    setHidden: YES];
+        [[configurationsPrefsView logToClipboardButton]                 setEnabled: NO];
         
         [[configurationsPrefsView connectButton]                        setEnabled: NO];
         [[configurationsPrefsView disconnectButton]                     setEnabled: NO];
-        [[configurationsPrefsView advancedButton]                       setEnabled: NO];
-        [[configurationsPrefsView logToClipboardButton]                 setEnabled: NO];
-        
-        [[configurationsPrefsView renameConfigurationMenuItem]          setEnabled: NO];
-        [[configurationsPrefsView duplicateConfigurationMenuItem]       setEnabled: NO];        
-        [[configurationsPrefsView makePrivateOrSharedMenuItem]          setEnabled: NO];
-        [[configurationsPrefsView showOnTunnelblickMenuMenuItem]        setEnabled: NO];
-        [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setEnabled: NO];
-        [[configurationsPrefsView showOpenvpnLogMenuItem]               setEnabled: NO];
-        [[configurationsPrefsView removeCredentialsMenuItem]            setEnabled: NO];        
     }
 }
 
