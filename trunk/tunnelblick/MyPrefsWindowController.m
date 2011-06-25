@@ -163,6 +163,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) windowWillClose:(NSNotification *)notification
 {
+    [[self selectedConnection] stopMonitoringLogFiles];
+    
     // Save the window's frame and the splitView's frame and the TB version in the preferences
     NSString * mainFrameString = NSStringFromRect([[self window] frame]);
     NSString * leftFrameString = nil;
@@ -198,13 +200,19 @@ static BOOL firstTimeShowingWindow = TRUE;
 // Overrides superclass
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
 {
-    [infoPrefsView oldViewWillDisappear: view identifier: identifier];
+    if (  [view respondsToSelector: @selector(oldViewWillDisappear:identifier:)]  ) {
+        [(id) view oldViewWillDisappear: view identifier: identifier];
+    }
+    
     [self setCurrentViewName: nil];
     
     // If switching FROM Configurations, save the frame for later and remove resizing indicator
+    //                                   and stop monitoring the log
     if (   [identifier isEqualToString: @"Configurations"]  ) {
         currentFrame = [view frame];
         [[view window] setShowsResizeIndicator: NO];
+        
+        [[self selectedConnection] stopMonitoringLogFiles];
     }
 }
 
@@ -212,14 +220,20 @@ static BOOL firstTimeShowingWindow = TRUE;
 // Overrides superclass
 -(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
 {
-    [infoPrefsView newViewWillAppear: view identifier: identifier];
+    if (  [view respondsToSelector: @selector(newViewWillAppear:identifier:)]  ) {
+        [(id) view newViewWillAppear: view identifier: identifier];
+    }
+    
     [self setCurrentViewName: identifier];
     
     // If switching TO Configurations, restore its last frame (even if user resized the window)
+    //                                 and start monitoring the log
     // Otherwise, restore all other views' frames to the Configurations frame
     if (   [identifier isEqualToString: @"Configurations"]  ) {
         [view setFrame: currentFrame];
         [[view window] setShowsResizeIndicator: YES];
+        
+        [[self selectedConnection] startMonitoringLogFiles];
     } else {
         [appearancePrefsView setFrame: currentFrame];
         [generalPrefsView    setFrame: currentFrame];
@@ -227,6 +241,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+- (void) tabView: (NSTabView*) inTabView didSelectTabViewItem: (NSTabViewItem*) tabViewItem
+{
+    NSLog(@"tabView:willSelectTabViewItem: invoked");
+    if (  inTabView == [configurationsPrefsView configurationsTabView]  ) {
+        if (  tabViewItem == [configurationsPrefsView logTabViewItem]  ) {
+            [[self selectedConnection] startMonitoringLogFiles];
+        } else {
+            [[self selectedConnection] stopMonitoringLogFiles];
+        }
+    }
+}
 
 //***************************************************************************************************************
 
@@ -237,11 +262,17 @@ static BOOL firstTimeShowingWindow = TRUE;
     selectedSoundOnConnectIndex    = NSNotFound;
     selectedSoundOnDisconnectIndex = NSNotFound;    
 
-    previouslySelectedNameOnLeftNavList = nil;
-    leftNavList = nil;
-    leftNavDisplayNames = nil;
     selectedLeftNavListIndex = 0;
-    settingsSheetWindowController = nil;
+    
+    [leftNavList                          release];
+    leftNavList                         = nil;
+    [leftNavDisplayNames                  release];
+    leftNavDisplayNames                 = nil;
+    [settingsSheetWindowController        release];
+    settingsSheetWindowController       = nil;
+    [previouslySelectedNameOnLeftNavList  release];
+    previouslySelectedNameOnLeftNavList = nil;
+
     authorization = 0;
     doNotPlaySounds = FALSE;
     
@@ -256,6 +287,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         
     // Right split view
+    
+    [[configurationsPrefsView configurationsTabView] setDelegate: self];
     
     // The configuration's name was put in configurationNameTFC by setupLeftNavigationToDisplayName, above
     
@@ -365,16 +398,14 @@ static BOOL firstTimeShowingWindow = TRUE;
         for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
             [leftNavDisplayNames addObject: @""];
             NSString * folderName = [currentConfig objectAtIndex: i];
-            [leftNavList         addObject: [NSString stringWithString: 
-                                             [self indent: folderName by: firstDiff+i]]];
+            [leftNavList         addObject: [self indent: folderName by: firstDiff+i]];
             [currentFolders addObject: folderName];
             ++currentLeftNavIndex;
         }
         
         // Add a "configuration" line
-        [leftNavDisplayNames addObject: [NSString stringWithString: [connection displayName]]];
-        [leftNavList         addObject: [NSString stringWithString: 
-                                         [self indent: [currentConfig lastObject] by: [currentConfig count]-1]]];
+        [leftNavDisplayNames addObject: [connection displayName]];
+        [leftNavList         addObject: [self indent: [currentConfig lastObject] by: [currentConfig count]-1]];
         
         if (  displayNameToSelect  ) {
             if (  [displayNameToSelect isEqualToString: [connection displayName]]  ) {
@@ -1126,7 +1157,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  [gTbDefaults boolForKey: key]  ) {
             [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Hide Configuration on Tunnelblick Menu"      , @"Menu Item")];
             [gTbDefaults removeObjectForKey: key];
-            [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
         } else {
             [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Show Configuration on Tunnelblick Menu"      , @"Menu Item")];
             [gTbDefaults setBool: TRUE forKey: key];

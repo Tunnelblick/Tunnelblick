@@ -23,8 +23,8 @@
 #import <Cocoa/Cocoa.h>
 #import "defines.h"
 
-@interface ConfigurationsView : NSView {
-    
+@interface ConfigurationsView : NSView
+{    
     NSArray * sortedSounds;
     
     IBOutlet NSView              * leftSplitView;
@@ -52,6 +52,7 @@
     IBOutlet NSButton            * disconnectButton;
     IBOutlet NSButton            * connectButton;
     
+    IBOutlet NSTabView           * configurationsTabView;
     // Log tab
     
     IBOutlet NSTabViewItem       * logTabViewItem;
@@ -118,12 +119,13 @@ TBPROPERTY_READONLY(NSButton *,            configurationsHelpButton)
 TBPROPERTY_READONLY(NSButton *,            disconnectButton)
 TBPROPERTY_READONLY(NSButton *,            connectButton)
 
+TBPROPERTY_READONLY(NSTabView *,           configurationsTabView)
+
 TBPROPERTY_READONLY(NSTabViewItem *,       logTabViewItem)
 TBPROPERTY_READONLY(NSTextView *,          logView)
 
 TBPROPERTY_READONLY(NSProgressIndicator *, progressIndicator)
 TBPROPERTY_READONLY(NSButton *,            logToClipboardButton)
-
 
 TBPROPERTY_READONLY(NSTabViewItem *,       settingsTabViewItem)
 

@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J4138</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -12,10 +12,10 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
 			<integer value="117"/>
-			<integer value="44"/>
 			<integer value="576"/>
+			<integer value="1"/>
+			<integer value="44"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3759,6 +3759,14 @@
 					</object>
 					<int key="connectionID">737</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">configurationsTabView</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="467607997"/>
+					</object>
+					<int key="connectionID">738</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -5386,7 +5394,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{45, 616}, {760, 390}}</string>
+					<string>{{46, 616}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -5561,7 +5569,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{499, 352}, {760, 390}}</string>
+					<string>{{687, 402}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -5828,7 +5836,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">737</int>
+			<int key="maxID">738</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5949,6 +5957,7 @@
 							<string>configurationNameTFC</string>
 							<string>configurationStatusTFC</string>
 							<string>configurationsHelpButton</string>
+							<string>configurationsTabView</string>
 							<string>connectButton</string>
 							<string>connectionAlertSoundTFC</string>
 							<string>disconnectButton</string>
@@ -5994,6 +6003,7 @@
 							<string>NSTextFieldCell</string>
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
+							<string>NSTabView</string>
 							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
@@ -6042,6 +6052,7 @@
 							<string>configurationNameTFC</string>
 							<string>configurationStatusTFC</string>
 							<string>configurationsHelpButton</string>
+							<string>configurationsTabView</string>
 							<string>connectButton</string>
 							<string>connectionAlertSoundTFC</string>
 							<string>disconnectButton</string>
@@ -6104,6 +6115,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">configurationsHelpButton</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">configurationsTabView</string>
+								<string key="candidateClassName">NSTabView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">connectButton</string>
