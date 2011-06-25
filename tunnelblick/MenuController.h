@@ -61,7 +61,6 @@ BOOL needToCopyBundle(void);
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
     NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
-    NSMenu                  * hotKeySubmenu;                //      Shortcut Key Submenu
     NSMenuItem              * addConfigurationItem;         //    "Add a VPN..." menu item
     
 #ifdef INCLUDE_VPNSERVICE

@@ -215,9 +215,6 @@
 "Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File...";
 
 /* NEEDS TRANSLATION *//* Menu Item */
-"Edit OpenVPN configuration file..." = "Edit OpenVPN configuration file...";
-
-/* NEEDS TRANSLATION *//* Menu Item */
 "Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File...";
 
 /* NEEDS TRANSLATION *//* Menu Item */
@@ -611,7 +608,7 @@
 " (To install in a different location, drag %@ to that location.)" = " (Pour l’installer dans un emplacement différent, glissez %@ vers cet emplacement.)";
 
 /* NEEDS TRANSLATION *//* Window text */
-" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for the configuration will also be deleted permanently.%@";
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n%@" = " Voudriez-vous vraiment installer %1$@ dans %2$@%3$@?\n\n%4$@";
