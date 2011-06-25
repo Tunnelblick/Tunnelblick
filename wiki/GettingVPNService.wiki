@@ -42,6 +42,7 @@ The following VPN service providers have donated to Tunnelblick within the past 
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*
 </td></tr></table>
 
 <table border="1" width="100%"><tr><td>
@@ -66,12 +67,11 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
-  * *[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*
-</td></tr></table>
+ </td></tr></table>
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-06-24.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-06-25.)
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to use Tunnelblick.
 
