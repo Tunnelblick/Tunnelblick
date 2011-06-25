@@ -736,8 +736,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
                     [statusScreen restore];
                 }
 
-                [statusScreen setName: displayName];
-                [statusScreen setStatus: localizeNonLiteral(lastState, @"Connection status")];
+                [statusScreen setStatus: localizeNonLiteral(lastState, @"Connection status") forName: displayName];
                 [statusScreen fadeIn];
                 showingStatusWindow = TRUE;
             }
@@ -1922,7 +1921,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self showStatusWindow];
     }
     
-    [statusScreen setStatus: newState];
+    [statusScreen setStatus: newState forName: [self displayName]];
     
     if (  showingStatusWindow  ) {
         if (   [newState isEqualToString: @"CONNECTED"]

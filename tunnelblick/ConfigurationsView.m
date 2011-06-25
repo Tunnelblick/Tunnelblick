@@ -103,7 +103,7 @@ extern TBUserDefaults * gTbDefaults;
     [disconnectionAlertSoundTFC setTitle: NSLocalizedString(@"Unexpected disconnection:", @"Window text")];
     [self initializeSoundPopUpButtons];
     
-    [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton  ];
+    [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
 }
 
 
@@ -212,6 +212,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     configurationStatusTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            configurationsHelpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disconnectButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            connectButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabView *,           configurationsTabView)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,       logTabViewItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextView *,          logView)

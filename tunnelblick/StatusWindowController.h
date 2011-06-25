@@ -25,8 +25,12 @@
 @interface StatusWindowController : NSWindowController <NSAnimationDelegate,NSWindowDelegate>
 {
     IBOutlet NSButton        * cancelButton;
+    IBOutlet NSTextFieldCell * configurationNameTFC;
     IBOutlet NSTextFieldCell * statusTFC;
     IBOutlet NSImageView     * animationIV;
+    
+    NSUInteger                 statusScreenPosition; // Position of status window (0, 1, 2...)
+                                                     // Corresponds to bit in statusScreenPositionsInUse
     
     NSString                 * name;            // Name we are displaying - displayName of configuration
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration
@@ -55,6 +59,7 @@
 -(NSString *) name;
 -(void)       setName:                (NSString *) newName;
 
--(void)       setStatus:              (NSString *) theStatus;
+-(void)       setStatus:              (NSString *) theStatus
+                forName:              (NSString *) theName;
 
 @end

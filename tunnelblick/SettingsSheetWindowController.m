@@ -106,8 +106,10 @@ extern TBUserDefaults       * gTbDefaults;
 -(void) setConfigurationName: (NSString *) newName
 {
     if (  ! [configurationName isEqualToString: newName]  ) {
+        [configurationName release];
         configurationName = [newName retain];
         
+        [connection release];
         connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: configurationName];
         
         if (  showingSettingsSheet  ) {
@@ -191,9 +193,9 @@ extern TBUserDefaults       * gTbDefaults;
     
     // For Connecting tab
     
-    [scanConfigurationFileCheckbox             setTitle: NSLocalizedString(@"Scan configuration file for problems before connecting", @"Checkbox name")];
-    [useTunTapDriversCheckbox                  setTitle: NSLocalizedString(@"Use Tunnelblick tun/tap drivers"                       , @"Checkbox name")];
-    [flushDnsCacheCheckbox                     setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
+    [scanConfigurationFileCheckbox          setTitle: NSLocalizedString(@"Scan configuration file for problems before connecting", @"Checkbox name")];
+    [useTunTapDriversCheckbox               setTitle: NSLocalizedString(@"Use Tunnelblick tun/tap drivers"                       , @"Checkbox name")];
+    [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
     
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
@@ -260,9 +262,9 @@ extern TBUserDefaults       * gTbDefaults;
 -(void) initializeDnsWinsPopUp: (NSPopUpButton *) popUpButton arrayController: (NSArrayController *) ac
 {
     NSArray * content = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Ignore"             , @"Button"), @"name", @"ignore" , @"value", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restore", @"Button"), @"name", @"restore", @"value", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restart connection" , @"Button"), @"name", @"restart", @"value", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Ignore"            , @"Button"), @"name", @"ignore" , @"value", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restore"           , @"Button"), @"name", @"restore", @"value", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restart connection", @"Button"), @"name", @"restart", @"value", nil],
                          nil];
     [ac setContent: content];
     

@@ -31,7 +31,7 @@
 @class VPNConnection;
 @class SettingsSheetWindowController;
 
-@interface MyPrefsWindowController : DBPrefsWindowController <NSTextStorageDelegate, NSWindowDelegate>
+@interface MyPrefsWindowController : DBPrefsWindowController <NSTextStorageDelegate, NSWindowDelegate, NSTabViewDelegate>
 {   
     NSString                      * currentViewName;
     NSRect                          currentFrame;

@@ -930,6 +930,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
     
 #ifdef INCLUDE_VPNSERVICE
+    [registerForTunnelblickItem release];
     registerForTunnelblickItem = [[NSMenuItem alloc] init];
     [registerForTunnelblickItem setTitle: NSLocalizedString(@"Register for Tunnelblick...", @"Menu item VPNService")];
     [registerForTunnelblickItem setTarget: self];
@@ -959,16 +960,16 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [statusItem setHighlightMode:YES];
     [statusItem setMenu:nil];
 	
-    [myVPNMenu release];
-	myVPNMenu = [[NSMenu alloc] init];
-    [myVPNMenu setDelegate:self];
-	[statusItem setMenu: myVPNMenu];
-    
     [statusMenuItem release];
 	statusMenuItem = [[NSMenuItem alloc] init];
     [statusMenuItem setTarget: self];
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
 
+    [myVPNMenu release];
+	myVPNMenu = [[NSMenu alloc] init];
+    [myVPNMenu setDelegate:self];
+	[statusItem setMenu: myVPNMenu];
+    
 	[myVPNMenu addItem:statusMenuItem];
 	
     [myVPNMenu addItem:[NSMenuItem separatorItem]];
@@ -1077,7 +1078,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     NSMenu * newSubmenu = [[[NSMenu alloc] initWithTitle:@"A Configuration SubMenu Title"] autorelease];
     
     // Create a new submenu item for the outer menu
-    NSMenuItem * newMenuItem = [[NSMenuItem alloc] init];
+    NSMenuItem * newMenuItem = [[[NSMenuItem alloc] init] autorelease];
     [newMenuItem setTitle: subMenuName];
     [newMenuItem setSubmenu: newSubmenu];
     

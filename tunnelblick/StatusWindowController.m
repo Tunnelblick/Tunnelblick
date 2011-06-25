@@ -20,6 +20,7 @@
  */
 
 
+#import <pthread.h>
 #import "defines.h"
 #import "StatusWindowController.h"
 #import "MenuController.h"
@@ -28,6 +29,9 @@
 
 
 TBUserDefaults * gTbDefaults;         // Our preferences
+
+static NSUInteger statusScreenPositionsInUse = 0;
+static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZER;
 
 @interface StatusWindowController()   // Private methods
 
@@ -103,11 +107,55 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         }
     }
     
-    [panel setTitle: name];
+    // Put the window in the lowest available position number
 
-    // Put the window in the upper-right corner of the screen
-    NSRect normalFrame = NSMakeRect(screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0,
-                                    screen.origin.y + screen.size.height - panelFrame.size.height - 10.0,
+    pthread_mutex_lock( &statusScreenPositionsInUseMutex );
+    
+    NSUInteger maxNumberOfPositions = 32; // JKB
+    NSUInteger inUse = statusScreenPositionsInUse;
+    NSUInteger mask  = 1;
+    NSUInteger positionNumber;
+    for (  positionNumber=0; positionNumber<maxNumberOfPositions; positionNumber++  ) {
+        if (  (inUse & 1) == 0  ) {
+            break;
+        }
+        inUse = inUse >> 1;
+        mask  = mask  << 1;
+    }
+    
+    if (  positionNumber < maxNumberOfPositions  ) {
+        statusScreenPositionsInUse = statusScreenPositionsInUse | mask;
+        statusScreenPosition = positionNumber;
+    } else {
+        statusScreenPosition = NSNotFound;
+    }
+    
+    pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
+    
+    // Stack the screens top to bottom, right to left
+    
+    double verticalScreenSize = screen.size.height - 10.0;  // Size we can use on the screen
+    NSUInteger screensWeCanStackVertically = verticalScreenSize / (panelFrame.size.height + 5);
+    if (  screensWeCanStackVertically < 1  ) {
+        screensWeCanStackVertically = 1;
+    }
+    
+    double horizontalScreenSize = screen.size.width - 10.0;  // Size we can use on the screen
+    NSUInteger screensWeCanStackHorizontally = horizontalScreenSize / (panelFrame.size.width + 5);
+    if (  screensWeCanStackHorizontally < 1  ) {
+        screensWeCanStackHorizontally = 1;
+    }
+    
+    double verticalOffset   = (panelFrame.size.height + 5.0) *  (positionNumber % screensWeCanStackVertically);
+    double horizontalOffset = (panelFrame.size.width  + 5.0) * ((positionNumber / screensWeCanStackVertically) % screensWeCanStackHorizontally);
+    
+    double verticalPosition   = screen.origin.y + screen.size.height - panelFrame.size.height - 10.0 - verticalOffset;
+    double horizontalPosition = screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0 - horizontalOffset;
+    
+    
+    // Put the window in the upper-right corner of the screen but offset in Y by the position number    
+    NSRect normalFrame = NSMakeRect(horizontalPosition,
+                                    verticalPosition,
                                     panelFrame.size.width,
                                     panelFrame.size.height);
     
@@ -130,6 +178,7 @@ TBUserDefaults * gTbDefaults;         // Our preferences
     }
     
     [self setSizeAndPosition];
+    [[self window] setTitle: @"Tunnelblick"];
     [self showWindow: self];
     [self initialiseAnim];
     [self fadeIn];
@@ -213,6 +262,12 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         }
 
 		isOpen = NO;
+        
+        if (  statusScreenPosition != NSNotFound  ) {
+            pthread_mutex_lock( &statusScreenPositionsInUseMutex );
+            statusScreenPositionsInUse = statusScreenPositionsInUse & ( ~ (1 << statusScreenPosition));
+            pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
+        }
 	}
 }
 
@@ -248,6 +303,11 @@ TBUserDefaults * gTbDefaults;         // Our preferences
     return [[statusTFC retain] autorelease];
 }
 
+-(NSTextFieldCell *) configurationNameTFC
+{
+    return [[configurationNameTFC retain] autorelease];
+}
+
 -(NSString *) name
 {
     return [[name retain] autorelease];
@@ -259,26 +319,33 @@ TBUserDefaults * gTbDefaults;         // Our preferences
         [name release];
         name = [newName retain];
     }
-    [[self window] setTitle: newName];
 }
 
--(void) setStatus: (NSString *) theStatus
+-(void) setStatus: (NSString *) theStatus forName: (NSString *) theName
 {
     if (  status != theStatus  ) {
         [status release];
         status = [theStatus retain];
-    }        
-    [[self statusTFC] setStringValue: localizeNonLiteral(theStatus, @"Connection status")];
+    }
+    
+    [self setName: theName];
+    
+    [configurationNameTFC setStringValue: theName];
+    [statusTFC            setStringValue: localizeNonLiteral(theStatus, @"Connection status")];
+    
     if (   [theStatus isEqualToString: @"EXITING"]  ) {
-        [statusTFC setTextColor: [NSColor redColor]];
+        [configurationNameTFC setTextColor: [NSColor redColor]];
+        [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeMainImage]];
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
-        [statusTFC setTextColor: [NSColor greenColor]];
+        [configurationNameTFC setTextColor: [NSColor greenColor]];
+        [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
     } else {
-        [statusTFC setTextColor: [NSColor yellowColor]];
+        [configurationNameTFC setTextColor: [NSColor yellowColor]];
+        [statusTFC            setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];
     }
 }
