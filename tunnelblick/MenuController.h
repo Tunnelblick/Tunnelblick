@@ -34,6 +34,7 @@
 @class ConfigurationUpdater;
 @class MyPrefsWindowController;
 @class NetSocket;
+@class InstallWindowController;
 
 #ifdef INCLUDE_VPNSERVICE
 @class VPNService;
@@ -81,7 +82,9 @@ BOOL needToCopyBundle(void);
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
     
     MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
-
+    
+    InstallWindowController * installScreen;                // Install window
+    
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
     NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
