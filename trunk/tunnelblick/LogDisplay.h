@@ -52,6 +52,11 @@
     long            secondWeLastQueuedAChange;      // Seconds since 1/1/2001 that we last queued a request to process a change to a log file
     unsigned        numberOfRequestsInThatSecond;   // Number of requests we've queued in that second
     NSTimer       * watchdogTimer;                  // Timer to queue a request to process a change to a log file
+
+    // Used to throttle scroll requests
+    long            secondWeLastQueuedAScrollRequest;   // Seconds since 1/1/2001 that we last queued a scroll request
+    unsigned        numberOfScrollRequestsInThatSecond; // Number of requests we've queued in that second
+    NSTimer       * scrollWatchdogTimer;                // Timer to queue a scroll request
 }
 
 -(LogDisplay *)     initWithConfigurationPath:      (NSString *) inConfigPath;

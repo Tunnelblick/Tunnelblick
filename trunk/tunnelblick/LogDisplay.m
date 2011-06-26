@@ -200,15 +200,47 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setLastScriptEntryTime: nil];
     
     if (  logStore  ) {
-        [self performSelectorOnMainThread: @selector(doLogScrolling) withObject: nil waitUntilDone: NO];
+        [self doLogScrolling];
     }
 }
 
 -(void) doLogScrolling
 {
     if (  [self logStorage]  ) {
-        [[[NSApp delegate] logScreen] doLogScrollingForConnection: [self connection]];
+        // Do some primitive throttling -- only queue three requests per second
+        long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
+        if (  rightNow == secondWeLastQueuedAScrollRequest  ) {
+            numberOfScrollRequestsInThatSecond++;
+            if (  numberOfScrollRequestsInThatSecond > 3) {
+                if (  ! watchdogTimer  ) {
+                    // Set a timer to queue a request later. (This will happen at most once per second.)
+                    scrollWatchdogTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0
+                                                                           target: self
+                                                                         selector: @selector(scrollWatchdogTimedOutHandler:)
+                                                                         userInfo: nil
+                                                                          repeats: NO];
+                }
+                return;
+            }
+        } else {
+            secondWeLastQueuedAScrollRequest   = rightNow;
+            numberOfScrollRequestsInThatSecond = 0;
+        }
+        
+        [self performSelectorOnMainThread: @selector(scrollWatchdogTimedOut:) withObject: nil waitUntilDone: YES];
     }
+}
+    
+-(void) scrollWatchdogTimedOutHandler: (NSTimer *) timer
+{
+    scrollWatchdogTimer = nil;
+    
+    [self performSelectorOnMainThread: @selector(scrollWatchdogTimedOut:) withObject: nil waitUntilDone: YES];    
+}
+
+-(void) scrollWatchdogTimedOut: (NSTimer *) timer
+{
+    [[[NSApp delegate] logScreen] doLogScrollingForConnection: [self connection]];
 }
 
 // Starts (or restarts) monitoring newly-created log files.
