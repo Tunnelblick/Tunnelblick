@@ -79,7 +79,7 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(id) init
 {
-    if (  ![super initWithWindowNibName:@"VPNDetailsWindow"]  ) {
+    if (  ![super initWithWindowNibName:@"SettingsSheet"]  ) {
         return nil;
     }
     
@@ -146,7 +146,7 @@ extern TBUserDefaults       * gTbDefaults;
 -(void) showSettingsSheet: (id) sender
 {
     if (  ! settingsSheet  ) {
-        [NSBundle loadNibNamed: @"SettingsSheet" owner: self];
+        [super showWindow: self];
     } else {
         showingSettingsSheet = TRUE;
         [self setupSettingsFromPreferences];
