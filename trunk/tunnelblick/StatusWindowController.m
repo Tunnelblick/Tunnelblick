@@ -111,7 +111,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
     pthread_mutex_lock( &statusScreenPositionsInUseMutex );
     
-    NSUInteger maxNumberOfPositions = 32; // JKB
+    NSUInteger maxNumberOfPositions = 32;
     NSUInteger inUse = statusScreenPositionsInUse;
     NSUInteger mask  = 1;
     NSUInteger positionNumber;

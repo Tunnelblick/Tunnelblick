@@ -38,6 +38,7 @@
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
 #import "MyPrefsWindowController.h"
+#import "InstallWindowController.h"
 #import "ConfigurationUpdater.h"
 #import "UKKQueue/UKKQueue.h"
 #import "Sparkle/SUUpdater.h"
@@ -3101,6 +3102,9 @@ static void signal_handler(int signalNumber)
             NSLog(@"Error: [NSApp countOtherInstances] returned -1");
         }
         
+        
+        installScreen = [[InstallWindowController alloc] init];
+        
         // Install .tblks
         if (  tblksToInstallPaths  ) {
             // Install the .tblks
@@ -3117,6 +3121,7 @@ static void signal_handler(int signalNumber)
                                  repairPackages: YES
                                      copyBundle: YES]  ) {
             // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
+            [installScreen close];
             [NSApp terminate:self];
         }
         
@@ -3127,6 +3132,10 @@ static void signal_handler(int signalNumber)
             [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
             launchFinished = FALSE;
         }
+        
+        [installScreen close];
+        [installScreen release];
+        installScreen = nil;
         
         response = TBRunAlertPanel(launchWindowTitle,
                                    launchWindowText,

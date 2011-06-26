@@ -133,6 +133,7 @@
 - (void) dealloc
 {
     [mainText               release];
+    [iconIV                 release];
     [cancelButton           release];
     [OKButton               release];
     [username               release];
