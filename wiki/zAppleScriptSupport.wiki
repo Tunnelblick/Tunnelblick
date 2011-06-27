@@ -11,6 +11,8 @@ Tunnelblick 3.2beta04 and above may be controlled using !AppleScript.
 
 !AppleScripts may connect, disconnect, or list configurations.
 
+An example of using Tunnelblick's !AppleScript support to solve a particular problem is at [https://groups.google.com/d/topic/tunnelblick-discuss/1MDrN6__mdA/discussion https://groups.google.com/d/topic/tunnelblick-discuss/1MDrN6__mdA/discussion].
+
 Please note that the verbs only _initiate_ actions. The "connect" verb, for example, is the equivalent of clicking the "Connect" button. It returns immediately after starting an attempt to connect using a particular configuration and does not indicate the connection has been accomplished successfully.
 
 <hr>
