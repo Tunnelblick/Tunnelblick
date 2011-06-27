@@ -25,6 +25,7 @@
 #import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSString+TB.h"
 #import "helper.h"
 #import "ConfigurationsView.h"
 #import "GeneralView.h"
@@ -369,7 +370,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     leftNavDisplayNames = [[NSMutableArray alloc] initWithCapacity: [[[NSApp delegate] myVPNConnectionDictionary] count]];
     int currentLeftNavIndex = 0;
     NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
-    NSArray * allConfigsSorted = [[[[NSApp delegate] myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+    NSArray * allConfigsSorted = [[[[NSApp delegate] myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     
     // If the configuration we want to select is gone, don't try to select it
     if (  displayNameToSelect  ) {

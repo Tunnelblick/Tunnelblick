@@ -32,6 +32,7 @@
 #import "NSApplication+LoginItem.h"
 #import "NSApplication+NetworkNotifications.h"
 #import "NSApplication+SystemVersion.h"
+#import "NSString+TB.h"
 #import "helper.h"
 #import "TBUserDefaults.h"
 #import "ConfigurationManager.h"
@@ -1024,7 +1025,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 menuItemTitle = [[menuItem target] displayName];
             }
             
-            if (  [menuItemTitle caseInsensitiveCompare: theName] == NSOrderedDescending  ) {
+            if (  [menuItemTitle compare: theName options: NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedDescending  ) {
                 break;
             }
         }
@@ -1044,7 +1045,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (  subMenu   ) {
                 // Item is a submenu
                 NSString * menuItemTitle = [menuItem title];
-                NSComparisonResult  result = [menuItemTitle caseInsensitiveCompare: subMenuName];
+                NSComparisonResult  result = [menuItemTitle compare: subMenuName options: NSCaseInsensitiveSearch | NSNumericSearch];
                 if (  result == NSOrderedSame  ) {
                     // Have found correct submenu, so add this item to it
                     [self insertConnectionMenuItem: theItem IntoMenu: subMenu afterIndex: 0 withName: restOfName];
@@ -1102,7 +1103,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
     // Sort the list
-	NSArray *sortedArray = [itemsInMenuFolder sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+	NSArray *sortedArray = [itemsInMenuFolder sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 
     // Use the sorted list to add items to the Tunnelblick menu, or to run them on launch or on connect
     BOOL haveAddedItems = FALSE;
@@ -3857,7 +3858,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 -(NSArray *) applescriptConfigurationList
 {
-    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
     return myConnectionArray;
 }

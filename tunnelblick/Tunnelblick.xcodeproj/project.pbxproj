@@ -111,6 +111,7 @@
 		63D92583135DAEE1001FF627 /* client.3.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63D9257F135DAEE1001FF627 /* client.3.up.tunnelblick.sh */; };
 		63D92584135DAEE1001FF627 /* LeaseWatch3.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63D92580135DAEE1001FF627 /* LeaseWatch3.plist.template */; };
 		63D92585135DAEE1001FF627 /* leasewatch3 in Resources */ = {isa = PBXBuildFile; fileRef = 63D92581135DAEE1001FF627 /* leasewatch3 */; };
+		63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEC28F13B890F70063CE11 /* NSString+TB.m */; };
 		63E372680FEB3FF00012DDE7 /* leasewatch in Resources */ = {isa = PBXBuildFile; fileRef = 63E372660FEB3FF00012DDE7 /* leasewatch */; };
 		63E372690FEB3FF00012DDE7 /* LeaseWatch.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */; };
 		63E47DE813A146530076D306 /* Configurations.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 63E47DE713A146530076D306 /* Configurations.tiff */; };
@@ -346,6 +347,8 @@
 		63D92580135DAEE1001FF627 /* LeaseWatch3.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch3.plist.template; sourceTree = "<group>"; };
 		63D92581135DAEE1001FF627 /* leasewatch3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch3; sourceTree = "<group>"; };
 		63DAFD5311CBA9F4002F9F91 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
+		63DEC28E13B890F70063CE11 /* NSString+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TB.h"; sourceTree = "<group>"; };
+		63DEC28F13B890F70063CE11 /* NSString+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TB.m"; sourceTree = "<group>"; };
 		63E372660FEB3FF00012DDE7 /* leasewatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = leasewatch; sourceTree = "<group>"; };
 		63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LeaseWatch.plist.template; sourceTree = "<group>"; };
 		63E47DE713A146530076D306 /* Configurations.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Configurations.tiff; sourceTree = "<group>"; };
@@ -472,6 +475,8 @@
 				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
 				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
+				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
+				63DEC28F13B890F70063CE11 /* NSString+TB.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
 				638E695F1097725500587933 /* TBUserDefaults.h */,
@@ -1064,6 +1069,7 @@
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
 				637A871913B74B81003C1871 /* InstallWindowController.m in Sources */,
+				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
