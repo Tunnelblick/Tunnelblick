@@ -97,7 +97,7 @@ extern NSFileManager  * gFileMgr;
     
     
     // Connection window display criteria
-    [appearanceConnectionWindowDisplayCriteriaTFC setTitle: NSLocalizedString(@"Connection window:", @"Window text")];
+    [appearanceConnectionWindowDisplayCriteriaTFC setTitle: NSLocalizedString(@"Notification window:", @"Window text")];
     NSArray * cwContent = [NSArray arrayWithObjects:
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Never show",                          @"Button"), @"name", @"neverShow", @"value", nil],
                             [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Show while connecting",               @"Button"), @"name", @"showWhenConnecting", @"value", nil],
