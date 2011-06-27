@@ -164,4 +164,6 @@
     }
 }
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, infoHelpButton)
+
 @end
