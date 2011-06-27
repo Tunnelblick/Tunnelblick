@@ -365,7 +365,10 @@
 "Workgroup:" = "Workgroup:";
 
 /* Window text */
-"You cannot make a configuration which is set to start when the computer starts to be private." = "You cannot make a configuration which is set to start when the computer starts to be private.";
+"You cannot make a configuration private if it is set to start when the computer starts." = "You cannot make a configuration private if it is set to start when the computer starts.";
+
+/* Window text */
+"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "You have asked to duplicate '%@'.";
