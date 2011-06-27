@@ -282,6 +282,24 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 
 
+// Override in subclass if desired
+-(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
+{
+}
+
+
+// Override in subclass if desired
+-(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
+{
+}
+
+
+// Override in subclass if desired
+-(void) newViewDidAppear: (NSView *) view
+{
+}
+
+
 - (void)displayViewForIdentifier:(NSString *)identifier animate:(BOOL)animate
 {	
     // Find the view we want to display.
@@ -318,6 +336,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 			[oldView removeFromSuperviewWithoutNeedingDisplay];
 			[newView setHidden:NO];
 			[[self window] setFrame:[self frameForView:newView] display:YES animate:animate];
+            [self newViewDidAppear: newView];
 		}
 		
         [[self window] setTitle:[self windowTitle: [[toolbarItems objectForKey:identifier] label]]];
@@ -335,18 +354,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 #pragma mark -
 #pragma mark Cross-Fading Methods
-
-
-// Override in subclass if desired
--(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
-{
-}
-
-
-// Override in subclass if desired
--(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
-{
-}
 
 
 - (void)crossFadeView:(NSView *)oldView withView:(NSView *)newView
@@ -407,8 +414,9 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // at this point there are two. One is visible and one is hidden.
 	NSEnumerator *subviewsEnum = [[contentSubview subviews] reverseObjectEnumerator];
 	
-    // This is our visible view. Just get past it.
-	[subviewsEnum nextObject];
+    // This is our visible view. Get past it.
+	NSView * visibleView = [subviewsEnum nextObject];
+    [self newViewDidAppear: visibleView]; 
     
     // Remove everything else. There should be just one, but
     // if the user does a lot of fast clicking, we might have
@@ -416,10 +424,6 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	while ((subview = [subviewsEnum nextObject]) != nil) {
 		[subview removeFromSuperviewWithoutNeedingDisplay];
 	}
-    
-    // This is a work-around that prevents the first
-    // toolbar icon from becoming highlighted.
-	[[self window] makeFirstResponder:nil];
     
 	(void)animation;
 }

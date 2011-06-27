@@ -237,12 +237,28 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[self selectedConnection] startMonitoringLogFiles];
     } else {
         [appearancePrefsView setFrame: currentFrame];
-        [generalPrefsView    setFrame: currentFrame];
+        [generalPrefsView    setFrame: currentFrame];        
         [infoPrefsView       setFrame: currentFrame];
     }
 }
 
--(BOOL) tabView: (NSTabView *) inTabView shouldSelectTabViewItem: (NSTabViewItem *) tabViewItem
+// Overrides superclass
+-(void) newViewDidAppear: (NSView *) view
+{
+    if        (   view == configurationsPrefsView  ) {
+        [[self window] makeFirstResponder: [configurationsPrefsView leftNavTableView]];
+    } else if (   view == generalPrefsView  ) {
+        [[self window] makeFirstResponder: [generalPrefsView keyboardShortcutButton]];
+    } else if (   view == appearancePrefsView  ) {
+        [[self window] makeFirstResponder: [appearancePrefsView appearanceIconSetButton]];
+    } else if (   view == infoPrefsView  ) {
+        [[self window] makeFirstResponder: [infoPrefsView infoHelpButton]];
+    } else {
+        NSLog(@"newViewDidAppear:identifier: invoked with unknown view");
+    }
+}
+
+    -(BOOL) tabView: (NSTabView *) inTabView shouldSelectTabViewItem: (NSTabViewItem *) tabViewItem
 {
     if (  [self selectedConnection]  ) {
         return YES;
@@ -2133,6 +2149,15 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
         }
     }
 }
+
+-(IBAction) infoHelpButtonWasClicked: (id) sender
+{
+    OSStatus err;
+    if (err = MyGotoHelpPage(CFSTR("info.html"), NULL)  ) {
+        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    }
+}
+
 
 //***************************************************************************************************************
 

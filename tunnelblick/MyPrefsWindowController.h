@@ -148,6 +148,10 @@
 
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 
+// Method for InfoView
+-(IBAction) infoHelpButtonWasClicked: (id) sender;
+
+
 // Getters & Setters
 
 TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)

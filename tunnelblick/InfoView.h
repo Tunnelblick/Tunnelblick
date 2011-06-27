@@ -21,7 +21,7 @@
 
 
 #import <Cocoa/Cocoa.h>
-
+#import "defines.h"
 
 @interface InfoView : NSView {
     
@@ -41,9 +41,13 @@
     NSTimeInterval                startTime;
     CGFloat                       requestedPosition;
     BOOL                          restartAtTop;
+    
+    IBOutlet NSButton           * infoHelpButton;
 }
 
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier;
 -(void) newViewWillAppear:    (NSView *) view identifier: (NSString *) identifier;
+
+TBPROPERTY_READONLY(NSButton *, infoHelpButton)
 
 @end

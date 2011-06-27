@@ -1959,6 +1959,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(void)cleanup 
 {
+    if (  gTunnelblickIsQuitting  ) {   // Handle failures in the cleanup process by only cleaning up once
+        return;
+    }
+    
     gTunnelblickIsQuitting = TRUE;
     if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
         UnregisterEventHotKey(hotKeyRef);

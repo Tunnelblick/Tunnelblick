@@ -686,21 +686,26 @@ OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
 {
     OSStatus err = fnfErr;
     
-    if (  FALSE && runningOnSnowLeopardOrNewer()  ) {   // DISABLE THIS -- IT DOESN'T WORK CONSISTENTLY
+    if (  runningOnSnowLeopardOrNewer()  ) {
         
         CFBundleRef myApplicationBundle = NULL;
         CFStringRef myBookName = NULL;
         
-        myApplicationBundle = CFBundleGetMainBundle();// 1
-        if (myApplicationBundle == NULL) {err = fnfErr; goto bail;}// 2
+        myApplicationBundle = CFBundleGetMainBundle();
+        if (myApplicationBundle == NULL) {
+            err = fnfErr;
+            goto bail;
+        }
         
-        myBookName = CFBundleGetValueForInfoDictionaryKey(// 3
+        myBookName = CFBundleGetValueForInfoDictionaryKey(
                                                           myApplicationBundle,
                                                           CFSTR("CFBundleHelpBookName"));
+        if (myBookName == NULL) {
+            err = fnfErr;
+            goto bail;
+        }
         
-        if (myBookName == NULL) {err = fnfErr; goto bail;}
-        
-        if (CFGetTypeID(myBookName) != CFStringGetTypeID()) {// 4
+        if (CFGetTypeID(myBookName) != CFStringGetTypeID()) {
             err = paramErr;
             goto bail;
         }
