@@ -69,7 +69,7 @@
             if (  rng.length == 0  ) {
                 // Someone probably did a global search/replace of "Tunnelblick" with "Newname", so we adjust a bit
                 NSMutableString * html = [[htmlFromFile mutableCopy] autorelease];
-                rng = [html rangeOfString: @"Tunnelblick"]; // Presumably, the search/replace replaced this with NewName
+                rng = [html rangeOfString: NSLocalizedString(@"Tunnelblick", @"Window title")]; // Presumably, the search/replace replaced this with NewName
                 if (  rng.length != 0  ) {
                     [html insertString: @" is based on Tunnel" "blick. Tunnel" "blick"
                                atIndex: rng.location + rng.length];

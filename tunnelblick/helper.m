@@ -328,7 +328,7 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     }
     
     NSMutableString * version = [NSMutableString stringWithCapacity: 30];
-    [version appendString: @"Tunnelblick"];
+    [version appendString: NSLocalizedString(@"Tunnelblick", @"Window title")];
     if (  appVersionWithoutBuild  ) {
         [version appendFormat: @" %@", appVersionWithoutBuild];
     }

@@ -178,7 +178,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     }
     
     [self setSizeAndPosition];
-    [[self window] setTitle: @"Tunnelblick"];
+    [[self window] setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
     [self showWindow: self];
     [self initialiseAnim];
     [self fadeIn];
