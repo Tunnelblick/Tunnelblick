@@ -99,7 +99,7 @@ The "Preferences" section of the "VPN Details..." window allows you to modify Tu
 ===Appearance===
 The "Appearance" section of the "VPN Details..." window allows you to modify Tunnelblick's appearance:
 
-<img width="420" height="274" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-appearance-section-2011-06-24.png">
+<img width="420" height="274" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-appearance-section-2011-06-27.png">
 
 ===Info===
 The "Info" section of the "VPN Details..." window displays information about the Tunnelblick program and the people who have contributed to it:
