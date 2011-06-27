@@ -973,7 +973,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * sourceExtension = [sourceLast pathExtension];
     
     // Get the new name
-    NSString * newName = TBGetDisplayName(@"Please enter the new name.", sourcePath);
+    
+    NSString * prompt = [NSString stringWithFormat: @"Please enter a new name for '%@'.", [sourceDisplayName lastPathComponent]];
+    NSString * newName = TBGetDisplayName(prompt, sourcePath);
     
     if (  ! newName  ) {
         return;             // User cancelled
@@ -1113,36 +1115,18 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        NSLocalizedString(@"You cannot make a configuration which is set to start when the computer starts to be private.", @"Window text"),
+                        NSLocalizedString(@"You cannot make a configuration private if it is set to start when the computer starts.", @"Window text"),
                         nil, nil, nil);
-        return;
-    }
-    
-    NSString * disableShareConfigKey = [[[self selectedConnection] displayName] stringByAppendingString:@"disableShareConfigurationButton"];
-    if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
-        NSString * path = [[self selectedConnection] configPath];
-        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-            int result;
-            if (  [path hasPrefix: gSharedPath]  ) {
-                result = TBRunAlertPanel(NSLocalizedString(@"Make Configuration Private?", @"Window title"),
-                                         NSLocalizedString(@"This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?", @"Window title"),
-                                         NSLocalizedString(@"Make configuration private", @"Button"),   // Default button
-                                         NSLocalizedString(@"Cancel", @"Button"),                       // Alternate button
-                                         nil);
-                
-            } else if (  [path hasPrefix: gPrivatePath]  ) {
-                result = TBRunAlertPanel(NSLocalizedString(@"Share Configuration?", @"Window title"),
-                                         NSLocalizedString(@"This configuration is private -- only you can use it.\n\nDo you wish to make it shared, so that all other users of this computer can use it?", @"Window title"),
-                                         NSLocalizedString(@"Share configuration", @"Button"),  // Default button
-                                         NSLocalizedString(@"Cancel", @"Button"),               // Alternate button
-                                         nil);
-            } else {
-                // Deployed, so can't share or make private
-                return;
-            }
-            
-            if (  result == NSAlertDefaultReturn  ) {
+    } else {
+        NSString * disableShareConfigKey = [[[self selectedConnection] displayName] stringByAppendingString:@"disableShareConfigurationButton"];
+        if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
+            NSString * path = [[self selectedConnection] configPath];
+            if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
                 [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
+            } else {
+                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"),
+                                nil, nil, nil);
             }
         }
     }

@@ -722,12 +722,13 @@ bail:
     return err;
 }
 
-NSString * TBGetString(NSString * msg)
+NSString * TBGetString(NSString * msg, NSString * nameToPrefill)
 {
     NSMutableDictionary* panelDict = [[NSMutableDictionary alloc] initWithCapacity:6];
     [panelDict setObject:NSLocalizedString(@"Name Required", @"Window title") forKey:(NSString *)kCFUserNotificationAlertHeaderKey];
     [panelDict setObject:msg                                                  forKey:(NSString *)kCFUserNotificationAlertMessageKey];
     [panelDict setObject:@""                                                  forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
+    [panelDict setObject:nameToPrefill                                        forKey:(NSString *)kCFUserNotificationTextFieldValuesKey];
     [panelDict setObject:NSLocalizedString(@"OK", @"Button")                  forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
     [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")              forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
     [panelDict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
@@ -765,19 +766,21 @@ NSString * TBGetString(NSString * msg)
 NSString * TBGetDisplayName(NSString * msg,
                             NSString * sourcePath)
 {
-    NSString * newName = TBGetString(msg);
+    NSString * nameToPrefill = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
+    NSString * newName = TBGetString(msg, nameToPrefill);
     while (  newName  ) {
         NSRange rng = [newName rangeOfString: @"/"];
         if (  rng.length != 0) {
-            newName = TBGetString([@"Names must not contain slashes (\"/\") --only enter that part of the name that comes after any slashes\n\n" stringByAppendingString: msg]);
+            newName = TBGetString([@"Names must not contain slashes (\"/\") --only enter that part of the name that comes after any slashes\n\n" stringByAppendingString: msg], nameToPrefill);
         } else if (  [newName length] == 0  ) {
-            newName = TBGetString([@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" stringByAppendingString: msg]);
+            newName = TBGetString([@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" stringByAppendingString: msg], nameToPrefill);
         } else {
-            NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @".conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
-            if (  nil == [[[NSApp delegate] myConfigDictionary] objectForKey: lastPartOfPath(targetPath)]  ) {
+            NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @"conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
+            NSString * dispNm = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
+            if (  nil == [[[NSApp delegate] myConfigDictionary] objectForKey: dispNm]  ) {
                 break;
             }
-            newName = TBGetString([@"That name is being used.\n\n" stringByAppendingString: msg]);
+            newName = TBGetString([@"That name is being used.\n\n" stringByAppendingString: msg], nameToPrefill);
         }
     }
     
