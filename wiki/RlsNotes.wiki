@@ -12,6 +12,46 @@
 
 --------------------
 
+*3.2beta18 (2011-06-27)*
+
+ * Fixes problems with sounds "on connect" and "on unexpected disconnect":
+   * Shows default sounds as "None".
+   * Changes to the sound settings take effect immediately.
+   
+ * Shows a splash screen during installation.
+
+ * Cascades status windows when multiple status windows are being displayed simultaneously.
+
+ * Monitors log only when it is being displayed.
+
+ * Changes 'Connection window' to 'Notification window' on the Appearance panel of the 'VPN Details…' window.
+
+ * Makes the log non-editable.
+
+ * Enables Apple help instead of browser-based help when running on Snow Leopard.
+
+ * Sorts configurations and sounds numerically (e.g., config2, config4, config35 instead of config2, config35, config4).
+
+ * Minimizes CPU usage at high OpenVPN verb levels.
+
+ * Streamlines the share/make private dialog.
+
+ * Fixes problems displaying the 'VPN Details…' window when there are no configurations.
+
+ * Fixes a problem that displayed incorrect sound 'on connect' and 'on unexpected disconnect' selections when no selections have been made. (Should have displayed 'None' for each, but displayed 'Glass' and 'Basso'.)
+
+ * Fixes bug causing 100% CPU utilization when an unexpected error occurs while exiting the program.
+
+ * Fixes problems renaming a configuration which is in a subfolder.
+
+ * Fixes a small memory leak when the 'Show/Hide on Tunnelblick Menu' item is clicked.
+
+ * Fixes a small memory leak when the VPN login window is shown.
+
+ * Fixes a small memory leak when the 'Advanced' button on the 'Settings' tab of the 'Configurations' pane is clicked.
+
+--------------------
+
 *3.2beta16 (2011-06-24)*
 
  * Portuguese localization by Denis Volpato Martins. Thanks!

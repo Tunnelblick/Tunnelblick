@@ -1,5 +1,14 @@
 #summary The Latest News About Tunnelblick
 
+2011-06-27: *Tunnelblick 3.2beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Changes to the sound settings now take effect immediately.
+ * Shows a splash screen during installation.
+ * Cascades status windows when multiple status windows are being displayed simultaneously.
+ * Fixes a problem that displayed incorrect sound 'on connect' and sound 'on unexpected disconnect' selections when no selections have been made. (Should have displayed 'None' for each, but displayed 'Glass' and 'Basso'.)
+ * Includes several other small changes and bug fixes.
+ 
+--------------------
+
 2011-06-24: *Tunnelblick 3.2beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Portuguese localization by Denis Volpato Martins. Thanks!
  * Includes a single up/down script pair for Set nameserver which works for both tun and tap devices. Thanks to Nick Williams!
