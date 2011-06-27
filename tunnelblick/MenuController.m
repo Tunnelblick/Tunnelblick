@@ -146,8 +146,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             makeSymbolicLink;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
-                                           FromMenu:        (NSMenu *)          theMenu
+                                           fromMenu:        (NSMenu *)          theMenu
                                          afterIndex:        (int)               theIndex;
+-(void)             removeConnectionWithDisplayName:        (NSString *)        theName
+                                           fromMenu:        (NSMenu *)          theMenu
+                                         afterIndex:        (int)               theIndex
+                                        workingName:        (NSString *)        workingName;
 -(void)             removePath:                             (NSString *)        path
               fromMonitorQueue:                             (UKKQueue *)        queue;
 -(void)             runCustomMenuItem:                      (NSMenuItem *)      item;
@@ -1222,10 +1226,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [self createMenu];
 }
 
--(void) removeConnectionWithDisplayName: (NSString *) theName FromMenu: (NSMenu *) theMenu afterIndex: (int) theIndex
+-(void) removeConnectionWithDisplayName: (NSString *) theName
+                               fromMenu: (NSMenu *)   theMenu
+                             afterIndex: (int)        theIndex
+{
+    [self removeConnectionWithDisplayName: theName fromMenu: theMenu afterIndex: theIndex workingName: [[theName copy] autorelease]];
+}
+
+-(void) removeConnectionWithDisplayName: (NSString *) theName
+                               fromMenu: (NSMenu *)   theMenu
+                             afterIndex: (int)        theIndex
+                            workingName: (NSString *) workingName;
 {
     int i;
-    NSRange slashRange = [theName rangeOfString: @"/" options: 0 range: NSMakeRange(0, [theName length] - 1)];
+    NSRange slashRange = [workingName rangeOfString: @"/" options: 0 range: NSMakeRange(0, [workingName length] - 1)];
     if (   (slashRange.length == 0)
         || [gTbDefaults boolForKey: @"doNotShowConnectionSubmenus"]  ) {
         // The item is directly in the menu
@@ -1252,8 +1266,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 
     // The item is on a submenu
-    NSString * subMenuName = [theName substringWithRange: NSMakeRange(0, slashRange.location + 1)];
-    NSString * restOfName = [theName substringFromIndex: slashRange.location + 1];
+    NSString * subMenuName = [workingName substringWithRange: NSMakeRange(0, slashRange.location + 1)];
+    NSString * restOfName = [workingName substringFromIndex: slashRange.location + 1];
     for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
         id menuItem = [theMenu itemAtIndex: i];
         if (  [menuItem isSeparatorItem]  ) {
@@ -1265,7 +1279,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 NSString * menuItemTitle = [menuItem title];
                 if (  [menuItemTitle caseInsensitiveCompare: subMenuName] == NSOrderedSame  ) {
                     // Have found correct submenu, so remove this item from it
-                    [self removeConnectionWithDisplayName: restOfName FromMenu: subMenu afterIndex: 0];
+                    [self removeConnectionWithDisplayName: theName fromMenu: subMenu afterIndex: 0 workingName: restOfName];
                     if (  [subMenu numberOfItems] == 0  ) {
                         // No more items on the submenu, so delete it, too
                         [theMenu removeItemAtIndex: i];
@@ -1548,7 +1562,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [myVPNConnectionDictionary removeObjectForKey: dispNm];
     
-    [self removeConnectionWithDisplayName: dispNm FromMenu: myVPNMenu afterIndex: 2];
+    [self removeConnectionWithDisplayName: dispNm fromMenu: myVPNMenu afterIndex: 2];
 
     [myConfigDictionary removeObjectForKey: dispNm];
 
