@@ -551,6 +551,9 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
+"Tunnelblick.app" = "Tunnelblick.app";
+
+/* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Login Required";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -686,9 +689,6 @@
 "Connect:" = "Connect:";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Connection window:" = "Connection window:";
-
-/* NEEDS TRANSLATION *//* Window text */
 "Connection:" = "Connection:";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -752,6 +752,9 @@
 "Network setting" = "Network setting";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Notification window:" = "Notification window:";
+
+/* NEEDS TRANSLATION *//* Window text */
 "One Tunnelblick VPN Configuration was installed successfully." = "One Tunnelblick VPN Configuration was installed successfully.";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -774,6 +777,9 @@
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Bitte stecken Sie das Token „%@“ an und klicken Sie „OK“";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured...";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";

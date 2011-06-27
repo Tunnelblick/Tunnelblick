@@ -302,7 +302,7 @@ extern TBUserDefaults       * gTbDefaults;
 -(void) setupSettingsFromPreferences
 {
     NSString * programName;
-    if (  [configurationName isEqualToString: @"Tunnelblick"]  ) {
+    if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
         programName = @"";
     } else {
         programName = [NSString stringWithFormat: @" - Tunnelblick"];

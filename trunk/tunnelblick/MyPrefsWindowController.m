@@ -856,7 +856,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not delete a configuration which is set to start when the computer starts.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -872,7 +872,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * configurationPath = [connection configPath];
     
     if (  [configurationPath hasPrefix: gDeployPath]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not delete a Deployed configuration.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -953,7 +953,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [sourceDisplayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not rename a configuration which is set to start when the computer starts.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -961,7 +961,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSString * sourcePath = [connection configPath];
     if (  [sourcePath hasPrefix: gDeployPath]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -1032,7 +1032,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not duplicate a configuration which is set to start when the computer starts.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -1040,7 +1040,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSString * source = [connection configPath];
     if (  [source hasPrefix: gDeployPath]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not duplicate a Deployed configuration.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -1111,7 +1111,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
     if (   [gTbDefaults boolForKey: autoConnectKey]
         && [gTbDefaults boolForKey: onSystemStartKey]  ) {
-        TBRunAlertPanel(@"Tunnelblick",
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You cannot make a configuration which is set to start when the computer starts to be private.", @"Window text"),
                         nil, nil, nil);
         return;
@@ -1297,7 +1297,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             selectedWhenToConnectIndex = 2;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
             [self setSelectedWhenToConnectIndex: ix];
-            TBRunAlertPanel(@"Tunnelblick",
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                             NSLocalizedString(@"Private configurations cannot connect when the computer starts.\n\n"
                                               "First make the configuration shared, then change this setting.", @"Window text"),
                             nil, nil, nil);

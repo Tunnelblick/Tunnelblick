@@ -2869,8 +2869,8 @@ static void signal_handler(int signalNumber)
     // Sparkle Updater doesn't work if the user has changed the name to something other than Tunnelblick
     NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
     NSString *appName = [gFileMgr displayNameAtPath: bundlePath];
-    if (  [appName isEqualToString:@"Tunnelblick"]
-        || [appName isEqualToString:@"Tunnelblick.app"]  ) {
+    if (  [appName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]
+        || [appName isEqualToString:NSLocalizedString(@"Tunnelblick.app", @"Window title")]  ) {
         return TRUE;
     }
     
