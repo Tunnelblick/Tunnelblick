@@ -109,9 +109,6 @@
 /* Button */
 "Launch" = "Ausführen";
 
-/* Button */
-"Make configuration private" = "Private Konfiguration";
-
 /* NEEDS TRANSLATION *//* Button */
 "Manually" = "Manually";
 
@@ -150,9 +147,6 @@
 
 /* NEEDS TRANSLATION *//* Button */
 "Restore" = "Restore";
-
-/* Button */
-"Share configuration" = "Konfiguration für alle Benutzer";
 
 /* NEEDS TRANSLATION *//* Button */
 "Show when connection status changes" = "Show when connection status changes";
@@ -464,9 +458,6 @@
 "Log" = "Log";
 
 /* Window title */
-"Make Configuration Private?" = "Konfiguration nur für diesen Benutzer";
-
-/* Window title */
 "Name In Use" = "Name wird bereits verwendet";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -518,19 +509,10 @@
 "Settings" = "Settings";
 
 /* Window title */
-"Share Configuration?" = "Konfiguration für alle Benutzer freigeben?";
-
-/* Window title */
 "System Requirements Not Met" = "Systemvoraussetzungen nicht erfüllt";
 
 /* Window title */
 "The configuration file is protected" = "Die Konfigurationsdatei ist geschützt";
-
-/* Window title */
-"This configuration is private -- only you can use it.\n\nDo you wish to make it shared, so that all other users of this computer can use it?" = "Diese Konfiguration steht nur Ihnen zur Verfügung.\n\nMöchten Sie sie für alle Benutzer dieses Computers verfügbar machen?";
-
-/* Window title */
-"This configuration is shared with all other users of this computer.\n\nDo you wish to make it private, so that only you can use it?" = "Diese Konfiguration steht allen Benutzern dieses Computers zur Verfügung.\n\nMöchten Sie, dass sie nur noch Ihnen zur Verfügung steht?";
 
 /* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick-Konfigurationsproblem";
@@ -968,7 +950,10 @@
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Sie können keine bereits installierte Tunnelblick-VPN-Konfiguration installieren.\n\nEin Administrator kann eine Kopie dieser Konfiguration erstellen und diese installieren.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"You cannot make a configuration which is set to start when the computer starts to be private." = "You cannot make a configuration which is set to start when the computer starts to be private.";
+"You cannot make a configuration private if it is set to start when the computer starts." = "You cannot make a configuration private if it is set to start when the computer starts.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).";
 
 /* NEEDS TRANSLATION *//* Window text */
 "You have asked to duplicate '%@'." = "You have asked to duplicate '%@'.";
