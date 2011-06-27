@@ -21,6 +21,7 @@
 
 
 #import "ConfigurationsView.h"
+#import "NSString+TB.h"
 #import "TBUserDefaults.h"
 
 extern NSFileManager  * gFileMgr;
@@ -135,7 +136,7 @@ extern TBUserDefaults * gTbDefaults;
     }
     
     // Sort them
-    sortedSounds = [[sounds sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] retain];
+    sortedSounds = [[sounds sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)] retain];
     
     // Create an array of dictionaries of them
     NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [sortedSounds count]];
