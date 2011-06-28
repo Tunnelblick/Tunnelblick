@@ -28,7 +28,6 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2. 
  * Scripts may be automatically run before and tun/tap kexts are loaded, after a connection has been made, when a reconnection attempt is being made, and after a connection has been disconnected. For more details, see [wUsingScripts Using Scripts].
  * The status message (the first line of the menu exposed when you click the Tunnelblick icon) allows you to disconnect all open connections with one click.
  * Higher 'verb' levels may be used without performance degradation.
- * Tunnelblick VPN Configurations ('.tblk' packages) may now be uninstalled or reinstalled by double-clicking.
 
 ==Better Reliability==
  * Fixes several bugs, including:
