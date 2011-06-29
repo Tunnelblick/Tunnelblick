@@ -93,7 +93,7 @@ BOOL needToCopyBundle(void);
     
     NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
     
-    NSArray                 * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
+    NSMutableArray          * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
     
     NSArray                 * connectionsToRestoreOnUserActive; // VPNConnections to be restored when user becomes active again
     

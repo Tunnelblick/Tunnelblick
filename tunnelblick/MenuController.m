@@ -207,6 +207,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         tunCount = 0;
         tapCount = 0;
         
+        connectionsToRestoreOnWakeup = [[NSMutableArray alloc] initWithCapacity: 5];
+        
         gFileMgr    = [NSFileManager defaultManager];
         
         gDeployPath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
@@ -3633,8 +3635,17 @@ void terminateBecauseOfBadConfiguration(void)
 {
     gComputerIsGoingToSleep = TRUE;
 	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
-	connectionsToRestoreOnWakeup = [connectionArray copy];
-	terminatingAtUserRequest = TRUE;
+    
+    [connectionsToRestoreOnWakeup removeAllObjects];
+    VPNConnection * connection; 
+	NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    while (  connection = [connEnum nextObject]  ) {
+        if (  ! [[connection requestedState] isEqualToString: @"EXITING"]  ) {
+            [connectionsToRestoreOnWakeup addObject: connection];
+        }
+    }
+    
+    terminatingAtUserRequest = TRUE;
 	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
     if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
         // Wait until all OpenVPN processes have terminated
@@ -3661,8 +3672,7 @@ void terminateBecauseOfBadConfiguration(void)
 		[connection connect:self userKnows: YES];
 	}
     
-    [connectionsToRestoreOnWakeup release];
-    connectionsToRestoreOnWakeup = nil;
+    [connectionsToRestoreOnWakeup removeAllObjects];
 }
 -(void)didBecomeInactiveUserHandler: (NSNotification *) n
 {
