@@ -1,5 +1,10 @@
 #summary The Latest News About Tunnelblick
 
+2011-06-29: *Tunnelblick 3.2beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Fixes a bug causing domains to be ignored when 'Set nameserver' is selected.
+ 
+--------------------
+
 2011-06-27: *Tunnelblick 3.2beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Changes to the sound settings now take effect immediately.
  * Shows a splash screen during installation.

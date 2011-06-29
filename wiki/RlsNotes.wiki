@@ -12,6 +12,12 @@
 
 --------------------
 
+*3.2beta20 (2011-06-29)*
+
+ * Fixes a bug causing domains to be ignored when 'Set nameserver' is selected.
+   
+--------------------
+
 *3.2beta18 (2011-06-27)*
 
  * Fixes problems with sounds "on connect" and "on unexpected disconnect":
