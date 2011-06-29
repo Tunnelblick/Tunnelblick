@@ -26,9 +26,12 @@ To create a Tunnelblick VPN Configuration:
  # Create a folder anywhere (on your Desktop works well);
  # Name the folder with the name you want the configuration known by in Tunnelblick;
  # Put all the files related to the connection into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
- # Add an extension of ".tblk" at the end of the folder name. When you do this the folder will change into a Tunnelblick VPN Configuration.
+ # Add an extension of ".tblk" at the end of the folder name. When you do this the icon for folder will change into a Tunnelblick VPN Configuration.
+ # Double-click the folder's new icon to install it.
 
-To install  a Tunnelblick VPN Configuration, just double-click it. You will be asked if you want the configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
+When you double-click it, you will be asked if you want the configuration to be private or shared. A private configuration may only be used when you are logged onto the computer. A shared configuration may be used by anyone who is logged into the computer. If the name you have given conflicts with the name of an existing installed configuration, you will be given the opportunity to change the name.
+
+The process of installation will copy the .tblk to a special location on your computer (see  [zFileLocations File Locations]) and make critical changes to it so it can be used.
 
 That's it! You are done. The configuration will be available immediately in Tunnelblick.
 
