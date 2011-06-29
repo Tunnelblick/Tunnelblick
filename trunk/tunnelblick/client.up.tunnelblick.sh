@@ -498,7 +498,7 @@ configureOpenVpnDns()
 		vOptions[nOptionIndex-1]=${!vForOptions}
 		case ${vOptions[nOptionIndex-1]} in
 			*DOMAIN* )
-				domain="$(trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN /}")"
+				sDomainName="$(trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN /}")"
 				;;
 			*DNS*    )
 				aNameServers[nNameServerIndex-1]="$(trim "${vOptions[nOptionIndex-1]//dhcp-option DNS /}")"
