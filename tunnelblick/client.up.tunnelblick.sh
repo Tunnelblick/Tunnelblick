@@ -421,7 +421,7 @@ configureDhcpDns()
 				let nWinsServerIndex++
 			done
 			
-			sDomainName=`echo "$sGetPacketOutput"|grep "domain_name "|grep -Eo ": [A-Za-z\-\.]+"|grep -Eo "[A-Za-z\-\.]+"`
+			sDomainName=`echo "$sGetPacketOutput"|grep "domain_name "|grep -Eo ": [-A-Za-z\-\.]+"|grep -Eo "[-A-Za-z\-\.]+"`
 			sDomainName="$(trim "$sDomainName")"
 			
 			if [ ${#aNameServers[*]} -gt 0 -a "$sDomainName" ]; then
