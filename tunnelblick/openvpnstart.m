@@ -38,9 +38,13 @@ NSString * constructScriptLogPath  (NSString * configurationFile, unsigned cfgLo
 NSString * constructLogBase        (NSString * configurationFile, unsigned cfgLocCode);
 void       deleteLogFiles          (NSString * configurationFile, unsigned cfgLocCode);
 
+void       compareTblkShadowCopy   (NSString * displayName);
+
 NSString * newTemporaryDirectoryPath(void);
 
-int     runAsRoot           (NSString * thePath, NSArray * theArguments);
+void    errorExitIfAttackViaString (NSString * string);
+
+int     runAsRoot                  (NSString * thePath, NSArray * theArguments);
 
 void    startOpenVPNWithNoArgs(void);       //Runs OpenVPN with no arguments, to get info including version #
 
@@ -157,9 +161,18 @@ int main(int argc, char* argv[])
         } else if( strcmp(command, "deleteLogs") == 0 ) {
 			if (argc == 4) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                errorExitIfAttackViaString(configFile);
                 unsigned cfgLocCode = atoi(argv[3]);
                 deleteLogFiles(configFile, cfgLocCode);
                 syntaxError = FALSE;
+            }
+            
+        } else if( strcmp(command, "compareTblkShadowCopy") == 0 ) {
+			if (argc == 3) {
+				NSString* displayName = [NSString stringWithUTF8String:argv[2]];
+                errorExitIfAttackViaString(displayName);
+                compareTblkShadowCopy(displayName);
+                // compareTblkShadowCopy should never return (it returns with its own exit codes), but just in case, we force an error by NOT setting syntaxError TRUE
             }
             
         } else if( strcmp(command, "postDisconnect") == 0) {
@@ -174,6 +187,7 @@ int main(int argc, char* argv[])
 		} else if( strcmp(command, "start") == 0 ) {
 			if (  (argc > 3) && (argc < 11)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
+                errorExitIfAttackViaString(configFile);
 				if(strlen(argv[3]) < 6 ) {
 					unsigned int port = atoi(argv[3]);
 					if (port<=65535) {
@@ -234,6 +248,9 @@ int main(int argc, char* argv[])
                 
 				"./openvpnstart kill   processId\n"
 				"               to terminate the 'openvpn' process with the specified processID\n\n"
+                
+                "./openvpnstart compareTblkShadowCopy      displayName\n"
+                "               to compare a private .tblk with its shadow copy\n\n" 
                 
                 "./openvpnstart deleteLogs   configName   cfgLocCode\n"
                 "               to delete all log files associated with a configuration\n\n"
@@ -782,6 +799,8 @@ BOOL runScript(NSString * scriptName,
                char     * cfgName,
                char     * cfgLoc)
 {
+    errorExitIfAttackViaString([NSString stringWithUTF8String: cfgName]);
+    
     BOOL returnValue = FALSE;
     
     if (  argc == 4) {
@@ -1043,6 +1062,31 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
             fprintf(stderr, "Error occurred trying to delete script log file %s\n", [scriptLogPath UTF8String]);
         }
     }
+}
+
+//**************************************************************************************************************************
+// Compares the specified private configuration .tblk with its shadow copy.
+// Returns the results as a result code:  OPENVPNSTART_COMPARE_CONFIG_SAME or OPENVPNSTART_COMPARE_CONFIG_DIFFERENT
+// Any other result code indicates an error
+void compareTblkShadowCopy (NSString * displayName)
+{
+    if (  [displayName length] == 0  ) {
+        [pool drain];
+        exit(EXIT_FAILURE);
+    }
+    
+    NSString * privatePrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+    NSString * shadowPrefix  = [NSString stringWithFormat:@"/Library/Application Support/Tunnelblick/Users/%@", NSUserName()];
+    
+    NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    
+    if (  [gFileMgr contentsEqualAtPath: privatePath andPath: shadowPath]  ) {
+        [pool drain];
+		exit(OPENVPNSTART_COMPARE_CONFIG_SAME);
+    }
+    [pool drain];
+    exit(OPENVPNSTART_COMPARE_CONFIG_DIFFERENT);
 }
 
 //**************************************************************************************************************************
@@ -1545,8 +1589,21 @@ BOOL createDir(NSString * d, unsigned long perms)
     NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
 
     if (  ! [gFileMgr tbCreateDirectoryAtPath: d attributes: dirAttributes] ) {
-        fprintf(stderr, "Tunnelblick Installer: Unable to create directory %s", [d UTF8String]);
+        fprintf(stderr, "Tunnelblick openvpnstart: Unable to create directory %s", [d UTF8String]);
     }
     
     return YES;
 }
+
+void errorExitIfAttackViaString(NSString * string)
+{
+    BOOL startsWithDot = [string hasPrefix: @"."];
+    NSRange r = [string rangeOfString: @"/.."];
+    if (   startsWithDot
+        || (r.length != 0)  ) {
+        fprintf(stderr, "Tunnelblick openvpnstart: Apparent attack detected; string being tested is %s", [string UTF8String]);
+        [pool drain];
+        exit(EXIT_FAILURE);
+    }
+}
+
