@@ -776,16 +776,18 @@ NSString * TBGetDisplayName(NSString * msg,
     while (  newName  ) {
         NSRange rng = [newName rangeOfString: @"/"];
         if (  rng.length != 0) {
-            newName = TBGetString([@"Names must not contain slashes (\"/\") --only enter that part of the name that comes after any slashes\n\n" stringByAppendingString: msg], nameToPrefill);
+            newName = TBGetString([NSLocalizedString(@"Names must not contain slashes (\"/\")\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
         } else if (  [newName length] == 0  ) {
-            newName = TBGetString([@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" stringByAppendingString: msg], nameToPrefill);
+            newName = TBGetString([NSLocalizedString(@"Please enter a name and click \"OK\" or click \"Cancel\".\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
+        } else if (  [newName hasPrefix: @"."]  ) {
+            newName = TBGetString([NSLocalizedString(@"Names must not start with a period (\".\")\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
         } else {
             NSString * targetPath = [[[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: newName] stringByAppendingPathExtension: @"conf"]; // (Don't use the .conf, but may need it for lastPartOfPath)
             NSString * dispNm = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
             if (  nil == [[[NSApp delegate] myConfigDictionary] objectForKey: dispNm]  ) {
                 break;
             }
-            newName = TBGetString([@"That name is being used.\n\n" stringByAppendingString: msg], nameToPrefill);
+            newName = TBGetString([NSLocalizedString(@"That name is being used.\n\n", @"Window text") stringByAppendingString: msg], nameToPrefill);
         }
     }
     

@@ -55,7 +55,6 @@ done
 
 readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_IGNORE_OPTION_FLAGS
 
-readonly TBCONFIG="$config"
 # Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
 # then convert to regular config     /Users/Jonathan/Library/Application Support/Tunnelblick/Configurations/Folder/Subfolder/config.ovpn
@@ -63,27 +62,24 @@ readonly TBCONFIG="$config"
 # Note: "/Users/..." works even if the home directory has a different path; it is used in the name of the log file, and is not used as a path to get to anything.
 readonly TBALTPREFIX="/Library/Application Support/Tunnelblick/Users/"
 readonly TBALTPREFIXLEN="${#TBALTPREFIX}"
-readonly TBCONFIGSTART="${TBCONFIG:0:$TBALTPREFIXLEN}"
+readonly TBCONFIGSTART="${config:0:$TBALTPREFIXLEN}"
 if [ "$TBCONFIGSTART" = "$TBALTPREFIX" ] ; then
-	readonly TBBASE="${TBCONFIG:$TBALTPREFIXLEN}"
+	readonly TBBASE="${config:$TBALTPREFIXLEN}"
 	readonly TBSUFFIX="${TBBASE#*/}"
 	readonly TBUSERNAME="${TBBASE%%/*}"
 	readonly TBCONFIG="/Users/$TBUSERNAME/Library/Application Support/Tunnelblick/Configurations/$TBSUFFIX"
+else
+    readonly TBCONFIG="${config}"
 fi
-
-set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 
 readonly CONFIG_PATH_DASHES_SLASHES="$(echo "${TBCONFIG}" | sed -e 's/-/--/g' | sed -e 's/\//-S/g')"
 readonly SCRIPT_LOG_FILE="/Library/Application Support/Tunnelblick/Logs/${CONFIG_PATH_DASHES_SLASHES}.script.log"
-readonly OPENVPN_LOG_FILE=`grep -Eio "\-\-log \.*?openvpn\.log" "${SCRIPT_LOG_FILE}" | sed s/--log\ // `
 
 readonly TB_RESOURCE_PATH=$(dirname "${0}")
 
 LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch.plist"
 
 readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
-
-set -e # We instruct bash that it CAN again fail on errors
 
 readonly DEFAULT_DOMAIN_NAME="openvpn"
 

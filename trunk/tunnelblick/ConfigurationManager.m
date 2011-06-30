@@ -66,6 +66,8 @@ enum state_t {                      // These are the "states" of the guideState 
 
 -(BOOL)         configNotProtected:         (NSString *)                configFile;
 
+-(OSStatus)     compareTblkShadowCopy:      (NSString *)                configurationFile;
+
 -(NSString *)   displayNameForPath:         (NSString *)                thePath;
 
 -(NSString *)   getLowerCaseStringForKey:   (NSString *)                key
@@ -1476,7 +1478,25 @@ enum state_t {                      // These are the "states" of the guideState 
         // We should use a shadow configuration file
         if ( [gFileMgr fileExistsAtPath:altCfgPath] ) {                                 // See if alt config exists
             // Alt config exists
-            if ( [gFileMgr contentsEqualAtPath:cfgPath andPath:altCfgPath] ) {          // See if files are the same
+            BOOL isSame;
+            if (  [[altCfgPath pathExtension] isEqualToString: @"tblk"]  ) {
+                // We must run as root to see if the two .tblk packages are identical because the permissions
+                // on any .crt files are no-access except to root.
+                NSString * displayName = [lastPartOfPath(altCfgPath) stringByDeletingPathExtension];
+                OSStatus status = [self compareTblkShadowCopy: displayName];
+                if (  status == OPENVPNSTART_COMPARE_CONFIG_SAME  ) {
+                    isSame = TRUE;
+                } else if (  status == OPENVPNSTART_COMPARE_CONFIG_DIFFERENT  ) {
+                    isSame = FALSE;
+                } else {
+                    NSLog(@"compareShadowCopy returned %d", (int) status);
+                    return nil;
+                }
+            } else {
+                // For a .ovpn or .conf, which we have read-only access to, we can just compare running as the user
+                isSame = [gFileMgr contentsEqualAtPath: cfgPath andPath: altCfgPath];
+            }
+            if (  isSame  ) {
                 // Alt config exists and is the same as regular config
                 if ( [self configNotProtected:altCfgPath] ) {                            // Check ownership/permissions
                     // Alt config needs repair
@@ -1550,6 +1570,24 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
 }
+
+
+// Runs as root to compare the private and shadow copies of a .tblk
+// Used because .crt files in a .tblk are no-access except to root
+-(OSStatus) compareTblkShadowCopy: (NSString *) displayName
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+    NSArray *arguments = [NSArray arrayWithObjects:@"compareTblkShadowCopy", displayName, nil];
+    
+    NSTask* task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath: path]; 
+    [task setArguments:arguments];
+    [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we need to specify something
+    [task launch];
+    [task waitUntilExit];
+    return [task terminationStatus];
+}
+
 
 -(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath
 {

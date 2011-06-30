@@ -34,6 +34,12 @@
 
 
 //*************************************************************************************************
+// Return values for openvpnstart compareConfig command
+#define OPENVPNSTART_COMPARE_CONFIG_SAME 3
+#define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT 5
+
+
+//*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
 // For openvpn's start, loadkexts, and unloadkexts sub-commands:
 #define OPENVPNSTART_OUR_TUN_KEXT           1
