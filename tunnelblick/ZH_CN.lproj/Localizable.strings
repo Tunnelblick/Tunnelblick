@@ -26,6 +26,9 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* NEEDS TRANSLATION *//* Button */
+"(None available)" = "(None available)";
+
+/* NEEDS TRANSLATION *//* Button */
 "1 MB" = "1 MB";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -379,6 +382,9 @@
 /* NEEDS TRANSLATION *//* Window title */
 " (Shared)" = " (Shared)"; /* Indicates a shared configuration */
 
+/* NEEDS TRANSLATION *//* Window title */
+"%@ Advanced Settings%@" = "%1$@ Advanced Settings%2$@";
+
 /* Window title */
 "'%@' has been disconnected" = "'%@' 已中断连线"; 
 
@@ -399,6 +405,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Appearances" = "Appearances";
 
 /* Window title */
 "Authentication failed" = "认证失败"; 
@@ -435,6 +444,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "File not found" = "File not found";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Info" = "Info";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
@@ -489,6 +501,9 @@
 
 /* Window title */
 "Please insert token" = "请输入代号"; 
+
+/* NEEDS TRANSLATION *//* Window title */
+"Preferences" = "Preferences";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Private Configuration Folder is Open" = "Private Configuration Folder is Open";
@@ -728,6 +743,12 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "多重并行连线将被建立(%1$d 条连线已'设定域名服务器', %2$d 条连线未'设定域名服务器')."; 
 
 /* NEEDS TRANSLATION *//* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
 "NetBIOS name:" = "NetBIOS name:";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -757,6 +778,12 @@
 /* Window text */
 "Please enter VPN passphrase." = "请输入VPN 口令."; 
 
+/* NEEDS TRANSLATION *//* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "请输入代号\"%@\", 再点选\"确定\""; 
 
@@ -771,6 +798,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"That name is being used.\n\n" = "That name is being used.\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
@@ -1012,6 +1042,12 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\nand install %d Tunnelblick VPN Configurations";
+
+/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
+" copy %d" = " copy %d";
+
+/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
+" copy" = " copy";
 
 /* NEEDS TRANSLATION *//* Button VPNService */
 "Accept" = "Accept";

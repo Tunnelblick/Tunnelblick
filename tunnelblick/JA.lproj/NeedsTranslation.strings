@@ -20,6 +20,9 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
+"(None available)" = "(None available)";
+
+/* Button */
 "1 MB" = "1 MB";
 
 /* Button */
@@ -341,6 +344,9 @@
 " (Shared)" = " (Shared)"; /* Indicates a shared configuration */
 
 /* Window title */
+"%@ Advanced Settings%@" = "%1$@ Advanced Settings%2$@";
+
+/* Window title */
 "'%@' has been disconnected" = "'%@' has been disconnected";
 
 /* Window title */
@@ -360,6 +366,9 @@
 
 /* Window title */
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
+
+/* Window title */
+"Appearances" = "Appearances";
 
 /* Window title */
 "Authentication failed" = "Authentication failed";
@@ -396,6 +405,9 @@
 
 /* Window title */
 "File not found" = "File not found";
+
+/* Window title */
+"Info" = "Info";
 
 /* Window title */
 "Install Configuration For All Users?" = "Install Configuration For All Users?";
@@ -450,6 +462,9 @@
 
 /* Window title */
 "Please insert token" = "Please insert token";
+
+/* Window title */
+"Preferences" = "Preferences";
 
 /* Window title */
 "Private Configuration Folder is Open" = "Private Configuration Folder is Open";
@@ -689,6 +704,12 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
 
 /* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
+
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
+
+/* Window text */
 "NetBIOS name:" = "NetBIOS name:";
 
 /* Window text */
@@ -716,6 +737,12 @@
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
 
 /* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+
+/* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
 /* Window text */
@@ -729,6 +756,9 @@
 
 /* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* Window text */
+"That name is being used.\n\n" = "That name is being used.\n\n";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
@@ -969,6 +999,12 @@
 
 /* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\nand install %d Tunnelblick VPN Configurations";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " copy %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " copy";
 
 /* Button VPNService */
 "Accept" = "Accept";
