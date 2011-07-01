@@ -1,5 +1,13 @@
 #summary The Latest News About Tunnelblick
 
+2011-07-01: *Tunnelblick 3.2beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Includes LZO 2.05, replacing 2.03.
+ * Sleep/wake change: When the computer wakes up, it now tries to reconnect all configurations that were connected, or were in the process of being connected, when it went to sleep. (Previously, Tunnelblick only tried to reconnect only those configurations that were connected when the computer went to sleep.)
+ * Adds an additional layer of protection against attacks.
+ * Fixes several bugs.
+ 
+--------------------
+
 2011-06-29: *Tunnelblick 3.2beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Fixes a bug causing domains to be ignored when 'Set nameserver' is selected.
  

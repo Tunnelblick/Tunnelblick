@@ -12,6 +12,28 @@
 
 --------------------
 
+*3.2beta22 (2011-07-01)*
+
+ * Includes LZO 2.05, replacing 2.03.
+
+ * Sleep/wake change: When the computer wakes up, it now tries to reconnect all configurations that were connected, or were in the process of being connected, when it went to sleep. (Previously, Tunnelblick only tried to reconnect only those configurations that were connected when the computer went to sleep.)
+
+ * Added an additional layer of protection against attacks.
+   
+ * Fixes a bug that caused connection failures for configurations on remote volumes or using shadow copies. 
+
+ * Fixes a bug that caused .tblk configurations on remote volumes or using shadow copies to ask for an administrator username/password each time a connection attempt was made.
+
+ * Fixes a bug that didn't localize some window text.
+
+ * Fixes a bug when using Set nameserver that caused domain/search name to be cut off.
+
+ * Fixes a bug that caused shadow copies of configuration files to not be renamed, duplicated, removed, shared, or made private.
+
+ * Fixes a bug that failed to remove some credentials when a configuration was removed.
+
+--------------------
+
 *3.2beta20 (2011-06-29)*
 
  * Fixes a bug causing domains to be ignored when 'Set nameserver' is selected.
