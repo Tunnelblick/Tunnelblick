@@ -4,6 +4,9 @@
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
 The following are known problems or limitations in Tunnelblick version 3.0:
+
+  * A problem has been reported when using Dropbox to sync the user's home folder if Tunnelblick is installed -- see [http://code.google.com/p/tunnelblick/issues/detail?id=182 Tunnelblick Issue 182] for details and a solution.
+
   * If both ~/Library/openvpn and ~/Library/Application Support/Tunnelblick/Configurations exist *and are folders*, Tunnelblick will refuse to start, displaying a dialog that "Tunnelblick could not be launched because of a problem with the configuration." The Console log will show an entry that both folders exist and "are folders, so ~/Library/openvpn cannot be moved".
 
   To work around this, move the contents of  ~/Library/openvpn to the other folder, delete the empty ~/Library/openvpn, and then launch Tunnelblick again. *Note that in some circumstances, ~/Library/openvpn exists and is a link to the other folder; that arrangement will not cause this problem and should not be disturbed.*
