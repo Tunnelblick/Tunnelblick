@@ -20,6 +20,9 @@
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
+"(None available)" = "(None available)";
+
+/* Button */
 "1 MB" = "1 MB";
 
 /* Button */
@@ -161,16 +164,25 @@
 "UDP_CONNECT" = "Making UDP connection";
 
 /* Window title */
+"%@ Advanced Settings%@" = "%1$@ Advanced Settings%2$@";
+
+/* Window title */
 "Active connection" = "Active connection";
 
 /* Window title */
 "Alert sounds" = "Alert sounds";
 
 /* Window title */
+"Appearances" = "Appearances";
+
+/* Window title */
 "Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
 
 /* Window title */
 "File not found" = "File not found";
+
+/* Window title */
+"Info" = "Info";
 
 /* Window title */
 "Log" = "Log";
@@ -186,6 +198,9 @@
 
 /* Window title */
 "Please enter a username and password." = "Please enter a username and password.";
+
+/* Window title */
+"Preferences" = "Preferences";
 
 /* Window title */
 "Settings" = "Settings";
@@ -287,6 +302,12 @@
 "Menu:" = "Menu:";
 
 /* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
+
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
+
+/* Window text */
 "NetBIOS name:" = "NetBIOS name:";
 
 /* Window text */
@@ -302,6 +323,12 @@
 "One Tunnelblick VPN Configuration was uninstalled successfully." = "One Tunnelblick VPN Configuration was uninstalled successfully.";
 
 /* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+
+/* Window text */
 "Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured...";
 
 /* Window text */
@@ -312,6 +339,9 @@
 
 /* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* Window text */
+"That name is being used.\n\n" = "That name is being used.\n\n";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "The OpenVPN log does not yet exist or has been deleted.";
@@ -405,6 +435,12 @@
 
 /* Window text */
 "\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nOne Tunnelblick VPN Configuration was installed successfully.";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " copy %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " copy";
 
 /* Button VPNService */
 "Accept" = "Accept";

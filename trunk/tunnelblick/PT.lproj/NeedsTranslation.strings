@@ -1,6 +1,21 @@
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
+/* Button */
+"(None available)" = "(None available)";
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ Advanced Settings%2$@";
+
+/* Window title */
+"Appearances" = "Appearances";
+
+/* Window title */
+"Info" = "Info";
+
+/* Window title */
+"Preferences" = "Preferences";
+
 /* Window title */
 "Tunnelblick.app" = "Tunnelblick.app";
 
@@ -11,10 +26,25 @@
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
 
 /* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
+
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
+
+/* Window text */
 "Notification window:" = "Notification window:";
 
 /* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+
+/* Window text */
 "Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured...";
+
+/* Window text */
+"That name is being used.\n\n" = "That name is being used.\n\n";
 
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
@@ -24,4 +54,10 @@
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " copy %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " copy";
 
