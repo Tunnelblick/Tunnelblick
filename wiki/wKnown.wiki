@@ -5,6 +5,8 @@
 
 The following are known problems or limitations in Tunnelblick version 3.1:
 
+  * A problem has been reported when using Dropbox to sync the user's home folder if Tunnelblick is installed -- see [http://code.google.com/p/tunnelblick/issues/detail?id=182 Tunnelblick Issue 182] for details and a solution.
+
   * If "Monitor connection" is checked, Tunnelblick monitors the network interface that connects to the VPN and will restart the connection if changes to DNS or WINS are detected. With some network configurations this causes repeated disconnects/reconnects every few seconds. To avoid this, uncheck "Monitor connection" in the tab for the problematic configuration on the "Details..." window. Please post your complete log (showing the problem with "Monitor connection" checked) to the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group] so we can fix this problem. (Be sure to cross out any sensitive information such as server IP addresses before you post your log.)
 
   * The standard script that "Set nameserver" uses handles DNS for most common setups. For other situations, the "Alternate 1" script may work, or you can use custom scripts. See [wConfigT#The_%22Set_Nameserver%22_Check_Box_and_DNS_&_WINS_Sett Setting up Configurations] for details.
