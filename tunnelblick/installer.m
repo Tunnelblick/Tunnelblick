@@ -84,11 +84,11 @@
 //           /Library/Application Support/Tunnelblick/Users/<username>
 //           ~/Library/Application Support/Tunnelblick/Configurations
 //     (10) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is clear and sourcePath is given,
-//             copies or moves sourcePath to targetPath (copies unless INSTALLER_MOVE_NOT_COPY is set)
+//             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE_NOT_COPY is set.  (Also copies or moves the shadow copy if deleting a private configuration)
 //     (11) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is clear and targetPath is given,
 //             secures the .ovpn or .conf file or a .tblk package at targetPath
 //     (12) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is set and targetPath is given,
-//             deletes the .ovpn or .conf file or .tblk package at targetPath
+//             deletes the .ovpn or .conf file or .tblk package at targetPath (also deletes the shadow copy if deleting a private configuration)
 //     (13) If INSTALLER_SET_VERSION is set, copies the bundleVersion into the CFBundleVersion entry and bundleShortVersionString into the CFBundleShortVersionString entry
 //                                           in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
 //
@@ -121,6 +121,10 @@ BOOL secureOneFolder(NSString * path);
 BOOL makeFileUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
 void errorExit();
+NSString * firstPartOfPath(NSString * path);
+NSString * lastPartOfPath(NSString * path);
+void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy);
+BOOL deleteThingAtPath(NSString * path);
 
 int main(int argc, char *argv[]) 
 {
@@ -572,44 +576,43 @@ int main(int argc, char *argv[])
             errorExit();
         }
         
-        // Copy the file or package to a ".partial" file/folder first, then rename it
-        // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
-        // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
-        NSString * dotPartialPath = [firstPath stringByAppendingPathExtension: @"partial"];
-        errorExitIfAnySymlinkInPath(dotPartialPath, 3);
-        [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
-        if (  ! [gFileMgr tbCopyPath: secondPath toPath: dotPartialPath handler: nil]  ) {
-            NSLog(@"Tunnelblick Installer: Failed to copy %@ to %@", secondPath, dotPartialPath);
-            [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
-            errorExit();
-        }
+        safeCopyOrMovePathToPath(secondPath, firstPath, moveNotCopy);
         
-        BOOL errorHappened = FALSE; // Use this to defer error exit until after renaming xxx.partial to xxx
-        
-        // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
-        // about duplicate configuration names.
-        if (  moveNotCopy  ) {
-            errorExitIfAnySymlinkInPath(secondPath, 4);
-            if (  ! [gFileMgr tbRemoveFileAtPath:secondPath handler: nil]  ) {
-                NSLog(@"Tunnelblick Installer: Failed to delete %@", secondPath);
-                errorHappened = TRUE;
-            }
-        }
-
-        errorExitIfAnySymlinkInPath(firstPath, 5);
-        [gFileMgr tbRemoveFileAtPath:firstPath handler: nil];
-        if (  ! [gFileMgr tbMovePath: dotPartialPath toPath: firstPath handler: nil]  ) {
-            NSLog(@"Tunnelblick Installer: Failed to rename %@ to %@", dotPartialPath, firstPath);
-            [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
-            errorExit();
-        }
-        
-        if (  errorHappened  ) {
-            errorExit();
-        }
-
         if (  ! makeFileUnlockedAtPath(firstPath)  ) {
             errorExit();
+        }
+        
+        // If we just copied/moved a private configuration file, (and not to a shadow copy),
+        // Then if   copied/moved to Shared or Deploy, delete the shadow copy if it exists
+        //      else copy/move the shadow copy if it exists
+        NSString * firstPartOfSource = firstPartOfPath(secondPath);
+        NSString * firstPartOfTarget = firstPartOfPath(firstPath);
+        if (   [firstPartOfSource isEqualToString: gPrivatePath]  ) {
+            NSString * lastPartOfSource = lastPartOfPath(secondPath);
+            NSString * lastPartOfTarget = lastPartOfPath(firstPath);
+            NSString * shadowFromPath = [NSString stringWithFormat: @"/Library/Application Support/Tunnelblick/Users/%@/%@",
+                                         NSUserName(),
+                                         lastPartOfSource];
+            NSString * shadowToPath   = [NSString stringWithFormat: @"/Library/Application Support/Tunnelblick/Users/%@/%@",
+                                         NSUserName(),
+                                         lastPartOfTarget];
+            if (  [firstPartOfTarget isEqualToString: gPrivatePath]  ) {
+                // Copy/Move from private to private, so copy/move the shadow copy if it exists
+                if (  [gFileMgr fileExistsAtPath: shadowFromPath]  ) {
+                    safeCopyOrMovePathToPath(shadowFromPath, shadowToPath, moveNotCopy);
+                }
+            } else if (  moveNotCopy  ) {
+                // Move to Deploy or Shared, so delete the shadow copy if it exists
+                if (   [firstPartOfTarget isEqualToString: gDeployPath]
+                    || [firstPartOfTarget isEqualToString: gSharedPath]  ) {
+                    if (  [gFileMgr fileExistsAtPath: shadowFromPath]  ) {
+                        if (  ! deleteThingAtPath(shadowFromPath)  ) {
+                            errorExit();
+                        }
+                    }
+                }
+                // Copy/move somewhere TO the shadow copy, so don't do anything with the shadow copy
+            }
         }
     }
     
@@ -644,7 +647,7 @@ int main(int argc, char *argv[])
     
     //**************************************************************************************************************************
     // (12)
-    // If requested, delete a single file or .tblk package
+    // If requested, delete a single file or .tblk package (also deletes the shadow copy if deleting a private configuration)
     if (   firstPath
         && deleteConfig
         && ( ! setBundleVersion )  ) {
@@ -658,6 +661,21 @@ int main(int argc, char *argv[])
                     NSLog(@"Tunnelblick Installer: unable to remove %@", firstPath);
                 } else {
                     NSLog(@"Tunnelblick Installer: removed %@", firstPath);
+                }
+                
+                // Delete shadow copy, too, if it exists
+                if (  [firstPartOfPath(firstPath) isEqualToString: gPrivatePath]  ) {
+                    NSString * shadowCopyPath = [NSString stringWithFormat: @"/Library/Application Support/Tunnelblick/Users/%@/%@",
+                                                 NSUserName(),
+                                                 lastPartOfPath(firstPath)];
+                    if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
+                        errorExitIfAnySymlinkInPath(shadowCopyPath, 7);
+                        if (  ! [gFileMgr tbRemoveFileAtPath: shadowCopyPath handler: nil]  ) {
+                            NSLog(@"Tunnelblick Installer: unable to remove %@", shadowCopyPath);
+                        } else {
+                            NSLog(@"Tunnelblick Installer: removed %@", shadowCopyPath);
+                        }
+                    }
                 }
             }
         } else {
@@ -764,6 +782,53 @@ void errorExit()
     [pool release];
     exit(EXIT_FAILURE);
 }
+
+
+//**************************************************************************************************************************
+void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
+{
+    // Copy the file or package to a ".partial" file/folder first, then rename it
+    // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
+    // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
+    NSString * dotPartialPath = [toPath stringByAppendingPathExtension: @"partial"];
+    errorExitIfAnySymlinkInPath(dotPartialPath, 3);
+    [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
+    if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotPartialPath handler: nil]  ) {
+        NSLog(@"Tunnelblick Installer: Failed to copy %@ to %@", fromPath, dotPartialPath);
+        [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
+        errorExit();
+    }
+    
+    // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
+    // about duplicate configuration names.
+    if (  moveNotCopy  ) {
+        errorExitIfAnySymlinkInPath(fromPath, 4);
+        if (  ! deleteThingAtPath(fromPath)  ) {
+            errorExit();
+        }
+    }
+    
+    errorExitIfAnySymlinkInPath(toPath, 5);
+    [gFileMgr tbRemoveFileAtPath:toPath handler: nil];
+    if (  ! [gFileMgr tbMovePath: dotPartialPath toPath: toPath handler: nil]  ) {
+        NSLog(@"Tunnelblick Installer: Failed to rename %@ to %@", dotPartialPath, toPath);
+        [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
+        errorExit();
+    }
+}
+
+//**************************************************************************************************************************
+BOOL deleteThingAtPath(NSString * path)
+{
+    errorExitIfAnySymlinkInPath(path, 8);
+    if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
+        NSLog(@"Tunnelblick Installer: Failed to delete %@", path);
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
 
 //**************************************************************************************************************************
 BOOL moveContents(NSString * fromPath, NSString * toPath)
@@ -1092,4 +1157,41 @@ BOOL secureOneFolder(NSString * path)
     }
     
     return result;
+}
+
+NSString * firstPartOfPath(NSString * path)
+{
+    NSArray * paths = [NSArray arrayWithObjects:
+                       gPrivatePath,
+                       gDeployPath,
+                       gSharedPath, nil];
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  configFolder = [arrayEnum nextObject]  ) {
+        if (  [path hasPrefix: configFolder]  ) {
+            return configFolder;
+        }
+    }
+    return nil;
+}
+
+NSString * lastPartOfPath(NSString * path)
+{
+    NSArray * paths = [NSArray arrayWithObjects:
+                       gPrivatePath,
+                       gDeployPath,
+                       gSharedPath, nil];
+    NSEnumerator * arrayEnum = [paths objectEnumerator];
+    NSString * configFolder;
+    while (  configFolder = [arrayEnum nextObject]  ) {
+        if (  [path hasPrefix: configFolder]  ) {
+            if (  [path length] > [configFolder length]  ) {
+                return [path substringFromIndex: [configFolder length]+1];
+            } else {
+                NSLog(@"No display name in path '%@'", path);
+                return @"X";
+            }
+        }
+    }
+    return nil;
 }

@@ -80,7 +80,7 @@ extern NSFileManager  * gFileMgr;
         [appearanceIconSetArrayController setContent: iconSetContent];
     } else {
         [appearanceIconSetArrayController setContent:
-         [NSDictionary dictionaryWithObjectsAndKeys: @"(None available)", "name", @"", "value", nil]];
+         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), "name", @"", "value", nil]];
     }
     [appearanceIconSetButton sizeToFit];
     
