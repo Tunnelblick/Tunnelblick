@@ -484,7 +484,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView configurationStatusTFC] setTitle: localizedStatus];
     }
     
-    [[self window] setTitle: [self windowTitle: @"Configurations"]];
+    [[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
     
     [settingsSheetWindowController updateConnectionStatusAndTime];
 }
@@ -676,7 +676,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         appName = [appName substringToIndex: [appName length] - 4];
     }
     
-    NSString * windowLabel = [NSString stringWithFormat: @"%@ - %@", currentViewName, appName];
+    NSString * windowLabel = [NSString stringWithFormat: @"%@ - Tunnelblick", localizeNonLiteral(currentViewName, @"Window title")];
 
     if (  [currentViewName isEqualToString: @"Configurations"]  ) {
         VPNConnection * connection = [self selectedConnection];
@@ -685,7 +685,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             NSString * status = localizeNonLiteral([connection state], @"Connection status");
             NSString * connectionTimeString = [connection connectTimeString];
             if (   [connection isConnected]
-                && [gTbDefaults boolForKey: @""]  ) {
+                && [gTbDefaults boolForKey: @"showConnectedDurations"]  ) {
                 
             }
             windowLabel = [NSString stringWithFormat: @"%@%@: %@%@ - %@", [connection displayName], [connection displayLocation], status, connectionTimeString, appName];
@@ -936,8 +936,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  [[ConfigurationManager defaultManager] deleteConfigPath: configurationPath
                                                      usingAuthRef: authorization
                                                        warnDialog: YES]  ) {
-        [gTbDefaults removePreferencesFor: displayName];
-        
         //Remove credentials
         AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: displayName] autorelease];
         [myAuthAgent setAuthMode: @"privateKey"];
@@ -948,6 +946,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  [myAuthAgent keychainHasCredentials]  ) {
             [myAuthAgent deleteCredentialsFromKeychain];
         }
+        
+        [gTbDefaults removePreferencesFor: displayName];
     }
     
     if (  localAuthorization  ) {
@@ -990,7 +990,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     // Get the new name
     
-    NSString * prompt = [NSString stringWithFormat: @"Please enter a new name for '%@'.", [sourceDisplayName lastPathComponent]];
+    NSString * prompt = [NSString stringWithFormat: NSLocalizedString(@"Please enter a new name for '%@'.", @"Window text"), [sourceDisplayName lastPathComponent]];
     NSString * newName = TBGetDisplayName(prompt, sourcePath);
     
     if (  ! newName  ) {
@@ -1031,10 +1031,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         
         // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences
-        if (  haveCredentials  ) {
-            key = [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"];
-            [gTbDefaults setBool: TRUE forKey: key];
-        }
+        key = [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"];
+        [gTbDefaults setBool: haveCredentials forKey: key];
     }
 }
 
@@ -1075,9 +1073,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     int copyNumber;
     for (  copyNumber=1; copyNumber<100; copyNumber++  ) {
         if (  copyNumber == 1) {
-            targetName = [sourceLastName stringByAppendingString: @" copy"];
+            targetName = [sourceLastName stringByAppendingString: NSLocalizedString(@" copy", @"Suffix for a duplicate of a file")];
         } else {
-            targetName = [sourceLastName stringByAppendingFormat: @" copy %d", copyNumber];
+            targetName = [sourceLastName stringByAppendingFormat: NSLocalizedString(@" copy %d", @"Suffix for a duplicate of a file"), copyNumber];
         }
         
         target = [[sourceFolder stringByAppendingPathComponent: targetName] stringByAppendingPathExtension: sourceExtension];
@@ -1674,7 +1672,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         VPNConnection* newConnection = [self selectedConnection];
         NSString * dispNm = [newConnection displayName];
         [[configurationsPrefsView configurationNameTFC] setTitle: [NSString stringWithFormat: @"%@:", dispNm]];
-        [[self window] setTitle: [self windowTitle: @"Configurations"]];
+        [[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
         
         NSString * status = localizeNonLiteral([newConnection state], @"Connection status");
         [[configurationsPrefsView configurationStatusTFC] setTitle: status];
@@ -1996,7 +1994,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     }
     
     if (  iconSetIx == -1  ) {
-         [NSDictionary dictionaryWithObjectsAndKeys: @"(None available)", "name", @"", "value", nil];
+         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), "name", @"", "value", nil];
         [self setSelectedAppearanceIconSetIndex: 0];
     } else {
         [self setSelectedAppearanceIconSetIndex: iconSetIx];

@@ -307,7 +307,7 @@ extern TBUserDefaults       * gTbDefaults;
     } else {
         programName = [NSString stringWithFormat: @" - Tunnelblick"];
     }
-    [settingsSheet setTitle: [NSString stringWithFormat: @"%@ Advanced Settings%@", configurationName, programName]];
+    [settingsSheet setTitle: [NSString stringWithFormat: NSLocalizedString(@"%@ Advanced Settings%@", @"Window title"), configurationName, programName]];
     
     [self setStatus: [connection state]];
     
