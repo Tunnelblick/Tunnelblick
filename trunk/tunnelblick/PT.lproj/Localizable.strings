@@ -22,11 +22,11 @@
 /* Textbox name */
 "Username:" = "Usuário:";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
-/* NEEDS TRANSLATION *//* Button */
-"(None available)" = "(None available)";
+/* Button */
+"(None available)" = "(Nenhum disponível)";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "1 MB" = "1 MB";
@@ -382,8 +382,8 @@
 /* Window title */
 " (Shared)" = " (Compartilhado)"; /* Indicates a shared configuration */
 
-/* NEEDS TRANSLATION *//* Window title */
-"%@ Advanced Settings%@" = "%1$@ Advanced Settings%2$@";
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ Configurações Avançadas%2$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' foi desconectado";
@@ -406,8 +406,8 @@
 /* Window title */
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "Uma Configuração Vazia de VPN do Tunnelblick VPN Foi Criada";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Appearances" = "Appearances";
+/* Window title */
+"Appearance" = "Aparência";
 
 /* Window title */
 "Authentication failed" = "Autenticação falhou";
@@ -417,6 +417,9 @@
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuração(ões) Ignorada(s)";
+
+/* Window title */
+"Connecting & Disconnecting" = "Conexão & Desconexão";
 
 /* Window title */
 "Could Not Copy Configuration" = "Não Pode Copiar Configuração";
@@ -445,7 +448,7 @@
 /* Window title */
 "File not found" = "Arquivo não encontrado";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Info" = "Info";
 
 /* Window title */
@@ -502,8 +505,8 @@
 /* Window title */
 "Please insert token" = "Favor inserir token";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Preferences" = "Preferences";
+/* Window title */
+"Preferences" = "Preferências";
 
 /* Window title */
 "Private Configuration Folder is Open" = "Pasta de Configurações Privadas está Aberta";
@@ -547,7 +550,7 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick.app" = "Tunnelblick.app";
 
 /* Window title */
@@ -607,8 +610,8 @@
 /* Window text */
 " (To install in a different location, drag %@ to that location.)" = " (Para instalar em um local diferente, arraste %@ para este local.)";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@";
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Configurações podem ser apagadas somente por um administrador do computador.\n\n A remoção é imediata e permanente. Todos os ajustes para '%1$@' também serão apagados permanentemente.%2$@";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n%@" = " Deseja instalar %1$@ ao %2$@%3$@?\n\n%4$@";
@@ -691,8 +694,8 @@
 /* Window text */
 "DNS servers:" = "Servidores DNS:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "A remoção de uma configuração é permanente e não pode ser desfeita.\n\nTodas os ajustes para a configuração também serão apagados permanentemente.\n\n%1$@\n\nVocê realmente gostaria de apagar a configuração '%2$@'?";
 
 /* Window text */
 "Do you wish to install %d configurations" = "Deseja instalar %d configurações";
@@ -742,11 +745,11 @@
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Múltiplas conexões simultâneas seriam criadas (%1$d com 'Definir nameserver', %2$d sem 'Definir nameserver').";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
+/* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Nomes não podem conter barras (\"/\")\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "Nomes não podem iniciar com um ponto (\".\")\n\n";
 
 /* Window text */
 "NetBIOS name:" = "Nome NetBIOS:";
@@ -754,8 +757,8 @@
 /* Window text */
 "Network setting" = "Configuração de rede";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Notification window:" = "Notification window:";
+/* Window text */
+"Notification window:" = "Janela de notificação:";
 
 /* Window text */
 "One Tunnelblick VPN Configuration was installed successfully." = "Uma Configuração VPN do Tunnelblick foi instalada com sucesso.";
@@ -778,17 +781,17 @@
 /* Window text */
 "Please enter VPN passphrase." = "Favor digitar a senha da VPN.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
+/* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Por favor digite um nome e clique \"OK\" ou clique \"Cancelar\".\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
+/* Window text */
+"Please enter a new name for '%@'." = "Por favor digite um novo nome para '%@'.";
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Favor isnerir token \"%@\", então clique \"OK\"";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured...";
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Por favor espere enquanto o Tunnelblick está sendo instalado e protegido...";
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Configurações privadas não podem conectar quando o computador iniciar.\n\nPrimeiramente compartilhe a configuração, então altere esta ajuste.";
@@ -799,8 +802,8 @@
 /* Window text */
 "Set DNS/WINS:" = "Configurar DNS/WINS:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
+/* Window text */
+"That name is being used.\n\n" = "Este nome está sendo utilizado.\n\n";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "O log do OpenVPN ainda não existe ou foi apagado.";
@@ -937,8 +940,8 @@
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "O Tunnelblick não conseguiu estabelecer comunicação com o processo existente do OpenVPN por '%1$@' dentro de %2$d segundos. A tentativa de estabelecer comunicação foi abandonada.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick não pôde iniciar o OpenVPN para conectar %@. Para mais informações, verifique o log do OpenVPN na janela Informações da VPN...";
 
 /* Window text */
 "Unable to Establish Communication" = "Não é Possível Estabelecer Comunicação";
@@ -979,11 +982,11 @@
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Você não pode instalar uma configuração VPN do Tunnelblick de uma cópia instalada.\n\nUm administrador pode copiar a instalação e realizar a instalação a partir da cópia.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You cannot make a configuration private if it is set to start when the computer starts." = "You cannot make a configuration private if it is set to start when the computer starts.";
+/* Window text */
+"You cannot make a configuration private if it is set to start when the computer starts." = "Você não pode tornar uma configuração privada se ela está configurado para iniciar quando o computador iniciar.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).";
+/* Window text */
+"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Você não pode tornar uma configuração compartilhada se ela não é uma Configuração VPN do Tunnelblick (.tblk).";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Você pediu para duplicar '%@'.";
@@ -1045,11 +1048,11 @@
 /* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\ne instalar %d Configurações VPN do Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
-" copy %d" = " copy %d";
+/* Suffix for a duplicate of a file */
+" copy %d" = " cópia %d";
 
-/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
-" copy" = " copy";
+/* Suffix for a duplicate of a file */
+" copy" = " cópia";
 
 /* Button VPNService */
 "Accept" = "Aceitar";

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="15"/>
+			<integer value="14"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -661,14 +661,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">scanConfigurationFileCheckboxWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="579066983"/>
-					</object>
-					<int key="connectionID">181</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">useTunTapDriversCheckboxWasClicked:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="692203158"/>
@@ -890,6 +882,14 @@
 						<reference key="destination" ref="579066983"/>
 					</object>
 					<int key="connectionID">569</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">connectingAndDisconnectingTabViewItem</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="514359496"/>
+					</object>
+					<int key="connectionID">570</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1273,9 +1273,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{343, 462}, {708, 358}}</string>
+					<string>{{104, 398}, {708, 358}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{343, 462}, {708, 358}}</string>
+					<string>{{104, 398}, {708, 358}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{357, 418}, {480, 270}}</string>
@@ -1382,7 +1382,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">569</int>
+			<int key="maxID">570</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1449,14 +1449,12 @@
 							<string>flushDnsCacheCheckboxWasClicked:</string>
 							<string>monitorNetworkForChangesCheckboxWasClicked:</string>
 							<string>reconnectWhenUserSwitchesInCheckboxWasClicked:</string>
-							<string>scanConfigurationFileCheckboxWasClicked:</string>
 							<string>showSettingsSheet:</string>
 							<string>useTunTapDriversCheckboxWasClicked:</string>
 							<string>whileConnectedHelpButtonWasClicked:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1478,7 +1476,6 @@
 							<string>flushDnsCacheCheckboxWasClicked:</string>
 							<string>monitorNetworkForChangesCheckboxWasClicked:</string>
 							<string>reconnectWhenUserSwitchesInCheckboxWasClicked:</string>
-							<string>scanConfigurationFileCheckboxWasClicked:</string>
 							<string>showSettingsSheet:</string>
 							<string>useTunTapDriversCheckboxWasClicked:</string>
 							<string>whileConnectedHelpButtonWasClicked:</string>
@@ -1510,10 +1507,6 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">scanConfigurationFileCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">showSettingsSheet:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -1534,6 +1527,7 @@
 							<string>DnsWinsBox</string>
 							<string>configurationNameTFC</string>
 							<string>configurationStatusTFC</string>
+							<string>connectingAndDisconnectingTabViewItem</string>
 							<string>connectingHelpButton</string>
 							<string>disconnectWhenUserSwitchesOutCheckbox</string>
 							<string>dnsServersArrayController</string>
@@ -1588,6 +1582,7 @@
 							<string>NSBox</string>
 							<string>NSTextFieldCell</string>
 							<string>NSTextFieldCell</string>
+							<string>NSTabViewItem</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSArrayController</string>
@@ -1645,6 +1640,7 @@
 							<string>DnsWinsBox</string>
 							<string>configurationNameTFC</string>
 							<string>configurationStatusTFC</string>
+							<string>connectingAndDisconnectingTabViewItem</string>
 							<string>connectingHelpButton</string>
 							<string>disconnectWhenUserSwitchesOutCheckbox</string>
 							<string>dnsServersArrayController</string>
@@ -1707,6 +1703,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">configurationStatusTFC</string>
 								<string key="candidateClassName">NSTextFieldCell</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">connectingAndDisconnectingTabViewItem</string>
+								<string key="candidateClassName">NSTabViewItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">connectingHelpButton</string>
