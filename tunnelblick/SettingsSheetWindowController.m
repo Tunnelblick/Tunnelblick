@@ -193,6 +193,8 @@ extern TBUserDefaults       * gTbDefaults;
     
     // For Connecting tab
     
+    [connectingAndDisconnectingTabViewItem  setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
+     
     [scanConfigurationFileCheckbox          setTitle: NSLocalizedString(@"Scan configuration file for problems before connecting", @"Checkbox name")];
     [useTunTapDriversCheckbox               setTitle: NSLocalizedString(@"Use Tunnelblick tun/tap drivers"                       , @"Checkbox name")];
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
@@ -871,5 +873,7 @@ extern TBUserDefaults       * gTbDefaults;
     [checkbox setEnabled: enable];
 }
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, connectingAndDisconnectingTabViewItem)
+     
 
 @end

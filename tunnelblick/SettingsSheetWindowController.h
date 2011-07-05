@@ -21,6 +21,7 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "defines.h"
 
 typedef enum
 {
@@ -50,6 +51,8 @@ typedef enum
     IBOutlet NSWindow            * settingsSheet;
     
     IBOutlet NSTabView           * tabView;
+    
+    IBOutlet NSTabViewItem       * connectingAndDisconnectingTabViewItem;
     
     IBOutlet NSTextFieldCell     * configurationNameTFC;
     IBOutlet NSTextFieldCell     * configurationStatusTFC;
@@ -154,6 +157,8 @@ typedef enum
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
 // Methods for Connecting tab
+
+TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 
 -(IBAction) scanConfigurationFileCheckboxWasClicked:             (id) sender;
 -(IBAction) useTunTapDriversCheckboxWasClicked:                  (id) sender;

@@ -99,10 +99,10 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setupToolbar
 {
-    [self addView: configurationsPrefsView  label: @"Configurations"];
-    [self addView: generalPrefsView         label: @"Preferences"];
-    [self addView: appearancePrefsView      label: @"Appearance"];
-    [self addView: infoPrefsView            label: @"Info"];
+    [self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: @"Configurations"]];
+    [self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
+    [self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: @"Appearance"    ]];
+    [self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
     
     [self setupViews];
     

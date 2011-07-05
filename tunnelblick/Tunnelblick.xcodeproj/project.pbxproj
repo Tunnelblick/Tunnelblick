@@ -89,7 +89,6 @@
 		638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
-		63920C18137E983300862A71 /* credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63920C16137E983300862A71 /* credits.rtf */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
@@ -321,7 +320,6 @@
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
-		63920C16137E983300862A71 /* credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = credits.rtf; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
 		639A10EA132AC74B00754C2A /* StatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusWindow.xib; sourceTree = "<group>"; };
@@ -567,7 +565,6 @@
 				63EA8CE713A3DC5D0034F47C /* xibs */,
 				63EEBD8C137EF4C3001BFFD8 /* help */,
 				63C043DC1023660900E6C1D0 /* IconSets */,
-				63920C16137E983300862A71 /* credits.rtf */,
 				63ECF4771386802F000286AD /* description.html */,
 				6387F0F4135604240021E41B /* tunnelblick.sdef */,
 				6353818E1116031F00D68E83 /* dsa_pub.pem */,
@@ -932,7 +929,6 @@
 				635ECD071378B4A900F67F8D /* Preferences.xib in Resources */,
 				635ECD0C1378B7E600F67F8D /* Appearance.png in Resources */,
 				635ECDC51378CD3200F67F8D /* Info.tiff in Resources */,
-				63920C18137E983300862A71 /* credits.rtf in Resources */,
 				63EEBD93137EF4C3001BFFD8 /* help in Resources */,
 				63E56EC413848194007E39AB /* VPNServiceCreateAccount.xib in Resources */,
 				63E56EC513848194007E39AB /* VPNServiceIntro.xib in Resources */,

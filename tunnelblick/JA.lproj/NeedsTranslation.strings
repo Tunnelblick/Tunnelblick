@@ -368,7 +368,7 @@
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
 
 /* Window title */
-"Appearances" = "Appearances";
+"Appearance" = "Appearance";
 
 /* Window title */
 "Authentication failed" = "Authentication failed";
@@ -378,6 +378,9 @@
 
 /* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
+
+/* Window title */
+"Connecting & Disconnecting" = "Connecting & Disconnecting";
 
 /* Window title */
 "Could Not Copy Configuration" = "Could Not Copy Configuration";

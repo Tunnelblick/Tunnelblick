@@ -173,7 +173,10 @@
 "Alert sounds" = "Alert sounds";
 
 /* Window title */
-"Appearances" = "Appearances";
+"Appearance" = "Appearance";
+
+/* Window title */
+"Connecting & Disconnecting" = "Connecting & Disconnecting";
 
 /* Window title */
 "Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";

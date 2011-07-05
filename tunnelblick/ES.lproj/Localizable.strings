@@ -407,7 +407,7 @@
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
 
 /* NEEDS TRANSLATION *//* Window title */
-"Appearances" = "Appearances";
+"Appearance" = "Appearance";
 
 /* Window title */
 "Authentication failed" = "Error de Autenticación";
@@ -417,6 +417,9 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Connecting & Disconnecting" = "Connecting & Disconnecting";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Could Not Copy Configuration" = "Could Not Copy Configuration";

@@ -875,12 +875,6 @@ void localizableStrings(void)
     // This string comes from the "Other Sources/dmgFiles/background.rtf" file, used to generate an image for the DMG
     NSLocalizedString(@"Double-click to begin", @"Text on disk image");
     
-    // These strings are the names of preference window toolbar items, which become window titles
-    NSLocalizedString(@"Configurations", @"Window title");
-    NSLocalizedString(@"Preferences",    @"Window title");
-    NSLocalizedString(@"Appearances",    @"Window title");
-    NSLocalizedString(@"Info",           @"Window title");
-
     // These strings come from OpenVPN and indicate the status of a connection
     NSLocalizedString(@"ADD_ROUTES",    @"Connection status");
     NSLocalizedString(@"ASSIGN_IP",     @"Connection status");
