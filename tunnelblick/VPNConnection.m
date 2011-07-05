@@ -126,19 +126,21 @@ extern NSString * lastPartOfPath(NSString * thePath);
         NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
         NSString * upSoundName = [gTbDefaults objectForKey: upSoundKey];
         if (  upSoundName  ) {
-            tunnelUpSound   = [NSSound soundNamed: upSoundName];
-            if (  ! tunnelUpSound  ) {
-                NSLog(@"%@ '%@' not found; using 'Glass'", upSoundKey, upSoundName);
-                tunnelUpSound = [NSSound soundNamed: @"Glass"];
+            if (  ! [upSoundName isEqualToString: @"None"]  ) {
+                tunnelUpSound   = [NSSound soundNamed: upSoundName];
+                if (  ! tunnelUpSound  ) {
+                    NSLog(@"%@ '%@' not found; no sound will be played when connecting", upSoundKey, upSoundName);
+                }
             }
         }
         NSString * downSoundKey  = [displayName stringByAppendingString: @"-tunnelDownSoundName"];
         NSString * downSoundName = [gTbDefaults objectForKey: downSoundKey];
         if (  downSoundName  ) {
-            tunnelDownSound = [NSSound soundNamed: downSoundName];
-            if (  ! tunnelDownSound  ) {
-                NSLog(@"%@ '%@' not found; using 'Basso'", downSoundKey, downSoundName);
-                tunnelDownSound = [NSSound soundNamed: @"Basso"];
+            if (  ! [downSoundName isEqualToString: @"None"] ) {
+                tunnelDownSound = [NSSound soundNamed: downSoundName];
+                if (  ! tunnelDownSound  ) {
+                    NSLog(@"%@ '%@' not found; no sound will be played when an unexpected disconnection occurs", downSoundKey, downSoundName);
+                }
             }
         }
         portNumber = 0;

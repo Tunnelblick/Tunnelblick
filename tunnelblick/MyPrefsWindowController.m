@@ -62,6 +62,8 @@ extern NSArray        * gConfigurationPreferences;
 -(NSString *) indent: (NSString *) s
                   by: (int)        n;
 
+-(void) initializeSoundPopUpButtons;
+
 -(void) setCurrentViewName: (NSString *) newName;
 
 -(void) setSelectedWhenToConnectIndex: (NSInteger) newValue;
@@ -360,6 +362,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
         }
         
+        [self initializeSoundPopUpButtons];
+        
         [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
                arrayController: [configurationsPrefsView soundOnConnectArrayController]
                     preference: @"-tunnelUpSoundName"];
@@ -535,6 +539,29 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
+-(void) initializeSoundPopUpButtons
+{
+    NSArray * soundsSorted = [[NSApp delegate] sortedSounds];
+    
+    // Create an array of dictionaries of sounds. (Don't get the actual sounds, just the names of the sounds)
+    NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [soundsSorted count]];
+    
+    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
+                                       NSLocalizedString(@"None", @"Button"), @"name", 
+                                       @"None", @"value", nil]];
+    
+    int i;
+    for (  i=0; i<[soundsSorted count]; i++  ) {
+        [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
+                                           [soundsSorted objectAtIndex: i], @"name", 
+                                           [soundsSorted objectAtIndex: i], @"value", nil]];
+    }
+    
+    [[configurationsPrefsView soundOnConnectArrayController]    setContent: soundsDictionaryArray];
+    [[configurationsPrefsView soundOnDisconnectArrayController] setContent: soundsDictionaryArray];
+}
+
+
 //  Set a sound popup button from preferences
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
@@ -543,31 +570,25 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSUInteger ix = NSNotFound;
     NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
     NSString * soundName = [gTbDefaults objectForKey: key];
-    if (  soundName  ) {
-        if (  ! [soundName isEqualToString: @"None"]  ) {
-            ix = [[configurationsPrefsView sortedSounds] indexOfObject: soundName];
-            if (  ix == NSNotFound  ) {
-                if (  [[configurationsPrefsView sortedSounds] count] > 0  ) {
-                    NSString * substituteSoundName = [[configurationsPrefsView sortedSounds] objectAtIndex: 0];
-                    NSLog(@"Preference '%@' '%@' is not available, using sound '%@'", key, soundName, substituteSoundName);
-                    ix = 1;
-                } else {
-                    NSLog(@"Preference '%@' '%@' ignored, no sounds are available", key, soundName);
-                }
-            } else {
-                ix = ix + 1;
+    if (   soundName
+        && [soundName isNotEqualTo: @"None"]  ) {
+        NSArray * listContent = [ac content];
+        NSDictionary * dict;
+        int i;
+        for (  i=1; i<[listContent count]; i++  ) {  // Look for the sound in the array, skipping the first entry, which is "None"
+            dict = [listContent objectAtIndex: i];
+            if (  [[dict objectForKey: @"name"] isEqualToString: soundName]  ) {
+                ix = i;
+                break;
             }
         }
-    }
-    
-    if (  ix == NSNotFound  ) {
-        ix = 0;
-    }
-    
-    if (  button == [configurationsPrefsView soundOnConnectButton]  ) {
-        [self setSelectedSoundOnConnectIndex: ix];
+        
+        if (  ix == NSNotFound  ) {
+            NSLog(@"Preference '%@' ignored: sound '%@' was not found", preference, soundName);
+            ix = 0;
+        }
     } else {
-        [self setSelectedSoundOnDisconnectIndex: ix];
+        ix = 0;
     }
     
     //******************************************************************************
@@ -2195,43 +2216,40 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
                    to: (NSInteger)   newValue
            preference: (NSString *)  preference
 {
-    if (  newValue != *index  ) {
-        NSInteger size = [[configurationsPrefsView sortedSounds] count];
-        if (  newValue < size + 1  ) {
-            if (  *index != NSNotFound  ) {
-                NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
-                NSString * newName;
-                if (  newValue == 0) {
-                    newName = @"None";
-                    VPNConnection * connection = [self selectedConnection];
-                    if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
-                        [connection setTunnelUpSound: nil];
-                    } else {
-                        [connection setTunnelDownSound: nil];
-                    }
-                } else {
-                    newName = [[configurationsPrefsView sortedSounds] objectAtIndex: newValue - 1];
-                    NSSound * sound = [NSSound soundNamed: newName];
-                    if (  sound  ) {
-                        VPNConnection * connection = [self selectedConnection];
-                        if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
-                            [connection setTunnelUpSound: sound];
-                        } else {
-                            [connection setTunnelDownSound: sound];
-                        }
-                        if (  ! doNotPlaySounds  ) {
-                            [sound play];
-                        }
-                    } else {
-                        NSLog(@"Sound '%@' is not available", newName);
-                    }
-                }
-                [gTbDefaults setObject: newName forKey: key];
-            }
-            *index = newValue;
+    NSArray * contents = [[configurationsPrefsView soundOnConnectArrayController] content];
+    NSInteger size = [contents count];
+    if (  newValue < size  ) {
+        VPNConnection * connection = [self selectedConnection];
+        NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
+        NSString * newName;
+        NSSound  * newSound;
+        if (  newValue == 0) {
+            newName = @"None";
+            newSound = nil;
         } else {
-            NSLog(@"setSelectedSoundIndex: %d but there are only %d entries", newValue, size);
+            newName = [[contents objectAtIndex: newValue] objectForKey: @"name"];
+            newSound = [NSSound soundNamed: newName];
+            if (  newSound  ) {
+                if (  ! doNotPlaySounds  ) {
+                    [newSound play];
+                }
+            } else {
+                NSLog(@"Sound '%@' is not available", newName);
+            }
         }
+        
+        [gTbDefaults setObject: newName forKey: key];
+        
+        if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
+            [connection setTunnelUpSound: newSound];
+        } else {
+            [connection setTunnelDownSound: newSound];
+        }
+
+        *index = newValue;
+        
+    } else {
+        NSLog(@"setSelectedSoundIndex: %d but there are only %d sounds", newValue, size);
     }
 }
 

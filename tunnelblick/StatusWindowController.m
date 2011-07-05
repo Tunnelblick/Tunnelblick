@@ -239,7 +239,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void) fadeIn
 {
 	if (  ! isOpen  ) {
-		[NSApp activateIgnoringOtherApps: YES];
 		[[self window] makeKeyAndOrderFront: self];
         NSWindow * window = [self window];
         if (   [window respondsToSelector: @selector(animator)]

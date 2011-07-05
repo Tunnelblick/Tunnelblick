@@ -25,8 +25,6 @@
 
 @interface ConfigurationsView : NSView
 {    
-    NSArray * sortedSounds;
-    
     IBOutlet NSView              * leftSplitView;
     
     IBOutlet NSTableView         * leftNavTableView;
@@ -92,8 +90,6 @@
 }
 
 // Getters
-
-TBPROPERTY_READONLY(NSArray *,             sortedSounds)
 
 TBPROPERTY_READONLY(NSView *,              leftSplitView)
 TBPROPERTY_READONLY(NSTableView *,         leftNavTableView)
