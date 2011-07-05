@@ -3795,6 +3795,39 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return noErr;
 }
 
+
+-(NSArray *) sortedSounds
+{
+    // Get all the names of sounds
+    NSMutableArray * sounds = [[[NSMutableArray alloc] initWithCapacity: 30] autorelease];
+    NSArray * soundDirs = [NSArray arrayWithObjects:
+                           [NSHomeDirectory() stringByAppendingString: @"/Library/Sounds"],
+                           @"/Library/Sounds",
+                           @"/Network/Library/Sounds",
+                           @"/System/Library/Sounds",
+                           nil];
+    NSArray * soundTypes = [NSArray arrayWithObjects: @"aiff", @"wav", nil];
+    NSEnumerator * soundDirEnum = [soundDirs objectEnumerator];
+    NSString * folder;
+    NSString * file;
+    while (  folder = [soundDirEnum nextObject]  ) {
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
+        while (  file = [dirEnum nextObject]  ) {
+            [dirEnum skipDescendents];
+            if (  [soundTypes containsObject: [file pathExtension]]  ) {
+                NSString * soundName = [file stringByDeletingPathExtension];
+                if (  ! [sounds containsObject: soundName]  ) {
+                    [sounds addObject: soundName];
+                }
+            }
+        }
+    }
+    
+    // Return them sorted
+    return [sounds sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+}
+
+
 #ifdef INCLUDE_VPNSERVICE
 //*********************************************************************************************************
 //

@@ -31,7 +31,6 @@ extern TBUserDefaults * gTbDefaults;
 @interface ConfigurationsView() // Private methods
 
 -(void) setTitle: (NSString *) newTitle ofControl: (id) theControl;
--(void) initializeSoundPopUpButtons;
 
 @end
 
@@ -48,13 +47,6 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
-}
-
--(void) dealloc
-{
-    [sortedSounds release];
-    
-    [super dealloc];
 }
 
 -(void) awakeFromNib
@@ -102,58 +94,8 @@ extern TBUserDefaults * gTbDefaults;
     
     [connectionAlertSoundTFC    setTitle: NSLocalizedString(@"Connection:", @"Window text")              ];
     [disconnectionAlertSoundTFC setTitle: NSLocalizedString(@"Unexpected disconnection:", @"Window text")];
-    [self initializeSoundPopUpButtons];
     
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
-}
-
-
--(void) initializeSoundPopUpButtons
-{
-    // Get all the names of sounds
-    NSMutableArray * sounds = [[[NSMutableArray alloc] initWithCapacity: 30] autorelease];
-    NSArray * soundDirs = [NSArray arrayWithObjects:
-                           [NSHomeDirectory() stringByAppendingString: @"/Library/Sounds"],
-                           @"/Library/Sounds",
-                           @"/Network/Library/Sounds",
-                           @"/System/Library/Sounds",
-                           nil];
-    NSArray * soundTypes = [NSArray arrayWithObjects: @"aiff", @"wav", nil];
-    NSEnumerator * soundDirEnum = [soundDirs objectEnumerator];
-    NSString * folder;
-    NSString * file;
-    while (  folder = [soundDirEnum nextObject]  ) {
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
-        while (  file = [dirEnum nextObject]  ) {
-            [dirEnum skipDescendents];
-            if (  [soundTypes containsObject: [file pathExtension]]  ) {
-                NSString * soundName = [file stringByDeletingPathExtension];
-                if (  ! [sounds containsObject: soundName]  ) {
-                    [sounds addObject: soundName];
-                }
-            }
-        }
-    }
-    
-    // Sort them
-    sortedSounds = [[sounds sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)] retain];
-    
-    // Create an array of dictionaries of them
-    NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [sortedSounds count]];
-    
-    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
-                                       NSLocalizedString(@"None", @"Button"), @"name", 
-                                       @"None", @"value", nil]];
-    
-    int i;
-    for (  i=0; i<[sortedSounds count]; i++  ) {
-        [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
-                                           [sortedSounds objectAtIndex: i], @"name", 
-                                           [sortedSounds objectAtIndex: i], @"value", nil]];
-    }
-    
-    [soundOnConnectArrayController    setContent: soundsDictionaryArray];
-    [soundOnDisconnectArrayController setContent: soundsDictionaryArray];
 }
 
 
@@ -187,8 +129,6 @@ extern TBUserDefaults * gTbDefaults;
 
 //***************************************************************************************************************
 // Getters
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSArray *,             sortedSounds)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSView *,              leftSplitView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableView *,         leftNavTableView)

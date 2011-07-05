@@ -185,6 +185,7 @@ BOOL needToCopyBundle(void);
 -(void)             setHotKeyIndex:                         (int)               newIndex;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setupSparklePreferences;
+-(NSArray *)        sortedSounds;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;
 -(void)             statusWindowController:                 (id)                ctl
