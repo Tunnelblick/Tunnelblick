@@ -1629,9 +1629,14 @@ static BOOL firstTimeShowingWindow = TRUE;
             }
         }
         if (  ix != newValue  ) {   // If weren't able to change it, restore old value
+            if (  oldValue == NSNotFound  ) {
+                oldValue = 0;
+            }
             [self setSelectedWhenToConnectIndex: oldValue];
+            selectedWhenToConnectIndex = oldValue;
+        } else {
+            selectedWhenToConnectIndex = ix;
         }
-        selectedWhenToConnectIndex = ix;
     }
 }
 

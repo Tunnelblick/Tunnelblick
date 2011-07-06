@@ -27,6 +27,7 @@
 #import <sys/stat.h>
 #import <sys/mount.h>
 #import <uuid/uuid.h>
+#import <pthread.h>
 #import "defines.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
@@ -1959,13 +1960,20 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 	[self cleanup];
 }
 
+static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
+
 -(void)cleanup 
 {
-    if (  gTunnelblickIsQuitting  ) {   // Handle failures in the cleanup process by only cleaning up once
+    OSStatus status = pthread_mutex_trylock( &cleanupMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
         return;
     }
     
     gTunnelblickIsQuitting = TRUE;
+
+    // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
+    
     if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
         UnregisterEventHotKey(hotKeyRef);
     }
