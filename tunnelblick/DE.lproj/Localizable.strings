@@ -152,7 +152,7 @@
 "Restore" = "Wiederherstellen";
 
 /* Button */
-"Show when connection status changes" = "Anzeigen, wen sich der Verbindungsstatus ändert";
+"Show when connection status changes" = "Anzeigen, wenn sich der Verbindungsstatus ändert";
 
 /* Button */
 "Show while connecting" = "Während des Verbindungsaufbaus anzeigen";
@@ -608,7 +608,7 @@
 "  • Secure configurations\n" = "  • Tunnelblick-VPN-Konfigurationen sichern\n";
 
 /* Window text */
-" (To install in a different location, drag %@ to that location.)" = " (Tunnelblick an einen anderen Ort zu installieren, ziehen Sie %@ an diesen Ort.)";
+" (To install in a different location, drag %@ to that location.)" = " (Um Tunnelblick an einem anderen Ort zu installieren, ziehen Sie %@ an diesen Ort.)";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Die Konfiguration kann nur durch einen Administrator gelöscht warden.\n\n Das Löschen erfolgt sofort und unwiderruflich. Alle Einstellungen für '%1$@' werden ebenfalls unwiderruflich gelöscht.%2$@";
@@ -776,7 +776,7 @@
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN hat auf die Anforderung zum Trennen der Verbindung auch nach %d Sekunden nicht reagiert.\n\nTunnelblick geht davon aus, dass die Verbindung getrennt ist; die Netzwerkkonfiguration des Computers kann sich aber in einem undefinierten Zustand befinden.";
 
 /* Window text */
-"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN reagiert nicht auf die Anforderung zum Trennen der Verbindung.\n\nEin bekannter Fehler in OpenVPN kann dazu führen, dass die Verbindung erst nach einigen Minuten getrennt wird.\n\nTunnelblick versucht für die nächsten %1$d Sekunden, die Verbindung zu trennen.\n\nDei Verbindung steht solange nicht zur Verfügung, bis OpenVPN reagiert oder %2$d Sekunden vergangen sind.";
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN reagiert nicht auf die Anforderung zum Trennen der Verbindung.\n\nEin bekannter Fehler in OpenVPN kann dazu führen, dass die Verbindung erst nach einigen Minuten getrennt wird.\n\nTunnelblick versucht für die nächsten %1$d Sekunden, die Verbindung zu trennen.\n\nDie Verbindung steht solange nicht zur Verfügung, bis OpenVPN reagiert oder %2$d Sekunden vergangen sind.";
 
 /* Window text */
 "Please enter VPN passphrase." = "Bitte geben Sie Ihre VPN-Passphrase ein.";
