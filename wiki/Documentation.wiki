@@ -7,6 +7,8 @@
 </tr></table>
 <br>
 
+<font color="red">*TRANSLATORS NEEDED:*</font> A new version of Tunnelblick is almost ready to be released, and translators are needed for all languages except English, German, and Portuguese. If you can help (no special skills or programs are required), please contact program owner Jon via email at jkbullard at gmail dot com. Thanks!
+
 *[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Highlights]*
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
