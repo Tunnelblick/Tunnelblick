@@ -59,7 +59,7 @@ extern TBUserDefaults * gTbDefaults;
     NSString * cmdOptionString = [NSString stringWithCharacters: cmdOptionChars
                                                          length: sizeof cmdOptionChars / sizeof * cmdOptionChars];
     NSMutableArray * kbsContent = [NSMutableArray arrayWithCapacity: 12];
-    [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"None", @"Button"), @"name", [NSNumber numberWithUnsignedInt: 0], @"value", nil]];
+    [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"No keyboard shortcut", @"Button"), @"name", [NSNumber numberWithUnsignedInt: 0], @"value", nil]];
     int i;
     for (  i=0; i<12; i++  ) {
         [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:

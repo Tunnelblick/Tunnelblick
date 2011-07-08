@@ -547,7 +547,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [soundsSorted count]];
     
     [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
-                                       NSLocalizedString(@"None", @"Button"), @"name", 
+                                       NSLocalizedString(@"No sound", @"Button"), @"name", 
                                        @"None", @"value", nil]];
     
     int i;
