@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="14"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -292,7 +292,7 @@
 										<string key="NSFrame">{{10, 33}, {662, 255}}</string>
 										<reference key="NSSuperview" ref="61284884"/>
 									</object>
-									<string key="NSLabel">Connecting &amp; DIsconnecting</string>
+									<string key="NSLabel">Connecting &amp; Disconnecting</string>
 									<reference key="NSColor" ref="963066152"/>
 									<reference key="NSTabView" ref="61284884"/>
 								</object>
