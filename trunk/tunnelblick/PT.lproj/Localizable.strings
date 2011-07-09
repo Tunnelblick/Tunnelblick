@@ -125,7 +125,10 @@
 "Never show" = "Nunca exibir";
 
 /* Button */
-"None" = "Nenhum";
+"No keyboard shortcut" = "Sem atalho do teclado";
+
+/* Button */
+"No sound" = "Sem som";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "OK" = "OK";

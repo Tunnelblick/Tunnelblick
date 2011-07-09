@@ -92,7 +92,10 @@
 "Never show" = "Never show";
 
 /* Button */
-"None" = "None";
+"No keyboard shortcut" = "No keyboard shortcut";
+
+/* Button */
+"No sound" = "No sound";
 
 /* Button */
 "Only Me" = "Only Me";

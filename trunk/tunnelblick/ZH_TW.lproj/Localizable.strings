@@ -122,7 +122,10 @@
 "Never show" = "Never show";
 
 /* NEEDS TRANSLATION *//* Button */
-"None" = "None";
+"No keyboard shortcut" = "No keyboard shortcut";
+
+/* NEEDS TRANSLATION *//* Button */
+"No sound" = "No sound";
 
 /* Button */
 "OK" = "確定";
