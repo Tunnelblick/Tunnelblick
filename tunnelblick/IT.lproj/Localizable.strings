@@ -79,8 +79,11 @@
 /* Button */
 "Never show" = "Non mostrare mai";
 
-/* Button */
-"None" = "Nessuna";
+/* NEEDS TRANSLATION *//* Button */
+"No keyboard shortcut" = "No keyboard shortcut";
+
+/* NEEDS TRANSLATION *//* Button */
+"No sound" = "No sound";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "OK" = "OK";

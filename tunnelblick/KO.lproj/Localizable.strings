@@ -22,22 +22,22 @@
 /* Textbox name */
 "Username:" = "사용자 계정:";
 
-/* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
 "(None available)" = "(해당 사항 없음)";
 
-/* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "1 MB" = "1 MB";
 
-/* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 KB" = "10 KB";
 
-/* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 MB" = "10 MB";
 
-/* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "100 KB" = "100 KB";
 
 /* Button */
@@ -122,7 +122,10 @@
 "Never show" = "보지 않기";
 
 /* Button */
-"None" = "없음";
+"No keyboard shortcut" = "키보드 단축키 없음";
+
+/* Button */
+"No sound" = "소리 없음";
 
 /* Button */
 "OK" = "확인";
@@ -352,10 +355,10 @@
 /* Connection status */
 "WAIT" = "서버 응답 대기 중";   // Please translate "Waiting for Server Response"
 
-/* Folder name */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Folder name */
 "Empty Tunnelblick VPN Configuration" = "Empty Tunnelblick VPN Configuration";
 
-/* Folder name */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Folder name */
 "Sample Tunnelblick VPN Configuration" = "Sample Tunnelblick VPN Configuration";
 
 /* System profile item */
@@ -407,7 +410,7 @@
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "비어있는 Tunnelblick VPN 설정이 만들어졌습니다";
 
 /* Window title */
-"Appearances" = "모양새";
+"Appearance" = "모양새";
 
 /* Window title */
 "Authentication failed" = "인증 실패";
@@ -417,6 +420,9 @@
 
 /* Window title */
 "Configuration(s) Ignored" = "설정이 무시되었습니다";
+
+/* Window title */
+"Connecting & Disconnecting" = "연결하기 & 연결 해제하기";
 
 /* Window title */
 "Could Not Copy Configuration" = "설정을 복사할 수 없습니다";
@@ -544,10 +550,10 @@
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick이 현재 동작 중입니다";
 
-/* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick.app" = "Tunnelblick.app";
 
 /* Window title */
