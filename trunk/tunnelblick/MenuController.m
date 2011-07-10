@@ -469,7 +469,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         gOpenVPNVersionDict = [getOpenVPNVersion() copy];
         
-        connectionArray = [[[NSMutableArray alloc] init] retain];
+        connectionArray = [[NSArray alloc] init];
         
         if (  ! [self loadMenuIconSet]  ) {
             [NSApp setAutoLaunchOnLogin: NO];
@@ -492,21 +492,23 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             hotKeyModifierKeys = cmdKey+optionKey;
         }
         
-        myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] mutableCopy];
+        myConfigDictionary = [[[ConfigurationManager defaultManager] getConfigurations] copy];
         
-        myVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
+        // set up myVPNConnectionDictionary, which has the same keys as myConfigDictionary, but VPNConnections as objects
+        NSMutableDictionary * tempVPNConnectionDictionary = [[NSMutableDictionary alloc] init];
         NSString * dispNm;
-        NSArray *keyArray = [myConfigDictionary allKeys];
-        NSEnumerator * e = [keyArray objectEnumerator];
+        NSEnumerator * e = [myConfigDictionary keyEnumerator];
         while (dispNm = [e nextObject]) {
-            NSString * cfgPath = [myConfigDictionary objectForKey: dispNm];
-            
+            NSString * cfgPath = [[self myConfigDictionary] objectForKey: dispNm];
             // configure connection object:
             VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
                                                                     withDisplayName: dispNm];
             [myConnection setDelegate:self];
-            [myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
+            [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
+        [self setMyVPNConnectionDictionary: [tempVPNConnectionDictionary copy]];
+        
+        [tempVPNConnectionDictionary release];
         
 		[self createMenu];
         
@@ -700,16 +702,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 #endif
     
     [super dealloc];
-}
-
--(NSMutableDictionary *) myVPNConnectionDictionary
-{
-    return [[myVPNConnectionDictionary copy] autorelease];
-}
-
--(NSMutableDictionary *) myConfigDictionary
-{
-    return [[myConfigDictionary copy] autorelease];
 }
 
 -(BOOL) userIsAnAdmin
@@ -919,8 +911,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
+// Lock this to change myVPNMenu
+static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
+
 -(void) createMenu 
 {
+    OSStatus status = pthread_mutex_lock( &myVPNMenuMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    
     [noConfigurationsItem release];
     noConfigurationsItem = [[NSMenuItem alloc] init];
     [noConfigurationsItem setTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
@@ -972,13 +973,13 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     // Add each connection to the menu
     NSString * dispNm;
-    NSArray *keyArray = [myConfigDictionary allKeys];
+    NSArray *keyArray = [[self myConfigDictionary] allKeys];
 	NSEnumerator * e = [keyArray objectEnumerator];
     while (dispNm = [e nextObject]) {
         if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-doNotShowOnTunnelblickMenu"]]  ) {
             // configure connection object:
             NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
-            VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+            VPNConnection* myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
             
             // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
             [connectionItem setTarget:myConnection]; 
@@ -988,7 +989,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
     }
     
-    if (  [myConfigDictionary count] == 0  ) {
+    if (  [[self myConfigDictionary] count] == 0  ) {
         [myVPNMenu addItem: noConfigurationsItem];
         [myVPNMenu addItem: addConfigurationItem];
     }
@@ -1009,8 +1010,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
     [myVPNMenu addItem: quitItem];
     
+    status = pthread_mutex_unlock( &myVPNMenuMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
 }
 
+// LOCK configModifyMutex BEFORE INVOKING THIS METHOD
 -(void) insertConnectionMenuItem: (NSMenuItem *) theItem IntoMenu: (NSMenu *) theMenu afterIndex: (int) theIndex withName: (NSString *) theName
 {
     int i;
@@ -1368,7 +1375,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     // We set the on/off state from the CURRENT preferences, not the preferences when launched.
     SEL act = [anItem action];
     if (  act == @selector(disconnectAllMenuItemWasClicked:)  ) {
-        unsigned nConnections = [connectionArray count];
+        unsigned nConnections = [[self connectionArray] count];
         NSString * myState;
         if (  nConnections == 0  ) {
             myState = NSLocalizedString(@"No Active Connections", @"Status message");
@@ -1376,8 +1383,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             return NO;
         } else if (  nConnections == 1) {
             NSString * name = nil;
-            if (  [connectionArray count] > 0  ) {
-                name = [[connectionArray objectAtIndex: 0] displayName];
+            if (  [[self connectionArray] count] > 0  ) {
+                name = [[[self connectionArray] objectAtIndex: 0] displayName];
             }
             if (  ! name  ) {
                 name = @"1 connection";
@@ -1437,7 +1444,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         // Timer is inactive. Start it if enabled and any tunnels are connected
         if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
-            NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+            NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
             while (  conn = [connEnum nextObject]  ) {
                 if (  [[conn state] isEqualToString: @"CONNECTED"]) {
                     showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
@@ -1453,7 +1460,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         // Timer is active. Stop it if not enabled or if no tunnels are connected.
         if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
-            NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+            NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
             while (  conn = [connEnum nextObject]  ) {
                 if (  [[conn state] isEqualToString: @"CONNECTED"]) {
                     return;
@@ -1485,8 +1492,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     // Add new configurations and replace updated ones
 	NSEnumerator * e = [curConfigsDict keyEnumerator];
     while (dispNm = [e nextObject]) {
-        BOOL sameDispNm = [myConfigDictionary objectForKey: dispNm] != nil;
-        BOOL sameFolder = [[myConfigDictionary objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
+        BOOL sameDispNm = [[self myConfigDictionary] objectForKey: dispNm] != nil;
+        BOOL sameFolder = [[[self myConfigDictionary] objectForKey: dispNm] isEqualToString: [curConfigsDict objectForKey: dispNm]];
         
         if (  sameDispNm  ) {
             if (  ! sameFolder  ) {
@@ -1504,7 +1511,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     // Remove configurations that are no longer available
 	NSMutableArray * removeList = [NSMutableArray arrayWithCapacity: 10];
-    e = [myConfigDictionary keyEnumerator];
+    e = [[self myConfigDictionary] keyEnumerator];
     while (dispNm = [e nextObject]) {
         BOOL sameDispNm = [curConfigsDict objectForKey: dispNm] != nil;
         if (  ! sameDispNm  ) {
@@ -1527,6 +1534,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
+// Lock this to change myVPNConnectionDictionary, myMenu, and/or myConfigDictionary
+static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
+
 // Add new config to myVPNConnectionDictionary, the menu, and myConfigDictionary
 // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
 -(void) addNewConfig: (NSString *) path withDisplayName: (NSString *) dispNm
@@ -1534,11 +1544,28 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
                                                             withDisplayName: dispNm];
     [myConnection setDelegate:self];
-    [myVPNConnectionDictionary setObject: myConnection forKey: dispNm];
     
     NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
     [connectionItem setTarget:myConnection]; 
     [connectionItem setAction:@selector(toggle:)];
+    
+    OSStatus status = pthread_mutex_lock( &configModifyMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    
+    status = pthread_mutex_lock( &myVPNMenuMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    
+    // Add connection to myVPNConnectionDictionary
+    NSMutableDictionary * tempVPNConnectionDictionary = [myVPNConnectionDictionary mutableCopy];
+    [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
+    [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
+    [tempVPNConnectionDictionary release];
     
     int itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
     if (  itemIx  != -1) {
@@ -1547,7 +1574,22 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     
     [self insertConnectionMenuItem: connectionItem IntoMenu: myVPNMenu afterIndex: 2 withName: [[connectionItem target] displayName]];
     
-    [myConfigDictionary setObject: path forKey: dispNm];
+    // Add connection to myConfigDictionary
+    NSMutableDictionary * tempConfigDictionary = [myConfigDictionary mutableCopy];
+    [tempConfigDictionary setObject: path forKey: dispNm];
+    [self setMyConfigDictionary: [[tempConfigDictionary copy] autorelease]];
+    [tempConfigDictionary release];
+     
+    status = pthread_mutex_unlock( &myVPNMenuMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    status = pthread_mutex_unlock( &configModifyMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
 }
 
 // Remove config from myVPNConnectionDictionary, the menu, and myConfigDictionary
@@ -1563,13 +1605,33 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                         nil, nil, nil);
     }
     
-    [myVPNConnectionDictionary removeObjectForKey: dispNm];
+    OSStatus status = pthread_mutex_lock( &configModifyMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
     
+    status = pthread_mutex_lock( &myVPNMenuMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    
+    // Remove connection from myVPNConnectionDictionary
+    NSMutableDictionary * tempVPNConnectionDictionary = [myVPNConnectionDictionary mutableCopy];
+    [tempVPNConnectionDictionary removeObjectForKey: dispNm];
+    [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
+    [tempVPNConnectionDictionary release];
+        
     [self removeConnectionWithDisplayName: dispNm fromMenu: myVPNMenu afterIndex: 2];
 
-    [myConfigDictionary removeObjectForKey: dispNm];
+    // Remove connection from myConfigDictionary
+    NSMutableDictionary * tempConfigDictionary = [myConfigDictionary mutableCopy];
+    [tempConfigDictionary removeObjectForKey: dispNm];
+    [self setMyConfigDictionary: [[tempConfigDictionary copy] autorelease]];
+    [tempConfigDictionary release];
 
-    if (  [myConfigDictionary count] == 0  ) {
+    if (  [[self myConfigDictionary] count] == 0  ) {
         int itemIx = (int) [myVPNMenu indexOfItemWithTitle: NSLocalizedString(@"No VPN Configurations Available", @"Menu item")];
         if (  itemIx  == -1  ) {
             [myVPNMenu insertItem: noConfigurationsItem atIndex: 2];
@@ -1580,6 +1642,17 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             && addConfigurationItem  ) {
             [myVPNMenu insertItem: [[addConfigurationItem copy] autorelease] atIndex: 3]; // Use a copy because the original is used in elsewhere
         }
+    }
+    
+    status = pthread_mutex_unlock( &myVPNMenuMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    status = pthread_mutex_unlock( &configModifyMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
     }
 }
 
@@ -1598,14 +1671,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 - (void) updateUI
 {
     if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-        unsigned nConnections = [connectionArray count];
+        unsigned nConnections = [[self connectionArray] count];
         NSString * toolTip;
         if (  nConnections == 0  ) {
             toolTip = NSLocalizedString(@"No Active Connections", @"Status message");
         } else if (  nConnections == 1) {
             NSString * oneStatus = nil;
-            if (  [connectionArray count] > 0  ) {
-                oneStatus = [[connectionArray objectAtIndex: 0] displayName];
+            if (  [[self connectionArray] count] > 0  ) {
+                oneStatus = [[[self connectionArray] objectAtIndex: 0] displayName];
             }
             if (  oneStatus  ) {
                 oneStatus = [NSString stringWithFormat: NSLocalizedString(@"%@ is Connected", @"Status message"), oneStatus];
@@ -1701,12 +1774,21 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
 }
 
+// May be called from cleanup or willGoToSleepHandler, so only do one at a time
+static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_INITIALIZER;
+    
 // If possible, we try to use 'killall' to kill all processes named 'openvpn'
 // But if there are unknown open processes that the user wants running, or we have active daemon processes,
 //     then we must use 'kill' to kill each individual process that should be killed
 -(void) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons logMessage: (NSString *) logMessage
 {
-    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    OSStatus status = pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    
+    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     VPNConnection * connection;
     BOOL noActiveDaemons = YES;
     
@@ -1769,11 +1851,26 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             }
         }
     }
+    
+    status = pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
 }    
     
+// May be called from cleanup, so only do one at a time
+static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
+
 // Unloads our loaded tun/tap kexts if tunCount/tapCount is zero.
 -(void) unloadKexts
 {
+    OSStatus status = pthread_mutex_lock( &unloadKextsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &unloadKextsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }
+    
     unsigned bitMask = [self getLoadedKextsMask] & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
     
     if (  bitMask != 0  ) {
@@ -1799,6 +1896,12 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [task release];
         }
     }
+    
+    status = pthread_mutex_unlock( &unloadKextsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        return;
+    }    
 }
 
 // Returns with a bitmask of kexts that are loaded that can be unloaded
@@ -1870,7 +1973,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(void) resetActiveConnections {
 	VPNConnection *connection;
-	NSEnumerator* e = [connectionArray objectEnumerator];
+	NSEnumerator* e = [[self connectionArray] objectEnumerator];
 	while (connection = [e nextObject]) {
 		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
 			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection displayName]);
@@ -1892,7 +1995,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void) checkNoConfigurations
 {
     if (   ignoreNoConfigs
-        || ( [myConfigDictionary count] != 0 )
+        || ( [[self myConfigDictionary] count] != 0 )
         || (   ([gConfigDirs count] != 0)
             && [[gConfigDirs objectAtIndex: 0] isEqualToString: gDeployPath] ) // True only if we had configurations in Deploy when launched
         ) {
@@ -1904,7 +2007,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [self activateStatusMenu];
     checkingForNoConfigs = FALSE;
     
-    if (  [myConfigDictionary count] != 0  ) {
+    if (  [[self myConfigDictionary] count] != 0  ) {
         return;
     }
     
@@ -1929,7 +2032,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(IBAction) disconnectAllMenuItemWasClicked: (id) sender
 {
-    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isDisconnected]  ) {
@@ -1990,7 +2093,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) deleteLogs
 {
     VPNConnection * connection;
-    NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+    NSEnumerator * e = [[self myVPNConnectionDictionary] objectEnumerator];
     while (connection = [e nextObject]) {
         [connection deleteLogs];
     }
@@ -2008,7 +2111,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL atLeastOneIsConnected = FALSE;
     NSString * newDisplayState = @"EXITING";
     VPNConnection * connection;
-    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     while (  connection = [connEnum nextObject]  ) {
         NSString * curState = [connection state];
         NSString * reqState = [connection requestedState];
@@ -2043,11 +2146,27 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
+
 -(void)addConnection:(id)sender 
 {
 	if (  sender != nil  ) {
-		[connectionArray removeObject:sender];
-		[connectionArray addObject:sender];
+        OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            return;
+        }
+        NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
+		[tempConnectionArray removeObject:sender];
+		[tempConnectionArray addObject:sender];
+        [self setConnectionArray: [tempConnectionArray copy]];
+        [tempConnectionArray release];
+        status = pthread_mutex_unlock( &connectionArrayMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            return;
+        }    
+        
         [self startOrStopDurationsTimer];
 	}
 }
@@ -2055,7 +2174,21 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void)removeConnection:(id)sender
 {
 	if (  sender != nil  ) {
-        [connectionArray removeObject:sender];
+        OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            return;
+        }
+        NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
+        [tempConnectionArray removeObject:sender];
+        [self setConnectionArray: [tempConnectionArray copy]];
+        [tempConnectionArray release];
+        status = pthread_mutex_unlock( &connectionArrayMutex );
+        if (  status != EXIT_SUCCESS  ) {
+            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            return;
+        }    
+        
         [self startOrStopDurationsTimer];
     }
 }
@@ -2083,10 +2216,10 @@ static void signal_handler(int signalNumber)
     sigemptyset(&action.sa_mask);
     action.sa_flags = 0;
     
-    if (sigaction(SIGHUP, &action, NULL) || 
+    if (sigaction(SIGHUP,  &action, NULL) || 
         sigaction(SIGQUIT, &action, NULL) || 
         sigaction(SIGTERM, &action, NULL) ||
-        sigaction(SIGBUS, &action, NULL) ||
+        sigaction(SIGBUS,  &action, NULL) ||
         sigaction(SIGSEGV, &action, NULL) ||
         sigaction(SIGPIPE, &action, NULL)) {
         NSLog(@"Warning: setting signal handler failed: '%s'", strerror(errno));
@@ -2536,7 +2669,7 @@ static void signal_handler(int signalNumber)
     [self setupHookupWatchdogTimer];
     
     // Make sure the '-onSystemStart' preferences for all connections are consistent with the /Library/LaunchDaemons/...plist file for the connection
-    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection tryingToHookup]  ) {
@@ -2569,7 +2702,7 @@ static void signal_handler(int signalNumber)
         NSString * dispNm;
         NSEnumerator * listEnum = [restoreList objectEnumerator];
         while (dispNm = [listEnum nextObject]) {
-            myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+            myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
             if (   myConnection
                 && ( ! [myConnection isConnected] )  ) {
                 [myConnection connect:self userKnows: YES];
@@ -2581,11 +2714,11 @@ static void signal_handler(int signalNumber)
     
     // Process "Automatically connect on launch" checkboxes (but skip any that were restored on relaunch above)
     NSString * dispNm;
-    NSEnumerator * e = [myConfigDictionary keyEnumerator];
+    NSEnumerator * e = [[self myConfigDictionary] keyEnumerator];
     while (   (dispNm = [e nextObject])
            && (   (! restoreList)
                || ( [restoreList indexOfObject: dispNm] == NSNotFound) )  ) {
-        myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
+        myConnection = [[self myVPNConnectionDictionary] objectForKey: dispNm];
         if (  [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"autoConnect"]]  ) {
             if (  ! [gTbDefaults boolForKey: [dispNm stringByAppendingString: @"-onSystemStart"]]  ) {
                 if (  ![myConnection isConnected]  ) {
@@ -2714,7 +2847,7 @@ static void signal_handler(int signalNumber)
 {
     // Remove process IDs from the pIDsWeAreTryingToHookUpTo list for connections that have hooked up successfully
     VPNConnection * connection;
-    NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     while (  connection = [connEnum nextObject]  ) {
         if (  [connection isHookedup]  ) {
             pid_t thePid = [connection pid];
@@ -2766,7 +2899,7 @@ static void signal_handler(int signalNumber)
 -(void) saveConnectionsToRestoreOnRelaunch
 {
     NSMutableArray * restoreList = [NSMutableArray arrayWithCapacity: 8];
-    NSEnumerator * connEnum = [connectionArray objectEnumerator];
+    NSEnumerator * connEnum = [[self connectionArray] objectEnumerator];
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
         NSString* autoConnectKey   = [[connection displayName] stringByAppendingString: @"autoConnect"];
@@ -2797,7 +2930,7 @@ static void signal_handler(int signalNumber)
             return [NSArray array];
         }
         
-        int nConfigurations    = [myConfigDictionary count];
+        int nConfigurations    = [[self myConfigDictionary] count];
         int nModifyNameserver  = 0;
         int nMonitorConnection = 0;
         int nPackages          = 0;
@@ -2806,7 +2939,7 @@ static void signal_handler(int signalNumber)
         NSString * path;
         
         // Count # of .tblk packages
-        NSEnumerator * e = [myConfigDictionary objectEnumerator];
+        NSEnumerator * e = [[self myConfigDictionary] objectEnumerator];
         while (  path = [e nextObject]  ) {
             NSString * last = lastPartOfPath(path);
             NSString * firstComponent = firstPathComponent(last);
@@ -2816,7 +2949,7 @@ static void signal_handler(int signalNumber)
         }
         
         // Count # of configurations with 'Set nameserver' checked and the # with 'Monitor connection' set
-        e = [myConfigDictionary keyEnumerator];
+        e = [[self myConfigDictionary] keyEnumerator];
         while (  key = [e nextObject]  ) {
             NSString * dnsKey = [key stringByAppendingString:@"useDNS"];
             if (  [gTbDefaults objectForKey: dnsKey]  ) {
@@ -2958,7 +3091,7 @@ static void signal_handler(int signalNumber)
                     NSString * cfgPath = [self deconstructOpenVPNLogPath: oldFullPath
                                                                   toPort: &port
                                                              toStartArgs: &startArguments];
-                    NSArray * keysForConfig = [myConfigDictionary allKeysForObject: cfgPath];
+                    NSArray * keysForConfig = [[self myConfigDictionary] allKeysForObject: cfgPath];
                     int keyCount = [keysForConfig count];
                     if (  keyCount == 0  ) {
                         NSLog(@"No keys in myConfigDictionary for %@", cfgPath);
@@ -2967,7 +3100,7 @@ static void signal_handler(int signalNumber)
                             NSLog(@"Using first of %d keys in myConfigDictionary for %@", keyCount, cfgPath);
                         }
                         NSString * displayName = [keysForConfig objectAtIndex: 0];
-                        VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+                        VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: displayName];
                         if (  connection  ) {
                             [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
                             tryingToHookupToOpenVPN = TRUE;
@@ -3646,7 +3779,7 @@ void terminateBecauseOfBadConfiguration(void)
     
     [connectionsToRestoreOnWakeup removeAllObjects];
     VPNConnection * connection; 
-	NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
+	NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [[connection requestedState] isEqualToString: @"EXITING"]  ) {
             [connectionsToRestoreOnWakeup addObject: connection];
@@ -3690,10 +3823,10 @@ void terminateBecauseOfBadConfiguration(void)
 -(void)didBecomeInactiveUser
 {
     // Remember current connections so they can be restored if/when we become the active user
-    connectionsToRestoreOnUserActive = [connectionArray copy];
+    connectionsToRestoreOnUserActive = [[self connectionArray] copy];
     
     // For each open connection, either reInitialize it or disconnect it
-    NSEnumerator * e = [connectionArray objectEnumerator];
+    NSEnumerator * e = [[self connectionArray] objectEnumerator];
 	VPNConnection * connection;
 	while (  connection = [e nextObject]  ) {
         if (  [connection shouldDisconnectWhenBecomeInactiveUser]  ) {
@@ -3850,7 +3983,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 -(BOOL) tryToConnect: (NSString *) displayName
 {
-    VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+    VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: displayName];
     if (  connection  ) {
         [self setVPNServiceConnectDisplayName: displayName];
         [connection connect: self userKnows: YES];
@@ -3898,7 +4031,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
           forDisplayName: (NSString *)             theName
 {
     if (  choice == statusWindowControllerCancelChoice  ) {
-        VPNConnection * connection = [myVPNConnectionDictionary objectForKey: theName];
+        VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
         if (  connection  ) {
             [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
         } else {
@@ -3927,8 +4060,8 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 -(NSArray *) applescriptConfigurationList
 {
-    NSArray *keyArray = [[myVPNConnectionDictionary allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
-    NSArray *myConnectionArray = [myVPNConnectionDictionary objectsForKeys:keyArray notFoundMarker:[NSNull null]];
+    NSArray *keyArray = [[[self myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+    NSArray *myConnectionArray = [[self myVPNConnectionDictionary] objectsForKeys:keyArray notFoundMarker:[NSNull null]];
     return myConnectionArray;
 }
 
@@ -3961,11 +4094,6 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 -(SUUpdater *) updater
 {
     return [[updater retain] autorelease];
-}
-
--(NSArray *) connectionArray
-{
-    return [[connectionArray retain] autorelease];
 }
 
 -(NSArray *) connectionsToRestoreOnUserActive
@@ -4002,5 +4130,9 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 {
     return [[mainImage retain] autorelease];
 }
+
+TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
+TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
 
 @end
