@@ -416,6 +416,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
     return ! ( connectWhenComputerStarts || prefToNotDisconnect );
 }
 
+// May be called from cleanup, so only do one at a time
+static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
+
 // Deletes log files if not "on system start"
 -(void) deleteLogs
 {
@@ -436,6 +439,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 return;
             }
             
+            OSStatus status = pthread_mutex_lock( &deleteLogsMutex );
+            if (  status != EXIT_SUCCESS  ) {
+                NSLog(@"pthread_mutex_lock( &deleteLogsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+                return;
+            }
+            
             NSString *openvpnstartPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpnstart"];
             NSTask* task = [[[NSTask alloc] init] autorelease];
             [task setLaunchPath: openvpnstartPath];
@@ -445,6 +454,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
             if (  [task terminationStatus] != EXIT_SUCCESS  ) {
                 NSLog(@"Error deleting log files for %@", displayName);
             }
+            
+            status = pthread_mutex_unlock( &deleteLogsMutex );
+            if (  status != EXIT_SUCCESS  ) {
+                NSLog(@"pthread_mutex_unlock( &deleteLogsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+                return;
+            }            
         }
     }
 }

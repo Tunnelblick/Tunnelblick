@@ -87,11 +87,11 @@ BOOL needToCopyBundle(void);
     
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     
-    NSMutableDictionary     * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
+    NSDictionary            * myConfigDictionary;           // List of all configurations. key = display name, value = path to .ovpn or .conf file or .tblk package
 
-    NSMutableDictionary     * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
+    NSDictionary            * myVPNConnectionDictionary;    // List of all VPNConnections. key = display name, value = VPNConnection object for the configuration
     
-    NSMutableArray          * connectionArray;              // VPNConnections that are currently connected
+    NSArray                 * connectionArray;              // VPNConnections that are currently connected
     
     NSMutableArray          * connectionsToRestoreOnWakeup; // VPNConnections to be restored when awakened from sleep
     
@@ -176,8 +176,6 @@ BOOL needToCopyBundle(void);
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
                                anim:                        (NSMutableArray **) ptrAnimImages;
--(NSMutableDictionary *)    myConfigDictionary;
--(NSMutableDictionary *)    myVPNConnectionDictionary;
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
@@ -198,7 +196,6 @@ BOOL needToCopyBundle(void);
 -(NSArray *)        animImages;
 -(NSImage *)        connectedImage;
 -(NSImage *)        mainImage;
--(NSArray *)        connectionArray;
 -(NSArray *)        connectionsToRestoreOnUserActive;
 -(NSMutableArray *) largeAnimImages;
 -(NSImage *)        largeConnectedImage;
@@ -209,6 +206,10 @@ BOOL needToCopyBundle(void);
 -(void)             startOrStopDurationsTimer;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
+
+TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
+TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
 
 #ifdef INCLUDE_VPNSERVICE
 // VPNService support
