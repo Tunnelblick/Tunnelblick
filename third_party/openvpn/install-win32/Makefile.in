@@ -221,7 +221,7 @@ dist_noinst_DATA = openssl GetWindowsVersion.nsi \
 @WIN32_TRUE@nodist_doc_DATA = tmp/license.txt
 @WIN32_TRUE@confdir = $(win32datadir)/config
 @WIN32_TRUE@nodist_conf_DATA = \
-@WIN32_TRUE@	tmp/openssl.cnf.sample \
+@WIN32_TRUE@	tmp/openssl-1.0.0.cnf \
 @WIN32_TRUE@	tmp/client.ovpn \
 @WIN32_TRUE@	tmp/server.ovpn
 
@@ -542,8 +542,8 @@ uninstall-am: uninstall-dist_confDATA uninstall-nodist_confDATA \
 @WIN32_TRUE@tmp/license.txt:	tmp $(top_srcdir)/COPYING $(top_srcdir)/COPYRIGHT.GPL
 @WIN32_TRUE@	cat $(top_srcdir)/COPYING $(top_srcdir)/COPYRIGHT.GPL > tmp/license.txt
 
-@WIN32_TRUE@tmp/openssl.cnf.sample:	tmp $(top_srcdir)/easy-rsa/2.0/openssl.cnf
-@WIN32_TRUE@	cp $(top_srcdir)/easy-rsa/2.0/openssl.cnf tmp/openssl.cnf.sample
+@WIN32_TRUE@tmp/openssl-1.0.0.cnf:	tmp $(top_srcdir)/easy-rsa/2.0/openssl-1.0.0.cnf
+@WIN32_TRUE@	cp $(top_srcdir)/easy-rsa/2.0/openssl-1.0.0.cnf tmp/openssl-1.0.0.cnf
 
 @WIN32_TRUE@clean-local:
 @WIN32_TRUE@	-rm -fr tmp
