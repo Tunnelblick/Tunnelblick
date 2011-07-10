@@ -17,10 +17,10 @@
 "No Active Connections" = "Pas de connexions branchées";
 
 /* Textbox name */
-"Password:" = "Mot de passe:";
+"Password:" = "Mot de passe :";
 
 /* Textbox name */
-"Username:" = "Nom d'usager:";
+"Username:" = "Nom d’usager :";
 
 /* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Option + Commande + F%3$d)";
@@ -47,7 +47,7 @@
 "All Users" = "Tous les utilisateurs";
 
 /* Button */
-"Always use the plugin" = "Utiliser toujours le plugin";
+"Always use the plugin" = "Utiliser toujours l’extension";
 
 /* Button */
 "Back" = "Revenir";
@@ -59,7 +59,7 @@
 "Check Now" = "Rechercher maintenant";
 
 /* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Fermer les connections VPN et arreter Tunnelblick";
+"Close VPN Connections and Stop Tunnelblick" = "Fermer les connections VPN et terminer Tunnelblick";
 
 /* Button */
 "Connect"    = "Connecter";
@@ -83,7 +83,7 @@
 "Disconnect" = "Déconnecter";
 
 /* Button */
-"Do not use the plugin" = "N’utiliser pas le plugin";
+"Do not use the plugin" = "N’utiliser pas l’extension";
 
 /* Button */
 "Done" = "Fini";
@@ -107,7 +107,7 @@
 "Ignore" = "Ignorer";
 
 /* Button */
-"Install Sample" = "Installer exemple";
+"Install Sample" = "Installer l’exemple";
 
 /* Button */
 "Launch" = "Démarrer";
@@ -121,11 +121,11 @@
 /* Button */
 "Never show" = "Jamais afficher";
 
-/* NEEDS TRANSLATION *//* Button */
-"No keyboard shortcut" = "No keyboard shortcut";
+/* Button */
+"No keyboard shortcut" = "Pas de raccourci clavier";
 
-/* NEEDS TRANSLATION *//* Button */
-"No sound" = "No sound";
+/* Button */
+"No sound" = "Pas de son d’alerte";
 
 /* TRANSLATION SAME AS DEVELOPMENT */ /* Button */
 "OK"		= "OK";
@@ -305,22 +305,22 @@
 "Set nameserver (3.0b10)" = "Changer serveur de noms (3.0b10)";
 
 /* PopUpButton */
-"Set nameserver (3.1)" = "Changer serveur de noms  (3.1)";
+"Set nameserver (3.1)" = "Changer serveur de noms (3.1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 1)" = "Changer server de noms (alternative 1)";
+"Set nameserver (alternate 1)" = "Changer serveur de noms (alternative 1)";
 
 /* PopUpButton *//* System profile item */
-"Set nameserver" = "Utiliser DNS distant";
+"Set nameserver" = "Utiliser serveur de noms distant";
 
 /* Text on disk image */
-"Double-click to begin" = "Faites double click pour commencer";
+"Double-click to begin" = "Double-cliquez pour commencer";
 
 /* Connection status */
 "ADD_ROUTES" = "Ajoute des artères";
 
 /* Connection status */
-"ASSIGN_IP" = "Assigne un Adresse IP";
+"ASSIGN_IP" = "Assigne une adresse IP";
 
 /* Connection status */
 "AUTH"       = "Authentification";
@@ -409,8 +409,8 @@
 /* Window title */
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "Une configuration VPN Tunnelblick vide a été crée";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Appearance" = "Appearance";
+/* Window title */
+"Appearance" = "Apparence";
 
 /* Window title */
 "Authentication failed" = "Authentification échouée";
@@ -421,8 +421,8 @@
 /* Window title */
 "Configuration(s) Ignored" = "Configuration(s) pas utilisée(s)";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Connecting & Disconnecting" = "Connecting & Disconnecting";
+/* Window title */
+"Connecting & Disconnecting" = "Connection et déconnection";
 
 /* Window title */
 "Could Not Copy Configuration" = "Configuration n’a pas pu être copiée";
@@ -443,7 +443,7 @@
 "Details - Tunnelblick" = "Détails - Tunnelblick";
 
 /* Window title */
-"Do you wish to connect?" = "Voulez-vous vous connecter?";
+"Do you wish to connect?" = "Voulez-vous vous connecter ?";
 
 /* Window title */
 "Examine the configuration file?" = "Examiner le fichier de configuration ?";
@@ -860,7 +860,7 @@
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Il y a un problème avec une ou plusieures configurations. Les détails restent dans les Messages Console.\n\n";
 
 /* Window text */
-"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Pour installer une configuration de VPN Tunnelblick (ayant l’extension « .tblk »), double-cliquez sur la.\n\nLa nouvelle configuration sera disponible dans Tunnelblick immédiatement.";
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Pour installer une configuration de VPN Tunnelblick (ayant l’extension « .tblk »), double-cliquez sur lui.\n\nLa nouvelle configuration sera disponible dans Tunnelblick immédiatement.";
 
 /* Window text */
 "To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Pour l’installer comme configuration de VPN Tunnelblick, veuillez :\n\n1. Déplacer ou copier un fichier de configuration OpenVPN (ayant l’extension « .ovpn » ou « .conf ») dans le dossier « Configuration de VPN Tunnelblick vide » qui a été créée sur votre Bureau.\n\n2. Déplacer ou copier aucun fichier de clé our de certificat associé à la configuration dans le dossier.\n\n3. Changer le nom du dossier en le nom que vous voudriez que Tunnelblick utilise pour la configuration.\n\n4. Ajouter l’extension « .tblk » à fin du nom du dossier.\n\n5. Double-cliquer le dossier pour installer la configuration.\n\nLa configuration nouvelle sera disponible dans Tunnelblick immédiatement.\n\n(Pour votre commodité, le dossier a été ouvri dans une fenêtre Finder.)";

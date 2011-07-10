@@ -44,6 +44,7 @@
 		6305E5D810F7974200E30B11 /* NSApplication+SystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */; };
 		6311306411041B89003435F1 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = 6311305F11041B89003435F1 /* LoginItemsAE.c */; };
 		6311306511041B89003435F1 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311306211041B89003435F1 /* UKLoginItemRegistry.m */; };
+		631310D913CA18870071C110 /* NL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 631310D513CA18870071C110 /* NL.lproj */; };
 		63179444118D7EC20057ACAF /* atsystemstart.m in Sources */ = {isa = PBXBuildFile; fileRef = 63179443118D7EC20057ACAF /* atsystemstart.m */; };
 		6317955C118DC5620057ACAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		631795FC118DC79B0057ACAF /* atsystemstart in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6317943E118D7E820057ACAF /* atsystemstart */; };
@@ -266,6 +267,7 @@
 		6311306011041B89003435F1 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
 		6311306111041B89003435F1 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
 		6311306211041B89003435F1 /* UKLoginItemRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKLoginItemRegistry.m; sourceTree = "<group>"; };
+		631310D513CA18870071C110 /* NL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NL.lproj; sourceTree = "<group>"; };
 		6317943E118D7E820057ACAF /* atsystemstart */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = atsystemstart; sourceTree = BUILT_PRODUCTS_DIR; };
 		63179443118D7EC20057ACAF /* atsystemstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = atsystemstart.m; sourceTree = "<group>"; };
 		63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.1.down.tunnelblick.sh; sourceTree = "<group>"; };
@@ -738,6 +740,7 @@
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
 				61C03B960ED4E42A00175F22 /* NB.lproj */,
+				631310D513CA18870071C110 /* NL.lproj */,
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
 				63B5EFD913693F0A006BC27B /* PT.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
@@ -946,6 +949,7 @@
 				633C881F13A3B770000F5E94 /* RemoveButtonImage.tiff in Resources */,
 				637A871C13B74DFB003C1871 /* InstallWindow.xib in Resources */,
 				637A879B13B75694003C1871 /* tb-logo-309x64-2011-06-26.png in Resources */,
+				631310D913CA18870071C110 /* NL.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
