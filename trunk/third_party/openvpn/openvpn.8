@@ -494,6 +494,11 @@ InternetQueryOption API.
 This option exists in OpenVPN 2.1 or higher.
 .\"*********************************************************
 .TP
+.B \-\-show-proxy-settings
+Show sensed HTTP or SOCKS proxy settings. Currently, only Windows clients
+support this option.
+.\"*********************************************************
+.TP
 .B \-\-http-proxy server port [authfile|'auto'|'auto-nct'] [auth-method]
 Connect to remote host through an HTTP proxy at address
 .B server
@@ -4351,6 +4356,14 @@ the tls-verify script returns.  The file name used for the certificate
 is available via the peer_cert environment variable.
 .\"*********************************************************
 .TP
+.B \-\-x509-username-field fieldname
+Field in x509 certificate subject to be used as username (default=CN).
+.B Fieldname
+will be uppercased before matching. When this option is used, the
+--tls-remote option will match against the chosen fieldname instead
+of the CN.
+.\"*********************************************************
+.TP
 .B \-\-tls-remote name
 Accept connections only from a host with X509 name
 or common name equal to
@@ -5590,11 +5603,6 @@ Make device:
 
 Load driver:
 .B modprobe tun
-
-If you have Linux 2.2 or earlier, you should obtain version 1.1 of the
-TUN/TAP driver from
-.I http://vtun.sourceforge.net/tun/
-and follow the installation instructions.
 .\"*********************************************************
 .SH EXAMPLES
 Prior to running these examples, you should have OpenVPN installed on two
@@ -5615,10 +5623,7 @@ If you installed from RPM, the
 .B mknod
 step may be omitted, because the RPM install does that for you.
 
-If you have Linux 2.2, you should obtain version 1.1 of the
-TUN/TAP driver from
-.I http://vtun.sourceforge.net/tun/
-and follow the installation instructions.
+Only Linux 2.4 and newer are supported.
 
 For other platforms, consult the INSTALL file at
 .I http://openvpn.net/install.html
