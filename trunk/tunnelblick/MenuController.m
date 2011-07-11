@@ -506,8 +506,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [myConnection setDelegate:self];
             [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
-        [self setMyVPNConnectionDictionary: [tempVPNConnectionDictionary copy]];
-        
+        [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
         [tempVPNConnectionDictionary release];
         
 		[self createMenu];
