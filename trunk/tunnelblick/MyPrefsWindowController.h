@@ -122,7 +122,8 @@
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
 -(IBAction) whenToConnectTunnelblickLaunchMenuItemWasClicked: (id) sender;
 -(IBAction) whenToConnectOnComputerStartMenuItemWasClicked:   (id) sender;
--(IBAction) advancedButtonWasClicked:                         (id)  sender;
+
+-(IBAction) advancedButtonWasClicked:                         (id) sender;
 
 
 // Methods for GeneralView
@@ -138,7 +139,6 @@
 -(IBAction) generalHelpButtonWasClicked:                  (id) sender;
 
 
-
 // Methods for AppearanceView
 
 -(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked:    (id) sender;
@@ -147,6 +147,7 @@
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (id) sender;
 
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
+
 
 // Method for InfoView
 -(IBAction) infoHelpButtonWasClicked: (id) sender;

@@ -78,6 +78,10 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect;
 
+-(void) setupSetNameserver:     (VPNConnection *) connection;
+-(void) setupNetworkMonitoring: (VPNConnection *) connection;
+-(void) setupSoundPopUpButtons: (VPNConnection *) connection;
+
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
               preference: (NSString *)          preference;
@@ -303,6 +307,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     authorization = 0;
     doNotPlaySounds = FALSE;
     
+    [self initializeSoundPopUpButtons];
+    
     [self setupLeftNavigationToDisplayName: nil];   // MUST DO THIS FIRST SO A CONFIGURATION IS SELECTED
     
     // Right split view
@@ -321,57 +327,13 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [self indicateNotWaitingForConnection: [self selectedConnection]];
         
-        
         [self validateWhenToConnect: [self selectedConnection]];
         
-        // Set up setNameserverPopUpButton with localized content that varies with the connection
-        NSInteger ix = 0;
-        NSArray * content = [connection modifyNameserverOptionList];
-        [[configurationsPrefsView setNameserverArrayController] setContent: content];
-        [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
+        [self setupSetNameserver: [self selectedConnection]];
         
-        // Select the appropriate Set nameserver entry
-        NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
-        id obj = [gTbDefaults objectForKey: key];
-        if (  obj != nil  ) {
-            if (  [obj respondsToSelector: @selector(intValue)]  ) {
-                ix = (NSInteger) [obj intValue];
-                if (  ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
-                    NSLog(@"%@ preference ignored: value %d too large", key, ix);
-                    ix = 0;
-                }
-            } else {
-                NSLog(@"%@ preference ignored: invalid value; must be a number", key);
-            }
-        } else {
-            // Default is "Set namserver"
-            ix = 1;
-        }
+        [self setupNetworkMonitoring: [self selectedConnection]];
         
-        [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
-        [self setSelectedSetNameserverIndex: ix];
-        [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
-        
-        if (  [self forceDisableOfNetworkMonitoring]  ) {
-            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
-            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
-        } else {
-            [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
-                            key: @"-notMonitoringConnection"
-                       inverted: YES];
-            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
-        }
-        
-        [self initializeSoundPopUpButtons];
-        
-        [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
-               arrayController: [configurationsPrefsView soundOnConnectArrayController]
-                    preference: @"-tunnelUpSoundName"];
-        
-        
-        [self setupSoundButton: [configurationsPrefsView soundOnDisconnectButton]
-               arrayController: [configurationsPrefsView soundOnDisconnectArrayController]
-                    preference: @"-tunnelDownSoundName"];
+        [self setupSoundPopUpButtons: [self selectedConnection]];
         
         // Set up a timer to update connection times
         [[NSApp delegate] startOrStopDurationsTimer];
@@ -379,6 +341,65 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     [self validateDetailsWindowControls];   // Set windows enabled/disabled
 }
+
+
+-(void) setupSetNameserver: (VPNConnection *) connection
+{
+    // Set up setNameserverPopUpButton with localized content that varies with the connection
+    NSInteger ix = 0;
+    NSArray * content = [connection modifyNameserverOptionList];
+    [[configurationsPrefsView setNameserverArrayController] setContent: content];
+    [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
+    
+    // Select the appropriate Set nameserver entry
+    NSString * key = [[connection displayName] stringByAppendingString: @"useDNS"];
+    id obj = [gTbDefaults objectForKey: key];
+    if (  obj != nil  ) {
+        if (  [obj respondsToSelector: @selector(intValue)]  ) {
+            ix = (NSInteger) [obj intValue];
+            if (  ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
+                NSLog(@"%@ preference ignored: value %d too large", key, ix);
+                ix = 0;
+            }
+        } else {
+            NSLog(@"%@ preference ignored: invalid value; must be a number", key);
+        }
+    } else {
+        // Default is "Set namserver"
+        ix = 1;
+    }
+    
+    [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
+    [self setSelectedSetNameserverIndex: ix];
+    [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
+}
+
+-(void) setupNetworkMonitoring: (VPNConnection *) connection
+{
+    if (  [self forceDisableOfNetworkMonitoring]  ) {
+        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setState: NSOffState];
+        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
+    } else {
+        [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
+                        key: @"-notMonitoringConnection"
+                   inverted: YES];
+        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
+    }
+}
+
+
+-(void) setupSoundPopUpButtons: (VPNConnection *) connection
+{
+    [self setupSoundButton: [configurationsPrefsView soundOnConnectButton]
+           arrayController: [configurationsPrefsView soundOnConnectArrayController]
+                preference: @"-tunnelUpSoundName"];
+    
+    
+    [self setupSoundButton: [configurationsPrefsView soundOnDisconnectButton]
+           arrayController: [configurationsPrefsView soundOnDisconnectArrayController]
+                preference: @"-tunnelDownSoundName"];
+}
+
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect
 {
@@ -1721,11 +1742,15 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSString * status = localizeNonLiteral([newConnection state], @"Connection status");
         [[configurationsPrefsView configurationStatusTFC] setTitle: status];
         
-        [self validateDetailsWindowControls];
-        [newConnection startMonitoringLogFiles];
+        [self setupSetNameserver:     newConnection];
+        [self setupNetworkMonitoring: newConnection];
+        [self setupSoundPopUpButtons: newConnection];
         
+        [self validateDetailsWindowControls];
+                
+        [dispNm retain];
         [previouslySelectedNameOnLeftNavList release];
-        previouslySelectedNameOnLeftNavList = [dispNm retain];
+        previouslySelectedNameOnLeftNavList = dispNm;
         
         [settingsSheetWindowController setConfigurationName: dispNm];
         
