@@ -350,7 +350,6 @@ enum state_t {                      // These are the "states" of the guideState 
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration private, instead of shared.", @"Window text"), name];
             AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
             if ( authRef == nil ) {
-                NSLog(@"Make private authorization cancelled by user");
                 return;
             }
             [self copyConfigPath: source
@@ -358,13 +357,14 @@ enum state_t {                      // These are the "states" of the guideState 
                     usingAuthRef: authRef
                       warnDialog: YES
                      moveNotCopy: YES];
+            AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+            
         } else if (  [path hasPrefix: gPrivatePath]  ) {
             NSString * source = [[path copy] autorelease];
             NSString * target = [gSharedPath stringByAppendingPathComponent: last];
             NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration shared, instead of private.", @"Window text"), name];
             AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
             if ( authRef == nil ) {
-                NSLog(@"Make shared authorization cancelled by user");
                 return;
             }
             [self copyConfigPath: source
@@ -372,6 +372,7 @@ enum state_t {                      // These are the "states" of the guideState 
                     usingAuthRef: authRef
                       warnDialog: YES
                      moveNotCopy: YES];
+            AuthorizationFree(authRef, kAuthorizationFlagDefaults);
         }
     }
 }

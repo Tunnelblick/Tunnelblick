@@ -1024,22 +1024,26 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  ! [goodExtensions containsObject: newExtension]  ) {
         targetPath = [targetPath stringByAppendingPathExtension: sourceExtension];
     }
-    
+
     NSString * targetDisplayName = [lastPartOfPath(targetPath) stringByDeletingPathExtension];
-    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceDisplayName, targetDisplayName];
-    AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
-    if ( authRef == nil ) {
-        NSLog(@"Rename of configuration cancelled by user");
-        return;
+    
+    BOOL localAuthorization = FALSE;
+    if (  authorization == nil  ) {
+        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to rename '%@' to '%@'.", @"Window text"), sourceDisplayName, targetDisplayName];
+        authorization = [NSApplication getAuthorizationRef: msg];
+        if ( authorization == nil ) {
+            return;
+        }
+        localAuthorization = TRUE;
     }
     
     if (  [[ConfigurationManager defaultManager] copyConfigPath: sourcePath
                                                          toPath: targetPath
-                                                   usingAuthRef: authRef
+                                                   usingAuthRef: authorization
                                                      warnDialog: YES
                                                     moveNotCopy: YES]  ) {
         
-        // We copy "-keychainHasUsernameAndPassword" because it is delete by moveCredentials
+        // We copy "-keychainHasUsernameAndPassword" because it is deleted by moveCredentials
         NSString * key = [[connection displayName] stringByAppendingString: @"-keychainHasUsernameAndPassword"];
         BOOL haveCredentials = [gTbDefaults boolForKey: key];
         
@@ -1054,6 +1058,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences
         key = [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"];
         [gTbDefaults setBool: haveCredentials forKey: key];
+    }
+    
+    if (  localAuthorization  ) {
+        AuthorizationFree(authorization, kAuthorizationFlagDefaults);
+        authorization = nil;
     }
 }
 
@@ -1112,15 +1121,19 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
-    NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to duplicate '%@'.", @"Window text"), displayName];
-    AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
-    if ( authRef == nil ) {
-        return;
+    BOOL localAuthorization = FALSE;
+    if (  authorization == nil  ) {
+        NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to duplicate '%@'.", @"Window text"), displayName];
+        authorization = [NSApplication getAuthorizationRef: msg];
+        if ( authorization == nil ) {
+            return;
+        }
+        localAuthorization = TRUE;
     }
     
     if (  [[ConfigurationManager defaultManager] copyConfigPath: source
                                                          toPath: target
-                                                   usingAuthRef: authRef
+                                                   usingAuthRef: authorization
                                                      warnDialog: YES
                                                     moveNotCopy: NO]  ) {
         
@@ -1132,6 +1145,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         
         copyCredentials([connection displayName], targetDisplayName);
+    }
+    
+    if (  localAuthorization  ) {
+        AuthorizationFree(authorization, kAuthorizationFlagDefaults);
+        authorization = nil;
     }
 }
 
