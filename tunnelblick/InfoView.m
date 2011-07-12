@@ -57,35 +57,20 @@
         [infoLogoIV setImage: logo];
     }
     
-    NSString * descriptionPath = [[NSBundle mainBundle] pathForResource:@"description" ofType:@"html"];
+    NSString * descriptionPath = [[NSBundle mainBundle] pathForResource:@"Description" ofType:@"rtf"];
     if (  descriptionPath  ) {
         [infoDescriptionTV setEditable: NO];
         [infoDescriptionSV setHasHorizontalScroller: NO];
         [infoDescriptionSV setHasVerticalScroller:   NO];
         
-        NSString * htmlFromFile = [NSString stringWithContentsOfFile: descriptionPath encoding: NSASCIIStringEncoding error: NULL];
-        if (  htmlFromFile  ) {
-            NSRange rng = [htmlFromFile rangeOfString: @"Tunnel" "blick"];
-            if (  rng.length == 0  ) {
-                // Someone probably did a global search/replace of "Tunnelblick" with "Newname", so we adjust a bit
-                NSMutableString * html = [[htmlFromFile mutableCopy] autorelease];
-                rng = [html rangeOfString: NSLocalizedString(@"Tunnelblick", @"Window title")]; // Presumably, the search/replace replaced this with NewName
-                if (  rng.length != 0  ) {
-                    [html insertString: @" is based on Tunnel" "blick. Tunnel" "blick"
-                               atIndex: rng.location + rng.length];
-                    htmlFromFile = [[html copy] autorelease];
-                }
-            }
-            
-            NSData * data = [htmlFromFile dataUsingEncoding:NSASCIIStringEncoding];
-            NSAttributedString * descriptionString = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
-            [infoDescriptionTV replaceCharactersInRange: NSMakeRange( 0, 0 ) 
-                                                withRTF: [descriptionString RTFFromRange: NSMakeRange( 0, [descriptionString length] ) 
-                                                                      documentAttributes: nil]];
-        }
+        NSAttributedString * descriptionString = [[[NSAttributedString alloc] initWithPath:descriptionPath documentAttributes:nil] autorelease];
+        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, 0 ) 
+                                            withRTF:[descriptionString RTFFromRange:
+                                                     NSMakeRange( 0, [descriptionString length] ) 
+                                                                 documentAttributes:nil]];
     }
     
-    NSString * creditsPath = [[NSBundle mainBundle] pathForResource:@"credits" ofType:@"rtf"];
+    NSString * creditsPath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"];
     if (  creditsPath) {
         [infoCreditTV setEditable: NO];
         [infoCreditSV setHasHorizontalScroller: NO];
