@@ -5,7 +5,9 @@
 
 The following are known problems or limitations in Tunnelblick version 3.2:
 
-  * A problem has been reported when using Dropbox to sync the user's home folder if Tunnelblick is installed -- see [http://code.google.com/p/tunnelblick/issues/detail?id=182 Tunnelblick Issue 182] for details and a solution.
+  * A problem has been reported in OS X 10.7 ("Lion") with Tunnelblick not saving the VPN username/password -- there is a [https://groups.google.com/d/topic/tunnelblick-discuss/suU5_u08OlA/discussion Tunnelblick Discussion Group discussion] with details and a solution.
+
+  * A problem has been reported when using Dropbox to sync the user's home folder if Tunnelblick is installed -- see [https://code.google.com/p/tunnelblick/issues/detail?id=182 Tunnelblick Issue 182] for details and a solution.
 
   * If "Monitor connection" is checked, Tunnelblick monitors the network interface that connects to the VPN and will restart the connection if changes to DNS or WINS are detected. With some network configurations this causes repeated disconnects/reconnects every few seconds. To avoid this, uncheck "Monitor connection" for the problematic configuration on the "VPN Details…" window. Please post your complete log (showing the problem with "Monitor connection" checked) to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group] so we can fix this problem. (Be sure to cross out any sensitive information such as server IP addresses before you post your log.)
 
