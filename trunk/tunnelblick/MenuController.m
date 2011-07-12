@@ -1864,7 +1864,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 // Unloads our loaded tun/tap kexts if tunCount/tapCount is zero.
 -(void) unloadKexts
 {
-    OSStatus status = pthread_mutex_lock( &unloadKextsMutex );
+    OSStatus status = pthread_mutex_trylock( &unloadKextsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &unloadKextsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
         return;
