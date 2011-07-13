@@ -14,7 +14,7 @@
 *Installation, Setup, and Usage*
     [cInstall Installing 3.1 & 3.2]<br>
     [cInstall#Uninstalling_Tunnelblick Uninstalling 3.1 & 3.2]<br>
-    [wUsing 3.1] [zUsing 3.2]<br>
+    Using Tunnelblick [wUsing 3.1] [zUsing 3.2]<br>
     [cConfigT Setting up Tunnelblick]<br>
     [cConfigO Configuring OpenVPN]<br>
     [cServer Tunnelblick as a VPN Server]<br><br>
