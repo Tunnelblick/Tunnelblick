@@ -1,5 +1,5 @@
 #summary Documentation for Tunnelblick 3.0
-#sidebar xSb
+#sidebar cSb
 
 *<font color="red">Note: Tunnelblick 3.0 is not the latest stable version of Tunnelblick. See the [DownloadsEntry Downloads page] for the latest stable version of Tunnelblick.</font>*
 

@@ -1,5 +1,5 @@
 #summary Quick Start Guide
-#sidebar xSb
+#sidebar cSb
 
 *PLEASE* discuss any problems on the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion List].
 
@@ -83,7 +83,7 @@ You can quit Tunnelblick by:
 
 Tunnelblick will close all connections before it quits.
 
-If you *don't* quit Tunnelblick before logging out, it will be started automatically upon login. Don't confuse this automatic launch of Tunnelblick upon login with the "Automatically connect on launch” option, which causes a connection to be established when Tunnelblick is started.
+If you *don't* quit Tunnelblick before logging out, it will be started automatically upon login. Don't confuse this automatic launch of Tunnelblick upon login with the "automatically connect on launch” option, which causes a connection to be established when Tunnelblick is started.
 
 ==Preferences==
 The "Options…" submenu allows you to control several preferences. Click on one to change its status from checked to unchecked and vice-versa:

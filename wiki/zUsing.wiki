@@ -1,5 +1,5 @@
 #summary Using Tunnelblick
-#sidebar zSb
+#sidebar cSb
 
 This document describes how to use Tunnelblick version 3.2beta16 and later. For earlier versions, see [wUsing Using Tunnelblick 3.1].
 
@@ -44,7 +44,7 @@ Use "Disconnect” from the drop-down menu to close the VPN connection. Use "Qui
 
 ^*^ Tunnelblick will not close a connection for a configuration that is set up to automatically connect "when the computer starts" if you log out or quit Tunnelblick. The connection will remain open until your computer shuts down or you specifically disconnect it.
 
-If Tunnelblick is running when you logout (or your computer crashes, or is shut down or restarted), then Tunnelblick will be started automatically upon login. To stop Tunnelblick from being started automatically upon login, be sure to quit Tunnelblick before logging out, either by using the "Quit” command, or by using Command-Q (Apple-Q) when the "Details” or "About…” window is active. (Don't confuse this automatic launch of Tunnelblick upon login with the "Automatically connect on launch” option, which causes a connection to be established when Tunnelblick is launched.)
+If Tunnelblick is running when you logout (or your computer crashes, or is shut down or restarted), then Tunnelblick will be started automatically upon login. To stop Tunnelblick from being started automatically upon login, be sure to quit Tunnelblick before logging out, either by using the "Quit” command, or by using Command-Q (Apple-Q) when the "Details” or "About…” window is active. (Don't confuse this automatic launch of Tunnelblick upon login with the "automatically connect on launch” option, which causes a connection to be established when Tunnelblick is launched.)
 
 ==The "VPN Details…" Window==
 When the Tunnelblick menu is displayed, if you click on "VPN Details…” a window similar to the following will appear:
@@ -63,7 +63,7 @@ The "Settings" tab allows you to see and modify several settings for the configu
  * "Connect” specifies when the configuration should be connected:
   * "Manually" specifies that you will connect the configuration manually;
   * "When Tunnelblick launches" specifies that the configuration to be connected when Tunnelblick is launched (started) ;
-  * "When computer starts" specifies that the configuration to be connected when the computer starts. You can only choose "when the computer starts" for  [zPkgs Tunnelblick VPN Configurations] or [zCusDeployed "Deployed"] configurations
+  * "When computer starts" specifies that the configuration to be connected when the computer starts. You can only choose "when the computer starts" for  automatic Tunnelblick VPN Configurations] or [cCusDeployed "Deployed"] configurations
 
  * "Set DNS/WINS: Set nameserver” causes scripts to be run before a connection is opened and after the connection is closed. The scripts save and restore DHCP DNS and WINS information. Other choices for "Set DNS/WINS" are:
   * "Do not set nameserver", which does not change DNS settings;

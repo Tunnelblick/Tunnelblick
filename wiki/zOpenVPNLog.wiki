@@ -1,9 +1,9 @@
 #summary The OpenVPN Log
-#sidebar zSb
+#sidebar cSb
 
 The OpenVPN log is the record of output from OpenVPN for a connection. It includes entries from Tunnelblick giving additional information.
 
-You can view the OpenVPN log for a connection by clicking on the Tunnelblick icon at the top of the screen, clicking "VPN Details…", and selecting the configuration.
+You can view the OpenVPN log for a connection by clicking on the Tunnelblick icon at the top of the screen, clicking "VPN Details…", selecting the configuration, and selecting the "Log" tab.
 
 The level of detail in the log is controlled by OpenVPN's "verb" option.
 

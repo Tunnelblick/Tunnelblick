@@ -1,5 +1,5 @@
 #summary Release Notes - Tunnelblick
-#sidebar wSb
+#sidebar cSb
 
 *<font size="3">Release Notes for Tunnelblick</font>*
 
@@ -209,7 +209,7 @@
   * Tunnelblick 'chunks' additions to the log display.
   * The log is cleared before each connection attempt is made.
 
- * Fixes bug that caused Tunnelblick to not connect 'Automatically connect on launch' configurations. (The bug was apparently introduced in 3.2beta04.)
+ * Fixes bug that caused Tunnelblick to not connect 'automatically connect on launch' configurations. (The bug was apparently introduced in 3.2beta04.)
 
  * Fixes bug that sometimes causes retry of VPN username/password or passphrase to fail.
 
@@ -251,7 +251,7 @@
 
 *3.2beta04 (2011-02-19)*
 
- * Adds [wAppleScriptSupport AppleScript support].
+ * Adds [cAppleScriptSupport AppleScript support].
 
  * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!
 
@@ -456,7 +456,7 @@
 
   * Adds the ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts).
   * Adds the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.
-  (See [wCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
+  (See [cCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
 
   * Includes localization-related code tweaks by Stefan Bethke and additional German localization by Stefan Bethke, Marcus Schneider, and 'Dr Hok'.
 
@@ -592,7 +592,7 @@
 
  * When a Tunnelblick VPN Configuration (.tblk package) is installed, all Tunnelblick VPN Configurations within it will be installed. If these 'inner' configurations are inside subfolders of the outer .tblk, they will be installed as subfolders of the configurations folders and will appear in submenus of the main Tunnelblick menu.
 
- * Automatic installation of configurations from the .dmg has changed: Only one Tunnelblick VPN Configuration (.tblk packages) in the '.auto-install' or '.auto-install' folders and their subfolders is installed.
+ * automatic installation of configurations from the .dmg has changed: Only one Tunnelblick VPN Configuration (.tblk packages) in the '.auto-install' or '.auto-install' folders and their subfolders is installed.
 
  * The ability to install Tunnelblick VPN Configurations from malformed folder contents has been improved.
 
@@ -736,7 +736,7 @@
     * The Shared folder (/Library/Application Support/Tunnelblick/Shared) and its contents are protected. It is owned by root and may only be modified by administrators.
     * Shared configurations (like deployed configurations) may only be examined, not edited. (But you can make it private, edit it, and then share it).
 
- * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see [wPkgs Tunnelblick VPN Configurations] for details):
+ * A new kind of configuration, a 'Tunnelblick VPN Configuration', may be used and may be shared among all users of a computer, or remain private to an individual user (see [cConfigT Tunnelblick VPN Configurations] for details):
     * A Tunnelblick VPN Configuration is an OS X folder with an extension of '.tblk'.
     * A Tunnelblick VPN Configuration includes one .ovpn configuration file, and many include key and certificate files and shell scripts. It can also include default settings for per-configuration preferences and version information to help manage enterprise distribution of configurations.
     * Tunnelblick VPN Configurations must be installed before they can be used. They can be installed by double-clicking them, or dragging and dropping them on a Tunnelblick icon in Finder (but not the Tunnelblick icon in the Status Bar near the Spotlight icon). They can also be automatically installed when installing Tunnelblick by including them in the disk image. The user is given the option of installing them as private or shared. All of this behavior can be controlled and/or inhibited by preferences, which can be 'forced' in a Deployed version of Tunnelblick.
@@ -820,7 +820,7 @@
 
 *3.0b28 (2010-02-24)*
 
-  * Wildcards for forced preferences (see [DeployingTunnelblick Deploying Tunnelblick]).
+  * Wildcards for forced preferences (see [cDeployingTunnelblick Deploying Tunnelblick]).
   * Displays configuration name in title of "Details…" window.
   * Inserts full command line used for starting OpenVPN into the "Details…" window.
   * Full German localization. Many thanks to Markus Schneider.
@@ -840,7 +840,7 @@
   * Fixes problem editing configuration files on Tiger and Leopard by allowing non-admin users (without an administrator username/password) to unprotect the configuration file before invoking `TextEdit`. This ability can be disabled with the 'onlyAdminsCanUnprotectConfigurationFiles' preference. On Snow Leopard (which automatically unprotects files when they are modified), warns user that an administrator username/password will be required to connect if the configuration file is modified. Note: The 'Edit Configuration' button may be still disabled with a per-configuration  preference.
   * Enhancements: Displays command line used to launch 'openvpnstart' in the "Details…" window. Detects and gives a detailed error message if a configuration file is identical to the sample provided by Tunnelblick. Creates a "Launch Tunnelblick" link in the Configurations folder. Localizes paths that are displayed to the user -- for example, in French (FR), 'Library' becomes 'Bibliothèque'. Detects, complains, and quits if not running on OS X 10.4 ("Tiger") or above. Added Quick Start Guide to disk image.
   * Bug fixes: Fixes bug that caused crashes when started automatically on login on some versions of Leopard and Snow Leopard. Fixes bug that didn't localize the title for the "Details…" window. Fixes bug that displayed 'monitoring connection' when 'Set nameserver' is not checked. Fixes bug opening wrong copy of sample configuration file in `TextEdit`. Fixes bug that tries to to create Configurations folder when not necessary. Fixes bug that tried to create configuration file in Deploy. Fixes typo in dialog for remote home folders. Fixes sporadic failure to detect multiple simultaneous connections.
-  * Known Issues: See the [KnownIssues Known Issues wiki].
+  * Known Issues: See the [cKnown Known Issues wiki].
 
 --------------------
 
@@ -879,9 +879,9 @@ Known Issues:
   * Includes the 32/64-bit version of tuntap, which fixes problems running Tunnelblick on Snow Leopard under the 64-bit kernel. Thanks to the tuntap project, to Mohammad A. Haque for Xcode help, and to Jean-Philippe Jung for testing.
   * Stores username in Keychain instead of preferences.
   * Stores shadow copies of configuration files in /Library/Application Support/Tunnelblick/Users/_username_ instead of /Library/Tunnelblick/_username_.
-  * Bug fixes: Fixes bugs that interfere with storage or retrieval of usernames and passwords. Adds new configs to "Details…" window when it has been opened but is currently closed. Clears "Automatically launch Tunnelblick upon login" for error exits. Clean exit if 'running from .dmg' error. Fixes several memory and CF leaks. Fixes bug that caused attempt to kill openvpn process that had already been killed. Fixes potential problem detecting locked configuration files during shadow copying. Installer detects and reports errors making ownership and permission modifications.
+  * Bug fixes: Fixes bugs that interfere with storage or retrieval of usernames and passwords. Adds new configs to "Details…" window when it has been opened but is currently closed. Clears "automatically launch Tunnelblick upon login" for error exits. Clean exit if 'running from .dmg' error. Fixes several memory and CF leaks. Fixes bug that caused attempt to kill openvpn process that had already been killed. Fixes potential problem detecting locked configuration files during shadow copying. Installer detects and reports errors making ownership and permission modifications.
   * Enhancement: Creates openvpn-down-root.so and puts a copy of it in Tunnelblick.app/Contents/Resources, allowing use of OpenVPN 'user' and 'group' options by adding a line to the configuration file. See[UsingTunnelblick Using Tunnelblick] for details.
-  * Deployment enhancements: Several changes have been made which make it easy to create a customized version of Tunnelblick that can easily be deployed to multiple clients or installed once for all users of a computer. Configuration, key, and certificate files and up/down scripts can be put into a Deploy folder within Tunnelblick.app, and Tunnelblick will use them instead of using files in ~/Library/openvpn. These files are read-only, and, combined with read-only preference overrides, can create a tamper-proof application. Such deployed applications may be updated via the automatic update mechanism without losing the configuration information. Detailed information is available in [DeployingTunnelblick Deploying Tunnelblick].
+  * Deployment enhancements: Several changes have been made which make it easy to create a customized version of Tunnelblick that can easily be deployed to multiple clients or installed once for all users of a computer. Configuration, key, and certificate files and up/down scripts can be put into a Deploy folder within Tunnelblick.app, and Tunnelblick will use them instead of using files in ~/Library/openvpn. These files are read-only, and, combined with read-only preference overrides, can create a tamper-proof application. Such deployed applications may be updated via the automatic update mechanism without losing the configuration information. Detailed information is available in [cDeployingTunnelblick Deploying Tunnelblick].
   * Other enhancements: Clarifies language in a few places. Adds a specific error message if unrecoverable error. Warns if all config files removed and gives a choice of quitting or installing and editing a sample config file. Warns if zero-length passphrase, username, or password. Adds Tunnelblick icon and the configuration name to all applicable dialog windows. Puts dialogs on top of other windows. 
 
 Known Issues:

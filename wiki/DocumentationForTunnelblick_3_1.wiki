@@ -1,11 +1,11 @@
 #summary Documentation for Tunnelblick 3.1
-#sidebar wSb
+#sidebar cSb
 
 <hr>
 <font size="3">*[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*</font>
 <hr>
 
-This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. For more details, see [wThreeZeroToThreeOneChanges Changes from Version 3.0 to Version 3.1]. For changes from other versions to Tunnelblick 3.1, see the [RlsNotes Tunnelblick Release Notes].
+This is a summary of major changes from Tunnelblick version 3.0 to version 3.1. For more details, see [cThreeZeroToThreeOneChanges Changes from Version 3.0 to Version 3.1]. For changes from other versions to Tunnelblick 3.1, see the [RlsNotes Tunnelblick Release Notes].
 
 * Better Security
  * Includes the latest stable version of OpenVPN (OpenVPN 2.1.4)

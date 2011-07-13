@@ -32,7 +32,7 @@ To uninstall Tunnelblick, move Tunnelblick.app from the Applications folder to t
 ==CONFIGURATION FILES==
 Each tunnel to be opened by Tunnelblick needs an OpenVPN configuration file. Tunnelblick considers any file located in ~/Library/openvpn with an extension of .conf or .ovpn to be a configuration file, and presents each such file as a potential "connection”. (The "~" refers to your home folder.) Often these configuration files will be supplied to you. Refer to [http://openvpn.net/index.php/open-source/documentation/manuals/69-openvpn-21.html the OpenVPN documentation] for details about what the configuration file should contain. (Note that some OpenVPN options are available only on Windows.)
 
-When using a "deployed" version of Tunnelblick, configuration files are all located within the Tunnelblick application itself, so ~/Library/openvpn is not used. See [DeployingTunnelblick Deploying Tunnelblick] for details.
+When using a "deployed" version of Tunnelblick, configuration files are all located within the Tunnelblick application itself, so ~/Library/openvpn is not used. See [cDeployingTunnelblick Deploying Tunnelblick] for details.
 
 Tunnelblick monitors the folder that contains the configuration files. If a configuration file is added, the new configuration is available immediately without restarting Tunnelblick or disturbing existing connections. If a  configuration is removed from the folder, any connection using that configuration is immediately disconnected. To disable this behavior, use "doNotMonitorConfigurationFolder". (See the "Preferences" section.)
 
@@ -55,7 +55,7 @@ But note that _deployed_ versions of Tunnelblick contain the configuration file(
 
 Shadow" copies of configuration files (if they exist) are located in /Library/Application Support Tunnelblick/Users/_username_. (See "useShadowConfigurationFiles" in the "Preferences" section.)
 
-See [DeployingTunnelblick Deploying Tunnelblick] for details of file locations when using a deployed version of Tunnelblick.
+See [cDeployingTunnelblick Deploying Tunnelblick] for details of file locations when using a deployed version of Tunnelblick.
 
 Within the Tunnelblick.app application, client up/down scripts and openvpn-down-root.so are located in Tunnelblick.app/Contents/Resources (see the "Set nameserver” checkbox in the "Details… window” section). To access Tunnelblick.app/Contents in the Finder, control-click Tunnelblick.app in the Applications folder, then click on "Show Package Contents”.
 
@@ -173,7 +173,7 @@ However, this is for experts only:
 Tunnelblick was designed as a persistent menu icon that survives reboots. To this end, it inserts itself into the login items when it is started and only removes itself from the login items when you choose Quit from the menu or Command-Q from the "OpenVPN Log” window. So if you just log out, shut down, or restart your computer, or it crashes, the next time you log in, Tunnelblick will automatically start. If you do not want Tunnelblick to start automatically, quit Tunnelblick before you log out, shut down, or restart.
 
 ==AUTOMATICALLY OPENING A VPN CONNECTION WHEN TUNNELBLICK STARTS==
-You can specify that a connection automatically be opened when Tunnelblick starts by putting a check in the "Automatically connect on launch” checkbox for that connection. The checkbox is located on the connection's tab in the "OpenVPN Log” window.
+You can specify that a connection automatically be opened when Tunnelblick starts by putting a check in the "automatically connect on launch” checkbox for that connection. The checkbox is located on the connection's tab in the "OpenVPN Log” window.
 
 ==USING openvpn-down-root.so==
 When using "Set nameserver", it is usually necessary to avoid using the OpenVPN "user" and "group" options. These options cause OpenVPN to drop root privileges and take the privileges of the specified user and group. It this is done, then the standard scripts that handle restarting connections when there is a transient failure fail, because they are run without root privileges. And restoring routes when a tunnel is disconnected fails, too. So the "user" and "group" OpenVPN options should not be specified.
@@ -199,7 +199,7 @@ They are stored in ~/Library/Preferences/com.openvpn.tunnelblick.plist and can b
 
 Preferences can also be inspected and edited with the "Property List Editor”, which is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (about 800MB download) suite of programs for developing software for Macs.
 
-Note that a "deployed" version of Tunnelblick can contain a "forced-preferences.plist" file, which lists preference values which override the preferences located in ~/Library/Preferences/com.openvpn.tunnelblick.plist. See [DeployingTunnelblick Deploying Tunnelblick] for more details.
+Note that a "deployed" version of Tunnelblick can contain a "forced-preferences.plist" file, which lists preference values which override the preferences located in ~/Library/Preferences/com.openvpn.tunnelblick.plist. See [cDeployingTunnelblick Deploying Tunnelblick] for more details.
 
 Tunnelblick uses the following preferences for each user:
 
@@ -240,7 +240,7 @@ For each configuration file, some or all of the following preferences may appear
 Corresponds to the configuration's "Set nameserver” checkbox. The default is set.
 
 *ZZZautoConnect*
-Corresponds to the configuration's "Automatically connect on launch” checkbox. The default is cleared.
+Corresponds to the configuration's "automatically connect on launch” checkbox. The default is cleared.
 
 *ZZZ-keychainHasPrivateKey*
 *ZZZ-keychainHasUsernameAndPassword*

@@ -15,12 +15,12 @@
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [zQuick Quick Start Guide]<br><br>
-    [zInstall Installing Tunnelblick]<br>
+    [cInstall Installing Tunnelblick]<br>
     [zUsing Using Tunnelblick]<br>
-    [zConfigT Setting up Configurations]<br>
+    [cConfigT Setting up Configurations]<br>
     [RlsNotes Release Notes]<br>
-    [zFAQ FAQ]<br>
-    [zGettingVPNService Getting VPN Service]<br>
+    [cFAQ FAQ]<br>
+    [cGettingVPNService Getting VPN Service]<br>
 
 <hr>
 
@@ -28,12 +28,12 @@
   ALL ARTICLES are available from the side navigation panel on each page.<br><br>
   Popular articles:
     [wQuick Quick Start Guide]<br><br>
-    [wInstall Installing Tunnelblick]<br>
+    [cInstall Installing Tunnelblick]<br>
     [wUsing Using Tunnelblick]<br>
-    [wConfigT Setting up Configurations]<br>
+    [cConfigT Setting up Configurations]<br>
     [RlsNotes Release Notes]<br>
-    [wFAQ FAQ]<br>
-    [wGettingVPNService Getting VPN Service]<br>
+    [cFAQ FAQ]<br>
+    [cGettingVPNService Getting VPN Service]<br>
 
 <hr>
 
@@ -42,9 +42,9 @@
   Popular articles:
     [UsingTunnelblick Installing and Using Tunnelblick]<br>
     [GettingVPNService Getting VPN Service]<br>
-    [FAQ FAQ]<br>
+    [cFAQ FAQ]<br>
     [QuickStartGuide Quick Start Guide]<br>
-    [KnownIssues Known Issues]
+    [cKnown Known Issues]
 
 <hr>
 

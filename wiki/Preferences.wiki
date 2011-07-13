@@ -1,5 +1,5 @@
 #summary Preferences
-#sidebar xSb
+#sidebar cSb
 
 *For help configuring and using Tunnelblick, see [UsingTunnelblick Using Tunnelblick] and the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].*
 
@@ -10,7 +10,7 @@ This document contains the following sections:
 ==Overview==
 Tunnelblick's preferences for a user are stored in `~/Library/Preferences/com.openvpn.tunnelblick.plist`.
 
-If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See [DeployingTunnelblick Deploying Tunnelblick] for more details.
+If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See [cDeployingTunnelblick Deploying Tunnelblick] for more details.
 
 Note: some preferences are stored as the opposite of the state of the corresponding check box: For example, the *_config-name_-notMonitoringConnection* preference is the opposite of the "Monitor Connection" check box
 
@@ -88,7 +88,7 @@ The following additional preferences are available beginning in Tunnelblick vers
 
 *disableShareConfigurationButton* is a boolean which may be used to inhibit the display of the "Share configuration" / "Make configuration private" button. If absent or false, the button is displayed for all configurations, but is enabled only for Tunnelblick VPN Connection (.tblk) configurations that are not Deployed; it is disabled (dimmed) for  non-.tblk and Deployed configurations.
 
-*usePrivateConfigurationsWithDeployedOnes* and *useSharedConfigurationsWithDeployedOnes* are booleans which may be used in a Deployed version of Tunnelblick (see [DeployingTunnelblick Deploying Tunnelblick]) to allow simultaneous display of configurations from the Private (~/Library/Application Support/Tunnelblick/Configurations) and Shared (/Library/Application Support/Tunnelblick/Shared) folders, respectively. These preferences must be forced -- they will be ignored if they are not forced.
+*usePrivateConfigurationsWithDeployedOnes* and *useSharedConfigurationsWithDeployedOnes* are booleans which may be used in a Deployed version of Tunnelblick (see [cDeployingTunnelblick Deploying Tunnelblick]) to allow simultaneous display of configurations from the Private (~/Library/Application Support/Tunnelblick/Configurations) and Shared (/Library/Application Support/Tunnelblick/Shared) folders, respectively. These preferences must be forced -- they will be ignored if they are not forced.
 
 *skipWarningAboutIgnoredConfigurations* is a boolean which controls display of the warning that one or more configurations are being ignored. Configurations are ignored if there are higher priority configurations with the same name. Priorities are, from highest to lowest:
  # Deployed .tlbk configurations

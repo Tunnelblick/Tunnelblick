@@ -1,5 +1,5 @@
 #summary Documentation for Tunnelblick 3.1beta16
-#sidebar wSb
+#sidebar cSb
 
 <hr>
 <font size="3">*[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1beta16.dmg Download Tunnelblick 3.1beta16]*</font>
@@ -28,7 +28,7 @@
 
   * Adds the ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts).
   * Adds the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.
-  (See [wCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
+  (See [cCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
 
   * Includes localization-related code tweaks by Stefan Bethke and additional German localization by Stefan Bethke, Marcus Schneider, and 'Dr Hok'.
 

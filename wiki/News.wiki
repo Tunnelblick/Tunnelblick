@@ -90,7 +90,7 @@
 --------------------
 
 2011-02-19: *Tunnelblick 3.2beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*. Full details are in the [RlsNotes Release Notes].
- * Adds [wAppleScriptSupport AppleScript support].
+ * Adds [cAppleScriptSupport AppleScript support].
  * Includes complete French localization by Jeremy W. Sherman. Thanks, Jeremy!
  * Includes OpenSSL 1.0.0d.
  * Unloading of the foo.tap and foo.tun kexts is now attempted only if they are already loaded (previously, it was always attempted and errors were ignored).
@@ -111,7 +111,7 @@
    * connected.sh
    * reconnecting.sh
    * post-disconnect.sh
- For more details, see [wPkgs Tunnelblick VPN Configurations] and [wUsingScripts Using Scripts].
+ For more details, see [cConfigT Tunnelblick VPN Configurations] and [cUsingScripts Using Scripts].
  * Fixes problem installing Tunnelblick via double-click when the user's home folder is not on the same volume as /Applications/Tunnelblick.app
 
  * Other minor changes
@@ -129,7 +129,7 @@
 --------------------
 
 2011-01-28: *OS X 10.4 ("Tiger") Installation Failure*
- Installing or updating to Tunnelblick 3.1.3 on OS X 10.4 ("Tiger") fails. See the first entry in <a href="http://code.google.com/p/tunnelblick/wiki/wKnown">Known Issues</a> for a workaround.
+ Installing or updating to Tunnelblick 3.1.3 on OS X 10.4 ("Tiger") fails. See the first entry in <a href="http://code.google.com/p/tunnelblick/wiki/cKnown">Known Issues</a> for a workaround.
  
 --------------------
 
@@ -208,7 +208,7 @@
 
   * Adds the ability to add menu items to the Tunnelblick menu to execute programs (e.g., scripts).
   * Adds the ability to specify programs that should be executed when Tunnelblick is launched or when a connection is attempted.
-  (See [wCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
+  (See [cCusDeployed#Additional_Menu_Commands_and_Programs Additional Menu Commands and Programs] for details.)
 
   * Includes localization-related code tweaks by Stefan Bethke and additional German localization by Stefan Bethke, Marcus Schneider, and 'Dr Hok'.
 
