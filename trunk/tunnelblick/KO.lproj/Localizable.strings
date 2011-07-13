@@ -370,12 +370,6 @@
 /* System profile item */
 "Deployed" = "배포됨";
 
-/* OpenVPN Log message */
-"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart 메시지: %@";
-
-/* OpenVPN Log message */
-"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart 상태 #%1$d: %2$@";
-
 /* Window title */
 " (Deployed)" = " (배포됨)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 

@@ -370,12 +370,6 @@
 /* System profile item */
 "Deployed" = "Rozmieszczone";
 
-/* NEEDS TRANSLATION *//* OpenVPN Log message */
-"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart message: %@";
-
-/* OpenVPN Log message */
-"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: status openvpnstart #%1$d: %2$@";
-
 /* Window title */
 " (Deployed)" = " (Dostarczona)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 

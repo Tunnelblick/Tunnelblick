@@ -926,7 +926,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         
-        [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart status #%d: %@", @"OpenVPN Log message"), status, openvpnstartOutput]];
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart status #%d: %@", status, openvpnstartOutput]];
         [errPipe release];
         if (  userKnows  ) {
             TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
@@ -944,7 +944,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  openvpnstartOutput  ) {
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             if (  [openvpnstartOutput length] != 0  ) {
-                [self addToLog: [NSString stringWithFormat:NSLocalizedString(@"*Tunnelblick: openvpnstart message: %@", @"OpenVPN Log message"), openvpnstartOutput]];
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart message: %@", openvpnstartOutput]];
             }
         }
 //        [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
