@@ -370,12 +370,6 @@
 /* System profile item */
 "Deployed" = "Implantado";
 
-/* OpenVPN Log message */
-"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: mensagem do openvpnstart: %@";
-
-/* OpenVPN Log message */
-"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: status do openvpnstart #%1$d: %2$@";
-
 /* Window title */
 " (Deployed)" = " (Implantado)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 

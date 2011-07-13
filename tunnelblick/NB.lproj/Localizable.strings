@@ -370,12 +370,6 @@
 /* System profile item */
 "Deployed" = "Utrullet";
 
-/* OpenVPN Log message */
-"*Tunnelblick: openvpnstart message: %@" = "*Tunnelblick: openvpnstart beskjed: %@";
-
-/* TRANSLATION SAME AS DEVELOPMENT *//* OpenVPN Log message */
-"*Tunnelblick: openvpnstart status #%d: %@" = "*Tunnelblick: openvpnstart status #%1$d: %2$@";
-
 /* Window title */
 " (Deployed)" = " (Utrullet)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 
