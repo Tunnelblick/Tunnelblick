@@ -12,9 +12,10 @@
     [cHowHelp How you can help]<br>
     [cFAQ FAQ]<br>
 *Installation, Setup, and Usage*
-    [cInstall Installing 3.1 & 3.2]<br>
-    [cInstall#Uninstalling_Tunnelblick Uninstalling 3.1 & 3.2]<br>
-    Using Tunnelblick [wUsing 3.1] [zUsing 3.2]<br>
+    [cInstall Installing 3.1/3.2]<br>
+    [cInstall#Uninstalling_Tunnelblick Uninstalling 3.1/3.2]<br>
+    [wUsing Using Tunnelblick 3.1]<br>
+    [zUsing Using Tunnelblick 3.2]<br>
     [cConfigT Setting up Tunnelblick]<br>
     [cConfigO Configuring OpenVPN]<br>
     [cServer Tunnelblick as a VPN Server]<br><br>
@@ -51,8 +52,13 @@
     [cAppleScriptSupport AppleScript Support]<br>
     [cGettingVPNService Getting VPN Service]<br>
     [cSysReq System requirements]<br>
-    Preferences [Preferences 3.0] [wPrefs 3.1] [zPrefs 3.2]<br>
+    [zPrefs Preferences 3.2]<br>
+    [wPrefs Preferences 3.1]<br>
+    [Preferences Preferences 3.0]<br>
     [cConfigT Tunnelblick VPN Configurations]<br>
     [cFileLocations File Locations]<br><br>
-    What's New in [DocumentationForTunnelblick_3_1 3.1] [DocumentationForTunnelblick_3_2 3.2]<br>
-    Changes [cThreeBTenToThreeOneChanges 3.0] [cThreeZeroToThreeOneChanges 3.1] [cThreeOneToThreeTwoChanges 3.2]
+    [DocumentationForTunnelblick_3_1 What's New in 3.1]<br>
+    [DocumentationForTunnelblick_3_2 What's New in 3.2]<br>
+    [cThreeBTenToThreeOneChanges Changes 3.0]<br>
+    [cThreeZeroToThreeOneChanges Changes 3.1]<br>
+    [cThreeOneToThreeTwoChanges Changes 3.2]
