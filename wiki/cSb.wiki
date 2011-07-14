@@ -23,7 +23,7 @@
     [cKnown Known Issues]<br>
     [cCommonProblems Common Problems]<br>
     [cConnectedBut Connects OK, But...]<br>
-    OpenVPN Log [wOpenVPNLog 3.0/3.1] [zOpenVPNLog 3.2]<br>
+    [cOpenVPNLog The OpenVPN Log]<br>
     [cConsoleLog The Console Log]<br>
     [cHelp How to get help]<br>
 *Releases*

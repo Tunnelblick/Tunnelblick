@@ -3,7 +3,7 @@
 
 The OpenVPN log is the record of output from OpenVPN for a connection. It includes entries from Tunnelblick giving additional information.
 
-You can view the OpenVPN log for a connection by clicking on the Tunnelblick icon at the top of the screen, clicking "Details…", and selecting the tab for the configuration.
+You can view the OpenVPN log for a connection by clicking on the Tunnelblick icon at the top of the screen, clicking "VPN Details…", selecting the configuration, and (on Tunnelblick 3.2 and up) selecting the "Log" tab.
 
 The level of detail in the log is controlled by OpenVPN's "verb" option.
 
@@ -26,4 +26,4 @@ You may use the standard keyboard shortcuts when viewing the OpenVPN log:
 
 ------------------
 
-===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
