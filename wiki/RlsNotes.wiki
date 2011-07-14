@@ -12,6 +12,36 @@
 
 --------------------
 
+*3.2beta24 (2011-07-14)*
+
+ * Complete German localization by Marcus Schneider.
+ * Complete French localization by Jeremy Sherman.
+ * Complete Korean localization by Kyoungmin Kim.
+ * Complete Norwegian localization by Jon Luberth.
+ * Complete Portuguese localization by Denis Volpato Martins.
+ 
+ * Includes OpenVPN version 2.2.1.
+ 
+ * Now loads sounds each time the Configurations panel is displayed, so any sounds added by the user can be used immediately.
+
+ * Adds protection against race conditions in sleeping and quitting.
+
+ * The credits and license description on the Info panel are now localized.
+ 
+ * Fixes a bug that didn't update 'Settings' tab items properly when a different configuration was selected in the 'Configurations' panel.
+ * Fixes a bug that caused several items to appear in English instead of the preferred language, even if a preferred language translation of the item was available.
+ * Fixes a bug that caused the 'Advanced' window to pop up in front of any other application's window when the notification window appears.
+ * Fixes a bug that caused the 'Glass' sound to be used when a tunnel is established and the 'Basso' sound to be used when a tunnel was torn down if the preference for the sound was set to 'None'
+ * Fixes a bug that caused the 'Advanced' window to pop up in front of any other application's window when the notification window appears.
+ * Fixes a bug that ignored the Enter and Escape keys when entering a VPN username/password or passphrase.
+ * Fixes a bug that caused the 'Glass' sound to be used when a tunnel is established and the 'Basso' sound to be used when a tunnel was torn down if the preference for the sound was set to 'None'
+ * Fixes a bug that caused problems and failed to properly warn the user that a private configuration cannot be set to start when the computer starts.
+ * Fixes several small memory leaks.
+ * Fixes a possible race condition when quitting Tunnelblick.
+
+
+--------------------
+
 *3.2beta22 (2011-07-01)*
 
  * Includes LZO 2.05, replacing 2.03.

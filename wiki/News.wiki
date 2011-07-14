@@ -1,15 +1,29 @@
 #summary The Latest News About Tunnelblick
 
+2011-07-14: *Tunnelblick 3.2beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Complete German localization by Marcus Schneider.
+ * Complete French localization by Jeremy Sherman.
+ * Complete Korean localization by Kyoungmin Kim.
+ * Complete Norwegian localization by Jon Luberth.
+ * Complete Portuguese localization by Denis Volpato Martins.
+ * Includes OpenVPN version 2.2.1.
+ * Includes other enhancements and fixes several bugs.
+ See the [RlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-07-01: *Tunnelblick 3.2beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Includes LZO 2.05, replacing 2.03.
  * Sleep/wake change: When the computer wakes up, it now tries to reconnect all configurations that were connected, or were in the process of being connected, when it went to sleep. (Previously, Tunnelblick only tried to reconnect only those configurations that were connected when the computer went to sleep.)
  * Adds an additional layer of protection against attacks.
  * Fixes several bugs.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
 2011-06-29: *Tunnelblick 3.2beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Fixes a bug causing domains to be ignored when 'Set nameserver' is selected.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
@@ -19,6 +33,7 @@
  * Cascades status windows when multiple status windows are being displayed simultaneously.
  * Fixes a problem that displayed incorrect sound 'on connect' and sound 'on unexpected disconnect' selections when no selections have been made. (Should have displayed 'None' for each, but displayed 'Glass' and 'Basso'.)
  * Includes several other small changes and bug fixes.
+ See the [RlsNotes Release Notes] for details.
  
 --------------------
 
