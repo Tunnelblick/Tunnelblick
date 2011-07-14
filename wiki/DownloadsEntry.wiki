@@ -6,7 +6,7 @@
 </tr></table>
 <br>
 
-<font color="red">*TRANSLATORS NEEDED:*</font> A new version of Tunnelblick is almost ready to be released, and translators are needed for many languages. We especially need translators for <u>Chinese (simplified and traditional)</u>, <u>Russian</u>, <u>Swedish</u>, and<u> Japanese</u>. If you can help (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. Thanks!
+<font color="red">*TRANSLATORS NEEDED:*</font> A new version of Tunnelblick is almost ready to be released, and translators are needed for many languages. We especially need translators for *Swedish*, * Japanese*, and *Chinese* (simplified and traditional). If you can help (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. Thanks!
 
 _Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see the [GettingVPNService VPN Service Providers page]._
 <wiki:toc max_depth="2" />
