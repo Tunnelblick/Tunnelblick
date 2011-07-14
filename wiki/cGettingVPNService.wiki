@@ -8,8 +8,9 @@ To use Tunnelblick you need access to a VPN server -- your computer is one end o
   * You can get (free or for a fee) access to a VPN by using a VPN service provider.
 
 ==Employer-provided VPN Servers==
-Your employer should supply an OpenVPN configuration file (or files), along with the appropriate certificate and key files and usernames and passwords. If you are supplied with a [http://code.google.com/p/tunnelblick/wiki/cConfigT Tunnelblick VPN Configuration] (.tblk), just double-click it after installing Tunnelblick. If you are supplied with a one or more OpenVPN configuration files (.ovpn or .conf), you can just put all the files into the following folder:
-~/Library/Application Support/Tunnelblick/Configurations. Don't put the folder containing the files into ...Configurations -- just put the files themselves. (This assumes that the lines in the configuration file beginning with "ca", "key", and "cert" are followed by a filename, and not a folder/filename combination.)
+Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [http://code.google.com/p/tunnelblick/wiki/cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
+
+Follow the instructions from your employer or in [http://code.google.com/p/tunnelblick/wiki/cInstall Installing Tunnelblick 3.1 & 3.2] to install Tunnelblick and configurations.
 
 ==Set Up Your Own VPN Server==
 This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick does not include anything that will help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
