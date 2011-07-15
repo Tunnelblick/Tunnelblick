@@ -56,7 +56,7 @@
 "Cancel" = "Cancel·lar";
 
 /* Button */
-"Check Now" = "Comprova ara";
+"Check Now" = "Comprovar ara";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Tancar connexions VPN i parar el Tunnelblick";
@@ -125,7 +125,7 @@
 "No keyboard shortcut" = "Cap combinació de tecles";
 
 /* Button */
-"No sound" = "Sense só";
+"No sound" = "Sense sons";
 
 /* Button */
 "OK" = "D'acord";
@@ -155,10 +155,10 @@
 "Restore" = "Restablir";
 
 /* Button */
-"Show when connection status changes" = "Mostra quan l'estatus de la connexió canviï";
+"Show when connection status changes" = "Mostrar quan l'estatus de la connexió canviï";
 
 /* Button */
-"Show while connecting" = "Mostra mentre es connecta";
+"Show while connecting" = "Mostrar mentre es connecta";
 
 /* Button */
 "Standard icon" = "Icona estàndard";
@@ -179,10 +179,10 @@
 "Unprotect and Modify" = "Desprotegir i Modificar";
 
 /* Button */
-"When Tunnelblick launches" = "Quan Tunnelblick s'inicia";
+"When Tunnelblick launches" = "Quan Tunnelblick s'iniciï";
 
 /* Button */
-"When computer starts" = "Quan s'inicia l'ordinador";
+"When computer starts" = "Quan s'iniciï l'ordinador";
 
 /* Menu item */
 "Add a VPN..." = "Afegeix una VPN...";
@@ -218,7 +218,7 @@
 "Examine OpenVPN Configuration File..." = "Examinar l'arxiu de configuració OpenVPN...";
 
 /* Menu Item */
-"Hide Configuration on Tunnelblick Menu" = "Amagar la configuració en el menú de Tunnelblick";
+"Hide Configuration on Tunnelblick Menu" = "Amagar la configuració al menú de Tunnelblick";
 
 /* Menu Item */
 "Make Configuration Private..." = "Fer la configuració privada...";
@@ -236,10 +236,10 @@
 "Rename Configuration..." = "Reanomenar la configuració...";
 
 /* Menu Item */
-"Show Configuration on Tunnelblick Menu" = "Mostrar la configuració en el menú Tunnelblick";
+"Show Configuration on Tunnelblick Menu" = "Mostrar la configuració al menú Tunnelblick";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Mostra el Log d'OpenVPN en el Finder";
+"Show OpenVPN Log in Finder" = "Mostrar el Log d'OpenVPN al Finder";
 
 /* Menu item */
 "VPN Details..." = "Detalls de l'VPN...";
@@ -278,10 +278,10 @@
 "Monitor network settings" = "Controlar la configuració de xarxa";
 
 /* Checkbox name */
-"Monitor the configuration folders for changes" = "Controlar les carpetes de configuració per canvis";
+"Monitor the configuration folders for changes" = "Controlar canvis en les carpetes de configuració";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Posa'l al costat de la icona de l'Spotlight";
+"Place next to Spotlight icon" = "Posa-la al costat de la icona de l'Spotlight";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Reconnectar quan l'usuari es torni a connectar";
@@ -308,7 +308,7 @@
 "Set nameserver (3.1)" = "Configura el servidor de noms (3.1)";
 
 /* PopUpButton */
-"Set nameserver (alternate 1)" = "Configura el servidor de noms (alternativa 1)";
+"Set nameserver (alternate 1)" = "Configura el servidor de noms (alt. 1)";
 
 /* PopUpButton *//* System profile item */
 "Set nameserver" = "Configurar el servidor de noms";
@@ -416,7 +416,7 @@
 "Configuration(s) Ignored" = "Configuració(ns) ignorades";
 
 /* Window title */
-"Connecting & Disconnecting" = "Connectar & Desconnectar";
+"Connecting & Disconnecting" = "Connectar i desconnectar";
 
 /* Window title */
 "Could Not Copy Configuration" = "No s'ha pogut copiar la configuració";
@@ -479,7 +479,7 @@
 "No 'dev tun' or 'dev tap' found" = "No s'ha trobat cap 'dev tun' o 'dev tap'";
 
 /* Window title */
-"No Credentials" = "No hi ha credencials";
+"No Credentials" = "No existeixen credencials";
 
 /* Window title */
 "Not connecting" = "No s'està connectant";
@@ -494,7 +494,7 @@
 "Perform installation?" = "Dur a terme la instal·lació?";
 
 /* Window title */
-"Please Confirm" = "Confirma si us plau";
+"Please Confirm" = "Confirma si us plau:";
 
 /* Window title */
 "Please enter a username and password." = "Si us plau entra un nom d'usuari i una contrasenya.";
@@ -590,7 +590,7 @@
 "You cannot use the sample configuration" = "No pots utilitzar la configuració de guia";
 
 /* Window text */
-"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Amb cada arxiu de configuració, pots crear una configuració VPN Tunnelblick.\n\n     • Amb múltiples arxius de configuració, pots ubicar els arxius de configuració (i els certificats i claus si en tens) en la carpeta configuracions privades de Tunnelblick.\nAquest és el mode tradicional en el que les configuracions s'han usat en OpenVPN.\n\nNota: Es prefereixen les configuracions VPN Tunnelblick, ja que poden ser compartides, es poden executar quan l'ordinador arrenca, i es fan segures automàticament.";
+"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Amb cada arxiu de configuració, pots crear una configuració VPN Tunnelblick.\n\n     • Amb múltiples arxius de configuració, pots ubicar els arxius de configuració (i els certificats i claus si en tens) a la carpeta configuracions privades de Tunnelblick.\nAquest és el mode tradicional en el que les configuracions s'han usat en OpenVPN.\n\nNota: Es prefereixen les configuracions VPN Tunnelblick, ja que poden ser compartides, es poden executar quan l'ordinador arrenca, i es fan segures automàticament.";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Canviar el propietari i els permisos de l'aplicació per fer-lo segur\n";
@@ -605,19 +605,19 @@
 "  • Secure configurations\n" = "  • Fer les configuracions segures\n";
 
 /* Window text */
-" (To install in a different location, drag %@ to that location.)" = " (Per instal·lar en una altra ubicació, arrossega %@ a la ubicació escollida.)";
+" (To install in a different location, drag %@ to that location.)" = " (Per instal·lar a una altra ubicació, arrossega %@ a la ubicació escollida.)";
 
 /* Window text */
-" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Les configuracions només les podrà eliminar un administrador.\n\n Eliminar és immediat i permanent. Tots els paràmetres de '%1$@' també es perdran definitivament.%2$@";
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Les configuracions només les pot eliminar un administrador.\n\n Eliminar és immediat i permanent. Tots els paràmetres de '%1$@' també es perdran definitivament.%2$@";
 
 /* Window text */
 " Do you wish to install %@ to %@%@?\n\n%@" = " Desitges instal·lar %1$@ a %2$@%3$@?\n\n%4$@";
 
 /* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@" = " Desitges substituir\n    %1$@\n    en %2$@\namb %3$@%4$@?\n\n%5$@";
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@" = " Desitges substituir\n    %1$@\n   a %2$@\namb %3$@%4$@?\n\n%5$@";
 
 /* Window text */
-" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = " Tunnelblick no es pot utilitzar des d'aquesta ubicació. S'ha d'instal·lar en un disc local.\n\n";
+" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = " Tunnelblick no es pot utilitzar des d'aquesta ubicació. S'ha d'instal·lar a un disc local.\n\n";
 
 /* Window text */
 " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick necessita permisos d'administrador per connectar automàticament '%@' quan l'ordinador arrenqui.";
@@ -641,10 +641,10 @@
 "%d configurations were not installed. See the Console Log for details." = "%d configuracions no s'han instal·lat. Consulta la Consola de missatges per més informació.";
 
 /* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' ja existeix en l'Escriptori.\n\nDesitges substituir-la?";
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' ja existeix a l'Escriptori.\n\nDesitges substituir-la?";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' no disposa de credencials (clau privada o nom d'usuari i contrasenya) al Clauer.";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' no disposa de credencials (clau privada o nom d'usuari i contrasenya) al Gestor de Claus.";
 
 /* Window text */
 "(Never checked)" = "(No s'ha comprovat mai)";
@@ -674,7 +674,7 @@
 "Anonymous unique ID" = "ID únic anònim";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Estàs segur que desitges eliminar les credencials (clau privada o nom d'usuari i contrasenya) '%@' que hi ha al Clauer?";
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Estàs segur que desitges eliminar les credencials (clau privada o nom d'usuari i contrasenya) '%@' que hi ha al Gestor de Claus?";
 
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Les configuracions s'instal·len, en general, a partir d'arxius que són facilitats per l'administrador de la xarxa o pel proveïdor de la VPN.\n\nEls arxius de configuració tenen l'extensió .tblk, .ovpn, o .conf.\n\n(Poden existir altres tipus d'arxiu associats amb la configuració que tenen altres extensions, de moment les pots ignorar)\n\nDisposes d'un arxiu de configuració?\n";
@@ -698,7 +698,7 @@
 "Do you wish to install %d configurations" = "Desitges instal·lar %d configuracions";
 
 /* Window text */
-"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Desitges instal·lar la configuració '%@' de manera que tots els usuaris puguin utilitzar, o que només la puguis utilitzar tu?\n\n";
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Desitges instal·lar la configuració '%@' de manera que tots els usuaris la puguin utilitzar, o que només la puguis utilitzar tu?\n\n";
 
 /* Window text */
 "Do you wish to reinstall '%@'%@ version %@?" = "Desitges tornar a instal·lar '%1$@'%2$@ versió %3$@?";
@@ -773,16 +773,16 @@
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN no ha respost a les peticions de desconnexió durant %d segons.\n\nLa connexió es considerarà desconnectada, però la configuració de xarxa d'aquest ordinador es pot trobar en un estat inconsistent.";
 
 /* Window text */
-"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN no respon a les peticions de desconnexió.\n\nExisteix un bug conegut en la versió 2.1 d'OpenVPN que causa un retard d'un o dos minuts abans no respon a aquest tipus de peticions.\n\nTunnelblick seguirà intentant desconnectar durant %1$d segons.\n\nLa connexió no estarà disponible fins que OpenVPN la desconnecti o fins que passin %2$d segons, el que ocorri primer.";
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN no respon a les peticions de desconnexió.\n\nExisteix un bug conegut a la versió 2.1 d'OpenVPN que causa un retard d'un o dos minuts abans no respon a aquest tipus de peticions.\n\nTunnelblick seguirà intentant desconnectar durant %1$d segons.\n\nLa connexió no estarà disponible fins que OpenVPN la desconnecti o fins que passin %2$d segons, el que ocorri primer.";
 
 /* Window text */
 "Please enter VPN passphrase." = "Si us plau entra el mot clau de la connexió VPN.";
 
 /* Window text */
-"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Entra un nom i fes click en \"OK\" or en \"Cancel\", si us plau.\n\n";
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Entra un nom i fes click a \"OK\" or a \"Cancel\", si us plau.\n\n";
 
 /* Window text */
-"Please enter a new name for '%@'." = "Si us plau, entra un nou nom per '%@'.";
+"Please enter a new name for '%@'." = "Si us plau, entra un nou nom per la configuració '%@'.";
 
 /* Window text */
 "Please insert token \"%@\", then click \"OK\"" = "Si us plau introdueix el token \"%@\", i prem sobre \"D'acord\"";
@@ -797,7 +797,7 @@
 "Search domain:" = "Domini de cerca:";
 
 /* Window text */
-"Set DNS/WINS:" = "Fixar DNS/WINS:";
+"Set DNS/WINS:" = "Configurar DNS/WINS:";
 
 /* Window text */
 "That name is being used.\n\n" = "Aquest nom ja s'està utilitzant.\n\n";
@@ -815,7 +815,7 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "L'intent de connexió %1$@ s'ha cancel·lat: l'script runOnConnect ha retornat l'estat: %2$d.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "L'arxiu de configuració de '%@' sembla que utilitza les opcions 'user' i/o 'group' i utilitza un 'down script' ('No configuris el servidor de noms' no està seleccionat, o existeix l'opció 'down' en l'arxiu de configuració).\n\nÉs probable que reiniciant la connexió (fet automàticament quan la connexió es perd) falli a menys que s'utilitzi el plugin per a OpenVPN 'openvpn-down-root.so'.\n\nDesitges utilitzar el plugin?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "L'arxiu de configuració de '%@' sembla que utilitza les opcions 'user' i/o 'group' i utilitza un 'down script' ('No configuris el servidor de noms' no està seleccionat, o existeix l'opció 'down' a l'arxiu de configuració).\n\nÉs probable que reiniciant la connexió (fet automàticament quan la connexió es perd) falli a menys que s'utilitzi el plugin per a OpenVPN 'openvpn-down-root.so'.\n\nDesitges utilitzar el plugin?";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "L'arxiu de configuració per '%@' no sembla contenir les opcions 'dev tun' o 'dev tap'. Aquesta opció és necessària per a un bon funcionament de Tunnelblick. Consulta amb el teu administrador de xarxa o la documentació d'OpenVPN.";
@@ -830,10 +830,10 @@
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "El mot clau no pot ser buit!\nSi us plau entra el mot clau de la connexió VPN.";
 
 /* Window text */
-"The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "La carpeta de configuracions privades s'ha obert en el Finder.\n\nMou o copia els arxius de configuració d'OpenVPN i les claus o certificats a la carpeta.\n\nLes noves configuracions estaran disponibles immediatament a Tunnelblick.";
+"The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "La carpeta de configuracions privades s'ha obert al Finder.\n\nMou o copia els arxius de configuració d'OpenVPN i les claus o certificats a la carpeta.\n\nLes noves configuracions estaran disponibles immediatament a Tunnelblick.";
 
 /* Window text */
-"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "La carpeta amb la configuració de guia s'ha creat a l'Escriptori, i l'arxiu de configuració OpenVPN s'ha obert amb TextEdit per tal que el puguis modificar amb la teva configuració VPN.\n\nQuan hagis acabat d'editar-lo i hagis desat els canvis, si us plau\n\n1. Mou o copia les claus o certificats associades a la configuració a la carpeta 'Configuració VPN de guia de Tunnelblick' al teu Escriptori.\n\n(La carpeta s'ha obert al Finder per tal que hi posis els teus arxius.)\n\n2. Canvia el nom de la carpeta per un de la teva elecció. Aquest nom és el que Tunnelblick utilitzarà per la connexió.\n\n3. Afegeix .tblk al final del nom de la carpeta.\n\n4. Fes doble-click a la carpeta per instal·lar la configuració.\n\nLa nova configuració estarà disponible a Tunnelblick immediatament.";
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "La carpeta amb la configuració de guia s'ha creat a l'Escriptori, i l'arxiu de configuració OpenVPN s'ha obert amb TextEdit per tal que el puguis modificar amb la teva configuració VPN.\n\nQuan hagis acabat d'editar-lo i hagis desat els canvis, si us plau:\n\n1. Mou o copia les claus o certificats associades a la configuració a la carpeta 'Configuració VPN de guia de Tunnelblick' al teu Escriptori.\n\n(La carpeta s'ha obert al Finder per tal que hi posis els teus arxius.)\n\n2. Canvia el nom de la carpeta per un de la teva elecció. Aquest nom és el que Tunnelblick utilitzarà per la connexió.\n\n3. Afegeix .tblk al final del nom de la carpeta.\n\n4. Fes doble-click a la carpeta per instal·lar la configuració.\n\nLa nova configuració estarà disponible a Tunnelblick immediatament.";
 
 /* Window text */
 "The username and the password must not be empty!\nPlease enter VPN username/password combination." = "El nom d'usuari i la contrasenya no poden ser buits!\nSi us plau entra el nom d'usuari i contrasenya de la connexió VPN.";
@@ -983,7 +983,7 @@
 "You cannot make a configuration private if it is set to start when the computer starts." = "Una configuració no es pot fer privada si aquesta s'utilitza per connectar quan l'ordinador arrenca.";
 
 /* Window text */
-"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Una configuració no es pot fer compartida si no es una configuració VPN Tunnelblick (.tblk).";
+"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Una configuració no es pot fer compartida si no és una configuració VPN Tunnelblick (.tblk).";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Has sol·licitat duplicar '%@'.";
@@ -998,7 +998,7 @@
 "You have asked to rename '%@' to '%@'." = "Has sol·licitat canviar el nom de '%1$@' a '%2$@'.";
 
 /* Window text */
-"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Has intentat utilitzar un arxiu de configuració que es el mateix que Tunnelblick utiliza de guia. Aquest arxiu s'ha de modificar per connectar a una VPN. Es possible que també necessitis altres arxius, com ara certificats o claus, per connectar a la VPN.\n\nConsulta amb el teu administrador de xarxa amb el teu proveïdor de VPN per obtenir aquests arxius o la informació que necessites per modificar l'arxiu de guia.\n\nLa documentació d'OpenVPN està disponible a\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Has intentat utilitzar un arxiu de configuració que és el mateix que Tunnelblick utiliza de guia. Aquest arxiu s'ha de modificar per connectar a una VPN. És possible que també necessitis altres arxius, com ara certificats o claus, per connectar a la VPN.\n\nConsulta amb el teu administrador de xarxa amb el teu proveïdor de VPN per obtenir aquests arxius o la informació que necessites per modificar l'arxiu de guia.\n\nLa documentació d'OpenVPN està disponible a\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
 
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Pots examinar l'arxiu de configuració, però si preveus modificar-lo, has de desprotegir-lo ara. Si desprotegeixes l'arxiu de configuració ara, hauràs de subministrar un nom d'usuari i contrasenya amb permisos d'administració la propera vegada que et connectis utilitzant-lo.";
@@ -1166,7 +1166,7 @@
 "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "L'adreça de correu electrònic no ha estat verificada.\n\nNo podràs accedir al servei i utilitzar la VPN fins que l'adreça de correu hagi estat verificada seguint les instruccions que Tunnelblick et va enviar quan et vas registrar pel servei.";
 
 /* Window text VPNService */
-"The email address you entered was not a valid email address." = "L'adreça de correu electrònic que has entrat no es vàlida.";
+"The email address you entered was not a valid email address." = "L'adreça de correu electrònic que has entrat no és vàlida.";
 
 /* Window text VPNService */
 "The password entries must match to proceed." = "Les dues contrasenyes han de coincidir per poder continuar.";
