@@ -6,7 +6,7 @@
 <hr>
 
 This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
- * For more details of the changes from Tunnelblick version 3.1 to version 3.2, see [/cThreeOneToThreeTwoChanges Details About 3.2].
+ * For more details of the changes from Tunnelblick version 3.1 to version 3.2, see [cThreeOneToThreeTwoChanges Details About 3.2].
  * For changes from other versions to Tunnelblick 3.2, see the [RlsNotes Tunnelblick Release Notes].
 
 ==Better Security==
