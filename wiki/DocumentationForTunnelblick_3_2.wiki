@@ -24,6 +24,7 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2. 
  * The Tunnelblick application is now digitally signed, so that the user will not be asked to authorize Tunnelblick to use the Keychain each time the program is updated (on OS X 10.5 "Leopard" and above).
 
 ==More Capabilities==
+ * Runs on OS X 10.7 ("Lion").
  * [cAppleScriptSupport AppleScript support].
  * Scripts may be automatically run before and tun/tap kexts are loaded, after a connection has been made, when a reconnection attempt is being made, and after a connection has been disconnected. For more details, see [cUsingScripts Using Scripts].
  * The status message (the first line of the menu exposed when you click the Tunnelblick icon) allows you to disconnect all open connections with one click.
