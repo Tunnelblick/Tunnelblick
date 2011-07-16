@@ -1,6 +1,12 @@
 #summary Changes from Version 3.1 to Version 3.2
 #sidebar cSb
 
+<hr>
+
+For a list of all changes, see the [RlsNotes Release Notes].
+
+<hr>
+
 ==Summary of Major Changes from Version 3.1 to Version 3.2==
 
  * Includes OpenVPN 2.2,  OpenSSL 1.0.0d and PKCS#11 1.08.
@@ -30,15 +36,15 @@
 
  * If Tunnelblick.app/Contents/Resources/Deploy is empty, deletes backups of the Deploy folder. (This lets a user easily install a fresh un-Deployed Tunnelblick over a Deployed version.)
 
- * Moves LeaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
+ * Moves !leaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
 
-* A new leasewatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'. The changes are:
- * Monitoring now ignores the order that scutil outputs keys in and only monitors DomainName, ServerAddresses, and SearchDomains for DNS and NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
- * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the DomainName, ServerAddresses, SearchDomains, NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
+ * A new !leaseWatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'. The changes are:
+  * Monitoring now ignores the order that scutil outputs keys in and only monitors !DomainName, !ServerAddresses, and !SearchDomains for DNS and !NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
+  * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the !DomainName, !ServerAddresses, !SearchDomains, !etBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
 
  * Adds translations of additional OpenVPN connection status.
 
- * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in NetSocket.m.
+ * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in !NetSocket.m.
 
  * Removes the -useDownRootPlugin preference if no 'user' or 'group' options in the configuration file
 
