@@ -37,7 +37,6 @@
  * Fixes a bug that caused the 'Glass' sound to be used when a tunnel is established and the 'Basso' sound to be used when a tunnel was torn down if the preference for the sound was set to 'None'
  * Fixes a bug that caused problems and failed to properly warn the user that a private configuration cannot be set to start when the computer starts.
  * Fixes several small memory leaks.
- * Fixes a possible race condition when quitting Tunnelblick.
 
 
 --------------------
