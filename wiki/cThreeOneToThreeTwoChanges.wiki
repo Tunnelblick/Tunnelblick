@@ -28,8 +28,6 @@ For a list of all changes, see the [RlsNotes Release Notes].
    * The 'reconnecting.sh' script is executed (as root) when OpenVPN loses the VPN connection and is trying to reconnect. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
    * The 'post-disconnect.sh' script is executed (as root) after OpenVPN has closed the connection. This script is executed only if Tunnelblick is running at the time of the event, which may not be the case for 'when computer starts' configurations.
 
- * Includes OpenSSL 1.0.0d.
-
  * Tunnelblick VPN Configurations ('.tblk' packages) may now be uninstalled. If the 'TBUninstall' key is included in a Tunnelblick VPN Configuration's Info.plist (with any value), the installed configuration that has corresponding attributes (install location, bundle ID) will be uninstalled. If the key is the string 'ignoreError' (without the quote marks), any failures in the uninstall process will not be reported to the user.
 
  * Higher 'verb' levels may be used without performance degradation.
