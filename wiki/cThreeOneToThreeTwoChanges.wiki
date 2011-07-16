@@ -17,9 +17,7 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
  * The 'Clear log' button is no longer needed and has been removed from the Details… window.
 
- * Includes complete French localization by Jeremy W. Sherman.
-
- * Includes complete Portuguese localization by Denis Volpato Martins.
+ * Includes complete German, French Korean, Norwegian, Portuguese, and Catalan localization by Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Denis Volpato Martins, and Aleix Dorca, respectively.
 
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * The 'pre-connect.sh' script is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
