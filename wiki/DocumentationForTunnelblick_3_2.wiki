@@ -10,9 +10,8 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
  * For changes from other versions to Tunnelblick 3.2, see the [RlsNotes Tunnelblick Release Notes].
 
 ==Better Security==
- * Includes the latest stable versions of OpenVPN (2.2.0), and PKCS#11 (1.08).
- * Imbeds the latest stable version of the OpenSSL library (1.0.d).
- * Includes additional protection against symlink attacks.
+ * Includes the latest stable versions of OpenVPN (2.2.1), PKCS#11 (1.08), LZO (2.05), and the OpenSSL library (1.0.d).
+ * Includes additional protection against attacks.
 
 ==Better Usability==
  * The Tunnelblick menu has been streamlined.
@@ -20,9 +19,9 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
   * Manage configurations -- you can easily add, delete, duplicate, and rename configurations, remove Keychain credentials, etc.
   * Change configuration settings
   * Change Tunnelblick's behavior and appearance.
- * Tunnelblick now allows copy/cut/paste of usernames and paste of passwords and passphrases.
+ * Tunnelblick now allows copy/cut/paste of VPN usernames and paste of passwords and passphrases.
  * Tunnelblick is now less sensitive to minor network changes.
- * Tunnelblick includes complete French and Portuguese localization by Jeremy W. Sherman and Denis Volpato Martins, respectively.
+ * Tunnelblick includes complete German, French Korean, Norwegian, Portuguese, and Catalan localization by Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Denis Volpato Martins, and Aleix Dorca, respectively.
  * The Tunnelblick application is now digitally signed, so that the user will not be asked to authorize Tunnelblick to use the Keychain each time the program is updated (on OS X 10.5 "Leopard" and above).
 
 ==More Capabilities==
