@@ -59,6 +59,6 @@
     [cFileLocations File Locations]<br><br>
     [DocumentationForTunnelblick_3_1 What's New in 3.1]<br>
     [DocumentationForTunnelblick_3_2 What's New in 3.2]<br><br>
-    [cThreeBTenToThreeOneChanges Changes 3.0]<br>
-    [cThreeZeroToThreeOneChanges Changes 3.1]<br>
-    [cThreeOneToThreeTwoChanges Changes 3.2]
+    [cThreeBTenToThreeOneChanges Details About 3.0]<br>
+    [cThreeZeroToThreeOneChanges Details About 3.1]<br>
+    [cThreeOneToThreeTwoChanges Details About 3.2]
