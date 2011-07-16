@@ -40,7 +40,7 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
  * A new leaseWatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'. The changes are:
   * Monitoring now ignores the order that scutil outputs keys in and only monitors !DomainName, !ServerAddresses, and !SearchDomains for DNS and NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
-  * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the !DomainName, !ServerAddresses, !SearchDomains, !NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
+  * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the !DomainName, !ServerAddresses, !SearchDomains, NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
 
  * Adds translations of additional OpenVPN connection status.
 
