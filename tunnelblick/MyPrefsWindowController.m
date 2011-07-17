@@ -2052,7 +2052,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
         if (  [icsContent count] > 0) {
             if (  [iconSetToUse isEqualToString: defaultIconSetName]) {
                 NSLog(@"Could not find '%@' icon set or default icon set; using first set found", iconSetToUse);
-                iconSetIx = 1;
+                iconSetIx = 0;
             } else {
                 NSLog(@"Could not find '%@' icon set; using default icon set", iconSetToUse);
                 iconSetIx = defaultIconSetIx;
@@ -2175,20 +2175,27 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
         NSArrayController * ac = [appearancePrefsView appearanceIconSetArrayController];
         NSArray * list = [ac content];
         if (  newValue < [list count]  ) {
-            selectedAppearanceIconSetIndex = newValue;
-            
             // Select the new index
             [ac setSelectionIndex: newValue];
             
-            // Set the preference
-            NSString * iconSetName = [[[list objectAtIndex: newValue] objectForKey: @"value"] lastPathComponent];
-            [gTbDefaults setObject: iconSetName forKey: @"menuIconSet"];
+            if (  selectedAppearanceIconSetIndex != UINT_MAX  ) {
+                // Set the preference
+                NSString * iconSetName = [[[list objectAtIndex: newValue] objectForKey: @"value"] lastPathComponent];
+                if (  [iconSetName isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
+                    [gTbDefaults removeObjectForKey: @"menuIconSet"];
+                } else {
+                    [gTbDefaults setObject: iconSetName forKey: @"menuIconSet"];
+                }
+            }
+            
+            selectedAppearanceIconSetIndex = newValue;
             
             // Start using the new setting
             [[NSApp delegate] loadMenuIconSet];
         }
     }
 }
+
 
 -(NSInteger) selectedAppearanceConnectionWindowDisplayCriteriaIndex
 {

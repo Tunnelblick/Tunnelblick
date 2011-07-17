@@ -777,20 +777,64 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 -(BOOL) loadMenuIconSet
 {
-    NSString *menuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
-    if (  menuIconSet == nil  ) {
-        menuIconSet = @"TunnelBlick.TBMenuIcons";
+    // Try with the specified icon set
+    NSString * requestedMenuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
+    if (  requestedMenuIconSet   ) {
+        if (   [self loadMenuIconSet: requestedMenuIconSet
+                                main: &mainImage
+                          connecting: &connectedImage
+                                anim: &animImages]
+            && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", requestedMenuIconSet]
+                                main: &largeMainImage
+                          connecting: &largeConnectedImage
+                                anim: &largeAnimImages]  )
+        {    
+            [self updateUI];    // Display the new images
+            return YES;
+        } else {
+            NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
+        }
     }
-    
-    return [self loadMenuIconSet: menuIconSet
+        
+    // Try with standard icon set if haven't already
+    NSString * menuIconSet = @"TunnelBlick.TBMenuIcons";
+    if (  ! [requestedMenuIconSet isEqualToString: menuIconSet]  ) {
+        if (   [self loadMenuIconSet: menuIconSet
+                                main: &mainImage
+                          connecting: &connectedImage
+                                anim: &animImages]
+            && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
+                                main: &largeMainImage
+                          connecting: &largeConnectedImage
+                                anim: &largeAnimImages]  )
+        {
+            if (  requestedMenuIconSet  ) {
+                NSLog(@"Using icon set %@", menuIconSet);
+            }
+            [self updateUI];    // Display the new images
+            return YES;
+        } else {
+            NSLog(@"Icon set '%@' not found", menuIconSet);
+        }
+    }
+        
+    // Try with monochrome icon set
+    menuIconSet = @"TunnelBlick-black-white.TBMenuIcons";
+    if (   [self loadMenuIconSet: menuIconSet
                             main: &mainImage
                       connecting: &connectedImage
                             anim: &animImages]
-    
-    &&     [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
+        && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", menuIconSet]
                             main: &largeMainImage
                       connecting: &largeConnectedImage
-                            anim: &largeAnimImages];
+                            anim: &largeAnimImages]  )
+    {
+        NSLog(@"Using icon set %@", menuIconSet);
+        [self updateUI];    // Display the new images
+        return YES;
+    }
+    
+    return NO;
 }
     
 -(BOOL) loadMenuIconSet: (NSString *)        iconSetName
@@ -811,20 +855,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             if (  ! (   [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
                      && isDir )  ) {
                 // Can't find the specified icon set
-                if (   [iconSetName isEqualToString: @"TunnelBlick.TBMenuIcons"]
-                    || [iconSetName isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
-                    NSLog(@"Error: Standard icon set '%@' is missing from Tunnelblick.app/Contents/Resources/IconSets", iconSetName);
-                    return FALSE;
-                }
-                iconSetDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"] stringByAppendingPathComponent: @"TunnelBlick.TBMenuIcons"];
-                if (  [gFileMgr fileExistsAtPath: iconSetDir isDirectory: &isDir]
-                    && isDir  ) {
-                    NSLog(@"Icon set '%@' not found. Using standard 'TunnelBlick.TBMenuIcons' icon set", iconSetName);
-                    iconSetName = @"TunnelBlick.TBMenuIcons";
-                } else {
-                    NSLog(@"Error: Cannot find icon set '%@', and the standard icon set 'TunnelBlick.TBMenuIcons' is missing from Tunnelblick.app/Contents/Resources/IconSets", iconSetName);
-                    return FALSE;
-                }
+                return FALSE;
             }
         }
     }
@@ -885,8 +916,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         NSLog(@"Icon set '%@' does not have required images", iconSetName);
         return FALSE;
     }
-    
-    [self updateUI];    // Display the new image
     
     return TRUE;
 }
