@@ -1,0 +1,30 @@
+#summary Current status of Tunnelblick Translations
+#sidebar cSb
+
+==Translation Status==
+
+Tunnelblick is developed in English.
+
+The following table shows the status of translations for the current beta version of Tunnelblick. Languages not listed are not yet translated:
+
+||Language||Code||Translators||Status||
+||Catalan||CA||1||Complete||
+||Danish||DA||1||In process||
+||German||DE||1||Complete||
+||Spanish||ES||1||In process||
+||French||FR||1||Complete||
+||Italian||IT||1||In process||
+||Japanese||JA||1||In process||
+||Korean||KO||1||Complete||
+||Norwegian||NB||1||Complete||
+||Dutch||NL||2||In process||
+||Polish||PL||0||Last updated 2010-05-14||
+||Portuguese||PT||1||Complete||
+||Russian||RU||4||In process||
+||Chinese (Simplified)||ZN-CN||1||In process||
+||Chinese (Traditional)||ZN-TW||1||In process||
+
+(Last updated 2011-07-17.)
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
