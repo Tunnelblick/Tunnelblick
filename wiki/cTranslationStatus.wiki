@@ -12,7 +12,7 @@ This document shows the current status of efforts to translate Tunnelblick.
 
 Tunnelblick is developed in English.
 
-<font color="red">*TRANSLATORS NEEDED:*</font> We especially need translators for *Swedish*, *Polish*, * Japanese*, and *Chinese* (simplified and traditional). If you can help (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. Thanks!
+<font color="red">*TRANSLATORS NEEDED:*</font> We especially need translators for *Swedish*, *Polish*, * Japanese*, and *Chinese* (simplified and traditional). If you can help with these or any other languages (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. Thanks!
 
 
 The following table shows the status of translations for the current beta version of Tunnelblick:
