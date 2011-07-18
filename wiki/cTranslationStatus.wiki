@@ -2,6 +2,13 @@
 #sidebar cSb
 
 ==Translation Status==
+<hr>
+
+This document shows the current status of efforts to translate Tunnelblick.
+ * For an overview of Tunnelblick localization, see [cLocalize Localizing Tunnelblick].
+ * For information about translating the "Localizable.strings" and "!NeedsTranslation.strings" files, see [cTranslate Translating Tunnelblick].
+
+<hr>
 
 Tunnelblick is developed in English.
 
