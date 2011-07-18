@@ -5,17 +5,30 @@
 
 <hr>
 
-This document describes how to translate Tunnelblick "Localizable.strings" and "!NeedsTranslation.strings" files.
+This document describes how to translate the files that Tunnelblick uses for translation.
  * For an overview of how to integrate these files into Tunnelblick, see [cLocalize Localizing Tunnelblick].
  * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
 
-Tunnelblick has two files for each language:
+==RTF Files==
+Tunnelblick has two RTF files for each language:
+ * A "Description.rtf" file, which contains a description of the license under which Tunnelblick may be distributed.
+ * A "Credits.rtf" file, which lists people who have contributed code or translations to Tunnelblick.
+These files should be translated using TextEdit or another editor (such as Windows Word or !WordPad) that can edit RTF files. They may be opened in TextEdit by double-clicking them -- no special procedure is needed.
+
+_Note: The primary translator(s) of the language being translated should be listed at the end of the first section of the "Credits.rtf" file._
+
+<hr>
+
+==".strings" Files==
+Tunnelblick also has two ".strings"  files for each language:
  * A "Localizable.strings" file, which contains all of the strings used by Tunnelblick, whether they have been translated or not; and
  * A "!NeedsTranslations.strings" file, which contains only the strings that have not yet been translated.
 
-Both files have the same format. They contain a series of lines that look like this:
+The rest of this document describes how to work with these files.
+
+Both ".strings" files have the same format. They contain a series of lines that look like this:
 
 {{{
 /* Button */
