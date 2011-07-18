@@ -5,7 +5,7 @@
 
 <hr>
 
-This document describes how to translate the files that Tunnelblick uses for translation.
+This document describes how to translate the two types of files that Tunnelblick uses for translation: RTF files and ".strings" files..
  * For an overview of how to integrate these files into Tunnelblick, see [cLocalize Localizing Tunnelblick].
  * For the current status of translations, see [cTranslationStatus Translation Status].
 
