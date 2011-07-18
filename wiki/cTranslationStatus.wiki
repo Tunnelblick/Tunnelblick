@@ -28,11 +28,11 @@ The following table shows the status of translations for the current beta versio
 || Korean  || KO  || 1  || *Complete*  ||
 || Norwegian  || NB  || 1  || *Complete*  ||
 || Dutch  || NL  || 2  || In process  ||
-|| Polish  || PL  || 0  || Abandoned  ||
+|| Polish  || PL  || 0  || Partial  ||
 || Portuguese  || PT  || 1  || *Complete*  ||
 || Russian  || RU  || 4  || In process  ||
 || Chinese (Simplified)  || ZN-CN  || 1  || In process  ||
-|| Chinese (Traditional)  || ZN-TW  || 1  || In process  ||
+|| Chinese (Traditional)  || ZN-TW  || 0  || Partial  ||
 
 ------------------
 
