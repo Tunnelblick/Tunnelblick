@@ -7,7 +7,7 @@
 
 This document describes how to translate Tunnelblick "Localizable.strings" and "!NeedsTranslation.strings" files.
  * For an overview of how to integrate these files into Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For the current status of translations, see [cTranslationStatusnTranslation Status].
+ * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
 
