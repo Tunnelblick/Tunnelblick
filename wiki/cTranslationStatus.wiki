@@ -27,7 +27,6 @@ The following table shows the status of translations for the current beta versio
 || Chinese (Simplified)  || ZN-CN  || 1  || In process  ||
 || Chinese (Traditional)  || ZN-TW  || 1  || In process  ||
 
-(Last updated 2011-07-17.)
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
