@@ -5,8 +5,8 @@
 
 <hr>
 
-This document describes how to localize Tunnelblick.
- * For information about translating the "Localizable.strings" and "!NeedsTranslation.strings" files, see [cTranslate Translating Tunnelblick].
+This document gives an overview of how to localize Tunnelblick.
+ * For information about working with the translation files, see [cTranslate Translating Tunnelblick].
  * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
