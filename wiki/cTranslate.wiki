@@ -3,6 +3,8 @@
 
 * Translating Tunnelblick*
 
+<wiki:toc max_depth="2" />
+
 <hr>
 
 This document describes how to translate the two types of files that Tunnelblick uses for translation: RTF files and ".strings" files..
