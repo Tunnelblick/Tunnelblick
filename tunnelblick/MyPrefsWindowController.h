@@ -105,19 +105,20 @@
 -(IBAction) renameConfigurationMenuItemWasClicked:    (id) sender;
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender;
 -(IBAction) makePrivateOrSharedMenuItemWasClicked:    (id) sender;
--(IBAction) showOnTunnelblickMenuMenuItemWasClicked:  (id) sender;
--(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked:      (id) sender;
+-(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender;
 -(IBAction) showOpenvpnLogMenuItemWasClicked:         (id)  sender;
 -(IBAction) removeCredentialsMenuItemWasClicked:      (id) sender;
 
--(IBAction) disconnectButtonWasClicked:          (id)  sender;
--(IBAction) connectButtonWasClicked:             (id)  sender;
+-(IBAction) disconnectButtonWasClicked:               (id)  sender;
+-(IBAction) connectButtonWasClicked:                  (id)  sender;
 
--(IBAction) logToClipboardButtonWasClicked:             (id)  sender;
+-(IBAction) logToClipboardButtonWasClicked:           (id)  sender;
 
--(IBAction) configurationsHelpButtonWasClicked: (id)  sender;
+-(IBAction) configurationsHelpButtonWasClicked:       (id)  sender;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender;
+
+-(IBAction) showOnTunnelblickMenuCheckboxWasClicked:    (id) sender;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
 -(IBAction) whenToConnectTunnelblickLaunchMenuItemWasClicked: (id) sender;

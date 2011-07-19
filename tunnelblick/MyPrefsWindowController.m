@@ -78,9 +78,10 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect;
 
--(void) setupSetNameserver:     (VPNConnection *) connection;
--(void) setupNetworkMonitoring: (VPNConnection *) connection;
--(void) setupSoundPopUpButtons: (VPNConnection *) connection;
+-(void) setupSetNameserver:         (VPNConnection *) connection;
+-(void) setupNetworkMonitoring:     (VPNConnection *) connection;
+-(void) setupShowOnTunnelblickMenu: (VPNConnection *) connection;
+-(void) setupSoundPopUpButtons:     (VPNConnection *) connection;
 
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
@@ -326,13 +327,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         // Right split view - Log tab
         
         [self indicateNotWaitingForConnection: [self selectedConnection]];
-        
         [self validateWhenToConnect: [self selectedConnection]];
         
         [self setupSetNameserver: [self selectedConnection]];
-        
         [self setupNetworkMonitoring: [self selectedConnection]];
-        
+        [self setupShowOnTunnelblickMenu: [self selectedConnection]];
         [self setupSoundPopUpButtons: [self selectedConnection]];
         
         // Set up a timer to update connection times
@@ -383,8 +382,15 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
                         key: @"-notMonitoringConnection"
                    inverted: YES];
-        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
     }
+}
+
+
+-(void) setupShowOnTunnelblickMenu: (VPNConnection *) connection
+{
+    [self setupCheckbox: [configurationsPrefsView showOnTunnelblickMenuCheckbox]
+                    key: @"-doNotShowOnTunnelblickMenu"
+               inverted: YES];
 }
 
 
@@ -661,13 +667,6 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setTitle: NSLocalizedString(@"Examine OpenVPN Configuration File...", @"Menu Item")];
         }
         [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem]     setEnabled: YES];
-        
-        NSString * key = [[connection displayName] stringByAppendingString: @"-doNotShowOnTunnelblickMenu"];
-        if (  [gTbDefaults boolForKey: key]  ) {
-            [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Show Configuration on Tunnelblick Menu"  , @"Menu Item")];
-        } else {
-            [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Hide Configuration on Tunnelblick Menu"  , @"Menu Item")];
-        }
         
         [[configurationsPrefsView removeConfigurationButton]            setEnabled: YES];
         [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: YES];
@@ -1207,26 +1206,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(IBAction) showOnTunnelblickMenuMenuItemWasClicked: (id) sender
-{
-    VPNConnection * connection = [self selectedConnection];
-    if (  connection  ) {
-        NSString * key = [[connection displayName] stringByAppendingString: @"-doNotShowOnTunnelblickMenu"];
-        if (  [gTbDefaults boolForKey: key]  ) {
-            [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Hide Configuration on Tunnelblick Menu"      , @"Menu Item")];
-            [gTbDefaults removeObjectForKey: key];
-        } else {
-            [[configurationsPrefsView showOnTunnelblickMenuMenuItem] setTitle: NSLocalizedString(@"Show Configuration on Tunnelblick Menu"      , @"Menu Item")];
-            [gTbDefaults setBool: TRUE forKey: key];
-        }
-        [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
-    } else {
-        NSLog(@"showOnTunnelblickMenuMenuItemWasClicked but no configuration selected");
-    }
-    
-}
-
-
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender
 {
     VPNConnection * connection = [self selectedConnection];
@@ -1391,6 +1370,24 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         NSLog(@"monitorNetworkForChangesCheckboxWasClicked but no configuration selected");
     }
+}
+
+
+-(IBAction) showOnTunnelblickMenuCheckboxWasClicked: (id) sender
+{
+    VPNConnection * connection = [self selectedConnection];
+    if (  connection  ) {
+        NSString * key = [[connection displayName] stringByAppendingString: @"-doNotShowOnTunnelblickMenu"];
+        if (  [gTbDefaults boolForKey: key]  ) {
+            [gTbDefaults removeObjectForKey: key];
+        } else {
+            [gTbDefaults setBool: TRUE forKey: key];
+        }
+        [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
+    } else {
+        NSLog(@"showOnTunnelblickMenuMenuItemWasClicked but no configuration selected");
+    }
+    
 }
 
 
@@ -1699,7 +1696,6 @@ static BOOL firstTimeShowingWindow = TRUE;
             [self setupCheckbox: [configurationsPrefsView monitorNetworkForChangesCheckbox]
                             key: @"-notMonitoringConnection"
                        inverted: YES];
-            [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: YES];
         }
         [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
         
@@ -1742,9 +1738,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSString * status = localizeNonLiteral([newConnection state], @"Connection status");
         [[configurationsPrefsView configurationStatusTFC] setTitle: status];
         
-        [self setupSetNameserver:     newConnection];
-        [self setupNetworkMonitoring: newConnection];
-        [self setupSoundPopUpButtons: newConnection];
+        [self setupSetNameserver:         newConnection];
+        [self setupNetworkMonitoring:     newConnection];
+        [self setupShowOnTunnelblickMenu: newConnection];
+        [self setupSoundPopUpButtons:     newConnection];
         
         [self validateDetailsWindowControls];
                 

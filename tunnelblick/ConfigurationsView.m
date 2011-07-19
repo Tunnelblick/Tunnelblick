@@ -65,7 +65,7 @@ extern TBUserDefaults * gTbDefaults;
     [showOpenvpnLogMenuItem               setTitle: NSLocalizedString(@"Show OpenVPN Log in Finder"                       , @"Menu Item")];
     [removeCredentialsMenuItem            setTitle: NSLocalizedString(@"Delete Configuration's Credentials in Keychain...", @"Menu Item")];
     
-    // editOpenVPNConfigurationFileMenuItem, makePrivateOrSharedMenuItem, and showOnTunnelblickMenuMenuItem are initialized in validateDetailsWindowControls
+    // editOpenVPNConfigurationFileMenuItem and makePrivateOrSharedMenuItem are initialized in validateDetailsWindowControls
     
     
     // Right split view - Log tab
@@ -89,6 +89,8 @@ extern TBUserDefaults * gTbDefaults;
     // setNameserverPopUpButton is initialized in setupSettingsFromPreferences
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
+    
+    [showOnTunnelblickMenuCheckbox setTitle: NSLocalizedString(@"Show on menu", @"Checkbox name")];
     
     [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
     
@@ -142,7 +144,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   workOnConfigurationArrayC
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          renameConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          duplicateConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makePrivateOrSharedMenuItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOnTunnelblickMenuMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOpenvpnLogMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          removeCredentialsMenuItem)
@@ -177,6 +178,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       setNameserverPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            showOnTunnelblickMenuCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,               alertSoundsBox)
 
