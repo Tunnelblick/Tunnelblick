@@ -23,7 +23,7 @@ The following table shows the status of translations for the current beta versio
 || German  || DE  || 1  || *Complete*  ||
 || Spanish  || ES  || 1  || In process  ||
 || French  || FR  || 1  || *Complete*  ||
-|| Italian  || IT  || 1  || In process  ||
+|| Italian  || IT  || 2  || In process  ||
 || Japanese  || JA  || 1  || In process  ||
 || Korean  || KO  || 1  || *Complete*  ||
 || Norwegian  || NB  || 1  || *Complete*  ||
