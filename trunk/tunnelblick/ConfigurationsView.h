@@ -38,7 +38,6 @@
     IBOutlet NSMenuItem          * renameConfigurationMenuItem;
     IBOutlet NSMenuItem          * duplicateConfigurationMenuItem;
     IBOutlet NSMenuItem          * makePrivateOrSharedMenuItem;
-    IBOutlet NSMenuItem          * showOnTunnelblickMenuMenuItem;
     IBOutlet NSMenuItem          * editOpenVPNConfigurationFileMenuItem;
     IBOutlet NSMenuItem          * showOpenvpnLogMenuItem;
     IBOutlet NSMenuItem          * removeCredentialsMenuItem;
@@ -77,6 +76,8 @@
     
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     
+    IBOutlet NSButton            * showOnTunnelblickMenuCheckbox;
+    
     IBOutlet NSBox               * alertSoundsBox;
     
     IBOutlet NSTextFieldCell     * connectionAlertSoundTFC;
@@ -103,7 +104,6 @@ TBPROPERTY_READONLY(NSArrayController *,   workOnConfigurationArrayController)
 TBPROPERTY_READONLY(NSMenuItem *,          renameConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          duplicateConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          makePrivateOrSharedMenuItem)
-TBPROPERTY_READONLY(NSMenuItem *,          showOnTunnelblickMenuMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          showOpenvpnLogMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          removeCredentialsMenuItem)
@@ -137,6 +137,8 @@ TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
+
+TBPROPERTY_READONLY(NSButton *,            showOnTunnelblickMenuCheckbox)
 
 TBPROPERTY_READONLY(NSBox *,               alertSoundsBox)
 
