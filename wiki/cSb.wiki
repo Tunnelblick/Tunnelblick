@@ -45,7 +45,7 @@
     [cLocalize Localizing Tunnelblick]<br>
     [cTranslate Making Translations]<br>
 *Reference*
-    [cFAQ FAQ]<br>
+    [cFAQ FAQ]<font color="white">TunnelblickWikiPage</font><br>
     [cThanks Thanks]<br>
     [cKnown Known Issues]<br>
     [RlsNotes Release notes]<br>
