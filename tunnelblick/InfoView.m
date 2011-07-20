@@ -22,6 +22,10 @@
 
 #import "InfoView.h"
 #import "helper.h"
+#import "TBUserDefaults.h"
+
+
+extern TBUserDefaults * gTbDefaults;
 
 
 @implementation InfoView
@@ -63,8 +67,23 @@
         [infoDescriptionSV setHasHorizontalScroller: NO];
         [infoDescriptionSV setHasVerticalScroller:   NO];
         
-        NSAttributedString * descriptionString = [[[NSAttributedString alloc] initWithPath:descriptionPath documentAttributes:nil] autorelease];
-        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, 0 ) 
+        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithPath:descriptionPath documentAttributes:nil] autorelease];
+
+        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
+        // And change XXX back to Tunnelblick
+        if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
+            if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
+                NSString * prefix = [NSString stringWithFormat:
+                                     NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
+                                     @"Tunnel" @"blick"];
+                
+                NSMutableString * s = [descriptionString mutableString];
+                [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
+                [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
+            }
+        }
+            
+        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] ) 
                                             withRTF:[descriptionString RTFFromRange:
                                                      NSMakeRange( 0, [descriptionString length] ) 
                                                                  documentAttributes:nil]];

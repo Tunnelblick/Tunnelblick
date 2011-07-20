@@ -261,6 +261,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"installationUID",
                                 @"keyboardShortcutIndex",
                                 @"showStatusWindow",
+                                @"doNotUnrebrandLicenseDescription",
                                 
                                 @"updateCheckAutomatically",
                                 @"updateSendProfileInfo",
@@ -283,6 +284,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"SULastCheckTime",
                                 @"SULastProfileSubmissionDate",
                                 @"SUHasLaunchedBefore",
+                                @"NSWindow Frame SUStatusFrame",
                                 
                                 
                                 @"WebKitDefaultFontSize",
