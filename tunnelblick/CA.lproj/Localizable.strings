@@ -902,6 +902,9 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick ha desconnectat '%@' perquè l'arxiu de configuració ha estat eliminat.";
 
 /* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick es basa en %@. ";
+
+/* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick necessita crear una còpia 'shadow' de l'arxiu de configuració.";
 
 /* Window text */

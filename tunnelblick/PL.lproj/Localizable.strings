@@ -901,6 +901,9 @@
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick rozłączył '%@' ponieważ powiązany plik konfiguracyjny został usunięty.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick musi zrobić kopię pliku konfiguracyjnego.";
 
