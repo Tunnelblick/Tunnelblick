@@ -21,7 +21,7 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
   * Change Tunnelblick's behavior and appearance.
  * Tunnelblick now allows copy/cut/paste of VPN usernames and paste of passwords and passphrases.
  * Tunnelblick is now less sensitive to minor network changes.
- * Tunnelblick includes complete German, French Korean, Norwegian, Portuguese, and Catalan localization by Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Denis Volpato Martins, and Aleix Dorca, respectively.
+ * Tunnelblick includes complete Catalan, German, French, Korean, Norwegian, Dutch, Portuguese, Russian, and Chinese (simplified) localization by Aleix Dorca, Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Emma Segev & Tjalling Soldatt, Denis Volpato Martins, Dennis Ukhanov & Eugene Trufanov & Nail Gilmanov & Victor Ptichkin, and Peter K. O'Connor, respectively.
  * The Tunnelblick application is now digitally signed, so that the user will not be asked to authorize Tunnelblick to use the Keychain each time the program is updated (on OS X 10.5 "Leopard" and above).
 
 ==More Capabilities==

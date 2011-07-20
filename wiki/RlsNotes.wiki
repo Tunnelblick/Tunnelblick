@@ -12,6 +12,26 @@
 
 --------------------
 
+*3.2beta26 (2011-07-20)*
+
+ * Aleix Dorca has provided a complete Catalan localization.
+ * Emma Segev and Tjalling Soldatt have provided complete Dutch localization.
+ * Peter K. O'Connor has provided complete Chinese (simplified) localization.
+ * Dennis Ukhanov, Eugene Trufanov, Nail Gilmanov, & Victor Ptichkin have provided complete Russian localization.
+ 
+ * Changes the 'Show/Hide Configuration on Tunnelblick Menu' menu command to be the 'Show on menu' checkbox on the 'Settings' tab.
+ 
+ * Un-rebrands the license description unless the 'doNotUnrebrandLicenseDescription' preference is set.
+ 
+ * Fixes bugs when menu icon sets are not available.
+ 
+ * Fixes bugs when updating Tunnelblick while a connection is active.
+ 
+ * Fixes console warning about unrecognized preference.
+
+
+--------------------
+
 *3.2beta24 (2011-07-14)*
 
  * Complete German localization by Marcus Schneider.

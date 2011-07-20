@@ -1,5 +1,16 @@
 #summary The Latest News About Tunnelblick
 
+2011-07-20: *Tunnelblick 3.2beta26 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Aleix Dorca has provided a complete Catalan localization.
+ * Emma Segev and Tjalling Soldatt have provided complete Dutch localization.
+ * Peter K. O'Connor has provided complete Chinese (simplified) localization.
+ * Dennis Ukhanov, Eugene Trufanov, Nail Gilmanov, & Victor Ptichkin have provided complete Russian localization.
+ * Changes the 'Show/Hide Configuration on Tunnelblick Menu' menu command to be the 'Show on menu' checkbox on the 'Settings' tab.
+ * Fixes several bugs.
+ See the [RlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-07-14: *Tunnelblick 3.2beta24 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Complete German localization by Marcus Schneider.
  * Complete French localization by Jeremy Sherman.

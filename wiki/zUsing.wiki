@@ -26,7 +26,7 @@ http://tunnelblick.googlecode.com/files/using-tunnelblick-closed-2010-02-04.png
 
 If you click on the icon, you'll see a drop down menu similar to the following:
 
-http://tunnelblick.googlecode.com/files/using-tunnelblick-menu-2011-06-24.png
+http://tunnelblick.googlecode.com/files/using-tunnelblick-menu-2011-07-20.png
 
 There will be a "Connect” menu item for each available configuration (configurations in subfolders appear on submenus). Click on a "Connect" item to establish the corresponding VPN connection. To illustrate the connection being established, a dash will appear in the menu item and the Tunnelblick icon will darken and lighten repeatedly. If the connection is successfully opened, the icon will change to show an open tunnel:
 
@@ -49,16 +49,18 @@ If Tunnelblick is running when you logout (or your computer crashes, or is shut 
 ==The "VPN Details…" Window==
 When the Tunnelblick menu is displayed, if you click on "VPN Details…” a window similar to the following will appear:
 
-<img width="420" height="274" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-details-left-nav-2011-06-24.png">
+<img width="420" height="274" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-details-log-2011-07-20.png">
 
-This window has four sections: Configurations, Preferences, Appearance, and Info. Select the section by clicking on it in the top toolbar.
+This window has four sections: Configurations, Preferences, Appearance, and Info. Select the section by clicking on it in the top toolbar. The "Configurations" section is shown above.
 
 ===Configurations===
 The Configurations section has an entry for each Configurations on the left side. Tabs with the log and settings for the configuration selected on the left side are displayed on the right side. You may adjust the relative sizes of the left and right side by dragging the small dot between the two sides.
 
- The "Log" tab displays the log for the configuration. A button allows you to copy the entire contents of the log to the Clipboard so you may paste it into an email or other document.
+The "Log" tab (shown above) displays the log for the configuration. A button allows you to copy the entire contents of the log to the Clipboard so you may paste it into an email or other document.
 
-The "Settings" tab allows you to see and modify several settings for the configuration:
+<img width="420" height="274" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-details-settings-2011-07-20.png">
+
+The "Settings" tab (shown above) allows you to see and modify several settings for the configuration:
 
  * "Connect” specifies when the configuration should be connected:
   * "Manually" specifies that you will connect the configuration manually;
@@ -72,6 +74,8 @@ The "Settings" tab allows you to see and modify several settings for the configu
   * "Set nameserver (alternate 1)", which manipulates DNS settings in a different way that is more compatible with some configurations.
 
  * "Monitor connection" causes the network connection to be monitored for changes. It is available only when "Set nameserver" or "Set nameserver 3.1" is selected. When a change is detected, the connection will be disconnected and reconnected.
+
+ * "Show configuration on Tunnelblick menu" lets you show or not show the configuration in the menu that pops down when you click the Tunnelblick icon.
 
  * You may also select a sound to be played when a configuration connects or unexpectedly disconnects.
  
@@ -89,7 +93,7 @@ At the bottom of the list of configurations on the left side of the window there
 
  * The "gear" button pops down a list of other actions to take using the selected configuration:
 
-<img width="220" height="110" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-showing-gear-2011-06-24.png">
+<img width="220" height="110" src="http://tunnelblick.googlecode.com/files/using-tunnelblick-showing-gear-2011-07-20.png">
 
 ===Preferences===
 The "Preferences" section of the "VPN Details..." window allows you to modify Tunnelblick's behavior, check for updates, and reset disabled warnings:
@@ -131,7 +135,7 @@ However, this is for experts only:
     * VPN administrators might not be happy that you are connecting their networks together. Most VPN client software limits you to a single connection, probably for that reason.
 
 ==Command-Line Interface==
-Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. openvpnstart is located in Tunnelblick.app/Contents/Resources. For details on using openvpnstart, run it from a Terminal window with no arguments. When a connection attempt is made, Tunnelblick inserts the openvpnstart command line into the log; it can be copied from there for use in your own shell scripts.
+Tunnelblick also contains openvpnstart, an OS X command line interface to OpenVPN which provides a scriptable way to create and destroy OpenVPN tunnels. (But Tunnelblick also has support for [cAppleScriptSupport !AppleScript].) openvpnstart is located in Tunnelblick.app/Contents/Resources. For details on using openvpnstart, run it from a Terminal window with no arguments. When a connection attempt is made, Tunnelblick inserts the openvpnstart command line into the log; it can be copied from there for use in your own shell scripts.
 
 ------------------
 

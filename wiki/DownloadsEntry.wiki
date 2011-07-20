@@ -33,7 +33,7 @@ A stable release is a version that has been tested as thoroughly as possible and
 ==Beta Releases==
 A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
     _*For OS X 10.4, 10.5, 10.6 and 10.7 ("Tiger", "Leopard", "Snow Leopard", "Lion")*_ <br>
-      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta24.dmg Tunnelblick 3.2beta24 (build 2625)] released 2011-07-14<br>
+      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta26.dmg Tunnelblick 3.2beta26 (build 2687)] released 2011-07-20<br>
       <font color="white">!TunnelblickGoogleCodePage</font><br><br>
 <hr>
 
@@ -45,6 +45,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 <font color="red">*If you are having problems with the latest stable version, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta24.dmg Tunnelblick 3.2beta24 (build 2625)] released 2011-07-14<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta22.dmg Tunnelblick 3.2beta22 (build 2578)] released 2011-07-01<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta20.dmg Tunnelblick 3.2beta20 (build 2567)] released 2011-06-29<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta18.dmg Tunnelblick 3.2beta18 (build 2562)] released 2011-06-27<br>
