@@ -1041,7 +1041,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
-        return;
     }
 }
 
@@ -1616,7 +1615,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_unlock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
-        return;
     }
 }
 
@@ -1680,7 +1678,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_unlock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
-        return;
     }
 }
 
@@ -1883,7 +1880,6 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
     status = pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
-        return;
     }
 }    
     
@@ -1928,7 +1924,6 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     status = pthread_mutex_unlock( &unloadKextsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
-        return;
     }    
 }
 
@@ -2088,7 +2083,8 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  ! areLoggingOutOrShuttingDown  ) {
         [NSApp setAutoLaunchOnLogin: NO];
     }
-	[self cleanup];
+    
+    [self cleanup];
 }
 
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -2098,6 +2094,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     OSStatus status = pthread_mutex_trylock( &cleanupMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed is normal and expected when Tunnelblick is updated");
         return;
     }
     
@@ -3030,6 +3027,18 @@ static void signal_handler(int signalNumber)
     
     NSLog(@"feedParametersForUpdater: invoked with unknown 'updaterToFeed' = %@", updaterToFeed);
     return [NSArray array];
+}
+
+// Sparkle delegate:
+- (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
+{
+    terminatingAtUserRequest = TRUE;
+    [self cleanup];
+    
+    // DO NOT UNLOCK cleanupMutex --
+    // We do not want to execute cleanup a second time, because:
+    //     (1) We've already just run it and thus cleaned up everything, and
+    //     (2) The newly-installed openvpnstart won't be secured and thus will fail
 }
 
 - (NSString *)installationId

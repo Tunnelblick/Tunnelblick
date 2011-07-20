@@ -174,12 +174,10 @@ extern NSFileManager        * gFileMgr;
 }
 
 
-// Return YES to delay the relaunch until you do some processing; invoke the given NSInvocation to continue.
-- (BOOL)updater:(SUUpdater *)updater shouldPostponeRelaunchForUpdate:(SUAppcastItem *)update untilInvoking:(NSInvocation *)invocation
+- (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
 {
     [[NSApp delegate] saveConnectionsToRestoreOnRelaunch];
     [[NSApp delegate] installConfigurationsUpdateInBundleAtPathHandler: cfgBundlePath];
-    return NO;
 }
 
 //************************************************************************************************************
