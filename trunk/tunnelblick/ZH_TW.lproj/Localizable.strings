@@ -902,6 +902,9 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "因設定檔被移除 '%@' 將被設定為離線.";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
 
 /* NEEDS TRANSLATION *//* Window text */

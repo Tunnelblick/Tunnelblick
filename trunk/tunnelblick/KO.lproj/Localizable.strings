@@ -902,6 +902,9 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "'%@'의 설정 파일이 삭제되어 Tunnelblick이 연결을 해제했습니다.";
 
 /* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick은 %@을 기반으로 되어있습니다. ";
+
+/* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick이 설정 파일의 가상본 만들려고 합니다";
 
 /* Window text */

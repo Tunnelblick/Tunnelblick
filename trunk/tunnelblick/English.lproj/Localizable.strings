@@ -902,6 +902,9 @@
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+
+/* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
 
 /* Window text */
