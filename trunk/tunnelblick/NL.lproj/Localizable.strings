@@ -905,8 +905,8 @@
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick heeft '%@' verbroken omdat het bijbehorende configuratiebestand is verwijderd.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick is gebaseerd op %@. ";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick moet een schaduwkopie maken van het configuratiebestand.";
