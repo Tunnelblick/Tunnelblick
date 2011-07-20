@@ -1375,10 +1375,9 @@
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick 已经断开了连接 '%@', 因为其设置文件已经被删除."; 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
 
-
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick 基于 %@. ";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick 需要新建一个设置文件的隐藏副本.";
