@@ -35,7 +35,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Advanced...";
+"Advanced..." = "Advanced…";
 
 /* Button */
 "All Users" = "All Users";
@@ -155,13 +155,13 @@
 "When computer starts" = "When computer starts";
 
 /* Menu item */
-"Add a VPN..." = "Add a VPN...";
+"Add a VPN..." = "Add a VPN…";
 
 /* Menu item */
 "Connect %@%@" = "Connect %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain...";
+"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Disabled because the name of the application has been changed";
@@ -176,37 +176,31 @@
 "Disconnect %@%@" = "Disconnect %@%@";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Duplicate Configuration...";
+"Duplicate Configuration..." = "Duplicate Configuration…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File...";
+"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File...";
+"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
 
 /* Menu Item */
-"Hide Configuration on Tunnelblick Menu" = "Hide Configuration on Tunnelblick Menu";
+"Make Configuration Private..." = "Make Configuration Private…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private...";
-
-/* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared...";
+"Make Configuration Shared..." = "Make Configuration Shared…";
 
 /* Menu item */
 "No VPN Configurations Available" = "No VPN Configurations Available";
 
 /* Menu Item */
-"Rename Configuration..." = "Rename Configuration...";
-
-/* Menu Item */
-"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
+"Rename Configuration..." = "Rename Configuration…";
 
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
 
 /* Menu item */
-"VPN Details..." = "VPN Details...";
+"VPN Details..." = "VPN Details…";
 
 /* Checkbox name */
 "Check for updates automatically" = "Check for updates automatically";
@@ -246,6 +240,9 @@
 
 /* Checkbox name */
 "Scan configuration file for problems before connecting" = "Scan configuration file for problems before connecting";
+
+/* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Show configuration on Tunnelblick menu";
 
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Use Tunnelblick tun/tap drivers";
@@ -665,7 +662,7 @@
 "Please enter a new name for '%@'." = "Please enter a new name for '%@'.";
 
 /* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured...";
+"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured…";
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
@@ -794,7 +791,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
 
 /* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window";
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details… window";
 
 /* Window text */
 "Unable to Establish Communication" = "Unable to Establish Communication";
@@ -921,7 +918,7 @@
 "Reject" = "Reject";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick...";
+"Register for Tunnelblick..." = "Register for Tunnelblick…";
 
 /* Window title  VPNService */
 "Cannot obtain image" = "Cannot obtain image";
