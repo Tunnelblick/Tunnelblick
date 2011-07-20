@@ -215,9 +215,6 @@
 "Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
 
 /* NEEDS TRANSLATION *//* Menu Item */
-"Hide Configuration on Tunnelblick Menu" = "Hide Configuration on Tunnelblick Menu";
-
-/* NEEDS TRANSLATION *//* Menu Item */
 "Make Configuration Private..." = "Make Configuration Private…";
 
 /* NEEDS TRANSLATION *//* Menu Item */
@@ -231,9 +228,6 @@
 
 /* NEEDS TRANSLATION *//* Menu Item */
 "Rename Configuration..." = "Rename Configuration…";
-
-/* NEEDS TRANSLATION *//* Menu Item */
-"Show Configuration on Tunnelblick Menu" = "Show Configuration on Tunnelblick Menu";
 
 /* NEEDS TRANSLATION *//* Menu Item */
 "Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
@@ -288,6 +282,9 @@
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Scan configuration file for problems before connecting" = "Scan configuration file for problems before connecting";
+
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Show configuration on Tunnelblick menu" = "Show configuration on Tunnelblick menu";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Use Tunnelblick tun/tap drivers";
@@ -788,7 +785,7 @@
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured...";
+"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured…";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";

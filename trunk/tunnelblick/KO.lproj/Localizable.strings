@@ -41,7 +41,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "고급...";
+"Advanced..." = "고급…";
 
 /* Button */
 "All Users" = "모든 사용자";
@@ -185,7 +185,7 @@
 "When computer starts" = "컴퓨터가 시작할 때";
 
 /* Menu item */
-"Add a VPN..." = "VPN 추가...";
+"Add a VPN..." = "VPN 추가…";
 
 /* Menu item */
 "Check For Updates Now" = "지금 업데이트 확인";
@@ -194,7 +194,7 @@
 "Connect %@%@" = "%@%@ 연결하기";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "키체인에서 설정의 인증 삭제...";
+"Delete Configuration's Credentials in Keychain..." = "키체인에서 설정의 인증 삭제…";
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "응용 프로그램 이름이 변경되었기 때문에 사용불가";
@@ -209,22 +209,19 @@
 "Disconnect %@%@" = "%@%@ 연결 해제하기";
 
 /* Menu Item */
-"Duplicate Configuration..." = "설정 복사...";
+"Duplicate Configuration..." = "설정 복사…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "OpenVPN 설정 파일 수정...";
+"Edit OpenVPN Configuration File..." = "OpenVPN 설정 파일 수정…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "OpenVPN 설정 파일 검토...";
+"Examine OpenVPN Configuration File..." = "OpenVPN 설정 파일 검토…";
 
 /* Menu Item */
-"Hide Configuration on Tunnelblick Menu" = "Tunnelblick 메뉴에서 설정 감춤";
+"Make Configuration Private..." = "개인 설정으로 변경…";
 
 /* Menu Item */
-"Make Configuration Private..." = "개인 설정으로 변경...";
-
-/* Menu Item */
-"Make Configuration Shared..." = "공유 설정으로 변경...";
+"Make Configuration Shared..." = "공유 설정으로 변경…";
 
 /* Menu item */
 "No VPN Configurations Available" = "사용할 수 있는 VPN 설정 없음";
@@ -233,16 +230,16 @@
 "Quit Tunnelblick" = "Tunnelblick 종료";
 
 /* Menu Item */
-"Rename Configuration..." = "설정 이름 변경...";
-
-/* Menu Item */
-"Show Configuration on Tunnelblick Menu" = "Tunnelblick 메뉴에서 설정 보기";
+"Rename Configuration..." = "설정 이름 변경…";
 
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Finder에서 OpenVPN 로그 보기";
 
+/* Menu Item */
+"Show configuration on Tunnelblick menu" = "Tunnelblick 메뉴에서 설정 보기";
+
 /* Menu item */
-"VPN Details..." = "VPN 상세...";
+"VPN Details..." = "VPN 상세…";
 
 /* Checkbox name */
 "Check for updates automatically" = "자동으로 업데이트 확인";
@@ -788,7 +785,7 @@
 "Please insert token \"%@\", then click \"OK\"" = "\"%@\" 토큰을 입력하고 \"확인\"을 클릭하십시오";
 
 /* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Tunnelblick이 설치되고 보호되는 동안 기다리십시오...";
+"Please wait while Tunnelblick is being installed and secured..." = "Tunnelblick이 설치되고 보호되는 동안 기다리십시오…";
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "개인 설정은 컴퓨터가 시작할 때 연결할 수 없습니다.\n\n먼저 설정을 공유로 만들고 이 설정으로 변경하십시오.";
@@ -938,7 +935,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick이 기존의 '%1$@' OpenVPN 프로세스와 %2$d 초안에 통신을 연결할 수 없었습니다. 통신 연결 시도가 취소되었습니다.";
 
 /* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick이 %@에 연결하기 위해 OpenVPN을 시작할 수 없습니다. 자세한 것을 위해 'VPN 상세...' 창의 OpenVPN 로그를 보십시오.";
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick이 %@에 연결하기 위해 OpenVPN을 시작할 수 없습니다. 자세한 것을 위해 'VPN 상세…' 창의 OpenVPN 로그를 보십시오.";
 
 /* Window text */
 "Unable to Establish Communication" = "통신을 연결 할 수 없습니다.";
@@ -1068,7 +1065,7 @@
 "Reject" = "거절";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Tunnelblick 등록...";
+"Register for Tunnelblick..." = "Tunnelblick 등록…";
 
 /* Window title  VPNService */
 "Cannot obtain image" = "이미지를 받을 수 없습니다";

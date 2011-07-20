@@ -90,7 +90,7 @@ extern TBUserDefaults * gTbDefaults;
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
     
-    [showOnTunnelblickMenuCheckbox setTitle: NSLocalizedString(@"Show on menu", @"Checkbox name")];
+    [showOnTunnelblickMenuCheckbox setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
     
     [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
     

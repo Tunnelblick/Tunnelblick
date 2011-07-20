@@ -218,9 +218,6 @@
 "Examine OpenVPN Configuration File..." = "Examiner fichier de configuration OpenVPN…";
 
 /* Menu Item */
-"Hide Configuration on Tunnelblick Menu" = "Omettre configuration de menu Tunnelblick";
-
-/* Menu Item */
 "Make Configuration Private..." = "Rendre configuration privée…";
 
 /* Menu Item */
@@ -236,10 +233,10 @@
 "Rename Configuration..." = "Renommer configuration…";
 
 /* Menu Item */
-"Show Configuration on Tunnelblick Menu" = "Ajouter configuration au menu Tunnelblick";
+"Show OpenVPN Log in Finder" = "Afficher fichier de messages OpenVPN dans Finder";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Afficher fichier de messages OpenVPN dans Finder";
+"Show configuration on Tunnelblick menu" = "Ajouter configuration au menu Tunnelblick";
 
 /* Menu item */
 "VPN Details..." = "Détails VPN…";

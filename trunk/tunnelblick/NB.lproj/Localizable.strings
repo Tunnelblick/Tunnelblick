@@ -41,7 +41,7 @@
 "100 KB" = "100 KB";
 
 /* Button */
-"Advanced..." = "Avansert...";
+"Advanced..." = "Avansert…";
 
 /* Button */
 "All Users" = "Alle brukere";
@@ -185,7 +185,7 @@
 "When computer starts" = "Når datamaskin starter";
 
 /* Menu item */
-"Add a VPN..." = "Legg til VPN...";
+"Add a VPN..." = "Legg til VPN…";
 
 /* Menu item */
 "Check For Updates Now" = "Sjekk etter oppdateringer nå";
@@ -194,7 +194,7 @@
 "Connect %@%@" = "Koble til %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Slett konfigurasjonsopplysninger i nøkkelring...";
+"Delete Configuration's Credentials in Keychain..." = "Slett konfigurasjonsopplysninger i nøkkelring…";
 
 /* Menu item tooltip */
 "Disabled because the name of the application has been changed" = "Deaktivert fordi navnet på applikasjonen har endret seg";
@@ -209,22 +209,19 @@
 "Disconnect %@%@" = "Koble fra %@%@";
 
 /* Menu Item */
-"Duplicate Configuration..." = "Dupliser konfigurasjon...";
+"Duplicate Configuration..." = "Dupliser konfigurasjon…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Editer OpenVPN Konfigurasjonsfil...";
+"Edit OpenVPN Configuration File..." = "Editer OpenVPN Konfigurasjonsfil…";
 
 /* Menu Item */
-"Examine OpenVPN Configuration File..." = "Undersøk OpenVPN Konfigurasjonsfil...";
+"Examine OpenVPN Configuration File..." = "Undersøk OpenVPN Konfigurasjonsfil…";
 
 /* Menu Item */
-"Hide Configuration on Tunnelblick Menu" = "Skjul konfigurasjon i Tunnelblick menyen";
+"Make Configuration Private..." = "Gjør konfigurasjon privat…";
 
 /* Menu Item */
-"Make Configuration Private..." = "Gjør konfigurasjon privat...";
-
-/* Menu Item */
-"Make Configuration Shared..." = "Gjør konfigurasjon delt...";
+"Make Configuration Shared..." = "Gjør konfigurasjon delt…";
 
 /* Menu item */
 "No VPN Configurations Available" = "Ingen VPN konfigurasjoner tilgjengelig";
@@ -233,16 +230,16 @@
 "Quit Tunnelblick" = "Avslutte Tunnelblick";
 
 /* Menu Item */
-"Rename Configuration..." = "Endre konfigurasjonsnavn...";
-
-/* Menu Item */
-"Show Configuration on Tunnelblick Menu" = "Vis konfigurasjon i Tunnelblick menyen";
+"Rename Configuration..." = "Endre konfigurasjonsnavn…";
 
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Vis OpenVPN Logg i Finder";
 
+/* Menu Item */
+"Show configuration on Tunnelblick menu" = "Vis konfigurasjon i Tunnelblick menyen";
+
 /* Menu item */
-"VPN Details..." = "VPN Detaljer...";
+"VPN Details..." = "VPN Detaljer…";
 
 /* Checkbox name */
 "Check for updates automatically" = "Se etter oppdateringer automatisk";
@@ -788,7 +785,7 @@
 "Please insert token \"%@\", then click \"OK\"" = "Vennligst tast inn kode \"%@\", klikk deretter \"OK\"";
 
 /* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Vennligst vent mens Tunnelblick blir installert og sikret...";
+"Please wait while Tunnelblick is being installed and secured..." = "Vennligst vent mens Tunnelblick blir installert og sikret…";
 
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private konfigurasjoner kan ikke koble til automatisk når datamaskinen starter.\n\nGjør først konfigurasjonen delt, deretter kan du endre denne instillingen.";
@@ -938,7 +935,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick var ikke istand til å opprette kommunikasjon med en eksisterende OpenVPN prosess for '%1$@' innen %2$d sekunder. Kommunikasjonsforsøket har blitt avbrutt.";
 
 /* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick klarte ikke å starte OpenVPN for å koble til %@. For detaljer, se i OpenVPN logg i VPN Detaljer... vinduet";
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick klarte ikke å starte OpenVPN for å koble til %@. For detaljer, se i OpenVPN logg i VPN Detaljer… vinduet";
 
 /* Window text */
 "Unable to Establish Communication" = "Kunne ikke etablere kommunikasjon";
@@ -1070,7 +1067,7 @@
 "Reject" = "Avbryt";
 
 /* Menu item VPNService */
-"Register for Tunnelblick..." = "Registrer for Tunnelblick...";
+"Register for Tunnelblick..." = "Registrer for Tunnelblick…";
 
 /* Window title  VPNService */
 "Cannot obtain image" = "Kan ikke skaffe bildet";

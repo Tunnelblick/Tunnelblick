@@ -55,6 +55,7 @@
 		633C881E13A3B770000F5E94 /* AddButtonImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 633C881B13A3B770000F5E94 /* AddButtonImage.tiff */; };
 		633C881F13A3B770000F5E94 /* RemoveButtonImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 633C881C13A3B770000F5E94 /* RemoveButtonImage.tiff */; };
 		633DF4591312B13100B8606C /* ConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633DF4581312B13100B8606C /* ConfigurationManager.m */; };
+		6341C39713D6DE6200B9CE2B /* DA.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6341C39313D6DE6200B9CE2B /* DA.lproj */; };
 		6345F210120BB1DA009C6222 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6345F20F120BB1DA009C6222 /* Carbon.framework */; };
 		634B02DF12553E5400A9D978 /* client.2.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */; };
 		634B02E012553E5400A9D978 /* client.2.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */; };
@@ -278,6 +279,7 @@
 		633C881B13A3B770000F5E94 /* AddButtonImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AddButtonImage.tiff; sourceTree = "<group>"; };
 		633C881C13A3B770000F5E94 /* RemoveButtonImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = RemoveButtonImage.tiff; sourceTree = "<group>"; };
 		633DF4581312B13100B8606C /* ConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationManager.m; sourceTree = "<group>"; };
+		6341C39313D6DE6200B9CE2B /* DA.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DA.lproj; sourceTree = "<group>"; };
 		6345F20F120BB1DA009C6222 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		63490251139F9C6B00025BD5 /* ConfigurationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationsView.h; sourceTree = "<group>"; };
 		634B02DD12553E5400A9D978 /* client.2.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.down.tunnelblick.sh; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 			children = (
 				615F74860ED3A4C2007F6F0A /* English.lproj */,
 				63BF3E1010A2ED7F00AC8A59 /* CA.lproj */,
+				6341C39313D6DE6200B9CE2B /* DA.lproj */,
 				615F74900ED3A4FA007F6F0A /* DE.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
@@ -950,6 +953,7 @@
 				637A879B13B75694003C1871 /* tb-logo-309x64-2011-06-26.png in Resources */,
 				631310D913CA18870071C110 /* NL.lproj in Resources */,
 				63611FD113CE2A8B000240F0 /* RU.lproj in Resources */,
+				6341C39713D6DE6200B9CE2B /* DA.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
