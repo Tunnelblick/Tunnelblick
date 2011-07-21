@@ -1900,12 +1900,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
         [[NSApp delegate] setupSparklePreferences]; // Sparkle may have changed it's preferences so we update ours
         if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
             // Was OFF, trying to change to ON
-            if (  [[NSApp delegate] appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-                [gTbDefaults setBool: TRUE forKey: @"updateCheckAutomatically"];
-                [updater setAutomaticallyChecksForUpdates: YES];
-            } else {
-                NSLog(@"'Automatically Check for Updates' change ignored because the name of the application has been changed");
-            }
+            [gTbDefaults setBool: TRUE forKey: @"updateCheckAutomatically"];
+            [updater setAutomaticallyChecksForUpdates: YES];
         } else {
             // Was ON, change to OFF
             [gTbDefaults setBool: FALSE forKey: @"updateCheckAutomatically"];

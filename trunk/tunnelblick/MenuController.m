@@ -1424,22 +1424,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             myState = [NSString stringWithFormat:NSLocalizedString(@"Disconnect All (%d Connections)", @"Status message"),nConnections];
             [statusMenuItem setTitle: myState];
         }
-    } else if (  act == @selector(checkForUpdates:)  ) {
-        if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
-            && ( ! userIsAnAdmin )  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set", @"Menu item tooltip")];
-            }
-            return NO;
-        } else if (  ! [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-            if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-                [anItem setToolTip: NSLocalizedString(@"Disabled because the name of the application has been changed", @"Menu item tooltip")];
-            }
-            return NO;
-        }
-        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-            [anItem setToolTip: @""];
-        }
     } else {
         if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
             [anItem setToolTip: @""];
@@ -1775,24 +1759,20 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"Check for updates was not performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
         if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
-            if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-                if (  ! userIsAnAdmin  ) {
-                    int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
-                                                           NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
-                                                           NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
-                                                           NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
-                                                           nil,                                                     // Other button
-                                                           @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
-                                                           NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                           nil);
-                    if (  response == NSAlertAlternateReturn  ) {
-                        return;
-                    }
+            if (  ! userIsAnAdmin  ) {
+                int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
+                                                       NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
+                                                       NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
+                                                       NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
+                                                       nil,                                                     // Other button
+                                                       @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
+                                                       NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                                       nil);
+                if (  response == NSAlertAlternateReturn  ) {
+                    return;
                 }
-                [updater checkForUpdates: self];
-            } else {
-                NSLog(@"'Check for Updates Now' ignored because the name of the application has been changed");
             }
+            [updater checkForUpdates: self];
         } else {
             NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
         }
@@ -2494,17 +2474,11 @@ static void signal_handler(int signalNumber)
     [self setupSparklePreferences];
     
     // Set Sparkle's behavior from our preferences using Sparkle's approved methods
-    BOOL warnedAlready = FALSE;
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] != nil  ) {
                 if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
-                    if (  [self appNameIsTunnelblickWarnUserIfNot: TRUE]  ) {
-                        [updater setAutomaticallyChecksForUpdates: YES];
-                    } else {
-                        warnedAlready = TRUE;
-                        [updater setAutomaticallyChecksForUpdates: NO];
-                    }
+                    [updater setAutomaticallyChecksForUpdates: YES];
                 } else {
                     [updater setAutomaticallyChecksForUpdates: NO];
                 }
@@ -2525,11 +2499,7 @@ static void signal_handler(int signalNumber)
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateAutomatically"] != nil  ) {
                 if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
-                    if (  [self appNameIsTunnelblickWarnUserIfNot: warnedAlready]  ) {
-                        [updater setAutomaticallyDownloadsUpdates: YES];
-                    } else {
-                        [updater setAutomaticallyDownloadsUpdates: NO];
-                    }
+                    [updater setAutomaticallyDownloadsUpdates: YES];
                 } else {
                     [updater setAutomaticallyDownloadsUpdates: NO];
                 }
@@ -2645,11 +2615,7 @@ static void signal_handler(int signalNumber)
         || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
         ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
-            if (  [self appNameIsTunnelblickWarnUserIfNot: NO]  ) {
-                [updater checkForUpdatesInBackground];
-            } else {
-                NSLog(@"Not checking for updates because the name of the application has been changed");
-            }
+            [updater checkForUpdatesInBackground];
         } else {
             NSLog(@"Cannot check for updates because Sparkle Updater does not respond to checkForUpdatesInBackground");
         }
@@ -3061,33 +3027,6 @@ static void signal_handler(int signalNumber)
     return uuid;
 }
 
-
-// Returns TRUE if it is OK to update because the application name is still 'Tunnelblick'
-// Returns FALSE iff Sparkle Updates should be disabled because the application name has been changed.
-// Warns user about it if tellUser is TRUE
--(BOOL) appNameIsTunnelblickWarnUserIfNot: (BOOL) tellUser
-{
-    // Sparkle Updater doesn't work if the user has changed the name to something other than Tunnelblick
-    NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-    NSString *appName = [gFileMgr displayNameAtPath: bundlePath];
-    if (  [appName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]
-        || [appName isEqualToString:NSLocalizedString(@"Tunnelblick.app", @"Window title")]  ) {
-        return TRUE;
-    }
-    
-    NSLog(@"Cannot check for updates because the name of Tunnelblick has been changed");
-    if (  tellUser  ) {
-        TBRunAlertPanelExtended(NSLocalizedString(@"Updates are disabled", @"Window title"),
-                                [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.", @"Window text"), appName],
-                                NSLocalizedString(@"OK", @"Button"),    // Default button
-                                nil,
-                                nil,
-                                @"skipWarningThatNameChangeDisabledUpdates",
-                                NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                nil);
-    }
-    return FALSE;
-}
 
 -(void) setPIDsWeAreTryingToHookUpTo: (NSArray *) newValue
 {

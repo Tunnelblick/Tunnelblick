@@ -157,7 +157,6 @@ BOOL needToCopyBundle(void);
 
 // General methods
 -(void)             addConnection:                          (id)                sender;
--(BOOL)             appNameIsTunnelblickWarnUserIfNot:      (BOOL)              tellUser;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             changedMonitorConfigurationFoldersSettings;
