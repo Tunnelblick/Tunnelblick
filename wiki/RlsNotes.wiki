@@ -50,7 +50,6 @@
  
  * Fixes a bug that didn't update 'Settings' tab items properly when a different configuration was selected in the 'Configurations' panel.
  * Fixes a bug that caused several items to appear in English instead of the preferred language, even if a preferred language translation of the item was available.
- * Fixes a bug that caused the 'Advanced' window to pop up in front of any other application's window when the notification window appears.
  * Fixes a bug that caused the 'Glass' sound to be used when a tunnel is established and the 'Basso' sound to be used when a tunnel was torn down if the preference for the sound was set to 'None'
  * Fixes a bug that caused the 'Advanced' window to pop up in front of any other application's window when the notification window appears.
  * Fixes a bug that ignored the Enter and Escape keys when entering a VPN username/password or passphrase.
