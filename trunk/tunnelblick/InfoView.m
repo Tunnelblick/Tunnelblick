@@ -61,32 +61,53 @@ extern TBUserDefaults * gTbDefaults;
         [infoLogoIV setImage: logo];
     }
     
-    NSString * descriptionPath = [[NSBundle mainBundle] pathForResource:@"Description" ofType:@"rtf"];
-    if (  descriptionPath  ) {
-        [infoDescriptionTV setEditable: NO];
-        [infoDescriptionSV setHasHorizontalScroller: NO];
-        [infoDescriptionSV setHasVerticalScroller:   NO];
+    // If Resources has an "about.html", use that as the base for the license description
+    // Using [[NSBundle mainBundle] pathForResource: @"about" ofType: @"html"] doesn't always work -- it is apparently cached by OS X.
+    // If it is used immediately after the installer creates and populates Resources/Deploy, nil is returned instead of the path
+    // Using [[NSBundle mainBundle] resourcePath: ALSO seems to not work (don't know why, maybe the same reason)
+    // The workaround is to create the path "by hand" and use that.
+    NSString * aboutPath    = [[[NSBundle mainBundle] bundlePath] stringByAppendingString: @"/Contents/Resources/about.html"];
+	NSString * htmlFromFile = [NSString stringWithContentsOfFile: aboutPath encoding:NSASCIIStringEncoding error:NULL];
+    if (  htmlFromFile  ) {
+        NSString * basedOnHtml  = NSLocalizedString(@"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>", @"Window text");
+        NSString * html         = [NSString stringWithFormat:@"%@%@%@%@",
+                                   @"<html><body><center><div style=\"font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px\">",
+                                   htmlFromFile,
+                                   basedOnHtml,
+                                   @"</div></center><body></html>"];
+        NSData * data = [html dataUsingEncoding:NSASCIIStringEncoding];
+        NSAttributedString * description = [[[NSAttributedString alloc] initWithHTML:data documentAttributes:NULL] autorelease];
+        [[infoDescriptionTV textStorage] setAttributedString: description];
+    } else {
         
-        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithPath:descriptionPath documentAttributes:nil] autorelease];
-
-        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
-        // And change XXX back to Tunnelblick
-        if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
-            if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
-                NSString * prefix = [NSString stringWithFormat:
-                                     NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
-                                     @"Tunnel" @"blick"];
-                
-                NSMutableString * s = [descriptionString mutableString];
-                [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
-                [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
-            }
-        }
+        //Otherwise, use Description.rtf as the basis for the license description, but deal with "branded" versions of Tunnelblick
+        NSString * descriptionPath = [[NSBundle mainBundle] pathForResource:@"Description" ofType:@"rtf"];
+        if (  descriptionPath  ) {
+            [infoDescriptionTV setEditable: NO];
+            [infoDescriptionSV setHasHorizontalScroller: NO];
+            [infoDescriptionSV setHasVerticalScroller:   NO];
             
-        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] ) 
-                                            withRTF:[descriptionString RTFFromRange:
-                                                     NSMakeRange( 0, [descriptionString length] ) 
-                                                                 documentAttributes:nil]];
+            NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithPath:descriptionPath documentAttributes:nil] autorelease];
+            
+            // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
+            // And change XXX back to Tunnelblick
+            if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
+                if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
+                    NSString * prefix = [NSString stringWithFormat:
+                                         NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
+                                         @"Tunnel" @"blick"];
+                    
+                    NSMutableString * s = [descriptionString mutableString];
+                    [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
+                    [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
+                }
+            }
+            
+            [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] ) 
+                                                withRTF:[descriptionString RTFFromRange:
+                                                         NSMakeRange( 0, [descriptionString length] ) 
+                                                                     documentAttributes:nil]];
+        }
     }
     
     NSString * creditsPath = [[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"];
