@@ -1,4 +1,5 @@
 #summary Entry page for the Documentation
+#sidebar cSb
 = Documentation =
 
 <table><tr>
