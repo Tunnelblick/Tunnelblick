@@ -971,7 +971,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Sign the binary tools and the Tunnelblick application itself\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/installer\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\ncodesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH\n\ntouch build\n\nshopt -s nullglob\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\nif [ ${CONFIGURATION} = \"Release\" ]; then\n\n\t# Staging folder\n\tTMPDMG=build/Release/${PROJECT_NAME}\n\n\t# Folder with files for the .dmg (.DS_Store, background folder which contains background.png background image)\n\tDMG_FILES=dmgFiles\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -rf $TMPDMG\n\tmkdir -p $TMPDMG\n\tcp -p -R build/Release/${PROJECT_NAME}.app $TMPDMG\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" $TMPDMG\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R $DMG_FILES/background $TMPDMG\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R $DMG_FILES/dotDS_Store \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -rf build/Release/${PROJECT_NAME}.dmg\n\thdiutil create -noscrub -srcfolder $TMPDMG build/Release/${PROJECT_NAME}.dmg\n\nfi";
+			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Remove extra files that are not needed\nshopt -s nullglob\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools except if Unsigned Release\nif [ \"${CONFIGURATION}\" != \"Unsigned Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\n  codesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/installer\n  codesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\n  codesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\n  codesign -s TunnelblickSigning $CODESIGNING_FOLDER_PATH\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=build/${CONFIGURATION}/${PROJECT_NAME}\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=dmgFiles\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -rf \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app $TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R $DMG_FILES/background \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\nfi";
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1304,6 +1304,135 @@
 			};
 			name = Release;
 		};
+		6398C40113DB30F60005FEB0 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = "Unsigned Release";
+		};
+		6398C40213DB30F60005FEB0 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Unsigned Release";
+		};
+		6398C40313DB30F60005FEB0 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = openvpnstart;
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release";
+		};
+		6398C40413DB30F60005FEB0 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = installer;
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release";
+		};
+		6398C40513DB30F60005FEB0 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = atsystemstart;
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release";
+		};
+		6398C40613DB30F60005FEB0 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release";
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1386,6 +1515,7 @@
 			buildConfigurations = (
 				61BC4BC30E2F9FE900F24255 /* Debug */,
 				61BC4BC40E2F9FE900F24255 /* Release */,
+				6398C40313DB30F60005FEB0 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1395,6 +1525,7 @@
 			buildConfigurations = (
 				61BC4D6D0E2FA06900F24255 /* Debug */,
 				61BC4D6E0E2FA06900F24255 /* Release */,
+				6398C40413DB30F60005FEB0 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1404,6 +1535,7 @@
 			buildConfigurations = (
 				63179440118D7E830057ACAF /* Debug */,
 				63179441118D7E830057ACAF /* Release */,
+				6398C40513DB30F60005FEB0 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1413,6 +1545,7 @@
 			buildConfigurations = (
 				638A1FFE135CC35100FB932C /* Debug */,
 				638A1FFF135CC35100FB932C /* Release */,
+				6398C40613DB30F60005FEB0 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1422,6 +1555,7 @@
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
 				C01FCF4C08A954540054247B /* Release */,
+				6398C40213DB30F60005FEB0 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1431,6 +1565,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				6398C40113DB30F60005FEB0 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
