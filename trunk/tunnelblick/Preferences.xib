@@ -12,10 +12,10 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
-			<integer value="44"/>
 			<integer value="117"/>
-			<integer value="521"/>
+			<integer value="1"/>
+			<integer value="533"/>
+			<integer value="44"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2242,7 +2242,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="97575398">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">138413056</int>
-							<string key="NSContents">Tunnelblick...</string>
+							<string key="NSContents">TunnelBlick$</string>
 							<reference key="NSSupport" ref="935317261"/>
 							<reference key="NSControlView" ref="324333050"/>
 							<reference key="NSBackgroundColor" ref="591743546"/>
@@ -3209,14 +3209,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">whenToConnectTunnelblickLaunchMenuItem</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="217347970"/>
-					</object>
-					<int key="connectionID">644</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">whenToConnectPopUpButton</string>
 						<reference key="source" ref="921957018"/>
 						<reference key="destination" ref="751948762"/>
@@ -3302,14 +3294,6 @@
 						<reference key="destination" ref="20355000"/>
 					</object>
 					<int key="connectionID">661</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">connectButtonWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="429876504"/>
-					</object>
-					<int key="connectionID">662</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3406,14 +3390,6 @@
 						<reference key="destination" ref="815900401"/>
 					</object>
 					<int key="connectionID">675</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">whenToConnectTunnelblickLaunchMenuItemWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="217347970"/>
-					</object>
-					<int key="connectionID">676</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3977,20 +3953,44 @@
 					<int key="connectionID">800</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">showOnTunnelblickMenuCheckbox</string>
-						<reference key="source" ref="921957018"/>
-						<reference key="destination" ref="955576370"/>
-					</object>
-					<int key="connectionID">803</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showOnTunnelblickMenuCheckboxWasClicked:</string>
+						<string key="label">showOnTunnelBlickMenuCheckboxWasClicked:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="955576370"/>
 					</object>
-					<int key="connectionID">804</int>
+					<int key="connectionID">805</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">showOnTunnelBlickMenuCheckbox</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="955576370"/>
+					</object>
+					<int key="connectionID">806</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">whenToConnectTunnelBlickLaunchMenuItem</string>
+						<reference key="source" ref="921957018"/>
+						<reference key="destination" ref="217347970"/>
+					</object>
+					<int key="connectionID">808</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">whenToConnectTunnelBlickLaunchMenuItemWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="217347970"/>
+					</object>
+					<int key="connectionID">809</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">connectButtonWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="429876504"/>
+					</object>
+					<int key="connectionID">810</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5941,7 +5941,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDPAAAwrwAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{415, 429}, {286, 63}}</string>
+					<string>{{468, 842}, {286, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5950,7 +5950,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{537, 509}, {277, 103}}</string>
+					<string>{{468, 768}, {286, 103}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6099,7 +6099,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">804</int>
+			<int key="maxID">810</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6244,7 +6244,7 @@
 							<string>setNameserverTF</string>
 							<string>setNameserverTFC</string>
 							<string>settingsTabViewItem</string>
-							<string>showOnTunnelblickMenuCheckbox</string>
+							<string>showOnTunnelBlickMenuCheckbox</string>
 							<string>showOpenvpnLogMenuItem</string>
 							<string>soundOnConnectArrayController</string>
 							<string>soundOnConnectButton</string>
@@ -6254,7 +6254,7 @@
 							<string>whenToConnectOnComputerStartMenuItem</string>
 							<string>whenToConnectPopUpButton</string>
 							<string>whenToConnectTFC</string>
-							<string>whenToConnectTunnelblickLaunchMenuItem</string>
+							<string>whenToConnectTunnelBlickLaunchMenuItem</string>
 							<string>workOnConfigurationArrayController</string>
 							<string>workOnConfigurationPopUpButton</string>
 						</object>
@@ -6339,7 +6339,7 @@
 							<string>setNameserverTF</string>
 							<string>setNameserverTFC</string>
 							<string>settingsTabViewItem</string>
-							<string>showOnTunnelblickMenuCheckbox</string>
+							<string>showOnTunnelBlickMenuCheckbox</string>
 							<string>showOpenvpnLogMenuItem</string>
 							<string>soundOnConnectArrayController</string>
 							<string>soundOnConnectButton</string>
@@ -6349,7 +6349,7 @@
 							<string>whenToConnectOnComputerStartMenuItem</string>
 							<string>whenToConnectPopUpButton</string>
 							<string>whenToConnectTFC</string>
-							<string>whenToConnectTunnelblickLaunchMenuItem</string>
+							<string>whenToConnectTunnelBlickLaunchMenuItem</string>
 							<string>workOnConfigurationArrayController</string>
 							<string>workOnConfigurationPopUpButton</string>
 						</object>
@@ -6476,7 +6476,7 @@
 								<string key="candidateClassName">NSTabViewItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">showOnTunnelblickMenuCheckbox</string>
+								<string key="name">showOnTunnelBlickMenuCheckbox</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -6516,7 +6516,7 @@
 								<string key="candidateClassName">NSTextFieldCell</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">whenToConnectTunnelblickLaunchMenuItem</string>
+								<string key="name">whenToConnectTunnelBlickLaunchMenuItem</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -6783,14 +6783,14 @@
 							<string>removeCredentialsMenuItemWasClicked:</string>
 							<string>renameConfigurationMenuItemWasClicked:</string>
 							<string>resetDisabledWarningsButtonWasClicked:</string>
-							<string>showOnTunnelblickMenuCheckboxWasClicked:</string>
+							<string>showOnTunnelBlickMenuCheckboxWasClicked:</string>
 							<string>showOpenvpnLogMenuItemWasClicked:</string>
 							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
 							<string>updatesCheckNowButtonWasClicked:</string>
 							<string>useShadowCopiesCheckboxWasClicked:</string>
 							<string>whenToConnectManuallyMenuItemWasClicked:</string>
 							<string>whenToConnectOnComputerStartMenuItemWasClicked:</string>
-							<string>whenToConnectTunnelblickLaunchMenuItemWasClicked:</string>
+							<string>whenToConnectTunnelBlickLaunchMenuItemWasClicked:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6850,14 +6850,14 @@
 							<string>removeCredentialsMenuItemWasClicked:</string>
 							<string>renameConfigurationMenuItemWasClicked:</string>
 							<string>resetDisabledWarningsButtonWasClicked:</string>
-							<string>showOnTunnelblickMenuCheckboxWasClicked:</string>
+							<string>showOnTunnelBlickMenuCheckboxWasClicked:</string>
 							<string>showOpenvpnLogMenuItemWasClicked:</string>
 							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
 							<string>updatesCheckNowButtonWasClicked:</string>
 							<string>useShadowCopiesCheckboxWasClicked:</string>
 							<string>whenToConnectManuallyMenuItemWasClicked:</string>
 							<string>whenToConnectOnComputerStartMenuItemWasClicked:</string>
-							<string>whenToConnectTunnelblickLaunchMenuItemWasClicked:</string>
+							<string>whenToConnectTunnelBlickLaunchMenuItemWasClicked:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6946,7 +6946,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showOnTunnelblickMenuCheckboxWasClicked:</string>
+								<string key="name">showOnTunnelBlickMenuCheckboxWasClicked:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -6974,7 +6974,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">whenToConnectTunnelblickLaunchMenuItemWasClicked:</string>
+								<string key="name">whenToConnectTunnelBlickLaunchMenuItemWasClicked:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

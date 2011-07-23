@@ -262,7 +262,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"keyboardShortcutIndex",
                                 @"showStatusWindow",
                                 @"doNotUnrebrandLicenseDescription",
-                                
+                                @"useSharedConfigurationsWithDeployedOnes",
+                                @"usePrivateConfigurationsWithDeployedOnes",
                                 @"updateCheckAutomatically",
                                 @"updateSendProfileInfo",
                                 @"updateCheckInterval",
@@ -417,7 +418,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Forced preferences"];
-        dict = [NSDictionary dictionaryWithContentsOfFile: [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Preferences/net.tunnelblick.tunnelblick.plist"]];
+        
+        NSString * bundleId = [[NSBundle mainBundle] bundleIdentifier];
+        NSString * prefsPath = [[[[NSHomeDirectory()
+                                   stringByAppendingPathComponent:@"Library"]
+                                  stringByAppendingPathComponent:@"Preferences"]
+                                 stringByAppendingPathComponent: bundleId]
+                                stringByAppendingPathExtension: @"plist"];
+        dict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
         [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Preferences"];
         
         // If Resources/Deploy exists now (perhaps after being restored) and has one or more .tblk packages or .conf or .ovpn files,

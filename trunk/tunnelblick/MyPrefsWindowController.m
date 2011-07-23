@@ -388,7 +388,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupShowOnTunnelblickMenu: (VPNConnection *) connection
 {
-    [self setupCheckbox: [configurationsPrefsView showOnTunnelblickMenuCheckbox]
+    [self setupCheckbox: [configurationsPrefsView showOnTunnelBlickMenuCheckbox]
                     key: @"-doNotShowOnTunnelblickMenu"
                inverted: YES];
 }
@@ -1313,12 +1313,12 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(IBAction) whenToConnectTunnelblickLaunchMenuItemWasClicked: (id) sender
+-(IBAction) whenToConnectTunnelBlickLaunchMenuItemWasClicked: (id) sender
 {
     if (  [self selectedConnection]  ) {
         [self setSelectedWhenToConnectIndex: 1];
     } else {
-        NSLog(@"whenToConnectTunnelblickLaunchMenuItemWasClicked but no configuration selected");
+        NSLog(@"whenToConnectTunnelBlickLaunchMenuItemWasClicked but no configuration selected");
     }
 }
 
@@ -1373,7 +1373,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
--(IBAction) showOnTunnelblickMenuCheckboxWasClicked: (id) sender
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (id) sender
 {
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {

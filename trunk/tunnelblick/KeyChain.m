@@ -95,6 +95,10 @@
                                                     cPassword,		// pointer to password data
                                                     NULL);		// we need no item reference
     
+    if (  status != noErr  ) {
+        NSLog(@"Can't save password; status was %d; error was %d:\n'%s'", (int) status, (int) errno, strerror(errno));
+    }
+    
     return(status);
 }
 -(void)deletePassword

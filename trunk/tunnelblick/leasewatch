@@ -73,12 +73,12 @@ if (( M=${PROCESS:-0} )) ; then
     
     # "Standardize" the output from scutil
     SSO_PATH="$(dirname "${0}")/standardize-scutil-output"
-    DNS_GOOD="$(echo "$DNS_GOOD"   | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    DNS_OLD="$(echo "$DNS_OLD"     | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    DNS_NOW="$(echo "$DNS_NOW"     | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    WINS_GOOD="$(echo "$WINS_GOOD" | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    WINS_OLD="$(echo "$WINS_OLD"   | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
-    WINS_NOW="$(echo "$WINS_NOW"   | ${SSO_PATH} ${ARG_IGNORE_OPTION_FLAGS})"
+    DNS_GOOD="$(echo "$DNS_GOOD"   | "${SSO_PATH}" ${ARG_IGNORE_OPTION_FLAGS})"
+    DNS_OLD="$(echo "$DNS_OLD"     | "${SSO_PATH}" ${ARG_IGNORE_OPTION_FLAGS})"
+    DNS_NOW="$(echo "$DNS_NOW"     | "${SSO_PATH}" ${ARG_IGNORE_OPTION_FLAGS})"
+    WINS_GOOD="$(echo "$WINS_GOOD" | "${SSO_PATH}" ${ARG_IGNORE_OPTION_FLAGS})"
+    WINS_OLD="$(echo "$WINS_OLD"   | "${SSO_PATH}" ${ARG_IGNORE_OPTION_FLAGS})"
+    WINS_NOW="$(echo "$WINS_NOW"   | "${SSO_PATH}" ${ARG_IGNORE_OPTION_FLAGS})"
     
     # If the DNS configuration has changed
     # Then if it is the way it was pre-VPN
