@@ -118,10 +118,10 @@
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender;
 
--(IBAction) showOnTunnelblickMenuCheckboxWasClicked:    (id) sender;
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:    (id) sender;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
--(IBAction) whenToConnectTunnelblickLaunchMenuItemWasClicked: (id) sender;
+-(IBAction) whenToConnectTunnelBlickLaunchMenuItemWasClicked: (id) sender;
 -(IBAction) whenToConnectOnComputerStartMenuItemWasClicked:   (id) sender;
 
 -(IBAction) advancedButtonWasClicked:                         (id) sender;

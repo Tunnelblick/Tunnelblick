@@ -225,15 +225,22 @@ extern TBUserDefaults  * gTbDefaults;
         usernameLocal = [[loginScreen username] stringValue];
         passwordLocal = [[loginScreen password] stringValue];
         
+        if (  ! usernameLocal  ) {
+            NSLog(@"username is nil for Keychain '%@'", [usernameKeychain description]);
+        }
+        if (  ! passwordLocal  ) {
+            NSLog(@"password is nil for Keychain '%@'", [usernameKeychain description]);
+        }
+        
         if (  [loginScreen saveInKeychain]  ) {
             if (  [gTbDefaults canChangeValueForKey: usernamePreferenceKey]  ) {
                 [usernameKeychain deletePassword];
                 if (  [usernameKeychain setPassword: usernameLocal] != 0  ) {
-                    NSLog(@"Could not save username in Keychain");
+                    NSLog(@"Could not save username in Keychain '%@'", [usernameKeychain description]);
                 }
                 [passwordKeychain deletePassword];
                 if (  [passwordKeychain setPassword: passwordLocal] != 0  ) {
-                    NSLog(@"Could not save password in Keychain");
+                    NSLog(@"Could not save password in Keychain '%@'", [usernameKeychain description]);
                 }
                 [gTbDefaults setBool: YES forKey: usernamePreferenceKey];
                 [gTbDefaults synchronize];

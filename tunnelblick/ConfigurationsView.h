@@ -66,7 +66,7 @@
     IBOutlet NSTextFieldCell     * whenToConnectTFC;
     IBOutlet NSPopUpButton       * whenToConnectPopUpButton;
     IBOutlet NSMenuItem          * whenToConnectManuallyMenuItem;
-    IBOutlet NSMenuItem          * whenToConnectTunnelblickLaunchMenuItem;
+    IBOutlet NSMenuItem          * whenToConnectTunnelBlickLaunchMenuItem;
     IBOutlet NSMenuItem          * whenToConnectOnComputerStartMenuItem;
     
     IBOutlet NSTextField         * setNameserverTF;
@@ -76,7 +76,7 @@
     
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     
-    IBOutlet NSButton            * showOnTunnelblickMenuCheckbox;
+    IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
     
     IBOutlet NSBox               * alertSoundsBox;
     
@@ -128,7 +128,7 @@ TBPROPERTY_READONLY(NSTabViewItem *,       settingsTabViewItem)
 TBPROPERTY_READONLY(NSTextFieldCell *,     whenToConnectTFC)
 TBPROPERTY_READONLY(NSPopUpButton *,       whenToConnectPopUpButton)
 TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectManuallyMenuItem)
-TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectTunnelblickLaunchMenuItem)
+TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectTunnelBlickLaunchMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectOnComputerStartMenuItem)
 
 TBPROPERTY_READONLY(NSMenuItem *,          setNameserverTF)
@@ -138,7 +138,7 @@ TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
 
-TBPROPERTY_READONLY(NSButton *,            showOnTunnelblickMenuCheckbox)
+TBPROPERTY_READONLY(NSButton *,            showOnTunnelBlickMenuCheckbox)
 
 TBPROPERTY_READONLY(NSBox *,               alertSoundsBox)
 

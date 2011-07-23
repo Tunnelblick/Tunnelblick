@@ -81,7 +81,7 @@ extern TBUserDefaults * gTbDefaults;
     
     [whenToConnectTFC                       setTitle: NSLocalizedString(@"Connect:", @"Window text")];
     [whenToConnectManuallyMenuItem          setTitle: NSLocalizedString(@"Manually"                 , @"Button")];
-    [whenToConnectTunnelblickLaunchMenuItem setTitle: NSLocalizedString(@"When Tunnelblick launches", @"Button")];
+    [whenToConnectTunnelBlickLaunchMenuItem setTitle: NSLocalizedString(@"When Tunnelblick launches", @"Button")];
     [whenToConnectOnComputerStartMenuItem   setTitle: NSLocalizedString(@"When computer starts"     , @"Button")];
     [whenToConnectPopUpButton sizeToFit];
     
@@ -90,7 +90,7 @@ extern TBUserDefaults * gTbDefaults;
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
     
-    [showOnTunnelblickMenuCheckbox setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
+    [showOnTunnelBlickMenuCheckbox setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
     
     [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
     
@@ -169,7 +169,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,       settingsTabViewItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     whenToConnectTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       whenToConnectPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectManuallyMenuItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectTunnelblickLaunchMenuItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectTunnelBlickLaunchMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectOnComputerStartMenuItem)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          setNameserverTF)
@@ -179,7 +179,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayControl
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            showOnTunnelblickMenuCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            showOnTunnelBlickMenuCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,               alertSoundsBox)
 
