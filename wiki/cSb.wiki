@@ -44,6 +44,7 @@
     [cDmg Modifying the disk image]<br>
     [cLocalize Localizing Tunnelblick]<br>
     [cTranslate Making Translations]<br>
+    [cTranslationStatus Translation Status]<br>
 *Reference*
     [cFAQ FAQ]<font color="white">!TunnelblickGoogleCodePage</font><br>
     [cThanks Thanks]<br>
