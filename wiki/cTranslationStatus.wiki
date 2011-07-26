@@ -15,13 +15,13 @@ Tunnelblick is developed in English.
 <font color="red">*TRANSLATORS NEEDED:*</font> We especially need translators for *Chinese (Traditional)*, *Polish*, *Swedish*, and * Japanese*. If you can help with these or any other languages (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. Thanks!
 
 
-The following table shows the status of translations for the current beta version of Tunnelblick as of 2011-07-24:
+The following table shows the status of translations for the current beta version of Tunnelblick as of 2011-07-25:
 
 || Language  || Code  || Current<br>Translators  || Status  ||
 || Catalan  || CA  || 1  || *Complete*  ||
 || Danish  || DA  || 1  || In process  ||
 || German  || DE  || 1  || *Complete*  ||
-|| Spanish  || ES  || 1  || In process  ||
+|| Spanish  || ES  || 2  || In process  ||
 || French  || FR  || 1  || *Complete*  ||
 || Italian  || IT  || 2  || In process  ||
 || Japanese  || JA  || 1  || In process  ||
@@ -31,7 +31,7 @@ The following table shows the status of translations for the current beta versio
 || Polish  || PL  || 0  || Partial  ||
 || Portuguese  || PT  || 1  || *Complete*  ||
 || Russian  || RU  || 4  || *Complete*  ||
-|| Swedish  || SV  || 1  || In process  ||
+|| Swedish  || SV  || 2  || In process  ||
 || Chinese (Simplified)  || ZN-CN  || 1  || *Complete*  ||
 || Chinese (Traditional)  || ZN-TW  || 0  || Partial  ||
 
