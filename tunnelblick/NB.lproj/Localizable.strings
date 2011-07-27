@@ -197,13 +197,7 @@
 "Delete Configuration's Credentials in Keychain..." = "Slett konfigurasjonsopplysninger i nøkkelring…";
 
 /* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "Deaktivert fordi navnet på applikasjonen har endret seg";
-
-/* Menu item tooltip */
 "Disabled because this setting is being forced" = "Deaktivert fordi denne instillingen er tvungen";
-
-/* Menu item tooltip */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Deaktivert fordi du ikke har administratortilgang på denne maskinen, og 'onlyAdminCanUpdate' er satt";
 
 /* Menu item */
 "Disconnect %@%@" = "Koble fra %@%@";
@@ -544,9 +538,6 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"Tunnelblick.app" = "Tunnelblick.app";
-
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Innlogging kreves";
 
@@ -558,9 +549,6 @@
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Avinnstaller Tunnelblick VPN Konfigurasjon";
-
-/* Window title */
-"Updates are disabled" = "Oppdateringer er deaktivert";
 
 /* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Bruk 'down-root' plugin for OpenVPN?";
@@ -648,6 +636,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(hvis oppkoblet når bruker bytter)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "En konfigurasjon ble ikke installert. Se Konsoll loggen for detaljer.";
@@ -861,9 +852,6 @@
 
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Konfigurasjon '%@' er tom. Ønsker du å installere en eksempelkonfigurasjon med dette navnet?";
-
-/* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kan kun oppdateres hvis den heter 'Tunnelblick'. Du har endret filnlavnet til %@, så oppdateringer er deaktivert.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunne ikke startes grunnet konfigurasjonsproblemer. Vennligst undersøk konsoll loggen for detaljer.";

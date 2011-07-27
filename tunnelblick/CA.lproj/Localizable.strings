@@ -197,13 +197,7 @@
 "Delete Configuration's Credentials in Keychain..." = "Eliminar les credencials de la configuració del Gestor de Claus…";
 
 /* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "Deshabilitat ja que el nom de l'aplicació ha canviat";
-
-/* Menu item tooltip */
 "Disabled because this setting is being forced" = "Deshabilitat ja que aquesta configuració està sent forçada";
-
-/* Menu item tooltip */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Deshabilitat ja que no tens drets d'administració en aquest ordinador i la preferència 'onlyAdminCanUpdate' està activada";
 
 /* Menu item */
 "Disconnect %@%@" = "Desconnectar %@%@";
@@ -544,9 +538,6 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"Tunnelblick.app" = "Tunnelblick.app";
-
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Login necessari";
 
@@ -558,9 +549,6 @@
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Desinstal·lar la configuració VPN Tunnelblick";
-
-/* Window title */
-"Updates are disabled" = "Les actualitzacions estan deshabilitades";
 
 /* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Utilitzar el plugin 'down-root' per a OpenVPN?";
@@ -648,6 +636,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(si està connectat quan l'usuari surt)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "Un configuració no s'ha instal·lat. Consulta la Consola de missatges per més informació.";
@@ -861,9 +852,6 @@
 
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "La configuració VPN Tunnelblick '%@' és buida. Desitges instal·lar una configuració de guia amb aquest nom?";
-
-/* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick només pot ser actualitzat si el seu nom és 'Tunnelblick'. Has canviat el nom a %@, les actualitzacions estan deshabilitades.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick no s'ha arrencat per un problema amb la configuració. Si us plau, examina la consola de missatges ('Console Log') per més detalls.";

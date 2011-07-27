@@ -194,13 +194,7 @@
 "Delete Configuration's Credentials in Keychain..." = "Waarmerkingskenmerken van Configuratie Wissen in Sleutelhanger…";
 
 /* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "Uitgeschakeld omdat de naam van de toepassing werd gewijzigd";
-
-/* Menu item tooltip */
 "Disabled because this setting is being forced" = "Uitgeschakeld omdat deze instelling verplicht wordt opgelegd";
-
-/* Menu item tooltip */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Uitgeschakeld omdat u niet de beheerder van deze computer bent en de 'onlyAdminCanUpdate'-voorkeur is ingesteld";
 
 /* Menu item */
 "Disconnect %@%@" = "Verbinding met %@%@ verbreken";
@@ -541,9 +535,6 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"Tunnelblick.app" = "Tunnelblick.app";
-
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Aanloggen Vereist";
 
@@ -555,9 +546,6 @@
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN-Configuratie Verwijderen";
-
-/* Window title */
-"Updates are disabled" = "Updates zijn uitgeschakeld";
 
 /* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "'down-root' Plugin gebruiken voor OpenVPN?";
@@ -645,6 +633,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(indien verbonden wanneer de gebruiker is uitgeschakeld)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "Er werd geen configuratie geïnstalleerd. Zie het Console log voor details.";
@@ -864,9 +855,6 @@
 
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "De Tunnelblick VPN Configuratie '%@' is leeg. Wilt u een voorbeeldconfiguratie met die naam installeren?";
-
-/* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kan enkel worden geupdated indien het de naam 'Tunnelblick' heeft. U heeft de naam gewijzigd in %@, dus de updates zijn uitgeschakeld.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kon niet worden gestart wegens configuratieprobleem. Gelieve het Console Log te controleren voor details.";
