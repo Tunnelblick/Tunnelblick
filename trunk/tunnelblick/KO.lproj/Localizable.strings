@@ -197,13 +197,7 @@
 "Delete Configuration's Credentials in Keychain..." = "키체인에서 설정의 인증 삭제…";
 
 /* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "응용 프로그램 이름이 변경되었기 때문에 사용불가";
-
-/* Menu item tooltip */
 "Disabled because this setting is being forced" = "이 설정이 강제되었기 때문에 사용불가";
-
-/* Menu item tooltip */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "이 컴퓨터 관리자가 아니고 '관리자만 업데이트 가능'이 설정되어 있기 때문에 사용불가";
 
 /* Menu item */
 "Disconnect %@%@" = "%@%@ 연결 해제하기";
@@ -544,9 +538,6 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"Tunnelblick.app" = "Tunnelblick.app";
-
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: 로그인이 필요합니다";
 
@@ -558,9 +549,6 @@
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정을 삭제합니다";
-
-/* Window title */
-"Updates are disabled" = "업데이트를 할 수 없습니다";
 
 /* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "OpenVPN 용 'down-root' 플러그인 사용하겠습니까?";
@@ -648,6 +636,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(사용자 전환 할 때 연결되어 있었다면)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "설정이 설치되지 않았습니다. 자세한 것은 Console 로그을 보십시오.";
@@ -861,9 +852,6 @@
 
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN 설정 '%@'은 비어있습니다. 이 이름으로 예제 설정을 설치하겠습니까?";
-
-/* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick은 이름이 'Tunnelblick'일 때만 업데이트할 수 있습니다. 이름이 %@으로 변경되어 있어서 업데이트 할 수 없습니다.";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "설정에 문제가 있어서 Tunnelblick을 실행할 수 없습니다. 자세한 것은 Console 로그를 검토하십시오.";

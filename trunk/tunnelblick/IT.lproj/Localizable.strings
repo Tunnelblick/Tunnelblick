@@ -152,13 +152,7 @@
 "Delete Configuration's Credentials in Keychain..." = "Cancella le credenziali della configurazioni dal Keychain…";
 
 /* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "Disabilistata perchè il nome dell'applicazione è cambiato";
-
-/* Menu item tooltip */
 "Disabled because this setting is being forced" = "Disabilitato perchè questa impostazione è stata forzata";
-
-/* Menu item tooltip */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabilitato perchè tu non puoi amministrare questo computer e l'impostazione 'onlyAdminCanUpdate' è attiva";
 
 /* Menu item */
 "Disconnect %@%@" = "Disconnetti %@%@";
@@ -500,9 +494,6 @@
 "Tunnelblick" = "Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick.app" = "Tunnelblick.app";
-
-/* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: Login Required";
 
 /* NEEDS TRANSLATION *//* Window title */
@@ -513,9 +504,6 @@
 
 /* NEEDS TRANSLATION *//* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
-
-/* NEEDS TRANSLATION *//* Window title */
-"Updates are disabled" = "Updates are disabled";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
@@ -603,6 +591,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "(if connected when user switched out)" = "(if connected when user switched out)";
+
+/* NEEDS TRANSLATION *//* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* NEEDS TRANSLATION *//* Window text */
 "A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
@@ -816,9 +807,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";

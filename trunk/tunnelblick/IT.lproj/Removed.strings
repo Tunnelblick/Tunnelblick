@@ -1,0 +1,6 @@
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Disabilistata perchè il nome dell'applicazione è cambiato";
+
+/* Menu item tooltip */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Disabilitato perchè tu non puoi amministrare questo computer e l'impostazione 'onlyAdminCanUpdate' è attiva";
+

@@ -287,15 +287,7 @@
 
 
 /* Menu item tooltip */
-"Disabled because the name of the application has been changed" = "已经被禁用, 因为应用程序名已经改变";
-
-
-/* Menu item tooltip */
 "Disabled because this setting is being forced" = "已经被禁用, 因为此选项是强制的";
-
-
-/* Menu item tooltip */
-"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "已经被禁用, 因为你不是此计算机的管理员, 而 'onlyAdminCanUpdate' 选项已经选择";
 
 
 /* Menu item */
@@ -802,10 +794,6 @@
 "Tunnelblick" = "Tunnelblick";
 
 
-/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
-"Tunnelblick.app" = "Tunnelblick.app";
-
-
 /* Window title */
 "Tunnelblick: Login Required" = "Tunnelblick: 需要登入";
 
@@ -820,10 +808,6 @@
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "卸载 Tunnelblick VPN 设置";
-
-
-/* Window title */
-"Updates are disabled" = "更新已经被禁用";
 
 
 /* Window title */
@@ -947,6 +931,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(用户转出时, 如果有连接)";
+/* NEEDS TRANSLATION *//* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
 
 
 /* Window text */
@@ -1323,10 +1310,6 @@
 
 /* Window text VPNService */
 "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick 可以让你自由地浏览互联网，同时对你的网络通讯进行加密.";
-
-
-/* Window text */
-"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "只有当 Tunnelblick 程序的名字是 'Tunnelblick' 时, 它才能更新. 你已经将其改名为 %@, 所以更新已经被禁用.";
 
 
 /* Window text */

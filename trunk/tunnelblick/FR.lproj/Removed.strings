@@ -1,0 +1,15 @@
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Désactivée parce que le nom d’application a été changé";
+
+/* Menu item tooltip */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Désactivée parce que vous ne pouvez pas administrer cette ordinateur et la preference « onlyAdminCanUpdate » est choisie.";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+"Tunnelblick.app" = "Tunnelblick.app";
+
+/* Window title */
+"Updates are disabled" = "Mises à jour sont désactivées";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick ne peut pas être mis à jour, sauf si son nom est « Tunnelblick ». Vous avez changé le nom en « %@ », alors les mises à jour ne sont pas disponibles.";
+
