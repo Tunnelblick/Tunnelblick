@@ -1327,10 +1327,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     if (  [self selectedConnection]  ) {
         NSString * configurationPath = [[self selectedConnection] configPath];
-        BOOL enableWhenComputerStarts = ! [configurationPath hasPrefix: gPrivatePath];
-        if (  enableWhenComputerStarts  ) {
-            [self setSelectedWhenToConnectIndex: 2];
-        } else {
+        if (  [configurationPath hasPrefix: gPrivatePath]  ) {
             NSInteger ix = selectedWhenToConnectIndex;
             selectedWhenToConnectIndex = 2;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
@@ -1339,6 +1336,16 @@ static BOOL firstTimeShowingWindow = TRUE;
                             NSLocalizedString(@"Private configurations cannot connect when the computer starts.\n\n"
                                               "First make the configuration shared, then change this setting.", @"Window text"),
                             nil, nil, nil);
+        } else if (  ! [[configurationPath pathExtension] isEqualToString: @"tblk"]  ) {
+            NSInteger ix = selectedWhenToConnectIndex;
+            selectedWhenToConnectIndex = 2;
+            [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
+            [self setSelectedWhenToConnectIndex: ix];
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            NSLocalizedString(@"Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts.", @"Window text"),
+                            nil, nil, nil);
+        } else {
+            [self setSelectedWhenToConnectIndex: 2];
         }
     } else {
         NSLog(@"whenToConnectOnComputerStartMenuItemWasClicked but no configuration selected");
@@ -1622,6 +1629,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
+    selectedWhenToConnectIndex = ix;
     [[configurationsPrefsView whenToConnectOnComputerStartMenuItem] setEnabled: enableWhenComputerStarts];
     
     BOOL enable = (   [gTbDefaults canChangeValueForKey: autoConnectKey]

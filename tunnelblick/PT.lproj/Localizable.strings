@@ -757,6 +757,9 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Uma ou mais configurações estão sendo ignoradas. Veja o Log do Console para detalhes.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts.";
+
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "O OpenVPN não respondeu para solicitações de desconexão por %d segundos.\n\nA conexão será considerada desconectada, mas as configurações de rede deste computador podem estar em um estado inconsistente.";
 
