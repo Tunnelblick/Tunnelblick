@@ -23,13 +23,19 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface InstallWindowController : NSWindowController
+@interface SplashWindowController : NSWindowController
 {
     IBOutlet NSImageView        * iconIV;
     
     IBOutlet NSTextFieldCell    * mainText;
+    
+    IBOutlet NSTextFieldCell    * copyrightTFC;
+    
+    NSString                    * message;
 }
 
-TBPROPERTY_WRITEONLY(NSTextFieldCell *, mainText, setMainText)
+-(void) fadeOut;
+
+TBPROPERTY(NSString *, message, setMessage)
 
 @end

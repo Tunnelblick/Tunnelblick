@@ -221,6 +221,9 @@
 "Display connection timers" = "Display connection timers";
 
 /* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+
+/* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
 
 /* Checkbox name */
@@ -638,6 +641,9 @@
 "Connection:" = "Connection:";
 
 /* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+
+/* Window text */
 "DNS servers:" = "DNS servers:";
 
 /* Window text */
@@ -674,7 +680,16 @@
 "Icon:" = "Icon:";
 
 /* Window text */
+"Installation finished successfully." = "Installation finished successfully.";
+
+/* Window text */
 "Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
+
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+
+/* Window text */
+"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
 
 /* Window text */
 "Keyboard shortcut:" = "Keyboard shortcut:";
@@ -737,16 +752,22 @@
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
 /* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured…";
-
-/* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
 
 /* Window text */
 "Search domain:" = "Search domain:";
 
 /* Window text */
+"Securing Tunnelblick..." = "Securing Tunnelblick…";
+
+/* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* Window text */
+"Starting Tunnelblick..." = "Starting Tunnelblick…";
+
+/* Window text */
+"Startup window:" = "Startup window:";
 
 /* Window text */
 "That name is being used.\n\n" = "That name is being used.\n\n";
@@ -848,10 +869,16 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+
+/* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";

@@ -13,3 +13,6 @@
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick обновляется, только если он называется 'Tunnelblick'. Вы же переименовали его в %@, поэтому обновления отключены.";
 
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Пожалуйста, подождите, пока Tunnelblick установится и произведет настройки безопасности…";
+

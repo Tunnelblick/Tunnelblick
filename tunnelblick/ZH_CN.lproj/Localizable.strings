@@ -356,6 +356,9 @@
 
 /* Checkbox name */
 "Display connection timers" = "显示连接计时器";
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+
 
 
 /* Checkbox name */
@@ -990,6 +993,9 @@
 
 /* Window text */
 "Connection:" = "连接:";
+/* NEEDS TRANSLATION *//* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+
 
 
 /* Window text VPNService */
@@ -1058,10 +1064,19 @@
 
 /* Window text */
 "Icon:" = "图标:";
+/* NEEDS TRANSLATION *//* Window text */
+"Installation finished successfully." = "Installation finished successfully.";
+
 
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = "不允许安装 .tblk 软件包";
+/* NEEDS TRANSLATION *//* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+
 
 
 /* Window text VPNService */
@@ -1164,15 +1179,14 @@
 
 
 /* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "正在安装 Tunnelblick 同时进行安全设置, 请稍等…";
-
-
-/* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "私人设置不能在计算机启动时连接.\n\n请先将此设置设为共享, 然后更改此选项.";
 
 
 /* Window text */
 "Search domain:" = "搜索域:";
+/* NEEDS TRANSLATION *//* Window text */
+"Securing Tunnelblick..." = "Securing Tunnelblick…";
+
 
 
 /* Window text VPNService */
@@ -1189,6 +1203,12 @@
 
 /* Window text VPNService */
 "Sorry, but your request for an account could not be processed:\n     %@" = "对不起, 你对帐户的操作未能完成:\n     %@";
+/* NEEDS TRANSLATION *//* Window text */
+"Starting Tunnelblick..." = "Starting Tunnelblick…";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Startup window:" = "Startup window:";
+
 
 
 /* Window text VPNService */
@@ -1357,6 +1377,9 @@
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick 未能修复 '%@' 的偏好设置问题. 详情请查看控制台日志";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+
 
 
 /* Window text */
@@ -1364,6 +1387,9 @@
 
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick 基于 %@. ";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick is ready." = "Tunnelblick is ready.";
+
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick 需要新建一个设置文件的隐藏副本.";
