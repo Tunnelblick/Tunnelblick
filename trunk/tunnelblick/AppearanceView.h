@@ -34,6 +34,9 @@
     IBOutlet NSButton           * appearanceDisplayConnectionSubmenusCheckbox;
     IBOutlet NSButton           * appearanceDisplayConnectionTimersCheckbox;
     
+    IBOutlet NSTextFieldCell    * appearanceSplashTFC;
+    IBOutlet NSButton           * appearanceDisplaySplashScreenCheckbox;
+
     IBOutlet NSTextFieldCell    * appearanceConnectionWindowDisplayCriteriaTFC;
     IBOutlet NSArrayController  * appearanceConnectionWindowDisplayCriteriaArrayController;
     IBOutlet NSButton           * appearanceConnectionWindowDisplayCriteriaButton;
@@ -47,6 +50,8 @@ TBPROPERTY_READONLY(NSButton *,          appearancePlaceIconNearSpotlightCheckbo
 
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionSubmenusCheckbox)
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayConnectionTimersCheckbox)
+
+TBPROPERTY_READONLY(NSButton *,          appearanceDisplaySplashScreenCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)

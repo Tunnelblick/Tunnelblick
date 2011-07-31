@@ -122,6 +122,8 @@ extern TBUserDefaults * gTbDefaults;
                                                 NSMakeRange( 0, [creditsString length] ) 
                                                         documentAttributes:nil]];
     }
+    
+    [infoCopyrightTFC setTitle: copyrightNotice()];
 }
 
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier

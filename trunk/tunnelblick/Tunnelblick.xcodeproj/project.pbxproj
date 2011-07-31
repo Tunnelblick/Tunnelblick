@@ -79,8 +79,8 @@
 		63611FD113CE2A8B000240F0 /* RU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63611FCD13CE2A8B000240F0 /* RU.lproj */; };
 		6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */; };
 		6375FB4B1387F0E20034CB78 /* SettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */; };
-		637A871913B74B81003C1871 /* InstallWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* InstallWindowController.m */; };
-		637A871C13B74DFB003C1871 /* InstallWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637A871B13B74DFB003C1871 /* InstallWindow.xib */; };
+		637A871913B74B81003C1871 /* SplashWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A871813B74B81003C1871 /* SplashWindowController.m */; };
+		637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637A871B13B74DFB003C1871 /* SplashWindow.xib */; };
 		637A879B13B75694003C1871 /* tb-logo-309x64-2011-06-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		637BE08513A0218A00673909 /* Preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 637BE08413A0218A00673909 /* Preferences.png */; };
@@ -310,9 +310,9 @@
 		6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSheetWindowController.m; sourceTree = "<group>"; };
 		6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSheetWindowController.h; sourceTree = "<group>"; };
 		6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSheet.xib; sourceTree = "<group>"; };
-		637A871713B74B81003C1871 /* InstallWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallWindowController.h; sourceTree = "<group>"; };
-		637A871813B74B81003C1871 /* InstallWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstallWindowController.m; sourceTree = "<group>"; };
-		637A871B13B74DFB003C1871 /* InstallWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstallWindow.xib; sourceTree = "<group>"; };
+		637A871713B74B81003C1871 /* SplashWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashWindowController.h; sourceTree = "<group>"; };
+		637A871813B74B81003C1871 /* SplashWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindowController.m; sourceTree = "<group>"; };
+		637A871B13B74DFB003C1871 /* SplashWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashWindow.xib; sourceTree = "<group>"; };
 		637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb-logo-309x64-2011-06-26.png"; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		637BE08413A0218A00673909 /* Preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Preferences.png; sourceTree = "<group>"; };
@@ -645,8 +645,8 @@
 			isa = PBXGroup;
 			children = (
 				635ECCF71378886E00F67F8D /* Preferences */,
-				637A871713B74B81003C1871 /* InstallWindowController.h */,
-				637A871813B74B81003C1871 /* InstallWindowController.m */,
+				637A871713B74B81003C1871 /* SplashWindowController.h */,
+				637A871813B74B81003C1871 /* SplashWindowController.m */,
 				63ABFE9A1349E435003DEB64 /* LoginWindowController.h */,
 				63ABFE9B1349E435003DEB64 /* LoginWindowController.m */,
 				6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */,
@@ -759,7 +759,7 @@
 			isa = PBXGroup;
 			children = (
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
-				637A871B13B74DFB003C1871 /* InstallWindow.xib */,
+				637A871B13B74DFB003C1871 /* SplashWindow.xib */,
 				6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */,
 				63ABFE9E1349F086003DEB64 /* LoginWindow.xib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
@@ -952,7 +952,7 @@
 				633C881D13A3B770000F5E94 /* ActionMenuButtonImage.tiff in Resources */,
 				633C881E13A3B770000F5E94 /* AddButtonImage.tiff in Resources */,
 				633C881F13A3B770000F5E94 /* RemoveButtonImage.tiff in Resources */,
-				637A871C13B74DFB003C1871 /* InstallWindow.xib in Resources */,
+				637A871C13B74DFB003C1871 /* SplashWindow.xib in Resources */,
 				637A879B13B75694003C1871 /* tb-logo-309x64-2011-06-26.png in Resources */,
 				631310D913CA18870071C110 /* NL.lproj in Resources */,
 				63611FD113CE2A8B000240F0 /* RU.lproj in Resources */,
@@ -1076,7 +1076,7 @@
 				63E56EEE13848338007E39AB /* VPNServiceWelcomeController.m in Sources */,
 				6375FB481387F0270034CB78 /* SettingsSheetWindowController.m in Sources */,
 				634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */,
-				637A871913B74B81003C1871 /* InstallWindowController.m in Sources */,
+				637A871913B74B81003C1871 /* SplashWindowController.m in Sources */,
 				63DEC29013B890F70063CE11 /* NSString+TB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

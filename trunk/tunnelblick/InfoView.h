@@ -35,6 +35,8 @@
     IBOutlet NSTextView         * infoCreditTV;
     IBOutlet NSScrollView       * infoCreditSV;
 
+    IBOutlet NSTextFieldCell    * infoCopyrightTFC;
+    
     NSImage                     * logo;
     
     NSTimer                     * scrollTimer;

@@ -37,6 +37,8 @@ BOOL           copyCredentials          (NSString * fromDisplayName,
 BOOL           moveCredentials          (NSString * fromDisplayName,
                                          NSString * toDisplayName);
 
+NSString     * copyrightNotice          ();
+
 NSString     * newTemporaryDirectoryPath(void);
 
 NSString     * escaped                  (NSString * string);

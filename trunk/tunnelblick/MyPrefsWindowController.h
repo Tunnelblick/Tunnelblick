@@ -147,6 +147,8 @@
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (id) sender;
 -(IBAction) appearanceDisplayConnectionTimersCheckboxWasClicked:   (id) sender;
 
+-(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (id) sender;
+
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 
 
