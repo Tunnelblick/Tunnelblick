@@ -199,6 +199,9 @@
 /* Checkbox name */
 "Display connection timers" = "Mostra i timer della connessione";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Non chiedere di nuovo,'Ignora' sempre";
 
@@ -632,6 +635,9 @@
 "Connection:" = "Connection:";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "DNS servers:" = "DNS servers:";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -668,7 +674,16 @@
 "Icon:" = "Icon:";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Installation finished successfully." = "Installation finished successfully.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Keyboard shortcut:" = "Keyboard shortcut:";
@@ -734,16 +749,22 @@
 "Please insert token \"%@\", then click \"OK\"" = "Please insert token \"%@\", then click \"OK\"";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Please wait while Tunnelblick is being installed and secured…";
-
-/* NEEDS TRANSLATION *//* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Search domain:" = "Search domain:";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Securing Tunnelblick..." = "Securing Tunnelblick…";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Set DNS/WINS:" = "Set DNS/WINS:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Starting Tunnelblick..." = "Starting Tunnelblick…";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Startup window:" = "Startup window:";
 
 /* NEEDS TRANSLATION *//* Window text */
 "That name is being used.\n\n" = "That name is being used.\n\n";
@@ -845,10 +866,16 @@
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
 
 /* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";

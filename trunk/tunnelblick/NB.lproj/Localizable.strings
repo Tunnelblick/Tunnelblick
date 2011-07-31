@@ -247,6 +247,9 @@
 /* Checkbox name */
 "Display connection timers" = "Vis oppkoblings tidsur";
 
+/* NEEDS TRANSLATION *//* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Ikke spør igjen, 'Ignorer' alltid";
 
@@ -676,6 +679,9 @@
 /* Window text */
 "Connection:" = "Oppkobling:";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+
 /* Window text */
 "DNS servers:" = "DNS servere:";
 
@@ -712,8 +718,17 @@
 /* Window text */
 "Icon:" = "Ikon:";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Installation finished successfully." = "Installation finished successfully.";
+
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Installasjon av .tblk pakker er ikke tilatt";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
 
 /* Window text */
 "Keyboard shortcut:" = "Tastatur snarvei:";
@@ -779,16 +794,22 @@
 "Please insert token \"%@\", then click \"OK\"" = "Vennligst tast inn kode \"%@\", klikk deretter \"OK\"";
 
 /* Window text */
-"Please wait while Tunnelblick is being installed and secured..." = "Vennligst vent mens Tunnelblick blir installert og sikret…";
-
-/* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private konfigurasjoner kan ikke koble til automatisk når datamaskinen starter.\n\nGjør først konfigurasjonen delt, deretter kan du endre denne instillingen.";
 
 /* Window text */
 "Search domain:" = "Søk domenet:";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Securing Tunnelblick..." = "Securing Tunnelblick…";
+
 /* Window text */
 "Set DNS/WINS:" = "Sett DNS/WINS:";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Starting Tunnelblick..." = "Starting Tunnelblick…";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Startup window:" = "Startup window:";
 
 /* Window text */
 "That name is being used.\n\n" = "Navnet er allerede i bruk.\n\n";
@@ -889,11 +910,17 @@
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick klarte ikke å reparere problemene med instillingene til '%@'. Se Konsoll loggen for detaljer";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick koblet fra '%@' siden konfigurasjonsfilen har blitt fjernet.";
 
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick er basert på %@. ";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick is ready." = "Tunnelblick is ready.";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick må lage en skyggekopi av konfigurasjonsfilen.";

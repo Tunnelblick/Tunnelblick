@@ -21,19 +21,17 @@
 
 
 #import "defines.h"
-#import "InstallWindowController.h"
+#import "SplashWindowController.h"
+#import "helper.h"
 
-
-@implementation InstallWindowController
+@implementation SplashWindowController
 
 
 -(id) init
 {
-    if (  ![super initWithWindowNibName:@"InstallWindow"]  ) {
+    if (  ![super initWithWindowNibName:@"SplashWindow"]  ) {
         return nil;
     }
-
-    [super showWindow: self];
 
     return self;
 }
@@ -44,13 +42,13 @@
     
     [iconIV setImage: [NSImage imageNamed: @"tb-logo-309x64-2011-06-26"]];
     
-    NSString * text = NSLocalizedString(@"Please wait while Tunnelblick is being installed and secured...", @"Window text");
-    [mainText setTitle: text];
+    [mainText setTitle: message];
+    
+    [copyrightTFC setStringValue: copyrightNotice()];
     
     [[self window] center];
     [[self window] display];
     [self showWindow: self];
-    [NSApp activateIgnoringOtherApps: YES];
     [[self window] makeKeyAndOrderFront: self];
 }
 
@@ -58,8 +56,21 @@
 {
     [iconIV   release];
     [mainText release];
+    [message  release];
+    [copyrightTFC release];
     
 	[super dealloc];
+}
+
+-(void) fadeOut
+{
+    NSWindow * window = [self window];
+    if (   [window respondsToSelector: @selector(animator)]
+        && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
+        [[window animator] setAlphaValue:0.0];
+    } else {
+        [window close];
+    }
 }
 
 - (NSString *) description
@@ -67,5 +78,17 @@
     return [NSString stringWithFormat:@"%@", [self class]];
 }
 
-TBSYNTHESIZE_OBJECT_SET(NSTextFieldCell *, mainText, setMainText)
+-(void) setMessage: (NSString *) newValue
+{
+    [newValue retain];
+    [message release];
+    message = newValue;
+    
+    if (  mainText  ) {
+        [mainText setTitle: newValue];
+        [[self window] display];
+    }
+}
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSString *, message)
 @end

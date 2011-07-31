@@ -13,3 +13,6 @@
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kann nur upgedatet werden, wenn es „Tunnelblick“ heißt. Sie haben es in „%@“ umgenannt, daher sind die Updates deaktiviert.";
 
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Bitte warren Sie, während Tunnelblick installiert und gesichert wird…";
+

@@ -18,3 +18,7 @@
 
 /* Window text */
 "Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "只有当 Tunnelblick 程序的名字是 'Tunnelblick' 时, 它才能更新. 你已经将其改名为 %@, 所以更新已经被禁用.";
+
+
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "正在安装 Tunnelblick 同时进行安全设置, 请稍等…";
