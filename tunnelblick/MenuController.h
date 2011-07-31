@@ -34,7 +34,7 @@
 @class ConfigurationUpdater;
 @class MyPrefsWindowController;
 @class NetSocket;
-@class InstallWindowController;
+@class SplashWindowController;
 
 #ifdef INCLUDE_VPNSERVICE
 @class VPNService;
@@ -83,7 +83,7 @@ BOOL needToCopyBundle(void);
     
     MyPrefsWindowController * logScreen;                    // Log window ("VPN Details..." window)
     
-    InstallWindowController * installScreen;                // Install window
+    SplashWindowController * splashScreen;                 // Splash window (used for install also)
     
     NSMutableArray          * dotTblkFileList;              // Array of paths to .tblk files that should be "opened" (i.e., installed) when we're finished launching
     

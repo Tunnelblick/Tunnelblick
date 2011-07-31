@@ -2084,6 +2084,11 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
                      inverted: NO
                    defaultsTo: FALSE];
     
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplaySplashScreenCheckbox]
+                preferenceKey: @"doNotShowSplashScreen"
+                     inverted: YES
+                   defaultsTo: FALSE];
+    
     [self setValueForCheckbox: [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox]
                 preferenceKey: @"placeIconInStandardPositionInStatusBar"
                      inverted: YES
@@ -2142,6 +2147,15 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
 	}
     
     [[NSApp delegate] changedDisplayConnectionTimersSettings];
+}
+
+-(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked: (id) sender
+{
+	if (  [sender state]  ) {
+		[gTbDefaults setBool: FALSE forKey:@"doNotShowSplashScreen"];
+	} else {
+		[gTbDefaults setBool: TRUE  forKey:@"doNotShowSplashScreen"];
+	}
 }
 
 -(IBAction) appearancePlaceIconNearSpotlightCheckboxWasClicked: (id) sender

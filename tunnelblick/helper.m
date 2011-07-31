@@ -860,6 +860,16 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
     return TRUE;
 }
 
+NSString * copyrightNotice()
+{
+    NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormat setDateFormat:@"YYYY"];
+    NSString * year = [dateFormat stringFromDate: [NSDate date]];
+    return [NSString stringWithFormat:
+            NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub and others.", @"Window text"),
+            year];
+}
+
 // This method translates and returns non-literal OpenVPN message.
 // It is used to consolidate the use of NS LocalizedString (non-literal-string...) in one place to minimize warnings from genstrings.
 //                                        ^ space inserted to keep genstrings from finding this

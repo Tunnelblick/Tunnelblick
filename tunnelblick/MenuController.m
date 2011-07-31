@@ -40,7 +40,7 @@
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
 #import "MyPrefsWindowController.h"
-#import "InstallWindowController.h"
+#import "SplashWindowController.h"
 #import "ConfigurationUpdater.h"
 #import "UKKQueue/UKKQueue.h"
 #import "Sparkle/SUUpdater.h"
@@ -251,6 +251,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"doNotShowKeyboardShortcutSubmenu",
                                 @"doNotShowCheckForUpdatesNowMenuItem",
                                 @"doNotShowAddConfigurationMenuItem",
+                                @"doNotShowSplashScreen",
                                 @"showConnectedDurations",
                                 @"maximumNumberOfTabs",
                                 @"onlyAdminCanUpdate",
@@ -341,10 +342,43 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                       @"-doNotShowOnTunnelblickMenu",
                                       nil] retain];
         
+        // We haven't loaded the preferences yet, so we check them by checking the preference files directly
+        // This means that the splash screen will show up for an update from a non-Deployed version to a Deployed versone that specifies
+        // a forced preference to not display it. (Because we haven't replaced the Deploy folder yet.)
+        BOOL showSplashScreen = TRUE;
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        id obj = [dict objectForKey: @"doNotShowSplashScreen"];
+        if (  obj  ) {
+            if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+                if (  [obj boolValue]  ) {
+                    showSplashScreen = FALSE;
+                }
+            }
+        } else {
+            NSString * prefsPath = [[[NSHomeDirectory() stringByAppendingPathComponent: @"Library/Preferences"]
+                                     stringByAppendingPathComponent: [[NSBundle mainBundle] bundleIdentifier]]
+                                     stringByAppendingPathExtension: @"plist"];
+            dict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
+            id obj = [dict objectForKey: @"doNotShowSplashScreen"];
+            if (  obj  ) {
+                if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+                    if (  [obj boolValue]  ) {
+                        showSplashScreen = FALSE;
+                    }
+                }
+            }
+        }
+        if (  showSplashScreen  ) {
+            splashScreen = [[SplashWindowController alloc] init];
+            NSString * text = NSLocalizedString(@"Starting Tunnelblick...", @"Window text");
+            [splashScreen setMessage: text];
+            [splashScreen showWindow: self];
+        }
+        
         // Create private configurations folder if necessary
         createDir(gPrivatePath, 0755);
         
-        [self dmgCheck];    // If running from a place that can't do suid (e.g., a disk image), this method does not return
+        [self dmgCheck];    // If running from a place that can't do suid (e.g., a disk image), THIS METHOD DOES NOT RETURN
 		
         // Run the installer only if necessary. The installer restores Resources/Deploy and/or repairs permissions,
         // moves the config folder if it hasn't already been moved, and backs up Resources/Deploy if it exists
@@ -359,6 +393,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                  &needsPkgRepair,
                                  &needsBundleCopy,
                                  FALSE )  ) {
+            
+            NSString * text = NSLocalizedString(@"Securing Tunnelblick...", @"Window text");
+            [splashScreen setMessage: text];
             if (  ! [self runInstallerRestoreDeploy: needsRestoreDeploy
                                             copyApp: NO
                                           repairApp: needsChangeOwnershipAndOrPermissions
@@ -369,8 +406,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                 [NSApp setAutoLaunchOnLogin: NO];
                 [NSApp terminate:self];
             }
+            
+            text = NSLocalizedString(@"Tunnelblick has been secured successfully.", @"Window text");
+            [splashScreen setMessage: text];
         }
-        
+                
         // If this is the first time we are using the new CFBundleIdentifier
         //    Rename the old preferences so we can access them with the new CFBundleIdentifier
         //    And create a link to the new preferences from the old preferences (make the link read-only)
@@ -407,7 +447,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         // Set up to override user preferences from Deploy/forced-permissions.plist if it exists,
         // Otherwise use our equivalent of [NSUserDefaults standardUserDefaults]
-        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
+        dict = [NSDictionary dictionaryWithContentsOfFile: [gDeployPath stringByAppendingPathComponent: @"forced-preferences.plist"]];
         gTbDefaults = [[TBUserDefaults alloc] initWithForcedDictionary: dict
                                                 andSecondaryDictionary: nil
                                                      usingUserDefaults: YES];
@@ -2640,10 +2680,16 @@ static void signal_handler(int signalNumber)
     if (  dotTblkFileList  ) {
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
         ignoreNoConfigs = TRUE;
+        NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
+        [splashScreen setMessage: text];
+
         [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList
                                                          usingAuth: gAuthorization
                                            skipConfirmationMessage: YES
                                                  skipResultMessage: YES];
+        text = NSLocalizedString(@"Installation finished successfully.", @"Window text");
+        [splashScreen setMessage: text];
+
         ignoreNoConfigs = oldIgnoreNoConfigs;
     }
     
@@ -2749,6 +2795,11 @@ static void signal_handler(int signalNumber)
         NSLog(@"VPNService enabled but vpnService object is NULL");
     }
 #endif
+    
+    NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
+    [splashScreen setMessage: text];
+
+    [splashScreen fadeOut];
     
     launchFinished = TRUE;
 }
@@ -3250,8 +3301,8 @@ static void signal_handler(int signalNumber)
             NSLog(@"Error: [NSApp countOtherInstances] returned -1");
         }
         
-        
-        installScreen = [[InstallWindowController alloc] init];
+        NSString * text = NSLocalizedString(@"Installing and securing Tunnelblick...", @"Window text");
+        [splashScreen setMessage: text];
         
         // Install .tblks
         if (  tblksToInstallPaths  ) {
@@ -3269,27 +3320,30 @@ static void signal_handler(int signalNumber)
                                  repairPackages: YES
                                      copyBundle: YES]  ) {
             // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
-            [installScreen close];
+            [NSApp setAutoLaunchOnLogin: NO];
             [NSApp terminate:self];
         }
         
         // Install configurations from Tunnelblick Configurations.bundle if any were copied
         NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
         if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
+            NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
+            [splashScreen setMessage: text];
             launchFinished = TRUE;  // Fake out openFiles so it installs the .tblk(s) immediately
             [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
             launchFinished = FALSE;
         }
         
-        [installScreen close];
-        [installScreen release];
-        installScreen = nil;
-        
+        text = NSLocalizedString(@"Installation finished successfully.", @"Window text");
+        [splashScreen setMessage: text];
         response = TBRunAlertPanel(launchWindowTitle,
                                    launchWindowText,
                                    NSLocalizedString(@"Launch", "Button"), // Default button
                                    NSLocalizedString(@"Quit", "Button"), // Alternate button
                                    nil);
+        
+        [splashScreen fadeOut];
+        
         if (  response == NSAlertDefaultReturn  ) {
             // Launch the program in /Applications
             if (  ! [[NSWorkspace sharedWorkspace] launchApplication: tbInApplicationsPath]  ) {

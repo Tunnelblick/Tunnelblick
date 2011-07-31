@@ -90,10 +90,13 @@ extern NSFileManager  * gFileMgr;
     
     
     // Menu checkboxes
-    
     [appearanceMenuTFC setTitle: NSLocalizedString(@"Menu:", @"Window text")];
     [appearanceDisplayConnectionSubmenusCheckbox setTitle: NSLocalizedString(@"Display connection submenus",       @"Checkbox name")];
     [appearanceDisplayConnectionTimersCheckbox   setTitle: NSLocalizedString(@"Display connection timers",         @"Checkbox name")];
+    
+    // Splash screen checkboxes
+    [appearanceSplashTFC setTitle: NSLocalizedString(@"Startup window:", @"Window text")];
+    [appearanceDisplaySplashScreenCheckbox setTitle: NSLocalizedString(@"Display window while Tunnelblick is starting up", @"Checkbox name")];
     
     
     // Connection window display criteria
@@ -149,6 +152,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearancePlaceIconNearSpotli
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionSubmenusCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayConnectionTimersCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreenCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
