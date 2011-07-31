@@ -26,6 +26,7 @@
 
 #include "error.h"
 #include "buffer.h"
+#include "thread.h"
 #include "misc.h"
 #include "win32.h"
 #include "socket.h"
@@ -228,6 +229,8 @@ void x_msg (const unsigned int flags, const char *format, ...)
 
   gc_init (&gc);
 
+  mutex_lock_static (L_MSG);
+
   m1 = (char *) gc_malloc (ERR_BUF_SIZE, false, &gc);
   m2 = (char *) gc_malloc (ERR_BUF_SIZE, false, &gc);
 
@@ -327,12 +330,22 @@ void x_msg (const unsigned int flags, const char *format, ...)
 	    }
 	  else
 	    {
+#ifdef USE_PTHREAD
+	      fprintf (fp, "%s [%d] %s%s%s%s",
+		       time_string (0, 0, show_usec, &gc),
+		       (int) openvpn_thread_self (),
+		       prefix,
+		       prefix_sep,
+		       m1,
+		       (flags&M_NOLF) ? "" : "\n");
+#else
 	      fprintf (fp, "%s %s%s%s%s",
 		       time_string (0, 0, show_usec, &gc),
 		       prefix,
 		       prefix_sep,
 		       m1,
 		       (flags&M_NOLF) ? "" : "\n");
+#endif
 	    }
 	  fflush(fp);
 	  ++x_msg_line_num;
@@ -342,6 +355,8 @@ void x_msg (const unsigned int flags, const char *format, ...)
   if (flags & M_FATAL)
     msg (M_INFO, "Exiting");
 
+  mutex_unlock_static (L_MSG);
+  
   if (flags & M_FATAL)
     openvpn_exit (OPENVPN_EXIT_STATUS_ERROR); /* exit point */
 
@@ -506,7 +521,7 @@ redirect_stdout_stderr (const char *file, bool append)
       
       /* open log_handle as FILE stream */
       ASSERT (msgfp == NULL);
-      msgfp = _fdopen (log_fd, "wt");
+      msgfp = _fdopen (log_fd, "w");
       if (msgfp == NULL)
 	msg (M_ERR, "Error: --log redirect failed due to _fdopen");
 
@@ -638,11 +653,35 @@ x_check_status (int status,
  */
 const char *x_msg_prefix; /* GLOBAL */
 
+#ifdef USE_PTHREAD
+pthread_key_t x_msg_prefix_key; /* GLOBAL */
+#endif
+
 /*
  * Allow MSG to be redirected through a virtual_output object
  */
 
 const struct virtual_output *x_msg_virtual_output; /* GLOBAL */
+
+/*
+ * Init thread-local variables
+ */
+
+void
+msg_thread_init (void)
+{
+#ifdef USE_PTHREAD
+  ASSERT (!pthread_key_create (&x_msg_prefix_key, NULL));
+#endif
+}
+
+void
+msg_thread_uninit (void)
+{
+#ifdef USE_PTHREAD
+  pthread_key_delete (x_msg_prefix_key);
+#endif
+}
 
 /*
  * Exiting.

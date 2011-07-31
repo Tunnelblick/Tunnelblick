@@ -6,7 +6,6 @@
 #             packet compression.
 #
 #  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
-#  Copyright (C) 2010      David Sommerseth <dazo@users.sourceforge.net>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2
@@ -38,7 +37,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/depcomp $(srcdir)/aclocal.m4 \
 	$(srcdir)/config.guess $(srcdir)/config.sub \
 	$(srcdir)/openvpn.spec
-CLEANFILES = openvpn.8.html configure.h
+CLEANFILES = openvpn.8.html
 
 EXTRA_DIST = \
 	easy-rsa \
@@ -57,25 +56,22 @@ SUBDIRS = \
 	service-win32 \
 	install-win32
 
-TESTS = t_client.sh t_lpback.sh t_cltsrv.sh
+TESTS = t_lpback.sh t_cltsrv.sh
 sbin_PROGRAMS = openvpn
 
-dist_doc_DATA = \
-	management/management-notes.txt
+dist_noinst_HEADERS =
 
 dist_noinst_SCRIPTS = \
 	$(TESTS) \
 	doclean \
 	domake-win \
-	t_cltsrv-down.sh \
-	configure_h.awk configure_log.awk
+	t_cltsrv-down.sh
 
 dist_noinst_DATA = \
 	openvpn.spec \
 	COPYRIGHT.GPL \
 	PORTS \
-	INSTALL-win32.txt \
-	service-win32/msvc.mak
+	INSTALL-win32.txt
 
 openvpn_SOURCES = \
         base64.c base64.h \
@@ -140,16 +136,11 @@ openvpn_SOURCES = \
 	ssl.c ssl.h \
 	status.c status.h \
 	syshead.h \
+	thread.c thread.h \
 	tun.c tun.h \
 	win32.h win32.c \
 	cryptoapi.h cryptoapi.c
 
-nodist_openvpn_SOURCES = configure.h
-options.$(OBJEXT): configure.h
-
-configure.h: Makefile
-	awk -f $(srcdir)/configure_h.awk config.h > $@
-	awk -f $(srcdir)/configure_log.awk config.log >> $@
 
 dist-hook:
 	cd $(distdir) && for i in $(EXTRA_DIST) $(SUBDIRS) ; do find $$i -name .svn -type d -prune -exec rm -rf '{}' ';' ; rm -f `find $$i -type f | grep -E '(^|\/)\.?\#|\~$$|\.s?o$$'` ; done

@@ -33,8 +33,6 @@
 #include "manage.h"
 #include "base64.h"
 #include "pkcs11.h"
-#include "misc.h"
-#include "otime.h"
 
 static
 time_t
@@ -984,7 +982,5 @@ cleanup:
 }
 
 #else
-#ifdef _MSC_VER  /* Dummy function needed to avoid empty file compiler warning in Microsoft VC */
 static void dummy (void) {}
-#endif
 #endif /* ENABLE_PKCS11 */

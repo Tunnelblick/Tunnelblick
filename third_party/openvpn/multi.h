@@ -56,6 +56,7 @@ struct multi_reap
 struct multi_instance {
   struct schedule_entry se;    /* this must be the first element of the structure */
   struct gc_arena gc;
+  MUTEX_DEFINE (mutex);
   bool defined;
   bool halt;
   int refcount;
@@ -273,6 +274,7 @@ multi_instance_dec_refcount (struct multi_instance *mi)
   if (--mi->refcount <= 0)
     {
       gc_free (&mi->gc);
+      mutex_destroy (&mi->mutex);
       free (mi);
     }
 }

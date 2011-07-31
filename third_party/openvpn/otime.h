@@ -28,6 +28,7 @@
 #include "common.h"
 #include "integer.h"
 #include "buffer.h"
+#include "thread.h"
 
 struct frequency_limit
 {

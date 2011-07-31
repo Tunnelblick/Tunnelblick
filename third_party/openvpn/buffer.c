@@ -28,6 +28,7 @@
 #include "buffer.h"
 #include "error.h"
 #include "mtu.h"
+#include "thread.h"
 
 #include "memdbg.h"
 
@@ -217,9 +218,6 @@ buf_printf (struct buffer *buf, const char *format, ...)
 /*
  * This is necessary due to certain buggy implementations of snprintf,
  * that don't guarantee null termination for size > 0.
- *
- * This function is duplicated into service-win32/openvpnserv.c
- * Any modifications here should be done to the other place as well.
  */
 
 int openvpn_snprintf(char *str, size_t size, const char *format, ...)
@@ -301,8 +299,10 @@ gc_malloc (size_t size, bool clear, struct gc_arena *a)
 #endif
       check_malloc_return (e);
       ret = (char *) e + sizeof (struct gc_entry);
+      /*mutex_lock_static (L_GC_MALLOC);*/
       e->next = a->list;
       a->list = e;
+      /*mutex_unlock_static (L_GC_MALLOC);*/
     }
   else
     {
@@ -324,8 +324,10 @@ void
 x_gc_free (struct gc_arena *a)
 {
   struct gc_entry *e;
+  /*mutex_lock_static (L_GC_MALLOC);*/
   e = a->list;
   a->list = NULL;
+  /*mutex_unlock_static (L_GC_MALLOC);*/
   
   while (e != NULL)
     {

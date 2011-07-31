@@ -136,15 +136,6 @@ bool openvpn_execve_check (const struct argv *a, const struct env_set *es, const
 bool openvpn_execve_allowed (const unsigned int flags);
 int openvpn_system (const char *command, const struct env_set *es, unsigned int flags);
 
-static inline bool
-openvpn_run_script (const struct argv *a, const struct env_set *es, const unsigned int flags, const char *hook)
-{
-  char msg[256];
-
-  openvpn_snprintf(msg, sizeof(msg), "WARNING: Failed running command (%s)", hook);
-  return openvpn_execve_check(a, es, flags | S_SCRIPT, msg);
-};
-
 #ifdef HAVE_STRERROR
 /* a thread-safe version of strerror */
 const char* strerror_ts (int errnum, struct gc_arena *gc);
@@ -227,8 +218,8 @@ long int get_random(void);
 /* return true if filename can be opened for read */
 bool test_file (const char *filename);
 
-/* create a temporary file in directory, returns the filename of the created file */
-const char *create_temp_file (const char *directory, const char *prefix, struct gc_arena *gc);
+/* create a temporary filename in directory */
+const char *create_temp_filename (const char *directory, const char *prefix, struct gc_arena *gc);
 
 /* put a directory and filename together */
 const char *gen_path (const char *directory, const char *filename, struct gc_arena *gc);
@@ -261,26 +252,6 @@ struct user_pass
   char password[USER_PASS_LEN];
 };
 
-#ifdef ENABLE_CLIENT_CR
-/*
- * Challenge response info on client as pushed by server.
- */
-struct auth_challenge_info {
-# define CR_ECHO     (1<<0) /* echo response when typed by user */
-# define CR_RESPONSE (1<<1) /* response needed */
-  unsigned int flags;
-
-  const char *user;
-  const char *state_id;
-  const char *challenge_text;
-};
-
-struct auth_challenge_info *get_auth_challenge (const char *auth_challenge, struct gc_arena *gc);
-
-#else
-struct auth_challenge_info {};
-#endif
-
 bool get_console_input (const char *prompt, const bool echo, char *input, const int capacity);
 
 /*
@@ -294,20 +265,10 @@ bool get_console_input (const char *prompt, const bool echo, char *input, const 
 #define GET_USER_PASS_NEED_STR      (1<<5)
 #define GET_USER_PASS_PREVIOUS_CREDS_FAILED (1<<6)
 
-bool get_user_pass_cr (struct user_pass *up,
-		       const char *auth_file,
-		       const char *prefix,
-		       const unsigned int flags,
-		       const char *auth_challenge);
-
-static inline bool
-get_user_pass (struct user_pass *up,
-	       const char *auth_file,
-	       const char *prefix,
-	       const unsigned int flags)
-{
-  return get_user_pass_cr (up, auth_file, prefix, flags, NULL);
-}
+bool get_user_pass (struct user_pass *up,
+		    const char *auth_file,
+		    const char *prefix,
+		    const unsigned int flags);
 
 void fail_user_pass (const char *prefix,
 		     const unsigned int flags,
@@ -347,7 +308,6 @@ void get_user_pass_auto_userid (struct user_pass *up, const char *tag);
 extern const char *iproute_path;
 #endif
 
-/* Script security */
 #define SSEC_NONE      0 /* strictly no calling of external programs */
 #define SSEC_BUILT_IN  1 /* only call built-in programs such as ifconfig, route, netsh, etc.*/
 #define SSEC_SCRIPTS   2 /* allow calling of built-in programs and user-defined scripts */
