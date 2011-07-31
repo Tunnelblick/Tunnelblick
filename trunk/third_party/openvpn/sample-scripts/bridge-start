@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #################################
 # Set up Ethernet bridge on Linux

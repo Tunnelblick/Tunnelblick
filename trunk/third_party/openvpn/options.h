@@ -95,7 +95,6 @@ struct connection_entry
 #ifdef ENABLE_SOCKS
   const char *socks_proxy_server;
   int socks_proxy_port;
-  const char *socks_proxy_authfile;
   bool socks_proxy_retry;
 #endif
 
@@ -216,8 +215,6 @@ struct options
   int link_mtu;          /* MTU of device over which tunnel packets pass via TCP/UDP */
   bool tun_mtu_defined;  /* true if user overriding parm with command line option */
   bool link_mtu_defined; /* true if user overriding parm with command line option */
-
-  int proto_force;
 
   /* Advanced MTU negotiation and datagram fragmentation options */
   int mtu_discover_type; /* used if OS supports setting Path MTU discovery options on socket */
@@ -355,7 +352,10 @@ struct options
   struct plugin_option_list *plugin_list;
 #endif
 
-  const char *tmp_dir;
+#ifdef USE_PTHREAD
+  int n_threads;
+  int nice_work;
+#endif
 
 #if P2MP
 
@@ -389,6 +389,7 @@ struct options
   const char *client_connect_script;
   const char *client_disconnect_script;
   const char *learn_address_script;
+  const char *tmp_dir;
   const char *client_config_dir;
   bool ccd_exclusive;
   bool disable;
@@ -464,7 +465,6 @@ struct options
   const char *pkcs12_file;
   const char *cipher_list;
   const char *tls_verify;
-  const char *tls_export_cert;
   const char *tls_remote;
   const char *crl_file;
 
@@ -473,7 +473,6 @@ struct options
   const char *cert_file_inline;
   char *priv_key_file_inline;
   const char *dh_file_inline;
-  const char *pkcs12_file_inline; /* contains the base64 encoding of pkcs12 file */
 #endif
 
   int ns_cert_type; /* set to 0, NS_SSL_SERVER, or NS_SSL_CLIENT */
@@ -508,11 +507,6 @@ struct options
   /* Data channel key handshake must finalize
      within n seconds of handshake initiation. */
   int handshake_window;
-
-#ifdef ENABLE_X509ALTUSERNAME
-  /* Field used to be the username in X509 cert. */
-  char *x509_username_field;
-#endif
 
   /* Old key allowed to live n seconds after new key goes active */
   int transition_window;

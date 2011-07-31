@@ -42,6 +42,7 @@
 #include "reliable.h"
 #include "socket.h"
 #include "mtu.h"
+#include "thread.h"
 #include "options.h"
 #include "plugin.h"
 
@@ -277,8 +278,8 @@
  * Buffer sizes (also see mtu.h).
  */
 
-/* Maximum length of the username in cert */
-#define TLS_USERNAME_LEN 64
+/* Maximum length of common name */
+#define TLS_CN_LEN 64
 
 /* Legal characters in an X509 or common name */
 #define X509_NAME_CHAR_CLASS   (CC_ALNUM|CC_UNDERBAR|CC_DASH|CC_DOT|CC_AT|CC_COLON|CC_SLASH|CC_EQUAL)
@@ -286,9 +287,6 @@
 
 /* Maximum length of OCC options string passed as part of auth handshake */
 #define TLS_OPTIONS_LEN 512
-
-/* Default field in X509 to be username */
-#define X509_USERNAME_FIELD_DEFAULT "CN"
 
 /*
  * Range of key exchange methods
@@ -380,8 +378,8 @@ struct key_state
 
   struct buffer_list *paybuf;
 
-  counter_type n_bytes;		 /* how many bytes sent/recvd since last key exchange */
-  counter_type n_packets;	 /* how many packets sent/recvd since last key exchange */
+  int n_bytes;			 /* how many bytes sent/recvd since last key exchange */
+  int n_packets;		 /* how many packets sent/recvd since last key exchange */
 
   /*
    * If bad username/password, TLS connection will come up but 'authenticated' will be false.
@@ -448,7 +446,6 @@ struct tls_options
 
   /* cert verification parms */
   const char *verify_command;
-  const char *verify_export_cert;
   const char *verify_x509name;
   const char *crl_file;
   int ns_cert_type;
@@ -578,6 +575,9 @@ struct tls_session
  */
 struct tls_multi
 {
+  /* used to coordinate access between main thread and TLS thread */
+  /*MUTEX_PTR_DEFINE (mutex);*/
+
   /* const options and config info */
   struct tls_options opt;
 
@@ -704,17 +704,6 @@ int pem_password_callback (char *buf, int size, int rwflag, void *u);
 void auth_user_pass_setup (const char *auth_file);
 void ssl_set_auth_nocache (void);
 void ssl_purge_auth (void);
-
-
-#ifdef ENABLE_CLIENT_CR
-/*
- * ssl_get_auth_challenge will parse the server-pushed auth-failed
- * reason string and return a dynamically allocated
- * auth_challenge_info struct.
- */
-void ssl_purge_auth_challenge (void);
-void ssl_put_auth_challenge (const char *cr_str);
-#endif
 
 void tls_set_verify_command (const char *cmd);
 void tls_set_crl_verify (const char *crl);

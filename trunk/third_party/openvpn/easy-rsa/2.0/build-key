@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Make a certificate/private key pair using a locally generated
 # root certificate.

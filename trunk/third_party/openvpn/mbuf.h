@@ -58,6 +58,7 @@ struct mbuf_item
 
 struct mbuf_set
 {
+  MUTEX_DEFINE (mutex);
   unsigned int head;
   unsigned int len;
   unsigned int capacity;
@@ -73,7 +74,7 @@ void mbuf_free_buf (struct mbuf_buffer *mb);
 
 void mbuf_add_item (struct mbuf_set *ms, const struct mbuf_item *item);
 
-bool mbuf_extract_item (struct mbuf_set *ms, struct mbuf_item *item);
+bool mbuf_extract_item (struct mbuf_set *ms, struct mbuf_item *item, const bool lock);
 
 void mbuf_dereference_instance (struct mbuf_set *ms, struct multi_instance *mi);
 

@@ -26,6 +26,7 @@
 #define BUFFER_H
 
 #include "basic.h"
+#include "thread.h"
 
 #define BUF_SIZE_MAX 1000000
 

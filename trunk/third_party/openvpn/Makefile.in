@@ -23,7 +23,6 @@
 #             packet compression.
 #
 #  Copyright (C) 2002-2010 OpenVPN Technologies, Inc. <sales@openvpn.net>
-#  Copyright (C) 2010      David Sommerseth <dazo@users.sourceforge.net>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 2
@@ -39,6 +38,7 @@
 #  distribution); if not, write to the Free Software Foundation, Inc.,
 #  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
+
 
 
 
@@ -61,14 +61,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+target_triplet = @target@
 sbin_PROGRAMS = openvpn$(EXEEXT)
 @WIN32_TRUE@am__append_1 = openvpn.8
 subdir = .
 DIST_COMMON = README $(am__configure_deps) \
-	$(am__dist_noinst_DATA_DIST) $(dist_doc_DATA) $(dist_man_MANS) \
-	$(dist_noinst_SCRIPTS) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/openvpn.spec.in $(srcdir)/t_client.sh.in \
+	$(am__dist_noinst_DATA_DIST) $(dist_man_MANS) \
+	$(dist_noinst_HEADERS) $(dist_noinst_SCRIPTS) \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	$(srcdir)/config.h.in $(srcdir)/openvpn.spec.in \
 	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
 	config.guess config.sub depcomp install-sh memcmp.c missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -80,10 +81,10 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = t_client.sh openvpn.spec
+CONFIG_CLEAN_FILES = openvpn.spec
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man8dir)" \
-	"$(DESTDIR)$(docdir)" "$(DESTDIR)$(htmldir)"
+	"$(DESTDIR)$(htmldir)"
 PROGRAMS = $(sbin_PROGRAMS)
 am_openvpn_OBJECTS = base64.$(OBJEXT) buffer.$(OBJEXT) \
 	crypto.$(OBJEXT) dhcp.$(OBJEXT) error.$(OBJEXT) \
@@ -101,10 +102,9 @@ am_openvpn_OBJECTS = base64.$(OBJEXT) buffer.$(OBJEXT) \
 	push.$(OBJEXT) reliable.$(OBJEXT) route.$(OBJEXT) \
 	schedule.$(OBJEXT) session_id.$(OBJEXT) shaper.$(OBJEXT) \
 	sig.$(OBJEXT) socket.$(OBJEXT) socks.$(OBJEXT) ssl.$(OBJEXT) \
-	status.$(OBJEXT) tun.$(OBJEXT) win32.$(OBJEXT) \
-	cryptoapi.$(OBJEXT)
-nodist_openvpn_OBJECTS =
-openvpn_OBJECTS = $(am_openvpn_OBJECTS) $(nodist_openvpn_OBJECTS)
+	status.$(OBJEXT) thread.$(OBJEXT) tun.$(OBJEXT) \
+	win32.$(OBJEXT) cryptoapi.$(OBJEXT)
+openvpn_OBJECTS = $(am_openvpn_OBJECTS)
 openvpn_LDADD = $(LDADD)
 openvpn_DEPENDENCIES = @LIBOBJS@
 SCRIPTS = $(dist_noinst_SCRIPTS)
@@ -116,7 +116,7 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(openvpn_SOURCES) $(nodist_openvpn_SOURCES)
+SOURCES = $(openvpn_SOURCES)
 DIST_SOURCES = $(openvpn_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
@@ -150,8 +150,9 @@ man8dir = $(mandir)/man8
 NROFF = nroff
 MANS = $(dist_man_MANS)
 am__dist_noinst_DATA_DIST = openvpn.spec COPYRIGHT.GPL PORTS \
-	INSTALL-win32.txt service-win32/msvc.mak openvpn.8
-DATA = $(dist_doc_DATA) $(dist_noinst_DATA) $(nodist_html_DATA)
+	INSTALL-win32.txt openvpn.8
+DATA = $(dist_noinst_DATA) $(nodist_html_DATA)
+HEADERS = $(dist_noinst_HEADERS)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
@@ -232,16 +233,17 @@ LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MAN2HTML = @MAN2HTML@
 MKDIR_P = @MKDIR_P@
-NETSTAT = @NETSTAT@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PTHREAD_CC = @PTHREAD_CC@
+PTHREAD_CFLAGS = @PTHREAD_CFLAGS@
+PTHREAD_LIBS = @PTHREAD_LIBS@
 ROUTE = @ROUTE@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
@@ -296,7 +298,11 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 sysconfdir = @sysconfdir@
+target = @target@
 target_alias = @target_alias@
+target_cpu = @target_cpu@
+target_os = @target_os@
+target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
@@ -315,7 +321,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/config.guess $(srcdir)/config.sub \
 	$(srcdir)/openvpn.spec
 
-CLEANFILES = openvpn.8.html configure.h
+CLEANFILES = openvpn.8.html
 EXTRA_DIST = \
 	easy-rsa \
 	sample-config-files \
@@ -333,19 +339,16 @@ SUBDIRS = \
 	service-win32 \
 	install-win32
 
-TESTS = t_client.sh t_lpback.sh t_cltsrv.sh
-dist_doc_DATA = \
-	management/management-notes.txt
-
+TESTS = t_lpback.sh t_cltsrv.sh
+dist_noinst_HEADERS = 
 dist_noinst_SCRIPTS = \
 	$(TESTS) \
 	doclean \
 	domake-win \
-	t_cltsrv-down.sh \
-	configure_h.awk configure_log.awk
+	t_cltsrv-down.sh
 
 dist_noinst_DATA = openvpn.spec COPYRIGHT.GPL PORTS INSTALL-win32.txt \
-	service-win32/msvc.mak $(am__append_1)
+	$(am__append_1)
 openvpn_SOURCES = \
         base64.c base64.h \
 	basic.h \
@@ -409,11 +412,11 @@ openvpn_SOURCES = \
 	ssl.c ssl.h \
 	status.c status.h \
 	syshead.h \
+	thread.c thread.h \
 	tun.c tun.h \
 	win32.h win32.c \
 	cryptoapi.h cryptoapi.c
 
-nodist_openvpn_SOURCES = configure.h
 @WIN32_TRUE@nodist_html_DATA = openvpn.8.html
 @WIN32_FALSE@dist_man_MANS = openvpn.8
 all: config.h
@@ -472,8 +475,6 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config.h stamp-h1
-t_client.sh: $(top_builddir)/config.status $(srcdir)/t_client.sh.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 openvpn.spec: $(top_builddir)/config.status $(srcdir)/openvpn.spec.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-sbinPROGRAMS: $(sbin_PROGRAMS)
@@ -578,6 +579,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/status.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tun.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/win32.Po@am__quote@
 
@@ -632,26 +634,6 @@ uninstall-man8:
 	test -z "$$files" || { \
 	  echo " ( cd '$(DESTDIR)$(man8dir)' && rm -f" $$files ")"; \
 	  cd "$(DESTDIR)$(man8dir)" && rm -f $$files; }
-install-dist_docDATA: $(dist_doc_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(docdir)" || $(MKDIR_P) "$(DESTDIR)$(docdir)"
-	@list='$(dist_doc_DATA)'; test -n "$(docdir)" || list=; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(docdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(docdir)" || exit $$?; \
-	done
-
-uninstall-dist_docDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(dist_doc_DATA)'; test -n "$(docdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(docdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(docdir)" && rm -f $$files
 install-nodist_htmlDATA: $(nodist_html_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(htmldir)" || $(MKDIR_P) "$(DESTDIR)$(htmldir)"
@@ -1094,10 +1076,11 @@ distcleancheck: distclean
 check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-recursive
-all-am: Makefile $(PROGRAMS) $(SCRIPTS) $(MANS) $(DATA) config.h
+all-am: Makefile $(PROGRAMS) $(SCRIPTS) $(MANS) $(DATA) $(HEADERS) \
+		config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man8dir)" "$(DESTDIR)$(docdir)" "$(DESTDIR)$(htmldir)"; do \
+	for dir in "$(DESTDIR)$(sbindir)" "$(DESTDIR)$(man8dir)" "$(DESTDIR)$(htmldir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -1150,8 +1133,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-dist_docDATA install-man \
-	install-nodist_htmlDATA
+install-data-am: install-man install-nodist_htmlDATA
 
 install-dvi: install-dvi-recursive
 
@@ -1198,8 +1180,8 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-dist_docDATA uninstall-man \
-	uninstall-nodist_htmlDATA uninstall-sbinPROGRAMS
+uninstall-am: uninstall-man uninstall-nodist_htmlDATA \
+	uninstall-sbinPROGRAMS
 
 uninstall-man: uninstall-man8
 
@@ -1214,24 +1196,18 @@ uninstall-man: uninstall-man8
 	distclean-compile distclean-generic distclean-hdr \
 	distclean-tags distcleancheck distdir distuninstallcheck dvi \
 	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dist_docDATA install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-man8 install-nodist_htmlDATA install-pdf \
-	install-pdf-am install-ps install-ps-am install-sbinPROGRAMS \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic pdf pdf-am \
-	ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-dist_docDATA uninstall-man uninstall-man8 \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-man install-man8 \
+	install-nodist_htmlDATA install-pdf install-pdf-am install-ps \
+	install-ps-am install-sbinPROGRAMS install-strip installcheck \
+	installcheck-am installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am uninstall-man uninstall-man8 \
 	uninstall-nodist_htmlDATA uninstall-sbinPROGRAMS
 
 .PHONY: plugin
-options.$(OBJEXT): configure.h
-
-configure.h: Makefile
-	awk -f $(srcdir)/configure_h.awk config.h > $@
-	awk -f $(srcdir)/configure_log.awk config.log >> $@
 
 dist-hook:
 	cd $(distdir) && for i in $(EXTRA_DIST) $(SUBDIRS) ; do find $$i -name .svn -type d -prune -exec rm -rf '{}' ';' ; rm -f `find $$i -type f | grep -E '(^|\/)\.?\#|\~$$|\.s?o$$'` ; done

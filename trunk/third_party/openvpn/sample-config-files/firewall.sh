@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A Sample OpenVPN-aware firewall.
 
