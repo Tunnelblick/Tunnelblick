@@ -171,6 +171,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) windowWillClose:(NSNotification *)notification
 {
+    [infoPrefsView oldViewWillDisappear: nil identifier: nil];
+    
     [[self selectedConnection] stopMonitoringLogFiles];
     
     // Save the window's frame and the splitView's frame and the TB version in the preferences
