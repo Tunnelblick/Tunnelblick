@@ -773,7 +773,7 @@
 "One or more configurations are being ignored. See the Console Log for details." = "Ein oder mehrere Konfigurationen werden ignoriert. Weitere Informationen finden sie in der Konsole.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts.";
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
 
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN hat auf die Anforderung zum Trennen der Verbindung auch nach %d Sekunden nicht reagiert.\n\nTunnelblick geht davon aus, dass die Verbindung getrennt ist; die Netzwerkkonfiguration des Computers kann sich aber in einem undefinierten Zustand befinden.";
