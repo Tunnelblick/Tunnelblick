@@ -12,6 +12,22 @@
 
 --------------------
 
+*3.2beta28 (2011-07-31)*
+
+ * Johan Nilsson and Tim Malmström have provided Swedish localization.
+ 
+ * Prevents kernel panics on OS X 10.7 "Lion" by reverting to OpenVPN 2.1.4.
+ 
+ * Tunnelblick can now be updated even if its name is not Tunnelblick.app.
+ 
+ * A splash window with status information appears while Tunnelblick is starting up. It will not be displayed if 'Display window while Tunnelblick is starting up' is unchecked on the 'Appearance' panel of the 'VPN Details…' window. (Controlled by the 'doNotShowSplashWindow' preference.)
+ 
+ * You can now select and copy the version information in the Info panel.
+ 
+ * Fixes bug that caused a failure to display an error message and a many-second delay when user tries to set a non-.tblk to start when the computer starts.
+
+--------------------
+
 *3.2beta26 (2011-07-20)*
 
  * Aleix Dorca has provided a complete Catalan localization.
@@ -28,7 +44,6 @@
  * Fixes bugs when updating Tunnelblick while a connection is active.
  
  * Fixes console warning about unrecognized preference.
-
 
 --------------------
 

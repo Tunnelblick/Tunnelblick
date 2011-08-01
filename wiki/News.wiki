@@ -1,5 +1,13 @@
 #summary The Latest News About Tunnelblick
 
+2011-07-31: *Tunnelblick 3.2beta28 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Johan Nilsson and Tim Malmström have provided Swedish localization.
+ * Prevents kernel panics on OS X 10.7 "Lion".
+ * Includes other enhancements and fixes several bugs.
+ See the [RlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-07-20: *Tunnelblick 3.2beta26 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Aleix Dorca has provided a complete Catalan localization.
  * Emma Segev and Tjalling Soldatt have provided complete Dutch localization.
