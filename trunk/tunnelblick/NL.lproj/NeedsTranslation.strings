@@ -17,7 +17,7 @@
 "Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
 
 /* Window text */
-"Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts.";
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
 
 /* Window text */
 "Securing Tunnelblick..." = "Securing Tunnelblick…";

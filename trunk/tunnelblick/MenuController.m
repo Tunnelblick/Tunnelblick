@@ -2799,7 +2799,7 @@ static void signal_handler(int signalNumber)
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
     [splashScreen setMessage: text];
 
-    [splashScreen fadeOut];
+    [splashScreen fadeOutAndClose];
     
     launchFinished = TRUE;
 }
@@ -3342,7 +3342,7 @@ static void signal_handler(int signalNumber)
                                    NSLocalizedString(@"Quit", "Button"), // Alternate button
                                    nil);
         
-        [splashScreen fadeOut];
+        [splashScreen fadeOutAndClose];
         
         if (  response == NSAlertDefaultReturn  ) {
             // Launch the program in /Applications

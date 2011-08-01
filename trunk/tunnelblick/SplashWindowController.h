@@ -34,7 +34,7 @@
     NSString                    * message;
 }
 
--(void) fadeOut;
+-(void) fadeOutAndClose;
 
 TBPROPERTY(NSString *, message, setMessage)
 

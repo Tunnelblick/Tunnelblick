@@ -1344,7 +1344,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
             [self setSelectedWhenToConnectIndex: ix];
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            NSLocalizedString(@"Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts.", @"Window text"),
+                            NSLocalizedString(@"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.", @"Window text"),
                             nil, nil, nil);
         } else {
             [self setSelectedWhenToConnectIndex: 2];

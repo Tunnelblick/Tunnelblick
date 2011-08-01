@@ -62,16 +62,32 @@
 	[super dealloc];
 }
 
--(void) fadeOut
+-(void) fadeOutAndClose
 {
     NSWindow * window = [self window];
     if (   [window respondsToSelector: @selector(animator)]
         && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
         [[window animator] setAlphaValue:0.0];
+        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0   // Wait for the window to become transparent
+                                         target: self
+                                       selector: @selector(closeAfterFadeOutHandler:)
+                                       userInfo: nil
+                                        repeats: NO];
     } else {
         [window close];
     }
 }
+
+-(void) closeAfterFadeOutHandler: (NSTimer *) timer
+{
+	[self performSelectorOnMainThread: @selector(closeAfterFadeOut:) withObject: nil waitUntilDone: NO];
+}
+
+-(void) closeAfterFadeOut: (NSDictionary *) dict
+{
+    [self close];
+}
+
 
 - (NSString *) description
 {

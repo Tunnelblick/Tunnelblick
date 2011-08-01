@@ -1142,7 +1142,7 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "一个或多个设置已被忽略. 详情请查看控制台日志.";
 /* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick Private Configuration (.tblk) can start when the computer starts.";
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
 
 
 
