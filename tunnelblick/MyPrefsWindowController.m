@@ -171,7 +171,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) windowWillClose:(NSNotification *)notification
 {
-    [infoPrefsView oldViewWillDisappear: nil identifier: nil];
+    if (  [currentViewName isEqualToString: @"Info"]  ) {
+        [infoPrefsView oldViewWillDisappear: infoPrefsView identifier: @"Info"];
+    }
     
     [[self selectedConnection] stopMonitoringLogFiles];
     
