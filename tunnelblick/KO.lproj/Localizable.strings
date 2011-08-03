@@ -247,8 +247,8 @@
 /* Checkbox name */
 "Display connection timers" = "연결 타이머 보기";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Tunnelblick이 시작되는 동안 창 보기";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "다시 물어보지 않고 계속 '무시'";
@@ -640,8 +640,8 @@
 /* Window text */
 "(if connected when user switched out)" = "(사용자 전환 할 때 연결되어 있었다면)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Tunnelblick 기반의 자유 소프트웨어는 <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>에서 구할 수 있습니다.";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "설정이 설치되지 않았습니다. 자세한 것은 Console 로그을 보십시오.";
@@ -679,7 +679,7 @@
 /* Window text */
 "Connection:" = "연결:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
 
 /* Window text */
@@ -718,17 +718,17 @@
 /* Window text */
 "Icon:" = "아이콘:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+/* Window text */
+"Installation finished successfully." = "설치가 올바르게 완료되었습니다.";
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = ".tblk 패키지 설치가 허용되지 않습니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Tunnelblick VPN 설정 설치 중…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Tunnelblick 설치 및 보호 중…";
 
 /* Window text */
 "Keyboard shortcut:" = "키보드 단축키:";
@@ -772,8 +772,8 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "1개 또는 이상의 설정이 무시되었습니다. 자세한 것은 Console 로그를 보십시오.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "오직 Tunnelblick VPN 설정 (.tblk)만 컴퓨터가 시작할 때 실행될 수 있습니다.";
 
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "연결 해제 요청에 OpenVPN이 %d초 동안 응답하지 않았습니다.\n\n연결은 연결 해제된 것으로 생각할 수 있습니다. 하지만 컴퓨터 네트워크 설정은 일치하지 않은 상태일 수 있습니다.";
@@ -799,17 +799,17 @@
 /* Window text */
 "Search domain:" = "도메인 검색:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+/* Window text */
+"Securing Tunnelblick..." = "Tunnelblick 보호 중…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS 설정:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+/* Window text */
+"Starting Tunnelblick..." = "Tunnelblick 시작 중…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Startup window:" = "Startup window:";
+/* Window text */
+"Startup window:" = "시동 창:";
 
 /* Window text */
 "That name is being used.\n\n" = "사용 중인 이름입니다.\n\n";
@@ -910,8 +910,8 @@
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick이 '%@'의 환경설정과 관련된 문제를 복구하는 것에 실패했습니다. 자세한 것은 Console 로그에 있습니다.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick이 올바르게 보호되었습니다.";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "'%@'의 설정 파일이 삭제되어 Tunnelblick이 연결을 해제했습니다.";
@@ -919,8 +919,8 @@
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick은 %@을 기반으로 되어있습니다. ";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick이 준비되었습니다.";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick이 설정 파일의 가상본 만들려고 합니다";
