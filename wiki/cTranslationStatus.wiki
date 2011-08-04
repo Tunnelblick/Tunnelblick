@@ -31,7 +31,7 @@ The following table shows the status of translations for Tunnelblick as of 2011-
 || Korean                 || KO     || 1  || *Complete*  || *Complete*  ||
 || Norwegian              || NB     || 1  || *Complete*  || *Complete*  ||
 || Dutch                  || NL     || 2  || *Complete*  || *Complete*  ||
-|| Polish                 || PL     || 0  || Partial     || Partial     ||
+|| Polish                 || PL     || 1  || In process || In process ||
 || Portuguese             || PT     || 1  || *Complete*  || *Complete*  ||
 || Russian                || RU     || 4  || *Complete*  || In process  ||
 || Swedish                || SV     || 2  || *Complete*  || In process  ||
