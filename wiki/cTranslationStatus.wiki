@@ -12,28 +12,35 @@ This document shows the current status of efforts to translate Tunnelblick.
 
 Tunnelblick is developed in English.
 
-<font color="red">*TRANSLATORS NEEDED:*</font> We especially need translators for *Chinese (Traditional)*, *Polish*, and * Japanese*. If you can help with these or any other languages (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. Thanks!
+_Note: Help is not currently being translated, pending a rewrite of the English version._
 
+<font color="red">*TRANSLATORS NEEDED:*</font> *Chinese (Traditional)*, *Polish*, and * Japanese* translators are especially needed.
 
-The following table shows the status of translations for the current beta version of Tunnelblick as of 2011-07-27:
+*Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-|| Language  || Code  || Current<br>Translators  || Status  ||
-|| Catalan  || CA  || 1  || *Complete*  ||
-|| Danish  || DA  || 1  || In process  ||
-|| German  || DE  || 1  || *Complete*  ||
-|| Spanish  || ES  || 2  || In process  ||
-|| French  || FR  || 1  || *Complete*  ||
-|| Italian  || IT  || 2  || In process  ||
-|| Japanese  || JA  || 1  || In process  ||
-|| Korean  || KO  || 1  || *Complete*  ||
-|| Norwegian  || NB  || 1  || *Complete*  ||
-|| Dutch  || NL  || 2  || *Complete*  ||
-|| Polish  || PL  || 0  || Partial  ||
-|| Portuguese  || PT  || 1  || *Complete*  ||
-|| Russian  || RU  || 4  || *Complete*  ||
-|| Swedish  || SV  || 2  || *Complete*  ||
-|| Chinese (Simplified)  || ZN-CN  || 1  || *Complete*  ||
-|| Chinese (Traditional)  || ZN-TW  || 0  || Partial  ||
+The following table shows the status of translations for Tunnelblick as of 2011-08-04:
+
+|| <br>Language  || <br>Code  || Current<br>Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
+|| Catalan                || CA     || 1  || *Complete*  || In process  ||
+|| Danish                 || DA     || 1  || In process  || In process  ||
+|| German                 || DE     || 1  || *Complete*  || *Complete*  ||
+|| Spanish                || ES     || 2  || In process  || In process  ||
+|| French                 || FR     || 1  || *Complete*  || *Complete*  ||
+|| Italian                || IT     || 2  || In process  || In process  ||
+|| Japanese               || JA     || 1  || In process  || In process  ||
+|| Korean                 || KO     || 1  || *Complete*  || *Complete*  ||
+|| Norwegian              || NB     || 1  || *Complete*  || *Complete*  ||
+|| Dutch                  || NL     || 2  || *Complete*  || *Complete*  ||
+|| Polish                 || PL     || 0  || Partial     || Partial     ||
+|| Portuguese             || PT     || 1  || *Complete*  || *Complete*  ||
+|| Russian                || RU     || 4  || *Complete*  || In process  ||
+|| Swedish                || SV     || 2  || *Complete*  || In process  ||
+|| Chinese (Simplified)   || ZN-CN  || 1  || *Complete*  || In process  ||
+|| Chinese (Traditional)  || ZN-TW  || 0  || Partial     || Partial     ||
+
+1. Translation status of the most recent beta release
+
+2. Translation status of the source code as committed, but not yet built into a release. Subject to change.
 
 ------------------
 
