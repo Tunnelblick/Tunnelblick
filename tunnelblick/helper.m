@@ -216,7 +216,7 @@ NSString * tblkPathFromConfigPath(NSString * path)
 
 BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
 {
-    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+    NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
     NSString * file;
     BOOL isDir;
     
@@ -259,8 +259,8 @@ BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
                 if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
                     return YES; // NSLog already called
                 }
-            } else if (  [extensionsFor600Permissions containsObject: ext]  ) {     // keys, certs, etc. are 600
-                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"600")  ) {
+            } else if (  [keyAndCrtExtensions containsObject: ext]  ) {     // keys, certs, etc. are 640 and owned by root:admin
+                if (  ! checkOwnerAndPermissions(filePath, 0, KEY_AND_CRT_GROUP, KEY_AND_CRT_PERMISSIONS)  ) {      // (So that admins can easily copy, move, or back them up)
                     return YES; // NSLog already called
                 }
             } else { // including .conf and .ovpn

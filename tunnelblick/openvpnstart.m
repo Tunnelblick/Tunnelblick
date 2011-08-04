@@ -1504,7 +1504,7 @@ int runAsRoot(NSString * thePath, NSArray * theArguments)
 // Returns YES if a .tblk package is not secured
 BOOL tblkNeedsRepair(BOOL inPrivateFolder)
 {
-    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+    NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
     NSString * file;
     BOOL isDir;
     
@@ -1535,8 +1535,8 @@ BOOL tblkNeedsRepair(BOOL inPrivateFolder)
                 if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
                     return YES; // fprintf already called
                 }
-            } else if (  [extensionsFor600Permissions containsObject: ext]  ) {     // keys, certs, etc. are 600
-                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"600")  ) {
+            } else if (  [keyAndCrtExtensions containsObject: ext]  ) {     // keys, certs, etc.
+                if (  ! checkOwnerAndPermissions(filePath, 0, KEY_AND_CRT_GROUP, KEY_AND_CRT_PERMISSIONS)  ) {
                     return YES; // fprintf already called
                 }
             } else {

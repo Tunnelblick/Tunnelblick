@@ -1313,7 +1313,7 @@ enum state_t {                      // These are the "states" of the guideState 
         searchPath = [[thePath copy] autorelease];
     }
     
-    NSArray * extensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+    NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
 
     // Look through the package and see what's in it
     unsigned int nConfigs = 0;   // # of configuration files we've seen
@@ -1334,7 +1334,7 @@ enum state_t {                      // These are the "states" of the guideState 
                     nInfos++;
                 } else if (  [ext isEqualToString: @"sh"]  ) {
                     ;
-                } else if (  [extensionsFor600Permissions containsObject: ext]  ) {
+                } else if (  [keyAndCrtExtensions containsObject: ext]  ) {
                     ;
                 } else {
                     nUnknown++;
@@ -1457,8 +1457,7 @@ enum state_t {                      // These are the "states" of the guideState 
     // Repair the configuration file or use the alternate
     AuthorizationRef authRef;
     if (   (! [self onRemoteVolume:cfgPath] )
-        && (! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )
-        && ([cfgPath hasPrefix: gPrivatePath] )  ) {
+        && (! [gTbDefaults boolForKey:@"useShadowConfigurationFiles"] )  ) {
         
         // We don't use a shadow configuration file
 		NSLog(@"Configuration file %@ needs ownership/permissions repair", cfgPath);

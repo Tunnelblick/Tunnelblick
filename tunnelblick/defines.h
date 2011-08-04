@@ -26,6 +26,13 @@
 #define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
 
 
+//*************************************************************************************************
+// Extensions that require 640 permissions and ownership by Admin group
+#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil]
+#define KEY_AND_CRT_GROUP 80
+#define KEY_AND_CRT_PERMISSIONS @"640"
+
+//*************************************************************************************************
 // Values for the location of the configuration file (cfgLocCode argument to openvpnstart) 
 #define CFG_LOC_PRIVATE   0
 #define CFG_LOC_ALTERNATE 1
