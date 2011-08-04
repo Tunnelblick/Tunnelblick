@@ -100,7 +100,7 @@
 //                     or moving a .tblk to make it private or shared
 //        (11) is done when repairing a shadow configuration file or after copying or moving a .tblk
 
-NSArray       * gExtensionsFor600Permissions;
+NSArray       * gKeyAndCrtExtensions;
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gPrivatePath;                 // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gSharedPath;                  // Path to /Library/Application Support/Tunnelblick/Shared
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 {
 	pool = [NSAutoreleasePool new];
     
-    gExtensionsFor600Permissions = [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil];
+    gKeyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
     gFileMgr = [NSFileManager defaultManager];
     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     gSharedPath = [@"/Library/Application Support/Tunnelblick/Shared" copy];
@@ -388,7 +388,7 @@ int main(int argc, char *argv[])
     //        Other executables and standard scripts are set to 0744
     //        For the contents of /Resources/Deploy and its subfolders:
     //            folders are set to 0755
-    //            certificate & key files (various extensions) are set to 0600
+    //            certificate & key files (various extensions) are set to 0640
     //            shell scripts (*.sh) are set to 0744
     //            all other files are set to 0644
     if ( secureApp ) {
@@ -1016,7 +1016,7 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
     if      (  [permsShouldHave isEqualToString:  @"755"]  ) permsMode =  0755;
     else if (  [permsShouldHave isEqualToString:  @"744"]  ) permsMode =  0744;
     else if (  [permsShouldHave isEqualToString:  @"644"]  ) permsMode =  0644;
-    else if (  [permsShouldHave isEqualToString:  @"600"]  ) permsMode =  0600;
+    else if (  [permsShouldHave isEqualToString:  @"640"]  ) permsMode =  0640;
     else if (  [permsShouldHave isEqualToString: @"4555"]  ) permsMode = 04555;
     else {
         NSLog(@"Tunnelblick Installer: invalid permsShouldHave = '%@' in checkSetPermissions function", permsShouldHave);
@@ -1116,7 +1116,7 @@ BOOL itemIsVisible(NSString * path)
 //         invisible files (those with _any_ path component that starts with a period) are not changed
 //         folders and executables are set to 755
 //         shell scripts are set to 744
-//         certificate & key files are set to 600
+//         certificate & key files are set to 640
 //         all other visible files are set to 644
 // DOES NOT change ownership or permissions on the folder itself
 // Returns YES if successfully secured everything, otherwise returns NO
@@ -1139,8 +1139,13 @@ BOOL secureOneFolder(NSString * path)
                     result = result && checkSetOwnership(filePath, NO, 0, 0);
                 }
             } else {
-                result = result && checkSetOwnership(filePath, NO, 0, 0);
+                if (  [gKeyAndCrtExtensions containsObject: ext]  ) {
+                    result = result && checkSetOwnership(filePath, NO, 0, KEY_AND_CRT_GROUP);  // root:admin
+                } else {
+                    result = result && checkSetOwnership(filePath, NO, 0, 0);   // root:wheel
+                }
             }
+
             if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
                 && isDir  ) {
                 result = result && checkSetPermissions(filePath, @"755", YES);           // Folders are 755
@@ -1148,8 +1153,8 @@ BOOL secureOneFolder(NSString * path)
                 result = result && checkSetPermissions(filePath, @"755", YES);           // executable files for custom menu commands are 755
             } else if ( [ext isEqualToString:@"sh"]  ) {
                 result = result && checkSetPermissions(filePath, @"744", YES);           // Scripts are 744
-            } else if (  [gExtensionsFor600Permissions containsObject: ext]  ) {
-                result = result && checkSetPermissions(filePath, @"600", YES);           // Keys and certificates are 600
+            } else if (  [gKeyAndCrtExtensions containsObject: ext]  ) {
+                result = result && checkSetPermissions(filePath, KEY_AND_CRT_PERMISSIONS, YES);           // Keys and certificates are 640
             } else {
                 result = result && checkSetPermissions(filePath, @"644", YES);           // Everything else is 644
             }
