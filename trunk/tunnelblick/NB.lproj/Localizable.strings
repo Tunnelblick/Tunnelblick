@@ -247,8 +247,8 @@
 /* Checkbox name */
 "Display connection timers" = "Vis oppkoblings tidsur";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Vis et vindu når Tunnelblick starter";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Ikke spør igjen, 'Ignorer' alltid";
@@ -640,8 +640,8 @@
 /* Window text */
 "(if connected when user switched out)" = "(hvis oppkoblet når bruker bytter)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Basert på Tunnelblick, gratis programvare tilgjengelig fra<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "En konfigurasjon ble ikke installert. Se Konsoll loggen for detaljer.";
@@ -679,8 +679,8 @@
 /* Window text */
 "Connection:" = "Oppkobling:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub med fler.";
 
 /* Window text */
 "DNS servers:" = "DNS servere:";
@@ -718,17 +718,17 @@
 /* Window text */
 "Icon:" = "Ikon:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+/* Window text */
+"Installation finished successfully." = "Installasjonen er ferdig, og alt gikk bra.";
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Installasjon av .tblk pakker er ikke tilatt";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Installerer Tunnelblick VPN Konfigurasjoner…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Installerer og sikrer Tunnelblick…";
 
 /* Window text */
 "Keyboard shortcut:" = "Tastatur snarvei:";
@@ -772,8 +772,8 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "En eller flere konfigurasjoner ble ignorert. Se konsoll loggen for detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Det er kun en Tunnelblick VPN Konfigurasjon (.tblk) som kan startes automatisk når datamaskinen starter.";
 
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN har ikke svart på nedkoblingsforespørselen på %d sekunder.\n\nKoblingen blir vurdert som nedkoblet, men datamaskinens nettverkskonfigurasjon kan være i en ustabil status.";
@@ -799,17 +799,17 @@
 /* Window text */
 "Search domain:" = "Søk domenet:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+/* Window text */
+"Securing Tunnelblick..." = "Sikrer Tunnelblick…";
 
 /* Window text */
 "Set DNS/WINS:" = "Sett DNS/WINS:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+/* Window text */
+"Starting Tunnelblick..." = "Sikrer Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Startup window:" = "Startup window:";
+/* Window text */
+"Startup window:" = "Oppstartsvindu:";
 
 /* Window text */
 "That name is being used.\n\n" = "Navnet er allerede i bruk.\n\n";
@@ -910,8 +910,8 @@
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick klarte ikke å reparere problemene med instillingene til '%@'. Se Konsoll loggen for detaljer";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick har blit sikret på en vellykket måte.";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick koblet fra '%@' siden konfigurasjonsfilen har blitt fjernet.";
@@ -919,8 +919,8 @@
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick er basert på %@. ";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick er klar.";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick må lage en skyggekopi av konfigurasjonsfilen.";
