@@ -40,7 +40,7 @@ The following table shows the status of translations for Tunnelblick as of 2011-
 
 1. Translation status of the most recent beta release.
 
-2. Translation status of the source code as committed, but not yet built into a release. Subject to change.
+2. Translation status of the source code as committed but not yet built into a release.
 
 ------------------
 
