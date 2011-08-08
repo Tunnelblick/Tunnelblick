@@ -1,50 +1,39 @@
+
 /* Status message */
 "%@ is Connected" = "%@ 已连接";
-
 
 /* Status message */
 "%d Connections" = "%d 个连接";
 
-
 /* status message */
 "1 connection" = "1 个连接";
-
 
 /* Status message */
 "Disconnect All (%@)" = "断开所有连接 (%@)";
 
-
 /* Status message */
 "Disconnect All (%d Connections)" = "断开所有连接 (%d 个连接)";
-
 
 /* Status message */
 "No Active Connections" = "没有已建立的连接";
 
-
 /* Textbox name */
 "Password:" = "密码:"; 
-
 
 /* Textbox name */
 "Username:" = "用户名:"; 
 
-
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
-
 
 /* Button */
 "(None available)" = "(无)";
 
-
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "1 MB" = "1 MB";
 
-
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 KB" = "10 KB";
-
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 MB" = "10 MB";
@@ -356,8 +345,9 @@
 
 /* Checkbox name */
 "Display connection timers" = "显示连接计时器";
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "在 Tunnelblick 启动时显示窗口";
 
 
 
@@ -934,8 +924,8 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(用户转出时, 如果有连接)";
-/* NEEDS TRANSLATION *//* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>基于 Tunnelblick, 是一款免费的软件, 可以在这里找到<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 
 
@@ -993,8 +983,8 @@
 
 /* Window text */
 "Connection:" = "连接:";
-/* NEEDS TRANSLATION *//* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "版权属于 (c) 2004-%@ Angelo Laub 及其他.";
 
 
 
@@ -1064,18 +1054,20 @@
 
 /* Window text */
 "Icon:" = "图标:";
-/* NEEDS TRANSLATION *//* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+
+/* Window text */
+"Installation finished successfully." = "安装已经完成.";
 
 
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = "不允许安装 .tblk 软件包";
-/* NEEDS TRANSLATION *//* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "正在安装 Tunnelblick VPN 设置…";
+
+/* Window text */
+"Installing and securing Tunnelblick..." = "正在安装 Tunnelblick 并且进行安全设置…";
 
 
 
@@ -1141,10 +1133,9 @@
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "一个或多个设置已被忽略. 详情请查看控制台日志.";
-/* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
 
-
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "只有 Tunnelblick 私人设置 (.tblk) 可以在计算机启动时启动.";
 
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN 未回应断开连接的请求, 时间已经超过 %d 秒.\n\n连接会被当作已经断开, 但是计算机的网络设置或许处于一种不一致的状态中.";
@@ -1184,8 +1175,9 @@
 
 /* Window text */
 "Search domain:" = "搜索域:";
-/* NEEDS TRANSLATION *//* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+
+/* Window text */
+"Securing Tunnelblick..." = "正在对 Tunnelblick 进行安全设置…";
 
 
 
@@ -1203,11 +1195,12 @@
 
 /* Window text VPNService */
 "Sorry, but your request for an account could not be processed:\n     %@" = "对不起, 你对帐户的操作未能完成:\n     %@";
-/* NEEDS TRANSLATION *//* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Startup window:" = "Startup window:";
+/* Window text */
+"Starting Tunnelblick..." = "正在启动 Tunnelblick…";
+
+/* Window text */
+"Startup window:" = "启动窗口:";
 
 
 
@@ -1377,8 +1370,9 @@
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick 未能修复 '%@' 的偏好设置问题. 详情请查看控制台日志";
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick 的安全设置已经完成.";
 
 
 
@@ -1387,8 +1381,9 @@
 
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick 基于 %@. ";
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick 已可以使用.";
 
 
 /* Window text */
