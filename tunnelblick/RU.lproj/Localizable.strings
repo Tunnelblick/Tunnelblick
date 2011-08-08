@@ -1,5 +1,3 @@
-/* nail.gilmanov *******************************/
-
 /* Status message */
 "%@ is Connected" = "%@ Подключён";
 
@@ -248,8 +246,8 @@
 /* Checkbox name */
 "Display connection timers" = "Отображать время соединения";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Показывать заставку при запуске Tunnelblick";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Больше не спрашивать, всегда 'Игнорировать'";
@@ -641,8 +639,8 @@
 /* Window text */
 "(if connected when user switched out)" = "(при подключении, когда пользователь отключён)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Основано на Tunnelblick, бесплатном программном обеспечении, доступном по адресу: <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "Конфигурация не была установлена. Обратитесь к Консоли для более детальной информации.";
@@ -680,8 +678,8 @@
 /* Window text */
 "Connection:" = "Соединение:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub и другие.";
 
 /* Window text */
 "DNS servers:" = "DNS серверы:";
@@ -719,17 +717,17 @@
 /* Window text */
 "Icon:" = "Иконка:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+/* Window text */
+"Installation finished successfully." = "Установка завершена успешно.";
 
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Установка пакетов .tblk не разрешена";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Устанавливаются конфигурации VPN Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Установка и защита Tunnelblick…";
 
 /* Window text */
 "Keyboard shortcut:" = "Комбинация клавиш:";
@@ -773,8 +771,8 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Одна или более конфигураций были проигнорированы. Обратитесь к Консоли для более подробной информации.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Только конфигуация Tunnelblick VPN (.tblk) может стартовать при запуске компьютера.";
 
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN не ответил на запрос разъединения в течении %d секунд.\n\nСоединение будет считаться разъединённым, однако сетевая конфигурация этого компьютера может находиться в непостоянном состоянии.";
@@ -803,17 +801,17 @@
 /* Window text */
 "Search domain:" = "Домен поиска:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+/* Window text */
+"Securing Tunnelblick..." = "Защита Tunnelblick…";
 
 /* Window text */
 "Set DNS/WINS:" = "Установите DNS/WINS:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
+/* Window text */
+"Starting Tunnelblick..." = "Запуск Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Startup window:" = "Startup window:";
+/* Window text */
+"Startup window:" = "Заставка:";
 
 /* Window text */
 "That name is being used.\n\n" = "Это имя используется.\n\n";
@@ -916,8 +914,8 @@
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick не смог разрешить проблемы с предпочтениями '%@'. Подробности в журнале Консоли";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick был успешно защищён";
 
 /* Window text */
 "Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick отключил '%@' потому что его конфигурационный файл был удалён.";
@@ -925,8 +923,8 @@
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick сделан на основе %@.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick готов.";
 
 /* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick'у требуется создать теневую копию конфигурационного файла.";
