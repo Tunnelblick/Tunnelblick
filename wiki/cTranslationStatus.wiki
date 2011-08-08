@@ -35,7 +35,7 @@ The following table shows the status of translations for Tunnelblick as of 2011-
 || Portuguese             || PT     || 1  || *Complete*  || *Complete*  ||
 || Russian                || RU     || 4  || *Complete*  || In process  ||
 || Swedish                || SV     || 2  || *Complete*  || *Complete*  ||
-|| Chinese (Simplified)   || ZN-CN  || 1  || *Complete*  || In process  ||
+|| Chinese (Simplified)   || ZN-CN  || 1  || *Complete*  || *Complete*  ||
 || Chinese (Traditional)  || ZN-TW  || 0  || Partial     || Partial     ||
 
 1. Translation status of the most recent beta release.
