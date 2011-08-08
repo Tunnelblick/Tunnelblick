@@ -21,21 +21,21 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 The following table shows the status of translations for Tunnelblick as of 2011-08-08:
 
 || <br>Language  || <br>Code  || Current<br>Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
-|| Catalan                || CA     || 1  || *Complete*  || *Complete*  ||
+|| Catalan                || CA     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Danish                 || DA     || 1  || In process  || In process  ||
-|| German                 || DE     || 1  || *Complete*  || *Complete*  ||
+|| German                 || DE     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Spanish                || ES     || 3  || In process  || In process  ||
-|| French                 || FR     || 1  || *Complete*  || *Complete*  ||
+|| French                 || FR     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Italian                || IT     || 2  || In process  || In process  ||
 || Japanese               || JA     || 1  || In process  || In process  ||
-|| Korean                 || KO     || 1  || *Complete*  || *Complete*  ||
-|| Norwegian              || NB     || 1  || *Complete*  || *Complete*  ||
-|| Dutch                  || NL     || 2  || *Complete*  || *Complete*  ||
+|| Korean                 || KO     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Norwegian              || NB     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Dutch                  || NL     || 2  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Polish                 || PL     || 2  || In process || In process ||
-|| Portuguese             || PT     || 1  || *Complete*  || *Complete*  ||
-|| Russian                || RU     || 4  || *Complete*  || In process  ||
-|| Swedish                || SV     || 2  || *Complete*  || *Complete*  ||
-|| Chinese (Simplified)   || ZN-CN  || 1  || *Complete*  || *Complete*  ||
+|| Portuguese             || PT     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Russian                || RU     || 4  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Swedish                || SV     || 2  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Chinese (Simplified)   || ZN-CN  || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Chinese (Traditional)  || ZN-TW  || 0  || Partial     || Partial     ||
 
 1. Translation status of the most recent beta release.
