@@ -24,7 +24,7 @@ The following table shows the status of translations for Tunnelblick as of 2011-
 || Catalan                || CA     || 1  || *Complete*  || *Complete*  ||
 || Danish                 || DA     || 1  || In process  || In process  ||
 || German                 || DE     || 1  || *Complete*  || *Complete*  ||
-|| Spanish                || ES     || 2  || In process  || In process  ||
+|| Spanish                || ES     || 3  || In process  || In process  ||
 || French                 || FR     || 1  || *Complete*  || *Complete*  ||
 || Italian                || IT     || 2  || In process  || In process  ||
 || Japanese               || JA     || 1  || In process  || In process  ||
