@@ -18,7 +18,7 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2011-08-07:
+The following table shows the status of translations for Tunnelblick as of 2011-08-08:
 
 || <br>Language  || <br>Code  || Current<br>Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
 || Catalan                || CA     || 1  || *Complete*  || *Complete*  ||
@@ -31,10 +31,10 @@ The following table shows the status of translations for Tunnelblick as of 2011-
 || Korean                 || KO     || 1  || *Complete*  || *Complete*  ||
 || Norwegian              || NB     || 1  || *Complete*  || *Complete*  ||
 || Dutch                  || NL     || 2  || *Complete*  || *Complete*  ||
-|| Polish                 || PL     || 1  || In process || In process ||
+|| Polish                 || PL     || 2  || In process || In process ||
 || Portuguese             || PT     || 1  || *Complete*  || *Complete*  ||
 || Russian                || RU     || 4  || *Complete*  || In process  ||
-|| Swedish                || SV     || 2  || *Complete*  || In process  ||
+|| Swedish                || SV     || 2  || *Complete*  || *Complete*  ||
 || Chinese (Simplified)   || ZN-CN  || 1  || *Complete*  || In process  ||
 || Chinese (Traditional)  || ZN-TW  || 0  || Partial     || Partial     ||
 
