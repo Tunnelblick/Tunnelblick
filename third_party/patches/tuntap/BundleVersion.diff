@@ -19,7 +19,7 @@ Index: src/tap/Info.plist
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
 -	<string>1.0</string>
-+	<string>@@CFBUNDLEVERSION@@.TBBUILDNUMBER</string>
++	<string>TBBUILDNUMBER</string>
  	<key>OSBundleLibraries</key>
  	<dict>
  		<key>com.apple.kpi.mach</key>
@@ -49,7 +49,7 @@ Index: src/tun/Info.plist
  	<string>@@CFBUNDLESIGNATURE@@</string>
  	<key>CFBundleVersion</key>
 -	<string>1.0</string>
-+	<string>@@CFBUNDLEVERSION@@.TBBUILDNUMBER</string>
++	<string>TBBUILDNUMBER</string>
  	<key>OSBundleLibraries</key>
  	<dict>
  		<key>com.apple.kpi.mach</key>
