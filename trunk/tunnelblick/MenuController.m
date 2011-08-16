@@ -130,12 +130,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
 -(BOOL)             hookupToRunningOpenVPNs;
--(NSMenuItem *)     initPrefMenuItemWithTitle:              (NSString *)        title
-                                    andAction:              (SEL)               action
-                                   andToolTip:              (NSString *)        tip
-                           atIndentationLevel:              (int)               indentLevel
-                             andPreferenceKey:              (NSString *)        prefKey
-                                      negated:              (BOOL)              negatePref;
 -(void)             initialiseAnim;
 -(void)             insertConnectionMenuItem:               (NSMenuItem *)      theItem
                                     IntoMenu:               (NSMenu *)          theMenu
@@ -239,20 +233,23 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"standardApplicationPath",
                                 @"doNotCreateLaunchTunnelblickLinkinConfigurations",
                                 @"useShadowConfigurationFiles",
-                                @"disableShareConfigurationButton",
                                 @"usePrivateConfigurationsWithDeployedOnes",
                                 @"hookupTimeout",
                                 @"openvpnTerminationInterval",
                                 @"openvpnTerminationTimeout",
                                 @"menuIconSet",
+                                
+                                @"disableAdvancedButton",
+                                @"disableCheckNowButton",
+                                @"disableResetDisabledWarningsButton",
+                                
                                 @"doNotShowConnectionSubmenus",
-                                @"doNotShowForcedPreferenceMenuItems",
-                                @"doNotShowOptionsSubmenu",
-                                @"doNotShowKeyboardShortcutSubmenu",
-                                @"doNotShowCheckForUpdatesNowMenuItem",
+                                @"doNotShowVpnDetailsMenuItem",
                                 @"doNotShowAddConfigurationMenuItem",
                                 @"doNotShowSplashScreen",
                                 @"showConnectedDurations",
+                                @"showStatusWindow",
+                                
                                 @"maximumNumberOfTabs",
                                 @"onlyAdminCanUpdate",
                                 @"connectionWindowDisplayCriteria",
@@ -261,7 +258,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"lastConnectedDisplayName",
                                 @"installationUID",
                                 @"keyboardShortcutIndex",
-                                @"showStatusWindow",
                                 @"doNotUnrebrandLicenseDescription",
                                 @"useSharedConfigurationsWithDeployedOnes",
                                 @"usePrivateConfigurationsWithDeployedOnes",
@@ -271,9 +267,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"updateFeedURL",
                                 @"updateAutomatically",
                                 @"updateUUID",
-                                
+
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
+                                @"NSWindow Frame SUStatusFrame",
                                 @"detailsWindowFrameVersion",
                                 @"detailsWindowFrame",
                                 @"detailsWindowLeftFrame",
@@ -281,18 +278,26 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"haveDealtWithSparkle1dot5b6",
                                 
                                 @"SUEnableAutomaticChecks",
+                                @"SUFeedURL",
+                                @"SUScheduledCheckInterval",
                                 @"SUSendProfileInfo",
                                 @"SUAutomaticallyUpdate",
                                 @"SULastCheckTime",
                                 @"SULastProfileSubmissionDate",
                                 @"SUHasLaunchedBefore",
-                                @"NSWindow Frame SUStatusFrame",
                                 
                                 
                                 @"WebKitDefaultFontSize",
                                 @"WebKitStandardFont",
                                 
                                 @"ApplicationCrashedAfterRelaunch",
+                                
+                                // No longer used
+                                @"doNotShowCheckForUpdatesNowMenuItem",
+                                @"doNotShowForcedPreferenceMenuItems",
+                                @"doNotShowKeyboardShortcutSubmenu",
+                                @"doNotShowOptionsSubmenu",
+                                
                                 nil] retain];
         
         gConfigurationPreferences = [[NSArray arrayWithObjects:
@@ -1069,7 +1074,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  [[self myConfigDictionary] count] == 0  ) {
         [myVPNMenu addItem: noConfigurationsItem];
-        [myVPNMenu addItem: addConfigurationItem];
+        if (  ! [gTbDefaults boolForKey:@"doNotShowAddConfigurationMenuItem"]  ) {
+            [myVPNMenu addItem: addConfigurationItem];
+        }
     }
     
     [myVPNMenu addItem: [NSMenuItem separatorItem]];
@@ -1081,10 +1088,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 #endif
 
-	[myVPNMenu addItem: vpnDetailsItem];
-	
+    if (  ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"]  ) {
+        [myVPNMenu addItem: vpnDetailsItem];
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+	}
+    
     [self addCustomMenuItems];
-    [myVPNMenu addItem: [NSMenuItem separatorItem]];
 
     [myVPNMenu addItem: quitItem];
     
@@ -1378,73 +1387,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     NSLog(@"Unable to find submenu '%@' in the menu, removal failed", restOfName);
-}
-
-// Note: ToolTips are disabled because they interfere with VoiceOver
--(NSMenuItem *)initPrefMenuItemWithTitle: (NSString *) title
-                               andAction: (SEL) action
-                              andToolTip: (NSString *) tip
-                      atIndentationLevel: (int) indentLevel
-                        andPreferenceKey: (NSString *) prefKey
-                                 negated: (BOOL) negatePref
-{
-    if (  [gTbDefaults canChangeValueForKey:prefKey] || ( ! [gTbDefaults boolForKey: @"doNotShowForcedPreferenceMenuItems"] )  ) {
-        NSMenuItem * menuItem = [[NSMenuItem alloc] init];
-        [menuItem setTitle:   title];
-        [menuItem setTarget:  self];
-        [menuItem setAction:  action];
-        if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-            [menuItem setToolTip: tip];
-        }
-        [menuItem setIndentationLevel: indentLevel];
-        [menuItem setRepresentedObject: prefKey];
-        
-        BOOL state;
-        if (  [prefKey isEqualToString: @"menuIconSet"]  ) {
-            BOOL isDir;
-            if (   [gTbDefaults boolForKey: @"doNotShowUseOriginalIconMenuItem"]
-                || ( ! (   [gFileMgr fileExistsAtPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets/TunnelBlick-black-white.TBMenuIcons"] isDirectory: &isDir]
-                        && isDir )
-                   )
-               ) {
-                [menuItem release];
-                return nil;
-            } else {
-                id obj = [gTbDefaults objectForKey: @"menuIconSet"];
-                if (   [[obj class] isSubclassOfClass: [NSString class]]  ) {
-                    if (  [obj isEqualToString: @"TunnelBlick-black-white.TBMenuIcons"]  ) {
-                        state = TRUE;
-                    } else if (  [obj isEqualToString: @"TunnelBlick.TBMenuIcons"]  ) {
-                        state = FALSE;
-                    } else {
-                        [menuItem release];
-                        return nil;
-                    }
-                } else {
-                    if (  obj  ) {
-                        [menuItem release];
-                        return nil;
-                    } else {
-                        // No menuIconSet preference, so default to standard yellow-at-the-end-of-the-tunnel icon, not the gray icon
-                        state = FALSE;
-                    }
-                }
-            }
-        } else {
-            state = [gTbDefaults boolForKey:prefKey];
-        }
-        
-        state = negatePref ? ! state : state;
-        if (  state  ) {
-            [menuItem setState: NSOnState];
-        } else {
-            [menuItem setState: NSOffState];
-        }
-        return menuItem;
-    } else {
-        return nil;
-    }
-    
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)anItem 
@@ -2575,8 +2517,8 @@ static void signal_handler(int signalNumber)
     id checkInterval = [gTbDefaults objectForKey: @"updateCheckInterval"];
     if (  checkInterval  ) {
         if (  [updater respondsToSelector: @selector(setUpdateCheckInterval:)]  ) {
-            if (  [checkInterval isMemberOfClass: [NSNumber class]]
-                || [checkInterval isMemberOfClass: [NSString class]]  ) {
+            if (   [[checkInterval class] isSubclassOfClass: [NSNumber class]]
+                || [[checkInterval class] isSubclassOfClass: [NSString class]]  ) {
                 NSTimeInterval d = [checkInterval doubleValue];
                 if (  d == 0.0  ) {
                     NSLog(@"Ignoring 'updateCheckInterval' preference because it is 0 or is not a valid number");
@@ -2600,7 +2542,7 @@ static void signal_handler(int signalNumber)
     if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
         if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
             id feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
-            if (  [feedURL isMemberOfClass: [NSString class]]  ) {
+            if (  [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
                 [updater setFeedURL: [NSURL URLWithString: feedURL]];
             } else {
                 NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");

@@ -51,6 +51,7 @@ extern TBUserDefaults * gTbDefaults;
     [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")];
     [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                       @"Button")];
     [updatesCheckNowButton sizeToFit];
+    [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
     
     // Keyboard Shortcuts popup
     // We allow F1...F12 as keyboard shortcuts (or no shortcut) so the menu isn't too long (and MacBook keyboards only go that high, anyway)
@@ -87,6 +88,7 @@ extern TBUserDefaults * gTbDefaults;
     [warningsTFC                        setTitle: NSLocalizedString(@"Warnings:",                 @"Window text")];
     [resetDisabledWarningsButton        setTitle: NSLocalizedString(@"Reset Disabled Warnings",   @"Button")];
     [resetDisabledWarningsButton sizeToFit];
+    [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 }
 
 

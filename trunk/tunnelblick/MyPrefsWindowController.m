@@ -1195,16 +1195,13 @@ static BOOL firstTimeShowingWindow = TRUE;
                         NSLocalizedString(@"You cannot make a configuration private if it is set to start when the computer starts.", @"Window text"),
                         nil, nil, nil);
     } else {
-        NSString * disableShareConfigKey = [[[self selectedConnection] displayName] stringByAppendingString:@"disableShareConfigurationButton"];
-        if (  ! [gTbDefaults boolForKey: disableShareConfigKey]  ) {
-            NSString * path = [[self selectedConnection] configPath];
-            if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-                [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
-            } else {
-                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                                NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"),
-                                nil, nil, nil);
-            }
+        NSString * path = [[self selectedConnection] configPath];
+        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+            [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
+        } else {
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"),
+                            nil, nil, nil);
         }
     }
 }
