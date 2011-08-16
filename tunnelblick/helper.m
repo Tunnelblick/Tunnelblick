@@ -860,6 +860,16 @@ BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName,
     return TRUE;
 }
 
+NSMutableString * encodeSlashesAndPeriods(NSString * s)
+{
+    // Encode slashes and periods in the displayName so the result can act as a single component in a file name
+    NSMutableString * result = [[s mutableCopy] autorelease];
+    [result replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [result length])];
+    [result replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [result length])];
+    [result replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [result length])];
+    return result;
+}
+
 NSString * copyrightNotice()
 {
     NSDateFormatter * dateFormat = [[[NSDateFormatter alloc] init] autorelease];

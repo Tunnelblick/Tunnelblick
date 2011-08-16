@@ -43,6 +43,8 @@ NSString     * newTemporaryDirectoryPath(void);
 
 NSString     * escaped                  (NSString * string);
 
+NSMutableString * encodeSlashesAndPeriods(NSString * s);
+
 BOOL           itemIsVisible            (NSString * path);
 
 NSString     * firstPartOfPath          (NSString * thePath);
