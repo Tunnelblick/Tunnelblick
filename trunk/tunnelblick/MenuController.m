@@ -243,6 +243,19 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"disableCheckNowButton",
                                 @"disableResetDisabledWarningsButton",
                                 
+                                @"disableAddConfigurationButton",
+                                @"disableRemoveConfigurationButton",
+                                @"disableWorkOnConfigurationButton",
+                                
+                                @"disableRenameConfigurationMenuItem",
+                                @"disableDuplicateConfigurationMenuItem",
+                                @"disableMakeConfigurationPublicOrPrivateMenuItem",
+                                @"disableExamineOpenVpnConfigurationFileMenuItem",
+                                @"disableShowOpenVpnLogInFinderMenuItem",
+                                @"disableDeleteConfigurationCredentialsInKeychainMenuItem",
+                                
+                                @"disableCopyLogToClipboardButton",
+                                
                                 @"doNotShowConnectionSubmenus",
                                 @"doNotShowVpnDetailsMenuItem",
                                 @"doNotShowAddConfigurationMenuItem",

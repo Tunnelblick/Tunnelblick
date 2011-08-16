@@ -98,7 +98,7 @@ extern TBUserDefaults * gTbDefaults;
     [disconnectionAlertSoundTFC setTitle: NSLocalizedString(@"Unexpected disconnection:", @"Window text")];
     
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
-    [advancedButton setEnabled: ! [gTbDefaults canChangeValueForKey: @"disableAdvancedButton"]];
+    [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
 }
 
 

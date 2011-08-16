@@ -552,6 +552,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
@@ -559,7 +560,6 @@
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
 				638A1FE0135CB82500FB932C /* standardize-scutil-output.m */,
 				63B78AD41102419800734D73 /* dmgFiles */,
-				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
