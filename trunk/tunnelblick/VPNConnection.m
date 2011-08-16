@@ -367,7 +367,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(BOOL) hasLaunchDaemon
 {
-    NSString * daemonPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/net.tunnelblick.startup.%@.plist", [self displayName]];
+    NSString * daemonPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/net.tunnelblick.startup.%@.plist", encodeSlashesAndPeriods([self displayName])];
     return [gFileMgr fileExistsAtPath: daemonPath];
 }
 
@@ -469,10 +469,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(BOOL) launchdPlistWillConnectOnSystemStart
 {
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
-    NSMutableString * daemonNameWithoutSlashes = [[[self displayName] mutableCopy] autorelease];
-    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
-    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
-    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
+    NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
     
     NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
     
@@ -494,11 +491,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                          withAuth: (AuthorizationRef)  inAuthRef;
 {
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
-    NSMutableString * daemonNameWithoutSlashes = [[[self displayName] mutableCopy] autorelease];
-    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
-    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"." withString: @"-D" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
-    [daemonNameWithoutSlashes replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [daemonNameWithoutSlashes length])];
-
+    NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
+    
     NSString * daemonLabel = [NSString stringWithFormat: @"net.tunnelblick.startup.%@", daemonNameWithoutSlashes];
     
     NSString * plistPath = [NSString stringWithFormat: @"/Library/LaunchDaemons/%@.plist", daemonLabel];
