@@ -650,16 +650,22 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Left split view
         
-        [[configurationsPrefsView renameConfigurationMenuItem]     setEnabled: YES];
-        [[configurationsPrefsView duplicateConfigurationMenuItem]  setEnabled: YES];
+        [[configurationsPrefsView addConfigurationButton]               setEnabled: ! [gTbDefaults boolForKey: @"disableAddConfigurationButton"                          ]];
+        [[configurationsPrefsView removeConfigurationButton]            setEnabled: ! [gTbDefaults boolForKey: @"disableRemoveConfigurationButton"                       ]];
+        [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"                       ]];
+        
+        [[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: NO];
+        
+        [[configurationsPrefsView renameConfigurationMenuItem]          setEnabled: ! [gTbDefaults boolForKey: @"disableRenameConfigurationMenuItem"                     ]];
+        [[configurationsPrefsView duplicateConfigurationMenuItem]       setEnabled: ! [gTbDefaults boolForKey: @"disableDuplicateConfigurationMenuItem"                  ]];
         
         NSString * configurationPath = [connection configPath];
         if (  [configurationPath hasPrefix: gSharedPath]  ) {
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Private..."  , @"Menu Item")];
-            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled: YES];
+            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled:  ! [gTbDefaults boolForKey: @"disableMakeConfigurationPrivateOrSharedMenuItem"            ]];
         } else if (  [configurationPath hasPrefix: gPrivatePath]  ) {
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
-            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled: YES];
+            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled:  ! [gTbDefaults boolForKey: @"disableMakeConfigurationPrivateOrSharedMenuItem"            ]];
         } else {
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled: NO];
@@ -670,16 +676,16 @@ static BOOL firstTimeShowingWindow = TRUE;
         } else {
             [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setTitle: NSLocalizedString(@"Examine OpenVPN Configuration File...", @"Menu Item")];
         }
-        [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem]     setEnabled: YES];
+        [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setEnabled: ! [gTbDefaults boolForKey: @"disableExamineOpenVpnConfigurationFileMenuItem"         ]];
         
-        [[configurationsPrefsView removeConfigurationButton]            setEnabled: YES];
-        [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: YES];
+        [[configurationsPrefsView showOpenvpnLogMenuItem]               setEnabled: ! [gTbDefaults boolForKey: @"disableShowOpenVpnLogInFinderMenuItem"                  ]];
+        [[configurationsPrefsView removeCredentialsMenuItem]            setEnabled: ! [gTbDefaults boolForKey: @"disableDeleteConfigurationCredentialsInKeychainMenuItem"]];
         
         // right split view
         
         // Right split view - log tab
         
-        [[configurationsPrefsView logToClipboardButton]                 setEnabled: YES];
+        [[configurationsPrefsView logToClipboardButton]                 setEnabled: ! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"]];
         
         
         // Right split view - settings tab
