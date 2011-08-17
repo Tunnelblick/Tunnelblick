@@ -21,7 +21,7 @@ PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 # Both lzo and openvpn should be built universally
 
 LZO_DIR=lzo-2.05
-PKCS11_DIR=pkcs11-helper-1.08
+PKCS11_DIR=pkcs11-helper-1.09
 
 all: tuntap openvpn
 	rm -rf $(BUILD_DIR)
