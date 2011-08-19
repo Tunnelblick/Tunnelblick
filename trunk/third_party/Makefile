@@ -22,6 +22,7 @@ PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 LZO_DIR=lzo-2.05
 PKCS11_DIR=pkcs11-helper-1.09
+TUNTAP_DIR=tuntap-20090913
 
 all: tuntap openvpn
 	rm -rf $(BUILD_DIR)
@@ -146,20 +147,23 @@ openvpn-clean:
 .PHONY : tuntap
 
 tuntap-patch:
-	@cd tuntap; \
+	cd $(TUNTAP_DIR); \
 	for patchfile in ../patches/tuntap/*.diff; do \
 		patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
 		if [ $$? == 0 ]; then \
 			patch -p0 -N -i $$patchfile; \
 		fi \
-	done
+	done; \
+	cd ../
 
 tuntap: tuntap-patch
 	# Now we'll build the tun/tap driver
-	$(MAKE) -C tuntap/
+	$(MAKE) -C $(TUNTAP_DIR)/; \
+	mv $(TUNTAP_DIR)/tap.kext tap.kext; \
+	mv $(TUNTAP_DIR)/tun.kext tun.kext
 
 tuntap-clean:
-	$(MAKE) -C tuntap/ clean
+	$(MAKE) -C $(TUNTAP_DIR)/ clean
 
-clean: lzo-clean tuntap-clean pkcs11-helper-clean openvpn-clean
+clean: tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
 	rm -rf $(BUILD_DIR)
