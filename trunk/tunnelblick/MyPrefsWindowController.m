@@ -107,8 +107,8 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupToolbar
 {
     [self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: @"Configurations"]];
-    [self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
     [self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: @"Appearance"    ]];
+    [self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
     [self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
     
     [self setupViews];
@@ -2045,8 +2045,12 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
             
             // Set the preference if this isn't just the initialization
             if (  oldValue != UINT_MAX  ) {
-                NSString * newPreferenceValue = [[list objectAtIndex: newValue] objectForKey: @"name"];
-                [gTbDefaults setObject: newPreferenceValue forKey: @"openvpnVersion"];
+                NSString * newPreferenceValue = [[list objectAtIndex: newValue] objectForKey: @"value"];
+                if (   newPreferenceValue && [newPreferenceValue length] > 0  ) {
+                    [gTbDefaults setObject: newPreferenceValue forKey: @"openvpnVersion"];
+                } else {
+                    [gTbDefaults removeObjectForKey: @"openvpnVersion"];
+                }
             }
         }
     }
