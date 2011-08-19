@@ -55,7 +55,7 @@ extern TBUserDefaults * gTbDefaults;
     [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
     
     // OpenVPN Version popup
-    [openvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN:", @"Window text")];
+    [openvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
     
     NSArray * versions = availableOpenvpnVersions();
     if (  ! versions  ) {
@@ -63,13 +63,17 @@ extern TBUserDefaults * gTbDefaults;
         [NSApp terminate: self];
     }
     
+    NSString * ver = [versions lastObject];
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: 10];
-    NSString * v;
+    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
+                          @"", @"value",    // Empty name means default
+                          nil]];
     NSEnumerator * e = [versions objectEnumerator];
-    while (v = [e nextObject]) {
+    while (ver = [e nextObject]) {
         [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                               v, @"name",
-                               v, @"value",
+                               ver, @"name",
+                               ver, @"value",
                                nil]];
     }
         
