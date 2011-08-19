@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6140EF9A0E3C334E00C5B93A /* openvpn in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6140EF990E3C334800C5B93A /* openvpn */; };
 		61492D380E38ED3400BC9C3F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
 		61492D3B0E38ED3900BC9C3F /* Sparkle.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 61492D370E38ED3400BC9C3F /* Sparkle.framework */; };
 		615F748A0ED3A4C2007F6F0A /* English.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 615F74860ED3A4C2007F6F0A /* English.lproj */; };
@@ -143,7 +142,6 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		ADB23E111099514400CC52D3 /* openvpn-down-root.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = ADB23E101099514400CC52D3 /* openvpn-down-root.so */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,13 +183,11 @@
 			dstSubfolderSpec = 7;
 			files = (
 				631795FC118DC79B0057ACAF /* atsystemstart in CopyFiles */,
-				6140EF9A0E3C334E00C5B93A /* openvpn in CopyFiles */,
 				61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */,
 				61BC4DAB0E2FA33C00F24255 /* installer in CopyFiles */,
 				638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */,
 				616A49190E38D0DE00477476 /* tap.kext in CopyFiles */,
 				616A491A0E38D0DE00477476 /* tun.kext in CopyFiles */,
-				ADB23E111099514400CC52D3 /* openvpn-down-root.so in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +212,6 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tunnelblick_Prefix.pch; sourceTree = "<group>"; };
-		6140EF990E3C334800C5B93A /* openvpn */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = openvpn; path = ../third_party/openvpn/openvpn; sourceTree = SOURCE_ROOT; };
 		61492D370E38ED3400BC9C3F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../third_party/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		615F74860ED3A4C2007F6F0A /* English.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = English.lproj; sourceTree = "<group>"; };
 		615F748C0ED3A4E5007F6F0A /* FR.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FR.lproj; sourceTree = "<group>"; };
@@ -391,7 +386,6 @@
 		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		ADB23E101099514400CC52D3 /* openvpn-down-root.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "openvpn-down-root.so"; path = "../third_party/openvpn/plugin/down-root/openvpn-down-root.so"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -577,8 +571,6 @@
 				6387F0F4135604240021E41B /* tunnelblick.sdef */,
 				6353818E1116031F00D68E83 /* dsa_pub.pem */,
 				61F294A50ED389520097DE94 /* openvpn.conf */,
-				6140EF990E3C334800C5B93A /* openvpn */,
-				ADB23E101099514400CC52D3 /* openvpn-down-root.so */,
 				616A49090E38D0D400477476 /* tap.kext */,
 				616A490A0E38D0D400477476 /* tun.kext */,
 				635CA45212F8285D00287298 /* COPYING */,
@@ -979,7 +971,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Set the build number in Info.plist for the app and for the kexts\n\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\n\n# Remove extra files that are not needed\n\nrm \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\"\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools except if Unsigned Release\nif [ \"${CONFIGURATION}\" != \"Unsigned Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH\"\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -rf \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\nfi";
+			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Set the build number in Info.plist for the app and for the kexts\n\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn/openvpn\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn/plugin/down-root/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n\n\n# Remove extra files that are not needed\n\nrm \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\"\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools except if Unsigned Release\nif [ \"${CONFIGURATION}\" != \"Unsigned Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH\"\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -rf \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -rf \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\nfi";
+			showEnvVarsInLog = 0;
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

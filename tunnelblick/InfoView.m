@@ -51,9 +51,6 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) awakeFromNib
 {
-    NSString * version = [NSString stringWithFormat: @"%@  -  %@", tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()];
-    [infoVersionTFC setTitle: version];
-    
     NSString * logoPath = [[NSBundle mainBundle] pathForResource: @"tunnelblick" ofType: @"icns"];
     if (  logoPath  ) {
         [logo release];
@@ -191,6 +188,7 @@ extern TBUserDefaults * gTbDefaults;
     }
 }
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, infoHelpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, infoHelpButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, infoVersionTFC)
 
 @end

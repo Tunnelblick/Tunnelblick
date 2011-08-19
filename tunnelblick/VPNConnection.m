@@ -42,7 +42,6 @@ extern NSString             * gSharedPath;
 extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
-extern NSDictionary         * gOpenVPNVersionDict;
 extern unsigned               gHookupTimeout;
 extern BOOL                   gTunnelblickIsQuitting;
 extern BOOL                   gComputerIsGoingToSleep;
@@ -999,26 +998,32 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
-    int intMajor =  [[gOpenVPNVersionDict objectForKey:@"major"]  intValue];
-    int intMinor =  [[gOpenVPNVersionDict objectForKey:@"minor"]  intValue];
-    int intSuffix = [[gOpenVPNVersionDict objectForKey:@"suffix"] intValue];
-    
-	NSString *skipScrSec =@"1";
-    if ( intMajor == 2 ) {
-        if ( intMinor == 1 ) {
-            if (  [[gOpenVPNVersionDict objectForKey:@"preSuffix"] isEqualToString:@"_rc"] ) {
-                if ( intSuffix > 8 ) {
+    NSString *skipScrSec = @"1";
+    NSDictionary * openVPNVersionDict = getOpenVPNVersion();
+    if (  openVPNVersionDict  ) {
+        int intMajor =  [[openVPNVersionDict objectForKey:@"major"]  intValue];
+        int intMinor =  [[openVPNVersionDict objectForKey:@"minor"]  intValue];
+        int intSuffix = [[openVPNVersionDict objectForKey:@"suffix"] intValue];
+        
+        if ( intMajor == 2 ) {
+            if ( intMinor == 1 ) {
+                if (  [[openVPNVersionDict objectForKey:@"preSuffix"] isEqualToString:@"_rc"] ) {
+                    if ( intSuffix > 8 ) {
+                        skipScrSec = @"0";
+                    }
+                } else {
                     skipScrSec = @"0";
                 }
-            } else {
+            } else if ( intMinor > 1 ) {
                 skipScrSec = @"0";
             }
-        } else if ( intMinor > 1 ) {
+        } else if ( intMajor > 2 ) {
             skipScrSec = @"0";
         }
-    } else if ( intMajor > 2 ) {
+    } else {
         skipScrSec = @"0";
     }
+    
     NSString *altCfgLoc = @"0";
     if ( useShadowCopy ) {
         altCfgLoc = @"1";
@@ -1081,9 +1086,17 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     } else {
         leasewatchOptions = @"";
     }
-        
+    
+    NSString * ourVersionFolder;
+    id obj = [gTbDefaults objectForKey: @"openvpnVersion"];
+    if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+        ourVersionFolder = (NSString *) obj;
+    } else {
+        ourVersionFolder = @"";
+    }
+
     NSArray * args = [NSArray arrayWithObjects:
-                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, nil];
+                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourVersionFolder, nil];
     return args;
 }
 

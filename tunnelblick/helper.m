@@ -43,7 +43,6 @@ extern NSMutableArray  * gConfigDirs;
 extern NSString        * gPrivatePath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
-extern NSDictionary    * gOpenVPNVersionDict;  
 
 BOOL runningOnTigerOrNewer()
 {
@@ -344,24 +343,60 @@ NSString * tunnelblickVersion(NSBundle * bundle)
 // Returns a string with the version # for OpenVPN, e.g., "OpenVPN 2 (2.1_rc15)"
 NSString * openVPNVersion(void)
 {
-    NSDictionary * OpenVPNV = gOpenVPNVersionDict;
-    NSString * version      = [NSString stringWithFormat:@"OpenVPN %@",
-                               [OpenVPNV objectForKey:@"full"]
-                              ];
-    return ([NSString stringWithString: version]);
+    NSString * version;
+    NSDictionary * openvpnVersion = getOpenVPNVersion();
+    if (  openVPNVersion  ) {
+        version= [NSString stringWithFormat:@"OpenVPN %@",
+                  [openvpnVersion objectForKey:@"full"]
+                  ];
+    } else {
+        version = @"?";
+    }
+
+    return version;
 }
 
 // Returns a dictionary from parseVersion with version info about OpenVPN
 NSDictionary * getOpenVPNVersion(void)
 {
-    //Launch "openvpnstart OpenVPNInfo", which launches openvpn (as root) with no arguments to get info, and put the result into an NSString:
+    //Launch "openvpnstart OpenVPNInfo <our-version-#>", which launches openvpn --version (as root) to get info, and put the result into an NSString:
+    
+    NSString * useVersion = nil;
+    NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
+    if (  prefVersion  ) {
+        NSArray * versions = availableOpenvpnVersions();
+        if (  [versions containsObject: prefVersion]  ) {
+            useVersion = prefVersion;
+        } else {
+            if (  [versions count] == 0  ) {
+                NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+                return nil;
+            }
+            
+            useVersion = [versions objectAtIndex: [versions count]-1];
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
+                             prefVersion, useVersion],
+                            nil, nil, nil);
+            [gTbDefaults removeObjectForKey: @"openvpnVersion"];
+        }
+    } else {
+        NSArray * versions = availableOpenvpnVersions();
+        if (   versions  ) {
+            useVersion = [versions objectAtIndex: [versions count]-1];
+        }
+    }
+    
+    if (  ! useVersion  ) {
+        return nil;
+    }
     
     NSTask * task = [[NSTask alloc] init];
     
     NSString * exePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"openvpnstart"];
     [task setLaunchPath: exePath];
     
-    NSArray  *arguments = [NSArray arrayWithObjects: @"OpenVPNInfo", nil];
+    NSArray  *arguments = [NSArray arrayWithObjects: @"OpenVPNInfo", useVersion, nil];
     [task setArguments: arguments];
     
     NSPipe * pipe = [NSPipe pipe];
@@ -878,6 +913,64 @@ NSString * copyrightNotice()
     return [NSString stringWithFormat:
             NSLocalizedString(@"Copyright © 2004-%@ Angelo Laub and others.", @"Window text"),
             year];
+}
+
+BOOL isSanitizedOpenvpnVersion(NSString * s)
+{
+    unsigned i;
+    for (i=0; i<[s length]; i++) {
+        unichar ch = [s characterAtIndex: i];
+        if ( strchr("01234567890.-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
+            NSLog(@"An OpenVPN version string may only contain a-z, 0-9, periods, and hyphens");
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+NSArray * availableOpenvpnVersions (void)
+{
+    static BOOL haveNotWarned = TRUE;       // Have we warned about ALL the bad folder names already
+    BOOL haveWarnedThisTimeThrough = FALSE; // Have we warned about any folder names this time through
+    
+    // Get a sorted list of the versions
+    NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity: 12] autorelease];
+    NSString * dir;
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: nil]];
+    while (dir = [dirEnum nextObject]) {
+        [dirEnum skipDescendents];
+        if (  [dir hasPrefix: @"openvpn-"]  ) {
+            NSString * version = [dir substringFromIndex: [@"openvpn-" length]];
+            if (  isSanitizedOpenvpnVersion(version)  ) {
+                unsigned i;
+                for (  i=0; i<[list count]; i++  ) {
+                    if (  [version compare: [list objectAtIndex: i] options: NSNumericSearch] == NSOrderedAscending  ) {
+                        [list insertObject: version atIndex: i];
+                        break;
+                    }
+                }
+                if (  i == [list count]  ) {
+                    [list addObject: version];
+                }
+            } else {
+                if (  haveNotWarned  ) {
+                    NSLog(@"OpenVPN version folder names may only contain a-z, 0-9, periods, and hyphens. %@ has been ignored.", dir);
+                    haveWarnedThisTimeThrough = TRUE;
+                }
+            }
+        }
+    }
+    
+    if (  haveWarnedThisTimeThrough  ) {
+        haveNotWarned = FALSE;
+    }
+    
+    if (  [list count] == 0  ) {
+        return nil;
+    }
+    
+    return list;
 }
 
 // This method translates and returns non-literal OpenVPN message.
