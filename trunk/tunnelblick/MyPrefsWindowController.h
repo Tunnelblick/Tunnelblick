@@ -69,6 +69,7 @@
     
     
     // For GeneralView
+    IBOutlet NSInteger             selectedOpenvpnVersionIndex;
     IBOutlet NSInteger             selectedKeyboardShortcutIndex;
     IBOutlet NSInteger             selectedMaximumLogSizeIndex;
     
@@ -167,6 +168,7 @@ TBPROPERTY(NSInteger, selectedSetNameserverIndex,     setSelectedSetNameserverIn
 TBPROPERTY(NSInteger, selectedSoundOnConnectIndex,    setSelectedSoundOnConnectIndex)
 TBPROPERTY(NSInteger, selectedSoundOnDisconnectIndex, setSelectedSoundOnDisconnectIndex)
 
+TBPROPERTY(NSInteger, selectedOpenvpnVersionIndex,   setSelectedOpenvpnVersionIndex)
 TBPROPERTY(NSInteger, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
 TBPROPERTY(NSInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
 

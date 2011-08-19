@@ -108,37 +108,40 @@ lzo-clean:
 	rm -rf $(LZO_DIR)/staging*
 
 openvpn-patch:
-	@cd openvpn; \
-	for patchfile in ../patches/openvpn/*.diff; do \
-		patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
-		if [ $$? == 0 ]; then \
-			patch -p0 -N -i $$patchfile; \
-		fi \
+	for openvpndir in `ls openvpn`; do \
+		cd openvpn/$$openvpndir/openvpn; \
+		for patchfile in ../patches/*.diff; do \
+			patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
+			if [ $$? == 0 ]; then \
+				patch -p0 -N -i $$patchfile; \
+			fi \
+		done; \
+		cd ../../../; \
 	done
-
+	
 openvpn: lzo openssl pkcs11-helper openvpn-patch
-	for a in ppc i386; do \
-		echo Configure OpenVPN for $$a; \
-		cd openvpn/; \
-		echo Forcefully be clean; \
-		$(MAKE) clean; \
-		autoreconf -i -v; \
-		CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --with-lzo-headers=../$(LZO_DIR)/staging/include --with-lzo-lib=../$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=../$(PKCS11_DIR)/staging/include --with-pkcs11-helper-lib=../$(PKCS11_DIR)/staging/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
-		echo Build OpenVPN; \
-		$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -lpkcs11-helper -llzo2 -lz"; \
-		mv openvpn openvpn_tblk_$$a; \
-		cd ../; \
+	for openvpndir in `ls openvpn`; do \
+		for a in ppc i386; do \
+			cd openvpn/$$openvpndir/openvpn; \
+			$(MAKE) clean; \
+			autoreconf -i -v; \
+			CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --with-lzo-headers=../../../$(LZO_DIR)/staging/include --with-lzo-lib=../../../$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=../../../$(PKCS11_DIR)/staging/include --with-pkcs11-helper-lib=../../../$(PKCS11_DIR)/staging/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
+			$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -lpkcs11-helper -llzo2 -lz"; \
+			mv openvpn openvpn_tblk_$$a; \
+			cd ../../../; \
+		done; \
+		$(MAKE) -C openvpn/$$openvpndir/openvpn/plugin/down-root; \
+		lipo openvpn/$$openvpndir/openvpn/openvpn_tblk_* -create -output openvpn/$$openvpndir/openvpn/openvpn; \
 	done
 	
-	$(MAKE) -C openvpn/plugin/down-root
-	
-	# Use lipo to create a universal library
-	lipo openvpn/openvpn_tblk_* -create -output openvpn/openvpn
-
 openvpn-clean:
-	$(MAKE) -C openvpn/ clean
-	$(MAKE) -C openvpn/plugin/down-root clean
-	rm -f openvpn/openvpn_tblk_*
+	for openvpndir in `ls openvpn`; do \
+		$(MAKE) -C openvpn/$$openvpndir/openvpn/ clean; \
+		$(MAKE) -C openvpn/$$openvpndir/openvpn/plugin/down-root clean; \
+		rm -f openvpn/$$openvpndir/openvpn/openvpn_tblk_*; \
+		rm -f openvpn/$$openvpndir/openvpn/openvpn; \
+		rm -f openvpn/$$openvpndir/openvpn/plugin/down-root/openvpn-down-root.so; \
+	done
 
 .PHONY : tuntap
 

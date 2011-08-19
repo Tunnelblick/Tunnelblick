@@ -22,6 +22,7 @@
 
 #import "GeneralView.h"
 #import "TBUserDefaults.h"
+#import "helper.h"
 
 
 extern TBUserDefaults * gTbDefaults;
@@ -43,15 +44,37 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) awakeFromNib
 {
-    [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                                                   @"Window text")];
-    [useShadowCopiesCheckbox            setTitle: NSLocalizedString(@"Use shadow copies of configuration files",                          @"Checkbox name")];
-    [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes",                     @"Checkbox name")];
+    [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                               @"Window text")];
+    [useShadowCopiesCheckbox            setTitle: NSLocalizedString(@"Use shadow copies of configuration files",      @"Checkbox name")];
+    [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes", @"Checkbox name")];
     
-    [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                        @"Window text")];
-    [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically", @"Checkbox name")];
-    [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                       @"Button")];
+    [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
+    [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
+    [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
     [updatesCheckNowButton sizeToFit];
     [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
+    
+    // OpenVPN Version popup
+    [openvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN:", @"Window text")];
+    
+    NSArray * versions = availableOpenvpnVersions();
+    if (  ! versions  ) {
+        NSLog(@"No versions of OpenVPN are included in this copy of Tunnelblick.");
+        [NSApp terminate: self];
+    }
+    
+    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: 10];
+    NSString * v;
+    NSEnumerator * e = [versions objectEnumerator];
+    while (v = [e nextObject]) {
+        [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                               v, @"name",
+                               v, @"value",
+                               nil]];
+    }
+        
+    [openvpnVersionArrayController setContent: ovContent];
+    [openvpnVersionButton sizeToFit];
     
     // Keyboard Shortcuts popup
     // We allow F1...F12 as keyboard shortcuts (or no shortcut) so the menu isn't too long (and MacBook keyboards only go that high, anyway)
@@ -100,6 +123,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          monitorConfigurationFolderC
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, openvpnVersionArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          openvpnVersionButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, keyboardShortcutArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          keyboardShortcutButton)

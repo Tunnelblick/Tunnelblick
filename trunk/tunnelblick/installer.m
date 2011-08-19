@@ -441,6 +441,26 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath, @"744", YES);
         okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,   @"744", YES);
         okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath, @"744", YES);
+                
+        // Check/set OpenVPN version folders and openvpn and openvpn-down-root.so in them
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
+        NSString * file;
+        BOOL isDir;
+        while (  file = [dirEnum nextObject]  ) {
+            NSString * fullPath = [openvpnPath stringByAppendingPathComponent: file];
+            if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+                && isDir  ) {
+                if (  [file hasPrefix: @"openvpn-"]  ) {
+                    okSoFar = okSoFar && checkSetPermissions(fullPath, @"755", YES);
+                    
+                    NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
+                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, @"755", YES);
+                    
+                    NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
+                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnDownRootPath, @"744", NO);
+                }
+            }
+        }
         
         if (   [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
             && isDir  ) {

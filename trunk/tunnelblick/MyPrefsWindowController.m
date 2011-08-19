@@ -125,6 +125,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     currentViewName = @"Configurations";
     
+    selectedOpenvpnVersionIndex                            = UINT_MAX;
     selectedKeyboardShortcutIndex                          = UINT_MAX;
     selectedMaximumLogSizeIndex                            = UINT_MAX;
     selectedAppearanceIconSetIndex                         = UINT_MAX;
@@ -264,6 +265,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[self window] makeFirstResponder: [appearancePrefsView appearanceIconSetButton]];
     } else if (   view == infoPrefsView  ) {
         [[self window] makeFirstResponder: [infoPrefsView infoHelpButton]];
+        NSString * version = [NSString stringWithFormat: @"%@  -  %@", tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()];
+        [[infoPrefsView infoVersionTFC] setTitle: version];
     } else {
         NSLog(@"newViewDidAppear:identifier: invoked with unknown view");
     }
@@ -1802,6 +1805,55 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     [self updateLastCheckedDate];
 
     
+    // Select the OpenVPN version
+    
+    BOOL warnAboutVersion = FALSE;
+    NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
+    NSString * useVersion;
+    if (  ! isSanitizedOpenvpnVersion(prefVersion)  ) {
+        warnAboutVersion = TRUE;
+        useVersion = @"";
+    } else {
+        useVersion = (prefVersion ? prefVersion : @"");
+    }
+    
+    unsigned ovSizeIx = UINT_MAX;
+    NSString * lastValue = @"";
+    NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
+    NSArray * list = [ac content];
+    int i;
+    for (  i=0; i<[list count]; i++  ) {
+        NSDictionary * dict = [list objectAtIndex: i];
+        lastValue = [dict objectForKey: @"value"];
+        if (  [lastValue isEqualToString: useVersion]  ) {
+            ovSizeIx = i;
+            break;
+        }
+    }
+    
+    if (  ovSizeIx == UINT_MAX  ) {
+        if (  [useVersion length] != 0  ) {
+            warnAboutVersion = TRUE;
+        }
+        ovSizeIx = [list count]-1;
+    }
+    
+    if (  ovSizeIx < [list count]  ) {
+        [self setSelectedOpenvpnVersionIndex: ovSizeIx];
+    } else {
+        NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %d", ovSizeIx, [list count]-1);
+    }
+    
+    [[generalPrefsView openvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: @"openvpnVersion"]];
+    
+    if (  warnAboutVersion  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
+                         prefVersion, lastValue],
+                        nil, nil, nil);
+        [gTbDefaults removeObjectForKey: @"openvpnVersion"];
+    }
+    
     // Select the keyboard shortcut
     
     unsigned kbsIx = 1; // F1 is the default
@@ -1832,9 +1884,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     }
     
     int logSizeIx = -1;
-    NSArrayController * ac = [generalPrefsView maximumLogSizeArrayController];
-    NSArray * list = [ac content];
-    int i;
+    ac = [generalPrefsView maximumLogSizeArrayController];
+    list = [ac content];
     for (  i=0; i<[list count]; i++  ) {
         NSDictionary * dict = [list objectAtIndex: i];
         NSString * listValue = [dict objectForKey: @"value"];
@@ -1972,6 +2023,34 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     return selectedKeyboardShortcutIndex;
 }
 
+
+-(NSInteger) selectedOpenvpnVersionIndex
+{
+    return selectedOpenvpnVersionIndex;
+}
+
+
+-(void) setSelectedOpenvpnVersionIndex: (NSInteger) newValue
+{
+    if (  newValue != selectedOpenvpnVersionIndex  ) {
+        NSInteger oldValue = selectedOpenvpnVersionIndex;
+        NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
+        NSArray * list = [ac content];
+        if (  newValue < [list count]  ) {
+            selectedOpenvpnVersionIndex = newValue;
+            
+            // Select the new size
+            NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
+            [ac setSelectionIndex: newValue];
+            
+            // Set the preference if this isn't just the initialization
+            if (  oldValue != UINT_MAX  ) {
+                NSString * newPreferenceValue = [[list objectAtIndex: newValue] objectForKey: @"name"];
+                [gTbDefaults setObject: newPreferenceValue forKey: @"openvpnVersion"];
+            }
+        }
+    }
+}    
 
 -(void) setSelectedKeyboardShortcutIndex: (NSInteger) newValue
 {

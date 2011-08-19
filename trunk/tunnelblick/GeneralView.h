@@ -35,6 +35,10 @@
     IBOutlet NSButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
     
+    IBOutlet NSTextFieldCell    * openvpnVersionTFC;
+    IBOutlet NSArrayController  * openvpnVersionArrayController;
+    IBOutlet NSButton           * openvpnVersionButton;
+    
     IBOutlet NSTextFieldCell    * keyboardShortcutTFC;
     IBOutlet NSArrayController  * keyboardShortcutArrayController;
     IBOutlet NSButton           * keyboardShortcutButton;
@@ -54,6 +58,9 @@ TBPROPERTY_READONLY(NSButton *,          monitorConfigurationFolderCheckbox)
 
 TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
+
+TBPROPERTY_READONLY(NSArrayController *, openvpnVersionArrayController)
+TBPROPERTY_READONLY(NSButton *,          openvpnVersionButton)
 
 TBPROPERTY_READONLY(NSArrayController *, keyboardShortcutArrayController)
 TBPROPERTY_READONLY(NSButton *,          keyboardShortcutButton)

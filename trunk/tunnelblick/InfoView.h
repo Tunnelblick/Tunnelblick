@@ -50,6 +50,7 @@
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier;
 -(void) newViewWillAppear:    (NSView *) view identifier: (NSString *) identifier;
 
-TBPROPERTY_READONLY(NSButton *, infoHelpButton)
+TBPROPERTY_READONLY(NSButton        *, infoHelpButton)
+TBPROPERTY_READONLY(NSTextFieldCell *, infoVersionTFC)
 
 @end

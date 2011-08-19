@@ -58,6 +58,8 @@ NSString     * deconstructOpenVPNLogPath(NSString * logPath,
 NSString     * tunnelblickVersion       (NSBundle * bundle);
 NSString     * openVPNVersion           (void);
 NSDictionary * getOpenVPNVersion        (void);
+NSArray      * availableOpenvpnVersions (void);
+BOOL           isSanitizedOpenvpnVersion(NSString * s);
 
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);

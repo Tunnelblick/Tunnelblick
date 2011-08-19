@@ -57,7 +57,6 @@ NSString              * gPrivatePath;           // Path to ~/Library/Application
 NSString              * gSharedPath;            // Path to /Library/Application Support/Tunnelblick/Shared
 TBUserDefaults        * gTbDefaults;            // Our preferences
 NSFileManager         * gFileMgr;               // [NSFileManager defaultManager]
-NSDictionary          * gOpenVPNVersionDict;    // Dictionary with OpenVPN version information
 AuthorizationRef        gAuthorization;         // Used to call installer
 NSArray               * gProgramPreferences;    // E.g., 'placeIconInStandardPositionInStatusBar'
 NSArray               * gConfigurationPreferences; // E.g., '-onSystemStart'
@@ -263,6 +262,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"showConnectedDurations",
                                 @"showStatusWindow",
                                 
+                                @"openvpnVersion",
                                 @"maximumNumberOfTabs",
                                 @"onlyAdminCanUpdate",
                                 @"connectionWindowDisplayCriteria",
@@ -535,8 +535,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         [self createLinkToApp];
         
-        gOpenVPNVersionDict = [getOpenVPNVersion() copy];
-        
         connectionArray = [[NSArray alloc] init];
         
         if (  ! [self loadMenuIconSet]  ) {
@@ -750,7 +748,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [theAnim release];
     [updater release];
     [myConfigUpdater release];
-    [gOpenVPNVersionDict release];
     [customMenuScripts release];
     [customRunOnLaunchPath release];
     [customRunOnConnectPath release];
@@ -1752,7 +1749,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@; %@", major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()]);
+    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@", major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle])]);
 }
 
 - (IBAction) checkForUpdates: (id) sender
@@ -2751,6 +2748,27 @@ static void signal_handler(int signalNumber)
     }
 #endif
     
+    NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
+    if (  prefVersion  ) {
+        NSArray * versions = availableOpenvpnVersions();
+        if (  ! [versions containsObject: prefVersion]  ) {
+            NSString * useVersion;
+            if (  [versions count] > 0  ) {
+                useVersion = [versions objectAtIndex: [versions count]-1];
+            } else {
+                NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+                [NSApp terminate: self];
+                return;
+            }
+            
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
+                             prefVersion, useVersion],
+                            nil, nil, nil);
+            [gTbDefaults removeObjectForKey: @"openvpnVersion"];
+        }
+    }
+    
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
     [splashScreen setMessage: text];
 
@@ -3611,6 +3629,33 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         return YES; // NSLog already called
     }
     
+    // Check OpenVPN version folders and the binaries of openvpn and openvpn-down-root.so in them
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
+    NSString * file;
+    BOOL isDir;
+    while (  file = [dirEnum nextObject]  ) {
+        [dirEnum skipDescendents];
+        NSString * fullPath = [openvpnPath stringByAppendingPathComponent: file];
+        if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+            && isDir  ) {
+            if (  [file hasPrefix: @"openvpn-"]  ) {
+                if (  ! checkOwnerAndPermissions(fullPath, 0, 0, @"755")  ) {
+                    return YES;
+                }
+                
+                NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
+                if (  ! checkOwnerAndPermissions(thisOpenvpnPath, 0, 0, @"755")  ) {
+                    return YES;
+                }
+                
+                NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
+                if (  ! checkOwnerAndPermissions(thisOpenvpnDownRootPath, 0, 0, @"744")  ) {
+                    return YES;
+                }
+            }
+        }
+    }
+    
 	// check files which should be owned by root with 744 permissions
 	NSArray *root744Objects = [NSArray arrayWithObjects:
                                atsystemstartPath, installerPath, ssoPath, leasewatchPath, leasewatch3Path,
@@ -3635,7 +3680,6 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     }
     
     // check permissions of files in Resources/Deploy (if it exists)
-    BOOL isDir;
     if (  [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
         && isDir  ) {
         if (  folderContentsNeedToBeSecuredAtPath(deployPath)  ) {
