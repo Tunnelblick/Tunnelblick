@@ -164,6 +164,8 @@ tuntap: tuntap-patch
 
 tuntap-clean:
 	$(MAKE) -C $(TUNTAP_DIR)/ clean
+	rm -f -R tap.kext
+	rm -f -R tun.kext
 
 clean: tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
 	rm -rf $(BUILD_DIR)
