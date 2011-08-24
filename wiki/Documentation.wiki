@@ -8,7 +8,7 @@
 </tr></table>
 <br>
 
-<font color="red">*TRANSLATORS NEEDED:*</font> A new version of Tunnelblick is almost ready to be released, and translators are needed for many languages. We especially need translators for *Chinese (Traditional)*, *Polish*, and * Japanese*. If you can help with these or any other languages (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. See the [cTranslationStatus Translation Status] page for the current status of all translations.
+<font color="red">*TRANSLATORS NEEDED:*</font> A new version of Tunnelblick is almost ready to be released, and translators are needed for many languages. We especially need translators for *Chinese (Traditional)* and * Japanese*. If you can help with these or any other languages (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. See the [cTranslationStatus Translation Status] page for the current status of all translations.
 
 <hr>
 
