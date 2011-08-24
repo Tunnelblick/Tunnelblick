@@ -29,7 +29,7 @@
 
 #include "tuntap.h"
 
-#if 0
+#if 1
 #define dprintf(...)			log(LOG_INFO, __VA_ARGS__)
 #else
 #define dprintf(...)
@@ -271,6 +271,7 @@ tuntap_interface::tuntap_interface()
 	bpf_mode = BPF_MODE_DISABLED;
 	bpf_callback = NULL;
 	bzero(unique_id, UIDLEN);
+	in_ioctl = false;
 }
 
 tuntap_interface::~tuntap_interface()
@@ -394,58 +395,6 @@ tuntap_interface::unregister_interface()
 		ifnet_release(ifp);
 
 		ifp = NULL;
-
-#if 0
-		/* Here goes another hack that we need to prevent darwin from crashing.
-		 * Unfortunately, not all of the interface service function pointers are cleared on
-		 * detach properly. In particular, I had crashes from calling the demux() interface
-		 * function after the kernel module had been unloaded. So we need to make sure all
-		 * our function pointers get out of the ifnet struct. We do that by allocating the
-		 * interface again, this time passing NULLs for the optional functions and pointers
-		 * to noop-dummies for the required functions. Then, we release the interface again.
-		 */
-		struct ifnet_init_params ip;
-		errno_t err;
-
-		dprintf("re-registering interface\n");
-
-		/* initialize an initialization info struct */
-		ip.uniqueid_len = UIDLEN;
-		ip.uniqueid = unique_id;
-		ip.name = family_name;
-		ip.unit = unit;
-		ip.family = family;
-		ip.type = type;
-		ip.output = tuntap_if_noop_output;
-		ip.demux = tuntap_if_noop_demux;
-		ip.add_proto = tuntap_if_noop_add_proto;
-		ip.del_proto = tuntap_if_noop_del_proto;
-		ip.check_multi = NULL;
-		ip.framer = NULL;
-		ip.softc = this;
-		ip.ioctl = NULL;
-		ip.set_bpf_tap = NULL;
-		ip.detach = NULL;
-		ip.event = NULL;
-		ip.broadcast_addr = NULL;
-		ip.broadcast_len = 0;
-
-		/* re-register the interface */
-		err = ifnet_allocate(&ip, &ifp);
-		if (err) {
-			log(LOG_ERR, "tuntap: dummy-allocate interface for %s%d: %d\n", family_name,
-					(int) unit, err);
-			/* well, bail out. this error shouldn't occur anyway. */
-		}
-		else
-		{
-			/* give it back */
-			ifnet_release(ifp);
-		}
-#endif
-
-		/* finally done. */
-		ifp = NULL;
 	}
 
 	dprintf("network interface unregistered\n");
@@ -458,7 +407,6 @@ tuntap_interface::cleanup_interface()
 	ifaddr_t *addrs;
 	ifaddr_t *a;
 	struct ifreq ifr;
-	socket_t sock;
 
 	/* mark the interface down */
 	ifnet_set_flags(ifp, 0, IFF_UP | IFF_RUNNING);
@@ -486,19 +434,7 @@ tuntap_interface::cleanup_interface()
 
 			dprintf("trying to delete address of family %d\n", ifr.ifr_addr.sa_family);
 
-			/* create the dummy socket. */
-			err = sock_socket(ifr.ifr_addr.sa_family, SOCK_RAW, 0, NULL, NULL, &sock);
-			if (err)
-				/* failed to create the socket? Ignore this address... */
-				continue;
-
-			/* issue the ioctl */
-			err = sock_ioctl(sock, SIOCDIFADDR, &ifr);
-
-			dprintf("ifnet_ioctl returned %d\n", err);
-
-			/* get rid of the socket */
-			sock_close(sock);
+			do_sock_ioctl(ifr.ifr_addr.sa_family, SIOCDIFADDR, &ifr);
 		}
 
 		/* release the address list */
@@ -521,6 +457,33 @@ tuntap_interface::notify_bpf(mbuf_t mb, bool out)
 			|| (!out && bpf_mode == BPF_MODE_INPUT)
 			|| (bpf_mode == BPF_MODE_INPUT_OUTPUT))
 		(*bpf_callback)(ifp, mb);
+}
+
+void
+tuntap_interface::do_sock_ioctl(sa_family_t af, unsigned long cmd, void* arg) {
+	if (in_ioctl) {
+		log(LOG_ERR, "tuntap: ioctl recursion detected, aborting.\n");
+		return;
+	}
+
+	socket_t sock;
+	errno_t err = sock_socket(af, SOCK_RAW, 0, NULL, NULL, &sock);
+	if (err) {
+		log(LOG_ERR, "tuntap: failed to create socket: %d\n", err);
+		return;
+	}
+
+	in_ioctl = true;
+
+	/* issue the ioctl */
+	err = sock_ioctl(sock, cmd, arg);
+	if (err)
+		log(LOG_ERR, "tuntap: socket ioctl %d failed: %d\n", cmd, err);
+
+	in_ioctl = false;
+
+	/* get rid of the socket */
+	sock_close(sock);
 }
 
 /* character device service methods */
@@ -859,6 +822,11 @@ tuntap_interface::if_ioctl(u_int32_t cmd, void *arg)
 	dprintf("tuntap: if ioctl: %d\n", (int) (cmd & 0xff));
 
 	switch (cmd) {
+		case SIOCAIFADDR:
+			{
+				dprintf("tuntap: if_ioctl: SIOCSIFADDR\n");
+				break;
+			}
 		case SIOCSIFADDR:
 			{
 				dprintf("tuntap: if_ioctl: SIOCSIFADDR\n");
@@ -872,20 +840,38 @@ tuntap_interface::if_ioctl(u_int32_t cmd, void *arg)
 				 * you run into the same problem. I still don't know how to make the
 				 * tap devices show up in the network configuration panel...
 				 */
-				struct ifaddr *ifa = (struct ifaddr *) arg;
-				if (ifa != NULL && ifa->ifa_netmask != NULL && ifa->ifa_addr != NULL) {
+				ifaddr_t ifa = (ifaddr_t) arg;
+				if (ifa == NULL)
+					return 0;
 
-					dprintf("tuntap: if_ioctl: addr af %d netmask af %d\n",
-							ifa->ifa_netmask->sa_family,
-							ifa->ifa_addr->sa_family);
-
-					if (ifa->ifa_netmask->sa_family != ifa->ifa_addr->sa_family)
-					{
-						/* Fix the address family field of the netmask */
-						dprintf("tuntap: if_ioctl: fixing netmask af.\n");
-						ifa->ifa_netmask->sa_family = ifa->ifa_addr->sa_family;
-					}
+				sa_family_t af = ifaddr_address_family(ifa);
+				struct ifaliasreq ifra;
+				int sa_size = sizeof(struct sockaddr);
+				if (af == 0 || 
+						ifaddr_address(ifa, &ifra.ifra_addr, sa_size) ||
+						ifaddr_dstaddress(ifa, &ifra.ifra_broadaddr, sa_size) ||
+						ifaddr_netmask(ifa, &ifra.ifra_mask, sa_size)) {
+					log(LOG_WARNING, "tuntap: failed to parse interface address.");
+					return 0;
 				}
+
+				// Check that the address family fields match. If not, issue another
+				// SIOCAIFADDR to fix the entry.
+				if (ifra.ifra_addr.sa_family != af ||
+						ifra.ifra_broadaddr.sa_family != af ||
+						ifra.ifra_mask.sa_family != af) {
+					log(LOG_INFO, "tuntap: Fixing address family for %s%d\n",
+							family_name, unit);
+
+					snprintf(ifra.ifra_name, sizeof(ifra.ifra_name), "%s%d",
+									 family_name, unit);
+					ifra.ifra_addr.sa_family = af;
+					ifra.ifra_broadaddr.sa_family = af;
+					ifra.ifra_mask.sa_family = af;
+
+					do_sock_ioctl(af, SIOCAIFADDR, &ifra);
+				}
+
 				return 0;
 			}
 

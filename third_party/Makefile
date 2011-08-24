@@ -22,7 +22,7 @@ PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 LZO_DIR=lzo-2.05
 PKCS11_DIR=pkcs11-helper-1.09
-TUNTAP_DIR=tuntap-20090913
+TUNTAP_DIR=tuntaposx-6e54e43
 
 all: tuntap openvpn
 	rm -rf $(BUILD_DIR)

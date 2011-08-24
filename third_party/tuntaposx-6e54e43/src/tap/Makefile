@@ -21,11 +21,11 @@ BUNDLE_VERSION = $(TAP_KEXT_VERSION)
 
 INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers
 CFLAGS = -Wall -mkernel -force_cpusubtype_ALL \
-	-fno-builtin -fno-stack-protector -arch ppc -arch i386 -arch x86_64 \
+	-fno-builtin -fno-stack-protector -arch i386 -arch x86_64 \
 	-DKERNEL -D__APPLE__ -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
 	-DTAP_KEXT_VERSION=\"$(TAP_KEXT_VERSION)\"
 CCFLAGS = $(CFLAGS)
-LDFLAGS = -Wall -mkernel -nostdlib -r -lcc_kext -arch ppc -arch i386 -arch x86_64 -Xlinker -kext
+LDFLAGS = -Wall -mkernel -nostdlib -r -lcc_kext -arch i386 -arch x86_64 -Xlinker -kext
 
 CCP = g++
 CC = gcc
