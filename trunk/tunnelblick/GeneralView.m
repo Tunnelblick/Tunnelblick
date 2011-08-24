@@ -42,19 +42,41 @@ extern TBUserDefaults * gTbDefaults;
     // Drawing code here.
 }
 
+-(void) shift: (id) control by: (CGFloat) amount
+{
+    if (  [control respondsToSelector: @selector(frame)]  ) {
+        NSRect newRect = [control frame];
+        newRect.origin.y = newRect.origin.y + amount;
+        [control setFrame: newRect];
+    } else {
+        NSLog(@"shift:by: %f is not available for this control", (float) amount);
+    }
+}
+
 -(void) awakeFromNib
 {
-    [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                               @"Window text")];
-    [useShadowCopiesCheckbox            setTitle: NSLocalizedString(@"Use shadow copies of configuration files",      @"Checkbox name")];
-    [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes", @"Checkbox name")];
+    // Keyboard Shortcuts popup
+    // We allow F1...F12 as keyboard shortcuts (or no shortcut) so the menu isn't too long (and MacBook keyboards only go that high, anyway)
+    [keyboardShortcutTFC setTitle: NSLocalizedString(@"Keyboard shortcut:", @"Window text")];
+    const unichar cmdOptionChars[] = {0x2318,' ',0x2325};
+    NSString * cmdOptionString = [NSString stringWithCharacters: cmdOptionChars
+                                                         length: sizeof cmdOptionChars / sizeof * cmdOptionChars];
+    NSMutableArray * kbsContent = [NSMutableArray arrayWithCapacity: 12];
+    [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"No keyboard shortcut", @"Button"), @"name", [NSNumber numberWithUnsignedInt: 0], @"value", nil]];
+    int i;
+    for (  i=0; i<12; i++  ) {
+        [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                // Display <cmd><option>F1 (Command-Option-F1)...; Value is 0...11
+                                [NSString stringWithFormat: 
+                                 NSLocalizedString(@"%@ F%d (Command-Option-F%d)", @"Button"), cmdOptionString, i+1, i+1], @"name",
+                                [NSNumber numberWithUnsignedInt: i], @"value",
+                                nil]];
+    }
+    [keyboardShortcutArrayController setContent: kbsContent];
+    [keyboardShortcutButton sizeToFit];
     
-    [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
-    [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
-    [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
-    [updatesCheckNowButton sizeToFit];
-    [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
+    // OpenVPN Version popup -- only display if more than one version of OpenVPN is included in this binary
     
-    // OpenVPN Version popup
     [openvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
     
     NSArray * versions = availableOpenvpnVersions();
@@ -76,29 +98,29 @@ extern TBUserDefaults * gTbDefaults;
                                ver, @"value",
                                nil]];
     }
-        
+    
     [openvpnVersionArrayController setContent: ovContent];
     [openvpnVersionButton sizeToFit];
     
-    // Keyboard Shortcuts popup
-    // We allow F1...F12 as keyboard shortcuts (or no shortcut) so the menu isn't too long (and MacBook keyboards only go that high, anyway)
-    [keyboardShortcutTFC setTitle: NSLocalizedString(@"Keyboard shortcut:", @"Window text")];
-    const unichar cmdOptionChars[] = {0x2318,' ',0x2325};
-    NSString * cmdOptionString = [NSString stringWithCharacters: cmdOptionChars
-                                                         length: sizeof cmdOptionChars / sizeof * cmdOptionChars];
-    NSMutableArray * kbsContent = [NSMutableArray arrayWithCapacity: 12];
-    [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"No keyboard shortcut", @"Button"), @"name", [NSNumber numberWithUnsignedInt: 0], @"value", nil]];
-    int i;
-    for (  i=0; i<12; i++  ) {
-        [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                                // Display <cmd><option>F1 (Command-Option-F1)...; Value is 0...11
-                                [NSString stringWithFormat: 
-                                 NSLocalizedString(@"%@ F%d (Command-Option-F%d)", @"Button"), cmdOptionString, i+1, i+1], @"name",
-                                [NSNumber numberWithUnsignedInt: i], @"value",
-                                nil]];
+    if (  [availableOpenvpnVersions() count] < 2  ) {               //  Hide OpenVPN version popup if only one version of OpenVPN is included in this binary
+        [openvpnVersionTFC      setTitle: @""];
+        [openvpnVersionButton setEnabled: NO];
+        [openvpnVersionButton  setHidden: YES];
+        
+        [self shift: keyboardShortcutTF     by: -20.0];
+        [self shift: keyboardShortcutButton by: -20.0];
+        
+        [self shift: maxLogDisplaySizeTF  by: +25.0];
+        [self shift: maximumLogSizeButton by: +25.0];
+        
+        [self shift: warningsTF                  by: +20.0];
+        [self shift: resetDisabledWarningsButton by: +20.0];
+        
+        [self shift: configurationFilesTF               by: +10.0];
+        [self shift: useShadowCopiesCheckbox            by: +10.0];
+        [self shift: monitorConfigurationFolderCheckbox by: +10.0];
     }
-    [keyboardShortcutArrayController setContent: kbsContent];
-    [keyboardShortcutButton sizeToFit];
+    
     
     // Log display size popup
     // We allow specific log display sizes
@@ -116,6 +138,16 @@ extern TBUserDefaults * gTbDefaults;
     [resetDisabledWarningsButton        setTitle: NSLocalizedString(@"Reset Disabled Warnings",   @"Button")];
     [resetDisabledWarningsButton sizeToFit];
     [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
+
+    [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                               @"Window text")];
+    [useShadowCopiesCheckbox            setTitle: NSLocalizedString(@"Use shadow copies of configuration files",      @"Checkbox name")];
+    [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes", @"Checkbox name")];
+
+    [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
+    [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
+    [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
+    [updatesCheckNowButton sizeToFit];
+    [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
 }
 
 

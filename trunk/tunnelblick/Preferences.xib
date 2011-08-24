@@ -13,9 +13,9 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="117"/>
-			<integer value="1"/>
-			<integer value="493"/>
 			<integer value="44"/>
+			<integer value="493"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4250,6 +4250,46 @@
 					</object>
 					<int key="connectionID">848</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">keyboardShortcutTF</string>
+						<reference key="source" ref="179044330"/>
+						<reference key="destination" ref="86941763"/>
+					</object>
+					<int key="connectionID">849</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">maxLogDisplaySizeTF</string>
+						<reference key="source" ref="179044330"/>
+						<reference key="destination" ref="776309884"/>
+					</object>
+					<int key="connectionID">850</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">openvpnVersionTF</string>
+						<reference key="source" ref="179044330"/>
+						<reference key="destination" ref="84645930"/>
+					</object>
+					<int key="connectionID">851</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">configurationFilesTF</string>
+						<reference key="source" ref="179044330"/>
+						<reference key="destination" ref="588450806"/>
+					</object>
+					<int key="connectionID">853</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">warningsTF</string>
+						<reference key="source" ref="179044330"/>
+						<reference key="destination" ref="966241360"/>
+					</object>
+					<int key="connectionID">855</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -6013,7 +6053,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{202, 186}, {760, 390}}</string>
+					<string>{{125, 98}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6149,7 +6189,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{329, 505}, {760, 390}}</string>
+					<string>{{349, 579}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6484,7 +6524,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">848</int>
+			<int key="maxID">855</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6948,16 +6988,20 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>configurationFilesTF</string>
 							<string>configurationFilesTFC</string>
 							<string>keyboardShortcutArrayController</string>
 							<string>keyboardShortcutButton</string>
+							<string>keyboardShortcutTF</string>
 							<string>keyboardShortcutTFC</string>
+							<string>maxLogDisplaySizeTF</string>
 							<string>maxLogDisplaySizeTFC</string>
 							<string>maximumLogSizeArrayController</string>
 							<string>maximumLogSizeButton</string>
 							<string>monitorConfigurationFolderCheckbox</string>
 							<string>openvpnVersionArrayController</string>
 							<string>openvpnVersionButton</string>
+							<string>openvpnVersionTF</string>
 							<string>openvpnVersionTFC</string>
 							<string>preferencesGeneralHelpButton</string>
 							<string>resetDisabledWarningsButton</string>
@@ -6966,20 +7010,25 @@
 							<string>updatesLastCheckedTFC</string>
 							<string>updatesUpdatesTFC</string>
 							<string>useShadowCopiesCheckbox</string>
+							<string>warningsTF</string>
 							<string>warningsTFC</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
 							<string>NSArrayController</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
+							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
 							<string>NSArrayController</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSArrayController</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -6988,6 +7037,7 @@
 							<string>NSTextFieldCell</string>
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
 						</object>
 					</object>
@@ -6995,16 +7045,20 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>configurationFilesTF</string>
 							<string>configurationFilesTFC</string>
 							<string>keyboardShortcutArrayController</string>
 							<string>keyboardShortcutButton</string>
+							<string>keyboardShortcutTF</string>
 							<string>keyboardShortcutTFC</string>
+							<string>maxLogDisplaySizeTF</string>
 							<string>maxLogDisplaySizeTFC</string>
 							<string>maximumLogSizeArrayController</string>
 							<string>maximumLogSizeButton</string>
 							<string>monitorConfigurationFolderCheckbox</string>
 							<string>openvpnVersionArrayController</string>
 							<string>openvpnVersionButton</string>
+							<string>openvpnVersionTF</string>
 							<string>openvpnVersionTFC</string>
 							<string>preferencesGeneralHelpButton</string>
 							<string>resetDisabledWarningsButton</string>
@@ -7013,10 +7067,15 @@
 							<string>updatesLastCheckedTFC</string>
 							<string>updatesUpdatesTFC</string>
 							<string>useShadowCopiesCheckbox</string>
+							<string>warningsTF</string>
 							<string>warningsTFC</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">configurationFilesTF</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">configurationFilesTFC</string>
 								<string key="candidateClassName">NSTextFieldCell</string>
@@ -7030,8 +7089,16 @@
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">keyboardShortcutTF</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">keyboardShortcutTFC</string>
 								<string key="candidateClassName">NSTextFieldCell</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">maxLogDisplaySizeTF</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">maxLogDisplaySizeTFC</string>
@@ -7056,6 +7123,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">openvpnVersionButton</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">openvpnVersionTF</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">openvpnVersionTFC</string>
@@ -7088,6 +7159,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">useShadowCopiesCheckbox</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">warningsTF</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">warningsTFC</string>

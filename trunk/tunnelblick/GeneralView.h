@@ -25,8 +25,27 @@
 
 @interface GeneralView : NSView {
     
+    IBOutlet NSTextFieldCell    * keyboardShortcutTFC;
+    IBOutlet NSTextField        * keyboardShortcutTF;
+    IBOutlet NSArrayController  * keyboardShortcutArrayController;
+    IBOutlet NSButton           * keyboardShortcutButton;
+    
+    IBOutlet NSTextFieldCell    * openvpnVersionTFC;
+    IBOutlet NSTextField        * openvpnVersionTF;
+    IBOutlet NSArrayController  * openvpnVersionArrayController;
+    IBOutlet NSButton           * openvpnVersionButton;
+    
+    IBOutlet NSTextFieldCell    * maxLogDisplaySizeTFC;
+    IBOutlet NSTextField        * maxLogDisplaySizeTF;
+    IBOutlet NSArrayController  * maximumLogSizeArrayController;
+    IBOutlet NSButton           * maximumLogSizeButton;
+    
+    IBOutlet NSTextFieldCell    * warningsTFC;
+    IBOutlet NSTextField        * warningsTF;
+    IBOutlet NSButton           * resetDisabledWarningsButton;
+    
+    IBOutlet NSTextField        * configurationFilesTF;
     IBOutlet NSTextFieldCell    * configurationFilesTFC;
-
     IBOutlet NSButton           * useShadowCopiesCheckbox;
     IBOutlet NSButton           * monitorConfigurationFolderCheckbox;
     
@@ -34,21 +53,6 @@
     IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
     IBOutlet NSButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
-    
-    IBOutlet NSTextFieldCell    * openvpnVersionTFC;
-    IBOutlet NSArrayController  * openvpnVersionArrayController;
-    IBOutlet NSButton           * openvpnVersionButton;
-    
-    IBOutlet NSTextFieldCell    * keyboardShortcutTFC;
-    IBOutlet NSArrayController  * keyboardShortcutArrayController;
-    IBOutlet NSButton           * keyboardShortcutButton;
-    
-    IBOutlet NSTextFieldCell    * maxLogDisplaySizeTFC;
-    IBOutlet NSArrayController  * maximumLogSizeArrayController;
-    IBOutlet NSButton           * maximumLogSizeButton;
-    
-    IBOutlet NSTextFieldCell    * warningsTFC;
-    IBOutlet NSButton           * resetDisabledWarningsButton;
     
     IBOutlet NSButton           * preferencesGeneralHelpButton;
 }
