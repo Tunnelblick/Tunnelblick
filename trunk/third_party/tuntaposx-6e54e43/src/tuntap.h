@@ -33,7 +33,6 @@
 
 #include "util.h"
 #include "lock.h"
-#include "ifaddr.h"
 
 extern "C" {
 
@@ -220,6 +219,8 @@ class tuntap_interface {
 		int (*bpf_callback)(ifnet_t, mbuf_t);
 		/* pending packets queue (for output), must be accessed with the lock held */
 		tuntap_mbuf_queue send_queue;
+		/* whether an ioctl that we issued is currently being processed */
+		bool in_ioctl;
 
 		/* protected constructor. initializes most of the members */
 		tuntap_interface();
@@ -253,6 +254,9 @@ class tuntap_interface {
 
 		/* notifies BPF of a packet coming through */
 		virtual void notify_bpf(mbuf_t mb, bool out);
+
+		/* executes a socket ioctl through a temporary socket */
+		virtual void do_sock_ioctl(sa_family_t af, unsigned long cmd, void* arg);
 
 		/* character device service methods. Called by the manager */
 		virtual int cdev_open(int flags, int devtype, proc_t p);

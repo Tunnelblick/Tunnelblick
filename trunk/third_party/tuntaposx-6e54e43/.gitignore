@@ -1,0 +1,9 @@
+.*
+tuntap/src/*.o
+tuntap/src/*/*.o
+tuntap/src/tap/tap
+tuntap/src/tun/tun
+tuntap/tap.kext
+tuntap/tun.kext
+tuntap/tuntap_*.pkg/
+tuntap/tuntap_*.tar.gz
