@@ -5,12 +5,9 @@
 <td valign="middle">Tunnelblick is free, but if you like it, you can support its progress by making a donation.</td>
 </tr></table>
 <br>
-
-<font color="red">*TRANSLATORS NEEDED:*</font> A new version of Tunnelblick is almost ready to be released, and translators are needed for many languages. We especially need translators for *Chinese (Traditional)* and * Japanese*. If you can help with these or any other languages (no special skills or programs are required), please contact project owner Jon via email at jkbullard at gmail dot com. See the [cTranslationStatus Translation Status] page for the current status of all translations.
-
 <hr>
 
-_Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see the [GettingVPNService VPN Service Providers page]._
+_Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [cGettingVPNService VPN Service Providers]._
 
 <hr>
 
