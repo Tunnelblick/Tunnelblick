@@ -81,7 +81,7 @@ extern TBUserDefaults  * gTbDefaults;
     int nConnecting = 0;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isConnected]  ) {
-            [connection connect: self userKnows: NO];
+            [connection connect: self userKnows: YES];
             nConnecting++;
         }
     }
@@ -102,7 +102,7 @@ extern TBUserDefaults  * gTbDefaults;
     int nDisconnecting = 0;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isDisconnected]  ) {
-            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+            [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
             nDisconnecting++;
         }
     }
