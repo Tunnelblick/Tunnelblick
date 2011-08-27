@@ -1,4 +1,4 @@
-#summary Tunnelblick VPN Configurations
+#summary Tunnelblick VPN Configurations Details
 #sidebar cSb
 <wiki:toc max_depth="2" />
 
@@ -20,9 +20,8 @@ Tunnelblick VPN Configurations are available in Tunnelblick 3.1 and up.
 *Configurations must be installed before they can be used.* Install a Configuration by double-clicking it. (Tunnelblick must have been installed _before_ the Configuration is double-clicked.)
 
 ==Creation==
-You can create a Configuration by collecting together one configuration file and any files associated with the configuration into a folder. *This folder should not be in your configurations folder*, it should be on your desktop or somewhere else. You do not need to arrange the files in the folder in any way, and the name of the files within the folder do not matter, except for the optional Info.plist file (see [cPkgs#Format Format], below). (Of course, the names of the certificate and key files must match their names in the configuration file!) File references in the OpenVPN configuration file should not contain any path information.  When you are done moving or copying files into the folder, give the folder the name you wish to appear in Tunnelblick's list of configurations, and add an extension of ".tblk". When you do so, the folder's icon will change to the icon for a Tunnelblick VPN Configuration.
 
-Example: a Configuration named "Main Office.tblk" is a Tunnelblick VPN Configuration that will appear in Tunnelblick as the "Main Office" configuration unless that name conflicts with an existing name (see [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
+Tunnelblick VPN Configurations are easily created. See [cConfigT#Creating_a_Tunnelblick_VPN_Configuration Creating a Tunnelblick VPN Configuration].
 
 ==File References in the OpenVPN Configuration File==
 Within the OpenVPN configuration file itself, refer to other files, such as key or certificate files, without using a path or path prefix -- just use the name of the file.
