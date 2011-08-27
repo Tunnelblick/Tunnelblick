@@ -34,7 +34,7 @@
 *Customized Versions*
     [cDistribute Distributing Tunnelblick]<br>
     [cCusDeployed "Deployed" versions]<br>
-    [cPkgs Tunnelblick VPN Configurations Details]<br>
+    [cPkgs ".tblk" Details]<br>
     [cUsingScripts Using Scripts]<br>
     [cIconAnimation Icon Animation]<br>
     [cCusDeployPkg Deployed vs. Tunnelblick VPN Configurations]<br>
