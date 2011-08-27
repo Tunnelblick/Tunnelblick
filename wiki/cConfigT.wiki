@@ -9,6 +9,8 @@
 
 <font color="red">Stop</font> if you have VPN service from a corporate or other network provided by your employer. Your network manager or IT department should provide you with configuration files and instructions on how to use them with Tunnelblick.
 
+<font color="red">Stop</font> if want details about the structure of a Tunnelblick VPN Configuration, see [cPkgs Tunnelblick VPN Configuration Details].
+
 The rest of this document is for everyone else.
 
 ==Setting Up Configurations==
