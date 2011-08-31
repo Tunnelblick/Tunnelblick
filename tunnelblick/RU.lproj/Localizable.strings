@@ -1,17 +1,17 @@
 /* Status message */
-"%@ is Connected" = "%@ Подключён";
+"%@ is Connected" = "%@ подключёно";
 
 /* Status message */
-"%d Connections" = "%d Соединений";
+"%d Connections" = "%d соединений";
 
 /* status message */
 "1 connection" = "1 соединение";
 
 /* Status message */
-"Disconnect All (%@)" = "Отсоединить все (%@)";
+"Disconnect All (%@)" = "Отключить всё (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Отсоединить все (%d Connections)";
+"Disconnect All (%d Connections)" = "Отключить всё (соединений %d)";
 
 /* Status message */
 "No Active Connections" = "Нет активных соединений";
@@ -74,13 +74,16 @@
 "Create sample configuration and edit it" = "Создать пример конфигурации и отредактировать его";
 
 /* Button */
+"Default (%@)" = "По умолчанию (%@)";
+
+/* Button */
 "Delete Credentials" = "Удалить учётные данные";
 
 /* Button */
 "Delete" = "Удалить";
 
 /* Button */
-"Disconnect" = "Разъединить";
+"Disconnect" = "Отключить";
 
 /* Button */
 "Do not use the plugin" = "Не использовать это дополнение";
@@ -199,7 +202,7 @@
 "Disabled because this setting is being forced" = "Отключено, поскольку данный параметр был установлен принудительно";
 
 /* Menu item */
-"Disconnect %@%@" = "Разъединить %@%@";
+"Disconnect %@%@" = "Отключить %@%@";
 
 /* Menu Item */
 "Duplicate Configuration..." = "Дублировать конфигурацию…";
@@ -232,13 +235,13 @@
 "Show configuration on Tunnelblick menu" = "Показывать конфигурацию в меню Tunnelblick";
 
 /* Menu item */
-"VPN Details..." = "VPN подробности…";
+"VPN Details..." = "Подробности VPN…";
 
 /* Checkbox name */
 "Check for updates automatically" = "Автоматически проверять наличие обновлений";
 
 /* Checkbox name */
-"Disconnect when user switches out" = "Разъединяться при выходе пользователя";
+"Disconnect when user switches out" = "Отключаться при выходе пользователя";
 
 /* Checkbox name */
 "Display connection submenus" = "Отображать подменю соединения";
@@ -742,7 +745,7 @@
 "Menu:" = "Меню:";
 
 /* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Многочисленный одновременные соединения должны быть созданы (%1$d с 'Set nameserver', %2$d без 'Set nameserver').";
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Будут созданы несколько соединений (%1$d с 'Установкой DNS', %2$d без 'Установки DNS').";
 
 /* Window text */
 "Names must not contain slashes (\"/\")\n\n" = "Имена не могут содержать косую черту (\"/\")\n\n";
@@ -778,7 +781,13 @@
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN не ответил на запрос разъединения в течении %d секунд.\n\nСоединение будет считаться разъединённым, однако сетевая конфигурация этого компьютера может находиться в непостоянном состоянии.";
 
 /* Window text */
-"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN не отвечает на запрос разъединения.\n\nСуществует известная ошибка в OpenVPN версии 2.1 которая иногда вызывает задержку в 1-2 минуты прежде чем отправить отклик на подобный запрос.\n\nTunnelblick будет продолжать пытаться разъединиться в течении %1$d секунд.\n\nСоединение будет недоступно, пока не будет разорвано OpenVPN или по прошествии %2$d секунд, в зависимости от того, что произойдёт первее.";
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN не отвечает на запрос отключения.\n\nСуществует известная ошибка в OpenVPN версии 2.1 которая иногда вызывает задержку в 1-2 минуты прежде чем отправить отклик на подобный запрос.\n\nTunnelblick будет продолжать пытаться отключиться в течении %1$d секунд.\n\nСоединение будет недоступно, пока не будет разорвано OpenVPN или по прошествии %2$d секунд, в зависимости от того, что произойдёт первее.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN версии %1$@ недоступен. Используется версия по умолчанию (%2$@)";
+
+/* Window text */
+"OpenVPN version:" = "Версия OpenVPN:";
 
 /* Window text */
 "Password:" = "Пароль:";

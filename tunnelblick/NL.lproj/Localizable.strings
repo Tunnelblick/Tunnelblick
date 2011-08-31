@@ -74,6 +74,9 @@
 "Create sample configuration and edit it" = "Voorbeeld-configuratie aanmaken en bewerken";
 
 /* Button */
+"Default (%@)" = "Standaard (%@)";
+
+/* Button */
 "Delete Credentials" = "Inloggegevens Wissen";
 
 /* Button */
@@ -777,6 +780,12 @@
 
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN antwoordt niet op vragen om de verbinding te verbreken.\n\nEr zit een gekende bug in OpenVPN versie 2.1 die soms voor een vertraging van een of twee minuten zorgt voordat OpenVPN op zulke vragen antwoordt.\n\nTunnelblick blijft proberen een verbinding te maken gedurende %1$d seconden.\n\nDe verbinding blijft onbruikbaar tot OpenVPN ze verbreekt of er %2$d seconden verlopen zijn, naargelang wat eerst gebeurt.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. Standaard wordt gebruikt, versie %2$@";
+
+/* Window text */
+"OpenVPN version:" = "OpenVPN versie:";
 
 /* Window text */
 "Password:" = "Wachtwoord:";

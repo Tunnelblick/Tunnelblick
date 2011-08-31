@@ -93,6 +93,8 @@
 
 /* Button */
 "Create sample configuration and edit it" = "新建设置样本，并且进行编辑";
+/* Button */
+"Default (%@)" = "默认版本 (%@)";
 
 
 /* Button */
@@ -1143,6 +1145,13 @@
 
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN 没有回应断开连接的请求.\n\nOpenVPN 2.1版中有一个已知的错误, 有时会造成在回应此请求时延迟1至2分钟.\n\nTunnelblick将继续用 %1$d 秒的时间来试图断开连接.\n\n当 OpenVPN 断开连接后, 或者%2$d秒后(两者较早者为准), 连接才能重新使用.";
+
+/* Window text */
+
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN 版本 %1$@ 不可用. 使用默认版本 %2$@";
+
+/* Window text */
+"OpenVPN version:" = "OpenVPN 版本:";
 
 
 /* Window text */
