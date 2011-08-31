@@ -22,7 +22,9 @@ PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 LZO_DIR=lzo-2.05
 PKCS11_DIR=pkcs11-helper-1.09
-TUNTAP_DIR=tuntaposx-6e54e43
+TUNTAP_PRE_LION_DIR=tuntap-20090913
+TUNTAP_LION_DIR=tuntap-20110830
+
 
 all: tuntap openvpn
 	rm -rf $(BUILD_DIR)
@@ -147,24 +149,31 @@ openvpn-clean:
 .PHONY : tuntap
 
 tuntap-patch:
-	cd $(TUNTAP_DIR); \
-	for patchfile in ../patches/tuntap/*.diff; do \
-		patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
-		if [ $$? == 0 ]; then \
-			patch -p0 -N -i $$patchfile; \
-		fi \
-	done; \
-	cd ../
+	for tuntapdir in `ls tuntap`; do \
+		cd tuntap/$$tuntapdir/tuntap; \
+		for patchfile in ../patches/*.diff; do \
+			patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
+			if [ $$? == 0 ]; then \
+				patch -p0 -N -i $$patchfile; \
+			fi \
+		done; \
+		cd ../../../; \
+	done
 
 tuntap: tuntap-patch
-	# Now we'll build the tun/tap driver
-	$(MAKE) -C $(TUNTAP_DIR)/; \
-	mv $(TUNTAP_DIR)/tap.kext tap.kext; \
-	mv $(TUNTAP_DIR)/tun.kext tun.kext
+	$(MAKE) -C tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/; \
+	mv tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/tap.kext tap-pre-lion.kext; \
+	mv tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/tun.kext tun-pre-lion.kext; \
+	$(MAKE) -C tuntap/$(TUNTAP_LION_DIR)/tuntap/; \
+	mv tuntap/$(TUNTAP_LION_DIR)/tuntap/tap.kext tap.kext; \
+	mv tuntap/$(TUNTAP_LION_DIR)/tuntap/tun.kext tun.kext
 
 tuntap-clean:
-	$(MAKE) -C $(TUNTAP_DIR)/ clean
-	rm -f -R tap.kext
+	$(MAKE) -C tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/ clean; \
+	rm -f -R tap-pre-lion.kext; \
+	rm -f -R tun-pre-lion.kext; \
+	$(MAKE) -C tuntap/$(TUNTAP_LION_DIR)/tuntap/ clean; \
+	rm -f -R tap.kext; \
 	rm -f -R tun.kext
 
 clean: tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
