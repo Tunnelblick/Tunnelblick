@@ -77,6 +77,9 @@
 "Create sample configuration and edit it" = "Criar configuração de amostra e editá-la";
 
 /* Button */
+"Default (%@)" = "Padrão (%@)";
+
+/* Button */
 "Delete Credentials" = "Apagar Credenciais";
 
 /* Button */
@@ -780,6 +783,12 @@
 
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "O OpenVPN não está respondendo para solicitações de desconexão.\n\nExiste um bug conhecido no OpenVPN versão 2.1 que às vezes causa um atraso de um ou dois minutos antes que ele responda a tais requisições.\n\nTunnelblick irá continuar a tentar desconectar por até %1$d segundos.\n\nA conexão estará indisponível até que o OpenVPN desconecte ou passem %2$d segundos, o que vier primeiro.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "Versão %1$@ do OpenVPN não está disponível. Utilizando a versão padrão %2$@";
+
+/* Window text */
+"OpenVPN version:" = "Versão do OpenVPN:";
 
 /* Window text */
 "Please enter VPN passphrase." = "Favor digitar a senha da VPN.";

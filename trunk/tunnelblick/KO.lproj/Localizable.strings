@@ -74,6 +74,9 @@
 "Create sample configuration and edit it" = "예제 설정을 만들고 수정";
 
 /* Button */
+"Default (%@)" = "기본 (%@)";
+
+/* Button */
 "Delete Credentials" = "인증 삭제";
 
 /* Button */
@@ -780,6 +783,12 @@
 
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "연결 해제 요청에 OpenVPN이 응답하지 않았습니다.\n\nOpenVPN 버전 2.1은 알려진 문제가 있습니다. 그래서 때대로 요청에 응답하기까지 1분에서 2분 정도의 지연이 될 수 있습니다.\n\nTunnelblick은 %1$d초 까지 연결 해제를 시도할 것입니다.\n\nOpenVPN 연결 해제가 되거나 %2$d초 초과가 될 때 까지 연결은 사용할 수 없습니다.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN 버전 %1$@ 은 사용할 수 없습니다. 버전 %2$@을 사용합니다.";
+
+/* Window text */
+"OpenVPN version:" = "OpenVPN 버전:";
 
 /* Window text */
 "Please enter VPN passphrase." = "VPN 암호를 입력하십시오.";

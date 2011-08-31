@@ -74,6 +74,9 @@
 "Create sample configuration and edit it" = "Create sample configuration and edit it";
 
 /* NEEDS TRANSLATION *//* Button */
+"Default (%@)" = "Default (%@)";
+
+/* NEEDS TRANSLATION *//* Button */
 "Delete Credentials" = "Delete Credentials";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -780,6 +783,12 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN version %1$@ is not available. Using the default, version %2$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"OpenVPN version:" = "OpenVPN version:";
 
 /* Window text */
 "Please enter VPN passphrase." = "請輸入 VPN 口令.";
