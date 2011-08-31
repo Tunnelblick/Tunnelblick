@@ -22,6 +22,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#include <CoreServices/CoreServices.h>
 #import <sys/sysctl.h>
 #import <netinet/in.h>
 #import "defines.h"
@@ -84,6 +85,8 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, // Returns the path t
 
 NSString * configPathFromTblkPath(NSString * path);
 NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
+
+NSString * TunTapSuffixToUse(void);         // Returns string to prefix tun.kext or tap.kext to get pre-lion version if not running on Lion or higher
 
 NSAutoreleasePool   * pool;
 NSString			* configPath;           //Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
@@ -1268,12 +1271,16 @@ void loadKexts(unsigned int bitMask)
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
-    
+    NSString * suffix = TunTapSuffixToUse();
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        [arguments addObject: [execPath stringByAppendingPathComponent: @"tap.kext"]];
+    NSString * tapkext = [@"tap" stringByAppendingString: suffix];
+        [arguments addObject: [execPath stringByAppendingPathComponent: tapkext]];
+        fprintf(stderr, "Loading %s\n", [tapkext UTF8String]);
     }
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        [arguments addObject: [execPath stringByAppendingPathComponent: @"tun.kext"]];
+    NSString * tunkext = [@"tun" stringByAppendingString: suffix];
+        [arguments addObject: [execPath stringByAppendingPathComponent: tunkext]];
+        fprintf(stderr, "Loading %s\n", [tunkext UTF8String]);
     }
     
     becomeRoot();
@@ -1699,3 +1706,17 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     return openvpnPath;
 }
 
+NSString * TunTapSuffixToUse(void)
+{
+    NSString * suffixToReturn = @".kext";
+    
+    OSErr err;
+    SInt32 systemVersion;
+    if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
+        if ( systemVersion < 0x1070) {
+            suffixToReturn = @"-pre-lion.kext";
+        }
+    }
+    
+    return suffixToReturn;
+}
