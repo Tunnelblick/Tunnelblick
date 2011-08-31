@@ -39,7 +39,6 @@ All other preferences can be modified by
   * *standardApplicationPath* (String): If present, the absolute path for the folder in which Tunnelblick is to be installed when installing Tunnelblick by double-clicking the icon in a downloaded disk image. If not present or empty, Tunnelblick will be installed in `/Applications`. The string may include a "~", which will be expanded appropriately to allow installation somewhere in the user's home folder. Default is not present.
   * *doNotCreateLaunchTunnelblickLinkinConfigurations* (Boolean): If set, no link will be created. If cleared or not present, Tunnelblick will create a link to itself in the `~/Library/Application Support/Tunnelblick/Configurations` folder each time it is started. The default is to create the link.
   * *useShadowConfigurationFiles* (Boolean): If set, Tunnelblick will create and use "shadow copies" of configuration files on the local hard drive in a subfolder of `/Library/Application Support/Tunnelblick`. If cleared or not present, the original of each configuration file will be used. Configuration files must be owned by root and have permissions of "644" for security; if the configuration file is on a volume which does not allow this ownership and permissions, shadow copies must be used so the copies can be given the proper ownership and permissions. This happens automatically when the home folder is located on a network volume; it is not necessary to use this preference only when the home folder is on a non-network volume which doesn't allow the required ownership and permissions. The default is not present.
-  * *disableShareConfigurationButton* is a boolean which may be used to inhibit the display of the "Share configuration" / "Make configuration private" button. If absent or false, the button is displayed for all configurations, but is enabled only for Tunnelblick VPN Connection (.tblk) configurations that are not Deployed; it is disabled (dimmed) for  non-.tblk and Deployed configurations.
   * *usePrivateConfigurationsWithDeployedOnes* and *useSharedConfigurationsWithDeployedOnes* are booleans which may be used in a Deployed version of Tunnelblick (see [cDeployingTunnelblick Deploying Tunnelblick]) to allow simultaneous display of configurations from the Private (~/Library/Application Support/Tunnelblick/Configurations) and Shared (/Library/Application Support/Tunnelblick/Shared) folders, respectively. These preferences must be forced -- they will be ignored if they are not forced.
   * *hookupTimeout* (Number): The number of seconds that Tunnelblick should use trying to associate Tunnelblick VPN Configurations with OpenVPN processes that were running when Tunnelblick was launched. If zero, Tunnelblick will keep trying until it is closed.
   * * openvpnTerminationInterval* (Number): The number of seconds that Tunnelblick waits between SIGTERMs to an OpenVPN process that it is trying to disconnect. If zero, Tunnelblick will issue only one request.
@@ -50,11 +49,22 @@ All other preferences can be modified by
   * *menuIconSet* (String): If set, specifies the name of the folder of icons that Tunnelblick should use to display the connection status in the status bar (usually, near the Spotlight icon). The default is "!TunnelBlick.TBMenuIcons". The folder may appear in several locations; see [cIconAnimation Icon Animation].
 
   * *doNotShowConnectionSubmenus* (Boolean): If set, each configuration is shown as a single menu item even if it is in a subfolder. (It is shown as "Connect folder1/folder2/config".). If cleared or not present, configurations in subfolders display only the subfolder name, and reveal contents of the subfolder only when moused-over. The default is not present.
-  * *doNotShowForcedPreferenceMenuItems* (Boolean): If set, any preferences that are forced will not be displayed on the "Options…" submenu. If cleared or not present, such preferences are shown dimmed, and are disabled. The default is not present.
-  * *doNotShowOptionsSubmenu* (Boolean): If set, the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
-  * *doNotShowKeyboardShortcutSubmenu* (Boolean): If set, the "Keyboard Shortcuts" submenu of the "Options…" submenu will not be displayed. If cleared or not present, the submenu will be displayed. The default is not present.
   * *doNotShowCheckForUpdatesNowMenuItem* (Boolean): If set, the "Check for Updates Now" item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
   * *doNotShowAddConfigurationMenuItem* (Boolean): If set, the "Add a Configuration..." item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
+  * *doNotShowVpnDetailsMenuItem* (Boolean): The default is not present. 
+  * *disableAdvancedButton* (Boolean): The default is not present. 
+  * *disableCheckNowButton* (Boolean): The default is not present.
+  * *disableResetDisabledWarningsButton* (Boolean): The default is not present.
+  * *disableCopyLogToClipboardButton* (Boolean): The default is not present.
+  * *disableAddConfigurationButton* (Boolean): If set, disables the '+' button. The default is not present.
+  * *disableRemoveConfigurationButton* (Boolean): If set, disables the '-' button. The default is not present.
+  * *disableWorkOnConfigurationButton* (Boolean): If set, disables the 'gear' button. The default is not present.
+  * *disableRenameConfigurationMenuItem* (Boolean): The default is not present. 
+  * *disableDuplicateConfigurationMenuItem* (Boolean): The default is not present.
+  * *disableMakeConfigurationPrivateOrSharedMenuItem* (Boolean): The default is not present. 
+  * *disableExamineOpenVpnConfigurationFileMenuItem* (Boolean): The default is not present.
+  * *disableShowOpenVpnLogInFinderMenuItem* (Boolean): The default is not present.
+  * *disableDeleteConfigurationCredentialsInKeychainMenuItem* (Boolean): The default is not present.
   * *showConnectedDurations* (Boolean): If set, the time that a configuration has been connected is displayed in the "VPN Details…" window. If cleared, the time is not displayed. The default is set.
   * *maximumNumberOfTabs* (Number): (This preference is not used in Tunnelblick 3.2beta16 and later.) The maximum number of configurations that Tunnelblick will display in tabs (in the VPN Details… window). If there are more than this many configurations, Tunnelblick will display them in a list on the left side of the VPN Details… window.
 ==Preferences That Control Updates==

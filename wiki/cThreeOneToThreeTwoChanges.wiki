@@ -9,16 +9,16 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
 ==Summary of Major Changes from Version 3.1 to Version 3.2==
 
- * Includes OpenVPN 2.2,  OpenSSL 1.0.0d and PKCS#11 1.08.
+ * Includes OpenVPN 2.2.1, OpenSSL library 1.0.0d, PKCS#11 1.09.
 
- * Adds [cAppleScriptSupport AppleScript support].
+ * Adds [wAppleScriptSupport AppleScript support].
 
  * The VPN login window now allows copy/cut/paste of usernames and paste of passwords and passphrases.
 
  * The 'Clear log' button is no longer needed and has been removed from the Details… window.
 
- * Includes complete German, French Korean, Norwegian, Portuguese, and Catalan localization by Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Denis Volpato Martins, and Aleix Dorca, respectively.
-
+ * Tunnelblick includes complete Catalan, German, French, Korean, Norwegian, Dutch, Portuguese, Russian, Swedish, and Chinese (simplified) localization by Aleix Dorca, Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Emma Segev & Tjalling Soldatt, Denis Volpato Martins, Dennis Ukhanov & Eugene Trufanov & Nail Gilmanov & Victor Ptichkin, Johan Nilsson & Tim Malmström, and Peter K. O'Connor, respectively.
+ 
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * The 'pre-connect.sh' script is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
    * The 'post-tun-tap-load.sh' script is executed (as root) after Tunnelblick unloads and/or loads the tun or tap kexts (whether or not any unload or load takes place). Thus, the script is executed immediately before starting OpenVPN.
@@ -32,27 +32,59 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
  * If Tunnelblick.app/Contents/Resources/Deploy is empty, deletes backups of the Deploy folder. (This lets a user easily install a fresh un-Deployed Tunnelblick over a Deployed version.)
 
- * Moves leaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
+ * Moves LeaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
 
- * A new leaseWatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'. The changes are:
-  * Monitoring now ignores the order that scutil outputs keys in and only monitors !DomainName, !ServerAddresses, and !SearchDomains for DNS and NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
-  * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the !DomainName, !ServerAddresses, !SearchDomains, NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
+* A new leasewatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'. The changes are:
+ * Monitoring now ignores the order that scutil outputs keys in and only monitors DomainName, ServerAddresses, and SearchDomains for DNS and NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
+ * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the DomainName, ServerAddresses, SearchDomains, NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
 
- * Adds translations of additional OpenVPN connection status.
+ * Includes OpenVPN 2.1.4 and OpenVPN 2.2.1. The latest version (2.2.1) will be used unless a different version is selected from the 'Preferences' pane of the 'VPN Details…' window.
 
- * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in !NetSocket.m.
+ * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in NetSocket.m.
 
  * Removes the -useDownRootPlugin preference if no 'user' or 'group' options in the configuration file
 
  * Changes to client.up.tunnelblick.sh for Lion and less sensitive network change detection.
 
+ * Sleep/wake change: When the computer wakes up, it now tries to reconnect all configurations that were connected, or were in the process of being connected, when it went to sleep. (Previously, Tunnelblick only tried to reconnect only those configurations that were connected when the computer went to sleep.)
+
  * Unloading of the foo.tap and foo.tun kexts is now attempted only if they are already loaded (previously, it was always attempted and errors were ignored).
+
+ * Monitors log only when it is being displayed.
+
+ * Application can now be updated even if its name is not Tunnelblick.app.
+
+ * Sorts configurations and sounds numerically (e.g., config2, config4, config35 instead of config2, config35, config4).
+
+ * Shows a splash screen during program startup and installation.
+
+ * Several changes to preferences and forced-preferences:
+   * If the 'doNotShowAddConfigurationMenuItem' preference is set, the 'Add a Configuration' menu item will not be shown even if there are no configurations.
+   * Added the following preferences; each does what its name implies:
+    * doNotShowVpnDetailsMenuItem
+    * disableAdvancedButton
+    * disableCheckNowButton
+    * disableResetDisabledWarningsButton
+    * disableCopyLogToClipboardButton
+    * disableAddConfigurationButton    (disables the '+' button)
+    * disableRemoveConfigurationButton (disables the '-' button)
+    * disableWorkOnConfigurationButton (disables the 'gear' button)
+    * disableRenameConfigurationMenuItem
+    * disableDuplicateConfigurationMenuItem
+    * disableMakeConfigurationPrivateOrSharedMenuItem
+    * disableExamineOpenVpnConfigurationFileMenuItem
+    * disableShowOpenVpnLogInFinderMenuItem
+    * disableDeleteConfigurationCredentialsInKeychainMenuItem
+  * Removed the 'disableShareConfigurationButton' preference.
+  * Removed the 'doNotShowForcedPreferenceMenuItems' preference.
+  * Removed the 'doNotShowKeyboardShortcutSubmenu' preference.
+  * Removed the 'doNotShowOptionsSubmenu' preference.
 
  * Fixes problems with fast user switching (previously, user switches were ignored, which caused problems if Tunnelblick was used by more than one user and could cause the Tunnelblick icon to indicate no VPN connection when one existed):
    * When a user is switched out, all configurations that are not set to 'connect when computer starts' will be disconnected unless the per-connection '-doNotDisconnectOnFastUserSwitch' preference is set true.
    * When a user is switched in, Tunnelblick will attempt to connect any configurations that were connected at the time the user was switched out but are no longer connected unless the per-connection '-doNotReconnectOnFastUserSwitch' preference is set true.
 
- * Fixes potential race condition when computer wakes up.
+ * Fixes potential race condition when computer wakes up, sleeps, or Tunnelblick quits.
 
  * Fixes a bug that could cause Tunnelblick to fail to start because the it was unable to properly secure itself.
 
@@ -78,13 +110,19 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
  * Fixes a bug that caused a Console log entry that a flag file does not exist after installing certain Tunnelblick VPN Configurations (.tblk).
 
+ * Fixes bug  that could cause 100% CPU utilization if an unexpected error occurs while exiting the program.
+
  * Fixes a bug that could cause an inability to start Tunnelblick because the installer was unable to properly secure it.
+
+ * Fixes problems when updating Tunnelblick while a connection is active.
 
  * Fixes problems causing tun/tap kexts to be loaded even though preferences specify that the kext(s) are not to be loaded.
 
  * Fixes problems with Tunnelblick icon not appearing in security dialogs.
 
  * Fixes a bug that failed to properly deal with NetBIOSName when monitoring the connection.
+
+ * Fixes a bug that caused .tblk configurations on remote volumes or using shadow copies to ask for an administrator username/password each time a connection attempt was made.
 
  * Fixes a bug that sometimes caused kexts to not be unloaded.
 

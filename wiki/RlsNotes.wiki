@@ -10,6 +10,53 @@
 
 ==Version 3.2==
 
+ * Includes an experimental version of the Tuntap kexts (device drivers) that are used when running on OS X 10.7 "Lion". This should fix problems with kernel panics on some processors. (The older, stable versions of the drivers are used on OS X 10.4 - 10.6.)
+
+ * Includes both OpenVPN 2.1.4 and OpenVPN 2.2.1. The latest version (2.2.1) will be used unless a different version is selected in the 'Preferences' pane of the 'VPN Details…' window.
+
+ * Includes complete localization for Catalan, German, Spanish, French, Korean, Norwegian, Dutch, Portuguese, Russian, Swedish, and Chinese (simplified).
+
+ * Changes ownership/permissions of key, certificate, etc. files in a .tblk from root:wheel 0600 to root:admin 0640. This allows easier access to them for Admins (who could always access them with sudo anyway).
+
+ * Translates the "Double-click to begin" message that appears in the disk image window to several more languages.
+
+  * Several changes to preferences and forced-preferences:
+   * If the 'doNotShowAddConfigurationMenuItem' preference is set, the 'Add a Configuration' menu item will not be shown even if there are no configurations.
+   * Added the following preferences; each does what its name implies:
+    * doNotShowVpnDetailsMenuItem
+    * disableAdvancedButton
+    * disableCheckNowButton
+    * disableResetDisabledWarningsButton
+    * disableCopyLogToClipboardButton
+    * disableAddConfigurationButton    (disables the '+' button)
+    * disableRemoveConfigurationButton (disables the '-' button)
+    * disableWorkOnConfigurationButton (disables the 'gear' button)
+    * disableRenameConfigurationMenuItem
+    * disableDuplicateConfigurationMenuItem
+    * disableMakeConfigurationPrivateOrSharedMenuItem
+    * disableExamineOpenVpnConfigurationFileMenuItem
+    * disableShowOpenVpnLogInFinderMenuItem
+    * disableDeleteConfigurationCredentialsInKeychainMenuItem
+  * Removed the 'disableShareConfigurationButton' preference.
+  * Removed the 'doNotShowForcedPreferenceMenuItems' preference.
+  * Removed the 'doNotShowKeyboardShortcutSubmenu' preference.
+  * Removed the 'doNotShowOptionsSubmenu' preference.
+
+ * Several bugfixes:
+  * Fixes a bug that caused the splash window to not be closed properly and thus appear in Exposé even after Tunnelblick has finished launching.
+  * Fixes a bug that caused abnormally high CPU usage after closing the 'VPN Details…' window if it was displaying the 'Info' panel.
+  * Fixes a bug that tried to create a shadow copy of configuration files that were unsecured in Deploy or Shared. Now asks to secure them instead.
+  * Fixes a bug that caused problems for 'connect when computer starts' configurations when the configuration is in a subfolder or the configuration's name contains slashes, dashes, or periods.
+  * Fixes a bug that caused a forced 'updateFeedURL' preference to be ignored. (Note: this preference can only be forced; an 'updateFeedURL' user preference will be ignored for security  reasons).
+  * Fixes a bug that caused the 'updateCheckInterval' preference to be ignored
+  * Fixes a bug that caused the 'Notification window' button to be enabled even if the 'connectionWindowDisplayCriteria' preference was forced.
+  * Fixes a bug that caused the Tunnelblick icon to continue to blink when AppleScript was used to 'connect all', even after all connections had been successfully made.
+
+--------------------
+
+*3.2beta30 (2011-08-31)*
+
+
 --------------------
 
 *3.2beta28 (2011-07-31)*
