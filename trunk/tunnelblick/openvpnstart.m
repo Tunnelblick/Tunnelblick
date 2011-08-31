@@ -1716,6 +1716,9 @@ NSString * TunTapSuffixToUse(void)
         if ( systemVersion < 0x1070) {
             suffixToReturn = @"-pre-lion.kext";
         }
+    } else {
+        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming pre-Lion. Error = %d\nError was '%s'", err, strerror(errno));
+        suffixToReturn = @"-pre-lion.kext";
     }
     
     return suffixToReturn;
