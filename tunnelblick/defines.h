@@ -41,6 +41,11 @@
 
 
 //*************************************************************************************************
+// The maximum 'argc' for openvpnstart
+#define OPENVPNSTART_MAX_ARGC 11
+
+
+//*************************************************************************************************
 // Return values for openvpnstart compareConfig command
 #define OPENVPNSTART_COMPARE_CONFIG_SAME 3
 #define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT 5
