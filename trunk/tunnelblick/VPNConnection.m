@@ -1097,6 +1097,20 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSArray * args = [NSArray arrayWithObjects:
                       @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourVersionFolder, nil];
+
+    // IF THE NUMBER OF ARGUMENTS CHANGES:
+    //    (1) Modify openvpnstart to use the new arguments
+    //    (2) Change OPENVPNSTART_MAX_ARGC in defines.h to the maximum 'argc' for openvpnstart
+    //        (That is, change it to one more than the number of entries in 'args' (because the path to openvpnstart is also an argument)
+    //    (3) Change the constant integer in the next line to the the same number
+#if 11 != OPENVPNSTART_MAX_ARGC
+    #error "OPENVPNSTART_MAX_ARGC is not correct. It must be 1 more than the count of the 'args' array"
+#endif
+    
+    if (  [args count] + 1  != OPENVPNSTART_MAX_ARGC  ) {
+        NSLog(@"Program error: [args count] = %d, but OPENVPNSTART_MAX_ARGC = %d. It should be one more than [args count].", [args count], OPENVPNSTART_MAX_ARGC);
+    }
+
     return args;
 }
 

@@ -200,7 +200,7 @@ int main(int argc, char* argv[])
             syntaxError = ! runScript(@"reconnecting.sh", argc, argv[2], argv[3]);
 
 		} else if( strcmp(command, "start") == 0 ) {
-			if (  (argc > 3) && (argc < 12)  ) {
+			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
 				NSString* configFile = [NSString stringWithUTF8String:argv[2]];
                 errorExitIfAttackViaString(configFile);
 				if(strlen(argv[3]) < 6 ) {

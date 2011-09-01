@@ -61,12 +61,12 @@ int main(int argc, char* argv[])
     
     // Validate our arguments
     if (   (argc < 5)
-        || (argc > 11)
+        || (argc > OPENVPNSTART_MAX_ARGC+1)
         || (   ( strcmp(argv[ARG_LOAD_FLAG], "0") != 0 )
             && ( strcmp(argv[ARG_LOAD_FLAG], "1") != 0 )
             )
         ) {
-        NSLog(@"Tunnelblick atsystemstart: Argument #%d must be 0 or 1 and there must be between 5 to 11 (inclusive) arguments altogether. argc = %d; argv[%d] = '%s'", ARG_LOAD_FLAG, argc, ARG_LOAD_FLAG, argv[ARG_LOAD_FLAG]);
+        NSLog(@"Tunnelblick atsystemstart: Argument #%d must be 0 or 1 and there must be between 5 to %d (inclusive) arguments altogether. argc = %d; argv[%d] = '%s'", ARG_LOAD_FLAG, OPENVPNSTART_MAX_ARGC+1, argc, ARG_LOAD_FLAG, argv[ARG_LOAD_FLAG]);
         errorExit();
     }
     
