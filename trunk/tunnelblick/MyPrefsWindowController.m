@@ -1030,6 +1030,13 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
+    if (  ! [connection isDisconnected]  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
+                        NSLocalizedString(@"You cannot rename a configuration unless it is disconnected.", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+    
     NSString * sourcePath = [connection configPath];
     if (  [sourcePath hasPrefix: gDeployPath]  ) {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
@@ -1203,16 +1210,29 @@ static BOOL firstTimeShowingWindow = TRUE;
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You cannot make a configuration private if it is set to start when the computer starts.", @"Window text"),
                         nil, nil, nil);
-    } else {
-        NSString * path = [[self selectedConnection] configPath];
-        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-            [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
-        } else {
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"),
-                            nil, nil, nil);
-        }
+        return;
     }
+    
+    NSString * path = [connection configPath];
+    if (  ! [[path pathExtension] isEqualToString: @"tblk"]  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                        NSLocalizedString(@"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk).", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+    
+    if (  ! [connection isDisconnected]  ) {
+        NSString * msg = (  [path hasPrefix: gSharedPath]
+                          ? NSLocalizedString(@"You cannot make a configuration private unless it is disconnected.", @"Window text")
+                          : NSLocalizedString(@"You cannot make a configuration shared unless it is disconnected.", @"Window text")
+                          );
+        TBRunAlertPanel(NSLocalizedString(@"Active connection", @"Window title"),
+                        msg,
+                        nil, nil, nil);
+        return;
+    }
+    
+    [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
 }
 
 
