@@ -18,9 +18,11 @@ Because Tunnelblick is distributed using the "GPL" license, the source code itse
 *These instructions are very long because they are very detailed.*
 
 ==PRELIMINARY STEPS==
-First, as of Tunnelblick source code revision 232, you need to be running Snow Leopard (OS X 10.6.x). Although Tunnelblick will run on Tiger (OS X 10.4.x) and Leopard (OS X 10.5.x) as well as Snow Leopard, it must be built (developed and compiled) into a release on Snow Leopard, because only Snow Leopard supports the 32/64-bit version of "tuntap", third-party software used by Tunnelblick to make network connections. The 32/64-bit version of tuntap is required to run Tunnelblick on Snow Leopard using the 64-bit kernel.
+Tunnelblick is built on Snow Leopard with Xcode 3.2.x to support OS 10.4 ("Tiger") and PPC processors. For instructions on building Tunnelblick on Lion, see [#BUILDING_ON_LION "Building on Lion".
 
-(Prior to Tunnelblick source code revision 232, you needed to be running Leopard and Xcode 3.1.1 or above to build Tunnelblick. See "Building on Leopard", below.)
+(Prior to Tunnelblick source code revision 232, you needed to be running Leopard and Xcode 3.1.1 or above to build Tunnelblick. See [#BUILDING_ON_LEOPARD "Building on Leopard"].)
+
+First, as of Tunnelblick source code revision 232, you need to be running Snow Leopard (OS X 10.6.x). Although Tunnelblick will run on Tiger (OS X 10.4.x) and Leopard (OS X 10.5.x) as well as Snow Leopard, it must be built (developed and compiled) into a release on Snow Leopard, because only Snow Leopard supports the 32/64-bit version of "tuntap", third-party software used by Tunnelblick to make network connections. The 32/64-bit version of tuntap is required to run Tunnelblick on Snow Leopard using the 64-bit kernel.
 
 Second, you must download and install Xcode 3.2.x if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode.app", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is at least version 3.2.1.) If you don't have Xcode, download the version for Mac-only development from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions. *You must add the optional "10.4 SDK" (Software Development Kit) for Tunnelblick to build correctly.*
 
@@ -83,6 +85,8 @@ It is possible to build versions of Tunnelblick prior to r232 on Leopard. The in
 
       svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
 
+==BUILDING ON LION==
+See <a href="https://groups.google.com/d/topic/tunnelblick-discuss/vJYGdD-et4k/discussion">this discussion</a>.
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
