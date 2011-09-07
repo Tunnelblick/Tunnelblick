@@ -14,7 +14,7 @@
 "Disconnect All (%d Connections)" = "Déconnecter toutes (%d connexions)";
 
 /* Status message */
-"No Active Connections" = "Pas de connexions branchées";
+"No Active Connections" = "Aucune connexion active";
 
 /* Textbox name */
 "Password:" = "Mot de passe :";
@@ -86,7 +86,7 @@
 "Disconnect" = "Déconnecter";
 
 /* Button */
-"Do not use the plugin" = "N’utiliser pas l’extension";
+"Do not use the plugin" = "Ne pas utiliser l’extension";
 
 /* Button */
 "Done" = "Fini";
@@ -158,13 +158,13 @@
 "Restore" = "Rétablir";
 
 /* Button */
-"Show when connection status changes" = "Afficher quand l’état de connexion se change";
+"Show when connection status changes" = "Afficher quand l’état de connexion change";
 
 /* Button */
 "Show while connecting" = "Afficher pendant l’établissement de connexion";
 
 /* Button */
-"Standard icon" = "Icône défaute";
+"Standard icon" = "Icône par défaut";
 
 /* Button */
 "Terminate" = "Terminer";
@@ -197,7 +197,7 @@
 "Connect %@%@" = "Connecter %@%@";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Supprimer crédentiels de configuration de Trousseau d’accès…";
+"Delete Configuration's Credentials in Keychain..." = "Supprimer informations d'authentification du Trousseau d’accès…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "Désactivée parce que ce réglage est forcé";
@@ -230,10 +230,10 @@
 "Rename Configuration..." = "Renommer configuration…";
 
 /* Menu Item */
-"Show OpenVPN Log in Finder" = "Afficher fichier de messages OpenVPN dans Finder";
+"Show OpenVPN Log in Finder" = "Afficher fichier de messages OpenVPN dans le Finder";
 
 /* Menu Item */
-"Show configuration on Tunnelblick menu" = "Ajouter configuration au menu Tunnelblick";
+"Show configuration on Tunnelblick menu" = "Afficher dans le menu Tunnelblick";
 
 /* Menu item */
 "VPN Details..." = "Détails VPN…";
@@ -248,7 +248,7 @@
 "Display connection submenus" = "Afficher sous-menus de connexion";
 
 /* Checkbox name */
-"Display connection timers" = "Afficher minuteries de connexion";
+"Display connection timers" = "Afficher temps de connexion";
 
 /* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Montrer la fenêtre pendant que Tunnelblick se lance";
@@ -257,16 +257,16 @@
 "Do not ask again, always 'Ignore'" = "N’Interroger pas encore ; toujours « Ignorer »";
 
 /* Checkbox name */
-"Do not warn about this again for this configuration" = "Ne prévenir pas encore contre cette chose pour cette configuration";
+"Do not warn about this again for this configuration" = "Ne plus me prévenir de cela pour cette configuration";
 
 /* Checkbox name */
-"Do not warn about this again" = "Ne prévenir pas encore contre cette chose";
+"Do not warn about this again" = "Ne plus me prévenir de cela";
 
 /* Checkbox name */
-"Do not warn about this again, always 'Examine'" = "Ne prévenir pas encore contre cette chose ; toujours « Éxaminer »";
+"Do not warn about this again, always 'Examine'" = "Ne plus me prévenir de cela, toujours « Éxaminer »";
 
 /* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Vider cache DNS àpres d’établir ou rompre connexion";
+"Flush DNS cache after connecting or disconnecting" = "Vider cache DNS après la connexion ou la déconnexion";
 
 /* Checkbox name */
 "Monitor connection" = "Surveiller connexion";
@@ -275,13 +275,13 @@
 "Monitor network settings" = "Surveiller préférences de réseau";
 
 /* Checkbox name */
-"Monitor the configuration folders for changes" = "Surveiller changements dedans les dossiers de configuration";
+"Monitor the configuration folders for changes" = "Surveiller changements dans les dossiers de configuration";
 
 /* Checkbox name */
-"Place next to Spotlight icon" = "Localiser à côté de l’icône Spotlight";
+"Place next to Spotlight icon" = "Placer à côté de l’icône Spotlight";
 
 /* Checkbox name */
-"Reconnect when user switches in" = "Rétablir connexion lors du revenu au compte d’utilisateur original";
+"Reconnect when user switches in" = "Rétablir connexion lors du retour au compte d'utilisateur original";
 
 /* Checkbox name */
 "Save in Keychain" = "Enregistrer dans le Trousseau d’accès";
@@ -332,7 +332,7 @@
 "EXITING"    = "Déconnecté"; // Please translate "Disconnected"
 
 /* Connection status */
-"GET_CONFIG" = "Obtient la configuration";
+"GET_CONFIG" = "Obtention de la configuration";
 
 /* Connection status */
 "RECONNECTING" = "Rebranche";
@@ -377,7 +377,7 @@
 " (Shared)" = " (Partagée)"; /* Indicates a shared configuration */
 
 /* Window title */
-"%@ Advanced Settings%@" = "Préférences avancés de configuration %1$@%2$@";
+"%@ Advanced Settings%@" = "Préférences avancées de configuration %1$@%2$@";
 
 /* Window title */
 "'%@' has been disconnected" = "'%@' a été déconnectée";
@@ -413,7 +413,7 @@
 "Configuration(s) Ignored" = "Configuration(s) pas utilisée(s)";
 
 /* Window title */
-"Connecting & Disconnecting" = "Connection et déconnection";
+"Connecting & Disconnecting" = "Connexion & déconnexion";
 
 /* Window title */
 "Could Not Copy Configuration" = "Configuration n’a pas pu être copiée";
@@ -683,7 +683,7 @@
 "Connection:" = "Connexion :";
 
 /* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004–%@ Angelo Laub et d’autrui.";
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004–%@ Angelo Laub et d’autres.";
 
 /* Window text */
 "DNS servers:" = "Serveurs DNS :";
@@ -836,7 +836,7 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "L’essai de faire connecter « %1$@ » a été annulé :  le script « runOnConnect » s’est terminé avec l’état : %2$d.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Le fichier de configuration pour « %@ » semble utiliser les choix « possesseur » et/ou « groupe », mais il utilise un script de déconnexion (La choix « Ne changer pas serveur de noms » n’est pas choisie, ou il y a une phrase « down » dans le fichier de configuration.)\n\nIl est probable que redémarrer la connexion – quelque chose qui se passe automatiquement quand la connexion soit perdue – va échouer, à moins que le plugin OpenVPN « openvpn-down-root.so » soit utilisé.\n\nVoudriez-vous utiliser ce plugin ?";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "Le fichier de configuration pour « %@ » semble utiliser les choix « possesseur » et/ou « groupe », mais il utilise un script de déconnexion (La choix « Ne changer pas serveur de noms » n’est pas choisie, ou il y a une phrase « down » dans le fichier de configuration.)\n\nIl est probable que redémarrer la connexion – quelque chose qui se passe automatiquement quand la connexion soit perdue – va échouer, à moins que le plugin OpenVPN « openvpn-down-root.so » soit utilisé.\n\nVoulez-vous utiliser ce plugin ?";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Le fichier de configuration pour « %@ » semble ne pas contenir une phrase « dev tun » ou « dev tap ». Cette phrase peut être nécessaire pour l’opération de Tunnelblick. Veuillez consulter avec votre administrateur réseau ou avec la documentation OpenVPN.";
