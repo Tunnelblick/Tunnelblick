@@ -1009,8 +1009,17 @@
 /* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "Una configuració no es pot fer privada si aquesta s'utilitza per connectar quan l'ordinador arrenca.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot make a configuration private unless it is disconnected." = "You cannot make a configuration private unless it is disconnected.";
+
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Una configuració no es pot fer compartida si no és una configuració VPN Tunnelblick (.tblk).";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot make a configuration shared unless it is disconnected." = "You cannot make a configuration shared unless it is disconnected.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot rename a configuration unless it is disconnected." = "You cannot rename a configuration unless it is disconnected.";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Has sol·licitat duplicar '%@'.";
