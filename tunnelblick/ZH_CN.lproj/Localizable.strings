@@ -1513,10 +1513,19 @@
 
 /* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "一个设置如果被设为在计算机启动时自动连接, 那你不能将它设为私人的设置.";
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot make a configuration private unless it is disconnected." = "You cannot make a configuration private unless it is disconnected.";
+
 
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "你不能共享一个非 Tunnelblick VPN 设置 (.tblk).";
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot make a configuration shared unless it is disconnected." = "You cannot make a configuration shared unless it is disconnected.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"You cannot rename a configuration unless it is disconnected." = "You cannot rename a configuration unless it is disconnected.";
+
 
 
 /* Window text VPNService */
