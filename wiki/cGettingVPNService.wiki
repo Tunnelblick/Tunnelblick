@@ -32,7 +32,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[https://sales.hotspotvpn.com/info.asp?rid=tunnelblick&pid=2&tc=1 HotSpotVPN]*
   * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
-  * *[http://switchvpn.com/members/aff.php?aff=127 SwitchVPN.com]*
+  * *[http://secure.switchkonnect.com/aff.php?aff=127 SwitchVPN.com]*
   * *[http://www.vpnsecure.me/?xyz=21 VPN.S]*
   * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]*
 </td></tr></table>
@@ -73,7 +73,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-06-25.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2011-09-15.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to use Tunnelblick.
