@@ -13,18 +13,15 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 <hr>
 
 ==Tunnelblick==
-*Latest stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)]* released 2011-04-03 for OS X 10.4 through 10.6.
+ <strong>Latest stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)]</strong> released 2011-04-03<br> For use on OS X 10.4 - 10.6 ("Tiger", "Leopard", and "Snow Leopard")
 
- <i>For OS X 10.7 "Lion", use the latest Beta release:</i>
+ <strong>Latest beta release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)]</strong> released 2011-08-31<br> For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion")
 
-*Latest beta release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)]* released 2011-08-31 for OS X 10.4 through 10.7
+ <strong>[DownloadsOlder Older Releases]</strong>
 
-<br>
-*[DownloadsOlder Older Releases]*
+<i>A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a beta release, but may be more reliable.
 
- <i>A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [cBeta beta release], but may be more reliable.
-
- A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].</i><font color="white">!TunnelblickGoogleCodePage</font>
+A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].</i><font color="white">!TunnelblickGoogleCodePage</font>
 
 <hr>
 
