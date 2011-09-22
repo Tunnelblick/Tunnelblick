@@ -17,7 +17,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
 <i>Note: For OS X 10.7 "Lion", use the latest Beta release:</i>
 
-*Latest beta release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)]* released 2010-08-31 for OS X 10.4 through 10.7
+*Latest beta release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)]* released 2011-08-31 for OS X 10.4 through 10.7
 
 *[DownloadsOlder Older Tunnelblick Releases]*
 
