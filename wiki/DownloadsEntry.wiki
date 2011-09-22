@@ -15,11 +15,12 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 ==Tunnelblick==
 *Latest stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)]* released 2011-04-03 for OS X 10.4 through 10.6.
 
-<i>Note: For OS X 10.7 "Lion", use the latest Beta release:</i>
+ <i>For OS X 10.7 "Lion", use the latest Beta release:</i>
 
 *Latest beta release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)]* released 2011-08-31 for OS X 10.4 through 10.7
 
-*[DownloadsOlder Older Tunnelblick Releases]*
+<br>
+*[DownloadsOlder Older Releases]*
 
  <i>A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [cBeta beta release], but may be more reliable.
 
