@@ -1,5 +1,7 @@
 #summary Older Downloads
 
+[http://code.google.com/p/tunnelblick/wiki/cSysReq System Requirements]
+
 ==Deprecated Versions of Tunnelblick==
 
 Deprecated means "superseded and should be avoided".
@@ -31,6 +33,9 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b9.dmg Tunnelblick 3.0b9] released 2008-07-24<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg Tunnelblick 3.0b8] released 2008-07-17<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg Tunnelblick 3.0b7] released 2008-07-07
+
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.0.1] is a version that works on OS X 10.3 "Panther"
+
 
 <hr>
 
