@@ -1,6 +1,6 @@
 #summary Older Downloads
 
-==Deprecated Versions==
+==Deprecated Versions of Tunnelblick==
 
 Deprecated means "superseded and should be avoided".
 
