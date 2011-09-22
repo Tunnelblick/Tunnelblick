@@ -8,7 +8,7 @@
 <br>
 <hr>
 
-_Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [cGettingVPNService VPN Service Providers]._
+_Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [cGettingVPNService Getting VPN Service]._
 
 <hr>
 
