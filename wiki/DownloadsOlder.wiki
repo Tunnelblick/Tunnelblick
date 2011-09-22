@@ -1,5 +1,4 @@
-#summary Entry page for Downloads
-<font size="5">*Older Downloads*</font>
+#summary Older Downloads
 
 ==Deprecated Versions==
 
