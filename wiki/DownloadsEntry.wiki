@@ -11,69 +11,23 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
 <hr>
 
-<wiki:toc max_depth="2" />
+==Tunnelblick==
+*Latest stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)]* released 2011-04-03 for OS X 10.4 through 10.6.
+
+<i>Note: For OS X 10.7 "Lion", use the latest Beta release:</i>
+
+*Latest beta release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)]* released 2010-08-31 for OS X 10.4 through 10.7<br>
+<font color="white">!TunnelblickGoogleCodePage</font>
+
+ <i>A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [cBeta beta release], but may be more reliable.
+
+ A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].</i>
+
+*[DownloadsOlder Older Tunnelblick Releases]*
 
 <hr>
 
-==Stable Releases==
-A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a [cBeta beta release], but may be more reliable.
-    _*For OS X 10.7 ("Lion") use the latest [#Beta_Releases Beta Release]*_<br><br>
-    
-    _*For OS X 10.4, 10.5, 10.6 ("Tiger", "Leopard", "Snow Leopard")*_ <br>
-      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)] released 2011-04-03<br><br>
-
-    _*For OS X 10.3 ("Panther")*_ <br>
-      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.01] released 2005-08-30<br>
-
-<hr>
-
-==Beta Releases==
-A "beta" version of a program is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].
-    _*For OS X 10.4, 10.5, 10.6 and 10.7 ("Tiger", "Leopard", "Snow Leopard", "Lion")*_ <br>
-      [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)] released 2010-08-31<br>
-      <font color="white">!TunnelblickGoogleCodePage</font><br><br>
-<hr>
-
-==Deprecated Versions==
-
-Deprecated means "superseded and should be avoided".
-
-Please don't use a deprecated version of Tunnelblick unless you are having problems with the latest stable version.
-
-<font color="red">*If you are having problems with the latest stable version, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
-
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta28.dmg Tunnelblick 3.2beta28 (build 2714)] released 2010-07-31<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta26.dmg Tunnelblick 3.2beta26 (build 2687)] released 2011-07-20<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta24.dmg Tunnelblick 3.2beta24 (build 2625)] released 2011-07-14<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta22.dmg Tunnelblick 3.2beta22 (build 2578)] released 2011-07-01<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta20.dmg Tunnelblick 3.2beta20 (build 2567)] released 2011-06-29<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta18.dmg Tunnelblick 3.2beta18 (build 2562)] released 2011-06-27<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta16.dmg Tunnelblick 3.2beta16 (build 2520)] released 2011-06-24<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta14.dmg Tunnelblick 3.2beta14 (build 2494)] released 2011-05-17<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta12.dmg Tunnelblick 3.2beta12 (build 2490)] released 2011-05-16<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta10.dmg Tunnelblick 3.2beta10 (build 2466)] released 2011-04-29<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta08.dmg Tunnelblick 3.2beta08 (build 2445)] released 2011-04-26<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta06.dmg Tunnelblick 3.2beta06 (build 2417)] released 2011-04-06<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta04.dmg Tunnelblick 3.2beta04 (build 2385)] released 2011-02-19<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta02.dmg Tunnelblick 3.2beta02 (build 2344)] released 2011-02-02<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.6.dmg Tunnelblick 3.1.6 (build 2190.2392)] released 2011-02-19<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.5.dmg Tunnelblick 3.1.5 (build 2190.2336)] released 2011-02-01<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.4.dmg Tunnelblick 3.1.4 (build 2190.2313)] released 2011-01-28<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.3.dmg Tunnelblick 3.1.3 (build 2190.2305)] released 2011-01-27<br><br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0.1.dmg Tunnelblick 3.0.1 (build 1437.2278)] released 2011-01-12<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b10.dmg Tunnelblick 3.0b10] released 2008-11-20<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.0b9.dmg Tunnelblick 3.0b9] released 2008-07-24<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b8.dmg Tunnelblick 3.0b8] released 2008-07-17<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick-Universal-3.0b7.dmg Tunnelblick 3.0b7] released 2008-07-07
-
-<hr>
-
-==Other Versions==
-All other versions of Tunnelblick <font color="red">*contain serious security vulnerabilities*</font>. They are available on the [SecurityRiskDownloads Security Risk Downloads] page.
-
-<hr>
-
-==User-Contributed==
+==User-Contributed Scripts==
 These downloads have been contributed by users and usually help deal with special circumstances. They are not endorsed or checked by the Tunnelblick project or Google, and you use them at your own risk. To contribute a download, please email project owner [http://code.google.com/u/jkbullard/ Jon].
 
 <font color="red">Note: scripts are executed as root.</font> [cUsingScripts Instructions for using scripts].
