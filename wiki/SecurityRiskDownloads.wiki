@@ -1,4 +1,5 @@
 #summary Entry page for Downloads with security risks
+#sidebar cSb
 <font size="5" color="red">*Security Risk Downloads*</font>
 
 <font color="red">
