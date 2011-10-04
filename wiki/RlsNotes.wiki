@@ -10,6 +10,8 @@
 
 ==Version 3.2==
 
+*3.2beta30 (2011-08-31)*
+
  * Includes an experimental version of the Tuntap kexts (device drivers) that are used when running on OS X 10.7 "Lion". This should fix problems with kernel panics on some processors. (The older, stable versions of the drivers are used on OS X 10.4 - 10.6.)
 
  * Includes both OpenVPN 2.1.4 and OpenVPN 2.2.1. The latest version (2.2.1) will be used unless a different version is selected in the 'Preferences' pane of the 'VPN Details…' window.
@@ -51,11 +53,6 @@
   * Fixes a bug that caused the 'updateCheckInterval' preference to be ignored
   * Fixes a bug that caused the 'Notification window' button to be enabled even if the 'connectionWindowDisplayCriteria' preference was forced.
   * Fixes a bug that caused the Tunnelblick icon to continue to blink when AppleScript was used to 'connect all', even after all connections had been successfully made.
-
---------------------
-
-*3.2beta30 (2011-08-31)*
-
 
 --------------------
 
