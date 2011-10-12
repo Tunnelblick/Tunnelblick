@@ -10,6 +10,24 @@
 
 ==Version 3.2==
 
+*3.2beta32 (2011-10-12)*
+
+ * Includes OpenSSL version 1.0.0e.
+ 
+ * Complete Polish localization by Magdelena Zajac and Łukasz M.
+ 
+ * Improved French localization by Olivier Borowski.
+ 
+ * Removes extra logging by Tuntap kexts introduced in 3.2beta30.
+ 
+ * Does not allow a configuration to be renamed or made private or made shared unless the configuration is disconnected.
+ 
+ * Fixes a problem with configurations set to connect 'when computer starts'.
+ 
+ * Fixes a problem not accepting digits in domain names pushed by the VPN server. Now accepts A-Z, a-z, 0-9, '-', and '.' in domain names. Does NOT accept internationalized domain names.
+
+--------------------
+
 *3.2beta30 (2011-08-31)*
 
  * Includes an experimental version of the Tuntap kexts (device drivers) that are used when running on OS X 10.7 "Lion". This should fix problems with kernel panics on some processors. (The older, stable versions of the drivers are used on OS X 10.4 - 10.6.)

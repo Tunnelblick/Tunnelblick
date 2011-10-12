@@ -11,6 +11,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 <font color="red">*If you are having problems with the latest stable or beta version of Tunnelblick, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)] released 2011-08-31<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta28.dmg Tunnelblick 3.2beta28 (build 2714)] released 2010-07-31<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta26.dmg Tunnelblick 3.2beta26 (build 2687)] released 2011-07-20<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta24.dmg Tunnelblick 3.2beta24 (build 2625)] released 2011-07-14<br>
