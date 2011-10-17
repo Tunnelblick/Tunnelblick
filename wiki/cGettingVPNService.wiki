@@ -30,7 +30,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://www.bananasecure.com/members/idevaffiliate.php?id=271 Banana VPN]*
   * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]*
   * *[https://sales.hotspotvpn.com/info.asp?rid=tunnelblick&pid=2&tc=1 HotSpotVPN]*
-  * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]* ([http://www.ibvpn.com/blog/2011/09/get-a-50-discount-for-every-multivpn-you-buy/ 50% discount on MultiVPN packages purchased through October 14th)]
+  * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
   * *[http://secure.switchkonnect.com/aff.php?aff=127 SwitchVPN.com]*
   * *[http://www.vpnsecure.me/?xyz=21 VPN.S]*
