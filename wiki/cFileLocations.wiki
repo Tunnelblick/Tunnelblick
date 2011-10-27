@@ -51,3 +51,9 @@ Note: In Tunnelblick 3.2beta10 and earlier, preferences are stored in `~/Library
 Deployed versions of Tunnelblick may contain a "forced-preferences.plist" file within the Tunnelblick application itself. They are used to override the user's normal preferences; see [cDeployingTunnelblick Deploying Tunnelblick] for details.
 
 Tunnelblick VPN Configurations may also include preference defaults, which are used to initialize the user's preferences (which may then be changed by the user).
+
+==One More Thing…==
+Under certain circumstances, Tunnelblick replaces the configuration folder that older versions of Tunnelblick use,
+`~/Library/openvpn`
+with a symbolic link to the new location of the folder,
+`~/Library/Application Support/Tunnelblick/Configurations`
