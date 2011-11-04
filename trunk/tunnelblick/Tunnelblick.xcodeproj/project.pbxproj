@@ -91,6 +91,7 @@
 		638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
 		638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */ = {isa = PBXBuildFile; fileRef = 638A1FFC135CC35100FB932C /* standardize-scutil-output */; };
 		638E69611097725500587933 /* TBUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 638E69601097725500587933 /* TBUserDefaults.m */; };
+		63903D18145EAD49006627C9 /* HU.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63903D12145EAD49006627C9 /* HU.lproj */; };
 		6391992510449804001FA1BC /* ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 6391992210449804001FA1BC /* ES.lproj */; };
 		6398C86F11A5C1BC00CCF28D /* client.down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */; };
 		6398C87011A5C1BC00CCF28D /* client.up.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */; };
@@ -319,6 +320,7 @@
 		638A2004135CC41C00FB932C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		638E695F1097725500587933 /* TBUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBUserDefaults.h; sourceTree = "<group>"; };
 		638E69601097725500587933 /* TBUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBUserDefaults.m; sourceTree = "<group>"; };
+		63903D12145EAD49006627C9 /* HU.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HU.lproj; sourceTree = "<group>"; };
 		6391992210449804001FA1BC /* ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ES.lproj; sourceTree = "<group>"; };
 		6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.down.tunnelblick.sh; sourceTree = "<group>"; };
 		6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.up.tunnelblick.sh; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 				615F74900ED3A4FA007F6F0A /* DE.lproj */,
 				6391992210449804001FA1BC /* ES.lproj */,
 				615F748C0ED3A4E5007F6F0A /* FR.lproj */,
+				63903D12145EAD49006627C9 /* HU.lproj */,
 				63BD86E41205BA39005B8E38 /* IT.lproj */,
 				615F74930ED3A4FA007F6F0A /* JA.lproj */,
 				615F74960ED3A4FA007F6F0A /* KO.lproj */,
@@ -952,6 +955,7 @@
 				6341C39713D6DE6200B9CE2B /* DA.lproj in Resources */,
 				63EA676C13DF326600E77443 /* SV.lproj in Resources */,
 				63379F8813F695D700F2554D /* TBBuildNumber.txt in Resources */,
+				63903D18145EAD49006627C9 /* HU.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
