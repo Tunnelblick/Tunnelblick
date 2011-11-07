@@ -77,7 +77,7 @@ If Tunnelblick does not have an open window, you will have to force Tunnelblick 
  * Tunnelblick version 3.1beta02 and later automatically unload the tun and tap kexts when you disconnect; otherwise you can unload them by restarting your computer or manually with the "kextunload" Terminal command. (Usually it doesn't matter if they are loaded unless you are using other VPN software.)
 
 ==Absolutely Complete Uninstall==
-For detailed instructions for a complete uninstall of the program and all support files, do the following:
+For a complete uninstall of the program and all support files, do the following:
 
  # Make sure you have a backup of your Tunnelblick configuration file(s) -- the .ovpn and/or .tblk files.
  # Make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
