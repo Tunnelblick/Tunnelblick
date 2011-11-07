@@ -22,8 +22,8 @@ PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 LZO_DIR=lzo-2.05
 PKCS11_DIR=pkcs11-helper-1.09
-TUNTAP_PRE_LION_DIR=tuntap-20090913
-TUNTAP_LION_DIR=tuntap-20110914
+TUNTAP_PRE_LEOPARD_DIR=tuntap-20090913
+TUNTAP_LEOPARD_DIR=tuntap-20111101
 
 
 all: tuntap openvpn
@@ -161,18 +161,18 @@ tuntap-patch:
 	done
 
 tuntap: tuntap-patch
-	$(MAKE) -C tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/; \
-	mv tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/tap.kext tap-pre-lion.kext; \
-	mv tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/tun.kext tun-pre-lion.kext; \
-	$(MAKE) -C tuntap/$(TUNTAP_LION_DIR)/tuntap/; \
-	mv tuntap/$(TUNTAP_LION_DIR)/tuntap/tap.kext tap.kext; \
-	mv tuntap/$(TUNTAP_LION_DIR)/tuntap/tun.kext tun.kext
+	$(MAKE) -C tuntap/$(TUNTAP_PRE_LEOPARD_DIR)/tuntap/; \
+	mv tuntap/$(TUNTAP_PRE_LEOPARD_DIR)/tuntap/tap.kext tap-pre-leopard.kext; \
+	mv tuntap/$(TUNTAP_PRE_LEOPARD_DIR)/tuntap/tun.kext tun-pre-leopard.kext; \
+	$(MAKE) -C tuntap/$(TUNTAP_LEOPARD_DIR)/tuntap/; \
+	mv tuntap/$(TUNTAP_LEOPARD_DIR)/tuntap/tap.kext tap.kext; \
+	mv tuntap/$(TUNTAP_LEOPARD_DIR)/tuntap/tun.kext tun.kext
 
 tuntap-clean:
-	$(MAKE) -C tuntap/$(TUNTAP_PRE_LION_DIR)/tuntap/ clean; \
-	rm -f -R tap-pre-lion.kext; \
-	rm -f -R tun-pre-lion.kext; \
-	$(MAKE) -C tuntap/$(TUNTAP_LION_DIR)/tuntap/ clean; \
+	$(MAKE) -C tuntap/$(TUNTAP_PRE_LEOPARD_DIR)/tuntap/ clean; \
+	rm -f -R tap-pre-leopard.kext; \
+	rm -f -R tun-pre-leopard.kext; \
+	$(MAKE) -C tuntap/$(TUNTAP_LEOPARD_DIR)/tuntap/ clean; \
 	rm -f -R tap.kext; \
 	rm -f -R tun.kext
 
