@@ -10,7 +10,7 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
  * For changes from other versions to Tunnelblick 3.2, see the [RlsNotes Tunnelblick Release Notes].
 
 ==Better Security==
- * Includes the latest stable versions of OpenVPN (2.2.1), PKCS#11 (1.09), LZO (2.05), the OpenSSL library (1.0.d), and Tuntap.
+ * Includes the latest stable versions of OpenVPN (2.2.1), PKCS#11 (1.09), LZO (2.05), the OpenSSL library (1.0.e), and Tuntap.
  * Includes additional protection against attacks.
 
 ==Better Usability==
