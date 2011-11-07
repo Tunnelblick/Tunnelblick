@@ -86,7 +86,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, // Returns the path t
 NSString * configPathFromTblkPath(NSString * path);
 NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 
-NSString * TunTapSuffixToUse(void);         // Returns string to prefix tun.kext or tap.kext to get pre-lion version if not running on Lion or higher
+NSString * TunTapSuffixToUse(NSString * prefix); // Returns string to prefix tun.kext or tap.kext to get pre-leopard version if not running on Leopard or higher
 
 NSAutoreleasePool   * pool;
 NSString			* configPath;           //Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
@@ -1271,14 +1271,13 @@ void loadKexts(unsigned int bitMask)
     }
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
-    NSString * suffix = TunTapSuffixToUse();
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-    NSString * tapkext = [@"tap" stringByAppendingString: suffix];
+        NSString * tapkext = [@"tap" stringByAppendingString: TunTapSuffixToUse([execPath stringByAppendingPathComponent: @"tap"])];
         [arguments addObject: [execPath stringByAppendingPathComponent: tapkext]];
         fprintf(stderr, "Loading %s\n", [tapkext UTF8String]);
     }
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-    NSString * tunkext = [@"tun" stringByAppendingString: suffix];
+        NSString * tunkext = [@"tun" stringByAppendingString: TunTapSuffixToUse([execPath stringByAppendingPathComponent: @"tun"])];
         [arguments addObject: [execPath stringByAppendingPathComponent: tunkext]];
         fprintf(stderr, "Loading %s\n", [tunkext UTF8String]);
     }
@@ -1706,19 +1705,32 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     return openvpnPath;
 }
 
-NSString * TunTapSuffixToUse(void)
+NSString * TunTapSuffixToUse(NSString * prefix)
 {
-    NSString * suffixToReturn = @".kext";
+    // If only one tun/tap driver is available, use it (error if neither exists)
+    if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @".kext"]] ) {
+        if ( [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-pre-leopard.kext"]] ) {
+            return @"-pre-leopard.kext";
+        }
+        fprintf(stderr, "Tunnelblick openvpnstart: No tun/tap binaries exist.");
+        [pool drain];
+        exit(EXIT_FAILURE);
+    }
+    if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-pre-leopard.kext"]] ) {
+        return @".kext";
+    }
     
+    // Otherwise, return tun/tap suffix appropriate for OS version
+    NSString * suffixToReturn = @".kext";
     OSErr err;
     SInt32 systemVersion;
     if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
-        if ( systemVersion < 0x1070) {
-            suffixToReturn = @"-pre-lion.kext";
+        if ( systemVersion < 0x1050) {
+            suffixToReturn = @"-pre-leopard.kext";
         }
     } else {
-        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming pre-Lion. Error = %d\nError was '%s'", err, strerror(errno));
-        suffixToReturn = @"-pre-lion.kext";
+        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming pre-Leopard. Error = %d\nError was '%s'", err, strerror(errno));
+        suffixToReturn = @"-pre-leopard.kext";
     }
     
     return suffixToReturn;
