@@ -1,68 +1,8 @@
 /* Button */
-"(None available)" = "(None available)";
-
-/* Button */
 "Default (%@)" = "Default (%@)";
-
-/* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
-
-/* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
-
-/* Window text */
-" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.";
-
-/* Window text */
-" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.";
-
-/* Window text */
-" and install %d configurations" = " and install %d configurations";
-
-/* Window text */
-" and install one configuration" = " and install one configuration";
-
-/* Window text */
-"%d configurations were not installed. See the Console Log for details." = "%d configurations were not installed. See the Console Log for details.";
-
-/* Window text */
-"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' already exists on the Desktop.\n\nWould you like to replace it?";
-
-/* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
-
-/* Window text */
-"(Never checked)" = "(Never checked)";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
-
-/* Window text */
-"A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
-
-/* Window text */
-"A passphrase is required to connect to\n  %@" = "A passphrase is required to connect to\n  %@";
-
-/* Window text */
-"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
-
-/* Window text */
-"A username and password are required to connect to\n  %@" = "A username and password are required to connect to\n  %@";
-
-/* Window text */
-"All configuration files in %@ have been removed. Tunnelblick must quit." = "All configuration files in %@ have been removed. Tunnelblick must quit.";
-
-/* Window text */
-"An error occurred while trying to launch %@" = "An error occurred while trying to launch %@";
-
-/* Window text */
-"Anonymous unique ID" = "Anonymous unique ID";
-
-/* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?";
-
-/* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
 
 /* Window text */
 "DNS servers:" = "DNS servers:";
@@ -71,22 +11,13 @@
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
 
 /* Window text */
-"Do you wish to install %d configurations" = "Do you wish to install %d configurations";
-
-/* Window text */
 "Do you wish to reinstall '%@'%@ version %@?" = "Do you wish to reinstall '%1$@'%2$@ version %3$@?";
 
 /* Window text */
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Do you wish to replace '%1$@'%2$@ version %3$@ with version %4$@?";
 
 /* Window text */
-"Do you wish to uninstall %d configurations" = "Do you wish to uninstall %d configurations";
-
-/* Window text */
 "Do you wish to uninstall '%@'%@ version %@?" = "Do you wish to uninstall '%1$@'%2$@ version %3$@?";
-
-/* Window text */
-"Do you wish to uninstall one configuration" = "Do you wish to uninstall one configuration";
 
 /* Window text */
 "Domain:" = "Domain:";
@@ -147,12 +78,6 @@
 
 /* Window text */
 "Securing Tunnelblick..." = "Securing Tunnelblick…";
-
-/* Window text */
-"Starting Tunnelblick..." = "Starting Tunnelblick…";
-
-/* Window text */
-"Startup window:" = "Startup window:";
 
 /* Window text */
 "That name is being used.\n\n" = "That name is being used.\n\n";
@@ -236,9 +161,6 @@
 "Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
 
 /* Window text */
-"Tunnelblick is ready." = "Tunnelblick is ready.";
-
-/* Window text */
 "Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
 
 /* Window text */
@@ -249,15 +171,6 @@
 
 /* Window text */
 "Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
-
-/* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
-
-/* Window text */
-"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?";
-
-/* Window text */
-"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?" = "Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
