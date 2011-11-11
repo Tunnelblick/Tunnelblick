@@ -86,7 +86,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, // Returns the path t
 NSString * configPathFromTblkPath(NSString * path);
 NSString *escaped(NSString *string);        // Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 
-NSString * TunTapSuffixToUse(NSString * prefix); // Returns string to prefix tun.kext or tap.kext to get pre-leopard version if not running on Leopard or higher
+NSString * TunTapSuffixToUse(NSString * prefix); // Returns string to prefix tun.kext or tap.kext to get 20090913 version if not running on Snow Leopard or higher
 
 NSAutoreleasePool   * pool;
 NSString			* configPath;           //Path to configuration file (in ~/Library/Application Support/Tunnelblick/Configurations/ or /Library/Application Support/Tunnelblick/Users/<username>/) or Resources/Deploy
@@ -1709,28 +1709,28 @@ NSString * TunTapSuffixToUse(NSString * prefix)
 {
     // If only one tun/tap driver is available, use it (error if neither exists)
     if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @".kext"]] ) {
-        if ( [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-pre-leopard.kext"]] ) {
-            return @"-pre-leopard.kext";
+        if ( [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
+            return @"-20090913.kext";
         }
         fprintf(stderr, "Tunnelblick openvpnstart: No tun/tap binaries exist.");
         [pool drain];
         exit(EXIT_FAILURE);
     }
-    if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-pre-leopard.kext"]] ) {
+    if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
         return @".kext";
     }
     
-    // Otherwise, return tun/tap suffix appropriate for OS version
+    // Otherwise, return tun/tap suffix appropriate for OS version -- Snow Leopard & higher get "current" version, earlier get 20090913 version
     NSString * suffixToReturn = @".kext";
     OSErr err;
     SInt32 systemVersion;
     if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
-        if ( systemVersion < 0x1050) {
-            suffixToReturn = @"-pre-leopard.kext";
+        if ( systemVersion < 0x1060) {
+            suffixToReturn = @"-20090913.kext";
         }
     } else {
-        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming pre-Leopard. Error = %d\nError was '%s'", err, strerror(errno));
-        suffixToReturn = @"-pre-leopard.kext";
+        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming earlier than Snow Leopard, so using Tuntap version 20090913. Error = %d\nError was '%s'", err, strerror(errno));
+        suffixToReturn = @"-20090913.kext";
     }
     
     return suffixToReturn;
