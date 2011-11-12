@@ -101,10 +101,10 @@
 "Go to the OpenVPN documentation on the web" = "Otevřete dokumentaci OpenVPN na webu";
 
 /* Button */
-"I DO NOT have configuration files" = "NEBYLY nalezeny konfigurační soubory";
+"I DO NOT have configuration files" = "Nemám žádné konfigurační soubory";
 
 /* Button */
-"I have configuration files" = "Nalezeny konfigurační soubory";
+"I have configuration files" = "Mám konfigurační soubory";
 
 /* Button */
 "Ignore" = "Ignorovat";
@@ -358,14 +358,14 @@
 /* System profile item */
 "Computer admin" = "Administrátor počítače";
 
-/* NEEDS TRANSLATION *//* System profile item */
-"Configurations" = "Configurations";
+/* System profile item */
+"Configurations" = "Konfigurace";
 
 /* System profile item */
 "Deployed" = "Nasazeno";
 
-/* NEEDS TRANSLATION *//* Window title */
-" (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
+/* Window title */
+" (Deployed)" = " (Nasazeno)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 
 /* Window title */
 " (Private)" = " (Soukromé)";
@@ -460,7 +460,7 @@
 /* Window title */
 "Installing a Tunnelblick VPN Configuration" = "Instalace konfigurace VPN Tunnelblicku";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT */ /* Window title */
 "Log" = "Log";
 
 /* Window title */
@@ -997,8 +997,8 @@
 /* Window text */
 "When changes to pre-VPN value" = "Když e změní na pre-VPN hodnotu";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Workgroup:" = "Workgroup:";
+/* Window text */
+"Workgroup:" = "Pracovní skupina:";
 
 /* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Přejete si\n\n     • Vytvořit příklad konfigurace na Ploše\n             a\n     • Otevřít konfigurační soubor OpenVPN v aplikaci TextEdit, takže ji můžete změnit a následně se připojit na Vaši VPN?\n\n";
@@ -1096,8 +1096,8 @@
 /* Button VPNService */
 "Get Different Image" = "Získat jiný obrázek";
 
-/* NEEDS TRANSLATION *//* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Přihlásit";
 
 /* Button VPNService */
 "Next" = "Další";

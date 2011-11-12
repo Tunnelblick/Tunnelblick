@@ -1,12 +1,3 @@
-/* Window text */
-"You cannot make a configuration private unless it is disconnected." = "You cannot make a configuration private unless it is disconnected.";
-
-/* Window text */
-"You cannot make a configuration shared unless it is disconnected." = "You cannot make a configuration shared unless it is disconnected.";
-
-/* Window text */
-"You cannot rename a configuration unless it is disconnected." = "You cannot rename a configuration unless it is disconnected.";
-
 /* Button VPNService */
 "Accept" = "Accept";
 
