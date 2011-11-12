@@ -1009,17 +1009,17 @@
 /* Window text */
 "You cannot make a configuration private if it is set to start when the computer starts." = "Eine Verbindung kann nicht auf \"nur für den aktuellen Benutzer\" gesetzt werden, wenn sie mit dem Computer staret.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You cannot make a configuration private unless it is disconnected." = "You cannot make a configuration private unless it is disconnected.";
+/* Window text */
+"You cannot make a configuration private unless it is disconnected." = "Sie können eine Konfiguration nicht ausschließlich dem aktuellen Benutzer freigeben, solange die Verbindung nicht getrennt wurde.";
 
 /* Window text */
 "You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Eine Verbindung kann nicht auf \"für alle Benutzer freigegeben\" gesetzt werden, wenn sie keine Tunnelblick-VPN-Konfiguration (.tblk) ist.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You cannot make a configuration shared unless it is disconnected." = "You cannot make a configuration shared unless it is disconnected.";
+/* Window text */
+"You cannot make a configuration shared unless it is disconnected." = "Sie können eine Konfiguration nicht für alle Benutzer freigeben, solange die Verbindung nicht getrennt wurde.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You cannot rename a configuration unless it is disconnected." = "You cannot rename a configuration unless it is disconnected.";
+/* Window text */
+"You cannot rename a configuration unless it is disconnected." = "Sie können eine Konfiguration nicht umbenennen, solange die Verbindung nicht getrennt wurde.";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Sie wollten '%@' duplizieren.";
