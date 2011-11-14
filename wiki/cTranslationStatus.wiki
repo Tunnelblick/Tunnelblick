@@ -18,7 +18,7 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2011-11-04:
+The following table shows the status of translations for Tunnelblick as of 2011-11-14:
 
 || <br>Language  || <br>Code  || Current<br>Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
 || Catalan                || CA     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
@@ -31,7 +31,7 @@ The following table shows the status of translations for Tunnelblick as of 2011-
 || Italian                || IT     || 2  || In process                             || In process                             ||
 || Japanese               || JA     || 1  || In process                             || In process                             ||
 || Korean                 || KO     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
-|| Norwegian              || NB     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Norwegian              || NB     || 1  || <font color="green">*Complete*</font>  ||  In process    ||
 || Dutch                  || NL     || 2  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Polish                 || PL     || 3  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Portuguese             || PT     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
