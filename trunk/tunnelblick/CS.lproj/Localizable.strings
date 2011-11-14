@@ -8,10 +8,10 @@
 "1 connection" = "1 spojení";
 
 /* Status message */
-"Disconnect All (%@)" = "Odpojit všechny (%@)";
+"Disconnect All (%@)" = "Odpojit všechna (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "Odpojit všechny (%d spojení)";
+"Disconnect All (%d Connections)" = "Odpojit všechna (%d spojení)";
 
 /* Status message */
 "No Active Connections" = "Žádná aktivní spojení";
@@ -281,7 +281,7 @@
 "Save in Keychain" = "Uložit do Klíčenky";
 
 /* Checkbox name */
-"Scan configuration file for problems before connecting" = "Zkontrolovat konfigurační soubor před připojováním";
+"Scan configuration file for problems before connecting" = "Zkontrolovat konfigurační soubor před připojením";
 
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Zobrazit konfigurace v nabídce Tunnelblicku";
@@ -362,10 +362,10 @@
 "Configurations" = "Konfigurace";
 
 /* System profile item */
-"Deployed" = "Nasazeno";
+"Deployed" = "Zabudované";
 
 /* Window title */
-" (Deployed)" = " (Nasazeno)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
+" (Deployed)" = " (Zabudované)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 
 /* Window title */
 " (Private)" = " (Soukromé)";
@@ -410,7 +410,7 @@
 "Configuration(s) Ignored" = "Ignorované předvolby";
 
 /* Window title */
-"Connecting & Disconnecting" = "Připojování & odpojování";
+"Connecting & Disconnecting" = "Připojování a odpojování";
 
 /* Window title */
 "Could Not Copy Configuration" = "Nelze zkopírovat konfiguraci";
@@ -581,7 +581,7 @@
 "     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Konfiguraci VPN Tunnelblick lze vytvořit s jedním konfiguračním souborem.\n\n     • Více konfiguračních souborů (a certifikát a soubory s klíči pokud je máte) lze umístit do soukromého konfigurační složky Tunnelblicku.\nTo je obvyklý způsob, jak jsou používány konfigurace OpenVPN.\n\nPozn.: Konfigurace VPN Tunnelblicku je preferována, protože může být sdílena, může být spouštěna při zapnutí počítače a je automaticky zabezpečena.";
 
 /* Window text */
-"  • Change ownership and permissions of the program to secure it\n" = "  • Zabezpečit aplikaci změnit vlastníka a oprávnění\n";
+"  • Change ownership and permissions of the program to secure it\n" = "  • Zabezpečit aplikaci změnou vlastníka a oprávnění\n";
 
 /* Window text */
 "  • Repair the private configurations folder\n" = "  • Opravit složku soukromých konfigurací\n";
@@ -638,7 +638,7 @@
 "(Never checked)" = "(Nikdy nezkontrolováno)";
 
 /* Window text */
-"(if connected when user switched out)" = "(Jestliže připojeno když se uživatel přepne)";
+"(if connected when user switched out)" = "(Jestliže je navázáno spojení, když se uživatel přepne)";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Založeno on Tunnelblicku, svobodném software dostupném na <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
@@ -1040,7 +1040,7 @@
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Zkontrolujte prosím konfigurační soubor. Pokud jej ale budete chtít modifikovat, musít odstranit ochranu. Pokud nyní zrušíte ochranu konfiguračního souboru, budete při příštím navazování spojení požádáni o jméno uživatele a heslo administrátora počítače.";
 
 /* Window text */
-"You may not delete a Deployed configuration." = "Nesmíte smazat nainstalovanou konfiguraci.";
+"You may not delete a Deployed configuration." = "Nesmíte smazat zabudovanou konfiguraci.";
 
 /* Window text */
 "You may not delete a configuration unless it is disconnected." = "Nesmíte smazat konfiguraci, pokud je s ní navázáno spojení.";
@@ -1049,13 +1049,13 @@
 "You may not delete a configuration which is set to start when the computer starts." = "Nesmíte smazat konfiguraci, která má nastaveno, že má být automaticky nastartována při spuštění počítače.";
 
 /* Window text */
-"You may not duplicate a Deployed configuration." = "Nesmíte duplikovat nainstalovanou konfiguraci.";
+"You may not duplicate a Deployed configuration." = "Nesmíte duplikovat zabudovanou konfiguraci.";
 
 /* Window text */
 "You may not duplicate a configuration which is set to start when the computer starts." = "Nesmíte duplikovat konfiguraci, která má nastaveno, že má být automaticky nastartována při spuštění počítače.";
 
 /* Window text */
-"You may not rename a Deployed configuration." = "Nesmíte přejmenovat nainstalovanou konfiguraci.";
+"You may not rename a Deployed configuration." = "Nesmíte přejmenovat zabudovanou konfiguraci.";
 
 /* Window text */
 "You may not rename a configuration which is set to start when the computer starts." = "Nesmíte přejmenovat konfiguraci, která má nastaveno, že má být automaticky nastartována při spuštění počítače.";
