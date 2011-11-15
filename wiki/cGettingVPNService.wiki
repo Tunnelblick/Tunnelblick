@@ -44,7 +44,7 @@ The following VPN service providers have donated to Tunnelblick within the past 
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=https://www.trilightzone.org TrilightZone]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.trilightzone.org/services.html TrilightZone]*
   * *[http://www.tunnelblick.net/to.php?to=http://vpnv6.com VPNv6]*
 </td></tr></table>
 
