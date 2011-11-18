@@ -21,7 +21,7 @@ You can view the Tunnelblick log for a connection as follows:
 
 The level of detail about OpenVPN operations in the log is controlled by OpenVPN's "verb" option.
 
-Tunnelblick adds the following information to the OpenVPN log:
+Tunnelblick adds information to the log:
  * When started or when the log is cleared, Tunnelblick adds a line listing the versions of OS X, Tunnelblick, and OpenVPN.
 
  * When a connection attempt is made, Tunnelblick adds details to the log about what Tunnelblick does (as opposed to what OpenVPN does).
