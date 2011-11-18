@@ -1,20 +1,34 @@
-#summary The OpenVPN Log
+#summary The Tunnelblick Log
 #sidebar cSb
 
-The OpenVPN log is the record of output from OpenVPN for a connection. It includes entries from Tunnelblick giving additional information.
+The Tunnelblick log is the record of output from OpenVPN for a connection. It includes entries from Tunnelblick giving additional information.
 
-You can view the OpenVPN log for a connection by clicking on the Tunnelblick icon at the top of the screen, clicking "VPN Details…", selecting the configuration, and (on Tunnelblick 3.2 and up) selecting the "Log" tab.
+You can view the Tunnelblick log for a connection as follows:
 
-The level of detail in the log is controlled by OpenVPN's "verb" option.
+ * *Tunnelblick 3.2 and up*:
+   # Click on the Tunnelblick icon at the top of the screen;
+   # Click "VPN Details…";
+   # Select the "Configurations" pane at the top;
+   # Select the configuration in the list on the left;
+   # To copy the log to the Clipboard, click the "Copy Log to Clipboard" button.
+
+ * *Earlier versions of Tunnelblick*:
+  # Click on the Tunnelblick icon at the top of the screen;
+  # Click "Details…";
+  # Select the "Configurations" pane at the top;
+  # Select the configuration in the list on the left or select the tab for the configuration;
+  # To copy the log to the Clipboard, type Command-A, then Command-C.
+
+The level of detail about OpenVPN operations in the log is controlled by OpenVPN's "verb" option.
 
 Tunnelblick adds the following information to the OpenVPN log:
  * When started or when the log is cleared, Tunnelblick adds a line listing the versions of OS X, Tunnelblick, and OpenVPN.
 
- * When Tunnelblick attempts to connect, it adds two lines: a line with the command-line which it used to run the "openvpnstart" program, and the line that openvpnstart used to run OpenVPN itself.
+ * When a connection attempt is made, Tunnelblick adds details to the log about what Tunnelblick does (as opposed to what OpenVPN does).
 
 Sometimes entries in the log (which are prefixed by the date and time) appear out of sequence. This is because the different programs writing to the log (Tunnelblick, OpenVPN, and scripts) buffer their output. In general, though, the dates and times listed are correct.
 
-You may use the standard keyboard shortcuts when viewing the OpenVPN log: 
+You may use the standard keyboard shortcuts: 
 ||Command-C||Copy||
 ||Command-X||Cut||
 ||Command-V||Paste||
