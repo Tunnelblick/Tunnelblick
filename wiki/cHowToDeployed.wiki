@@ -5,6 +5,10 @@ A minimal "Deployed" version of Tunnelblick can be created very easily if you ha
 
 If you do not have access to a Mac please email project owner [http://code.google.com/u/jkbullard/ Jon] for assistance.
 
+==Signed vs. Unsigned Versions==
+A copy of Tunnelblick can be signed or unsigned. All non-Deployed versions of Tunnelblick should be signed versions, but signing interferes with some Deployed configurations. Use an unsigned version if users will be able to store usernames/passwords/passphrases in the Keychain and the Deploy folder is added after the Tunnelblick build process (which is where signing is usually done). See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
+
+
 Make a "Deployed" version of Tunnelblick on a Mac running Mac OS X 10.6 ("Snow Leopard"):
    # Download Tunnelblick.dmg
    # Drag Tunnelblick.app from the .dmg to the Desktop -- but do not launch it. (This will copy, not move.)

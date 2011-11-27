@@ -154,6 +154,16 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Olivier Borowski      </td>
+    <td>      French    </td>
+  </tr>
+
+  <tr>
+    <td>      Sergio Andrés Castro Cárdenas      </td>
+    <td>      Spanish    </td>
+  </tr>
+
+  <tr>
     <td>      Grzegorz Danecki      </td>
     <td>      Polish    </td>
   </tr>
@@ -161,6 +171,16 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Aleix Dorca     </td>
     <td>      Catalan    </td>
+  </tr>
+
+  <tr>
+    <td>      Simone Gianni      </td>
+    <td>      Italian    </td>
+  </tr>
+
+  <tr>
+    <td>      Nail Gilmanov      </td>
+    <td>      Russian    </td>
   </tr>
 
   <tr>
@@ -176,6 +196,11 @@ Tunnelblick is made possible by the efforts of many people:
    <tr>
     <td>      'Dr Hok'    </td>
     <td>      German    </td>
+  </tr>
+
+   <tr>
+    <td>      Yoshihisa Kawamoto     </td>
+    <td>      Japanese    </td>
   </tr>
 
   <tr>
@@ -194,8 +219,33 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Łukasz M    </td>
+    <td>      Polish    </td>
+  </tr>
+
+  <tr>
+    <td>      Tim Malmström    </td>
+    <td>      Swedish    </td>
+  </tr>
+
+  <tr>
     <td>      Denis Volpato Martins    </td>
     <td>      Portuguese    </td>
+  </tr>
+
+  <tr>
+    <td>      Johan Nilsson    </td>
+    <td>      Swedish    </td>
+  </tr>
+
+  <tr>
+    <td>      Peter K. O'Connor    </td>
+    <td>      Chinese (Simplified)    </td>
+  </tr>
+
+  <tr>
+    <td>      Victor Ptichkin    </td>
+    <td>      Russian    </td>
   </tr>
 
   <tr>
@@ -203,9 +253,14 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      Spanish    </td>
   </tr>
 
-<tr>
+  <tr>
     <td>      Markus Schneider    </td>
     <td>      German    </td>
+  </tr>
+
+  <tr>
+    <td>      Emma Segev    </td>
+    <td>      Dutch    </td>
   </tr>
 
   <tr>
@@ -214,8 +269,38 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Tjalling Soldaat    </td>
+    <td>      Dutch    </td>
+  </tr>
+
+  <tr>
+    <td>      Petr Šrajer      </td>
+    <td>      Czech    </td>
+  </tr>
+
+  <tr>
+    <td>      Marcell Szabo      </td>
+    <td>      Hungarian    </td>
+  </tr>
+
+  <tr>
+    <td>      Eugene Trufanov      </td>
+    <td>      Russian    </td>
+  </tr>
+
+  <tr>
+    <td>      Dennis Ukhanov      </td>
+    <td>      Russian    </td>
+  </tr>
+
+  <tr>
     <td>      François Varas      </td>
     <td>      French    </td>
+  </tr>
+
+  <tr>
+    <td>      Magdelena Zajac      </td>
+    <td>      Polish    </td>
   </tr>
 
 </table>

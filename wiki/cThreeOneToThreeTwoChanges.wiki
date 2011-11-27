@@ -7,17 +7,19 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
 <hr>
 
-==Summary of Major Changes from Version 3.1 to Version 3.2==
+==Major Changes from Version 3.1 to Version 3.2==
 
- * Includes OpenVPN 2.2.1, OpenSSL library 1.0.0d, PKCS#11 1.09.
+ * Tunnelblick 3.2 is compatible with OS X 10.4 through 10.7 (Tiger, Leopard, Snow Leopard, and Lion).
+
+ * Includes OpenVPN 2.2.1, OpenSSL library 1.0.0e, PKCS#11 1.09.
 
  * Adds [wAppleScriptSupport AppleScript support].
 
  * The VPN login window now allows copy/cut/paste of usernames and paste of passwords and passphrases.
 
- * The 'Clear log' button is no longer needed and has been removed from the Details… window.
+ * A new VPN Details… window includes much more information and gives the user more control over preferences and settings.
 
- * Tunnelblick includes complete Catalan, German, French, Korean, Norwegian, Dutch, Portuguese, Russian, Swedish, and Chinese (simplified) localization by Aleix Dorca, Markus Schneider, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Emma Segev & Tjalling Soldatt, Denis Volpato Martins, Dennis Ukhanov & Eugene Trufanov & Nail Gilmanov & Victor Ptichkin, Johan Nilsson & Tim Malmström, and Peter K. O'Connor, respectively.
+ * Tunnelblick includes complete Catalan, Czech, German, Spanish, French, Hungarian, Korean, Norwegian, Dutch, Polish, Portuguese, Russian, Swedish, and Chinese (simplified) localization.
  
  * The following scripts may be included in a Tunnelblick VPN Configuration (.tblk package):
    * The 'pre-connect.sh' script is executed (as root) before Tunnelblick would unload and/or load the tun or tap kexts (whether or not any unload or load takes place).
@@ -30,31 +32,21 @@ For a list of all changes, see the [RlsNotes Release Notes].
 
  * Higher 'verb' levels may be used without performance degradation.
 
- * If Tunnelblick.app/Contents/Resources/Deploy is empty, deletes backups of the Deploy folder. (This lets a user easily install a fresh un-Deployed Tunnelblick over a Deployed version.)
+ * If Tunnelblick.app/Contents/Resources/Deploy is empty, backups of the Deploy folder are deleted. (This lets a user easily install a fresh un-Deployed Tunnelblick over a Deployed version.)
 
- * Moves LeaseWatch.plist to /Library/Application Support/Tunnelblick so Tunnelblick.app is not modified (thus preserving the validity of the application's digital signature, if any).
+ * A new leasewatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'.
 
-* A new leasewatch script is used when 'Monitor connection' is checked. It is more tolerant of unimportant changes. The old script and behavior may be used by specifying 'Set nameserver (3.1)'. The changes are:
- * Monitoring now ignores the order that scutil outputs keys in and only monitors DomainName, ServerAddresses, and SearchDomains for DNS and NetBIOSName, Workgroup, and WINSAddresses for WINS/SMB.
  * New per-configration preference 'XXX-leasewatchOptions' (where XXX is the name of the configuration) consists of '-i' followed by the letters d, a, s, n, g, w to ignore the DomainName, ServerAddresses, SearchDomains, NetBIOSName, Workgroup, and WINSAddresses, respectively. If not present, all items are monitored. Example: to ignore WINS changes completely, use '-ingw'.
 
- * Includes OpenVPN 2.1.4 and OpenVPN 2.2.1. The latest version (2.2.1) will be used unless a different version is selected from the 'Preferences' pane of the 'VPN Details…' window.
-
- * Includes changes to avoid two false-positive Xcode 3.2.5 analyzer warnings in NetSocket.m.
-
- * Removes the -useDownRootPlugin preference if no 'user' or 'group' options in the configuration file
-
- * Changes to client.up.tunnelblick.sh for Lion and less sensitive network change detection.
+ * Includes both OpenVPN 2.1.4 and OpenVPN 2.2.1. The latest version (2.2.1) will be used unless a different version is selected from the 'Preferences' pane of the 'VPN Details…' window.
 
  * Sleep/wake change: When the computer wakes up, it now tries to reconnect all configurations that were connected, or were in the process of being connected, when it went to sleep. (Previously, Tunnelblick only tried to reconnect only those configurations that were connected when the computer went to sleep.)
 
  * Unloading of the foo.tap and foo.tun kexts is now attempted only if they are already loaded (previously, it was always attempted and errors were ignored).
 
- * Monitors log only when it is being displayed.
-
  * Application can now be updated even if its name is not Tunnelblick.app.
 
- * Sorts configurations and sounds numerically (e.g., config2, config4, config35 instead of config2, config35, config4).
+ * Sorts configurations numerically (e.g., config2, config4, config35 instead of config2, config35, config4).
 
  * Shows a splash screen during program startup and installation.
 
@@ -84,61 +76,7 @@ For a list of all changes, see the [RlsNotes Release Notes].
    * When a user is switched out, all configurations that are not set to 'connect when computer starts' will be disconnected unless the per-connection '-doNotDisconnectOnFastUserSwitch' preference is set true.
    * When a user is switched in, Tunnelblick will attempt to connect any configurations that were connected at the time the user was switched out but are no longer connected unless the per-connection '-doNotReconnectOnFastUserSwitch' preference is set true.
 
- * Fixes potential race condition when computer wakes up, sleeps, or Tunnelblick quits.
-
- * Fixes a bug that could cause Tunnelblick to fail to start because the it was unable to properly secure itself.
-
- * Fixes bug that can cause unnecessary warnings about unknown OpenVPN processes.
-
- * Fixes bug that caused up/down scripts in .tblks to not be executed.
-
- * Fixes bug that can cause crashes after connecting to a VPN.
-
- * Fixes problem installing Tunnelblick via double-click when the user's home folder is not on the same volume as /Applications/Tunnelblick.app
-
- * Fixes bug that sometimes failed to alert the user when a VPN username/password or passphrase fails, making it work better with some OpenVPN servers. (There is still a bug in OpenVPN which causes Tunnelblick to fail to report some failures; this bug is fixed in OpenVPN 2.2rc, which Tunnelblick betas will start using 'soon'.)
-
- * Fixes bug that sometimes caused unnecessary 'The change will take effect the next time you connect' messages.
-
- * Fixes bug that sometimes caused Tunnelblick to be unable to establish communications with OpenVPN.
-
- * Fixes bug that sometimes -- on OS X 10.4 ('Tiger') only -- caused Tunnelblick to hang while quitting or connecting to a VPN server.
-
- * Fixes a problem with installing nested Tunnelblick VPN Configurations (.tblk) -- they were installed in a subfolder of the configurations folder instead of at the top level.
-
- * Fixes bug that refused to install Tunnelblick VPN Configurations if they contained subfolders.
-
- * Fixes a bug that caused a Console log entry that a flag file does not exist after installing certain Tunnelblick VPN Configurations (.tblk).
-
- * Fixes bug  that could cause 100% CPU utilization if an unexpected error occurs while exiting the program.
-
- * Fixes a bug that could cause an inability to start Tunnelblick because the installer was unable to properly secure it.
-
- * Fixes problems when updating Tunnelblick while a connection is active.
-
- * Fixes problems causing tun/tap kexts to be loaded even though preferences specify that the kext(s) are not to be loaded.
-
- * Fixes problems with Tunnelblick icon not appearing in security dialogs.
-
- * Fixes a bug that failed to properly deal with NetBIOSName when monitoring the connection.
-
- * Fixes a bug that caused .tblk configurations on remote volumes or using shadow copies to ask for an administrator username/password each time a connection attempt was made.
-
- * Fixes a bug that sometimes caused kexts to not be unloaded.
-
- * Fixes bugs when using  TAP, DHCP, and 'Set nameserver (alternate 1)'.
-
- * Fixes bugs causing the connection time display to freeze.
-
- * Fixes a few small memory leaks: one VPNConnection objects per sleep/wake cycle, two NSStrings per connect/disconnect, one NSMutableArray and two NSImages each time the 'Use Original Icon' menu command is clicked, several objects each time executeAuthorized is run, and Issue 171.
-
- * Warns the user if a configuration is set to to connect when the computer starts and it is a Tunnelblick VPN Configuration (.tblk package) which includes a 'connected.sh', 'reconnecting.sh', or 'post-disconnect.sh' script. Those scripts are not executed unless Tunnelblick itself is running when the event occurs, which may not be the case for 'when computer starts' configurations.
-
- * Tunnelblick (but not third-party) preparation for OS X 10.7 (Lion), including isolating deprecated methods and changes for GCC 4.2. Warnings about 'object file compiled with -mlong-branch' when building Tunnelblick are now _gone_ -- building Tunnelblick generates warnings only for third-party software. (Still generates code for OS X 10.4, 10.5, and 10.6)
-
- * Removed references to 'intValueOfBuildForBundle' because it is no longer used
-
- * Updated copyright notices and added Free Software Foundation license URL
+ * Fixes many bugs.
 
 ------------------
 

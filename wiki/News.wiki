@@ -1,5 +1,27 @@
 #summary The Latest News About Tunnelblick
 
+2011-11-27: *Tunnelblick 3.2beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Includes a Hungarian translation by Marcell Szabo and a Czech translation by Petr Šrajer.
+ * Includes the latest Tuntap release (version 20111101) for Snow Leopard and higher (version 19990913 are used for Tiger and Leopard).
+ * Automatically updates with the correct signed or unsigned version.
+ * For an "Unsigned Release" build, " Unsigned" is appended to CFBundleShortVersionString (the marketing version string). Similarly, for a "Debug" build, " Debug" is appended.
+ See the [RlsNotes Release Notes] for details.
+ 
+--------------------
+
+2011-10-12: *Tunnelblick 3.2beta32 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Includes OpenSSL version 1.0.0e.
+ * Complete Polish localization by Magdelena Zajac and Łukasz M.
+ * Improved French localization by Olivier Borowski.
+ * Removes extra logging by Tuntap kexts introduced in 3.2beta30.
+ * Does not allow a configuration to be renamed or made private or made shared unless the configuration is disconnected.
+ * Fixes a problem with configurations set to connect 'when computer starts'.
+ * Fixes a problem not accepting digits in domain names pushed by the VPN server. Now accepts A-Z, a-z, 0-9, '-', and '.' in domain names. Does NOT accept internationalized domain names.
+ See the [RlsNotes Release Notes] for details.
+
+--------------------
+
 2011-08-31: *Tunnelblick 3.2beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Includes an experimental version of the Tuntap kexts (device drivers) that should fix problems with kernel panics on Lion with some processors.
  * Includes both OpenVPN 2.1.4 and OpenVPN 2.2.1.

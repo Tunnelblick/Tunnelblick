@@ -10,6 +10,25 @@
 
 ==Version 3.2==
 
+*3.2beta34 (2011-11-27)*
+
+ * Includes a Hungarian translation by Marcell Szabo, and a Czech translation by Petr Šrajer.
+
+ * Includes the latest Tuntap release (version 20111101) for Snow Leopard and higher (Tunnelblick uses version 19990913 for Tiger and Leopard). This should fix the "kernel: Failed to add membership to all-hosts multicast address on interface" error in Lion.
+
+ * Fixes a bug in the build process that causes an extra copy of a tun/tap kext to be stored inside each tun/tap kext when a build has already been done.
+
+ * Fixes problems updating Tunnelblick caused by digital signatures on Deployed versions. When installing updates on a non-customized version of Tunnelblick (i.e., the Info.plist SUFeedURL entry is "http://tunnelblick.net/appcast.rss"):
+   * If the "updateSigned" preference is set, the application will be updated with a signed version;
+   * Otherwise, if the "updateUnsigned" preference is set, the application will be updated with an unsigned version;
+   * Otherwise, versions before 3.2beta34 are updated with signed versions; versions 3.2beta34 and higher are updated with signed versions only if they are themselves signed, otherwise they are updated with unsigned versions.
+   * "Signed" does not refer to the update itself, which is always digitally signed for authenticity. It refers to the Tunnelblick.app application being signed so that the updated version can use Keychain items without OS X prompting the user for permission.
+   * See [cDigitalSignatures Tunnelblick and Digital Signatures] for more details.
+
+ * For an "Unsigned Release" build, " Unsigned" is appended to CFBundleShortVersionString (the marketing version string). Similarly, for a "Debug" build, " Debug" is appended.
+
+--------------------
+
 *3.2beta32 (2011-10-12)*
 
  * Includes OpenSSL version 1.0.0e.

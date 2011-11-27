@@ -10,22 +10,22 @@ This is a summary of major changes from Tunnelblick version 3.1 to version 3.2.
  * For changes from other versions to Tunnelblick 3.2, see the [RlsNotes Tunnelblick Release Notes].
 
 ==Better Security==
- * Includes the latest stable versions of OpenVPN (2.2.1), PKCS#11 (1.09), LZO (2.05), the OpenSSL library (1.0.e), and Tuntap.
+ * Includes the latest stable versions of OpenVPN (2.2.1), PKCS#11 (1.09), LZO (2.05), the OpenSSL library (1.0.e), and Tuntap (20111101).
  * Includes additional protection against attacks.
 
 ==Better Usability==
  * The Tunnelblick menu has been streamlined.
- * The new "VPN Details…" window lets you:
+ * The new "VPN Details…" window lets you easily:
   * Manage configurations -- you can easily add, delete, duplicate, and rename configurations, remove Keychain credentials, etc.
   * Change configuration settings
   * Change Tunnelblick's behavior and appearance.
  * Tunnelblick now allows copy/cut/paste of VPN usernames and paste of passwords and passphrases.
  * Tunnelblick is now less sensitive to minor network changes.
- * Tunnelblick includes complete Catalan, German, Spanish, French, Korean, Norwegian, Dutch, Portuguese, Russian, Swedish, and Chinese (simplified) localization by Aleix Dorca, Markus Schneider, Sergio Andrés Castro Cárdenas, Jeremy W. Sherman, Kyoungmin Kim, Jon Luberth, Emma Segev & Tjalling Soldatt, Denis Volpato Martins, Dennis Ukhanov & Eugene Trufanov & Nail Gilmanov & Victor Ptichkin, Johan Nilsson & Tim Malmström, and Peter K. O'Connor, respectively.
+ * Tunnelblick includes complete Catalan, Czech, German, Spanish, French, Hungarian, Korean, Norwegian, Dutch, Polish, Portuguese, Russian, Swedish, and Chinese (simplified) localization.
  * The Tunnelblick application is now digitally signed, so that the user will not be asked to authorize Tunnelblick to use the Keychain each time the program is updated (on OS X 10.5 "Leopard" and above).
 
 ==More Capabilities==
- * Runs on OS X 10.7 ("Lion").
+ * Runs on OS X 10.4, 10.5, 10.6, and 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion").
  * [cAppleScriptSupport AppleScript support].
  * Scripts may be automatically run before and tun/tap kexts are loaded, after a connection has been made, when a reconnection attempt is being made, and after a connection has been disconnected. For more details, see [cUsingScripts Using Scripts].
  * Includes OpenVPN 2.1.4 and OpenVPN 2.2.1; the user can choose which version to use.

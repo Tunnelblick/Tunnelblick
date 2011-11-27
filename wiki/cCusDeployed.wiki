@@ -50,15 +50,8 @@ If `Tunnelblick.app` is renamed (which, depending on where it is stored, may not
 
 If two copies of `Tunnelblick.app` exist within the same folder in the filesystem hierarchy (with different names), they will use the same backup. This could lead to problems if one uses Deploy and the other doesn't, or if the contents of the `Deploy` folders are not identical. One way to have multiple Tunnelblicks in one folder without causing this problem is to locate the `Tunnelblick.app`s in different folders, but put aliases to each of them in the folder that is visible to the user. Multiple copies of `Tunnelblick.app` cannot be placed in the same folder without an administrator doing it, so this should not be a security risk.
 
-==Modifying the "About…" Window==
-If the file `Contents/Resources/about.html` exists, its contents will replace the link to `http://code.google.com/p/tunnelblick` in Tunnelblick's "about" window. The content of `about.html` will be prefixed by
-  `<html><body><center><div style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px">`,
-
-and followed by
-
-  `<br><br>Based on Tunnelblick, free software available at <a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a></div></center><body></html>`
-
-There is only space for a couple of lines of text without causing scrollbars to be necessary.
+==Signed vs. Unsigned Versions==
+A copy of Tunnelblick can be signed or unsigned. All non-Deployed versions of Tunnelblick should be signed versions, but signing interferes with some Deployed configurations. Use an unsigned version if users will be able to store usernames/passwords/passphrases in the Keychain and the Deploy folder is added after the Tunnelblick build process (which is where signing is usually done). See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
 
 ==Additional Menu Commands and Programs==
 If the Deploy folder contains a "Menu" subfolder, it can contain items that will be added to the Tunnelblick menu (either as menu items or submenus) and programs that will be executed when Tunnelblick launches and before a connection is made.
@@ -186,6 +179,7 @@ To make a deployed version of Tunnelblick, you need whatever is required to conn
 
 To be more specific, you need:
     * A copy of the Tunnelblick .dmg file with Tunnelblick version 3.0b22 or later. The latest version may be downloaded from [http://code.google.com/p/tunnelblick the Tunnelblick website].
+    * Use an unsigned version of the Tunnelblick .dmg if your users will store usernames/passwords/passphrases in the OS X Keychain; otherwise you may use and signed version.
     * Optional: one or more OpenVPN configuration files, with extensions of ".ovpn" or ".conf".
     * Optional: certificate and key files for authentication.
     * Optional: shell script files, with extension ".sh", if you do not use Tunnelblick's "Set nameserver" feature. If you have shell files, they must have an extension of "sh"; otherwise they will not have execute permissions.
