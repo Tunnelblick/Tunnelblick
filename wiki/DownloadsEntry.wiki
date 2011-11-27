@@ -23,7 +23,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
 <i>A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a beta release, but may be more reliable.
 
-A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations. *Please provide feedback* (pro or con) about beta releases in the [http://groups.google.com/group/tunnelblick-discuss Tunnelblick Discussion Group].</i><font color="white">!TunnelblickGoogleCodePage</font>
+A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations.
 
 <hr>
 
