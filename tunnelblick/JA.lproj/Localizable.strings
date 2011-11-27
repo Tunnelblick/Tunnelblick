@@ -73,8 +73,8 @@
 /* Button */
 "Create sample configuration and edit it" = "サンプルの接続先を作成して修正する";
 
-/* NEEDS TRANSLATION *//* Button */
-"Default (%@)" = "Default (%@)";
+/* Button */
+"Default (%@)" = "デフォルト (%@)";
 
 /* Button */
 "Delete Credentials" = "項目を削除";
@@ -293,7 +293,7 @@
 "Use Tunnelblick tun/tap drivers" = "Tunnelblick の tun/tap ドライバを使用する";
 
 /* Checkbox name */
-"Use shadow copies of configuration files" = "設定ファイルの自動コピーを使用する";
+"Use shadow copies of configuration files" = "設定ファイルのシャドウコピーを使用する";
 
 /* PopUpButton */
 "Do not set nameserver" = "ネームサーバーを変更しない";
@@ -643,8 +643,8 @@
 /* Window text */
 "(if connected when user switched out)" = "(切り替え前に接続していた時のみ)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Tunnelblickを元にしたフリーソフトが以下から利用可能です。<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "接続先はインストールされませんでした。詳細は Console log を参照してください。";
@@ -685,11 +685,11 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"DNS servers:" = "DNS servers:";
+/* Window text */
+"DNS servers:" = "DNSサーバー:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "接続先の削除は取り消せません。\n\nこの接続先に含まれる設定も全て削除されます。\n\n%1$@\n\n本当に接続先「%2$@」を削除しますか？";
 
 /* Window text */
 "Do you wish to install %d configurations" = "%d 個の接続先をインストールしますか？";
@@ -697,23 +697,23 @@
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "接続先「%@」を全ユーザが使えるようにインストールしますか？それともあなただけが使えるようにしますか？\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to reinstall '%@'%@ version %@?" = "Do you wish to reinstall '%1$@'%2$@ version %3$@?";
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "「%1$@」%2$@ バージョン %3$@ を再インストールしますか？";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to replace '%@'%@ version %@ with version %@?" = "Do you wish to replace '%1$@'%2$@ version %3$@ with version %4$@?";
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "「%1$@」%2$@ バージョン %3$@ を、バージョン %4$@ で置き換えてもよいですか？";
 
 /* Window text */
 "Do you wish to uninstall %d configurations" = "%d 個の接続先をアンインストールしますか？";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to uninstall '%@'%@ version %@?" = "Do you wish to uninstall '%1$@'%2$@ version %3$@?";
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "「%1$@」%2$@ バージョン %3$@ をアンインストールしてもよいですか？";
 
 /* Window text */
 "Do you wish to uninstall one configuration" = "1 個の接続先をアンインストールしますか？";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Domain:" = "Domain:";
+/* Window text */
+"Domain:" = "ドメイン:";
 
 /* Window text */
 "Fast User Switching" = "ファストユーザスイッチ";
@@ -721,17 +721,17 @@
 /* Window text */
 "Icon:" = "アイコン:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+/* Window text */
+"Installation finished successfully." = "インストールは正しく終了しました。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
+/* Window text */
+"Installation of .tblk packages is not allowed" = ".tblk パッケージのインストールはできません";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Tunnelblick の VPN 接続先をインストールしています…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
+/* Window text */
+"Installing and securing Tunnelblick..." = "Tunnelblick をインストール中…";
 
 /* Window text */
 "Keyboard shortcut:" = "キーボードショートカット:";
@@ -745,20 +745,20 @@
 /* Window text */
 "Menu:" = "メニュー:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "同時に複数の接続先に繋がっています(%1$d のネームサーバー設定を使用、%2$d のネームサーバー設定は使用していません)。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
+/* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "名前にはスラッシュ(\"/\")は使えません\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "名前はピリオド(\".\")で始まってはいけません\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"NetBIOS name:" = "NetBIOS name:";
+/* Window text */
+"NetBIOS name:" = "NetBIOS 名:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Network setting" = "Network setting";
+/* Window text */
+"Network setting" = "ネットワーク設定";
 
 /* Window text */
 "Notification window:" = "通知ウィンドウ:";
@@ -769,14 +769,14 @@
 /* Window text */
 "One Tunnelblick VPN Configuration was uninstalled successfully." = "Tunnelblick VPN の接続先をアンインストールしました。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Tunnelblick が管理していない OpenVPN プロセスが動いています。もし Tunnelblick とは別の OpenVPN ソフトウェアを動かしているのでなければ、これは以前の Tunnelblick がプロセスをうまく停止できなかったということで、終了させる必要があります。Tunnelblick の動作と干渉するかもしれません。これらを終了させますか？";
 
-/* NEEDS TRANSLATION *//* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
+/* Window text */
+"One or more configurations are being ignored. See the Console Log for details." = "接続先をいくつか無視しました。詳細はコンソールログを参照してください。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "コンピュータ起動時に接続できる Tunnelblick VPN 接続先 (.tblk) は1つだけです。";
 
 /* NEEDS TRANSLATION *//* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state.";
@@ -784,11 +784,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN version %1$@ is not available. Using the default, version %2$@";
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN バージョン %1$@ が利用できません。バージョン %2$@ を使用します。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version:" = "OpenVPN version:";
+/* Window text */
+"OpenVPN version:" = "OpenVPN バージョン:";
 
 /* Window text */
 "Please enter VPN passphrase." = "VPNのパスフレーズを入力して下さい。";
@@ -805,11 +805,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Search domain:" = "Search domain:";
+/* Window text */
+"Search domain:" = "検索ドメイン:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
+/* Window text */
+"Securing Tunnelblick..." = "Tunnelblick の安全を確保しています…";
 
 /* Window text */
 "Set DNS/WINS:" = "DNS/WINS 設定:";
@@ -820,17 +820,17 @@
 /* Window text */
 "Startup window:" = "スタートアップウィンドウ:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
+/* Window text */
+"That name is being used.\n\n" = "その名前は既に使われています。\n\n";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN のログは、作成されていないか、削除されました。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "The VPN name '%@' is already in use.\n\nPlease enter a new name.";
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "VPN 名「%@」は既に使われています。\n\n新しい名前を入力してください。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The VPN name cannot be empty.\n\nPlease enter a new name." = "The VPN name cannot be empty.\n\nPlease enter a new name.";
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "VPN 名が必要です。\n\n新しい名前を入力してください。";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "The attempt to connect %1$@ has been cancelled: the runOnConnect script returned status: %2$d.";
@@ -847,8 +847,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "パスフレーズが必要です。\nVPN のパスフレーズを入力してください。";
 
 /* Window text */
 "The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "個人用接続先フォルダをファインダーウィンドウとして開きました。\n\nOpenVPN の接続先設定ファイル、鍵ファイルと証明書ファイルをこのフォルダに移動またはコピーしてください。\n\n新しい接続先は Tunnelblick ですぐに使用可能になります。";
@@ -856,8 +856,8 @@
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "サンプル接続先の OpenVPN 設定ファイルが入ったフォルダをデスクトップに作成して、テキストエディットで設定ファイルを開きました。あなたの VPN に合うように変更してください。\n\n設定ファイルの修正が終わってファイルを保存したら、以下の手順で接続先をインストールできます。\n\n1. この接続先に関係する全ての鍵や証明書を、デスクトップにある「Sample Tunnelblick VPN Configuration」フォルダの中に入れてください。\n\n(このフォルダのファインダーウィンドウが開いていますので、そこへファイルをドラッグしてください。)\n\n2. このフォルダの名前を接続先にふさわしいものに変更してください。Tunnelblickでは、これを接続先の名前として使用します。\n\n3. フォルダ名の最後に .tblk をつけ加えてください。\n\n4. フォルダをダブルクリックして接続先をインストールしてください。\n\n以上で、この接続先がすぐ使用できるようになります。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "ユーザー名とパスワードが必要です。\nVPN ユーザー名とパスワードを入力してください。";
 
 /* NEEDS TRANSLATION *//* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
@@ -883,8 +883,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN 接続先「%@」がありません。サンプルの設定をこの名前でインストールしますか？";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
@@ -892,62 +892,62 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "接続先「%@」をコピーできませんでした。詳細はコンソールログを参照してください。";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not create the empty configuration folder" = "Tunnelblick could not create the empty configuration folder";
+/* Window text */
+"Tunnelblick could not create the empty configuration folder" = "空の接続先フォルダを作成できません";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "サンプルの接続先を作成できません";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "接続先「%@」を移動できません。詳細はコンソールログを参照してください。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick could not secure the '%@' configuration. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "接続先「%@」の安全を確保することができません。詳細はコンソールログを参照してください。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.";
+/* Window text */
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "接続先「%@」をアンインストールすることができません。詳細はコンソールログを参照してください。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "設定ファイルの保護を解除することができません。詳細はコンソールログにあります。\n\nこの設定ファイルは修正できませんが、それでも表示しますか？";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "「%@」の設定の問題を解決できませんでした。詳細はコンソールログにあります";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick の安全を確保しました。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "設定ファイルが削除されたため、「%@」の接続を切断しました。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick は %@ を元にしています。";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick の準備ができました。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
+/* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "この設定ファイルのシャドウコピーを作成する必要があります。";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick では接続先をインストール／アンインストールする必要があります。";
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "いくつかの接続先をインストール／アンインストールする必要があります。";
 
 /* Window text */
-"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick では接続先をインストールする必要があります。";
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "いくつかの接続先をインストールする必要があります。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the configuration file to secure it.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "設定ファイルを安全にするために、ファイルの所有者とパーミッションを修復する必要があります。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it.";
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "設定ファイルのシャドウコピーを安全にするために、所有者とパーミッションを修復する必要があります。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
+/* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "設定ファイルのシャドウコピーを再度更新する必要があります。";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick では以下の変更が必要です:\n";
@@ -967,8 +967,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details… window";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Unable to Establish Communication" = "Unable to Establish Communication";
+/* Window text */
+"Unable to Establish Communication" = "通信を確立することができません";
 
 /* Window text */
 "Unexpected disconnection:" = "不意の切断時:";
@@ -976,17 +976,17 @@
 /* Window text */
 "Updates:" = "更新:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"VPN Connections" = "VPN Connections";
+/* Window text */
+"VPN Connections" = "VPN 接続";
 
-/* NEEDS TRANSLATION *//* Window text */
-"WINS servers:" = "WINS servers:";
+/* Window text */
+"WINS servers:" = "WINS サーバー:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Warning: One or more preferences could not be duplicated. See the Console Log for details.";
+/* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "警告: この設定を重複させることはできません。詳細はコンソールログを参照してください。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
+/* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "警告: この設定の名称を変更することはできません。詳細はコンソールログを参照してください。";
 
 /* Window text */
 "Warnings:" = "警告オプション:";
@@ -997,8 +997,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "When changes to pre-VPN value" = "When changes to pre-VPN value";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Workgroup:" = "Workgroup:";
+/* Window text */
+"Workgroup:" = "ワークグループ:";
 
 /* Window text */
 "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "・まず、サンプル接続先の OpenVPN 設定ファイルをデスクトップに作成します。\n\n・次に、テキストエディットを使って VPN に接続できるように変更してください。\n\nよろしいですか？\n";
@@ -1081,171 +1081,171 @@
 /* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\nそして Tunnelblick VPN 接続先設定 %d 個をインストールしますか？";
 
-/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
-" copy %d" = " copy %d";
+/* Suffix for a duplicate of a file */
+" copy %d" = " コピー %d";
 
-/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
-" copy" = " copy";
+/* Suffix for a duplicate of a file */
+" copy" = " コピー";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Accept" = "Accept";
+/* Button VPNService */
+"Accept" = "了解";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+/* Button VPNService */
+"Create a Free Account" = "フリーのアカウントを作成";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Get Different Image" = "Get Different Image";
+/* Button VPNService */
+"Get Different Image" = "別の画像を取得";
 
-/* NEEDS TRANSLATION *//* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+/* Button VPNService *//* Window title VPNService */
+"Login" = "ログイン";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Next" = "Next";
+/* Button VPNService */
+"Next" = "次へ";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Reject" = "Reject";
+/* Button VPNService */
+"Reject" = "拒否";
 
-/* NEEDS TRANSLATION *//* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
+/* Menu item VPNService */
+"Register for Tunnelblick..." = "Tunnelblick に登録…";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+/* Window title  VPNService */
+"Cannot obtain image" = "画像を取得できません";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Cannot register" = "Cannot register";
+/* Window title  VPNService */
+"Cannot register" = "登録できません";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Email not verified" = "Email not verified";
+/* Window title  VPNService */
+"Email not verified" = "Eメールの確認ができません";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Entries required" = "Entries required";
+/* Window title  VPNService */
+"Entries required" = "必須項目があります";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
+/* Window title  VPNService */
+"Failed to load Terms of Service" = "利用条件の読み込みに失敗しました";
 
-/* NEEDS TRANSLATION *//* Window title VPNService */
-"No configuration available" = "No configuration available";
+/* Window title VPNService */
+"No configuration available" = "利用可能な接続先がありません";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
+/* Window title  VPNService */
+"Password entries must match" = "パスワード項目が一致しません";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+/* Window title  VPNService */
+"Prove You are Human" = "キャプチャ認証";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
+/* Window title  VPNService */
+"Register with Tunnelblick" = "Tunnelblick で登録";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Sorry" = "Sorry";
+/* Window title  VPNService */
+"Sorry" = "申し訳ありません";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
+/* Window title  VPNService */
+"Terms of Service" = "利用条件";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - フリー VPN";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Welcome!" = "Welcome!";
+/* Window title  VPNService */
+"Welcome!" = "ようこそ！";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+/* Window title  VPNService */
+"You Must Type the Characters" = "文字を入れてください";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Confirm password:" = "Confirm password:";
+/* Window text VPNService */
+"Confirm password:" = "パスワードの確認:";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Could not check registration" = "Could not check registration";
+/* Window text VPNService */
+"Could not check registration" = "登録をチェックできません";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Could not get a captcha image" = "Could not get a captcha image";
+/* Window text VPNService */
+"Could not get a captcha image" = "キャプチャ画像が取得できません";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Could not get a session token" = "Could not get a session token";
+/* Window text VPNService */
+"Could not get a session token" = "セッショントークンが取得できません";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "Eメールアドレス %@ は別アカウントのために登録されています";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Email address:" = "Email address:";
+/* Window text VPNService */
+"Email address:" = "Eメールアドレス:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
+/* Window text VPNService */
+"Invalid URL: %@" = "無効な URL: %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"No valid session token." = "No valid session token.";
+/* Window text VPNService */
+"No valid session token." = "有効なセッショントークンがありません。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Please read our Terms of Service and indicate your acceptance or rejection of them.";
+/* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "利用条件をよくお読みになり、同意頂くか否かをお選び下さい。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
+/* Window text VPNService */
+"Please type the characters in the image and click next." = "画像の中の文字を入力し、「次へ」をクリックして下さい。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Session token requires encoding" = "Session token requires encoding";
+/* Window text VPNService */
+"Session token requires encoding" = "セッショントークンはエンコードする必要があります";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Session token too long" = "Session token too long";
+/* Window text VPNService */
+"Session token too long" = "セッショントークンが長すぎます";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
+/* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "申し訳ありませんが、アカウントリクエストが処理できませんでした:\n     %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
+/* Window text VPNService */
+"Terms of service are unavailable." = "利用条件が表示できません。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "利用条件が読み込めませんでした:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
+/* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "このEメールアドレスは確認できていません。\n\nサービス登録した時に Tunnelblick から送られたEメールに書いてある手順に従ってEメールアドレスが確認できるまで、ログインやVPNの使用はできません。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "このEメールアドレスは有効ではありません。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
+/* Window text VPNService */
+"The password entries must match to proceed." = "続けるには、パスワード項目2つが一致する必要があります。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "入力した文字とキャプチャ画像の文字が一致しません。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
+/* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "「%@」という接続先はありません。\n\nディスクイメージから再度 Tunnelblick をインストールしてみてください。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "To create your free Tunnelblick account we need your email address and a password of your choosing.";
+/* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "フリーな Tunnelblick アカウントを作成するには、Eメールアドレスとパスワードが必要です。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
+/* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick を使うと、安全なインターネット接続の下で自由で制限のないインターネットが体験できます。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Type the characters above:" = "Type the characters above:";
+/* Window text VPNService */
+"Type the characters above:" = "上の文字を入力してください:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "アカウントの状態をチェックできません:\n     %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "Eメールアドレスが空のため登録をチェックできません";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
+/* Window text VPNService */
+"Unable to connect to server" = "サーバーに接続できません";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "既に登録されていますがEメールアドレスの確認がまだできていません。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You have already registered." = "You have already registered.";
+/* Window text VPNService */
+"You have already registered." = "既に登録されています。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+/* Window text VPNService */
+"You must enter an email address and password to login." = "ログインするためにはEメールアドレスとパスワードを入力してください。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "続けるにはEメールアドレス、パスワード、パスワードの確認に入力してください。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "続けるには画像の中の文字を入力してください。";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "アカウントの状態が確認できませんでした:\n     %@.";
 
