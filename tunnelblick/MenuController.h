@@ -109,6 +109,8 @@ BOOL needToCopyBundle(void);
 	
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
 
+    NSString                * feedURL;                      // URL to send program update requests to
+    
     ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
     
     BOOL                      areLoggingOutOrShuttingDown;  // Flag that NSWorkspaceWillPowerOffNotification was received

@@ -274,11 +274,14 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"doNotUnrebrandLicenseDescription",
                                 @"useSharedConfigurationsWithDeployedOnes",
                                 @"usePrivateConfigurationsWithDeployedOnes",
+                                
+                                @"updateAutomatically",
                                 @"updateCheckAutomatically",
-                                @"updateSendProfileInfo",
                                 @"updateCheckInterval",
                                 @"updateFeedURL",
-                                @"updateAutomatically",
+                                @"updateSendProfileInfo",
+                                @"updateSigned",
+                                @"updateUnsigned",
                                 @"updateUUID",
 
                                 @"NSWindow Frame SettingsSheetWindow",
@@ -1759,20 +1762,25 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"Check for updates was not performed because user is not allowed to administer this computer and 'onlyAdminCanUpdate' preference is set");
     } else {
         if (  [updater respondsToSelector: @selector(checkForUpdates:)]  ) {
-            if (  ! userIsAnAdmin  ) {
-                int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
-                                                       NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
-                                                       NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
-                                                       NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
-                                                       nil,                                                     // Other button
-                                                       @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
-                                                       NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                       nil);
-                if (  response == NSAlertAlternateReturn  ) {
-                    return;
+            if (  feedURL != nil  ) {
+                if (  ! userIsAnAdmin  ) {
+                    int response = TBRunAlertPanelExtended(NSLocalizedString(@"Only computer administrators should update Tunnelblick", @"Window title"),
+                                                           NSLocalizedString(@"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?", @"Window text"),
+                                                           NSLocalizedString(@"Check For Updates Now", @"Button"),  // Default button
+                                                           NSLocalizedString(@"Cancel", @"Button"),                 // Alternate button
+                                                           nil,                                                     // Other button
+                                                           @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
+                                                           NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                                                           nil);
+                    if (  response == NSAlertAlternateReturn  ) {
+                        return;
+                    }
                 }
+                [updater checkForUpdates: self];
+            } else {
+                NSLog(@"'Check for Updates Now' ignored because no FeedURL has been set");
             }
-            [updater checkForUpdates: self];
+            
         } else {
             NSLog(@"'Check for Updates Now' ignored because Sparkle Updater does not respond to checkForUpdates:");
         }
@@ -2547,20 +2555,58 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    // We set the Feed URL if it is forced, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
-    // the user may do a 'Check for Updates Now' on the first run, and we need to check with the forced Feed URL
+    // We set the Feed URL, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
+    // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
+
+    // Get the program update FeedURL from a forced preference if it is present
     if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
-            id feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
-            if (  [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-                [updater setFeedURL: [NSURL URLWithString: feedURL]];
-            } else {
-                NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
-            }
-        } else {
-            NSLog(@"Ignoring 'updateFeedURL' preference because Sparkle Updater does not respond to setFeedURL:");
+        feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
+        if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
+            NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
+            feedURL = nil;
         }
     }
+    // Otherwise, use the Info.plist entry. We don't check the normal preferences because an unprivileged user can set them and thus
+    // could send the update check somewhere it shouldn't go. (For example, to force Tunnelblick to ignore an update.)
+    if (  feedURL == nil  ) {
+        NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
+        NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: [contentsPath stringByAppendingPathComponent: @"Info.plist"]];
+        feedURL = [infoPlist objectForKey: @"SUFeedURL"];
+        if (  feedURL == nil ) {
+            NSLog(@"Missing 'SUFeedURL' item in Info.plist");
+        } else {
+            if (  [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
+                if (   [feedURL hasPrefix: @"http://tunnelblick.net/"]
+                    && [feedURL hasSuffix: @".rss"] ) {
+                    // Have a "standard" update setup at tunnelblick.net
+                    // If (unsigned version OR updateUnsigned preference is TRUE)
+                    //    AND updateSigned preference is FALSE or not present
+                    // Then use the unsigned FeedURL
+                    // Else use the signed FeedURL from the Info.plist
+                    if (   (   ( ! [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]] )
+                            || [gTbDefaults boolForKey: @"updateUnsigned"]
+                            )
+                        && ( ! [gTbDefaults boolForKey: @"updateSigned"]) ) {
+                        feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-u.rss"];
+                    }
+                }
+            } else {
+                NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
+                feedURL = nil;
+            }
+        }
+    }
+    
+    // Set the Feed URL
+    if (  feedURL != nil  ) {
+        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
+            [updater setFeedURL: [NSURL URLWithString: feedURL]];
+        } else {
+            NSLog(@"Not setting program update feedURL preference because Sparkle Updater does not respond to setFeedURL:");
+            feedURL = nil;
+        }
+    }
+    
     
     // Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
     // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
@@ -2615,7 +2661,11 @@ static void signal_handler(int signalNumber)
         || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
         ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
-            [updater checkForUpdatesInBackground];
+            if (  feedURL != nil  ) {
+             [updater checkForUpdatesInBackground];
+            } else {
+                NSLog(@"Not checking for updates because no FeedURL has been set");
+            }
         } else {
             NSLog(@"Cannot check for updates because Sparkle Updater does not respond to checkForUpdatesInBackground");
         }

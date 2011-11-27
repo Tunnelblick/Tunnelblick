@@ -72,7 +72,7 @@
 // It does the following:
 //      (1) If INSTALLER_COPY_APP, copies this app to /Applications
 //      (2) Restores the /Deploy folder from the backup copy if it does not exist and a backup copy does
-//      (3) Moves the contents of the old configuration folder at /Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
+//      (3) Moves the contents of the old configuration folder at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
 //      (4) Creates /Library/Application Support/Tunnelblick/Shared if it doesn't exist and makes sure it is secured
 //      (5) Creates the log directory if it doesn't exist and makes sure it is secured
 //      (6) If INSTALLER_COPY_BUNDLE, if /Resources/Tunnelblick Configurations.bundle exists, copies it to /Library/Application Support/T/Configuration Updates
