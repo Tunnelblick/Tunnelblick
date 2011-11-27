@@ -1,63 +1,3 @@
-/* Button */
-"Default (%@)" = "Default (%@)";
-
-/* Window text */
-"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
-
-/* Window text */
-"DNS servers:" = "DNS servers:";
-
-/* Window text */
-"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@\n\nAre you sure you wish to delete configuration '%2$@'?";
-
-/* Window text */
-"Do you wish to reinstall '%@'%@ version %@?" = "Do you wish to reinstall '%1$@'%2$@ version %3$@?";
-
-/* Window text */
-"Do you wish to replace '%@'%@ version %@ with version %@?" = "Do you wish to replace '%1$@'%2$@ version %3$@ with version %4$@?";
-
-/* Window text */
-"Do you wish to uninstall '%@'%@ version %@?" = "Do you wish to uninstall '%1$@'%2$@ version %3$@?";
-
-/* Window text */
-"Domain:" = "Domain:";
-
-/* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
-
-/* Window text */
-"Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
-
-/* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
-
-/* Window text */
-"Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
-
-/* Window text */
-"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Multiple simultaneous connections would be created (%1$d with 'Set nameserver', %2$d without 'Set nameserver').";
-
-/* Window text */
-"Names must not contain slashes (\"/\")\n\n" = "Names must not contain slashes (\"/\")\n\n";
-
-/* Window text */
-"Names must not start with a period (\".\")\n\n" = "Names must not start with a period (\".\")\n\n";
-
-/* Window text */
-"NetBIOS name:" = "NetBIOS name:";
-
-/* Window text */
-"Network setting" = "Network setting";
-
-/* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?";
-
-/* Window text */
-"One or more configurations are being ignored. See the Console Log for details." = "One or more configurations are being ignored. See the Console Log for details.";
-
-/* Window text */
-"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.";
-
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state.";
 
@@ -65,28 +5,7 @@
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN version %1$@ is not available. Using the default, version %2$@";
-
-/* Window text */
-"OpenVPN version:" = "OpenVPN version:";
-
-/* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting.";
-
-/* Window text */
-"Search domain:" = "Search domain:";
-
-/* Window text */
-"Securing Tunnelblick..." = "Securing Tunnelblick…";
-
-/* Window text */
-"That name is being used.\n\n" = "That name is being used.\n\n";
-
-/* Window text */
-"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "The VPN name '%@' is already in use.\n\nPlease enter a new name.";
-
-/* Window text */
-"The VPN name cannot be empty.\n\nPlease enter a new name." = "The VPN name cannot be empty.\n\nPlease enter a new name.";
 
 /* Window text */
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "The attempt to connect %1$@ has been cancelled: the runOnConnect script returned status: %2$d.";
@@ -104,19 +23,10 @@
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.";
 
 /* Window text */
-"The passphrase must not be empty!\nPlease enter VPN passphrase." = "The passphrase must not be empty!\nPlease enter VPN passphrase.";
-
-/* Window text */
-"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "The username and the password must not be empty!\nPlease enter VPN username/password combination.";
-
-/* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
 /* Window text */
 "Too many duplicate configurations already exist." = "Too many duplicate configurations already exist.";
-
-/* Window text */
-"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.";
@@ -125,52 +35,7 @@
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details.";
 
 /* Window text */
-"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick could not copy the '%@' configuration. See the Console Log for details.";
-
-/* Window text */
 "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details.";
-
-/* Window text */
-"Tunnelblick could not create the empty configuration folder" = "Tunnelblick could not create the empty configuration folder";
-
-/* Window text */
-"Tunnelblick could not create the sample configuration" = "Tunnelblick could not create the sample configuration";
-
-/* Window text */
-"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick could not move the '%@' configuration. See the Console Log for details.";
-
-/* Window text */
-"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick could not secure the '%@' configuration. See the Console Log for details.";
-
-/* Window text */
-"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details.";
-
-/* Window text */
-"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?";
-
-/* Window text */
-"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log";
-
-/* Window text */
-"Tunnelblick has been secured successfully." = "Tunnelblick has been secured successfully.";
-
-/* Window text */
-"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick has disconnected '%@' because its configuration file has been removed.";
-
-/* Window text */
-"Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
-
-/* Window text */
-"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick needs to create a shadow copy of the configuration file.";
-
-/* Window text */
-"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the configuration file to secure it.";
-
-/* Window text */
-"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it.";
-
-/* Window text */
-"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick needs to update the shadow copy of the configuration file from the original.";
 
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%1$@' within %2$d seconds. The attempt to establish communications has been abandoned.";
@@ -179,28 +44,10 @@
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details… window";
 
 /* Window text */
-"Unable to Establish Communication" = "Unable to Establish Communication";
-
-/* Window text */
-"VPN Connections" = "VPN Connections";
-
-/* Window text */
-"WINS servers:" = "WINS servers:";
-
-/* Window text */
-"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Warning: One or more preferences could not be duplicated. See the Console Log for details.";
-
-/* Window text */
-"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Warning: One or more preferences could not be renamed. See the Console Log for details.";
-
-/* Window text */
 "When changes to anything else" = "When changes to anything else";
 
 /* Window text */
 "When changes to pre-VPN value" = "When changes to pre-VPN value";
-
-/* Window text */
-"Workgroup:" = "Workgroup:";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.";
@@ -247,171 +94,6 @@
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?";
 
-/* Suffix for a duplicate of a file */
-" copy %d" = " copy %d";
-
-/* Suffix for a duplicate of a file */
-" copy" = " copy";
-
-/* Button VPNService */
-"Accept" = "Accept";
-
-/* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
-
-/* Button VPNService */
-"Get Different Image" = "Get Different Image";
-
-/* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
-
-/* Button VPNService */
-"Next" = "Next";
-
-/* Button VPNService */
-"Reject" = "Reject";
-
-/* Menu item VPNService */
-"Register for Tunnelblick..." = "Register for Tunnelblick…";
-
-/* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
-
-/* Window title  VPNService */
-"Cannot register" = "Cannot register";
-
-/* Window title  VPNService */
-"Email not verified" = "Email not verified";
-
-/* Window title  VPNService */
-"Entries required" = "Entries required";
-
-/* Window title  VPNService */
-"Failed to load Terms of Service" = "Failed to load Terms of Service";
-
-/* Window title VPNService */
-"No configuration available" = "No configuration available";
-
-/* Window title  VPNService */
-"Password entries must match" = "Password entries must match";
-
-/* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
-
-/* Window title  VPNService */
-"Register with Tunnelblick" = "Register with Tunnelblick";
-
-/* Window title  VPNService */
-"Sorry" = "Sorry";
-
-/* Window title  VPNService */
-"Terms of Service" = "Terms of Service";
-
-/* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
-
-/* Window title  VPNService */
-"Welcome!" = "Welcome!";
-
-/* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
-
-/* Window text VPNService */
-"Confirm password:" = "Confirm password:";
-
 /* Window text VPNService */
 "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'.";
-
-/* Window text VPNService */
-"Could not check registration" = "Could not check registration";
-
-/* Window text VPNService */
-"Could not get a captcha image" = "Could not get a captcha image";
-
-/* Window text VPNService */
-"Could not get a session token" = "Could not get a session token";
-
-/* Window text VPNService */
-"Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
-
-/* Window text VPNService */
-"Email address:" = "Email address:";
-
-/* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
-
-/* Window text VPNService */
-"No valid session token." = "No valid session token.";
-
-/* Window text VPNService */
-"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Please read our Terms of Service and indicate your acceptance or rejection of them.";
-
-/* Window text VPNService */
-"Please type the characters in the image and click next." = "Please type the characters in the image and click next.";
-
-/* Window text VPNService */
-"Session token requires encoding" = "Session token requires encoding";
-
-/* Window text VPNService */
-"Session token too long" = "Session token too long";
-
-/* Window text VPNService */
-"Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
-
-/* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
-
-/* Window text VPNService */
-"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
-
-/* Window text VPNService */
-"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
-
-/* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
-
-/* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
-
-/* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
-
-/* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
-
-/* Window text VPNService */
-"To create your free Tunnelblick account we need your email address and a password of your choosing." = "To create your free Tunnelblick account we need your email address and a password of your choosing.";
-
-/* Window text VPNService */
-"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
-
-/* Window text VPNService */
-"Type the characters above:" = "Type the characters above:";
-
-/* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
-
-/* Window text VPNService */
-"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
-
-/* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
-
-/* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
-
-/* Window text VPNService */
-"You have already registered." = "You have already registered.";
-
-/* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
-
-/* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
-
-/* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
-
-/* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
 
