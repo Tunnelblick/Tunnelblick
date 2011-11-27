@@ -5,10 +5,10 @@
 
 ==Digital Signatures==
 Tunnelblick uses two different types of digital signatures:
- * Tunnelblick.app may be digitally signed by the Tunnelblick Project with the Project's OS X digital signature. Currently it is used in OS X 10.5 ("Leopard") and higher to allow an updated application with the same signature as the original application to access Keychain items created by the original application without OS X prompting the user for permission.
+ * Tunnelblick.app may be digitally signed by the Tunnelblick Project with the Project's OS X digital signature. The signature is used in OS X 10.5 ("Leopard") and higher to allow an updated application with the same signature as the original application to access Keychain items created by the original application without OS X prompting the user for permission.
  * Updates to Tunnelblick are always digitally signed by the Tunnelblick Project. This is part of the update process, to ensure that updates to Tunnelblick are genuine and have not been tampered with or corrupted.
 
-The rest of this page describes Tunnelblick.app's digital signatures, not update signatures.
+*The rest of this page describes Tunnelblick.app's digital signatures, not update signatures.*
 
 ==Why Digital Signatures Are Useful==
 If the user agrees, Tunnelblick stores usernames, passwords and passphrases for VPNs in the user's Keychain so that the user does not have to enter them each time a connection is made.
@@ -23,7 +23,7 @@ The way to solve this problem is to add the folder to an _unsigned_ version of T
 The maker of a Deployed version of Tunnelblick can then take the unsigned, already modified Tunnelblick and sign it himself/herself. That will give users the benefits of digital signatures.
 
 ==Digital Signatures and Program Updates==
-Whether Tunnelblick is updated by the built-in update process, the update itself will only be digitally signed under certain circumstances.
+Whenever Tunnelblick is updated by the built-in update process, the update itself will only be digitally signed under certain circumstances.
  * Standard Tunnelblick versions before 3.2beta34 will be updated with signed versions; and
  * Standard Tunnelblick versions 3.2beta34 and higher will be updated with signed versions only if they are themselves signed, otherwise they are updated with unsigned versions.
  * "Standard" means containing an Info.plist SUFeedURL entry of "http://tunnelblick.net/appcast.rss"
@@ -31,7 +31,7 @@ This behavior is meant to be backward compatible for most users of Tunnelblick.
 
 Tunnelblick versions 3.2beta12 (2011-05-16) and higher are digitally signed, so updates to them that are signed will not require the user's permission to access the Keychain.
 
-If an earlier version (for example, 3.1.7) is replaced by a signed version, OS X will ask the user to allow the  new version to access Keychain items. But after that, further replacements by signed versions will be replacing a signed version with another version signed by the same signer (the Tunnelblick Project), and so will not require 
+If an earlier version (for example, 3.1.7) is replaced by a signed version, OS X will ask the user to allow the  new version to access Keychain items. But after that, further replacements by signed versions will be replacing a signed version with another version signed by the same signer (the Tunnelblick Project), and so will OS X will allow access without asking the user.
 
 ------------------
 
