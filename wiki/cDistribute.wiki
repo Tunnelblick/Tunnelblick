@@ -7,7 +7,7 @@ If you are distributing Tunnelblick to multiple clients or servers, you might wa
  * A "Deployed" version contains, within the Tunnelblick application itself, all of the configurations, certificates, keys, and scripts needed for the connection(s) that you wish to make available.
  * A "Deployed" version can also contain "forced" preferences, which the user is not allowed to override, which can avoid problems caused by users inadvertently changing critical configuration parameters.
  * Any user of the computer who can access a "Deployed" version of Tunnelblick can connect using the configuration(s). For example, if Tunnelblick.app is stored in /Applications, everyone who uses the computer will be able to connect.
- * A minimal "Deployed" version can be created very easily on any platform. See [wMinimalDeployed How To Make a "Deployed" Version of Tunnelblick].
+ * A minimal "Deployed" version can be created very easily on any platform. See [cCusDeployed#How_to_Make_a_Deployed_Version How To Make a "Deployed" Version of Tunnelblick].
 
 If you would prefer to distribute configurations separately from the Tunnelblick application, you should consider using [cConfigT Tunnelblick VPN Configurations]:
  * A Tunnelblick VPN Configuration is an easily constructed Mac OS X package which contains a configuration file and certificates, keys, and scripts to support the configuration.
