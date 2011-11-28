@@ -10,12 +10,13 @@ If you are distributing Tunnelblick to multiple clients or servers, you might wa
  * A minimal "Deployed" version can be created very easily on any platform. See [cCusDeployed#How_to_Make_a_Deployed_Version How To Make a "Deployed" Version of Tunnelblick].
  * The downside of Deployed configurations is that it is difficult to use a digitally signed version so that the user can store usernames, passwords, and passphrases in the Keychain. See [cDigitalSignatures Digital Signatures].
 
- f you would prefer to distribute configurations separately from the Tunnelblick application, you should consider using [cConfigT Tunnelblick VPN Configurations]:
+ If you would prefer to distribute configurations separately from the Tunnelblick application, you should consider using [cConfigT Tunnelblick VPN Configurations]:
  * A Tunnelblick VPN Configuration is an easily constructed Mac OS X package which contains a configuration file and certificates, keys, and scripts to support the configuration.
  * A Tunnelblick VPN Configuration may be private to each individual user (and need to be installed separately for each user), or it may be shared by all users of the computer.
  * A Tunnelblick VPN Configuration can optionally contain identification and version information which Tunnelblick will use when a user installs or reinstalls a configuration.
  * A Tunnelblick VPN Configuration can also contain default preferences which are installed when the configuration is first used, but which the user can subsequently override.
  * Tunnelblick VPN Configurations which are contained on the disk image used to distribute the application may be automatically installed when the application itself is installed.
+ * Using Tunnelblick VPN Configurations which are not in the application itself (for example, on the disk image for automatic installation) do not cause any problems with digital signatures.
 
 ------------------
 
