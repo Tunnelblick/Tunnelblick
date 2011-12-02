@@ -418,6 +418,9 @@ extern NSFileManager * gFileMgr;
 		 // 15
 		 NULL);
 	freeCArray(myArguments);
+    if (  myStatus != 0  ) {
+        NSLog(@"AuthorizationExecuteWithPrivileges returned status = %ld", (long) myStatus);
+    }
 	return myStatus;
 }
 
