@@ -1084,7 +1084,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             leasewatchOptions = @"";
         }
     } else {
-        leasewatchOptions = @"";
+        leasewatchOptions = @"-is";
     }
     
     NSString * ourVersionFolder;

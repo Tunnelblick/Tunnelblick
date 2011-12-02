@@ -79,7 +79,7 @@
 //      (7) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
 //      (8) If INSTALLER_SECURE_APP, makes a backup of the /Deploy folder if it exists and is not empty.
 //          If it exists and is empty (except for invisible files), all existing backups for the /Deploy folder for this application's location are deleted.
-//      (9) If INSTALLER_SECURE_APP, secures all .tblk packages in the following folders:
+//      (9) If INSTALLER_SECURE_TBLKS, secures all .tblk packages in the following folders:
 //           /Library/Application Support/Tunnelblick/Shared
 //           /Library/Application Support/Tunnelblick/Users/<username>
 //           ~/Library/Application Support/Tunnelblick/Configurations
@@ -253,40 +253,46 @@ int main(int argc, char *argv[])
     NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
     
     // Verify that new configuration folder exists
-    if (  ! [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
-        NSLog(@"Tunnelblick Installer: Private configuration folder %@ does not exist", newConfigDirPath);
-        errorExit();
-    } else if (  ! isDir  ) {
-        NSLog(@"Tunnelblick Installer: %@ exists but is not a folder", newConfigDirPath);
-        errorExit();
-    }
-    
-    // If old configurations folder exists (and is a folder):
-    // Move its contents to the new configurations folder and delete it
-    NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
-    if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-        if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
-            if (  isDir  ) {
-                // Move old configurations folder's contents to the new configurations folder and delete the old folder
-                if (  moveContents(oldConfigDirPath, newConfigDirPath)  ) {
-                    NSLog(@"Tunnelblick Installer: Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                    secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
-                    // Delete the old configuration folder
-                    if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
-                        NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
+    if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
+        if (  isDir  ) {
+            // If old configurations folder exists (and is a folder):
+            // Move its contents to the new configurations folder and delete it
+            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+            if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+                if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+                    if (  isDir  ) {
+                        // Move old configurations folder's contents to the new configurations folder and delete the old folder
+                        if (  moveContents(oldConfigDirPath, newConfigDirPath)  ) {
+                            NSLog(@"Tunnelblick Installer: Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
+                            secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
+                            // Delete the old configuration folder
+                            if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
+                                NSLog(@"Tunnelblick Installer: Unable to remove %@", oldConfigDirPath);
+                                errorExit();
+                            }
+                        } else {
+                            NSLog(@"Tunnelblick Installer: Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
+                            errorExit();
+                        }
+                    } else {
+                        NSLog(@"Tunnelblick Installer: %@ is not a symbolic link or a folder", oldConfigDirPath);
                         errorExit();
                     }
-                } else {
-                    NSLog(@"Tunnelblick Installer: Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                    errorExit();
                 }
-            } else {
-                NSLog(@"Tunnelblick Installer: %@ is not a symbolic link or a folder", oldConfigDirPath);
+            }
+        } else {
+            NSLog(@"Tunnelblick Installer: Warning: %@ exists but is not a folder", newConfigDirPath);
+            if ( secureTblks ) {
                 errorExit();
             }
         }
+    } else {
+        NSLog(@"Tunnelblick Installer: Warning: Private configuration folder %@ does not exist", newConfigDirPath);
+        if ( secureTblks ) {
+            errorExit();
+        }
     }
-
+    
     //**************************************************************************************************************************
     // (4)
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
