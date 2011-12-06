@@ -21,7 +21,7 @@ Tunnelblick VPN Configurations are available in Tunnelblick 3.1 and up.
 
 ==Creation and Modification==
 
-Tunnelblick VPN Configurations are easily created and modified. See [cConfigT#Creating_a_Tunnelblick_VPN_Configuration Creating a Tunnelblick VPN Configuration] and [cConfigT#Modifying_a_Tunnelblick_VPN_Configuration Modifying a Tunnelblick VPN Configuration].
+Tunnelblick VPN Configurations are easily created and modified. See [cConfigT#Creating_and_Installing_Tunnelblick_VPN_Configuration Creating and Installing a Tunnelblick VPN Configuration] and [cConfigT#Modifying_a_Tunnelblick_VPN_Configuration Modifying a Tunnelblick VPN Configuration].
 
 ==File References in the OpenVPN Configuration File==
 Within the OpenVPN configuration file itself, refer to other files, such as key or certificate files, without using a path or path prefix -- just use the name of the file.
