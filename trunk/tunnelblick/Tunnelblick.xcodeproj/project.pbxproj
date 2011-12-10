@@ -85,6 +85,9 @@
 		637A879B13B75694003C1871 /* tb-logo-309x64-2011-06-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */; };
 		637ACF291053EE9B00A49655 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 637ACF281053EE9B00A49655 /* UKFileWatcher.m */; };
 		637BE08513A0218A00673909 /* Preferences.png in Resources */ = {isa = PBXBuildFile; fileRef = 637BE08413A0218A00673909 /* Preferences.png */; };
+		638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638A2004135CC41C00FB932C /* Foundation.framework */; };
+		638613511492CF1800C3DCCE /* process-network-changes in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63AA8E581492C75200C791C9 /* process-network-changes */; };
+		6386141D1493AF8B00C3DCCE /* ProcessNetworkChanges.plist.template in Resources */ = {isa = PBXBuildFile; fileRef = 6386141C1493AF8B00C3DCCE /* ProcessNetworkChanges.plist.template */; };
 		6387F0F5135604240021E41B /* tunnelblick.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6387F0F4135604240021E41B /* tunnelblick.sdef */; };
 		6388563E134B7E1C008DF8C1 /* PassphraseWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */; };
 		638856A0134B8056008DF8C1 /* PassphraseWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6388569F134B8056008DF8C1 /* PassphraseWindow.xib */; };
@@ -99,6 +102,7 @@
 		639A10EB132AC74B00754C2A /* StatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639A10EA132AC74B00754C2A /* StatusWindow.xib */; };
 		639A1100132AC9D800754C2A /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639A10FE132AC9D800754C2A /* StatusWindowController.m */; };
 		63A505FE11DA0E88006CB2B6 /* LogDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A505FD11DA0E88006CB2B6 /* LogDisplay.m */; };
+		63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AA8E5E1492C77700C791C9 /* process-network-changes.m */; };
 		63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ABFE9B1349E435003DEB64 /* LoginWindowController.m */; };
 		63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63ABFE9E1349F086003DEB64 /* LoginWindow.xib */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
@@ -175,6 +179,13 @@
 			remoteGlobalIDString = 638A1FFB135CC35100FB932C;
 			remoteInfo = "standardize-scutil-output";
 		};
+		63AA8E641492C7CC00C791C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63AA8E571492C75200C791C9;
+			remoteInfo = "process-network-changes";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -185,8 +196,9 @@
 			dstSubfolderSpec = 7;
 			files = (
 				631795FC118DC79B0057ACAF /* atsystemstart in CopyFiles */,
-				61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */,
 				61BC4DAB0E2FA33C00F24255 /* installer in CopyFiles */,
+				61BC4DAD0E2FA34100F24255 /* openvpnstart in CopyFiles */,
+				638613511492CF1800C3DCCE /* process-network-changes in CopyFiles */,
 				638A2029135CC6A300FB932C /* standardize-scutil-output in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +325,7 @@
 		637A879A13B75694003C1871 /* tb-logo-309x64-2011-06-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb-logo-309x64-2011-06-26.png"; sourceTree = "<group>"; };
 		637ACF281053EE9B00A49655 /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		637BE08413A0218A00673909 /* Preferences.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Preferences.png; sourceTree = "<group>"; };
+		6386141C1493AF8B00C3DCCE /* ProcessNetworkChanges.plist.template */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ProcessNetworkChanges.plist.template; sourceTree = "<group>"; };
 		6387F0F4135604240021E41B /* tunnelblick.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.sdef; path = tunnelblick.sdef; sourceTree = "<group>"; };
 		6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassphraseWindowController.h; sourceTree = "<group>"; };
 		6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassphraseWindowController.m; sourceTree = "<group>"; };
@@ -331,6 +344,8 @@
 		639A10FF132AC9D800754C2A /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
 		63A505FC11DA0E88006CB2B6 /* LogDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogDisplay.h; sourceTree = "<group>"; };
 		63A505FD11DA0E88006CB2B6 /* LogDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogDisplay.m; sourceTree = "<group>"; };
+		63AA8E581492C75200C791C9 /* process-network-changes */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "process-network-changes"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63AA8E5E1492C77700C791C9 /* process-network-changes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "process-network-changes.m"; sourceTree = "<group>"; };
 		63ABFE9A1349E435003DEB64 /* LoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWindowController.h; sourceTree = "<group>"; };
 		63ABFE9B1349E435003DEB64 /* LoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWindowController.m; sourceTree = "<group>"; };
 		63ABFE9E1349F086003DEB64 /* LoginWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginWindow.xib; sourceTree = "<group>"; };
@@ -423,6 +438,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				638A2005135CC41C00FB932C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63AA8E561492C75200C791C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638613271492C88B00C3DCCE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +548,7 @@
 				61BC4D6B0E2FA06900F24255 /* installer */,
 				6317943E118D7E820057ACAF /* atsystemstart */,
 				638A1FFC135CC35100FB932C /* standardize-scutil-output */,
+				63AA8E581492C75200C791C9 /* process-network-changes */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -556,6 +580,7 @@
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
 				61BC4D9D0E2FA2F300F24255 /* installer.m */,
 				61BC4B670E2F9EBC00F24255 /* openvpnstart.m */,
+				63AA8E5E1492C77700C791C9 /* process-network-changes.m */,
 				638A1FE0135CB82500FB932C /* standardize-scutil-output.m */,
 				63B78AD41102419800734D73 /* dmgFiles */,
 			);
@@ -717,6 +742,7 @@
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63D92581135DAEE1001FF627 /* leasewatch3 */,
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
+				6386141C1493AF8B00C3DCCE /* ProcessNetworkChanges.plist.template */,
 				63D92580135DAEE1001FF627 /* LeaseWatch3.plist.template */,
 				63216D8F125778C0004EDB57 /* client.1.up.tunnelblick.sh */,
 				63216D8E125778C0004EDB57 /* client.1.down.tunnelblick.sh */,
@@ -836,6 +862,22 @@
 			productReference = 638A1FFC135CC35100FB932C /* standardize-scutil-output */;
 			productType = "com.apple.product-type.tool";
 		};
+		63AA8E571492C75200C791C9 /* process-network-changes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63AA8E5D1492C77100C791C9 /* Build configuration list for PBXNativeTarget "process-network-changes" */;
+			buildPhases = (
+				63AA8E551492C75200C791C9 /* Sources */,
+				63AA8E561492C75200C791C9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "process-network-changes";
+			productName = "process-network-changes";
+			productReference = 63AA8E581492C75200C791C9 /* process-network-changes */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D1107260486CEB800E47090 /* Tunnelblick */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Tunnelblick" */;
@@ -855,6 +897,7 @@
 				61BC4D960E2FA28700F24255 /* PBXTargetDependency */,
 				61BC4D980E2FA28700F24255 /* PBXTargetDependency */,
 				638A200F135CC4C000FB932C /* PBXTargetDependency */,
+				63AA8E651492C7CC00C791C9 /* PBXTargetDependency */,
 			);
 			name = Tunnelblick;
 			productInstallPath = "$(HOME)/Applications";
@@ -888,6 +931,7 @@
 				61BC4D6A0E2FA06900F24255 /* installer */,
 				6317943D118D7E820057ACAF /* atsystemstart */,
 				638A1FFB135CC35100FB932C /* standardize-scutil-output */,
+				63AA8E571492C75200C791C9 /* process-network-changes */,
 			);
 		};
 /* End PBXProject section */
@@ -960,6 +1004,7 @@
 				63379F8813F695D700F2554D /* TBBuildNumber.txt in Resources */,
 				63903D18145EAD49006627C9 /* HU.lproj in Resources */,
 				630210131465CBBC00283B78 /* CS.lproj in Resources */,
+				6386141D1493AF8B00C3DCCE /* ProcessNetworkChanges.plist.template in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,6 +1073,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				638A2003135CC3CF00FB932C /* standardize-scutil-output.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63AA8E551492C75200C791C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63AA8E5F1492C77700C791C9 /* process-network-changes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1159,11 @@
 			isa = PBXTargetDependency;
 			target = 638A1FFB135CC35100FB932C /* standardize-scutil-output */;
 			targetProxy = 638A200E135CC4C000FB932C /* PBXContainerItemProxy */;
+		};
+		63AA8E651492C7CC00C791C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63AA8E571492C75200C791C9 /* process-network-changes */;
+			targetProxy = 63AA8E641492C7CC00C791C9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1440,6 +1498,48 @@
 			};
 			name = "Unsigned Release";
 		};
+		63AA8E5A1492C75300C791C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+			};
+			name = Debug;
+		};
+		63AA8E5B1492C75300C791C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		63AA8E5C1492C75300C791C9 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+			};
+			name = "Unsigned Release";
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1553,6 +1653,16 @@
 				638A1FFE135CC35100FB932C /* Debug */,
 				638A1FFF135CC35100FB932C /* Release */,
 				6398C40613DB30F60005FEB0 /* Unsigned Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63AA8E5D1492C77100C791C9 /* Build configuration list for PBXNativeTarget "process-network-changes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63AA8E5A1492C75300C791C9 /* Debug */,
+				63AA8E5B1492C75300C791C9 /* Release */,
+				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

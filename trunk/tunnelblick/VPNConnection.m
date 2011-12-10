@@ -76,6 +76,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             killProcess;                                                // Kills the OpenVPN process associated with this connection, if any
 
+-(NSString * )      leasewatchOptionsFromPreferences;
+
 -(BOOL)             makeDictionary:             (NSDictionary * *)  dict
                          withLabel:             (NSString *)        daemonLabel
                   openvpnstartArgs:             (NSMutableArray * *)openvpnstartArgs;
@@ -1084,7 +1086,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             leasewatchOptions = @"";
         }
     } else {
-        leasewatchOptions = @"-is";
+        leasewatchOptions = [self leasewatchOptionsFromPreferences];
     }
     
     NSString * ourVersionFolder;
@@ -1126,6 +1128,83 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             *bitMaskPtr = *bitMaskPtr | bit;
         }
     }
+}
+
+-(NSString * ) leasewatchOptionsFromPreferences
+{
+    NSArray * chars = [NSArray arrayWithObjects: @"d", @"a", @"s", @"n", @"g", @"w", @"D", @"A", @"S", @"N", @"G", @"W", nil];
+    NSArray * preferenceKeys = [NSArray arrayWithObjects:
+                                @"-changeDomainAction",
+                                @"-changeDNSServersAction",
+                                @"-changeSearchDomainAction",
+                                @"-changeNetBIOSNameAction",
+                                @"-changeWINSServersAction",
+                                @"-changeWorkgroupAction",
+                                @"-changeOtherDomainAction",
+                                @"-changeOtherDNSServersAction",
+                                @"-changeOtherSearchDomainAction",
+                                @"-changeOtherNetBIOSNameAction",
+                                @"-changeOtherWINSServersAction",
+                                @"-changeOtherWorkgroupAction",
+                                nil];
+    
+    // Get the preference values. Use -1 for any preference that isn't present
+    NSMutableArray * preferenceValues = [NSMutableArray arrayWithCapacity: 12];
+    int i;
+    for (  i=0; i<[preferenceKeys count]; i++  ) {
+        NSString * key = [[self displayName] stringByAppendingString: [preferenceKeys objectAtIndex: i]];
+        NSString * value = [gTbDefaults objectForKey: key];
+        int intValue;
+        if (  value  ) {
+            if (  [value respondsToSelector: @selector(intValue)]  ) {
+                intValue = [value intValue];
+            } else {
+                NSLog(@"Preference '%@' is not a number; it will be ignored", key);
+                intValue = -1;
+            }
+        } else {
+            intValue = -1;
+        }
+        
+        // If no prefererence, changes to pre-VPN will be undone and other changes will cause a restart
+        if (  intValue == -1  ) {
+            if (  i < 6  ) {
+                intValue = 1;
+            } else {
+                intValue = 2;
+            }
+
+        }
+
+        [preferenceValues addObject: [NSNumber numberWithInt: intValue]];
+    }
+        
+    // Go though preferences and pull out those that force RESTARTS
+    NSMutableString * restartOptions = [NSMutableString stringWithCapacity: [preferenceKeys count] + 2];
+    for (  i=0; i<[preferenceKeys count]; i++  ) {
+        if (  [[preferenceValues objectAtIndex: i] intValue] == 2  ) {
+            [restartOptions appendString: [chars objectAtIndex: i]];
+        }
+    }
+    
+    // Go though preferences and pull out those that force RESTORES
+    NSMutableString * restoreOptions = [NSMutableString stringWithCapacity: [preferenceKeys count] + 2];
+    for (  i=0; i<[preferenceKeys count]; i++  ) {
+        if (  [[preferenceValues objectAtIndex: i] intValue] == 1  ) {
+            [restoreOptions appendString: [chars objectAtIndex: i]];
+        }
+    }
+    
+    // Constuct the options string we return
+    NSMutableString * options = [@"-a" mutableCopy];
+    if (  [restartOptions length] != 0  ) {
+        [options appendString: [NSString stringWithFormat: @"t%@", restartOptions]];
+    }
+    if (  [restoreOptions length] != 0  ) {
+        [options appendString: [NSString stringWithFormat: @"r%@", restoreOptions]];
+    }
+
+    return options;
 }
 
 - (NSDate *)connectedSinceDate {
