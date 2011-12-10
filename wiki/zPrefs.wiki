@@ -96,7 +96,7 @@ Most of Tunnelblick's warning messages include a "Do not warn about this again" 
     # Private .ovpn and .conf configurations
 
 ==Per-Configuration Settings==
-The following preferences must each be prefixed by the name of your configuration as it is displayed when you click the Tunnelblick icon or in the VPN Details… window. (Usually that is the name of the configuration file without the extension, but it can be different if you have configurations in subfolders.) For example, if a configuration is named "xyz", the preferences would be named "xyzautoConnect", "xyz-keychainHasUsernameAndPassword", etc.
+*The following preferences must each be prefixed by the name of the configuration* as it is displayed when you click the Tunnelblick icon or in the VPN Details… window. (Usually that is the name of the configuration file without the extension, but it can be different if you have configurations in subfolders.) For example, if a configuration is named "xyz", the preferences would be named "xyzautoConnect", "xyz-keychainHasUsernameAndPassword", etc.
 
 If you wish a forced preference to be used for all configurations, use an asterisk ("`*`") instead of the name of the configuration. This will cause it to be used for all configurations except those that have a specific forced preference. For example, if there is a forced "`*`-useDNS" preference and a forced "XYZ-useDNS" preference, the forced preference will be used for all configurations except the configuration named "XYZ". _Note that ordinary users can rename private configurations, which means that the user could rename the private configuration named "XYZ" and it would no longer use the specific "XYZ-useNDS" forced preference. Shared and Deployed configurations can not be renamed except by a computer administrator._
 
@@ -121,6 +121,27 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *-loadTapKext* (Boolean): If set, the standard tap kext will be loaded.
   * *-loadTunKext* (Boolean): If set, the standard tun kext will be loaded.
   * *-doNotShowOnTunnelblickMenu* (Boolean): If set, the configuration will not be displayed in the Tunnelblick menu.
+
+  The following preferences control what Tunnelblick does when a network setting change occurs. They may have values of 0, 1, or 2. 0 will cause the network change to be ignored; 1 will cause the network change to be reversed (the setting will be set to the post-VPN setting); and 3 will cause the connection to be restarted. They are usually set by controls on the "While Connected" tab of the "Advanced" settings window.
+
+  The following preferences control what happens when a setting changes to match the setting before the VPN was connected. All of them default to 2 (restore) if not set.
+
+   * *-changeDNSServersAction* (Number)
+   * *-changeDomainAction* (Number)
+   * *-changeSearchDomainAction* (Number)
+   * *-changeWINSServersAction* (Number)
+   * *-changeNetBIOSNameAction* (Number)
+   * *-changeWorkgroupAction* (Number)
+
+  The following preferences control what happens when a setting changes to something else. All of them default to 3 (restart) if not set.
+
+   * *-changeOtherDNSServersAction* (Number)
+   * *-changeOtherDomainAction* (Number)
+   * *-changeOtherSearchDomainAction* (Number)
+   * *-changeOtherWINSServersAction* (Number)
+   * *-changeOtherNetBIOSNameAction* (Number)
+   * *-changeOtherWorkgroupAction* (Number)
+
   * *-leasewatchOptions* <font color="red">DEPRECATED</font> (String, available in Tunnelblick 3.2beta08 and later): If set, contains '-i' followed by letters indicating DNS/WINS changes that should be ignored. The default is not present. If not present and monitoring the connection, changes to the following parameters will be restored or cause a reconnection attempt:
     * !DomainName
     * !ServerAddresses
