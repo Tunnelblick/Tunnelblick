@@ -10,6 +10,20 @@
 
 ==Version 3.2==
 
+*3.2beta36 (2011-12-10)*
+
+ * Includes additional Japanese localization by Yoshihisa Kawamoto.
+
+ * Adds more control over what Tunnelblick does when a network setting changes. Controls are located on the "While Connected" tab of the Advanced configuration settings. (These controls may not be modified if the per-configuration 'CONFIGURATIONNAME-leasewatchOptions' preference is present. That preference is now deprecated.)
+
+ * Includes fixes to format of Czech localization of credits.
+
+ * Includes additional log entry if ExecuteAuthorized fails.
+
+ * When installing and securing Tunnelblick, logs a warning but continues to install if the private configurations folder is not present. (Previously, the installation was abandoned if the private configurations folder was not present.) 
+
+--------------------
+
 *3.2beta34 (2011-11-27)*
 
  * Includes a Hungarian translation by Marcell Szabo, and a Czech translation by Petr Šrajer.

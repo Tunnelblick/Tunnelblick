@@ -6,11 +6,13 @@
 ==Overview==
 Tunnelblick's preferences for a user are stored in `~/Library/Preferences/net.tunnelblick.tunnelblick.plist`.
 
-Note: Tunnelblick's settings for each configuration are also stored as Mac OS X preferences. This document includes both Tunnelblick preferences and configuration settings.
+Note: Tunnelblick's settings for each configuration are stored as Mac OS X preferences. This document includes both Tunnelblick preferences and configuration settings.
 
 Note: In Tunnelblick 3.2beta10 and earlier, preferences are stored in `~/Library/Preferences/com.openvpn.tunnelblick.plist`.
 
-If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference. See [cDeployingTunnelblick Deploying Tunnelblick] for more details.
+If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference
+
+Forced preferences can be applied to all configurations by using "`*`" as the configuration name (see [#Per-Configuration_Settings Per-Configuration Settings]). See [cDeployingTunnelblick Deploying Tunnelblick] for more details about Deployed configurations and forced preferences.
 
 When using a [cConfigT Tunnelblick VPN Configuration], it may contain preferences in its Info.plist. Values of those preferences are used if the user has not specified different values. The use may also change the values after they are loaded from Info.plist.
 
@@ -103,14 +105,6 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *useDNS* (Number): Determines if Tunnelblick will use scripts before and after a connection is made and if so, which scripts. Which scripts depend on the value: 1 uses the standard scripts to save and restore the computer's DNS and WINS settings, 2 uses the scripts provided in Tunnelblick 3.0b10, 3 uses scripts  from http://openvpn.net/archive/openvpn-users/2006-10/msg00120.html. If 0 or not present, no scripts are run by Tunnelblick (the user may specify scripts in the configuration file). The user may specify this by setting "Set Nameserver" on the "VPN Details…" "Settings" tab for the configuration. The default is 1. Note: if this value is non-zero, any "up" and "down" options in the configuration file will be ignored.
   * *-notMonitoringConnection* (Boolean): If cleared or not present, Tunnelblick will monitor the network and restart the connection if changes to the network DNS or WINS configurations are detected. If set, no monitoring will be done. The user may specify this using the "Monitor Connection" check box on the "VPN Details…" "Settings" tab for the configuration. This preference is ignored, and the check box is disabled, if the "useDNS" preference is not set to 1 (i.e., the "Set Nameserver" is not specified). The default is cleared (check box checked).
   * *-doNotRestoreOnDnsReset* and *-doNotRestoreOnWinsReset* (Boolean): If set, a DHCP renew which restores the original, pre-VPN DNS or WINS information will restart the connection. If cleared or not present, the post-VPN information will replace the DHCP-supplied information. The default is not present.
-  * *-leasewatchOptions* (String, available in Tunnelblick 3.2beta08 and later): If set, contains '-i' followed by letters indicating DNS/WINS changes that should be ignored. The default is not present. If not present and monitoring the connection, changes to the following parameters will be restored or cause a reconnection attempt:
-    * !DomainName
-    * !ServerAddresses
-    * !SearchDomains
-    * NetBIOSName
-    * Workgroup
-    * WINSAddresses
-    To ignore changes to a parameter, use 'd', 'a', 's', 'n', 'g', and/or 'w', respectively after the '-i'
   * *-doNotDisconnectOnFastUserSwitch* (Boolean): If set, Tunnelblick will not disconnect the configuration when the user is switched out. If cleared or not present, when the user is switched out using OS X's Fast User Switching, Tunnelblick will disconnect the configuration if it is not set to connect "when computer starts". The default is not present. Only available in Tunnelblick 3.2beta04 and later.
   * *-doNotReconnectOnFastUserSwitch* (Boolean): If set, Tunnelblick will not attempt to reconnect the configuration when the user is switched back in. If cleared or not present, when the user is switched in, Tunnelblick will attempt to reconnect the configuration if it is not set to connect "when computer starts". The default is not present. Only available in Tunnelblick 3.2beta04 and later.
   * *-doNotFlushCache* (Boolean): If set, Tunnelblick will not flush the DNS cache after a connection is established and after it is disconnected. _Note: if this is not set (the default), under some circumstances, traffic between two computers on a LAN may be routed through a bridged VPN. See [http://code.google.com/p/tunnelblick/issues/detail?id=154#c10 Issue 154 comment 10]._
@@ -127,6 +121,17 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *-loadTapKext* (Boolean): If set, the standard tap kext will be loaded.
   * *-loadTunKext* (Boolean): If set, the standard tun kext will be loaded.
   * *-doNotShowOnTunnelblickMenu* (Boolean): If set, the configuration will not be displayed in the Tunnelblick menu.
+  * *-leasewatchOptions* <font color="red">DEPRECATED</font> (String, available in Tunnelblick 3.2beta08 and later): If set, contains '-i' followed by letters indicating DNS/WINS changes that should be ignored. The default is not present. If not present and monitoring the connection, changes to the following parameters will be restored or cause a reconnection attempt:
+    * !DomainName
+    * !ServerAddresses
+    * !SearchDomains
+    * NetBIOSName
+    * Workgroup
+    * WINSAddresses
+    
+    To ignore changes to a parameter, use 'd', 'a', 's', 'n', 'g', and/or 'w', respectively after the '-i'.
+    
+    The -leasewatchOptions preference is deprecated because finer control may be asserted by using other preferences that are be set on the "While Connected" tab of the "Advanced" settings window. 
 
 ==Preferences That Tunnelblick Uses Internally==
   * *haveDealtWithSparkle1dot5b6* (Boolean): If set, Tunnelblick has reset the Sparkle Updater preferences for Sparkle version 1.5b6, so the user will be or has been asked about automatically checking for updates and including system profile information. If cleared, this has not been done yet. See the "updateCheckAutomatically" and "updateSendProfileInfo" preferences. The default is not present; Tunnelblick maintains this preference automatically. This preference is ignored if the "updateCheckAutomatically" and "updateSendProfileInfo" preferences are both forced (to any value).

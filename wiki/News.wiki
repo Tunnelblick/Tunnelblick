@@ -1,5 +1,16 @@
 #summary The Latest News About Tunnelblick
 
+2011-12-10: *Tunnelblick 3.2beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+ * Includes additional Japanese localization by Yoshihisa Kawamoto.
+
+ * Adds more control over what Tunnelblick does when a network setting changes. Controls are located on the "While Connected" tab of the Advanced configuration settings. (These controls may not be modified if the per-configuration 'CONFIGURATIONNAME-leasewatchOptions' preference is present. That preference is now deprecated.)
+
+ * Includes other minor changes and bug fixes.
+
+ See the [RlsNotes Release Notes] for details.
+ 
+--------------------
+
 2011-11-27: *Tunnelblick 3.2beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Includes a Hungarian translation by Marcell Szabo and a Czech translation by Petr Šrajer.
  * Includes the latest Tuntap release (version 20111101) for Snow Leopard and higher (version 19990913 are used for Tiger and Leopard).
