@@ -44,6 +44,9 @@ while [ {$#} ] ; do
 	elif [ "${1:0:2}" = "-i" ] ; then
 		ARG_IGNORE_OPTION_FLAGS="${1}"
 		shift
+	elif [ "${1:0:2}" = "-a" ] ; then
+		ARG_IGNORE_OPTION_FLAGS="${1}"
+		shift
 	else
 		if [ "${1:0:1}" = "-" ] ; then				# Shift out Tunnelblick arguments (they start with "-") that we don't understand
 			shift									# so the rest of the script sees only the OpenVPN arguments
@@ -348,11 +351,19 @@ EOF
 	logMessage "Saved the DNS and WINS configurations for later use"
 	
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-		# Generate an updated plist with a per-configuration path
-		LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch.plist.template"
-		sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
-		launchctl load "${LEASEWATCHER_PLIST_PATH}"
-		logMessage "Set up to monitor system configuration with leasewatch"
+        if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-a" ] ; then
+            # Generate an updated plist with the path for process-network-changes
+            readonly LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/ProcessNetworkChanges.plist.template"
+            sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+            launchctl load "${LEASEWATCHER_PLIST_PATH}"
+            logMessage "Set up to monitor system configuration with process-network-changes"
+        else
+            # Generate an updated plist with the path for leasewatch
+            readonly LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/LeaseWatch.plist.template"
+            sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
+            launchctl load "${LEASEWATCHER_PLIST_PATH}"
+            logMessage "Set up to monitor system configuration with leasewatch"
+        fi
 	fi
 }
 

@@ -226,10 +226,19 @@ int main(int argc, char* argv[])
                                         if (  r.length != 0  ) {
                                             leasewatchOptions = nil;
                                         }
+                                    } else if (  [leasewatchOptions hasPrefix: @"-a"]  ) {
+                                        NSCharacterSet * optionCharacterSet = [NSCharacterSet characterSetWithCharactersInString: @"trdasngwDASNGW"];
+                                        NSRange r = [[leasewatchOptions substringFromIndex: 2] rangeOfCharacterFromSet: [optionCharacterSet invertedSet]];
+                                        if (  r.length != 0  ) {
+                                            leasewatchOptions = nil;
+                                        }
                                     } else {
                                         leasewatchOptions =nil;
                                     }
+                                } else {
+                                    leasewatchOptions =nil;
                                 }
+                                
                                 if (  argc > 10  ) {
                                     openvpnVersion = [NSString stringWithUTF8String: argv[10]];
                                 }
@@ -249,7 +258,7 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
-
+    
 	if (syntaxError) {
 		fprintf(stderr,
                 "\n\nopenvpnstart usage:\n\n"
@@ -336,14 +345,31 @@ int main(int argc, char* argv[])
                 "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
                 
                 "leasewatchOptions is a string containing characters indicating options for leasewatch.\n"
-                "           The string must start with '-i', which may be followed\n"
-                "           by any of the following characters in any order:\n"
+                "           If the string starts with '-i', the leasewatch script will be used to monitor network settings.\n"
+                "           in which case, it may be followed by any of the following characters in any order:\n"
                 "           d - ignore Domain\n"
                 "           a - ignore DomainAddresses\n"
                 "           s - ignore SearchDomains\n"
                 "           n - ignore NetBIOSName\n"
                 "           g - ignore Workgroup\n"
                 "           w - ignore WINSAddresses\n\n"
+                
+                "           If the string starts with '-a', the process-network-changes binary will be used to monitor network settings.\n"
+                "           in which case, it may be followed by:\n"
+                "                     a 't' followed by any of the following characters to restart for the corresponding change,\n"
+                "              and/or a 'r' followed by any of the following characters to restore the post-VPN value for the corresponding change \n"
+                "                     d - Domain changed to its pre-VPN value\n"
+                "                     a - DomainAddresses changed to its pre-VPN value\n"
+                "                     s - SearchDomains changed to its pre-VPN value\n"
+                "                     n - NetBIOSName changed to its pre-VPN value\n"
+                "                     g - Workgroup changed to some other value\n"
+                "                     w - WINSAddresses changed to its pre-VPN value\n\n"
+                "                     D - Domain changed to some other value\n"
+                "                     A - DomainAddresses changed to some other value\n"
+                "                     S - SearchDomains changed to some otherN value\n"
+                "                     N - NetBIOSName changed to some other value\n"
+                "                     G - Workgroup changed to some other value\n"
+                "                     W - WINSAddresses changed to some other value\n\n"
                 
                 "openvpnVersion is a string with the name of the subfolder of …Resources/openvpn that contains the openvpn and openvpn-down-root.so binaries\n"
                 "               to be used for the connection. The string may contain only lower-case letters, hyphen, period, and the digits 0-9.\n"
