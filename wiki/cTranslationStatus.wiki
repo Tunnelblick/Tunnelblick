@@ -14,7 +14,7 @@ Tunnelblick is developed in English.
 
 _Note: Help is not currently being translated, pending a rewrite of the English version._
 
-<font color="red">*TRANSLATORS NEEDED:*</font> *Chinese (Traditional)* and * Japanese* translators are especially needed.
+<font color="red">*TRANSLATORS NEEDED:*</font> *Italian*, *Chinese (Traditional)*, and * Japanese* translators are especially needed.
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
