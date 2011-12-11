@@ -12,6 +12,9 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
 <hr>
 
+<strong><font color="red" size="4">Italian translators needed!</font></strong> Please contact project owner Jon via email at jkbullard at gmail dot com
+<hr>
+
 ==Tunnelblick==
  <strong>Latest stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.1.7.dmg Tunnelblick 3.1.7 (build 2190.2413)]</strong> released 2011-04-03<br> For use on OS X 10.4 - 10.6 ("Tiger", "Leopard", and "Snow Leopard") <strong><font color="red">NOT FOR USE ON OS X 10.7 "LION"</font></strong>
 
