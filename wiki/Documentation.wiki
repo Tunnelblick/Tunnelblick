@@ -9,7 +9,7 @@
 <br>
 
 <hr>
-<strong><font color="red" size="4">Italian translators needed!</font></strong> Please contact project owner Jon via email at jkbullard at gmail dot com
+<strong><font color="red" size="4">Italian translations needed!</font></strong> Please contact project owner Jon via email at jkbullard at gmail dot com
 <hr>
 
 *[DocumentationForTunnelblick_3_2 Tunnelblick 3.2 Highlights]*
