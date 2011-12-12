@@ -6,7 +6,19 @@ OpenVPN is such a powerful tool with so many options, and computer configuration
 
 This page assumes that you are successfully connected to a VPN server. If not, or if you aren't sure, look at [cCommonProblems Common Problems].
 
-*Troubleshooting this problem could be very simple: try connecting the VPN with and without "Set nameserver" selected. If one way or the other solves your problem, you're done!*
+<font color="red">*Troubleshooting this problem could be very simple: try connecting the VPN with and without "Set nameserver" selected. If one way or the other solves your problem, you're done!*</font>
+
+==If OpenVPN is connected to the server but your IP address does not change==
+If OpenVPN connects to the server properly but your IP address does not change, you are probably missing the "--redirect-gateway" option. Add the following line:
+<pre>     --redirect-gateway def1</pre>
+to your configuration file.
+
+By default, OpenVPN only sends some traffic through the VPN -- traffic that is specifically destined for the VPN network itself. The "--redirect-gateway" option tells OpenVPN to send all traffic through the VPN. (Leave out the "--" when it is put in the configuration file.)
+
+An alternative to putting "redirect gateway def1" in the configuration file is to "push" it from the VPN server to the client.
+
+==How to test your IP address==
+You can test find out what IP address your computer is using by going to [https://www.whatismyip.com https://www.whatismyip.com].
 
 ==If OpenVPN is connected to the server but you can't access the Internet==
 If OpenVPN connected to the server properly, but you are having trouble connecting to websites, the first thing to find out is if there is a DNS problem. To check that, try to access a website by using its IP address instead of its name. For example, try "http://129.42.58.216" instead of "http://www.ibm.com" or use some other, known IP address. If the IP address works, but the name doesn't, there is a DNS problem. (Consider the IP address to be "working" if any of the webpage loads.)
