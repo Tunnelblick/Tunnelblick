@@ -18,25 +18,24 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2011-11-16:
+The following table shows the status of translations for Tunnelblick as of 2011-12-13:
 
 || <br>Language  || <br>Code  || Current<br>Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
 || Catalan                || CA     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Czech                  || CS     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
-|| Danish                 || DA     || 1  || In process                             || In process                             ||
 || German                 || DE     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Spanish                || ES     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || French                 || FR     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
-|| Hungarian              || HU     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
-|| Italian                || IT     || 0  || Partial                             || Partial                             ||
-|| Japanese               || JA     || 1  || In process                             || In process                             ||
-|| Korean                 || KO     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Hungarian              || HU     || 1  || <font color="green">*Complete*</font>  || Partial                             ||
+|| Italian                || IT     || 1  || Partial                             || <font color="green">*Complete*</font>  ||
+|| Japanese               || JA     || 1  || Partial                             || Partial                             ||
+|| Korean                 || KO     || 1  || <font color="green">*Complete*</font>  || Partial                             ||
 || Norwegian              || NB     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>    ||
 || Dutch                  || NL     || 2  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Polish                 || PL     || 3  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Portuguese             || PT     || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Russian                || RU     || 4  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
-|| Swedish                || SV     || 2  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
+|| Swedish                || SV     || 2  || <font color="green">*Complete*</font>  || Partial                             ||
 || Chinese (Simplified)   || ZN-CN  || 1  || <font color="green">*Complete*</font>  || <font color="green">*Complete*</font>  ||
 || Chinese (Traditional)  || ZN-TW  || 0  || Partial                                || Partial                                ||
 
