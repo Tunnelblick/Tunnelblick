@@ -244,6 +244,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Matteo Pillon   </td>
+    <td>      Italian    </td>
+  </tr>
+
+  <tr>
     <td>      Victor Ptichkin    </td>
     <td>      Russian    </td>
   </tr>
