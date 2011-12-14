@@ -575,6 +575,9 @@
 "Which Type of Configuration Do You Wish to Create?" = "Milyen típusú konfigurációt szeretne készíteni?";
 
 /* Window title */
+"While Connected" = "A kapcsolat ideje alatt";
+
+/* Window title */
 "You cannot use the sample configuration" = "Nem használhatja a minta konfigurációt";
 
 /* Window text */

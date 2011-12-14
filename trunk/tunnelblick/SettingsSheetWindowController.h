@@ -53,6 +53,7 @@ typedef enum
     IBOutlet NSTabView           * tabView;
     
     IBOutlet NSTabViewItem       * connectingAndDisconnectingTabViewItem;
+    IBOutlet NSTabViewItem       * whileConnectedTabViewItem;
     
     IBOutlet NSTextFieldCell     * configurationNameTFC;
     IBOutlet NSTextFieldCell     * configurationStatusTFC;
@@ -158,13 +159,11 @@ typedef enum
 
 // Methods for Connecting tab
 
-TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
+-(IBAction) scanConfigurationFileCheckboxWasClicked:          (id) sender;
+-(IBAction) useTunTapDriversCheckboxWasClicked:               (id) sender;
+-(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
 
--(IBAction) scanConfigurationFileCheckboxWasClicked:             (id) sender;
--(IBAction) useTunTapDriversCheckboxWasClicked:                  (id) sender;
--(IBAction) flushDnsCacheCheckboxWasClicked:                     (id) sender;
-
--(IBAction) connectingHelpButtonWasClicked:                      (id) sender;
+-(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
 
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (id) sender;
 -(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked:    (id) sender;
@@ -211,5 +210,8 @@ TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 
 -(NSInteger) selectedOtherworkgroupIndex;
 -(void)      setSelectedOtherworkgroupIndex:    (NSInteger) newValue;
+
+TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
+TBPROPERTY_READONLY(NSTabViewItem *, whileConnectedTabViewItem)
 
 @end

@@ -836,6 +836,8 @@
 /* Window title */
 "Which Type of Configuration Do You Wish to Create?" = "你想新建哪种设置?";
 
+/* Window title */
+"While Connected" = "连接中";
 
 /* Window title  VPNService */
 "You Must Type the Characters" = "你必须输入字符";

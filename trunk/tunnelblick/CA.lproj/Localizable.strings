@@ -578,6 +578,9 @@
 "Which Type of Configuration Do You Wish to Create?" = "Quin tipus de configuració desitges crear?";
 
 /* Window title */
+"While Connected" = "Mentre estigui connectat";
+
+/* Window title */
 "You cannot use the sample configuration" = "No pots utilitzar la configuració de guia";
 
 /* Window text */
