@@ -574,6 +574,9 @@
 /* Window title */
 "Which Type of Configuration Do You Wish to Create?" = "Vilken konfigurationstyp vill du skapa?";
 
+/* NEEDS TRANSLATION *//* Window title */
+"While Connected" = "While Connected";
+
 /* Window title */
 "You cannot use the sample configuration" = "Du kan inte använda exempelkonfigurationen";
 

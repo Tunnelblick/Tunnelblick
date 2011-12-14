@@ -412,7 +412,7 @@
 "Configuration(s) Ignored" = "Конфигурация(и) проигнорированы";
 
 /* Window title */
-"Connecting & Disconnecting" = "Соединение и разъединение";
+"Connecting & Disconnecting" = "Подключения & Отключения";
 
 /* Window title */
 "Could Not Copy Configuration" = "Невозможно скопировать конфигурацию";
@@ -575,6 +575,9 @@
 
 /* Window title */
 "Which Type of Configuration Do You Wish to Create?" = "Конфигурацию какого типа вы хотите создать?";
+
+/* Window title */
+"While Connected" = "Когда подключено";
 
 /* Window title */
 "You cannot use the sample configuration" = "Вы не можете использовать образец конфигурации";

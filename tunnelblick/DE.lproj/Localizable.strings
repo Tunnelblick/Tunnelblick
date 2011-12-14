@@ -578,6 +578,9 @@
 "Which Type of Configuration Do You Wish to Create?" = "Welche Art von Konfiguration möchten Sie anlegen?";
 
 /* Window title */
+"While Connected" = "Während der Verbindung";
+
+/* Window title */
 "You cannot use the sample configuration" = "Sie können die Beispielkonfiguration nicht verwenden.";
 
 /* Window text */

@@ -208,10 +208,6 @@ BOOL needToCopyBundle(void);
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
 
-TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
-TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
-TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
-
 #ifdef INCLUDE_VPNSERVICE
 // VPNService support
 -(IBAction)         registerForTunnelblickWasClicked:       (id)                sender;
@@ -226,4 +222,9 @@ TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
 -(BOOL)             application:                            (NSApplication *)   sender
              delegateHandlesKey:                            (NSString *)        key;
 -(NSArray *)        applescriptConfigurationList;
+
+TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
+TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
+TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
+
 @end

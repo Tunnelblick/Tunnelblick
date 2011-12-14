@@ -577,6 +577,9 @@
 /* Window title */
 "Which Type of Configuration Do You Wish to Create?" = "作成したいのはどちらのタイプの接続先ですか？";
 
+/* NEEDS TRANSLATION *//* Window title */
+"While Connected" = "While Connected";
+
 /* Window title */
 "You cannot use the sample configuration" = "サンプルの接続先をそのまま使用することはできません";
 

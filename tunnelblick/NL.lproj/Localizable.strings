@@ -575,6 +575,9 @@
 "Which Type of Configuration Do You Wish to Create?" = "Welk Type Configuratie Wenst U Aan Te Maken?";
 
 /* Window title */
+"While Connected" = "Tijdens Een Verbinding";
+
+/* Window title */
 "You cannot use the sample configuration" = "U kunt de voorbeeldconfiguratie niet gebruiken";
 
 /* Window text */

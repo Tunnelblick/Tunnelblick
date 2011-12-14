@@ -211,6 +211,8 @@ extern TBUserDefaults       * gTbDefaults;
     
     // For WhileConnected tab
     
+    [whileConnectedTabViewItem        setLabel: NSLocalizedString(@"While Connected", @"Window title")];
+
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
     
     [self underlineLabel: networkSettingTF            string: NSLocalizedString(@"Network setting"              , @"Window text") alignment: NSRightTextAlignment];
@@ -271,6 +273,7 @@ extern TBUserDefaults       * gTbDefaults;
                          nil];
     [ac setContent: content];
     
+/*    
     if (  popUpButton == dnsServersPopUpButton  ) {
         
         // When resize this control, shift the columns that are to its right either left or right to match the size change
@@ -297,8 +300,11 @@ extern TBUserDefaults       * gTbDefaults;
             [control setFrame:oldPos];
         }
     } else {
+ */
         [popUpButton sizeToFit];
+ /*
     }
+*/
 }
 
 //**********************************************************************************************************************************
@@ -909,6 +915,7 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, connectingAndDisconnectingTabViewItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, whileConnectedTabViewItem)
      
 
 @end

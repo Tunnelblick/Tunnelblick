@@ -1,3 +1,6 @@
+/* Window title */
+"While Connected" = "While Connected";
+
 /* Window text */
 "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state.";
 

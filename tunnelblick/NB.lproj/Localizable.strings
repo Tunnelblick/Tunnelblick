@@ -578,6 +578,9 @@
 "Which Type of Configuration Do You Wish to Create?" = "Hvilken konfigurasjonstype ønsker du og lage?";
 
 /* Window title */
+"While Connected" = "Når oppkoblet…";
+
+/* Window title */
 "You cannot use the sample configuration" = "Du kan ikke benytte eksempelkonfigurasjonen";
 
 /* Window text */

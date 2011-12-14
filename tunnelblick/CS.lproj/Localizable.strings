@@ -575,6 +575,9 @@
 "Which Type of Configuration Do You Wish to Create?" = "Jaký typ konfigurace si přejete vytvořit?";
 
 /* Window title */
+"While Connected" = "Během připojení";
+
+/* Window title */
 "You cannot use the sample configuration" = "Nelze použít příklad konfigurace";
 
 /* Window text */
