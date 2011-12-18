@@ -577,8 +577,8 @@
 /* Window title */
 "Which Type of Configuration Do You Wish to Create?" = "만들려고 하는 설정 종류는 무엇입니까?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"While Connected" = "While Connected";
+/* Window title */
+"While Connected" = "연결되어 있는 동안";
 
 /* Window title */
 "You cannot use the sample configuration" = "예제 설정을 사용할 수 없습니다";
