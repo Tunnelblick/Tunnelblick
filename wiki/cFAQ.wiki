@@ -19,7 +19,7 @@
   Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
 ==Where is the documentation?==
-The Tunnelblick disk image includes a link to the [Documentation Tunnelblick Documentation].
+The Tunnelblick disk image includes a link to the [Documentation Tunnelblick Documentation]. There is also help available on the VPN Details… page.
 
 ==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Lion? Panther? Intel? PowerPC?==
 Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
