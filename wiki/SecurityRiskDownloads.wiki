@@ -3,7 +3,7 @@
 <font size="5" color="red">*Security Risk Downloads*</font>
 
 <font color="red">
-*One or more bugs causing a serious security vulnerability exist in these versions of Tunnelblick.* For details see [vulnerability20110112FAQ 2011-01-12 Tunnelblick Vulnerability FAQ] and [vulnerability20110127FAQ 2011-01-27 Tunnelblick Vulnerability FAQ].
+*One or more bugs causing a serious security vulnerability exist in these versions of Tunnelblick.* For details see [vulnerability20110112FAQ 2011-01-12 Tunnelblick Vulnerability FAQ], [vulnerability20110127FAQ 2011-01-27 Tunnelblick Vulnerability FAQ], and [vulnerability20111219FAQ 2011-12-19 Tunnelblick Vulnerability FAQ].
 
 *DO NOT USE OR INSTALL THESE VERSIONS!*
 </font>
@@ -13,7 +13,11 @@ Tunnelblick versions that are NOT vulnerable are available on the [DownloadsEntr
 <table border="1" valign="top"><tr>
 <td valign="top"><table border="0" cellpadding="10" valign="top">
 <tr>
-<td valign="top">*Version 3.1*</td><td valign="top">*Released*</td>
+<td valign="top">*Versions 3.1 & 3.2*</td><td valign="top">*Released*</td>
+</tr>
+
+<tr>
+<td valign="top">[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta36.dmg Tunnelblick 3.2beta36 (build 2871)]</td><td valign="top">2011-12-10</td>
 </tr>
 
 <tr>

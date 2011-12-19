@@ -1,5 +1,17 @@
 #summary The Latest News About Tunnelblick
 
+2011-12-19: *Tunnelblick 3.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Stable 3.2 release -- not a beta release.
+ 
+ * Fixes a security vulnerability found in Tunnelblick 3.2beta36. (See [vulnerability20111219FAQ 2011-12-19 Tunnelblick Vulnerability FAQ] for details.)
+
+ * Includes complete Japanese localization by Yoshihisa Kawamoto.
+
+ * Fixes a memory leak and a problem that caused a failure to localize tabs in the "Advanced" settings window.
+ 
+--------------------
+
 2011-12-10: *Tunnelblick 3.2beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
  * Includes additional Japanese localization by Yoshihisa Kawamoto.
 
