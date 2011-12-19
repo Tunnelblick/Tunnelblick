@@ -301,7 +301,6 @@ NSString * getScKey(NSString * key)
         file = [stdPipe fileHandleForReading];
         NSData * data = [file readDataToEndOfFile];
         [file closeFile];
-        [stdPipe release];
         NSString * scutilOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
         value = standardizedString(scutilOutput, NSMakeRange(0, [scutilOutput length]));
     }

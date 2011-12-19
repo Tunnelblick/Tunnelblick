@@ -1196,7 +1196,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // Constuct the options string we return
-    NSMutableString * options = [@"-a" mutableCopy];
+    NSMutableString * options = [[@"-a" mutableCopy] autorelease];
     if (  [restartOptions length] != 0  ) {
         [options appendString: [NSString stringWithFormat: @"t%@", restartOptions]];
     }

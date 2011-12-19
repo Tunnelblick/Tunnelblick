@@ -23,7 +23,11 @@
 <p class="p2"><br></p>
 <p class="p4"><b>Most users do not need to change the settings in this window.</b></p>
 <p class="p2"><br></p>
-<p class="p3">Each setting is controlled by a checkbox:</p>
+<p class="p3">This window has two tabs. One tab contains advanced controls for when Tunnelblick is connecting or disconnecting the configuration; the other tab contains controls that are used while a connection is active.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Connecting and Disconnecting Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">Each setting in this tab is controlled by a checkbox:</p>
 <p class="p2"><br></p>
 <ul class="ul1">
   <li class="li3"><b>Scan configuration file for problems before connecting</b>. When checked, Tunnelblick will scan the OpenVPN configuration file for problems before each attempt at connecting.</li>
@@ -37,5 +41,21 @@
   <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li>
   <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in, if the configuration was connected before the user switched out.</li>
 </ul>
+<p class="p2"><br></p>
+<p class="p1"><b>While Connected Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">This tab contains a checkbox to control whether or not the network settings are monitored for changes while a connection is active.</p>
+<p class="p3">It also contains two sets of actions that will be taken when particular network settings change in the following ways:</p>
+<ul class="ul1">
+  <li class="li3"><b>When change to pre-VPN value</b>. These actions are taken when a network setting changes to the value it was before the VPN was established.</li>
+  <li class="li3"><b>When changes to anything else</b>. These actions are taken when a network setting changes to any other value.</li>
+</ul>
+<p class="p3">One of three actions may be selected for each change:</p>
+<ul class="ul1">
+  <li class="li3"><b>Ignore</b>. The network setting change will be ignored.</li>
+  <li class="li3"><b>Restore</b>. The network setting will be restored to the value it had after establishing the VPN.</li>
+  <li class="li3"><b>Restart connection</b>. The network setting change will cause the connection to be restarted.</li>
+</ul>
+
 </body>
 </html>
