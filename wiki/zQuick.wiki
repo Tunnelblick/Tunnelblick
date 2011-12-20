@@ -8,7 +8,7 @@
 
 ==Installing Tunnelblick and Getting it Set Up==
 Here is what you need to get started using Tunnelblick:
- * Access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [GettingVPNService Getting VPN Service].
+ * Access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [cGettingVPNService Getting VPN Service].
  * A copy of the Tunnelblick installation disk image. You can get one from the [DownloadsEntry Downloads page].
  * A [cConfigT Tunnelblick VPN Configuration] or an OpenVPN configuration file together with key and certificate files for encryption. You get these from whoever set up your VPN -- usually your company or a VPN service provider (see [cGettingVPNService Getting VPN Service]).
  * The username and password of an administrator for your computer.
