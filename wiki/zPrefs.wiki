@@ -49,7 +49,6 @@ All other preferences can be modified by
 
 ==Preferences That Control What The User Sees==
   * *menuIconSet* (String): If set, specifies the name of the folder of icons that Tunnelblick should use to display the connection status in the status bar (usually, near the Spotlight icon). The default is "!TunnelBlick.TBMenuIcons". The folder may appear in several locations; see [cIconAnimation Icon Animation].
-
   * *doNotShowConnectionSubmenus* (Boolean): If set, each configuration is shown as a single menu item even if it is in a subfolder. (It is shown as "Connect folder1/folder2/config".). If cleared or not present, configurations in subfolders display only the subfolder name, and reveal contents of the subfolder only when moused-over. The default is not present.
   * *doNotShowCheckForUpdatesNowMenuItem* (Boolean): If set, the "Check for Updates Now" item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
   * *doNotShowAddConfigurationMenuItem* (Boolean): If set, the "Add a Configuration..." item on the "Options…" submenu will not be displayed. If cleared or not present, the item will be displayed. The default is not present.
@@ -69,6 +68,7 @@ All other preferences can be modified by
   * *disableDeleteConfigurationCredentialsInKeychainMenuItem* (Boolean): The default is not present.
   * *showConnectedDurations* (Boolean): If set, the time that a configuration has been connected is displayed in the "VPN Details…" window. If cleared, the time is not displayed. The default is set.
   * *maximumNumberOfTabs* (Number): (This preference is not used in Tunnelblick 3.2beta16 and later.) The maximum number of configurations that Tunnelblick will display in tabs (in the VPN Details… window). If there are more than this many configurations, Tunnelblick will display them in a list on the left side of the VPN Details… window.
+  * *connectionWindowDisplayCriteria* (String): This controls the Notification Window display. It should have one of the following values (without the quote marks): "neverShow", "showWhenConnecting", or "showWhenChanges". The default is "showWhenConnecting".
 ==Preferences That Control Updates==
   * *updateAutomatically* (Boolean): If set, when Tunnelblick detects an update it will be downloaded and installed automatically. If cleared or not present, the user will be asked This preference may ONLY be forced; the user's normal preference is ignored because it can be changed at any time by a Sparkle check box. The default is not present.
   * *updateCheckAutomatically* (Boolean): If set, Tunnelblick checks for updates each time it is launched, and periodically thereafter. If cleared or not present, no checking is done. There is no default value; the user is asked if they want to enable automatic updates the first time Tunnelblick is launched and whenever the information that Tunnelblick sends when checking for an update changes (so the user can decide whether or not to include the information).
