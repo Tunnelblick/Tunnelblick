@@ -1,0 +1,18 @@
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Отключено, потому что приложение переименованно";
+
+/* Menu item tooltip */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Отключено, поскольку вы не администратор этого компьютера и установлен параметр 'onlyAdminCanUpdate'";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+"Tunnelblick.app" = "Tunnelblick.app";
+
+/* Window title */
+"Updates are disabled" = "Обновления отключены";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick обновляется, только если он называется 'Tunnelblick'. Вы же переименовали его в %@, поэтому обновления отключены.";
+
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Пожалуйста, подождите, пока Tunnelblick установится и произведет настройки безопасности…";
+

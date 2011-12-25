@@ -1,0 +1,18 @@
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Wyłączone, ponieważ nazwa aplikacji została zmieniona";
+
+/* Menu item tooltip */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Nieaktywne, nie masz uprawnień Administratora, a flaga 'onlyAdminCanUpdate' jest ustawiona";
+
+/* Window title */
+"Updates are disabled" = "Aktualizacje są wyłączone";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick może zostać zaktualizowany, jeśli jego nazwa to 'Tunnelblick'. Zmieniłeś nazwę na %@, więc aktualizacje są wyłączone.";
+
+/* Window text */
+"There are two types of configuration files:\n\n     ‚Ä¢ Tunnelblick VPN Configurations (.tblk extension)\n\n     ‚Ä¢ OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" =  "Występują dwa typy plików konfiguracyjnych:\n\n     ‚Ä¢ Konfiguracja Tunnelblick VPN (rozszerzenie .tblk)\n\n     ‚Ä¢ Konfuguracja OpenVPN (rozszerzenie .ovpn lub .conf)\n\nKtóry rodzaj konfiguracji posiadasz?\n\n";
+
+/* Window text */
+"Would you like to\n\n     ‚Ä¢ Create a sample configuration on the Desktop\n             and\n     ‚Ä¢ Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Czy chcesz\n\n     ‚Ä¢ Utworzć przykładową konfigurację na pulpicie\n             i\n     ‚Ä¢ Otworzyć jej plik konfiguracyjny OpenVPN w programie TextEdit, aby dokonać zmian umożliwiających połączenie z Twoim VPN?\n\n";
+

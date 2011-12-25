@@ -1,0 +1,57 @@
+/**
+
+@mainpage pkcs11-helper-1.0
+@section about About
+@par
+<a href="http://www.rsasecurity.com/rsalabs/pkcs/pkcs-11">PKCS#11</a> 
+is
+<a href="http://www.rsasecurity.com">RSA Security</a>
+published standard. PKCS#11 is the de-facto standard to access cryptographic
+devices.
+@par
+pkcs11-helper is a library that simplifies the interaction with PKCS#11
+providers for end-user applications.
+@section features Features
+@par
+pkcs11-helper allows using multiple PKCS#11 providers at the same time, enumerating 
+available token certificates, or selecting a certificate directly by serialized id,
+handling card removal and card insert events, handling card re-insert to a different
+slot, supporting session expiration and much more all using a simple API.
+@par
+pkcs11-helper is not designed to manage card content, since object attributes
+are usually vendor specific, and 99% of application need to access
+existing objects in order to perform signature and decryption.
+@section compatibility Compatibility
+- The pkcs11-helper library is available in POSIX and WIN32 compliant systems.
+- The pkcs11-helper library should work with almost any PKCS#11 provider, since it
+  uses the minimum required features of the PKCS#11 standard.
+@section support Support
+@par
+pkcs11-helper support is available via the
+<a href="http://www.opensc-project.org">OpenSC Project</a>.
+@section license License
+@par
+@ref License is dual BSD or GPL.
+@section modules Modules
+- @ref pkcs11h_core - Initialize library, adding providers, hooks.
+- @ref pkcs11h_token - Handle tokens.
+- @ref pkcs11h_certificate - Handle certificate objects.
+- @ref pkcs11h_data - Handle data objects.
+- @ref pkcs11h_openssl - OpenSSL engine support.
+@page License pkcs11-helper license
+@verbinclude COPYING
+
+*/
+
+/**
+@example test-basic.c
+ 
+The following example shows some basic usage of the library.
+*/
+
+/**
+@example test-slotevent.c
+ 
+The following example shows how to use the slot event interface.
+*/
+

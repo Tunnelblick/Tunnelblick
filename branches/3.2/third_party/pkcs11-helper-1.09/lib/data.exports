@@ -1,0 +1,5 @@
+pkcs11h_data_del
+pkcs11h_data_enumDataObjects
+pkcs11h_data_freeDataIdList
+pkcs11h_data_get
+pkcs11h_data_put
