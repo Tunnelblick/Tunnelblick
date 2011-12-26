@@ -514,6 +514,8 @@ int main(int argc, char *argv[])
                         } else {
                             NSLog(@"Failed to remove backup of Deploy at %@", path);
                         }
+                    } else {
+                        NSLog(@"No backup of Deploy to delete at %@", path);
                     }
                 }
             } else {
@@ -528,6 +530,10 @@ int main(int argc, char *argv[])
                         NSLog(@"Tunnelblick Installer: Unable to make original backup of %@", gDeployPath);
                         errorExit();
                     }
+                    NSLog(@"Made original backup of %@", gDeployPath);
+
+                } else {
+                    NSLog(@"Original backup of %@ already exists", gDeployPath);
                 }
                 
                 [gFileMgr tbRemoveFileAtPath:deployPrevBackupPath handler: nil];                       // Make original backup. Ignore errors -- original backup may not exist yet
@@ -537,6 +543,13 @@ int main(int argc, char *argv[])
                     NSLog(@"Tunnelblick Installer: Unable to make backup of %@", gDeployPath);
                     errorExit();
                 }
+                NSLog(@"Tunnelblick Installer: Made backup of %@", gDeployPath);
+                
+                if ( ! secureOneFolder(deployBackupPath)  ) {
+                    NSLog(@"Tunnelblick Installer: Unable to secure backup at %@", deployBackupPath);
+                    errorExit();
+                }
+                NSLog(@"Tunnelblick Installer: Secured backup at %@", deployBackupPath);
             }
         }
     }
