@@ -7,7 +7,7 @@ If you're new to Tunnelblick, you might want to start with the "Getting Started"
    * *[cWhatIs What is Tunnelblick?]* - you do need to know this!
    * *[cWhatElse What else you need]* - the program, a VPN server/service, a configuration, and administrator access.
    * *[cGettingVPNService Getting VPN Service]* - your company, your own, or a service provider.
-   * *[wQuick Quick start guide (3.1)]* *[zQuick (3.2)]* *[QuickStartGuide (3.0)]* - a quick, non-illustrated guide covering installation, configuration, and use.
+   * *[zQuick (3.2)]* *[wQuick Quick start guide (3.1)]* *[QuickStartGuide (3.0)]* - a quick, non-illustrated guide covering installation, configuration, and use.
    * *[cHowHelp How you can help]* - Tunnelblick is free -- here's how you can help "pay" for it.
    * *[cFAQ FAQ] - Frequently Asked Questions (Answered!)
    
