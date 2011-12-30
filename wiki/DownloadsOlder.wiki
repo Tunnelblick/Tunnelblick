@@ -11,8 +11,11 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 <font color="red">*If you are having problems with the latest stable or beta version of Tunnelblick, please be sure to report the problems on the [https://groups.google.com/forum/?fromgroups#!forum/tunnelblick-discuss Tunnelblick Discussion Group].*</font>
 
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta34.dmg Tunnelblick 3.2beta34 (build 2851)] released 2011-11-27<br>
-    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta34_Unsigned.dmg Tunnelblick 3.2beta34 (build 2851)] released 2011-11-27 (Unsigned)<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.dmg          Tunnelblick 3.2 (build 2891)] released 2011-12-19<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2_Unsigned.dmg Tunnelblick 3.2 (build 2891)] released 2011-12-19 (Unsigned)<br><br>
+
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta34.dmg          Tunnelblick 3.2beta34 (build 2851)] released 2011-11-27<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta34_Unsigned.dmg Tunnelblick 3.2beta34 (build 2851)] released 2011-11-27 (Unsigned)<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta32.dmg Tunnelblick 3.2beta32 (build 2817)] released 2011-10-12<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta30.dmg Tunnelblick 3.2beta30 (build 2780)] released 2011-08-31<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2beta28.dmg Tunnelblick 3.2beta28 (build 2714)] released 2010-07-31<br>

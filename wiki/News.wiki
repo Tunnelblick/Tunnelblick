@@ -1,5 +1,13 @@
 #summary The Latest News About Tunnelblick
 
+2011-12-29: *Tunnelblick 3.2.1 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a problem preventing installation/update for some users on OS X 10.4.
+
+ * Fixes problems connecting (loading tun/tap kexts) for some users.
+ 
+--------------------
+
 2011-12-19: *Tunnelblick 3.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Stable 3.2 release -- not a beta release.

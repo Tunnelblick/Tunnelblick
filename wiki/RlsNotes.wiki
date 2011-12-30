@@ -10,6 +10,14 @@
 
 ==Version 3.2==
 
+*3.2.1 (2011-12-29)*
+
+ * Fixes a problem preventing installation or updates for some users on OS X 10.4.
+
+ * Fixes problems connecting (loading tun/tap kexts) for some users.
+  
+--------------------
+
 *3.2 (2011-12-19)*
 
  * Stable 3.2 release -- not a beta release.
