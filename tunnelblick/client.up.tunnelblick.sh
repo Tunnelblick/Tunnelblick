@@ -135,16 +135,20 @@ EOF )"
 		show Setup:/Network/Service/${PSID}/SMB
 		quit
 EOF )"
-	if echo "${STATIC_WINS_CONFIG}" | grep -q "WINSAddresses" ; then
-		readonly STATIC_WINS="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*WINSAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
-	fi
-	if [ -n "${STATIC_WINS_CONFIG}" ] ; then
-		readonly STATIC_WORKGROUP="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )")"
-	fi
-	if echo "${STATIC_WINS_CONFIG}" | grep -q "NetBIOSName" ; then
-		readonly STATIC_NETBIOSNAME="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )")"
-	fi
-
+    STATIC_WINS_SERVERS=""
+    STATIC_WORKGROUP=""
+    STATIC_NETBIOSNAME=""
+    if echo "${STATIC_WINS_CONFIG}" | grep -q "WINSAddresses" ; then
+        STATIC_WINS_SERVERS="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*WINSAddresses[^{]*{[[:space:]]*\([^}]*\)[[:space:]]*}.*$/\1/g' )")"
+    fi
+    if echo "${STATIC_WINS_CONFIG}" | grep -q "Workgroup" ; then
+        STATIC_WORKGROUP="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*Workgroup : \([^[:space:]]*\).*$/\1/g' )")"
+    fi
+    if echo "${STATIC_WINS_CONFIG}" | grep -q "NetBIOSName" ; then
+        STATIC_NETBIOSNAME="$(trim "$( echo "${STATIC_WINS_CONFIG}" | sed -e 's/^.*NetBIOSName : \([^[:space:]]*\).*$/\1/g' )")"
+    fi
+    readonly STATIC_WINS_SERVERS STATIC_WORKGROUP STATIC_NETBIOSNAME
+    
 	if [ ${#vDNS[*]} -eq 0 ] ; then
 		DYN_DNS="false"
 		ALL_DNS="${STATIC_DNS}"
@@ -182,18 +186,18 @@ EOF )"
 
 	if [ ${#vWINS[*]} -eq 0 ] ; then
 		DYN_WINS="false"
-		ALL_WINS="${STATIC_WINS}"
-	elif [ -n "${STATIC_WINS}" ] ; then
+		ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
+	elif [ -n "${STATIC_WINS_SERVERS}" ] ; then
 		case "${OSVER}" in
 			10.6 | 10.7 )
 				# Do nothing - in 10.6 we don't aggregate our configurations, apparently
 				DYN_WINS="false"
-				ALL_WINS="${STATIC_WINS}"
+				ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
 				;;
 			10.4 | 10.5 )
 				DYN_WINS="true"
 				# We need to remove duplicate WINS entries, so that our reference list matches MacOSX's
-				SWINS="$(echo "${STATIC_WINS}" | tr ' ' '\n')"
+				SWINS="$(echo "${STATIC_WINS_SERVERS}" | tr ' ' '\n')"
 				(( i=0 ))
 				for n in "${vWINS[@]}" ; do
 					if echo "${SWINS}" | grep -q "${n}" ; then
@@ -202,18 +206,18 @@ EOF )"
 					(( i++ ))
 				done
 				if [ ${#vWINS[*]} -gt 0 ] ; then
-					ALL_WINS="$(trim "${STATIC_WINS}" "${vWINS[*]}")"
+					ALL_WINS_SERVERS="$(trim "${STATIC_WINS_SERVERS}" "${vWINS[*]}")"
 				else
 					DYN_WINS="false"
-					ALL_WINS="${STATIC_WINS}"
+					ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
 				fi
 				;;
 		esac
 	else
 		DYN_WINS="true"
-		ALL_WINS="$(trim "${vWINS[*]}")"
+		ALL_WINS_SERVERS="$(trim "${vWINS[*]}")"
 	fi
-	readonly DYN_WINS ALL_WINS
+	readonly DYN_WINS ALL_WINS_SERVERS
 
 	# We double-check that our search domain isn't already on the list
 	SEARCH_DOMAIN="${domain}"
@@ -244,7 +248,7 @@ EOF )"
 		NO_DNS="#"
 	fi
 	if ! ${DYN_WINS} ; then
-		NO_WINS="#"
+		NO_WS="#"
 	fi
 	if [ -z "${SEARCH_DOMAIN}" ] ; then
 		NO_SEARCH="#"
@@ -261,7 +265,7 @@ EOF )"
 	if [ -z "${ALL_SEARCH}" ] ; then
 		AGG_SEARCH="#"
 	fi
-	if [ -z "${ALL_WINS}" ] ; then
+	if [ -z "${ALL_WINS_SERVERS}" ] ; then
 		AGG_WINS="#"
 	fi
 	
@@ -286,6 +290,13 @@ EOF )"
 		CORRECT_OLD_WINS_KEY="State:"
 	fi
 	
+    # If we are not expecting any WINS value, add <TunnelblickNoSuchKey : true> to the expected WINS setup
+    NO_NOSUCH_KEY_WINS="#"
+    if [ "${NO_NB}" = "#" -a "${AGG_WINS}" = "#" -a "${NO_WG}" = "#" ] ; then
+        NO_NOSUCH_KEY_WINS=""
+    fi
+    readonly NO_NOSUCH_KEY_WINS
+    
 	set -e # We instruct bash that it CAN again fail on errors
 
 	scutil <<- EOF
@@ -325,7 +336,7 @@ EOF )"
 		# Third, initialize the WINS map
 		d.init
 		${NO_NB}d.add NetBIOSName ${STATIC_NETBIOSNAME}
-		${NO_WINS}d.add WINSAddresses * ${vWINS[*]}
+		${NO_WS}d.add WINSAddresses * ${vWINS[*]}
 		${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 		set State:/Network/Service/${PSID}/SMB
 		
@@ -340,11 +351,12 @@ EOF )"
 		
 		d.init
 		${NO_NB}d.add NetBIOSName ${STATIC_NETBIOSNAME}
-		${AGG_WINS}d.add WINSAddresses * ${ALL_WINS}
+		${AGG_WINS}d.add WINSAddresses * ${ALL_WINS_SERVERS}
 		${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
+        ${NO_NOSUCH_KEY_WINS}d.add TunnelblickNoSuchKey true
 		set State:/Network/OpenVPN/SMB
 		
-		# We're done
+		# We are done
 		quit
 EOF
 	
@@ -481,7 +493,7 @@ configureDhcpDns()
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
 	else
-		logMessage "WARNING: No DNS information recieved from OpenVPN (DHCP), so no network/DNS configuration changes need to be made."
+		logMessage "WARNING: No DNS information received from OpenVPN (DHCP), so no network/DNS configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
