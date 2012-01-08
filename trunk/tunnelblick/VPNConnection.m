@@ -1661,7 +1661,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [self processState: state dated: nil];
             
         } else if ([command isEqualToString: @"PASSWORD"]) {
-            if ([line rangeOfString: @"Failed"].length) {
+            if (   [line rangeOfString: @"Failed"].length
+                || [line rangeOfString: @"failed"].length  ) {
                 
                 authFailed = TRUE;
                 userWantsState = userWantsUndecided;
