@@ -27,6 +27,15 @@ NSAutoreleasePool * gPool;
 
 void appendToLog(NSString * msg);
 
+void restoreItems (NSArray  * itemsToRestore,
+                   NSString * currentVpnDNS,
+                   NSString * currentVpnWINS,
+                   NSString * postVpnDNS,
+                   NSString * postVpnWINS,
+                   NSString * psid);
+
+NSString * scutilCommandValue(NSString * value);
+
 NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString * preVpn, NSString * postVpn);
 
 NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary);
@@ -51,15 +60,14 @@ NSRange rangeOfContentsOfBlock(NSString * s,
 
 NSString * gLogPath;
 
-// Set gMsg and call dumpMsg to put a debugging messages to a newly-created file in /tmp
+// Call dumpMsg to put a debugging messages to a newly-created file in /tmp
 // (This can be done even before gLogPath is set up with the Tunnelblick log)
-NSString * gMsg;
-void dumpMsg() {
+void dumpMsg(NSString * msg) {
     static int msgNum = 0;
-    NSString * filePath = [NSString stringWithFormat: @"/tmp/jkb-%d.txt", msgNum++];
+    NSString * filePath = [NSString stringWithFormat: @"/tmp/Tunnelblick-process-network-changes-%d.txt", msgNum++];
     NSFileManager * fm = [[[NSFileManager alloc] init] autorelease];
     [fm removeFileAtPath: filePath handler: nil];
-    [fm createFileAtPath: filePath contents: [NSData dataWithBytes: [gMsg UTF8String] length: [gMsg length]] attributes: nil];    
+    [fm createFileAtPath: filePath contents: [NSData dataWithBytes: [msg UTF8String] length: [msg length]] attributes: nil];    
 }    
 
 int main (int argc, const char * argv[])
@@ -73,8 +81,8 @@ int main (int argc, const char * argv[])
                 "Usage:\n\n"
                 "    process-network-changes\n\n"
                 
-                "The 'up.tunnelblick.sh' must have been run before invoking process-network-changes,\n"
-                "because it sets a system configuration key with values that are required.\n\n"
+                "The 'up.tunnelblick.sh' script must have been run before invoking process-network-changes,\n"
+                "because it sets a system configuration key with values that are required by this program.\n\n"
                 
                 
                 "Returns 0 if no problems occcurred\n"
@@ -89,16 +97,6 @@ int main (int argc, const char * argv[])
     NSString * process = getKeyFromScDictionary(@"PID"              , openvpnSetup);
     NSString * psid    = getKeyFromScDictionary(@"Service"          , openvpnSetup);
     NSString * actions = getKeyFromScDictionary(@"IgnoreOptionFlags", openvpnSetup);
-//gMsg = [NSString stringWithFormat: @"openvpnSetup = '%@'", openvpnSetup];
-//dumpMsg();
-//gMsg = [NSString stringWithFormat: @"logFile = '%@'", logFile];
-//dumpMsg();
-//gMsg = [NSString stringWithFormat: @"process = '%@'", process];
-//dumpMsg();
-//gMsg = [NSString stringWithFormat: @"psid    = '%@'", psid];
-//dumpMsg();
-//gMsg = [NSString stringWithFormat: @"actions = '%@'", actions];
-//dumpMsg();
     
     gLogPath = [logFile copy];
     
@@ -109,9 +107,13 @@ int main (int argc, const char * argv[])
     }
     
     // Get current network settings, settings before the VPN was set up, and settings after the VPN was set up
-    NSString * current  = [NSString stringWithFormat: @"%@\n%@", getScKey(@"State:/Network/Global/DNS"    ), getScKey(@"State:/Network/Global/SMB"    )];
-    NSString * preVpn   = [NSString stringWithFormat: @"%@\n%@", getScKey(@"State:/Network/OpenVPN/OldDNS"), getScKey(@"State:/Network/OpenVPN/OldSMB")];
-    NSString * postVpn  = [NSString stringWithFormat: @"%@\n%@", getScKey(@"State:/Network/OpenVPN/DNS"   ), getScKey(@"State:/Network/OpenVPN/SMB"   )];
+    NSString * preVpn      = [NSString stringWithFormat: @"%@\n%@", getScKey(@"State:/Network/OpenVPN/OldDNS"), getScKey(@"State:/Network/OpenVPN/OldSMB")];
+    NSString * currentDNS  = getScKey(@"State:/Network/Global/DNS");
+    NSString * currentWINS = getScKey(@"State:/Network/Global/SMB");
+    NSString * current     = [NSString stringWithFormat: @"%@\n%@", currentDNS, currentWINS];
+    NSString * postVpnDNS  = getScKey(@"State:/Network/OpenVPN/DNS");
+    NSString * postVpnWINS = getScKey(@"State:/Network/OpenVPN/SMB");
+    NSString * postVpn     = [NSString stringWithFormat: @"%@\n%@", postVpnDNS, postVpnWINS];
     
     // Map between characters in 'actions' and System Configuration keys
     NSDictionary * charsAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -129,32 +131,11 @@ int main (int argc, const char * argv[])
                                    @"Workgroup",       @"W",
                                    nil];
     
-    // Map between a System Configuration key and the full key to GET to restore a value (i.e., get from pre-VPN value)
-    NSDictionary * keysAndGetKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"State:/Network/OpenVPN/DNS/DomainName:",      @"DomainName",
-                                     @"State:/Network/OpenVPN/DNS/ServerAddresses:", @"ServerAddresses",
-                                     @"State:/Network/OpenVPN/DNS/SearchDomains:",   @"SearchDomains",
-                                     @"State:/Network/OpenVPN/SMB/NetBIOSName:",     @"NetBIOSName",
-                                     @"State:/Network/OpenVPN/SMB/WINSAddresses:",   @"WINSAddresses",
-                                     @"State:/Network/OpenVPN/SMB/Workgroup:",       @"Workgroup",
-                                     nil];
-    
-    // Map between a System Configuration key and the full key to SET to restore a value (i.e., set current value).
-    // NOTE the %@ in the full key; it should be replaced by the 'psid' saved by client.up.tunnelblick.sh before use
-    NSDictionary * keysAndSetKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"State:/Network/Service/%@/DNS/DomainName:",      @"DomainName",
-                                     @"State:/Network/Service/%@/DNS/ServerAddresses:", @"ServerAddresses",
-                                     @"State:/Network/Service/%@/DNS/SearchDomains:",   @"SearchDomains",
-                                     @"State:/Network/Service/%@/SMB/NetBIOSName:",     @"NetBIOSName",
-                                     @"State:/Network/Service/%@/SMB/WINSAddresses:",   @"WINSAddresses",
-                                     @"State:/Network/Service/%@/SMB/Workgroup:",       @"Workgroup",
-                                     nil];
-    
     NSString * changes = getChanges(charsAndKeys, current, preVpn, postVpn);
     
-    BOOL didSomething = FALSE;
     int i;
     NSString * act = @"";
+    NSMutableArray * itemsToRestore = [NSMutableArray arrayWithCapacity:6];
     for (  i=2; i<[actions length]; i++  ) {
         NSString * ch = [actions substringWithRange: NSMakeRange(i, 1)];
         if (  [ch isEqualToString: @"t"]  ) {
@@ -188,23 +169,26 @@ int main (int argc, const char * argv[])
                     [gPool drain];
                     exit(EXIT_SUCCESS);
                 } else {
-                    // Restore the item
-                    scCommand([NSString stringWithFormat:
-                               @"open\nget %@\nset %@\nquit\n",
-                               [keysAndGetKeys objectForKey: itemName],
-                               [[keysAndSetKeys objectForKey: itemName] stringByReplacingOccurrencesOfString: @"%@" withString: psid]]);
-                    
-                    appendToLog([NSString stringWithFormat: @"%@ changed; restoring it to the post-connection value", itemName, process]);
-                    didSomething = TRUE;
+                    [itemsToRestore addObject: itemName];// Add the item to the list of items to restore
                 }
             }
         }
     }
     
-    if (  ! didSomething  ) {
+    if (  [itemsToRestore count] == 0  ) {
         appendToLog(@"A system configuration change was ignored because it was not relevant");
+    } else {
+        NSMutableString * restoreList = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
+        for (  i=0; i<[itemsToRestore count]; i++  ) {
+            [restoreList appendFormat: @"%@, ", [itemsToRestore objectAtIndex: i]];
+        }
+        NSString * msg = [NSString stringWithFormat: @"Restoring %@ to post-VPN value%@",
+                          [restoreList substringToIndex: [restoreList length] - 2],
+                          ([itemsToRestore count] == 1 ? @"" :@"s")];
+        appendToLog(msg);
+        restoreItems(itemsToRestore, currentDNS, currentWINS, postVpnDNS, postVpnWINS, psid);
     }
-    
+
     [gPool drain];
     exit(EXIT_SUCCESS);
 }    
@@ -219,25 +203,138 @@ void appendToLog(NSString * msg)
     [handle closeFile];
 }
 
+void restoreItems (NSArray * itemsToRestore, NSString * currentVpnDNS, NSString * currentVpnWINS, NSString * postVpnDNS, NSString * postVpnWINS, NSString * psid)
+{
+    NSArray * dnsSubkeyList  = [NSArray arrayWithObjects: @"DomainName",  @"ServerAddresses", @"SearchDomains", nil];
+    NSArray * winsSubkeyList = [NSArray arrayWithObjects: @"NetBIOSName", @"WINSAddresses",   @"Workgroup",     nil];
+    
+    // Construct one string with scutil sub-commands to restore DNS settings, and another to restore WINS settings
+    NSMutableString * scutilDnsCommands  = [NSMutableString stringWithCapacity:1000];
+    NSMutableString * scutilWinsCommands = [NSMutableString stringWithCapacity:1000];
+
+    NSEnumerator * e = [itemsToRestore objectEnumerator];
+    NSString * itemKey;
+    while (  itemKey = [e nextObject]  ) {
+        if (   [dnsSubkeyList containsObject: itemKey]  ) {
+            NSString * value = getKeyFromScDictionary(itemKey, currentVpnDNS);          // Remove current item if it exists
+            if (  [value length] != 0  ) {
+                [scutilDnsCommands  appendFormat: @"d.remove %@\n", itemKey];
+            }
+            value = getKeyFromScDictionary(itemKey, postVpnDNS);                        // Restore post-VPN value
+            if (  [value length] != 0  ) {
+                value = scutilCommandValue(value);
+                [scutilDnsCommands  appendFormat: @"d.add %@ %@\n", itemKey, value];
+            }
+        } else if (   [winsSubkeyList containsObject: itemKey]  ) {
+            NSString * value = getKeyFromScDictionary(itemKey, currentVpnWINS);
+            if (  [value length] != 0  ) {
+                [scutilWinsCommands  appendFormat: @"d.remove %@\n", itemKey];
+            }
+            value = getKeyFromScDictionary(itemKey, postVpnWINS);
+            if (  [value length] != 0  ) {
+                value = scutilCommandValue(value);
+                [scutilWinsCommands  appendFormat: @"d.add %@ %@\n", itemKey, value];
+            }
+        }
+    }
+    
+    NSMutableString * scutilCommands  = [NSMutableString stringWithCapacity:1000];
+
+    // Append scutil commands to restore DNS settings
+    if (  [scutilDnsCommands length] != 0  ) {
+        NSString * scutilKey = [NSString stringWithFormat: @"State:/Network/Service/%@/DNS", psid];
+        if (  [postVpnDNS length] == 0) {
+            if ( [currentVpnDNS length] != 0  ) {
+                [scutilCommands appendFormat: @"remove %@\n", scutilKey];
+            }
+        } else {
+            if ( [currentVpnDNS length] == 0  ) {
+                [scutilCommands appendFormat: @"d.init\n%@set %@\n", scutilDnsCommands, scutilKey];
+            } else {
+                [scutilCommands appendFormat: @"d.init\nget %@\n%@set %@\n", scutilKey, scutilDnsCommands, scutilKey];
+            }
+        }
+    }
+
+    //Append scutil commands to restore WINS settings
+    if (  [scutilWinsCommands length] != 0  ) {
+        NSString * scutilKey = [NSString stringWithFormat: @"State:/Network/Service/%@/SMB", psid];
+        if (  [postVpnWINS length] == 0) {
+            if ( [currentVpnWINS length] != 0  ) {
+                [scutilCommands appendFormat: @"remove %@\n", scutilKey];
+            }
+        } else {
+            if ( [currentVpnWINS length] == 0  ) {
+                [scutilCommands appendFormat: @"d.init\n%@set %@\n", scutilWinsCommands, scutilKey];
+            } else {
+                [scutilCommands appendFormat: @"d.init\nget %@\n%@set %@\n", scutilKey, scutilWinsCommands, scutilKey];
+            }
+        }
+    }
+    
+    if (  [scutilCommands length] != 0) {
+        scCommand(scutilCommands);
+    }
+}
+
+NSString * scutilCommandValue(NSString * value)
+{
+    // Convert a value string from what is returned by scutil to what is needed by scutil's d.add subcommand
+    // If the value is a scalar, it is just returned as is
+    // If the value is an array, items are extracted and returned in a string prefixed by "* " and separated by a space
+    
+    if (  [value rangeOfString: @"<array>"].length == 0  ) {
+        return value;
+    }
+    
+    NSMutableString * resultValue = [[[NSMutableString alloc] initWithCapacity: 90] autorelease];
+    [resultValue appendString: @"*"];
+    NSString * restOfValue = value;
+    NSRange rEOL = [restOfValue rangeOfString: @"\n"];  // Set up to skip the line that contains <array>
+    while (  rEOL.length != 0  ) {
+        restOfValue = [restOfValue substringFromIndex: rEOL.location + 1];                  // Skip to the next line
+        rEOL = [restOfValue rangeOfString: @"\n"];
+        NSString * thisValue;                                                               // Isolate the line
+        if (  rEOL.length != 0) {
+            thisValue = [restOfValue substringWithRange: NSMakeRange(0, rEOL.location)];
+        } else {
+            thisValue = restOfValue;
+        }
+        if (   [thisValue isEqualToString: @"}"]            // Done when see the brace that ends the array or an empty line or end of input
+            || [thisValue isEqualToString: @""]  ) {
+            break;
+        }
+
+        NSRange rColon = [thisValue rangeOfString: @": "];
+        if (  rColon.length != 0  ) {
+            thisValue = [thisValue substringFromIndex: rColon.location + 2];
+        }
+        [resultValue appendFormat: @" %@", thisValue];
+    }
+
+    return resultValue;
+}
+
 NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString * preVpn, NSString * postVpn)
 {
     NSMutableString * changes = [[[NSMutableString alloc] initWithCapacity:12] autorelease];
     
     NSEnumerator * e = [charsAndKeys keyEnumerator];
     NSString * ch;
-    while (   (ch = [e nextObject])
-           && ( ! [ch isEqualToString: [ch lowercaseString]] )  ) {
-        NSString * key  = [charsAndKeys objectForKey: ch];
-        NSString * cur  = getKeyFromScDictionary(key, current);
-        NSString * pre  = getKeyFromScDictionary(key, preVpn);
-        NSString * post = getKeyFromScDictionary(key, postVpn);
-        if (  ! [cur isEqualToString: post]  ) {
-            if (  [cur isEqualToString: pre]  ) {
-                appendToLog([NSString stringWithFormat: @"'%@' changed from\n%@\n to (pre-VPN)\n%@\n", key, post, cur]);
-                [changes appendString: ch];
-            } else {
-                appendToLog([NSString stringWithFormat: @"'%@' changed from\n%@\n to\n%@\n", key, post, cur]);
-                [changes appendString: [ch uppercaseString]];
+    while (  ch = [e nextObject]  ) {
+        if (  [ch isEqualToString: [ch lowercaseString]]  ) {
+            NSString * key  = [charsAndKeys objectForKey: ch];
+            NSString * cur  = getKeyFromScDictionary(key, current);
+            NSString * pre  = getKeyFromScDictionary(key, preVpn);
+            NSString * post = getKeyFromScDictionary(key, postVpn);
+            if (  ! [cur isEqualToString: post]  ) {
+                if (  [cur isEqualToString: pre]  ) {
+                    appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to (pre-VPN)\n%@", key, post, cur]);
+                    [changes appendString: ch];
+                } else {
+                    appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to\n%@", key, post, cur]);
+                    [changes appendString: [ch uppercaseString]];
+                }
             }
         }        
     }
@@ -248,8 +345,6 @@ NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString 
 NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary)
 {
     NSRange r = rangeOfItemInString(key, dictionary);
-//gMsg = [NSString stringWithFormat: @"key = '%@'; r = (%d, %d); dict = '%@'", key, r.location, r.length, dictionary];
-//dumpMsg();
     if (  r.length != 0  ) {
         NSString * returnKey = trimWhitespace([dictionary substringWithRange: r]);
         if (  [returnKey isEqualToString:
@@ -303,6 +398,9 @@ NSString * getScKey(NSString * key)
         [file closeFile];
         NSString * scutilOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
         value = standardizedString(scutilOutput, NSMakeRange(0, [scutilOutput length]));
+        if (  [value isEqualToString: @"No such key\n"]  ) {
+            value = @"<dictionary> {\nTunnelblickNoSuchKey : true\n}\n";
+        }
     }
     
     [errPipe release];
@@ -318,7 +416,7 @@ void scCommand(NSString * command)
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     
-    [task setLaunchPath: @"/usr/bin/scutil"];
+    [task setLaunchPath: @"/usr/sbin/scutil"];
     
     NSPipe * errPipe = [[NSPipe alloc] init];
     [task setStandardError: errPipe];
@@ -409,8 +507,6 @@ NSString * trimWhitespace(NSString * s)
 NSString * settingOfInterest(NSString * settingString, NSString * key)
 {
     NSRange r = rangeOfItemInString(settingString, key);
-//gMsg = [NSString stringWithFormat: @"ss = %@\nkey = %@\nrange = (%d,%d)", settingString, key, r.location, r.length];
-//dumpMsg();
     NSString * setting = trimWhitespace([settingString substringWithRange: r]);
     
     if (  [setting isEqualToString:
