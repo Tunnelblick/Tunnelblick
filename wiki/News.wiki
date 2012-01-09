@@ -1,4 +1,5 @@
 #summary The Latest News About Tunnelblick
+#sidebar cSb
 
 2012-01-09: *Tunnelblick 3.2.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
