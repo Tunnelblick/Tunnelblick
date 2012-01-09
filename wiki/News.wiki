@@ -1,5 +1,15 @@
 #summary The Latest News About Tunnelblick
 
+2012-01-09: *Tunnelblick 3.2.2 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes six OpenSSL security flaws by updating OpenSSL from 1.0.0e to 1.0.0f. See [http://www.openssl.org/news/secadv_20120104.txt http://www.openssl.org/news/secadv_20120104.txt] for details.
+
+ * Fixes a problem that caused a restart of the connection as a result of a DHCP renewal.
+ 
+ * Fixes failure to ask what should be done when the user enters an incorrect private key (passphrase).
+ 
+--------------------
+
 2011-12-29: *Tunnelblick 3.2.1 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a problem preventing installation/update for some users on OS X 10.4.
