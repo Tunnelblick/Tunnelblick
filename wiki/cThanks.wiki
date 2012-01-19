@@ -289,6 +289,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Erwann Thoraval      </td>
+    <td>      French    </td>
+  </tr>
+
+  <tr>
     <td>      Eugene Trufanov      </td>
     <td>      Russian    </td>
   </tr>
