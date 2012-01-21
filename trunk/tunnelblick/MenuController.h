@@ -123,6 +123,8 @@ BOOL needToCopyBundle(void);
     //                                                         of a link to Tunnelblick in the Configurations folder in checkNoConfigurations from
     //                                                         triggering a second invocation of it because of the filesystem change when the link is created
     
+    BOOL                      forcingUnsignedUpdate;        // Indicates that a forced update should be checked for (i.e., update even if same build)
+    
     BOOL                      checkingForNoConfigs;         // Used to avoid infinite recursion
     
     BOOL                      noUnknownOpenVPNsRunning;     // Indicates that no unknown OpenVPN processes were left running after the TB launch

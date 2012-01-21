@@ -126,6 +126,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(void)             deleteLogs;
 -(void)             dmgCheck;
 -(unsigned)         getLoadedKextsMask;
+-(BOOL)             hasValidSignature;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
 -(BOOL)             hookupToRunningOpenVPNs;
@@ -2482,10 +2483,86 @@ static void signal_handler(int signalNumber)
     [self setupSparklePreferences];
     
     // Set Sparkle's behavior from our preferences using Sparkle's approved methods
+    
+    // We set the Feed URL, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
+    // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
+    
+    // If the 'updateFeedURL' preference is being forced, set the program update FeedURL from it
+    if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
+        feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
+        if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
+            NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
+            feedURL = nil;
+        }
+    }
+    // Otherwise, use the Info.plist entry. We don't check the normal preferences because an unprivileged user can set them and thus
+    // could send the update check somewhere it shouldn't go. (For example, to force Tunnelblick to ignore an update.)
+    
+    forcingUnsignedUpdate = FALSE;
+    
+    if (  feedURL == nil  ) {
+        NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
+        NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: [contentsPath stringByAppendingPathComponent: @"Info.plist"]];
+        feedURL = [infoPlist objectForKey: @"SUFeedURL"];
+        if (  feedURL == nil ) {
+            NSLog(@"Missing 'SUFeedURL' item in Info.plist");
+        } else {
+            if (  [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
+                // Use 'appcast.rss' normally
+                // Use 'appcast-u.rss' to do a normal update check but for an unsigned version.
+                // Use 'appcast-f.rss' to _force_ an update to the latest unsigned version, no matter what the build # we currently have
+                if (   [feedURL hasPrefix: @"http://tunnelblick.net/"]
+                    && [feedURL hasSuffix: @"/appcast.rss"]
+                    && ( ! [gTbDefaults boolForKey: @"updateSigned"]) ) {
+                    // Have a "standard" update setup at tunnelblick.net and are not forcing a signed version
+                    if (   [gConfigDirs containsObject: gDeployPath]  ) {
+                        if (  [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]  ) {
+                            forcingUnsignedUpdate = TRUE;
+                            feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-f.rss"];
+                            NSLog(@"Tunnelblick has a digital signature but also has a Deploy folder");
+                        } else {
+                            feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-u.rss"];
+                        }
+                    } else {
+                        if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]
+                            && ( ! [self hasValidSignature])  ) {
+                            forcingUnsignedUpdate = TRUE;
+                            feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-f.rss"];
+                            NSLog(@"Tunnelblick's digital signature is invalid");
+                        } else {
+                            if (  [gTbDefaults boolForKey: @"updateUnsigned"]  ) {
+                                feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-u.rss"];
+                                NSLog(@"The 'updateUnsigned' preference is set");
+                            }
+                        }
+                    }	
+                }
+            } else {
+                NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
+                feedURL = nil;
+            }
+        }
+    }
+    
+    if (  feedURL != nil  ) {
+        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
+            [updater setFeedURL: [NSURL URLWithString: feedURL]];
+            NSLog(@"Setting program update feedURL to %@", feedURL);
+        } else {
+            feedURL = nil;
+            NSLog(@"Not setting program update feedURL preference because Sparkle Updater does not respond to setFeedURL:");
+        }
+    }
+    
+    // Set up automatic update checking
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] != nil  ) {
-                if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
+                if (   forcingUnsignedUpdate
+                    && [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically"]  ) {
+                    [updater setAutomaticallyChecksForUpdates: YES];
+                    NSLog(@"Checking for an update because of a problem with Tunnelblick's digital signature");
+                } else if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
                     [updater setAutomaticallyChecksForUpdates: YES];
                 } else {
                     [updater setAutomaticallyChecksForUpdates: NO];
@@ -2555,59 +2632,6 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    // We set the Feed URL, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
-    // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
-
-    // Get the program update FeedURL from a forced preference if it is present
-    if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-        feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
-        if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-            NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
-            feedURL = nil;
-        }
-    }
-    // Otherwise, use the Info.plist entry. We don't check the normal preferences because an unprivileged user can set them and thus
-    // could send the update check somewhere it shouldn't go. (For example, to force Tunnelblick to ignore an update.)
-    if (  feedURL == nil  ) {
-        NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
-        NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: [contentsPath stringByAppendingPathComponent: @"Info.plist"]];
-        feedURL = [infoPlist objectForKey: @"SUFeedURL"];
-        if (  feedURL == nil ) {
-            NSLog(@"Missing 'SUFeedURL' item in Info.plist");
-        } else {
-            if (  [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-                if (   [feedURL hasPrefix: @"http://tunnelblick.net/"]
-                    && [feedURL hasSuffix: @".rss"] ) {
-                    // Have a "standard" update setup at tunnelblick.net
-                    // If (unsigned version OR updateUnsigned preference is TRUE)
-                    //    AND updateSigned preference is FALSE or not present
-                    // Then use the unsigned FeedURL
-                    // Else use the signed FeedURL from the Info.plist
-                    if (   (   ( ! [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]] )
-                            || [gTbDefaults boolForKey: @"updateUnsigned"]
-                            )
-                        && ( ! [gTbDefaults boolForKey: @"updateSigned"]) ) {
-                        feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-u.rss"];
-                    }
-                }
-            } else {
-                NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
-                feedURL = nil;
-            }
-        }
-    }
-    
-    // Set the Feed URL
-    if (  feedURL != nil  ) {
-        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
-            [updater setFeedURL: [NSURL URLWithString: feedURL]];
-        } else {
-            NSLog(@"Not setting program update feedURL preference because Sparkle Updater does not respond to setFeedURL:");
-            feedURL = nil;
-        }
-    }
-    
-    
     // Set updater's delegate, so we can add our own info to the system profile Sparkle sends to our website
     // Do this even if we haven't set our preferences (see above), so Sparkle will include our data in the list
     // it presents to the user when asking the user for permission to send the data.
@@ -2649,6 +2673,31 @@ static void signal_handler(int signalNumber)
     
 }
 
+-(BOOL) hasValidSignature
+{
+    if (  ! runningOnLeopardOrNewer()  ) {              // If on Tiger, we can't check the signature, so pretend it is valid
+        return TRUE;
+    }
+    
+    NSString * toolPath = @"/usr/bin/codesign";
+    if (  ! [gFileMgr fileExistsAtPath: toolPath]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
+        NSLog(@"Assuming digital signature invalid because '%@' does not exist", toolPath);
+        return FALSE;
+    }
+    
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    NSArray *arguments = [NSArray arrayWithObjects:@"-v", appPath, nil];
+    
+    NSTask* task = [[[NSTask alloc] init] autorelease];
+    [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we should specify something
+    [task setLaunchPath: toolPath];
+    [task setArguments:arguments];
+    [task launch];
+    [task waitUntilExit];
+    OSStatus status = [task terminationStatus];
+    return (status == EXIT_SUCCESS);
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	[NSApp callDelegateOnNetworkChange: NO];
@@ -2659,10 +2708,11 @@ static void signal_handler(int signalNumber)
     // will ask the user whether to check or not, then we set our preferences from that.)
     if (      [gTbDefaults boolForKey:   @"updateCheckAutomatically"]
         || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
+        || forcingUnsignedUpdate
         ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
             if (  feedURL != nil  ) {
-             [updater checkForUpdatesInBackground];
+                [updater checkForUpdatesInBackground];
             } else {
                 NSLog(@"Not checking for updates because no FeedURL has been set");
             }
