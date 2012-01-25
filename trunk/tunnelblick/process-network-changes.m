@@ -332,7 +332,7 @@ NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString 
                     appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to (pre-VPN)\n%@", key, post, cur]);
                     [changes appendString: ch];
                 } else {
-                    appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to\n%@", key, post, cur]);
+                    appendToLog([NSString stringWithFormat: @"%@ changed from\n%@\n to\n%@\npre-VPN was\n%@", key, post, cur, pre]);
                     [changes appendString: [ch uppercaseString]];
                 }
             }
@@ -347,12 +347,17 @@ NSString * getKeyFromScDictionary(NSString * key, NSString * dictionary)
     NSRange r = rangeOfItemInString(key, dictionary);
     if (  r.length != 0  ) {
         NSString * returnKey = trimWhitespace([dictionary substringWithRange: r]);
-        if (  [returnKey isEqualToString:
+        if (   [returnKey isEqualToString:
                @"<array> {\n"
                "0 : No\n"
                "1 : such\n"
                "2 : key\n"
-               "}"]  ) {
+               "}"]
+            || [returnKey isEqualToString:
+                @"<array> {\n"
+                "0 :\n"
+                "}"]
+            ) {
             returnKey = @"";
         }
         return returnKey;        
