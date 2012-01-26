@@ -13,9 +13,9 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 <hr>
 
 ==Tunnelblick==
- <strong>Latest stable release:   [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.2.dmg          Tunnelblick 3.2.2          (build 2891.2917)]</strong> released 2012-01-09<br> For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion")
+ <strong>Latest stable release:   [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.3.dmg          Tunnelblick 3.2.3          (build 2891.2932)]</strong> released 2012-01-25<br> For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion")
 
- <strong>Unsigned stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.2_Unsigned.dmg Tunnelblick 3.2.2 Unsigned (build 2891.2917)]</strong> released 2012-01-09<br>(Used only for creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
+ <strong>Unsigned stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.3_Unsigned.dmg Tunnelblick 3.2.3 Unsigned (build 2891.2932)]</strong> released 2012-01-25<br>(Used only for creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
 
  <strong>Latest beta release</strong>: No beta releases are available.
  

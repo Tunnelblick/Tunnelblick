@@ -10,6 +10,20 @@
 
 ==Version 3.2==
 
+*3.2.3 (2012-01-25)*
+
+ * Fixes a security vulnerability in OpenSSL by updating to OpenSSL version 1.0.0g. See [http://www.openssl.org/news/secadv_20120118.txt http://www.openssl.org/news/secadv_20120118.txt] for details.
+
+ * Fixes a bug that sometimes caused repeated restarts of a connection when the search domain changed after the connection was established.
+
+ * "Deployed" versions that update from the Tunnelblick website always update to unsigned versions to avoid problems with the OS X Keychain.
+
+ * Fixes some French localization.
+
+ * At launch, if Tunnelblick is updating from the official Tunnelblick site and has an invalid digital signature (for example, the program is a Deployed version or has been modified in some other way by the user), an update to an _unsigned_ version of Tunnelblick will be offered immediately -- even if the user has turned off automatic updates -- unless the "updateCheckAutomatically" preference is being forced to false or the user is not an administrator and the "onlyAdminCanUpdate' preference is false or not present.
+ 
+--------------------
+
 *3.2.2 (2012-01-09)*
 
  * Fixes six OpenSSL security flaws by updating OpenSSL from 1.0.0e to 1.0.0f. See [http://www.openssl.org/news/secadv_20120104.txt http://www.openssl.org/news/secadv_20120104.txt] for details.
