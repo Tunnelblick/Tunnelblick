@@ -1,0 +1,13 @@
+#summary Getting VPN Service
+#sidebar cSb
+==Getting VPN Service==
+
+<strong>This page has moved</strong>.
+
+Google Code cannot automatically redirect your browser, so you must click on the following link to go to the new "Getting VPN Service" page:
+
+             [cGettingVPNService Getting VPN Service]
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
