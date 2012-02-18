@@ -848,42 +848,39 @@ extern TBUserDefaults       * gTbDefaults;
                      to: (NSInteger)   newValue
              preference: (NSString *)  key
 {
-    if (  newValue != *index  ) {
-        if (  ! doNotModifyPreferences  ) {
-            NSString * newSetting = nil;
-            switch (  newValue  ) {
-                case 0:
-                    newSetting = @"ignore";
-                    break;
-                case 1:
-                    newSetting = @"restore";
-                    break;
-                case 2:
-                    newSetting = @"restart";
-                    break;
-                default:
-                    NSLog(@"setDnsWinsIndex: ignoring invalid value %d", newValue);
+    if (  ! doNotModifyPreferences  ) {
+        NSString * newSetting = nil;
+        switch (  newValue  ) {
+            case 0:
+                newSetting = @"ignore";
+                break;
+            case 1:
+                newSetting = @"restore";
+                break;
+            case 2:
+                newSetting = @"restart";
+                break;
+            default:
+                NSLog(@"setDnsWinsIndex: ignoring invalid value %d", newValue);
+        }
+        if (  newSetting != nil  ) {
+            NSString * defaultValue;
+            if (  [key hasPrefix: @"-changeOther"]  ) {
+                defaultValue = @"restart";
+            } else {
+                defaultValue = @"restore";
             }
-            if (  newSetting != nil  ) {
-                NSString * defaultValue;
-                if (  [key rangeOfString: @"-changeOther"].length != 0  ) {
-                    defaultValue = @"restart";
-                } else {
-                    defaultValue = @"restore";
-                }
-                
-                NSString * actualKey = [configurationName stringByAppendingString: key];
-                if (  ! [newSetting isEqualToString: defaultValue]  ) {
-                    [gTbDefaults setObject: newSetting forKey: actualKey];
-                } else {
-                    [gTbDefaults removeObjectForKey: actualKey];
-                }
-                
+            
+            NSString * actualKey = [configurationName stringByAppendingString: key];
+            if (  [newSetting isEqualToString: defaultValue]  ) {
+                [gTbDefaults removeObjectForKey: actualKey];
+            } else {
+                [gTbDefaults setObject: newSetting forKey: actualKey];
             }
         }
-        
-        *index = newValue;
     }
+    
+    *index = newValue;
 }
 
 
