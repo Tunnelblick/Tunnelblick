@@ -36,6 +36,8 @@ These downloads have been contributed by users and usually help deal with specia
 
     * *Scripts to Mount/Unmount a Volume*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-002-mount-unmount-volume.zip user-contributed-002-mount-unmount-volume.zip]*_ Contributed by John Griffis. These scripts mount a volume after a configuration is connected and unmount it when the configuration is disconnected. Scripts must be edited before use (in any plain-text editor) to specify details of the volume to be connected. Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher.
 
+    * *Scripts to Monitor Connection Time and Bandwidth Use*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-003-monitor-uptime-and-bandwidth.zip user-contributed-003-monitor-uptime-and-bandwidth.zip]*_ Contributed by "vkapovit". These scripts  provide a mechanism for the user to be alerted when the VPN has been up for more than 20 minutes or when bandwidth has exceeded 100MB. See [https://groups.google.com/d/msg/tunnelblick-discuss/7lGWKR1-rC4/OGHhCfmrXfgJ this post] on the Tunnelblick Discussion Group for details. Requires Growl. Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher.
+
 ------------------
 
 ===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
