@@ -22,6 +22,7 @@
 
 #import "defines.h"
 #import "LoginWindowController.h"
+#import "helper.h"
 
 @interface LoginWindowController() // Private methods
 

@@ -435,7 +435,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
     VPNConnection * connection;
-    while (connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: [configEnum nextObject]]) {
+    while ((connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: [configEnum nextObject]])) {
         NSString * dispNm = [connection displayName];
         NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
         int firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
@@ -898,8 +898,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(IBAction) configurationsHelpButtonWasClicked: (id) sender
 {
     OSStatus err;
-    if (err = MyGotoHelpPage(CFSTR("vpn-details.html"), NULL)  ) {
-        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    if ((err = MyGotoHelpPage(CFSTR("vpn-details.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
     }
 }
 
@@ -2032,8 +2032,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
 -(IBAction) generalHelpButtonWasClicked: (id) sender
 {
     OSStatus err;
-    if (err = MyGotoHelpPage(CFSTR("preferences-general.html"), NULL)  ) {
-        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    if ((err = MyGotoHelpPage(CFSTR("preferences-general.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
     }
 }
 
@@ -2174,7 +2174,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     }
     
     if (  iconSetIx == -1  ) {
-         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), "name", @"", "value", nil];
+         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), @"name", @"", @"value", nil];
         [self setSelectedAppearanceIconSetIndex: 0];
     } else {
         [self setSelectedAppearanceIconSetIndex: iconSetIx];
@@ -2283,8 +2283,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
 -(IBAction) appearanceHelpButtonWasClicked: (id) sender
 {
     OSStatus err;
-    if (err = MyGotoHelpPage(CFSTR("preferences-appearance.html"), NULL)  ) {
-        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    if ((err = MyGotoHelpPage(CFSTR("preferences-appearance.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
     }
 }
 
@@ -2352,8 +2352,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
 -(IBAction) infoHelpButtonWasClicked: (id) sender
 {
     OSStatus err;
-    if (err = MyGotoHelpPage(CFSTR("info.html"), NULL)  ) {
-        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    if ((err = MyGotoHelpPage(CFSTR("info.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
     }
 }
 

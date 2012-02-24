@@ -131,8 +131,8 @@ TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectManuallyMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectTunnelBlickLaunchMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          whenToConnectOnComputerStartMenuItem)
 
-TBPROPERTY_READONLY(NSMenuItem *,          setNameserverTF)
-TBPROPERTY_READONLY(NSMenuItem *,          setNameserverTFC)
+TBPROPERTY_READONLY(NSTextField *,         setNameserverTF)
+TBPROPERTY_READONLY(NSTextFieldCell *,     setNameserverTFC)
 TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 

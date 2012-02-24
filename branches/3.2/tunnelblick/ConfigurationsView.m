@@ -173,8 +173,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectManuallyMenu
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectTunnelBlickLaunchMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          whenToConnectOnComputerStartMenuItem)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          setNameserverTF)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          setNameserverTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,         setNameserverTF)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     setNameserverTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       setNameserverPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayController)
 

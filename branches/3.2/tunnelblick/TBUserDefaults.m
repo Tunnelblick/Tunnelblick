@@ -195,7 +195,7 @@ NSArray * gConfigurationPreferences;
         NSString * sourceKey = [sourceDisplayName stringByAppendingString: preferenceSuffix];
         NSString * targetKey = [targetDisplayName stringByAppendingString: preferenceSuffix];
         id obj;
-        if (  obj = [userDefaults objectForKey: sourceKey]  ) {
+        if (  (obj = [userDefaults objectForKey: sourceKey])  ) {
             if (  [self canChangeValueForKey: targetKey]  ) {
                 [userDefaults setObject: obj forKey: targetKey];
             } else {
@@ -240,7 +240,7 @@ NSArray * gConfigurationPreferences;
         NSString * sourceKey = [sourceDisplayName stringByAppendingString: preferenceSuffix];
         NSString * targetKey = [targetDisplayName stringByAppendingString: preferenceSuffix];
         id obj;
-        if (  obj = [userDefaults objectForKey: sourceKey]  ) {
+        if (  (obj = [userDefaults objectForKey: sourceKey])  ) {
             if (  [self canChangeValueForKey: targetKey]  ) {
                 [userDefaults setObject: obj forKey: targetKey];
             } else {

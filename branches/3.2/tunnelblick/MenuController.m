@@ -1756,7 +1756,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@", major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle])]);
 }
 
-- (IBAction) checkForUpdates: (id) sender
+- (void) checkForUpdates: (id) sender
 {
     if (   [gTbDefaults boolForKey:@"onlyAdminCanUpdate"]
         && ( ! userIsAnAdmin )  ) {
@@ -2348,7 +2348,7 @@ static void signal_handler(int signalNumber)
                 usleep(sleepTime);
                 
                 NSDictionary * masterDict = [NSDictionary dictionaryWithContentsOfFile: masterPlistPath];
-                if (  okNow = [version isEqualToString: [masterDict objectForKey: @"CFBundleVersion"]]  ) {
+                if (  (okNow = [version isEqualToString: [masterDict objectForKey: @"CFBundleVersion"]])  ) {
                     break;
                 }
             }
@@ -2886,7 +2886,7 @@ static void signal_handler(int signalNumber)
     
     gHookupTimeout = 5; // Default
     id hookupTimeout;
-    if (  hookupTimeout = [gTbDefaults objectForKey: @"hookupTimeout"]  ) {
+    if (  (hookupTimeout = [gTbDefaults objectForKey: @"hookupTimeout"])  ) {
         if (  [hookupTimeout respondsToSelector: @selector(intValue)]  ) {
             gHookupTimeout = [hookupTimeout intValue];
         } else {
@@ -3164,7 +3164,7 @@ static void signal_handler(int signalNumber)
 {
     if (  pIDsWeAreTryingToHookUpTo != newValue) {
         [pIDsWeAreTryingToHookUpTo release];
-        pIDsWeAreTryingToHookUpTo = [newValue retain];
+        pIDsWeAreTryingToHookUpTo = [newValue mutableCopy];
     }
 }
 
@@ -3576,12 +3576,12 @@ static void signal_handler(int signalNumber)
             for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
                 usleep(sleepTime);
                 
-                if (  okNow = ( ! needToRunInstaller(&needsRepairApp,
+                if (  (okNow = ( ! needToRunInstaller(&needsRepairApp,
                                                      &needsMoveConfigs,
                                                      &needsRestoreDeploy,
                                                      &needsRepairPkgs,
                                                      &needsCopyBundle,
-                                                     needsCopyApp) )  ) {
+                                                     needsCopyApp) ))  ) {
                     break;
                 }
             }

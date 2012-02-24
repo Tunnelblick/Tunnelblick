@@ -263,7 +263,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: [self openvpnLogPath] traverseLink: NO];
     NSNumber * fileSizeAsNumber;
     unsigned long long fileSize;
-    if (  fileSizeAsNumber = [attributes objectForKey:NSFileSize]  ) {
+    if (  (fileSizeAsNumber = [attributes objectForKey:NSFileSize])  ) {
         fileSize = [fileSizeAsNumber unsignedLongLongValue];
     } else {
         fileSize = 0;

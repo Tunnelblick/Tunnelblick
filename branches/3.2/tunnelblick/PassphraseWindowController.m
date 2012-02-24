@@ -22,6 +22,7 @@
 
 #import "defines.h"
 #import "PassphraseWindowController.h"
+#import "helper.h"
 
 @interface PassphraseWindowController() // Private methods
 
