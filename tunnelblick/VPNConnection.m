@@ -315,12 +315,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
     NSString * keyRestoreWINS = [displayName stringByAppendingString: @"-doNotRestoreOnWinsReset"];
     prefsChangedOK = prefsChangedOK && [self setPreference: prefRestoreWINS key: keyRestoreWINS];
     
-    if ( loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT  ) {
+    if ( (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
         NSString * keyLoadTun = [displayName stringByAppendingString: @"-loadTunKext"];
         prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyLoadTun];
     }
 
-    if (  loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT ) {
+    if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
         NSString * keyLoadTap = [displayName stringByAppendingString: @"-loadTapKext"];
         prefsChangedOK = prefsChangedOK && [self setPreference: FALSE key: keyLoadTap];
     }
@@ -885,11 +885,11 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                      [escapedArguments componentsJoinedByString: @" "]]];
     
     unsigned bitMask = [[arguments objectAtIndex: 7] intValue];
-    if (  loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT  ) {
+    if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
         [[NSApp delegate] incrementTapCount];
     }
     
-    if (  loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT ) {
+    if (  (loadedOurTun = (bitMask & OPENVPNSTART_OUR_TUN_KEXT) == OPENVPNSTART_OUR_TUN_KEXT) ) {
         [[NSApp delegate] incrementTunCount];
     }
     
@@ -1342,13 +1342,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  [wait boolValue]  ) {
             forceKillInterval = 10;   // Seconds between disconnect attempts
             id terminationSeconds;
-            if (  terminationSeconds = [gTbDefaults objectForKey: @"openvpnTerminationInterval"]  ) {
+            if (  (terminationSeconds = [gTbDefaults objectForKey: @"openvpnTerminationInterval"])  ) {
                 if (   [terminationSeconds respondsToSelector: @selector(intValue)]  ) {
                     forceKillInterval = [terminationSeconds intValue];
                 }
             }
             forceKillTimeout = 180;   // Seconds before considering it disconnected anyway
-            if (  terminationSeconds = [gTbDefaults objectForKey: @"openvpnTerminationTimeout"]  ) {
+            if (  (terminationSeconds = [gTbDefaults objectForKey: @"openvpnTerminationTimeout"])  ) {
                 if (   [terminationSeconds respondsToSelector: @selector(intValue)]  ) {
                     forceKillTimeout = [terminationSeconds intValue];
                 }
@@ -1923,7 +1923,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSParameterAssert(socket == managementSocket);
     NSString* line;
     
-    while (line = [socket readLine]) {
+    while ((line = [socket readLine])) {
         // Can we get blocked here?
         //NSLog(@">>> %@", line);
         if ([line length]) {

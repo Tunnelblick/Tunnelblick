@@ -527,6 +527,9 @@ configureOpenVpnDns()
 				aWinsServers[nWinsServerIndex-1]="$(trim "${vOptions[nOptionIndex-1]//dhcp-option WINS /}")"
 				let nWinsServerIndex++
 				;;
+            *   )
+                logMessage "Unknown: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}'"
+                ;;
 		esac
 		let nOptionIndex++
 	done

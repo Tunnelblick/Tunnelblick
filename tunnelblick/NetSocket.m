@@ -832,7 +832,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	NetSocket* netsocket;
 	
 	// Accept all pending connections
-	while( netsocket = [self _socketAcceptConnection] )
+	while( (netsocket = [self _socketAcceptConnection]) )
 	{
 		// Notify our delegate that a new connection has been accepted
 		if( [mDelegate respondsToSelector:@selector( netsocket:connectionAccepted: )] )
