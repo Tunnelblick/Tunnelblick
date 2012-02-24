@@ -652,8 +652,8 @@ extern TBUserDefaults       * gTbDefaults;
 -(IBAction) connectingHelpButtonWasClicked: (id) sender
 {
     OSStatus err;
-    if (err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL)  ) {
-        NSLog(@"Error %d from MyGotoHelpPage()", err);
+    if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
     }
 }
 

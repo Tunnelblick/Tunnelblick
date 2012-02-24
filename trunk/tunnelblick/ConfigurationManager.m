@@ -1147,7 +1147,7 @@ enum state_t {                      // These are the "states" of the guideState 
             
             if((error) || (CFUserNotificationReceiveResponse(notification, 0, &response))) {
                 CFRelease(notification);    // Couldn't receive a response
-                NSLog(@"Configuration installer: The Tunnelblick VPN Package has NOT been installed.\n\nAn unknown error occured.", tryDisplayName);
+                NSLog(@"Configuration installer: The Tunnelblick VPN Package has NOT been installed.\n\nAn unknown error occured.");
                 return nil;
             }
             
@@ -1237,7 +1237,7 @@ enum state_t {                      // These are the "states" of the guideState 
     retVal = [[dict objectForKey: key] lowercaseString];
     if (  retVal  ) {
         if (  ! [[retVal class] isSubclassOfClass: [NSString class]]  ) {
-            NSLog(@"The value for Info.plist key '%@' is not a string. The entry will be ignored.");
+            NSLog(@"The value for Info.plist key '%@' is not a string. The entry will be ignored.", key);
             return nil;
         }
     } else {
@@ -1691,7 +1691,7 @@ enum state_t {                      // These are the "states" of the guideState 
             for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
                 usleep(sleepTime);
                 
-                if (  okNow = ( ! [self configNotProtected: configFilePath] ) ) {
+                if (  (okNow = ( ! [self configNotProtected: configFilePath] )) ) {
                     break;
                 }
             }
@@ -1749,7 +1749,7 @@ enum state_t {                      // These are the "states" of the guideState 
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
         }
         
-        if (  okNow = ( ! [self configNotProtected: targetPath] )  ) {
+        if (  (okNow = ( ! [self configNotProtected: targetPath] ))  ) {
             break;
         }
     }
@@ -1818,7 +1818,7 @@ enum state_t {                      // These are the "states" of the guideState 
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
         }
         
-        if (  okNow = ( ! [gFileMgr fileExistsAtPath: targetPath] )  ) {
+        if (  (okNow = ( ! [gFileMgr fileExistsAtPath: targetPath] ))  ) {
             break;
         }
     }
@@ -1874,8 +1874,8 @@ enum state_t {                      // These are the "states" of the guideState 
             for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
                 usleep(sleepTime);
                 
-                if (  okNow =  (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir] 
-                                && isDir )   ){
+                if (  (okNow =  (   [gFileMgr fileExistsAtPath:folderPath isDirectory:&isDir] 
+                                && isDir ))   ){
                     break;
                 }
             }

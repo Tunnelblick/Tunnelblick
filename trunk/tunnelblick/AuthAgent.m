@@ -117,7 +117,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     if (   (result != NSRunStoppedResponse)
         && (result != NSRunAbortedResponse)  ) {
-        NSLog(@"Unrecognized response %l from runModalForWindow ignored", (long) result);
+        NSLog(@"Unrecognized response %ld from runModalForWindow ignored", (long) result);
     }
     
     if (  result != NSRunStoppedResponse  ) {
@@ -214,7 +214,7 @@ extern TBUserDefaults  * gTbDefaults;
         
         if (   (result != NSRunStoppedResponse)
             && (result != NSRunAbortedResponse)  ) {
-            NSLog(@"Unrecognized response %l from runModalForWindow ignored", (long) result);
+            NSLog(@"Unrecognized response %ld from runModalForWindow ignored", (long) result);
         }
         
         if (  result != NSRunStoppedResponse  ) {

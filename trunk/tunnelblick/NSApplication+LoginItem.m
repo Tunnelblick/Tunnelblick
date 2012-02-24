@@ -27,6 +27,7 @@
 #import "NSApplication+LoginItem.h"
 #import "NSArray+cArray.h"
 #import "UKLoginItemRegistry/UKLoginItemRegistry.h"
+#import "helper.h"
 
 // The following external, global variable is used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
@@ -186,7 +187,7 @@ extern NSFileManager * gFileMgr;
                     [outPids addObject: pidAsNSNumber];
                 }
             } else {
-                NSLog(@"'/bin/ps -o rss= -p %u' failed -- no output from the command\n'%s'", pid);
+                NSLog(@"'/bin/ps -o rss= -p %u' failed -- no output from the command", pid);
             }
         } else {
             NSLog(@"'/bin/ps -o rss= -p %u' failed with error %d\n'%s'", pid, errno, strerror(errno));
@@ -243,7 +244,7 @@ extern NSFileManager * gFileMgr;
                 
             } else {
                 NSZoneFree(NULL, info);
-                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %d errno = %d\n%s", length, errno, strerror(errno));
+                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %zu errno = %d\n%s", (unsigned long) length, errno, strerror(errno));
             }
             
         } else {
