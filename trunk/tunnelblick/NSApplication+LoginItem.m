@@ -244,7 +244,7 @@ extern NSFileManager * gFileMgr;
                 
             } else {
                 NSZoneFree(NULL, info);
-                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %zu errno = %d\n%s", (unsigned long) length, errno, strerror(errno));
+                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %zu errno = %d\n%s", length, errno, strerror(errno));
             }
             
         } else {
