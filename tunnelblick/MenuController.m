@@ -1614,6 +1614,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     VPNConnection* myConnection = [myVPNConnectionDictionary objectForKey: dispNm];
     if (  ! [[myConnection state] isEqualTo: @"EXITING"]  ) {
+        [myConnection addToLog: @"*Tunnelblick: Disconnecting; user asked to delete the configuration"];
         [myConnection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
         
         TBRunAlertPanel([NSString stringWithFormat: NSLocalizedString(@"'%@' has been disconnected", @"Window title"), dispNm],
@@ -1861,6 +1862,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
                         [task launch];
                         [task waitUntilExit];
                     } else {
+                        [connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
                         [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
                     }
                 }
@@ -1991,6 +1993,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 	while (connection = [e nextObject]) {
 		if ([[connection connectedSinceDate] timeIntervalSinceNow] < -5) {
 			if (NSDebugEnabled) NSLog(@"Resetting connection: %@",[connection displayName]);
+            [connection addToLog: @"*Tunnelblick: Disconnecting; resetting all connections"];
 			[connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: NO];
 			[connection connect:self userKnows: NO];
 		} else {
@@ -2050,6 +2053,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     VPNConnection * connection;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isDisconnected]  ) {
+            [connection addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect all' menu command invoked"];
             [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
         }
     }
@@ -3969,7 +3973,7 @@ void terminateBecauseOfBadConfiguration(void)
 	VPNConnection * connection;
 	while (  connection = [e nextObject]  ) {
         if (  [connection shouldDisconnectWhenBecomeInactiveUser]  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting because user became inactive"];
+            [connection addToLog: @"*Tunnelblick: Disconnecting; user became inactive"];
             [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
         } else {
             [connection addToLog: @"*Tunnelblick: Stopping communication with OpenVPN because user became inactive"];
@@ -4172,6 +4176,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     if (  choice == statusWindowControllerCancelChoice  ) {
         VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
         if (  connection  ) {
+            [connection addToLog: @"*Tunnelblick: Disconnecting; user cancelled"];
             [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
         } else {
             NSLog(@"Invalid displayName -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
