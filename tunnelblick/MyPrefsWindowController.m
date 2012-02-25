@@ -888,6 +888,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
+        [connection addToLog: @"*Tunnelblick: Disconnecting; 'disconnect' button pressed"];
         [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      
     } else {
         NSLog(@"disconnectButtonWasClicked but no configuration selected");
