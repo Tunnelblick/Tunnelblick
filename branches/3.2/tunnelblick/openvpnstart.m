@@ -815,7 +815,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             fprintf(stderr, "'post-tun-tap-load.sh' returned with status %d\n", result);
             if (  result != 0 ) {
                 [pool drain];
-                exit(233);
+                exit(result);
             }
         }
     }
