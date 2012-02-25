@@ -90,6 +90,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             provideCredentials:         (NSString *)        parameterString
                                   line:         (NSString *)        line;
 
+-(void)             runScriptNamed:             (NSString *)        scriptName
+               openvpnstartCommand:             (NSString *)        command;
+
 -(void)             setBit:                     (unsigned int)      bit
                     inMask:                     (unsigned int *)    bitMaskPtr
     ifConnectionPreference:                     (NSString *)        keySuffix
@@ -1262,6 +1265,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 - (IBAction) toggle: (id) sender
 {
 	if (![self isDisconnected]) {
+        [self addToLog: @"*Tunnelblick: Disconnecting; 'Disconnect' menu command invoked"];
 		[self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
 	} else {
 		[self connect: sender userKnows: YES];
@@ -1469,29 +1473,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [[NSApp delegate] unloadKexts];
     
     // Run the post-disconnect script, if any
-    if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-        NSString * postDisconnectScriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/post-disconnect.sh"];
-        if (  [gFileMgr fileExistsAtPath: postDisconnectScriptPath]  ) {
-            NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-            NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
-            if (   startArguments == nil
-                || [[startArguments objectAtIndex: 5] isEqualToString: @"1"]  ) {
-                return;
-            }
-            NSArray * arguments = [NSArray arrayWithObjects:
-                                   @"postDisconnect",
-                                   [startArguments objectAtIndex: 1],    // configFile
-                                   [startArguments objectAtIndex: 5],    // cfgLocCode
-                                   nil];
-            
-            NSTask * task = [[NSTask alloc] init];
-            [task setLaunchPath: path];
-            [task setArguments: arguments];
-            [task launch];
-            [task waitUntilExit];
-            [task release];
-        }
-    }
+    [self runScriptNamed: @"post-disconnect" openvpnstartCommand: @"postDisconnect"];
     
     [[NSApp delegate] updateNavigationLabels];
     
@@ -1687,6 +1669,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     userWantsState = userWantsRetry;
                 } else {
                     userWantsState = userWantsAbandon;              // User wants to cancel or an error happened, so disconnect
+                    [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization or there was an error obtaining authorization"];
                     [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      // (User requested it by cancelling)
                 }
                 
@@ -1848,6 +1831,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         if(  myPassphrase != nil  ){
             [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSUnicodeStringEncoding]; 
         } else {
+            [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
         }
         
@@ -1864,6 +1848,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUnicodeStringEncoding];
             [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUnicodeStringEncoding];
         } else {
+            [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
         }
         
@@ -1983,54 +1968,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     } else if (  [newState isEqualToString: @"CONNECTED"]  ) {
         [tunnelUpSound play];
         // Run the connected script, if any
-        if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * scriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/connected.sh"];
-            if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
-                NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-                NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
-                if (   startArguments
-                    && ( ! [[startArguments objectAtIndex: 5] isEqualToString: @"1"] )  ) {
-                    NSArray * arguments = [NSArray arrayWithObjects:
-                                           @"connected",
-                                           [startArguments objectAtIndex: 1],    // configFile
-                                           [startArguments objectAtIndex: 5],    // cfgLocCode
-                                           nil];
-                    
-                    NSTask * task = [[NSTask alloc] init];
-                    [task setLaunchPath: path];
-                    [task setArguments: arguments];
-                    [task launch];
-                    [task waitUntilExit];
-                    [task release];
-                }
-            }
-        }
+        [self runScriptNamed: @"connected" openvpnstartCommand: @"connected"];
         [gTbDefaults setObject: displayName forKey: @"lastConnectedDisplayName"];
     } else if (  [newState isEqualToString: @"RECONNECTING"]  ) {
         [tunnelDownSound play];
         // Run the reconnecting script, if any
-        if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * scriptPath = [configPath stringByAppendingPathComponent: @"Contents/Resources/reconnecting.sh"];
-            if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
-                NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-                NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
-                if (   startArguments
-                    && ( ! [[startArguments objectAtIndex: 5] isEqualToString: @"1"] )  ) {
-                    NSArray * arguments = [NSArray arrayWithObjects:
-                                           @"reconnecting",
-                                           [startArguments objectAtIndex: 1],    // configFile
-                                           [startArguments objectAtIndex: 5],    // cfgLocCode
-                                           nil];
-                    
-                    NSTask * task = [[NSTask alloc] init];
-                    [task setLaunchPath: path];
-                    [task setArguments: arguments];
-                    [task launch];
-                    [task waitUntilExit];
-                    [task release];
-                }
-            }
-        }
+        [self runScriptNamed: @"reconnecting" openvpnstartCommand: @"reconnecting"];
     }
     
     NSString * statusPref = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
@@ -2055,6 +1998,47 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [[NSApp delegate] performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
     [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
+}
+
+-(void) runScriptNamed: (NSString *) scriptName openvpnstartCommand: (NSString *) command
+{
+    if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
+        NSString * scriptPath = [[[[configPath
+                                    stringByAppendingPathComponent: @"Contents"]
+                                   stringByAppendingPathComponent: @"Resources"]
+                                  stringByAppendingPathComponent: scriptName]
+                                 stringByAppendingPathExtension: @"sh"];
+        if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+            NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+            NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
+            if (   startArguments
+                && ( ! [[startArguments objectAtIndex: 5] isEqualToString: @"1"] )  ) {
+                NSArray * arguments = [NSArray arrayWithObjects:
+                                       command,
+                                       [startArguments objectAtIndex: 1],    // configFile
+                                       [startArguments objectAtIndex: 5],    // cfgLocCode
+                                       nil];
+                
+                NSTask * task = [[NSTask alloc] init];
+                [task setLaunchPath: path];
+                [task setArguments: arguments];
+
+                NSString * msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' executing…", scriptName];
+                [self addToLog: msg];
+                [task launch];
+                [task waitUntilExit];
+                int status = [task terminationStatus];
+                msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' returned with status %d", scriptName, status];
+                [self addToLog: msg];
+                [task release];
+                if (   (status != 0)
+                    && ( ! [scriptName isEqualToString: @"post-disconnect"] )  ) {
+                    [self addToLog: @"*Tunnelblick: Disconnecting; script failed"];
+                    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
+                }
+            }
+        }
+    }
 }
 
 -(void) fadeAway

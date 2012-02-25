@@ -49,7 +49,7 @@ int     runAsRoot                  (NSString * thePath, NSArray * theArguments);
 
 void    runOpenVpnToGetVersion(NSString * openvpnVersion); //Runs OpenVPN with no arguments, to get info including version #
 
-BOOL    runScript(NSString * scriptName,    //Runs one of connected.sh, reconnecting.sh, or post-disconnect.sh
+int     runScript(NSString * scriptName,    //Runs one of connected.sh, reconnecting.sh, or post-disconnect.sh
                   int        argc,
                   char     * cfgName,
                   char     * cfgLoc);
@@ -191,13 +191,16 @@ int main(int argc, char* argv[])
             }
             
         } else if( strcmp(command, "postDisconnect") == 0) {
-            syntaxError = ! runScript(@"post-disconnect.sh", argc, argv[2], argv[3]);
+            retCode = runScript(@"post-disconnect.sh", argc, argv[2], argv[3]);
+            syntaxError = FALSE;
             
         } else if( strcmp(command, "connected") == 0) {
-            syntaxError = ! runScript(@"connected.sh", argc, argv[2], argv[3]);
+            retCode = runScript(@"connected.sh", argc, argv[2], argv[3]);
+            syntaxError = FALSE;
 
         } else if( strcmp(command, "reconnecting") == 0) {
-            syntaxError = ! runScript(@"reconnecting.sh", argc, argv[2], argv[3]);
+            retCode = runScript(@"reconnecting.sh", argc, argv[2], argv[3]);
+            syntaxError = FALSE;
 
 		} else if( strcmp(command, "start") == 0 ) {
 			if (  (argc > 3) && (argc <= OPENVPNSTART_MAX_ARGC)  ) {
@@ -759,11 +762,12 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 [pool drain];
                 exit(234);
             }
+            fprintf(stderr, "'pre-connect.sh' executing…\n");
             int result = runAsRoot(preConnectPath, [NSArray array]);
+            fprintf(stderr, "'pre-connect.sh' returned with status %d\n", result);
             if (  result != 0 ) {
-                fprintf(stderr, "Error: %s failed with return code %d\n", [preConnectPath UTF8String], result);
                 [pool drain];
-                exit(233);
+                exit(result);
             }
         }
     }
@@ -806,9 +810,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 [pool drain];
                 exit(234);
             }
+            fprintf(stderr, "'post-tun-tap-load.sh' executing…\n");
             int result = runAsRoot(postTunTapPath, [NSArray array]);
+            fprintf(stderr, "'post-tun-tap-load.sh' returned with status %d\n", result);
             if (  result != 0 ) {
-                fprintf(stderr, "Error: %s failed with return code %d\n", [postTunTapPath UTF8String], result);
                 [pool drain];
                 exit(233);
             }
@@ -846,14 +851,16 @@ void runOpenVpnToGetVersion(NSString * openvpnVersion)
 
 //**************************************************************************************************************************
 // Runs one of the following scripts: connected.sh, reconnecting.sh, or post-disconnect.sh
-BOOL runScript(NSString * scriptName,
+// Returns -1 on syntax error, no script found, or the script has invalid permissions, otherwise returns the exit code from the script
+
+int runScript(NSString * scriptName,
                int        argc,
                char     * cfgName,
                char     * cfgLoc)
 {
     errorExitIfAttackViaString([NSString stringWithUTF8String: cfgName]);
     
-    BOOL returnValue = FALSE;
+    BOOL returnValue = -1;
     
     if (  argc == 4) {
         NSString * configPrefix = nil;
@@ -884,11 +891,11 @@ BOOL runScript(NSString * scriptName,
                                      stringByAppendingPathComponent: scriptName];
             if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
                 if (  checkOwnerAndPermissions(scriptPath, 0, 0, @"744")  ) {
-                    int result = runAsRoot(scriptPath, [NSArray array]);
-                    if (  result != EXIT_SUCCESS  ) {
-                        fprintf(stderr, "Error: %s failed with status = %d\n", [scriptPath UTF8String], result);
-                    }
-                    returnValue = TRUE; // Even if script failed, it was run
+                    
+                    fprintf(stderr, "'%s' executing…\n", [scriptName UTF8String]);
+                    returnValue = runAsRoot(scriptPath, [NSArray array]);
+                    fprintf(stderr, "'%s' returned with status %d\n", [scriptName UTF8String], returnValue);
+
                 } else {
                     fprintf(stderr, "Error: %s is not secured\n", [scriptPath UTF8String]);
                 }
