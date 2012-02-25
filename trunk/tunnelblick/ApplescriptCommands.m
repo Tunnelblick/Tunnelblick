@@ -60,6 +60,7 @@ extern TBUserDefaults  * gTbDefaults;
     
     if (  connection  ) {
         if (  ! [connection isDisconnected]  ) {
+            [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect' invoked"];
             [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
             return [NSNumber numberWithBool: TRUE];
         }
@@ -102,6 +103,7 @@ extern TBUserDefaults  * gTbDefaults;
     int nDisconnecting = 0;
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection isDisconnected]  ) {
+            [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect all' invoked"];
             [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
             nDisconnecting++;
         }
@@ -127,6 +129,7 @@ extern TBUserDefaults  * gTbDefaults;
             NSString* systemStartkey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
             if (  ! (   [gTbDefaults boolForKey: autoConnectkey]
                      && [gTbDefaults boolForKey: systemStartkey] )  ) {
+                [connection addToLog:@"*Tunnelblick: Disconnecting; AppleScript 'disconnect all except when computer starts' invoked"];
                 [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
                 nDisconnecting++;
             }
