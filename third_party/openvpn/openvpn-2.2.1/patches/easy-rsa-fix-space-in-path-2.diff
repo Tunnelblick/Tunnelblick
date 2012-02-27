@@ -1,7 +1,7 @@
 Index: third_party/openvpn/openvpn-2.2.1/openvpn/easy-rsa/2.0/whichopensslcnf
 ===================================================================
---- third_party/openvpn/openvpn-2.2.1/openvpn/easy-rsa/2.0/whichopensslcnf	(revision 1950)
-+++ third_party/openvpn/openvpn-2.2.1/openvpn/easy-rsa/2.0/whichopensslcnf	(working copy)
+--- easy-rsa/2.0/whichopensslcnf	(revision 1950)
++++ easy-rsa/2.0/whichopensslcnf	(working copy)
 @@ -3,20 +3,20 @@
  cnf="$1/openssl.cnf"
  
