@@ -113,12 +113,18 @@ lzo-clean:
 openvpn-patch:
 	for openvpndir in `ls openvpn`; do \
 		cd openvpn/$$openvpndir/openvpn; \
-		for patchfile in ../patches/*.diff; do \
-			patch -p0 -N --dry-run -i $$patchfile > /dev/null; \
-			if [ $$? == 0 ]; then \
-				patch -p0 -N -i $$patchfile; \
-			fi \
-		done; \
+		if [ -d ../patches ]; then \
+			for patchfile in ../patches/*.diff; do \
+				patch -p1 -N --dry-run -i $$patchfile > /dev/null; \
+				if [ $$? == 0 ]; then \
+					patch -p1 -N -i $$patchfile; \
+				else \
+					echo "OpenVPN patch skipped: $$openvpndir/$${patchfile:3}" ; \
+				fi \
+			done; \
+		else \
+			echo "No OpenVPN patches for $$openvpndir" ; \
+		fi; \
 		cd ../../../; \
 	done
 	

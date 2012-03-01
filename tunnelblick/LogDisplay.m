@@ -255,6 +255,15 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setOpenvpnLogPath: [self constructOpenvpnLogPath]];
     [self setScriptLogPath:  [self constructScriptLogPath]];
     
+    if (  ! [self openvpnLogPath]  ) {
+        return;
+    }
+    
+    if (  ! [self scriptLogPath]  ) {
+        NSLog(@"OpenVPN log '%@' available, but no corresponding script log exists", [self openvpnLogPath]);
+        return;
+    }
+    
     // The script log is usually pretty short, so we scan all of it
     scriptLogPosition = 0;
     
@@ -485,6 +494,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     NSFileHandle * file;
     if (  ! (file = [NSFileHandle fileHandleForReadingAtPath: logPath])  ) {
         *logPosition = 0;
+        NSLog(@"contentsOfPath:usePosition:fileHandleForReadingAtPath: fileHandleForReadingAtPath: returned nil for path=%@", logPath);
         return @"";
     }
     
@@ -493,7 +503,21 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     *logPosition = [file offsetInFile];
     [file closeFile];
     
-    NSString * scriptLogContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    if (  ! data  ) {
+        return @"";
+    }
+    NSString * scriptLogContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
+    if (  ! scriptLogContents  ) {
+        NSLog(@"contentsOfPath:usePosition:fileHandleForReadingAtPath: initWithData: returned nil with data of length %lld from position %lld for path=%@", (long long) [data length], *logPosition, logPath);
+        int i;
+        char * b = (char *) [data bytes];
+        NSMutableString * s = [NSMutableString stringWithCapacity: 2 * [data length]];
+        for ( i=0; i<[data length]; i++ ) {
+            [s appendFormat: @"%c", b[i]];
+        }
+        NSLog(@"Data was: %@", s);
+        scriptLogContents = @"";
+    }
     return scriptLogContents;
 }
 
@@ -796,6 +820,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // Go through the log file contents one line at a time
     NSString * logString = [self contentsOfPath: logPath  usePosition: logPositionPtr];
+    if (  ! logString  ) {
+        NSLog(@"logString is nil in logChangedAtPath: %@ usePosition: %lld fromOpenvpnLog: %@", logPath, *logPositionPtr, (isFromOpenvpnLog ? @"YES" : @"NO"));
+        return;
+    }
     unsigned logStringPosition = 0;
     
     NSString * line;
@@ -1068,6 +1096,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
             }
         }
     }
+    
     return nil;
 }
 
