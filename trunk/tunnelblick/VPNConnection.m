@@ -1829,7 +1829,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString* tokenName = [parameterString substringWithRange: tokenNameRange];
         if (NSDebugEnabled) NSLog(@"tokenName is  '%@'", tokenName);
         if(  myPassphrase != nil  ){
-            [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSUnicodeStringEncoding]; 
+            [managementSocket writeString: [NSString stringWithFormat: @"password \"%@\" \"%@\"\r\n", tokenName, escaped(myPassphrase)] encoding:NSISOLatin1StringEncoding];
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)
@@ -1845,8 +1845,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString *myPassword = [myAuthAgent password];
         NSString *myUsername = [myAuthAgent username];
         if(  (myUsername != nil) && (myPassword != nil)  ){
-            [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSUnicodeStringEncoding];
-            [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSUnicodeStringEncoding];
+            [managementSocket writeString:[NSString stringWithFormat:@"username \"Auth\" \"%@\"\r\n", escaped(myUsername)] encoding:NSISOLatin1StringEncoding];
+            [managementSocket writeString:[NSString stringWithFormat:@"password \"Auth\" \"%@\"\r\n", escaped(myPassword)] encoding:NSISOLatin1StringEncoding];
         } else {
             [self addToLog: @"*Tunnelblick: Disconnecting; user cancelled authorization"];
             [self disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];      // (User requested it by cancelling)

@@ -525,7 +525,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         // Not a .tblk package: check that it is secured
         if (  configNeedsRepair()  ) {
             [pool drain];
-            exit(241);
+            exit(251);
         }
     }
         
@@ -745,10 +745,21 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
     }
     
-    NSMutableString * cmdLine = [NSMutableString stringWithString: openvpnPath];
+    NSMutableString * cmdLine;
+    if (  [openvpnPath rangeOfString: @" "].length == 0  ) {
+        cmdLine = [NSMutableString stringWithString: openvpnPath];
+    } else {
+        cmdLine = [NSMutableString stringWithFormat: @"\"%@\"", openvpnPath];
+    }
+
     int i;
     for (i=0; i<[arguments count]; i++) {
-        [cmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
+        NSString * arg = [arguments objectAtIndex: i];
+        if (  [arg rangeOfString: @" "].length == 0  ) {
+            [cmdLine appendFormat: @" %@", arg];
+        } else {
+            [cmdLine appendFormat: @" \"%@\"", arg];
+        }
     }
 	
     // Create a new script log which includes the command line used to start openvpn
@@ -808,7 +819,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             if (  ! checkOwnerAndPermissions(postTunTapPath, 0, 0, @"744")  ) {
                 fprintf(stderr, "Error: %s has not been secured\n", [postTunTapPath UTF8String]);
                 [pool drain];
-                exit(234);
+                exit(253);
             }
             fprintf(stderr, "'post-tun-tap-load.sh' executing…\n");
             int result = runAsRoot(postTunTapPath, [NSArray array]);
@@ -830,11 +841,11 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
    
     int retCode = [task terminationStatus];
     if (  retCode != 0  ) {
+        NSString * configError = @"";
         if (  retCode == 1  ) {
-            fprintf(stderr, "Error: OpenVPN returned with status %d. Possible error in configuration file. See \"All Messages\" in Console for details\n", retCode);
-        } else {
-            fprintf(stderr, "Error: OpenVPN returned with status %d\n", retCode);
+            configError = @"\n     Possible error in configuration file.";
         }
+        fprintf(stderr, "Error: OpenVPN returned with status %d, errno = %ld:\n     %s%s\n     See \"All Messages\" in Console for details\n", retCode, (long) errno, strerror(errno), [configError UTF8String]);
         [pool drain];
 		exit(242);
     }
@@ -989,6 +1000,8 @@ NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, in
     if (  ! [gFileMgr createFileAtPath: logPath contents: [NSData data] attributes: logAttributes]  ) {
         NSString * msg = [NSString stringWithFormat: @"Warning: Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
         fprintf(stderr, "%s\n", [msg UTF8String]);
+        [pool drain];
+        exit(252);
     }
     
     return logPath;
