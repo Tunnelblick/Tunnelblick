@@ -25,12 +25,14 @@
 #import "ConfigurationManager.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
+#import "NSFileManager+TB.h"
 #import "NSString+TB.h"
 #import "helper.h"
 #import "ConfigurationsView.h"
 #import "GeneralView.h"
 #import "AppearanceView.h"
 #import "InfoView.h"
+#import "UtilitiesView.h"
 #import "SettingsSheetWindowController.h"
 #import "Sparkle/SUUpdater.h"
 
@@ -50,6 +52,7 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupConfigurationsView;
 -(void) setupGeneralView;
 -(void) setupAppearanceView;
+-(void) setupUtilitiesView;
 -(void) setupInfoView;
 
 -(BOOL) changeBooleanPreference: (NSString *) key
@@ -109,6 +112,7 @@ extern NSArray        * gConfigurationPreferences;
     [self addView: configurationsPrefsView  label: NSLocalizedString(@"Configurations", @"Window title") image: [NSImage imageNamed: @"Configurations"]];
     [self addView: appearancePrefsView      label: NSLocalizedString(@"Appearance",     @"Window title") image: [NSImage imageNamed: @"Appearance"    ]];
     [self addView: generalPrefsView         label: NSLocalizedString(@"Preferences",    @"Window title") image: [NSImage imageNamed: @"Preferences"   ]];
+    [self addView: utilitiesPrefsView       label: NSLocalizedString(@"Utilities",      @"Window title") image: [NSImage imageNamed: @"Utilities"     ]];
     [self addView: infoPrefsView            label: NSLocalizedString(@"Info",           @"Window title") image: [NSImage imageNamed: @"Info"          ]];
     
     [self setupViews];
@@ -134,6 +138,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [self setupConfigurationsView];
     [self setupGeneralView];
     [self setupAppearanceView];
+    [self setupUtilitiesView];
     [self setupInfoView];
 }
 
@@ -250,6 +255,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         [appearancePrefsView setFrame: currentFrame];
         [generalPrefsView    setFrame: currentFrame];        
+        [utilitiesPrefsView  setFrame: currentFrame];
         [infoPrefsView       setFrame: currentFrame];
     }
 }
@@ -263,6 +269,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[self window] makeFirstResponder: [generalPrefsView keyboardShortcutButton]];
     } else if (   view == appearancePrefsView  ) {
         [[self window] makeFirstResponder: [appearancePrefsView appearanceIconSetButton]];
+    } else if (   view == utilitiesPrefsView  ) {
+        [[self window] makeFirstResponder: [utilitiesPrefsView utilitiesHelpButton]];
     } else if (   view == infoPrefsView  ) {
         [[self window] makeFirstResponder: [infoPrefsView infoHelpButton]];
         NSString * version = [NSString stringWithFormat: @"%@  -  %@", tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()];
@@ -2363,6 +2371,105 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
 
 -(void) setupInfoView
 {
+}
+
+//***************************************************************************************************************
+
+-(void) setupUtilitiesView
+{
+}
+
+-(IBAction) utilitiesRunEasyRsaButtonWasClicked: (id) sender
+{
+    NSString * userPath = userEasyRsaPath(YES);
+    if (  ! userPath  ) {
+        NSLog(@"utilitiesRunEasyRsaButtonWasClicked: no easy-rsa folder!");
+        [[utilitiesPrefsView utilitiesRunEasyRsaButton] setEnabled: NO];
+        return;
+    }
+    
+    // Run an AppleScript to open Terminal.app and cd to the easy-rsa folder
+    
+    NSArray * applescriptProgram = [NSArray arrayWithObjects:
+                                    [NSString stringWithFormat: @"set cmd to \"cd \\\"%@\\\"\"", userPath],
+                                    @"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
+                                    @"tell application \"Terminal\"",
+                                    @"     activate",
+                                    @"     if terminalIsRunning is true then",
+                                    @"        do script with command cmd",
+                                    @"     else",
+                                    @"        do script with command cmd in window 1",
+                                    @"     end if",
+                                    @"end tell",
+                                    nil];
+    
+    NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:6] autorelease];
+    NSEnumerator * e = [applescriptProgram objectEnumerator];
+    NSString * line;
+    while ( (line = [e nextObject])  ) {
+        [arguments addObject: @"-e"];
+        [arguments addObject: line];
+    }
+    
+    NSTask* task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath: @"/usr/bin/osascript"];
+    [task setArguments: arguments];
+    [task setCurrentDirectoryPath: @"/tmp"];
+    [task launch];
+}
+
+-(IBAction) utilitiesKillAllOpenVpnButtonWasClicked: (id) sender
+{
+    NSString *openvpnstartPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"openvpnstart"];
+
+    NSTask* task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath: openvpnstartPath];
+    [task setArguments: [NSArray arrayWithObjects: @"killall", nil]];
+    [task setCurrentDirectoryPath: @"/tmp"];
+    NSPipe * errPipe = [[[NSPipe alloc] init] autorelease];
+    [task setStandardError: errPipe];
+    NSPipe * stdPipe = [[[NSPipe alloc] init] autorelease];
+    [task setStandardOutput: stdPipe];
+    [task launch];
+    [task waitUntilExit];
+    
+    NSFileHandle * file = [errPipe fileHandleForReading];
+    NSData * data = [file readDataToEndOfFile];
+    [file closeFile];
+    NSString * stdErrOut = [[[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
+                 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (  [stdErrOut length] == 0  ) {
+        file = [stdPipe fileHandleForReading];
+        data = [file readDataToEndOfFile];
+        [file closeFile];
+        NSString * stdOut = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+        int numberKilled = [stdOut intValue];
+        NSString * message;
+        if (  numberKilled == 0  ) {
+            message = NSLocalizedString(@"No OpenVPN process were terminated.", @"Window title");
+        } else if (  numberKilled == 1  ) {
+            message = NSLocalizedString(@"One OpenVPN process was terminated.", @"Window title");
+        } else {
+            message = [NSString stringWithFormat: NSLocalizedString(@"%d OpenVPN processes were terminated.", @"Window title"), numberKilled];
+        }
+        
+        TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
+                        message,
+                        nil, nil, nil);
+    } else {
+        TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
+                        NSLocalizedString(@"One or more OpenVPN processes could not be terminated.", @"Window title"),
+                        nil, nil, nil);
+    }
+}
+
+-(IBAction) utilitiesHelpButtonWasClicked: (id) sender
+{
+    OSStatus err;
+    if ((err = MyGotoHelpPage(CFSTR("preferences-utilities.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
+    }
 }
 
 //***************************************************************************************************************

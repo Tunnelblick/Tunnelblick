@@ -238,6 +238,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"openvpnTerminationInterval",
                                 @"openvpnTerminationTimeout",
                                 @"menuIconSet",
+                                @"easy-rsaPath",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -2835,6 +2836,26 @@ static void signal_handler(int signalNumber)
     
     if (  hotKeyModifierKeys != 0  ) {
         [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
+    }
+    
+    // Install easy-rsa if it isn't installed already
+    NSString * easyRsaPath = userEasyRsaPath(NO);
+    BOOL exists = FALSE;
+    BOOL isDir  = FALSE;
+    if (  easyRsaPath  ) {
+        exists = [gFileMgr fileExistsAtPath: easyRsaPath isDirectory: &isDir];
+    }
+    
+    if (   ( ! easyRsaPath )
+        || (   exists && ( ! isDir ) )  ) {
+            NSLog(@"The 'easy-rsaPath' preference is invalid");
+            TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
+                            NSLocalizedString(@"The 'easy-rsaPath' preference is invalid. easy-rsa will not be available until the preference is removed or corrected.", @"Window title"),
+                            nil, nil, nil);
+    } else {
+        if (  ! exists  ) {
+            updateEasyRsa(YES);
+        }
     }
 
     AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);

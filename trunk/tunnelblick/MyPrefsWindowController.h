@@ -28,6 +28,7 @@
 @class GeneralView;
 @class AppearanceView;
 @class InfoView;
+@class UtilitiesView;
 @class VPNConnection;
 @class SettingsSheetWindowController;
 
@@ -40,6 +41,7 @@
     IBOutlet GeneralView          * generalPrefsView;
     IBOutlet AppearanceView       * appearancePrefsView;
     IBOutlet InfoView             * infoPrefsView;
+    IBOutlet UtilitiesView        * utilitiesPrefsView;
     
     // For ConfigurationsView
     NSString                      * previouslySelectedNameOnLeftNavList;
@@ -155,6 +157,15 @@
 
 // Method for InfoView
 -(IBAction) infoHelpButtonWasClicked: (id) sender;
+
+
+// Methods for UtiltiesView
+
+-(IBAction) utilitiesRunEasyRsaButtonWasClicked:          (id) sender;
+
+-(IBAction) utilitiesKillAllOpenVpnButtonWasClicked:      (id) sender;
+
+-(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 
 
 // Getters & Setters
