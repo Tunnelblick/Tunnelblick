@@ -39,6 +39,10 @@ BOOL           moveCredentials          (NSString * fromDisplayName,
 
 NSString     * copyrightNotice          ();
 
+BOOL           easyRsaNeedsUpdating     (void);
+void           updateEasyRsa            (BOOL       silently);
+NSString     * userEasyRsaPath          (BOOL       mustExistAndBeADir);
+
 NSString     * newTemporaryDirectoryPath(void);
 
 NSString     * escaped                  (NSString * string);
