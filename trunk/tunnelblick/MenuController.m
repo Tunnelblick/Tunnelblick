@@ -634,8 +634,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             
             [[NSDistributedNotificationCenter defaultCenter] addObserver: self 
                                                                 selector: @selector(allDistributedNotificationsHandler:) 
-             +                                                                    name: nil 
-             +                                                                  object: nil];
+                                                                    name: nil 
+                                                                  object: nil];
             
             [[NSNotificationCenter defaultCenter] addObserver: self 
                                                      selector: @selector(allNotificationsHandler:) 
