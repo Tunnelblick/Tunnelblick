@@ -628,6 +628,26 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                                                    name: NSWorkspaceSessionDidResignActiveNotification
                                                                  object: nil];
         
+        if (  [gTbDefaults boolForKey: @"notificationsLog"] ) {
+            
+            NSLog(@"Observing all notifications");
+            
+            [[NSDistributedNotificationCenter defaultCenter] addObserver: self 
+                                                                selector: @selector(allDistributedNotificationsHandler:) 
+             +                                                                    name: nil 
+             +                                                                  object: nil];
+            
+            [[NSNotificationCenter defaultCenter] addObserver: self 
+                                                     selector: @selector(allNotificationsHandler:) 
+                                                         name: nil 
+                                                       object: nil];        
+            
+            [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self 
+                                                                   selector: @selector(allWorkspaceNotificationsHandler:) 
+                                                                       name: nil 
+                                                                     object: nil];
+        }
+        
         ignoreNoConfigs = TRUE;    // We ignore the "no configurations" situation until we've processed application:openFiles:
 		
         updater = [[SUUpdater alloc] init];
@@ -635,6 +655,33 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     }
     
     return self;
+}
+
+-(void)allNotificationsHandler: (NSNotification *) n
+{
+    NSString * name = [n name];
+    NSLog(@"NOTIFICATION              : %@", name);
+    if (  [name isEqualToString: [gTbDefaults objectForKey: @"notificationsVerbose"]]  ) {
+        NSLog(@"NOTIFICATION              : %@; object = %@; userInfo = %@", [n name], [n object], [n userInfo]);
+    }
+}
+
+-(void)allDistributedNotificationsHandler: (NSNotification *) n
+{
+    NSString * name = [n name];
+    NSLog(@"NOTIFICATION (Distributed): %@", name);
+    if (  [name isEqualToString: [gTbDefaults objectForKey: @"notificationsVerbose"]]  ) {
+        NSLog(@"NOTIFICATION (Distributed): %@; object = %@; userInfo = %@", [n name], [n object], [n userInfo]);
+    }
+}
+
+-(void)allWorkspaceNotificationsHandler: (NSNotification *) n
+{
+    NSString * name = [n name];
+    NSLog(@"NOTIFICATION   (Workspace): %@", name);
+    if (  [name isEqualToString: [gTbDefaults objectForKey: @"notificationsVerbose"]]  ) {
+        NSLog(@"NOTIFICATION   (Workspace): %@; object = %@; userInfo = %@", [n name], [n object], [n userInfo]);
+    }
 }
 
 // Attempts to make a symbolic link from the old configurations folder to the new configurations folder
