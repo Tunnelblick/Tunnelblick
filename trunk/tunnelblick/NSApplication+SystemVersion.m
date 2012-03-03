@@ -55,7 +55,7 @@
     return;
     
 fail:
-    NSLog(@"Unable to obtain system version: %ld", (long)err);
+    NSLog(@"Unable to obtain system version: %ld", (long) err);
     if (major) *major = 10;
     if (minor) *minor = 0;
     if (bugFix) *bugFix = 0;

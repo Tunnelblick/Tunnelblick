@@ -372,7 +372,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  [obj respondsToSelector: @selector(intValue)]  ) {
             ix = (NSInteger) [obj intValue];
             if (  ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
-                NSLog(@"%@ preference ignored: value %d too large", key, ix);
+                NSLog(@"%@ preference ignored: value %ld too large", key, (long) ix);
                 ix = 0;
             }
         } else {
@@ -1697,7 +1697,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                 [gTbDefaults setBool: TRUE forKey: onSystemStartKey];
                 break;
             default:
-                NSLog(@"Attempt to set 'when to connect' to %d ignored", newValue);
+                NSLog(@"Attempt to set 'when to connect' to %ld ignored", (long) newValue);
                 break;
         }
         selectedWhenToConnectIndex = newValue;
@@ -1870,7 +1870,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     if (  ovSizeIx < [list count]  ) {
         [self setSelectedOpenvpnVersionIndex: ovSizeIx];
     } else {
-        NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %d", ovSizeIx, [list count]-1);
+        NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %ld", ovSizeIx, (long) [list count]-1);
     }
     
     [[generalPrefsView openvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: @"openvpnVersion"]];
@@ -1946,7 +1946,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     if (  logSizeIx < [list count]  ) {
         [self setSelectedMaximumLogSizeIndex: logSizeIx];
     } else {
-        NSLog(@"Invalid selectedMaximumLogSizeIndex %d; maximum is %d", logSizeIx, [list count]-1);
+        NSLog(@"Invalid selectedMaximumLogSizeIndex %d; maximum is %ld", logSizeIx, (long) [list count]-1);
     }
     
     [[generalPrefsView maximumLogSizeButton] setEnabled: [gTbDefaults canChangeValueForKey: @"maxLogDisplaySize"]];
@@ -2239,7 +2239,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     if (  displayCriteriaIx < [list count]  ) {
         [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndex: displayCriteriaIx];
     } else {
-        NSLog(@"Invalid displayCriteriaIx %d; maximum is %d", displayCriteriaIx, [list count]-1);
+        NSLog(@"Invalid displayCriteriaIx %d; maximum is %ld", displayCriteriaIx, (long) [list count]-1);
     }
     
     [[appearancePrefsView appearanceConnectionWindowDisplayCriteriaButton] setEnabled: [gTbDefaults canChangeValueForKey: @"connectionWindowDisplayCriteria"]];
@@ -2537,7 +2537,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
         *index = newValue;
         
     } else {
-        NSLog(@"setSelectedSoundIndex: %d but there are only %d sounds", newValue, size);
+        NSLog(@"setSelectedSoundIndex: %ld but there are only %ld sounds", (long) newValue, (long) size);
     }
 }
 

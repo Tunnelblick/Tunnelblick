@@ -163,7 +163,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 	while( (fdNum = [enny nextObject]) )
 	{
     	if( close( [fdNum intValue] ) == -1 )
-            NSLog(@"dealloc: Couldn't close file descriptor (%d)", errno);
+            NSLog(@"dealloc: Couldn't close file descriptor (%ld)", (long) errno);
     }
 	
 	[watchedPaths release];
@@ -286,7 +286,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
     }
 	
 	if( close( fd ) == -1 )
-        NSLog(@"removePathFromQueue: Couldn't close file descriptor (%d)", errno);
+        NSLog(@"removePathFromQueue: Couldn't close file descriptor (%ld)", (long) errno);
 }
 
 
@@ -386,7 +386,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
     
 	// Close our kqueue's file descriptor:
 	if( close( theFD ) == -1 )
-		NSLog(@"release: Couldn't close main kqueue (%d)", errno);
+		NSLog(@"release: Couldn't close main kqueue (%ld)", (long) errno);
 	
     //NSLog(@"exiting kqueue watcher thread.");
 }
