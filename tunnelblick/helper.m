@@ -73,7 +73,7 @@ BOOL runningOnLionOrNewer()
     return ( (major > 10) || (minor > 6) );
 }
 
-BOOL runningOnLionOrNewer()
+BOOL runningOnMountainLionOrNewer()
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
