@@ -63,6 +63,7 @@ BOOL needToCopyBundle(void);
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
     NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
     NSMenuItem              * addConfigurationItem;         //    "Add a VPN..." menu item
+    NSMenuItem              * contactTunnelblickItem;       //    "Contact Tunnelblick..." menu item (if beta version)
     
 #ifdef INCLUDE_VPNSERVICE
     NSMenuItem              * registerForTunnelblickItem;//    "Register for Tunnelblick..." menu item
@@ -155,6 +156,7 @@ BOOL needToCopyBundle(void);
 }
 
 // Menu actions
+-(IBAction)         contactTunnelblickWasClicked:           (id)                sender;
 -(IBAction)         openPreferencesWindow:                  (id)                sender;
 -(IBAction)         addConfigurationWasClicked:             (id)                sender;
 -(IBAction)         quit:                                   (id)                sender;
