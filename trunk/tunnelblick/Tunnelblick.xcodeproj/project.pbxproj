@@ -63,6 +63,7 @@
 		634DC4B0139F9BC600403DD3 /* ConfigurationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */; };
 		634EE8391191F89800DF4E43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C504281178E21100340D13 /* Security.framework */; };
 		6353818F1116031F00D68E83 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6353818E1116031F00D68E83 /* dsa_pub.pem */; };
+		635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */ = {isa = PBXBuildFile; fileRef = 635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */; };
 		635C80461300353000DB27AE /* ApplescriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 635C80451300353000DB27AE /* ApplescriptCommands.m */; };
 		635CA45312F8285D00287298 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 635CA45212F8285D00287298 /* COPYING */; };
 		635CA9A012F9DCE300287298 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635CA99F12F9DCE300287298 /* AppKit.framework */; };
@@ -174,6 +175,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6317943D118D7E820057ACAF;
 			remoteInfo = atsystemstart;
+		};
+		635BF19F1501CDAF00D87717 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 635BF17E1501CCDF00D87717;
+			remoteInfo = ExternalBuildCleanScript;
 		};
 		638A200E135CC4C000FB932C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -299,6 +307,8 @@
 		634B02DE12553E5400A9D978 /* client.2.up.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = client.2.up.tunnelblick.sh; sourceTree = "<group>"; };
 		634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationsView.m; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ExternalBuildCleanScript.sh; sourceTree = "<group>"; };
+		635BF1E81501DD5C00D87717 /* trash.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = trash.sh; sourceTree = "<group>"; };
 		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
 		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
 		635CA45212F8285D00287298 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
@@ -582,6 +592,8 @@
 			isa = PBXGroup;
 			children = (
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
+				635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */,
+				635BF1E81501DD5C00D87717 /* trash.sh */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
@@ -808,6 +820,22 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "\"${PROJECT_DIR}/ExternalBuildCleanScript.sh\"";
+			buildConfigurationList = 635BF1821501CCFD00D87717 /* Build configuration list for PBXLegacyTarget "ExternalBuildCleanScript" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/sh;
+			dependencies = (
+			);
+			name = ExternalBuildCleanScript;
+			passBuildSettingsInEnvironment = 1;
+			productName = ExternalBuildCleanScript;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		61BC4BC00E2F9FE900F24255 /* openvpnstart */ = {
 			isa = PBXNativeTarget;
@@ -909,6 +937,7 @@
 				61BC4D980E2FA28700F24255 /* PBXTargetDependency */,
 				638A200F135CC4C000FB932C /* PBXTargetDependency */,
 				63AA8E651492C7CC00C791C9 /* PBXTargetDependency */,
+				635BF1A01501CDAF00D87717 /* PBXTargetDependency */,
 			);
 			name = Tunnelblick;
 			productInstallPath = "$(HOME)/Applications";
@@ -943,6 +972,7 @@
 				6317943D118D7E820057ACAF /* atsystemstart */,
 				638A1FFB135CC35100FB932C /* standardize-scutil-output */,
 				63AA8E571492C75200C791C9 /* process-network-changes */,
+				635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */,
 			);
 		};
 /* End PBXProject section */
@@ -1018,6 +1048,7 @@
 				63D39BF014F9ECC7002D1297 /* Utilities.tiff in Resources */,
 				63D39BF214F9ED13002D1297 /* Configurations.png in Resources */,
 				63E7EE8B150046E70089D38B /* easy-rsa-Tunnelblick in Resources */,
+				635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1035,7 +1066,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Copy the tun and tap kexts\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n  cp -R \"../third_party/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n  cp -R \"../third_party/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telse\n\t\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\tfi\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn/openvpn\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn/plugin/down-root/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n# Remove extra files that are not needed\n\nrm \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\"\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools except if Unsigned Release\nif [ \"${CONFIGURATION}\" != \"Unsigned Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/process-network-changes\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH\"\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\nfi";
+			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Copy the tun and tap kexts\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n  cp -R \"../third_party/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n  cp -R \"../third_party/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telse\n\t\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\tfi\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn/openvpn\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn/plugin/down-root/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n# Remove extra files that are not needed\n\nrm \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\"\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools except if Unsigned Release\nif [ \"${CONFIGURATION}\" != \"Unsigned Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/process-network-changes\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH\"\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\n\nfi";
 			showEnvVarsInLog = 0;
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
@@ -1168,6 +1199,11 @@
 			isa = PBXTargetDependency;
 			target = 6317943D118D7E820057ACAF /* atsystemstart */;
 			targetProxy = 631795DC118DC57E0057ACAF /* PBXContainerItemProxy */;
+		};
+		635BF1A01501CDAF00D87717 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 635BF17E1501CCDF00D87717 /* ExternalBuildCleanScript */;
+			targetProxy = 635BF19F1501CDAF00D87717 /* PBXContainerItemProxy */;
 		};
 		638A200F135CC4C000FB932C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1328,6 +1364,34 @@
 				ZERO_LINK = NO;
 			};
 			name = Release;
+		};
+		635BF17F1501CCDF00D87717 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = Debug;
+		};
+		635BF1801501CCDF00D87717 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = ExternalBuildCleanScript;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		635BF1811501CCDF00D87717 /* Unsigned Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = "Unsigned Release";
 		};
 		638A1FFE135CC35100FB932C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1554,6 +1618,326 @@
 			};
 			name = "Unsigned Release";
 		};
+		63DA33FA1502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA33FB1502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA33FC1502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = openvpnstart;
+				ZERO_LINK = YES;
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA33FD1502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = installer;
+				ZERO_LINK = YES;
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA33FE1502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = atsystemstart;
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA33FF1502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA34001502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA34011502380400C3801D /* Clean Tunnelblick */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = "Clean Tunnelblick";
+		};
+		63DA34C61502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = "Clean Third Party";
+		};
+		63DA34C71502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = "Clean Third Party";
+		};
+		63DA34C81502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = openvpnstart;
+				ZERO_LINK = YES;
+			};
+			name = "Clean Third Party";
+		};
+		63DA34C91502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = installer;
+				ZERO_LINK = YES;
+			};
+			name = "Clean Third Party";
+		};
+		63DA34CA1502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = atsystemstart;
+			};
+			name = "Clean Third Party";
+		};
+		63DA34CB1502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+			};
+			name = "Clean Third Party";
+		};
+		63DA34CC1502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+			};
+			name = "Clean Third Party";
+		};
+		63DA34CD1502509400C3801D /* Clean Third Party */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = "Clean Third Party";
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1637,6 +2021,8 @@
 				61BC4BC30E2F9FE900F24255 /* Debug */,
 				61BC4BC40E2F9FE900F24255 /* Release */,
 				6398C40313DB30F60005FEB0 /* Unsigned Release */,
+				63DA33FC1502380400C3801D /* Clean Tunnelblick */,
+				63DA34C81502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1647,6 +2033,8 @@
 				61BC4D6D0E2FA06900F24255 /* Debug */,
 				61BC4D6E0E2FA06900F24255 /* Release */,
 				6398C40413DB30F60005FEB0 /* Unsigned Release */,
+				63DA33FD1502380400C3801D /* Clean Tunnelblick */,
+				63DA34C91502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1657,6 +2045,20 @@
 				63179440118D7E830057ACAF /* Debug */,
 				63179441118D7E830057ACAF /* Release */,
 				6398C40513DB30F60005FEB0 /* Unsigned Release */,
+				63DA33FE1502380400C3801D /* Clean Tunnelblick */,
+				63DA34CA1502509400C3801D /* Clean Third Party */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		635BF1821501CCFD00D87717 /* Build configuration list for PBXLegacyTarget "ExternalBuildCleanScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				635BF17F1501CCDF00D87717 /* Debug */,
+				635BF1801501CCDF00D87717 /* Release */,
+				635BF1811501CCDF00D87717 /* Unsigned Release */,
+				63DA34011502380400C3801D /* Clean Tunnelblick */,
+				63DA34CD1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1667,6 +2069,8 @@
 				638A1FFE135CC35100FB932C /* Debug */,
 				638A1FFF135CC35100FB932C /* Release */,
 				6398C40613DB30F60005FEB0 /* Unsigned Release */,
+				63DA33FF1502380400C3801D /* Clean Tunnelblick */,
+				63DA34CB1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1677,6 +2081,8 @@
 				63AA8E5A1492C75300C791C9 /* Debug */,
 				63AA8E5B1492C75300C791C9 /* Release */,
 				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
+				63DA34001502380400C3801D /* Clean Tunnelblick */,
+				63DA34CC1502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1687,6 +2093,8 @@
 				C01FCF4B08A954540054247B /* Debug */,
 				C01FCF4C08A954540054247B /* Release */,
 				6398C40213DB30F60005FEB0 /* Unsigned Release */,
+				63DA33FB1502380400C3801D /* Clean Tunnelblick */,
+				63DA34C71502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1697,6 +2105,8 @@
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
 				6398C40113DB30F60005FEB0 /* Unsigned Release */,
+				63DA33FA1502380400C3801D /* Clean Tunnelblick */,
+				63DA34C61502509400C3801D /* Clean Third Party */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
