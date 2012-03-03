@@ -91,6 +91,8 @@ BOOL           isUserAnAdmin            (void);
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
+BOOL           runningOnLionOrNewer(void);
+BOOL           runningOnMountainLionOrNewer(void);
 
 OSStatus       MyGotoHelpPage           (CFStringRef pagePath, 
                                          CFStringRef anchorName);

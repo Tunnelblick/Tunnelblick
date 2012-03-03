@@ -66,6 +66,20 @@ BOOL runningOnSnowLeopardOrNewer()
     return ( (major > 10) || (minor > 5) );
 }
 
+BOOL runningOnLionOrNewer()
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ( (major > 10) || (minor > 6) );
+}
+
+BOOL runningOnLionOrNewer()
+{
+    unsigned major, minor, bugFix;
+    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
+    return ( (major > 10) || (minor > 7) );
+}
+
 // Returns an escaped version of a string so it can be sent over the management interface
 NSString * escaped(NSString *string)
 {
