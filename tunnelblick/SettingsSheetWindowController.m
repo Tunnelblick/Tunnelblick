@@ -861,7 +861,7 @@ extern TBUserDefaults       * gTbDefaults;
                 newSetting = @"restart";
                 break;
             default:
-                NSLog(@"setDnsWinsIndex: ignoring invalid value %d", newValue);
+                NSLog(@"setDnsWinsIndex: ignoring invalid value %ld", (long) newValue);
         }
         if (  newSetting != nil  ) {
             NSString * defaultValue;

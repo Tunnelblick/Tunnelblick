@@ -445,7 +445,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             
             OSStatus status = pthread_mutex_lock( &deleteLogsMutex );
             if (  status != EXIT_SUCCESS  ) {
-                NSLog(@"pthread_mutex_lock( &deleteLogsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+                NSLog(@"pthread_mutex_lock( &deleteLogsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
                 return;
             }
             
@@ -461,7 +461,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             
             status = pthread_mutex_unlock( &deleteLogsMutex );
             if (  status != EXIT_SUCCESS  ) {
-                NSLog(@"pthread_mutex_unlock( &deleteLogsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+                NSLog(@"pthread_mutex_unlock( &deleteLogsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
                 return;
             }            
         }
@@ -1113,7 +1113,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 #endif
     
     if (  [args count] + 1  != OPENVPNSTART_MAX_ARGC  ) {
-        NSLog(@"Program error: [args count] = %d, but OPENVPNSTART_MAX_ARGC = %d. It should be one more than [args count].", [args count], OPENVPNSTART_MAX_ARGC);
+        NSLog(@"Program error: [args count] = %ld, but OPENVPNSTART_MAX_ARGC = %d. It should be one more than [args count].", (long) [args count], OPENVPNSTART_MAX_ARGC);
     }
 
     return args;

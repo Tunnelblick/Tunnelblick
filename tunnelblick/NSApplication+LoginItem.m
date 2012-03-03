@@ -244,7 +244,7 @@ extern NSFileManager * gFileMgr;
                 
             } else {
                 NSZoneFree(NULL, info);
-                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %zu errno = %d\n%s", length, errno, strerror(errno));
+                NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #2: length = %lu errno = %ld\n%s", (long) length, (long) errno, strerror(errno));
             }
             
         } else {
@@ -403,7 +403,6 @@ extern NSFileManager * gFileMgr;
 		return nil;
 	
 	//AuthorizationFree (myAuthorizationRef, kAuthorizationFlagDefaults);
-	if (myStatus) printf("Status: %ld\n", myStatus);
 	return myAuthorizationRef;
 }
 

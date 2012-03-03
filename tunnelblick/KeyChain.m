@@ -85,7 +85,7 @@
         if (  status == errKCItemNotFound  ) {
             NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@' because it does not exist", serviceName, accountName);
         } else {
-            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %d; error was %d:\n'%s'", serviceName, accountName, (int) status, (int) errno, strerror(errno));
+            NSLog(@"Can't retrieve Keychain item for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno));
         }
     }
     
@@ -118,7 +118,7 @@
                                                     NULL);             // we need no item reference
     
     if (  status != noErr  ) {
-        NSLog(@"Can't add Keychain item for service = '%@' account = '%@'; status was %d; error was %d:\n'%s'", serviceName, accountName, (int) status, (int) errno, strerror(errno));
+        NSLog(@"Can't add Keychain item for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno));
     }
     
     return(status);
@@ -141,13 +141,13 @@
 	if (  status == noErr  ) {
         status = SecKeychainItemDelete(itemRef);
         if (  status != noErr  ) {
-            NSLog(@"Can't delete Keychain item for service = '%@' account = '%@' after finding it; status was %d; error was %d:\n'%s'", serviceName, accountName, (int) status, (int) errno, strerror(errno));
+            NSLog(@"Can't delete Keychain item for service = '%@' account = '%@' after finding it; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno));
         }
     } else {
         if (  status == errKCItemNotFound  ) {
             NSLog(@"Can't find Keychain item to delete for service = '%@' account = '%@' because it does not exist", serviceName, accountName);
         } else {
-            NSLog(@"Can't find Keychain item to delete for service = '%@' account = '%@'; status was %d; error was %d:\n'%s'", serviceName, accountName, (int) status, (int) errno, strerror(errno));
+            NSLog(@"Can't find Keychain item to delete for service = '%@' account = '%@'; status was %ld; error was %ld:\n'%s'", serviceName, accountName, (long) status, (long) errno, strerror(errno));
         }
     }
 }

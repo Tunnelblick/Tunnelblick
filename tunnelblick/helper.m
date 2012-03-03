@@ -188,10 +188,10 @@ int createDir(NSString * dirPath, unsigned long permissions)
     if (  ! [gFileMgr tbCreateDirectoryAtPath: dirPath attributes: permissionsAsAttribute] ) {
         if (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
             && isDir  ) {
-            NSLog(@"Warning: Created directory %@ but unable to set permissions to %lu", dirPath, permissions);
+            NSLog(@"Warning: Created directory %@ but unable to set permissions to %lo", dirPath, permissions);
             return 1;
         } else {
-            NSLog(@"Error: Unable to create directory %@ with permissions %lu", dirPath, permissions);
+            NSLog(@"Error: Unable to create directory %@ with permissions %lo", dirPath, permissions);
             return -1;
         }
     }
@@ -296,7 +296,7 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
     
     NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *permissionsOctal = [NSString stringWithFormat:@"%o",perms];
+    NSString *permissionsOctal = [NSString stringWithFormat:@"%lo",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
     
@@ -489,8 +489,6 @@ NSDictionary * parseVersion( NSString * string)
         }
     }
     
-//NSLog(@"full = '%@'; preMajor = '%@'; major = '%@'; preMinor = '%@'; minor = '%@'; preSuffix = '%@'; suffix = '%@'; postSuffix = '%@'    ",
-//      string, preMajor, major, preMinor, minor, preSuffix, suffix, postSuffix);
     return (  [NSDictionary dictionaryWithObjectsAndKeys:
                [[string copy] autorelease], @"full",
                [[preMajor copy] autorelease], @"preMajor",

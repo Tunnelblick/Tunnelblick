@@ -927,7 +927,7 @@ void killOneOpenvpn(pid_t pid)
 	int didnotKill;
 	
     if (  ! processExists(pid)  ) {
-        fprintf(stderr, "Error: Process %d does not exist\n", pid);
+        fprintf(stderr, "Error: Process %ld does not exist\n", (long) pid);
         [pool drain];
         exit(243);
     }
@@ -936,12 +936,12 @@ void killOneOpenvpn(pid_t pid)
 		becomeRoot();
 		didnotKill = kill(pid, SIGTERM);
 		if (didnotKill) {
-			fprintf(stderr, "Error: Unable to kill openvpn process %d\n", pid);
+			fprintf(stderr, "Error: Unable to kill openvpn process %ld\n", (long) pid);
 			[pool drain];
 			exit(244);
 		}
 	} else {
-		fprintf(stderr, "Error: Process %d is not an openvpn process\n", pid);
+		fprintf(stderr, "Error: Process %ld is not an openvpn process\n", (long) pid);
 		[pool drain];
 		exit(245);
 	}
@@ -968,7 +968,7 @@ int killAllOpenvpn(void)
 			becomeRoot();
 			didnotKill = kill(pid, SIGTERM);
 			if (didnotKill) {
-				fprintf(stderr, "Error: Unable to kill openvpn process %d\n", pid);
+				fprintf(stderr, "Error: Unable to kill openvpn process %ld\n", (long) pid);
 				nNotKilled++;
 			} else {
 				nKilled++;
@@ -1477,7 +1477,7 @@ BOOL configNeedsRepair(void)
 	}
 	
 	unsigned long	perms			= [fileAttributes filePosixPermissions];
-	NSString*		octalString		= [NSString stringWithFormat:@"%o", perms];
+	NSString*		octalString		= [NSString stringWithFormat:@"%lo", perms];
 	NSNumber*		fileOwner		= [fileAttributes fileOwnerAccountID];
 	
 	if ( (![octalString isEqualToString:@"644"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
@@ -1634,7 +1634,7 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
     
     NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *permissionsOctal = [NSString stringWithFormat:@"%o",perms];
+    NSString *permissionsOctal = [NSString stringWithFormat:@"%lo",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
     
@@ -1775,7 +1775,7 @@ NSString * TunTapSuffixToUse(NSString * prefix)
             suffixToReturn = @"-20090913.kext";
         }
     } else {
-        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming earlier than Snow Leopard, so using Tuntap version 20090913. Error = %d\nError was '%s'", err, strerror(errno));
+        fprintf(stderr, "Tunnelblick openvpnstart: Unable to determine OS version; assuming earlier than Snow Leopard, so using Tuntap version 20090913. Error = %ld\nError was '%s'", (long) err, strerror(errno));
         suffixToReturn = @"-20090913.kext";
     }
     

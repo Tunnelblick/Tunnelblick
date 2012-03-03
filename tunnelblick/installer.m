@@ -806,7 +806,7 @@ void deleteFlagFile(void)
                 NSLog(@"Tunnelblick Installer: Unable to delete %s", path);
             }
         } else {
-            NSLog(@"Tunnelblick Installer: %s is not a regular file; st_mode = 0%o", path, sb.st_mode);
+            NSLog(@"Tunnelblick Installer: %s is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode);
         }
     } else {
         NSLog(@"Tunnelblick Installer: stat of %s failed\nError was '%s'", path, strerror(errno));
@@ -1040,7 +1040,7 @@ BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileM
 
     NSDictionary *atts = [gFileMgr tbFileAttributesAtPath: path traverseLink:YES];
     unsigned long perms = [atts filePosixPermissions];
-    NSString *octalPerms = [NSString stringWithFormat:@"%o",perms];
+    NSString *octalPerms = [NSString stringWithFormat:@"%lo",perms];
     
     if (   [octalPerms isEqualToString: permsShouldHave]  ) {
         return YES;
@@ -1125,7 +1125,7 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions,
     if (  ! checkSetOwnership(dirPath, NO, owner, group)  ) {
         return NO;
     }
-    NSString * permissionsAsString = [NSString stringWithFormat: @"%o", (int) permissions];
+    NSString * permissionsAsString = [NSString stringWithFormat: @"%lo", (long) permissions];
     if (  ! checkSetPermissions(dirPath, permissionsAsString, YES)  ) {
         return NO;
     }

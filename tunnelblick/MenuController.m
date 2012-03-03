@@ -1065,7 +1065,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     OSStatus status = pthread_mutex_lock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
@@ -1190,7 +1190,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
 }
 
@@ -1645,13 +1645,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     
     OSStatus status = pthread_mutex_lock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
     status = pthread_mutex_lock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
@@ -1676,12 +1676,12 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
      
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     status = pthread_mutex_unlock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
 }
 
@@ -1701,13 +1701,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     
     OSStatus status = pthread_mutex_lock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
     status = pthread_mutex_lock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
@@ -1740,12 +1740,12 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     
     status = pthread_mutex_unlock( &myVPNMenuMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &myVPNMenuMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     status = pthread_mutex_unlock( &configModifyMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &configModifyMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
 }
 
@@ -1878,7 +1878,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 {
     OSStatus status = pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
@@ -1935,7 +1935,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
                         NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
                         NSTask* task = [[[NSTask alloc] init] autorelease];
                         [task setLaunchPath: path];
-                        [task setArguments: [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%d", procId], nil]];
+                        [task setArguments: [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil]];
                         [task launch];
                         [task waitUntilExit];
                     } else {
@@ -1949,7 +1949,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
     
     status = pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }
 }    
     
@@ -1961,7 +1961,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     OSStatus status = pthread_mutex_trylock( &unloadKextsMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_lock( &unloadKextsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_lock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         return;
     }
     
@@ -1993,7 +1993,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     status = pthread_mutex_unlock( &unloadKextsMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }    
 }
 
@@ -2185,7 +2185,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     OSStatus status = pthread_mutex_trylock( &cleanupMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+        NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed is normal and expected when Tunnelblick is updated");
         return;
     }
@@ -2270,7 +2270,7 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  sender != nil  ) {
         OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
-            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }
         NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
@@ -2280,7 +2280,7 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
         [tempConnectionArray release];
         status = pthread_mutex_unlock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
-            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }    
         
@@ -2293,7 +2293,7 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
 	if (  sender != nil  ) {
         OSStatus status = pthread_mutex_trylock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
-            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            NSLog(@"pthread_mutex_trylock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }
         NSMutableArray * tempConnectionArray = [[self connectionArray] mutableCopy];
@@ -2302,7 +2302,7 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
         [tempConnectionArray release];
         status = pthread_mutex_unlock( &connectionArrayMutex );
         if (  status != EXIT_SUCCESS  ) {
-            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %d, errno = %d", (int) status, (int) errno);
+            NSLog(@"pthread_mutex_unlock( &connectionArrayMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
             return;
         }    
         
@@ -3323,12 +3323,12 @@ static void signal_handler(int signalNumber)
                                                                   toPort: &port
                                                              toStartArgs: &startArguments];
                     NSArray * keysForConfig = [[self myConfigDictionary] allKeysForObject: cfgPath];
-                    int keyCount = [keysForConfig count];
+                    long keyCount = [keysForConfig count];
                     if (  keyCount == 0  ) {
                         NSLog(@"No keys in myConfigDictionary for %@", cfgPath);
                     } else {
                         if (  keyCount != 1  ) {
-                            NSLog(@"Using first of %d keys in myConfigDictionary for %@", keyCount, cfgPath);
+                            NSLog(@"Using first of %ld keys in myConfigDictionary for %@", keyCount, cfgPath);
                         }
                         NSString * displayName = [keysForConfig objectAtIndex: 0];
                         VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: displayName];
@@ -3439,8 +3439,8 @@ static void signal_handler(int signalNumber)
         NSString * tblksMsg = @"";
         NSArray * tblksToInstallPaths = [self findTblksToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
         if (  tblksToInstallPaths  ) {
-            tblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nand install %d Tunnelblick VPN Configurations", @"Window text"),
-                        [tblksToInstallPaths count]];
+            tblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nand install %ld Tunnelblick VPN Configurations", @"Window text"),
+                        (long) [tblksToInstallPaths count]];
         }
         
         if (  [gFileMgr fileExistsAtPath: tbInApplicationsPath]  ) {
@@ -4286,9 +4286,9 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 //
 //*********************************************************************************************************
 
--(void) statusWindowController: (id)                     ctl
-      finishedWithChoice: (StatusWindowControllerChoice) choice
-          forDisplayName: (NSString *)             theName
+-(void) statusWindowController: (id) ctl
+            finishedWithChoice: (StatusWindowControllerChoice) choice
+                forDisplayName: (NSString *) theName
 {
     if (  choice == statusWindowControllerCancelChoice  ) {
         VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];

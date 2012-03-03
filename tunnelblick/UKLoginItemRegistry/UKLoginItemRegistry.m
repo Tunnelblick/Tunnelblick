@@ -26,7 +26,7 @@
     }
     if( err != noErr )
     {
-        NSLog(@"After five tries, still could not list login items, error %ld", err);
+        NSLog(@"After five tries, still could not list login items, error %ld", (long) err);
         return nil;
     }
 
@@ -38,7 +38,7 @@
 	OSStatus err = LIAEAddURLAtEnd( (CFURLRef) url, hide );	// CFURLRef is toll-free bridged to NSURL.
 	
 	if( err != noErr )
-		NSLog(@"Couldn't add login item error %ld", err);
+		NSLog(@"Couldn't add login item error %ld", (long) err);
 	
 	return( err == noErr );
 }
@@ -49,7 +49,7 @@
 	OSStatus err = LIAERemove( idx );
 	
 	if( err != noErr )
-		NSLog(@"Couldn't remove login intem error %ld", err);
+		NSLog(@"Couldn't remove login intem error %ld", (long) err);
 	
 	return( err == noErr );
 }

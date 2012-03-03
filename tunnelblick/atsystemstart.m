@@ -201,7 +201,7 @@ void deleteFlagFile(void)
                 NSLog(@"Tunnelblick atsystemstart: Unable to delete %s", path);
             }
         } else {
-            NSLog(@"Tunnelblick atsystemstart: %s is not a regular file; st_mode = 0%o", path, sb.st_mode);
+            NSLog(@"Tunnelblick atsystemstart: %s is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode);
         }
     } else {
         NSLog(@"Tunnelblick atsystemstart: stat of %s failed\nError was '%s'", path, strerror(errno));

@@ -699,8 +699,8 @@ enum state_t {                      // These are the "states" of the guideState 
             errPrefix = NSLocalizedString(@"There was a problem with one configuration. Details are in the Console Log\n\n", @"Window text");
         } else {
             errPrefix = [NSString stringWithFormat:
-                         NSLocalizedString(@"There was a problem with %d configurations. Details are in the Console Log\n\n", @"Window text"),
-                         (unsigned) [errList count]];
+                         NSLocalizedString(@"There was a problem with %ld configurations. Details are in the Console Log\n\n", @"Window text"),
+                         (unsigned long) [errList count]];
         }
     }
     
@@ -709,8 +709,8 @@ enum state_t {                      // These are the "states" of the guideState 
         windowText = NSLocalizedString(@"Do you wish to uninstall one configuration", @"Window text");
     } else if (  [deleteList count] > 1  ) {
         windowText = [NSString stringWithFormat:
-                      NSLocalizedString(@"Do you wish to uninstall %d configurations", @"Window text"),
-                      (unsigned) [deleteList count]];
+                      NSLocalizedString(@"Do you wish to uninstall %ld configurations", @"Window text"),
+                      (unsigned long) [deleteList count]];
     }
     
     if (  [sourceList count] > 0  ) {
@@ -726,12 +726,12 @@ enum state_t {                      // These are the "states" of the guideState 
             if (  windowText  ) {
                 windowText = [windowText stringByAppendingString:
                               [NSString stringWithFormat:
-                               NSLocalizedString(@" and install %d configurations", @"Window text"),
-                               (unsigned) [sourceList count]]];
+                               NSLocalizedString(@" and install %ld configurations", @"Window text"),
+                               (unsigned long) [sourceList count]]];
             } else {
                 windowText = [NSString stringWithFormat:
-                              NSLocalizedString(@"Do you wish to install %d configurations", @"Window text"),
-                              (unsigned) [sourceList count]];
+                              NSLocalizedString(@"Do you wish to install %ld configurations", @"Window text"),
+                              (unsigned long) [sourceList count]];
             }
         }
     }
@@ -1489,7 +1489,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 } else if (  status == OPENVPNSTART_COMPARE_CONFIG_DIFFERENT  ) {
                     isSame = FALSE;
                 } else {
-                    NSLog(@"compareShadowCopy returned %d", (int) status);
+                    NSLog(@"compareShadowCopy returned %ld", (long) status);
                     return nil;
                 }
             } else {
@@ -1631,7 +1631,7 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:configFile traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+    NSString *octalString = [NSString stringWithFormat:@"%lo",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     
     if ( (![octalString isEqualToString:@"644"])  || (![fileOwner isEqualToNumber:[NSNumber numberWithInt:0]])) {
@@ -1645,7 +1645,7 @@ enum state_t {                      // These are the "states" of the guideState 
 {
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *octalString = [NSString stringWithFormat:@"%o",perms];
+    NSString *octalString = [NSString stringWithFormat:@"%lo",perms];
     
     return [octalString isEqualToString: permsShouldHave];
 }
