@@ -116,6 +116,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
               skipResultMessage:                            (BOOL)              skipResultMsg;
 
 -(BOOL)             cannotRunFromVolume:                    (NSString *)        path;
+-(NSURL *)          contactURL;
 -(NSString *)       deconstructOpenVPNLogPath:              (NSString *)        logPath
                                        toPort:              (int *)             portPtr
                                   toStartArgs:              (NSString * *)      startArgsPtr;
@@ -259,6 +260,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 
                                 @"doNotShowConnectionSubmenus",
                                 @"doNotShowVpnDetailsMenuItem",
+                                @"doNotShowSuggestionOrBugReportMenuItem",
                                 @"doNotShowAddConfigurationMenuItem",
                                 @"doNotShowSplashScreen",
                                 @"showConnectedDurations",
@@ -1046,6 +1048,28 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [vpnDetailsItem setTarget: self];
     [vpnDetailsItem setAction: @selector(openPreferencesWindow:)];
     
+    [contactTunnelblickItem release];
+    contactTunnelblickItem = nil;
+    if ( ! [gTbDefaults boolForKey: @"doNotShowSuggestionOrBugReportMenuItem"]  ) {
+        if (  [self contactURL]  ) {
+            NSString * menuTitle = nil;
+            NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+            if (  [[infoPlist objectForKey: @"CFBundleShortVersionString"] rangeOfString: @"beta"].length != 0  ) {
+                if (  [NSLocalizedString(@"Tunnelblick", "Window title") isEqualToString: @"Tunnel" "blick"]  ) {
+                    if (  [@"Tunnelblick" isEqualToString: @"Tunnel" "blick"]  ) {
+                        menuTitle = NSLocalizedString(@"Suggestion or Bug Report...", @"Menu item");
+                    }
+                }
+            }
+            if (  menuTitle  ) {
+                contactTunnelblickItem = [[NSMenuItem alloc] init];
+                [contactTunnelblickItem setTitle: menuTitle];
+                [contactTunnelblickItem setTarget: self];
+                [contactTunnelblickItem setAction: @selector(contactTunnelblickWasClicked:)];
+            }
+        }
+    }
+    
     [quitItem release];
     quitItem = [[NSMenuItem alloc] init];
     [quitItem setTitle: NSLocalizedString(@"Quit Tunnelblick", @"Menu item")];
@@ -1110,6 +1134,11 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [self addCustomMenuItems];
 
+    if (  contactTunnelblickItem  ) {
+        [myVPNMenu addItem: contactTunnelblickItem];
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+    }
+    
     [myVPNMenu addItem: quitItem];
     
     status = pthread_mutex_unlock( &myVPNMenuMutex );
@@ -2058,6 +2087,26 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
             [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
         }
     }
+}
+
+-(IBAction) contactTunnelblickWasClicked: (id) sender
+{
+    NSURL * url = [self contactURL];
+    if (  url  ) {
+        [[NSWorkspace sharedWorkspace] openURL: url];
+    }
+}
+
+-(NSURL *) contactURL
+{
+    NSString * string = [NSString stringWithFormat: @"http://www.tunnelblick.net/contact?v=%@", tunnelblickVersion([NSBundle mainBundle])];
+    string = [string stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+    NSURL * url = [NSURL URLWithString: string];
+    if (  ! url  ) {
+        NSLog(@"Invalid contactURL");
+    }
+    
+    return url;
 }
 
 -(IBAction) openPreferencesWindow: (id) sender
