@@ -28,14 +28,20 @@
 
 @interface LogDisplay : NSObject {
     
-    NSMutableString * tbLog;                        // Entries from the Tunnelblick log (as opposed to the OpenVPN or script log)
+    NSMutableString * tbLog;                        // Entries from the Tunnelblick log (as opposed to the OpenVPN or script logs)
+    //                                              // This includes only entries that have NOT been displayed in the NSTextStorage
+    //                                              // object -- that is, only entries that have not been displayed to the user
+    
+    NSAttributedString * savedLog;                  // Contains the log display when the log is not being shown to the user (either
+    //                                              // because the VPN Details… window is not being shown, or because a differentContains the contents of the NSTextStorage (the display the user sees) when
+    //                                              // configuration's log is being shown.
     
     NSString      * configurationPath;
     NSString      * openvpnLogPath;
     NSString      * scriptLogPath;
-
+    
     VPNConnection * connection;
-
+    
     UKKQueue      * monitorQueue;                   // nil, or queue to monitor log files for changes
     
     unsigned long long openvpnLogPosition;          // NSFileHandle offsetInFile we have read up to
@@ -48,11 +54,19 @@
     
     unsigned        maxLogDisplaySize;              // Maximum number of bytes that we display in the log window
     
+    BOOL            logsHaveBeenLoaded;             // Causes the initial load of the logs
+    
+    BOOL            ignoreChangeRequests;           // We use this flag and mutex to insure that when we ask to ignore change requests
+    pthread_mutex_t makingChangesMutex;             // we will not be in the middle of making changes, and will not start any changes.
+    //                                              // This must be done so we know we have processed all changes in the log display when
+    //                                              // we get the display contents to swap for a different connection's log display.
+    //                                              // (Don't need to lock the mutex when we are saying NOT to ignore requests.)
+    
     // Used to throttle requests so we don't use too much CPU time processing bursts of changes to the log files
     long            secondWeLastQueuedAChange;      // Seconds since 1/1/2001 that we last queued a request to process a change to a log file
     unsigned        numberOfRequestsInThatSecond;   // Number of requests we've queued in that second
     NSTimer       * watchdogTimer;                  // Timer to queue a request to process a change to a log file
-
+    
     // Used to throttle scroll requests
     long            secondWeLastQueuedAScrollRequest;   // Seconds since 1/1/2001 that we last queued a scroll request
     unsigned        numberOfScrollRequestsInThatSecond; // Number of requests we've queued in that second
@@ -66,9 +80,9 @@
 -(void)             clear;
 
 -(void)             startMonitoringLogFiles;
+
 -(void)             stopMonitoringLogFiles;
 
-TBPROPERTY_READONLY(NSMutableString *, tbLog)
 
 TBPROPERTY_READONLY(NSString *, openvpnLogPath)
 
