@@ -123,6 +123,9 @@ extern NSString * lastPartOfPath(NSString * thePath);
         managementSocket = nil;
 		connectedSinceDate = [[NSDate alloc] init];
         logDisplay = [[LogDisplay alloc] initWithConfigurationPath: inPath];
+        if (  ! logDisplay  ) {
+            return nil;
+        }
         [logDisplay setConnection: self];
         lastState = @"EXITING";
         requestedState = @"EXITING";
@@ -816,7 +819,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [self clearLog];
     
-	NSArray *arguments = [self argumentsForOpenvpnstartForNow: YES];
+	NSArray * arguments = [self argumentsForOpenvpnstartForNow: YES];
     if (  arguments == nil  ) {
         if (  userKnows  ) {
             requestedState = oldRequestedState; // User cancelled
@@ -863,6 +866,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     NSPipe * stdPipe = [[NSPipe alloc] init];
     [task setStandardOutput: stdPipe];
     
+    [self addToLog: [[NSApp delegate] openVPNLogHeader]];
+
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           [self displayName],
                           (  [[arguments objectAtIndex: 5] isEqualToString:@"1"]
@@ -909,7 +914,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (  [openvpnstartOutput length] != 0  ) {
-        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: %@", openvpnstartOutput]];
+        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: openvpnstart output:\n\n%@\n", openvpnstartOutput]];
     }
 
     int status = [task terminationStatus];
@@ -922,9 +927,15 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             [file closeFile];
             openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            openvpnstartOutput = [@"\n" stringByAppendingString: openvpnstartOutput];
+            openvpnstartOutput = [openvpnstartOutput stringByReplacingOccurrencesOfString: @"\n" withString: @"\n     "];
         }
         
-        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart status #%d: %@", status, openvpnstartOutput]];
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick:\n\n"
+                         "Could not start OpenVPN (openvpnstart returned with status #%d)\n\n"
+                         "Contents of the openvpnstart log:\n"
+                         "%@",
+                         status, openvpnstartOutput]];
         [errPipe release];
         if (  userKnows  ) {
             TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
@@ -2234,8 +2245,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelUpSound,   setTunnelUpSound)
-TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelDownSound, setTunnelDownSound)
 
+TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelDownSound, setTunnelDownSound)
 
 //*********************************************************************************************************
 //

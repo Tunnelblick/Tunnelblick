@@ -374,9 +374,9 @@ int main(int argc, char* argv[])
                 "                     G - Workgroup changed to some other value\n"
                 "                     W - WINSAddresses changed to some other value\n\n"
                 
-                "openvpnVersion is a string with the name of the subfolder of …Resources/openvpn that contains the openvpn and openvpn-down-root.so binaries\n"
+                "openvpnVersion is a string with the name of the subfolder of ...Resources/openvpn that contains the openvpn and openvpn-down-root.so binaries\n"
                 "               to be used for the connection. The string may contain only lower-case letters, hyphen, period, and the digits 0-9.\n"
-                "               If not present, the lowest (in lexicographical order) subfolder of …Resources/openvpn will be used.\n"
+                "               If not present, the lowest (in lexicographical order) subfolder of ...Resources/openvpn will be used.\n"
                 
 				"useScripts, skipScrSec, cfgLocCode, and noMonitor each default to 0.\n"
                 "bitMask defaults to 0x03.\n\n"
@@ -745,25 +745,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         }
     }
     
-    NSMutableString * cmdLine;
-    if (  [openvpnPath rangeOfString: @" "].length == 0  ) {
-        cmdLine = [NSMutableString stringWithString: openvpnPath];
-    } else {
-        cmdLine = [NSMutableString stringWithFormat: @"\"%@\"", openvpnPath];
-    }
-
+    // Create a new script log which includes the command line used to start openvpn
+    NSMutableString * fakeCmdLine = [NSMutableString stringWithString: openvpnPath];
     int i;
     for (i=0; i<[arguments count]; i++) {
-        NSString * arg = [arguments objectAtIndex: i];
-        if (  [arg rangeOfString: @" "].length == 0  ) {
-            [cmdLine appendFormat: @" %@", arg];
-        } else {
-            [cmdLine appendFormat: @" \"%@\"", arg];
-        }
+        [fakeCmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
     }
-	
-    // Create a new script log which includes the command line used to start openvpn
-    createScriptLog(configFile, cfgLocCode, cmdLine);
+    createScriptLog(configFile, cfgLocCode, fakeCmdLine);
     
     if (  tblkPath  ) {
         NSString * preConnectPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/pre-connect.sh"];
@@ -773,7 +761,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 [pool drain];
                 exit(234);
             }
-            fprintf(stderr, "'pre-connect.sh' executing…\n");
+            fprintf(stderr, "'pre-connect.sh' executing...\n");
             int result = runAsRoot(preConnectPath, [NSArray array]);
             fprintf(stderr, "'pre-connect.sh' returned with status %d\n", result);
             if (  result != 0 ) {
@@ -821,7 +809,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 [pool drain];
                 exit(253);
             }
-            fprintf(stderr, "'post-tun-tap-load.sh' executing…\n");
+            fprintf(stderr, "'post-tun-tap-load.sh' executing...\n");
             int result = runAsRoot(postTunTapPath, [NSArray array]);
             fprintf(stderr, "'post-tun-tap-load.sh' returned with status %d\n", result);
             if (  result != 0 ) {
@@ -839,13 +827,43 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 	[task launch];
 	[task waitUntilExit];
    
-    int retCode = [task terminationStatus];
-    if (  retCode != 0  ) {
-        NSString * configError = @"";
-        if (  retCode == 1  ) {
-            configError = @"\n     Possible error in configuration file.";
+    int status = [task terminationStatus];
+    if (  status != 0  ) {
+        NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
+        int i;
+        for (i=0; i<[arguments count]; i++) {
+            [displayCmdLine appendString: [NSString stringWithFormat: @"     %@\n", [arguments objectAtIndex: i]]];
         }
-        fprintf(stderr, "Error: OpenVPN returned with status %d, errno = %ld:\n     %s%s\n     See \"All Messages\" in Console for details\n", retCode, (long) errno, strerror(errno), [configError UTF8String]);
+                
+        // Get the OpenVPN log contents and then delete both log files, since Tunnelblick won't "hook up" to OpenVPN and thus won't set up to monitor the log file
+        NSString * logContents = @"";
+        NSData * logData = [gFileMgr contentsAtPath: logPath];
+        if (  logData  ) {
+            logContents = [[[NSString alloc] initWithData: logData encoding: NSASCIIStringEncoding] autorelease];
+            if (  ! logContents  ) {
+                logContents = @"";
+            }
+        }
+        logContents = [[@"\n" stringByAppendingString:(NSString *) logContents] stringByReplacingOccurrencesOfString: @"\n" withString: @"\n     "];
+
+        [gFileMgr tbRemoveFileAtPath: logPath    handler: nil];
+        NSString * scriptPath = [[[[[[logPath
+                                      stringByDeletingPathExtension]        // Remove openvpnstart args
+                                     stringByDeletingPathExtension]         // Remove port #
+                                    stringByDeletingPathExtension]          // Remove 'openvpn'
+                                   stringByDeletingPathExtension]           // Remove 'log'
+                                  stringByAppendingPathExtension: @"script"]
+                                 stringByAppendingPathExtension: @"log"];
+        [gFileMgr tbRemoveFileAtPath: scriptPath handler: nil];
+        fprintf(stderr, "\n"
+                "OpenVPN returned with status %d, errno = %ld:\n"
+                "     %s\n\n"
+                "Command used to start OpenVPN (one argument per displayed line):\n\n"
+                "%s\n"
+                "Contents of the OpenVPN log:\n"
+                "%s\n"
+                "More details may be in the Console Log's \"All Messages\"\n",
+                status, (long) errno, strerror(errno), [displayCmdLine UTF8String], [logContents UTF8String]);
         [pool drain];
 		exit(242);
     }
@@ -903,7 +921,7 @@ int runScript(NSString * scriptName,
             if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
                 if (  checkOwnerAndPermissions(scriptPath, 0, 0, @"744")  ) {
                     
-                    fprintf(stderr, "'%s' executing…\n", [scriptName UTF8String]);
+                    fprintf(stderr, "'%s' executing...\n", [scriptName UTF8String]);
                     returnValue = runAsRoot(scriptPath, [NSArray array]);
                     fprintf(stderr, "'%s' returned with status %d\n", [scriptName UTF8String], returnValue);
 
@@ -1033,7 +1051,7 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSS
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
 
     NSCalendarDate * date = [NSCalendarDate date];
-    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart: %@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], cmdLine];
+    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart starting OpenVPN:\n%@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], cmdLine];
     NSData * dateCmdLineAsData = [NSData dataWithBytes: [dateCmdLine UTF8String] length: [dateCmdLine length]];
     
     if (  ! [gFileMgr createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes]  ) {
@@ -1700,7 +1718,7 @@ BOOL isSanitizedOpenvpnVersion(NSString * s)
 
 //**************************************************************************************************************************
 // Returns the path to the openvpn executable to be used.
-// Arguments are the path to …Resources/Contents/openvpn" and the name of the subfolder within that folder that contains the version to be used.
+// Arguments are the path to ...Resources/Contents/openvpn" and the name of the subfolder within that folder that contains the version to be used.
 // The subfolder name must begin with "openvpn-".
 NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVersion)
 {
