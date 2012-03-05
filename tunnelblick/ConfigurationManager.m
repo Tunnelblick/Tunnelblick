@@ -443,7 +443,7 @@ enum state_t {                      // These are the "states" of the guideState 
     if (  [[cfgPath pathExtension] isEqualToString: @"tblk"]  ) {
         actualConfigPath = [actualConfigPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
     }
-    NSString * cfgContents = [[NSString alloc] initWithData: [gFileMgr contentsAtPath: actualConfigPath] encoding:NSUTF8StringEncoding];
+    NSString * cfgContents = [[NSString alloc] initWithData: [gFileMgr contentsAtPath: actualConfigPath] encoding: NSASCIIStringEncoding];
     
     NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
     NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
