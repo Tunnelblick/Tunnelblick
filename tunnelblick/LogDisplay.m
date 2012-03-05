@@ -224,26 +224,6 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
--(NSAttributedString *) contents
-{
-    // Returns contents of the log if it is being displayed, otherwise nil
-    OSStatus status = pthread_mutex_lock( &logStorageMutex );
-    if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"logDisplay:contents: pthread_mutex_lock( &logStorageMutex ) failed; status = %ld", (long) status);
-        return nil;
-    }
-    NSTextStorage * logStore = [self logStorage];
-    if (  logStore  ) {
-        NSRange  r = NSMakeRange(0, [logStore length]);
-        NSAttributedString * returnString = [logStore attributedSubstringFromRange: r];
-        pthread_mutex_unlock( &logStorageMutex );
-        return returnString;
-    } else {
-        pthread_mutex_unlock( &logStorageMutex );
-        return nil;
-    }
-}
-
 -(void) doLogScrolling
 {
     if (  [self logStorage]  ) {
@@ -444,11 +424,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
                     NSRange r = [openvpnString rangeOfCharacterFromSet: [NSCharacterSet newlineCharacterSet] options: 0 range: s];
                     if (  r.location != NSNotFound  ) {
                         openvpnStringPosition = r.location + 1;
-                    } else {
-                        NSLog(@"JKB: no LF found!");
                     }
-                } else {
-                    NSLog(@"JKB: position > length!");
                 }
             }
         }
