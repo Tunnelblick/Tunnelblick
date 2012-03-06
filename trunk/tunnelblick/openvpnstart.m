@@ -312,13 +312,14 @@ int main(int argc, char* argv[])
 				"useScripts has three fields (weird, but backward compatible):\n"
                 "           bit 0 is 0 to not run scripts when the tunnel goes up or down (scripts may still be used in the configuration file)\n"
                 "                 or 1 to run scripts before connecting and after disconnecting (scripts in the configuration file will be ignored)\n"
-				"                (The standard scripts are usually Tunnelblick.app/Contents/Resources/client.up.osx.sh & client.down.osx.sh, but see the cfgLocCode option)\n"
+				"                (The standard scripts are Tunnelblick.app/Contents/Resources/client.up.tunnelblick.sh & client.down.tunnelblick.sh,\n"
+                "                 and client.route-pre-down.tunnelblick.sh if bits 2-7 are zero, but see the cfgLocCode option)\n"
                 "           bit 1 is 0 to not use the 'openvpn-down-root.so' plugin\n"
                 "                 or 1 to use the 'openvpn-down-root.so' plugin\n"
                 "           bits 2-7 specify the script to use. If non-zero, they are converted to a digit, N, used as an added extension to the script file\n"
                 "                    name, just before 'nomonitor' if it appears, otherwise just before '.up' or '.down'.\n\n"
-                "           Examples: useScripts=1 means use client.up.osx.sh and client.down.osx.sh\n"
-                "                     useScripts=3 means use client.up.osx.sh and client.down.osx.sh\n and the 'openvpn-down-root.so' plugin "
+                "           Examples: useScripts=1 means use client.up.tunnelblick.sh, client.down.tunnelblick.sh, and client.route-pre-down.tunnelblick.sh\n"
+                "                     useScripts=3 means use client.up.osx.sh, client.down.osx.sh, and the 'openvpn-down-root.so' plugin "
                 "                     useScripts=5 means use client.1.up.osx.sh and client.1.down.osx.sh\n"
                 "                     useScripts=9 means use client.2.up.osx.sh and client.2.down.osx.sh\n"
                 
@@ -328,11 +329,12 @@ int main(int argc, char* argv[])
                 "           or 1 to use the alternate folder (/Library/Application Support/Tunnelblick/Users/<username>)\n"
                 "                for configuration files and the standard folder for other files,\n"
                 "           or 2 to use the Resources/Deploy folder for configuration and other files,\n"
-                "                except that if Resources/Deploy contains only .conf, .ovpn, .up.sh, .down.sh and forced-preferences.plist files\n"
+                "                except that if Resources/Deploy contains only .conf, .ovpn, .up.sh, .down.sh, route-pre-down.sh, and forced-preferences.plist files\n"
                 "                            then ~/Library/Application Support/Tunnelblick/Configurations will be used for all other files (such as .crt and .key files)\n"
                 "                and If 'useScripts' is not 0\n"
                 "                    Then If Resources/Deploy/<configName>.up.sh   exists, it is used instead of Resources/client.up.osx.sh,\n"
                 "                     and If Resources/Deploy/<configName>.down.sh exists, it is used instead of Resources/client.down.osx.sh\n"
+                "                     and If Resources/Deploy/<configName>.route-pre-down.sh exists, it is used instead of Resources/client.route-pre-down.tunnelblick.sh\n"
                 "           or 3 to use /Library/Application Support/Tunnelblick/Shared\n\n"
                 
                 "noMonitor  is 0 to monitor the connection for interface configuration changes\n"
@@ -347,7 +349,8 @@ int main(int argc, char* argv[])
                 "                            bit 6 is 1 to indicate a TAP connection is being made; 0 to indicate a TUN connection is being made\n"
                 "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
                 
-                "leasewatchOptions is a string containing characters indicating options for leasewatch.\n"
+                "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
+                
                 "           If the string starts with '-i', the leasewatch script will be used to monitor network settings.\n"
                 "           in which case, it may be followed by any of the following characters in any order:\n"
                 "           d - ignore Domain\n"
@@ -357,7 +360,7 @@ int main(int argc, char* argv[])
                 "           g - ignore Workgroup\n"
                 "           w - ignore WINSAddresses\n\n"
                 
-                "           If the string starts with '-a', the process-network-changes binary will be used to monitor network settings.\n"
+                "           If the string starts with '-a', the process-network-changes binary will be used to monitor network settings,\n"
                 "           in which case, it may be followed by:\n"
                 "                     a 't' followed by any of the following characters to restart for the corresponding change,\n"
                 "              and/or a 'r' followed by any of the following characters to restore the post-VPN value for the corresponding change \n"
@@ -409,12 +412,6 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                                           stringByAppendingPathComponent: @"openvpn-down-root.so"];
 
     NSString * deployDirPath           = [execPath stringByAppendingPathComponent: @"Deploy"];
-    NSString * upscriptPath;
-    NSString * downscriptPath;
-    NSString * upscriptNoMonitorPath;
-    NSString * downscriptNoMonitorPath;
-    NSString * newUpscriptPath;
-    NSString * newDownscriptPath;
     
     NSString * scriptNumString;
     unsigned scriptNum = useScripts >> 2;
@@ -424,13 +421,16 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         scriptNumString = [NSString stringWithFormat: @"%u.", scriptNum];
     }
     
-    upscriptPath            = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@up.osx.sh",             scriptNumString]];
-    downscriptPath          = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@down.osx.sh",           scriptNumString]];
-    upscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.up.osx.sh",   scriptNumString]];
-    downscriptNoMonitorPath	= [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.down.osx.sh", scriptNumString]];
-    newUpscriptPath         = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@up.tunnelblick.sh",     scriptNumString]];
-    newDownscriptPath       = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@down.tunnelblick.sh",   scriptNumString]];
-
+    NSString * upscriptPath              = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@up.osx.sh",                     scriptNumString]];
+    NSString * downscriptPath            = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@down.osx.sh",                   scriptNumString]];
+    NSString * upscriptNoMonitorPath	 = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.up.osx.sh",           scriptNumString]];
+    NSString * downscriptNoMonitorPath	 = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@nomonitor.down.osx.sh",         scriptNumString]];
+    
+    NSString * newUpscriptPath           = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@up.tunnelblick.sh",             scriptNumString]];
+    NSString * newDownscriptPath         = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@down.tunnelblick.sh",           scriptNumString]];
+    NSString * newRoutePreDownscriptPath = [execPath stringByAppendingPathComponent: [NSString stringWithFormat: @"client.%@route-pre-down.tunnelblick.sh", scriptNumString]];
+    NSString * standardRoutePreDownscriptPath = [[newRoutePreDownscriptPath copy] autorelease];
+    
     NSString * tblkPath = nil;  // Path to .tblk, or nil if configuration is .conf or .ovpn.
     
     NSString * cdFolderPath;
@@ -568,12 +568,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     if(  useScripts != 0  ) {  // 'Set nameserver' specified, so use our standard scripts or Deploy/<config>.up.sh and Deploy/<config>.down.sh
         if (  cfgLocCode == CFG_LOC_DEPLOY  ) {
             NSString * deployScriptPath                 = [deployDirPath stringByAppendingPathComponent: [configFile stringByDeletingPathExtension]];
-            NSString * deployUpscriptPath               = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@up.sh",               scriptNumString]];
-            NSString * deployDownscriptPath             = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@down.sh",             scriptNumString]];
-            NSString * deployUpscriptNoMonitorPath      = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@nomonitor.up.sh",     scriptNumString]];
-            NSString * deployDownscriptNoMonitorPath    = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@nomonitor.down.sh",   scriptNumString]];
-            NSString * deployNewUpscriptPath            = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@up.tunnelblick.sh",   scriptNumString]];
-            NSString * deployNewDownscriptPath          = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@down.tunnelblick.sh", scriptNumString]];
+            NSString * deployUpscriptPath               = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@up.sh",                         scriptNumString]];
+            NSString * deployDownscriptPath             = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@down.sh",                       scriptNumString]];
+            NSString * deployUpscriptNoMonitorPath      = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@nomonitor.up.sh",               scriptNumString]];
+            NSString * deployDownscriptNoMonitorPath    = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@nomonitor.down.sh",             scriptNumString]];
+            NSString * deployNewUpscriptPath            = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@up.tunnelblick.sh",             scriptNumString]];
+            NSString * deployNewDownscriptPath          = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@down.tunnelblick.sh",           scriptNumString]];
+            NSString * deployNewRoutePreDownscriptPath  = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@route-pre-down.tunnelblick.sh", scriptNumString]];
             
             if (  noMonitor  ) {
                 if (  [gFileMgr fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
@@ -598,6 +599,9 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
+                if (  [gFileMgr fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
+                    newRoutePreDownscriptPath = deployNewRoutePreDownscriptPath;
+                }
             } else {
                 if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
@@ -616,6 +620,9 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                     downscriptPath = deployNewDownscriptPath;
                 } else {
                     downscriptPath = newDownscriptPath;
+                }
+                if (  [gFileMgr fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
+                    newRoutePreDownscriptPath = deployNewRoutePreDownscriptPath;
                 }
             }
         } else {
@@ -647,12 +654,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         
         // BUT MAY OVERRIDE THE ABOVE if there are scripts in the .tblk
         if (  tblkPath  ) {
-            NSString * tblkUpscriptPath             = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@up.sh",               scriptNumString]];
-            NSString * tblkDownscriptPath           = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@down.sh",             scriptNumString]];
-            NSString * tblkUpscriptNoMonitorPath    = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@nomonitor.up.sh",     scriptNumString]];
-            NSString * tblkDownscriptNoMonitorPath  = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@nomonitor.down.sh",   scriptNumString]];
-            NSString * tblkNewUpscriptPath          = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@up.tunnelblick.sh",   scriptNumString]];
-            NSString * tblkNewDownscriptPath        = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@down.tunnelblick.sh", scriptNumString]];
+            NSString * tblkUpscriptPath              = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@up.sh",                         scriptNumString]];
+            NSString * tblkDownscriptPath            = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@down.sh",                       scriptNumString]];
+            NSString * tblkUpscriptNoMonitorPath     = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@nomonitor.up.sh",               scriptNumString]];
+            NSString * tblkDownscriptNoMonitorPath   = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@nomonitor.down.sh",             scriptNumString]];
+            NSString * tblkNewUpscriptPath           = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@up.tunnelblick.sh",             scriptNumString]];
+            NSString * tblkNewDownscriptPath         = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@down.tunnelblick.sh",           scriptNumString]];
+            NSString * tblkNewRoutePreDownscriptPath = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@route-pre-down.tunnelblick.sh", scriptNumString]];
             
             if (  noMonitor  ) {
                 if (  [gFileMgr fileExistsAtPath: tblkUpscriptNoMonitorPath]  ) {
@@ -677,6 +685,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                     downscriptPath = tblkNewDownscriptPath;
                 }
             }
+            if (  [gFileMgr fileExistsAtPath: tblkNewRoutePreDownscriptPath]  ) {
+                newRoutePreDownscriptPath = tblkNewRoutePreDownscriptPath;
+            }
+            
         }
         
         // Process script options if scripts are "new" scripts
@@ -703,8 +715,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             [scriptOptions appendString: leasewatchOptions];
         }
 
-        NSString * upscriptCommand   = escaped(upscriptPath);   // Must escape these since they are the first part of a command line
-        NSString * downscriptCommand = escaped(downscriptPath);
+        NSString * upscriptCommand           = escaped(upscriptPath);   // Must escape these since they are the first part of a command line
+        NSString * downscriptCommand         = escaped(downscriptPath);
+        NSString * routePreDownscriptCommand = escaped(newRoutePreDownscriptPath);
+        
         if (   scriptOptions
             && ( [scriptOptions length] != 0 )  ) {
             
@@ -719,6 +733,8 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             } else {
                 fprintf(stderr, "Warning: down script %s is not new version; not using '%s' options\n", [downscriptPath UTF8String], [scriptOptions UTF8String]);
             }
+
+            routePreDownscriptCommand = [routePreDownscriptCommand stringByAppendingString: scriptOptions];
         }
             
         if (   ([upscriptCommand length] > 199  )
@@ -743,7 +759,33 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                                              ]
              ];
         }
-    }
+        
+        if (  [gFileMgr fileExistsAtPath: newRoutePreDownscriptPath]  ) {
+            BOOL customRoutePreDownScript = ! [newRoutePreDownscriptPath isEqualToString: standardRoutePreDownscriptPath];
+            NSString * versionToUse = [[[openvpnPath
+                                         stringByDeletingLastPathComponent]     // remove "openvpn", the executable
+                                        lastPathComponent]                       // isolate "openvpn-XXXX"
+                                       stringByReplacingOccurrencesOfString: @"openvpn-" withString: @""];
+            BOOL openvpnHasRoutePreDown = (NSOrderedDescending == [[versionToUse substringToIndex: 3] compare: @"2.2"]);
+            if (   customRoutePreDownScript
+                && (  ! openvpnHasRoutePreDown )  ) {
+                fprintf(stderr, "Your 'Tunnelblick VPN Configuration' or 'Deployed' configuration includes a 'route-pre-down.tunnelblick.sh' file,"
+                        " which requires OpenVPN's '--route-pre-down' option. That option is not available in OpenVPN version %s, it is only available"
+                        " in OpenVPN version 2.3alpha1 and higher.", [versionToUse UTF8String]);
+                [pool drain];
+                exit(254);
+            } else {
+            }
+
+            if (  openvpnHasRoutePreDown ) {
+                [arguments addObjectsFromArray: [NSArray arrayWithObjects:
+                                                 @"--route-pre-down", routePreDownscriptCommand,
+                                                 nil
+                                                 ]
+                 ];
+            }
+        }
+    }        
     
     // Create a new script log which includes the command line used to start openvpn
     NSMutableString * fakeCmdLine = [NSMutableString stringWithString: openvpnPath];
