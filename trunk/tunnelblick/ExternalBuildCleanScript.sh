@@ -132,7 +132,14 @@ cleanAction () {
         fi
         
     elif [ "$1" = "Debug" ] ; then
-        echo "(No action required to clean '$1' configuration)"
+        if [ -d "build/Debug/${PROJECT_NAME}.app" ] ; then
+            # Trash the .app so the digital signature will be created on a clean copy of the .app
+            # (We can't 'rm -r -f' because of the possible ownership of some parts by root:wheel)
+            ./trash.sh -f "build/$1/${PROJECT_NAME}.app"
+            echo "Trashed the .app"
+        else
+            echo "(No action required because the .app does not exist)"
+        fi
         
     else
         echo "error: Invalid argument ('$1') to cleanAction. Must be a configuration name"
