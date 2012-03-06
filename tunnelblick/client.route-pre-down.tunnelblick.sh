@@ -5,11 +5,13 @@
 # This Tunnelblick script does everything! It handles TUN and TAP interfaces, 
 # pushed configurations and DHCP leases. :)
 # 
-# This is the "Down" version of the script, executed after the connection is 
-# closed.
+# This is the "route-pre-down" version of the script, executed before the connection is closed.
 #
-# Created by: Nick Williams (using original code and parts of old Tblk scripts)
-# 
+# It is a modified version of the "down" script written by Nick Williams
+#
+# It releases the DHCP lease for any TAP devices.
+# It has no effect for TUN devices or TAP devices not using DHCP.
+#
 # ******************************************************************************************************************
 
 trap "" TSTP
@@ -44,8 +46,8 @@ SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLo
 # Don't need: PROCESS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
+
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
-bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
 
 # @param String message - The message to log
 logMessage()
@@ -60,90 +62,45 @@ trim()
 
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-        if [ "TapDeviceHasBeenSetNone" == "false" ]; then
-            if [ -z "$dev" ]; then
-                logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Device may not have disconnected properly."
-            else
-                set +e
-                ipconfig set "$dev" NONE 2>/dev/null
-                set -e
+		if [ -z "$dev" ]; then
+			logMessage "Cannot release DHCP lease on TAP interface without \$dev being defined. Device may not have connected properly."
+		else
+        
+            # Issue warning if the primary service ID has changed
+            PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
+                open
+                show State:/Network/OpenVPN
+                quit
+EOF)"
+            if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
+                logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
             fi
-        fi
-    fi
-fi
 
-# Issue warning if the primary service ID has changed
-PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
-	open
-	show State:/Network/OpenVPN
-	quit
-EOF)"
-if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
-	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
-fi
-
-# Remove leasewatcher
-if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-	launchctl unload "${LEASEWATCHER_PLIST_PATH}"
-	logMessage "Cancelled monitoring of system configuration changes"
-fi
-
-# Restore configurations
-DNS_OLD="$(/usr/sbin/scutil <<-EOF
-	open
-	show State:/Network/OpenVPN/OldDNS
-	quit
-EOF)"
-WINS_OLD="$(/usr/sbin/scutil <<-EOF
-	open
-	show State:/Network/OpenVPN/OldSMB
-	quit
-EOF)"
-TB_NO_SUCH_KEY="<dictionary> {
-  TunnelblickNoSuchKey : true
-}"
-
-if [ "${DNS_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<- EOF
-		open
-		remove State:/Network/Service/${PSID}/DNS
-		quit
+            # Remove leasewatcher
+            if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+                launchctl unload "${LEASEWATCHER_PLIST_PATH}"
+                logMessage "Cancelled monitoring of system configuration changes"
+            
+                # Indicate leasewatcher has been removed
+                scutil <<- EOF
+                open
+                get State:/Network/OpenVPN
+                d.remove MonitorNetwork
+                d.add MonitorNetwork        "false"
+                d.remove TapDeviceSetNone
+                d.add TapDeviceHasBeenSetNone "true"
+                set State:/Network/OpenVPN
+                quit
 EOF
-else
-	scutil <<- EOF
-		open
-		get State:/Network/OpenVPN/OldDNS
-		set State:/Network/Service/${PSID}/DNS
-		quit
-EOF
+            fi
+            
+            # Release the DHCP lease
+			set +e
+			ipconfig set "$dev" NONE 2>/dev/null
+			set -e
+            logMessage "Released the DHCP lease using 'ipconfig set "$dev" NONE'"
+		fi
+	fi
 fi
-
-if [ "${WINS_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<- EOF
-		open
-		remove State:/Network/Service/${PSID}/SMB
-		quit
-EOF
-else
-	scutil <<- EOF
-		open
-		get State:/Network/OpenVPN/OldSMB
-		set State:/Network/Service/${PSID}/SMB
-		quit
-EOF
-fi
-
-logMessage "Restored the DNS and WINS configurations"
-
-# Remove our system configuration data
-scutil <<- EOF
-	open
-	remove State:/Network/OpenVPN/SMB
-	remove State:/Network/OpenVPN/DNS
-	remove State:/Network/OpenVPN/OldSMB
-	remove State:/Network/OpenVPN/OldDNS
-	remove State:/Network/OpenVPN
-	quit
-EOF
 
 exit 0

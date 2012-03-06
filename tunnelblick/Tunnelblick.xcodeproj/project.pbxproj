@@ -107,6 +107,7 @@
 		63ABFE9C1349E435003DEB64 /* LoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ABFE9B1349E435003DEB64 /* LoginWindowController.m */; };
 		63ABFE9F1349F086003DEB64 /* LoginWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63ABFE9E1349F086003DEB64 /* LoginWindow.xib */; };
 		63AE8599116CCF7A00D36CB1 /* PL.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63AE8596116CCF7A00D36CB1 /* PL.lproj */; };
+		63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */ = {isa = PBXBuildFile; fileRef = 63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */; };
 		63B5E31911E34D69007D99DB /* tunnelblick.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31811E34D69007D99DB /* tunnelblick.icns */; };
 		63B5E31B11E34D7B007D99DB /* tunnelblick_package.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */; };
 		63B5EFDC13693F0A006BC27B /* PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 63B5EFD913693F0A006BC27B /* PT.lproj */; };
@@ -363,6 +364,7 @@
 		63ABFE9B1349E435003DEB64 /* LoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWindowController.m; sourceTree = "<group>"; };
 		63ABFE9E1349F086003DEB64 /* LoginWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginWindow.xib; sourceTree = "<group>"; };
 		63AE8596116CCF7A00D36CB1 /* PL.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PL.lproj; sourceTree = "<group>"; };
+		63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "client.route-pre-down.tunnelblick.sh"; sourceTree = "<group>"; };
 		63B5E31811E34D69007D99DB /* tunnelblick.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick.icns; sourceTree = "<group>"; };
 		63B5E31A11E34D7B007D99DB /* tunnelblick_package.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tunnelblick_package.icns; sourceTree = "<group>"; };
 		63B5EFD913693F0A006BC27B /* PT.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PT.lproj; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 			children = (
 				6398C86E11A5C1BC00CCF28D /* client.up.tunnelblick.sh */,
 				6398C86D11A5C1BC00CCF28D /* client.down.tunnelblick.sh */,
+				63AF2CAD15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh */,
 				63E372660FEB3FF00012DDE7 /* leasewatch */,
 				63D92581135DAEE1001FF627 /* leasewatch3 */,
 				63E372670FEB3FF00012DDE7 /* LeaseWatch.plist.template */,
@@ -1049,6 +1052,7 @@
 				63D39BF214F9ED13002D1297 /* Configurations.png in Resources */,
 				63E7EE8B150046E70089D38B /* easy-rsa-Tunnelblick in Resources */,
 				635BF1AF1501CE4E00D87717 /* ExternalBuildCleanScript.sh in Resources */,
+				63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

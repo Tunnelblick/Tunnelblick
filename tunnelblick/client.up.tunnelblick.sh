@@ -312,6 +312,7 @@ EOF )"
 		d.add IgnoreOptionFlags     "${ARG_IGNORE_OPTION_FLAGS}"
 		d.add IsTapInterface        "${ARG_TAP}"
 		d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
+        d.add TapDeviceHasBeenSetNone "false"
 		set State:/Network/OpenVPN
 		
 		# First, back up the device's current DNS and WINS configurations
