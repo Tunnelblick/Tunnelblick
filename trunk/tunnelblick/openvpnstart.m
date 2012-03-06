@@ -827,14 +827,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
 	[task launch];
 	[task waitUntilExit];
    
+    NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
+    for (i=0; i<[arguments count]; i++) {
+        [displayCmdLine appendString: [NSString stringWithFormat: @"     %@\n", [arguments objectAtIndex: i]]];
+    }
+        
     int status = [task terminationStatus];
     if (  status != 0  ) {
-        NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
-        int i;
-        for (i=0; i<[arguments count]; i++) {
-            [displayCmdLine appendString: [NSString stringWithFormat: @"     %@\n", [arguments objectAtIndex: i]]];
-        }
-                
         // Get the OpenVPN log contents and then delete both log files, since Tunnelblick won't "hook up" to OpenVPN and thus won't set up to monitor the log file
         NSString * logContents = @"";
         NSData * logData = [gFileMgr contentsAtPath: logPath];
@@ -866,7 +865,13 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 status, (long) errno, strerror(errno), [displayCmdLine UTF8String], [logContents UTF8String]);
         [pool drain];
 		exit(242);
+    } else {
+        fprintf(stderr, "\n"
+                "OpenVPN started successfully. Command used to start OpenVPN (one argument per displayed line):\n\n"
+                "%s\n",
+                [displayCmdLine UTF8String]);
     }
+
     return 0;
 }
 
