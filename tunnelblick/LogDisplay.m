@@ -29,6 +29,7 @@
 #import "ConfigurationsView.h"
 
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
+#define NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG 3
 
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
@@ -63,7 +64,8 @@ extern TBUserDefaults       * gTbDefaults;
                      range:             (NSRange)               r;
 
 -(NSRange)      rangeOfLineBeforeLineThatStartsAt: (long)       lineStartIndex
-                                         inString: (NSString *) text;
+                                         inString: (NSString *) text
+                                            after: (long)       start;
 
 -(void)    loadLogsWithInitialContents: (NSAttributedString *)  initialContents
          skipToStartOfLineInOpenvpnLog: (BOOL)                  skipToStartOfLineInOpenvpnLog;
@@ -214,6 +216,11 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // Clear the Tunnelblick log entries, too
     [[self tbLog] deleteCharactersInRange: NSMakeRange(0, [[self tbLog] length])];
+    
+    // And the saved log (if we have one)
+    if (  savedLog  ) {
+        [self setSavedLog: [[[NSAttributedString alloc] init] autorelease]];    // Not nil, which is a flag that we are displaying this log
+    }
     
     // We "clear" the OpenVPN and script logs by indicating that we should start from the beginning of them 
     openvpnLogPosition = 0;
@@ -407,7 +414,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * sLineDateTime = @"0000-00-00 00:00:00";
     
     int numLinesLoaded = 0;
-    int numTLinesToEnterFirst = 4;  // When non-zero, forces first four tLines to go first. Counts down as we enter each tLine
+    int numTLinesToEnterFirst = NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG;  // Counts down as we enter each tLine
     
     BOOL haveSkippedAhead = FALSE;
     while (   (tLine != nil)
@@ -902,7 +909,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
             [self performSelectorOnMainThread: @selector(scriptLogChanged) withObject: nil waitUntilDone: YES];
         }
     }
-    
+
 }
 
 -(void) openvpnLogChanged
@@ -1040,8 +1047,15 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
             return;
         }
         
+        // Find the end of the NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG-th line
+        unsigned long start = (unsigned long) [self indexAfter: NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG
+                                     string: @"\n" inString: text range: NSMakeRange(0, [text length])];
+        if (  start == NSNotFound  ) {
+            start = [text length];  // Don't have three lines yet, so don't insert before any of them
+        }
+
         // Search backwards through the display
-        NSRange currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: textRng.length inString: text];
+        NSRange currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: textRng.length inString: text after: start];
         unsigned numberOfLinesSkippedBackward = 0;
         
         while (  currentLineRng.length != 0  ) {
@@ -1105,7 +1119,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
                 }
             }
             
-            currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: currentLineRng.location inString: text];
+            currentLineRng = [self rangeOfLineBeforeLineThatStartsAt: currentLineRng.location inString: text after: start];
             numberOfLinesSkippedBackward++;
         }
         
@@ -1130,9 +1144,9 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
 
 // Returns an NSRange for the previous line
 // Considers the "previous line" to include all lines with no date/time
--(NSRange) rangeOfLineBeforeLineThatStartsAt: (long) lineStartIndex inString: (NSString *) text
+-(NSRange) rangeOfLineBeforeLineThatStartsAt: (long) lineStartIndex inString: (NSString *) text after: (long) start
 {
-    if (  lineStartIndex == 0  ) {
+    if (  lineStartIndex <= start  ) {
         return NSMakeRange(NSNotFound, 0);
     }
     
