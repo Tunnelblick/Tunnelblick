@@ -921,7 +921,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) scriptLogChanged
 {
-    if (  ignoreChangeRequests  ) {
+    if (  ! ignoreChangeRequests  ) {
         [self logChangedAtPath: [self scriptLogPath] usePosition: &scriptLogPosition fromOpenvpnLog: NO];
     }
 }

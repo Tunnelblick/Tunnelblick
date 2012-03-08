@@ -1174,17 +1174,17 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 #endif
 
-    if (  ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"]  ) {
-        [myVPNMenu addItem: vpnDetailsItem];
-        [myVPNMenu addItem: [NSMenuItem separatorItem]];
-	}
-    
     [self addCustomMenuItems];
 
     if (  contactTunnelblickItem  ) {
         [myVPNMenu addItem: contactTunnelblickItem];
         [myVPNMenu addItem: [NSMenuItem separatorItem]];
     }
+    
+    if (  ! [gTbDefaults boolForKey:@"doNotShowVpnDetailsMenuItem"]  ) {
+        [myVPNMenu addItem: vpnDetailsItem];
+        [myVPNMenu addItem: [NSMenuItem separatorItem]];
+	}
     
     [myVPNMenu addItem: quitItem];
     

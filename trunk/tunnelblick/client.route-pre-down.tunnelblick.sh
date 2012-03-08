@@ -101,6 +101,8 @@ EOF
             logMessage "Released the DHCP lease using 'ipconfig set "$dev" NONE'"
 		fi
 	fi
+else
+    logMessage "No action required because this is not a TAP connection."
 fi
 
 exit 0
