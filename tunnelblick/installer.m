@@ -399,54 +399,56 @@ int main(int argc, char *argv[])
     //            all other files are set to 0644
     if ( secureApp ) {
         
-        NSString *infoPlistPath         = [[appResourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
-        NSString *openvpnstartPath      = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"];
-        NSString *openvpnPath           = [appResourcesPath stringByAppendingPathComponent:@"openvpn"];
-        NSString *atsystemstartPath     = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"];
-        NSString *installerPath         = [appResourcesPath stringByAppendingPathComponent:@"installer"];
-        NSString *ssoPath               = [appResourcesPath stringByAppendingPathComponent:@"standardize-scutil-output"];
-        NSString *leasewatchPath        = [appResourcesPath stringByAppendingPathComponent:@"leasewatch"];
-        NSString *leasewatch3Path       = [appResourcesPath stringByAppendingPathComponent:@"leasewatch3"];
-        NSString *clientUpPath          = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"];
-        NSString *clientDownPath        = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"];
-        NSString *clientNoMonUpPath     = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"];
-        NSString *clientNoMonDownPath   = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.down.osx.sh"];
-        NSString *clientNewUpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.up.tunnelblick.sh"];
-        NSString *clientNewDownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.down.tunnelblick.sh"];
-        NSString *clientNewAlt1UpPath   = [appResourcesPath stringByAppendingPathComponent:@"client.1.up.tunnelblick.sh"];
-        NSString *clientNewAlt1DownPath = [appResourcesPath stringByAppendingPathComponent:@"client.1.down.tunnelblick.sh"];
-        NSString *clientNewAlt2UpPath   = [appResourcesPath stringByAppendingPathComponent:@"client.2.up.tunnelblick.sh"];
-        NSString *clientNewAlt2DownPath = [appResourcesPath stringByAppendingPathComponent:@"client.2.down.tunnelblick.sh"];
-        NSString *clientNewAlt3UpPath   = [appResourcesPath stringByAppendingPathComponent:@"client.3.up.tunnelblick.sh"];
-        NSString *clientNewAlt3DownPath = [appResourcesPath stringByAppendingPathComponent:@"client.3.down.tunnelblick.sh"];
+        NSString *infoPlistPath             = [[appResourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+        NSString *openvpnstartPath          = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"                                   ];
+        NSString *openvpnPath               = [appResourcesPath stringByAppendingPathComponent:@"openvpn"                                        ];
+        NSString *atsystemstartPath         = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"                                  ];
+        NSString *installerPath             = [appResourcesPath stringByAppendingPathComponent:@"installer"                                      ];
+        NSString *ssoPath                   = [appResourcesPath stringByAppendingPathComponent:@"standardize-scutil-output"                      ];
+        NSString *leasewatchPath            = [appResourcesPath stringByAppendingPathComponent:@"leasewatch"                                     ];
+        NSString *leasewatch3Path           = [appResourcesPath stringByAppendingPathComponent:@"leasewatch3"                                    ];
+        NSString *clientUpPath              = [appResourcesPath stringByAppendingPathComponent:@"client.up.osx.sh"                               ];
+        NSString *clientDownPath            = [appResourcesPath stringByAppendingPathComponent:@"client.down.osx.sh"                             ];
+        NSString *clientNoMonUpPath         = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.up.osx.sh"                     ];
+        NSString *clientNoMonDownPath       = [appResourcesPath stringByAppendingPathComponent:@"client.nomonitor.down.osx.sh"                   ];
+        NSString *clientNewUpPath           = [appResourcesPath stringByAppendingPathComponent:@"client.up.tunnelblick.sh"                       ];
+        NSString *clientNewDownPath         = [appResourcesPath stringByAppendingPathComponent:@"client.down.tunnelblick.sh"                     ];
+        NSString *clientNewRoutePreDownPath = [appResourcesPath stringByAppendingPathComponent:@"client.route-pre-down.tunnelblick.sh"           ];
+        NSString *clientNewAlt1UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.1.up.tunnelblick.sh"                     ];
+        NSString *clientNewAlt1DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.1.down.tunnelblick.sh"                   ];
+        NSString *clientNewAlt2UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.2.up.tunnelblick.sh"                     ];
+        NSString *clientNewAlt2DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.2.down.tunnelblick.sh"                   ];
+        NSString *clientNewAlt3UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.3.up.tunnelblick.sh"                     ];
+        NSString *clientNewAlt3DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.3.down.tunnelblick.sh"                   ];
         
         BOOL okSoFar = YES;
         okSoFar = okSoFar && checkSetOwnership(infoPlistPath, NO, 0, 0);
         
         okSoFar = okSoFar && checkSetOwnership(appResourcesPath, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,     @"4555", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,          @"4555", YES);
         
-        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,         @"644", YES);
+        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             @"644", YES);
         
-        okSoFar = okSoFar && checkSetPermissions(openvpnPath,           @"755", YES);
-        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,     @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(installerPath,         @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(ssoPath,               @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,        @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,       @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientUpPath,          @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientDownPath,        @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,     @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,   @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,       @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,     @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,   @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath, @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,   @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath, @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,   @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath, @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnPath,               @"755", YES);
+        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(installerPath,             @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(ssoPath,                   @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientUpPath,              @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientDownPath,            @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,       @"744", NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,           @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,         @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewRoutePreDownPath, @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,       @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath,     @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,       @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     @"744", YES);
                 
         // Check/set OpenVPN version folders and openvpn and openvpn-down-root.so in them
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];

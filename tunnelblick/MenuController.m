@@ -3811,27 +3811,28 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         resourcesPath = [[NSBundle mainBundle] resourcePath];
 	}
     
-	NSString *openvpnstartPath      = [resourcesPath stringByAppendingPathComponent: @"openvpnstart"                   ];
-	NSString *openvpnPath           = [resourcesPath stringByAppendingPathComponent: @"openvpn"                        ];
-	NSString *atsystemstartPath     = [resourcesPath stringByAppendingPathComponent: @"atsystemstart"                  ];
-	NSString *installerPath         = [resourcesPath stringByAppendingPathComponent: @"installer"                      ];
-	NSString *ssoPath               = [resourcesPath stringByAppendingPathComponent: @"standardize-scutil-output"      ];
-	NSString *leasewatchPath        = [resourcesPath stringByAppendingPathComponent: @"leasewatch"                     ];
-	NSString *leasewatch3Path       = [resourcesPath stringByAppendingPathComponent: @"leasewatch3"                     ];
-	NSString *clientUpPath          = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"               ];
-	NSString *clientDownPath        = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"             ];
-	NSString *clientNoMonUpPath     = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"     ];
-	NSString *clientNoMonDownPath   = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"   ];
-	NSString *clientNewUpPath       = [resourcesPath stringByAppendingPathComponent: @"client.up.tunnelblick.sh"       ];
-	NSString *clientNewDownPath     = [resourcesPath stringByAppendingPathComponent: @"client.down.tunnelblick.sh"     ];
-	NSString *clientNewAlt1UpPath   = [resourcesPath stringByAppendingPathComponent: @"client.1.up.tunnelblick.sh"     ];
-	NSString *clientNewAlt1DownPath = [resourcesPath stringByAppendingPathComponent: @"client.1.down.tunnelblick.sh"   ];
-	NSString *clientNewAlt2UpPath   = [resourcesPath stringByAppendingPathComponent: @"client.2.up.tunnelblick.sh"     ];
-	NSString *clientNewAlt2DownPath = [resourcesPath stringByAppendingPathComponent: @"client.2.down.tunnelblick.sh"   ];
-	NSString *clientNewAlt3UpPath   = [resourcesPath stringByAppendingPathComponent: @"client.3.up.tunnelblick.sh"     ];
-	NSString *clientNewAlt3DownPath = [resourcesPath stringByAppendingPathComponent: @"client.3.down.tunnelblick.sh"   ];
-    NSString *deployPath            = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
-    NSString *infoPlistPath         = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+	NSString *openvpnstartPath          = [resourcesPath stringByAppendingPathComponent: @"openvpnstart"                        ];
+	NSString *openvpnPath               = [resourcesPath stringByAppendingPathComponent: @"openvpn"                             ];
+	NSString *atsystemstartPath         = [resourcesPath stringByAppendingPathComponent: @"atsystemstart"                       ];
+	NSString *installerPath             = [resourcesPath stringByAppendingPathComponent: @"installer"                           ];
+	NSString *ssoPath                   = [resourcesPath stringByAppendingPathComponent: @"standardize-scutil-output"           ];
+	NSString *leasewatchPath            = [resourcesPath stringByAppendingPathComponent: @"leasewatch"                          ];
+	NSString *leasewatch3Path           = [resourcesPath stringByAppendingPathComponent: @"leasewatch3"                         ];
+	NSString *clientUpPath              = [resourcesPath stringByAppendingPathComponent: @"client.up.osx.sh"                    ];
+	NSString *clientDownPath            = [resourcesPath stringByAppendingPathComponent: @"client.down.osx.sh"                  ];
+	NSString *clientNoMonUpPath         = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.up.osx.sh"          ];
+	NSString *clientNoMonDownPath       = [resourcesPath stringByAppendingPathComponent: @"client.nomonitor.down.osx.sh"        ];
+	NSString *clientNewUpPath           = [resourcesPath stringByAppendingPathComponent: @"client.up.tunnelblick.sh"            ];
+	NSString *clientNewDownPath         = [resourcesPath stringByAppendingPathComponent: @"client.down.tunnelblick.sh"          ];
+	NSString *clientNewRoutePreDownPath = [resourcesPath stringByAppendingPathComponent: @"client.route-pre-down.tunnelblick.sh"];
+	NSString *clientNewAlt1UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.1.up.tunnelblick.sh"          ];
+	NSString *clientNewAlt1DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.1.down.tunnelblick.sh"        ];
+	NSString *clientNewAlt2UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.2.up.tunnelblick.sh"          ];
+	NSString *clientNewAlt2DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.2.down.tunnelblick.sh"        ];
+	NSString *clientNewAlt3UpPath       = [resourcesPath stringByAppendingPathComponent: @"client.3.up.tunnelblick.sh"          ];
+	NSString *clientNewAlt3DownPath     = [resourcesPath stringByAppendingPathComponent: @"client.3.down.tunnelblick.sh"        ];
+    NSString *deployPath                = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
+    NSString *infoPlistPath             = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
 
 	// check openvpnstart owned by root with suid and 544 permissions
 	const char *path = [gFileMgr fileSystemRepresentationWithPath: openvpnstartPath];
@@ -3882,7 +3883,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
                                atsystemstartPath, installerPath, ssoPath, leasewatchPath, leasewatch3Path,
                                clientUpPath, clientDownPath,
                                clientNoMonUpPath, clientNoMonDownPath,
-                               clientNewUpPath, clientNewDownPath,
+                               clientNewUpPath, clientNewDownPath, clientNewRoutePreDownPath,
                                clientNewAlt1UpPath, clientNewAlt1DownPath,
                                clientNewAlt2UpPath, clientNewAlt2DownPath,
                                clientNewAlt3UpPath, clientNewAlt3DownPath,
