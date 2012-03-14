@@ -11,7 +11,7 @@ TOPDIR = $(PWD)
 BUILD_DIR = build
 THIRD_PARTY_PROJS = OPENSSL
 
-OPENSSL_SRC_DIR = openssl-1.0.0h
+OPENSSL_SRC_DIR = openssl-1.0.0g
 OPENSSL_BUILD_DIR = $(TOPDIR)/$(BUILD_DIR)/$(OPENSSL_SRC_DIR)
 OPENSSL_DEST_DIR = $(TOPDIR)/$(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)
 OPENSSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_DEST_DIR)/lib/$(f))
@@ -118,8 +118,17 @@ openvpn-patch:
 				patch -p1 -N --dry-run -i $$patchfile > /dev/null; \
 				if [ $$? == 0 ]; then \
 					patch -p1 -N -i $$patchfile; \
+					if [ $$? == 0 ]; then \
+					    touch "$${patchfile}.patch-applied" ; \
+					else \
+						echo "error: OpenVPN patch failed: $$openvpndir/openvpn/$${patchfile}" ; \
+					fi \
 				else \
-					echo "OpenVPN patch skipped: $$openvpndir/$${patchfile:3}" ; \
+					if [ -e "$${patchfile}.patch-applied" ] ; then \
+						echo "warning: OpenVPN patch skipped; it has apparently already been applied: $$openvpndir/openvpn/$${patchfile}" ; \
+					else \
+						echo "error: OpenVPN patch has not been applied previously and could not be applied now: $$openvpndir/openvpn/$${patchfile}" ; \
+					fi \
 				fi \
 			done; \
 		else \
