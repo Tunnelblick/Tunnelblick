@@ -92,7 +92,8 @@
 // Return values for StatusWindowController
 typedef enum
 {
-	statusWindowControllerCancelChoice
+	statusWindowControllerDisconnectChoice,
+    statusWindowControllerConnectChoice,
 } StatusWindowControllerChoice;
 
 //*************************************************************************************************

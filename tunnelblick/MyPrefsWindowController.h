@@ -152,6 +152,8 @@
 
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (id) sender;
 
+-(IBAction) appearanceDisplayStatisticsWindowCheckboxWasClicked:   (id) sender;
+
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 
 

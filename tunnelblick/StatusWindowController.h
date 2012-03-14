@@ -24,16 +24,45 @@
 
 @interface StatusWindowController : NSWindowController <NSAnimationDelegate,NSWindowDelegate>
 {
+    
     IBOutlet NSButton        * cancelButton;
     IBOutlet NSTextFieldCell * configurationNameTFC;
     IBOutlet NSTextFieldCell * statusTFC;
     IBOutlet NSImageView     * animationIV;
+    
+    IBOutlet NSView          * statisticsView;
+    IBOutlet NSTextFieldCell * inTFC;
+    IBOutlet NSTextFieldCell * inRateTFC;
+    IBOutlet NSTextFieldCell * inRateUnitsTFC;
+    IBOutlet NSTextFieldCell * inTotalTFC;
+    IBOutlet NSTextFieldCell * inTotalUnitsTFC;
+
+    IBOutlet NSTextFieldCell * outTFC;
+    IBOutlet NSTextFieldCell * outRateTFC;
+    IBOutlet NSTextFieldCell * outRateUnitsTFC;
+    IBOutlet NSTextFieldCell * outTotalTFC;
+    IBOutlet NSTextFieldCell * outTotalUnitsTFC;
+    
+    IBOutlet NSTextField     * inTF;
+    IBOutlet NSTextField     * inRateTF;
+    IBOutlet NSTextField     * inRateUnitsTF;
+    IBOutlet NSTextField     * inTotalTF;
+    IBOutlet NSTextField     * inTotalUnitsTF;
+    
+    IBOutlet NSTextField     * outTF;
+    IBOutlet NSTextField     * outRateTF;
+    IBOutlet NSTextField     * outRateUnitsTF;
+    IBOutlet NSTextField     * outTotalTF;
+    IBOutlet NSTextField     * outTotalUnitsTF;
     
     NSUInteger                 statusScreenPosition; // Position of status window (0, 1, 2...)
                                                      // Corresponds to bit in statusScreenPositionsInUse
     
     NSString                 * name;            // Name we are displaying - displayName of configuration
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration
+    NSString                 * connectedSince;  // Time has been connected
+    
+    NSTrackingRectTag          trackingRectTag; // Used to track mouseEntered and mouseExited events for the window's view
     
     NSAnimation              * theAnim;         // For animation in the window
     
@@ -41,6 +70,10 @@
     CGFloat                    currentWidth;    // Width of window frame currently
     
     BOOL                       isOpen;          // Flag for animating window fade-in and fade-out
+
+    BOOL                       cancelButtonIsConnectButton; // Otherwise it is a "Disconnect" button
+
+    BOOL                       haveLoadedFromNib;
     
     id                         delegate;
 }
@@ -56,10 +89,26 @@
 
 -(void)       restore;
 
--(NSString *) name;
--(void)       setName:                (NSString *) newName;
-
 -(void)       setStatus:              (NSString *) theStatus
-                forName:              (NSString *) theName;
+                forName:              (NSString *) theName
+         connectedSince:              (NSString *) time;
+
+TBPROPERTY(NSString *, name,           setName)
+TBPROPERTY(NSString *, status,         setStatus)
+TBPROPERTY(NSString *, connectedSince, setConnectedSince)
+
+TBPROPERTY_READONLY(BOOL, haveLoadedFromNib)
+
+TBPROPERTY_READONLY(NSTextFieldCell *, statusTFC)
+
+TBPROPERTY_READONLY(NSTextFieldCell *, inRateTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *, inRateUnitsTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *, inTotalTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *, inTotalUnitsTFC)
+
+TBPROPERTY_READONLY(NSTextFieldCell *, outRateTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *, outRateUnitsTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *, outTotalTFC)
+TBPROPERTY_READONLY(NSTextFieldCell *, outTotalUnitsTFC)
 
 @end

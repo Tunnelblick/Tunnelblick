@@ -104,6 +104,7 @@ extern TBUserDefaults       * gTbDefaults;
     [super dealloc];
 }
 
+
 -(void) setConfigurationName: (NSString *) newName
 {
     if (  ! [configurationName isEqualToString: newName]  ) {
@@ -156,14 +157,6 @@ extern TBUserDefaults       * gTbDefaults;
     [[self window] display];
     [[self window] makeKeyAndOrderFront: self];
     [NSApp activateIgnoringOtherApps:YES];
-    
-    /*    NSWindow * parentWindow = [[[NSApp delegate] logScreen] window];
-     [NSApp beginSheet: settingsSheet
-     modalForWindow: parentWindow
-     modalDelegate: nil
-     didEndSelector: NULL
-     contextInfo: NULL];
-     */
 }
 
 

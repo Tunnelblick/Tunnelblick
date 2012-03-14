@@ -35,7 +35,7 @@
 #import "UtilitiesView.h"
 #import "SettingsSheetWindowController.h"
 #import "Sparkle/SUUpdater.h"
-
+#import "MainIconView.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -2137,6 +2137,18 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
 
 //***************************************************************************************************************
 
+-(void) setupDisplayStatisticsWindowCheckbox {
+    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setState: NSOffState];
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setEnabled: NO];
+    } else {
+        [self setValueForCheckbox: [appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox]
+                    preferenceKey: @"doNotShowNotificationWindowOnMouseover"
+                         inverted: YES
+                       defaultsTo: FALSE];
+    }
+}    
+    
 -(void) setupAppearanceView
 {
     // Select value for icon set popup
@@ -2213,6 +2225,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
                      inverted: YES
                    defaultsTo: FALSE];
     
+    // Note: [self setupDisplayStatisticsWindowCheckbox] is invoked below, by setSelectedAppearanceConnectionWindowDisplayCriteriaIndex
+    
     // Set up connection window display criteria
     
     NSString * displayCriteria = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
@@ -2287,6 +2301,18 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
     
     // Start using the new setting
     [[NSApp delegate] createStatusItem];
+    [[NSApp delegate] createMenu];
+    [[NSApp delegate] updateUI];
+}
+
+-(IBAction) appearanceDisplayStatisticsWindowCheckboxWasClicked: (id) sender
+{
+	if (  [sender state]  ) {
+		[gTbDefaults setBool: FALSE forKey:@"doNotShowNotificationWindowOnMouseover"];
+	} else {
+		[gTbDefaults setBool: TRUE  forKey:@"doNotShowNotificationWindowOnMouseover"];
+	}
+    [[[NSApp delegate] ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 -(IBAction) appearanceHelpButtonWasClicked: (id) sender
@@ -2353,7 +2379,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSInteger, selectedLeftNavListIndex)
             NSString * preferenceValue = [dict objectForKey: @"value"];
             [gTbDefaults setObject: preferenceValue forKey: @"connectionWindowDisplayCriteria"];
             
-            // Start using the new setting
+            [self setupDisplayStatisticsWindowCheckbox];
         }
     }
 }

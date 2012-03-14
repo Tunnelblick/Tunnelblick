@@ -29,15 +29,26 @@
 
 
 TBUserDefaults * gTbDefaults;         // Our preferences
+extern NSArray * gRateUnits;
+extern NSArray * gTotalUnits;
 
-static NSUInteger statusScreenPositionsInUse = 0;
+#define NUMBER_OF_STATUS_SCREEN_POSITIONS 64
+
+static uint64_t statusScreenPositionsInUse = 0; // Must be 64 bits to match NUMBER_OF_STATUS_SCREEN_POSITIONS
+
 static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZER;
 
 @interface StatusWindowController()   // Private methods
 
--(void)              initialiseAnim;
+-(CGFloat) adjustWidthsToLargerOf: (NSTextField *) tf1 and: (NSTextField *) tf2;
 
--(void)              setSizeAndPosition;
+-(void) initialiseAnim;
+
+-(void) setSizeAndPosition;
+
+-(void) setUpUnits: (NSTextField *) tf1 cell: (NSTextFieldCell *) tfc1
+               and: (NSTextField *) tf2 cell: (NSTextFieldCell *) tfc2
+             array: (NSArray *) array;
 
 -(NSTextFieldCell *) statusTFC;
 
@@ -61,16 +72,47 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     originalWidth = 0.0;
     currentWidth  = 0.0;
     
+    trackingRectTag = 0;
+    
+    haveLoadedFromNib = FALSE;
     isOpen = FALSE;
     
     delegate = [theDelegate retain];
     
+    [[NSNotificationCenter defaultCenter] addObserver: self 
+                                             selector: @selector(NSWindowWillCloseNotification:) 
+                                                 name: NSWindowWillCloseNotification 
+                                               object: nil];        
+    
     return self;
+}
+
+-(void) startMouseTracking {
+    if ( haveLoadedFromNib ) {
+        if (  trackingRectTag == 0  ) {
+            NSView * windowView = [[self window] contentView];
+            NSRect trackingFrame = [windowView frame];
+            trackingFrame.size.height += 1000.0;    // Include the title bar in the tracking rectangle (will be clipped)
+            
+            trackingRectTag = [windowView addTrackingRect: trackingFrame
+                                                    owner: self
+                                                 userData: nil
+                                             assumeInside: NO];
+        }
+    }
+}
+
+-(void) stopMouseTracking {
+    if (  trackingRectTag != 0  ) {
+        [[[self window] contentView] removeTrackingRect: trackingRectTag];
+        trackingRectTag = 0;
+    }
 }
 
 -(void) restore
 {
     [cancelButton setEnabled: YES];
+    [self startMouseTracking];
     [self setSizeAndPosition];
     [[self window] display];
     [self showWindow: self];
@@ -107,32 +149,15 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         }
     }
     
-    // Put the window in the lowest available position number
-
-    pthread_mutex_lock( &statusScreenPositionsInUseMutex );
-    
-    NSUInteger maxNumberOfPositions = 32;
-    NSUInteger inUse = statusScreenPositionsInUse;
-    NSUInteger mask  = 1;
-    NSUInteger positionNumber;
-    for (  positionNumber=0; positionNumber<maxNumberOfPositions; positionNumber++  ) {
-        if (  (inUse & 1) == 0  ) {
-            break;
-        }
-        inUse = inUse >> 1;
-        mask  = mask  << 1;
-    }
-    
-    if (  positionNumber < maxNumberOfPositions  ) {
-        statusScreenPositionsInUse = statusScreenPositionsInUse | mask;
-        statusScreenPosition = positionNumber;
-    } else {
-        statusScreenPosition = NSNotFound;
-    }
-    
-    pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
-    
-    // Stack the screens top to bottom, right to left
+    // The panels are stacked top to bottom, right to left, like this:
+    //
+    //              10         5         0
+    //              11         6         1
+    //              12         7         2
+    //              13         8         3
+    //              14         9         4
+    //
+    // But the number in each column and row needs to be calculated.
     
     double verticalScreenSize = screen.size.height - 10.0;  // Size we can use on the screen
     NSUInteger screensWeCanStackVertically = verticalScreenSize / (panelFrame.size.height + 5);
@@ -146,31 +171,111 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         screensWeCanStackHorizontally = 1;
     }
     
+    // Figure out what position number to try to get:
+    NSUInteger startPositionNumber;
+    if (   [[NSApp delegate] mouseIsInsideAnyView]
+        && (   [gTbDefaults boolForKey: @"placeIconInStandardPositionInStatusBar"] )
+        && ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"] )
+        && ( ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowBelowIconOnMouseover"] )  ) {
+        
+        MainIconView * view = [[NSApp delegate] ourMainIconView];
+		NSPoint iconOrigin  = [[view window] convertBaseToScreen: NSMakePoint(0.0, 0.0)];
+        
+        for ( startPositionNumber=0; startPositionNumber<screensWeCanStackVertically * screensWeCanStackHorizontally; startPositionNumber+=screensWeCanStackVertically ) {
+            double horizontalOffset = (panelFrame.size.width  + 5.0) * ((startPositionNumber / screensWeCanStackVertically) % screensWeCanStackHorizontally);
+            double panelOriginX = screen.origin.x + screen.size.width - panelFrame.size.width  - 10.0 - horizontalOffset; 
+            if (  panelOriginX < iconOrigin.x  ) {
+                break;
+            }
+        }
+        if (  startPositionNumber >= screensWeCanStackVertically * screensWeCanStackHorizontally  ) {
+            startPositionNumber = 0;
+        }
+    } else {
+        startPositionNumber = 0;
+    }
+    
+    // Put the window in the lowest available position number equal to or greater than startPositionNumber, wrapping around
+    // to position 0, 1, 2, etc. if we didn't start at position 0
+
+    pthread_mutex_lock( &statusScreenPositionsInUseMutex );
+    
+    uint64_t   inUse = statusScreenPositionsInUse;
+    NSUInteger mask  = 1 << startPositionNumber;
+    NSUInteger positionNumber;
+    for (  positionNumber=startPositionNumber; positionNumber<NUMBER_OF_STATUS_SCREEN_POSITIONS; positionNumber++  ) {
+        if (  (inUse & mask) == 0  ) {
+            break;
+        }
+        inUse = inUse >> 1;
+        mask  = mask  << 1;
+    }
+    
+    if (  positionNumber < NUMBER_OF_STATUS_SCREEN_POSITIONS  ) {
+        statusScreenPositionsInUse = statusScreenPositionsInUse | mask;
+        statusScreenPosition = positionNumber;
+    } else {
+        if (  startPositionNumber != 0  ) {
+            inUse = statusScreenPositionsInUse;
+            mask  = 1;
+            for (  positionNumber=0; positionNumber<startPositionNumber; positionNumber++  ) {
+                if (  (inUse & mask) == 0  ) {
+                    break;
+                }
+                inUse = inUse >> 1;
+                mask  = mask  << 1;
+            }
+            
+            if (  positionNumber < startPositionNumber  ) {
+                statusScreenPositionsInUse = statusScreenPositionsInUse | mask;
+                statusScreenPosition = positionNumber;
+            } else {
+                statusScreenPosition = NSNotFound;
+            }
+        }
+    }
+    
+    pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
+
+    // If all positions are filled, wrap back around to startPositionNumber and put it on top of another window but offset by (10, 10)
+    double screenOverlapVerticalOffset;
+    double screenOverlapHorizontalOffset;
+    
+    if (  statusScreenPosition == NSNotFound  ) {
+        statusScreenPosition = startPositionNumber;
+        screenOverlapVerticalOffset   = 10.0;
+        screenOverlapHorizontalOffset = 10.0;
+    } else {
+        screenOverlapVerticalOffset   = 0.0;
+        screenOverlapHorizontalOffset = 0.0;
+    }
+    
     double verticalOffset   = (panelFrame.size.height + 5.0) *  (positionNumber % screensWeCanStackVertically);
     double horizontalOffset = (panelFrame.size.width  + 5.0) * ((positionNumber / screensWeCanStackVertically) % screensWeCanStackHorizontally);
     
-    double verticalPosition   = screen.origin.y + screen.size.height - panelFrame.size.height - 10.0 - verticalOffset;
-    double horizontalPosition = screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0 - horizontalOffset;
+    double verticalPosition   = screen.origin.y + screen.size.height - panelFrame.size.height - 10.0 - verticalOffset   + screenOverlapVerticalOffset;
+    double horizontalPosition = screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0 - horizontalOffset + screenOverlapHorizontalOffset;
     
+    // Put the window in the upper-right corner of the screen but offset in X and Y by the position number    
+    NSRect onScreenRect = NSMakeRect(horizontalPosition,
+                              verticalPosition,
+                              panelFrame.size.width,
+                              panelFrame.size.height);
     
-    // Put the window in the upper-right corner of the screen but offset in Y by the position number    
-    NSRect normalFrame = NSMakeRect(horizontalPosition,
-                                    verticalPosition,
-                                    panelFrame.size.width,
-                                    panelFrame.size.height);
-    
-    [panel setFrame: normalFrame display: YES];
-    currentWidth = normalFrame.size.width;
+    [panel setFrame: onScreenRect display: YES];
+    currentWidth = onScreenRect.size.width;
 }
 
 -(void) awakeFromNib
 {
-    [[self statusTFC] setStringValue: status ];
-    [[self statusTFC] setTextColor: [NSColor whiteColor]];
+    [self setStatus: status forName: name connectedSince: connectedSince];
+
+    [inTFC  setTitle: NSLocalizedString(@"In:", @"Window text")];
+    [outTFC setTitle: NSLocalizedString(@"Out:", @"Window text")];
+    [self adjustWidthsToLargerOf: inTF and: outTF];
     
-    [self setTitle: NSLocalizedString(@"Cancel" , @"Button") ofControl: cancelButton ];
-    
-    [cancelButton setEnabled: YES];
+    [self setUpUnits: inRateUnitsTF  cell: inRateUnitsTFC  and: outRateUnitsTF  cell: outRateUnitsTFC  array: gRateUnits];
+    [self setUpUnits: inTotalUnitsTF cell: inTotalUnitsTFC and: outTotalUnitsTF cell: outTotalUnitsTFC array: gTotalUnits];
     
     if (  ! runningOnLeopardOrNewer()  ) {
         [[self window] setBackgroundColor: [NSColor blackColor]];
@@ -179,8 +284,20 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     [self setSizeAndPosition];
     [[self window] setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
+    
+    NSView * windowView = [[self window] contentView];
+    NSRect trackingFrame = [windowView frame];
+    trackingFrame.size.height += 1000.0;    // Include the title bar in the tracking rectangle (will be clipped)
+    
+    trackingRectTag = [windowView addTrackingRect: trackingFrame
+                                            owner: self
+                                         userData: nil
+                                     assumeInside: NO];
+    
+
     [self showWindow: self];
     [self initialiseAnim];
+    haveLoadedFromNib = TRUE;
     [self fadeIn];
 }
 
@@ -200,6 +317,58 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         oldPos.origin.x = oldPos.origin.x - (widthChange/2);
         [theControl setFrame:oldPos];
     }
+}
+
+-(CGFloat) adjustWidthsToLargerOf: (NSTextField *) tf1 and: (NSTextField *) tf2 {
+    
+    CGFloat widthBeforeAdjustment = [tf1 frame].size.width;
+    CGFloat adjustment;
+    [tf1 sizeToFit];
+    [tf2 sizeToFit];
+    NSRect size1 = [tf1 frame];
+    NSRect size2 = [tf2 frame];
+    
+    if (  size1.size.width > size2.size.width  ) {
+        adjustment = size1.size.width - widthBeforeAdjustment; 
+        size2.size.width = size1.size.width;
+        [tf2 setFrame: size2];
+    } else {
+        adjustment = size2.size.width - widthBeforeAdjustment; 
+        size1.size.width = size2.size.width;
+        [tf1 setFrame: size1];
+    }
+    
+    return adjustment;
+}
+
+-(void) setUpUnits: (NSTextField *) tf1 cell: (NSTextFieldCell *) tfc1
+               and: (NSTextField *) tf2 cell: (NSTextFieldCell *) tfc2
+             array: (NSArray *) array {
+    
+    // Find the maximum width of the units
+    CGFloat maxWidth = 0.0;
+    NSString * unitsName;
+    NSEnumerator * e = [array objectEnumerator];
+    while (  unitsName = [e nextObject]  ) {
+        [tfc1 setTitle: unitsName];
+        [tf1 sizeToFit];
+        NSRect f = [tf1 frame];
+        if (  f.size.width > maxWidth  ) {
+            maxWidth = f.size.width;
+        }
+    }
+    
+    // Set the width of both text fields to the maximum
+    NSRect f = [tf1 frame];
+    f.size.width = maxWidth;
+    [tf1 setFrame: f];
+    f = [tf2 frame];
+    f.size.width = maxWidth;
+    [tf2 setFrame: f];
+    
+    // Set the text fields to the first entry in the array
+    [tfc1 setTitle: [array objectAtIndex: 0]];
+    [tfc2 setTitle: [array objectAtIndex: 0]];
 }
 
 -(void) initialiseAnim
@@ -238,21 +407,27 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) fadeIn
 {
+    [self startMouseTracking];
+    
 	if (  ! isOpen  ) {
-		[[self window] makeKeyAndOrderFront: self];
         NSWindow * window = [self window];
+		
+        [window makeKeyAndOrderFront: self];
+        
         if (   [window respondsToSelector: @selector(animator)]
             && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
             [[window animator] setAlphaValue: 1.0];
         }
-		isOpen = YES;
-	}
+		
+        isOpen = YES;
+    }
 }
 
 -(void) fadeOut
 {
 	if (  isOpen  ) {
         NSWindow * window = [self window];
+        
         if (   [window respondsToSelector: @selector(animator)]
             && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
             [[window animator] setAlphaValue:0.0];
@@ -267,17 +442,52 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
             statusScreenPositionsInUse = statusScreenPositionsInUse & ( ~ (1 << statusScreenPosition));
             pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
         }
+        
+        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
+                                         target: self
+                                       selector: @selector(closeAfterFadeOutHandler:)
+                                       userInfo: nil
+                                        repeats: NO];
 	}
+    
+    [self stopMouseTracking];
+}
+
+-(void) closeAfterFadeOutHandler: (NSTimer *) timer
+{
+	[self performSelectorOnMainThread: @selector(closeAfterFadeOut:) withObject: nil waitUntilDone: NO];
+}
+
+-(void) closeAfterFadeOut: (NSDictionary *) dict
+{
+    if ( [[self window] alphaValue] == 0.0 ) {
+        [[self window] close];
+    } else {
+        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
+                                         target: self
+                                       selector: @selector(closeAfterFadeOutHandler:)
+                                       userInfo: nil
+                                        repeats: NO];
+    }
+
 }
 
 - (IBAction) cancelButtonWasClicked: sender
 {
     [sender setEnabled: NO];
-	[[NSApp delegate] statusWindowController: self finishedWithChoice: statusWindowControllerCancelChoice forDisplayName: [self name]];
+	[[NSApp delegate] statusWindowController: self
+                          finishedWithChoice: (cancelButtonIsConnectButton ? statusWindowControllerConnectChoice : statusWindowControllerDisconnectChoice)
+                              forDisplayName: [self name]];
 }
 
 - (void) dealloc
 {
+    [self stopMouseTracking];
+    
+    [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self]; 
+
     [cancelButton   release];
     
     [statusTFC      release];
@@ -307,45 +517,48 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     return [[configurationNameTFC retain] autorelease];
 }
 
--(NSString *) name
-{
-    return [[name retain] autorelease];
-}
-
--(void) setName: (NSString *) newName
-{
-    if (  name != newName  ) {
-        [name release];
-        name = [newName retain];
+-(void) setCancelButtonTitle: (NSString *) buttonName {
+    if (  cancelButton  ) {
+        [self setTitle: localizeNonLiteral(buttonName, @"Button") ofControl: cancelButton ];
+        [cancelButton setEnabled: YES];
+        cancelButtonIsConnectButton = [buttonName isEqualToString: @"Connect"];
     }
 }
 
--(void) setStatus: (NSString *) theStatus forName: (NSString *) theName
+-(void) setStatus: (NSString *) theStatus forName: (NSString *) theName connectedSince: (NSString *) theTime
 {
-    if (  status != theStatus  ) {
-        [status release];
-        status = [theStatus retain];
-    }
-    
     [self setName: theName];
+    [self setStatus: theStatus];
+    if (  [theStatus isEqualToString: @"EXITING"]  ) {
+        [self setConnectedSince: @""];
+    } else {
+        [self setConnectedSince: [NSString stringWithFormat: @" %@", theTime]];
+    }
     
     [configurationNameTFC setStringValue: theName];
-    [statusTFC            setStringValue: localizeNonLiteral(theStatus, @"Connection status")];
+    [statusTFC            setStringValue: [NSString stringWithFormat: @"%@%@",
+                                           localizeNonLiteral(theStatus, @"Connection status"),
+                                           [self connectedSince]]];
     
     if (   [theStatus isEqualToString: @"EXITING"]  ) {
         [configurationNameTFC setTextColor: [NSColor redColor]];
         [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeMainImage]];
+        [self setCancelButtonTitle: @"Connect"];
+        
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
         [configurationNameTFC setTextColor: [NSColor greenColor]];
         [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
+        [self setCancelButtonTitle: @"Disconnect"];
+
     } else {
         [configurationNameTFC setTextColor: [NSColor yellowColor]];
         [statusTFC            setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];
+        [self setCancelButtonTitle: @"Disconnect"];
     }
 }
 
@@ -354,4 +567,45 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     return [[delegate retain] autorelease];
 }
 
+// *******************************************************************************************
+// Getters & Setters
+
+TBSYNTHESIZE_OBJECT(retain, NSString *, name,           setName)
+TBSYNTHESIZE_OBJECT(retain, NSString *, status,         setStatus)
+TBSYNTHESIZE_OBJECT(retain, NSString *, connectedSince, setConnectedSince)
+
+-(BOOL) haveLoadedFromNib {
+    return haveLoadedFromNib;
+}
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inRateTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inRateUnitsTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTotalTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTotalUnitsTFC)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outRateTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outRateUnitsTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
+
+// Event Handlers
+-(void) mouseEntered: (NSEvent *) theEvent {
+    // Event handler; NOT on MainThread
+    // Mouse entered the tracking area of the Tunnelblick icon
+
+    [[NSApp delegate] mouseEnteredStatusWindow: self event: theEvent];
+}
+
+-(void) mouseExited: (NSEvent *) theEvent {
+    // Event handler; NOT on MainThread
+    // Mouse exited the tracking area of the Tunnelblick icon
+    
+    [[NSApp delegate] mouseExitedStatusWindow: self event: theEvent];
+}
+
+-(void) NSWindowWillCloseNotification: (NSNotification *) n {
+    // Event handler; NOT on MainThread
+    
+    [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
+}
 @end

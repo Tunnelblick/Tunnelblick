@@ -35,6 +35,7 @@
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
 #import "MyPrefsWindowController.h"
+#import "MainIconView.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
@@ -45,6 +46,8 @@ extern TBUserDefaults       * gTbDefaults;
 extern unsigned               gHookupTimeout;
 extern BOOL                   gTunnelblickIsQuitting;
 extern BOOL                   gComputerIsGoingToSleep;
+extern NSArray              * gRateUnits;
+extern NSArray              * gTotalUnits;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 
@@ -55,6 +58,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
 -(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
+
+-(void)             clearStatisticsRatesDisplay;
+
+-(void)             clearStatisticsIncludeTotals:   (BOOL)          includeTotals;
 
 -(void)             connectToManagementSocket;
 
@@ -111,6 +118,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             tellUserAboutDisconnectWait;
 
+-(NSString *)       timeString;
+
 @end
 
 @implementation VPNConnection
@@ -152,6 +161,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
         portNumber = 0;
 		pid = 0;
+        
         tryingToHookup = FALSE;
         initialHookupTry = TRUE;
         isHookedup = FALSE;
@@ -181,9 +191,49 @@ extern NSString * lastPartOfPath(NSString * thePath);
                 }
             }
         }
+        
+        bytecountMutexOK = FALSE;
+        OSStatus status = pthread_mutex_init( &bytecountMutex, NULL);
+        if (  status == EXIT_SUCCESS  ) {
+            bytecountMutexOK = TRUE;
+        } else {
+            NSLog(@"VPNConnection:initWithConfigPath:withDisplayName: pthread_mutex_init( &bytecountMutex ) failed; status = %ld", (long) status);
+        }
+        statistics.lastSet = [[NSDate date] retain];
+        
+        [self clearStatisticsIncludeTotals: YES];        
     }
     
     return self;
+}
+
+-(void) clearStatisticsIncludeTotals: (BOOL) includeTotals
+{
+    OSStatus status = pthread_mutex_lock( &bytecountMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"VPNConnection:netsocket:dataAvailable: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
+        return;
+    }
+    
+    if (  includeTotals  ) {
+        statistics.totalInBytecount  = 0;
+        statistics.totalOutBytecount = 0;
+    }
+    
+    [statistics.lastSet release];
+    statistics.lastSet = [[NSDate date] retain];
+    
+    statistics.rbIx = 0;
+    int i;
+    for (  i=0; i<RB_SIZE; i++  ) {
+        statistics.rb[i].lastInBytecount  = 0;
+        statistics.rb[i].lastOutBytecount = 0;
+        statistics.rb[i].lastTimeInterval = 0.0;
+    }
+    
+    [self setBytecountsUpdated: [NSDate date]];    
+    
+    pthread_mutex_unlock( &bytecountMutex );
 }
 
 // Reinitializes a connection -- as if we quit Tunnelblick and then relaunched
@@ -191,6 +241,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     [self disconnectFromManagmentSocket];
     [connectedSinceDate release]; connectedSinceDate = [[NSDate alloc] init];
+    [self clearStatisticsIncludeTotals: YES];
     // Don't change logDisplay -- we want to keep it
     [lastState          release]; lastState = @"EXITING";
     [requestedState     release]; requestedState = @"EXITING";
@@ -727,6 +778,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     [configPath release];
     [displayName release];
     [connectedSinceDate release];
+    [statistics.lastSet release];
+    [bytecountsUpdated release];
     [myAuthAgent release];
     [statusScreen release];
     [tunnelUpSound release];
@@ -753,8 +806,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                 } else {
                     [statusScreen restore];
                 }
-
-                [statusScreen setStatus: localizeNonLiteral(lastState, @"Connection status") forName: displayName];
+                
+                [statusScreen setStatus: lastState forName: displayName connectedSince: [self timeString]];
                 [statusScreen fadeIn];
                 showingStatusWindow = TRUE;
             }
@@ -904,6 +957,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 	[task setArguments:arguments];
 	[task setCurrentDirectoryPath: firstPartOfPath(configPath)];
 	[task launch];
+    [self setConnectedSinceDate: [NSDate date]];
+    [self clearStatisticsIncludeTotals: NO];
 	[task waitUntilExit];
     
     // Standard output has command line that openvpnstart used to start OpenVPN; copy it to the log
@@ -1455,6 +1510,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 // Call on main thread only
 -(void) hasDisconnected
 {
+    [self clearStatisticsRatesDisplay];
+    
     pthread_mutex_lock( &lastStateMutex );
     if (  [lastState isEqualToString: @"EXITING"]  ) {
         pthread_mutex_unlock( &lastStateMutex );
@@ -1537,6 +1594,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 		[managementSocket writeString: @"pid\r\n"           encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"state on\r\n"      encoding: NSASCIIStringEncoding];    
 		[managementSocket writeString: @"state\r\n"         encoding: NSASCIIStringEncoding];
+        [managementSocket writeString: @"bytecount 1\r\n"   encoding: NSASCIIStringEncoding];
         [managementSocket writeString: @"hold release\r\n"  encoding: NSASCIIStringEncoding];
     } NS_HANDLER {
         NSLog(@"Exception caught while writing to socket: %@\n", localException);
@@ -1591,7 +1649,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             } else {
                 date = [[[NSDate alloc] init] autorelease];
             }
-            [self setConnectedSinceDate: date];            
+            [self setConnectedSinceDate: date];
+            [self clearStatisticsIncludeTotals: NO];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         }
         
@@ -1634,14 +1693,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     logFilesMayExist = TRUE;
     
-    if (![line hasPrefix: @">"]) {
+    if (  ! [line hasPrefix: @">"]  ) {
         // Output in response to command to OpenVPN
 		[self setPIDFromLine:line];
         [self setStateFromLine:line];
 		return;
 	}
+
     // "Real time" output from OpenVPN.
-    NSRange separatorRange = [line rangeOfString: @":"];
+     NSRange separatorRange = [line rangeOfString: @":"];
     if (separatorRange.length) {
         NSRange commandRange = NSMakeRange(1, separatorRange.location-1);
         NSString* command = [line substringWithRange: commandRange];
@@ -1922,10 +1982,67 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     while ((line = [socket readLine])) {
         // Can we get blocked here?
         //NSLog(@">>> %@", line);
-        if ([line length]) {
-            [self performSelectorOnMainThread: @selector(processLine:) 
-                                   withObject: line 
-                                waitUntilDone: NO];
+        if (  [line length]  ) {
+            NSString * bcPrefix = @">BYTECOUNT:";
+            if (  [line hasPrefix: bcPrefix]  ) {
+                if (   bytecountMutexOK  ) {
+                    NSRange commaRange = [line rangeOfString: @","];
+                    if (  commaRange.location != NSNotFound  ) {
+                        if (  commaRange.location < [line length]  ) {
+                            @try {
+                                
+                                NSDate * currentTime = [NSDate date];
+                                unsigned long bcpl = [bcPrefix length];
+                                NSRange inCountRange = NSMakeRange(bcpl, commaRange.location - bcpl);
+                                
+                                TBByteCount inCount  = (TBByteCount) [[line substringWithRange: inCountRange]            doubleValue];
+                                TBByteCount outCount = (TBByteCount) [[line substringFromIndex: commaRange.location + 1] doubleValue];
+                                OSStatus status = pthread_mutex_lock( &bytecountMutex );
+                                if (  status != EXIT_SUCCESS  ) {
+                                    NSLog(@"VPNConnection:netsocket:dataAvailable: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
+                                    return;
+                                }
+                                
+                                [statistics.lastSet release];
+                                statistics.lastSet = [currentTime retain];
+                                
+                                TBByteCount lastInBytecount    = inCount  - statistics.totalInBytecount;
+                                TBByteCount lastOutBytecount   = outCount - statistics.totalOutBytecount;
+                                statistics.totalInBytecount    = inCount;
+                                statistics.totalOutBytecount   = outCount;
+                                
+                                // Add new data to the ring buffer
+                                int ix = statistics.rbIx;
+                                statistics.rb[ix].lastInBytecount  = lastInBytecount;
+                                statistics.rb[ix].lastOutBytecount = lastOutBytecount;
+                                statistics.rb[ix].lastTimeInterval = [currentTime timeIntervalSinceDate: bytecountsUpdated];
+                                ix++;
+                                // Point to the next ring buffer entry to write into  
+                                if (  ix >= RB_SIZE) {
+                                    ix = 0;
+                                }
+                                statistics.rbIx = ix;
+                                
+                                [self setBytecountsUpdated: currentTime];
+
+                                pthread_mutex_unlock( &bytecountMutex );
+                                
+                                [self performSelectorOnMainThread: @selector(updateDisplayWithNewStatistics) 
+                                                       withObject: nil 
+                                                    waitUntilDone: NO];
+                            }
+                            @catch (NSException * e) {
+                                ;
+                            }
+                        }
+                    }
+                }
+            } else {
+                
+                [self performSelectorOnMainThread: @selector(processLine:) 
+                                       withObject: line 
+                                    waitUntilDone: NO];
+            }
         }
     }
 }
@@ -1936,6 +2053,175 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self setManagementSocket: nil];
         [self performSelectorOnMainThread: @selector(hasDisconnected) withObject: nil waitUntilDone: NO];
     }
+}
+
+-(void) readStatisticsTo: (struct Statistics *) returnValue
+{
+    OSStatus status = pthread_mutex_lock( &bytecountMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"VPNConnection:readStatisticsTo: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
+        return;
+    }
+    
+    *returnValue = statistics;
+    
+    pthread_mutex_unlock( &bytecountMutex );    
+}
+
+-(void) setNumber: (NSString * *) rate andUnits: (NSString * *) units from: (TBByteCount) value unitsArray: (NSArray *) unitsArray {
+    
+    // Decide units
+    int i = 0;
+    TBByteCount n = value;
+    while (  n > 999  ) {
+        i++;
+        n = (  value + (  1ull << 10*(i-1)  )  ) >> 10*i;
+    }
+    
+    if (  i > [unitsArray count]  ) {
+        *units = @"***";
+        *rate  = @"***";
+        return;
+    }
+    
+    *units = [unitsArray objectAtIndex: i];
+    
+    if (  i == 0  ) {
+        *rate = [NSString stringWithFormat: @"%llu", value];
+    } else {
+        double displayDouble = (double) value / (double) ( 1ull << (10*i) );
+        TBByteCount displayInteger = (TBByteCount) displayDouble;
+        if (  displayDouble < 10.0  ) {
+            int displayFraction = (int) ((displayDouble - displayInteger) * 100);
+            *rate = [NSString stringWithFormat: @"%llu.%02d", displayInteger, displayFraction];
+        } else if (  displayDouble < 100.0  ) {
+            int displayFraction = (int) ((displayDouble - displayInteger) * 10);
+            *rate = [NSString stringWithFormat: @"%llu.%01d", displayInteger,  displayFraction];
+        } else if (  displayDouble < 1000.0 ) {
+            *rate = [NSString stringWithFormat: @"%llu", displayInteger];
+        } else {
+            *units = @"***";
+            *rate  = @"***";
+        }
+    }
+}
+
+-(void) updateDisplayWithNewStatistics {
+
+    struct Statistics stats;
+    [self readStatisticsTo: &stats];
+    
+    NSString * inTotal       = nil;
+    NSString * inTotalUnits  = nil;
+    NSString * outTotal      = nil;
+    NSString * outTotalUnits = nil;
+
+    [self setNumber: &inTotal  andUnits: &inTotalUnits  from: stats.totalInBytecount  unitsArray: gTotalUnits];
+    [self setNumber: &outTotal andUnits: &outTotalUnits from: stats.totalOutBytecount unitsArray: gTotalUnits];
+
+    [[statusScreen inTotalTFC]       setTitle: inTotal];
+    [[statusScreen inTotalUnitsTFC]  setTitle: inTotalUnits];
+    [[statusScreen outTotalTFC]      setTitle: outTotal];
+    [[statusScreen outTotalUnitsTFC] setTitle: outTotalUnits];
+    
+    // Set the time interval we look at (the last xxx seconds)
+    NSTimeInterval rateTimeInterval;
+    id obj = [gTbDefaults objectForKey: @"statisticsRateTimeInterval"];
+    if (  [obj respondsToSelector: @selector(doubleValue)]  ) {
+        rateTimeInterval = [obj doubleValue];
+    } else {
+        rateTimeInterval = 3.0;
+    }
+    
+    // Accumulate statistics for all samples taken during the last rateTimeInterval seconds
+    TBByteCount    tInBytes  = 0;           // # bytes received and sent that we've pulled from the ring buffer
+    TBByteCount    tOutBytes = 0;
+    NSTimeInterval tTimeInt  = 0.0;         // Time interval the tInBytes and tOutBytes stats cover
+    int            nPulled;
+    int            ix        = stats.rbIx;  // Index to use to access rb[]
+    for (  nPulled=0; nPulled<RB_SIZE; nPulled++  ) {
+        // Pull the next data from the ring buffer and incorporate it into accumulated statistics
+        if (  ix == 0  ) {
+            ix = RB_SIZE;
+        }
+        ix--;
+        tInBytes  += stats.rb[ix].lastInBytecount;
+        tOutBytes += stats.rb[ix].lastOutBytecount;
+        tTimeInt  += stats.rb[ix].lastTimeInterval;
+        
+        if (  tTimeInt > rateTimeInterval  ) {
+            break;
+        }
+    }
+    
+    NSString * inRate       = nil;
+    NSString * inRateUnits  = nil;
+    NSString * outRate      = nil;
+    NSString * outRateUnits = nil;
+    
+    [self setNumber: &inRate  andUnits: &inRateUnits  from: ((double) tInBytes  / tTimeInt) unitsArray: gRateUnits];
+    [self setNumber: &outRate andUnits: &outRateUnits from: ((double) tOutBytes / tTimeInt) unitsArray: gRateUnits];
+    
+    [[statusScreen inRateTFC]       setTitle: inRate];
+    [[statusScreen inRateUnitsTFC]  setTitle: inRateUnits];
+    [[statusScreen outRateTFC]      setTitle: outRate];
+    [[statusScreen outRateUnitsTFC] setTitle: outRateUnits];
+}
+
+-(void) clearStatisticsRatesDisplay {
+    [[statusScreen inRateTFC]       setTitle: @"0"];
+    [[statusScreen outRateTFC]      setTitle: @"0"];
+    NSString * units = [gRateUnits objectAtIndex: 0];
+    [[statusScreen inRateUnitsTFC]  setTitle: units];
+    [[statusScreen outRateUnitsTFC] setTitle: units];
+}
+
+-(void) updateStatisticsDisplay {
+    
+    // Update the connection time string
+    [statusScreen setStatus: [self state] forName: [self displayName] connectedSince: [self timeString]];
+    
+    // Clear statistics if they are stale
+    struct Statistics stats;
+    [self readStatisticsTo: &stats];
+    NSTimeInterval sinceUpdated = [stats.lastSet timeIntervalSinceNow];
+    if (  sinceUpdated < 0.0  ) {
+        sinceUpdated = - sinceUpdated;
+    }
+    if (  sinceUpdated > 5.0  ) {
+        [self clearStatisticsRatesDisplay];
+    }
+}
+
+-(NSString *) timeString
+{
+    if (  ! logFilesMayExist  ) {
+        return @"";
+    }
+    
+    NSDate * csd = [self connectedSinceDate];
+    NSTimeInterval ti = [csd timeIntervalSinceNow];
+    long timeL = (long) round(-ti);
+    
+    int days  = timeL / (24*60*60);
+    long timeLessDays = timeL - ( days * (24*60*60) );
+    
+    int hours = timeLessDays / (60*60);
+    int timeLessDaysHours = timeLessDays - ( hours * (60*60) );
+    
+    int mins = timeLessDaysHours / 60;
+    int secs = timeLessDaysHours - ( mins * (60) );
+    
+    NSString * cTimeS;
+    if (  days > 0  ) {
+        cTimeS = [NSString stringWithFormat: NSLocalizedString(@"%d days %li:%02li:%02li", @"Tooltip"), days, hours, mins, secs];
+    } else if (  hours > 0) {
+        cTimeS = [NSString stringWithFormat: @"%d:%02d:%02d", hours, mins, secs];
+    } else {
+        cTimeS = [NSString stringWithFormat: @"%02d:%02d", mins, secs];
+    }
+    
+    return cTimeS;
 }
 
 - (NSString*) state
@@ -1993,7 +2279,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [self showStatusWindow];
     }
     
-    [statusScreen setStatus: newState forName: [self displayName]];
+    [statusScreen setStatus: newState forName: [self displayName] connectedSince: [self timeString]];
     
     if (  showingStatusWindow  ) {
         if (   [newState isEqualToString: @"CONNECTED"]
@@ -2070,6 +2356,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 break;
             }
         }
+        if (  [[NSApp delegate] mouseIsInsideAnyView]  ) {
+            okToFade = FALSE;
+        }
+        
         if (  okToFade  ) {
             [statusScreen fadeOut];
             showingStatusWindow = FALSE;
@@ -2244,9 +2534,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     return [logDisplay openvpnLogPath];
 }
 
+-(BOOL) logFilesMayExist {
+
+    return logFilesMayExist;
+}
+
 TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelUpSound,   setTunnelUpSound)
 
 TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelDownSound, setTunnelDownSound)
+
+TBSYNTHESIZE_OBJECT(retain, NSDate *, bytecountsUpdated, setBytecountsUpdated)
 
 //*********************************************************************************************************
 //

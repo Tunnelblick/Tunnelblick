@@ -39,6 +39,24 @@ typedef enum
     userWantsAbandon
 } VPNConnectionUserWantsState;
 
+typedef unsigned long long TBByteCount;
+
+struct RateInfo {
+    TBByteCount      lastInBytecount;   // Input  bytecount in last interval
+    TBByteCount      lastOutBytecount;  // Output bytecount in last interval
+    NSTimeInterval   lastTimeInterval;  // Number of seconds in last interval        
+};
+
+#define RB_SIZE 30
+
+struct Statistics {
+    NSDate        *  lastSet;           // Date/time statistics were last set
+    TBByteCount      totalInBytecount;  // Total input  bytecount since tunnel up
+    TBByteCount      totalOutBytecount; // Total output bytecount since tunnel up
+    int              rbIx;              // Index of the next item in ringBuffer to write to
+    struct RateInfo  rb[RB_SIZE];       // Ring buffer holding info for rate statistics
+};
+
 @interface VPNConnection : NSObject <NSWindowDelegate>
 {
     NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file or .tblk package)
@@ -72,6 +90,13 @@ typedef enum
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
     VPNConnectionUserWantsState
                     userWantsState;     // Indicates what the user wants to do about authorization failures
+    
+    // These variables are updated (outside of the main thread) by netsocket:dataAvailable:
+    struct Statistics statistics;
+    NSDate        * bytecountsUpdated;  // Time variables were last updated
+    pthread_mutex_t bytecountMutex;     // Used to avoid race conditions when accessing the above
+    BOOL            bytecountMutexOK;   // Flag that the mutex is set up. (If not, we don't do statistics)
+
     BOOL            authFailed;         // Indicates authorization failed
     BOOL            credentialsAskedFor;// Indicates whether credentials have been asked for but not provided
     BOOL            usedModifyNameserver;// True iff "Set nameserver" was used for the current (or last) time this connection was made or attempted
@@ -97,6 +122,8 @@ typedef enum
 
 -(void)             clearLog;
 
+-(void)             updateStatisticsDisplay;
+
 -(NSString *)       configPath;
 
 -(NSDate *)         connectedSinceDate;
@@ -115,7 +142,11 @@ typedef enum
 
 -(NSString *)       displayName;
 
+-(void)             fadeAway;
+
 -(void)             hasDisconnected;
+
+-(void)             readStatisticsTo:           (struct Statistics *)  returnValue;
 
 -(id)               initWithConfigPath:         (NSString *)    inPath
                        withDisplayName:         (NSString *)    inDisplayName;
@@ -130,6 +161,8 @@ typedef enum
 -(BOOL)             isDisconnected;
 
 -(BOOL)             launchdPlistWillConnectOnSystemStart;
+
+-(BOOL)             logFilesMayExist;
 
 -(NSArray *)        modifyNameserverOptionList;
 
@@ -154,6 +187,8 @@ typedef enum
 
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
 
+-(void)             showStatusWindow;
+
 -(void)             startMonitoringLogFiles;
 -(void)             stopMonitoringLogFiles;
 
@@ -172,6 +207,7 @@ typedef enum
 
 TBPROPERTY_WRITEONLY(NSSound *, tunnelUpSound, setTunnelUpSound)
 TBPROPERTY_WRITEONLY(NSSound *, tunnelDownSound, setTunnelDownSound)
+TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
 
 //*********************************************************************************************************
 //

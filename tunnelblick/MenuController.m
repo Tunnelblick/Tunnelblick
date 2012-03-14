@@ -24,10 +24,11 @@
  */
 
 #import <Foundation/NSDebug.h>
+#import <mach/mach_time.h>
+#import <pthread.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
 #import <uuid/uuid.h>
-#import <pthread.h>
 #import "defines.h"
 #import "MenuController.h"
 #import "NSApplication+LoginItem.h"
@@ -39,6 +40,7 @@
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
 #import "NSFileManager+TB.h"
+#import "MainIconView.h"
 #import "MyPrefsWindowController.h"
 #import "SplashWindowController.h"
 #import "ConfigurationUpdater.h"
@@ -63,8 +65,12 @@ NSArray               * gConfigurationPreferences; // E.g., '-onSystemStart'
 BOOL                    gTunnelblickIsQuitting; // Flag that Tunnelblick is in the process of quitting
 BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
 unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
-//                                               or zero to keep trying indefinitely
+//                                              // or zero to keep trying indefinitely
 unsigned                gMaximumLogSize;        // Maximum size (bytes) of buffer used to display the log
+NSArray               * gRateUnits;             // Array of strings with localized data units      (KB/s, MB/s, GB/s, etc.)
+NSArray               * gTotalUnits;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
+NSTimeInterval          gDelayToShowStatistics; // Time delay from mouseEntered icon or statistics window until showing the statistics window
+NSTimeInterval          gDelayToHideStatistics; // Time delay from mouseExited icon or statistics window until hiding the statistics window
 
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
@@ -122,7 +128,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                   toStartArgs:              (NSString * *)      startArgsPtr;
 -(NSArray *)        findTblksToInstallInPath:               (NSString *)        thePath;
 -(void)             checkNoConfigurations;
--(void)             createMenu;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             deleteLogs;
 -(void)             dmgCheck;
@@ -163,7 +168,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(NSStatusItem *)   statusItem;
 -(void)             updateMenuAndLogWindow;
 -(void)             updateNavigationLabels;
--(void)             updateUI;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void)             watcher:                                (UKKQueue *)        kq
        receivedNotification:                                (NSString *)        nm
@@ -191,6 +195,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         gTunnelblickIsQuitting = FALSE;
         gComputerIsGoingToSleep = FALSE;
         areLoggingOutOrShuttingDown = FALSE;
+        mouseIsInMainIcon = FALSE;
+        mouseIsInStatusWindow = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
@@ -199,7 +205,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         customRunOnLaunchPath = nil;
         customRunOnConnectPath = nil;
         customMenuScripts = nil;
-        
+                
         tunCount = 0;
         tapCount = 0;
         
@@ -258,6 +264,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 
                                 @"disableCopyLogToClipboardButton",
                                 
+                                @"doNotShowNotificationWindowBelowIconOnMouseover",
+                                @"doNotShowNotificationWindowOnMouseover",
                                 @"doNotShowConnectionSubmenus",
                                 @"doNotShowVpnDetailsMenuItem",
                                 @"doNotShowSuggestionOrBugReportMenuItem",
@@ -278,6 +286,10 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"doNotUnrebrandLicenseDescription",
                                 @"useSharedConfigurationsWithDeployedOnes",
                                 @"usePrivateConfigurationsWithDeployedOnes",
+                                
+                                @"delayToShowStatistics",
+                                @"delayToHideStatistics",
+                                @"statisticsRateTimeInterval",
                                 
                                 @"updateAutomatically",
                                 @"updateCheckAutomatically",
@@ -541,6 +553,39 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         }
         
         [self createLinkToApp];
+        
+        if (   (obj = [gTbDefaults objectForKey: @"delayToShowStatistics"])
+            && [obj respondsToSelector: @selector(doubleValue)]  ) {
+            gDelayToShowStatistics = [obj doubleValue];
+        } else {
+            gDelayToShowStatistics = 0.5;
+        }
+        if (   (obj = [gTbDefaults objectForKey: @"delayToHideStatistics"])
+            && [obj respondsToSelector: @selector(doubleValue)]  ) {
+            gDelayToHideStatistics = [obj doubleValue];
+        } else {
+            gDelayToHideStatistics = 1.5;
+        }
+        
+        gRateUnits = [[NSArray arrayWithObjects:
+                       NSLocalizedString(@"B/s", @"Window text"),
+                       NSLocalizedString(@"KB/s", @"Window text"),
+                       NSLocalizedString(@"MB/s", @"Window text"),
+                       NSLocalizedString(@"GB/s", @"Window text"),
+                       NSLocalizedString(@"TB/s", @"Window text"),
+                       NSLocalizedString(@"PB/s", @"Window text"),
+                       NSLocalizedString(@"*/s",  @"Window text"),
+                       nil] retain];
+        
+        gTotalUnits = [[NSArray arrayWithObjects:
+                        NSLocalizedString(@"B", @"Window text"),
+                        NSLocalizedString(@"KB", @"Window text"),
+                        NSLocalizedString(@"MB", @"Window text"),
+                        NSLocalizedString(@"GB", @"Window text"),
+                        NSLocalizedString(@"TB", @"Window text"),
+                        NSLocalizedString(@"PB", @"Window text"),
+                        @"*",
+                        nil] retain];
         
         connectionArray = [[NSArray alloc] init];
         
@@ -832,6 +877,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 // Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
 - (void) createStatusItem
 {
+    [statusItem release];
+    statusItem = nil;
+    
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
     
 	if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
@@ -858,9 +906,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
             [bar removeStatusItem: statusItem];
             [statusItem release];
             if (  (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-                [statusItem setHighlightMode:YES];
-                [statusItem setMenu: myVPNMenu];
-                [self updateUI];
             } else {
                 NSLog(@"Can't insert icon in Status Bar");
             }
@@ -1123,17 +1168,20 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [quitItem setTarget: self];
     [quitItem setAction: @selector(quit:)];
     
-    [statusItem setHighlightMode:YES];
-    [statusItem setMenu:nil];
-	
     [statusMenuItem release];
 	statusMenuItem = [[NSMenuItem alloc] init];
     [statusMenuItem setTarget: self];
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
+    
 
     [myVPNMenu release];
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
+
+    // Add an NSView to the icon to track mouseEntered and mouseExited events for the statistics display
+    [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 20.0, 23.0)] autorelease]];
+    [statusItem setView: [self ourMainIconView]];
+    [statusItem setHighlightMode:YES];
 	[statusItem setMenu: myVPNMenu];
     
 	[myVPNMenu addItem:statusMenuItem];
@@ -1763,28 +1811,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) updateUI
 {
-    if (  [gTbDefaults boolForKey: @"showTooltips"]  ) {
-        unsigned nConnections = [[self connectionArray] count];
-        NSString * toolTip;
-        if (  nConnections == 0  ) {
-            toolTip = NSLocalizedString(@"No Active Connections", @"Status message");
-        } else if (  nConnections == 1) {
-            NSString * oneStatus = nil;
-            if (  [[self connectionArray] count] > 0  ) {
-                oneStatus = [[[self connectionArray] objectAtIndex: 0] displayName];
-            }
-            if (  oneStatus  ) {
-                oneStatus = [NSString stringWithFormat: NSLocalizedString(@"%@ is Connected", @"Status message"), oneStatus];
-            } else {
-                oneStatus = NSLocalizedString(@"1 connection", @"status message");
-            }
-            toolTip = localizeNonLiteral(oneStatus, @"Status message");
-        } else {
-            toolTip = [NSString stringWithFormat:NSLocalizedString(@"%d Connections", @"Status message"), nConnections];
-        }	
-        [statusItem setToolTip: toolTip];
-	}
-    
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]) ) { 
 		//  Anything other than connected or disconnected shows the animation
@@ -1802,9 +1828,9 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
         
         if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-            [statusItem setImage: connectedImage];
+            [[self ourMainIconView] setImage: connectedImage];
         } else {
-            [statusItem setImage: mainImage];
+            [[self ourMainIconView] setImage: mainImage];
         }
 	}
 }
@@ -1823,7 +1849,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	if (animation == theAnim)
 	{
-        [statusItem performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
+        [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -4229,6 +4255,68 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return [sounds sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 }
 
+-(void) updateStatisticsDisplaysHandler {
+    [self performSelectorOnMainThread: @selector(updateStatisticsDisplays) withObject: nil waitUntilDone: NO];
+}
+
+-(void) updateStatisticsDisplays {
+    NSEnumerator * e = [connectionArray objectEnumerator];
+    VPNConnection * connection;
+    while (  connection = [e nextObject]  ) {
+        [connection updateStatisticsDisplay];
+    }
+}
+
+-(void) statisticsWindowsShow: (BOOL) showThem {
+
+    NSEnumerator * e = [myVPNConnectionDictionary objectEnumerator];
+    VPNConnection * connection;
+    BOOL showingAny = FALSE;
+    while (  connection = [e nextObject]  ) {
+        if (  [connection logFilesMayExist]  ) {
+            if (  showThem  ) {
+                [connection showStatusWindow];
+                showingAny = TRUE;
+            } else {
+                if (   [connection isConnected]
+                    || [connection isDisconnected]  ) {
+                    [connection fadeAway];
+                }
+            }
+        }
+    }
+    
+    if (  showingAny  ) {
+        if (  statisticsWindowTimer == nil  ) {
+            statisticsWindowTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0
+                                                                      target: self
+                                                                    selector: @selector(updateStatisticsDisplaysHandler)
+                                                                    userInfo: nil
+                                                                     repeats: YES] retain];
+        }
+    } else {
+        [statisticsWindowTimer invalidate];
+        [statisticsWindowTimer release];
+        statisticsWindowTimer = nil;
+    }
+}
+
+-(void) showStatisticsWindows {
+
+    [self statisticsWindowsShow: YES];
+}
+
+-(void) hideStatisticsWindows {
+    
+    [self statisticsWindowsShow: NO];
+}
+
+-(BOOL) mouseIsInsideAnyView {
+    // Returns TRUE if the mouse is inside any status window or the main Icon
+    
+    return mouseIsInStatusWindow || mouseIsInMainIcon;
+}
+
 
 #ifdef INCLUDE_VPNSERVICE
 //*********************************************************************************************************
@@ -4291,17 +4379,19 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
             finishedWithChoice: (StatusWindowControllerChoice) choice
                 forDisplayName: (NSString *) theName
 {
-    if (  choice == statusWindowControllerCancelChoice  ) {
-        VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
-        if (  connection  ) {
-            [connection addToLog: @"*Tunnelblick: Disconnecting; user cancelled"];
+    VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: theName];
+    if (  connection  ) {
+        if (  choice == statusWindowControllerDisconnectChoice  ) {
+            [connection addToLog: @"*Tunnelblick: Disconnecting; Disconnect button pressed"];
             [connection disconnectAndWait: [NSNumber numberWithBool: YES] userKnows: YES];
+        } else if (  choice == statusWindowControllerConnectChoice  ) {
+            [connection addToLog: @"*Tunnelblick: Connecting; Connect button pressed"];
+            [connection connect: self userKnows: YES];
         } else {
-            NSLog(@"Invalid displayName -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
+            NSLog(@"Invalid choice -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
         }
     } else {
-        NSLog(@"Invalid choice -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
-        
+        NSLog(@"Invalid displayName -- statusWindowController:finishedWithChoice: %d forDisplayName: %@", choice, theName);
     }
 }
 
@@ -4332,11 +4422,6 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 // Getters and Setters
 //
 //*********************************************************************************************************
-
--(NSStatusItem *) statusItem
-{
-    return statusItem;
-}
 
 -(NSTimer *) showDurationsTimer
 {
@@ -4393,8 +4478,93 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return [[mainImage retain] autorelease];
 }
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *, statusItem)
+
+TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
+
+
+// Event Handlers
+
+-(void) showStatisticsWindowsTimerHandler: (NSTimer *) theTimer {
+    // Event handler; NOT on MainThread
+    
+    if (  [self mouseIsInsideAnyView] ) {
+        [self performSelectorOnMainThread: @selector(showStatisticsWindows) withObject: nil waitUntilDone: NO];
+    }
+}
+
+-(void) hideStatisticsWindowsTimerHandler: (NSTimer *) theTimer {
+    // Event handler; NOT on MainThread
+    
+    if (  ! [self mouseIsInsideAnyView] ) {
+        [[NSApp delegate] performSelectorOnMainThread: @selector(hideStatisticsWindows) withObject: nil waitUntilDone: NO];
+    }
+}    
+
+-(void) showOrHideStatisticsWindowsAfterDelay: (NSTimeInterval) delay
+                                fromTimestamp: (NSTimeInterval) timestamp
+                                     selector: (SEL)            selector {
+    
+    // Event handlers invoke this; NOT on MainThread
+    
+    NSTimeInterval timeUntilAct;
+    if (  timestamp == 0.0  ) {
+        timeUntilAct = 0.0;
+    } else {
+        // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
+        mach_timebase_info_data_t info;
+        mach_timebase_info(&info);
+        uint64_t systemStartNanoseconds = (mach_absolute_time() * info.numer) / info.denom;
+        NSTimeInterval systemStart = (  ((NSTimeInterval) systemStartNanoseconds) / 1.0e9  );
+        
+        timeUntilAct = timestamp - systemStart + delay;
+    }
+    
+    [NSTimer scheduledTimerWithTimeInterval: timeUntilAct
+                                     target: self
+                                   selector: selector
+                                   userInfo: nil
+                                    repeats: NO];
+}
+
+-(void) mouseEnteredMainIcon: (id) control event: (NSEvent *) theEvent  {
+    // Event handlers invoke this; NOT on MainThread
+    
+    mouseIsInMainIcon = TRUE;
+    [self showOrHideStatisticsWindowsAfterDelay: gDelayToShowStatistics
+                                  fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
+                                       selector: @selector(showStatisticsWindowsTimerHandler:)];
+}
+
+-(void) mouseExitedMainIcon: (id) control event: (NSEvent *) theEvent {
+    // Event handlers invoke this; NOT on MainThread
+    
+    mouseIsInMainIcon = FALSE;
+    [self showOrHideStatisticsWindowsAfterDelay: gDelayToHideStatistics
+                                  fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
+                                       selector: @selector(hideStatisticsWindowsTimerHandler:)];
+}
+
+-(void) mouseEnteredStatusWindow: (id) control event: (NSEvent *) theEvent  {
+    // Event handlers invoke this; NOT on MainThread
+    
+    mouseIsInStatusWindow = TRUE;
+    [self showOrHideStatisticsWindowsAfterDelay: gDelayToShowStatistics
+                                  fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
+                                       selector: @selector(showStatisticsWindowsTimerHandler:)];
+}
+
+-(void) mouseExitedStatusWindow: (id) control event: (NSEvent *) theEvent {
+    // Event handlers invoke this; NOT on MainThread
+    
+    mouseIsInStatusWindow = FALSE;
+    [self showOrHideStatisticsWindowsAfterDelay: gDelayToHideStatistics
+                                  fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
+                                       selector: @selector(hideStatisticsWindowsTimerHandler:)];
+}
+
 
 @end
