@@ -108,6 +108,9 @@ extern NSFileManager  * gFileMgr;
                             nil];
     [appearanceConnectionWindowDisplayCriteriaArrayController setContent: cwContent];
     [appearanceConnectionWindowDisplayCriteriaButton sizeToFit];
+
+    [appearanceDisplayStatisticsWindowsCheckbox
+     setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")];
 }
 
 -(NSArray *) getIconSets
@@ -157,5 +160,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreen
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
 
 @end

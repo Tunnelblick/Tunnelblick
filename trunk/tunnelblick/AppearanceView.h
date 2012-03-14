@@ -41,6 +41,8 @@
     IBOutlet NSArrayController  * appearanceConnectionWindowDisplayCriteriaArrayController;
     IBOutlet NSButton           * appearanceConnectionWindowDisplayCriteriaButton;
     
+    IBOutlet NSButton           * appearanceDisplayStatisticsWindowsCheckbox;
+    
     IBOutlet NSButton           * appearanceHelpButton;
 }
 
@@ -55,5 +57,7 @@ TBPROPERTY_READONLY(NSButton *,          appearanceDisplaySplashScreenCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)
+
+TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsCheckbox)
 
 @end

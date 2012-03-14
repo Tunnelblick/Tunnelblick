@@ -35,6 +35,8 @@
 @class MyPrefsWindowController;
 @class NetSocket;
 @class SplashWindowController;
+@class StatusWindowController;
+@class MainIconView;
 
 #ifdef INCLUDE_VPNSERVICE
 @class VPNService;
@@ -59,6 +61,7 @@ BOOL needToCopyBundle(void);
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
     NSStatusItem            * statusItem;                   // Our place in the Status Bar
+    MainIconView            * ourMainIconView;                 // View for the main icon
     IBOutlet NSMenuItem     * statusMenuItem;               // First line of menu, displays status (e.g. "Tunnelblick: 1 connection active"
     NSMenuItem              * noConfigurationsItem;         // Displayed if there are no configurations installed
     NSMenuItem              * vpnDetailsItem;               //    "VPN Details..." item for menu
@@ -108,6 +111,8 @@ BOOL needToCopyBundle(void);
 	
     NSTimer                 * hookupWatchdogTimer;          // Used to check for failures to hookup to openvpn processes, and deal with unknown OpenVPN processes 
 	
+    NSTimer                 * statisticsWindowTimer;        // Used to check for stale statistics that must be cleared 
+    
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
 
     NSString                * feedURL;                      // URL to send program update requests to
@@ -132,6 +137,9 @@ BOOL needToCopyBundle(void);
     //                                                         and therefore we can safely terminate unknown OpenVPN processes when quitting TB
     
     BOOL                      terminatingAtUserRequest;     // Indicates that we are terminating because the user Quit or Command-Q-ed
+    
+    BOOL                      mouseIsInMainIcon;            // Indicates that the mouse is over the Tunnelblick (not tracked unless preference says to)
+    BOOL                      mouseIsInStatusWindow;        // Indicates that the mouse is over the icon or a status window
     
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
@@ -169,6 +177,7 @@ BOOL needToCopyBundle(void);
 -(void)             checkForUpdates:                        (id)                sender;
 -(void)             cleanup;
 -(void)             createLinkToApp;
+-(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
@@ -181,6 +190,15 @@ BOOL needToCopyBundle(void);
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
                                anim:                        (NSMutableArray **) ptrAnimImages;
+-(void)             mouseEnteredMainIcon:                   (id)                control
+                                   event:                   (NSEvent *)         theEvent;
+-(void)             mouseExitedMainIcon:                    (id)                windowController
+                                  event:                    (NSEvent *)         theEvent;
+-(void)             mouseEnteredStatusWindow:               (id)                control
+                                       event:               (NSEvent *)         theEvent;
+-(void)             mouseExitedStatusWindow:                (id)                windowController
+                                      event:                (NSEvent *)         theEvent;
+-(BOOL)             mouseIsInsideAnyView;
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
@@ -194,7 +212,9 @@ BOOL needToCopyBundle(void);
 -(void)             statusWindowController:                 (id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
                             forDisplayName:                 (NSString *)        theName;
-
+-(void)             showStatisticsWindows;
+-(void)             hideStatisticsWindows;
+-(void)             updateUI;
 
 // Getters and Setters
 
@@ -227,6 +247,9 @@ BOOL needToCopyBundle(void);
              delegateHandlesKey:                            (NSString *)        key;
 -(NSArray *)        applescriptConfigurationList;
 
+TBPROPERTY_READONLY(NSStatusItem *, statusItem)
+
+TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)

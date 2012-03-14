@@ -14,9 +14,9 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="117"/>
 			<integer value="1023"/>
+			<integer value="44"/>
 			<integer value="1"/>
 			<integer value="521"/>
-			<integer value="44"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1878,6 +1878,28 @@
 							<string key="NSContents">Display...</string>
 							<reference key="NSSupport" ref="644301394"/>
 							<reference key="NSControlView" ref="269272876"/>
+							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags2">2</int>
+							<reference key="NSNormalImage" ref="630667089"/>
+							<reference key="NSAlternateImage" ref="34153109"/>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+					</object>
+					<object class="NSButton" id="438852176">
+						<reference key="NSNextResponder" ref="847392221"/>
+						<int key="NSvFlags">270</int>
+						<string key="NSFrame">{{248, 131}, {494, 18}}</string>
+						<reference key="NSSuperview" ref="847392221"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="336808855">
+							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags2">0</int>
+							<string key="NSContents">Display...</string>
+							<reference key="NSSupport" ref="644301394"/>
+							<reference key="NSControlView" ref="438852176"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="630667089"/>
@@ -4460,6 +4482,30 @@
 					</object>
 					<int key="connectionID">1025</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="438852176"/>
+						<reference key="destination" ref="269272876"/>
+					</object>
+					<int key="connectionID">1028</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">appearanceDisplayStatisticsWindowsCheckbox</string>
+						<reference key="source" ref="847392221"/>
+						<reference key="destination" ref="438852176"/>
+					</object>
+					<int key="connectionID">1030</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="438852176"/>
+					</object>
+					<int key="connectionID">1031</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4661,6 +4707,7 @@
 							<reference ref="1062712738"/>
 							<reference ref="700532383"/>
 							<reference ref="607511613"/>
+							<reference ref="438852176"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Appearance</string>
@@ -5994,6 +6041,20 @@
 						<reference key="object" ref="550268095"/>
 						<reference key="parent" ref="892700438"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1026</int>
+						<reference key="object" ref="438852176"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="336808855"/>
+						</object>
+						<reference key="parent" ref="847392221"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1027</int>
+						<reference key="object" ref="336808855"/>
+						<reference key="parent" ref="438852176"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -6015,6 +6076,9 @@
 					<string>1023.IBPluginDependency</string>
 					<string>1023.IBViewBoundsToFrameTransform</string>
 					<string>1024.IBPluginDependency</string>
+					<string>1026.IBPluginDependency</string>
+					<string>1026.IBViewBoundsToFrameTransform</string>
+					<string>1027.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.IBViewBoundsToFrameTransform</string>
 					<string>117.IBEditorWindowLastContentRect</string>
@@ -6340,6 +6404,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDfQAAw1QAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAw1MAAA</bytes>
 					</object>
 					<string>{{196, 560}, {760, 390}}</string>
@@ -6457,7 +6526,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{137, 582}, {760, 390}}</string>
+					<string>{{169, 295}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6819,7 +6888,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1025</int>
+			<int key="maxID">1031</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6837,6 +6906,7 @@
 							<string>appearanceDisplayConnectionSubmenusCheckbox</string>
 							<string>appearanceDisplayConnectionTimersCheckbox</string>
 							<string>appearanceDisplaySplashScreenCheckbox</string>
+							<string>appearanceDisplayStatisticsWindowsCheckbox</string>
 							<string>appearanceHelpButton</string>
 							<string>appearanceIconSetArrayController</string>
 							<string>appearanceIconSetButton</string>
@@ -6850,6 +6920,7 @@
 							<string>NSArrayController</string>
 							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -6872,6 +6943,7 @@
 							<string>appearanceDisplayConnectionSubmenusCheckbox</string>
 							<string>appearanceDisplayConnectionTimersCheckbox</string>
 							<string>appearanceDisplaySplashScreenCheckbox</string>
+							<string>appearanceDisplayStatisticsWindowsCheckbox</string>
 							<string>appearanceHelpButton</string>
 							<string>appearanceIconSetArrayController</string>
 							<string>appearanceIconSetButton</string>
@@ -6904,6 +6976,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">appearanceDisplaySplashScreenCheckbox</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">appearanceDisplayStatisticsWindowsCheckbox</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -7564,6 +7640,7 @@
 							<string>appearanceDisplayConnectionSubmenusCheckboxWasClicked:</string>
 							<string>appearanceDisplayConnectionTimersCheckboxWasClicked:</string>
 							<string>appearanceDisplaySplashScreenCheckboxWasClicked:</string>
+							<string>appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
 							<string>appearanceHelpButtonWasClicked:</string>
 							<string>appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
 							<string>configurationsHelpButtonWasClicked:</string>
@@ -7628,6 +7705,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -7639,6 +7717,7 @@
 							<string>appearanceDisplayConnectionSubmenusCheckboxWasClicked:</string>
 							<string>appearanceDisplayConnectionTimersCheckboxWasClicked:</string>
 							<string>appearanceDisplaySplashScreenCheckboxWasClicked:</string>
+							<string>appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
 							<string>appearanceHelpButtonWasClicked:</string>
 							<string>appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
 							<string>configurationsHelpButtonWasClicked:</string>
@@ -7688,6 +7767,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">appearanceDisplaySplashScreenCheckboxWasClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
