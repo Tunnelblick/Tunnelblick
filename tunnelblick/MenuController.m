@@ -574,7 +574,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                        NSLocalizedString(@"GB/s", @"Window text"),
                        NSLocalizedString(@"TB/s", @"Window text"),
                        NSLocalizedString(@"PB/s", @"Window text"),
-                       NSLocalizedString(@"*/s",  @"Window text"),
+                       NSLocalizedString(@"EB/s", @"Window text"),
+                       NSLocalizedString(@"ZB/s", @"Window text"),
+                       @"***",
                        nil] retain];
         
         gTotalUnits = [[NSArray arrayWithObjects:
@@ -584,7 +586,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                         NSLocalizedString(@"GB", @"Window text"),
                         NSLocalizedString(@"TB", @"Window text"),
                         NSLocalizedString(@"PB", @"Window text"),
-                        @"*",
+                        NSLocalizedString(@"EB", @"Window text"),
+                        NSLocalizedString(@"ZB", @"Window text"),
+                        @"***",
                         nil] retain];
         
         connectionArray = [[NSArray alloc] init];
