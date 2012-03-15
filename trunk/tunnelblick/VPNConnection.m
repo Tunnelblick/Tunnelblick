@@ -218,6 +218,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     if (  includeTotals  ) {
         statistics.totalInBytecount  = 0;
         statistics.totalOutBytecount = 0;
+        statistics.totalInByteCountBeforeThisConnection  = 0;
+        statistics.totalOutByteCountBeforeThisConnection = 0;
     }
     
     [statistics.lastSet release];
@@ -241,7 +243,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     [self disconnectFromManagmentSocket];
     [connectedSinceDate release]; connectedSinceDate = [[NSDate alloc] init];
-    [self clearStatisticsIncludeTotals: YES];
+    [self clearStatisticsIncludeTotals: NO];
     // Don't change logDisplay -- we want to keep it
     [lastState          release]; lastState = @"EXITING";
     [requestedState     release]; requestedState = @"EXITING";
@@ -2006,6 +2008,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                 [statistics.lastSet release];
                                 statistics.lastSet = [currentTime retain];
                                 
+                                if (  statistics.totalInBytecount > inCount  ) {
+                                    statistics.totalInByteCountBeforeThisConnection += statistics.totalInBytecount;
+                                }
+                                if (  statistics.totalOutBytecount > inCount  ) {
+                                    statistics.totalOutByteCountBeforeThisConnection += statistics.totalOutBytecount;
+                                }
+                                
                                 TBByteCount lastInBytecount    = inCount  - statistics.totalInBytecount;
                                 TBByteCount lastOutBytecount   = outCount - statistics.totalOutBytecount;
                                 statistics.totalInBytecount    = inCount;
@@ -2116,8 +2125,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * outTotal      = nil;
     NSString * outTotalUnits = nil;
 
-    [self setNumber: &inTotal  andUnits: &inTotalUnits  from: stats.totalInBytecount  unitsArray: gTotalUnits];
-    [self setNumber: &outTotal andUnits: &outTotalUnits from: stats.totalOutBytecount unitsArray: gTotalUnits];
+    [self setNumber: &inTotal  andUnits: &inTotalUnits  from: (stats.totalInBytecount  + stats.totalInByteCountBeforeThisConnection ) unitsArray: gTotalUnits];
+    [self setNumber: &outTotal andUnits: &outTotalUnits from: (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection) unitsArray: gTotalUnits];
 
     [[statusScreen inTotalTFC]       setTitle: inTotal];
     [[statusScreen inTotalUnitsTFC]  setTitle: inTotalUnits];
@@ -2583,6 +2592,19 @@ TBSYNTHESIZE_OBJECT(retain, NSDate *, bytecountsUpdated, setBytecountsUpdated)
     }
     
     return @"NO";
+}
+
+- (NSString *) bytesIn
+{
+    struct Statistics stats;
+    [self readStatisticsTo: &stats];
+    return [NSString stringWithFormat: @"%llu", (unsigned long long) (stats.totalInBytecount + stats.totalInByteCountBeforeThisConnection)];
+}
+- (NSString *) bytesOut
+{
+    struct Statistics stats;
+    [self readStatisticsTo: &stats];
+    return [NSString stringWithFormat: @"%llu", (unsigned long long) (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection)];
 }
 
 @end

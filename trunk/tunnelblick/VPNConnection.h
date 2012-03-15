@@ -51,8 +51,10 @@ struct RateInfo {
 
 struct Statistics {
     NSDate        *  lastSet;           // Date/time statistics were last set
-    TBByteCount      totalInBytecount;  // Total input  bytecount since tunnel up
-    TBByteCount      totalOutBytecount; // Total output bytecount since tunnel up
+    TBByteCount      totalInBytecount;  // Total in, out  bytecount since tunnel up
+    TBByteCount      totalOutBytecount;
+    TBByteCount      totalInByteCountBeforeThisConnection; // Total in, out bytecounts since Tunnelblick was launched
+    TBByteCount      totalOutByteCountBeforeThisConnection;
     int              rbIx;              // Index of the next item in ringBuffer to write to
     struct RateInfo  rb[RB_SIZE];       // Ring buffer holding info for rate statistics
 };
@@ -218,5 +220,7 @@ TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
 -(NSScriptObjectSpecifier *) objectSpecifier;
 
 -(NSString *)                autoConnect;
+-(NSString *)                bytesIn;
+-(NSString *)                bytesOut;
 
 @end
