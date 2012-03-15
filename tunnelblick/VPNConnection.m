@@ -2016,7 +2016,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                 statistics.rb[ix].lastInBytecount  = lastInBytecount;
                                 statistics.rb[ix].lastOutBytecount = lastOutBytecount;
                                 statistics.rb[ix].lastTimeInterval = [currentTime timeIntervalSinceDate: bytecountsUpdated];
-//NSLog(@"JKB: %6f seconds", statistics.rb[ix].lastTimeInterval);
                                 ix++;
                                 // Point to the next ring buffer entry to write into  
                                 if (  ix >= RB_SIZE) {
@@ -2166,8 +2165,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             break;
         }
     }
-
-    NSLog(@"JKB: %d samples", nPulled);
 
     if ( tTimeInt == 0.0  ) {
         [self clearStatisticsRatesDisplay];
