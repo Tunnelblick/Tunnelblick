@@ -2016,6 +2016,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                 statistics.rb[ix].lastInBytecount  = lastInBytecount;
                                 statistics.rb[ix].lastOutBytecount = lastOutBytecount;
                                 statistics.rb[ix].lastTimeInterval = [currentTime timeIntervalSinceDate: bytecountsUpdated];
+//NSLog(@"JKB: %6f seconds", statistics.rb[ix].lastTimeInterval);
                                 ix++;
                                 // Point to the next ring buffer entry to write into  
                                 if (  ix >= RB_SIZE) {
@@ -2078,7 +2079,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         n = (  value + (  1ull << 10*(i-1)  )  ) >> 10*i;
     }
     
-    if (  i > [unitsArray count]  ) {
+    if (  i >= [unitsArray count]  ) {
         *units = @"***";
         *rate  = @"***";
         return;
@@ -2133,6 +2134,17 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         rateTimeInterval = 3.0;
     }
     
+    NSTimeInterval timeSinceLastSet = [stats.lastSet timeIntervalSinceNow];
+    if (  timeSinceLastSet < 0  ) {
+        timeSinceLastSet = - timeSinceLastSet;
+    }
+    
+    rateTimeInterval = rateTimeInterval - timeSinceLastSet;
+    if (  rateTimeInterval < 0) {
+        [self clearStatisticsRatesDisplay];
+        return;
+    }
+    
     // Accumulate statistics for all samples taken during the last rateTimeInterval seconds
     TBByteCount    tInBytes  = 0;           // # bytes received and sent that we've pulled from the ring buffer
     TBByteCount    tOutBytes = 0;
@@ -2145,27 +2157,34 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             ix = RB_SIZE;
         }
         ix--;
+        
+        tTimeInt  += stats.rb[ix].lastTimeInterval;
         tInBytes  += stats.rb[ix].lastInBytecount;
         tOutBytes += stats.rb[ix].lastOutBytecount;
-        tTimeInt  += stats.rb[ix].lastTimeInterval;
         
         if (  tTimeInt > rateTimeInterval  ) {
             break;
         }
     }
-    
-    NSString * inRate       = nil;
-    NSString * inRateUnits  = nil;
-    NSString * outRate      = nil;
-    NSString * outRateUnits = nil;
-    
-    [self setNumber: &inRate  andUnits: &inRateUnits  from: ((double) tInBytes  / tTimeInt) unitsArray: gRateUnits];
-    [self setNumber: &outRate andUnits: &outRateUnits from: ((double) tOutBytes / tTimeInt) unitsArray: gRateUnits];
-    
-    [[statusScreen inRateTFC]       setTitle: inRate];
-    [[statusScreen inRateUnitsTFC]  setTitle: inRateUnits];
-    [[statusScreen outRateTFC]      setTitle: outRate];
-    [[statusScreen outRateUnitsTFC] setTitle: outRateUnits];
+
+    NSLog(@"JKB: %d samples", nPulled);
+
+    if ( tTimeInt == 0.0  ) {
+        [self clearStatisticsRatesDisplay];
+    } else {
+        NSString * inRate       = nil;
+        NSString * inRateUnits  = nil;
+        NSString * outRate      = nil;
+        NSString * outRateUnits = nil;
+        
+        [self setNumber: &inRate  andUnits: &inRateUnits  from: ((double) tInBytes  / tTimeInt) unitsArray: gRateUnits];
+        [self setNumber: &outRate andUnits: &outRateUnits from: ((double) tOutBytes / tTimeInt) unitsArray: gRateUnits];
+        
+        [[statusScreen inRateTFC]       setTitle: inRate];
+        [[statusScreen inRateUnitsTFC]  setTitle: inRateUnits];
+        [[statusScreen outRateTFC]      setTitle: outRate];
+        [[statusScreen outRateUnitsTFC] setTitle: outRateUnits];
+    }
 }
 
 -(void) clearStatisticsRatesDisplay {
@@ -2181,16 +2200,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     // Update the connection time string
     [statusScreen setStatus: [self state] forName: [self displayName] connectedSince: [self timeString]];
     
-    // Clear statistics if they are stale
-    struct Statistics stats;
-    [self readStatisticsTo: &stats];
-    NSTimeInterval sinceUpdated = [stats.lastSet timeIntervalSinceNow];
-    if (  sinceUpdated < 0.0  ) {
-        sinceUpdated = - sinceUpdated;
-    }
-    if (  sinceUpdated > 5.0  ) {
-        [self clearStatisticsRatesDisplay];
-    }
+    [self updateDisplayWithNewStatistics];
 }
 
 -(NSString *) timeString
