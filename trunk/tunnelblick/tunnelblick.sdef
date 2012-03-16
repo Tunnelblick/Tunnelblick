@@ -27,12 +27,12 @@
 			</property>
 			
 			<property name="bytesIn" code="TBbi" type="text" access="r"
-				      description="The number of bytes that have come in through the connection since Tunnelblick was launched.">
+				      description="The number of bytes that have come in through the connection since Tunnelblick was launched. (For client configurations only. This will return '0' for configurations that are functioning as a server.)">
 				<cocoa key="bytesIn"/>
 			</property>
 			
 			<property name="bytesOut" code="TBbo" type="text" access="r"
-				      description="The number of bytes that have gone out through the connection since Tunnelblick was launched.">
+				      description="The number of bytes that have gone out through the connection since Tunnelblick was launched. (For client configurations only. This will return '0' for configurations that are functioning as a server.)">
 				<cocoa key="bytesOut"/>
 			</property>
 		
