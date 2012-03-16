@@ -8,6 +8,66 @@
 
 --------------------
 
+==Version 3.3==
+
+*3.3beta02 (2012-03-16)*
+
+ * Includes Several changes have been made concerning notification windows:
+  * Notification windows display the total amount of data uploaded and downloaded and recent up and down transfer rates for client connections.
+  * When the pointer (mouse) is over the Tunnelblick icon in the menu bar, the notification windows for all configurations that have been active since Tunnelblick was launched are displayed. (This may be changed on the 'Appearances' panel of the 'VPN Details…' window.)
+  * Notification windows do not fade away if the cursor is over any notification window (or the Tunnelblick icon, as described above).
+  * Notification windows for disconnected configurations have a 'Connect' button.
+  * Fixes a bug that caused notification windows to appear in Mission Control on Lion even though they were closed.
+ 
+ * Adds Openvpn 2.3alpha1, removes OpenVPN 2.1.4.
+
+ * Adds a 'Utilities' tab to the VPN Details… window. It includes:
+   * A 'Terminate all OpenVPN processes' button.
+   * A 'Run easy-rsa in Terminal' button.
+   * Click the '?' button on the tab for more information about these features.
+
+ * Adds the ability to have a 'route-pre-down.tunnelblick.sh' script that is run before closing a connection. Tunnelblick's 'Set Nameserver' scripts use this to release a TAP device's DHCP lease. This feature (and the DHCP lease release) is available only when using OpenVPN 2.3alpha1 and only in [cPkgs Tunnelblick VPN Configurations].
+
+ * Includes a customized version of OpenVPN's 'easy-rsa' 2.0  command-line scripts for creating certificates and keys.
+
+ * Adds two AppleScript nouns for configurations: 'bytesIn' and 'bytesOut' report bytes in or out through a client connection since Tunnelblick was launched.
+
+ * Adds a 'Suggestion or Bug Report…' menu item to beta versions of Tunnelblick unless the 'doNotShowSuggestionOrBugReportMenuItem' preference is true.
+
+ * Includes OpenSSL 1.0.1.
+
+ * Does not try to connect if the OpenVPN log file could not be created.
+
+ * Does not allow Unicode characters in usernames, passwords, and private keys (OpenVPN does not accept them).
+
+ * Includes more debugging information when OpenVPN starts or fails to start.
+
+ * Includes enhancements to the Tunnelblick build/clean process (see r1965 for details).
+
+ * Includes preparations for Mountain Lion.
+
+ * Disconnects a configuration if a Tunnelblick VPN Configuration script returns a non-zero (mod 256) result.
+
+ * Logs explanations of why a disconnection occurred.
+
+ * Logs Tunnelblick VPN Configuration script execution and result codes.
+
+ * Logs unknown 'foreign_option's found by the standard up script.
+
+ * Fixes a bug in log display of the command line used to start OpenVPN (cosmetic problem).
+
+ * Fixes a bug causing loss of contents in the log display if the log contains invalid characters.
+
+ * Fixes problems with the log display if the display gets large.
+
+ * Fixes a problem with 'While connected' actions not always being saved in the 'Advanced' settings window.
+
+ * Fixes a problem when there are no icon sets.
+
+ * Fixes several compiler warnings detected by Xcode 4.
+
+--------------------
+
 ==Version 3.2==
 
 *3.2.3 (2012-01-25)*

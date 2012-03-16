@@ -47,6 +47,16 @@ configuration* _n_ : A VPN configuration.
    'NO' means the configuration will not be connected automatically.
 
 *
+  bytesIn* (text, r/o) : 
+   The number of bytes that have come in through the connection since Tunnelblick was launched. (For client configurations only. This will return "0" for configurations that are functioning as a server.)
+    Available in Tunnelblick 3.3beta02 and later.
+
+*
+  bytesOut* (text, r/o) : 
+    The number of bytes that have gone out through the connection since Tunnelblick was launched. (For client configurations only. This will return "0" for configurations that are functioning as a server.)
+    Available in Tunnelblick 3.3beta02 and later.
+
+*
 connect *_v_ : Connect a VPN configuration.
 
 *
