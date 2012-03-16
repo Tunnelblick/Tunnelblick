@@ -578,11 +578,13 @@ TBSYNTHESIZE_OBJECT(retain, NSString *, connectedSince, setConnectedSince)
     return haveLoadedFromNib;
 }
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inRateTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inRateUnitsTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTotalTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, inTotalUnitsTFC)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outRateTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outRateUnitsTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalTFC)

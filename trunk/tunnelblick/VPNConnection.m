@@ -173,6 +173,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         authFailed       = FALSE;
         credentialsAskedFor = FALSE;
         showingStatusWindow = FALSE;
+        serverNotClient = FALSE;
         
         userWantsState   = userWantsUndecided;
         
@@ -211,7 +212,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     OSStatus status = pthread_mutex_lock( &bytecountMutex );
     if (  status != EXIT_SUCCESS  ) {
-        NSLog(@"VPNConnection:netsocket:dataAvailable: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
+        NSLog(@"VPNConnection:clearStatisticsIncludeTotals: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
         return;
     }
     
@@ -257,6 +258,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     loadedOurTap = FALSE;
     loadedOurTun = FALSE;
     logFilesMayExist = FALSE;
+    serverNotClient = FALSE;
 }
 
 -(void) tryToHookupToPort: (int) inPortNumber
@@ -1985,8 +1987,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         // Can we get blocked here?
         //NSLog(@">>> %@", line);
         if (  [line length]  ) {
-            NSString * bcPrefix = @">BYTECOUNT:";
-            if (  [line hasPrefix: bcPrefix]  ) {
+            NSString * bcClientPrefix = @">BYTECOUNT:";
+            NSString * bcServerPrefix = @">BYTECOUNT_CLI:";
+            if (  [line hasPrefix: bcClientPrefix]  ) {
                 if (   bytecountMutexOK  ) {
                     NSRange commaRange = [line rangeOfString: @","];
                     if (  commaRange.location != NSNotFound  ) {
@@ -1994,7 +1997,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                             @try {
                                 
                                 NSDate * currentTime = [NSDate date];
-                                unsigned long bcpl = [bcPrefix length];
+                                unsigned long bcpl = [bcClientPrefix length];
                                 NSRange inCountRange = NSMakeRange(bcpl, commaRange.location - bcpl);
                                 
                                 TBByteCount inCount  = (TBByteCount) [[line substringWithRange: inCountRange]            doubleValue];
@@ -2046,6 +2049,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                         }
                     }
                 }
+            } else if (  [line hasPrefix: bcServerPrefix]  ) {
+                OSStatus status = pthread_mutex_lock( &bytecountMutex );
+                if (  status != EXIT_SUCCESS  ) {
+                    NSLog(@"VPNConnection:netsocket:dataAvailable: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
+                    return;
+                }
+                if (  ! serverNotClient  ) {
+                    serverNotClient = TRUE;
+                    [self performSelectorOnMainThread: @selector(updateDisplayWithNewStatistics) 
+                                           withObject: nil 
+                                        waitUntilDone: NO];                    
+                }
+                pthread_mutex_unlock( &bytecountMutex );
+                
             } else {
                 
                 [self performSelectorOnMainThread: @selector(processLine:) 
@@ -2116,6 +2133,20 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(void) updateDisplayWithNewStatistics {
+    
+    if (   serverNotClient  ) {
+        [[statusScreen inTFC]            setTitle: @""];
+        [[statusScreen inRateTFC]        setTitle: @""];
+        [[statusScreen inRateUnitsTFC]   setTitle: @""];
+        [[statusScreen outRateTFC]       setTitle: @""];
+        [[statusScreen outRateUnitsTFC]  setTitle: @""];
+        [[statusScreen outTFC]           setTitle: @""];
+        [[statusScreen inTotalTFC]       setTitle: @""];
+        [[statusScreen inTotalUnitsTFC]  setTitle: @""];
+        [[statusScreen outTotalTFC]      setTitle: @""];
+        [[statusScreen outTotalUnitsTFC] setTitle: @""];
+        return;
+    }
 
     struct Statistics stats;
     [self readStatisticsTo: &stats];

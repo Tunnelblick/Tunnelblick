@@ -96,8 +96,11 @@ struct Statistics {
     // These variables are updated (outside of the main thread) by netsocket:dataAvailable:
     struct Statistics statistics;
     NSDate        * bytecountsUpdated;  // Time variables were last updated
+
     pthread_mutex_t bytecountMutex;     // Used to avoid race conditions when accessing the above
+
     BOOL            bytecountMutexOK;   // Flag that the mutex is set up. (If not, we don't do statistics)
+    BOOL            serverNotClient;    // Flag that the connection is a server connection, so statistics are not available
 
     BOOL            authFailed;         // Indicates authorization failed
     BOOL            credentialsAskedFor;// Indicates whether credentials have been asked for but not provided
