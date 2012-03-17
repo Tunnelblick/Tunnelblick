@@ -1049,7 +1049,7 @@ void updateEasyRsa(BOOL silently) {
     
     NSString * userPath = userEasyRsaPath(NO);
     if (  ! userPath  ) {
-        NSLog(@"easy-rsa installation failed: No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference", @"Window text");
+        NSLog(@"easy-rsa installation failed: No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference");
         return;
     }
 

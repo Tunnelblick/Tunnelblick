@@ -153,7 +153,7 @@
 {
     if (  passphrase != newValue  ) {
         [passphrase release];
-        passphrase = [newValue retain];
+        passphrase = (NSSecureTextField *) [newValue retain];
     }
 }
 
