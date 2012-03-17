@@ -600,7 +600,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     [file closeFile];
     
     if (  ! data  ) {
-        NSLog(@"readDataToEndOfFile returned nil from position %llu for path=%@", (long long) [data length], *logPosition, logPath);
+        NSLog(@"readDataToEndOfFile returned nil from position %llu for path=%@", *logPosition, logPath);
         return @"";
     }
     NSString * scriptLogContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];

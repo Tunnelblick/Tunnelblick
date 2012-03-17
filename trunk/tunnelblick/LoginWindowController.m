@@ -175,7 +175,7 @@
 {
     if (  password != newValue  ) {
         [password release];
-        password = [newValue retain];
+        password = (NSSecureTextField *) [newValue retain];
     }
 }
 
