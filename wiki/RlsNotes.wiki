@@ -12,7 +12,7 @@
 
 *3.3beta02 (2012-03-16)*
 
- * Includes Several changes have been made concerning notification windows:
+ * Includes several changes with respect to notification windows:
   * Notification windows display the total amount of data uploaded and downloaded and recent up and down transfer rates for client connections.
   * When the pointer (mouse) is over the Tunnelblick icon in the menu bar, the notification windows for all configurations that have been active since Tunnelblick was launched are displayed. (This may be changed on the 'Appearances' panel of the 'VPN Details…' window.)
   * Notification windows do not fade away if the cursor is over any notification window (or the Tunnelblick icon, as described above).
