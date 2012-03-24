@@ -200,14 +200,12 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
     pthread_mutex_lock( &statusScreenPositionsInUseMutex );
     
-    uint64_t   inUse = statusScreenPositionsInUse;
     NSUInteger mask  = 1 << startPositionNumber;
     NSUInteger positionNumber;
     for (  positionNumber=startPositionNumber; positionNumber<NUMBER_OF_STATUS_SCREEN_POSITIONS; positionNumber++  ) {
-        if (  (inUse & mask) == 0  ) {
+        if (  (statusScreenPositionsInUse & mask) == 0  ) {
             break;
         }
-        inUse = inUse >> 1;
         mask  = mask  << 1;
     }
     
@@ -216,13 +214,11 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         statusScreenPosition = positionNumber;
     } else {
         if (  startPositionNumber != 0  ) {
-            inUse = statusScreenPositionsInUse;
             mask  = 1;
             for (  positionNumber=0; positionNumber<startPositionNumber; positionNumber++  ) {
-                if (  (inUse & mask) == 0  ) {
+                if (  (statusScreenPositionsInUse & mask) == 0  ) {
                     break;
                 }
-                inUse = inUse >> 1;
                 mask  = mask  << 1;
             }
             
