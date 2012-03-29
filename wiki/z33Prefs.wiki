@@ -128,25 +128,25 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *-loadTunKext* (Boolean): If set, the standard tun kext will be loaded.
   * *-doNotShowOnTunnelblickMenu* (Boolean): If set, the configuration will not be displayed in the Tunnelblick menu.
 
-  The following preferences control what Tunnelblick does when a network setting change occurs. They may have values of 0, 1, or 2. 0 will cause the network change to be ignored; 1 will cause the network change to be reversed (the setting will be set to the post-VPN setting); and 3 will cause the connection to be restarted. They are usually set by controls on the "While Connected" tab of the "Advanced" settings window. They will be ignored (and the controls disabled) if the "-leasewatchOptions" preference is present.
+  The following preferences control what Tunnelblick does when a network setting change occurs. They may have values of 'ignore', 'restore', or 'restart'. 'ignore' will cause the network change to be ignored; 'restore' will cause the network change to be reversed (the setting will be set to the post-VPN setting); and 'restart' will cause the connection to be restarted. They are usually set by controls on the "While Connected" tab of the "Advanced" settings window. They will be ignored (and the controls disabled) if the "-leasewatchOptions" preference is present.
 
-  The following preferences control what happens when a setting changes to match the setting before the VPN was connected. All of them default to 2 (restore) if not set.
+  The following preferences control what happens when a setting changes to match the setting before the VPN was connected. All of them default to restore if not set.
 
-   * *-changeDNSServersAction* (Number)
-   * *-changeDomainAction* (Number)
-   * *-changeSearchDomainAction* (Number)
-   * *-changeWINSServersAction* (Number)
-   * *-changeNetBIOSNameAction* (Number)
-   * *-changeWorkgroupAction* (Number)
+   * *-changeDNSServersAction* (String, as described above)
+   * *-changeDomainAction* (String, as described above)
+   * *-changeSearchDomainAction* (String, as described above)
+   * *-changeWINSServersAction* (String, as described above)
+   * *-changeNetBIOSNameAction* (String, as described above)
+   * *-changeWorkgroupAction* (String, as described above)
 
-  The following preferences control what happens when a setting changes to something else. All of them default to 3 (restart) if not set.
+  The following preferences control what happens when a setting changes to something else. All of them default to restart if not set.
 
-   * *-changeOtherDNSServersAction* (Number)
-   * *-changeOtherDomainAction* (Number)
-   * *-changeOtherSearchDomainAction* (Number)
-   * *-changeOtherWINSServersAction* (Number)
-   * *-changeOtherNetBIOSNameAction* (Number)
-   * *-changeOtherWorkgroupAction* (Number)
+   * *-changeOtherDNSServersAction* (String, as described above)
+   * *-changeOtherDomainAction* (String, as described above)
+   * *-changeOtherSearchDomainAction* (String, as described above)
+   * *-changeOtherWINSServersAction* (String, as described above)
+   * *-changeOtherNetBIOSNameAction* (String, as described above)
+   * *-changeOtherWorkgroupAction* (String, as described above)
 
   * *-leasewatchOptions* <font color="red">DEPRECATED</font> (String, available in Tunnelblick 3.2beta08 and later): If set, contains '-i' followed by letters indicating DNS/WINS changes that should be ignored. The default is not present. If not present and monitoring the connection, changes to the following parameters will be restored or cause a reconnection attempt:
     * !DomainName
