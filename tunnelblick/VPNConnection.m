@@ -987,7 +987,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             openvpnstartOutput = [@"\n" stringByAppendingString: openvpnstartOutput];
-            openvpnstartOutput = [openvpnstartOutput stringByReplacingOccurrencesOfString: @"\n" withString: @"\n     "];
+            NSMutableString * tempMutableString = [openvpnstartOutput mutableCopy];
+            [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
+            openvpnstartOutput = [NSString stringWithString: tempMutableString];
         }
         
         [self addToLog: [NSString stringWithFormat: @"*Tunnelblick:\n\n"
