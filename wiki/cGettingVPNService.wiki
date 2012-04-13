@@ -13,7 +13,7 @@ Your employer should supply you with an OpenVPN configuration file (.ovpn or .co
 Follow the instructions from your employer or in [http://code.google.com/p/tunnelblick/wiki/cInstall Installing Tunnelblick 3.1 & 3.2] to install Tunnelblick and configurations.
 
 ==Set Up Your Own VPN Server==
-This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick does not include anything that will help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
+This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick versions 3.3 and higher include 'EasyRSA' to help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
 
 If you want to set up a computer to act solely as a router/bridge/firewall, consider [http://www.zeroshell.net/eng/ ZeroShell]. Untangle has a [http://www.untangle.com/OpenVPN free VPN component].
 
