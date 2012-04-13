@@ -20,6 +20,7 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import <unistd.h>
 #import "defines.h"
 #import "helper.h"
 #import "TBUserDefaults.h"

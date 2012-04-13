@@ -22,7 +22,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#include <CoreServices/CoreServices.h>
+#import <unistd.h>
+#import <CoreServices/CoreServices.h>
 #import <sys/sysctl.h>
 #import <netinet/in.h>
 #import "defines.h"
@@ -762,10 +763,14 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         
         if (  [gFileMgr fileExistsAtPath: newRoutePreDownscriptPath]  ) {
             BOOL customRoutePreDownScript = ! [newRoutePreDownscriptPath isEqualToString: standardRoutePreDownscriptPath];
-            NSString * versionToUse = [[[openvpnPath
-                                         stringByDeletingLastPathComponent]     // remove "openvpn", the executable
-                                        lastPathComponent]                       // isolate "openvpn-XXXX"
-                                       stringByReplacingOccurrencesOfString: @"openvpn-" withString: @""];
+            NSString * versionToUse = [[openvpnPath
+                                        stringByDeletingLastPathComponent]     // remove "openvpn", the executable
+                                       lastPathComponent];                     // isolate "openvpn-XXXX"
+            
+            NSMutableString * tempMutableString = [versionToUse mutableCopy];
+            [tempMutableString replaceOccurrencesOfString: @"openvpn-" withString: @"" options: 0 range: NSMakeRange(0, [tempMutableString length])];
+            versionToUse = [NSString stringWithString: tempMutableString];
+            
             BOOL openvpnHasRoutePreDown = (NSOrderedDescending == [[versionToUse substringToIndex: 3] compare: @"2.2"]);
             if (   customRoutePreDownScript
                 && (  ! openvpnHasRoutePreDown )  ) {
@@ -885,7 +890,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                 logContents = @"";
             }
         }
-        logContents = [[@"\n" stringByAppendingString:(NSString *) logContents] stringByReplacingOccurrencesOfString: @"\n" withString: @"\n     "];
+
+        NSMutableString * tempMutableString = [[@"\n" stringByAppendingString:(NSString *) logContents] mutableCopy];
+        [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
+        logContents = [NSString stringWithString: tempMutableString];
 
         [gFileMgr tbRemoveFileAtPath: logPath    handler: nil];
         NSString * scriptPath = [[[[[[logPath
