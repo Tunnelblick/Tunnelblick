@@ -16,6 +16,8 @@ OPENSSL_BUILD_DIR = $(TOPDIR)/$(BUILD_DIR)/$(OPENSSL_SRC_DIR)
 OPENSSL_DEST_DIR = $(TOPDIR)/$(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)
 OPENSSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_DEST_DIR)/lib/$(f))
 
+SPARKLE_DIR = sparkle-1.5b6
+
 PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 # Both lzo and openvpn should be built universally
@@ -26,7 +28,7 @@ TUNTAP_20090913_DIR=tuntap-20090913
 TUNTAP_CURRENT_DIR=tuntap-20111101
 
 
-all: tuntap openvpn
+all: sparkle-patch tuntap openvpn
 	rm -rf $(BUILD_DIR)
 
 buildenv: $(PROJ_BUILD_DIRS)
@@ -191,5 +193,15 @@ tuntap-clean:
 	rm -f -R tap.kext; \
 	rm -f -R tun.kext
 
-clean: tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
+sparkle-patch:
+	rm -f -r "Sparkle.framework";						\
+	cp -X -f -R "$(SPARKLE_DIR)/Sparkle.framework" "Sparkle.framework";	\
+	rm -f "Sparkle.framework/Versions/A/Resources/fr.lproj/fr.lproj";	\
+	rm -f "Sparkle.framework/Versions/A/Resources/fr_CA.lproj";		\
+	ln -s "fr.lproj" "Sparkle.framework/Versions/A/Resources/fr_CA.lproj"
+
+sparkle-clean:
+	rm -f -r "Sparkle.framework"
+
+clean: sparkle-clean tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
 	rm -rf $(BUILD_DIR)
