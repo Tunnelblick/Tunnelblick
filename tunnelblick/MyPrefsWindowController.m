@@ -1717,8 +1717,6 @@ static BOOL firstTimeShowingWindow = TRUE;
             }
             [self setSelectedWhenToConnectIndex: oldValue];
             selectedWhenToConnectIndex = oldValue;
-        } else {
-            selectedWhenToConnectIndex = ix;
         }
     }
 }

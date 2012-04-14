@@ -987,7 +987,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             openvpnstartOutput = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
             openvpnstartOutput = [openvpnstartOutput stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             openvpnstartOutput = [@"\n" stringByAppendingString: openvpnstartOutput];
-            NSMutableString * tempMutableString = [openvpnstartOutput mutableCopy];
+            NSMutableString * tempMutableString = [[openvpnstartOutput mutableCopy] autorelease];
             [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
             openvpnstartOutput = [NSString stringWithString: tempMutableString];
         }
@@ -1118,7 +1118,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     unsigned int bitMask = 0;
     if (  [tunOrTap isEqualToString: @"tap"]  ) {
-        bitMask = bitMask | OPENVPNSTART_USE_TAP;
+        bitMask = OPENVPNSTART_USE_TAP;
     }
 
     NSString * noTapKextKey = [[self displayName] stringByAppendingString: @"-doNotLoadTapKext"];
