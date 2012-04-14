@@ -767,7 +767,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                                         stringByDeletingLastPathComponent]     // remove "openvpn", the executable
                                        lastPathComponent];                     // isolate "openvpn-XXXX"
             
-            NSMutableString * tempMutableString = [versionToUse mutableCopy];
+            NSMutableString * tempMutableString = [[versionToUse mutableCopy] autorelease];
             [tempMutableString replaceOccurrencesOfString: @"openvpn-" withString: @"" options: 0 range: NSMakeRange(0, [tempMutableString length])];
             versionToUse = [NSString stringWithString: tempMutableString];
             
@@ -891,7 +891,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             }
         }
 
-        NSMutableString * tempMutableString = [[@"\n" stringByAppendingString:(NSString *) logContents] mutableCopy];
+        NSMutableString * tempMutableString = [[[@"\n" stringByAppendingString:(NSString *) logContents] mutableCopy] autorelease];
         [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
         logContents = [NSString stringWithString: tempMutableString];
 
@@ -1332,7 +1332,7 @@ unsigned getLoadedKextsMask(void)
     unsigned bitMask = 0;
     
     if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_FOO_TAP_KEXT;
+        bitMask = OPENVPNSTART_FOO_TAP_KEXT;
     }
     if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
         bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;

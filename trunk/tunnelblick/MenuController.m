@@ -79,7 +79,7 @@ void terminateBecauseOfBadConfiguration(void);
 
 OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData);
 OSStatus RegisterMyHelpBook(void);
-
+BOOL checkOwnedByRootWheel(NSString * path);
 
 extern BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath);
 extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave);
@@ -2079,7 +2079,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     unsigned bitMask = 0;
     
     if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_FOO_TAP_KEXT;
+        bitMask = OPENVPNSTART_FOO_TAP_KEXT;
     }
     if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
         bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
@@ -3697,7 +3697,7 @@ static void signal_handler(int signalNumber)
     
     unsigned arg1 = 0;
     if (  needsCopyApp  ) {
-        arg1 = arg1 | INSTALLER_COPY_APP;
+        arg1 = INSTALLER_COPY_APP;
     }
     if (  needsRepairApp  ) {
         arg1 = arg1 | INSTALLER_SECURE_APP;
@@ -3841,6 +3841,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         resourcesPath = [[NSBundle mainBundle] resourcePath];
 	}
     
+	NSString *contentsPath			    = [resourcesPath stringByDeletingLastPathComponent];
 	NSString *openvpnstartPath          = [resourcesPath stringByAppendingPathComponent: @"openvpnstart"                        ];
 	NSString *openvpnPath               = [resourcesPath stringByAppendingPathComponent: @"openvpn"                             ];
 	NSString *atsystemstartPath         = [resourcesPath stringByAppendingPathComponent: @"atsystemstart"                       ];
@@ -3864,6 +3865,10 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     NSString *deployPath                = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
     NSString *infoPlistPath             = [[resourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
 
+	if (  ! checkOwnedByRootWheel(contentsPath) ) {
+        NSLog(@"%@ not owned by root:wheel", contentsPath);
+        return YES;
+	}
 	// check openvpnstart owned by root with suid and 544 permissions
 	const char *path = [gFileMgr fileSystemRepresentationWithPath: openvpnstartPath];
     struct stat sb;
@@ -3962,6 +3967,35 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     }
     
     return NO;
+}
+
+BOOL checkOwnedByRootWheel(NSString * path)
+{
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+	NSString * file;
+	NSDictionary * atts;
+	while ( file = [dirEnum nextObject]  ) {
+		NSString * filePath = [path stringByAppendingPathComponent: file];
+		if (  itemIsVisible(filePath)  ) {
+			atts = [gFileMgr tbFileAttributesAtPath: filePath traverseLink: NO];
+			if (   ([[atts fileOwnerAccountID] intValue] != 0)
+				|| ([[atts fileGroupOwnerAccountID] intValue] != 0)
+				) {
+				return NO;
+			}
+			
+			if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+				atts = [gFileMgr tbFileAttributesAtPath: filePath traverseLink: YES];
+				if (   ([[atts fileOwnerAccountID] intValue] != 0)
+					|| ([[atts fileGroupOwnerAccountID] intValue] != 0)
+					) {
+					return NO;
+				}
+			}
+		}
+	}
+	
+	return YES;
 }
 
 BOOL needToRestoreDeploy(void)
