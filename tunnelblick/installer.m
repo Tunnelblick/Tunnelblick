@@ -112,6 +112,7 @@ NSAutoreleasePool * pool;
 
 void errorExitIfAnySymlinkInPath(NSString * path, int testPoint);
 BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid);
+BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink);
 BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
 BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group);
 BOOL createSymLink(NSString * fromPath, NSString * toPath);
@@ -399,7 +400,8 @@ int main(int argc, char *argv[])
     //            all other files are set to 0644
     if ( secureApp ) {
         
-        NSString *infoPlistPath             = [[appResourcesPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"Info.plist"];
+        NSString *contentsPath				= [appResourcesPath stringByDeletingLastPathComponent];
+        NSString *infoPlistPath				= [contentsPath stringByAppendingPathComponent: @"Info.plist"];
         NSString *openvpnstartPath          = [appResourcesPath stringByAppendingPathComponent:@"openvpnstart"                                   ];
         NSString *openvpnPath               = [appResourcesPath stringByAppendingPathComponent:@"openvpn"                                        ];
         NSString *atsystemstartPath         = [appResourcesPath stringByAppendingPathComponent:@"atsystemstart"                                  ];
@@ -421,10 +423,7 @@ int main(int argc, char *argv[])
         NSString *clientNewAlt3UpPath       = [appResourcesPath stringByAppendingPathComponent:@"client.3.up.tunnelblick.sh"                     ];
         NSString *clientNewAlt3DownPath     = [appResourcesPath stringByAppendingPathComponent:@"client.3.down.tunnelblick.sh"                   ];
         
-        BOOL okSoFar = YES;
-        okSoFar = okSoFar && checkSetOwnership(infoPlistPath, NO, 0, 0);
-        
-        okSoFar = okSoFar && checkSetOwnership(appResourcesPath, YES, 0, 0);
+        BOOL okSoFar = checkSetOwnership(contentsPath, YES, 0, 0);
         
         okSoFar = okSoFar && checkSetPermissions(openvpnstartPath,          @"4555", YES);
         
@@ -977,28 +976,12 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
         while ( file = [dirEnum nextObject]  ) {
             NSString * filePath = [path stringByAppendingPathComponent: file];
             if (  itemIsVisible(filePath)  ) {
-                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: YES];
-                if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
-                         && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  )  ) {
-                    if (  [atts fileIsImmutable]  ) {
-                        NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d because it is locked",
-                              filePath,
-                              (int) uid,
-                              (int) gid);
-                        return NO;
-                    }
-                    
-                    if (  chown([gFileMgr fileSystemRepresentationWithPath: filePath], uid, gid) != 0  ) {
-                        NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d\nError was '%s'",
-                              filePath,
-                              (int) uid,
-                              (int) gid,
-                              strerror(errno));
-                        return NO;
-                    }
-
-                    changedDeep = TRUE;
-                }
+                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
+				changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
+				if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+					changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
+				} else {
+				}
             }
         }
     }
@@ -1025,6 +1008,45 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     }
     
     return YES;
+}
+
+//**************************************************************************************************************************
+// Changes ownership of a single item to the specified user/group if necessary.
+// Returns YES if changed, NO if not changed
+BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink)
+{
+	if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: (int) uid]]
+			 && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: (int) gid]]  )  ) {
+		if (  [atts fileIsImmutable]  ) {
+			NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d because it is locked",
+				  path,
+				  (int) uid,
+				  (int) gid);
+			return NO;
+		}
+		
+		int result = 0;
+		if (   traverseLink
+			|| ( ! [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] )
+			) {
+			result = chown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid);
+		} else {
+			result = lchown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid);
+		}
+
+		if (  result != 0  ) {
+			NSLog(@"Tunnelblick Installer: Unable to change ownership of %@ to %d:%d\nError was '%s'",
+				  path,
+				  (int) uid,
+				  (int) gid,
+				  strerror(errno));
+			return NO;
+		}
+		
+		return YES;
+	}
+
+	return NO;
 }
 
 //**************************************************************************************************************************
