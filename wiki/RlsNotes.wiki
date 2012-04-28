@@ -10,6 +10,22 @@
 
 ==Version 3.3==
 
+*3.3beta04 (2012-04-28)*
+
+ * SECURITY UPDATE: Replaces OpenSSL 1.0.1 with 1.0.1b.
+
+ * Enhances security by making all of the application's contents owned by root.
+
+ * Fixes bug when on OS X 10.4 ("Tiger") that used an unavailable method.
+
+ * Fixes invalid links in Sparkle (which implements updates) FR_CA localization.
+
+ * Fixes Issue 205 (notification windows overlapping each other).
+
+ * Fixes some compiler warnings from Xcode 4.
+
+--------------------
+
 *3.3beta02 (2012-03-16)*
 
  * Includes several changes with respect to notification windows:
