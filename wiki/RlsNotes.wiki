@@ -70,6 +70,28 @@
 
 ==Version 3.2==
 
+*3.2.4 (2012-04-27)*
+
+ * SECURITY UPDATE: Replaces OpenSSL 1.0.0g with 1.0.1b.
+
+ * Fixes a problem with 'While connected' actions not always being saved in the 'Advanced' settings window.
+
+ * Disconnects a configuration if a Tunnelblick VPN Configuration script returns a non-zero (mod 256) result.
+
+ * Logs explanations of why a disconnection occurred.
+
+ * Logs Tunnelblick VPN Configuration script execution and result codes.
+
+ * Logs unknown 'foreign_option's found by the standard up script.
+
+ * Fixes a problem when there are no icon sets.
+
+ * Fixes bugs in OpenVPN's easy-rsa scripts that cause errors when the path to easy-rsa contains whitespace.
+
+ * Fixes several compiler warnings detected by Xcode 4.
+ 
+--------------------
+
 *3.2.3 (2012-01-25)*
 
  * Fixes a security vulnerability in OpenSSL by updating to OpenSSL version 1.0.0g. See [http://www.openssl.org/news/secadv_20120118.txt http://www.openssl.org/news/secadv_20120118.txt] for details.
