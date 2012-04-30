@@ -3969,8 +3969,34 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     return NO;
 }
 
+
+BOOL checkAttributes(NSDictionary * atts, NSString * path)
+{
+    // Check that a set of file attributes shows ownership by
+    //       root:admin if it is a key or certificate file; or
+    //       root:wheel otherwise
+    if (  [[atts fileOwnerAccountID] intValue] != 0  ) {
+        return NO;
+    }
+    int groupOwnerID = [[atts fileGroupOwnerAccountID] intValue];
+    if (  groupOwnerID != 0  ) {
+        if (  groupOwnerID != KEY_AND_CRT_GROUP  ) {
+            return NO;
+        }
+        NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
+        if (  ! [keyAndCrtExtensions containsObject: [path pathExtension]]  ) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}    
+
 BOOL checkOwnedByRootWheel(NSString * path)
 {
+    // Check that everything in path and it's subfolders is owned by
+    //       root:admin if it is a key or certificate file; or
+    //       root:wheel otherwise
 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
 	NSString * file;
 	NSDictionary * atts;
@@ -3978,26 +4004,21 @@ BOOL checkOwnedByRootWheel(NSString * path)
 		NSString * filePath = [path stringByAppendingPathComponent: file];
 		if (  itemIsVisible(filePath)  ) {
 			atts = [gFileMgr tbFileAttributesAtPath: filePath traverseLink: NO];
-			if (   ([[atts fileOwnerAccountID] intValue] != 0)
-				|| ([[atts fileGroupOwnerAccountID] intValue] != 0)
-				) {
-				return NO;
-			}
-			
+            if (  ! checkAttributes(atts, filePath)  ) {
+                return NO;
+            }
 			if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
 				atts = [gFileMgr tbFileAttributesAtPath: filePath traverseLink: YES];
-				if (   ([[atts fileOwnerAccountID] intValue] != 0)
-					|| ([[atts fileGroupOwnerAccountID] intValue] != 0)
-					) {
-					return NO;
-				}
+                if (  ! checkAttributes(atts, filePath)  ) {
+                    return NO;
+                }
 			}
 		}
 	}
 	
 	return YES;
 }
-
+        
 BOOL needToRestoreDeploy(void)
 {
     // Restore Resources/Deploy and/or repair ownership and permissions and/or  if necessary
