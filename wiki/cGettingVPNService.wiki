@@ -29,12 +29,12 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
   * *[http://btguard.com/?a=tunnelblick BTGuard]*
   * *[http://www.bananasecure.com/members/idevaffiliate.php?id=271 Banana VPN]*
   * *[https://accounts.comodo.com/trustconnect/management/signup?aid=643 Comodo TrustConnect]*
+  * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= Golden Frog VyprVPN]*
   * *[https://sales.hotspotvpn.com/info.asp?rid=tunnelblick&pid=2&tc=1 HotSpotVPN]*
   * *[http://www.ibvpn.com/billing/aff.php?aff=182 Invisible browsing VPN]*
   * *[http://www.roadwarriorvpn.com/portal/aff.php?aff=003 Road Warrior VPN.com]*
   * *[http://secure.switchkonnect.com/aff.php?aff=127 SwitchVPN.com]*
   * *[http://www.vpnsecure.me/?xyz=21 VPN.S]*
-  * *[https://www.goldenfrog.com/vyprvpn/vpn-service-provider?PROGRAM=6&bid=388&aid=CD52&dp=26&opt= VyprVPN]*
 </td></tr></table>
 
 <table border="1" width="100%"><tr><td>
