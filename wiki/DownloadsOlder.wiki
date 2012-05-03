@@ -15,6 +15,8 @@ Note: Unsigned versions should be used only for creation of certain Deployed ver
 
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta02.dmg          Tunnelblick 3.3beta02          (build 2983)]      released 2012-03-16<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta02_Unsigned.dmg Tunnelblick 3.3beta02 Unsigned (build 2983)]      released 2012-03-16<br><br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.5.dmg              Tunnelblick 3.2.5              (build 2891.3004)] released 2012-04-29<br>
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.5_Unsigned.dmg     Tunnelblick 3.2.5 Unsigned     (build 2891.3004)] released 2012-04-29<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.4.dmg              Tunnelblick 3.2.4              (build 2891.3000)] released 2012-04-27<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.4_Unsigned.dmg     Tunnelblick 3.2.4 Unsigned     (build 2891.3000)] released 2012-04-27<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.3.dmg              Tunnelblick 3.2.3              (build 2891.2932)] released 2012-01-25<br>
