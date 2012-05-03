@@ -20,7 +20,7 @@ For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", and "Lion", and
 
  <strong>Unsigned stable release: [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.6_Unsigned.dmg     Tunnelblick 3.2.6 Unsigned     (build 2891.3007)]</strong> released 2012-05-03<br>(Used only for creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
 
-For use on OS X 10.5 - 10.8 ("Leopard", "Snow Leopard", and "Lion", and "Mountain Lion") Intel or PowerPC, 32- or 64-bit
+For use on OS X 10.5 - 10.8 ("Leopard", "Snow Leopard", and "Lion", and "Mountain Lion") Intel, 32- or 64-bit
 
  <strong>Latest beta release:     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta04.dmg          Tunnelblick 3.3beta04          (build 3002)]</strong>      released 2012-04-28 [RlsNotes#Version_3.3 Release Notes]
 
