@@ -24,7 +24,9 @@ For tips on building Tunnelblick on Lion (OS X 10.7.x), see <a href="http://code
 
 (Prior to Tunnelblick source code revision 232, you needed to be running Leopard and Xcode 3.1.1 or above to build Tunnelblick. See [#BUILDING_ON_LEOPARD "Building on Leopard"].)
 
-Second, you must download and install Xcode 3.2.x if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode.app", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is at least version 3.2.1.) If you don't have Xcode, download the version for Mac-only development from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions. *You must add the optional "10.4 SDK" (Software Development Kit) for Tunnelblick to build correctly.*
+Second, you must download and install Xcode 3.2.2 if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode.app", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is version 3.2.2.) If you don't have Xcode, download the version for Mac-only development from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions.
+
+Xcode versions later than 3.2.2 may be used, but they do not generate code for PowerPC processors.
 
 ==DOWNLOAD THE SOURCE CODE==
 Third, you must download the Tunnelblick source code. Start a terminal session (double-click "Terminal" in the Applications folder). Type the following into the Terminal window: "cd " (without the quotes). That is, the letter c, the letter d, and a space. Open a new Finder window by clicking on Finder in the Dock. Navigate to the place you would like to save the Tunnelblick source code (your Documents folder, for example, or the Desktop) and then hold down the command key on the keyboard (the cloverleaf or apple key) and press the up-arrow key once. You now have a view of the folder which contains the folder you want to store the source code in (and it contains other things, too). Drag the folder in which you want to store the source code to the Terminal window, then let release it. The path to the folder you want to store the source code will be automatically typed for you! Click on the Terminal window, then press the "return" key. Click and drag the following line into the terminal window, too:
@@ -35,10 +37,17 @@ and press the "return" key. This will download the latest version of the Tunnelb
 
 To get an older version of the source code (for example, for a release), see [cGettingSource Getting source code for Tunnelblick].
 
-==SET XCODE TO CREATE A "RELEASE" FOR 10.4==
+<font color="red">Note:</font> As of 2012-04-03, the current trunk (the 3.3beta source code) works only on 10.5 - 10.8, not on 10.4. That may change in the future.) If you need a version that works on OS X 10.4, you must build from the 3.2 branch. To do that, type
+http://tunnelblick.googlecode.com/svn/3.2/ tunnelblick-read-only
+instead of
+http://tunnelblick.googlecode.com/svn/trunk/ tunnelblick-read-only
+
+==SET XCODE TO CREATE A "RELEASE"==
 Tunnelblick versions after 3.2beta10 can be built as a "Signed Release", an "Unsigned Release", or as "Debug". Under most circumstances, a "Signed Release" should be built. An "Unsigned Release" should be built and the code signed manually if a Deployed version of Tunnelblick will be created from the build result and users will be able to save username/password/passphrase in the Keychain. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
 
-Fourth, you should set up Xcode to create a "Signed Release" or "Unsigned Release" build instead of a "Debug" build. Navigate to the "tunnelblick-read-only" folder that was created above, double-click the the "tunnelblick" folder within it, then double-click "Tunnelblick.xcodeproj". That will start Xcode in a new window with the Tunnelblick project. Click "Build" in the menu bar, then click "Build Results". That will open a new window. In that window click on the drop-down button at the top left that says something like "10.4 | Debug | Tunnelblick | i386", and under the "Active configuration" heading, click on "Signed Release". The button should now read "10.4 | Signed Release | Tunnelblick | i386". If it doesn't show "10.4", specify that in the same way as you specified "Signed Release".
+You should set up Xcode to create a "Signed Release" or "Unsigned Release" build instead of a "Debug" build. Navigate to the "tunnelblick-read-only" folder that was created above, double-click the the "tunnelblick" folder within it, then double-click "Tunnelblick.xcodeproj". That will start Xcode in a new window with the Tunnelblick project. Click "Build" in the menu bar, then click "Build Results". That will open a new window. In that window click on the drop-down button at the top left that says something like "10.6 | Debug | Tunnelblick | i386", and under the "Active configuration" heading, click on "Signed Release". The button should now read "10.6 | Signed Release | Tunnelblick | i386".
+
+Don't worry about the "10.6"; Tunnelblick will still be built for OS X 10.4 - 10.8. The "10.6" refers to the SDK that is used. System methods introduced after 10.4 are only used if they exist (that is, if Tunnelblick is being executed on a version of OS X that supports them). 
 
 ==BUILD A RELEASE==
 Finally! You are ready to build a release of Tunnelblick. In the "Build Results" window, click the "Build" button. The build process will start, and a series of status messages will be displayed. There should be no errors, but see [#BUILD_WARNINGS BUILD WARNINGS] about warnings that are considered "normal".
@@ -70,13 +79,14 @@ To add your own digital signature to the built application, simply create a sign
 == BUILD WARNINGS==
  * *As of r1464, there should be no warnings issued when Tunnelblick is built. It is still necessary to "Clean all" before building, however.*
 
- * For versions of Tunnelblick prior to r1021, Xcode 3.2.2 and higher causes four warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.) After you clean, you have to build again, of course.
+ * For versions of Tunnelblick prior to r1021, Xcode 3.2.2 causes four warning messages from the linker to appear when building. After completing a build, click "Build", then "Clean All Targets", then, with checks in both checkboxes, click "Clean". Builds after that will not have the error. (Note: you have to build, then clean. Just cleaning doesn't help.) After you clean, you have to build again, of course.
  * Build 2013 and higher causes eight warning messages to appear when building OpenVPN. These warnings may be ignored. There are three 'incompatible pointer type' and one 'assignment discards qualifiers'; each warning is repeated twice (once each for PowerPC and intel.)
  * Otherwise, three or four warnings are normal, all complaining about "Object file compiled with -mlong-branch...". (These warnings come from a bug in Apple's Software Development Kit and can be ignored.)
 
  So the first time Tunnelblick is built from source:
  * For versions of Tunnelblick prior to r1021, there will be 16 warnings. After that (unless a third_party component is modified), there will be eight warnings until a "Clean All Targets" is performed. After that, there will be four warnings each time Tunnelblick is built.
  * For versions of Tunnelblick after r1020, there will be 12 warnings. After that (unless a third_party component is modified), there will be four warnings each time Tunnelblick is built.
+ * Versions that include OpenVPN 2.3alpha have a large number of warnings (64) that may be ignored.
 
  * Warnings during the build process that a target is already signed may appear if building the application but not rebuilding that particular target. These warnings may be ignored.
 
