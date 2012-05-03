@@ -3,7 +3,7 @@
 
 2012-05-03: *Tunnelblick 3.2.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
- * Fixes a crash on OS X 10.4 ("Tiger").
+ * Fixes a crash on OS X 10.4 ("Tiger") or PowerPC.
  
 --------------------
 
