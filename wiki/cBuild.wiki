@@ -20,7 +20,7 @@ Because Tunnelblick is distributed using the "GPL" license, the source code itse
 ==PRELIMINARY STEPS==
 First, you need to be running Snow Leopard (OS X 10.6.x). Although Tunnelblick will run on Tiger (OS X 10.4.x) and Leopard (OS X 10.5.x) as well as Snow Leopard and Lion, it is built (developed and compiled) into a release on Snow Leopard, because only Snow Leopard supports the both the PPC processor and the 32/64-bit version of "tuntap", third-party software used by Tunnelblick to make network connections. The 32/64-bit version of tuntap is required to run Tunnelblick on Snow Leopard using the 64-bit kernel.
 
-For tips on building Tunnelblick on Lion (OS X 10.7.x), see [https://groups.google.com/d/topic/tunnelblick-discuss/vJYGdD-et4k/discussion Building on Lion].
+For tips on building Tunnelblick on Lion (OS X 10.7.x), see [https://groups.google.com/d/msg/tunnelblick-discuss/vJYGdD-et4k/MFM1a-7Dt2QJ Building on Lion].
 
 (Prior to Tunnelblick source code revision 232, you needed to be running Leopard and Xcode 3.1.1 or above to build Tunnelblick. See [#BUILDING_ON_LEOPARD "Building on Leopard"].)
 
