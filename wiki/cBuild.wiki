@@ -98,7 +98,9 @@ It is possible to build versions of Tunnelblick prior to r232 on Leopard. The in
       svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
 
 ==BUILDING ON LION==
-See [https://groups.google.com/d/msg/tunnelblick-discuss/vJYGdD-et4k/MFM1a-7Dt2QJ this discussion].
+Current versions of Tunnelblick are built on OS X 10.6 ("Snow Leopard") with Xcode 3.2.2, as described above. That is because higher versions of Xcode do not support PowerPC processor builds. At some point, perhaps in Tunnelblick 3.3, PowerPC and/or OS X 10.4 support will be dropped, and Tunnelblick will be built on OS X 10.7 and/or 10.8 ("Lion" and/or "Mountain Lion").
+
+To build on Lion (with the understanding that PowerPC Macs and Macs with OS X 10.4 will not be able to execute the resulting binary), see [https://groups.google.com/d/msg/tunnelblick-discuss/vJYGdD-et4k/MFM1a-7Dt2QJ this discussion].
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
