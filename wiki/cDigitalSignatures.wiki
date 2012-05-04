@@ -26,6 +26,7 @@ The maker of a Deployed version of Tunnelblick can then take the unsigned, alrea
 Whenever Tunnelblick is updated by the built-in update process, the update itself will only be digitally signed under certain circumstances.
  * Standard Tunnelblick versions before 3.2beta34 will be updated with signed versions; and
  * Standard Tunnelblick versions 3.2beta34 and higher will be updated with signed versions only if they are themselves signed, otherwise they are updated with unsigned versions.
+ * Standard Tunnelblick versions 3.2.3 and higher will be updated with signed versions unless they are [cCusDeployed Deployed] versions, or there is a problem with the digital signature.
  * "Standard" means containing an Info.plist SUFeedURL entry of "http://tunnelblick.net/appcast.rss"
 This behavior is meant to be backward compatible for most users of Tunnelblick.
 
