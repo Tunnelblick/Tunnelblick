@@ -1117,7 +1117,7 @@ void updateEasyRsa(BOOL silently) {
     NSString * fileName;
     NSDirectoryEnumerator * e = [gFileMgr enumeratorAtPath: appEasyRsaPath];
     while (  fileName = [e nextObject]  ) {
-        [e skipDescendants];
+        [e skipDescendents];
         if (  ! [fileName hasPrefix: @"."]  ) {
             NSString * sourcePath = [appEasyRsaPath  stringByAppendingPathComponent: fileName];
             NSString * targetPath = [userPath        stringByAppendingPathComponent: fileName];
