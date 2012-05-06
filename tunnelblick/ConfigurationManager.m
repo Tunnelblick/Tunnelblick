@@ -1699,7 +1699,7 @@ enum state_t {                      // These are the "states" of the guideState 
             if (  okNow  ) {
                 break;
             } else {
-                NSLog(@"Timed out waiting for installer execution to succeed");
+                NSLog(@"installer did not make the necessary changes");
             }
         } else {
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
