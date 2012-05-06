@@ -453,6 +453,7 @@ int main(int argc, char *argv[])
         NSString * file;
         BOOL isDir;
         while (  file = [dirEnum nextObject]  ) {
+			[dirEnum skipDescendants];
             NSString * fullPath = [openvpnPath stringByAppendingPathComponent: file];
             if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
                 && isDir  ) {

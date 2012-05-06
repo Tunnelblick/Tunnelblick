@@ -2360,7 +2360,7 @@ static void signal_handler(int signalNumber)
             if (  okNow  ) {
                 break;
             } else {
-                NSLog(@"Configuration update installer: Timed out waiting for installer execution to succeed");
+                NSLog(@"Configuration update installer: installer did not make the necessary changes");
             }
         } else {
             NSLog(@"Configuration update installer: Failed to execute %@: %@", launchPath, arguments);
@@ -3440,11 +3440,15 @@ static void signal_handler(int signalNumber)
 {
     NSMutableArray * arrayToReturn = nil;
     NSString * file;
+    BOOL isDir;
     
     NSString * folder = [thePath stringByAppendingPathComponent: @"auto-install"];
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
     while (  file = [dirEnum nextObject]  ) {
-        if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
+        [dirEnum skipDescendents];
+        if (   [gFileMgr fileExistsAtPath: [folder stringByAppendingPathComponent: file] isDirectory: &isDir]
+            && isDir
+            && [[file pathExtension] isEqualToString: @"tblk"]  ) {
             if (  arrayToReturn == nil  ) {
                 arrayToReturn = [NSMutableArray arrayWithCapacity:10];
             }
@@ -3593,7 +3597,7 @@ static void signal_handler(int signalNumber)
             if (  okNow  ) {
                 break;
             } else {
-                NSLog(@"Timed out waiting for installer execution to finish");
+                NSLog(@"installer did not make the necessary changes");
             }
         } else {
             NSLog(@"Failed to execute %@: %@", launchPath, arguments);
@@ -3839,12 +3843,14 @@ BOOL needToRepairPackages(void)
     gid_t realGid = getgid();
     NSString * packagesPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"];
     NSString * file;
+    BOOL isDir;
     NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: packagesPath];
     while (file = [dirEnum nextObject]) {
         NSString * fullPath = [packagesPath stringByAppendingPathComponent: file];
         if (  itemIsVisible(fullPath)  ) {
-            NSString * ext  = [file pathExtension];
-            if (  [ext isEqualToString: @"tblk"]  ) {
+            if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
+                && isDir
+                && [[file pathExtension] isEqualToString: @"tblk"]  ) {
                 if (  [fullPath hasPrefix: gPrivatePath]  ) {
                     if (  ! checkOwnerAndPermissions(fullPath, realUid, realGid, @"755")  ) {
                         return YES;
