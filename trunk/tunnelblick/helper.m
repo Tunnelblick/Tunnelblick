@@ -236,8 +236,13 @@ BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
     BOOL isDir;
     
     // If it isn't an existing folder, then it can't be secured!
-    if (  ! (   [gFileMgr fileExistsAtPath: theDirPath isDirectory: &isDir]
-             && isDir )  ) {
+    if (  ! [gFileMgr fileExistsAtPath: theDirPath isDirectory: &isDir]  ) {
+        NSLog(@"folderContentsNeedToBeSecuredAtPath: no such path: %@", theDirPath);
+        return YES;
+    }
+    
+    if (  ! isDir  ) {
+        NSLog(@"folderContentsNeedToBeSecuredAtPath: path exists but is not a folder: %@", theDirPath);
         return YES;
     }
     
