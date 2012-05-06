@@ -22,7 +22,7 @@ You tell Tunnelblick how to connect to a VPN with a configuration file. Tunnelbl
 
 *We strongly suggest that you use a Tunnelblick VPN Configuration* because you can do more with it. For example, you can share it with all users of your computer, and you can set it up to start when your computer starts -- even before you log in. It is also more secure because any key and certificate files within it are made inaccessible except to the OpenVPN program, and because any script files within it are protected against accidental or deliberate misuse. Tunnelblick VPN Configurations may also contain other information, including information about default preferences for the configuration and identification and version information for the configuration itself that make managing widespread distribution easier. For details, see [cPkgs Tunnelblick VPN Configurations Details].
 
-==Creating and Installing Tunnelblick VPN Configuration==
+==Creating and Installing a Tunnelblick VPN Configuration==
 To create a Tunnelblick VPN Configuration:
 
  # Create a folder anywhere (on your Desktop works well);
