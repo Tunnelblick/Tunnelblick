@@ -591,6 +591,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
     // Event handler; NOT on MainThread
     // Mouse entered the tracking area of the Tunnelblick icon
 
+	[super mouseEntered: theEvent];
     [[NSApp delegate] mouseEnteredStatusWindow: self event: theEvent];
 }
 
@@ -598,6 +599,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
     // Event handler; NOT on MainThread
     // Mouse exited the tracking area of the Tunnelblick icon
     
+	[super mouseExited: theEvent];
     [[NSApp delegate] mouseExitedStatusWindow: self event: theEvent];
 }
 

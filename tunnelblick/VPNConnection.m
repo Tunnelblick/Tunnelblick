@@ -35,7 +35,6 @@
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
 #import "MyPrefsWindowController.h"
-#import "MainIconView.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gDeployPath;
