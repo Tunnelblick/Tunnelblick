@@ -248,6 +248,7 @@ BOOL needToCopyBundle(void);
 -(NSArray *)        applescriptConfigurationList;
 
 TBPROPERTY_READONLY(NSStatusItem *, statusItem)
+TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)

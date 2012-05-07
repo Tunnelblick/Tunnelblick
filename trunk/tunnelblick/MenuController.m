@@ -1177,16 +1177,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     [statusMenuItem setTarget: self];
     [statusMenuItem setAction: @selector(disconnectAllMenuItemWasClicked:)];
     
-
     [myVPNMenu release];
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
 
-    // Add an NSView to the icon to track mouseEntered and mouseExited events for the statistics display
     [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 20.0, 23.0)] autorelease]];
     [statusItem setView: [self ourMainIconView]];
-    [statusItem setHighlightMode:YES];
-	[statusItem setMenu: myVPNMenu];
     
 	[myVPNMenu addItem:statusMenuItem];
 	
@@ -3019,6 +3015,8 @@ static void signal_handler(int signalNumber)
             [gTbDefaults removeObjectForKey: @"openvpnVersion"];
         }
     }
+	
+	[[self ourMainIconView] setOrRemoveTrackingRect];
     
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
     [splashScreen setMessage: text];
@@ -4284,7 +4282,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     // When the hotKey is pressed, pop up the Tunnelblick menu from the Status Bar
     MenuController * menuC = (MenuController *) userData;
     NSStatusItem * statusI = [menuC statusItem];
-    [statusI popUpStatusItemMenu: [statusI menu]];
+    [statusI popUpStatusItemMenu: [[NSApp delegate] myVPNMenu]];
     return noErr;
 }
 
@@ -4544,6 +4542,7 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 }
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *, statusItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,       myVPNMenu)
 
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
@@ -4566,7 +4565,7 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
     
     if (  ! [self mouseIsInsideAnyView] ) {
         [[NSApp delegate] performSelectorOnMainThread: @selector(hideStatisticsWindows) withObject: nil waitUntilDone: NO];
-    }
+	}
 }    
 
 -(void) showOrHideStatisticsWindowsAfterDelay: (NSTimeInterval) delay
@@ -4578,13 +4577,14 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
     NSTimeInterval timeUntilAct;
     if (  timestamp == 0.0  ) {
         timeUntilAct = 0.0;
+	} else if (  ! runningOnLeopardOrNewer()  ) {
+		timeUntilAct = delay;
     } else {
         // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
         mach_timebase_info_data_t info;
         mach_timebase_info(&info);
         uint64_t systemStartNanoseconds = (mach_absolute_time() * info.numer) / info.denom;
         NSTimeInterval systemStart = (  ((NSTimeInterval) systemStartNanoseconds) / 1.0e9  );
-        
         timeUntilAct = timestamp - systemStart + delay;
     }
     

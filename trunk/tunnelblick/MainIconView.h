@@ -23,18 +23,14 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface MainIconView : NSView {
+@interface MainIconView : NSImageView {
     
-    IBOutlet NSImageView * imageView;                   // Contains the icon image
-    
-    NSImage              * iconImage;
-
     NSTrackingRectTag      mainIconTrackingRectTag;     // Used to track mouseEntered and mouseExited events for statistics display
+	BOOL				   mainIconTrackingRectTagIsValid;
+
 }
 
--(void) setImage:       (NSImage *) newImage;
-
+-(void) setOrRemoveTrackingRect;
 -(void) changedDoNotShowNotificationWindowOnMouseover;
-
 
 @end
