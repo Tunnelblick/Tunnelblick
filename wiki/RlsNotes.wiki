@@ -10,6 +10,18 @@
 
 ==Version 3.3==
 
+*3.3beta06 (2012-05-08)*
+
+ * Enhances security by digitally signing Sparkle.framework (signed versions only).
+
+ * Fixes a problem installing or launching Tunnelblick when a .tblk exists but is not a folder (i.e., not an OS X package).
+
+ * Fixes problems on OS X 10.4 ('Tiger').
+
+ * Fixes a problem that sometimes caused updates to unsigned versions of Tunnelblick instead of to signed versions.<br>Note: this was not caused by a problem in Tunnelblick itself -- it was caused by a misconfiguration on the tunnelblick.net website (the website used to check for updates). The misconfiguration was fixed on 2012-05-05 at 23:54 +04:00.
+
+--------------------
+
 *3.3beta04 (2012-04-28)*
 
  * SECURITY UPDATE: Replaces OpenSSL 1.0.1 with 1.0.1b.

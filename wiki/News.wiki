@@ -1,6 +1,18 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-05-08: *Tunnelblick 3.3beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Enhances security by digitally signing Sparkle.framework (signed versions only).
+
+ * Fixes a problem installing or launching Tunnelblick when a .tblk exists but is not a folder (i.e., not an OS X package).
+
+ * Fixes problems on OS X 10.4 ('Tiger').
+
+ * Fixes a problem that sometimes caused updates to unsigned versions of Tunnelblick instead of to signed versions.<br>Note: this was not caused by a problem in Tunnelblick itself -- it was caused by a misconfiguration on the tunnelblick.net website (the website used to check for updates). The misconfiguration was fixed on 2012-05-05 at 23:54 +04:00.
+ 
+--------------------
+
 2012-05-03: *Tunnelblick 3.2.6 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a crash on OS X 10.4 ("Tiger") or PowerPC.
