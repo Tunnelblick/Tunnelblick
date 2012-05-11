@@ -2,6 +2,24 @@
  OpenSSL CHANGES
  _______________
 
+ Changes between 1.0.1b and 1.0.1c [10 May 2012]
+
+  *) Sanity check record length before skipping explicit IV in TLS
+     1.2, 1.1 and DTLS to fix DoS attack.
+
+     Thanks to Codenomicon for discovering this issue using Fuzz-o-Matic
+     fuzzing as a service testing platform.
+     (CVE-2012-2333)
+     [Steve Henson]
+
+  *) Initialise tkeylen properly when encrypting CMS messages.
+     Thanks to Solar Designer of Openwall for reporting this issue.
+     [Steve Henson]
+
+  *) In FIPS mode don't try to use composite ciphers as they are not
+     approved.
+     [Steve Henson]
+
  Changes between 1.0.1a and 1.0.1b [26 Apr 2012]
 
   *) OpenSSL 1.0.0 sets SSL_OP_ALL to 0x80000FFFL and OpenSSL 1.0.1 and
