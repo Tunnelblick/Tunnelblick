@@ -68,6 +68,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com/ VersaVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpn-38.com/en.html VPN-38]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
