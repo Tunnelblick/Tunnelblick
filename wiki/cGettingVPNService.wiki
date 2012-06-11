@@ -15,7 +15,7 @@ Follow the instructions from your employer or in [http://code.google.com/p/tunne
 ==Set Up Your Own VPN Server==
 This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick versions 3.3 and higher include 'EasyRSA' to help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
 
-If you want to set up a computer to act solely as a router/bridge/firewall, consider [http://www.zeroshell.net/eng/ ZeroShell]. Untangle has a [http://www.untangle.com/OpenVPN free VPN component].
+If you want to set up a computer to act solely as a router/bridge/firewall, consider [http://www.zeroshell.net/eng/ ZeroShell]. Untangle has a [http://www.untangle.com/store/openvpn.html free VPN component].
 
 If you have a router running DD-WRT, you can use [http://www.dd-wrt.com/wiki/index.php/OpenVPN#Enable_OpenVPN_in_the_Router OpenVPN on DD-RT]. There is a [http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B tutorial].
 
