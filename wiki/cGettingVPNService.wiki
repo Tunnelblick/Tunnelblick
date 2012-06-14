@@ -45,7 +45,6 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://s6n.org/arethusa Arethusa VPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.banana-vpn.com Banana VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.comodo.com/home/internet-security/wifi-security.php Comodo TrustConnect]*
-  * *[http://www.tunnelblick.net/to.php?to=https://www.fbvpn.com FBVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com Invisible browsing VPN]*
@@ -63,11 +62,8 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://switchvpn.com SwitchVPN.com]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.turnkeyvpn.com TurnKeyVPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.ultravpn.fr UltraVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.vpn-38.com/en.html VPN-38]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.vpninchina.com VPN in China]*
   * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnsecure.me VPN.S]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
