@@ -939,8 +939,8 @@ BOOL isSanitizedOpenvpnVersion(NSString * s)
     unsigned i;
     for (i=0; i<[s length]; i++) {
         unichar ch = [s characterAtIndex: i];
-        if ( strchr("01234567890.-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
-            NSLog(@"An OpenVPN version string may only contain a-z, 0-9, periods, and hyphens");
+        if ( strchr("01234567890._-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
+            NSLog(@"An OpenVPN version string may only contain a-z, 0-9, periods, underscores, and hyphens");
             return NO;
         }
     }
