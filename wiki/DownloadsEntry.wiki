@@ -20,9 +20,11 @@ For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", and "Lion", and
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.6.dmg              Tunnelblick 3.2.6]</strong><br><br>
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.6_Unsigned.dmg     Tunnelblick 3.2.6 Unsigned]</strong><br>(Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
 
- <strong>Beta release</strong> 3.3beta06 (build 3028) released 2012-05-08 [RlsNotes#Version_3.3 Release Notes]
-  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta06.dmg          Tunnelblick 3.3beta06]</strong><br><br>
-  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta06_Unsigned.dmg Tunnelblick 3.3beta06 Unsigned]</strong><br>(Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
+ <strong>Beta release</strong> 3.3beta08 (build 3044) released 2012-07-19 [RlsNotes#Version_3.3 Release Notes]
+  <strong><font color="red">Recommended for OS X 10.8 ("Mountain Lion")</font></strong><br><br>
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta08.dmg          Tunnelblick 3.3beta08]</strong><br><br>
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta08_Unsigned.dmg Tunnelblick 3.3beta08 Unsigned]</strong><br>
+  (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
  
  <strong>[DownloadsOlder Older Releases]</strong>
 

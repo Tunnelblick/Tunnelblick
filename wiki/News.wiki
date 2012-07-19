@@ -1,6 +1,20 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-07-19: *Tunnelblick 3.3beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * SECURITY UPDATE: Updates OpenSSL to 1.0.1c ([http://www.openssl.org/news/secadv_20120510.txt OpenSSL's advisory])
+
+ * Tunnelblick is now digitally signed by an Apple 'identified developer', so that it may be installed with the default settings for Gatekeeper on OS X 10.8 ("Mountain Lion").
+
+ * Updates to and uses OpenVPN version 2.3alpha2 by default. OpenVPN version 2.2.1 can be used instead by selecting it in the 'Preferences' panel of the 'VPN Details…' window.
+
+ * Fixes a problem that caused configurations to connect and disconnect repeatedly on OS X 10.8 ("Mountain Lion").
+
+ * Fixes a problem that caused a warning on the console log that the 'SUSkippedVersion' preference was unknown.
+
+--------------------
+
 2012-05-08: *Tunnelblick 3.3beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Enhances security by digitally signing Sparkle.framework (signed versions only).
