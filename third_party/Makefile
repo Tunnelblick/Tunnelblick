@@ -3,7 +3,7 @@
 
 CC=gcc-4.0
 MACOSX_DEPLOYMENT_TARGET=10.4
-SDKROOT=/Developer/SDKs/MacOSX10.4u.sdk
+SDKROOT=/Developer/SDKs/MacOSX10.6.sdk
 
 CFLAGS=-isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
 
@@ -22,13 +22,17 @@ PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 # Both lzo and openvpn should be built universally
 
-LZO_DIR=lzo-2.05
+LZO_DIR=$(TOPDIR)/lzo-2.05
 PKCS11_DIR=pkcs11-helper-1.09
+PKCS11_TUNNELBLICK_STAGING_DIR=$(TOPDIR)/$(PKCS11_DIR)/staging
 TUNTAP_20090913_DIR=tuntap-20090913
 TUNTAP_CURRENT_DIR=tuntap-20111101
 
-
 all: sparkle-patch tuntap openvpn
+	echo "Made all third_party for Tunnelblick"
+	rm -rf $(BUILD_DIR)
+
+clean: sparkle-clean tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
 	rm -rf $(BUILD_DIR)
 
 buildenv: $(PROJ_BUILD_DIRS)
@@ -77,17 +81,18 @@ pkcs11-helper::
 		OPENSSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_LIBS="-L$(OPENSSL_DEST_DIR)/lib -lssl -lcrypto -lz" CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --enable-static --enable-shared=no --disable-dependency-tracking --prefix=$$(pwd)/staging_$$a --includedir=$$(pwd)/staging/include; \
 		echo Build PKCS11-Helper; \
 		$(MAKE); \
-		echo Install to third_party/$(PKCS11_DIR)/staging_$$a; \
+		echo Install to $(PKCS11_TUNNELBLICK_STAGING_DIR)_$$a; \
 		$(MAKE) install; \
 		cd ../; \
 	done
-	mkdir -p $(PKCS11_DIR)/staging/lib
-	lipo $(PKCS11_DIR)/staging_*/lib/libpkcs11-helper.a -create -output $(PKCS11_DIR)/staging/lib/libpkcs11-helper.a
-	cp  $(PKCS11_DIR)/staging_i386/lib/libpkcs11-helper.la  $(PKCS11_DIR)/staging/lib/ 
+	rm -r -f $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib
+	mkdir -p $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib
+	lipo $(PKCS11_TUNNELBLICK_STAGING_DIR)_*/lib/libpkcs11-helper.a -create -output $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib/libpkcs11-helper.a
+	cp  $(PKCS11_DIR)/staging_i386/lib/libpkcs11-helper.la  $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib/ 
 
 pkcs11-helper-clean:
 	$(MAKE) -C $(PKCS11_DIR) clean
-	rm -rf $(PKCS11_DIR)/staging*
+	rm -rf $(PKCS11_TUNNELBLICK_STAGING_DIR)*
 
 lzo::
 	@for a in ppc i386; do \
@@ -98,7 +103,7 @@ lzo::
 		CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --disable-dependency-tracking --disable-asm --prefix=$$(pwd)/staging_$$a/ --includedir=$$(pwd)/staging/include/; \
 		echo Build LZO; \
 		$(MAKE); \
-		echo Install to third_party/$(LZO_DIR)/staging_$$a; \
+		echo Install to $(LZO_DIR)/staging_$$a; \
 		$(MAKE) install; \
 		cd ../; \
 	done
@@ -106,7 +111,7 @@ lzo::
 	# Use lipo to create a universal library
 	mkdir -p $(LZO_DIR)/staging/lib
 	lipo $(LZO_DIR)/staging_*/lib/liblzo2.a -create -output $(LZO_DIR)/staging/lib/liblzo2.a
-	cp  $(LZO_DIR)/staging_i386/lib/liblzo2.la  $(LZO_DIR)/staging/lib/ 
+	cp  $(LZO_DIR)/staging_i386/lib/liblzo2.la $(LZO_DIR)/staging/lib/ 
 
 lzo-clean:
 	$(MAKE) -C $(LZO_DIR) clean
@@ -116,12 +121,13 @@ openvpn-patch:
 	for openvpndir in `ls openvpn`; do \
 		cd openvpn/$$openvpndir/openvpn; \
 		if [ -d ../patches ]; then \
-			for patchfile in ../patches/*.diff; do \
+			for patchfile in `ls ../patches/*.diff`; do \
 				patch -p1 -N --dry-run -i $$patchfile > /dev/null; \
 				if [ $$? == 0 ]; then \
 					patch -p1 -N -i $$patchfile; \
 					if [ $$? == 0 ]; then \
 					    touch "$${patchfile}.patch-applied" ; \
+						echo "OpenVPN patch applied: $$openvpndir/openvpn/$${patchfile}" ; \
 					else \
 						echo "error: OpenVPN patch failed: $$openvpndir/openvpn/$${patchfile}" ; \
 					fi \
@@ -141,26 +147,47 @@ openvpn-patch:
 	
 openvpn: lzo openssl pkcs11-helper openvpn-patch
 	for openvpndir in `ls openvpn`; do \
-		for a in ppc i386; do \
-			cd openvpn/$$openvpndir/openvpn; \
-			$(MAKE) clean; \
-			autoreconf -i -v; \
-			CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --with-lzo-headers=../../../$(LZO_DIR)/staging/include --with-lzo-lib=../../../$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=../../../$(PKCS11_DIR)/staging/include --with-pkcs11-helper-lib=../../../$(PKCS11_DIR)/staging/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
-			$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -lpkcs11-helper -llzo2 -lz"; \
-			mv openvpn openvpn_tblk_$$a; \
+		cd openvpn/$$openvpndir/openvpn; \
+		if [ -d src ]; then \
+			echo "Making $$openvpndir from post-2.3-alpha1 build system"; \
+			for a in ppc i386; do \
+				$(MAKE) clean; \
+				autoreconf -i -v; \
+				CC="$(CC)" CFLAGS="$(CFLAGS) -arch $$a" LZO_CFLAGS="-I$(LZO_DIR)/staging/include" LZO_LIBS="-L$(LZO_DIR)/staging/lib" OPENSSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_LIBS="-L$(OPENSSL_DEST_DIR)/lib"  PKCS11_HELPER_CFLAGS="-I$(PKCS11_TUNNELBLICK_STAGING_DIR)/include/"  PKCS11_HELPER_LIBS="-L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib" ./configure  --disable-dependency-tracking --enable-static=yes --enable-shared=no --enable-pkcs11; \
+				$(MAKE) -C src/openvpn LIBS="$(OPENSSL_TARGET_FILES) $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib/libpkcs11-helper.a $(LZO_DIR)/staging/lib/liblzo2.a"; \
+	 			mv src/openvpn/openvpn ../openvpn_tblk_$$a; \
+	 		done; \
+			cd "src/plugins/down-root"; \
+			cc_flags="-Wall -isysroot /Developer/SDKs/MacOSX10.6.sdk -Os -mmacosx-version-min=10.4 -arch ppc -arch i386 -fPIC"; \
+			$(CC) $$cc_flags -c -I../../../include down-root.c; \
+			$(CC) $$cc_flags -lc -bundle -Wl,-dylib_install_name,openvpn-down-root.so -o openvpn-plugin-down-root down-root.o; \
 			cd ../../../; \
-		done; \
-		$(MAKE) -C openvpn/$$openvpndir/openvpn/plugin/down-root; \
-		lipo openvpn/$$openvpndir/openvpn/openvpn_tblk_* -create -output openvpn/$$openvpndir/openvpn/openvpn; \
+			mv src/plugins/down-root/openvpn-plugin-down-root ../openvpn-down-root.so; \
+		else \
+			echo "Making $$openvpndir from pre-2.3-alpha2 build system"; \
+			for a in ppc i386; do \
+				$(MAKE) clean; \
+				autoreconf -i -v; \
+				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --with-lzo-headers=$(LZO_DIR)/staging/include --with-lzo-lib=$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=$(PKCS11_TUNNELBLICK_STAGING_DIR)/include --with-pkcs11-helper-lib=$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
+				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -lpkcs11-helper -llzo2 -lz"; \
+				mv openvpn ../openvpn_tblk_$$a; \
+			done; \
+			$(MAKE) -C plugin/down-root; \
+			mv plugin/down-root/openvpn-down-root.so ../openvpn-down-root.so; \
+		fi; \
+		cd ../; \
+		lipo openvpn_tblk_* -create -output openvpn-executable; \
+		rm openvpn_tblk_*; \
+		cd ../../; \
 	done
 	
 openvpn-clean:
 	for openvpndir in `ls openvpn`; do \
 		$(MAKE) -C openvpn/$$openvpndir/openvpn/ clean; \
 		$(MAKE) -C openvpn/$$openvpndir/openvpn/plugin/down-root clean; \
-		rm -f openvpn/$$openvpndir/openvpn/openvpn_tblk_*; \
-		rm -f openvpn/$$openvpndir/openvpn/openvpn; \
-		rm -f openvpn/$$openvpndir/openvpn/plugin/down-root/openvpn-down-root.so; \
+		rm -f openvpn/$$openvpndir/openvpn_tblk_*; \
+		rm -f openvpn/$$openvpndir/openvpn-executable; \
+		rm -f openvpn/$$openvpndir/openvpn-down-root.so; \
 	done
 
 .PHONY : tuntap
@@ -202,6 +229,3 @@ sparkle-patch:
 
 sparkle-clean:
 	rm -f -r "Sparkle.framework"
-
-clean: sparkle-clean tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
-	rm -rf $(BUILD_DIR)
