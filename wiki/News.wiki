@@ -1,6 +1,16 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-07-20: *Tunnelblick 3.3beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a problem disabling network connection monitoring.
+
+ * Fixes a problem with OpenVPN version 2.3alpha2 being 'unknown' and disabling scripts.
+
+ * Fixes a problem implementing preferences having to do with what to do when there are changes to the network settings.
+
+--------------------
+
 2012-07-19: *Tunnelblick 3.3beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * SECURITY UPDATE: Updates OpenSSL to 1.0.1c ([http://www.openssl.org/news/secadv_20120510.txt OpenSSL's advisory])
