@@ -1206,19 +1206,19 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(NSString * ) leasewatchOptionsFromPreferences
 {
-    NSArray * chars = [NSArray arrayWithObjects: @"d", @"a", @"s", @"n", @"g", @"w", @"D", @"A", @"S", @"N", @"G", @"W", nil];
+    NSArray * chars = [NSArray arrayWithObjects: @"a", @"d", @"s", @"g", @"n", @"w", @"A", @"D", @"S", @"G", @"N", @"W", nil];
     NSArray * preferenceKeys = [NSArray arrayWithObjects:
-                                @"-changeDomainAction",
                                 @"-changeDNSServersAction",
+                                @"-changeDomainAction",
                                 @"-changeSearchDomainAction",
-                                @"-changeNetBIOSNameAction",
                                 @"-changeWINSServersAction",
+                                @"-changeNetBIOSNameAction",
                                 @"-changeWorkgroupAction",
-                                @"-changeOtherDomainAction",
                                 @"-changeOtherDNSServersAction",
+                                @"-changeOtherDomainAction",
                                 @"-changeOtherSearchDomainAction",
-                                @"-changeOtherNetBIOSNameAction",
                                 @"-changeOtherWINSServersAction",
+                                @"-changeOtherNetBIOSNameAction",
                                 @"-changeOtherWorkgroupAction",
                                 nil];
     
@@ -1230,10 +1230,14 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         NSString * value = [gTbDefaults objectForKey: key];
         int intValue;
         if (  value  ) {
-            if (  [value respondsToSelector: @selector(intValue)]  ) {
-                intValue = [value intValue];
-            } else {
-                NSLog(@"Preference '%@' is not a number; it will be ignored", key);
+			if (  [value isEqualToString:@"ignore"]  ) {
+				intValue = 0;
+			} else if (  [value isEqualToString:@"restore"]  ) {
+				intValue = 1;
+			} else if (  [value isEqualToString:@"restart"]  ) {
+				intValue = 2;
+			} else {
+                NSLog(@"Preference '%@' is not 'ignore', 'restore', or 'restart'; it will be ignored", key);
                 intValue = -1;
             }
         } else {
@@ -1243,11 +1247,12 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         // If no prefererence, changes to pre-VPN will be undone and other changes will cause a restart
         if (  intValue == -1  ) {
             if (  i < 6  ) {
-                intValue = 1;
-            } else {
-                intValue = 2;
+                intValue = 1;			// pre-VPN default is restore
+            } else if (  i == 8  ) {
+				intValue = 0;			// Default for other SearchDomains is ignore
+			} else {
+                intValue = 2;			// Defai;t fpr others is restart
             }
-
         }
 
         [preferenceValues addObject: [NSNumber numberWithInt: intValue]];
