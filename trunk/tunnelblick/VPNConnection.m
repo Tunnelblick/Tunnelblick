@@ -1058,6 +1058,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     NSString *useDNSArg = @"0";
+    unsigned useDNSNum = 0;
     unsigned useDNSStat = (unsigned) [self useDNSStatus];
 	if(  useDNSStat == 0) {
         if (  forNow  ) {
@@ -1066,7 +1067,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 	} else {
         NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
         BOOL useDownRoot = [gTbDefaults boolForKey: useDownRootPluginKey];
-        unsigned useDNSNum = (  (useDNSStat-1) << 2) + (useDownRoot ? 2 : 0) + 1;   // (script #) + downroot-flag + set-nameserver-flag
+        useDNSNum = (  (useDNSStat-1) << 2) + (useDownRoot ? 2 : 0) + 1;   // (script #) + downroot-flag + set-nameserver-flag
         useDNSArg = [NSString stringWithFormat: @"%u", useDNSNum];
         if (  forNow  ) {
             usedModifyNameserver = TRUE;
@@ -1109,10 +1110,15 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         altCfgLoc = @"3";
     }
     
+    NSString * noMonitor = @"1";
     NSString * noMonitorKey = [[self displayName] stringByAppendingString: @"-notMonitoringConnection"];
-    NSString * noMonitor = @"0";
-    if (  [useDNSArg isEqualToString: @"0"] || [gTbDefaults boolForKey: noMonitorKey]  ) {
-        noMonitor = @"1";
+    if (  ! [gTbDefaults boolForKey: noMonitorKey]  ) { // Monitor only if monitoring enabled
+        unsigned onlyDNSFlags = useDNSNum & 0xFD;       //
+        if (   (onlyDNSFlags == 0x01)                   //                 and "Set nameserver"
+            || (onlyDNSFlags == 0x05)                   //                 or "Set nameserver (3.1)"
+            ) {
+            noMonitor = @"0";
+        }
     }
 
     unsigned int bitMask = 0;
