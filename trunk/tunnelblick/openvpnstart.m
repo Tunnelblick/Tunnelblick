@@ -1762,8 +1762,8 @@ BOOL isSanitizedOpenvpnVersion(NSString * s)
     unsigned i;
     for (i=0; i<[s length]; i++) {
         unichar ch = [s characterAtIndex: i];
-        if ( strchr("01234567890.-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
-            fprintf(stderr, "Tunnelblick openvpnstart: the openvpnVersion argument may only contain a-z, 0-9, periods, and hyphens\n");
+        if ( strchr("01234567890._-abcdefghijklmnopqrstuvwxyz", ch) == NULL  ) {
+            fprintf(stderr, "Tunnelblick openvpnstart: the openvpnVersion argument may only contain a-z, 0-9, periods, underscores, and hyphens\n");
             return NO;
         }
     }
