@@ -1,7 +1,7 @@
 #summary Tunnelblick and OS X 10.8
 #sidebar cSb
 
-<h3>Tunnelblick Problems on OS X 10.8 ("Mountain Lion")</h3>
+<h3>Problems on OS X 10.8 ("Mountain Lion")</h3>
 
 Some users are experiencing a problem with Tunnelblick on OS X 10.8 ("Mountain Lion"): they can connect to their VPN server, but they can't use the Internet. Usually this is caused by a DNS problem. This document describes some troubleshooting steps you can take and provides a workaround you can use while we try to fix the problem.
 
