@@ -23,6 +23,7 @@
     [cKnown Known Issues]<br>
     [cCommonProblems Common Problems]<br>
     [cConnectedBut Connects OK, But...]<br>
+    [cMountainLionDnsIssue Mountain Lion Issues]<br>
     [cOpenVPNLog The Tunnelblick Log]<br>
     [cConsoleLog The Console Log]<br>
     [cHelp How to get help]<br>
