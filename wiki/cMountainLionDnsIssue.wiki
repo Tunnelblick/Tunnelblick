@@ -1,0 +1,42 @@
+#summary Tunnelblick and OS X 10.8
+#sidebar cSb
+
+<h3>Tunnelblick Problems on OS X 10.8 ("Mountain Lion")</h3>
+
+Some users are experiencing a problem with Tunnelblick on OS X 10.8 ("Mountain Lion"): they can connect to their VPN server, but they can't use the Internet. Usually this is caused by a DNS problem. This document describes some troubleshooting steps you can take and provides a workaround you can use while we try to fix the problem.
+
+*<font color="red">Before doing anything else, please make sure you are using the latest beta version of Tunnelblick from the [DownloadsEntry Downloads] page.</font>*
+
+If you are not able to connect, please look for help in the the links on the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
+
+If you have no Internet access after successfully connecting, please determine if the problem is a DNS problem. To do that, connect the VPN configuration, then open a browser window and type an IP address of www.ibm.com in the address bar as follows, then press "return":
+
+	http://129.42.58.216
+
+also, please try an IP address for www.google.com:
+
+	http://173.194.75.147
+
+(Do not use "ping", "dig", or other commands to test for connectivity -- not all web servers respond to "ping" packets, and "dig" and other command use a different mechanism that most of OS X for DNS resolution.)
+
+*If those pages don't load, then there is not a DNS problem* and you should look for help in the the links to the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
+
+If those pages do load, it is a DNS problem. Please try each of the "Set DNS/WINS" options that are available on the "Settings" tab of the "Configurations" panel of the "VPN Details…" window.
+
+If none of them work for you, try setting your DNS servers manually to Google's public DNS servers, 8.8.8.8 and 8.8.4.4, or OpenDNS's public DNS servers: 208.67.222.222 and 208.67.220.220. You can use these servers at all times. Google public DNS is free, and OpenDNS has a free version. (This will work for most people, but not for  people who need access to a corporate network or DNS service from the VPN's LAN. See below for a solution that may work for that.)
+
+To set your DNS servers manually:
+ # Launch System Preferences,
+ # Click "Network"
+ # Type server addresses, separated by commas, into the box to the right of "DNS Server".
+
+For example, to specify Google's DNS servers, type "8.8.8.8,8.8.4.4" without the quotation marks.
+To specify OpenDNS's DNS servers, type "208.67.222.222,208.67.220.220" without the quotation marks.
+
+*Access to Corporate or Other DNS Servers*
+
+If you need access to the DNS servers on your corporate or other LAN there is a workaround for that, although it is cumbersome: connect to the VPN, then set the DNS servers manually to the addresses of the DNS servers you wish. When you are finished, first disconnect the VPN, and then remove the manual settings.
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
