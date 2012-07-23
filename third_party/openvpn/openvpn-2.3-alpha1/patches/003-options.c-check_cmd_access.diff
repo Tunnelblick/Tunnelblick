@@ -1,0 +1,103 @@
+--- openvpn/options.c	(revision 1964)
++++ openvpn/options.c	(working copy)
+@@ -2656,6 +2656,72 @@
+ }
+ 
+ /*
++ * Check the command that comes after certain script options (e.g., --up).
++ *
++ * The command should consist of a path, which may be enclosed in double-quotes, and may be
++ * optionally followed by a space which may be followed by arbitrary arguments.
++ *
++ * Once the path has been extracted from the command (if that is necessary), check_file_access()
++ * is used to do the  sanity checking on it. The type, mode, and opt arguments to this routine
++ * are the same as the corresponding check_file_access() arguments to facilitate this.
++ */
++static bool
++check_cmd_access(const int type, const char *command, const int mode, const char *opt)
++{  
++  /* If no command configured, no errors to look for */
++  if (! command)
++    return false;
++
++  /* Test for a quote as the first char of command
++     and for presence of a space in command */
++  
++  int   start_ix  = 0;      /* Where the path starts within command                  (0 or 1) */
++  char  stop_char = '\000'; /* Character that terminates the path within command (' ' or '"') */
++  char *stop_ptr  = NULL;   /* Pointer past end of path       (NULL or points inside command) */
++  
++  if (command[0] == '"')
++  {
++    start_ix  = 1;
++    stop_char = '"';
++    stop_ptr  = strchr(command+1, '"');
++    if (stop_ptr == NULL)
++    {
++      msg (M_NOPREFIX|M_OPTERR, "%s fails with '%s': Unbalanced quote",
++           opt, command);
++      return true;
++    }
++  } else
++  {
++    start_ix  = 0;
++    stop_char = ' ';
++    stop_ptr  = strchr(command, ' ');
++  }
++
++  /* If command doesn't start with a quote and doesn't include any spaces, just test it directly */
++
++  if ((start_ix == 0) && (stop_ptr == NULL))
++    return check_file_access(type, command, mode, opt);
++
++  /* Extract the path from command into a new string and test that */
++  
++  int path_size = stop_ptr - command - start_ix + 1;          /* (Includes terminating NUL) */
++
++  if ((path_size > OPTION_PARM_SIZE) || (path_size < 1)) {
++    ASSERT((path_size <= OPTION_PARM_SIZE) || (path_size > 0));
++    msg (M_NOPREFIX|M_OPTERR, "%s fails with '%s': param_size BAD: stop_char = '%c'; start_ix = %d; "
++         "command = " ptr_format "; stop_ptr = " ptr_format "; path_size = %d; OPTION_PARAM_SIZE = %d",
++         opt, command, stop_char, start_ix,
++         (ptr_type) command, (ptr_type) stop_ptr, path_size, (int) OPTION_PARM_SIZE);
++    return true;
++  }
++  
++  char path[OPTION_PARM_SIZE];
++  memcpy(path, command+start_ix, (path_size-1)*sizeof(char));
++  path[path_size-1] = '\000';
++  return check_file_access(type, path, mode, opt);
++}
++  
++/*
+  * Sanity check of all file/dir options.  Checks that file/dir
+  * is accessible by OpenVPN
+  */
+@@ -2738,19 +2804,20 @@
+                              R_OK|X_OK, "--client-disconnect script");
+   errs |= check_file_access (CHKACC_FILE, options->auth_user_pass_verify_script,
+                              R_OK|X_OK, "--auth-user-pass-verify script");
+-  errs |= check_file_access (CHKACC_FILE, options->tls_verify,
++  /* ** Script hooks that accept shell commands ** */
++  errs |= check_cmd_access (CHKACC_FILE, options->tls_verify,
+                              R_OK|X_OK, "--tls-verify script");
+-  errs |= check_file_access (CHKACC_FILE, options->up_script,
++  errs |= check_cmd_access (CHKACC_FILE, options->up_script,
+                              R_OK|X_OK, "--up script");
+-  errs |= check_file_access (CHKACC_FILE, options->down_script,
++  errs |= check_cmd_access (CHKACC_FILE, options->down_script,
+                              R_OK|X_OK, "--down script");
+-  errs |= check_file_access (CHKACC_FILE, options->ipchange,
++  errs |= check_cmd_access (CHKACC_FILE, options->ipchange,
+                              R_OK|X_OK, "--ipchange script");
+-  errs |= check_file_access (CHKACC_FILE, options->route_script,
++  errs |= check_cmd_access (CHKACC_FILE, options->route_script,
+                              R_OK|X_OK, "--route-up script");
+-  errs |= check_file_access (CHKACC_FILE, options->route_predown_script,
++  errs |= check_cmd_access (CHKACC_FILE, options->route_predown_script,
+                              R_OK|X_OK, "--route-pre-down script");
+-  errs |= check_file_access (CHKACC_FILE, options->learn_address_script,
++  errs |= check_cmd_access (CHKACC_FILE, options->learn_address_script,
+                              R_OK|X_OK, "--learn-address script");
+ #endif /* P2MP_SERVER */
+ 
