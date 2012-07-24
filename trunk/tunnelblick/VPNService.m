@@ -29,7 +29,6 @@
 #import "VPNServiceIntroController.h"
 #import "VPNServiceCreateAccountController.h"
 #import "VPNServiceLoginController.h"
-#import "helper.h"
 #import "NSApplication+LoginItem.h"
 #import "TBUserDefaults.h"
 #import "KeyChain.h"
@@ -582,8 +581,7 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) quit
 {
-    [NSApp setAutoLaunchOnLogin: NO];
-    [NSApp terminate:  self];
+    [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
 }
 
 -(void) closeAllScreens

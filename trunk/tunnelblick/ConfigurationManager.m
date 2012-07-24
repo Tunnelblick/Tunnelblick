@@ -1950,8 +1950,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 if (  button == NSAlertAlternateReturn  ) {
                     // User selected QUIT
-                    [NSApp setAutoLaunchOnLogin: NO];
-                    [NSApp terminate: nil];
+                    [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
                 }
                 
                 if (  button == NSAlertDefaultReturn  ) {

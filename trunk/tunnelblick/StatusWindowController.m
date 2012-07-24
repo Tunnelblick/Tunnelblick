@@ -31,6 +31,7 @@
 TBUserDefaults * gTbDefaults;         // Our preferences
 extern NSArray * gRateUnits;
 extern NSArray * gTotalUnits;
+extern BOOL       gShuttingDownWorkspace;
 
 #define NUMBER_OF_STATUS_SCREEN_POSITIONS 64
 
@@ -403,6 +404,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) fadeIn
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self startMouseTracking];
     
 	if (  ! isOpen  ) {
@@ -421,6 +426,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) fadeOut
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
 	if (  isOpen  ) {
         NSWindow * window = [self window];
         
@@ -451,6 +460,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) closeAfterFadeOutHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
 	[self performSelectorOnMainThread: @selector(closeAfterFadeOut:) withObject: nil waitUntilDone: NO];
 }
 
@@ -523,6 +536,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) setStatus: (NSString *) theStatus forName: (NSString *) theName connectedSince: (NSString *) theTime
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self setName: theName];
     [self setStatus: theStatus];
     if (  [theStatus isEqualToString: @"EXITING"]  ) {

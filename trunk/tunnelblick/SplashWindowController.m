@@ -24,6 +24,8 @@
 #import "SplashWindowController.h"
 #import "helper.h"
 
+extern BOOL gShuttingDownWorkspace;
+
 @implementation SplashWindowController
 
 
@@ -80,6 +82,10 @@
 
 -(void) closeAfterFadeOutHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
 	[self performSelectorOnMainThread: @selector(closeAfterFadeOut:) withObject: nil waitUntilDone: NO];
 }
 

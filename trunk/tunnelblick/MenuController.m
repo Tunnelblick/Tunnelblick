@@ -62,7 +62,9 @@ NSFileManager         * gFileMgr;               // [NSFileManager defaultManager
 AuthorizationRef        gAuthorization;         // Used to call installer
 NSArray               * gProgramPreferences;    // E.g., 'placeIconInStandardPositionInStatusBar'
 NSArray               * gConfigurationPreferences; // E.g., '-onSystemStart'
-BOOL                    gTunnelblickIsQuitting; // Flag that Tunnelblick is in the process of quitting
+BOOL                    gShuttingDownTunnelblick;// TRUE if applicationShouldTerminate: has been invoked
+BOOL                    gShuttingDownWorkspace;
+BOOL                    gShuttingDownOrRestartingComputer;
 BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
 unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
 //                                              // or zero to keep trying indefinitely
@@ -71,6 +73,8 @@ NSArray               * gRateUnits;             // Array of strings with localiz
 NSArray               * gTotalUnits;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
 NSTimeInterval          gDelayToShowStatistics; // Time delay from mouseEntered icon or statistics window until showing the statistics window
 NSTimeInterval          gDelayToHideStatistics; // Time delay from mouseExited icon or statistics window until hiding the statistics window
+
+enum TerminationReason  reasonForTermination;   // Why we are terminating execution
 
 UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        // KeyCodes for F1...F16
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
@@ -180,23 +184,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 {	
     if (self = [super init]) {
         
+        reasonForTermination = terminatingForUnknownReason;
+        
         if (  ! runningOnTigerOrNewer()  ) {
             TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
                             NSLocalizedString(@"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")", @"Window text"),
                             nil, nil, nil);
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate:self];
+            [self terminateBecause: terminatingBecauseOfError];
             
         }
         
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
         terminatingAtUserRequest = FALSE;
-        gTunnelblickIsQuitting = FALSE;
-        gComputerIsGoingToSleep = FALSE;
-        areLoggingOutOrShuttingDown = FALSE;
         mouseIsInMainIcon = FALSE;
         mouseIsInStatusWindow = FALSE;
+        gShuttingDownTunnelblick = FALSE;
+        gShuttingDownOrRestartingComputer = FALSE;
+        gShuttingDownWorkspace = FALSE;
+        gComputerIsGoingToSleep = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
         
@@ -441,8 +447,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                      repairPackages: needsPkgRepair
                                          copyBundle: needsBundleCopy]  ) {
                 // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
-                [NSApp setAutoLaunchOnLogin: NO];
-                [NSApp terminate:self];
+                [self terminateBecause: terminatingBecauseOfError];
             }
             
             text = NSLocalizedString(@"Tunnelblick has been secured successfully.", @"Window text");
@@ -595,8 +600,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         connectionArray = [[NSArray alloc] init];
         
         if (  ! [self loadMenuIconSet]  ) {
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate: self];
+            NSLog(@"Unable to load the Menu icon set");
+            [self terminateBecause: terminatingBecauseOfError];
         }
         
 		[self createStatusItem];
@@ -639,6 +644,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
+        [[NSNotificationCenter defaultCenter] addObserver: self 
+                                                 selector: @selector(TunnelblickShutdownUIHandler:) 
+                                                     name: @"TunnelblickUIShutdownNotification" 
+                                                   object: nil];
+        
         [[NSNotificationCenter defaultCenter] addObserver: logScreen 
                                                  selector: @selector(logNeedsScrollingHandler:) 
                                                      name: @"LogDidChange" 
@@ -650,6 +660,48 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 		[[NSDistributedNotificationCenter defaultCenter] addObserver: self 
 															selector: @selector(menuExtrasWereAddedHandler:) 
 																name: @"com.apple.menuextra.added" 
+															  object: nil];
+        
+        // These notifications are seen when the user is logging out or the system is being shut down or restarted.
+        //
+        // They are seen *before* getting the workspace's NSWorkspaceWillPowerOffNotification and used to track
+        // whether this is a logout, or a shutdown or restart, and set 'reasonForTermination' if appropriate.
+        //
+        // When a logout is requested: com.apple.logoutInitiated
+        //                  confirmed: com.apple.logoutContinued
+        //                  cancelled: com.apple.logoutCancelled
+        //
+        // When a restart is requested: com.apple.restartInitiated
+        //                   confirmed: com.apple.logoutContinued
+        //                   cancelled: com.apple.logoutCancelled
+        //
+        // When a shutdown is requested: com.apple.shutdownInitiated
+        //                    confirmed: com.apple.logoutContinued
+        //                    cancelled: com.apple.logoutCancelled
+        
+		[[NSDistributedNotificationCenter defaultCenter] addObserver: self 
+															selector: @selector(restartInitiatedHandler:) 
+																name: @"com.apple.restartInitiated" 
+															  object: nil];
+        
+		[[NSDistributedNotificationCenter defaultCenter] addObserver: self 
+															selector: @selector(logoutInitiatedHandler:) 
+																name: @"com.apple.logoutInitiated" 
+															  object: nil];
+        
+		[[NSDistributedNotificationCenter defaultCenter] addObserver: self 
+															selector: @selector(shutdownInitiatedHandler:) 
+																name: @"com.apple.shutdownInitiated" 
+															  object: nil];
+        
+        [[NSDistributedNotificationCenter defaultCenter] addObserver: self 
+															selector: @selector(logoutCancelledHandler:) 
+																name: @"com.apple.logoutCancelled" 
+															  object: nil];
+        
+		[[NSDistributedNotificationCenter defaultCenter] addObserver: self 
+															selector: @selector(logoutContinuedHandler:) 
+																name: @"com.apple.logoutContinued" 
 															  object: nil];
         
         
@@ -924,14 +976,25 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) menuExtrasWereAddedHandler: (NSNotification*) n
 {
-	[self performSelectorOnMainThread: @selector(createStatusItem) withObject: nil waitUntilDone: NO];
+    NSLog(@"DEBUG: menuExtrasWereAddedHandler: invoked");
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
+	[self performSelectorOnMainThread: @selector(menuExtrasWereAdded) withObject: nil waitUntilDone: NO];
 }
 
+- (void) menuExtrasWereAdded
+{
+    [self createStatusItem];
+    [self createMenu];
+    [self updateUI];
+}
 
 - (IBAction) quit: (id) sender
 {
     terminatingAtUserRequest = TRUE;
-    [NSApp terminate: sender];
+    [self terminateBecause: terminatingBecauseOfQuit];
 }
 
 -(BOOL) terminatingAtUserRequest
@@ -1091,6 +1154,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
 - (void) initialiseAnim
 {
+    if (  gShuttingDownWorkspace  ) {
+        [theAnim stopAnimation];
+        return;
+    }
+    
     if (  theAnim == nil  ) {
         int i;
         // theAnim is an NSAnimation instance variable
@@ -1812,6 +1880,11 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) updateUI
 {
+    if (  gShuttingDownWorkspace  ) {
+        [theAnim stopAnimation];
+        return;
+    }
+    
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]) ) { 
 		//  Anything other than connected or disconnected shows the animation
@@ -1838,6 +1911,10 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void)animationDidEnd:(NSAnimation*)animation
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
 	if (   (![lastState isEqualToString:@"EXITING"])
         && (![lastState isEqualToString:@"CONNECTED"]))
 	{
@@ -1848,8 +1925,12 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
-	if (animation == theAnim)
-	{
+    if (  gShuttingDownWorkspace  ) {  // Stop _any_ animation we are doing
+        [animation stopAnimation];
+        return;
+    }
+    
+	if (animation == theAnim) {
         [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex:lround(progress * [animImages count]) - 1] waitUntilDone:YES];
 	}
 }
@@ -1903,6 +1984,12 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 //     then we must use 'kill' to kill each individual process that should be killed
 -(void) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons logMessage: (NSString *) logMessage
 {
+    // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
+    if (  gShuttingDownOrRestartingComputer  ) {
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+        return;
+    }
+    
     OSStatus status = pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &killAllConnectionsIncludingDaemonsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -1928,9 +2015,13 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
     }
     
+    NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
+    
     if (   includeDaemons
         || ( noUnknownOpenVPNsRunning && noActiveDaemons )  ) {
         
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will use killAll");
+
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
         // But first append a log entry for each connection that will be restored
         NSEnumerator * connectionEnum = [connectionsToRestoreOnWakeup objectEnumerator];
@@ -1939,6 +2030,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
         if (  [connectionsToRestoreOnWakeup count] != 0  ) {
+            NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: sleeping for logs to settle");
             sleep(1);
         }
         NSString* path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
@@ -1946,12 +2038,16 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         [task setLaunchPath: path];
         [task setArguments: [NSArray arrayWithObject: @"killall"]];
         [task launch];
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requested killAll");
         [task waitUntilExit];
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killAll finished");
     } else {
         
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will kill individually");
         // Killing selected processes only -- those we know about that are not daemons
         while (  connection = [connEnum nextObject]  ) {
             if (  ! [connection isDisconnected]  ) {
+                NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: '%@' is connected", [connection displayName]);
                 NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
                 NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
                 if (   ( ! [gTbDefaults boolForKey: onSystemStartKey]  )
@@ -1964,10 +2060,14 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
                         [task setLaunchPath: path];
                         [task setArguments: [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil]];
                         [task launch];
+                        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName]);
                         [task waitUntilExit];
+                        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName]);
                     } else {
                         [connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
+                        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName]);
                         [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+                        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
                     }
                 }
             }
@@ -2139,8 +2239,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
                         [NSString stringWithFormat: NSLocalizedString(@"All configuration files in %@ have been removed. Tunnelblick must quit.", @"Window text"),
                          [[gFileMgr componentsToDisplayForPath: gDeployPath] componentsJoinedByString: @"/"]],
                         nil, nil, nil);
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
+        [self terminateBecause: terminatingBecauseOfError];
     }
     
     [[ConfigurationManager defaultManager] haveNoConfigurationsGuide];
@@ -2196,42 +2295,56 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 	[self resetActiveConnections];
 }
 
-- (void) applicationWillTerminate: (NSNotification*) notification
-{
-    terminatingAtUserRequest = TRUE;
-    if (  ! areLoggingOutOrShuttingDown  ) {
-        [NSApp setAutoLaunchOnLogin: NO];
-    }
-    
-    [self cleanup];
-}
-
 static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 
--(void)cleanup 
+// Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
+-(BOOL) cleanup 
 {
+    NSLog(@"DEBUG: Cleanup: Entering cleanup");
+    
     OSStatus status = pthread_mutex_trylock( &cleanupMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
         NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed is normal and expected when Tunnelblick is updated");
-        return;
+        return FALSE;
     }
     
-    gTunnelblickIsQuitting = TRUE;
-
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     
-    if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
-        UnregisterEventHotKey(hotKeyRef);
+    if ( gShuttingDownOrRestartingComputer ) {
+        NSLog(@"DEBUG: Cleanup: Skipping cleanup because computer is shutting down or restarting");
+        // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
+        return YES;
     }
     
-	[NSApp callDelegateOnNetworkChange: NO];
-    [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
-    [self unloadKexts];     // Unload .tun and .tap kexts
-    [self deleteLogs];
-	if (  statusItem  ) {
-        [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+    if ( ! gShuttingDownWorkspace  ) {
+        if (  statusItem  ) {
+            NSLog(@"DEBUG: Cleanup: Removing status bar item");
+            [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+        }
+        
+        if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
+            NSLog(@"DEBUG: Cleanup: Unregistering hotKeyEventHandler");
+            UnregisterEventHotKey(hotKeyRef);
+        }
     }
+    
+    NSLog(@"DEBUG: Cleanup: Setting callDelegateOnNetworkChange: NO");
+    [NSApp callDelegateOnNetworkChange: NO];
+    
+    if (  ! [lastState isEqualToString:@"EXITING"]) {
+        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
+        [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
+    }
+    
+    NSLog(@"DEBUG: Cleanup: Unloading kexts");
+    [self unloadKexts];     // Unload .tun and .tap kexts
+    
+    NSLog(@"DEBUG: Cleanup: Deleting logs");
+    [self deleteLogs];
+
+    // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
+    return TRUE;
 }
 
 -(void) deleteLogs
@@ -2252,6 +2365,11 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     //   If any configuration should be closed but isn't, then show animation
     //   Otherwise, if any configurations are open, show open
     //              else show closed
+
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     BOOL atLeastOneIsConnected = FALSE;
     NSString * newDisplayState = @"EXITING";
     VPNConnection * connection;
@@ -2337,17 +2455,52 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) terminateBecause: (enum TerminationReason) reason
+{
+	reasonForTermination = reason;
+    
+    if (   (reason != terminatingBecauseOfLogout)
+        && (reason != terminatingBecauseOfRestart)
+        && (reason != terminatingBecauseOfShutdown)  ) {
+        [NSApp setAutoLaunchOnLogin: NO];
+        terminatingAtUserRequest = TRUE;
+    }
+    
+    if (  reason == terminatingBecauseOfQuit  ) {
+        terminatingAtUserRequest = TRUE;
+    }
+        [NSApp terminate: self];
+}
+
 static void signal_handler(int signalNumber)
 {
-    printf("signal %d caught!\n",signalNumber);
-    
     if (signalNumber == SIGHUP) {
-        printf("SIGHUP received. Restarting active connections\n");
+        NSLog(@"SIGHUP received. Restarting active connections");
         [[NSApp delegate] resetActiveConnections];
     } else  {
-        printf("Received fatal signal. Cleaning up\n");
-        [NSApp setAutoLaunchOnLogin: NO];
-        [[NSApp delegate] cleanup];
+        if (   (signalNumber == SIGTERM)
+            && gShuttingDownTunnelblick
+            && (   (reasonForTermination == terminatingBecauseOfLogout)
+                || (reasonForTermination == terminatingBecauseOfRestart)
+                || (reasonForTermination == terminatingBecauseOfShutdown) )  ) {
+            NSLog(@"Ignoring SIGTERM (signal %d) because Tunnelblick is already terminating", signalNumber);
+            return;
+        }
+        
+        NSLog(@"Received fatal signal %d.", signalNumber);
+        if ( reasonForTermination == terminatingBecauseOfFatalError ) {
+            NSLog(@"signal_handler: Error while handling signal.");
+            exit(0);
+        } else {
+            gShuttingDownTunnelblick = TRUE;
+            reasonForTermination = terminatingBecauseOfFatalError;
+            NSLog(@"signal_handler: Starting cleanup.");
+            if (  [[NSApp delegate] cleanup]  ) {
+                NSLog(@"signal_handler: Cleanup finished.");
+            } else {
+                NSLog(@"signal_handler: Cleanup already being done.");
+            }
+        }
         exit(0);	
     }
 }
@@ -2374,6 +2527,7 @@ static void signal_handler(int signalNumber)
 // Invoked by Tunnelblick modifications to Sparkle with the path to a .bundle with updated configurations to install
 -(void) installConfigurationsUpdateInBundleAtPathHandler: (NSString *) path
 {
+    // This handler SHOULD proceed even if the computer is shutting down
     [self performSelectorOnMainThread: @selector(installConfigurationsUpdateInBundleAtPath:)
                            withObject: path 
                         waitUntilDone: YES];
@@ -2916,7 +3070,7 @@ static void signal_handler(int signalNumber)
             int status = [task terminationStatus];
             if (  status != 0  ) {
                 NSLog(@"Tunnelblick runOnLaunch item %@ returned %d; Tunnelblick launch cancelled", customRunOnLaunchPath, status);
-                [NSApp terminate:self];
+                [self terminateBecause: terminatingBecauseOfError];
             }
         }
     }
@@ -2956,7 +3110,7 @@ static void signal_handler(int signalNumber)
     }
     
     [NSApp setAutoLaunchOnLogin: YES];
-    
+
     if (  hotKeyModifierKeys != 0  ) {
         [self setupHotKeyWithCode: hotKeyKeyCode andModifierKeys: hotKeyModifierKeys]; // Set up hotkey to reveal the Tunnelblick menu (since VoiceOver can't access the Tunnelblick in the System Status Bar)
     }
@@ -3005,7 +3159,7 @@ static void signal_handler(int signalNumber)
                 useVersion = [versions objectAtIndex: [versions count]-1];
             } else {
                 NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-                [NSApp terminate: self];
+                [self terminateBecause: terminatingBecauseOfError];
                 return;
             }
             
@@ -3114,6 +3268,10 @@ static void signal_handler(int signalNumber)
 
 -(void) hookupWatchdogHandler
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     hookupWatchdogTimer = nil;  // NSTimer invalidated it and takes care of releasing it
 	[self performSelectorOnMainThread: @selector(hookupWatchdog) withObject: nil waitUntilDone: NO];
 }
@@ -3282,8 +3440,13 @@ static void signal_handler(int signalNumber)
 // Sparkle delegate:
 - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
 {
-    terminatingAtUserRequest = TRUE;
-    [self cleanup];
+    [self terminateBecause: terminatingBecauseOfQuit];
+    NSLog(@"updater:willInstallUpdate: Starting cleanup.");
+    if (  [self cleanup]  ) {
+        NSLog(@"updater:willInstallUpdate: Cleanup finished.");
+    } else {
+        NSLog(@"updater:willInstallUpdate: Cleanup already being done.");
+    }
     
     // DO NOT UNLOCK cleanupMutex --
     // We do not want to execute cleanup a second time, because:
@@ -3444,7 +3607,7 @@ static void signal_handler(int signalNumber)
 -(void) dmgCheck
 {
     [NSApp setAutoLaunchOnLogin: NO];
-    
+
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
 	if (  [self cannotRunFromVolume: currentPath]  ) {
         
@@ -3490,7 +3653,7 @@ static void signal_handler(int signalNumber)
         gAuthorization = [NSApplication getAuthorizationRef: [preMessage stringByAppendingString: authorizationText]];
         if (  ! gAuthorization  ) {
             NSLog(@"The Tunnelblick installation was cancelled by the user.");
-            [NSApp terminate:self];
+            [self terminateBecause: terminatingBecauseOfQuit];
         }
         
         // Stop any currently running Tunnelblicks
@@ -3502,7 +3665,7 @@ static void signal_handler(int signalNumber)
                                          NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
                                          nil);
             if (  button == NSAlertAlternateReturn  ) {
-                [NSApp terminate: nil];
+                [self terminateBecause: terminatingBecauseOfQuit];
             }
             
             [NSApp killOtherInstances];
@@ -3543,8 +3706,7 @@ static void signal_handler(int signalNumber)
                                  repairPackages: YES
                                      copyBundle: YES]  ) {
             // runInstallerRestoreDeploy has already put up an error dialog and put a message in the console log if error occurred
-            [NSApp setAutoLaunchOnLogin: NO];
-            [NSApp terminate:self];
+            [self terminateBecause: terminatingBecauseOfError];
         }
         
         // Install configurations from Tunnelblick Configurations.bundle if any were copied
@@ -3578,7 +3740,7 @@ static void signal_handler(int signalNumber)
             }
         }
         
-        [NSApp terminate: nil];
+        [self terminateBecause: terminatingBecauseOfQuit];
     }
 }
 
@@ -4113,20 +4275,132 @@ void terminateBecauseOfBadConfiguration(void)
     TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Configuration Problem", @"Window title"),
                     NSLocalizedString(@"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details.", @"Window text"),
                     nil, nil, nil);
-    [NSApp setAutoLaunchOnLogin: NO];
-    [NSApp terminate: nil];
+    [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+}
+
+-(NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *) sender
+{
+    NSLog(@"applicationShouldTerminate: delaying termination (reasonForTermination = %d) until 'shutdownTunnelblick' finishes", reasonForTermination);
+    [self performSelectorOnMainThread: @selector(shutDownTunnelblick) withObject: nil waitUntilDone: NO];
+    return NSTerminateLater;
+}
+
+-(void) shutDownTunnelblick
+{
+    NSLog(@"DEBUG: shutDownTunnelblick: started.");
+    terminatingAtUserRequest = TRUE;
+    
+    if (  [theAnim isAnimating]  ) {
+        NSLog(@"DEBUG: shutDownTunnelblick: stopping icon animation.");
+        [theAnim stopAnimation];
+    }
+    
+    NSLog(@"DEBUG: shutDownTunnelblick: Starting cleanup.");
+    if (  [self cleanup]  ) {
+        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup finished.");
+    } else {
+        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup already being done.");
+    }
+    
+    NSLog(@"Finished shutting down Tunnelblick; allowing termination");
+    [NSApp replyToApplicationShouldTerminate: YES];
 }
 
 
+- (void) applicationWillTerminate: (NSNotification*) notification
+{
+    NSLog(@"DEBUG: applicationWillTerminate: invoked");
+}
+
+// These five notifications happen BEFORE the "willLogoutOrShutdown" notification and indicate intention
+
+-(void) logoutInitiatedHandler: (NSNotification *) n
+{
+    reasonForTermination = terminatingBecauseOfLogout;
+    NSLog(@"DEBUG: Initiated logout");
+}
+
+-(void) restartInitiatedHandler: (NSNotification *) n
+{
+    reasonForTermination = terminatingBecauseOfRestart;
+    NSLog(@"DEBUG: Initiated computer restart");
+}
+
+-(void) shutdownInitiatedHandler: (NSNotification *) n
+{
+    reasonForTermination = terminatingBecauseOfShutdown;
+    NSLog(@"DEBUG: Initiated computer shutdown");
+}
+
+-(void) logoutCancelledHandler: (NSNotification *) n
+{
+    reasonForTermination = terminatingForUnknownReason;
+    NSLog(@"DEBUG: Cancelled logout, or computer shutdown or restart.");
+}
+
+// reasonForTermination should be set before this is invoked
+
+-(void) setShutdownVariables
+{
+    // Only change the shutdown variables once. Maybe by logoutContinuedHandler:, maybe by willLogoutOrShutdownHandler:, whichever
+    // occurs first.
+    //
+    // NEVER unlock this mutex. It is only invoked when Tunnelblick is quitting or about to quit
+    static pthread_mutex_t shuttingDownMutex = PTHREAD_MUTEX_INITIALIZER;
+    
+    int status = pthread_mutex_trylock( &shuttingDownMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        if (  status == EBUSY  ) {
+            NSLog(@"DEBUG: setShutdownVariables: invoked, but have already set them");
+        } else {
+            NSLog(@"DEBUG: setShutdownVariables: pthread_mutex_trylock( &myVPNMenuMutex ) failed; status = %ld; %s", (long) status, strerror(status));
+        }
+        
+        return;
+    }
+
+    gShuttingDownTunnelblick = TRUE;
+    if (   (reasonForTermination == terminatingBecauseOfRestart)
+        || (reasonForTermination == terminatingBecauseOfShutdown)  ) {
+        gShuttingDownOrRestartingComputer = TRUE;
+    }
+    if (   gShuttingDownOrRestartingComputer
+        || (reasonForTermination == terminatingBecauseOfLogout)  ) {
+        gShuttingDownWorkspace = TRUE;
+        
+        NSNotification * note = [NSNotification notificationWithName: @"TunnelblickUIShutdownNotification" object: nil];
+        [[NSNotificationCenter defaultCenter] postNotification:note];
+    }
+}
+
+-(void) logoutContinuedHandler: (NSNotification *) n
+{
+    NSLog(@"DEBUG: logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.");
+    [self setShutdownVariables];
+}
+
+// This notification happens when we know we actually will logout or shutdown (or restart)
 -(void) willLogoutOrShutdownHandler: (NSNotification *) n
 {
-    areLoggingOutOrShuttingDown = TRUE;
+    NSLog(@"DEBUG: willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification");
+    [self setShutdownVariables];
 }
+
+
+-(void)TunnelblickShutdownUIHandler: (NSNotification *) n
+{
+    NSLog(@"DEBUG: TunnelblickShutdownUIHandler: invoked");
+}
+
 
 -(void)willGoToSleepHandler: (NSNotification *) n
 {
+    if (  gShuttingDownOrRestartingComputer  ) {
+        return;
+    }
+    
     gComputerIsGoingToSleep = TRUE;
-	if(NSDebugEnabled) NSLog(@"Computer will go to sleep");
+	NSLog(@"DEBUG: willGoToSleepHandler: Setting up connections to restore when computer wakes up");
     
     [connectionsToRestoreOnWakeup removeAllObjects];
     VPNConnection * connection; 
@@ -4138,16 +4412,26 @@ void terminateBecauseOfBadConfiguration(void)
     }
     
     terminatingAtUserRequest = TRUE;
-	[self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
-    if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
-        // Wait until all OpenVPN processes have terminated
-        while (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
-            usleep(100000);
+    if (  [connectionsToRestoreOnWakeup count] != 0  ) {
+        NSLog(@"DEBUG: willGoToSleepHandler: Closing all connections");
+        [self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
+        if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
+            // Wait until all OpenVPN processes have terminated
+            NSLog(@"DEBUG: willGoToSleepHandler: Putting off sleep until all OpenVPNs have terminated");
+            while (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
+                usleep(100000);
+            }
         }
     }
+    
+    NSLog(@"DEBUG: willGoToSleepHandler: OK to go to sleep");
 }
 -(void) wokeUpFromSleepHandler: (NSNotification *) n
 {
+    if (  gShuttingDownOrRestartingComputer  ) {
+        return;
+    }
+    
     [self performSelectorOnMainThread: @selector(wokeUpFromSleep) withObject:nil waitUntilDone:NO];
 }
 
@@ -4320,6 +4604,11 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 }
 
 -(void) updateStatisticsDisplaysHandler {
+    if (  gShuttingDownWorkspace  ) {
+        [statisticsWindowTimer invalidate];
+        return;
+    }
+    
     [self performSelectorOnMainThread: @selector(updateStatisticsDisplays) withObject: nil waitUntilDone: NO];
 }
 
@@ -4553,8 +4842,13 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 
 // Event Handlers
 
--(void) showStatisticsWindowsTimerHandler: (NSTimer *) theTimer {
+-(void) showStatisticsWindowsTimerHandler: (NSTimer *) theTimer
+{
     // Event handler; NOT on MainThread
+    
+    if (  gShuttingDownWorkspace  ) {  // Don't do anything if computer is shutting down or restarting
+        return;
+    }
     
     if (  [self mouseIsInsideAnyView] ) {
         [self performSelectorOnMainThread: @selector(showStatisticsWindows) withObject: nil waitUntilDone: NO];
@@ -4564,16 +4858,26 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 -(void) hideStatisticsWindowsTimerHandler: (NSTimer *) theTimer {
     // Event handler; NOT on MainThread
     
-    if (  ! [self mouseIsInsideAnyView] ) {
+    if (  gShuttingDownWorkspace  ) {  // Don't do anything if computer is shutting down or restarting
+        return;
+    }
+    
+    if (  ! [self mouseIsInsideAnyView]  ) {
         [[NSApp delegate] performSelectorOnMainThread: @selector(hideStatisticsWindows) withObject: nil waitUntilDone: NO];
 	}
-}    
+}        
+
 
 -(void) showOrHideStatisticsWindowsAfterDelay: (NSTimeInterval) delay
                                 fromTimestamp: (NSTimeInterval) timestamp
-                                     selector: (SEL)            selector {
+                                     selector: (SEL)            selector
+{
     
     // Event handlers invoke this; NOT on MainThread
+    
+    if (  gShuttingDownWorkspace  ) {  // Don't do anything if computer is shutting down or restarting
+        return;
+    }
     
     NSTimeInterval timeUntilAct;
     if (  timestamp == 0.0  ) {
@@ -4598,7 +4902,11 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 
 -(void) mouseEnteredMainIcon: (id) control event: (NSEvent *) theEvent  {
     // Event handlers invoke this; NOT on MainThread
-    
+
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+        
     mouseIsInMainIcon = TRUE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToShowStatistics
                                   fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
@@ -4607,6 +4915,10 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 
 -(void) mouseExitedMainIcon: (id) control event: (NSEvent *) theEvent {
     // Event handlers invoke this; NOT on MainThread
+    
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
     
     mouseIsInMainIcon = FALSE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToHideStatistics
@@ -4617,6 +4929,10 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 -(void) mouseEnteredStatusWindow: (id) control event: (NSEvent *) theEvent  {
     // Event handlers invoke this; NOT on MainThread
     
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     mouseIsInStatusWindow = TRUE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToShowStatistics
                                   fromTimestamp: ( theEvent ? [theEvent timestamp] : 0.0)
@@ -4625,6 +4941,10 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 
 -(void) mouseExitedStatusWindow: (id) control event: (NSEvent *) theEvent {
     // Event handlers invoke this; NOT on MainThread
+    
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
     
     mouseIsInStatusWindow = FALSE;
     [self showOrHideStatisticsWindowsAfterDelay: gDelayToHideStatistics

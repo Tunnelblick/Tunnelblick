@@ -313,13 +313,20 @@ extern NSFileManager * gFileMgr;
 
 + (BOOL)setAutoLaunchPathLeopard:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
 {
-    if (  doAutoLaunch  ) {
-        return [UKLoginItemRegistry addLoginItemWithPath: itemPath hideIt: NO];
-    } else {
-        return [UKLoginItemRegistry removeLoginItemWithPath: itemPath];
-    }
+    BOOL alreadyWillLaunch = ( -1 != [UKLoginItemRegistry indexForLoginItemWithPath: itemPath]);
     
-    return NO;
+    if (  doAutoLaunch  ) {
+        if (  alreadyWillLaunch  ) {
+            return YES;
+        }        
+        return [UKLoginItemRegistry addLoginItemWithPath: itemPath hideIt: NO];
+
+    } else {
+        if (  alreadyWillLaunch  ) {
+            return [UKLoginItemRegistry removeLoginItemWithPath: itemPath];
+        }
+        return YES;
+    }
 }
 
 + (BOOL)setAutoLaunchPath:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 

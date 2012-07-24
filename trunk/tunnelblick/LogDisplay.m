@@ -33,6 +33,7 @@
 
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
+extern BOOL                   gShuttingDownWorkspace;
 
 @interface LogDisplay() // PRIVATE METHODS
 
@@ -182,6 +183,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // Inserts the current date/time, a message, and a \n to the log display.
 -(void)addToLog: (NSString *) text
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     NSCalendarDate * date = [NSCalendarDate date];
     NSString * dateText = [NSString stringWithFormat:@"%@ %@\n",[date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"], text];
     
@@ -200,6 +205,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // Clears the log so it shows only the header line
 -(void) clear
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     // Clear the log in the display if it is being shown
     OSStatus status = pthread_mutex_lock( &logStorageMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -233,6 +242,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) doLogScrolling
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     if (  [self logStorage]  ) {
         // Do some primitive throttling -- only queue three requests per second
         long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
@@ -260,6 +273,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     
 -(void) scrollWatchdogTimedOutHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self setScrollWatchdogTimer: nil];
     
     [self performSelectorOnMainThread: @selector(scrollWatchdogTimedOut:) withObject: nil waitUntilDone: YES];    
@@ -267,12 +284,20 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) scrollWatchdogTimedOut: (NSTimer *) timer
 {
+    if (  gShuttingDownWorkspace || ignoreChangeRequests  ) {
+        return;
+    }
+    
     [[[NSApp delegate] logScreen] doLogScrollingForConnection: [self connection]];
 }
 
 // Starts (or restarts) monitoring newly-created log files.
 -(void) startMonitoringLogFiles
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self setMonitorQueue: [[UKKQueue alloc] init]];
     
     [[self monitorQueue] setDelegate: self];
@@ -357,6 +382,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // which is much less processing intensive.
 -(void) loadLogsWithInitialContents: (NSAttributedString *) initialContents skipToStartOfLineInOpenvpnLog: (BOOL) skipToStartOfLineInOpenvpnLog
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     NSTextStorage * logStore = [self logStorage];
     if (  ! logStore  ) {
         NSLog(@"logDisplay:loadLogsWithInitialContents:skipToStartOfLineInOpenvpnLog: invoked but not displaying log for that connection");
@@ -420,6 +449,11 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     while (   (tLine != nil)
            || (oLine != nil)
            || (sLine != nil)  ) {
+        
+        if (  gShuttingDownWorkspace  ) {
+            [tunnelblickString release];
+            return;
+        }
         
         if (  numLinesLoaded++ == NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG  ) {
             if (   skipToStartOfLineInOpenvpnLog
@@ -776,6 +810,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // Appends a line to the log display
 -(void) appendLine: (NSString *) line fromOpenvpnLog: (BOOL) isFromOpenvpnLog fromTunnelblickLog: (BOOL) isFromTunnelblickLog
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     OSStatus status = pthread_mutex_lock( &logStorageMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &logStorageMutex ) failed; status = %ld", (long) status);
@@ -811,6 +849,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // We added a line to the log display -- if already displaying the maximum number of lines then remove some lines (i.e. scroll off the top)
 -(void) didAddLineToLogDisplay
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     if (  [[self logStorage] length] > maxLogDisplaySize  ) {
         [self pruneLog];
     }
@@ -818,6 +860,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) pruneLog
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     // Find the tenth LF, and remove starting after that, to preserve the first ten lines of the log
 
     OSStatus status = pthread_mutex_lock( &logStorageMutex );
@@ -863,7 +909,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // Invoked when either log file has changed.
 -(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath
 {
-    if (  ignoreChangeRequests  ) {
+    if (  gShuttingDownWorkspace || ignoreChangeRequests  ) {
         return;
     }
     
@@ -898,6 +944,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) watchdogTimedOutHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self setWatchdogTimer: nil];
     
     NSString * fpath = [timer userInfo];
@@ -928,6 +978,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) logChangedAtPath: (NSString *) logPath usePosition: (unsigned long long *) logPositionPtr fromOpenvpnLog: (BOOL) isFromOpenvpnLog
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     // Return without doing anything if an error has occurred
     if (  *logPositionPtr == -1  ) {
         return;
@@ -968,6 +1022,11 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     while ( line ) {
+        if (  gShuttingDownWorkspace  ) {
+            pthread_mutex_unlock( &makingChangesMutex );
+            return;
+        }
+        
         [self insertLine: line beforeTunnelblickEntries: isFromOpenvpnLog beforeOpenVPNEntries: NO fromOpenVPNLog: isFromOpenvpnLog fromTunnelblickLog: NO];
         if (  isFromOpenvpnLog  ) {
             line = [self nextLinesInOpenVPNString: &logString fromPosition:  &logStringPosition];
@@ -990,6 +1049,10 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
           fromOpenVPNLog: (BOOL) isFromOpenVPNLog
       fromTunnelblickLog: (BOOL) isFromTunnelblickLog;
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     OSStatus status = pthread_mutex_lock( &logStorageMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_lock( &logStorageMutex ) failed; status = %ld", (long) status);

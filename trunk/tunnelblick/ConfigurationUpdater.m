@@ -27,6 +27,7 @@
 #import "helper.h"
 
 extern NSFileManager        * gFileMgr;
+extern BOOL                   gShuttingDownWorkspace;
 
 @implementation ConfigurationUpdater
 
@@ -154,6 +155,10 @@ extern NSFileManager        * gFileMgr;
 
 -(void) startFromTimerHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self startWithUI: [[timer userInfo] boolValue]];
 }
      
@@ -176,6 +181,10 @@ extern NSFileManager        * gFileMgr;
 
 - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [[NSApp delegate] saveConnectionsToRestoreOnRelaunch];
     [[NSApp delegate] installConfigurationsUpdateInBundleAtPathHandler: cfgBundlePath];
 }

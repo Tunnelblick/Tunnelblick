@@ -43,6 +43,16 @@
 #endif
 
 
+enum TerminationReason {
+    terminatingForUnknownReason    = 0,
+    terminatingBecauseOfLogout     = 1,
+    terminatingBecauseOfShutdown   = 2,
+    terminatingBecauseOfRestart    = 3,
+    terminatingBecauseOfQuit       = 4,
+    terminatingBecauseOfError      = 5,
+    terminatingBecauseOfFatalError = 6
+};
+
 BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
                         BOOL * moveLibraryOpenVPN,
                         BOOL * restoreDeploy,
@@ -55,7 +65,6 @@ BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
 BOOL needToCopyBundle(void);
-
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
@@ -119,8 +128,6 @@ BOOL needToCopyBundle(void);
     
     ConfigurationUpdater    * myConfigUpdater;              // Our class used to check for updates to the configurations
     
-    BOOL                      areLoggingOutOrShuttingDown;  // Flag that NSWorkspaceWillPowerOffNotification was received
-    
     BOOL                      launchFinished;               // Flag that we have executed "applicationDidFinishLaunching"
     
     BOOL                      userIsAnAdmin;                // Indicates logged-in user is a member of the "admin" group, and can administer the computer
@@ -175,7 +182,7 @@ BOOL needToCopyBundle(void);
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             changedMonitorConfigurationFoldersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
--(void)             cleanup;
+-(BOOL)             cleanup;
 -(void)             createLinkToApp;
 -(void)             createMenu;
 -(void)             createStatusItem;
@@ -215,7 +222,7 @@ BOOL needToCopyBundle(void);
 -(void)             showStatisticsWindows;
 -(void)             hideStatisticsWindows;
 -(void)             updateUI;
-
+-(void)             terminateBecause:                       (enum TerminationReason) reason;
 // Getters and Setters
 
 -(NSArray *)        animImages;

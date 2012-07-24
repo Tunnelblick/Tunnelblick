@@ -23,10 +23,10 @@
 #import "GeneralView.h"
 #import "TBUserDefaults.h"
 #import "helper.h"
+#import "MenuController.h"
 
 
 extern TBUserDefaults * gTbDefaults;
-
 
 @implementation GeneralView
 
@@ -82,7 +82,7 @@ extern TBUserDefaults * gTbDefaults;
     NSArray * versions = availableOpenvpnVersions();
     if (  ! versions  ) {
         NSLog(@"No versions of OpenVPN are included in this copy of Tunnelblick.");
-        [NSApp terminate: self];
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
     
     NSString * ver = [versions lastObject];
