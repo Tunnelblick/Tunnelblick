@@ -10,6 +10,16 @@
 
 ==Version 3.3==
 
+*3.3beta12 (2012-07-24)*
+
+ * Reverts to OpenVPN 2.3-alpha1 to fix problems with the build of OpenVPN 2.3_alpha2.
+
+ * Fixes problems causing long delays when logging out or sleeping, restarting, or shutting down the computer.
+
+ * Fixes a problem causing the Tunnelblick icon to disappear.
+
+--------------------
+
 *3.3beta10 (2012-07-20)*
 
  * Fixes a problem disabling network connection monitoring.

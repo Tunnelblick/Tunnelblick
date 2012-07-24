@@ -1,6 +1,16 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-07-24: *Tunnelblick 3.3beta12 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Reverts to OpenVPN 2.3-alpha1 to fix problems with the build of OpenVPN 2.3_alpha2.
+
+ * Fixes problems causing long delays when logging out or sleeping, restarting, or shutting down the computer.
+
+ * Fixes a problem causing the Tunnelblick icon to disappear.
+
+--------------------
+
 2012-07-20: *Tunnelblick 3.3beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a problem disabling network connection monitoring.
