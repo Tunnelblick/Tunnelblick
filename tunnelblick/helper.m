@@ -711,8 +711,7 @@ NSString * newTemporaryDirectoryPath(void)
     char * tempDirectoryNameCString = (char *) malloc( bufferLength );
     if (  ! tempDirectoryNameCString  ) {
         NSLog(@"Unable to allocate memory for a temporary directory name");
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
     
     strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
@@ -720,8 +719,7 @@ NSString * newTemporaryDirectoryPath(void)
     char * dirPath = mkdtemp(tempDirectoryNameCString);
     if (  ! dirPath  ) {
         NSLog(@"Unable to create a temporary directory");
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: nil];
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
     
     NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString

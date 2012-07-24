@@ -25,6 +25,7 @@
 #include "TBUserDefaults.h"
 
 extern  TBUserDefaults * gTbDefaults;
+extern BOOL              gShuttingDownWorkspace;
 
 @implementation MainIconView
 
@@ -33,6 +34,10 @@ extern  TBUserDefaults * gTbDefaults;
 
 -(void) mouseDownMainThread: (NSEvent *) theEvent
 {
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     // Invoked in the main thread only
 	
     NSStatusItem * statusI = [[NSApp delegate] statusItem];
@@ -101,6 +106,10 @@ extern  TBUserDefaults * gTbDefaults;
     // Event handler; NOT on MainThread
     // Mouse entered the tracking area of the Tunnelblick icon
 	
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [[NSApp delegate] mouseEnteredMainIcon: self event: theEvent];
 }
 
@@ -109,12 +118,21 @@ extern  TBUserDefaults * gTbDefaults;
     // Event handler; NOT on MainThread
     // Mouse exited the tracking area of the Tunnelblick icon
 	
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [[NSApp delegate] mouseExitedMainIcon: self event: theEvent];
 }
 
 -(void) mouseDown: (NSEvent *) theEvent
 {
     // Event handler; NOT on MainThread
+
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
     [self performSelectorOnMainThread: @selector(mouseDownMainThread:) withObject: theEvent waitUntilDone: NO];
 }
 

@@ -43,7 +43,8 @@ extern NSString             * gPrivatePath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
 extern unsigned               gHookupTimeout;
-extern BOOL                   gTunnelblickIsQuitting;
+extern BOOL                   gShuttingDownTunnelblick;
+extern BOOL                   gShuttingDownOrRestartingComputer;
 extern BOOL                   gComputerIsGoingToSleep;
 extern NSArray              * gRateUnits;
 extern NSArray              * gTotalUnits;
@@ -328,8 +329,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     if (  configPathBad  ) {
         NSLog(@"cfgLocCode in log file for %@ doesn't match configuration path", [self displayName]);
-        [NSApp setAutoLaunchOnLogin: NO];
-        [NSApp terminate: self];
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
     
     BOOL prefsChangedOK = TRUE;
@@ -396,8 +396,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     }
     
     if (  ! prefsChangedOK  ) {
-        [NSApp setAutoLaunchOnLogin: NO]; // Error messages have already been logged
-        [NSApp terminate: self];
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
     
     // Keep track of the number of tun and tap kexts that openvpnstart loaded
@@ -799,7 +798,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) showStatusWindow
 {
-    if (  ! (   gTunnelblickIsQuitting
+    if (  ! (   gShuttingDownTunnelblick
              || gComputerIsGoingToSleep )  ) {
         if (  ! showingStatusWindow  ) {
             NSString * statusPref = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
@@ -1484,6 +1483,10 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) forceKillWatchdogHandler
 {
+    if (  gShuttingDownOrRestartingComputer  ) {
+        return;
+    }
+    
     [self performSelectorOnMainThread: @selector(forceKillWatchdog) withObject: nil waitUntilDone: NO];
 }
 
@@ -1816,6 +1819,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) afterFailureHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownOrRestartingComputer  ) {
+        return;
+    }
+    
 	[self performSelectorOnMainThread: @selector(afterFailure:) withObject: [timer userInfo] waitUntilDone: NO];
 }
 
@@ -1847,6 +1854,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) credentialsHaveBeenAskedForHandler: (NSTimer *) timer
 {
+    if (  gShuttingDownOrRestartingComputer  ) {
+        return;
+    }
+    
     [self performSelectorOnMainThread: @selector(credentialsHaveBeenAskedFor) withObject: [timer userInfo] waitUntilDone: NO];
 }
 
@@ -2399,7 +2410,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) fadeAway
 {
-    if (  ! (   gTunnelblickIsQuitting
+    if (  ! (   gShuttingDownTunnelblick
              || gComputerIsGoingToSleep )  ) {
         BOOL okToFade = TRUE;   // Assume OK to fade, but don't fade if any connection is being attempted or any auth failed
         VPNConnection * connection;
