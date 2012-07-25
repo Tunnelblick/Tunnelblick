@@ -22,7 +22,7 @@ For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", and "Lion", and
 
  <strong>Beta release</strong> 3.3beta12 (build 3060) released 2012-07-24 [RlsNotes#Version_3.3 Release Notes]
   <strong><font color="red">Recommended for OS X 10.8 ("Mountain Lion")</font></strong><br><br>
-  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta12dmg           Tunnelblick 3.3beta12]</strong><br><br>
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta12.dmg           Tunnelblick 3.3beta12]</strong><br><br>
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta12_Unsigned.dmg Tunnelblick 3.3beta12 Unsigned]</strong><br>
   (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.)
  
