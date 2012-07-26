@@ -154,11 +154,6 @@ EOF )"
 		ALL_DNS="${STATIC_DNS}"
 	elif [ -n "${STATIC_DNS}" ] ; then
 		case "${OSVER}" in
-			10.6 | 10.7 )
-				# Do nothing - in 10.6 we don't aggregate our configurations, apparently
-				DYN_DNS="false"
-				ALL_DNS="${STATIC_DNS}"
-				;;
 			10.4 | 10.5 )
 				DYN_DNS="true"
 				# We need to remove duplicate DNS entries, so that our reference list matches MacOSX's
@@ -177,6 +172,11 @@ EOF )"
 					ALL_DNS="${STATIC_DNS}"
 				fi
 				;;
+			* )
+				# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
+				DYN_DNS="false"
+				ALL_DNS="${STATIC_DNS}"
+				;;
 		esac
 	else
 		DYN_DNS="true"
@@ -189,11 +189,6 @@ EOF )"
 		ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
 	elif [ -n "${STATIC_WINS_SERVERS}" ] ; then
 		case "${OSVER}" in
-			10.6 | 10.7 )
-				# Do nothing - in 10.6 we don't aggregate our configurations, apparently
-				DYN_WINS="false"
-				ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
-				;;
 			10.4 | 10.5 )
 				DYN_WINS="true"
 				# We need to remove duplicate WINS entries, so that our reference list matches MacOSX's
@@ -212,6 +207,11 @@ EOF )"
 					ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
 				fi
 				;;
+			* )
+				# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
+				DYN_WINS="false"
+				ALL_WINS_SERVERS="${STATIC_WINS_SERVERS}"
+				;;
 		esac
 	else
 		DYN_WINS="true"
@@ -222,15 +222,6 @@ EOF )"
 	# We double-check that our search domain isn't already on the list
 	SEARCH_DOMAIN="${domain}"
 	case "${OSVER}" in
-		10.6 | 10.7 )
-			# Do nothing - in 10.6 we don't aggregate our configurations, apparently
-			if [ -n "${STATIC_SEARCH}" ] ; then
-				ALL_SEARCH="${STATIC_SEARCH}"
-				SEARCH_DOMAIN=""
-			else
-				ALL_SEARCH="${SEARCH_DOMAIN}"
-			fi
-			;;
 		10.4 | 10.5 )
 			if echo "${STATIC_SEARCH}" | tr ' ' '\n' | grep -q "${SEARCH_DOMAIN}" ; then
 				SEARCH_DOMAIN=""
@@ -239,6 +230,15 @@ EOF )"
 				ALL_SEARCH="${STATIC_SEARCH}"
 			else
 				ALL_SEARCH="$(trim "${STATIC_SEARCH}" "${SEARCH_DOMAIN}")"
+			fi
+			;;
+		* )
+			# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
+			if [ -n "${STATIC_SEARCH}" ] ; then
+				ALL_SEARCH="${STATIC_SEARCH}"
+				SEARCH_DOMAIN=""
+			else
+				ALL_SEARCH="${SEARCH_DOMAIN}"
 			fi
 			;;
 	esac
@@ -279,8 +279,10 @@ EOF )"
 	# If DNS is manually set, it overrides the DHCP setting, which isn't reflected in 'State:/Network/Service/${PSID}/DNS'
 	if echo "${STATIC_DNS_CONFIG}" | grep -q "ServerAddresses" ; then
 		CORRECT_OLD_DNS_KEY="Setup:"
+		logMessage "DEBUG: STATIC_DNS_CONFIG contains ServerAddresses: ${STATIC_DNS_CONFIG}"
 	else
 		CORRECT_OLD_DNS_KEY="State:"
+		logMessage "DEBUG: STATIC_DNS_CONFIG does NOT contain ServerAddresses: ${STATIC_DNS_CONFIG}"
 	fi
 	
 	# If WINS is manually set, it overrides the DHCP setting, which isn't reflected in 'State:/Network/Service/${PSID}/DNS'
@@ -298,7 +300,54 @@ EOF )"
     readonly NO_NOSUCH_KEY_WINS
     
 	set -e # We instruct bash that it CAN again fail on errors
-
+	
+	# If 10.8 and higher, we need to set the "Setup:" DNS and WINS keys, in addition to the "State:" keys
+	SET_SETUP_DNS_KEY_ALSO="false"
+	SET_SETUP_WINS_KEY_ALSO="false"
+	case "${OSVER}" in
+		10.4 | 10.5 | 10.6 | 10.7 )
+			# Do nothing - in 10.7 and lower we don't need to set the Setup keys
+			logMessage "DEBUG: OS X 0.4 - 10.7, so not setting SET_SETUP_KEYS"
+			echo "" > /dev/null
+			;;
+		* )
+			# 10.8 and higher - we must set the "Setup:" key in addition to the "State:" key
+			logMessage "DEBUG: OS X 10.8+, so setting SET_SETUP_KEYS"
+				SET_SETUP_DNS_KEY_ALSO="true"
+				SET_SETUP_WINS_KEY_ALSO="true"
+			fi
+			;;
+	esac
+	readonly SET_SETUP_DNS_KEY_ALSO
+	readonly SET_SETUP_WINSO_KEY_ALSO
+	
+	SET_SETUP_KEYS=""
+	if ${SET_SETUP_DNS_KEY_ALSO} ; then
+		SET_SETUP_KEYS="
+		d.init
+		${NO_DNS}d.add ServerAddresses * ${vDNS[*]}
+		${NO_SEARCH}d.add SearchDomains * ${SEARCH_DOMAIN}
+		d.add DomainName ${domain}
+		set Setup:/Network/Service/${PSID}/DNS
+"
+	fi
+	if ${SET_SETUP_WINS_KEY_ALSO} ; then
+		SET_SETUP_KEYS="${SET_SETUP_KEYS}
+		d.init
+		${NO_NB}d.add NetBIOSName ${STATIC_NETBIOSNAME}
+		${NO_WS}d.add WINSAddresses * ${vWINS[*]}
+		${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
+		set Setup:/Network/Service/${PSID}/WINS
+"
+	fi
+	readonly SET_SETUP_KEYS
+	
+	if [ "${SET_SETUP_KEYS}" != "" ] ; then
+		logMessage "DEBUG: Setting Setup: keys also:${SET_SETUP_KEYS}"
+	else
+		logMessage "DEBUG: NOT Setting up State keys"
+	fi
+	
 	scutil <<- EOF
 		open
 		d.init
@@ -313,19 +362,36 @@ EOF )"
 		d.add IsTapInterface        "${ARG_TAP}"
 		d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
         d.add TapDeviceHasBeenSetNone "false"
+		d.add SetSetupDNSStateKeys	"${SET_SETUP_DNS_KEY_ALSO}"
+		d.add SetSetupWINSStateKeys	"${SET_SETUP_WINS_KEY_ALSO}"
 		set State:/Network/OpenVPN
 		
 		# First, back up the device's current DNS and WINS configurations
 		# Indicate 'no such key' by a dictionary with a single entry: "TunnelblickNoSuchKey : true"
+		# If there isn't a key, "TunnelblickNoSuchKey : true" won't be removed.
+		# If there is a key, "TunnelblickNoSuchKey : true" will be removed and the key's contents will be used
+		
 		d.init
 		d.add TunnelblickNoSuchKey true
 		get ${CORRECT_OLD_DNS_KEY}/Network/Service/${PSID}/DNS
 		set State:/Network/OpenVPN/OldDNS
 		
+		# Save the "Setup:" key whether or not it will be used.
+		d.init
+		d.add TunnelblickNoSuchKey true
+		get Setup:/Network/Service/${PSID}/DNS
+		set State:/Network/OpenVPN/OldDNSSetup
+		
 		d.init
 		d.add TunnelblickNoSuchKey true
 		get ${CORRECT_OLD_WINS_KEY}/Network/Service/${PSID}/SMB
 		set State:/Network/OpenVPN/OldSMB
+		
+		# Save the "Setup:" key whether or not it will be used.
+		d.init
+		d.add TunnelblickNoSuchKey true
+		get Setup:/Network/Service/${PSID}/SMB
+		set State:/Network/OpenVPN/OldSMBSetup
 		
 		# Second, initialize the new DNS map
 		d.init
@@ -340,6 +406,10 @@ EOF )"
 		${NO_WS}d.add WINSAddresses * ${vWINS[*]}
 		${NO_WG}d.add Workgroup ${STATIC_WORKGROUP}
 		set State:/Network/Service/${PSID}/SMB
+		
+		# Fourth, initialize the new DNS and WINS state keys if on Mountain Lion and higher
+		# (SET_SETUP_KEYS will be empty on Lion and lower)
+		${SET_SETUP_KEYS}
 		
 		# Now, initialize the maps that will be compared against the system-generated map
 		# which means that we will have to aggregate configurations of statically-configured
