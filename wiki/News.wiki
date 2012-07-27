@@ -1,6 +1,12 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-07-27: *Tunnelblick 3.3beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a problem that stops updates from being installed.
+
+--------------------
+
 2012-07-27: *Tunnelblick 3.3beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes problems with DNS on OS X 10.8 ("Mountain Lion") when using the default DNS/WINS setting of 'Set nameserver'.

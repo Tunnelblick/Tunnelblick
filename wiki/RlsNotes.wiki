@@ -10,6 +10,12 @@
 
 ==Version 3.3==
 
+*3.3beta16 (2012-07-27)*
+
+ * Fixes a problem that stops updates from being installed.
+
+--------------------
+
 *3.3beta14 (2012-07-27)*
 
  * Fixes problems with DNS on OS X 10.8 ("Mountain Lion") when using the default DNS/WINS setting of 'Set nameserver'.
