@@ -21,7 +21,11 @@ also, please try an IP address for www.google.com:
 
 *If those pages don't load, then there is not a DNS problem* and you should look for help in the the links to the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
-If those pages do load, it is a DNS problem. Please try each of the "Set DNS/WINS" options that are available on the "Settings" tab of the "Configurations" panel of the "VPN Details…" window.
+If those pages do load, it is a DNS problem.
+
+*Tunnelblick 3.3beta14 may solve the DNS problem* if you use the default DNS/WINS setting of 'Set nameserver'. Be sure you are using 3.3beta14 with the 'Set nameserver' setting before bothering with the rest of this page.
+
+Please try each of the "Set DNS/WINS" options that are available on the "Settings" tab of the "Configurations" panel of the "VPN Details…" window.
 
 If none of them work for you, try setting your DNS servers manually to Google's public DNS servers, 8.8.8.8 and 8.8.4.4, or OpenDNS's public DNS servers: 208.67.222.222 and 208.67.220.220. You can use these servers at all times. Google public DNS is free, and OpenDNS has a free version. (This will work for most people, but not for  people who need access to a corporate network or DNS service from the VPN's LAN. See below for a solution that may work for that.)
 

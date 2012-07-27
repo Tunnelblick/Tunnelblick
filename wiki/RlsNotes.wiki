@@ -10,6 +10,12 @@
 
 ==Version 3.3==
 
+*3.3beta14 (2012-07-27)*
+
+ * Fixes problems with DNS on OS X 10.8 ("Mountain Lion") when using the default DNS/WINS setting of 'Set nameserver'.
+
+--------------------
+
 *3.3beta12 (2012-07-24)*
 
  * Reverts to OpenVPN 2.3-alpha1 to fix problems with the build of OpenVPN 2.3_alpha2.
