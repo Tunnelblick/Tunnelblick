@@ -315,7 +315,6 @@ EOF )"
 			logMessage "DEBUG: OS X 10.8+, so setting SET_SETUP_KEYS"
 				SET_SETUP_DNS_KEY_ALSO="true"
 				SET_SETUP_WINS_KEY_ALSO="true"
-			fi
 			;;
 	esac
 	readonly SET_SETUP_DNS_KEY_ALSO
@@ -343,9 +342,9 @@ EOF )"
 	readonly SET_SETUP_KEYS
 	
 	if [ "${SET_SETUP_KEYS}" != "" ] ; then
-		logMessage "DEBUG: Setting Setup: keys also:${SET_SETUP_KEYS}"
+		logMessage "DEBUG: Setting 'Setup:' keys also:${SET_SETUP_KEYS}"
 	else
-		logMessage "DEBUG: NOT Setting up State keys"
+		logMessage "DEBUG: NOT Setting up 'Setup:' keys"
 	fi
 	
 	scutil <<- EOF
