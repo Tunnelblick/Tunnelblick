@@ -3440,7 +3440,11 @@ static void signal_handler(int signalNumber)
 // Sparkle delegate:
 - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
 {
-    [self terminateBecause: terminatingBecauseOfQuit];
+	reasonForTermination = terminatingBecauseOfQuit;
+    
+    [NSApp setAutoLaunchOnLogin: NO];
+    terminatingAtUserRequest = TRUE;
+
     NSLog(@"updater:willInstallUpdate: Starting cleanup.");
     if (  [self cleanup]  ) {
         NSLog(@"updater:willInstallUpdate: Cleanup finished.");
