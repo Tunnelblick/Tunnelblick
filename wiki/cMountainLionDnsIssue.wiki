@@ -7,7 +7,11 @@ Some users are experiencing a problem with Tunnelblick on OS X 10.8 ("Mountain L
 
 *<font color="red">Before doing anything else, please make sure you are using the latest beta version of Tunnelblick from the [DownloadsEntry Downloads] page.</font>*
 
-If you are not able to connect, please look for help in the the links on the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
+_Note: "connect" in the following means get a successful connection, with the Tunnelblick icon showing an open tunnel. It does not mean that you can surf the web!_
+
+If you are not able to connect, first please try OpenVPN version 2.2.1 instead of the default, version 2.3-alpha1. Select it on the "Preferences" panel of the "VPN Details…" window.
+
+If you still can't connect, please look for help in the the links on the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
 If you have no Internet access after successfully connecting, please determine if the problem is a DNS problem. To do that, connect the VPN configuration, then open a browser window and type an IP address of www.ibm.com in the address bar as follows, then press "return":
 
