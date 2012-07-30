@@ -3,17 +3,21 @@
 
 <h3>Mountain Lion Problems</h3>
 
-Some users are experiencing a problem with Tunnelblick on OS X 10.8 ("Mountain Lion"): they can connect to their VPN server, but they can't use the Internet. Usually this is caused by a DNS problem. This document describes some troubleshooting steps you can take and provides a workaround you can use while we try to fix the problem.
+Some users are experiencing problems with Tunnelblick on OS X 10.8 ("Mountain Lion"):
+ * They can't connect, or
+ * They can connect to their VPN server, but they can't use the Internet. Usually this is caused by a DNS problem.
+
+_Note: by "connect" we mean get a successful VPN connection, with the Tunnelblick icon showing an open tunnel._
+
+This document describes some troubleshooting steps you can take and provides a workaround you can use until these problems are fixed.
 
 *<font color="red">Before doing anything else, please make sure you are using the latest beta version of Tunnelblick from the [DownloadsEntry Downloads] page.</font>*
 
-_Note: "connect" in the following means get a successful connection, with the Tunnelblick icon showing an open tunnel. It does not mean that you can surf the web!_
-
-If you are not able to connect, first please try OpenVPN version 2.2.1 instead of the default, version 2.3-alpha1. Select it on the "Preferences" panel of the "VPN Details…" window.
+*If you are not able to connect*, first please try OpenVPN version 2.2.1 instead of the default, version 2.3-alpha1. Select it on the "Preferences" panel of the "VPN Details…" window.
 
 If you still can't connect, please look for help in the the links on the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
-If you have no Internet access after successfully connecting, please determine if the problem is a DNS problem. To do that, connect the VPN configuration, then open a browser window and type an IP address of www.ibm.com in the address bar as follows, then press "return":
+*If you can successfully connect, but you have no Internet access*, please determine if the problem is a DNS problem. To do that, connect the VPN configuration, then open a browser window and type an IP address of www.ibm.com in the address bar as follows, then press "return":
 
 	http://129.42.58.216
 
@@ -23,13 +27,13 @@ also, please try an IP address for www.google.com:
 
 (Do not use "ping", "dig", or other commands to test for connectivity -- not all web servers respond to "ping" packets, and some commands use a different mechanism that most of OS X for DNS resolution.)
 
-*If those pages don't load, then there is not a DNS problem* and you should look for help in the the links to the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
+*If those pages don't load by IP address, then there is not a DNS problem -- it is something else* and you should look for help in the the links to the left under Troubleshooting, or in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
-If those pages do load, it is a DNS problem.
+*If those pages do load via IP address, it is a DNS problem.*
 
-*Tunnelblick 3.3beta14 may solve the DNS problem* if you use the default DNS/WINS setting of 'Set nameserver'. Be sure you are using 3.3beta14 with the 'Set nameserver' setting before bothering with the rest of this page.
+*Tunnelblick 3.3beta14 and higher may solve the DNS problem if you set "DNS/WINS" to "Set nameserver"*. DNS/WINS may be set (for each configuration separately) on the "Settings" tab of the "Configurations" panel of the "VPN Details…" window.
 
-Please try each of the "Set DNS/WINS" options that are available on the "Settings" tab of the "Configurations" panel of the "VPN Details…" window.
+If "Set nameserver" does not work, please try each of the other "Set DNS/WINS" options that are available.
 
 If none of them work for you, try setting your DNS servers manually to Google's public DNS servers, 8.8.8.8 and 8.8.4.4, or OpenDNS's public DNS servers: 208.67.222.222 and 208.67.220.220. You can use these servers at all times. Google public DNS is free, and OpenDNS has a free version. (This will work for most people, but not for  people who need access to a corporate network or DNS service from the VPN's LAN. See below for a solution that may work for that.)
 
