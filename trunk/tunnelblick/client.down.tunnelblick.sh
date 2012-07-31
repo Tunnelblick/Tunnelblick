@@ -46,8 +46,7 @@ SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLo
 ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
 bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
-bSetSetupDNSStateKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*SetSetupDNSStateKeys :' | sed -e 's/^.*: //g')"
-bSetSetupWINSStateKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*SetSetupWINSStateKeys :' | sed -e 's/^.*: //g')"
+bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
 
 # @param String message - The message to log
 logMessage()
@@ -96,7 +95,7 @@ DNS_OLD="$(/usr/sbin/scutil <<-EOF
 	show State:/Network/OpenVPN/OldDNS
 	quit
 EOF)"
-WINS_OLD="$(/usr/sbin/scutil <<-EOF
+SMB_OLD="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldSMB
 	quit
@@ -104,11 +103,6 @@ EOF)"
 DNS_OLD_SETUP="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldDNSSetup
-	quit
-EOF)"
-WINS_OLD_SETUP="$(/usr/sbin/scutil <<-EOF
-	open
-	show State:/Network/OpenVPN/OldSMBSetup
 	quit
 EOF)"
 TB_NO_SUCH_KEY="<dictionary> {
@@ -155,7 +149,7 @@ EOF
 	fi
 fi
 
-if [ "${WINS_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
+if [ "${SMB_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
 	scutil <<- EOF
 		open
 		remove State:/Network/Service/${PSID}/SMB
@@ -170,40 +164,16 @@ else
 EOF
 fi
 
-if [ "${WINS_OLD_SETUP}" = "${TB_NO_SUCH_KEY}" ] ; then
-	if ${bSetSetupWINSStateKeys} ; then
-		logMessage "DEBUG: Removing 'Setup:' WINS key"
-		scutil <<- EOF
-			open
-			remove Setup:/Network/Service/${PSID}/SMB
-			quit
-EOF
-	else
-		logMessage "DEBUG: Not removing 'Setup:' WINS key"
-	fi
-else
-	if ${bSetSetupWINSStateKeys} ; then
-		logMessage "DEBUG: Restoring 'Setup:' WINS key"
-		scutil <<- EOF
-			open
-			get State:/Network/OpenVPN/OldSMBSetup
-			set Setup:/Network/Service/${PSID}/SMB
-		quit
-EOF
-	else
-		logMessage "DEBUG: Not restoring 'Setup:' WINS key"
-	fi
-fi
-
-logMessage "Restored the DNS and WINS configurations"
+logMessage "Restored the DNS and SMB configurations"
 
 # Remove our system configuration data
 scutil <<- EOF
 	open
-	remove State:/Network/OpenVPN/SMB
-	remove State:/Network/OpenVPN/DNS
-	remove State:/Network/OpenVPN/OldSMB
 	remove State:/Network/OpenVPN/OldDNS
+	remove State:/Network/OpenVPN/OldSMB
+	remove State:/Network/OpenVPN/OldDNSSetup
+	remove State:/Network/OpenVPN/DNS
+	remove State:/Network/OpenVPN/SMB
 	remove State:/Network/OpenVPN
 	quit
 EOF

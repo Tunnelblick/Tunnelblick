@@ -32,7 +32,8 @@ void restoreItems (NSArray  * itemsToRestore,
                    NSString * currentVpnWINS,
                    NSString * postVpnDNS,
                    NSString * postVpnWINS,
-                   NSString * psid);
+                   NSString * psid,
+				   BOOL		  useSetupKeysToo);
 
 NSString * scutilCommandValue(NSString * value);
 
@@ -93,10 +94,11 @@ int main (int argc, const char * argv[])
     
     // Get settings saved by client.up.tunnelblick.sh
     NSString * openvpnSetup = getScKey(@"State:/Network/OpenVPN");
-    NSString * logFile = getKeyFromScDictionary(@"ScriptLogFile"    , openvpnSetup);
-    NSString * process = getKeyFromScDictionary(@"PID"              , openvpnSetup);
-    NSString * psid    = getKeyFromScDictionary(@"Service"          , openvpnSetup);
-    NSString * actions = getKeyFromScDictionary(@"IgnoreOptionFlags", openvpnSetup);
+    NSString * logFile      = getKeyFromScDictionary(@"ScriptLogFile"      , openvpnSetup);
+    NSString * process      = getKeyFromScDictionary(@"PID"                , openvpnSetup);
+    NSString * psid         = getKeyFromScDictionary(@"Service"            , openvpnSetup);
+    NSString * actions      = getKeyFromScDictionary(@"IgnoreOptionFlags"  , openvpnSetup);
+    NSString * useSetupKeys = getKeyFromScDictionary(@"bAlsoUsingSetupKeys", openvpnSetup);
     
     gLogPath = [logFile copy];
     
@@ -106,6 +108,8 @@ int main (int argc, const char * argv[])
         exit(EXIT_FAILURE);
     }
     
+	BOOL useSetupKeysToo = [useSetupKeys isEqualToString: @"true"];
+
     // Get current network settings, settings before the VPN was set up, and settings after the VPN was set up
     NSString * preVpn      = [NSString stringWithFormat: @"%@\n%@", getScKey(@"State:/Network/OpenVPN/OldDNS"), getScKey(@"State:/Network/OpenVPN/OldSMB")];
     NSString * currentDNS  = getScKey(@"State:/Network/Global/DNS");
@@ -176,7 +180,23 @@ int main (int argc, const char * argv[])
     }
     
     if (  [itemsToRestore count] == 0  ) {
-        appendToLog(@"A system configuration change was ignored because it was not relevant");
+        if (  [changes length] == 0  ) {
+            appendToLog(@"A system configuration change was ignored");
+        } else {
+            NSMutableArray * changedItemNames = [[[NSMutableArray alloc] initWithCapacity: 6] autorelease];
+            for (i=0; i<[changes length]; i++) {
+                NSString * ch = [changes substringWithRange:NSMakeRange(i, 1)];
+                NSString * itemName = [charsAndKeys objectForKey: ch];
+                if (  ! [changedItemNames containsObject: itemName]  ) {
+                    [changedItemNames addObject: itemName];
+                }
+            }
+            NSMutableString * logMessage = [NSMutableString stringWithFormat: @"Ignored change to %@", [changedItemNames objectAtIndex: 0]];
+            for (i=1; i<[changedItemNames count]; i++) {
+                [logMessage appendFormat: @" and %@", [changedItemNames objectAtIndex: i]];
+            }
+            appendToLog(logMessage);
+        }
     } else {
         NSMutableString * restoreList = [[[NSMutableString alloc] initWithCapacity: 100] autorelease];
         for (  i=0; i<[itemsToRestore count]; i++  ) {
@@ -186,7 +206,7 @@ int main (int argc, const char * argv[])
                           [restoreList substringToIndex: [restoreList length] - 2],
                           ([itemsToRestore count] == 1 ? @"" :@"s")];
         appendToLog(msg);
-        restoreItems(itemsToRestore, currentDNS, currentWINS, postVpnDNS, postVpnWINS, psid);
+        restoreItems(itemsToRestore, currentDNS, currentWINS, postVpnDNS, postVpnWINS, psid, useSetupKeysToo);
     }
 
     [gPool drain];
@@ -203,7 +223,7 @@ void appendToLog(NSString * msg)
     [handle closeFile];
 }
 
-void restoreItems (NSArray * itemsToRestore, NSString * currentVpnDNS, NSString * currentVpnWINS, NSString * postVpnDNS, NSString * postVpnWINS, NSString * psid)
+void restoreItems (NSArray * itemsToRestore, NSString * currentVpnDNS, NSString * currentVpnWINS, NSString * postVpnDNS, NSString * postVpnWINS, NSString * psid, BOOL useSetupKeysToo)
 {
     NSArray * dnsSubkeyList  = [NSArray arrayWithObjects: @"DomainName",  @"ServerAddresses", @"SearchDomains", nil];
     NSArray * winsSubkeyList = [NSArray arrayWithObjects: @"NetBIOSName", @"WINSAddresses",   @"Workgroup",     nil];
@@ -252,6 +272,21 @@ void restoreItems (NSArray * itemsToRestore, NSString * currentVpnDNS, NSString 
                 [scutilCommands appendFormat: @"d.init\n%@set %@\n", scutilDnsCommands, scutilKey];
             } else {
                 [scutilCommands appendFormat: @"d.init\nget %@\n%@set %@\n", scutilKey, scutilDnsCommands, scutilKey];
+            }
+        }
+        
+        if (  useSetupKeysToo  ) {
+            scutilKey = [NSString stringWithFormat: @"Setup:/Network/Service/%@/DNS", psid];
+            if (  [postVpnDNS length] == 0) {
+                if ( [currentVpnDNS length] != 0  ) {
+                    [scutilCommands appendFormat: @"remove %@\n", scutilKey];
+                }
+            } else {
+                if ( [currentVpnDNS length] == 0  ) {
+                    [scutilCommands appendFormat: @"d.init\n%@set %@\n", scutilDnsCommands, scutilKey];
+                } else {
+                    [scutilCommands appendFormat: @"d.init\nget %@\n%@set %@\n", scutilKey, scutilDnsCommands, scutilKey];
+                }
             }
         }
     }
