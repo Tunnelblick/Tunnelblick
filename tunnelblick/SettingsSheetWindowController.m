@@ -552,13 +552,9 @@ extern TBUserDefaults       * gTbDefaults;
             defaultValue = @"restore";
         }
     } else {
-		if (  [leasewatchOptionsChar isEqualToString: @"s"]  ) {	// Default for SearchDomains changeToOther is "ignore"
-			defaultValue = @"ignore";
-		} else {
-			defaultValue = @"restart";								// Default for others is "restart"
-		}
+		defaultValue = @"restart";
 	}
-    
+
     NSString * value = nil;
     id obj = [gTbDefaults objectForKey: actualKey];
     if (  obj != nil  ) {
