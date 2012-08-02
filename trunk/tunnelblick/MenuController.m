@@ -24,7 +24,6 @@
  */
 
 #import <Foundation/NSDebug.h>
-#import <mach/mach_time.h>
 #import <pthread.h>
 #import <sys/stat.h>
 #import <sys/mount.h>
@@ -239,6 +238,9 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"skipWarningAboutOnComputerStartAndTblkScripts",
                                 @"skipWarningAboutIgnoredConfigurations",
                                 @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",
+                                @"skipWarningThatIPAddressDidNotChangeAfterConnection",
+                                @"skipWarningThatDNSIsNotWorking",
+                                @"skipWarningThatInternetIsNotReachable",
                                 
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
@@ -252,6 +254,11 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"openvpnTerminationTimeout",
                                 @"menuIconSet",
                                 @"easy-rsaPath",
+                                @"IPAddressCheckURL",
+                                @"notOKToCheckThatIPAddressDidNotChangeAfterConnection",
+                                @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
+                                @"timeoutForIPAddressCheckBeforeConnection",
+                                @"timeoutForIPAddressCheckAfterConnection",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -2980,6 +2987,32 @@ static void signal_handler(int signalNumber)
     return (status == EXIT_SUCCESS);
 }
 
+- (NSURL *) getIPCheckURL
+{
+    NSURL * url = nil;
+    NSString * urlString;
+	id obj = [gTbDefaults objectForKey: @"IPCheckURL"];
+	if (   obj
+		&& [[obj class] isSubclassOfClass: [NSString class]]
+		&& ( ! [gTbDefaults canChangeValueForKey: @"IPCheckURL"])  ) {
+		urlString = (NSString *) obj;
+	} else {
+        NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+        urlString = [infoPlist objectForKey: @"IPCheckURL"];
+    }
+    
+    if (  urlString  ) {
+        url = [NSURL URLWithString: urlString];
+        if (  ! url  ) {
+            NSLog(@"Unable to make into a URL: %@", urlString);
+        }
+    } else {
+        NSLog(@"No IPCheckURL forced preference or Info.plist entry");
+    }
+    
+    return url;
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	[NSApp callDelegateOnNetworkChange: NO];
@@ -3055,6 +3088,35 @@ static void signal_handler(int signalNumber)
     while (  connection = [connEnum nextObject]  ) {
         if (  ! [connection tryingToHookup]  ) {
             [logScreen validateWhenConnectingForConnection: connection];
+        }
+    }
+    
+    // Make sure we have asked the user if we can check the IP info
+    if (  ! [gTbDefaults boolForKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
+        if (  [gTbDefaults canChangeValueForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
+            NSURL * url = [self getIPCheckURL];
+            if (  url  ) {
+				NSString * host = [url host];
+				if (  host  ) {
+					int result = TBRunAlertPanel(NSLocalizedString(@"New Feature", @"Window title"),
+												 [NSString stringWithFormat:
+												  NSLocalizedString(@"Tunnelblick can check that the apparent public IP address of your computer"
+																	@" changes when you connect to a VPN, and warn you if it doesn't.\n\n"
+																	@"This can also help Tunnelblick diagnose problems with your connection.\n\n"
+																	@"This sends your IP address and Tunnelblick version number to\n"
+																	@"%@\n\n"
+																	@"Do you wish to check for this IP address change?\n", @"Window text"), host],
+												 NSLocalizedString(@"Check for a change", @"Button"),           // Default
+												 NSLocalizedString(@"Do not check for a change", @"Button"),    // Alternate
+												 nil);
+					[gTbDefaults setBool: (result == NSAlertAlternateReturn)
+								  forKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+					[gTbDefaults setBool: YES
+								  forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+				} else {
+					NSLog(@"Could not extract host from URL: %@", url);
+				}
+            }
         }
     }
     
@@ -4889,10 +4951,7 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
 	} else if (  ! runningOnLeopardOrNewer()  ) {
 		timeUntilAct = delay;
     } else {
-        // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
-        mach_timebase_info_data_t info;
-        mach_timebase_info(&info);
-        uint64_t systemStartNanoseconds = (mach_absolute_time() * info.numer) / info.denom;
+        uint64_t systemStartNanoseconds = nowAbsoluteNanoseconds();
         NSTimeInterval systemStart = (  ((NSTimeInterval) systemStartNanoseconds) / 1.0e9  );
         timeUntilAct = timestamp - systemStart + delay;
     }

@@ -84,6 +84,9 @@ struct Statistics {
     NSTimer       * forceKillTimer;     // Used to keep trying to kill a (temporarily, we hope) non-responsive OpenVPN process
     NSSound       * tunnelDownSound;    // Sound to play when tunnel is broken down
     NSSound       * tunnelUpSound;      // Sound to play when tunnel is established
+    NSString      * ipAddressBeforeConnect; // IP address of client (this computer) obtained from webpage before a connection was last attempted
+    //                                      // (Webpage URL is from the forced-preference "IPCheckURL" string, or from the "IPCheckURL" string in Info.plist)
+    NSString      * serverIPAddress;        // IP address of IPCheck server obtained from webpage before a connection was last attempted
     StatusWindowController * statusScreen;    // Status window, may or may not be displayed
     unsigned int    forceKillTimeout;   // Number of seconds to wait before forcing a disconnection
     unsigned int    forceKillInterval;  // Number of seconds between tries to kill a non-responsive OpenVPN process
@@ -113,6 +116,7 @@ struct Statistics {
     BOOL            loadedOurTun;       // True iff last connection loaded our tun kext
     BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
     BOOL            showingStatusWindow; // True iff displaying statusScreen
+   BOOL             ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
 }
 
 // PUBLIC METHODS:
