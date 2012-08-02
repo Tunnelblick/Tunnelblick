@@ -61,5 +61,7 @@
 	<string>help</string>
 	<key>CFBundleHelpBookName</key>
 	<string>Tunnelblick Help</string>
+	<key>IPCheckURL</key>
+	<string>http://tunnelblick.net/ipinfo</string>
 </dict>
 </plist>

@@ -786,6 +786,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     [statusScreen release];
     [tunnelUpSound release];
     [tunnelDownSound release];
+	[ipAddressBeforeConnect release];
+	[serverIPAddress release];
     
     [super dealloc];
 }
@@ -815,6 +817,303 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
     }
+}
+
+// Returns information about the IP address and port used by the computer, and about the webserver from which the information was obtained
+//
+// If useIPAddress is FALSE, uses the URL in forced-preference IPCheckURL, or in Info.plist item IPCheckURL.
+// If useIPAddress is TRUE,  uses the URL with the host portion of the URL replaced by serverIPAddress
+//
+// Normally returns an array with three strings: client IP address, client port, server IP address
+// If could not fetch data within timeoutInterval seconds, returns an empty array
+// If an error occurred, returns nil, having output a message to the Console log
+-(NSArray *) currentIPInfoWithIPAddress: (BOOL) useIPAddress
+                        timeoutInterval: (NSTimeInterval) timeoutInterval
+{
+    NSString * logHeader = [NSString stringWithFormat:@"*Tunnelblick: DEBUG: currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
+
+    NSURL * url = [[NSApp delegate] getIPCheckURL];
+    if (  ! url  ) {
+        NSLog(@"%@: url == nil #1", logHeader);
+        return nil;
+    }
+	
+	NSString * hostName = [url host];
+    
+    if (  useIPAddress  ) {
+        if (  serverIPAddress  ) {
+            NSString * urlString = [url absoluteString];
+			NSMutableString * tempMutableString = [[urlString mutableCopy] autorelease];
+			NSRange rng = [tempMutableString rangeOfString: hostName];	// Just replace the first occurance of host
+            [tempMutableString replaceOccurrencesOfString: hostName withString: serverIPAddress options: 0 range: rng];
+            urlString = [NSString stringWithString: tempMutableString];
+            url = [NSURL URLWithString: urlString];
+            if (  ! url  ) {
+                NSLog(@"%@:  url == nil #2", logHeader);
+                return nil;
+            }
+        } else {
+            NSLog(@"%@: serverIPAddress has not been set", logHeader);
+            return nil;
+        }
+    }
+	
+    NSCharacterSet * charset = [NSCharacterSet characterSetWithCharactersInString: @"0123456789."];
+    ipCheckLastHostWasIPAddress = ( [[url host] rangeOfCharacterFromSet: [charset invertedSet]].length == 0 );
+    
+    // Create an NSURLRequest
+    NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+    NSString * tbBuild   = [infoPlist objectForKey: @"CFBundleVersion"];
+    NSString * tbVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
+    
+    NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@: %@", tbBuild, tbVersion];
+    NSMutableURLRequest * req = [[[NSMutableURLRequest alloc] initWithURL: url] autorelease];
+    if ( ! req  ) {
+        NSLog(@"%@: req == nil", logHeader);
+        return nil;
+    }
+    [req setValue: userAgent forHTTPHeaderField: @"User-Agent"];
+	[req setValue: hostName  forHTTPHeaderField: @"Host"];
+    [req setTimeoutInterval: timeoutInterval];
+    if (  runningOnLeopardOrNewer()  ) {
+        [req setCachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+    } else {
+        [req setCachePolicy: NSURLRequestReloadIgnoringCacheData];
+    }
+	
+	// Make the request synchronously
+    // The request before a connection is made must be synchronous so it finishes before initiating the connection
+    // The request after a connection has been made should be asynchronous. Do that (in effect) by invoking this
+    // method from a separate thread.
+    //
+	// Implements the timeout and times the requests
+    NSURLResponse * urlResponse;
+	NSData * data = nil;
+	NSTimeInterval checkEvery = 0.01;
+	useconds_t usleepTime = (useconds_t) (checkEvery * 1.0e6);
+	BOOL firstTimeThru = TRUE;
+    uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
+    uint64_t timeoutNanoseconds = timeoutInterval * 1.0e9;
+    uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
+	while (   (! data)
+           && (nowAbsoluteNanoseconds() < endTimeNanoseconds)  ) {
+		if (  firstTimeThru  ) {
+			firstTimeThru = FALSE;
+		} else {
+			usleep(usleepTime);
+		}
+		data = [NSURLConnection sendSynchronousRequest: req
+									 returningResponse: &urlResponse
+												 error: NULL];
+	}
+    if ( ! data  ) {
+        NSLog(@"%@: IP address info could not be fetched within %.1f seconds", logHeader, (double) timeoutInterval);
+        return [NSArray array];
+    } else {
+        uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
+        long elapsedTimeMilliseconds = (long) (elapsedTimeNanoseconds + 500000) / 1000000;
+        NSLog(@"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
+	}
+
+    if (  [data length] > 40  ) {
+        NSLog(@"%@:  Response data was too long (%ld bytes)", logHeader, (long) [data length]);
+        return nil;
+    }
+    
+    NSString * response = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    if ( ! response  ) {
+        NSLog(@"%@: Response as string == nil", logHeader);
+        return nil;
+    }
+    
+    NSCharacterSet * charset = [NSCharacterSet characterSetWithCharactersInString: @"0123456789.,"];
+    NSRange rng = [response rangeOfCharacterFromSet: [charset invertedSet]];
+    if (  rng.length != 0  ) {
+        NSLog(@"%@: Response had invalid characters. response = %@", logHeader, response);
+		return nil;
+    }
+    
+    NSArray * items = [response componentsSeparatedByString: @","];
+    if (  [items count] != 3  ) {
+        NSLog(@"%@: Response does not have three items separated by commas. response = %@", logHeader, response);
+		return nil;
+    }
+    
+    NSLog(@"%@: [%@, %@, %@]", logHeader, [items objectAtIndex: 0], [items objectAtIndex: 1], [items objectAtIndex: 2] );
+    return items;
+}
+
+- (void) ipInfoTimeoutBeforeConnectingDialog: (NSTimeInterval) timeoutToUse
+{
+    NSString * msg = [NSString stringWithFormat:
+                      NSLocalizedString(@"After %.1f seconds, gave up trying to fetch IP address information.\n\n"
+                                        @"Tunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n",
+                                        @"Window text"), (double) timeoutToUse, [self displayName]];
+
+    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
+                            msg,
+                            nil, nil, nil,
+                            @"skipWarningThatIPAddressDidNotChangeAfterConnection",
+                            NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
+                            nil);
+}
+
+- (void) ipInfoErrorDialog
+{
+    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
+                            @"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n",
+                            nil, nil, nil,
+                            @"skipWarningThatIPAddressDidNotChangeAfterConnection",
+                            NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
+                            nil);
+}
+
+- (void) ipInfoInternetNotReachableDialog
+{
+    NSString * msg = [NSString stringWithFormat:
+                      NSLocalizedString(@"After connecting to %@, the Internet does not appear to be reachable.\n\n"
+                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName]];
+    
+    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
+                            msg,
+                            nil, nil, nil,
+                            @"skipWarningThatInternetIsNotReachable",
+                            NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                            nil);
+}
+
+- (void) ipInfoNoDNSDialog
+{
+    NSString * msg = [NSString stringWithFormat:
+                      NSLocalizedString(@"After connecting to %@, DNS does not appear to be working.\n\n"
+                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName]];
+    
+    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
+                            msg,
+                            nil, nil, nil,
+                            @"skipWarningThatDNSIsNotWorking",
+                            NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
+                            nil);
+}
+
+- (void) ipInfoNoChangeDialogBefore: (NSString *) beforeConnect after: (NSString *) afterConnect
+{
+    NSString * msg = [NSString stringWithFormat:
+                      NSLocalizedString(@"This computer's apparent public IP address was not different after connecting to %@. It is still%@.\n\n"
+                                        @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName], beforeConnect];
+    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
+                            msg,
+                            nil, nil, nil,
+                            @"skipWarningThatIPAddressDidNotChangeAfterConnection",
+                            NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
+                            nil);
+}
+
+- (void) checkIPAddressBeforeConnected
+{
+    if (   [gTbDefaults boolForKey: @"skipWarningThatIPAddressDidNotChangeAfterConnection"]
+        || [gTbDefaults boolForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
+        return;
+    }
+    
+    // Try to get ipAddressBeforeConnect and serverIPAddress
+	[ipAddressBeforeConnect release];
+	ipAddressBeforeConnect = nil;
+	[serverIPAddress release];
+	serverIPAddress = nil;
+    
+	NSTimeInterval timeoutToUse = 5.0;
+    id obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckBeforeConnection"];
+    if (   obj
+        && [obj respondsToSelector: @selector(doubleValue)]  ) {
+        timeoutToUse = (NSTimeInterval) [obj doubleValue];
+    }
+	
+    NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
+    
+	if (  ipInfo  ) {
+		if (  [ipInfo count] > 2  ) {
+			ipAddressBeforeConnect = [[ipInfo objectAtIndex: 0] copy];
+			serverIPAddress        = [[ipInfo objectAtIndex: 2] copy];
+		} else {
+            NSLog(@"After %.1f seconds, gave up trying to fetch IP address information before connecting", timeoutToUse);
+			[self ipInfoTimeoutBeforeConnectingDialog: timeoutToUse];
+		}
+	} else {
+        NSLog(@"An error occured fetching IP address information before connecting");
+        [self ipInfoErrorDialog];
+    }
+}
+
+-(BOOL) checkForChangedIPAddress: (NSString *) beforeConnect andIPAddress: (NSString *) afterConnect
+{
+	if (  [beforeConnect isEqualToString: afterConnect]  ) {
+		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: This computer's apparent public IP address (%@) was unchanged after the connection was made", beforeConnect]];
+		[self ipInfoNoChangeDialogBefore: beforeConnect after: afterConnect];
+		return FALSE;
+	} else {
+		[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: This computer's apparent public IP address changed from %@ before connection to %@ after connection", beforeConnect, afterConnect]];
+		return TRUE;
+	}
+}	
+
+-(void) checkIPAddressAfterConnected
+{
+    if (   [gTbDefaults boolForKey: @"skipWarningThatIPAddressDidNotChangeAfterConnection"]
+        || [gTbDefaults boolForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]
+        || ( ! ipAddressBeforeConnect)
+        || ( ! serverIPAddress)  ) {
+        return;
+    }
+    
+    NSTimeInterval timeoutToUse = 5.0;
+    id obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckAfterConnection"];
+    if (   obj
+        && [obj respondsToSelector: @selector(doubleValue)]  ) {
+        timeoutToUse = (NSTimeInterval) [obj doubleValue];
+    }
+    
+    NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
+    if (  ! ipInfo  ) {
+        NSLog(@"An error occured fetching IP address information after connecting");
+        [self addToLog: @"*Tunnelblick: An error occured fetching IP address information after connecting"];        
+        [self ipInfoErrorDialog];
+        return;
+    }
+    
+    if (  [ipInfo count] > 0  ) {
+        [self checkForChangedIPAddress: ipAddressBeforeConnect andIPAddress: [ipInfo objectAtIndex:0]];
+        return;
+    }
+    
+    // Timed out. If the attempt was by IP address, the Internet isn't reachable
+    if (  ipCheckLastHostWasIPAddress  ) {
+        // URL was already numeric, so it isn't a DNS problem
+        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", (double) timeoutToUse]];      
+        [self ipInfoInternetNotReachableDialog];
+        return;
+    }
+    
+    // Timed out by name, try by IP address
+    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]];
+
+    ipInfo = [self currentIPInfoWithIPAddress: YES timeoutInterval: timeoutToUse];
+    if (  ! ipInfo  ) {
+        NSLog(@"An error occured fetching IP address information using the ipInfo host's IP address after connecting");
+        [self addToLog: @"*Tunnelblick: An error occured fetching IP address information using the ipInfo host's IP address after connecting"];        
+        [self ipInfoErrorDialog];
+        return;
+    }
+    
+    if (  [ipInfo count] == 0  ) {
+        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", (double) timeoutToUse]];      
+        [self ipInfoNoDNSDialog];
+        return;
+    }
+    
+    [self ipInfoNoDNSDialog];
+    
+    [self checkForChangedIPAddress: ipAddressBeforeConnect andIPAddress: [ipInfo objectAtIndex:0]];
 }
 
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
@@ -859,6 +1158,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
     }
+    
+    [self checkIPAddressBeforeConnected];
     
     logFilesMayExist = TRUE;
     authFailed = FALSE;
@@ -1622,7 +1923,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
 }
 
--(void)setPIDFromLine:(NSString *)line 
+-(void) setPIDFromLine:(NSString *)line 
 {
 	if([line rangeOfString: @"SUCCESS: pid="].length) {
 		@try {
@@ -1681,6 +1982,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         } else if ([newState isEqualToString: @"CONNECTED"]) {
             [[NSApp delegate] addConnection:self];
             [self flushDnsCache];
+            [self checkIPAddressAfterConnected];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         }
     }

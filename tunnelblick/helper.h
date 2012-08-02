@@ -20,6 +20,8 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+uint64_t       nowAbsoluteNanoseconds    (void);
+
 NSString     * configPathFromTblkPath   (NSString * path);
 NSString     * tblkPathFromConfigPath   (NSString * path);
 

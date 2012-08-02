@@ -187,6 +187,7 @@ BOOL needToCopyBundle(void);
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
+-(NSURL *)          getIPCheckURL;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
 -(void)             installConfigurationsUpdateInBundleAtPath: (NSString *)     path;
 -(unsigned)         decrementTunCount;

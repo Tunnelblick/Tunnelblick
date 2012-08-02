@@ -21,6 +21,7 @@
  */
 
 #import <unistd.h>
+#import <mach/mach_time.h>
 #import "defines.h"
 #import "helper.h"
 #import "TBUserDefaults.h"
@@ -45,6 +46,15 @@ extern NSMutableArray  * gConfigDirs;
 extern NSString        * gPrivatePath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
+
+uint64_t nowAbsoluteNanoseconds (void)
+{
+    // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
+    mach_timebase_info_data_t info;
+    mach_timebase_info(&info);
+    uint64_t nowNs = mach_absolute_time() * info.numer / info.denom;
+    return nowNs;
+}
 
 BOOL runningOnTigerOrNewer()
 {
