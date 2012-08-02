@@ -521,19 +521,6 @@ EOF
 	logMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
 	sleep 1
 	
-    # flush the DNS cache if DNS changed
-    if [ "${FIN_DNS_SA}" != "${CUR_DNS_SA}" -o "${FIN_DNS_SD}" != "${CUR_DNS_SD}" -o "${FIN_DNS_DN}" != "${CUR_DNS_DN}" ] ; then
-		case "${OSVER}" in
-			10.4 )
-				lookupd -flushcache
-				;;
-			* )
-				dscacheutil -flushcache
-				;;
-		esac
-		logMessage "The DNS cache was flushed because ServerAddresses, SearchDomains, or DomainName changed"
-	fi
-	
 	scutil > /dev/null <<- EOF
 		open
 
