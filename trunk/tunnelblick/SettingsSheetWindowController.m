@@ -145,6 +145,26 @@ extern TBUserDefaults       * gTbDefaults;
     }    
 }
 
+- (void) setupPrependDomainNameCheckbox
+{
+    // Select the appropriate Set nameserver entry
+    int ix = 1; // Default is 'Set nameserver'
+    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
+    id obj = [gTbDefaults objectForKey: key];
+	if (  [obj respondsToSelector: @selector(intValue)]  ) {
+		ix = [obj intValue];
+	}
+    
+    if (  ix == 1  ) {
+        [self setupCheckbox: prependDomainNameCheckbox
+                        key: @"-prependDomainNameToSearchDomains"
+                   inverted: NO];
+    } else {
+        [prependDomainNameCheckbox setState: NSOffState];
+        [prependDomainNameCheckbox setEnabled: NO];
+    }
+}
+
 -(void) showSettingsSheet: (id) sender
 {
     if (  ! settingsSheet  ) {
@@ -192,6 +212,7 @@ extern TBUserDefaults       * gTbDefaults;
     [scanConfigurationFileCheckbox          setTitle: NSLocalizedString(@"Scan configuration file for problems before connecting", @"Checkbox name")];
     [useTunTapDriversCheckbox               setTitle: NSLocalizedString(@"Use Tunnelblick tun/tap drivers"                       , @"Checkbox name")];
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
+    [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
     
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
@@ -356,6 +377,8 @@ extern TBUserDefaults       * gTbDefaults;
     } else {
         [useTunTapDriversCheckbox setEnabled: FALSE];
     }
+    
+    [self setupPrependDomainNameCheckbox];
     
     [self setupCheckbox: flushDnsCacheCheckbox
                     key: @"-doNotFlushCache"
@@ -587,8 +610,9 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
-// Methods for Connecting tab
+// Methods for Connecting & Disconnecting tab
 
+// This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (id) sender
 {
     [self changeBooleanPreference: @"-doNotReconnectOnUnexpectedDisconnect"
@@ -628,6 +652,14 @@ extern TBUserDefaults       * gTbDefaults;
     [self changeBooleanPreference: @"-doNotFlushCache"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
+}
+
+
+-(IBAction) prependDomainNameCheckboxWasClicked:(id)sender
+{
+    [self changeBooleanPreference: @"-prependDomainNameToSearchDomains"
+                               to: ([sender state] == NSOnState)
+                         inverted: NO];
 }
 
 

@@ -104,7 +104,21 @@ EOF )"
 	fi
 
 	DYN_DNS_DN="$2"
-
+	
+	# The variables
+	#     DYN_DNS_SD
+	#     DYN_SMB_WG
+	#     DYN_SMB_NN
+	# are left empty. There isn't a way for OpenVPN to set them.
+	
+	logMessage "DEBUG:"
+	logMessage "DEBUG: MAN_DNS_CONFIG = ${MAN_DNS_CONFIG}"
+	logMessage "DEBUG: MAN_SMB_CONFIG = ${MAN_SMB_CONFIG}"
+	logMessage "DEBUG:"
+	logMessage "DEBUG: CUR_DNS_CONFIG = ${CUR_DNS_CONFIG}"
+	logMessage "DEBUG: CUR_SMB_CONFIG = ${CUR_SMB_CONFIG}"
+	logMessage "DEBUG:"
+	logMessage "DEBUG:"
 	logMessage "DEBUG: DYN_DNS_DN = ${DYN_DNS_DN}; DYN_DNS_SA = ${DYN_DNS_SA}; DYN_DNS_SD = ${DYN_DNS_SD}"
 	logMessage "DEBUG: DYN_SMB_NN = ${DYN_SMB_NN}; DYN_SMB_WG = ${DYN_SMB_WG}; DYN_SMB_WA = ${DYN_SMB_WA}"
 	
@@ -298,33 +312,52 @@ EOF )"
 	fi
 
 	# DNS SearchDomains (FIN_DNS_SD) is treated specially
-	# if SearchDomains was not set manually, we set SearchDomains to the DomainName
-	# else
-	#      In OS X 10.4-10.5, we add the DomainName to the end of any manual SearchDomains (unless it is already there)
-	#      In OS X 10.6+, if SearchDomains was entered manually, we ignore the DomainName 
-	#                     else we set SearchDomains to the DomainName
+	#
+	# OLD BEHAVIOR:
+	#     if SearchDomains was not set manually, we set SearchDomains to the DomainName
+	#     else
+	#          In OS X 10.4-10.5, we add the DomainName to the end of any manual SearchDomains (unless it is already there)
+	#          In OS X 10.6+, if SearchDomains was entered manually, we ignore the DomainName 
+	#                         else we set SearchDomains to the DomainName
+	#
+	# NEW BEHAVIOR (done if ARG_PREPEND_DOMAIN_NAME is "true"):
+	#
+	#     if SearchDomains was entered manually, we do nothing
+	#     else we PREpend DomainName to the existing SearchDomains
+	#
+	#     This behavior is meant to behave like Linux with Network Manager and Windows
 	
-	if [ "${MAN_DNS_SD}" = "" ] ; then
-		logMessage "Setting SearchDomains to '${FIN_DNS_DN}' because SearchDomains was not set manually"
-		readonly FIN_DNS_SD="${FIN_DNS_DN}"
+	if "${ARG_PREPEND_DOMAIN_NAME}" ; then
+		if [ "${MAN_DNS_SD}" = "" ] ; then
+			logMessage "Prepended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+			readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${CUR_DNS_SD}")"
+		else
+			logMessage "Did not prepend '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and 'Prepend domain name to search domains' was selected"
+			readonly FIN_DNS_SD="${CUR_DNS_SD}"
+		fi
 	else
 		case "${OSVER}" in
 			10.4 | 10.5 )
 				if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-					logMessage "SearchDomains '${DYN_DNS_DN}' ignored because it is already in SearchDomains that were set manually"
-					readonly FIN_DNS_SD="${MAN_DNS_SD}"
+					logMessage "Did not append '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
+					readonly FIN_DNS_SD="${CUR_DNS_SD}"
 				else
+					logMessage "Appended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
 					readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
-					logMessage "Appended '${DYN_DNS_DN}' to SearchDomains that were set manually because running on OS X 10.4 or 10.5"
 				fi
 				;;
 			* )
-				logMessage "SearchDomains '${DYN_DNS_DN}' ignored because is running on OS X 10.6 or higher and SearchDomains was set manually"
-				readonly FIN_DNS_SD="${MAN_DNS_SD}"
+				if [ "${MAN_DNS_SD}" = "" ] ; then
+					logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
+					readonly FIN_DNS_SD="${FIN_DNS_DN}"
+				else
+					logMessage "Did not replace search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were set manually and 'Prepend domain name to search domains' was not selected"
+					readonly FIN_DNS_SD="${CUR_DNS_SD}"
+				fi
 				;;
 		esac
 	fi
-	
+		
 	logMessage "DEBUG:"
 	logMessage "DEBUG: FIN_DNS_DN = ${FIN_DNS_DN}; FIN_DNS_SA = ${FIN_DNS_SA}; FIN_DNS_SD = ${FIN_DNS_SD}"
 	logMessage "DEBUG: FIN_SMB_NN = ${FIN_SMB_NN}; FIN_SMB_WG = ${FIN_SMB_WG}; FIN_SMB_WA = ${FIN_SMB_WA}"
@@ -843,6 +876,7 @@ ARG_MONITOR_NETWORK_CONFIGURATION="false"
 ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
+ARG_PREPEND_DOMAIN_NAME="false"
 ARG_IGNORE_OPTION_FLAGS=""
 
 while [ {$#} ] ; do
@@ -858,10 +892,10 @@ while [ {$#} ] ; do
 	elif [ "$1" = "-a" ] ; then
 		ARG_TAP="true"
 		shift
-	elif [ "${1:0:2}" = "-i" ] ; then
-		ARG_IGNORE_OPTION_FLAGS="${1}"
+	elif [ "$1" = "-p" ] ; then
+		ARG_PREPEND_DOMAIN_NAME="true"
 		shift
-	elif [ "${1:0:2}" = "-a" ] ; then
+	elif [ "${1:0:2}" = "-i" ] ; then
 		ARG_IGNORE_OPTION_FLAGS="${1}"
 		shift
 	else

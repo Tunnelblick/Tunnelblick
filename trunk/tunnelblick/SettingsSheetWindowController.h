@@ -59,16 +59,14 @@ typedef enum
     IBOutlet NSTextFieldCell     * configurationStatusTFC;
     
     
-    // For Connecting tab
+    // For Connecting & Disconnecting tab
     
     IBOutlet NSButton            * scanConfigurationFileCheckbox;
     IBOutlet NSButton            * useTunTapDriversCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
+    IBOutlet NSButton            * prependDomainNameCheckbox;
     
     IBOutlet NSButton            * connectingHelpButton;
-    
-    
-    // For Disconnecting tab
     
     IBOutlet NSButton            * disconnectWhenUserSwitchesOutCheckbox;
     IBOutlet NSButton            * reconnectWhenUserSwitchesInCheckbox;
@@ -157,11 +155,15 @@ typedef enum
 
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
+-(void) setupPrependDomainNameCheckbox;
+
+
 // Methods for Connecting tab
 
 -(IBAction) scanConfigurationFileCheckboxWasClicked:          (id) sender;
 -(IBAction) useTunTapDriversCheckboxWasClicked:               (id) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
+-(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
 
 -(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
 
