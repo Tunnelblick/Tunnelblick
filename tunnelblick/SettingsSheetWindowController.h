@@ -213,7 +213,10 @@ typedef enum
 -(NSInteger) selectedOtherworkgroupIndex;
 -(void)      setSelectedOtherworkgroupIndex:    (NSInteger) newValue;
 
+// Getters & Setters
+
 TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 TBPROPERTY_READONLY(NSTabViewItem *, whileConnectedTabViewItem)
+TBPROPERTY(VPNConnection *, connection, setConnection)
 
 @end

@@ -111,8 +111,7 @@ extern TBUserDefaults       * gTbDefaults;
         [configurationName release];
         configurationName = [newName retain];
         
-        [connection release];
-        connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: configurationName];
+        [self setConnection: [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: configurationName]];
         
         if (  showingSettingsSheet  ) {
             [self initializeStaticContent];
@@ -938,6 +937,6 @@ extern TBUserDefaults       * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, whileConnectedTabViewItem)
-     
+TBSYNTHESIZE_OBJECT(retain, VPNConnection *, connection, setConnection)
 
 @end
