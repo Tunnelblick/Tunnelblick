@@ -926,7 +926,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         return nil;
     }
     
-    NSCharacterSet * charset = [NSCharacterSet characterSetWithCharactersInString: @"0123456789.,"];
+    charset = [NSCharacterSet characterSetWithCharactersInString: @"0123456789.,"];
     NSRange rng = [response rangeOfCharacterFromSet: [charset invertedSet]];
     if (  rng.length != 0  ) {
         NSLog(@"%@: Response had invalid characters. response = %@", logHeader, response);
