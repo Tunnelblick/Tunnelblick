@@ -2321,7 +2321,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     if ( gShuttingDownOrRestartingComputer ) {
         NSLog(@"DEBUG: Cleanup: Skipping cleanup because computer is shutting down or restarting");
         // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
-        return YES;
+        return TRUE;
     }
     
     if ( ! gShuttingDownWorkspace  ) {
@@ -2342,6 +2342,10 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  ! [lastState isEqualToString:@"EXITING"]) {
         NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
         [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
+    }
+    if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
+        NSLog(@"Skipping rest of cleanup (unload kexts, delete logs) because of fatal error.");
+        return TRUE;
     }
     
     NSLog(@"DEBUG: Cleanup: Unloading kexts");
@@ -2499,8 +2503,8 @@ static void signal_handler(int signalNumber)
             NSLog(@"signal_handler: Error while handling signal.");
             exit(0);
         } else {
-            gShuttingDownTunnelblick = TRUE;
             reasonForTermination = terminatingBecauseOfFatalError;
+            gShuttingDownTunnelblick = TRUE;
             NSLog(@"signal_handler: Starting cleanup.");
             if (  [[NSApp delegate] cleanup]  ) {
                 NSLog(@"signal_handler: Cleanup finished.");
