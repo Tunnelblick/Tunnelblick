@@ -386,6 +386,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
     [self setSelectedSetNameserverIndex: ix];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
+    [settingsSheetWindowController setupPrependDomainNameCheckbox];
 }
 
 -(void) setupNetworkMonitoring: (VPNConnection *) connection
@@ -1743,7 +1744,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                        inverted: YES];
         }
         [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
-        
+        [settingsSheetWindowController setupPrependDomainNameCheckbox];
     }
 }
 

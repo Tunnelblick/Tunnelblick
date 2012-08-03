@@ -1446,8 +1446,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
-    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET  inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"   inverted: YES];
-    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET   inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"    inverted: YES];
+    [self setBit: OPENVPNSTART_RESTORE_ON_WINS_RESET  inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnWinsReset"          inverted: YES];
+    [self setBit: OPENVPNSTART_RESTORE_ON_DNS_RESET   inMask: &bitMask ifConnectionPreference: @"-doNotRestoreOnDnsReset"           inverted: YES];
+    [self setBit: OPENVPNSTART_PREPEND_DOMAIN_NAME    inMask: &bitMask ifConnectionPreference: @"-prependDomainNameToSearchDomains" inverted: NO];
     
     NSString * bitMaskString = [NSString stringWithFormat: @"%d", bitMask];
     

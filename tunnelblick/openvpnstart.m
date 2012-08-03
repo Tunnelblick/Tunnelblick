@@ -348,6 +348,7 @@ int main(int argc, char* argv[])
                 "                            bit 4 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
                 "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
                 "                            bit 6 is 1 to indicate a TAP connection is being made; 0 to indicate a TUN connection is being made\n"
+                "                            bit 7 is 1 to indicate the domain name should be prepended to the search domains if search domains are not set manually\n"
                 "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
                 
                 "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -709,6 +710,10 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
         
         if (  (bitMask & OPENVPNSTART_USE_TAP) != 0  ) {
             [scriptOptions appendString: @" -a"];   // TAP only
+        }
+        
+        if (  (bitMask & OPENVPNSTART_PREPEND_DOMAIN_NAME) != 0  ) {
+            [scriptOptions appendString: @" -p"];
         }
         
         if (  [leasewatchOptions length] > 2  ) {
