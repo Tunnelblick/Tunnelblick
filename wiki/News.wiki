@@ -1,6 +1,20 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-08-04: *Tunnelblick 3.3beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes several problems on Mountain Lion and temporarily adds extra logging to help diagnose problems.
+
+ * Restores the default 'Set nameserver' DNS/WINS setting to restart when 'SearchDomain' is changed.
+
+ * Adds a new checkbox on the 'Advanced' settings page that tells Tunnelblick to add the domain name provided by OpenVPN to the start of the list of search domains. This checkbox is disabled and unchecked unless the DNS/WINS setting is set to 'Set nameserver'. Adding the domain name does not take place if the search domains are manually set.
+
+ * Checks that the computer's apparent public IP address changes when connected to a VPN. This can help diagnose connection and DNS problems. (Tunnelblick asks for permission to do this the first time it is launched for each user on a computer.)
+
+ * Fixes a crash of the Tunnelblick UI in certain complex circumstances.
+
+--------------------
+
 2012-07-27: *Tunnelblick 3.3beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a problem that stops updates from being installed.

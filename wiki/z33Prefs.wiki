@@ -29,10 +29,10 @@ All other preferences can be modified by
  * Forcing them (see [cCusDeployed "Deployed" Versions]).
  * Modifying them in the preferences file using Apple's "Property List Editor.app". “Property List Editor.app” is a small part of the free [http://developer.apple.com/technology/Xcode.html Developer Tools] available from Apple (a free Apple Developer Connection membership is required). The Developer Tools are a very large (over 900MB download) suite of programs for developing software for Macs. The Developer Tools installs Property List Editor.app in /Developer/Applications/Utilities.
  * Modifying them by using the "defaults" commands in Terminal.app. For example, to disable the display of the duration of connections in the VPN Details… window, use
-     `defaults    write    com.openvpn.tunnelblick "showConnectedDurations"    -bool    no`
-     
-     or, for Tunnelblick 3.2beta12 and later, use
      `defaults    write    net.tunnelblick.tunnelblick "showConnectedDurations"    -bool    no`
+     
+     or, for Tunnelblick 3.2beta10 and earlier, use
+     `defaults    write    com.openvpn.tunnelblick "showConnectedDurations"    -bool    no`
 
 ==Preferences That Control What Tunnelblick Does==
   * *placeIconInStandardPositionInStatusBar* (Boolean): If set, the Tunnelblick icon will be positioned normally, to the left of the other icons at the time Tunnelblick is started. If cleared or not present, the Tunnelblick icon will be placed between the time display and the Spotlight icon. The default is not present.
@@ -50,6 +50,9 @@ All other preferences can be modified by
   * *delayToHideStatistics* (Number): Delay in seconds before hiding the notification windows when when the pointer (mouse) is no longer over the Tunnelblick icon or a notification window.
   * *statisticsRateTimeInterval* (Number): The number in seconds over which rate statistics are smoothed for display in the notification window.
   * *notificationLog* (Boolean): If set, all OS X notifications will be logged. (Used for debugging Tunnelblick.)
+  * *timeoutForIPAddressCheckBeforeConnection* (Number): The number in seconds for which Tunnelblick will try to check the computer's apparent public IP address before attempting to make a VPN connection.
+  * *timeoutForIPAddressCheckAfterConnection* (Number): The number in seconds for which Tunnelblick will try to check the computer's apparent public IP address after making a VPN connection.
+  * *notOKToCheckThatIPAddressDidNotChangeAfterConnection* (Boolean): If set, the user has not given permission for Tunnelblick to access tunnelblick.net to determine the computer's apparent public IP address. If cleared or not present, the user has given Tunnelblick permission to do so.
 
 ==Preferences That Control What The User Sees==
   * *menuIconSet* (String): If set, specifies the name of the folder of icons that Tunnelblick should use to display the connection status in the status bar (usually, near the Spotlight icon). The default is "!TunnelBlick.TBMenuIcons". The folder may appear in several locations; see [cIconAnimation Icon Animation].
@@ -94,6 +97,9 @@ Most of Tunnelblick's warning messages include a "Do not warn about this again" 
   * *skipWarningThatNameChangeDisabledUpdates* (Boolean): If set Tunnelblick will warn that an update will fail if the name of Tunnelblick.app has been changed by the user. If cleared or not present, the warning will be displayed. Default is not present.
   * *skipWarningAboutNonAdminUpdatingTunnelblick* (Boolean): If set, Tunnelblick will not warn a non-administrator user that an update will require an administrator username/password before the changed updated application can be used. If cleared or not present, the warning will be displayed. Default is not present.
   * *skipWarningAboutUnknownOpenVpnProcesses* (Boolean): If set, Tunnelblick will not warn about OpenVPN processes that it cannot associate with a Tunnelblick VPN Connection.
+  * *skipWarningThatIPAddressDidNotChangeAfterConnection* (Boolean): If set, Tunnelblick will not warn that the computer's apparent public IP address did not change after making a VPN connection. If this warning is skipped, Tunnelblick will not attempt to access tunnelblick.net before or after a VPN connection is made.
+  * *skipWarningThatDNSIsNotWorking* (Boolean): If set, Tunnelblick will not warn about DNS not appearing to work after a VPN connection has been made.
+  * *skipWarningThatInternetIsNotReachable* (Boolean): If set, Tunnelblick will not warn about the Internet appearing to be unreachable after a VPN connection has been made.
   * *skipWarningAboutIgnoredConfigurations* is a boolean which controls display of the warning that one or more configurations are being ignored. Configurations are ignored if there are higher priority configurations with the same name. Priorities are, from highest to lowest:
     # Deployed .tlbk configurations
     # Deployed .ovpn and .conf configurations
@@ -127,7 +133,8 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *-loadTapKext* (Boolean): If set, the standard tap kext will be loaded.
   * *-loadTunKext* (Boolean): If set, the standard tun kext will be loaded.
   * *-doNotShowOnTunnelblickMenu* (Boolean): If set, the configuration will not be displayed in the Tunnelblick menu.
-
+  * *-prependDomainNameToSearchDomains* (Boolean): If set, makes Tunnelblick add the domain name provided by OpenVPN to the start of the list of search domains if the search domains are not manually set.
+  
   The following preferences control what Tunnelblick does when a network setting change occurs. They may have values of 'ignore', 'restore', or 'restart'. 'ignore' will cause the network change to be ignored; 'restore' will cause the network change to be reversed (the setting will be set to the post-VPN setting); and 'restart' will cause the connection to be restarted. They are usually set by controls on the "While Connected" tab of the "Advanced" settings window. They will be ignored (and the controls disabled) if the "-leasewatchOptions" preference is present.
 
   The following preferences control what happens when a setting changes to match the setting before the VPN was connected. All of them default to restore if not set.
@@ -164,6 +171,7 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *haveDealtWithSparkle1dot5b6* (Boolean): If set, Tunnelblick has reset the Sparkle Updater preferences for Sparkle version 1.5b6, so the user will be or has been asked about automatically checking for updates and including system profile information. If cleared, this has not been done yet. See the "updateCheckAutomatically" and "updateSendProfileInfo" preferences. The default is not present; Tunnelblick maintains this preference automatically. This preference is ignored if the "updateCheckAutomatically" and "updateSendProfileInfo" preferences are both forced (to any value).
   * *detailsWindowFrame*: The size and position of the "OpenVPN Log” window when it was last closed.
   * *detailsWindowFrameVersion*: The version of Tunnelblick that saved the detailsWindowFrame preference.
+  * *askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection* (Boolean): If set, 6, Tunnelblick has asked the user for permission to check the computer's apparent IP address before and after making a VPN connection (which involves sending the IP address and port and Tunnelblick version number to tunnelblick.net). If cleared, this has not been done yet.
 
 ==Sparkle Updater Preferences==
 All preferences starting with the letters "SU" are preferences used privately by Sparkle Updater (the program used for Tunnelblick's update mechanism). They cannot be forced and should not be modified. They include:
