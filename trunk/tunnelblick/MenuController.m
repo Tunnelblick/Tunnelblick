@@ -2841,11 +2841,17 @@ static void signal_handler(int signalNumber)
     
     if (  feedURL != nil  ) {
         if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
-            [updater setFeedURL: [NSURL URLWithString: feedURL]];
-            NSLog(@"Setting program update feedURL to %@", feedURL);
+            NSURL * url = [NSURL URLWithString: feedURL];
+            if ( url  ) {
+                [updater setFeedURL: url];
+                NSLog(@"Set program update feedURL to %@", feedURL);
+            } else {
+                feedURL = nil;
+                NSLog(@"Not setting program update feedURL because the string '%@' could not be converted to a URL", feedURL);
+            }
         } else {
             feedURL = nil;
-            NSLog(@"Not setting program update feedURL preference because Sparkle Updater does not respond to setFeedURL:");
+            NSLog(@"Not setting program update feedURL because Sparkle Updater does not respond to setFeedURL:");
         }
     }
     
