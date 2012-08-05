@@ -213,5 +213,6 @@ typedef enum
 
 TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 TBPROPERTY_READONLY(NSTabViewItem *, whileConnectedTabViewItem)
+TBPROPERTY(VPNConnection *, connection, setConnection)
 
 @end
