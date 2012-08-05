@@ -61,7 +61,7 @@ trim()
 
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-        if [ "TapDeviceHasBeenSetNone" == "false" ]; then
+        if [ "$bTapDeviceHasBeenSetNone" == "false" ]; then
             if [ -z "$dev" ]; then
                 logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Device may not have disconnected properly."
             else
