@@ -3,20 +3,21 @@
 
 Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. See [cGettingVPNService Getting VPN Service] for details.
 
-Tunnelblick comes as a ready-to-use Universal application with all necessary binaries and drivers (including OpenVPN and tun/tap). No additional installation is necessary -- just add your configuration and encryption information.
+Tunnelblick comes as a ready-to-use application with all necessary binaries and drivers (including OpenVPN and tun/tap). No additional installation is necessary -- just add your configuration and encryption information.
 
-Tunnelblick 3.1 runs on OS X 10.4 through 10.6 ("Tiger", "Leopard", and "Snow Leopard").
+Tunnelblick 3.3 runs on OS X 10.5 through 10.8 ("Leopard", "Snow Leopard", "Lion", and "Mountain Lion"). _Intel only_.
 
-Tunnelblick 3.2beta22 and higher run on OS X 10.7 ("Lion").
+Tunnelblick 3.2 runs on OS X 10.4 through 10.7 ("Tiger", "Leopard", "Snow Leopard", and  "Lion"). _PowerPC or Intel_.
 
-Tunnelblick 3.3beta02 and higher run on OS X 10.8 ("Mountain Lion").
+Tunnelblick 3.1 and 3.0 run on OS X 10.4 through 10.6 ("Tiger", "Leopard", and "Snow Leopard"). _PowerPC or Intel_
 
-Tunnelblick 2.0.1 is an old version that works on OS X 10.3 ("Panther").
+Tunnelblick 2.0.1 runs on OS X 10.3 ("Panther"). _PowerPC only_
 
-*About 64-bit and PPC compatibility*: Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard, and Lion. 
+*About 64-bit compatibility*: Tunnelblick is a 32-bit application, so it runs as an application in 32-bit mode on all versions of OS X.
 
-Tunnelblick includes Intel and PowerPC 32/64-bit versions of tun.kext and tap.kext. 32-bit kernels use the 32-bit tun/tap, and 64-bit kernels use the 64-bit tun/tap.
+Tunnelblick includes Intel 32/64-bit versions of tun.kext and tap.kext. 32-bit kernels use the 32-bit tun/tap, and 64-bit kernels use the 64-bit tun/tap.
 
+*About PowerPC compatibility*: Tunnelblick 3.3 is for Intel processors only; Tunnelblick 3.0, 3.1, and 3.2 are for Intel or PowerPC processors; Tunnelblick 2.0.1 is for PowerPC processors only.
 ------------------
 
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

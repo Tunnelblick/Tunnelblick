@@ -1,6 +1,18 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-08-06: *Tunnelblick 3.2.7 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * SECURITY UPDATE: Includes OpenSSL 1.0.0j, the latest security update to the 1.0.0 branch of OpenSSL.
+ 
+ * Tunnelblick 3.2 has reverted to using the OpenSSL 1.0.0 branch (from the 1.0.1 branch) because of problems with OpenSSL 1.0.1b on some PowerPC computers.
+
+ * Fixes a problem when a Tunnelblick VPN Configuration (.tblk) is not a folder.
+
+ * Fixes crashes of the Tunnelblick UI under two separate sets of complex circumstances.
+
+--------------------
+
 2012-08-04: *Tunnelblick 3.3beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes several problems on Mountain Lion and temporarily adds extra logging to help diagnose problems.

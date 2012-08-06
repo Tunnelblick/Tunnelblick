@@ -158,6 +158,18 @@
 
 ==Version 3.2==
 
+*3.2.7 (2012-08-06)*
+
+ * SECURITY UPDATE: Includes OpenSSL 1.0.0j, the latest security update to the 1.0.0 branch of OpenSSL.
+ 
+ * Tunnelblick 3.2 has reverted to using the OpenSSL 1.0.0 branch (from the 1.0.1 branch) because of problems with OpenSSL 1.0.1b on some PowerPC computers.
+
+ * Fixes a problem when a Tunnelblick VPN Configuration (.tblk) is not a folder.
+
+ * Fixes crashes of the Tunnelblick UI under two separate sets of complex circumstances.
+ 
+--------------------
+
 *3.2.6 (2012-05-03)*
 
  * Fixes a crash on OS X 10.4 ("Tiger") or PowerPC.

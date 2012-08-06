@@ -14,20 +14,19 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
 ==Tunnelblick==
 
-For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", and "Lion", and "Mountain Lion") Intel or PowerPC, 32- or 64-bit
-
- <strong>Stable release</strong> 3.2.6 (build 2891.3007) released 2012-05-03 [RlsNotes#Version_3.2 Release Notes]
-  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.6.dmg              Tunnelblick 3.2.6]</strong><br><br>
-  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.6_Unsigned.dmg     Tunnelblick 3.2.6 Unsigned]</strong><br>
+ <strong>Stable release</strong> 3.2.7 (build 2891.3087) released 2012-08-06 [RlsNotes#Version_3.2 Release Notes]<br>
+ For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.7.dmg              Tunnelblick 3.2.7]</strong><br><br>
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.7_Unsigned.dmg     Tunnelblick 3.2.7 Unsigned]</strong><br>
   (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)
 
- <strong>Beta releases</strong> 3.3beta18 (build 3081) released 2012-08-04 [RlsNotes#Version_3.3 Release Notes]
-  <strong><font color="red">Recommended for OS X 10.8 ("Mountain Lion")</font></strong><br>
-  <strong><font color="red">-- But see [cMountainLionDnsIssue Mountain Lion Problems]</font></strong><br><br>
+ <strong><font color="red"><u>For use on Mountain Lion</u></font></strong><br>
+ <strong>Beta release</strong> 3.3beta18 (build 3081) released 2012-08-04 [RlsNotes#Version_3.3 Release Notes]<br>
+ For use on OS X 10.5 - 10.8 ("Leopard", "Snow Leopard", "Lion", and "Mountain Lion") Intel only, 32- or 64-bit
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta18.dmg          Tunnelblick 3.3beta18]</strong><br><br>
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta18_Unsigned.dmg Tunnelblick 3.3beta18 Unsigned]</strong><br>
   (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br> 
- <strong>[DownloadsOlder Older Releases]</strong>
+ <strong>[DownloadsOlder Older Releases]</strong> including a release for OS X 10.3 ("Panther")
 
 <i>A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a beta release, but may be more reliable.
 
