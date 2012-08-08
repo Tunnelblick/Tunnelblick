@@ -65,6 +65,15 @@
 #define OPENVPNSTART_PREPEND_DOMAIN_NAME  128
 
 //*************************************************************************************************
+// Bit masks (and a shift count) for useScripts parameter of openvpnstart's start sub-command
+#define OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS           1
+#define OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT         2
+
+#define OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK        0xFC
+#define OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT    2
+
+
+//*************************************************************************************************
 // Bit masks for bitMask parameter of installer
 #define INSTALLER_COPY_APP      0x01
 #define INSTALLER_COPY_BUNDLE   0x02

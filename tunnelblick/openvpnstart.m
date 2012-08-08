@@ -416,7 +416,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
     NSString * deployDirPath           = [execPath stringByAppendingPathComponent: @"Deploy"];
     
     NSString * scriptNumString;
-    unsigned scriptNum = useScripts >> 2;
+    unsigned scriptNum = (useScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT;
     if (  scriptNum == 0) {
         scriptNumString = @"";
     } else {
@@ -748,7 +748,7 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
             fprintf(stderr, "Warning: Path for up and/or down script is very long. OpenVPN truncates the command line that starts each script to 255 characters, which may cause problems. Examine the OpenVPN log in Tunnelblick's \"VPN Details...\" window carefully.\n");
         }
         
-        if (  (useScripts & 2) != 0  ) {
+        if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
                                              @"--up", upscriptCommand,
                                              @"--plugin", downRootPath, downscriptCommand,
@@ -784,18 +784,30 @@ int startVPN(NSString* configFile, int port, unsigned useScripts, BOOL skipScrSe
                         " in OpenVPN version 2.3alpha1 and higher.", [versionToUse UTF8String]);
                 [pool drain];
                 exit(254);
-            } else {
             }
-
+            
             if (  openvpnHasRoutePreDown ) {
-                [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                                 @"--route-pre-down", routePreDownscriptCommand,
-                                                 nil
-                                                 ]
-                 ];
+                if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_USE_DOWN_ROOT) != 0  ) {
+                    if (  customRoutePreDownScript  ) {
+                        fprintf(stdout, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the custom route-pre-down script will not"
+                                " be executed as root unless the 'user' and 'group' options are removed from the OpenVPN configuration file.");
+                    } else {
+                        fprintf(stdout, "Warning: Tunnelblick is using 'openvpn-down-root.so', so the route-pre-down script will not be used."
+                                " You can override this by providing a custom route-pre-down script (which may be a copy of Tunnelblick's standard"
+                                " route-pre-down script) in a Tunnelblick VPN Configuration. However, that script will not be executed as root"
+                                " unless the 'user' and 'group' options are removed from the OpenVPN configuration file. If the 'user' and 'group'"
+                                " options are removed, then you don't need to use a custom route-pre-down script.");
+                    }
+                } else {
+                    [arguments addObjectsFromArray: [NSArray arrayWithObjects:
+                                                     @"--route-pre-down", routePreDownscriptCommand,
+                                                     nil
+                                                     ]
+                     ];
+                }
             }
         }
-    }        
+    }
     
     // Create a new script log which includes the command line used to start openvpn
     NSMutableString * fakeCmdLine = [NSMutableString stringWithString: openvpnPath];

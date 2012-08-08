@@ -337,8 +337,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
     // Set preferences from the ones used when connection was made
     // They are extracted from the openvpnstart args in the log filename
     
-    BOOL prefUseScripts  = (useScripts & 0x1) == 0x1;
-    unsigned prefScriptNum = useScripts >> 2;
+    BOOL prefUseScripts  = (useScripts & OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS) != 0;
+    unsigned prefScriptNum = (useScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT;
     if (  prefScriptNum > 2  ) { // Disallow invalid script numbers
         prefScriptNum = 0;
         prefsChangedOK = FALSE;
