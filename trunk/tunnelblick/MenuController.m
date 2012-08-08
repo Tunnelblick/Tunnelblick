@@ -3704,8 +3704,8 @@ static void signal_handler(int signalNumber)
                 TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                                 NSLocalizedString(@"This is a signed version of Tunnelblick.\n\n"
                                                   @"It cannot replace the Deployed version of Tunnelblick that is currently installed.\n"
-                                                  @"For more details see https://code.google.com/p/tunnelblick/wiki/cDigitalSignatures.\n\n"
-                                                  @"Please download and install an unsigned version.", @"Window text"),
+                                                  @"For more details see\nhttps://code.google.com/p/tunnelblick/wiki/cDigitalSignatures.\n\n"
+                                                  @"Please download and install an unsigned version of Tunnelblick.", @"Window text"),
                                 nil, nil, nil);
                 NSLog(@"The Tunnelblick installation was cancelled because it is a signed version that cannot replace a Deployed version.");
                 [self terminateBecause: terminatingBecauseOfError];
@@ -4294,11 +4294,30 @@ BOOL needToRestoreDeploy(void)
                                     stringByAppendingPathComponent: @"TunnelblickBackup"]
                                    stringByAppendingPathComponent: @"Deploy"];
     BOOL isDir;
-    BOOL haveBackup   = [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
+    BOOL haveBackup = [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
     && isDir;
-    BOOL haveDeploy   = [gFileMgr fileExistsAtPath: gDeployPath    isDirectory: &isDir]
+    BOOL haveDeploy = [gFileMgr fileExistsAtPath: gDeployPath      isDirectory: &isDir]
     && isDir;
-    return haveBackup && ( ! haveDeploy);
+    
+    if (  haveBackup && ( ! haveDeploy)  ) {
+        if (  [gFileMgr fileExistsAtPath: [[[[NSBundle mainBundle] bundlePath]
+                                            stringByAppendingPathComponent: @"Contents"]
+                                           stringByAppendingPathComponent: @"_CodeSignature"]]  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                            NSLocalizedString(@"This is a signed version of Tunnelblick.\n\n"
+                                              @"It cannot be used because it has replaced a Deployed version, and making it into a"
+                                              @" Deployed version would invalidate its digital signature.\n"
+                                              @"For more details see\nhttps://code.google.com/p/tunnelblick/wiki/cDigitalSignatures.\n\n"
+                                              @"Please download and install an unsigned version of Tunnelblick.", @"Window text"),
+                            nil, nil, nil);
+            NSLog(@"The Tunnelblick launch was cancelled because it is a signed version and replaced a Deployed version.");
+            [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        }
+        
+        return YES;
+    }
+    
+    return NO;
 }    
 
 BOOL needToRepairPackages(void)
