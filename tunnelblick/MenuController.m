@@ -3689,6 +3689,29 @@ static void signal_handler(int signalNumber)
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
 	if (  [self cannotRunFromVolume: currentPath]  ) {
         
+        // Do not install a signed version of Tunnelblick if the there is a Deploy backup that will be copied back into it, because
+        // that will invalidate the signature and cause all sorts of problems (Keychain, 'Tunnelblick is damaged', Gatekeeper problems, etc.)
+        // The Deploy backup will be copied if it exists and no "Deploy" folder is in this bundle.
+        if (  [gFileMgr fileExistsAtPath: [[[[NSBundle mainBundle] bundlePath]
+                                            stringByAppendingPathComponent: @"Contents"]
+                                           stringByAppendingPathComponent: @"_CodeSignature"]]  ) {
+            NSString * deployBackupPath = @"/Library/Application Support/Tunnelblick/Backup/Applications";
+            BOOL isDir;
+            BOOL hasDeployBackup = [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir] && isDir;
+            BOOL doesNotHaveDeploy = ! ([gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir] && isDir);
+            if (   doesNotHaveDeploy
+                && hasDeployBackup  ) {
+                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                NSLocalizedString(@"This is a signed version of Tunnelblick.\n\n"
+                                                  @"It cannot replace the Deployed version of Tunnelblick that is currently installed.\n"
+                                                  @"For more details see https://code.google.com/p/tunnelblick/wiki/cDigitalSignatures.\n\n"
+                                                  @"Please download and install an unsigned version.", @"Window text"),
+                                nil, nil, nil);
+                NSLog(@"The Tunnelblick installation was cancelled because it is a signed version that cannot replace a Deployed version.");
+                [self terminateBecause: terminatingBecauseOfError];
+            }
+        }
+        
         NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);
         
         NSString * preMessage = NSLocalizedString(@" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n", @"Window text");
