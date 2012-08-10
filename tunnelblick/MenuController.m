@@ -259,6 +259,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"timeoutForIPAddressCheckBeforeConnection",
                                 @"timeoutForIPAddressCheckAfterConnection",
+                                @"delayBeforeIPAddressCheckAfterConnection",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -3132,6 +3133,9 @@ static void signal_handler(int signalNumber)
         }
     }
     
+    activeIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
+    cancellingIPCheckThreads = [[NSMutableArray alloc] initWithCapacity: 4];
+    
     // Process runOnLaunch item
     if (  customRunOnLaunchPath  ) {
         NSTask* task = [[[NSTask alloc] init] autorelease];
@@ -4823,6 +4827,161 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return mouseIsInStatusWindow || mouseIsInMainIcon;
 }
 
+static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
+
+-(void) addActiveIPCheckThread: (NSString *) threadID
+{
+    OSStatus status = pthread_mutex_lock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+    
+    [activeIPCheckThreads addObject: threadID];
+	NSLog(@"DEBUG: addActiveIPCheckThread: threadID '%@' added to the active list", threadID);
+    
+    status = pthread_mutex_unlock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+}
+
+-(void) cancelIPCheckThread: (NSString *) threadID
+{
+    OSStatus status = pthread_mutex_lock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+    
+    if (  [activeIPCheckThreads containsObject: threadID]  ) {
+        if (  ! [cancellingIPCheckThreads containsObject: threadID]  ) {
+            [activeIPCheckThreads removeObject: threadID];
+            [cancellingIPCheckThreads addObject: threadID];
+            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' removed from the active list and added to the cancelling list", threadID);
+            
+        } else {
+            NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is on both the active and cancelling lists! Removing from active list", threadID);
+            [activeIPCheckThreads removeObject: threadID];
+        }
+    } else {
+        if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
+            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' is already on the cancelling list!", threadID);
+        } else {
+            NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is not in the the active or cancelling list! Added it to cancelling list", threadID);
+            [cancellingIPCheckThreads addObject: threadID];
+        }
+    }
+    
+    status = pthread_mutex_unlock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+}
+
+-(void) cancelAllIPCheckThreadsForConnection: (VPNConnection *) connection
+{
+    OSStatus status = pthread_mutex_lock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+    
+    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: Entered");
+    // Make a list of threadIDs to cancel
+    NSString * prefix = [NSString stringWithFormat: @"%lu-", (long) connection];
+    NSMutableArray * threadsToCancel = [NSMutableArray arrayWithCapacity: 5];
+    NSEnumerator * e = [activeIPCheckThreads objectEnumerator];
+    NSString * threadID;
+    while (  threadID = [e nextObject]  ) {
+        if (  [threadID hasPrefix: prefix]  ) {
+            [threadsToCancel addObject: threadID];
+        }
+    }
+
+    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: No active threads for connection %lu", (long) connection);
+    
+    // Then cancel them. (This avoids changing the list while we enumerate it.)
+    e = [threadsToCancel objectEnumerator];
+    while (  threadID = [e nextObject]  ) {
+        if (  [activeIPCheckThreads containsObject: threadID]  ) {
+            if (  ! [cancellingIPCheckThreads containsObject: threadID]  ) {
+                [activeIPCheckThreads removeObject: threadID];
+                [cancellingIPCheckThreads addObject: threadID];
+                NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: threadID '%@' removed from the active list and added to the cancelling list", threadID);
+
+            } else {
+                NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is on both the active and cancelling lists! Removing from active list", threadID);
+                [activeIPCheckThreads removeObject: threadID];
+            }
+        } else {
+            if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
+                NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is already on the cancelling list!", threadID);
+            } else {
+                NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is not in the the active or cancelling list! Added it to cancelling list", threadID);
+                [cancellingIPCheckThreads addObject: threadID];
+            }
+        }
+    }
+    
+    status = pthread_mutex_unlock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+}
+
+-(BOOL) isOnCancellingListIPCheckThread: (NSString *) threadID
+{
+    OSStatus status = pthread_mutex_lock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return NO;
+    }
+    
+    BOOL answer = ([cancellingIPCheckThreads containsObject: threadID] ? YES : NO);
+    if (  answer  ) {
+        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is on the the cancelling list", threadID);
+    } else {
+        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is not on the the cancelling list", threadID);
+    }
+    
+    status = pthread_mutex_unlock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return NO;
+    }
+    
+    return answer;
+}
+
+-(void) haveFinishedIPCheckThread: (NSString *) threadID
+{
+    OSStatus status = pthread_mutex_lock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_lock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+    
+    if (  [activeIPCheckThreads containsObject: threadID]  ) {
+        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from active list", threadID);
+        [activeIPCheckThreads removeObject: threadID];
+    }
+    
+    if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
+        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from cancelling list", threadID);
+        [cancellingIPCheckThreads removeObject: threadID];
+    }
+
+    status = pthread_mutex_unlock( &threadIdsMutex );
+    if (  status != EXIT_SUCCESS  ) {
+        NSLog(@"pthread_mutex_unlock( &threadIdsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
+        return;
+    }
+}
+
 
 #ifdef INCLUDE_VPNSERVICE
 //*********************************************************************************************************
@@ -4986,6 +5145,8 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *, statusItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,       myVPNMenu)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, activeIPCheckThreads)
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, cancellingIPCheckThreads)
 
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)

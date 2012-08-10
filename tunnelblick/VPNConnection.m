@@ -769,6 +769,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) dealloc
 {
     [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
+    [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
     [logDisplay release];
     [managementSocket close];
     [managementSocket setDelegate: nil];
@@ -828,7 +829,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSArray *) currentIPInfoWithIPAddress: (BOOL) useIPAddress
                         timeoutInterval: (NSTimeInterval) timeoutInterval
 {
-    NSString * logHeader = [NSString stringWithFormat:@"*Tunnelblick: DEBUG: currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
+    NSString * logHeader = [NSString stringWithFormat:@"DEBUG: currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
 
     NSURL * url = [[NSApp delegate] getIPCheckURL];
     if (  ! url  ) {
@@ -909,7 +910,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         return [NSArray array];
     } else {
         uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
-        long elapsedTimeMilliseconds = (long) (elapsedTimeNanoseconds + 500000) / 1000000;
+        long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
         NSLog(@"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
 	}
 
@@ -997,7 +998,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) ipInfoNoChangeDialogBefore: (NSString *) beforeConnect after: (NSString *) afterConnect
 {
     NSString * msg = [NSString stringWithFormat:
-                      NSLocalizedString(@"This computer's apparent public IP address was not different after connecting to %@. It is still%@.\n\n"
+                      NSLocalizedString(@"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\n"
                                         @"This may mean that your VPN is not configured correctly.\n\n", @"Window text"), [self displayName], beforeConnect];
     TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
                             msg,
@@ -1043,6 +1044,21 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) checkIPAddressAfterConnected
+{
+    if (   [gTbDefaults boolForKey: @"skipWarningThatIPAddressDidNotChangeAfterConnection"]
+        || [gTbDefaults boolForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]
+        || ( ! ipAddressBeforeConnect)
+        || ( ! serverIPAddress)  ) {
+        return;
+    }
+    
+    NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
+    [[NSApp delegate] addActiveIPCheckThread: threadID];
+    [NSThread detachNewThreadSelector:@selector(checkIPAddressAfterConnectedThread:) toTarget: self withObject: threadID];
+    return;
+}
+
 -(BOOL) checkForChangedIPAddress: (NSString *) beforeConnect andIPAddress: (NSString *) afterConnect
 {
 	if (  [beforeConnect isEqualToString: afterConnect]  ) {
@@ -1055,63 +1071,129 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }	
 
--(void) checkIPAddressAfterConnected
+-(void) checkIPAddressErrorResultLogMessage: (NSString *) msg
 {
-    if (   [gTbDefaults boolForKey: @"skipWarningThatIPAddressDidNotChangeAfterConnection"]
-        || [gTbDefaults boolForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]
-        || ( ! ipAddressBeforeConnect)
-        || ( ! serverIPAddress)  ) {
-        return;
+    [self addToLog: msg];
+    [self ipInfoErrorDialog];
+}
+
+-(void) checkIPAddressGoodResult: (NSDictionary *) dict
+{
+    [self checkForChangedIPAddress: [dict objectForKey: @"before"]
+                      andIPAddress: [dict objectForKey: @"after"]];
+}
+
+-(void) checkIPAddressBadResultLogMessage: (NSString *) msg
+{
+    [self addToLog: msg];      
+    [self ipInfoInternetNotReachableDialog];
+}
+
+-(void) checkIPAddressNoDNSLogMessage: (NSString *) msg
+{
+    [self addToLog: msg];      
+    [self ipInfoNoDNSDialog];
+}
+
+//******************************************************************************************************************
+// This method runs in a separate thread detached by checkIPAddressAfterConnected
+-(void) checkIPAddressAfterConnectedThread: (NSString *) threadID
+{
+    NSTimeInterval delay = 5.0;   // Delay for network settling before we start trying to get the IP info 
+    id obj = [gTbDefaults objectForKey: @"delayBeforeIPAddressCheckAfterConnection"];
+    if (   obj
+        && [obj respondsToSelector: @selector(doubleValue)]  ) {
+        delay = (NSTimeInterval) [obj doubleValue];
+    }
+    useconds_t delayMicroseconds = (delay * 1.0e6);
+    if (  delayMicroseconds != 0  ) {
+        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay);
+        usleep(delayMicroseconds);
     }
     
-    NSTimeInterval timeoutToUse = 5.0;
-    id obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckAfterConnection"];
+    NSTimeInterval timeoutToUse = 30.0;   // Long timeout value here; we are asynchronous so it doesn't matter  
+    obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckAfterConnection"];
     if (   obj
         && [obj respondsToSelector: @selector(doubleValue)]  ) {
         timeoutToUse = (NSTimeInterval) [obj doubleValue];
     }
     
     NSArray * ipInfo = [self currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
+    if (   [[NSApp delegate] isOnCancellingListIPCheckThread: threadID]
+        || ( ! [lastState isEqualToString: @"CONNECTED" ] )  ) {
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
+        return;
+    }
+    
     if (  ! ipInfo  ) {
+        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
         NSLog(@"An error occured fetching IP address information after connecting");
-        [self addToLog: @"*Tunnelblick: An error occured fetching IP address information after connecting"];        
-        [self ipInfoErrorDialog];
+        [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
+                               withObject: @"*Tunnelblick: An error occured fetching IP address information after connecting"
+                            waitUntilDone: NO];
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
         return;
     }
     
     if (  [ipInfo count] > 0  ) {
-        [self checkForChangedIPAddress: ipAddressBeforeConnect andIPAddress: [ipInfo objectAtIndex:0]];
+        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@", [ipInfo objectAtIndex:0]);
+        [self performSelectorOnMainThread: @selector(checkIPAddressGoodResult:)
+                               withObject: [NSDictionary dictionaryWithObjectsAndKeys: ipAddressBeforeConnect, @"before", [ipInfo objectAtIndex:0], @"after", nil]
+                            waitUntilDone: NO];
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
         return;
     }
     
     // Timed out. If the attempt was by IP address, the Internet isn't reachable
     if (  ipCheckLastHostWasIPAddress  ) {
         // URL was already numeric, so it isn't a DNS problem
-        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", (double) timeoutToUse]];      
-        [self ipInfoInternetNotReachableDialog];
+        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
+        [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
+                               withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
+		                    waitUntilDone: NO];
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
         return;
     }
     
     // Timed out by name, try by IP address
-    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]];
+    NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's name; retrying by IP address");
+
+    [self performSelectorOnMainThread: @selector(addToLog:)
+                           withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]
+                        waitUntilDone: NO];
 
     ipInfo = [self currentIPInfoWithIPAddress: YES timeoutInterval: timeoutToUse];
+    if (   [[NSApp delegate] isOnCancellingListIPCheckThread: threadID]
+        || ( ! [lastState isEqualToString: @"CONNECTED" ] )  ) {
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
+        return;
+    }
+    
     if (  ! ipInfo  ) {
-        NSLog(@"An error occured fetching IP address information using the ipInfo host's IP address after connecting");
-        [self addToLog: @"*Tunnelblick: An error occured fetching IP address information using the ipInfo host's IP address after connecting"];        
-        [self ipInfoErrorDialog];
+        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
+        NSLog(@"An error occured fetching IP address information after connecting");
+        [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
+                               withObject: @"*Tunnelblick: An error occured fetching IP address information using the ipInfo host's IP address after connecting"
+                            waitUntilDone: NO];
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
         return;
     }
     
     if (  [ipInfo count] == 0  ) {
-        [self addToLog: [NSString stringWithFormat:@"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", (double) timeoutToUse]];      
-        [self ipInfoNoDNSDialog];
+        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
+        [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
+                               withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
+		                    waitUntilDone: NO];
+        [[NSApp delegate] haveFinishedIPCheckThread: threadID];
         return;
     }
     
-    [self ipInfoNoDNSDialog];
-    
-    [self checkForChangedIPAddress: ipAddressBeforeConnect andIPAddress: [ipInfo objectAtIndex:0]];
+    // Got IP address, even though DNS isn't working
+    NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0]);
+    [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
+                           withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting.", (double) timeoutToUse]
+                        waitUntilDone: NO];
+    [[NSApp delegate] haveFinishedIPCheckThread: threadID];
 }
 
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
@@ -1673,6 +1755,8 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 // Waits for up to 5 seconds for the disconnection to occur if "wait" is TRUE
 - (void) disconnectAndWait: (NSNumber *) wait userKnows:(BOOL)userKnows
 {
+    [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
+    
     if (  [self isDisconnected]  ) {
         return;
     }
@@ -1829,6 +1913,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 // Call on main thread only
 -(void) hasDisconnected
 {
+    [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
+
     [self clearStatisticsRatesDisplay];
     
     pthread_mutex_lock( &lastStateMutex );
@@ -1924,6 +2010,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) processState: (NSString *) newState dated: (NSString *) dateTime
 {
     if ([newState isEqualToString: @"EXITING"]) {
+        [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
         [self hasDisconnected];                     // Sets lastState and does processing only once
     } else {
         
@@ -2367,6 +2454,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     if (inSocket==managementSocket) {
         [self setManagementSocket: nil];
+        [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
         [self performSelectorOnMainThread: @selector(hasDisconnected) withObject: nil waitUntilDone: NO];
     }
 }
@@ -2588,9 +2676,15 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void) setState: (NSString*) newState
 	// Be sure to call this in main thread only
 {
-    [newState retain];
-    [lastState release];
-    lastState = newState;
+    if (  [newState isEqualToString: @"EXITING"]  ) {
+        [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
+    }
+    
+    if (  newState != lastState  ) {
+        [newState retain];
+        [lastState release];
+        lastState = newState;
+    }
 
     // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
     // The 'connected.sh' and 'reconnecting.sh' scripts are run here
