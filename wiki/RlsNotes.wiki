@@ -158,6 +158,12 @@
 
 ==Version 3.2==
 
+*3.2.8 (2012-08-10)*
+
+ * Fixes several problems caused by digital signatures.
+ 
+--------------------
+
 *3.2.7 (2012-08-06)*
 
  * SECURITY UPDATE: Includes OpenSSL 1.0.0j, the latest security update to the 1.0.0 branch of OpenSSL.

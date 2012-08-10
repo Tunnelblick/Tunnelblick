@@ -1,6 +1,12 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-08-06: *Tunnelblick 3.2.8 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes several problems caused by digital signatures.
+
+--------------------
+
 2012-08-06: *Tunnelblick 3.2.7 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * SECURITY UPDATE: Includes OpenSSL 1.0.0j, the latest security update to the 1.0.0 branch of OpenSSL.
