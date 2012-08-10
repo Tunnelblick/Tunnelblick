@@ -64,6 +64,7 @@
 #define OPENVPNSTART_USE_TAP               64
 #define OPENVPNSTART_PREPEND_DOMAIN_NAME  128
 
+
 //*************************************************************************************************
 // Bit masks (and a shift count) for useScripts parameter of openvpnstart's start sub-command
 #define OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS           1
@@ -71,6 +72,14 @@
 
 #define OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK        0xFC
 #define OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT    2
+
+
+//*************************************************************************************************
+// Parameter of openvpnstart's flushDNSCache sub-command
+#define OPENVPNSTART_DNS_CACHE_FLUSH_LOOKUPD       1
+#define OPENVPNSTART_DNS_CACHE_FLUSH_DSCACHEUTIL   2
+#define OPENVPNSTART_DNS_CACHE_FLUSH_MDNSRESPONDER 3
+#define OPENVPNSTART_DNS_CACHE_FLUSH_MAX_METHOD    3
 
 
 //*************************************************************************************************

@@ -71,8 +71,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             disconnectFromManagmentSocket;
 
--(void)             flushDnsCache;
-
 -(void)             forceKillWatchdogHandler;
 
 -(void)             forceKillWatchdog;
@@ -1866,44 +1864,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [[NSApp delegate] updateNavigationLabels];
     
-    [self flushDnsCache];
+    [[NSApp delegate] flushDnsCache: self];
 
 }
     
--(void) flushDnsCache
-{
-    NSString * key = [displayName stringByAppendingString:@"-doNotFlushCache"];
-    if (  ! [gTbDefaults boolForKey: key]  ) {
-        BOOL didNotTry = TRUE;
-        NSArray * pathArray = [NSArray arrayWithObjects: @"/usr/bin/dscacheutil", @"/usr/sbin/lookupd", nil];
-        NSString * path;
-        NSEnumerator * arrEnum = [pathArray objectEnumerator];
-        while (  path = [arrEnum nextObject]  ) {
-            if (  [gFileMgr fileExistsAtPath: path]  ) {
-                didNotTry = FALSE;
-                NSArray * arguments = [NSArray arrayWithObject: @"-flushcache"];
-                NSTask * task = [[NSTask alloc] init];
-                [task setLaunchPath: path];
-                [task setArguments: arguments];
-                [task launch];
-                [task waitUntilExit];
-                int status = [task terminationStatus];
-                [task release];
-                if (  status != 0) {
-                    [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Failed to flush the DNS cache; the command was: '%@ -flushcache'", path]];
-                } else {
-                    [self addToLog: @"*Tunnelblick: Flushed the DNS cache"];
-                    break;
-                }
-            }
-        }
-        
-        if (  didNotTry  ) {
-            [self addToLog: @"* Tunnelblick: DNS cache not flushed; did not find needed executable"];
-        }
-    }
-}
-
 - (void) netsocketConnected: (NetSocket*) socket
 {
     
@@ -1982,7 +1946,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             
         } else if ([newState isEqualToString: @"CONNECTED"]) {
             [[NSApp delegate] addConnection:self];
-            [self flushDnsCache];
+            [[NSApp delegate] flushDnsCache: self];
             [self checkIPAddressAfterConnected];
             [gTbDefaults setBool: YES forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
         }

@@ -4691,6 +4691,39 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     return noErr;
 }
 
+-(void) flushDnsCache: (VPNConnection *) connection
+{
+    NSString * key = [[connection displayName ] stringByAppendingString:@"-doNotFlushCache"];
+    if (  ! [gTbDefaults boolForKey: key]  ) {
+        NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+        int method;
+        if (  runningOnLionOrNewer()  ) {
+            method = OPENVPNSTART_DNS_CACHE_FLUSH_MDNSRESPONDER;
+        } else if (  runningOnLeopardOrNewer()  ) {
+            method = OPENVPNSTART_DNS_CACHE_FLUSH_DSCACHEUTIL;
+        } else {
+            method = OPENVPNSTART_DNS_CACHE_FLUSH_LOOKUPD;
+        }
+        NSTask * task = [[[NSTask alloc] init] autorelease];
+        [task setLaunchPath: path];
+        [task setArguments: [NSArray arrayWithObjects: @"flushDNSCache", [NSString stringWithFormat: @"%d", method], nil]];
+        NSPipe * errPipe = [[[NSPipe alloc] init] autorelease];
+        [task setStandardError: errPipe];
+        [task launch];
+        [task waitUntilExit];
+        
+        OSStatus status = [task terminationStatus];
+        if (  status == EXIT_SUCCESS) {
+            [connection addToLog: @"*Tunnelblick: Flushed the DNS cache"];
+        } else {
+            NSFileHandle * file = [errPipe fileHandleForReading];
+            NSData * data = [file readDataToEndOfFile];
+            [file closeFile];
+            NSString * stderrString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+            [connection addToLog: [NSString stringWithFormat: @"*Tunnelblick: Failed to flush the DNS cache using method #d.\n%@", method, stderrString]];
+        }
+    }
+}
 
 -(NSArray *) sortedSounds
 {

@@ -42,6 +42,8 @@ void       deleteLogFiles          (NSString * configurationFile, unsigned cfgLo
 
 void       compareTblkShadowCopy   (NSString * displayName);
 
+OSStatus   flushDNSCache           (int method);
+
 NSString * newTemporaryDirectoryPath(void);
 
 void    errorExitIfAttackViaString (NSString * string);
@@ -136,6 +138,16 @@ int main(int argc, char* argv[])
                     }
                     loadKexts(bitMask);
                     syntaxError = FALSE;
+                }
+			}
+            
+		} else if( strcmp(command, "flushDNSCache") == 0 ) {
+			if (  argc == 3 ) {
+                unsigned int method = atoi(argv[2]);
+                if (  method <= OPENVPNSTART_DNS_CACHE_FLUSH_MAX_METHOD  ) {
+                    OSStatus status = flushDNSCache(method);
+                    [pool drain];
+                    exit(status);
                 }
 			}
             
@@ -1473,6 +1485,46 @@ void unloadKexts(unsigned int bitMask)
     
     runAsRoot(@"/sbin/kextunload", arguments);
 }
+
+
+//**************************************************************************************************************************
+// Flush the DNS cache
+OSStatus flushDNSCache(int method)
+{
+    NSString * path      = nil;
+    NSArray  * arguments = nil;
+    
+    switch (method) {
+        case OPENVPNSTART_DNS_CACHE_FLUSH_LOOKUPD:
+            path = @"/usr/sbin/lookupd";
+            arguments = [NSArray arrayWithObject: @"-flushcache"];
+            break;
+            
+        case OPENVPNSTART_DNS_CACHE_FLUSH_DSCACHEUTIL:
+            path = @"/usr/bin/dscacheutil";
+            arguments = [NSArray arrayWithObject: @"-flushcache"];
+            break;
+            
+        case OPENVPNSTART_DNS_CACHE_FLUSH_MDNSRESPONDER:
+            path = @"/usr/bin/killall";
+            arguments = [NSArray arrayWithObjects: @"-HUP", @"mDNSResponder", nil];
+            break;
+    }
+    
+    OSStatus status = EXIT_FAILURE;
+	
+	if (  path  ) {
+        if (  [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+            status = runAsRoot(path, arguments);
+        } else {
+            fprintf(stderr, "openvpnstart: flushDNSCache: Error: %s does not exist for method #%d", [path UTF8String], method);
+        }
+    } else {
+        fprintf(stderr, "openvpnstart: flushDNSCache: Error: invalid argument %d", method);
+    }
+	return status;
+}
+
 
 //**************************************************************************************************************************
 // Returns as root, having setuid(0) if necessary; complains and exits if can't become root
