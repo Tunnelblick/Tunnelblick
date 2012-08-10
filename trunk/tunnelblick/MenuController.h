@@ -112,6 +112,9 @@ BOOL needToCopyBundle(void);
     
     NSMutableArray          * pIDsWeAreTryingToHookUpTo;    // List of process IDs for processes we are trying to hookup to
     
+    NSMutableArray          * activeIPCheckThreads;         // List of threadIDs of active IPCheck threads that have not been queued for cancellation
+    NSMutableArray          * cancellingIPCheckThreads;     // List of threadIDs of IPCheck threads that have been queued for cancellation
+    
     NSString                * lastState;                    // Most recent state of connection (EXITING, SLEEP, etc.)
     
     UKKQueue                * myQueue;                      // UKKQueue item for monitoring the configuration file folder
@@ -225,6 +228,14 @@ BOOL needToCopyBundle(void);
 -(void)             hideStatisticsWindows;
 -(void)             updateUI;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
+
+-(void) addActiveIPCheckThread: (NSString *) threadID;
+-(void) cancelIPCheckThread: (NSString *) threadID;
+-(void) cancelAllIPCheckThreadsForConnection: (VPNConnection *) connection;
+-(BOOL) isOnCancellingListIPCheckThread: (NSString *) threadID;
+-(void) haveFinishedIPCheckThread: (NSString *) threadID;
+
+
 // Getters and Setters
 
 -(NSArray *)        animImages;
@@ -258,6 +269,8 @@ BOOL needToCopyBundle(void);
 
 TBPROPERTY_READONLY(NSStatusItem *, statusItem)
 TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
+TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
+TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
