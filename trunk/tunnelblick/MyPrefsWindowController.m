@@ -273,7 +273,9 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[self window] makeFirstResponder: [utilitiesPrefsView utilitiesHelpButton]];
     } else if (   view == infoPrefsView  ) {
         [[self window] makeFirstResponder: [infoPrefsView infoHelpButton]];
-        NSString * version = [NSString stringWithFormat: @"%@  -  %@", tunnelblickVersion([NSBundle mainBundle]), openVPNVersion()];
+        NSString * deployedString = (gDeployPath && [gFileMgr fileExistsAtPath: gDeployPath]
+                                     ? NSLocalizedString(@" (Deployed)", @"Window title") : @"");
+        NSString * version = [NSString stringWithFormat: @"%@%@  -  %@", tunnelblickVersion([NSBundle mainBundle]), deployedString, openVPNVersion()];
         [[infoPrefsView infoVersionTFC] setTitle: version];
     } else {
         NSLog(@"newViewDidAppear:identifier: invoked with unknown view");
