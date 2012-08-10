@@ -16,6 +16,8 @@ OPENSSL_BUILD_DIR = $(TOPDIR)/$(BUILD_DIR)/$(OPENSSL_SRC_DIR)
 OPENSSL_DEST_DIR = $(TOPDIR)/$(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)
 OPENSSL_TARGET_FILES = $(foreach f, libcrypto.a libssl.a, $(OPENSSL_DEST_DIR)/lib/$(f))
 
+SPARKLE_DIR = sparkle-1.5b6
+
 PROJ_BUILD_DIRS = $(foreach proj, $(THIRD_PARTY_PROJS), $($(proj)_BUILD_DIR))
 
 # Both lzo and openvpn should be built universally
@@ -28,6 +30,9 @@ TUNTAP_CURRENT_DIR=tuntap-20111101
 
 all: tuntap openvpn
 	rm -rf $(BUILD_DIR)
+
+clean: sparkle-clean tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
+ 	rm -rf $(BUILD_DIR)
 
 buildenv: $(PROJ_BUILD_DIRS)
 $(PROJ_BUILD_DIRS):
@@ -122,7 +127,7 @@ openvpn-patch:
 		cd ../../../; \
 	done
 	
-openvpn: lzo openssl pkcs11-helper openvpn-patch
+openvpn: sparkle openvpn-patch lzo pkcs11-helper openssl
 	for openvpndir in `ls openvpn`; do \
 		for a in ppc i386; do \
 			cd openvpn/$$openvpndir/openvpn; \
@@ -176,5 +181,43 @@ tuntap-clean:
 	rm -f -R tap.kext; \
 	rm -f -R tun.kext
 
-clean: tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
-	rm -rf $(BUILD_DIR)
+sparkle-patch:
+	cd "$(SPARKLE_DIR)"; \
+	if [ -d ../patches/sparkle ]; then \
+		for patchfile in `ls ../patches/sparkle/*.diff`; do \
+			patch -p1 -N --dry-run -i $$patchfile > /dev/null; \
+			if [ $$? == 0 ]; then \
+				patch -p1 -N -i $$patchfile; \
+				if [ $$? == 0 ]; then \
+				    touch "$${patchfile}.patch-applied" ; \
+					echo "Sparkle patch applied: $(SPARKLE_DIR)/$${patchfile}" ; \
+				else \
+					echo "error: Sparkle patch failed: $(SPARKLE_DIR)/$${patchfile}" ; \
+				fi \
+			else \
+				if [ -e "$${patchfile}.patch-applied" ] ; then \
+					echo "warning: Sparkle patch skipped; it has apparently already been applied: $(SPARKLE_DIR)/$${patchfile}" ; \
+				else \
+					echo "error: Sparkle patch has not been applied previously and could not be applied now: $(SPARKLE_DIR)/$${patchfile}" ; \
+				fi \
+			fi \
+		done; \
+	else \
+		echo "No Sparkle patches" ; \
+	fi; \
+	cd ../
+
+sparkle: sparkle-patch
+	cd "$(SPARKLE_DIR)/Extras/Source Code"; \
+	xcodebuild -project Sparkle.xcodeproj -target Sparkle -configuration Release clean; \
+	xcodebuild -project Sparkle.xcodeproj -target Sparkle -configuration Release build; \
+	cd ../../../
+	rm -f -r "Sparkle.framework"
+	cp -X -f -R "$(SPARKLE_DIR)/Extras/Source Code/build/Release/Sparkle.framework" "Sparkle.framework"
+	touch built-sparkle
+	
+sparkle-clean:
+	rm -f -r "Sparkle.framework"
+	cd "$(SPARKLE_DIR)/Extras/Source Code"; \
+	xcodebuild -project Sparkle.xcodeproj -target Sparkle -configuration Release clean; \
+	cd ../../../
