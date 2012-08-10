@@ -32,7 +32,7 @@ all: tuntap openvpn
 	rm -rf $(BUILD_DIR)
 
 clean: sparkle-clean tuntap-clean lzo-clean pkcs11-helper-clean openvpn-clean
- 	rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
 
 buildenv: $(PROJ_BUILD_DIRS)
 $(PROJ_BUILD_DIRS):
