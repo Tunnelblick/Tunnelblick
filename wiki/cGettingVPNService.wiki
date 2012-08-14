@@ -1,7 +1,12 @@
 #summary Getting VPN Service
 #sidebar cSb
 ==Getting VPN Service==
-To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. There are several ways to get access to a VPN server:
+To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end.
+
+<font color="red">*The Tunnelblick project does not provide VPN service*
+ -- we only create the free software that many VPN service providers recommend or provide to their clients.</font>
+
+There are several ways to get access to a VPN server:
 
   * Your employer may provide a VPN server so you can work from home or the road securely.
   * You can set up your own VPN server at home, and use it to access your home network and the Internet securely when at a remote location. The VPN server could be a program running on a Mac, Windows, or Linux computer, or on your home router.
