@@ -54,8 +54,16 @@ buildAction () {
         if [ -d "build/$1/${PROJECT_NAME}.app" ] ; then
             # Trash the .app so the digital signature will be created on a clean copy of the .app
             # (We can't 'rm -r -f' because of the possible ownership of some parts by root:wheel)
-            ./trash.sh -f "build/$1/${PROJECT_NAME}.app"
-            echo "Trashed the .app"
+cat > /tmp/tunnelblick-trash.scpt <<_EOF
+on run(arguments)
+set filename to POSIX file (first item of arguments) as alias
+tell application "Finder"
+delete filename
+end tell
+end run
+_EOF
+/usr/bin/osascript /tmp/tunnelblick-trash.scpt "build/${CONFIGURATION}/${PROJECT_NAME}.app"
+rm -f /tmp/tunnelblick-trash.scpt
         else
             echo "(No action required because the .app does not exist)"
         fi
@@ -135,8 +143,16 @@ cleanAction () {
         if [ -d "build/Debug/${PROJECT_NAME}.app" ] ; then
             # Trash the .app so the digital signature will be created on a clean copy of the .app
             # (We can't 'rm -r -f' because of the possible ownership of some parts by root:wheel)
-            ./trash.sh -f "build/$1/${PROJECT_NAME}.app"
-            echo "Trashed the .app"
+cat > /tmp/tunnelblick-trash.scpt <<_EOF
+on run(arguments)
+set filename to POSIX file (first item of arguments) as alias
+tell application "Finder"
+delete filename
+end tell
+end run
+_EOF
+/usr/bin/osascript /tmp/tunnelblick-trash.scpt "build/${CONFIGURATION}/${PROJECT_NAME}.app"
+rm -f /tmp/tunnelblick-trash.scpt
         else
             echo "(No action required because the .app does not exist)"
         fi
