@@ -311,7 +311,6 @@
 		634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationsView.m; sourceTree = "<group>"; };
 		6353818E1116031F00D68E83 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ExternalBuildCleanScript.sh; sourceTree = "<group>"; };
-		635BF1E81501DD5C00D87717 /* trash.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = trash.sh; sourceTree = "<group>"; };
 		635C80441300353000DB27AE /* ApplescriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplescriptCommands.h; sourceTree = "<group>"; };
 		635C80451300353000DB27AE /* ApplescriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplescriptCommands.m; sourceTree = "<group>"; };
 		635CA45212F8285D00287298 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
@@ -601,7 +600,6 @@
 			children = (
 				63379F8713F695D700F2554D /* TBBuildNumber.txt */,
 				635BF1AE1501CE4E00D87717 /* ExternalBuildCleanScript.sh */,
-				635BF1E81501DD5C00D87717 /* trash.sh */,
 				32CA4F630368D1EE00C91783 /* Tunnelblick_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				63179443118D7EC20057ACAF /* atsystemstart.m */,
