@@ -10,6 +10,30 @@
 
 ==Version 3.3==
 
+*3.3beta20 (2012-08-20)*
+
+ * After installing this version, Tunnelblick can only be updated by a computer administrator.
+
+ * Attempts IP address check five seconds after a VPN connection is made, with a thirty second timeout. This makes it less likely that the 'No DNS' message will appear when DNS is working properly.
+
+ * Shows '(Deployed)' in the Info panel for Deployed versions of Tunnelblick.
+
+ * Refuses to install a signed version of Tunnelblick over a Deployed version unless the signed version has its own Deploy folder.
+
+ * Adds additional check for valid URL for updates and logs error instead of silently failing to check for updates.
+
+ * Fixes several problems caused by digital signatures.
+
+ * Fixes a problem in the standard down script for TAP connections.
+
+ * Fixes a problem that caused DNS cache flushes to fail silently.
+
+ * Fixes a problem with route-pre-down scripts if 'user nobody' and 'group nobody' are specified and openvpn-down-root.so is used.
+
+ * Changes to Sparkle Updater to prepare for later releases
+
+--------------------
+
 *3.3beta18 (2012-08-04)*
 
  * Fixes several problems on Mountain Lion and temporarily adds extra logging to help diagnose problems.
