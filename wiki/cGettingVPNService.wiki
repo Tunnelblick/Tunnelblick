@@ -12,6 +12,8 @@ There are several ways to get access to a VPN server:
   * You can set up your own VPN server at home, and use it to access your home network and the Internet securely when at a remote location. The VPN server could be a program running on a Mac, Windows, or Linux computer, or on your home router.
   * You can get (free or for a fee) access to a VPN by using a VPN service provider.
 
+<strong>It is strongly recommended that you create a [http://code.google.com/p/tunnelblick/wiki/cConfigT#Creating_and_Installing_a_Tunnelblick_VPN_Configuration Tunnelblick VPN Configuration]</strong> whichever way you get access. It is easy to do, gives you the most flexibility, and _will be required in future releases_.
+
 ==Employer-provided VPN Servers==
 Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [http://code.google.com/p/tunnelblick/wiki/cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
 
