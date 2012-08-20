@@ -28,6 +28,7 @@ To create a Tunnelblick VPN Configuration:
  # Create a folder anywhere (on your Desktop works well);
  # Name the folder with the name you want the configuration known by in Tunnelblick;
  # Copy all the files related to the connection into the folder (see [#Files_Contained_in_a_Tunnelblick_VPN_Configuration Files Contained in a Tunnelblick VPN Configuration], below);
+ # Remove path information from "ca", "key", "cert", "tls-auth", and other lines in the configuration file (the .conf or .ovpn file), so they look like "ca xxx.crt" instead of "ca keys/xxx.crt";
  # Add an extension of ".tblk" at the end of the folder name. When you do this the icon for folder will change into a Tunnelblick VPN Configuration.
  # Double-click the folder's new icon to install it.
 
