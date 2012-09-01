@@ -2472,14 +2472,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     pthread_mutex_unlock( &bytecountMutex );    
 }
 
--(void) setNumber: (NSString * *) rate andUnits: (NSString * *) units from: (TBByteCount) value unitsArray: (NSArray *) unitsArray {
-    
+-(void) setNumber: (NSString * *) rate andUnits: (NSString * *) units from: (TBByteCount) value unitsArray: (NSArray *) unitsArray
+{
     // Decide units
-    int i = 0;
-    TBByteCount n = value;
-    while (  n > 999  ) {
+    unsigned i = 0;
+	double valueD = (double) value;
+    double n = valueD;
+    while (  n > 999.0  ) {
         i++;
-        n = (  value + (  1ull << 10*(i-1)  )  ) >> 10*i;
+        double divisor = pow(10.0, (   (double) (i*3)   )  );
+        n = valueD / divisor;
     }
     
     if (  i >= [unitsArray count]  ) {
@@ -2493,16 +2495,22 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  i == 0  ) {
         *rate = [NSString stringWithFormat: @"%llu", value];
     } else {
-        double displayDouble = (double) value / (double) ( 1ull << (10*i) );
-        TBByteCount displayInteger = (TBByteCount) displayDouble;
-        if (  displayDouble < 10.0  ) {
-            int displayFraction = (int) ((displayDouble - displayInteger) * 100);
-            *rate = [NSString stringWithFormat: @"%llu.%02d", displayInteger, displayFraction];
-        } else if (  displayDouble < 100.0  ) {
-            int displayFraction = (int) ((displayDouble - displayInteger) * 10);
-            *rate = [NSString stringWithFormat: @"%llu.%01d", displayInteger,  displayFraction];
-        } else if (  displayDouble < 1000.0 ) {
-            *rate = [NSString stringWithFormat: @"%llu", displayInteger];
+		unsigned n100 = (unsigned) round(n * 100.0) ;
+		unsigned displayInteger = n100/100u;
+		unsigned displayFraction = n100 - (displayInteger * 100u);
+        if (  n100 < 1000u  ) {
+            *rate = [NSString stringWithFormat: @"%u.%02u", displayInteger, displayFraction];
+			
+        } else if (  n100 < 10000u  ) {
+            *rate = [NSString stringWithFormat: @"%u.%01u", displayInteger,  (displayFraction + 5u) / 10u];
+			
+        } else if (  n100 < 100000 ) {
+			if (   (displayFraction > 49u)
+				&& (displayInteger < 999u)  ) {
+				displayInteger++;
+			}
+            *rate = [NSString stringWithFormat: @"%u", displayInteger];
+			
         } else {
             *units = @"***";
             *rate  = @"***";

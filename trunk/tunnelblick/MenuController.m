@@ -280,6 +280,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
                                 
                                 @"doNotShowNotificationWindowBelowIconOnMouseover",
                                 @"doNotShowNotificationWindowOnMouseover",
+                                @"doNotShowDisconnectedNotificationWindows",
                                 @"doNotShowConnectionSubmenus",
                                 @"doNotShowVpnDetailsMenuItem",
                                 @"doNotShowSuggestionOrBugReportMenuItem",
@@ -4785,8 +4786,11 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     while (  connection = [e nextObject]  ) {
         if (  [connection logFilesMayExist]  ) {
             if (  showThem  ) {
-                [connection showStatusWindow];
-                showingAny = TRUE;
+                if (   (! [gTbDefaults boolForKey: @"doNotShowDisconnectedNotificationWindows"])
+                    || ( ! [connection isDisconnected])  ) {
+                    [connection showStatusWindow];
+                    showingAny = TRUE;
+                }
             } else {
                 if (   [connection isConnected]
                     || [connection isDisconnected]  ) {
