@@ -46,6 +46,7 @@
 #import "UKKQueue/UKKQueue.h"
 #import "Sparkle/SUUpdater.h"
 #import "VPNConnection.h"
+#import "WelcomeController.h"
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"
@@ -168,6 +169,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 -(BOOL)             setupHookupWatchdogTimer;
 -(void)             setupHotKeyWithCode:                    (UInt32)            keyCode
                         andModifierKeys:                    (UInt32)            modifierKeys;
+-(void)				showWelcomeScreen;
 -(NSStatusItem *)   statusItem;
 -(void)             updateMenuAndLogWindow;
 -(void)             updateNavigationLabels;
@@ -926,6 +928,7 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
     [statusMenuItem release];
     [statusItem release];
     [logScreen release];
+    [welcomeScreen release];
     
 #ifdef INCLUDE_VPNSERVICE
     [vpnService release];
@@ -3257,7 +3260,69 @@ static void signal_handler(int signalNumber)
 
     [splashScreen fadeOutAndClose];
     
+	[self showWelcomeScreen];
+	
     launchFinished = TRUE;
+}
+
+-(NSString *) fileURLStringWithPath: (NSString *) path
+{
+    NSString * urlString = [@"file://" stringByAppendingString: path];
+    return urlString;
+}
+
+-(void) showWelcomeScreen
+{
+	if (  [gTbDefaults boolForKey: @"skipWelcomeScreen"]  ) {
+		return;
+	}
+	
+    NSString * welcomeURLString = nil;
+    NSString * welcomeIndexFile = [[gDeployPath
+                                    stringByAppendingPathComponent: @"Welcome"]
+                                   stringByAppendingPathComponent: @"index.html"];
+    BOOL isDir;
+    if (   [gFileMgr fileExistsAtPath: welcomeIndexFile isDirectory: &isDir]
+        && ( ! isDir )  ) {
+        welcomeURLString = [self fileURLStringWithPath: welcomeIndexFile];
+    } else if (  ! [gTbDefaults canChangeValueForKey: @"welcomeURL"]  ) {
+        welcomeURLString = [gTbDefaults objectForKey: @"welcomeURL"];
+    }
+	
+	if (  ! welcomeURLString  ) {
+		return;
+	}
+    
+    double welcomeWidth  = 500.0;
+    NSNumber * num = [gTbDefaults objectForKey: @"welcomeWidth"];
+    if (   num
+        && [num respondsToSelector: @selector(doubleValue)]  ) {
+        welcomeWidth = [num doubleValue];
+    }
+    double welcomeHeight = 500.0;
+    num = [gTbDefaults objectForKey: @"welcomeHeight"];
+    if (   num
+        && [num respondsToSelector: @selector(doubleValue)]  ) {
+        welcomeHeight = [num doubleValue];
+    }
+    
+    BOOL showCheckbox = ! [gTbDefaults boolForKey: @"doNotShowWelcomeDoNotShowAgainCheckbox"];
+	
+    welcomeScreen = [[[WelcomeController alloc]
+					  initWithDelegate: self
+					  urlString: welcomeURLString
+					  windowWidth: welcomeWidth
+					  windowHeight: welcomeHeight
+					  showDoNotShowAgainCheckbox: showCheckbox] retain];
+	
+	[welcomeScreen showWindow: self];
+}
+
+-(void) welcomeOKButtonWasClicked
+{
+	[[welcomeScreen window] close];
+    [welcomeScreen release];
+    welcomeScreen = nil;
 }
 
 // Returns TRUE if a hookupWatchdog timer was created or already exists

@@ -37,6 +37,7 @@
 @class SplashWindowController;
 @class StatusWindowController;
 @class MainIconView;
+@class WelcomeController;
 
 #ifdef INCLUDE_VPNSERVICE
 @class VPNService;
@@ -165,6 +166,8 @@ BOOL needToCopyBundle(void);
     NSString                * customRunOnLaunchPath;        // Path of a file to be executed before processing "connect when Tunnelblick launches" configurations
     NSString                * customRunOnConnectPath;       // Path of a file to be executed before making a connection
     
+    WelcomeController       * welcomeScreen;                // Controller for welcome window
+    
 #ifdef INCLUDE_VPNSERVICE
     VPNService              * vpnService;                   // VPNService object. if it responds to doVPNService, doVPNService is invoked at end of
     //                                                      // application:didFinishLaunching. The object persists until Tunnelblick terminates
@@ -235,6 +238,7 @@ BOOL needToCopyBundle(void);
 -(BOOL) isOnCancellingListIPCheckThread: (NSString *) threadID;
 -(void) haveFinishedIPCheckThread: (NSString *) threadID;
 
+-(void) welcomeOKButtonWasClicked;
 
 // Getters and Setters
 
