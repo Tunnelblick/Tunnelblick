@@ -31,7 +31,7 @@ clean: built-tuntap-clean built-sparkle-clean built-lzo-clean built-pkcs11-helpe
 	rm -rf $(BUILD_DIR)
 
 built-openssl-patch:
-	mkdir -p $(OPENSSL_BUILD_DIR);
+	mkdir -p $(OPENSSL_BUILD_DIR)
 	cd $(OPENSSL_BUILD_DIR); \
 	/usr/X11/bin/lndir $(TOPDIR)/$$(basename $(OPENSSL_BUILD_DIR)); \
 	if [ -d "$(TOPDIR)/patches/openssl" ]; then \
@@ -41,7 +41,8 @@ built-openssl-patch:
 				patch -p0 -N -i $$patchfile; \
 			fi \
 		done \
-	fi \
+	fi; \
+	cd $(TOPDIR);
 	touch built-openssl-patch
 
 built-openssl: built-openssl-patch
