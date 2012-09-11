@@ -24,7 +24,7 @@ PKCS11_TUNNELBLICK_STAGING_DIR=$(TOPDIR)/$(PKCS11_DIR)/staging
 TUNTAP_20090913_DIR=tuntap-20090913
 TUNTAP_CURRENT_DIR=tuntap-20111101
 
-all: built-tuntap built-openvpn
+all: built-tuntap built-sparkle built-openvpn
 	@echo "Made all third_party for Tunnelblick"
 
 clean: built-tuntap-clean built-sparkle-clean built-lzo-clean built-pkcs11-helper-clean built-openvpn-clean
@@ -145,7 +145,7 @@ built-openvpn-patch:
 	done
 	touch built-openvpn-patch
 	
-built-openvpn: built-sparkle built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
+built-openvpn: built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
 	for openvpndir in `ls openvpn`; do \
 		cd openvpn/$$openvpndir/openvpn; \
 		if [ -d src ]; then \
