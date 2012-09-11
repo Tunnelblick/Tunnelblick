@@ -1,7 +1,7 @@
-diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUAppcastItem.h patched/Extras/Source Code/SUAppcastItem.h
---- Sparkle-1.5b6/Extras/Source Code/SUAppcastItem.h	2008-09-13 23:55:00.000000000 -0400
-+++ patched/Extras/Source Code/SUAppcastItem.h	2012-08-09 06:10:04.000000000 -0400
-@@ -18,6 +18,11 @@
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.h Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.h
+--- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.h	2012-09-02 09:29:01.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.h	2012-09-10 08:38:58.000000000 -0400
+@@ -18,6 +18,12 @@
  	
  	NSString *DSASignature;	
  	NSString *minimumSystemVersion;
@@ -10,10 +10,11 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUAppcastIte
 +	NSString *maximumAppVersion;
 +	NSString *allowedProcessorTypes;
 +	NSString *allowedProcessorWordSizes;
++	NSString *tunnelblickTests;
  	
  	NSURL *fileURL;
  	NSString *versionString;
-@@ -38,6 +43,11 @@
+@@ -38,6 +44,12 @@
  - (NSURL *)fileURL;
  - (NSString *)DSASignature;
  - (NSString *)minimumSystemVersion;
@@ -22,13 +23,14 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUAppcastIte
 +- (NSString *)maximumAppVersion;
 +- (NSString *)allowedProcessorTypes;
 +- (NSString *)allowedProcessorWordSizes;
++- (NSString *)tunnelblickTests;
  
  // Returns the dictionary provided in initWithDictionary; this might be useful later for extensions.
  - (NSDictionary *)propertiesDictionary;
-diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUAppcastItem.m patched/Extras/Source Code/SUAppcastItem.m
---- Sparkle-1.5b6/Extras/Source Code/SUAppcastItem.m	2008-09-13 23:55:00.000000000 -0400
-+++ patched/Extras/Source Code/SUAppcastItem.m	2012-08-09 06:12:49.000000000 -0400
-@@ -101,6 +101,46 @@
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.m
+--- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUAppcastItem.m	2012-09-02 09:29:01.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUAppcastItem.m	2012-09-11 12:55:13.000000000 -0400
+@@ -101,6 +101,54 @@
  	minimumSystemVersion = [systemVersionString copy];
  }
  
@@ -72,24 +74,37 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUAppcastIte
 +	allowedProcessorWordSizes = [processorWordSizesString copy];
 +}
 +
++- (NSString *)tunnelblickTests { return [[tunnelblickTests retain] autorelease]; }
++- (void)setTunnelblickTests:(NSString *)tunnelblickTestsString
++{
++	if (tunnelblickTests == tunnelblickTestsString) return;
++	[tunnelblickTests release];
++	tunnelblickTests = [tunnelblickTestsString copy];
++}
++
  - initWithDictionary:(NSDictionary *)dict
  {
  	self = [super init];
-@@ -143,6 +183,11 @@
+@@ -141,8 +189,14 @@
+             [self setFileURL:[NSURL URLWithString:[[enclosure objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+             [self setDSASignature:[enclosure objectForKey:@"sparkle:dsaSignature"]];		
              
-             [self setVersionString:newVersion];
-             [self setMinimumSystemVersion:[dict objectForKey:@"sparkle:minimumSystemVersion"]];
-+            [self setMaximumSystemVersion:[dict objectForKey:@"sparkle:maximumSystemVersion"]];
-+            [self setMinimumAppVersion:[dict objectForKey:@"sparkle:minimumAppVersion"]];
-+            [self setMaximumAppVersion:[dict objectForKey:@"sparkle:maximumAppVersion"]];
-+            [self setAllowedProcessorTypes:[dict objectForKey:@"sparkle:allowedProcessorTypes"]];
+-            [self setVersionString:newVersion];
+-            [self setMinimumSystemVersion:[dict objectForKey:@"sparkle:minimumSystemVersion"]];
++            [self setVersionString:            newVersion];
++            [self setMinimumSystemVersion:     [dict objectForKey:@"sparkle:minimumSystemVersion"]];
++            [self setMaximumSystemVersion:     [dict objectForKey:@"sparkle:maximumSystemVersion"]];
++            [self setMinimumAppVersion:        [dict objectForKey:@"sparkle:minimumAppVersion"]];
++            [self setMaximumAppVersion:        [dict objectForKey:@"sparkle:maximumAppVersion"]];
++            [self setAllowedProcessorTypes:    [dict objectForKey:@"sparkle:allowedProcessorTypes"]];
 +            [self setAllowedProcessorWordSizes:[dict objectForKey:@"sparkle:allowedProcessorWordSizes"]];
++            [self setTunnelblickTests:         [dict objectForKey:@"sparkle:tunnelblickTests"]];
              
              NSString *shortVersionString = [enclosure objectForKey:@"sparkle:shortVersionString"];
              if (shortVersionString)
-diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUBasicUpdateDriver.m patched/Extras/Source Code/SUBasicUpdateDriver.m
---- Sparkle-1.5b6/Extras/Source Code/SUBasicUpdateDriver.m	2008-09-13 23:55:00.000000000 -0400
-+++ patched/Extras/Source Code/SUBasicUpdateDriver.m	2012-08-09 08:22:44.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasicUpdateDriver.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUBasicUpdateDriver.m
+--- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasicUpdateDriver.m	2012-09-02 09:29:01.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUBasicUpdateDriver.m	2012-09-11 12:55:18.000000000 -0400
 @@ -32,7 +32,7 @@
  	[appcast setDelegate:self];
  	NSString *userAgent = [NSString stringWithFormat: @"%@/%@ Sparkle/%@", [aHost name], [aHost displayVersion], ([SPARKLE_BUNDLE objectForInfoDictionaryKey:@"CFBundleVersion"] ?: nil)];
@@ -99,8 +114,149 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUBasicUpdat
  	[appcast setUserAgentString:userAgent];
  	[appcast fetchAppcastFromURL:URL];
  }
-@@ -59,8 +59,84 @@
+@@ -57,10 +57,238 @@
+ 	return [[self _versionComparator] compareVersion:[host version] toVersion:[ui versionString]] == NSOrderedAscending;
+ }
  
++- (BOOL)tunnelblickTestPrivateOnlyHasTblks
++{
++    NSString * privatePath = [[[[NSHomeDirectory()
++                                 stringByAppendingPathComponent: @"Library"]
++                                stringByAppendingPathComponent: @"Application Support"]
++                               stringByAppendingPathComponent: @"Tunnelblick"]
++                              stringByAppendingPathComponent: @"Configurations"];
++    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: privatePath];
++    NSString * file;
++    while (  (file = [dirEnum nextObject])  )
++	{
++        if (  [[file pathExtension] isEqualToString: @"tblk"]  )
++		{
++            [dirEnum skipDescendents];
++        } else {
++            if (   [[file pathExtension] isEqualToString: @"ovpn"]
++                || [[file pathExtension] isEqualToString: @"conf"]  )
++			{
++                return NO;
++            }
++        }
++    }
++    
++    return YES;
++}
++
++- (BOOL)tunnelblickTestAppInApplications
++{
++    NSString * resourcesPath = [[NSBundle mainBundle] bundlePath];
++    return [resourcesPath isEqualToString: @"/Applications/Tunnelblick.app/Contents/Resources"];
++}
++
++- (BOOL)tunnelblickTestDeployed
++{
++    // Returns TRUE if no Deploy folder or if the folder doesn't contain anything
++    
++    NSString * resourcesPath = [[NSBundle mainBundle] bundlePath];
++    NSString * deployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
++    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: deployPath];
++    NSString * file;
++    BOOL haveSomethingInDeployFolder = FALSE;
++    while (  (file = [dirEnum nextObject])  )
++	{
++        if (  ! [file hasPrefix: @"."]  )		// Ignore .DS_Store, .svn, etc.
++		{
++            haveSomethingInDeployFolder = TRUE;
++            break;
++        }
++    }
++    
++    return haveSomethingInDeployFolder;
++}
++
++- (BOOL)tunnelblickTestHasDeployBackups
++{
++    // Returns TRUE if no Deploy backup folder
++    
++    NSString * deployBackupsPath = @"/Library/Application Support/Tunnelblick/Backup";
++	BOOL isDir;
++	if (  [[NSFileManager defaultManager] fileExistsAtPath: deployBackupsPath isDirectory: &isDir]  ) {
++		return YES;
++	}
++	
++	return NO;
++}
++
++- (BOOL)tunnelblickDoTests: (NSString *)testTypeString
++{
++	if (  [testTypeString rangeOfString: @"privateOnlyHasTblks"].length != 0  )
++	{
++		if (  ! [self tunnelblickTestPrivateOnlyHasTblks]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick '@privateOnlyHasTblks' test was not satisified");
++			return NO;
++		}
++	}
++	
++	if (  [testTypeString rangeOfString: @"privateHasOvpnOrConf"].length != 0  )
++	{
++		if (  [self tunnelblickTestPrivateOnlyHasTblks]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'privateHasOvpnOrConf' test was not satisified");
++			return NO;
++		}
++	}
++	
++	if (  [testTypeString rangeOfString: @"appInApplications"].length != 0  )
++	{
++		if (  ! [self tunnelblickTestAppInApplications]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'appInApplications' test was not satisified");
++			return NO;
++		}
++	}
++	
++	if (  [testTypeString rangeOfString: @"appNotInApplications"].length != 0  )
++	{
++		if (  [self tunnelblickTestAppInApplications]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'appNotInApplications' test was not satisified");
++			return NO;
++		}
++	}
++	
++	if (  [testTypeString rangeOfString: @"isDeployed"].length != 0  ) {
++		if (  ! [self tunnelblickTestDeployed]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'isDeployed' test was not satisified");
++			return NO;
++		}
++	}
++    
++	if (  [testTypeString rangeOfString: @"isNotDeployed"].length != 0  ) {
++		if (  [self tunnelblickTestDeployed]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'isNotDeployed' test was not satisified");
++			return NO;
++		}
++	}
++    
++	if (  [testTypeString rangeOfString: @"hasDeployBackups"].length != 0  ) {
++		if (  ! [self tunnelblickTestHasDeployBackups]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'hasDeployBackups' test was not satisified");
++			return NO;
++		}
++	}
++    
++	if (  [testTypeString rangeOfString: @"doesNotHaveDeployBackups"].length != 0  ) {
++		if (  [self tunnelblickTestHasDeployBackups]  )
++		{
++			NSLog(@"DEBUG: Tunnelblick 'doesNotHaveDeployBackups' test was not satisified");
++			return NO;
++		}
++	}
++    
++    return YES;
++}
++
  - (BOOL)hostSupportsItem:(SUAppcastItem *)ui
  {
 -	if ([ui minimumSystemVersion] == nil || [[ui minimumSystemVersion] isEqualToString:@""]) { return YES; }
@@ -182,13 +338,26 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUBasicUpdat
 +        }
 +    }
 +    
-+    return YES;
++    
++	if ([ui tunnelblickTests] && ( ! [[ui tunnelblickTests] isEqualToString:@""]) )
++    {
++        if (  [self tunnelblickDoTests: [ui tunnelblickTests]]  )
++		{
++			NSLog(@"DEBUG: Updater%@: Satisfies tunnelblickTests:%@", thisItemDescription, [ui tunnelblickTests]);
++		} else {
++			NSLog(@"DEBUG: Updater%@: Does not satisfy tunnelblickTests:%@", thisItemDescription, [ui tunnelblickTests]);
++			return NO;
++		}
++	}
++
++	
++	return YES;
  }
  
  - (BOOL)itemContainsSkippedVersion:(SUAppcastItem *)ui
-diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUHost.h patched/Extras/Source Code/SUHost.h
---- Sparkle-1.5b6/Extras/Source Code/SUHost.h	2008-09-13 23:55:00.000000000 -0400
-+++ patched/Extras/Source Code/SUHost.h	2012-08-08 19:49:47.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.h Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.h
+--- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.h	2012-09-02 09:29:01.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.h	2012-09-09 14:23:20.000000000 -0400
 @@ -13,6 +13,8 @@
  }
  
@@ -198,9 +367,9 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUHost.h pat
  
  - (id)initWithBundle:(NSBundle *)aBundle;
  - (NSBundle *)bundle;
-diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUHost.m patched/Extras/Source Code/SUHost.m
---- Sparkle-1.5b6/Extras/Source Code/SUHost.m	2008-09-13 23:55:00.000000000 -0400
-+++ patched/Extras/Source Code/SUHost.m	2012-08-09 07:31:23.000000000 -0400
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.m Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.m
+--- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUHost.m	2012-09-02 09:29:01.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/Extras/Source Code/SUHost.m	2012-09-09 14:23:20.000000000 -0400
 @@ -8,7 +8,8 @@
  #import "SUHost.h"
  
@@ -254,11 +423,11 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/SUHost.m pat
 +	return (error == 0) ? @"64" : @"32";
 +}
  @end
-Only in patched/Extras/Source Code/Sparkle.xcodeproj: jonathankbullard.mode1v3
-Only in patched/Extras/Source Code/Sparkle.xcodeproj: jonathankbullard.pbxuser
-diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj patched/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj
---- Sparkle-1.5b6/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2008-09-13 23:55:00.000000000 -0400
-+++ patched/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2012-08-09 08:48:49.000000000 -0400
+Only in Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj: jonathankbullard.mode1v3
+Only in Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj: jonathankbullard.pbxuser
+diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj
+--- Sparkle-1.5b6-ORIGINAL/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2012-09-02 09:29:00.000000000 -0400
++++ Sparkle-1.5b6-PATCHED/Extras/Source Code/Sparkle.xcodeproj/project.pbxproj	2012-09-09 08:02:33.000000000 -0400
 @@ -802,7 +802,7 @@
  			);
  			runOnlyForDeploymentPostprocessing = 0;
@@ -268,4 +437,3 @@ diff -x .DS_Store -x '*.svn' -u -r Sparkle-1.5b6/Extras/Source Code/Sparkle.xcod
  		};
  /* End PBXShellScriptBuildPhase section */
  
-Only in patched/Extras/Source Code: build
