@@ -80,7 +80,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nConnecting = 0;
-    while (  connection = [connEnum nextObject]  ) {
+    while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isConnected]  ) {
             [connection connect: self userKnows: YES];
             nConnecting++;
@@ -101,7 +101,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
-    while (  connection = [connEnum nextObject]  ) {
+    while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             [connection addToLog: @"*Tunnelblick: Disconnecting; AppleScript 'disconnect all' invoked"];
             [connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
@@ -123,7 +123,7 @@ extern TBUserDefaults  * gTbDefaults;
     NSEnumerator * connEnum = [myVPNConnectionDictionary objectEnumerator];
     VPNConnection * connection;
     int nDisconnecting = 0;
-    while (  connection = [connEnum nextObject]  ) {
+    while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection isDisconnected]  ) {
             NSString* autoConnectkey = [[connection displayName] stringByAppendingString: @"autoConnect"];
             NSString* systemStartkey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];

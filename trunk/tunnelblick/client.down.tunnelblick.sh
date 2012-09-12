@@ -12,6 +12,51 @@
 # 
 # ******************************************************************************************************************
 
+# @param String message - The message to log
+logMessage()
+{
+echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
+}
+
+trim()
+{
+echo ${@}
+}
+
+flushDNSCache()
+{
+    if ${ARG_FLUSH_DNS_CACHE} ; then
+        readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
+        case "${OSVER}" in
+            10.4 )
+                if [ -f /usr/sbin/lookupd ] ; then
+                    /usr/sbin/lookupd -flushcache
+                    logMessage "Flushed the DNS Cache"
+                else
+                    logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
+                fi
+                ;;
+            10.5 | 10.6 )
+                if [ -f /usr/bin/dscacheutil ] ; then
+                    /usr/bin/dscacheutil -flushcache
+                    logMessage "Flushed the DNS Cache"
+                else
+                    logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache"
+                fi
+                ;;
+            * )
+                if [ -f /usr/bin/killall ] ; then
+                    /usr/bin/killall -HUP mDNSResponder
+                    logMessage "Flushed the DNS Cache"
+                else
+                    logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
+                fi
+                ;;
+        esac
+    fi
+}
+
+##########################################################################################
 trap "" TSTP
 trap "" HUP
 trap "" INT
@@ -44,20 +89,10 @@ SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLo
 # Don't need: PROCESS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
+ARG_FLUSH_DNS_CACHE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*FlushDNSCache :' | sed -e 's/^.*: //g')"
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
 bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
 bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
-
-# @param String message - The message to log
-logMessage()
-{
-	echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
-}
-
-trim()
-{
-	echo ${@}
-}
 
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
@@ -165,6 +200,8 @@ EOF
 fi
 
 logMessage "Restored the DNS and SMB configurations"
+
+flushDNSCache
 
 # Remove our system configuration data
 scutil <<- EOF

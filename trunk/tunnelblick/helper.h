@@ -47,11 +47,18 @@ NSString     * userEasyRsaPath          (BOOL       mustExistAndBeADir);
 
 NSString     * newTemporaryDirectoryPath(void);
 
+NSArray      * pathsForDeployBackups    (void);
+NSArray      * pathsForLatestNonduplicateDeployBackups(void);
+
 NSString     * escaped                  (NSString * string);
 
 NSMutableString * encodeSlashesAndPeriods(NSString * s);
 
+NSString     * stringForLog             (NSString * outputString,
+                                         NSString * header);
+
 BOOL           itemIsVisible            (NSString * path);
+BOOL           invalidConfigurationName (NSString * name);
 
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
@@ -88,6 +95,10 @@ int            TBRunAlertPanelExtended  (NSString * title,
                                          NSString * checkboxLabel,
                                          BOOL     * checkboxResult);
 
+OSStatus       runOpenvpnstart          (NSArray  * arguments,
+                                         NSString ** stdoutString,
+                                         NSString ** stderrString);
+
 BOOL           isUserAnAdmin            (void);
 
 BOOL           runningOnTigerOrNewer    (void);
@@ -95,6 +106,12 @@ BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
 BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
+
+BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
+BOOL           tunnelblickTestAppInApplications(void);
+BOOL           tunnelblickTestDeployed(void);
+BOOL           tunnelblickTestHasDeployBackups(void);
+
 
 OSStatus       MyGotoHelpPage           (CFStringRef pagePath, 
                                          CFStringRef anchorName);

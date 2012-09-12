@@ -3,20 +3,20 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10K549</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.InterfaceBuilderVersion">762</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">823</string>
+			<string key="NS.object.0">762</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="117"/>
 			<integer value="1023"/>
 			<integer value="44"/>
-			<integer value="1"/>
 			<integer value="521"/>
+			<integer value="1"/>
+			<integer value="117"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1498,7 +1498,7 @@
 					<object class="NSButton" id="977333827">
 						<reference key="NSNextResponder" ref="179044330"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{305, 135}, {437, 18}}</string>
+						<string key="NSFrame">{{305, 145}, {437, 18}}</string>
 						<reference key="NSSuperview" ref="179044330"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="42268002">
@@ -1507,28 +1507,6 @@
 							<string key="NSContents">Monitor...</string>
 							<reference key="NSSupport" ref="644301394"/>
 							<reference key="NSControlView" ref="977333827"/>
-							<int key="NSButtonFlags">1211912703</int>
-							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="630667089"/>
-							<reference key="NSAlternateImage" ref="34153109"/>
-							<string key="NSAlternateContents"/>
-							<string key="NSKeyEquivalent"/>
-							<int key="NSPeriodicDelay">200</int>
-							<int key="NSPeriodicInterval">25</int>
-						</object>
-					</object>
-					<object class="NSButton" id="666143419">
-						<reference key="NSNextResponder" ref="179044330"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{305, 155}, {437, 18}}</string>
-						<reference key="NSSuperview" ref="179044330"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSButtonCell" key="NSCell" id="133439408">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Use shadow...</string>
-							<reference key="NSSupport" ref="644301394"/>
-							<reference key="NSControlView" ref="666143419"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="630667089"/>
@@ -1740,7 +1718,7 @@
 					<object class="NSTextField" id="588450806">
 						<reference key="NSNextResponder" ref="179044330"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 156}, {284, 17}}</string>
+						<string key="NSFrame">{{17, 146}, {284, 17}}</string>
 						<reference key="NSSuperview" ref="179044330"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="92898787">
@@ -2665,14 +2643,6 @@
 						<reference key="destination" ref="432604911"/>
 					</object>
 					<int key="connectionID">185</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">useShadowCopiesCheckbox</string>
-						<reference key="source" ref="179044330"/>
-						<reference key="destination" ref="666143419"/>
-					</object>
-					<int key="connectionID">188</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3687,14 +3657,6 @@
 					<int key="connectionID">685</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">useShadowCopiesCheckboxWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="666143419"/>
-					</object>
-					<int key="connectionID">686</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="786555046"/>
@@ -3962,14 +3924,6 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
-						<reference key="source" ref="666143419"/>
-						<reference key="destination" ref="977333827"/>
-					</object>
-					<int key="connectionID">741</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
 						<reference key="source" ref="977333827"/>
 						<reference key="destination" ref="707795041"/>
 					</object>
@@ -4150,14 +4104,6 @@
 						<reference key="destination" ref="432604911"/>
 					</object>
 					<int key="connectionID">790</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="432604911"/>
-						<reference key="destination" ref="666143419"/>
-					</object>
-					<int key="connectionID">791</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4544,7 +4490,6 @@
 							<reference ref="966241360"/>
 							<reference ref="432604911"/>
 							<reference ref="588450806"/>
-							<reference ref="666143419"/>
 							<reference ref="977333827"/>
 							<reference ref="423112018"/>
 							<reference ref="707795041"/>
@@ -4820,20 +4765,6 @@
 						<int key="objectID">28</int>
 						<reference key="object" ref="42268002"/>
 						<reference key="parent" ref="977333827"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">12</int>
-						<reference key="object" ref="666143419"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="133439408"/>
-						</object>
-						<reference key="parent" ref="179044330"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">27</int>
-						<reference key="object" ref="133439408"/>
-						<reference key="parent" ref="666143419"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">125</int>
@@ -6089,8 +6020,6 @@
 					<string>117.editorWindowContentRectSynchronizationRect</string>
 					<string>118.IBPluginDependency</string>
 					<string>118.IBViewBoundsToFrameTransform</string>
-					<string>12.IBPluginDependency</string>
-					<string>12.IBViewBoundsToFrameTransform</string>
 					<string>120.IBPluginDependency</string>
 					<string>120.IBViewBoundsToFrameTransform</string>
 					<string>121.IBPluginDependency</string>
@@ -6130,7 +6059,6 @@
 					<string>24.IBPluginDependency</string>
 					<string>25.IBPluginDependency</string>
 					<string>26.IBPluginDependency</string>
-					<string>27.IBPluginDependency</string>
 					<string>28.IBPluginDependency</string>
 					<string>30.IBPluginDependency</string>
 					<string>31.IBPluginDependency</string>
@@ -6374,7 +6302,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{222, 538}, {760, 390}}</string>
+					<string>{{199, 257}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6411,7 +6339,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAw1MAAA</bytes>
 					</object>
-					<string>{{196, 560}, {760, 390}}</string>
+					<string>{{196, 334}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6422,10 +6350,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUGgAABDiQAAA</bytes>
-					</object>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAw2cAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
@@ -6490,7 +6414,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDYgAAxFRAAA</bytes>
 					</object>
@@ -6526,7 +6449,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{169, 295}, {760, 390}}</string>
+					<string>{{264, 295}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6560,7 +6483,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{98, 607}, {760, 390}}</string>
+					<string>{{76, 171}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6839,7 +6762,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{147, 90}, {760, 390}}</string>
+					<string>{{264, 90}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6931,85 +6854,6 @@
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>appearanceConnectionWindowDisplayCriteriaArrayController</string>
-							<string>appearanceConnectionWindowDisplayCriteriaButton</string>
-							<string>appearanceConnectionWindowDisplayCriteriaTFC</string>
-							<string>appearanceDisplayConnectionSubmenusCheckbox</string>
-							<string>appearanceDisplayConnectionTimersCheckbox</string>
-							<string>appearanceDisplaySplashScreenCheckbox</string>
-							<string>appearanceDisplayStatisticsWindowsCheckbox</string>
-							<string>appearanceHelpButton</string>
-							<string>appearanceIconSetArrayController</string>
-							<string>appearanceIconSetButton</string>
-							<string>appearanceIconTFC</string>
-							<string>appearanceMenuTFC</string>
-							<string>appearancePlaceIconNearSpotlightCheckbox</string>
-							<string>appearanceSplashTFC</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceConnectionWindowDisplayCriteriaArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceConnectionWindowDisplayCriteriaButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceConnectionWindowDisplayCriteriaTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceDisplayConnectionSubmenusCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceDisplayConnectionTimersCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceDisplaySplashScreenCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceDisplayStatisticsWindowsCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceHelpButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceIconSetArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceIconSetButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceIconTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceMenuTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearancePlaceIconNearSpotlightCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearanceSplashTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -7115,230 +6959,6 @@
 							<string>NSPopUpButton</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addConfigurationButton</string>
-							<string>advancedButton</string>
-							<string>alertSoundsBox</string>
-							<string>configurationNameTFC</string>
-							<string>configurationStatusTFC</string>
-							<string>configurationsHelpButton</string>
-							<string>configurationsTabView</string>
-							<string>connectButton</string>
-							<string>connectionAlertSoundTFC</string>
-							<string>disconnectButton</string>
-							<string>disconnectionAlertSoundTFC</string>
-							<string>duplicateConfigurationMenuItem</string>
-							<string>editOpenVPNConfigurationFileMenuItem</string>
-							<string>leftNavTableColumn</string>
-							<string>leftNavTableView</string>
-							<string>leftSplitView</string>
-							<string>logTabViewItem</string>
-							<string>logToClipboardButton</string>
-							<string>logView</string>
-							<string>makePrivateOrSharedMenuItem</string>
-							<string>monitorNetworkForChangesCheckbox</string>
-							<string>progressIndicator</string>
-							<string>removeConfigurationButton</string>
-							<string>removeCredentialsMenuItem</string>
-							<string>renameConfigurationMenuItem</string>
-							<string>setNameserverArrayController</string>
-							<string>setNameserverPopUpButton</string>
-							<string>setNameserverTF</string>
-							<string>setNameserverTFC</string>
-							<string>settingsTabViewItem</string>
-							<string>showOnTunnelBlickMenuCheckbox</string>
-							<string>showOpenvpnLogMenuItem</string>
-							<string>soundOnConnectArrayController</string>
-							<string>soundOnConnectButton</string>
-							<string>soundOnDisconnectArrayController</string>
-							<string>soundOnDisconnectButton</string>
-							<string>whenToConnectManuallyMenuItem</string>
-							<string>whenToConnectOnComputerStartMenuItem</string>
-							<string>whenToConnectPopUpButton</string>
-							<string>whenToConnectTFC</string>
-							<string>whenToConnectTunnelBlickLaunchMenuItem</string>
-							<string>workOnConfigurationArrayController</string>
-							<string>workOnConfigurationPopUpButton</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">addConfigurationButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">advancedButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">alertSoundsBox</string>
-								<string key="candidateClassName">NSBox</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationNameTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationStatusTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationsHelpButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationsTabView</string>
-								<string key="candidateClassName">NSTabView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">connectButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">connectionAlertSoundTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">disconnectButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">disconnectionAlertSoundTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">duplicateConfigurationMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">editOpenVPNConfigurationFileMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">leftNavTableColumn</string>
-								<string key="candidateClassName">NSTableColumn</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">leftNavTableView</string>
-								<string key="candidateClassName">NSTableView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">leftSplitView</string>
-								<string key="candidateClassName">NSView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">logTabViewItem</string>
-								<string key="candidateClassName">NSTabViewItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">logToClipboardButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">logView</string>
-								<string key="candidateClassName">NSTextView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">makePrivateOrSharedMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">monitorNetworkForChangesCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">progressIndicator</string>
-								<string key="candidateClassName">NSProgressIndicator</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">removeConfigurationButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">removeCredentialsMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">renameConfigurationMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">setNameserverArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">setNameserverPopUpButton</string>
-								<string key="candidateClassName">NSPopUpButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">setNameserverTF</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">setNameserverTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">settingsTabViewItem</string>
-								<string key="candidateClassName">NSTabViewItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">showOnTunnelBlickMenuCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">showOpenvpnLogMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">soundOnConnectArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">soundOnConnectButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">soundOnDisconnectArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">soundOnDisconnectButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">whenToConnectManuallyMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">whenToConnectOnComputerStartMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">whenToConnectPopUpButton</string>
-								<string key="candidateClassName">NSPopUpButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">whenToConnectTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">whenToConnectTunnelBlickLaunchMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">workOnConfigurationArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">workOnConfigurationPopUpButton</string>
-								<string key="candidateClassName">NSPopUpButton</string>
-							</object>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">ConfigurationsView.h</string>
@@ -7412,135 +7032,6 @@
 							<string>NSTextFieldCell</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>configurationFilesTF</string>
-							<string>configurationFilesTFC</string>
-							<string>keyboardShortcutArrayController</string>
-							<string>keyboardShortcutButton</string>
-							<string>keyboardShortcutTF</string>
-							<string>keyboardShortcutTFC</string>
-							<string>maxLogDisplaySizeTF</string>
-							<string>maxLogDisplaySizeTFC</string>
-							<string>maximumLogSizeArrayController</string>
-							<string>maximumLogSizeButton</string>
-							<string>monitorConfigurationFolderCheckbox</string>
-							<string>openvpnVersionArrayController</string>
-							<string>openvpnVersionButton</string>
-							<string>openvpnVersionTF</string>
-							<string>openvpnVersionTFC</string>
-							<string>preferencesGeneralHelpButton</string>
-							<string>resetDisabledWarningsButton</string>
-							<string>updatesCheckAutomaticallyCheckbox</string>
-							<string>updatesCheckNowButton</string>
-							<string>updatesLastCheckedTFC</string>
-							<string>updatesUpdatesTFC</string>
-							<string>useShadowCopiesCheckbox</string>
-							<string>warningsTF</string>
-							<string>warningsTFC</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationFilesTF</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationFilesTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">keyboardShortcutArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">keyboardShortcutButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">keyboardShortcutTF</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">keyboardShortcutTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">maxLogDisplaySizeTF</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">maxLogDisplaySizeTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">maximumLogSizeArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">maximumLogSizeButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">monitorConfigurationFolderCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">openvpnVersionArrayController</string>
-								<string key="candidateClassName">NSArrayController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">openvpnVersionButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">openvpnVersionTF</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">openvpnVersionTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">preferencesGeneralHelpButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">resetDisabledWarningsButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">updatesCheckAutomaticallyCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">updatesCheckNowButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">updatesLastCheckedTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">updatesUpdatesTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">useShadowCopiesCheckbox</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">warningsTF</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">warningsTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">GeneralView.h</string>
@@ -7572,55 +7063,6 @@
 							<string>NSButton</string>
 							<string>NSImageView</string>
 							<string>NSTextFieldCell</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>infoCopyrightTFC</string>
-							<string>infoCreditSV</string>
-							<string>infoCreditTV</string>
-							<string>infoDescriptionSV</string>
-							<string>infoDescriptionTV</string>
-							<string>infoHelpButton</string>
-							<string>infoLogoIV</string>
-							<string>infoVersionTFC</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoCopyrightTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoCreditSV</string>
-								<string key="candidateClassName">NSScrollView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoCreditTV</string>
-								<string key="candidateClassName">NSTextView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoDescriptionSV</string>
-								<string key="candidateClassName">NSScrollView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoDescriptionTV</string>
-								<string key="candidateClassName">NSTextView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoHelpButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoLogoIV</string>
-								<string key="candidateClassName">NSImageView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoVersionTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -7708,185 +7150,6 @@
 							<string>id</string>
 						</object>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>addConfigurationButtonWasClicked:</string>
-							<string>advancedButtonWasClicked:</string>
-							<string>appearanceDisplayConnectionSubmenusCheckboxWasClicked:</string>
-							<string>appearanceDisplayConnectionTimersCheckboxWasClicked:</string>
-							<string>appearanceDisplaySplashScreenCheckboxWasClicked:</string>
-							<string>appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
-							<string>appearanceHelpButtonWasClicked:</string>
-							<string>appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
-							<string>configurationsHelpButtonWasClicked:</string>
-							<string>connectButtonWasClicked:</string>
-							<string>disconnectButtonWasClicked:</string>
-							<string>duplicateConfigurationMenuItemWasClicked:</string>
-							<string>editOpenVPNConfigurationFileMenuItemWasClicked:</string>
-							<string>generalHelpButtonWasClicked:</string>
-							<string>infoHelpButtonWasClicked:</string>
-							<string>logToClipboardButtonWasClicked:</string>
-							<string>makePrivateOrSharedMenuItemWasClicked:</string>
-							<string>monitorConfigurationFolderCheckboxWasClicked:</string>
-							<string>monitorNetworkForChangesCheckboxWasClicked:</string>
-							<string>removeConfigurationButtonWasClicked:</string>
-							<string>removeCredentialsMenuItemWasClicked:</string>
-							<string>renameConfigurationMenuItemWasClicked:</string>
-							<string>resetDisabledWarningsButtonWasClicked:</string>
-							<string>showOnTunnelBlickMenuCheckboxWasClicked:</string>
-							<string>showOpenvpnLogMenuItemWasClicked:</string>
-							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
-							<string>updatesCheckNowButtonWasClicked:</string>
-							<string>useShadowCopiesCheckboxWasClicked:</string>
-							<string>utilitiesHelpButtonWasClicked:</string>
-							<string>utilitiesKillAllOpenVpnButtonWasClicked:</string>
-							<string>utilitiesRunEasyRsaButtonWasClicked:</string>
-							<string>whenToConnectManuallyMenuItemWasClicked:</string>
-							<string>whenToConnectOnComputerStartMenuItemWasClicked:</string>
-							<string>whenToConnectTunnelBlickLaunchMenuItemWasClicked:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">addConfigurationButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">advancedButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">appearanceDisplayConnectionSubmenusCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">appearanceDisplayConnectionTimersCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">appearanceDisplaySplashScreenCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">appearanceHelpButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">configurationsHelpButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">connectButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">disconnectButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">duplicateConfigurationMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">editOpenVPNConfigurationFileMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">generalHelpButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">infoHelpButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">logToClipboardButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">makePrivateOrSharedMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">monitorConfigurationFolderCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">monitorNetworkForChangesCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">removeConfigurationButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">removeCredentialsMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">renameConfigurationMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">resetDisabledWarningsButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showOnTunnelBlickMenuCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showOpenvpnLogMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">updatesCheckAutomaticallyCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">updatesCheckNowButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">useShadowCopiesCheckboxWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">utilitiesHelpButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">utilitiesKillAllOpenVpnButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">utilitiesRunEasyRsaButtonWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">whenToConnectManuallyMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">whenToConnectOnComputerStartMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">whenToConnectTunnelBlickLaunchMenuItemWasClicked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -7904,40 +7167,6 @@
 							<string>GeneralView</string>
 							<string>InfoView</string>
 							<string>UtilitiesView</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>appearancePrefsView</string>
-							<string>configurationsPrefsView</string>
-							<string>generalPrefsView</string>
-							<string>infoPrefsView</string>
-							<string>utilitiesPrefsView</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">appearancePrefsView</string>
-								<string key="candidateClassName">AppearanceView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">configurationsPrefsView</string>
-								<string key="candidateClassName">ConfigurationsView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">generalPrefsView</string>
-								<string key="candidateClassName">GeneralView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">infoPrefsView</string>
-								<string key="candidateClassName">InfoView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">utilitiesPrefsView</string>
-								<string key="candidateClassName">UtilitiesView</string>
-							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -8020,35 +7249,6 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>utilitiesEasyRsaPathTFC</string>
-							<string>utilitiesHelpButton</string>
-							<string>utilitiesKillAllOpenVpnButton</string>
-							<string>utilitiesRunEasyRsaButton</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">utilitiesEasyRsaPathTFC</string>
-								<string key="candidateClassName">NSTextFieldCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">utilitiesHelpButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">utilitiesKillAllOpenVpnButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">utilitiesRunEasyRsaButton</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -8741,13 +7941,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">showWindow:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showWindow:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showWindow:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>

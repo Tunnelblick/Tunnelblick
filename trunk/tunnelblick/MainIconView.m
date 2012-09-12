@@ -34,6 +34,8 @@ extern BOOL              gShuttingDownWorkspace;
 
 -(void) mouseDownMainThread: (NSEvent *) theEvent
 {
+	(void) theEvent;
+	
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -140,7 +142,8 @@ extern BOOL              gShuttingDownWorkspace;
 {
     // Event handler; NOT on MainThread
 	
-    ;   // We needn't do anything
+	(void) theEvent;	// We don't do anything
+	
 }
 
 @end

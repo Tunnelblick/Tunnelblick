@@ -69,7 +69,7 @@ extern BOOL                   gShuttingDownWorkspace;
                         if (   [gFileMgr tbCopyPath: CONFIGURATION_UPDATES_BUNDLE_PATH toPath: tempBundlePath handler: nil]  ) {
                             NSBundle * tempBundle = [NSBundle bundleWithPath: tempBundlePath];
                             if (  tempBundle  ) {
-                                if (  self = [super init]  ) {
+                                if (  (self = [super init])  ) {
                                     cfgBundlePath = [tempBundlePath retain];
                                     cfgBundle = [tempBundle retain];
                                     cfgUpdater = [[SUUpdater updaterForBundle: cfgBundle] retain];
@@ -168,6 +168,8 @@ extern BOOL                   gShuttingDownWorkspace;
 // Use this to override the default behavior for Sparkle prompting the user about automatic update checks.
 - (BOOL)updaterShouldPromptForPermissionToCheckForUpdates:(SUUpdater *)bundle
 {
+	(void) bundle;
+	
     NSLog(@"cfgUpdater: updaterShouldPromptForPermissionToCheckForUpdates");
     return NO;
 }
@@ -175,12 +177,17 @@ extern BOOL                   gShuttingDownWorkspace;
 // Returns the path which is used to relaunch the client after the update is installed. By default, the path of the host bundle.
 - (NSString *)pathToRelaunchForUpdater:(SUUpdater *)updater
 {
+	(void) updater;
+	
     return [[NSBundle mainBundle] bundlePath];
 }
 
 
 - (void)updater:(SUUpdater *)updater willInstallUpdate:(SUAppcastItem *)update
 {
+	(void) updater;
+    (void) update;
+	
     if (  gShuttingDownWorkspace  ) {
         return;
     }

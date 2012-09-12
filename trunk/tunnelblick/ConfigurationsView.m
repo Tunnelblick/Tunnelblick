@@ -47,6 +47,8 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
+	
+	(void) dirtyRect;
 }
 
 -(void) awakeFromNib

@@ -110,13 +110,17 @@
 
 - (IBAction) cancelButtonWasClicked: sender
 {
-    [cancelButton setEnabled: NO];
+ 	(void) sender;
+	
+   [cancelButton setEnabled: NO];
     [OKButton setEnabled: NO];
     [NSApp abortModal];
 }
 
 - (IBAction) OKButtonWasClicked: sender
 {
+	(void) sender;
+	
     if (   ( [[[self username] stringValue] length] == 0 )
         || ( [[[self password] stringValue] length] == 0 )  ){
         TBRunAlertPanel(NSLocalizedString(@"Please enter a username and password.", @"Window title"),

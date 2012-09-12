@@ -500,8 +500,9 @@ EOF )"
 		d.add RestoreOnDNSReset     "${ARG_RESTORE_ON_DNS_RESET}"
 		d.add RestoreOnWINSReset    "${ARG_RESTORE_ON_WINS_RESET}"
 		d.add IgnoreOptionFlags     "${ARG_IGNORE_OPTION_FLAGS}"
-		d.add IsTapInterface        "${ARG_TAP}"
-		d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
+        d.add IsTapInterface        "${ARG_TAP}"
+        d.add FlushDNSCache         "${ARG_FLUSH_DNS_CACHE}"
+        d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
 		d.add bAlsoUsingSetupKeys   "${bAlsoUsingSetupKeys}"
         d.add TapDeviceHasBeenSetNone "false"
 		set State:/Network/OpenVPN
@@ -857,6 +858,39 @@ configureOpenVpnDns()
 }
 
 ##########################################################################################
+flushDNSCache()
+{
+    if ${ARG_FLUSH_DNS_CACHE} ; then
+        case "${OSVER}" in
+            10.4 )
+                if [ -f /usr/sbin/lookupd ] ; then
+                    /usr/sbin/lookupd -flushcache
+                    logMessage "Flushed the DNS Cache"
+                else
+                    logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
+                fi
+                ;;
+            10.5 | 10.6 )
+                if [ -f /usr/bin/dscacheutil ] ; then
+                    /usr/bin/dscacheutil -flushcache
+                    logMessage "Flushed the DNS Cache"
+                else
+                    logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache"
+                fi
+                ;;
+            * )
+                if [ -f /usr/bin/killall ] ; then
+                    /usr/bin/killall -HUP mDNSResponder
+                    logMessage "Flushed the DNS Cache"
+                else
+                    logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
+                fi
+                ;;
+        esac
+    fi
+}
+
+##########################################################################################
 #
 # START OF SCRIPT
 #
@@ -877,6 +911,7 @@ ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
 ARG_PREPEND_DOMAIN_NAME="false"
+ARG_FLUSH_DNS_CACHE="false"
 ARG_IGNORE_OPTION_FLAGS=""
 
 while [ {$#} ] ; do
@@ -895,6 +930,9 @@ while [ {$#} ] ; do
 	elif [ "$1" = "-p" ] ; then
 		ARG_PREPEND_DOMAIN_NAME="true"
 		shift
+    elif [ "$1" = "-f" ] ; then
+        ARG_FLUSH_DNS_CACHE="true"
+        shift
 	elif [ "${1:0:2}" = "-i" ] ; then
 		ARG_IGNORE_OPTION_FLAGS="${1}"
 		shift
@@ -907,7 +945,7 @@ while [ {$#} ] ; do
 	fi
 done
 
-readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_IGNORE_OPTION_FLAGS
+readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_IGNORE_OPTION_FLAGS
 
 # Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
@@ -968,6 +1006,7 @@ if ${ARG_TAP} ; then
 	else
 		configureOpenVpnDns
 		EXIT_CODE=$?
+        flushDNSCache
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
@@ -978,6 +1017,7 @@ else
 	else
 		configureOpenVpnDns
 		EXIT_CODE=$?
+        flushDNSCache
 	fi
 fi
 

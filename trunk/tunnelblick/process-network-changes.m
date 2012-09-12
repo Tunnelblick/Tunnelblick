@@ -73,6 +73,8 @@ void dumpMsg(NSString * msg) {
 
 int main (int argc, const char * argv[])
 {
+	(void) argv;
+	
     gPool = [[NSAutoreleasePool alloc] init];
     
     if (  argc != 1  ) {
@@ -137,7 +139,7 @@ int main (int argc, const char * argv[])
     
     NSString * changes = getChanges(charsAndKeys, current, preVpn, postVpn);
     
-    int i;
+    unsigned i;
     NSString * act = @"";
     NSMutableArray * itemsToRestore = [NSMutableArray arrayWithCapacity:6];
     for (  i=2; i<[actions length]; i++  ) {
@@ -234,7 +236,7 @@ void restoreItems (NSArray * itemsToRestore, NSString * currentVpnDNS, NSString 
 
     NSEnumerator * e = [itemsToRestore objectEnumerator];
     NSString * itemKey;
-    while (  itemKey = [e nextObject]  ) {
+    while (  (itemKey = [e nextObject])  ) {
         if (   [dnsSubkeyList containsObject: itemKey]  ) {
             NSString * value = getKeyFromScDictionary(itemKey, currentVpnDNS);          // Remove current item if it exists
             if (  [value length] != 0  ) {
@@ -356,7 +358,7 @@ NSString * getChanges(NSDictionary * charsAndKeys, NSString * current, NSString 
     
     NSEnumerator * e = [charsAndKeys keyEnumerator];
     NSString * ch;
-    while (  ch = [e nextObject]  ) {
+    while (  (ch = [e nextObject])  ) {
         if (  [ch isEqualToString: [ch lowercaseString]]  ) {
             NSString * key  = [charsAndKeys objectForKey: ch];
             NSString * cur  = getKeyFromScDictionary(key, current);
@@ -531,7 +533,7 @@ NSString * standardizedString(NSString * s, NSRange r)
     NSMutableArray * trimmedLines = [NSMutableArray arrayWithCapacity: [lines count]];
     NSString * line;
     NSEnumerator * lineEnum = [lines objectEnumerator];
-    while (  line = [lineEnum nextObject]  ) {
+    while (  (line = [lineEnum nextObject])  ) {
         [trimmedLines addObject: [line stringByTrimmingCharactersInSet: ws]];
     }
     

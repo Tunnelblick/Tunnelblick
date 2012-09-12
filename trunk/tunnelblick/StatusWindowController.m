@@ -254,10 +254,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     double horizontalPosition = screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0 - horizontalOffset + screenOverlapHorizontalOffset;
     
     // Put the window in the upper-right corner of the screen but offset in X and Y by the position number    
-    NSRect onScreenRect = NSMakeRect(horizontalPosition,
-                              verticalPosition,
-                              panelFrame.size.width,
-                              panelFrame.size.height);
+    NSRect onScreenRect = NSMakeRect(horizontalPosition, verticalPosition, panelFrame.size.width, panelFrame.size.height);
     
     [panel setFrame: onScreenRect display: YES];
     currentWidth = onScreenRect.size.width;
@@ -276,7 +273,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     if (  ! runningOnLeopardOrNewer()  ) {
         [[self window] setBackgroundColor: [NSColor blackColor]];
-        [[self window] setAlphaValue: 0.77];
+        [[self window] setAlphaValue: 0.77f];
     }
     
     [self setSizeAndPosition];
@@ -346,7 +343,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     CGFloat maxWidth = 0.0;
     NSString * unitsName;
     NSEnumerator * e = [array objectEnumerator];
-    while (  unitsName = [e nextObject]  ) {
+    while (  (unitsName = [e nextObject])  ) {
         [tfc1 setTitle: unitsName];
         [tf1 sizeToFit];
         NSRect f = [tf1 frame];
@@ -371,7 +368,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void) initialiseAnim
 {
     if (  theAnim == nil  ) {
-        int i;
+        unsigned i;
         // theAnim is an NSAnimation instance variable
         theAnim = [[NSAnimation alloc] initWithDuration:2.0
                                          animationCurve:NSAnimationLinear];
@@ -380,7 +377,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         
         for (i=1; i<=[[[NSApp delegate] largeAnimImages] count]; i++) {
             NSAnimationProgress p = ((float)i)/((float)[[[NSApp delegate] largeAnimImages] count]);
-            [theAnim addProgressMark:p];
+            [theAnim addProgressMark: p];
         }
         [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
         [theAnim startAnimation];
@@ -389,6 +386,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void)animationDidEnd:(NSAnimation*)animation
 {
+	if (  animation != theAnim  ) {
+		return;
+	}
+	
 	if (   (![status isEqualToString:@"EXITING"])
         && (![status isEqualToString:@"CONNECTED"])) {
 		[theAnim startAnimation];
@@ -398,7 +399,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
 	if (animation == theAnim) {
-        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[[NSApp delegate] largeAnimImages] objectAtIndex:lround(progress * [[[NSApp delegate] largeAnimImages] count]) - 1] waitUntilDone:YES];
+        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[[NSApp delegate] largeAnimImages] objectAtIndex:(unsigned) lround(progress * [[[NSApp delegate] largeAnimImages] count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -460,6 +461,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) closeAfterFadeOutHandler: (NSTimer *) timer
 {
+	(void) timer;
+	
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -469,6 +472,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) closeAfterFadeOut: (NSDictionary *) dict
 {
+	(void) dict;
+	
     if ( [[self window] alphaValue] == 0.0 ) {
         [[self window] close];
     } else {
@@ -623,6 +628,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
 -(void) NSWindowWillCloseNotification: (NSNotification *) n {
     // Event handler; NOT on MainThread
     
+	(void) n;
+	
     [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
 }
 @end

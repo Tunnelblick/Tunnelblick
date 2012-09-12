@@ -24,9 +24,8 @@
 #import "NSFileManager+TB.h"
 
 
-extern NSString       * gDeployPath;
-extern NSString       * gSharedPath;
 extern NSFileManager  * gFileMgr;
+extern NSString       * gDeployPath;
 
 
 @interface AppearanceView()  // Private methods
@@ -48,6 +47,8 @@ extern NSFileManager  * gFileMgr;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
+	
+	(void) dirtyRect;
 }
 
 -(void) awakeFromNib
@@ -62,7 +63,7 @@ extern NSFileManager  * gFileMgr;
     NSString * blackWhiteIconSetName = @"TunnelBlick-black-white.TBMenuIcons";
     
     NSMutableArray * iconSetContent = [NSMutableArray arrayWithCapacity: [paths count]];
-    int i;
+    unsigned i;
     for (  i=0; i< [paths count]; i++  ) {
         NSString * path = [paths objectAtIndex: i];
         NSString * fileName = [path lastPathComponent];
@@ -121,15 +122,15 @@ extern NSFileManager  * gFileMgr;
     NSMutableArray * iconNames = [[[NSMutableArray alloc] initWithCapacity: 30] autorelease];
     NSArray * iconDirs = [NSArray arrayWithObjects:
                           [gDeployPath stringByAppendingPathComponent: @"IconSets"],
-                          [gSharedPath stringByAppendingPathComponent: @"IconSets"],
+                          [L_AS_T_SHARED stringByAppendingPathComponent: @"IconSets"],
                           [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"],
                           nil];
     NSEnumerator * iconDirEnum = [iconDirs objectEnumerator];
     NSString * folder;
     NSString * file;
-    while (  folder = [iconDirEnum nextObject]  ) {
+    while (  (folder = [iconDirEnum nextObject])  ) {
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: folder];
-        while (  file = [dirEnum nextObject]  ) {
+        while (  (file = [dirEnum nextObject])  ) {
             [dirEnum skipDescendents];
             if (  [[file pathExtension] isEqualToString: @"TBMenuIcons"]  ) {
                 NSString * iconName = [file stringByDeletingPathExtension];

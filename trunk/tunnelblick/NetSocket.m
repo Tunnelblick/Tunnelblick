@@ -366,7 +366,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	
 	// Setup socket address
 	bzero( &socketAddress, sizeof( socketAddress ) );
-	bcopy( (char*)socketHost->h_addr, (char*)&socketAddress.sin_addr, socketHost->h_length );
+	bcopy( (char*) ((char*)socketHost->h_addr), (char*)&socketAddress.sin_addr, (unsigned) socketHost->h_length );
 	socketAddress.sin_family = PF_INET;
 	socketAddress.sin_port = htons( inPort );
 	
@@ -869,6 +869,8 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 
 - (void)_socketConnectionTimedOut:(NSTimer*)inTimer
 {
+	(void) inTimer;
+	
 	NSTimeInterval timeInterval;
 	
 	// Store the timers time interval
@@ -930,16 +932,16 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 		return;
 	
 	// Create read buffer
-	readBuffer = malloc( ( amountAvailable == 0 ) ? 1 : amountAvailable );
+	readBuffer = malloc( ( amountAvailable == 0 ) ? 1u : (unsigned) amountAvailable );
 	if( !readBuffer )
 		return;
 	
 	// Attempt to read the available data
-	amountRead = read( nativeSocket, readBuffer, ( amountAvailable == 0 ) ? 1 : amountAvailable );
+	amountRead = read( nativeSocket, readBuffer, ( amountAvailable == 0 ) ? 1u : (unsigned) amountAvailable );
 	if( amountRead > 0 )
 	{
 		// Append data to our incoming buffer
-		[mIncomingBuffer appendBytes:readBuffer length:amountRead];
+		[mIncomingBuffer appendBytes:readBuffer length: (unsigned) amountRead];
 	}
 	else
 	if( amountRead == 0 )
@@ -961,7 +963,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 - (void)_socketWriteData
 {
 	CFSocketNativeHandle	nativeSocket;
-	int						amountSent;
+	size_t                  amountSent;
 	
 	// Return if our CFSocketRef has not been created, the outgoing buffer has no data in it or we are simply not connected
 	if( ![self _cfsocketCreated] || [mOutgoingBuffer length] == 0 || ![self isConnected] )
@@ -974,14 +976,14 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	
 	// Send all we can
 	amountSent = write( nativeSocket, [mOutgoingBuffer bytes], [mOutgoingBuffer length] );
-	if( amountSent == [mOutgoingBuffer length] )
+	if( amountSent == [mOutgoingBuffer length] )	// Ignore warning about signed/unsigned comparision. That is what we want here.
 	{
 		// We managed to write the entire outgoing buffer to the socket
 		// Disable the write callback for now since we know we are writable
 		CFSocketDisableCallBacks( mCFSocketRef, kCFSocketWriteCallBack );
 	}
 	else
-	if( amountSent >= 0 )
+	if( amountSent != (size_t) -1 )
 	{
 		// We managed to write some of our buffer to the socket
 		// Enable the write callback on our CFSocketRef so we know when the socket is writable again
@@ -1090,6 +1092,9 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 void 
 _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType inType, CFDataRef inAddress, const void* inData, void* inContext )
 {
+    (void) inCFSocketRef;
+    (void) inAddress;
+    
 	NetSocket*	netsocket;
 	
 	netsocket = (NetSocket*)inContext;
