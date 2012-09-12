@@ -46,7 +46,7 @@ extern NSFileManager * gFileMgr;
     int count, i;
     
     // KERN_PROC_ALL has 3 elements, all others have 4
-    int level = 3;
+    unsigned level = 3;
     
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return;
     // Allocate memory for info structure:
@@ -85,7 +85,7 @@ extern NSFileManager * gFileMgr;
     int returnCount = 0;
     
     // KERN_PROC_ALL has 3 elements, all others have 4
-    int level = 3;
+    unsigned level = 3;
     
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return (-1);
     // Allocate memory for info structure:
@@ -123,7 +123,7 @@ extern NSFileManager * gFileMgr;
     int count, i;
     
     // KERN_PROC_ALL has 3 elements, all others have 4
-    int level = 3;
+    unsigned level = 3;
     
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return (nil);
     // Allocate memory for info structure:
@@ -157,7 +157,7 @@ extern NSFileManager * gFileMgr;
         return inPids;
     }
     
-    int i;
+    unsigned i;
     for (  i=0; i < [inPids count]; i++  ) {
         NSNumber * pidAsNSNumber = [inPids objectAtIndex: i];
         unsigned pid = [pidAsNSNumber unsignedIntValue];
@@ -209,7 +209,7 @@ extern NSFileManager * gFileMgr;
     BOOL found = FALSE;
     
     // KERN_PROC_ALL has 3 elements, all others have 4
-    int level = 3;
+    unsigned level = 3;
     
     if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) {
         NSLog(@"Error: waitUntilNoProcessWithID: sysctl call #1: errno = %d\n%s", errno, strerror(errno));
@@ -264,7 +264,7 @@ extern NSFileManager * gFileMgr;
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
 {
     NSMutableArray *loginItems;
-    int i;
+    unsigned i;
     
     // Read the loginwindow preferences:
     loginItems = [(id) CFPreferencesCopyValue((CFStringRef)@"AutoLaunchedApplicationDictionary", 
@@ -366,13 +366,13 @@ extern NSFileManager * gFileMgr;
                                                                                                             //
     NSImage *saveIcon = [[NSWorkspace sharedWorkspace] iconForFile: [[NSBundle mainBundle] bundlePath]];    //
                                                                                                             //
-    NSImage *smallSave = [[[NSImage alloc] initWithSize:NSMakeSize(32, 32)] autorelease];                   //
+	NSImage *smallSave = [[[NSImage alloc] initWithSize:NSMakeSize(32.0, 32.0)] autorelease];             //
     // Get it's size down to 32x32                                                                          //
     [smallSave lockFocus];                                                                                  //
-    [saveIcon drawInRect:NSMakeRect(0, 0, 32, 32)                                                           //
-                fromRect:NSMakeRect(0, 0, saveIcon.size.width, saveIcon.size.height)                        //
+    [saveIcon drawInRect:NSMakeRect(0.0, 0.0, 32.0, 32.0)                                               //
+                fromRect:NSMakeRect(0.0, 0.0, saveIcon.size.width, saveIcon.size.height)  //
                operation:NSCompositeSourceOver                                                              //
-                fraction:1.0];                                                                              //
+                fraction:1.0];                                                                             //
                                                                                                             //
     [smallSave unlockFocus];                                                                                //
     NSBitmapImageRep *rep = [NSBitmapImageRep imageRepWithData:[smallSave TIFFRepresentation]];             //

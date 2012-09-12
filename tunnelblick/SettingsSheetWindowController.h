@@ -156,6 +156,7 @@ typedef enum
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
 -(void) setupPrependDomainNameCheckbox;
+-(void) setupFlushDNSCheckbox;
 
 
 // Methods for Connecting tab

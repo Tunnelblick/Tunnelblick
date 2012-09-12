@@ -164,8 +164,30 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
+-(void) setupFlushDNSCheckbox
+{
+    // Select the appropriate Set nameserver entry
+    int ix = 1; // Default is 'Set nameserver'
+    NSString * key = [configurationName stringByAppendingString: @"useDNS"];
+    id obj = [gTbDefaults objectForKey: key];
+	if (  [obj respondsToSelector: @selector(intValue)]  ) {
+		ix = [obj intValue];
+	}
+    
+    if (  ix == 1  ) {
+        [self setupCheckbox: flushDnsCacheCheckbox
+                        key: @"-doNotFlushCache"
+                   inverted: YES];
+    } else {
+        [flushDnsCacheCheckbox setState: NSOffState];
+        [flushDnsCacheCheckbox setEnabled: NO];
+    }
+}
+
 -(void) showSettingsSheet: (id) sender
 {
+	(void) sender;
+	
     if (  ! settingsSheet  ) {
         [super showWindow: self];
     } else {
@@ -306,7 +328,7 @@ extern TBUserDefaults       * gTbDefaults;
                                   nil];
         NSEnumerator * arrayEnum = [stuffToShift objectEnumerator];
         id control;
-        while (  control = [arrayEnum nextObject]  ) {
+        while (  (control = [arrayEnum nextObject])  ) {
             NSRect oldPos;
             oldPos = [control frame];
             oldPos.origin.x = oldPos.origin.x + widthChange;
@@ -379,9 +401,7 @@ extern TBUserDefaults       * gTbDefaults;
     
     [self setupPrependDomainNameCheckbox];
     
-    [self setupCheckbox: flushDnsCacheCheckbox
-                    key: @"-doNotFlushCache"
-               inverted: YES];
+    [self setupFlushDNSCheckbox];
     
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -675,6 +695,8 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) connectingHelpButtonWasClicked: (id) sender
 {
+	(void) sender;
+	
     OSStatus err;
     if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
         NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
@@ -910,6 +932,8 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) whileConnectedHelpButtonWasClicked: (id) sender
 {
+	(void) sender;
+	
 }
 
 

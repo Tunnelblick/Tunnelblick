@@ -63,5 +63,7 @@
 	<string>Tunnelblick Help</string>
 	<key>IPCheckURL</key>
 	<string>http://tunnelblick.net/ipinfo</string>
+	<key>TBOKIfNotSecure</key>
+	<string>TBOKIFNOTSECURESTRING</string>
 </dict>
 </plist>

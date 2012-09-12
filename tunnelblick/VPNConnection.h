@@ -116,7 +116,7 @@ struct Statistics {
     BOOL            loadedOurTun;       // True iff last connection loaded our tun kext
     BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
     BOOL            showingStatusWindow; // True iff displaying statusScreen
-   BOOL             ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
+    BOOL            ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
 }
 
 // PUBLIC METHODS:
@@ -207,7 +207,7 @@ struct Statistics {
 
 -(IBAction)         toggle:                     (id)            sender;
 
--(void)             tryToHookupToPort:          (int)           inPortNumber
+-(void)             tryToHookupToPort:          (unsigned)      inPortNumber
                  withOpenvpnstartArgs:          (NSString *)    inStartArgs;
 
 -(int)              useDNSStatus;

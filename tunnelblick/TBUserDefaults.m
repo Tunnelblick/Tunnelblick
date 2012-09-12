@@ -157,7 +157,7 @@ NSArray * gConfigurationPreferences;
 {
     NSEnumerator * dictEnum = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
     NSString * displayName;
-    while (  displayName = [dictEnum nextObject]  ) {
+    while (  (displayName = [dictEnum nextObject])  ) {
         NSString * fullKey = [displayName stringByAppendingString: key];
         [self removeObjectForKey: fullKey];
     }
@@ -191,7 +191,7 @@ NSArray * gConfigurationPreferences;
     // Then, add the non-forced preferences from the source configuration
     NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
     NSString * preferenceSuffix;
-    while (  preferenceSuffix = [arrayEnum nextObject]  ) {
+    while (  (preferenceSuffix = [arrayEnum nextObject])  ) {
         NSString * sourceKey = [sourceDisplayName stringByAppendingString: preferenceSuffix];
         NSString * targetKey = [targetDisplayName stringByAppendingString: preferenceSuffix];
         id obj;
@@ -236,7 +236,7 @@ NSArray * gConfigurationPreferences;
     // Then, add the non-forced preferences from the source configuration
     NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
     NSString * preferenceSuffix;
-    while (  preferenceSuffix = [arrayEnum nextObject]  ) {
+    while (  (preferenceSuffix = [arrayEnum nextObject])  ) {
         NSString * sourceKey = [sourceDisplayName stringByAppendingString: preferenceSuffix];
         NSString * targetKey = [targetDisplayName stringByAppendingString: preferenceSuffix];
         id obj;
@@ -259,7 +259,7 @@ NSArray * gConfigurationPreferences;
     BOOL problemsFound = FALSE;
     NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
     NSString * preferenceSuffix;
-    while (  preferenceSuffix = [arrayEnum nextObject]  ) {
+    while (  (preferenceSuffix = [arrayEnum nextObject])  ) {
         NSString * key = [displayName stringByAppendingString: preferenceSuffix];
         if (  [userDefaults objectForKey: key]  ) {
             if (  [self canChangeValueForKey: key]  ) {
@@ -279,12 +279,12 @@ NSArray * gConfigurationPreferences;
 {
     NSEnumerator * dictEnum = [dict keyEnumerator];
     NSString * preferenceKey;
-    while (  preferenceKey = [dictEnum nextObject]  ) {
+    while (  (preferenceKey = [dictEnum nextObject])  ) {
         if (  ! [gProgramPreferences containsObject: preferenceKey]  ) {
             NSEnumerator * prefEnum = [gConfigurationPreferences objectEnumerator];
             NSString * knownKey;
             BOOL found = FALSE;
-            while (  knownKey = [prefEnum nextObject]  ) {
+            while (  (knownKey = [prefEnum nextObject])  ) {
                 if (  [preferenceKey hasSuffix: knownKey]  ) {
                     found = TRUE;
                     break;
@@ -307,7 +307,7 @@ NSArray * gConfigurationPreferences;
         // If tbDefaults has a *ABCDE key, returns it's value
         NSEnumerator * e = [forcedDefaults keyEnumerator];
         NSString * forcedKey;
-        while (  forcedKey = [e nextObject]  ) {
+        while (  (forcedKey = [e nextObject])  ) {
             if (   [forcedKey hasPrefix: @"*"] 
                 && ( [forcedKey length] != 1)  ) {
                 if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {

@@ -40,6 +40,8 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
+	
+	(void) dirtyRect;
 }
 
 -(void) shift: (id) control by: (CGFloat) amount
@@ -63,7 +65,7 @@ extern TBUserDefaults * gTbDefaults;
                                                          length: sizeof cmdOptionChars / sizeof * cmdOptionChars];
     NSMutableArray * kbsContent = [NSMutableArray arrayWithCapacity: 12];
     [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"No keyboard shortcut", @"Button"), @"name", [NSNumber numberWithUnsignedInt: 0], @"value", nil]];
-    int i;
+    unsigned i;
     for (  i=0; i<12; i++  ) {
         [kbsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                 // Display <cmd><option>F1 (Command-Option-F1)...; Value is 0...11
@@ -92,7 +94,7 @@ extern TBUserDefaults * gTbDefaults;
                           @"", @"value",    // Empty name means default
                           nil]];
     NSEnumerator * e = [versions objectEnumerator];
-    while (ver = [e nextObject]) {
+    while (  (ver = [e nextObject])  ) {
         [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                ver, @"name",
                                ver, @"value",
@@ -117,7 +119,6 @@ extern TBUserDefaults * gTbDefaults;
         [self shift: resetDisabledWarningsButton by: +20.0];
         
         [self shift: configurationFilesTF               by: +10.0];
-        [self shift: useShadowCopiesCheckbox            by: +10.0];
         [self shift: monitorConfigurationFolderCheckbox by: +10.0];
     }
     
@@ -140,7 +141,6 @@ extern TBUserDefaults * gTbDefaults;
     [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 
     [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                               @"Window text")];
-    [useShadowCopiesCheckbox            setTitle: NSLocalizedString(@"Use shadow copies of configuration files",      @"Checkbox name")];
     [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes", @"Checkbox name")];
 
     [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
@@ -154,7 +154,6 @@ extern TBUserDefaults * gTbDefaults;
 //***************************************************************************************************************
 // Getters
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          useShadowCopiesCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          monitorConfigurationFolderCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)

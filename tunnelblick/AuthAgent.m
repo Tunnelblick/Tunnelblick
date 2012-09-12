@@ -49,7 +49,7 @@ extern TBUserDefaults  * gTbDefaults;
 -(id) initWithConfigName:(NSString *)inConfigName
 {
 	if (inConfigName == nil) return nil;
-    if (self = [super init]) {
+    if (  (self = [super init])  ) {
         [self setDisplayName:inConfigName];
         
         passphrase = nil;

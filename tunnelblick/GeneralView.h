@@ -46,7 +46,6 @@
     
     IBOutlet NSTextField        * configurationFilesTF;
     IBOutlet NSTextFieldCell    * configurationFilesTFC;
-    IBOutlet NSButton           * useShadowCopiesCheckbox;
     IBOutlet NSButton           * monitorConfigurationFolderCheckbox;
     
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
@@ -57,7 +56,6 @@
     IBOutlet NSButton           * preferencesGeneralHelpButton;
 }
 
-TBPROPERTY_READONLY(NSButton *,          useShadowCopiesCheckbox)
 TBPROPERTY_READONLY(NSButton *,          monitorConfigurationFolderCheckbox)
 
 TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)

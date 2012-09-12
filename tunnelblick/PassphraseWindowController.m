@@ -107,6 +107,8 @@
 
 - (IBAction) cancelButtonWasClicked: sender
 {
+	(void) sender;
+	
     [cancelButton setEnabled: NO];
     [OKButton setEnabled: NO];
     [NSApp abortModal];
@@ -114,6 +116,8 @@
 
 - (IBAction) OKButtonWasClicked: sender
 {
+	(void) sender;
+	
     if (  [[[self passphrase] stringValue] length] == 0  ) {
         TBRunAlertPanel(NSLocalizedString(@"Please enter VPN passphrase.", @"Window title"),
                         NSLocalizedString(@"The passphrase must not be empty!\nPlease enter VPN passphrase.", @"Window text"),

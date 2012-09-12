@@ -13,11 +13,17 @@
 
 + (BOOL)addRoute:(NSString *)host net:(NSString *)net 
 {
+	(void) host;
+	(void) net;
+	
 	return NO;
 }
 
 + (BOOL)delRoute:(NSString *)host net:(NSString *)net 
 {
+	(void) host;
+	(void) net;
+	
 	return NO;
 }
 
