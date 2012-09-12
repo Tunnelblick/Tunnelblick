@@ -10,6 +10,34 @@
 
 ==Version 3.3==
 
+*3.3beta22 (2012-09-12)*
+
+ * Installs, and should be used, only if:
+   * All private configurations are Tunnelblick VPN Configurations (.tblk files);
+   * It is not a Deployed version; and
+   * No Deployed versions of Tunnelblick have previously been installed.
+   (These restrictions will be removed in later releases.)
+
+ * Will install to, and may only be run from, /Applications.
+
+ * Fixes security issues raised by Tunnelblick Issue 212.
+
+ * New 'Welcome window' feature:
+   * If a 'Welcome' folder exists as a subfolder of Deploy and contains an 'index.html' file, that file will be displayed as a welcome screen when Tunnelblick is launched.
+   * Otherwise, if a 'welcomeURL' preference exists and is being forced, that URL will be displayed as a welcome screen when Tunnelblick is launched.
+   * If a 'welcomeWidth' and/or 'welcomeHeight' preference exists, its numeric value will be used for the width or height of the HTML display area of the welcome screen (otherwise, the area will be 500 pixels square).
+   * If a 'doNotShowWelcomeDoNotShowAgainCheckbox' preference exists and is true, a 'Do not show this again' checkbox will appear in the welcome window.
+   * If a 'skipWelcomeScreen' preference exists and is true, the welcome screen will not be shown.
+
+ * Prevents the display of notification windows for configurations that are disconnected if the 'doNotShowDisconnectedNotificationWindows' preference is true.
+
+ * Fixes incorrect display of VPN traffic statistics.
+
+ * Restores support for PowerPC processors and OS X 10.4 ("Tiger")
+
+
+--------------------
+
 *3.3beta20 (2012-08-20)*
 
  * After installing this version, Tunnelblick can only be updated by a computer administrator.

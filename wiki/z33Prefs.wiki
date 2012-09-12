@@ -78,6 +78,12 @@ All other preferences can be modified by
   * *showConnectedDurations* (Boolean): If set, the time that a configuration has been connected is displayed in the "VPN Details…" window. If cleared, the time is not displayed. The default is set.
   * *maximumNumberOfTabs* (Number): (This preference is not used in Tunnelblick 3.2beta16 and later.) The maximum number of configurations that Tunnelblick will display in tabs (in the VPN Details… window). If there are more than this many configurations, Tunnelblick will display them in a list on the left side of the VPN Details… window.
   * *connectionWindowDisplayCriteria* (String): This controls the Notification Window display. It should have one of the following values (without the quote marks): "neverShow", "showWhenConnecting", or "showWhenChanges". The default is "showWhenConnecting".
+  * *welcomeURL* (String): The URL for a web page that will be displayed as a welcome screen if no ...Tunnelblick.app/Contents/Resources/Deploy/Welcome/index.html file exists.
+  * *welcomeWidth* (Number): The width of welcome display (defaults to 500 pixels).
+  * *welcomeHeight* (Number): The height of welcome display (defaults to 500 pixels).
+  * *doNotShowWelcomeDoNotShowAgainCheckbox* (Boolean): If present and true, the 'Do not show again' checkbox is not displayed on the welcome screen. The default is not present.
+  * *skipWelcomeScreen* (Boolean): If present and true, the welcome screen is not displayed. The default is not present.
+  * *doNotShowDisconnectedNotificationWindows* (Boolean): If present and true, notification (status) windows will not be displayed for configurations that are disconnected. The default is not present.
 ==Preferences That Control Updates==
   * *updateAutomatically* (Boolean): If set, when Tunnelblick detects an update it will be downloaded and installed automatically. If cleared or not present, the user will be asked This preference may ONLY be forced; the user's normal preference is ignored because it can be changed at any time by a Sparkle check box. The default is not present.
   * *updateCheckAutomatically* (Boolean): If set, Tunnelblick checks for updates each time it is launched, and periodically thereafter. If cleared or not present, no checking is done. There is no default value; the user is asked if they want to enable automatic updates the first time Tunnelblick is launched and whenever the information that Tunnelblick sends when checking for an update changes (so the user can decide whether or not to include the information).

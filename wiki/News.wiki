@@ -1,6 +1,27 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-09-12: *Tunnelblick 3.3beta22 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Installs, and should be used, only if:
+   * All private configurations are Tunnelblick VPN Configurations (.tblk files);
+   * It is not a Deployed version; and
+   * No Deployed versions of Tunnelblick have previously been installed.
+   (These restrictions will be removed in later releases.)
+
+ * Will install to, and may only be run from, /Applications.
+
+ * Fixes security issues raised by Tunnelblick Issue 212.
+
+ * Fixes incorrect display of VPN traffic statistics.
+
+ * Restores support for PowerPC processors and OS X 10.4 ("Tiger")
+
+ * Several other changes and bug fixes.
+
+ See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+--------------------
+
 2012-08-20: *Tunnelblick 3.3beta20 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * After installing this version, Tunnelblick can only be updated by a computer administrator.
