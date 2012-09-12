@@ -3830,10 +3830,12 @@ void warnAboutMultiplesAndQuit(void)
         [self terminateBecause: terminatingBecauseOfQuit];
     }
     
-    if (   tunnelblickTestHasDeployBackups() ) {
+    if (   tunnelblickTestHasDeployBackups()
+		|| tunnelblickTestDeployed()) {
         TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
-                        NSLocalizedString(@"This version of Tunnelblick cannot be installed because one or more 'Deployed' versions"
-                                          @" of Tunnelblick have been installed.\n\n", @"Window text"),
+                        NSLocalizedString(@"This version of Tunnelblick cannot be installed because it is a Deployed version"
+										  @" or one or more 'Deployed' versions"
+                                          @" of Tunnelblick have already been installed.\n\n", @"Window text"),
                         nil,nil,nil);
         
         [self terminateBecause: terminatingBecauseOfQuit];
