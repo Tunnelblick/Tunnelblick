@@ -10,6 +10,12 @@
 
 ==Version 3.3==
 
+*3.3beta24 (2012-09-13)*
+
+ * Fixes problems installing from disk image.
+
+--------------------
+
 *3.3beta22 (2012-09-12)*
 
  * Installs, and should be used, only if:
