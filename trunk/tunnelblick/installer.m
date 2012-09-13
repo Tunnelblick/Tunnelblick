@@ -140,39 +140,6 @@ int main(int argc, char *argv[])
 {
 	pool = [NSAutoreleasePool new];
     
-    NSBundle * ourBundle = [NSBundle mainBundle];
-	NSString * resourcesPath = [ourBundle bundlePath];
-    NSArray  * execComponents = [resourcesPath pathComponents];
-    if (  [execComponents count] < 3  ) {
-        NSLog(@"Tunnelblick: too few execComponents; resourcesPath = %@", resourcesPath);
-        errorExit();
-    }
-	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 1];
-	if (  [ourAppName hasSuffix: @".app"]  ) {
-		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
-	}
-	gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
-    
-	
-#ifdef TBDebug
-    NSLog(@"Tunnelblick: WARNING: This is an insecure copy of installer to be used for debugging only!");
-#else
-    if (   ([execComponents count] != 5)
-        || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
-        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
-        //                                                  Allow any name for Tunnelblick.app
-        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Contents"]
-        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
-        ) {
-        NSLog(@"Tunnelblick must be in /Applications (bundlePath = %@", resourcesPath);
-        errorExit();
-    }
-#endif
-    
-    gKeyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
-    gFileMgr = [NSFileManager defaultManager];
-    gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
-    
     if (  (argc < 2)  || (argc > 4)  ) {
         NSLog(@"Tunnelblick: Wrong number of arguments -- expected 1 to 3, given %d", argc-1);
         errorExit();
@@ -189,6 +156,41 @@ int main(int argc, char *argv[])
     // secureApp if asked specifically or copying app
     BOOL secureApp = (arg1 & INSTALLER_SECURE_APP) || copyApp;
 	
+    NSBundle * ourBundle = [NSBundle mainBundle];
+	NSString * resourcesPath = [ourBundle bundlePath];
+    NSArray  * execComponents = [resourcesPath pathComponents];
+    if (  [execComponents count] < 3  ) {
+        NSLog(@"Tunnelblick: too few execComponents; resourcesPath = %@", resourcesPath);
+        errorExit();
+    }
+	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 3];
+	if (  [ourAppName hasSuffix: @".app"]  ) {
+		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
+	}
+	gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
+    
+	
+#ifdef TBDebug
+    NSLog(@"Tunnelblick: WARNING: This is an insecure copy of installer to be used for debugging only!");
+#else
+    if (   ([execComponents count] != 5)
+        || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
+        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
+        //                                                  Allow any name for Tunnelblick.app
+        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Contents"]
+        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
+        ) {
+		if (  ! copyApp  ) {
+			NSLog(@"Tunnelblick must be in /Applications (bundlePath = %@", resourcesPath);
+			errorExit();
+		}
+    }
+#endif
+    
+    gKeyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
+    gFileMgr = [NSFileManager defaultManager];
+    gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
+    
     // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
     NSString * appResourcesPath;
     if (  copyApp  ) {

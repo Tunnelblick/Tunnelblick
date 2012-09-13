@@ -1996,7 +1996,7 @@ int main(int argc, char * argv[])
         NSLog(@"Tunnelblick: too few execComponents; gResourcesPath = %@", gResourcesPath);
         exitOpenvpnstart(233);
     }
-	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 1];
+	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 3];
 	if (  [ourAppName hasSuffix: @".app"]  ) {
 		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 	}
