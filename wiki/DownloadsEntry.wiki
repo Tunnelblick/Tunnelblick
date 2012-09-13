@@ -18,7 +18,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <strong>Stable release</strong> <i>(A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a beta release, but may be more reliable.)</i>
 
- For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit<br />Not recommended for OS X 10.8 ("Mountain Lion")
+ For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit<br /><font color="red">Not recommended for OS X 10.8 ("Mountain Lion")</font>
 
  <font size="3"><strong>Tunnelblick 3.2.8</strong></font> (build 2891.3099) released 2012-08-10 [RlsNotes#Version_3.2 Release Notes]
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.8.dmg                 Tunnelblick 3.2.8]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.8_Unsigned.dmg     Tunnelblick 3.2.8 Unsigned]</strong> 
@@ -27,7 +27,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 </td></tr></tbody></table>
 
 <table border="1"><tbody><tr><td>
- <strong>Beta release</strong> <i>A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations.</i>
+ <strong>Beta release</strong> <i>(A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations.)</i>
 
  For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "<strong><font color="red">Mountain Lion</font></strong>") Intel or PowerPC, 32- or 64-bit
 
