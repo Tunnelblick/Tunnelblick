@@ -16,11 +16,14 @@
    * All private configurations are Tunnelblick VPN Configurations (.tblk files);
    * It is not a Deployed version; and
    * No Deployed versions of Tunnelblick have previously been installed.
-   (These restrictions will be removed in later releases.)
 
  * Will install to, and may only be run from, /Applications.
 
  * Fixes security issues raised by Tunnelblick Issue 212.
+
+--------------------
+
+*3.3beta21a (2012-09-12)*
 
  * New 'Welcome window' feature:
    * If a 'Welcome' folder exists as a subfolder of Deploy and contains an 'index.html' file, that file will be displayed as a welcome screen when Tunnelblick is launched.
@@ -35,6 +38,7 @@
 
  * Restores support for PowerPC processors and OS X 10.4 ("Tiger")
 
+ * Prepares for update to 3.3beta22
 
 --------------------
 
