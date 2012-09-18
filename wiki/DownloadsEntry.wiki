@@ -36,6 +36,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
   <font size="3"><strong>Tunnelblick 3.3beta24</strong></font> (build 3125) released 2012-09-13 [RlsNotes#Version_3.3 Release Notes]
  <font color="red"><strong>NOTE: 3.3beta24 installs, and should be used, only if:</strong>
+    • Tunnelblick has previously been installed and launched by the user; and<br />
     • All private configurations are Tunnelblick VPN Configurations (.tblk files); and<br />
     • It is not a Deployed version; and<br />
     • No Deployed versions of Tunnelblick have previously been installed.</font>
