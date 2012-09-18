@@ -224,6 +224,8 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
         gFileMgr    = [NSFileManager defaultManager];
         
         gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations"] copy];
+        createDir(gPrivatePath, 0755);     // Create private configurations folder if necessary
+        
 
         gConfigDirs = [[NSMutableArray alloc] initWithCapacity: 2];
         
@@ -458,9 +460,6 @@ extern BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSS
 
                                       @"-doNotShowOnTunnelblickMenu",
                                       nil] retain];
-        
-        // Create private configurations folder if necessary
-        createDir(gPrivatePath, 0755);
         
         // If this is the first time we are using the new CFBundleIdentifier
         //    Rename the old preferences so we can access them with the new CFBundleIdentifier
