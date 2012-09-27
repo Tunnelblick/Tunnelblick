@@ -1273,7 +1273,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = YES;
 			};
@@ -1300,7 +1299,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1329,7 +1327,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = YES;
 			};
@@ -1356,7 +1353,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1392,7 +1388,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 			};
 			name = Debug;
@@ -1425,7 +1420,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1489,7 +1483,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 			};
 			name = Debug;
@@ -1522,7 +1515,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1597,7 +1589,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1624,7 +1615,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1658,7 +1648,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1692,7 +1681,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1716,7 +1704,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 			};
 			name = Debug;
@@ -1737,7 +1724,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = NO;
 			};
@@ -1757,7 +1743,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 			};
 			name = "Unsigned Release";
@@ -1835,7 +1820,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = YES;
 			};
@@ -1863,7 +1847,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = YES;
 			};
@@ -1898,7 +1881,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 			};
 			name = "Clean Tunnelblick";
@@ -2042,7 +2024,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = YES;
 			};
@@ -2070,7 +2051,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				ZERO_LINK = YES;
 			};
@@ -2105,7 +2085,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 			};
 			name = "Clean Third Party";
@@ -2176,6 +2155,203 @@
 			};
 			name = "Clean Third Party";
 		};
+		B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_VERSION = 4.0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = openvpnstart;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+				);
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = installer;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+				);
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = atsystemstart;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+				);
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+				);
+				ZERO_LINK = NO;
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+					"-Wconversion",
+				);
+			};
+			name = "Unsigned Release -Wconversion";
+		};
+		B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = "Unsigned Release -Wconversion";
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2208,7 +2384,6 @@
 					"-Wall",
 					"-Wextra",
 					"-Wstrict-overflow",
-					"-Wconversion",
 				);
 				WRAPPER_EXTENSION = app;
 			};
@@ -2285,6 +2460,7 @@
 				61BC4BC30E2F9FE900F24255 /* Debug */,
 				61BC4BC40E2F9FE900F24255 /* Release */,
 				6398C40313DB30F60005FEB0 /* Unsigned Release */,
+				B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FC1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C81502509400C3801D /* Clean Third Party */,
 			);
@@ -2297,6 +2473,7 @@
 				61BC4D6D0E2FA06900F24255 /* Debug */,
 				61BC4D6E0E2FA06900F24255 /* Release */,
 				6398C40413DB30F60005FEB0 /* Unsigned Release */,
+				B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FD1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C91502509400C3801D /* Clean Third Party */,
 			);
@@ -2309,6 +2486,7 @@
 				63179440118D7E830057ACAF /* Debug */,
 				63179441118D7E830057ACAF /* Release */,
 				6398C40513DB30F60005FEB0 /* Unsigned Release */,
+				B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FE1502380400C3801D /* Clean Tunnelblick */,
 				63DA34CA1502509400C3801D /* Clean Third Party */,
 			);
@@ -2321,6 +2499,7 @@
 				635BF17F1501CCDF00D87717 /* Debug */,
 				635BF1801501CCDF00D87717 /* Release */,
 				635BF1811501CCDF00D87717 /* Unsigned Release */,
+				B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA34011502380400C3801D /* Clean Tunnelblick */,
 				63DA34CD1502509400C3801D /* Clean Third Party */,
 			);
@@ -2333,6 +2512,7 @@
 				638A1FFE135CC35100FB932C /* Debug */,
 				638A1FFF135CC35100FB932C /* Release */,
 				6398C40613DB30F60005FEB0 /* Unsigned Release */,
+				B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FF1502380400C3801D /* Clean Tunnelblick */,
 				63DA34CB1502509400C3801D /* Clean Third Party */,
 			);
@@ -2345,6 +2525,7 @@
 				63AA8E5A1492C75300C791C9 /* Debug */,
 				63AA8E5B1492C75300C791C9 /* Release */,
 				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
+				B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA34001502380400C3801D /* Clean Tunnelblick */,
 				63DA34CC1502509400C3801D /* Clean Third Party */,
 			);
@@ -2357,6 +2538,7 @@
 				C01FCF4B08A954540054247B /* Debug */,
 				C01FCF4C08A954540054247B /* Release */,
 				6398C40213DB30F60005FEB0 /* Unsigned Release */,
+				B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FB1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C71502509400C3801D /* Clean Third Party */,
 			);
@@ -2369,6 +2551,7 @@
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
 				6398C40113DB30F60005FEB0 /* Unsigned Release */,
+				B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FA1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C61502509400C3801D /* Clean Third Party */,
 			);
