@@ -879,11 +879,16 @@ flushDNSCache()
                 fi
                 ;;
             * )
-                if [ -f /usr/bin/killall ] ; then
-                    /usr/bin/killall -HUP mDNSResponder
-                    logMessage "Flushed the DNS Cache"
+                hands_off_ps="$( ps -ax | grep -i HandsOffDaemon | grep -i -v  "grep.-i.HandsOffDaemon" )"
+                if [ "${hands_off_ps}"  = "" ] ; then
+                    if [ -f /usr/bin/killall ] ; then
+                        /usr/bin/killall -HUP mDNSResponder
+                        logMessage "Flushed the DNS Cache"
+                    else
+                        logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
+                    fi
                 else
-                    logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
+                    logMessage "Hands Off is running. Not flushing the DNS cache"
                 fi
                 ;;
         esac
