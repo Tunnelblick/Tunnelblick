@@ -2191,6 +2191,18 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
 }    
     
+-(void) setupDisplayStatisticsWindowWhenDisconnectedCheckbox {
+    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setState: NSOffState];
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setEnabled: NO];
+    } else {
+        [self setValueForCheckbox: [appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox]
+                    preferenceKey: @"doNotShowDisconnectedNotificationWindows"
+                         inverted: YES
+                       defaultsTo: FALSE];
+    }
+}    
+
 -(void) setupAppearanceView
 {
     // Select value for icon set popup
@@ -2357,6 +2369,16 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     [[[NSApp delegate] ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
+-(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender
+{
+	if (  [sender state]  ) {
+		[gTbDefaults setBool: FALSE forKey:@"doNotShowDisconnectedNotificationWindows"];
+	} else {
+		[gTbDefaults setBool: TRUE  forKey:@"doNotShowDisconnectedNotificationWindows"];
+	}
+    [[[NSApp delegate] ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
+}
+
 -(IBAction) appearanceHelpButtonWasClicked: (id) sender
 {
 	(void) sender;
@@ -2424,6 +2446,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             [gTbDefaults setObject: preferenceValue forKey: @"connectionWindowDisplayCriteria"];
             
             [self setupDisplayStatisticsWindowCheckbox];
+            [self setupDisplayStatisticsWindowWhenDisconnectedCheckbox];
         }
     }
 }

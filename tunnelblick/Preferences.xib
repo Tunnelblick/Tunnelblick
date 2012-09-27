@@ -12,11 +12,11 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1023"/>
-			<integer value="44"/>
-			<integer value="521"/>
 			<integer value="1"/>
 			<integer value="117"/>
+			<integer value="1023"/>
+			<integer value="521"/>
+			<integer value="44"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1856,6 +1856,28 @@
 							<string key="NSContents">Display...</string>
 							<reference key="NSSupport" ref="644301394"/>
 							<reference key="NSControlView" ref="269272876"/>
+							<int key="NSButtonFlags">1211912703</int>
+							<int key="NSButtonFlags2">2</int>
+							<reference key="NSNormalImage" ref="630667089"/>
+							<reference key="NSAlternateImage" ref="34153109"/>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+					</object>
+					<object class="NSButton" id="670884726">
+						<reference key="NSNextResponder" ref="847392221"/>
+						<int key="NSvFlags">270</int>
+						<string key="NSFrame">{{248, 111}, {494, 18}}</string>
+						<reference key="NSSuperview" ref="847392221"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="481107728">
+							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags2">0</int>
+							<string key="NSContents">Display...</string>
+							<reference key="NSSupport" ref="644301394"/>
+							<reference key="NSControlView" ref="670884726"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="630667089"/>
@@ -4452,6 +4474,30 @@
 					</object>
 					<int key="connectionID">1031</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="670884726"/>
+						<reference key="destination" ref="269272876"/>
+					</object>
+					<int key="connectionID">1035</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="670884726"/>
+					</object>
+					<int key="connectionID">1036</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox</string>
+						<reference key="source" ref="847392221"/>
+						<reference key="destination" ref="670884726"/>
+					</object>
+					<int key="connectionID">1037</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4653,6 +4699,7 @@
 							<reference ref="700532383"/>
 							<reference ref="607511613"/>
 							<reference ref="438852176"/>
+							<reference ref="670884726"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Appearance</string>
@@ -5986,6 +6033,20 @@
 						<reference key="object" ref="336808855"/>
 						<reference key="parent" ref="438852176"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1032</int>
+						<reference key="object" ref="670884726"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="481107728"/>
+						</object>
+						<reference key="parent" ref="847392221"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1033</int>
+						<reference key="object" ref="481107728"/>
+						<reference key="parent" ref="670884726"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -6010,6 +6071,9 @@
 					<string>1026.IBPluginDependency</string>
 					<string>1026.IBViewBoundsToFrameTransform</string>
 					<string>1027.IBPluginDependency</string>
+					<string>1032.IBPluginDependency</string>
+					<string>1032.IBViewBoundsToFrameTransform</string>
+					<string>1033.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.IBViewBoundsToFrameTransform</string>
 					<string>117.IBEditorWindowLastContentRect</string>
@@ -6302,7 +6366,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{199, 257}, {760, 390}}</string>
+					<string>{{55, 257}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6337,9 +6401,14 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDfQAAw1QAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDmoAAw1MAAA</bytes>
 					</object>
-					<string>{{196, 334}, {760, 390}}</string>
+					<string>{{55, 334}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6449,7 +6518,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{264, 295}, {760, 390}}</string>
+					<string>{{138, -28}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6762,7 +6831,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{264, 90}, {760, 390}}</string>
+					<string>{{55, 90}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -6811,7 +6880,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1031</int>
+			<int key="maxID">1037</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6830,6 +6899,7 @@
 							<string>appearanceDisplayConnectionTimersCheckbox</string>
 							<string>appearanceDisplaySplashScreenCheckbox</string>
 							<string>appearanceDisplayStatisticsWindowsCheckbox</string>
+							<string>appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox</string>
 							<string>appearanceHelpButton</string>
 							<string>appearanceIconSetArrayController</string>
 							<string>appearanceIconSetButton</string>
@@ -6843,6 +6913,7 @@
 							<string>NSArrayController</string>
 							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -7000,7 +7071,6 @@
 							<string>updatesCheckNowButton</string>
 							<string>updatesLastCheckedTFC</string>
 							<string>updatesUpdatesTFC</string>
-							<string>useShadowCopiesCheckbox</string>
 							<string>warningsTF</string>
 							<string>warningsTFC</string>
 						</object>
@@ -7027,7 +7097,6 @@
 							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
 							<string>NSTextFieldCell</string>
-							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSTextFieldCell</string>
 						</object>
@@ -7083,6 +7152,7 @@
 							<string>appearanceDisplayConnectionTimersCheckboxWasClicked:</string>
 							<string>appearanceDisplaySplashScreenCheckboxWasClicked:</string>
 							<string>appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
+							<string>appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked:</string>
 							<string>appearanceHelpButtonWasClicked:</string>
 							<string>appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
 							<string>configurationsHelpButtonWasClicked:</string>
@@ -7104,7 +7174,6 @@
 							<string>showOpenvpnLogMenuItemWasClicked:</string>
 							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
 							<string>updatesCheckNowButtonWasClicked:</string>
-							<string>useShadowCopiesCheckboxWasClicked:</string>
 							<string>utilitiesHelpButtonWasClicked:</string>
 							<string>utilitiesKillAllOpenVpnButtonWasClicked:</string>
 							<string>utilitiesRunEasyRsaButtonWasClicked:</string>

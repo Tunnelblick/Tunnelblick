@@ -112,6 +112,8 @@ extern NSString       * gDeployPath;
 
     [appearanceDisplayStatisticsWindowsCheckbox
      setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")];
+    [appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
+     setTitle: NSLocalizedString(@"Show when disconnected", @"Checkbox name")];
 }
 
 -(NSArray *) getIconSets
@@ -163,5 +165,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowD
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
 
 @end
