@@ -112,7 +112,13 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) restore
 {
-    [cancelButton setEnabled: YES];
+    if (   [status isEqualToString: @"EXITING"]  ) {
+		[connectButton setEnabled: YES];
+		[disconnectButton setEnabled: NO];
+    } else {
+		[connectButton setEnabled: NO];
+		[disconnectButton setEnabled: YES];
+    }
     [self startMouseTracking];
     [self setSizeAndPosition];
     [[self window] display];
@@ -276,6 +282,9 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [[self window] setAlphaValue: 0.77f];
     }
     
+	[self setTitle: localizeNonLiteral(@"Connect",    @"Button") ofControl: connectButton];
+	[self setTitle: localizeNonLiteral(@"Disconnect", @"Button") ofControl: disconnectButton];
+
     [self setSizeAndPosition];
     [[self window] setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
     
@@ -306,10 +315,14 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     float widthChange = newRect.size.width - oldRect.size.width;
     NSRect oldPos;
     
-    if (   [theControl isEqual: cancelButton]  ) {  // Shift the control itself left/right if necessary
-        oldPos = [theControl frame];
+    if (   [theControl isEqual: connectButton]  ) {  // Shift the disconnect button left/right if necessary
+        oldPos = [disconnectButton frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [disconnectButton setFrame:oldPos];
+    } else if (   [theControl isEqual: disconnectButton]  ) {
+        oldPos = [disconnectButton frame];
         oldPos.origin.x = oldPos.origin.x - (widthChange/2);
-        [theControl setFrame:oldPos];
+        [disconnectButton setFrame:oldPos];
     }
 }
 
@@ -486,11 +499,19 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 }
 
-- (IBAction) cancelButtonWasClicked: sender
+- (IBAction) connectButtonWasClicked: sender
 {
     [sender setEnabled: NO];
 	[[NSApp delegate] statusWindowController: self
-                          finishedWithChoice: (cancelButtonIsConnectButton ? statusWindowControllerConnectChoice : statusWindowControllerDisconnectChoice)
+                          finishedWithChoice: statusWindowControllerConnectChoice
+                              forDisplayName: [self name]];
+}
+
+- (IBAction) disconnectButtonWasClicked: sender
+{
+    [sender setEnabled: NO];
+	[[NSApp delegate] statusWindowController: self
+                          finishedWithChoice: statusWindowControllerDisconnectChoice
                               forDisplayName: [self name]];
 }
 
@@ -502,7 +523,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
 
-    [cancelButton   release];
+    [connectButton   release];
+    [disconnectButton release];
     
     [statusTFC      release];
     [animationIV    release];
@@ -531,14 +553,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     return [[configurationNameTFC retain] autorelease];
 }
 
--(void) setCancelButtonTitle: (NSString *) buttonName {
-    if (  cancelButton  ) {
-        [self setTitle: localizeNonLiteral(buttonName, @"Button") ofControl: cancelButton ];
-        [cancelButton setEnabled: YES];
-        cancelButtonIsConnectButton = [buttonName isEqualToString: @"Connect"];
-    }
-}
-
 -(void) setStatus: (NSString *) theStatus forName: (NSString *) theName connectedSince: (NSString *) theTime
 {
     if (  gShuttingDownWorkspace  ) {
@@ -563,20 +577,23 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeMainImage]];
-        [self setCancelButtonTitle: @"Connect"];
+		[connectButton setEnabled: YES];
+		[disconnectButton setEnabled: NO];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
         [configurationNameTFC setTextColor: [NSColor greenColor]];
         [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
-        [self setCancelButtonTitle: @"Disconnect"];
+		[connectButton setEnabled: NO];
+		[disconnectButton setEnabled: YES];
 
     } else {
         [configurationNameTFC setTextColor: [NSColor yellowColor]];
         [statusTFC            setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];
-        [self setCancelButtonTitle: @"Disconnect"];
+		[connectButton setEnabled: NO];
+		[disconnectButton setEnabled: YES];
     }
 }
 
