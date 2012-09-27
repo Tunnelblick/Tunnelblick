@@ -1325,9 +1325,11 @@ enum state_t {                      // These are the "states" of the guideState 
                 } else if (  [keyAndCrtExtensions containsObject: ext]  ) {
                     ;
                 } else {
+					NSLog(@"Files with the extension that %@ has may not appear in a Tunnelblick VPN Configuration (\".tblk\").", [pkgList objectAtIndex: i]);
                     nUnknown++;
                 }
             } else {
+				NSLog(@"Folders (such as %@) may not appear in a Tunnelblick VPN Configuration (\".tblk\").", [pkgList objectAtIndex: i]);
                 nUnknown++;
             }
         }
