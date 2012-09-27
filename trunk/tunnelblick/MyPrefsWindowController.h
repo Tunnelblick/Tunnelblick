@@ -153,6 +153,8 @@
 
 -(IBAction) appearanceDisplayStatisticsWindowCheckboxWasClicked:   (id) sender;
 
+-(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender;
+
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 
 
