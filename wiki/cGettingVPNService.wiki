@@ -39,6 +39,7 @@ The following VPN service providers  contribute to Tunnelblick if you use these 
 The following VPN service providers have donated to Tunnelblick within the past two years
   * *[http://www.tunnelblick.net/to.php?to=https://www.blackvpn.com blackVPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.hideman.net Hideman.net]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.kovurt.com Kovurt]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.missmysoaps.co.uk MissMySoaps]*
   * *[http://www.tunnelblick.net/to.php?to=https://my-private-network.co.uk My Private Network]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.perfect-privacy.com Perfect Privacy]*
