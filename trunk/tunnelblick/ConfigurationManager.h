@@ -44,13 +44,13 @@
 
 -(BOOL)                     copyConfigPath:             (NSString *)                sourcePath
                                     toPath:             (NSString *)                targetPath
-                              usingAuthRef:             (AuthorizationRef)          authRef
+                           usingAuthRefPtr:             (AuthorizationRef *)        authRefPtr
                                 warnDialog:             (BOOL)                      warn
                                moveNotCopy:             (BOOL)                      moveInstead;
 
--(BOOL)                     deleteConfigPath:           (NSString *)        targetPath
-                                usingAuthRef:           (AuthorizationRef)  authRef
-                                  warnDialog:           (BOOL)              warn;
+-(BOOL)                     deleteConfigPath:           (NSString *)         targetPath
+                             usingAuthRefPtr:           (AuthorizationRef *) authRefPtr
+                                  warnDialog:           (BOOL)               warn;
 
 -(void)                     editConfigurationAtPath:    (NSString *)        thePath
                                       forConnection:    (VPNConnection *)   connection;
@@ -58,9 +58,6 @@
 -(void)                     haveNoConfigurationsGuide;
 
 -(NSMutableDictionary *)    getConfigurations;
-
--(NSString *)               getConfigurationToUse:      (NSString *)        cfgPath
-                                            orAlt:      (NSString *)        altCfgPath;
 
 -(NSString *)               makeTemporarySampleTblkWithName: (NSString *)   name;
 
@@ -77,4 +74,5 @@
 -(BOOL)                     unprotectConfigurationFile: (NSString *)        filePath;
 
 -(BOOL)                     userCanEditConfiguration:   (NSString *)        filePath;
+
 @end

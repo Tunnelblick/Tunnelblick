@@ -43,7 +43,8 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 
 - (id)init
 {
-	if( ![super init] )
+    self = [super init];
+	if (  ! self  )
 		return nil;
 	
 	// Initialize some values
@@ -61,7 +62,8 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 
 - (id)initWithNativeSocket:(int)inNativeSocket
 {
-	if( ![self init] )
+    self = [self init];
+	if (  ! self  )
 		return nil;
 	
 	// Create CFSocketRef based on specified native socket
@@ -963,7 +965,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 - (void)_socketWriteData
 {
 	CFSocketNativeHandle	nativeSocket;
-	size_t                  amountSent;
+	ssize_t                  amountSent;
 	
 	// Return if our CFSocketRef has not been created, the outgoing buffer has no data in it or we are simply not connected
 	if( ![self _cfsocketCreated] || [mOutgoingBuffer length] == 0 || ![self isConnected] )
@@ -976,14 +978,14 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	
 	// Send all we can
 	amountSent = write( nativeSocket, [mOutgoingBuffer bytes], [mOutgoingBuffer length] );
-	if( amountSent == [mOutgoingBuffer length] )	// Ignore warning about signed/unsigned comparision. That is what we want here.
+	if( amountSent == (ssize_t)[mOutgoingBuffer length] )
 	{
 		// We managed to write the entire outgoing buffer to the socket
 		// Disable the write callback for now since we know we are writable
 		CFSocketDisableCallBacks( mCFSocketRef, kCFSocketWriteCallBack );
 	}
 	else
-	if( amountSent != (size_t) -1 )
+	if( amountSent != (ssize_t) -1 )
 	{
 		// We managed to write some of our buffer to the socket
 		// Enable the write callback on our CFSocketRef so we know when the socket is writable again
@@ -1009,7 +1011,7 @@ static void _cfsocketCallback( CFSocketRef inCFSocketRef, CFSocketCallBackType i
 	}
 	
 	// Remove the data we managed to write to the socket 
-	[mOutgoingBuffer replaceBytesInRange:NSMakeRange( 0, amountSent ) withBytes:NULL length:0];
+	[mOutgoingBuffer replaceBytesInRange:NSMakeRange( 0, (unsigned)amountSent ) withBytes:NULL length:0];
 	
 	// If our outgoing buffer is empty, notify our delegate
 	if( [mOutgoingBuffer length] == 0 )

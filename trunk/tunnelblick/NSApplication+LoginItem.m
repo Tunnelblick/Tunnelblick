@@ -182,7 +182,7 @@ extern NSFileManager * gFileMgr;
         
         if (   status == EXIT_SUCCESS  ) {
             if (  [psOutput length] != 0  ) {
-                unsigned sizeInKB = atoi([psOutput UTF8String]);
+                unsigned sizeInKB = cvt_atou([psOutput UTF8String], @"sizeInKB (pIdsForOpenVPNMainProcesses: psOutput");
                 if (  sizeInKB >= 1024  ) {  // Assumes OpenVPN itself is >= 1024KB, and openvpn-down-root.so is < 1024KB. In OpenVPN 2.1.4 they are 2300KB and 244KB, respectively
                     [outPids addObject: pidAsNSNumber];
                 }

@@ -25,6 +25,7 @@
 #import <pthread.h>
 #import <signal.h>
 #import "defines.h"
+#import "sharedRoutines.h"
 #import "ConfigurationManager.h"
 #import "VPNConnection.h"
 #import "helper.h"
@@ -73,8 +74,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void)             forceKillWatchdogHandler;
 
 -(void)             forceKillWatchdog;
-
--(unsigned int)     getFreePort;
 
 -(BOOL)             hasLaunchDaemon;
 
@@ -292,11 +291,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
 {
     NSArray * openvpnstartArgs = [openvpnstartArgString componentsSeparatedByString: @"_"];
     
-    unsigned useScripts = [[openvpnstartArgs objectAtIndex: 0] intValue];
-    //  unsigned skipScrSec = [[openvpnstartArgs objectAtIndex: 1] intValue];  // Skip - no preference for this
-    unsigned cfgLocCode = [[openvpnstartArgs objectAtIndex: 2] intValue];
-    unsigned noMonitor  = [[openvpnstartArgs objectAtIndex: 3] intValue];
-    unsigned bitMask    = [[openvpnstartArgs objectAtIndex: 4] intValue];
+    unsigned useScripts = [[openvpnstartArgs objectAtIndex: 0] unsignedIntValue];
+    //  unsigned skipScrSec = [[openvpnstartArgs objectAtIndex: 1] unsignedIntValue];  // Skip - no preference for this
+    unsigned cfgLocCode = [[openvpnstartArgs objectAtIndex: 2] unsignedIntValue];
+    unsigned noMonitor  = [[openvpnstartArgs objectAtIndex: 3] unsignedIntValue];
+    unsigned bitMask    = [[openvpnstartArgs objectAtIndex: 4] unsignedIntValue];
     
     BOOL configPathBad = FALSE;
     switch (  cfgLocCode & 0x3  ) {
@@ -547,7 +546,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 // the .plist file used to connect when the system starts
 
 -(BOOL) checkConnectOnSystemStart: (BOOL)              startIt
-                         withAuth: (AuthorizationRef)  inAuthRef;
+                         withAuth: (AuthorizationRef)  inAuthRef
 {
     // Encode slashes and periods in the displayName so the result can act as a single component in a file name
     NSMutableString * daemonNameWithoutSlashes = encodeSlashesAndPeriods([self displayName]);
@@ -893,7 +892,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 	useconds_t usleepTime = (useconds_t) (checkEvery * 1.0e6);
 	BOOL firstTimeThru = TRUE;
     uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
-    uint64_t timeoutNanoseconds = timeoutInterval * 1.0e9;
+    uint64_t timeoutNanoseconds = (uint64_t)(timeoutInterval * 1.0e9);
     uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
 	while (   (! data)
            && (nowAbsoluteNanoseconds() < endTimeNanoseconds)  ) {
@@ -1108,7 +1107,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         && [obj respondsToSelector: @selector(doubleValue)]  ) {
         delay = (NSTimeInterval) [obj doubleValue];
     }
-    useconds_t delayMicroseconds = (delay * 1.0e6);
+    useconds_t delayMicroseconds = (unsigned)(delay * 1.0e6);
     if (  delayMicroseconds != 0  ) {
         NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay);
         usleep(delayMicroseconds);
@@ -1201,7 +1200,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     // Got IP address, even though DNS isn't working
     NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0]);
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
-                           withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting.", (double) timeoutToUse]
+                           withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
     [[NSApp delegate] haveFinishedIPCheckThread: threadID];
     [threadPool drain];
@@ -1340,7 +1339,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart %@",
                      [escapedArguments componentsJoinedByString: @" "]]];
     
-    unsigned bitMask = [[arguments objectAtIndex: 7] intValue];
+    unsigned bitMask = [[arguments objectAtIndex: 7] unsignedIntValue];
     if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
         [[NSApp delegate] incrementTapCount];
     }
@@ -1354,25 +1353,53 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSString * errOut;
     
+    BOOL isDeployedConfiguration = [[arguments objectAtIndex: 5] isEqualToString:@"2"];
+
     OSStatus status = runOpenvpnstart(arguments, nil, &errOut);
 	
     NSString * openvpnstartOutput;
     if (  status != 0  ) {
-        if (  status == 240  ) {
+        if (  status == OPENVPNSTART_RETURN_SYNTAX_ERROR  ) {
             openvpnstartOutput = @"Internal Tunnelblick error: openvpnstart syntax error";
         } else {
             openvpnstartOutput = stringForLog(errOut, @"*Tunnelblick: openvpnstart log:\n");
         }
         
         [self addToLog: [NSString stringWithFormat: @"*Tunnelblick:\n\n"
-                         "Could not start OpenVPN (openvpnstart returned with status #%d)\n\n"
+                         "Could not start OpenVPN (openvpnstart returned with status #%ld)\n\n"
                          "Contents of the openvpnstart log:\n"
                          "%@",
-                         status, openvpnstartOutput]];
-        if (  userKnows  ) {
+                         (long)status, openvpnstartOutput]];
+		
+		if (  status == OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR) {
+			
+            if (  userKnows  ) {
+                requestedState = oldRequestedState;
+            }
+            
+            // Secure the configuration
+            unsigned installerFlags;
+            if (  isDeployedConfiguration  ) {
+                installerFlags = INSTALLER_SECURE_APP;
+            } else {
+                installerFlags = INSTALLER_SECURE_TBLKS;
+            }
+
+            if (  ! [[NSApp delegate] runInstaller: installerFlags
+                                    extraArguments: nil]  ) {
+                // the user cancelled or an error occurred
+				// if an error occurred, runInstaller has already put up an error dialog and put a message in the console log
+				return;
+            }
+            
+            [self connect: sender userKnows: userKnows];
+            return;
+        }
+        
+		if (  userKnows  ) {
             TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
                             [NSString stringWithFormat:
-                             NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window", @"Window text"),
+                             NSLocalizedString(@"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window", @"Window text"),
                              [self displayName]],
                             nil, nil, nil);
             requestedState = oldRequestedState;
@@ -1393,22 +1420,65 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
 {
     NSString *cfgPath = [self configPath];
-    NSString *altPath = [NSString stringWithFormat:@"%@/%@/%@",
-                         L_AS_T_USERS,
-                         NSUserName(),
-                         lastPartOfPath(configPath)];
-    
-    if ( ! (cfgPath = [[ConfigurationManager defaultManager] getConfigurationToUse: cfgPath orAlt: altPath]) ) {
-        return nil;
+
+    if (   [cfgPath hasPrefix: gPrivatePath]  ) {
+        
+        NSString * name = lastPartOfPath(cfgPath);
+        if (  ! [[name pathExtension] isEqualToString: @"tblk"]) {
+            NSLog(@"Internal Tunnelblick error: '%@' is not a .tblk", name);
+            return nil;
+        }
+        
+        NSArray * arguments = [NSArray arrayWithObjects:@"compareTblkShadowCopy", [self displayName], nil];
+        OSStatus status =  runOpenvpnstart(arguments, nil, nil);
+        
+        switch (  status  ) {
+                
+            case OPENVPNSTART_COMPARE_CONFIG_SAME:
+                break;
+                
+            case OPENVPNSTART_COMPARE_CONFIG_DIFFERENT:
+                // Alt config is different or doesn't exist. We must create it (and maybe the folders that contain it)
+                ; // empty statement needed to avoid bogus compiler error
+				AuthorizationRef authRef = [NSApplication getAuthorizationRef:
+                                            NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
+                if ( authRef == nil ) {
+                    NSLog(@"Authorization to create/update a secure (shadow) copy of the configuration file cancelled by user.");
+                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                    return nil;
+                }
+				
+                NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+										 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
+				
+                if ( [[ConfigurationManager defaultManager] copyConfigPath: cfgPath
+                                                                    toPath: altCfgPath
+                                                           usingAuthRefPtr: &authRef
+                                                                warnDialog: YES
+                                                               moveNotCopy: NO] ) {    // Copy the config to the alt config
+                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+                    NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
+                    break;
+                }
+                
+                AuthorizationFree(authRef, kAuthorizationFlagDefaults); // Couldn't make alt file
+                NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
+                return nil;
+                break;
+                
+            default:
+                NSLog(@"Internal Tunnelblick error: unknown status %ld from compareTblkShadowCopy(%@)", (long) status, [self displayName]);
+                return nil;
+        }
     }
-    
-    BOOL useShadowCopy = [cfgPath isEqualToString: altPath];
+
+    BOOL useShadowCopy = [cfgPath hasPrefix: gPrivatePath];
     BOOL useDeploy     = [cfgPath hasPrefix: gDeployPath];
     BOOL useShared     = [cfgPath hasPrefix: L_AS_T_SHARED];
     
     NSString *portString;
     if (  forNow  ) {
-        [self setPort:[self getFreePort]];
+        [self setPort: getFreePort()];
         portString = [NSString stringWithFormat:@"%d", portNumber];
     } else {
         portString = @"0";
@@ -1726,7 +1796,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) connectToManagementSocket
 {
-    [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: portNumber]];   
+    [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: (unsigned short)portNumber]];
 }
 
 -(void) disconnectFromManagmentSocket
@@ -1803,19 +1873,15 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     } else {
 
         if (  [wait boolValue]  ) {
-            forceKillInterval = 10;   // Seconds between disconnect attempts
-            id terminationSeconds;
-            if (  (terminationSeconds = [gTbDefaults objectForKey: @"openvpnTerminationInterval"])  ) {
-                if (   [terminationSeconds respondsToSelector: @selector(intValue)]  ) {
-                    forceKillInterval = [terminationSeconds intValue];
-                }
-            }
-            forceKillTimeout = 180;   // Seconds before considering it disconnected anyway
-            if (  (terminationSeconds = [gTbDefaults objectForKey: @"openvpnTerminationTimeout"])  ) {
-                if (   [terminationSeconds respondsToSelector: @selector(intValue)]  ) {
-                    forceKillTimeout = [terminationSeconds intValue];
-                }
-            }
+            forceKillInterval = [gTbDefaults unsignedIntForKey: @"openvpnTerminationInterval"
+                                                       default: 10
+                                                           min: 0
+                                                           max: UINT_MAX];
+            
+            forceKillTimeout = [gTbDefaults unsignedIntForKey: @"openvpnTerminationTimeout"
+                                                      default: 10
+                                                          min: 0
+                                                          max: UINT_MAX];
             
             if (  forceKillInterval  != 0) {
                 if ( forceKillTimeout != 0  ) {
@@ -2377,9 +2443,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                 
                                 if (  statistics.totalInBytecount > inCount  ) {
                                     statistics.totalInByteCountBeforeThisConnection += statistics.totalInBytecount;
+                                    statistics.totalInBytecount = 0;
                                 }
-                                if (  statistics.totalOutBytecount > inCount  ) {
+                                if (  statistics.totalOutBytecount > outCount  ) {
                                     statistics.totalOutByteCountBeforeThisConnection += statistics.totalOutBytecount;
+                                    statistics.totalOutBytecount = 0;
                                 }
                                 
                                 TBByteCount lastInBytecount    = inCount  - statistics.totalInBytecount;
@@ -2744,7 +2812,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 NSString * msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' executing…", scriptName];
                 [self addToLog: msg];
                 OSStatus status = runOpenvpnstart(arguments, nil, nil);
-                msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' returned with status %d", scriptName, status];
+                msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' returned with status %ld", scriptName, (long)status];
                 [self addToLog: msg];
                 if (   (status != 0)
                     && ( ! [scriptName isEqualToString: @"post-disconnect"] )  ) {
@@ -2783,33 +2851,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             showingStatusWindow = FALSE;
         }
     }
-}
-
-- (unsigned int) getFreePort
-{
-	unsigned int resultPort = 1336; // start port	
-	int fd = socket(AF_INET, SOCK_STREAM, 0);
-	int result = 0;
-	
-	do {		
-		struct sockaddr_in address;
-		int len = sizeof(struct sockaddr_in);
-		resultPort++;
-		
-		address.sin_len = len;
-		address.sin_family = AF_INET;
-		address.sin_port = htons(resultPort);
-		address.sin_addr.s_addr = htonl(0x7f000001); // 127.0.0.1, localhost
-		
-		memset(address.sin_zero,0,sizeof(address.sin_zero));
-		
-		result = bind(fd, (struct sockaddr *)&address,sizeof(address));
-		
-	} while (result!=0);
-	
-	close(fd);
-	
-	return resultPort;
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)anItem 

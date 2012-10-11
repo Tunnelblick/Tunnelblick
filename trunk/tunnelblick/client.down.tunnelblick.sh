@@ -46,17 +46,19 @@ flushDNSCache()
                 fi
                 ;;
             * )
-                hands_off_ps="$( ps -ax | grep -i HandsOffDaemon | grep -i -v  "grep.-i.HandsOffDaemon" )"
-                if [ "${hands_off_ps}"  = "" ] ; then
-                    if [ -f /usr/bin/killall ] ; then
-                        /usr/bin/killall -HUP mDNSResponder
-                        logMessage "Flushed the DNS Cache"
-                    else
-                        logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
-                    fi
-                else
-                    logMessage "Hands Off is running. Not flushing the DNS cache"
-                fi
+				set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+				set -e # We instruct bash that it CAN again fail on errors
+				if [ "${hands_off_ps}" = "" ] ; then
+					if [ -f /usr/bin/killall ] ; then
+						/usr/bin/killall -HUP mDNSResponder
+						logMessage "Flushed the DNS Cache"
+					else
+						logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
+					fi
+				else
+					logMessage "Hands Off is running. Not flushing the DNS cache"
+				fi
                 ;;
         esac
     fi

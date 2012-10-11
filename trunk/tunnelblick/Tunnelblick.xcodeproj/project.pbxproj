@@ -155,8 +155,16 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
+		B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
+		B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
 		B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B5DBC15F2430900EDCF95 /* WelcomeController.m */; };
 		B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85B5DBE15F2436200EDCF95 /* Welcome.xib */; };
+		B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
+		B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -427,9 +435,15 @@
 		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8045A07161EF26700609C98 /* sharedRoutines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedRoutines.h; sourceTree = "<group>"; };
+		B8045A08161EF26700609C98 /* sharedRoutines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharedRoutines.m; sourceTree = "<group>"; };
+		B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationToken.h; sourceTree = "<group>"; };
+		B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationToken.m; sourceTree = "<group>"; };
 		B85B5DBB15F2430900EDCF95 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		B85B5DBC15F2430900EDCF95 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 		B85B5DBE15F2436200EDCF95 /* Welcome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
+		B87F82901612964D008E0EB1 /* ConfigurationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationConverter.h; sourceTree = "<group>"; };
+		B87F82911612964D008E0EB1 /* ConfigurationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationConverter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,12 +515,18 @@
 				63DAFD5311CBA9F4002F9F91 /* defines.h */,
 				6185E73E0E76045D0009C2FD /* helper.h */,
 				6185E73F0E76045D0009C2FD /* helper.m */,
+				B8045A07161EF26700609C98 /* sharedRoutines.h */,
+				B8045A08161EF26700609C98 /* sharedRoutines.m */,
 				635C80441300353000DB27AE /* ApplescriptCommands.h */,
 				635C80451300353000DB27AE /* ApplescriptCommands.m */,
 				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
 				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
+				B87F82901612964D008E0EB1 /* ConfigurationConverter.h */,
+				B87F82911612964D008E0EB1 /* ConfigurationConverter.m */,
 				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
 				633DF4581312B13100B8606C /* ConfigurationManager.m */,
+				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
+				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
 				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
 				63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */,
 				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
@@ -1110,6 +1130,7 @@
 			files = (
 				61BC4CDF0E2F9FFA00F24255 /* openvpnstart.m in Sources */,
 				63F2AD9C12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,6 +1140,9 @@
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
+				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
+				B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1128,6 +1152,7 @@
 			files = (
 				63179444118D7EC20057ACAF /* atsystemstart.m in Sources */,
 				63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
+				B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,6 +1225,9 @@
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */,
 				B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */,
+				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
+				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
+				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

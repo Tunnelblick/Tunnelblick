@@ -39,6 +39,7 @@
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
 #import "defines.h"
+#import "sharedRoutines.h"
 #import "NSFileManager+TB.h"
 
 // Indices into argv[] for items we use. The first is an argument to this program; the other two are arguments to openvpnstart
@@ -127,6 +128,11 @@ int main(int argc, char* argv[])
     exit(EXIT_SUCCESS);
 }
 
+void appendLog(NSString * msg)
+{
+    NSLog(@"%@", msg);
+}
+
 void setNoStart(NSString * plistPath)
 {
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -195,7 +201,7 @@ NSString * getWorkingDirectory(int argc, char* argv[])
     
     unsigned  cfgLocCode = 0;
     if (  argc > ARG_CFG_LOC  ) {
-        cfgLocCode = atoi(argv[ARG_CFG_LOC]);
+        cfgLocCode = cvt_atou(argv[ARG_CFG_LOC], @"cfgLocCode");
     }
     
     if (  cfgLocCode == CFG_LOC_DEPLOY  ) {

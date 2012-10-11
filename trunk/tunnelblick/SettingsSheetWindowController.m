@@ -80,7 +80,8 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(id) init
 {
-    if (  ![super initWithWindowNibName:@"SettingsSheet"]  ) {
+    self = [super initWithWindowNibName:@"SettingsSheet"];
+    if (  ! self  ) {
         return nil;
     }
     
@@ -723,7 +724,7 @@ extern TBUserDefaults       * gTbDefaults;
 // Methods for While Connecting tab
 
 // Checkbox was changed by another window
--(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
+-(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection
 {
     if (   connection
         && (connection == theConnection)  ) {

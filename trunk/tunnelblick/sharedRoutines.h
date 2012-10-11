@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Jonathan Bullard
+ * Copyright 2012  Jonathan K. Bullard
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,27 +19,31 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-//*************************************************************************************************
-
-#import "NSString+TB.h"
+#import <Foundation/Foundation.h>
 
 
-@implementation NSString(TB)
+unsigned cvt_atou(const char * s, NSString * description);
 
--(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString
-{
-    return [self compare: theString options: NSCaseInsensitiveSearch | NSNumericSearch];
-}
+BOOL checkSetItemOwnership(NSString *     path,
+						   NSDictionary * atts,
+						   uid_t          uid,
+						   gid_t          gid,
+						   BOOL           traverseLink);
 
--(unsigned) unsignedIntValue
-{
-    int i = [self intValue];
-    if (  i < 0  ) {
-        NSLog(@"unsignedIntValue: Negative value %d is invalid in this context", i);
-        return UINT_MAX;
-    }
-    
-    return (unsigned) i;
-}
+BOOL checkSetOwnership(NSString * path,
+					   BOOL       deeply,
+					   uid_t      uid,
+					   gid_t      gid);
 
-@end
+BOOL checkSetPermissions(NSString * path,
+						 mode_t     permsShouldHave,
+						 BOOL       fileMustExist);
+
+BOOL createDirWithPermissionAndOwnership(NSString * dirPath,
+										 mode_t     permissions,
+										 uid_t      owner,
+										 gid_t      group);
+
+unsigned int getFreePort(void);
+
+BOOL itemIsVisible(NSString * path);

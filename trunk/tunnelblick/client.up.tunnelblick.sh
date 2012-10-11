@@ -661,7 +661,9 @@ configureDhcpDns()
 	
 	# - wait until we get a lease before extracting the DNS domain name and merging into SC
 	# - despite it's name, ipconfig waitall doesn't (but maybe one day it will :-)
+	logMessage "DEBUG_TAP: About to 'ipconfig waitall'"
 	ipconfig waitall
+	logMessage "DEBUG_TAP: Completed 'ipconfig waitall'"
 	
 	unset test_domain_name
 	unset test_name_server
@@ -685,12 +687,14 @@ configureDhcpDns()
 			test_name_server=`ipconfig getoption $dev domain_name_server 2>/dev/null`
 		fi
 	done
-	
+
+    logMessage "DEBUG_TAP: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
+    
+    logMessage "DEBUG_TAP: About to 'ipconfig getpacket $dev'"
 	sGetPacketOutput=`ipconfig getpacket $dev`
-	
+    logMessage "DEBUG_TAP: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
+
 	set -e # We instruct bash that it CAN again fail on individual errors
-	
-	#echo "`date` test_domain_name = $test_domain_name, test_name_server = $test_name_server, sGetPacketOutput = $sGetPacketOutput"
 	
 	unset aNameServers
 	unset aWinsServers
@@ -700,7 +704,7 @@ configureDhcpDns()
 	
 	if [ "$sGetPacketOutput" ]; then
 		sGetPacketOutput_FirstLine=`echo "$sGetPacketOutput"|head -n 1`
-		#echo $sGetPacketOutput_FirstLine
+		logMessage "DEBUG_TAP: sGetPacketOutput_FirstLine = $sGetPacketOutput_FirstLine"
 		
 		if [ "$sGetPacketOutput_FirstLine" == "op = BOOTREPLY" ]; then
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
@@ -742,9 +746,17 @@ configureDhcpDns()
 	unset sNameServer
 	unset aNameServers
 	
-	sDomainName=`ipconfig getoption $dev domain_name 2>/dev/null`
-	sNameServer=`ipconfig getoption $dev domain_name_server 2>/dev/null`
+    set +e # We instruct bash NOT to exit on individual command errors, because if we need to wait longer these commands will fail
 	
+	logMessage "DEBUG_TAP: About to 'ipconfig getoption $dev domain_name'"
+	sDomainName=`ipconfig getoption $dev domain_name 2>/dev/null`
+	logMessage "DEBUG_TAP: Completed 'ipconfig getoption $dev domain_name'"
+	logMessage "DEBUG_TAP: About to 'ipconfig getoption $dev domain_name_server'"
+	sNameServer=`ipconfig getoption $dev domain_name_server 2>/dev/null`
+	logMessage "DEBUG_TAP: Completed 'ipconfig getoption $dev domain_name_server'"
+    
+	set -e # We instruct bash that it CAN again fail on individual errors
+
 	sDomainName="$(trim "$sDomainName")"
 	sNameServer="$(trim "$sNameServer")"
 	
@@ -879,17 +891,19 @@ flushDNSCache()
                 fi
                 ;;
             * )
-                hands_off_ps="$( ps -ax | grep -i HandsOffDaemon | grep -i -v  "grep.-i.HandsOffDaemon" )"
-                if [ "${hands_off_ps}"  = "" ] ; then
-                    if [ -f /usr/bin/killall ] ; then
-                        /usr/bin/killall -HUP mDNSResponder
-                        logMessage "Flushed the DNS Cache"
-                    else
-                        logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
-                    fi
-                else
-                    logMessage "Hands Off is running. Not flushing the DNS cache"
-                fi
+				set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
+				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
+				set -e # We instruct bash that it CAN again fail on errors
+				if [ "${hands_off_ps}" = "" ] ; then
+					if [ -f /usr/bin/killall ] ; then
+						/usr/bin/killall -HUP mDNSResponder
+						logMessage "Flushed the DNS Cache"
+					else
+						logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
+					fi
+				else
+					logMessage "Hands Off is running. Not flushing the DNS cache"
+				fi
                 ;;
         esac
     fi
@@ -976,7 +990,9 @@ readonly TB_RESOURCE_PATH=$(dirname "${0}")
 
 LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch.plist"
 
+set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
+set -e # We instruct bash that it CAN again fail on errors
 
 readonly DEFAULT_DOMAIN_NAME="openvpn"
 
@@ -995,20 +1011,28 @@ if ${ARG_TAP} ; then
 	fi
 	
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
+		logMessage "DEBUG_TAP: bRouteGatewayIsDhcp is TRUE"
 		if [ -z "$dev" ]; then
 			logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
 			exit 1
 		fi
 		
+		logMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
 		ipconfig set "$dev" DHCP
+		logMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
 		
-		configureDhcpDns &
+#		configureDhcpDns &
+		logMessage "Configuring tap DNS via DHCP"
+		configureDhcpDns
+		EXIT_CODE=$?
+        flushDNSCache
 	elif [ "$foreign_option_1" == "" ]; then
 		logMessage "No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
 	else
+		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
         flushDNSCache

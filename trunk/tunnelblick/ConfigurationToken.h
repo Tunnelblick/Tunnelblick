@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Jonathan Bullard
+ * Copyright 2012 Jonathan K. Bullard. All rights reserved.
  *
  *  This file is part of Tunnelblick.
  *
@@ -19,27 +19,25 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-//*************************************************************************************************
+#import <Cocoa/Cocoa.h>
+#import "defines.h"
 
-#import "NSString+TB.h"
 
-
-@implementation NSString(TB)
-
--(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString
+@interface ConfigurationToken : NSObject
 {
-    return [self compare: theString options: NSCaseInsensitiveSearch | NSNumericSearch];
-}
-
--(unsigned) unsignedIntValue
-{
-    int i = [self intValue];
-    if (  i < 0  ) {
-        NSLog(@"unsignedIntValue: Negative value %d is invalid in this context", i);
-        return UINT_MAX;
-    }
+    NSRange    range;
+    NSString * string;
     
-    return (unsigned) i;
 }
+
+-(id) initWithRange: (NSRange)    theRange
+           inString: (NSString *) theString;
+
+-(BOOL) isLinefeed;
+
+TBPROPERTY_READONLY(NSString *, stringValue)
+TBPROPERTY_READONLY(NSUInteger, location)
+TBPROPERTY_READONLY(NSUInteger, length)
+TBPROPERTY_READONLY(NSRange,    range)
 
 @end

@@ -47,6 +47,11 @@ extern NSString        * gPrivatePath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
 
+void appendLog(NSString * msg)
+{
+	NSLog(@"%@", msg);
+}
+
 uint64_t nowAbsoluteNanoseconds (void)
 {
     // The next three lines were adapted from http://shiftedbits.org/2008/10/01/mach_absolute_time-on-the-iphone/
@@ -210,18 +215,6 @@ int createDir(NSString * dirPath, unsigned long permissions)
     return 1;
 }
 
-BOOL itemIsVisible(NSString * path)
-{
-    if (  [path hasPrefix: @"."]  ) {
-        return NO;
-    }
-    NSRange rng = [path rangeOfString:@"/."];
-    if (  rng.length != 0) {
-        return NO;
-    }
-    return YES;
-}
-
 // Returns the path of the .tblk that a configuration file is enclosed within, or nil if the configuration file is not enclosed in a .tblk
 NSString * tblkPathFromConfigPath(NSString * path)
 {
@@ -239,76 +232,8 @@ NSString * tblkPathFromConfigPath(NSString * path)
     return nil;
 }
 
-BOOL folderContentsNeedToBeSecuredAtPath(NSString * theDirPath)
-{
-    NSArray * keyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
-    NSString * file;
-    BOOL isDir;
-    
-    // If it isn't an existing folder, then it can't be secured!
-    if (  ! [gFileMgr fileExistsAtPath: theDirPath isDirectory: &isDir]  ) {
-        NSLog(@"folderContentsNeedToBeSecuredAtPath: no such path: %@", theDirPath);
-        return YES;
-    }
-    
-    if (  ! isDir  ) {
-        NSLog(@"folderContentsNeedToBeSecuredAtPath: path exists but is not a folder: %@", theDirPath);
-        return YES;
-    }
-    
-	// We don't secure private configurations any more.
-    //
-    // If a private configuration was secured earlier, we need to undo that, so we say the folder contents need to be secured.
-	if (  [theDirPath hasPrefix: gPrivatePath]  ) {
-        if (  [[theDirPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * contentsPath = [theDirPath stringByAppendingPathComponent: @"Contents"];
-            if (  checkOwnerAndPermissions(contentsPath, 0, 0, @"755")  ) {
-				return YES; // Was secured earlier, need to "unsecure" it
-            } else {
-				return NO;  // Never secured, or already "unsecured"
-            }
-        } else {
-            NSLog(@"Internal Tunnelblick error: folderContentsNeedToBeSecuredAtPath called with private path but it isn't a .tblk");
-            return YES;
-        }
-	}
-    
-    // Not a private configuration:
-
-    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: theDirPath];
-    while (  (file = [dirEnum nextObject])  ) {
-        NSString * filePath = [theDirPath stringByAppendingPathComponent: file];
-        if (  itemIsVisible(filePath)  ) {
-            NSString * ext  = [file pathExtension];
-            if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
-                && isDir  ) {
-				if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"755")  ) {       // folders are 755
-					return YES; // NSLog already called
-                }
-            } else if (  [ext isEqualToString:@"executable"]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"755")  ) {       // executable files for custom menu commands are 755
-                    return YES; // NSLog already called
-                }
-            } else if (  [ext isEqualToString:@"sh"]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"744")  ) {       // shell scripts are 744
-                    return YES; // NSLog already called
-                }
-            } else if (  [keyAndCrtExtensions containsObject: ext]  ) {
-                if (  ! checkOwnerAndPermissions(filePath, 0, 0, @"600")  ) {       // keys, certs, etc. are 600
-                    return YES; // NSLog already called
-                }
-			} else { // including .conf and .ovpn
-                if (  ! checkOwnerAndPermissions(filePath, 0, 0,  @"644")  ) {  // everything else is 644
-                    return YES; // NSLog already called
-                }
-            }
-        }
-    }
-    return NO;
-}
-
 // Returns YES if file doesn't exist, or has the specified ownership and permissions
-BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave)
+BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
 {
     if (  ! [gFileMgr fileExistsAtPath: fPath]  ) {
         return YES;
@@ -316,17 +241,16 @@ BOOL checkOwnerAndPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString *
     
     NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *permissionsOctal = [NSString stringWithFormat:@"%lo",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
     
-    if (   [permissionsOctal isEqualToString: permsShouldHave]
+    if (   (perms == permsShouldHave)
         && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
         && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
         return YES;
     }
     
-    NSLog(@"File %@ has permissions: %@, is owned by %@:%@ and needs repair", fPath, permissionsOctal, fileOwner, fileGroup);
+    NSLog(@"File %@ has permissions: %lu, is owned by %@:%@ and needs repair", fPath, perms, fileOwner, fileGroup);
     return NO;
 }
 
@@ -728,6 +652,7 @@ NSString * newTemporaryDirectoryPath(void)
     if (  ! tempDirectoryNameCString  ) {
         NSLog(@"Unable to allocate memory for a temporary directory name");
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+        return nil;
     }
     
     strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
@@ -749,7 +674,6 @@ NSString * newTemporaryDirectoryPath(void)
 					isEqualToString: @"private/var"]  ) {
 				NSString * afterVar = [tempFolder substringFromIndex: 5];
 				tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
-				NSLog(@"Using /private/var instead of /var in temporary folder path %@", tempFolder);
 			} else {
 				NSLog(@"Warning: /var is not a symlink to /private/var so it is being left intact");
 			}
@@ -1120,7 +1044,7 @@ void updateEasyRsa(BOOL silently) {
     }
     
     if (  installType == install  ) {
-        if (  ! [gFileMgr createDirectoryAtPath: userPath attributes: nil]  ) {
+        if (  ! [gFileMgr tbCreateDirectoryAtPath: userPath attributes: nil]  ) {
             easyRsaInstallFailed([NSString stringWithFormat: NSLocalizedString(@"Could not create folder for easy-rsa at %@", @"Window text"), userPath]);
             return;
         }
