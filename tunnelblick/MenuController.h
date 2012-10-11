@@ -54,18 +54,14 @@ enum TerminationReason {
     terminatingBecauseOfFatalError = 6
 };
 
-BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
-                        BOOL * moveLibraryOpenVPN,
-                        BOOL * restoreDeploy,
-                        BOOL * needsPkgRepair,
-                        BOOL * needsBundleCopy,
-                        BOOL inApplications); 
+unsigned needToRunInstaller(BOOL inApplications);
 
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
 BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
 BOOL needToCopyBundle(void);
+BOOL needToConvertNonTblks(void);
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
@@ -159,7 +155,7 @@ BOOL needToCopyBundle(void);
     EventHotKeyRef            hotKeyRef;                    // Reference for the current hot key
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
     UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
-    int                       hotKeyCurrentIndex;           // Index of the hot key that is currently in use (0 = none, else 1...12)
+    unsigned                  hotKeyCurrentIndex;           // Index of the hot key that is currently in use (0 = none, else 1...MAX_HOTKEY_IX)
 
     NSMutableArray          * customMenuScripts;            // Array of paths to the scripts for custom menu items
     int                       customMenuScriptIndex;        // Index used while building the customMenuScripts array
@@ -189,7 +185,6 @@ BOOL needToCopyBundle(void);
 -(void)             changedMonitorConfigurationFoldersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;
--(void)             createLinkToApp;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
@@ -216,8 +211,15 @@ BOOL needToCopyBundle(void);
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
+-(BOOL)             runInstaller:                           (unsigned)          installerFlags
+                  extraArguments:                           (NSArray *)         extraArguments;
+
+-(BOOL)             runInstaller: (unsigned) installFlags
+                  extraArguments: (NSArray *) extraArguments
+                 usingAuthRefPtr: (AuthorizationRef *) authRef
+                         message: (NSString *) message;
 -(void)             saveConnectionsToRestoreOnRelaunch;
--(void)             setHotKeyIndex:                         (int)               newIndex;
+-(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setupSparklePreferences;
 -(NSArray *)        sortedSounds;

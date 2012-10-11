@@ -81,6 +81,7 @@
             NSLog(@"Keychain item retrieved successfully for service = '%@' account = '%@'", serviceName, accountName);
             return returnPassword;            
         } else {
+            SecKeychainItemFreeContent(NULL,passData);
             NSLog(@"Zero-length Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName);
         }
     } else {

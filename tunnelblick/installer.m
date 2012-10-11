@@ -25,6 +25,8 @@
 #import <AppKit/AppKit.h>
 #import "defines.h"
 #import "NSFileManager+TB.h"
+#import "ConfigurationConverter.h"
+#import "sharedRoutines.h"
 
 // NOTE: THIS PROGRAM MUST BE RUN AS ROOT VIA executeAuthorized
 //
@@ -36,7 +38,7 @@
 //
 //     installer bitMask
 //     installer bitMask bundleVersion bundleVersionString
-//     installer bitmask [ targetPath   [sourcePath] ]
+//     installer bitmask targetPath   [sourcePath]
 //
 // where
 //   bitMask (See defines.h for bit assignments) -- DETERMINES WHAT THE INSTALLER WILL DO:
@@ -44,23 +46,28 @@
 //     INSTALLER_COPY_APP:      set to copy this app to /Applications/Tunnelblick.app
 //                                  (Any existing /Applications/Tunnelblick.app will be moved to the Trash)
 //
+//     INSTALLER_SECURE_APP:    set to secure Tunnelblick.app and all of its contents and update L_AS_T/Deploy if appropriate
+//                                  (also set if INSTALLER_COPY_APP)
 //     INSTALLER_COPY_BUNDLE:   set to copy this app's Resources/Tunnelblick Configurations.bundle to /Library/Application Support/Tunnelblick/Configuration Updates
 //                                  (Will only be done if this app's Tunnelblick Configurations.bundle's version # is higher, or INSTALLER_COPY_APP is set)
 //
-//     INSTALLER_SET_VERSION:   set to store bundleVersion as a new value for CFBundleVersion 
-//                                       and bundleVersionString as a new value for CFBundleShortVersionString
-//                                     in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
-//                                     and remove Contents/Installer of the bundle
-//
-//     INSTALLER_SECURE_APP:    set to secure Tunnelblick.app and all of its contents and update L_AS_T/Deploy if appropriate
-//                                  (also set if INSTALLER_COPY_APP)
 //
 //     INSTALLER_SECURE_TBLKS:  set to secure all .tblk packages in Configurations, Shared, and the alternate configuration path
+//
+//	   INSTALLER_CONVERT_NON_TBLKS: set to convert all .ovpn and .conf files (and their associated keys, scripts, etc.) to .tblk packages
+//
+//	   INSTALLER_MOVE_LIBRARY_OPENVPN: set to move ~/Library/openvpn to ~/Library/Application Support/Tunnelblick
+//
+//	   INSTALLER_UPDATE_DEPLOY: set to update /Library/Application Support/Deploy/xxx.app/ from the application
 //
 //     INSTALLER_MOVE_NOT_COPY: set to move, instead of copy, if target path and source path are supplied
 //
 //     INSTALLER_DELETE:        set to delete target path
 //
+//     INSTALLER_SET_VERSION:   set to store bundleVersion as a new value for CFBundleVersion 
+//                                       and bundleVersionString as a new value for CFBundleShortVersionString
+//                                     in /Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle/Contents/Into.plist
+//                                     and remove Contents/Installer of the bundle
 //
 // bundleVersion       is a string to replace the CFBundleVersion
 // bundleVersionString is a string to replace the CFBundleShortVersionString
@@ -70,26 +77,24 @@
 // sourcePath          is the path to be copied or moved to targetPath before securing targetPath
 //
 // It does the following:
-//      (1) IF AND ONLY IF THE FOLLOWING ARE TRUE:
-//             INSTALLER_COPY_APP is TRUE
-//             There is no Deploy folder in the app
-//             There is no /Library/Application Support/Tunnelblick/Backup folder
-//             There are no private configurations that are not .tblks
-//          THEN this app is copied to /Applications
-//      (2) (Removed)
-//      (3) Moves the contents of the old configuration folder at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
+//      (1) If INSTALLER_CONVERT_NON_TBLKS, all private .ovpn or .conf files are converted to .tblks
+//      (2) If INSTALLER_COPY_APP, this app is copied to /Applications
+//      (3) if INSTALLER_MOVE_LIBRARY_OPENVPN, moves the contents of the old configuration folder
+//          at ~/Library/openvpn to ~/Library/Application Support/Tunnelblick/Configurations
+//          and replaces it with a symlink to the new location.
 //      (4) Creates /Library/Application Support/Tunnelblick/Shared if it doesn't exist and makes sure it is secured
 //      (5) Creates the log directory if it doesn't exist and makes sure it is secured
 //      (6) If INSTALLER_COPY_BUNDLE, if /Resources/Tunnelblick Configurations.bundle exists, copies it to /Library/Application Support/T/Configuration Updates
 //      (7) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
-//      (8) If INSTALLER_COPY_APP or INSTALLER_SECURE_APP, deals with Deploy:
+//      (8) If INSTALLER_COPY_APP or INSTALLER_SECURE_APP, or INSTALLER_UPDATE_DEPLOY, deals with Deploy:
 //             * Prunes any duplicate copies of Deploy in L_AS_T/Backup
 //             * If exactly one copy of Deploy is in L_AS_T/Backup, copies it to gDeployPath and removes L_AS_T/Backup
 //             * Updates the gDeployPath folder from this app if appropriate (using version # or modification date) and secures it
 //      (9) If INSTALLER_SECURE_TBLKS, secures all .tblk packages in the following folders:
 //           /Library/Application Support/Tunnelblick/Shared
-//           ~/Library/Application Support/Tunnelblick/Configurations (actually, these are now "unsecured"!
+//           ~/Library/Application Support/Tunnelblick/Configurations
 //           /Library/Application Support/Tunnelblick/Users/<username>
+//
 //     (10) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is clear and sourcePath is given,
 //             copies or moves sourcePath to targetPath. Copies unless INSTALLER_MOVE_NOT_COPY is set.  (Also copies or moves the shadow copy if deleting a private configuration)
 //     (11) If INSTALLER_SET_VERSION is clear and INSTALLER_DELETE is clear and targetPath is given,
@@ -101,13 +106,13 @@
 //
 // When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
 //
-// Notes: (2), (3), (4), and (5) are done each time this command is invoked if they are needed (self-repair).
+// Notes: (3), (4), and (5) are done each time this command is invoked if they are needed (self-repair).
 //        (10) is done when creating a shadow configuration file
 //                     or copying a .tblk to install it
 //                     or moving a .tblk to make it private or shared
 //        (11) is done when repairing a shadow configuration file or after copying or moving a .tblk
 
-NSArray       * gKeyAndCrtExtensions;
+FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gPrivatePath;                 // Path to ~/Library/Application Support/Tunnelblick/Configurations
 NSString      * gDeployPath;                  // Path to /Library/Application Support/Tunnelblick/Deploy/<application-name>
@@ -116,14 +121,12 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
+void openLog(BOOL clearLog);
+void appendLog(NSString * s);
+void closeLog(void);
 void errorExitIfAnySymlinkInPath(NSString * path, int testPoint);
-BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid);
-BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink);
-BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist);
-BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group);
 BOOL createSymLink(NSString * fromPath, NSString * toPath);
 void deleteFlagFile(void);
-BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path);
 BOOL makeFileUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
@@ -135,32 +138,48 @@ BOOL deleteThingAtPath(NSString * path);
 NSArray * pathsForLatestNonduplicateDeployBackups(void);
 void secureL_AS_T_DEPLOY();
 NSArray * pathsForDeployBackups(void);
+BOOL convertAllPrivateOvpnAndConfToTblk(void);
+BOOL tunnelblickTestPrivateOnlyHasTblks(void);
 
 int main(int argc, char *argv[]) 
 {
 	pool = [NSAutoreleasePool new];
     
     if (  (argc < 2)  || (argc > 4)  ) {
-        NSLog(@"Tunnelblick: Wrong number of arguments -- expected 1 to 3, given %d", argc-1);
+		openLog(FALSE);
+        appendLog([NSString stringWithFormat: @"Wrong number of arguments -- expected 1 to 3, given %d", argc-1]);
         errorExit();
-    }
-    
+	}
+
     unsigned arg1 = (unsigned) strtol(argv[1], NULL, 10);
-    BOOL copyApp          = arg1 & INSTALLER_COPY_APP;
-    BOOL secureTblks      = arg1 & INSTALLER_SECURE_TBLKS;
-    BOOL moveNotCopy      = arg1 & INSTALLER_MOVE_NOT_COPY;
-    BOOL copyBundle       = arg1 & INSTALLER_COPY_BUNDLE;
-    BOOL setBundleVersion = arg1 & INSTALLER_SET_VERSION;
-    BOOL deleteConfig     = arg1 & INSTALLER_DELETE;
     
-    // secureApp if asked specifically or copying app
-    BOOL secureApp = (arg1 & INSTALLER_SECURE_APP) || copyApp;
+	BOOL clearLog         = (arg1 & INSTALLER_CLEAR_LOG) != 0;
 	
-    NSBundle * ourBundle = [NSBundle mainBundle];
+    BOOL copyApp          = (arg1 & INSTALLER_COPY_APP) != 0;
+	
+    BOOL secureApp        = copyApp || ( (arg1 & INSTALLER_SECURE_APP) != 0 );
+    BOOL copyBundle       = (arg1 & INSTALLER_COPY_BUNDLE) != 0;
+    BOOL secureTblks      = (arg1 & INSTALLER_SECURE_TBLKS) != 0;		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
+	BOOL convertNonTblks  = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
+	BOOL moveLibOpenvpn   = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
+	BOOL updateDeploy     = (arg1 & INSTALLER_UPDATE_DEPLOY) != 0;
+
+	
+    BOOL setBundleVersion = (arg1 & INSTALLER_SET_VERSION) != 0;
+    BOOL moveNotCopy      = (arg1 & INSTALLER_MOVE_NOT_COPY) != 0;
+    BOOL deleteConfig     = (arg1 & INSTALLER_DELETE) != 0;
+    
+    // secureTblks will be set if any private .ovpn or .conf configurations were converted to .tblks
+	
+	openLog(  clearLog  );
+	
+	
+    // Set gDeployPath from the name of this application without the ".app"
+	NSBundle * ourBundle = [NSBundle mainBundle];
 	NSString * resourcesPath = [ourBundle bundlePath];
     NSArray  * execComponents = [resourcesPath pathComponents];
     if (  [execComponents count] < 3  ) {
-        NSLog(@"Tunnelblick: too few execComponents; resourcesPath = %@", resourcesPath);
+        appendLog([NSString stringWithFormat: @"too few execComponents; resourcesPath = %@", resourcesPath]);
         errorExit();
     }
 	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 3];
@@ -169,9 +188,20 @@ int main(int argc, char *argv[])
 	}
 	gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
     
+	// Log the arguments installer was started with
+	unsigned long firstArg = strtoul(argv[1], NULL, 10);
+	NSMutableString * argString = [NSMutableString stringWithFormat: @" 0x%04lx", firstArg];
+	int i;
+	for (  i=2; i<argc; i++  ) {
+		[argString appendFormat: @" %@", [NSString stringWithUTF8String: argv[i]]];
+	}
+	NSCalendarDate * date = [NSCalendarDate date];
+	NSString * dateMsg = [date descriptionWithCalendarFormat:@"%Y-%m-%d %H:%M:%S"];
+	
+	appendLog([NSString stringWithFormat: @"Tunnelblick installer started %@. %d arguments:%@", dateMsg, argc - 1, argString]);
 	
 #ifdef TBDebug
-    NSLog(@"Tunnelblick: WARNING: This is an insecure copy of installer to be used for debugging only!");
+    appendLog(@"WARNING: This is an insecure copy of installer to be used for debugging only!");
 #else
     if (   ([execComponents count] != 5)
         || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
@@ -181,13 +211,12 @@ int main(int argc, char *argv[])
         || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
         ) {
 		if (  ! copyApp  ) {
-			NSLog(@"Tunnelblick must be in /Applications (bundlePath = %@", resourcesPath);
+			appendLog([NSString stringWithFormat: @"Tunnelblick must be in /Applications (bundlePath = %@", resourcesPath]);
 			errorExit();
 		}
     }
 #endif
     
-    gKeyAndCrtExtensions = KEY_AND_CRT_EXTENSIONS;
     gFileMgr = [NSFileManager defaultManager];
     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     
@@ -232,12 +261,29 @@ int main(int argc, char *argv[])
         }
         if (   ( ! bundleVersion )
             || ( ! bundleShortVersionString )  ) {
-            NSLog(@"Tunnelblick: Both a CFBundleVersion and a CFBundleShortVersionString are required to set the bundle version");
+            appendLog(@"Both a CFBundleVersion and a CFBundleShortVersionString are required to set the bundle version");
         }
     }
 	
     //**************************************************************************************************************************
-    // (1)
+	// (1) If INSTALLER_CONVERT_NON_TBLKS, all .ovpn or .conf files are converted to .tblks
+	
+	if (  convertNonTblks  ) {
+		if ( ! tunnelblickTestPrivateOnlyHasTblks()  ) {
+			appendLog(@"\nBeginning conversion of .ovpn and .conf configurations to .tblk configurations...");
+			
+			if (  ! convertAllPrivateOvpnAndConfToTblk()  ) {
+				appendLog(@"Conversion of .ovpn and .conf configurations to .tblk configurations failed");
+				errorExit();
+			}
+			
+			secureTblks = TRUE;
+			appendLog(@"Conversion of .ovpn and .conf configurations to .tblk configurations succeeded\n");
+		}
+	}
+	
+    //**************************************************************************************************************************
+    // (2)
     // If INSTALLER_COPY_APP is set:
     //    Move /Applications/Tunnelblick.app to the Trash, then copy this app to /Applications/Tunnelblick.app
     
@@ -251,71 +297,72 @@ int main(int argc, char *argv[])
                                                           destination: @""
                                                                 files: [NSArray arrayWithObject:@"Tunnelblick.app"]
                                                                   tag: nil]  ) {
-                NSLog(@"Tunnelblick: Moved %@ to the Trash", targetPath);
+                appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
             } else {
-                NSLog(@"Tunnelblick: Unable to move %@ to the Trash", targetPath);
+                appendLog([NSString stringWithFormat: @"Unable to move %@ to the Trash", targetPath]);
                 errorExit();
             }
         }
         
         if (  ! [gFileMgr tbCopyPath: currentPath toPath: targetPath handler: nil]  ) {
-            NSLog(@"Tunnelblick: Unable to copy %@ to %@", currentPath, targetPath);
+            appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", currentPath, targetPath]);
             errorExit();
         } else {
-            NSLog(@"Tunnelblick: Copied %@ to %@", currentPath, targetPath);
+            appendLog([NSString stringWithFormat: @"Copied %@ to %@", currentPath, targetPath]);
         }
     }
         
     //**************************************************************************************************************************
-	// (2) (Removed)
-	
-    //**************************************************************************************************************************
     // (3)
     // Deal with migration to new configuration path
-    NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
-    NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
-    
-    // Verify that new configuration folder exists
-    if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
-        if (  isDir  ) {
-            // If old configurations folder exists (and is a folder):
-            // Move its contents to the new configurations folder and delete it
-            NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
-            if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
-                    if (  isDir  ) {
-                        // Move old configurations folder's contents to the new configurations folder and delete the old folder
-                        if (  moveContents(oldConfigDirPath, newConfigDirPath)  ) {
-                            NSLog(@"Tunnelblick: Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                            secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
-                            // Delete the old configuration folder
-                            if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
-                                NSLog(@"Tunnelblick: Unable to remove %@", oldConfigDirPath);
-                                errorExit();
-                            }
-                        } else {
-                            NSLog(@"Tunnelblick: Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath);
-                            errorExit();
-                        }
-                    } else {
-                        NSLog(@"Tunnelblick: %@ is not a symbolic link or a folder", oldConfigDirPath);
-                        errorExit();
-                    }
-                }
-            }
-        } else {
-            NSLog(@"Tunnelblick: Warning: %@ exists but is not a folder", newConfigDirPath);
-            if ( secureTblks ) {
-                errorExit();
-            }
-        }
-    } else {
-        NSLog(@"Tunnelblick: Warning: Private configuration folder %@ does not exist", newConfigDirPath);
-        if ( secureTblks ) {
-            errorExit();
-        }
-    }
-    
+	
+	if (  moveLibOpenvpn  ) {
+		
+		NSString * oldConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/openvpn"];
+		NSString * newConfigDirPath = [NSHomeDirectory() stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+		
+		// Verify that new configuration folder exists
+		if (  [gFileMgr fileExistsAtPath: newConfigDirPath isDirectory: &isDir]  ) {
+			if (  isDir  ) {
+				// If old configurations folder exists (and is a folder):
+				// Move its contents to the new configurations folder and delete it
+				NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: oldConfigDirPath traverseLink: NO];
+				if (  ! [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+					if (  [gFileMgr fileExistsAtPath: oldConfigDirPath isDirectory: &isDir]  ) {
+						if (  isDir  ) {
+							// Move old configurations folder's contents to the new configurations folder and delete the old folder
+							if (  moveContents(oldConfigDirPath, newConfigDirPath)  ) {
+								appendLog([NSString stringWithFormat: @"Moved contents of %@ to %@", oldConfigDirPath, newConfigDirPath]);
+								secureTblks = TRUE; // We may have moved some .tblks, so we should secure them
+								// Delete the old configuration folder
+								if (  ! [gFileMgr tbRemoveFileAtPath:oldConfigDirPath handler: nil]  ) {
+									appendLog([NSString stringWithFormat: @"Unable to remove %@", oldConfigDirPath]);
+									errorExit();
+								}
+							} else {
+								appendLog([NSString stringWithFormat: @"Unable to move all contents of %@ to %@", oldConfigDirPath, newConfigDirPath]);
+								errorExit();
+							}
+						} else {
+							appendLog([NSString stringWithFormat: @"%@ is not a symbolic link or a folder", oldConfigDirPath]);
+							errorExit();
+						}
+					}
+				}
+			} else {
+				appendLog([NSString stringWithFormat: @"Warning: %@ exists but is not a folder", newConfigDirPath]);
+				if ( secureTblks ) {
+					errorExit();
+				}
+			}
+		} else {
+			appendLog([NSString stringWithFormat: @"Warning: Private configuration folder %@ does not exist", newConfigDirPath]);
+			if ( secureTblks ) {
+				errorExit();
+			}
+		}
+	}
+	
     //**************************************************************************************************************************
     // (4)
     // Create /Library/Application Support/Tunnelblick/Shared if it does not already exist, and make sure it is owned by root with 755 permissions
@@ -364,7 +411,7 @@ int main(int argc, char *argv[])
                         doCopy = TRUE;  // No version info in library copy
                     }
                 } else {
-                    NSLog(@"Tunnelblick: No CFBundleVersion in %@", gAppConfigurationsBundlePath);
+                    appendLog([NSString stringWithFormat: @"No CFBundleVersion in %@", gAppConfigurationsBundlePath]);
                     errorExit();
                 }
             } else {
@@ -385,22 +432,22 @@ int main(int argc, char *argv[])
                 }
                 if (  [gFileMgr fileExistsAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH]  ) {
                     if (  ! [gFileMgr tbRemoveFileAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH handler: nil]  ) {
-                        NSLog(@"Tunnelblick: Unable to delete %@", CONFIGURATION_UPDATES_BUNDLE_PATH);
+                        appendLog([NSString stringWithFormat: @"Unable to delete %@", CONFIGURATION_UPDATES_BUNDLE_PATH]);
                         errorExit();
                     }
                 }
                 if (  ! [gFileMgr tbCopyPath: gAppConfigurationsBundlePath toPath: CONFIGURATION_UPDATES_BUNDLE_PATH handler: nil]  ) {
-                    NSLog(@"Tunnelblick: Unable to copy %@ to %@", gAppConfigurationsBundlePath, CONFIGURATION_UPDATES_BUNDLE_PATH);
+                    appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", gAppConfigurationsBundlePath, CONFIGURATION_UPDATES_BUNDLE_PATH]);
                     errorExit();
                 } else {
-                    NSLog(@"Tunnelblick: Copied %@ to %@", gAppConfigurationsBundlePath, CONFIGURATION_UPDATES_BUNDLE_PATH);
+                    appendLog([NSString stringWithFormat: @"Copied %@ to %@", gAppConfigurationsBundlePath, CONFIGURATION_UPDATES_BUNDLE_PATH]);
                 }
                 
                 // Set ownership and permissions
                 if ( ! checkSetOwnership(CONFIGURATION_UPDATES_BUNDLE_PATH, YES, 0, 0)  ) {
                     errorExit();
                 }
-                if ( ! checkSetPermissions(CONFIGURATION_UPDATES_BUNDLE_PATH, @"755", YES)  ) {
+                if ( ! checkSetPermissions(CONFIGURATION_UPDATES_BUNDLE_PATH, 0755, YES)  ) {
                     errorExit();
                 }
             }
@@ -450,29 +497,29 @@ int main(int argc, char *argv[])
         NSString *tunnelblickPath = [contentsPath stringByDeletingLastPathComponent];
         BOOL okSoFar = checkSetOwnership(tunnelblickPath, YES, 0, 0);
         
-        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             @"644", YES);
+        okSoFar = okSoFar && checkSetPermissions(infoPlistPath,             0644, YES);
         
-        okSoFar = okSoFar && checkSetPermissions(openvpnPath,               @"755", YES);
+        okSoFar = okSoFar && checkSetPermissions(openvpnPath,               0755, YES);
         
-        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(installerPath,             @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(pncPath,                   @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(ssoPath,                   @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientUpPath,              @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientDownPath,            @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,       @"744", NO);
-        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,           @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,         @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewRoutePreDownPath, @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,       @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath,     @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,       @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       @"744", YES);
-        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     @"744", YES);
+        okSoFar = okSoFar && checkSetPermissions(atsystemstartPath,         0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(installerPath,             0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatchPath,            0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(leasewatch3Path,           0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(pncPath,                   0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(ssoPath,                   0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientUpPath,              0744, NO);
+        okSoFar = okSoFar && checkSetPermissions(clientDownPath,            0744, NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonUpPath,         0744, NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNoMonDownPath,       0744, NO);
+        okSoFar = okSoFar && checkSetPermissions(clientNewUpPath,           0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewDownPath,         0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewRoutePreDownPath, 0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1UpPath,       0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt1DownPath,     0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2UpPath,       0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       0744, YES);
+        okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     0744, YES);
                 
         // Check/set OpenVPN version folders and openvpn and openvpn-down-root.so in them
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
@@ -484,13 +531,13 @@ int main(int argc, char *argv[])
             if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
                 && isDir  ) {
                 if (  [file hasPrefix: @"openvpn-"]  ) {
-                    okSoFar = okSoFar && checkSetPermissions(fullPath, @"755", YES);
+                    okSoFar = okSoFar && checkSetPermissions(fullPath, 0755, YES);
                     
                     NSString * thisOpenvpnPath = [fullPath stringByAppendingPathComponent: @"openvpn"];
-                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, @"755", YES);
+                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnPath, 0755, YES);
                     
                     NSString * thisOpenvpnDownRootPath = [fullPath stringByAppendingPathComponent: @"openvpn-down-root.so"];
-                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnDownRootPath, @"744", NO);
+                    okSoFar = okSoFar && checkSetPermissions(thisOpenvpnDownRootPath, 0744, NO);
                 }
             }
         }
@@ -503,11 +550,11 @@ int main(int argc, char *argv[])
 		
 		// Save this for last, so if something goes wrong, it isn't SUID inside a damaged app
 		if (  okSoFar  ) {
-			okSoFar = checkSetPermissions(openvpnstartPath, @"4555", YES);
+			okSoFar = checkSetPermissions(openvpnstartPath, 04555, YES);
 		}
 		
 		if (  ! okSoFar  ) {
-            NSLog(@"Tunnelblick: Unable to secure Tunnelblick.app");
+            appendLog(@"Unable to secure Tunnelblick.app");
             errorExit();
         }
     }
@@ -519,15 +566,15 @@ int main(int argc, char *argv[])
     //       * If this app has a Deploy folder, copies it to gDeployPath and secures the copy
     //       * If gDeployPath doesn't exist and there is exactly one unique Deploy backup, copies it to gDeployPath and secures it
     
-    if ( secureApp ) {
+    if ( copyApp || secureApp || updateDeploy ) {
         
         // Secure the old Deploy backups
         NSArray * deployBackups = pathsForDeployBackups();
 		if (  ! deployBackups  ) {
-			NSLog(@"Tunnelblick: Error occurred while looking for Deploy backups");
+			appendLog(@"Error occurred while looking for Deploy backups");
 			errorExit();
 		}
-		NSLog(@"Tunnelblick: %u Deploy backup folders to secure", [deployBackups count]);
+		appendLog([NSString stringWithFormat: @"%u Deploy backup folders to secure", [deployBackups count]]);
 
 		BOOL okSoFar = TRUE;
 		NSString * folderPath;
@@ -537,7 +584,7 @@ int main(int argc, char *argv[])
 		}
 		
 		if (  ! okSoFar  ) {
-			NSLog(@"Tunnelblick: Unable to secure Deploy backups");
+			appendLog(@"Unable to secure Deploy backups");
 			errorExit();
 		}
         
@@ -546,14 +593,14 @@ int main(int argc, char *argv[])
         if (  [gFileMgr fileExistsAtPath: thisAppDeployPath]  ) {
             [gFileMgr tbRemoveFileAtPath: gDeployPath handler: nil];
             if (  [gFileMgr tbCopyPath: thisAppDeployPath toPath: gDeployPath handler: nil]  ) {
-                NSLog(@"Tunnelblick: Updated Deploy with copy in %@", [[[thisAppDeployPath stringByDeletingLastPathComponent] // delete Deploy
+                appendLog([NSString stringWithFormat: @"Updated Deploy with copy in %@", [[[thisAppDeployPath stringByDeletingLastPathComponent] // delete Deploy
                                                                 stringByDeletingLastPathComponent]                    // delete Resources
-                                                               stringByDeletingLastPathComponent]);                  // delete Contents
-                NSLog(@"Tunnelblick: Updated Deploy with copy in %@", [[[thisAppDeployPath stringByDeletingLastPathComponent] // delete Deploy
+                                                               stringByDeletingLastPathComponent]]);                  // delete Contents
+                appendLog([NSString stringWithFormat: @"Updated Deploy with copy in %@", [[[thisAppDeployPath stringByDeletingLastPathComponent] // delete Deploy
                                                                 stringByDeletingLastPathComponent]                    // delete Resources
-                                                               stringByDeletingLastPathComponent]);                  // delete Contents
+                                                               stringByDeletingLastPathComponent]]);                  // delete Contents
             } else {
-                NSLog(@"Tunnelblick: Error ocurred copying %@ to %@", thisAppDeployPath, gDeployPath);
+                appendLog([NSString stringWithFormat: @"Error ocurred copying %@ to %@", thisAppDeployPath, gDeployPath]);
                 errorExit();
             }
             
@@ -565,7 +612,7 @@ int main(int argc, char *argv[])
 			if (  ! backupDeployPathsWithoutDupes  ) {
 				errorExit();
 			}
-            NSLog(@"Tunnelblick: %u unique Deploy Backups", [backupDeployPathsWithoutDupes count]);
+            appendLog([NSString stringWithFormat: @"%u unique Deploy Backups", [backupDeployPathsWithoutDupes count]]);
             
             // If there is only one unique Deploy backup and gDeployPath doesn't exist, copy it to gDeployPath
             if (   ([backupDeployPathsWithoutDupes count] == 1)
@@ -573,9 +620,9 @@ int main(int argc, char *argv[])
                 NSString * pathToCopy = [backupDeployPathsWithoutDupes objectAtIndex: 0];
                 [gFileMgr tbRemoveFileAtPath: gDeployPath handler: nil];
                 if (  [gFileMgr tbCopyPath: pathToCopy toPath: gDeployPath handler: nil]  ) {
-                    NSLog(@"Tunnelblick: Copied the only non-duplicate Deploy backup folder %@ to %@", pathToCopy, gDeployPath);
+                    appendLog([NSString stringWithFormat: @"Copied the only non-duplicate Deploy backup folder %@ to %@", pathToCopy, gDeployPath]);
                 } else {
-                    NSLog(@"Tunnelblick: Error occurred copying the only Deploy backup folder %@ to %@", pathToCopy, gDeployPath);
+                    appendLog([NSString stringWithFormat: @"Error occurred copying the only Deploy backup folder %@ to %@", pathToCopy, gDeployPath]);
                     errorExit();
                 }
                 
@@ -588,7 +635,7 @@ int main(int argc, char *argv[])
     // (9)
     // If requested, secure all .tblk packages
     if (  secureTblks  ) {
-        NSString * altPath     = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+        NSString * altPath = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
 
         // First, copy any .tblks that are in private to alt (unless they are already there)
         NSString * file;
@@ -599,20 +646,20 @@ int main(int argc, char *argv[])
                 NSString * privateTblkPath = [gPrivatePath stringByAppendingPathComponent: file];
                 NSString * altTblkPath     = [altPath stringByAppendingPathComponent: file];
                 if (  ! [gFileMgr fileExistsAtPath: altTblkPath]  ) {
-					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], 0755, 0, 0)  ) {
+					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_PUBLIC_FOLDER, 0, 0)  ) {
 						errorExit();
 					}
                     if (  [gFileMgr tbCopyPath: privateTblkPath toPath: altTblkPath handler: nil]  ) {
-                        NSLog(@"Tunnelblick: Created shadow backup of %@", privateTblkPath);
+                        appendLog([NSString stringWithFormat: @"Created secure (shadow) backup of %@", privateTblkPath]);
                     } else {
-                        NSLog(@"Tunnelblick: Unable to create shadow backup of %@", privateTblkPath);
+                        appendLog([NSString stringWithFormat: @"Unable to create secure (shadow) backup of %@", privateTblkPath]);
                         errorExit();
                     }
 				}
             }
         }
         
-        // Now secure Shared tblks, and shadow copies of private tblks, 
+        // Now secure shared tblks, private tblks, and shadow copies of private tblks 
         
         NSArray * foldersToSecure = [NSArray arrayWithObjects: L_AS_T_SHARED, gPrivatePath, altPath, nil];
         
@@ -620,26 +667,11 @@ int main(int argc, char *argv[])
         unsigned i;
         for (i=0; i < [foldersToSecure count]; i++) {
             NSString * folderPath = [foldersToSecure objectAtIndex: i];
-            if (  [folderPath hasPrefix: gPrivatePath]  ) {
-                okSoFar = okSoFar && checkSetOwnership(folderPath, NO, gRealUserID, gRealGroupID);
-            } else {
-                okSoFar = okSoFar && checkSetOwnership(folderPath, NO, 0, 0);
-            }
-            dirEnum = [gFileMgr enumeratorAtPath: folderPath];
-            while (  (file = [dirEnum nextObject])  ) {
-                NSString * filePath = [folderPath stringByAppendingPathComponent: file];
-                if (  itemIsVisible(filePath)  ) {
-                    if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
-                        && isDir
-                        && [[file pathExtension] isEqualToString: @"tblk"]  ) {
-                        okSoFar = okSoFar && secureOneFolder(filePath);
-                    }
-				}
-			}
+            okSoFar = okSoFar && secureOneFolder(folderPath);
 		}
         
         if (  ! okSoFar  ) {
-            NSLog(@"Tunnelblick: Warning: Unable to secure all .tblk packages");
+            appendLog([NSString stringWithFormat: @"Warning: Unable to secure all .tblk packages"]);
         }
     }
     
@@ -657,25 +689,32 @@ int main(int argc, char *argv[])
         
         // Make sure we are dealing with .tblks
         if (  ! [[sourcePath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSLog(@"Only .tblks may be copied or moved: Not a .tblk: %@", sourcePath);
+            appendLog([NSString stringWithFormat: @"Only .tblks may be copied or moved: Not a .tblk: %@", sourcePath]);
             errorExit();
         }
         if (  ! [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSLog(@"Only .tblks may be copied or moved: Not a .tblk: %@", targetPath);
+            appendLog([NSString stringWithFormat: @"Only .tblks may be copied or moved: Not a .tblk: %@", targetPath]);
             errorExit();
         }
 
         // Create the enclosing folder(s) if necessary. Owned by root unless if in gPrivatePath, in which case it is owned by the user
         NSString * enclosingFolder = [targetPath stringByDeletingLastPathComponent];
-        uid_t own = 0;
-        gid_t grp = 0;
+        uid_t  own   = 0;
+        gid_t  grp   = 0;
+		mode_t perms;
+		if (  [targetPath hasPrefix: L_AS_T_USERS]  ) {
+			perms = PERMS_SECURED_PRIVATE_FOLDER;
+		} else {
+			perms = PERMS_SECURED_PUBLIC_FOLDER;
+		}
         if (  [targetPath hasPrefix: gPrivatePath]  ) {
-            own = gRealUserID;
-            grp = gRealGroupID;
+            own   = gRealUserID;
+            grp   = ADMIN_GROUP_ID;
+			perms = PERMS_PRIVATE_PRIVATE_FOLDER;
         }
         errorExitIfAnySymlinkInPath(enclosingFolder, 2);
         
-        if (  ! createDirWithPermissionAndOwnership(enclosingFolder, 0755, own, grp)  ) {
+        if (  ! createDirWithPermissionAndOwnership(enclosingFolder, perms, own, grp)  ) {
             errorExit();
         }
         
@@ -698,18 +737,24 @@ int main(int argc, char *argv[])
         safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
         
         NSString * firstPartOfTarget = firstPartOfPath(targetPath);
+		NSString * lastPartOfTarget = lastPartOfPath(targetPath);
         if (   [firstPartOfTarget isEqualToString: gPrivatePath]  ) {
-            NSString * lastPartOfTarget = lastPartOfPath(targetPath);
             NSString * shadowTargetPath   = [NSString stringWithFormat: @"%@/%@/%@",
                                              L_AS_T_USERS,
                                              NSUserName(),
                                              lastPartOfTarget];
-            if (  ! deleteThingAtPath(shadowTargetPath)  ) {
-                errorExit();
-            }
-            safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
+			if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
+				if (  ! deleteThingAtPath(shadowTargetPath)  ) {
+					errorExit();
+				}
+			}
+			
+			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
             secureOneFolder(shadowTargetPath);
+			appendLog([NSString stringWithFormat: @"Created secure (shadow) copy of %@", lastPartOfTarget]);
         } else {
+			appendLog([NSString stringWithFormat: @"JKB: DID NOT CREATE secure (shadow) copy of %@\nfirstPart    = %@\ngPrivatePath = %@",
+					   lastPartOfTarget, firstPartOfTarget, gPrivatePath]);
             secureOneFolder(targetPath);
         }
         
@@ -724,6 +769,7 @@ int main(int argc, char *argv[])
                 if (  ! deleteThingAtPath(shadowSourcePath)  ) {
                     errorExit();
                 }
+				appendLog([NSString stringWithFormat: @"Deleted secure (shadow) copy of %@", lastPartOfSource]);
             }
         }
     }
@@ -739,7 +785,7 @@ int main(int argc, char *argv[])
         
         // Make sure we are dealing with .tblks
         if (  ! [[firstPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSLog(@"Only .tblks may be copied or moved: Not a .tblk: %@", firstPath);
+            appendLog([NSString stringWithFormat: @"Only .tblks may be copied or moved: Not a .tblk: %@", firstPath]);
             errorExit();
         }
 
@@ -751,15 +797,15 @@ int main(int argc, char *argv[])
             } else {
                 okSoFar = okSoFar && checkSetOwnership(firstPath, NO, 0, 0);
             }
-            okSoFar = okSoFar && checkSetPermissions(firstPath, @"644", YES);
+            okSoFar = okSoFar && checkSetPermissions(firstPath, 0644, YES);
         } else if (  [ext isEqualToString: @"tblk"]  ) {
             okSoFar = okSoFar && secureOneFolder(firstPath);
         } else {
-            NSLog(@"Tunnelblick: trying to secure unknown item at %@", firstPath);
+            appendLog([NSString stringWithFormat: @"trying to secure unknown item at %@", firstPath]);
             errorExit();
         }
         if (  ! okSoFar  ) {
-            NSLog(@"Tunnelblick: unable to secure %@", firstPath);
+            appendLog([NSString stringWithFormat: @"unable to secure %@", firstPath]);
             errorExit();
         }
     }
@@ -775,14 +821,14 @@ int main(int argc, char *argv[])
             if (  [gFileMgr fileExistsAtPath: firstPath]  ) {
                 errorExitIfAnySymlinkInPath(firstPath, 6);
                 if (  ! [gFileMgr tbRemoveFileAtPath: firstPath handler: nil]  ) {
-                    NSLog(@"Tunnelblick: unable to remove %@", firstPath);
+                    appendLog([NSString stringWithFormat: @"unable to remove %@", firstPath]);
                 } else {
-                    NSLog(@"Tunnelblick: removed %@", firstPath);
+                    appendLog([NSString stringWithFormat: @"removed %@", firstPath]);
                 }
                 
                 // Delete shadow copy, too, if it exists
                 if (  [firstPartOfPath(firstPath) isEqualToString: gPrivatePath]  ) {
-                    NSLog(@"DEBUG 005: firstPath prefix DID match:\n     %@\n     %@", firstPath, gPrivatePath);
+                    appendLog([NSString stringWithFormat: @"DEBUG 005: firstPath prefix DID match:\n     %@\n     %@", firstPath, gPrivatePath]);
                     NSString * shadowCopyPath = [NSString stringWithFormat: @"%@/%@/%@",
                                                  L_AS_T_USERS,
                                                  NSUserName(),
@@ -790,17 +836,17 @@ int main(int argc, char *argv[])
                     if (  [gFileMgr fileExistsAtPath: shadowCopyPath]  ) {
                         errorExitIfAnySymlinkInPath(shadowCopyPath, 7);
                         if (  ! [gFileMgr tbRemoveFileAtPath: shadowCopyPath handler: nil]  ) {
-                            NSLog(@"Tunnelblick: unable to remove %@", shadowCopyPath);
+                            appendLog([NSString stringWithFormat: @"unable to remove %@", shadowCopyPath]);
                         } else {
-                            NSLog(@"Tunnelblick: removed %@", shadowCopyPath);
+                            appendLog([NSString stringWithFormat: @"removed %@", shadowCopyPath]);
                         }
                     }
                 } else {
-                    NSLog(@"DEBUG 005: firstPath prefix DID NOT match:\n     %@\n     %@", firstPath, gPrivatePath);
+                    appendLog([NSString stringWithFormat: @"DEBUG 005: firstPath prefix DID NOT match:\n     %@\n     %@", firstPath, gPrivatePath]);
                 }
             }
         } else {
-            NSLog(@"Tunnelblick: trying to remove unknown item at %@", firstPath);
+            appendLog([NSString stringWithFormat: @"trying to remove unknown item at %@", firstPath]);
             errorExit();
         }
     }
@@ -826,12 +872,12 @@ int main(int argc, char *argv[])
                     [libDict removeObjectForKey: @"CFBundleVersion"];
                     [libDict setObject: bundleVersion forKey: @"CFBundleVersion"];
                     changed = TRUE;
-                    NSLog(@"Tunnelblick: Tunnelblick Configurations.bundle CFBundleVersion has been set to %@", bundleVersion);
+                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleVersion has been set to %@", bundleVersion]);
                 } else {
-                    NSLog(@"Tunnelblick: Tunnelblick Configurations.bundle CFBundleVersion is %@", bundleVersion);
+                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleVersion is %@", bundleVersion]);
                 }
             } else {
-                NSLog(@"Tunnelblick: no CFBundleVersion in %@", libPlistPath);
+                appendLog([NSString stringWithFormat: @"no CFBundleVersion in %@", libPlistPath]);
             }
             
             libVersion = [libDict objectForKey: @"CFBundleShortVersionString"];
@@ -840,12 +886,12 @@ int main(int argc, char *argv[])
                     [libDict removeObjectForKey: @"CFBundleShortVersionString"];
                     [libDict setObject: bundleShortVersionString forKey: @"CFBundleShortVersionString"];
                     changed = TRUE;
-                    NSLog(@"Tunnelblick: Tunnelblick Configurations.bundle CFBundleShortVersionString has been set to %@", bundleShortVersionString);
+                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleShortVersionString has been set to %@", bundleShortVersionString]);
                 } else {
-                    NSLog(@"Tunnelblick: Tunnelblick Configurations.bundle CFBundleShortVersionString is %@", bundleShortVersionString);
+                    appendLog([NSString stringWithFormat: @"Tunnelblick Configurations.bundle CFBundleShortVersionString is %@", bundleShortVersionString]);
                 }
             } else {
-                NSLog(@"Tunnelblick: no CFBundleShortVersionString in %@", libPlistPath);
+                appendLog([NSString stringWithFormat: @"no CFBundleShortVersionString in %@", libPlistPath]);
             }
             
             if (  changed  ) {
@@ -855,14 +901,14 @@ int main(int argc, char *argv[])
             NSString * installFolderPath = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
             if (  [gFileMgr fileExistsAtPath: installFolderPath]  ) {
                 if (  ! [gFileMgr tbRemoveFileAtPath: installFolderPath handler: nil]  ) {
-                    NSLog(@"Tunnelblick: unable to remove %@", installFolderPath);
+                    appendLog([NSString stringWithFormat: @"unable to remove %@", installFolderPath]);
                 } else {
-                    NSLog(@"Tunnelblick: removed %@", installFolderPath);
+                    appendLog([NSString stringWithFormat: @"removed %@", installFolderPath]);
                 }
             }
                 
         } else {
-            NSLog(@"Tunnelblick: could not find %@", CONFIGURATION_UPDATES_BUNDLE_PATH);
+            appendLog([NSString stringWithFormat: @"could not find %@", CONFIGURATION_UPDATES_BUNDLE_PATH]);
         }
     }
     
@@ -871,6 +917,7 @@ int main(int argc, char *argv[])
     // DONE
     
     deleteFlagFile();
+	closeLog();
     
     [pool release];
     exit(EXIT_SUCCESS);
@@ -885,13 +932,13 @@ void deleteFlagFile(void)
 	if (  0 == stat(path, &sb)  ) {
         if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
             if (  0 != unlink(path)  ) {
-                NSLog(@"Tunnelblick: Unable to delete %s", path);
+                appendLog([NSString stringWithFormat: @"Unable to delete %s", path]);
             }
         } else {
-            NSLog(@"Tunnelblick: %s is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode);
+            appendLog([NSString stringWithFormat: @"%s is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
         }
     } else {
-        NSLog(@"Tunnelblick: stat of %s failed\nError was '%s'", path, strerror(errno));
+        appendLog([NSString stringWithFormat: @"stat of %s failed\nError was '%s'", path, strerror(errno)]);
     }
 }
 
@@ -899,6 +946,7 @@ void deleteFlagFile(void)
 void errorExit()
 {
     deleteFlagFile();
+	closeLog();
 
     [pool release];
     exit(EXIT_FAILURE);
@@ -915,7 +963,7 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     errorExitIfAnySymlinkInPath(dotPartialPath, 3);
     [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
     if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotPartialPath handler: nil]  ) {
-        NSLog(@"Tunnelblick: Failed to copy %@ to %@", fromPath, dotPartialPath);
+        appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotPartialPath]);
         [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
         errorExit();
     }
@@ -932,11 +980,11 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     errorExitIfAnySymlinkInPath(toPath, 5);
     [gFileMgr tbRemoveFileAtPath:toPath handler: nil];
     if (  ! [gFileMgr tbMovePath: dotPartialPath toPath: toPath handler: nil]  ) {
-        NSLog(@"Tunnelblick: Failed to rename %@ to %@", dotPartialPath, toPath);
+        appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@", dotPartialPath, toPath]);
         [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
         errorExit();
     } else {
-        NSLog(@"Tunnelblick: %@ %@ to %@", (moveNotCopy ? @"Moved" : @"Copied"), fromPath, toPath);
+        appendLog([NSString stringWithFormat: @"%@ %@ to %@", (moveNotCopy ? @"Moved" : @"Copied"), fromPath, toPath]);
     }
 }
 
@@ -945,10 +993,10 @@ BOOL deleteThingAtPath(NSString * path)
 {
     errorExitIfAnySymlinkInPath(path, 8);
     if (  ! [gFileMgr tbRemoveFileAtPath: path handler: nil]  ) {
-        NSLog(@"Tunnelblick: Failed to delete %@", path);
+        appendLog([NSString stringWithFormat: @"Failed to delete %@", path]);
         return FALSE;
     } else {
-        NSLog(@"Tunnelblick: Deleted %@", path);
+        appendLog([NSString stringWithFormat: @"Deleted %@", path]);
     }
     
     return TRUE;
@@ -966,11 +1014,11 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
             NSString * fullFromPath = [fromPath stringByAppendingPathComponent: file];
             NSString * fullToPath   = [toPath   stringByAppendingPathComponent: file];
             if (  [gFileMgr fileExistsAtPath: fullToPath]  ) {
-                NSLog(@"Tunnelblick: Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath);
+                appendLog([NSString stringWithFormat: @"Unable to move %@ to %@ because the destination already exists", fullFromPath, fullToPath]);
                 return NO;
             } else {
                 if (  ! [gFileMgr tbMovePath: fullFromPath toPath: fullToPath handler: nil]  ) {
-                    NSLog(@"Tunnelblick: Unable to move %@ to %@", fullFromPath, fullToPath);
+                    appendLog([NSString stringWithFormat: @"Unable to move %@ to %@", fullFromPath, fullToPath]);
                     return NO;
                 }
             }
@@ -986,15 +1034,15 @@ BOOL createSymLink(NSString * fromPath, NSString * toPath)
     if (  [gFileMgr tbCreateSymbolicLinkAtPath: fromPath pathContent: toPath]  ) {
         // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
         if (  0 != lchown([gFileMgr fileSystemRepresentationWithPath: fromPath], gRealUserID, gRealGroupID)  ) {
-            NSLog(@"Tunnelblick: Error: Unable to change ownership of symbolic link %@\nError was '%s'", fromPath, strerror(errno));
+            appendLog([NSString stringWithFormat: @"Error: Unable to change ownership of symbolic link %@\nError was '%s'", fromPath, strerror(errno)]);
             return NO;
         } else {
-            NSLog(@"Tunnelblick: Successfully created a symbolic link from %@ to %@", fromPath, toPath);
+            appendLog([NSString stringWithFormat: @"Successfully created a symbolic link from %@ to %@", fromPath, toPath]);
             return YES;
         }
     }
 
-    NSLog(@"Tunnelblick: Error: Unable to create symbolic link from %@ to %@", fromPath, toPath);
+    appendLog([NSString stringWithFormat: @"Error: Unable to create symbolic link from %@ to %@", fromPath, toPath]);
     return NO;
 }
 
@@ -1017,168 +1065,10 @@ BOOL makeFileUnlockedAtPath(NSString * path)
     }
     
     if (  [curAttributes fileIsImmutable]  ) {
-        NSLog(@"Tunnelblick: Failed to unlock %@ in %d attempts", path, maxTries);
+        appendLog([NSString stringWithFormat: @"Failed to unlock %@ in %d attempts", path, maxTries]);
         return FALSE;
     }
     return TRUE;
-}
-
-//**************************************************************************************************************************
-// Changes ownership of a file or folder to the specified user/group if necessary.
-// If "deeply" is TRUE, also changes ownership on all contents of a folder (except invisible items)
-// Returns YES on success, NO on failure
-BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
-{
-    BOOL changedBase = FALSE;
-    BOOL changedDeep = FALSE;
-    
-    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
-    if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: uid]]
-             && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: gid]]  )  ) {
-        if (  [atts fileIsImmutable]  ) {
-            NSLog(@"Tunnelblick: Unable to change ownership of %@ to %d:%d because it is locked",
-                  path,
-                  (int) uid,
-                  (int) gid);
-            return NO;
-        }
-        
-        if (  chown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid) != 0  ) {
-            NSLog(@"Tunnelblick: Unable to change ownership of %@ to %d:%d\nError was '%s'",
-                  path,
-                  (int) uid,
-                  (int) gid,
-                  strerror(errno));
-            return NO;
-        }
-        
-        changedBase = TRUE;
-    }
-    
-    if (  deeply  ) {
-        NSString * file;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
-        while (  (file = [dirEnum nextObject])  ) {
-            NSString * filePath = [path stringByAppendingPathComponent: file];
-            if (  itemIsVisible(filePath)  ) {
-                atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: filePath traverseLink: NO];
-				changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, NO) || changedDeep;
-				if (  [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-					changedDeep = checkSetItemOwnership(filePath, atts, uid, gid, YES) || changedDeep;
-				} else {
-				}
-            }
-        }
-    }
-    
-    if (  changedBase ) {
-        if (  changedDeep  ) {
-            NSLog(@"Tunnelblick: Changed ownership of %@ and its contents to %d:%d",
-                  path,
-                  (int) uid,
-                  (int) gid);
-        } else {
-            NSLog(@"Tunnelblick: Changed ownership of %@ to %d:%d",
-                  path,
-                  (int) uid,
-                  (int) gid);
-        }
-    } else {
-        if (  changedDeep  ) {
-            NSLog(@"Tunnelblick: Changed ownership of the contents of %@ to %d:%d",
-                  path,
-                  (int) uid,
-                  (int) gid);
-        }
-    }
-    
-    return YES;
-}
-
-//**************************************************************************************************************************
-// Changes ownership of a single item to the specified user/group if necessary.
-// Returns YES if changed, NO if not changed
-BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_t gid, BOOL traverseLink)
-{
-	if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: (int) uid]]
-			 && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: (int) gid]]  )  ) {
-		if (  [atts fileIsImmutable]  ) {
-			NSLog(@"Tunnelblick: Unable to change ownership of %@ to %d:%d because it is locked",
-				  path,
-				  (int) uid,
-				  (int) gid);
-			return NO;
-		}
-		
-		int result = 0;
-		if (   traverseLink
-			|| ( ! [[atts objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink] )
-			) {
-			result = chown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid);
-		} else {
-			result = lchown([gFileMgr fileSystemRepresentationWithPath: path], uid, gid);
-		}
-
-		if (  result != 0  ) {
-			NSLog(@"Tunnelblick: Unable to change ownership of %@ to %d:%d\nError was '%s'",
-				  path,
-				  (int) uid,
-				  (int) gid,
-				  strerror(errno));
-			return NO;
-		}
-		
-		return YES;
-	}
-
-	return NO;
-}
-
-//**************************************************************************************************************************
-// Changes permissions on a file or folder (but not the folder's contents) to specified values if necessary
-// Returns YES on success, NO on failure
-// Also returns YES if no such file or folder and 'fileMustExist' is FALSE
-BOOL checkSetPermissions(NSString * path, NSString * permsShouldHave, BOOL fileMustExist)
-{
-    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
-        if (  fileMustExist  ) {
-            return NO;
-        }
-        return YES;
-    }
-
-    NSDictionary *atts = [gFileMgr tbFileAttributesAtPath: path traverseLink:YES];
-    unsigned long perms = [atts filePosixPermissions];
-    NSString *octalPerms = [NSString stringWithFormat:@"%lo",perms];
-    
-    if (   [octalPerms isEqualToString: permsShouldHave]  ) {
-        return YES;
-    }
-    
-    if (  [atts fileIsImmutable]  ) {
-        NSLog(@"Tunnelblick: Cannot change permissions because item is locked: %@", path);
-        return NO;
-    }
-    
-    mode_t permsMode;
-    if      (  [permsShouldHave isEqualToString:  @"755"]  ) permsMode =  0755;
-    else if (  [permsShouldHave isEqualToString:  @"744"]  ) permsMode =  0744;
-    else if (  [permsShouldHave isEqualToString:  @"644"]  ) permsMode =  0644;
-    else if (  [permsShouldHave isEqualToString:  @"640"]  ) permsMode =  0640;
-    else if (  [permsShouldHave isEqualToString:  @"600"]  ) permsMode =  0600;
-    else if (  [permsShouldHave isEqualToString: @"4555"]  ) permsMode = 04555;
-    else {
-        NSLog(@"Tunnelblick: invalid permsShouldHave = '%@' in checkSetPermissions function", permsShouldHave);
-        return NO;
-    }
-    
-    if (  chmod([gFileMgr fileSystemRepresentationWithPath: path], permsMode) != 0  ) {
-        NSLog(@"Tunnelblick: Unable to change permissions to 0%@ on %@", permsShouldHave, path);
-        return NO;
-    }
-
-    NSLog(@"Tunnelblick: Changed permissions to 0%@ on %@", permsShouldHave, path);
-    return YES;
 }
 
 void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
@@ -1189,7 +1079,7 @@ void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
         if (  [gFileMgr fileExistsAtPath: curPath]  ) {
             NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: curPath traverseLink: NO];
             if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-                NSLog(@"Tunnelblick: Apparent symlink attack detected at test point %d: Symlink is at %@, full path being tested is %@", testPoint, curPath, path);
+                appendLog([NSString stringWithFormat: @"Apparent symlink attack detected at test point %d: Symlink is at %@, full path being tested is %@", testPoint, curPath, path]);
                 errorExit();
             }
         }
@@ -1198,157 +1088,101 @@ void errorExitIfAnySymlinkInPath(NSString * path, int testPoint)
     }
 }
 
-//**************************************************************************************************************************
-// Function to create a directory with specified ownership and permissions
-// Recursively creates all intermediate directories (with the same ownership and permissions) as needed
-// Returns YES if the directory existed with the specified ownership and permissions or has been created with them
-BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group)
-{
-    // Don't try to create or set ownership or permissions on
-    //       /Library/Application Support
-    //   or ~/Library/Application Support
-    if (  [dirPath hasSuffix: @"/Library/Application Support"]  ) {
-        return YES;
-    }
-    
-    BOOL isDir;
-    
-    if (  ! (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
-             && isDir )  ) {
-        // No such directory. Create its parent directory if necessary
-        NSString * parentPath = [dirPath stringByDeletingLastPathComponent];
-        if (  ! createDirWithPermissionAndOwnership(parentPath, permissions, owner, group)  ) {
-            return NO;
-        }
-        
-        // Parent directory exists. Create the directory we want
-        if (  mkdir([gFileMgr fileSystemRepresentationWithPath: dirPath], (mode_t) permissions) != 0  ) {
-            NSLog(@"Tunnelblick: Unable to create directory %@", dirPath);
-            return NO;
-        }
-
-        NSLog(@"Tunnelblick: Created directory %@", dirPath);
-    }
-
-    
-    // Directory exists. Check/set ownership and permissions
-    if (  ! checkSetOwnership(dirPath, NO, owner, group)  ) {
-        return NO;
-    }
-    NSString * permissionsAsString = [NSString stringWithFormat: @"%lo", (long) permissions];
-    if (  ! checkSetPermissions(dirPath, permissionsAsString, YES)  ) {
-        return NO;
-    }
-    
-    return YES;
-}
-
-//**************************************************************************************************************************
-// Returns YES if path to an item has no components starting with a period
-BOOL itemIsVisible(NSString * path)
-{
-    if (  [path hasPrefix: @"."]  ) {
-        return NO;
-    }
-    NSRange rng = [path rangeOfString:@"/."];
-    if (  rng.length != 0) {
-        return NO;
-    }
-    return YES;
-}
-
-//**************************************************************************************************************************
-// Makes sure that ownership/permissions of a FOLDER AND ITS CONTENTS are secure (a .tblk or /Shared, /Deploy, private, or alternate config folder)
-// For private config folder, all that is done is to make sure that everything is owned by <user>:<group> except that all keys and certificates inside a .tblk are <user>:admin/640
-// For others:
-//      If necessary, changes ownership of the folder and contents to root:wheel or <user>:<group> or <user>:admin
-//      If necessary, changes permissions on the folder to 775
-//      If necessary, changes permissions on CONTENTS of the folder as follows
-//              invisible files (those with _any_ path component that starts with a period) are not changed
-//              folders and executables are set to 755
-//              shell scripts are set to 744
-//              certificate & key files are set to 640
-//              all other visible files are set to 644
-// Returns YES if successfully secured everything, otherwise returns NO
 BOOL secureOneFolder(NSString * path)
 {
-    BOOL result = YES;
+    // Makes sure that ownership/permissions of a FOLDER AND ITS CONTENTS are secure (a .tblk, or the shared, Deploy, private, or alternate config folder)
+    // Returns YES if successfully secured everything, otherwise returns NO
+    //
+    // There is a SIMILAR function in openvpnstart: exitIfTblkNeedsRepair
+    //
+    // There is a SIMILAR function in MenuController: needToSecureFolderAtPath
+
+	uid_t user;
+	gid_t group;
+	
+    // Permissions:
+    mode_t selfPerms;           //  For the folder itself (if not a .tblk)
+    mode_t tblkFolderPerms;     //  For a .tblk itself and its Contents and Resources folders
+    mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
+    mode_t publicFolderPerms;   //  For all other folders
+    mode_t scriptPerms;         //  For files with .sh extensions
+    mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
+    mode_t otherPerms;          //  For all other files
+    
+    if (  [path isEqualToString: gPrivatePath]  ) {
+		user  = getuid();               // Private files are owned by <user>:admin
+		group = ADMIN_GROUP_ID;
+        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+            selfPerms   = PERMS_PRIVATE_TBLK_FOLDER;
+        } else {
+            selfPerms   = PERMS_PRIVATE_SELF;
+        }
+        tblkFolderPerms    = PERMS_PRIVATE_TBLK_FOLDER;
+		privateFolderPerms = PERMS_PRIVATE_PRIVATE_FOLDER;
+        publicFolderPerms  = PERMS_PRIVATE_PUBLIC_FOLDER;
+        scriptPerms        = PERMS_PRIVATE_SCRIPT;
+        executablePerms    = PERMS_PRIVATE_EXECUTABLE;
+        otherPerms         = PERMS_PRIVATE_OTHER;
+    } else {
+        user  = 0;                      // Secured files are owned by root:wheel
+        group = 0;
+        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+            selfPerms   = PERMS_SECURED_TBLK_FOLDER;
+        } else {
+            selfPerms   = PERMS_SECURED_SELF;
+        }
+        tblkFolderPerms    = PERMS_SECURED_TBLK_FOLDER;
+		privateFolderPerms = PERMS_SECURED_PRIVATE_FOLDER;
+        publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
+        scriptPerms        = PERMS_SECURED_SCRIPT;
+        executablePerms    = PERMS_SECURED_EXECUTABLE;
+        otherPerms         = PERMS_SECURED_OTHER;
+    }
+    
+    BOOL result = checkSetOwnership(path, YES, user, group);
+
+    result = result && checkSetPermissions(path, selfPerms, YES);
+    
     BOOL isDir;
     NSString * file;
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
 	
-    if (  [path hasPrefix: gPrivatePath]  ) {                                               // If a private folder
-        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {                          // and it is a .tblk
-            NSString * contentsPath = [path stringByAppendingPathComponent: @"Contents"];   // and its "Contents" folder is owned by root
-            NSDictionary * dict = [gFileMgr attributesOfItemAtPath: contentsPath
-															 error: nil];
-            if (  [[dict fileOwnerAccountID ] unsignedLongValue] ==  0) {                   // then an earlier version of Tunnelblick "protected" it (not very well!)
-                result = result && checkSetOwnership(path,                                  //      so we give ownership of the .tblk and its contents to the user
-                                                     YES, gRealUserID, gRealGroupID);       //
-                result = result && checkSetPermissions(path, @"755", YES);                  //         and set permissions on the .tblk itself
-				while (  (file = [dirEnum nextObject])  ) {									//         and set ownership and permissions on folders, keys & certs only
-					NSString * filePath = [path stringByAppendingPathComponent: file];
-					if (  itemIsVisible(filePath)  ) {
-						NSString * ext  = [file pathExtension];
-						if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]
-							&& isDir  ) {
-							result = result && checkSetPermissions(filePath, @"755", YES);
-						} else if (  [gKeyAndCrtExtensions containsObject: ext]  ) {
-							result = result && checkSetOwnership(filePath,                  //      Keys and certificates are 640 for private configurations
-																 NO,
-																 gRealUserID,
-																 ADMIN_GROUP_ID);           //      (and are owned by <user>:admin)
-							result = result && checkSetPermissions(filePath, @"640", YES);
-						}
-					}
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * filePath = [path stringByAppendingPathComponent: file];
+        if (  itemIsVisible(filePath)  ) {
+            
+            NSString * ext  = [file pathExtension];
+            
+            if (  [ext isEqualToString: @"tblk"]  ) {
+                result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
+                
+            } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
+                
+                if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
+                    result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
+                    
+                } else if (   [filePath hasPrefix: L_AS_T_BACKUP]
+						   || [filePath hasPrefix: L_AS_T_DEPLOY]
+                           || [filePath hasPrefix: L_AS_T_SHARED]  ) {
+                    result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
+                    
+                } else {
+                    result = result && checkSetPermissions(filePath, privateFolderPerms, YES);
 				}
+                
+            } else if ( [ext isEqualToString:@"sh"]  ) {
+				result = result && checkSetPermissions(filePath, scriptPerms, YES);
+                
+            } else if ( [ext isEqualToString:@"executable"]  ) {
+				result = result && checkSetPermissions(filePath, executablePerms, YES);
+                
             } else {
-                return YES; // Not owned by root                                             // else we don't do anything
+				result = result && checkSetPermissions(filePath, otherPerms, YES);
             }
-        } else {
-			NSLog(@"%@ is not a .tblk", path);
-			return NO; // Not a .tblk
-		}
-
-    } else {
-        errorExitIfAnySymlinkInPath(path, 9);                                               // If a protected folder, verify that this is an actual protected folder
-        result = result && checkSetOwnership(path, YES, 0, 0);                              // and make sure it and its contents are owned by root:wheel
-        result = result && checkSetPermissions(path, @"755", YES);
-		
-		while (  (file = [dirEnum nextObject])  ) {
-			NSString * filePath = [path stringByAppendingPathComponent: file];
-			if (  itemIsVisible(filePath)  ) {
-				NSString * ext  = [file pathExtension];
-				if (  [ext isEqualToString: @"tblk"]  ) {
-					result = result && secureOneFolder(filePath);                           // NOTE: RECURSION
-					[dirEnum skipDescendents];
-				} else {
-					if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir]        // Set permissions as follows:
-						&& isDir  ) {
-						result = result && checkSetPermissions(filePath, @"755", YES);      //      Folders are 755
-					} else if ( [ext isEqualToString:@"executable"]  ) {
-						result = result && checkSetPermissions(filePath, @"755", YES);      //      Executable files for custom menu commands are 755
-					} else if ( [ext isEqualToString:@"sh"]  ) {
-						result = result && checkSetPermissions(filePath, @"744", YES);      //      Scripts are 744
-					} else if (  [gKeyAndCrtExtensions containsObject: ext]  ) {
-						if (  [path hasPrefix: gPrivatePath]  ) {
-							result = result && checkSetOwnership(filePath,                  //      Keys and certificates are 640 for private configurations
-																 NO,
-																 gRealUserID,
-																 ADMIN_GROUP_ID);           //      (and are owned by <user>:admin)
-							result = result && checkSetPermissions(filePath, @"640", YES);
-						} else {
-							result = result && checkSetPermissions(filePath, @"600", YES);  //      Keys and certificates are 600 for others
-						}
-					} else {
-						result = result && checkSetPermissions(filePath, @"644", YES);      //      Everything else is 644
-					}
-				}
-			}
-		}
-	}
-	
-    return result;
+        }
+    }
+    
+	return result;
 }
 
 NSString * firstPartOfPath(NSString * path)
@@ -1380,7 +1214,7 @@ NSString * lastPartOfPath(NSString * path)
             if (  [path length] > [configFolder length]  ) {
                 return [path substringFromIndex: [configFolder length]+1];
             } else {
-                NSLog(@"No display name in path '%@'", path);
+                appendLog([NSString stringWithFormat: @"No display name in path '%@'", path]);
                 return @"X";
             }
         }
@@ -1390,21 +1224,21 @@ NSString * lastPartOfPath(NSString * path)
 
 void secureL_AS_T_DEPLOY()
 {
-    NSLog(@"Tunnelblick: Securing %@", L_AS_T_DEPLOY);
+    appendLog([NSString stringWithFormat: @"Securing %@", L_AS_T_DEPLOY]);
     if (  checkSetOwnership(L_AS_T_DEPLOY, YES, 0, 0)  ) {
-        if (  checkSetPermissions(L_AS_T_DEPLOY, @"755", YES)  ) {
+        if (  checkSetPermissions(L_AS_T_DEPLOY, 0755, YES)  ) {
             if (  secureOneFolder(L_AS_T_DEPLOY)  ) {
-                NSLog(@"Tunnelblick: Secured %@", L_AS_T_DEPLOY);
+                appendLog([NSString stringWithFormat: @"Secured %@", L_AS_T_DEPLOY]);
             } else {
-                NSLog(@"Tunnelblick: Unable to secure %@", L_AS_T_DEPLOY);
+                appendLog([NSString stringWithFormat: @"Unable to secure %@", L_AS_T_DEPLOY]);
                 errorExit();
             }
         } else {
-            NSLog(@"Tunnelblick: Unable to set permissions on %@", L_AS_T_DEPLOY);
+            appendLog([NSString stringWithFormat: @"Unable to set permissions on %@", L_AS_T_DEPLOY]);
             errorExit();
         }
     } else {
-        NSLog(@"Tunnelblick: Unable to set ownership on %@ and its contents", L_AS_T_DEPLOY);
+        appendLog([NSString stringWithFormat: @"Unable to set ownership on %@ and its contents", L_AS_T_DEPLOY]);
         errorExit();
     }
 }
@@ -1452,7 +1286,7 @@ NSArray * pathsForDeployBackups(void)
             if (  [path hasPrefix: fullPath]  ) {
                 [result addObject: [NSString stringWithString: path]];
             } else {
-                NSLog(@"Unrecoverable error dealing with Deploy backups");
+                appendLog([NSString stringWithFormat: @"Unrecoverable error dealing with Deploy backups"]);
                 return  nil;
             }
             [path setString: @""];
@@ -1511,7 +1345,7 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
         NSString * latestPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: i];
         NSDate   * latestDate = [[gFileMgr attributesOfItemAtPath: latestPath error: nil] objectForKey: NSFileModificationDate];
         if (  ! latestDate  ) {
-            NSLog(@"No last modified date for %@", latestPath);
+            appendLog([NSString stringWithFormat: @"No last modified date for %@", latestPath]);
             return nil;
         }
         
@@ -1527,7 +1361,7 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
                         if (  [gFileMgr contentsEqualAtPath: latestPath andPath: thisPath]  ) {
                             NSDate   * thisDate = [[gFileMgr attributesOfItemAtPath: thisPath error: nil] objectForKey: NSFileModificationDate];
                             if ( ! thisDate  ) {
-                                NSLog(@"No last modified date for %@", thisPath);
+                                appendLog([NSString stringWithFormat: @"No last modified date for %@", thisPath]);
                                 return nil;
                             }
                             if (  [latestDate compare: thisDate] == NSOrderedAscending  ) {
@@ -1546,4 +1380,183 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
     }
     
     return results;
+}
+
+BOOL tunnelblickTestPrivateOnlyHasTblks(void)
+{
+	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+	NSString * file;
+	while (  (file = [dirEnum nextObject])  ) {
+		if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
+			[dirEnum skipDescendents];
+		} else {
+			if (   [[file pathExtension] isEqualToString: @"ovpn"]
+				|| [[file pathExtension] isEqualToString: @"conf"]  ) {
+				return NO;
+			}
+		}
+	}
+	
+	return YES;
+}
+
+BOOL copyTblksToNewFolder(NSString * newFolder)
+{
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+    NSString * file;
+    
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
+        if (  itemIsVisible(inPath)  ) {
+            if (  [[file pathExtension] isEqualToString: @"tblk"]  ) {
+                NSString * outPath = [newFolder stringByAppendingPathComponent: file];
+				NSString * outPathFolder = [outPath stringByDeletingLastPathComponent];
+				if (  ! createDirWithPermissionAndOwnership(outPathFolder, PERMS_PRIVATE_PRIVATE_FOLDER, gRealUserID, ADMIN_GROUP_ID)  ) {
+                    appendLog([NSString stringWithFormat: @"Unable to create %@", outPathFolder]);
+                    return FALSE;
+				}
+                if (  ! [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
+                    appendLog([NSString stringWithFormat: @"Unable to copy %@ to %@", inPath, outPath]);
+                    return FALSE;
+                } else {
+                    appendLog([NSString stringWithFormat: @"Copied %@", file]);
+				}
+                
+                [dirEnum skipDescendents];
+            }
+        }
+    }
+    
+    return TRUE;
+}
+
+BOOL convertAllPrivateOvpnAndConfToTblk(void)
+{
+    NSString * newFolder = [[gPrivatePath stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"NewConfigurations"];
+    NSString * logPath = [newFolder stringByAppendingPathComponent: @"Conversion.log"];
+    
+    [gFileMgr tbRemoveFileAtPath: logPath   handler: nil];
+    [gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
+    
+	ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
+	
+	BOOL haveDoneConversion = FALSE;
+	
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+    NSString * file;
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * inPath = [gPrivatePath stringByAppendingPathComponent: file];
+		NSString * ext = [file pathExtension];
+        if (  itemIsVisible(inPath)  ) {
+            if (  [ext isEqualToString: @"tblk"]  ) {
+                [dirEnum skipDescendents];
+            } else if (   [ext isEqualToString: @"ovpn"]
+                       ||  [ext isEqualToString: @"conf"]  ) {
+                NSString * fileWithoutExtension = [file stringByDeletingPathExtension];
+                NSString * outTblkPath = [newFolder stringByAppendingPathComponent:
+										  [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+                NSString * outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
+										  [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+                if (   [gFileMgr fileExistsAtPath: outTblkPath]
+					|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
+					fileWithoutExtension = [[fileWithoutExtension stringByAppendingString: @" from "]
+											stringByAppendingString: ext];
+					outTblkPath = [newFolder stringByAppendingPathComponent:
+								   [fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+					outTblkPathButInExistingConfigurationsFolder = [gPrivatePath stringByAppendingPathComponent:
+																	[fileWithoutExtension stringByAppendingPathExtension: @"tblk"]];
+					if (   [gFileMgr fileExistsAtPath: outTblkPath]
+						|| [gFileMgr fileExistsAtPath: outTblkPathButInExistingConfigurationsFolder]  ) {
+						appendLog([NSString stringWithFormat: @"Unable to construct name for a .tblk for %@", file]);
+						[converter release];
+						return FALSE;
+					}
+				}
+				NSString * inConfPath = [gPrivatePath stringByAppendingPathComponent: file];
+                
+				if (  ! createDirWithPermissionAndOwnership(newFolder, PERMS_PRIVATE_SELF, gRealUserID, ADMIN_GROUP_ID)  ) {
+                    appendLog([NSString stringWithFormat: @"Unable to create %@", newFolder]);
+					[converter release];
+                    return FALSE;
+                };
+                
+				BOOL convertedOK = [converter convertConfigPath: inConfPath
+													 outputPath: outTblkPath
+													    logFile: gLogFile];
+                if (  ! convertedOK  ) {
+                    appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration", inConfPath]);
+                    [converter release];
+                    return FALSE;
+                }
+				
+				haveDoneConversion = TRUE;
+            }
+        }
+    }
+	
+	[converter release];
+    
+	if (  haveDoneConversion  ) {
+		if ( ! copyTblksToNewFolder(newFolder)  ) {
+            appendLog(@"Unable to copy existing private .tblk configurations");
+            return FALSE;
+		}
+		
+		NSDateFormatter * f = [[[NSDateFormatter alloc] init] autorelease];
+		[f setFormatterBehavior: NSDateFormatterBehavior10_4];
+		[f setDateFormat: @"yyyy-MM-dd hh.mm.ss"];
+		NSString * dateTimeString = [f stringFromDate: [NSDate date]];
+		
+		NSString * oldFolder = [[newFolder stringByDeletingLastPathComponent]
+								stringByAppendingPathComponent:
+								[NSString stringWithFormat: @"Configurations before conversion %@", dateTimeString]];
+		if (  [gFileMgr tbMovePath: gPrivatePath toPath: oldFolder handler: nil]  ) {
+			if  (  [gFileMgr tbMovePath: newFolder toPath: gPrivatePath handler: nil]  ) {
+                return TRUE;
+			} else {
+				[gFileMgr tbMovePath: oldFolder toPath: gPrivatePath handler: nil]; // Try to restore original setup
+				appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", newFolder, gPrivatePath]);
+                return FALSE;
+			}
+		} else {
+			appendLog([NSString stringWithFormat: @"Unable to rename %@ to %@", gPrivatePath, oldFolder]);
+			return FALSE;
+		}
+	} else {
+        appendLog(@"No private .ovpn or .conf configurations to be converted");
+		[gFileMgr tbRemoveFileAtPath: newFolder handler: nil];
+    }
+    
+    return TRUE;
+}
+
+void openLog(BOOL clearLog)
+{
+    char * path = "/tmp/tunnelblick-installer-log.txt";
+	
+	if (  clearLog  ) {
+		gLogFile = fopen(path, "w");
+	} else {
+		gLogFile = fopen(path, "a");
+	}
+
+	if (  gLogFile == NULL  ) {
+		errorExit();
+	}
+}
+
+void appendLog(NSString * s)
+{
+	if (  gLogFile != NULL  ) {
+		fprintf(gLogFile, "%s\n", [s UTF8String]);
+	} else {
+		NSLog(@"%@", s);
+	}
+}
+
+void closeLog(void)
+{
+	if (  gLogFile != NULL  ) {
+		fclose(gLogFile);
+	}
 }

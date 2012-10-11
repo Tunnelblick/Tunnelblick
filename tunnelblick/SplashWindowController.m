@@ -31,7 +31,8 @@ extern BOOL gShuttingDownWorkspace;
 
 -(id) init
 {
-    if (  ![super initWithWindowNibName:@"SplashWindow"]  ) {
+    self = [super initWithWindowNibName:@"SplashWindow"];
+    if (  ! self  ) {
         return nil;
     }
 

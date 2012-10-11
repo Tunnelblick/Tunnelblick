@@ -61,7 +61,8 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    if (  ![super initWithWindowNibName:@"StatusWindow"]  ) {
+    self = [super initWithWindowNibName:@"StatusWindow"];
+    if (  ! self  ) {
         return nil;
     }
     
@@ -167,13 +168,13 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     // But the number in each column and row needs to be calculated.
     
     double verticalScreenSize = screen.size.height - 10.0;  // Size we can use on the screen
-    NSUInteger screensWeCanStackVertically = verticalScreenSize / (panelFrame.size.height + 5);
+    NSUInteger screensWeCanStackVertically = (unsigned) (verticalScreenSize / (panelFrame.size.height + 5));
     if (  screensWeCanStackVertically < 1  ) {
         screensWeCanStackVertically = 1;
     }
     
     double horizontalScreenSize = screen.size.width - 10.0;  // Size we can use on the screen
-    NSUInteger screensWeCanStackHorizontally = horizontalScreenSize / (panelFrame.size.width + 5);
+    NSUInteger screensWeCanStackHorizontally = (unsigned) (horizontalScreenSize / (panelFrame.size.width + 5));
     if (  screensWeCanStackHorizontally < 1  ) {
         screensWeCanStackHorizontally = 1;
     }
@@ -260,7 +261,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     double horizontalPosition = screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0 - horizontalOffset + screenOverlapHorizontalOffset;
     
     // Put the window in the upper-right corner of the screen but offset in X and Y by the position number    
-    NSRect onScreenRect = NSMakeRect(horizontalPosition, verticalPosition, panelFrame.size.width, panelFrame.size.height);
+    NSRect onScreenRect = NSMakeRect((float)horizontalPosition, (float)verticalPosition, panelFrame.size.width, panelFrame.size.height);
     
     [panel setFrame: onScreenRect display: YES];
     currentWidth = onScreenRect.size.width;

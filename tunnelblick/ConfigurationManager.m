@@ -29,12 +29,14 @@
 #import "NSApplication+LoginItem.h"
 #import "TBUserDefaults.h"
 #import "NSFileManager+TB.h"
+#import "ConfigurationConverter.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
+extern AuthorizationRef       gAuthorization;
 
 extern NSString * firstPartOfPath(NSString * thePath);
 extern NSString * lastPartOfPath(NSString * thePath);
@@ -56,8 +58,6 @@ enum state_t {                      // These are the "states" of the guideState 
                    thatArePackages:         (BOOL)                      onlyPkgs
                             toDict:         (NSMutableDictionary * )    dict
                       searchDeeply:         (BOOL)                      deep;
-
--(OSStatus)     compareTblkShadowCopy:      (NSString *)                configurationFile;
 
 -(NSString *)   displayNameForPath:         (NSString *)                thePath;
 
@@ -315,6 +315,10 @@ enum state_t {                      // These are the "states" of the guideState 
 // Make a private configuration shared, or a shared configuration private
 -(void) shareOrPrivatizeAtPath: (NSString *) path
 {
+    NSString * source;
+    NSString * target;
+    NSString * msg;
+
     if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
         NSString * last = lastPartOfPath(path);
         NSString * name = [last stringByDeletingPathExtension];
@@ -334,35 +338,30 @@ enum state_t {                      // These are the "states" of the guideState 
                 }
             }
             
-            NSString * source = [[path copy] autorelease];
-            NSString * target = [gPrivatePath stringByAppendingPathComponent: last];
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration private, instead of shared.", @"Window text"), name];
-            AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
-            if ( authRef == nil ) {
-                return;
-            }
-            [self copyConfigPath: source
-                          toPath: target
-                    usingAuthRef: authRef
-                      warnDialog: YES
-                     moveNotCopy: YES];
-            AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-            
+            source = [[path copy] autorelease];
+            target = [gPrivatePath stringByAppendingPathComponent: last];
+            msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration private, instead of shared.", @"Window text"), name];
         } else if (  [path hasPrefix: gPrivatePath]  ) {
-            NSString * source = [[path copy] autorelease];
-            NSString * target = [L_AS_T_SHARED stringByAppendingPathComponent: last];
-            NSString * msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration shared, instead of private.", @"Window text"), name];
-            AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
-            if ( authRef == nil ) {
-                return;
-            }
-            [self copyConfigPath: source
-                          toPath: target
-                    usingAuthRef: authRef
-                      warnDialog: YES
-                     moveNotCopy: YES];
-            AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+            source = [[path copy] autorelease];
+            target = [L_AS_T_SHARED stringByAppendingPathComponent: last];
+            msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration shared, instead of private.", @"Window text"), name];
+        } else {
+            NSLog(@"shareOrPrivatizeAtPath: Internal error: path is not private or shared at %@", path);
+            return;
         }
+        
+        AuthorizationRef authRef = [NSApplication getAuthorizationRef: msg];
+        if ( authRef == NULL ) {
+            return;
+        }
+        
+        [self copyConfigPath: source
+                      toPath: target
+             usingAuthRefPtr: &authRef
+                  warnDialog: YES
+                 moveNotCopy: YES];
+        
+        AuthorizationFree(authRef, kAuthorizationFlagDefaults);
     }
 }
 
@@ -428,11 +427,28 @@ enum state_t {                      // These are the "states" of the guideState 
         return nil;
     }
     
-    NSString * actualConfigPath = [[cfgPath copy] autorelease];
-    if (  [[cfgPath pathExtension] isEqualToString: @"tblk"]  ) {
-        actualConfigPath = [actualConfigPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
+    unsigned cfgLoc;
+    NSString * cfgFile = lastPartOfPath(cfgPath);
+    if (  [cfgPath hasPrefix: gPrivatePath]  ) {
+        cfgLoc = CFG_LOC_PRIVATE;
+    } else if (  [cfgPath hasPrefix: gDeployPath]  ) {
+        cfgLoc = CFG_LOC_DEPLOY;
+    } else if (  [cfgPath hasPrefix: L_AS_T_SHARED]  ) {
+        cfgLoc = CFG_LOC_SHARED;
+    } else {
+        cfgLoc = CFG_LOC_ALTERNATE;
     }
-    NSString * cfgContents = [[NSString alloc] initWithData: [gFileMgr contentsAtPath: actualConfigPath] encoding: NSASCIIStringEncoding];
+    
+    NSArray * arguments = [NSArray arrayWithObjects: @"printSanitizedConfigurationFile", cfgFile, [NSString stringWithFormat: @"%u", cfgLoc], nil];
+    NSString * stdOut;
+    NSString * stdErrOut;
+    OSStatus status = runOpenvpnstart(arguments, &stdOut, &stdErrOut);
+    if (  status == EXIT_FAILURE  ) {
+        NSLog(@"Internal failure of openvpnstart printSanitizedConfigurationFile %@ %d", cfgFile, cfgLoc);
+        return nil;
+    }
+    
+    NSString * cfgContents = [stdOut copy];
     
     NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
     NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
@@ -478,6 +494,7 @@ enum state_t {                      // These are the "states" of the guideState 
     if (  devTypeOption  ) {
         if (   [devTypeOption isEqualToString: @"tun"]
             || [devTypeOption isEqualToString: @"tap"]  ) {
+            [cfgContents release];
             return devTypeOption;
         } else {
             NSLog(@"The configuration file for '%@' contains a 'dev-type' option, but the argument is not 'tun' or 'tap'. It has been ignored", [connection displayName]);
@@ -762,7 +779,7 @@ enum state_t {                      // These are the "states" of the guideState 
     for (  i=0; i < [deleteList count]; i++  ) {
         NSString * target = [deleteList objectAtIndex: i];
         if (  ! [self deleteConfigPath: target
-                          usingAuthRef: localAuth
+                       usingAuthRefPtr: &localAuth
                             warnDialog: NO]  ) {
             nErrors++;
         }
@@ -773,7 +790,7 @@ enum state_t {                      // These are the "states" of the guideState 
         NSString * target = [targetList objectAtIndex: i];
         if (  ! [self copyConfigPath: source
                               toPath: target
-                        usingAuthRef: localAuth
+                     usingAuthRefPtr: &localAuth
                           warnDialog: NO
                          moveNotCopy: NO]  ) {
             nErrors++;
@@ -802,8 +819,8 @@ enum state_t {                      // These are the "states" of the guideState 
                         nil, nil, nil);
         [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
     } else {
-        int nOK = [sourceList count];
-        int nUninstalled = [deleteList count];
+        unsigned nOK = [sourceList count];
+        unsigned nUninstalled = [deleteList count];
         NSString * msg;
         if (  nUninstalled == 1  ) {
             msg = NSLocalizedString(@"One Tunnelblick VPN Configuration was uninstalled successfully.", @"Window text");
@@ -1379,6 +1396,14 @@ enum state_t {                      // These are the "states" of the guideState 
             [pkgList release];
             return nil;
         }
+        
+        if (  [[oldPath lastPathComponent] isEqualToString: @"config.ovpn"]) {
+            ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
+            if (  ! [converter convertConfigPath: newPath outputPath: nil logFile: NULL]  ) {
+                NSLog(@"Failed to parse configuration path %@", newPath);
+            }
+            [converter release];
+        }
     }
     
     [pkgList release];
@@ -1423,89 +1448,6 @@ enum state_t {                      // These are the "states" of the guideState 
     return tempTblk;
 }
 
-// Given paths to a configuration (either a .conf or .ovpn file, or a .tblk package) in one of the gConfigDirs
-// (~/Library/Application Support/Tunnelblick/Configurations, /Library/Application Support/Tunnelblick/Shared, or /Resources/Deploy,
-// and an alternate config in /Library/Application Support/Tunnelblick/Users/<username>/
-// Returns the path to use, or nil if can't use either one
--(NSString *) getConfigurationToUse:(NSString *)cfgPath orAlt:(NSString *)altCfgPath
-{
-    if (  [[ConfigurationManager defaultManager] isSampleConfigurationAtPath: cfgPath]  ) { // Don't use the sample configuration file
-        // User has already been notified
-        return nil;
-    }
-    
-    NSString * altCfgFolderPath = [NSString stringWithFormat: L_AS_T_USERS, NSUserName()];
-    if (  ! [altCfgPath hasPrefix: altCfgFolderPath]  ) {
-        NSLog(@"Internal Tunnelblick error: altCfgPath\n%@\nmust be in %@", altCfgFolderPath);
-        return nil;
-    }
-    
-    if (   ( ! [[cfgPath pathExtension] isEqualToString: @"tblk"])          // We no longer do non-tblks except in Deploy
-        && ( ! [cfgPath hasPrefix: gDeployPath]  )  ) {                   // We shouldn't get here, but just in case...
-        NSLog(@".ovpn and .conf configurations may only be used as Deployed configurations");
-        return nil;
-    }
-    
-    if (   [cfgPath hasPrefix: gDeployPath]                 // If Deployed or Shared
-        || [cfgPath hasPrefix: L_AS_T_SHARED]
-        ) {                                                 // Then just use the config
-        return cfgPath;
-    }
-    
-	NSString * name = lastPartOfPath(cfgPath);
-	if (  [[name pathExtension] isEqualToString: @"tblk"]) {
-		name = [name stringByDeletingPathExtension];
-	}
-	else {
-		NSLog(@"Internal Tunnelblick error: '%@' is not a .tblk", name);
-		return nil;
-	}
-
-    OSStatus status = [self compareTblkShadowCopy: name];
-
-    switch (  status  ) {
-            
-        case OPENVPNSTART_COMPARE_CONFIG_SAME:
-            return altCfgPath;
-            break;
-            
-        case OPENVPNSTART_COMPARE_CONFIG_DIFFERENT:
-            // Alt config is different or doesn't exist. We must create it (and maybe the folders that contain it)
-            NSLog(@"Creating or updating shadow copy of configuration file %@", cfgPath);
-            
-            AuthorizationRef authRef = [NSApplication getAuthorizationRef:
-                                        NSLocalizedString(@"Tunnelblick needs to create or update a shadow copy of the configuration file.", @"Window text")];
-            if ( authRef == nil ) {
-                NSLog(@"Authorization to create/update a shadow copy of the configuration file cancelled by user.");
-                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-                return nil;
-            }
-            
-            if ( [self copyConfigPath: cfgPath toPath: altCfgPath usingAuthRef: authRef warnDialog: YES moveNotCopy: NO] ) {    // Copy the config to the alt config
-                AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-                return altCfgPath;                                                              // Return the alt config
-            }
-            
-            AuthorizationFree(authRef, kAuthorizationFlagDefaults);                             // Couldn't make alt file
-            return nil;
-            break;
-            
-        default:
-            NSLog(@"Internal Tunnelblick error: unknown status %ld from compareTblkShadowCopy(%@)", (long) status, altCfgFolderPath);
-            return nil;
-    }
-}
-
-
-// Runs as root to compare the private and shadow copies of a .tblk
-// Used because files in a .tblk are no-access except to root, so user can't read them
--(OSStatus) compareTblkShadowCopy: (NSString *) displayName
-{
-    NSArray *arguments = [NSArray arrayWithObjects:@"compareTblkShadowCopy", displayName, nil];
-    return runOpenvpnstart(arguments, nil, nil);
-}
-
-
 -(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath
 {
     NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
@@ -1535,34 +1477,19 @@ enum state_t {                      // These are the "states" of the guideState 
 // Copies or moves a config file or package and sets ownership and permissions on the target
 // Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
 // Returns FALSE if failed, having already output an error message to the console log
--(BOOL) copyConfigPath: (NSString *) sourcePath toPath: (NSString *) targetPath usingAuthRef: (AuthorizationRef) authRef warnDialog: (BOOL) warn moveNotCopy: (BOOL) moveInstead
+-(BOOL) copyConfigPath: (NSString *) sourcePath toPath: (NSString *) targetPath usingAuthRefPtr: (AuthorizationRef *) authRefPtr warnDialog: (BOOL) warn moveNotCopy: (BOOL) moveInstead
 {
     if (  [sourcePath isEqualToString: targetPath]  ) {
         NSLog(@"You cannot copy or move a configuration to itself. Trying to do that with %@", sourcePath);
         return FALSE;
     }
     
-    NSString * arg1 = (moveInstead ? [NSString stringWithFormat: @"%u", INSTALLER_MOVE_NOT_COPY] : @"0");
-    NSArray * arguments = [NSArray arrayWithObjects: arg1, targetPath, sourcePath, nil];
-    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
+    unsigned firstArg = (moveInstead
+                         ? INSTALLER_MOVE_NOT_COPY
+                         : 0);
+    NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
-    BOOL okNow = FALSE; // Assume failure
-    unsigned i;
-    for (i=0; i<5; i++) {
-        if (  i != 0  ) {
-            usleep( i * 500000 );
-            NSLog(@"Retrying execution of installer");
-        }
-        
-        if (  ! [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
-            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
-        } else {
-            okNow = TRUE;
-            break;
-        }
-    }
-    
-    if ( okNow ) {
+    if (  [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil]  ) {
         return TRUE;
     }
     
@@ -1592,30 +1519,14 @@ enum state_t {                      // These are the "states" of the guideState 
 // Deletes a config file or package
 // Returns TRUE if succeeded
 // Returns FALSE if failed, having already output an error message to the console log
--(BOOL) deleteConfigPath: (NSString *) targetPath usingAuthRef: (AuthorizationRef) authRef warnDialog: (BOOL) warn
+-(BOOL) deleteConfigPath: (NSString *) targetPath usingAuthRefPtr: (AuthorizationRef *) authRefPtr warnDialog: (BOOL) warn
 {
-    NSString * arg1 = [NSString stringWithFormat: @"%u", INSTALLER_DELETE];
-    NSArray * arguments = [NSArray arrayWithObjects: arg1, targetPath, nil];
-    NSString *launchPath = [[NSBundle mainBundle] pathForResource:@"installer" ofType:nil];
+    unsigned firstArg = INSTALLER_DELETE;
+    NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
-    BOOL okNow = FALSE; // Assume failure
-    unsigned i;
-    for (i=0; i<5; i++) {
-        if (  i != 0  ) {
-            usleep( i * 500000 );
-            NSLog(@"Retrying execution of installer");
-        }
-        
-        if (  ! [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: authRef] ) {
-            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
-        }
-        
-        if (  (okNow = ( ! [gFileMgr fileExistsAtPath: targetPath] ))  ) {
-            break;
-        }
-    }
+    [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil];
     
-    if (  ! okNow ) {
+    if ( [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
         NSLog(@"Could not uninstall configuration file %@", targetPath);
         if (  warn  ) {
@@ -1934,7 +1845,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 NSLog(@"guideState: Back command but no history");
                 return;
             }
-            int backState = [[history lastObject] intValue];
+            enum state_t backState = (enum state_t)[[history lastObject] intValue];
             [history removeLastObject];
             state = backState;
         } else {

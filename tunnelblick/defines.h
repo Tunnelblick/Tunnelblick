@@ -22,6 +22,9 @@
 //*************************************************************************************************
 // Misc:
 
+// Set to TRUE to allow Tunnelblick to use openvpnstart's kill and killall subcommands
+#define ALLOW_OPENVPNSTART_KILL FALSE
+
 // The maximum length of a display name for openvpnstart
 #define DISPLAY_NAME_LENGTH_MAX 512
 
@@ -31,9 +34,19 @@
 // The admin group ID
 #define ADMIN_GROUP_ID 80
 
-// Set to TRUE to allow Tunnelblick to use openvpnstart's kill and killall subcommands
-#define ALLOW_OPENVPNSTART_KILL FALSE
+// The newline character as a unichar
+#define UNICHAR_LF [@"\n" characterAtIndex:0]
 
+// Maximum port number
+#define MAX_PORT_NUMBER 65536
+
+// Maximum hotKey index
+#define MAX_HOTKEY_IX 12
+
+// Minimum, maximum, and default log size (bytes)
+#define MIN_LOG_SIZE_BYTES 10000
+#define MAX_LOG_SIZE_BYTES 100000000
+#define DEFAULT_LOG_SIZE_BYTES 102400
 
 //*************************************************************************************************
 // Paths:
@@ -49,16 +62,53 @@
 
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
-// Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _are_ allowed.
+// Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.
 #define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING "#&;:~|*?~<>^[]{}$'\""
 
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
-#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil]
-// The group owner for private key and certificate files
-#define KEY_AND_CRT_GROUP 80
-#define KEY_AND_CRT_PERMISSIONS @"640"
+#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil]
+
+
+//*************************************************************************************************
+// Permissions for files and folders
+//
+// These are used in three places:
+//       MenuController's function needToSecureFolderAtPath()
+//       openvpnstart's   function exitIfTblkNeedsRepair()
+//       installer's      function secureOneFolder()
+//
+// _PRIVATE... entries are for ~/Library/Application Support/Tunnelblick/Configurations
+// _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
+//                             /Library/Application Support/Tunnelblick/Users/username/,
+//                             /Library/Application Support/Tunnelblick/Deployed/
+//                             /Library/Application Support/Tunnelblick/Backup/
+//                             /Applications/Tunnelblick.app/Contents/Resources/Deploy/
+//
+// _SELF           entries are for the folder itself (if not a .tblk folder
+// _TBLK_FOLDER    entries are for folders with the .tblk extension and their subfolders (Contents & Resources)
+// _PRIVATE_FOLDER entries are for folders IN .../Users/username/
+// _PUBLIC_FOLDER  entries are for all other folders
+// _SCRIPT         entries are for files with the .sh
+// _EXECUTABLE     entries are for files with the .executable extension (in Deploy folders only)
+// _OTHER          entries are for all other files
+
+#define PERMS_PRIVATE_SELF           0750
+#define PERMS_PRIVATE_TBLK_FOLDER    0750
+#define PERMS_PRIVATE_PRIVATE_FOLDER 0750
+#define PERMS_PRIVATE_PUBLIC_FOLDER  0750
+#define PERMS_PRIVATE_SCRIPT         0740
+#define PERMS_PRIVATE_EXECUTABLE     0740
+#define PERMS_PRIVATE_OTHER          0640
+
+#define PERMS_SECURED_SELF           0755
+#define PERMS_SECURED_TBLK_FOLDER    0750
+#define PERMS_SECURED_PRIVATE_FOLDER 0750
+#define PERMS_SECURED_PUBLIC_FOLDER  0755
+#define PERMS_SECURED_SCRIPT         0700
+#define PERMS_SECURED_EXECUTABLE     0711
+#define PERMS_SECURED_OTHER          0600
 
 
 //*************************************************************************************************
@@ -74,32 +124,26 @@
 
 
 //*************************************************************************************************
-// Return values for openvpnstart compareConfig command
-#define OPENVPNSTART_COMPARE_CONFIG_SAME 3
-#define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT 5
-
-
-//*************************************************************************************************
 // Bit masks for bitMask parameter of openvpnstart's start, loadkexts, and unloadkexts sub-commands
-#define OPENVPNSTART_OUR_TUN_KEXT              0x001
-#define OPENVPNSTART_OUR_TAP_KEXT              0x002
+#define OPENVPNSTART_OUR_TUN_KEXT              0x001u
+#define OPENVPNSTART_OUR_TAP_KEXT              0x002u
 
-#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x003
-#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x003
+#define OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT   0x003u
+#define OPENVPNSTART_KEXTS_MASK_LOAD_MAX       0x003u
 
-#define OPENVPNSTART_FOO_TUN_KEXT              0x004
-#define OPENVPNSTART_FOO_TAP_KEXT              0x008
+#define OPENVPNSTART_FOO_TUN_KEXT              0x004u
+#define OPENVPNSTART_FOO_TAP_KEXT              0x008u
 
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x003
-#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x00F
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_DEFAULT 0x003u
+#define OPENVPNSTART_KEXTS_MASK_UNLOAD_MAX     0x00Fu
 
-#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x010
-#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x020
-#define OPENVPNSTART_USE_TAP                   0x040
-#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x080
-#define OPENVPNSTART_FLUSH_DNS_CACHE           0x100
+#define OPENVPNSTART_RESTORE_ON_DNS_RESET      0x010u
+#define OPENVPNSTART_RESTORE_ON_WINS_RESET     0x020u
+#define OPENVPNSTART_USE_TAP                   0x040u
+#define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x080u
+#define OPENVPNSTART_FLUSH_DNS_CACHE           0x100u
 
-#define OPENVPNSTART_START_BITMASK_MAX         0x1FF
+#define OPENVPNSTART_START_BITMASK_MAX         0x1FFu
 
 
 //*************************************************************************************************
@@ -113,15 +157,33 @@
 
 #define OPENVPNSTART_USE_SCRIPTS_MAX                0xFF
 
+
+//*************************************************************************************************
+// Error return codes for openvpnstart
+#define OPENVPNSTART_COMPARE_CONFIG_SAME             251
+#define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT        252
+#define OPENVPNSTART_RETURN_SYNTAX_ERROR             253
+#define OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR 254
+
+
 //*************************************************************************************************
 // Bit masks for bitMask parameter of installer
-#define INSTALLER_COPY_APP      0x01
-#define INSTALLER_COPY_BUNDLE   0x02
-#define INSTALLER_SECURE_APP    0x04
-#define INSTALLER_SECURE_TBLKS  0x08
-#define INSTALLER_SET_VERSION   0x10
-#define INSTALLER_MOVE_NOT_COPY 0x20
-#define INSTALLER_DELETE        0x40
+
+#define INSTALLER_CLEAR_LOG				0x0001u
+
+#define INSTALLER_COPY_APP              0x0002u
+
+#define INSTALLER_SECURE_APP            0x0004u
+#define INSTALLER_COPY_BUNDLE           0x0008u
+#define INSTALLER_SECURE_TBLKS          0x0010u
+#define INSTALLER_CONVERT_NON_TBLKS     0x0020u
+#define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u
+#define INSTALLER_UPDATE_DEPLOY         0x0080u
+
+#define INSTALLER_MOVE_NOT_COPY         0x1000u
+#define INSTALLER_DELETE                0x2000u
+#define INSTALLER_SET_VERSION           0x4000u
+
 
 //*************************************************************************************************
 // Size to use to minimize the left navigation area when it is inactive

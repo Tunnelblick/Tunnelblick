@@ -20,6 +20,10 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
+#import "sharedRoutines.h"
+
+void           appendLog				 (NSString * msg);
+
 uint64_t       nowAbsoluteNanoseconds    (void);
 
 NSString     * configPathFromTblkPath   (NSString * path);
@@ -28,7 +32,7 @@ NSString     * tblkPathFromConfigPath   (NSString * path);
 BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          uid_t      uid,
                                          gid_t      gid,
-                                         NSString * permsShouldHave);
+                                         mode_t     permsShouldHave);
 
 int            createDir                (NSString * d,
                                          unsigned long perms);
@@ -57,7 +61,6 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s);
 NSString     * stringForLog             (NSString * outputString,
                                          NSString * header);
 
-BOOL           itemIsVisible            (NSString * path);
 BOOL           invalidConfigurationName (NSString * name);
 
 NSString     * firstPartOfPath          (NSString * thePath);

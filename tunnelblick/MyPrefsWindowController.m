@@ -58,8 +58,8 @@ extern NSArray        * gConfigurationPreferences;
                              to: (BOOL)       newValue
                        inverted: (BOOL)       inverted;
 
--(int) firstDifferentComponent: (NSArray *) a
-                           and: (NSArray *) b;
+-(unsigned) firstDifferentComponent: (NSArray *) a
+                                and: (NSArray *) b;
 
 -(NSString *) indent: (NSString *) s
                   by: (unsigned)   n;
@@ -366,7 +366,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setupSetNameserver: (VPNConnection *) connection
 {
     // Set up setNameserverPopUpButton with localized content that varies with the connection
-    NSUInteger ix = 0;
+    NSInteger ix = 0;
     NSArray * content = [connection modifyNameserverOptionList];
     [[configurationsPrefsView setNameserverArrayController] setContent: content];
     [[configurationsPrefsView setNameserverPopUpButton] sizeToFit];
@@ -376,8 +376,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     id obj = [gTbDefaults objectForKey: key];
     if (  obj != nil  ) {
         if (  [obj respondsToSelector: @selector(intValue)]  ) {
-            ix = (NSUInteger) [obj intValue];
-            if (  ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
+            ix = [obj intValue];
+            if (  (unsigned)ix >= [[[configurationsPrefsView setNameserverArrayController] content] count]  ) {
                 NSLog(@"%@ preference ignored: value %ld too large", key, (long) ix);
                 ix = 0;
             }
@@ -390,7 +390,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [[configurationsPrefsView setNameserverPopUpButton] selectItemAtIndex: ix];
-    [self setSelectedSetNameserverIndex: ix];
+    [self setSelectedSetNameserverIndex: (unsigned)ix];
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     [settingsSheetWindowController setupPrependDomainNameCheckbox];
 	[settingsSheetWindowController setupFlushDNSCheckbox];
@@ -510,7 +510,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         if (  leftNavIndexToSelect != NSNotFound  ) {
             selectedLeftNavListIndex = NSNotFound;  // Force a change
-            [self setSelectedLeftNavListIndex: leftNavIndexToSelect];
+            [self setSelectedLeftNavListIndex: (unsigned)leftNavIndexToSelect];
             [[configurationsPrefsView leftNavTableView] scrollRowToVisible: leftNavIndexToSelect];
         }
     }
@@ -744,7 +744,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 //      configname (Shared/Private/Deployed): Status (hh:mm:ss) - Tunnelblick
 // Otherwise, window title is:
 //      tabname - Tunnelblick
-- (NSString *)windowTitle:(NSString *)currentItemLabel;
+- (NSString *)windowTitle:(NSString *)currentItemLabel
 {
     NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
     NSString *appName = [[NSFileManager defaultManager] displayNameAtPath: bundlePath];
@@ -811,9 +811,9 @@ static BOOL firstTimeShowingWindow = TRUE;
                                    && ( ! [gTbDefaults boolForKey: disableDisconnectButtonKey] )  )];
 }
 
--(int) firstDifferentComponent: (NSArray *) a and: (NSArray *) b
+-(unsigned) firstDifferentComponent: (NSArray *) a and: (NSArray *) b
 {
-    int retVal = 0;
+    unsigned retVal = 0;
     unsigned i;
     for (i=0;
          (i < [a count]) 
@@ -850,19 +850,19 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     if (  aTableView == [configurationsPrefsView leftNavTableView]  ) {
-        int n = [leftNavList count];
-        return n;
+        unsigned n = [leftNavList count];
+        return (int)n;
     }
     
     return 0;
 }
 
--(id) tableView:(NSTableView *) aTableView objectValueForTableColumn:(NSTableColumn *) aTableColumn row:(int) rowIndex
+-(id) tableView:(NSTableView *) aTableView objectValueForTableColumn:(NSTableColumn *) aTableColumn row: (int) rowIndex
 {
     (void) aTableColumn;
     
     if (  aTableView == [configurationsPrefsView leftNavTableView]  ) {
-        NSString * s = [leftNavList objectAtIndex: rowIndex];
+        NSString * s = [leftNavList objectAtIndex: (unsigned)rowIndex];
         return s;
     }
     
@@ -1021,7 +1021,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  [[ConfigurationManager defaultManager] deleteConfigPath: configurationPath
-                                                     usingAuthRef: authorization
+                                                  usingAuthRefPtr: &authorization
                                                        warnDialog: YES]  ) {
         //Remove credentials
         AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: displayName] autorelease];
@@ -1114,7 +1114,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     if (  [[ConfigurationManager defaultManager] copyConfigPath: sourcePath
                                                          toPath: targetPath
-                                                   usingAuthRef: authorization
+                                                usingAuthRefPtr: &authorization
                                                      warnDialog: YES
                                                     moveNotCopy: YES]  ) {
         
@@ -1210,7 +1210,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     if (  [[ConfigurationManager defaultManager] copyConfigPath: source
                                                          toPath: target
-                                                   usingAuthRef: authorization
+                                                usingAuthRefPtr: &authorization
                                                      warnDialog: YES
                                                     moveNotCopy: NO]  ) {
         
@@ -1413,7 +1413,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  [configurationPath hasPrefix: gPrivatePath]  ) {
             NSUInteger ix = selectedWhenToConnectIndex;
             selectedWhenToConnectIndex = 2;
-            [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
+            [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
             [self setSelectedWhenToConnectIndex: ix];
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                             NSLocalizedString(@"Private configurations cannot connect when the computer starts.\n\n"
@@ -1422,7 +1422,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         } else if (  ! [[configurationPath pathExtension] isEqualToString: @"tblk"]  ) {
             NSUInteger ix = selectedWhenToConnectIndex;
             selectedWhenToConnectIndex = 2;
-            [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
+            [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
             [self setSelectedWhenToConnectIndex: ix];
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                             NSLocalizedString(@"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts.", @"Window text"),
@@ -1436,7 +1436,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 // Checkbox was changed by another window
--(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
+-(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection
 {
     VPNConnection * connection = [self selectedConnection];
     if (   connection
@@ -1715,7 +1715,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         ; // Avoid analyzer warnings about unused variables
     }
     
-    [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: ix];
+    [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
     selectedWhenToConnectIndex = ix;
     [[configurationsPrefsView whenToConnectOnComputerStartMenuItem] setEnabled: enableWhenComputerStarts];
     
@@ -1775,7 +1775,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  newValue != selectedSetNameserverIndex  ) {
         if (  selectedSetNameserverIndex != NSNotFound  ) {
             NSString * actualKey = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
-            [gTbDefaults setObject: [NSNumber numberWithInt: newValue] forKey: actualKey];
+            [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: newValue] forKey: actualKey];
         }
         selectedSetNameserverIndex = newValue;
         
@@ -1806,7 +1806,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) selectedLeftNavListIndexChanged
 {
     int n = [[configurationsPrefsView leftNavTableView] selectedRow];
-    [self setSelectedLeftNavListIndex: n];
+    [self setSelectedLeftNavListIndex: (unsigned)n];
 }
 
 -(void) setSelectedLeftNavListIndex: (NSUInteger) newValue
@@ -1912,7 +1912,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
     
     if (  ovSizeIx < [list count]  ) {
-        [self setSelectedOpenvpnVersionIndex: (int) ovSizeIx];
+        [self setSelectedOpenvpnVersionIndex: ovSizeIx];
     } else {
         NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %ld", ovSizeIx, (long) [list count]-1);
     }
@@ -1929,32 +1929,24 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     // Select the keyboard shortcut
     
-    unsigned kbsIx = 1; // F1 is the default
-    NSNumber * ixNumber = [gTbDefaults objectForKey: @"keyboardShortcutIndex"];
     unsigned kbsCount = [[[generalPrefsView keyboardShortcutArrayController] content] count];
-    if (   ixNumber  ) {
-        unsigned ix = [ixNumber unsignedIntValue];
-        if (  ix < kbsCount  ) {
-            kbsIx = ix;
-        }
-    }
-    if (  kbsIx < kbsCount  ) {
-        [self setSelectedKeyboardShortcutIndex: (signed) kbsIx];
-    }
+    unsigned kbsIx = [gTbDefaults unsignedIntForKey: @"keyboardShortcutIndex"
+                                            default: 1 /* F1  key */
+                                                min: 0 /* (none) */
+                                                max: kbsCount];
+    
+    [self setSelectedKeyboardShortcutIndex: kbsIx];
     
     [[generalPrefsView keyboardShortcutButton] setEnabled: [gTbDefaults canChangeValueForKey: @"keyboardShortcutIndex"]];
     
     // Select the log size
     
-    unsigned prefSize = 102400;
-    id logSizePref = [gTbDefaults objectForKey: @"maxLogDisplaySize"];
-    if (  logSizePref  ) {
-        if (  [logSizePref respondsToSelector:@selector(intValue)]  ) {
-            prefSize = [logSizePref intValue];
-        } else {
-            NSLog(@"'maxLogDisplaySize' preference is invalid.");
-        }
-    }
+    unsigned prefSize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
+                                               default: DEFAULT_LOG_SIZE_BYTES
+                                                   min: MIN_LOG_SIZE_BYTES
+                                                   max: MAX_LOG_SIZE_BYTES];
+    
+
     
     NSUInteger logSizeIx = UINT_MAX;
     ac = [generalPrefsView maximumLogSizeArrayController];
@@ -1964,7 +1956,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
         NSString * listValue = [dict objectForKey: @"value"];
         unsigned listValueSize;
         if (  [listValue respondsToSelector:@selector(intValue)]  ) {
-            listValueSize = [listValue intValue];
+            listValueSize = [listValue unsignedIntValue];
         } else {
             NSLog(@"'value' entry in %@ is invalid.", dict);
             listValueSize = UINT_MAX;
@@ -1983,7 +1975,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
     
     if (  logSizeIx == UINT_MAX  ) {
-        NSLog(@"'maxLogDisplaySize' preference value of '%@' is not available", logSizePref);
+        NSLog(@"'maxLogDisplaySize' preference value of %ud is not available", prefSize);
         logSizeIx = 2;  // Second one should be '102400'
     }
     
@@ -2172,7 +2164,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             [gTbDefaults setObject: newPref forKey: @"maxLogDisplaySize"];
             
             // Set the value we use
-            gMaximumLogSize = [newPref intValue];
+            gMaximumLogSize = (unsigned)[newPref intValue];
         }
     }
 }
@@ -2590,7 +2582,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) setSoundIndex: (NSUInteger *) index
                    to: (NSUInteger)   newValue
-           preference: (NSString *)  preference
+           preference: (NSString *)   preference
 {
     NSArray * contents = [[configurationsPrefsView soundOnConnectArrayController] content];
     NSUInteger size = [contents count];
@@ -2624,7 +2616,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
         *index = newValue;
         
-    } else {
+    } else if (  size != 0  ) {
         NSLog(@"setSelectedSoundIndex: %ld but there are only %ld sounds", (long) newValue, (long) size);
     }
 }

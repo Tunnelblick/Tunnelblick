@@ -173,10 +173,10 @@ extern TBUserDefaults  * gTbDefaults;
         
     } else if (   [gTbDefaults boolForKey: @"keychainHasUniversalUsernameAndPassword"]  ) {
         // No connection-specific credentials, but universal credentials exist 
-        [self setUsernameKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"]];
-        [self setPasswordKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"]];
-        [self setPassphrasePreferenceKey: [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey", [self displayName]]];
-        [self setUsernamePreferenceKey:   [[NSString alloc] initWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
+        [self setUsernameKeychain: [[[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"] autorelease]];
+        [self setPasswordKeychain: [[[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"] autorelease]];
+        [self setPassphrasePreferenceKey: [NSString stringWithFormat: @"%@-keychainHasPrivateKey", [self displayName]]];
+        [self setUsernamePreferenceKey:   [NSString stringWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
         usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
         if ( usernameLocal ) {
             passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'

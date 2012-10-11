@@ -145,21 +145,10 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
             return nil;
         }
         
-        maxLogDisplaySize = 100000;
-        NSString * maxLogDisplaySizeKey = @"maxLogDisplaySize";
-        id obj = [gTbDefaults objectForKey: maxLogDisplaySizeKey];
-        if (  obj  ) {
-            if (  [obj respondsToSelector: @selector(intValue)]  ) {
-                unsigned maxSize = [obj intValue];
-                if (  maxSize < 10000  ) {
-                    NSLog(@"'%@' preference ignored because it is less than 10000. Using %d", maxLogDisplaySizeKey, maxLogDisplaySize);
-                } else {
-                    maxLogDisplaySize = maxSize;
-                }
-            } else {
-                NSLog(@"'%@' preference ignored because it is not a number", maxLogDisplaySizeKey);
-            }
-        }
+        maxLogDisplaySize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
+                                                   default: DEFAULT_LOG_SIZE_BYTES
+                                                       min: MIN_LOG_SIZE_BYTES
+                                                       max: MAX_LOG_SIZE_BYTES];
         
         tbLog = [[NSMutableString alloc] init];
     }
@@ -248,7 +237,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  [self logStorage]  ) {
         // Do some primitive throttling -- only queue three requests per second
-        long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
+        long rightNow = (long)floor([NSDate timeIntervalSinceReferenceDate]);
         if (  rightNow == secondWeLastQueuedAScrollRequest  ) {
             numberOfScrollRequestsInThatSecond++;
             if (  numberOfScrollRequestsInThatSecond > 3) {
@@ -302,7 +291,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    [self setMonitorQueue: [[UKKQueue alloc] init]];
+    [self setMonitorQueue: [[[UKKQueue alloc] init] autorelease]];
     
     [[self monitorQueue] setDelegate: self];
     [[self monitorQueue] setAlwaysNotify: YES];
@@ -465,8 +454,9 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
                 // We have loaded up the first part of the log. Skip the OpenVPN log ahead
                 haveSkippedAhead = TRUE;
                 if (  savedOpenVPNLogPosition < [openvpnString length]  ) {
-                    NSRange s = NSMakeRange(savedOpenVPNLogPosition, [openvpnString length] - savedOpenVPNLogPosition);
-                    NSRange r = [openvpnString rangeOfCharacterFromSet: [NSCharacterSet newlineCharacterSet] options: 0 range: s];
+                    unsigned savedPosition = (unsigned)savedOpenVPNLogPosition;
+                    NSRange s = NSMakeRange(savedPosition, [openvpnString length] - savedPosition);
+                    NSRange r = [openvpnString rangeOfString: @"\n" options: 0 range: s];
                     if (  r.location != NSNotFound  ) {
                         openvpnStringPosition = r.location + 1;
                     }
@@ -921,7 +911,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // Do some primitive throttling -- only queue three requests per second
-    long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
+    long rightNow = (long)floor([NSDate timeIntervalSinceReferenceDate]);
     if (  rightNow == secondWeLastQueuedAChange  ) {
         numberOfRequestsInThatSecond++;
         if (  numberOfRequestsInThatSecond > 3) {
@@ -1049,7 +1039,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     beforeOpenVPNEntries: (BOOL) beforeOpenVPNEntries
           fromOpenVPNLog: (BOOL) isFromOpenVPNLog
-      fromTunnelblickLog: (BOOL) isFromTunnelblickLog;
+      fromTunnelblickLog: (BOOL) isFromTunnelblickLog
 {
     (void) isFromTunnelblickLog;
     

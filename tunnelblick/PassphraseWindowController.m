@@ -34,7 +34,8 @@
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    if (  ![super initWithWindowNibName:@"PassphraseWindow"]  ) {
+    self = [super initWithWindowNibName:@"PassphraseWindow"];
+    if (  ! self  ) {
         return nil;
     }
     

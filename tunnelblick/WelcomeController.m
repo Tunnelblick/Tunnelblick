@@ -40,9 +40,10 @@ extern TBUserDefaults  * gTbDefaults;
 				 urlString: (NSString *) theUrlString
 			   windowWidth: (float) windowWidth
 			  windowHeight: (float) windowHeight
-showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox;
+showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
 {
-    if (  ![super initWithWindowNibName:@"Welcome"]  ) {
+    self = [super initWithWindowNibName:@"Welcome"];
+    if (  ! self  ) {
         return nil;
     }
     

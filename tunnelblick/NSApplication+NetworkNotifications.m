@@ -56,25 +56,25 @@ static int qtoken = 0;
 /*" Calls the NSApp delegate method 'networkConfigurationDidChange' whenever the network configuration changes. "*/
 {
 	static NSFileHandle* netChangedNotificationHandle = nil;
-	 if (doNotify) {
+    if (doNotify) {
 		if (!netChangedNotificationHandle) {
-		int nf = 0;
-		int status = notify_register_file_descriptor("com.apple.system.config.network_change",
-												 &nf, 0, &qtoken);
-
-		if (status != NOTIFY_STATUS_OK) {
-			NSLog(@"Warning: notify_register_file_descriptor: registration failed (%u)", status);
-		}
-		
-		netChangedNotificationHandle = [[NSFileHandle alloc] initWithFileDescriptor: nf];
-		
-		[[NSNotificationCenter defaultCenter] addObserver: [self class] 
-												 selector: @selector(netConfigChanged:) 
-													 name: NSFileHandleReadCompletionNotification 
-												   object: netChangedNotificationHandle];
-		
-		[netChangedNotificationHandle readInBackgroundAndNotify];	
-		
+            int nf = 0;
+            unsigned status = notify_register_file_descriptor("com.apple.system.config.network_change",
+                                                              &nf, 0, &qtoken);
+            
+            if (status != NOTIFY_STATUS_OK) {
+                NSLog(@"Warning: notify_register_file_descriptor: registration failed (%u)", status);
+            }
+            
+            netChangedNotificationHandle = [[NSFileHandle alloc] initWithFileDescriptor: nf];
+            
+            [[NSNotificationCenter defaultCenter] addObserver: [self class]
+                                                     selector: @selector(netConfigChanged:)
+                                                         name: NSFileHandleReadCompletionNotification
+                                                       object: netChangedNotificationHandle];
+            
+            [netChangedNotificationHandle readInBackgroundAndNotify];	
+            
 		}
 	} else {
 		if (netChangedNotificationHandle) {		

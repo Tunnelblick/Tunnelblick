@@ -34,7 +34,8 @@
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    if (  ![super initWithWindowNibName:@"LoginWindow"]  ) {
+    self = [super initWithWindowNibName:@"LoginWindow"];
+    if (  ! self  ) {
         return nil;
     }
     

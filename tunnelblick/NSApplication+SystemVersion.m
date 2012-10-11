@@ -30,7 +30,7 @@
 
 - (void)getSystemVersionMajor:(unsigned *)major
                         minor:(unsigned *)minor
-                       bugFix:(unsigned *)bugFix;
+                       bugFix:(unsigned *)bugFix
 {
     OSErr err;
     SInt32 systemVersion, versionMajor, versionMinor, versionBugFix;
@@ -47,9 +47,9 @@
         if ((err = Gestalt(gestaltSystemVersionMajor, &versionMajor)) != noErr) goto fail;
         if ((err = Gestalt(gestaltSystemVersionMinor, &versionMinor)) != noErr) goto fail;
         if ((err = Gestalt(gestaltSystemVersionBugFix, &versionBugFix)) != noErr) goto fail;
-        if (major) *major = versionMajor;
-        if (minor) *minor = versionMinor;
-        if (bugFix) *bugFix = versionBugFix;
+        if (major) *major = (unsigned)versionMajor;
+        if (minor) *minor = (unsigned)versionMinor;
+        if (bugFix) *bugFix = (unsigned)versionBugFix;
     }
     
     return;

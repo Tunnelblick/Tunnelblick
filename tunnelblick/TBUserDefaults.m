@@ -39,7 +39,8 @@ NSArray * gConfigurationPreferences;
                       andSecondaryDictionary:   (NSDictionary *)    inSecondary
                            usingUserDefaults:   (BOOL)              inUseUserDefaults
 {
-    if ( ! [super init] ) {
+    self = [super init];
+    if ( ! self  ) {
         return nil;
     }
     
@@ -95,6 +96,39 @@ NSArray * gConfigurationPreferences;
     NSLog(@"boolForKey: Preference '%@' must be a boolean (i.e., an NSNumber), but it is a %@; using a value of NO", key, [[value class] description]);
     return NO;
 }
+
+-(unsigned) unsignedIntForKey: (NSString *) key
+                      default: (unsigned)   defaultValue
+                          min: (unsigned)   minValue
+                          max: (unsigned)   maxValue
+{
+    unsigned returnValue = defaultValue;
+
+    id obj = [self objectForKey: key];
+    if (  obj  ) {
+        int      intObValue;
+        if (  [obj respondsToSelector: @selector(intValue)]  ) {
+            intObValue = [obj intValue];
+            if (  intObValue < 0  ) {
+                NSLog(@"'%@' preference ignored because it is less than 0. Using %ud", key, defaultValue);
+            } else {
+                unsigned obValue = (unsigned) intObValue;
+                if (  obValue < minValue  ) {
+                    NSLog(@"'%@' preference ignored because it is less than %ud. Using %ud", key, minValue, defaultValue);
+                } else if (  obValue > maxValue  ) {
+                    NSLog(@"'%@' preference ignored because it is greater than %ud. Using %ud", key, maxValue, defaultValue);
+                } else {
+                    returnValue = obValue;
+                }
+            }
+        } else {
+            NSLog(@"'%@' preference ignored because it is not a number. Using %ud", key, defaultValue);
+        }
+    }
+    
+    return returnValue;
+}
+
 
 -(id) objectForKey: (NSString *) key
 {

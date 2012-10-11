@@ -57,7 +57,7 @@ extern BOOL              gShuttingDownWorkspace;
 	} else {
         if (  ! mainIconTrackingRectTagIsValid  ) {
 			NSRect frame = [self frame];
-			NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0, frame.origin.y, frame.size.width - 1.0, frame.size.height);
+			NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
 			mainIconTrackingRectTag = [self addTrackingRect: trackingRect
 													  owner: self
 												   userData: nil

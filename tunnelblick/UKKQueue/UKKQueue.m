@@ -299,7 +299,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 //      2004-12-28  UK  Added as suggested by bbum.
 // -----------------------------------------------------------------------------
 
--(void) removeAllPathsFromQueue;
+-(void) removeAllPathsFromQueue
 {
     AT_SYNCHRONIZED( self )
     {
