@@ -10,6 +10,44 @@
 
 ==Version 3.3==
 
+*3.3beta26 (2012-10-12)*
+
+ * Installs, and should be used, only if no Deployed versions of Tunnelblick have previously been installed. (This restriction will probably be removed in later releases.)
+
+ * Installs even if there are OpenVPN configurations (.ovpn and .conf files).
+
+ * Offers to convert OpenVPN configurations to Tunnelblick VPN Configurations. OpenVPN configurations that are NOT converted are NOT AVAILABLE for connection.
+
+ * Recognizes files with '.cert' extensions as certificate files.
+
+ * When installing a Tunnelblick VPN Configuration, automatically removes path prefixes from configuration file entries that accept paths or commands.
+
+ * Adds a 'Show when disconnected' checkbox to the 'Notification window' section of the Appearance preferences tab of the 'VPN Details…' window. This is checked by default.
+
+ * Checks Tunnelblick's digital signature, and warns the user if it is missing or invalid.
+
+ * Fixes a problem that caused configurations in submenus not to be sorted properly.
+
+ * Changes the status/notification window's single Connect/Disconnect button to two separate buttons.
+
+ * Adds more specific error messages when files with unrecognized extensions or folders are in a Tunnelblick VPN Configuration (.tblk) that is being installed.
+
+ * Removes the 'keyboardShortcutKeyCode' and 'keyboardShortcutModifiers' preferences.
+
+ * Fixes problems installing from a disk image.
+
+ * Fixes a problem that disabled the keyboard shortcut (hotkey) until the VPN Details… window was opened.
+
+ * Fixes a problem causing the Tunnelblick icon to become invisible when changing settings on the 'Appearance' panel.
+
+ * Fixes a problem displaying a shortened log on OS X 10.4 ('Tiger').
+
+ * Fixes a problem that caused Tunnelblick to not create a shadow configuration file when installing a Tunnelblick VPN Configuration (.tblk).
+
+ * Fixes a problem that caused the download statistics shown in the status/notification window to be incorrect.
+
+--------------------
+
 *3.3beta24 (2012-09-13)*
 
  * Fixes problems installing from disk image.

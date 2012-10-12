@@ -34,13 +34,12 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  <font size="3"><strong>Tunnelblick 3.3beta21a</strong></font> (build 3114.1) released 2012-09-12 [RlsNotes#Version_3.3 Release Notes]
    <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21a.dmg          Tunnelblick 3.3beta21a]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21a_Unsigned.dmg Tunnelblick 3.3beta21a Unsigned]</strong> (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br/> <strong>NOTE: 3.3beta21a installs on any system.</strong>
 
-  <font size="3"><strong>Tunnelblick 3.3beta24</strong></font> (build 3125) released 2012-09-13 [RlsNotes#Version_3.3 Release Notes]
- <font color="red"><strong>NOTE: 3.3beta24 installs, and should be used, only if:</strong>
-    • Tunnelblick has previously been installed and launched by the user; and<br />
-    • All private configurations are Tunnelblick VPN Configurations (.tblk files); and<br />
+  <font size="3"><strong>Tunnelblick 3.3beta26</strong></font> (build 3143) released 2012-10-12 [RlsNotes#Version_3.3 Release Notes]
+ <font color="red"><strong>NOTE: 3.3beta26 installs, and should be used, only if:</strong>
     • It is not a Deployed version; and<br />
     • No Deployed versions of Tunnelblick have previously been installed.</font>
-   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta24.dmg          Tunnelblick 3.3beta24]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta24_Unsigned.dmg Tunnelblick 3.3beta24 Unsigned]</strong> (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br />  </td></tr></tbody></table>
+   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta26.dmg Tunnelblick 3.3beta26]</strong><br />
+   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta26_Unsigned.dmg Tunnelblick 3.3beta26 Unsigned]</strong> (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br />  </td></tr></tbody></table>
 
 <table border="1" width="100%"><tbody><tr><td>
   <strong>[DownloadsOlder Older Releases]</strong> including a release for OS X 10.3 ("Panther")
