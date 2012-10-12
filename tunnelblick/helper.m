@@ -487,13 +487,13 @@ NSRange rangeOfDigits(NSString * s)
 
 int TBRunAlertPanel(NSString * title, NSString * msg, NSString * defaultButtonLabel, NSString * alternateButtonLabel, NSString * otherButtonLabel)
 {
-    return TBRunAlertPanelExtended(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, nil, nil, nil);
+    return TBRunAlertPanelExtended(title, msg, defaultButtonLabel, alternateButtonLabel, otherButtonLabel, nil, nil, nil, NSAlertDefaultReturn);
 }
 
 // Like TBRunAlertPanel but allows a "do not show again" preference key and checkbox, or a checkbox for some other function.
-// If the preference is set, the panel is not shown and "NSAlertDefaultReturn" is returned.
-// If the preference can be changed by the user, or the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
-// If the preference can be changed by the user, the preference is set if the user checks the box and the default button is clicked.
+// If the preference is set, the panel is not shown and "notShownReturnValue" is returned.
+// If the preference can be changed by the user, and the checkboxResult pointer is not nil, the panel will include a checkbox with the specified label.
+// If the preference can be changed by the user, the preference is set if the user checks the box and the button that is clicked corresponds to the notShownReturnValue.
 // If the checkboxResult pointer is not nil, the initial value of the checkbox will be set from it, and the value of the checkbox is returned to it.
 int TBRunAlertPanelExtended(NSString * title,
                             NSString * msg,
@@ -502,10 +502,11 @@ int TBRunAlertPanelExtended(NSString * title,
                             NSString * otherButtonLabel,
                             NSString * doNotShowAgainPreferenceKey,
                             NSString * checkboxLabel,
-                            BOOL     * checkboxResult)
+                            BOOL     * checkboxResult,
+							int		   notShownReturnValue)
 {
     if (  doNotShowAgainPreferenceKey && [gTbDefaults boolForKey: doNotShowAgainPreferenceKey]  ) {
-        return NSAlertDefaultReturn;
+        return notShownReturnValue;
     }
     
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
@@ -580,21 +581,45 @@ int TBRunAlertPanelExtended(NSString * title,
 
     switch (response & 0x3) {
         case kCFUserNotificationDefaultResponse:
-           if (  checkboxLabel  ) {
-               if (   doNotShowAgainPreferenceKey
-                   && [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
-                   && ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
-                   [gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
-                   [gTbDefaults synchronize];
-               }
-           }
-           
-           return NSAlertDefaultReturn;
+			if (  notShownReturnValue == NSAlertDefaultReturn  ) {
+				if (  checkboxLabel  ) {
+					if (   doNotShowAgainPreferenceKey
+						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
+						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
+						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
+						[gTbDefaults synchronize];
+					}
+				}
+			}
+				
+            return NSAlertDefaultReturn;
             
         case kCFUserNotificationAlternateResponse:
+			if (  notShownReturnValue == NSAlertAlternateReturn  ) {
+				if (  checkboxLabel  ) {
+					if (   doNotShowAgainPreferenceKey
+						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
+						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
+						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
+						[gTbDefaults synchronize];
+					}
+				}
+			}
+			
             return NSAlertAlternateReturn;
             
         case kCFUserNotificationOtherResponse:
+			if (  notShownReturnValue == NSAlertOtherReturn  ) {
+				if (  checkboxLabel  ) {
+					if (   doNotShowAgainPreferenceKey
+						&& [gTbDefaults canChangeValueForKey: doNotShowAgainPreferenceKey]
+						&& ( response & CFUserNotificationCheckBoxChecked(0) )  ) {
+						[gTbDefaults setBool: TRUE forKey: doNotShowAgainPreferenceKey];
+						[gTbDefaults synchronize];
+					}
+				}
+			}
+			
             return NSAlertOtherReturn;
             
         default:

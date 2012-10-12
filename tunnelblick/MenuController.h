@@ -148,6 +148,8 @@ BOOL needToConvertNonTblks(void);
     BOOL                      mouseIsInMainIcon;            // Indicates that the mouse is over the Tunnelblick (not tracked unless preference says to)
     BOOL                      mouseIsInStatusWindow;        // Indicates that the mouse is over the icon or a status window
     
+	BOOL					  signatureIsInvalid;			// Indicates the app is digitally signed but the signature does not check out
+	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     

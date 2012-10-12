@@ -449,7 +449,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
                                     nil, nil, nil,
                                     prefKey,
                                     NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                    nil);
+                                    nil,
+									NSAlertDefaultReturn);
         }
     }
 }
@@ -954,7 +955,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                             nil, nil, nil,
                             @"skipWarningThatIPAddressDidNotChangeAfterConnection",
                             NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
-                            nil);
+                            nil,
+							NSAlertDefaultReturn);
 }
 
 - (void) ipInfoErrorDialog
@@ -964,7 +966,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                             nil, nil, nil,
                             @"skipWarningThatIPAddressDidNotChangeAfterConnection",
                             NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
-                            nil);
+                            nil,
+							NSAlertDefaultReturn);
 }
 
 - (void) ipInfoInternetNotReachableDialog
@@ -978,7 +981,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                             nil, nil, nil,
                             @"skipWarningThatInternetIsNotReachable",
                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                            nil);
+                            nil,
+							NSAlertDefaultReturn);
 }
 
 - (void) ipInfoNoDNSDialog
@@ -992,7 +996,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                             nil, nil, nil,
                             @"skipWarningThatDNSIsNotWorking",
                             NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                            nil);
+                            nil,
+							NSAlertDefaultReturn);
 }
 
 - (void) ipInfoNoChangeDialogBefore: (NSString *) beforeConnect
@@ -1005,7 +1010,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                             nil, nil, nil,
                             @"skipWarningThatIPAddressDidNotChangeAfterConnection",
                             NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
-                            nil);
+                            nil,
+							NSAlertDefaultReturn);
 }
 
 - (void) checkIPAddressBeforeConnected
@@ -1251,7 +1257,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                                                  nil,
                                                  @"skipWarningAboutSimultaneousConnections",
                                                  NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                 nil);
+                                                 nil,
+												 NSAlertDefaultReturn);
             if (  button == NSAlertAlternateReturn  ) {
                 if (  userKnows  ) {
                     requestedState = oldRequestedState;

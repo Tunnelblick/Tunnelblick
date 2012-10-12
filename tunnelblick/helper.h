@@ -96,7 +96,8 @@ int            TBRunAlertPanelExtended  (NSString * title,
                                          NSString * otherButtonLabel,
                                          NSString * doNotShowAgainPreferenceKey,
                                          NSString * checkboxLabel,
-                                         BOOL     * checkboxResult);
+                                         BOOL     * checkboxResult,
+										 int		notShownReturnValue);
 
 OSStatus       runOpenvpnstart          (NSArray  * arguments,
                                          NSString ** stdoutString,
