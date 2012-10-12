@@ -743,18 +743,25 @@ int main(int argc, char *argv[])
                                              L_AS_T_USERS,
                                              NSUserName(),
                                              lastPartOfTarget];
+            
+            BOOL deletedOldShadowCopy = FALSE;
 			if (  [gFileMgr fileExistsAtPath: shadowTargetPath]  ) {
 				if (  ! deleteThingAtPath(shadowTargetPath)  ) {
 					errorExit();
 				}
+                
+                deletedOldShadowCopy = TRUE;
 			}
 			
 			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
             secureOneFolder(shadowTargetPath);
-			appendLog([NSString stringWithFormat: @"Created secure (shadow) copy of %@", lastPartOfTarget]);
+            if (  deletedOldShadowCopy  ) {
+                appendLog([NSString stringWithFormat: @"Updated secure (shadow) copy of %@", lastPartOfTarget]);
+            } else {
+                appendLog([NSString stringWithFormat: @"Created secure (shadow) copy of %@", lastPartOfTarget]);
+            }
+            
         } else {
-			appendLog([NSString stringWithFormat: @"JKB: DID NOT CREATE secure (shadow) copy of %@\nfirstPart    = %@\ngPrivatePath = %@",
-					   lastPartOfTarget, firstPartOfTarget, gPrivatePath]);
             secureOneFolder(targetPath);
         }
         

@@ -197,6 +197,8 @@ BOOL checkOwnedByRootWheel(NSString * path);
         terminatingAtUserRequest = FALSE;
         mouseIsInMainIcon = FALSE;
         mouseIsInStatusWindow = FALSE;
+		signatureIsInvalid = FALSE;
+
 		gOkToConvertNonTblks = FALSE;
 		gUserWasAskedAboutConvertNonTblks = FALSE;
 		
@@ -261,6 +263,8 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"skipWarningThatIPAddressDidNotChangeAfterConnection",
                                 @"skipWarningThatDNSIsNotWorking",
                                 @"skipWarningThatInternetIsNotReachable",
+								@"skipWarningAboutInvalidSignature",
+								@"skipWarningAboutNoSignature",
                                 
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
@@ -1468,7 +1472,9 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) changedDisplayConnectionSubmenusSettings
 {
+    [self createStatusItem];
     [self createMenu];
+    [self updateUI];
 }
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
@@ -1912,7 +1918,8 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                                            nil,                                                     // Other button
                                                            @"skipWarningAboutNonAdminUpdatingTunnelblick",          // Preference about seeing this message again
                                                            NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                                           nil);
+                                                           nil,
+														   NSAlertDefaultReturn);
                     if (  response == NSAlertAlternateReturn  ) {
                         return;
                     }
@@ -2763,8 +2770,7 @@ static void signal_handler(int signalNumber)
                     && [feedURL hasSuffix: @"/appcast.rss"]
                     && ( ! [gTbDefaults boolForKey: @"updateSigned"]) ) {
                     // Have a "standard" update setup at tunnelblick.net and are not forcing a signed version
-                    if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]
-                        && ( ! [self hasValidSignature])  ) {
+                    if (  signatureIsInvalid  ) {
                         forcingUnsignedUpdate = TRUE;
                         feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-f.rss"];
                         NSLog(@"Tunnelblick's digital signature is invalid");
@@ -3386,7 +3392,8 @@ static void signal_handler(int signalNumber)
 												nil,
 												@"skipWarningAboutUnknownOpenVpnProcesses",
 												NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Checkbox name"),
-												nil);
+												nil,
+												NSAlertDefaultReturn);
 		   if (  result == NSAlertAlternateReturn  ) {
 			   NSNumber * pidNumber;
 			   NSEnumerator * pidsEnum = [pIDsWeAreTryingToHookUpTo objectEnumerator];
@@ -3529,6 +3536,9 @@ static void signal_handler(int signalNumber)
 {
 	(void) theUpdater;
 	(void) update;
+	
+	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
+	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
 	
 	reasonForTermination = terminatingBecauseOfQuit;
     
@@ -3783,7 +3793,8 @@ BOOL warnAboutNonTblks(void)
 											   NSLocalizedString(@"Quit", @"Button"),
 											   @"skipWarningAboutConvertingToTblks",
 											   NSLocalizedString(@"Do not ask again, always convert", @"Checkbox name"),
-											   nil);
+											   nil,
+											   NSAlertDefaultReturn);
 		gUserWasAskedAboutConvertNonTblks = TRUE;
 		if (  response == NSAlertOtherReturn  ) {
 			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
@@ -3811,7 +3822,7 @@ BOOL warnAboutNonTblks(void)
         
         [self terminateBecause: terminatingBecauseOfQuit];
     }
-    
+	
     // If necessary, warn that non-.tblks will be converted
 	gOkToConvertNonTblks = warnAboutNonTblks();
     
@@ -3821,8 +3832,71 @@ BOOL warnAboutNonTblks(void)
 	[self secureIfNecessary];
 }
 
+-(void) warnIfInvalidOrNoSignatureAllowCheckbox: (BOOL) allowCheckbox
+{
+	NSString * checkboxPrefKey = nil;
+	NSString * checkboxText    = nil;
+	
+	NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
+	if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]  ) {
+		if (  signatureIsInvalid  ) {
+			
+			if (  allowCheckbox  ) {
+				checkboxPrefKey = @"skipWarningAboutInvalidSignature";
+				checkboxText    = NSLocalizedString(@"Do not ask again, always Continue", @"Checkbox name");
+			}
+			
+			int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
+												 NSLocalizedString(@"This copy of Tunnelblick has been tampered with (the"
+																   @" digital signature is invalid).\n\n"
+																   @"Please check with the provider of this copy of Tunnelblick before"
+																   @" using it.\n\n", @"Window text"),
+												 NSLocalizedString(@"Quit", @"Button"),
+												 nil,
+												 NSLocalizedString(@"Continue", @"Button"),
+												 checkboxPrefKey,
+												 checkboxText,
+												 nil,
+												 NSAlertOtherReturn);
+			if (  result == NSAlertDefaultReturn  ) {
+				[self terminateBecause: terminatingBecauseOfQuit];
+			}
+		}
+	} else {
+		if (  allowCheckbox  ) {
+			checkboxPrefKey = @"skipWarningAboutNoSignature";
+			checkboxText    = NSLocalizedString(@"Do not ask again, always Continue", @"Checkbox name");
+		}
+		
+		int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
+											 NSLocalizedString(@"This copy of Tunnelblick is not digitally signed.\n\n"
+															   @"There is no way to verify that this copy has not been tampered with.\n\n"
+															   @" Check with the the provider of this copy of Tunnelblick before"
+															   @" using it.\n\n", @"Window text"),
+											 NSLocalizedString(@"Quit", @"Button"),
+											 nil,
+											 NSLocalizedString(@"Continue", @"Button"),
+											 checkboxPrefKey,
+											 checkboxText,
+											 nil,
+											 NSAlertOtherReturn);
+		if (  result == NSAlertDefaultReturn  ) {
+			[self terminateBecause: terminatingBecauseOfQuit];
+		}
+	}
+    
+}
+
 -(void) relaunchIfNecessary
 {
+	NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
+    if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]
+		&& ( ! [self hasValidSignature] )  ) {
+		signatureIsInvalid = TRUE;
+	} else {
+		signatureIsInvalid = FALSE;	// (But it might not have one)
+	}
+	
     // Move or copy Tunnelblick.app to /Applications if it isn't already there
     
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
@@ -3832,9 +3906,11 @@ BOOL warnAboutNonTblks(void)
     if (  canRunOnThisVolume ) {
 #ifdef TBDebug
         NSLog(@"Tunnelblick: WARNING: This is an insecure copy of Tunnelblick to be used for debugging only!");
+        [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
         return;
 #endif
         if (  [currentPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
             NSLog(@"Tunnelblick can only run when it is in /Applications, not %@.", currentPath);
@@ -3845,6 +3921,8 @@ BOOL warnAboutNonTblks(void)
     
     // Not installed in /Applications on a runnable volume. Need to move/install to /Applications
     
+	[self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
+	
     // If no gDeployPath folder exists, we may not have dealt with L_AS_T/Backup
     if (   ( ! [gFileMgr fileExistsAtPath: gDeployPath])
         && [gFileMgr fileExistsAtPath: L_AS_T_BACKUP]  ) {
@@ -3908,6 +3986,13 @@ BOOL warnAboutNonTblks(void)
     NSString * launchWindowText;
     NSString * authorizationText;
     
+	NSString * signatureWarningText;
+	if (  signatureIsInvalid  ) {
+		signatureWarningText = NSLocalizedString(@" WARNING: This copy of Tunnelblick has been tampered with.\n\n", @"Window text");
+	} else {
+		signatureWarningText = @"";
+	}
+
     if (  [gFileMgr fileExistsAtPath: tbInApplicationsPath]  ) {
         NSBundle * previousBundle = [NSBundle bundleWithPath: tbInApplicationsPath];
         NSString * previousVersion = tunnelblickVersion(previousBundle);
@@ -3924,7 +4009,8 @@ BOOL warnAboutNonTblks(void)
     
     // Get authorization to install and secure
     gAuthorization = [NSApplication getAuthorizationRef:
-                      [NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
+                      [[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
+						stringByAppendingString: signatureWarningText]
                        stringByAppendingString: authorizationText]];
     if (  ! gAuthorization  ) {
         NSLog(@"The Tunnelblick installation was cancelled by the user.");
@@ -3971,6 +4057,9 @@ BOOL warnAboutNonTblks(void)
         [self application: NSApp openFiles: tblksToInstallPaths];
         launchFinished = FALSE;
     }
+	
+	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
+	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
     
     // Install this program and secure it
     if (  ! [self runInstaller: (  INSTALLER_COPY_APP
@@ -4164,7 +4253,12 @@ BOOL warnAboutNonTblks(void)
         [msg appendString: NSLocalizedString(@"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE."
                                              @" It is for debugging purposes only.\n", @"Window text")];
 #endif
-        NSLog(@"%@", msg);
+		
+		if (  signatureIsInvalid  ) {
+			[msg appendString: NSLocalizedString(@"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n", @"Window text")];
+		}
+        
+		NSLog(@"%@", msg);
         
         // Get an AuthorizationRef and use executeAuthorized to run the installer
         *authRefPtr = [NSApplication getAuthorizationRef: msg];

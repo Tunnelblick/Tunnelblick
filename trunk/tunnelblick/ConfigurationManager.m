@@ -114,7 +114,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                 nil, nil, nil,
                                 @"skipWarningAboutIgnoredConfigurations",          // Preference about seeing this message again
                                 NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
-                                nil);
+                                nil,
+								NSAlertDefaultReturn);
     }
     return dict;
 }
@@ -288,7 +289,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                                  NSLocalizedString(@"Cancel", @"Button"),                   // Other button
                                                  @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",  // Preference about seeing this message again
                                                  NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox name"),
-                                                 nil);
+                                                 nil,
+												 NSAlertDefaultReturn);
             if (  button == NSAlertOtherReturn  ) {
                 return;
             }
@@ -473,7 +475,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                                      NSLocalizedString(@"Cancel", @"Button"), 
                                                      skipWarningKey, 
                                                      NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
-                                                     nil);
+                                                     nil,
+													 NSAlertDefaultReturn);
                 if (  result == NSAlertAlternateReturn  ) {
                     [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
                 } else if (  result == NSAlertOtherReturn  ) {
@@ -519,7 +522,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                 nil, nil, nil,
                                 skipWarningKey, 
                                 NSLocalizedString(@"Do not warn about this again for this configuration", @"Checkbox name"), 
-                                nil);
+                                nil,
+								NSAlertDefaultReturn);
         [cfgContents release];
         return nil;
     }
