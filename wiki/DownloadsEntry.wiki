@@ -36,8 +36,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
   <font size="3"><strong>Tunnelblick 3.3beta26</strong></font> (build 3143) released 2012-10-12 [RlsNotes#Version_3.3 Release Notes]
  <font color="red"><strong>NOTE: 3.3beta26 installs, and should be used, only if:</strong>
-    • It is not a Deployed version; and<br />
-    • No Deployed versions of Tunnelblick have previously been installed.</font>
+    • It is not a "[cCusDeployed Deployed]" version; and<br />
+    • No "[cCusDeployed Deployed]" versions of Tunnelblick have previously been installed.</font>
    <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta26.dmg Tunnelblick 3.3beta26]</strong><br />
    <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta26_Unsigned.dmg Tunnelblick 3.3beta26 Unsigned]</strong> (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br />  </td></tr></tbody></table>
 
