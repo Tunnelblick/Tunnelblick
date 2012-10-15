@@ -77,7 +77,7 @@
 // These are used in three places:
 //       MenuController's function needToSecureFolderAtPath()
 //       openvpnstart's   function exitIfTblkNeedsRepair()
-//       installer's      function secureOneFolder()
+//       sharedRoutine's  function secureOneFolder()
 //
 // _PRIVATE... entries are for ~/Library/Application Support/Tunnelblick/Configurations
 // _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
@@ -160,6 +160,8 @@
 
 //*************************************************************************************************
 // Error return codes for openvpnstart
+#define OPENVPNSTART_REVERT_CONFIG_OK				 249
+#define OPENVPNSTART_REVERT_CONFIG_MISSING			 250
 #define OPENVPNSTART_COMPARE_CONFIG_SAME             251
 #define OPENVPNSTART_COMPARE_CONFIG_DIFFERENT        252
 #define OPENVPNSTART_RETURN_SYNTAX_ERROR             253

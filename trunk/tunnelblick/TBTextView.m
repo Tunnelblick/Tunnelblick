@@ -72,7 +72,7 @@
             NSEnumerator *e = [windows objectEnumerator];
             NSWindow *window = nil;
             while (  (window = [e nextObject])  ) {
-                if (  [[window title] hasPrefix:NSLocalizedString(@"Details - Tunnelblick",  @"Window title")]  ) {
+                if (  [[window title] hasPrefix: NSLocalizedString(@"Details - Tunnelblick",  @"Window title")]  ) {
                     [window miniaturize:nil];
                     return YES;
                 }
@@ -83,7 +83,7 @@
             NSEnumerator *e = [windows objectEnumerator];
             NSWindow *window = nil;
             while (  (window = [e nextObject])  ) {
-                if (  [[window title] hasPrefix:NSLocalizedString(@"Details - Tunnelblick",  @"Window title")]  ) {
+                if (  [[window title] hasPrefix: NSLocalizedString(@"Details - Tunnelblick",  @"Window title")]  ) {
                     [window performClose:nil];
                     return YES;
                 }

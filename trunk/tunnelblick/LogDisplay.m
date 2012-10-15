@@ -1235,7 +1235,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
 -(NSString *) constructScriptLogPath
 {
     NSMutableString * logBase;
-    if (  [[self configurationPath] hasPrefix: NSHomeDirectory()]  ) {
+    if (  [[self configurationPath] hasPrefix: [NSHomeDirectory() stringByAppendingString: @"/"]]  ) {
         logBase = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [[self configurationPath] substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
     } else {
         logBase = [[[self configurationPath] mutableCopy] autorelease];

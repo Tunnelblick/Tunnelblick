@@ -49,9 +49,8 @@ uid_t                 gOriginalUid   = 0;       // Uid of user (not root)
 //**************************************************************************************************************************
 void appendLog(NSString * msg)
 {
-    fprintf(stderr, "%s", [msg UTF8String]);
+    fprintf(stderr, "%s\n", [msg UTF8String]);
 }
-
 
 //**************************************************************************************************************************
 void validateConfigName(NSString * name);
@@ -60,7 +59,7 @@ void validateCfgLocCode(unsigned cfgLocCode);
 //**************************************************************************************************************************
 void exitOpenvpnstart(OSStatus returnValue)
 {
-    // returnValue: have used 200-245, plus the values in define.h (251, 252, 253, and 254)
+    // returnValue: have used 199-248, plus the values in define.h (249-254)
     [pool drain];
     exit(returnValue);
 }
@@ -215,10 +214,6 @@ void printUsageMessageAndExitOpenvpnstart(void)
 
 BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
 {
-	if (  permissionsIfNot002 != 0  ) {
-		fprintf(stderr, "DEBUG: pCINS: Test (%o) %s\n", permissionsIfNot002, [path UTF8String]);
-	}
-	
 	const char *pathC = [path fileSystemRepresentation];
     
     NSError * errInfo;
@@ -302,7 +297,7 @@ BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
 BOOL pathIsNotSecure(NSString * path, int terminusPermissions)
 {
 #ifdef TBDebug
-	if (  [path hasPrefix: gResourcesPath]  ) {
+	if (  [path hasPrefix: [gResourcesPath stringByAppendingString: @"/"]]  ) {
 		// Debugging and path is within the app
 		// Verify only that the path itself is secure: owned by root:wheel with no user write permissions
         if (  pathComponentIsNotSecure(path, terminusPermissions)  ) {
@@ -389,7 +384,7 @@ void exitIfTblkNeedsRepair(void)
 {
     // There is a SIMILAR function in MenuController: needToSecureFolderAtPath
     //
-    // There is a SIMILAR function in installer: secureOneFolder, that SECURES a .tblk
+    // There is a SIMILAR function in sharedRoutines: secureOneFolder, that SECURES a .tblk
     
     BOOL isDir;
     
@@ -438,9 +433,9 @@ void exitIfTblkNeedsRepair(void)
                 if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                     
-                } else if (   [filePath hasPrefix: L_AS_T_BACKUP]
-						   || [filePath hasPrefix: L_AS_T_DEPLOY]
-                           || [filePath hasPrefix: L_AS_T_SHARED]  ) {
+                } else if (   [filePath hasPrefix: [L_AS_T_BACKUP stringByAppendingString: @"/"]]
+						   || [filePath hasPrefix: [L_AS_T_DEPLOY stringByAppendingString: @"/"]]
+                           || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                     exitIfPathIsNotSecure(filePath, privateFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                     
                 } else {
@@ -1269,22 +1264,22 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
 }
 
 //**************************************************************************************************************************
-void compareTblkShadowCopy (NSString * displayName)
+void compareTblkShadowCopy (NSString * fileName)
 {
 	// Compares the specified private configuration .tblk with its shadow copy.
 	// Returns the results as one of the following result codes:
     //      OPENVPNSTART_COMPARE_CONFIG_SAME
     //      OPENVPNSTART_COMPARE_CONFIG_DIFFERENT
 	
-    if (  [displayName length] == 0  ) {
+    if (  [fileName length] == 0  ) {
         exitOpenvpnstart(EXIT_FAILURE);
     }
     
     NSString * privatePrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
     NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
     
-    NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
-    NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: displayName] stringByAppendingPathExtension: @"tblk"];
+    NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
+    NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
     
     if (  [gFileMgr fileExistsAtPath: privatePath]  ) {
         if (  [gFileMgr fileExistsAtPath: shadowPath]  ) {
@@ -1295,6 +1290,58 @@ void compareTblkShadowCopy (NSString * displayName)
 	}
 	
 	exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_DIFFERENT);
+}
+
+void revertToShadow (NSString * fileName)
+{
+	// Compares the specified private configuration .tblk with its shadow copy.
+	// Returns the results as one of the following result codes:
+    //      OPENVPNSTART_COMPARE_CONFIG_SAME
+    //      OPENVPNSTART_COMPARE_CONFIG_DIFFERENT
+	
+    NSString * homeDir = NSHomeDirectory();
+    if (   ( ! homeDir)
+        || ( getuid() == 0 ) ) {
+        NSLog(@"Running as root or no home directory");
+        exitOpenvpnstart(248);
+    }
+    
+    if (  [fileName length] == 0  ) {
+        exitOpenvpnstart(EXIT_FAILURE);
+    }
+    
+    NSString * privatePrefix = [homeDir       stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+	NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
+	
+    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+    NSString * shadowPath    = [shadowPrefix stringByAppendingPathComponent: fileName];
+    
+	NSString * createdReplaced = @"Created";
+    BOOL isDir;
+	if (   [gFileMgr fileExistsAtPath: shadowPath isDirectory: &isDir]
+        && isDir  ) {
+		if (  [gFileMgr fileExistsAtPath: privatePath]  ) {
+			createdReplaced = @"Replaced";
+			if (  ! [gFileMgr tbRemoveFileAtPath: privatePath handler: nil]  ) {
+				fprintf(stderr, "Unable to delete %s\n", [privatePath UTF8String]);
+				exitOpenvpnstart(246);
+			}
+		}
+		if (  [gFileMgr tbCopyPath: shadowPath toPath: privatePath handler: nil]  ) {
+			fprintf(stderr, "%s %s\n", [createdReplaced UTF8String], [privatePath UTF8String]);
+			if (  secureOneFolder(privatePath, YES)  ) {
+                exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_OK);
+            } else {
+                exitOpenvpnstart(199);  // Already logged an error message
+            }
+		} else {
+			fprintf(stderr, "Unable to copy %s to %s\n", [shadowPath UTF8String], [privatePath UTF8String]);
+			exitOpenvpnstart(247);
+		}
+	} else {
+		fprintf(stderr, "No secured (shadow) copy of a .tblk at %s\n", [shadowPath UTF8String]);
+		exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_MISSING);
+	}
 }
 
 NSArray * tokensFromConfigurationLine(NSString * line)
@@ -1705,7 +1752,7 @@ int startVPN(NSString * configFile,
         gConfigPath = cfg;
     } else {
         exitIfOvpnNeedsRepair();
-        if (  [gConfigPath hasPrefix: gDeployPath]  ) { // Not a .tblk, so check that it is Deployed
+        if (  ! [gConfigPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) { // Not a .tblk, so check that it is Deployed
             exitOpenvpnstart(230);
         }
     }
@@ -2341,11 +2388,20 @@ int main(int argc, char * argv[])
             
         } else if ( strcmp(command, "compareTblkShadowCopy") == 0 ) {
 			if (argc == 3  ) {
-				NSString* displayName = [NSString stringWithUTF8String:argv[2]];
-                validateConfigName(displayName);
-                compareTblkShadowCopy(displayName);
+				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                compareTblkShadowCopy(fileName);
                 // compareTblkShadowCopy should never return (it does exit() with its own exit codes)
-                // but just in case, we force an error by NOT setting syntaxError FALSE
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
+            }
+            
+        } else if ( strcmp(command, "revertToShadow") == 0 ) {
+			if (argc == 3  ) {
+				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
+                validateConfigName(fileName);
+                revertToShadow(fileName);
+                // revertToShadow should never return (it does exit() with its own exit codes)
+                // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
         } else if ( strcmp(command, "printSanitizedConfigurationFile") == 0 ) {

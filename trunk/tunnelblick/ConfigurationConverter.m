@@ -60,7 +60,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 
 -(NSString *) nameToDisplayFromPath: path
 {
-	if (  [path hasPrefix: gPrivatePath]  ) {
+	if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
 		return [path substringFromIndex: [gPrivatePath length] + 1];
 	} else {
 		return path;

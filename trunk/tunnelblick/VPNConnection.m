@@ -302,19 +302,19 @@ extern NSString * lastPartOfPath(NSString * thePath);
             
         case CFG_LOC_PRIVATE:
         case CFG_LOC_ALTERNATE:
-            if (! [configPath hasPrefix: gPrivatePath] ) {
+            if (! [configPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]] ) {
                 configPathBad = TRUE;
             }
             break;
             
         case CFG_LOC_DEPLOY:
-            if (! [configPath hasPrefix: gDeployPath] ) {
+            if (! [configPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]] ) {
                 configPathBad = TRUE;
             }
             break;
             
         case CFG_LOC_SHARED:
-            if (! [configPath hasPrefix: L_AS_T_SHARED] ) {
+            if (! [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]] ) {
                 configPathBad = TRUE;
             }
             break;
@@ -485,11 +485,11 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (   ( ! [gTbDefaults boolForKey: autoConnectKey] )
             || ( ! [gTbDefaults boolForKey: onSystemStartKey] )  ) {
             int cfgLocCode;
-            if (  [configPath hasPrefix: gPrivatePath]  ) {
+            if (  [configPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
                 cfgLocCode = CFG_LOC_PRIVATE;
-            } else if (  [configPath hasPrefix: L_AS_T_SHARED]  ) {
+            } else if (  [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                 cfgLocCode = CFG_LOC_SHARED;
-            } else if (  [configPath hasPrefix: gDeployPath]  ) {
+            } else if (  [configPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
                 cfgLocCode = CFG_LOC_DEPLOY;
             } else {
                 NSLog(@"Configuration is in unknown location; path is %@", configPath);
@@ -569,8 +569,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             return YES;
         }
     } else {
-        if (  ! (   [configPath hasPrefix: gDeployPath]
-                 || [configPath hasPrefix: L_AS_T_SHARED]   )  ) {
+        if (  ! (   [configPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
+                 || [configPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]   )  ) {
             NSLog(@"Tunnelblick will NOT connect '%@' when the computer starts because it is a private configuration", [self displayName]);
             return NO;
         }
@@ -696,9 +696,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 // Returns YES on success, NO if user cancelled out of a dialog 
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
-    // Don't use the "Program" key, because we want the first argument to be the path to the program,
-    // so openvpnstart can know where it is, so it can find other Tunnelblick compenents.
-    NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
+	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
     *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
@@ -1216,7 +1214,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 	(void) sender;
 	
-    if (   ( ! [[self configPath] hasPrefix: @"/Library"] )
+    if (   ( ! [[self configPath] hasPrefix: @"/Library/"] )
         && ( ! [[[self configPath] pathExtension] isEqualToString: @"tblk"] )  ) {
         TBRunAlertPanel(NSLocalizedString(@"Unavailable", @"Window title"),
                         NSLocalizedString(@"You may not connect this configuration.\n\n"
@@ -1424,64 +1422,78 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(BOOL) shadowIsIdenticalMakeItSo: (BOOL) makeItSo
+{
+    NSString * cfgPath = [self configPath];
+	NSString * name = lastPartOfPath(cfgPath);
+	if (  ! [[name pathExtension] isEqualToString: @"tblk"]) {
+		NSLog(@"Internal Tunnelblick error: '%@' is not a .tblk", name);
+		return NO;
+	}
+	
+	NSArray * arguments = [NSArray arrayWithObjects:@"compareTblkShadowCopy", [self displayName], nil];
+	OSStatus status =  runOpenvpnstart(arguments, nil, nil);
+	
+	switch (  status  ) {
+			
+		case OPENVPNSTART_COMPARE_CONFIG_SAME:
+			return YES;
+			break;
+			
+		case OPENVPNSTART_COMPARE_CONFIG_DIFFERENT:
+			if (  ! makeItSo  ) {
+				return NO;
+			}
+			
+			// Alt config is different or doesn't exist. We must create it (and maybe the folders that contain it)
+			; // empty statement needed to avoid bogus compiler error
+			AuthorizationRef authRef = [NSApplication getAuthorizationRef:
+										NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
+			if ( authRef == nil ) {
+				NSLog(@"Authorization to create/update a secure (shadow) copy of the configuration file cancelled by user.");
+				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+				return NO;
+			}
+			
+			NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
+									 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
+			
+			if ( [[ConfigurationManager defaultManager] copyConfigPath: cfgPath
+																toPath: altCfgPath
+													   usingAuthRefPtr: &authRef
+															warnDialog: YES
+														   moveNotCopy: NO] ) {    // Copy the config to the alt config
+				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+				NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
+				break;
+			}
+			
+			AuthorizationFree(authRef, kAuthorizationFlagDefaults); // Couldn't make alt file
+			NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
+			return NO;
+			break;
+			
+		default:
+			NSLog(@"Internal Tunnelblick error: unknown status %ld from compareTblkShadowCopy(%@)", (long) status, [self displayName]);
+			return NO;
+	}
+	
+	return NO;	// Should never get here, but...
+}
+
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
 {
-    NSString *cfgPath = [self configPath];
+    NSString * cfgPath = [self configPath];
 
-    if (   [cfgPath hasPrefix: gPrivatePath]  ) {
-        
-        NSString * name = lastPartOfPath(cfgPath);
-        if (  ! [[name pathExtension] isEqualToString: @"tblk"]) {
-            NSLog(@"Internal Tunnelblick error: '%@' is not a .tblk", name);
-            return nil;
-        }
-        
-        NSArray * arguments = [NSArray arrayWithObjects:@"compareTblkShadowCopy", [self displayName], nil];
-        OSStatus status =  runOpenvpnstart(arguments, nil, nil);
-        
-        switch (  status  ) {
-                
-            case OPENVPNSTART_COMPARE_CONFIG_SAME:
-                break;
-                
-            case OPENVPNSTART_COMPARE_CONFIG_DIFFERENT:
-                // Alt config is different or doesn't exist. We must create it (and maybe the folders that contain it)
-                ; // empty statement needed to avoid bogus compiler error
-				AuthorizationRef authRef = [NSApplication getAuthorizationRef:
-                                            NSLocalizedString(@"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.", @"Window text")];
-                if ( authRef == nil ) {
-                    NSLog(@"Authorization to create/update a secure (shadow) copy of the configuration file cancelled by user.");
-                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-                    return nil;
-                }
-				
-                NSString * altCfgPath = [[L_AS_T_USERS stringByAppendingPathComponent: NSUserName()]
-										 stringByAppendingPathComponent: lastPartOfPath(cfgPath)];
-				
-                if ( [[ConfigurationManager defaultManager] copyConfigPath: cfgPath
-                                                                    toPath: altCfgPath
-                                                           usingAuthRefPtr: &authRef
-                                                                warnDialog: YES
-                                                               moveNotCopy: NO] ) {    // Copy the config to the alt config
-                    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
-                    NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
-                    break;
-                }
-                
-                AuthorizationFree(authRef, kAuthorizationFlagDefaults); // Couldn't make alt file
-                NSLog(@"Unable to create or update secure (shadow) copy of configuration file %@", cfgPath);
-                return nil;
-                break;
-                
-            default:
-                NSLog(@"Internal Tunnelblick error: unknown status %ld from compareTblkShadowCopy(%@)", (long) status, [self displayName]);
-                return nil;
-        }
+    if (   [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        if (  ! [self shadowIsIdenticalMakeItSo: YES]  ) {
+			return nil;
+		}
     }
 
-    BOOL useShadowCopy = [cfgPath hasPrefix: gPrivatePath];
-    BOOL useDeploy     = [cfgPath hasPrefix: gDeployPath];
-    BOOL useShared     = [cfgPath hasPrefix: L_AS_T_SHARED];
+    BOOL useShadowCopy = [cfgPath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]];
+    BOOL useDeploy     = [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]];
+    BOOL useShared     = [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]];
     
     NSString *portString;
     if (  forNow  ) {
@@ -2377,9 +2389,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSEnumerator * configEnum = [[[NSApp delegate] myConfigDictionary] objectEnumerator];
     while (   ( path = [configEnum nextObject] )
            && ( (havePrivate + haveShared + haveDeployed) < 2) ) {
-        if (  [path hasPrefix: gPrivatePath]  ) {
+        if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             havePrivate = 1;
-        } else if (  [path hasPrefix: L_AS_T_SHARED]  ) {
+        } else if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
             haveShared = 1;
         } else {
             haveDeployed =1;
@@ -2388,9 +2400,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  (havePrivate + haveShared + haveDeployed) > 1  ) {
         path = [self configPath];
-        if (  [path hasPrefix: gDeployPath]) {
+        if (  [path hasPrefix: [gDeployPath stringByAppendingString: @"/"]]) {
             locationMessage =  NSLocalizedString(@" (Deployed)", @"Window title");
-        } else if (  [path hasPrefix: L_AS_T_SHARED]) {
+        } else if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]) {
             locationMessage =  NSLocalizedString(@" (Shared)", @"Window title");
         } else {
             locationMessage =  NSLocalizedString(@" (Private)", @"Window title");
@@ -2934,7 +2946,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL custom = FALSE;
     NSString * resourcePath          = [[NSBundle mainBundle] resourcePath];
     
-    if (  [configPath hasPrefix: gDeployPath]  ) {
+    if (  [configPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
         NSString * deployPath                  = [resourcePath stringByAppendingPathComponent: @"Deploy"];
         NSString * configFile                  = [configPath lastPathComponent];
         NSString * deployScriptPath            = [deployPath stringByAppendingPathComponent:[configFile stringByDeletingPathExtension]];

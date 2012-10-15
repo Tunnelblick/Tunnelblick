@@ -194,6 +194,8 @@ struct Statistics {
 
 -(void)             setState:                   (NSString *)    newState;
 
+-(BOOL)				shadowIsIdenticalMakeItSo:  (BOOL)		    makeItSo;
+
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
 
 -(void)             showStatusWindow;

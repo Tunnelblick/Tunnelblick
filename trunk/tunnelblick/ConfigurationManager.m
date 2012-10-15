@@ -324,7 +324,7 @@ enum state_t {                      // These are the "states" of the guideState 
     if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
         NSString * last = lastPartOfPath(path);
         NSString * name = [last stringByDeletingPathExtension];
-        if (  [path hasPrefix: L_AS_T_SHARED]  ) {
+        if (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
             NSString * lastButOvpn = [name stringByAppendingPathExtension: @"ovpn"];
             NSString * lastButConf = [name stringByAppendingPathExtension: @"conf"];
             if (   [gFileMgr fileExistsAtPath: [gPrivatePath stringByAppendingPathComponent: last]]
@@ -343,7 +343,7 @@ enum state_t {                      // These are the "states" of the guideState 
             source = [[path copy] autorelease];
             target = [gPrivatePath stringByAppendingPathComponent: last];
             msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration private, instead of shared.", @"Window text"), name];
-        } else if (  [path hasPrefix: gPrivatePath]  ) {
+        } else if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             source = [[path copy] autorelease];
             target = [L_AS_T_SHARED stringByAppendingPathComponent: last];
             msg = [NSString stringWithFormat: NSLocalizedString(@"You have asked to make the '%@' configuration shared, instead of private.", @"Window text"), name];
@@ -431,11 +431,11 @@ enum state_t {                      // These are the "states" of the guideState 
     
     unsigned cfgLoc;
     NSString * cfgFile = lastPartOfPath(cfgPath);
-    if (  [cfgPath hasPrefix: gPrivatePath]  ) {
+    if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
         cfgLoc = CFG_LOC_PRIVATE;
-    } else if (  [cfgPath hasPrefix: gDeployPath]  ) {
+    } else if (  [cfgPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
         cfgLoc = CFG_LOC_DEPLOY;
-    } else if (  [cfgPath hasPrefix: L_AS_T_SHARED]  ) {
+    } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
         cfgLoc = CFG_LOC_SHARED;
     } else {
         cfgLoc = CFG_LOC_ALTERNATE;
@@ -867,9 +867,9 @@ enum state_t {                      // These are the "states" of the guideState 
 // If filePath is a nested .tblk (i.e., a .tblk contained within another .tblk), the destination path will be a subfolder of the private or shared configurations folder
 -(NSArray *) checkOneDotTblkPackage: (NSString *) filePath
 {
-    if (   [filePath hasPrefix: gPrivatePath]
-        || [filePath hasPrefix: L_AS_T_SHARED]
-        || [filePath hasPrefix: gDeployPath]  ) {
+    if (   [filePath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]]
+        || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
+        || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
         NSLog(@"Configuration installer: Tunnelblick VPN Configuration is already installed: %@", filePath);
         TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
                         NSLocalizedString(@"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy.", @"Window text"),
@@ -1066,9 +1066,9 @@ enum state_t {                      // These are the "states" of the guideState 
                         NSString * msg;
                         replacementPath = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
                         NSString * sharedPrivateDeployed;
-                        if (  [replacementPath hasPrefix: L_AS_T_SHARED]  ) {
+                        if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                             sharedPrivateDeployed = NSLocalizedString(@" (Shared)", @"Window title");
-                        } else if (  [replacementPath hasPrefix: gPrivatePath]  ) {
+                        } else if (  [replacementPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
                             sharedPrivateDeployed = NSLocalizedString(@" (Private)", @"Window title");
                         } else {
                             sharedPrivateDeployed = NSLocalizedString(@" (Deployed)", @"Window title");
@@ -1113,7 +1113,7 @@ enum state_t {                      // These are the "states" of the guideState 
                     
                     tryDisplayName = [last stringByDeletingPathExtension];
                     replacementPath = [[[NSApp delegate] myConfigDictionary] objectForKey: key];
-                    if (  [replacementPath hasPrefix: L_AS_T_SHARED]  ) {
+                    if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                         pkgSharePackage = @"shared";
                     } else {
                         pkgSharePackage = @"private";

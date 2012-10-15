@@ -98,8 +98,6 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) updateLastCheckedDate;
 
--(void) validateDetailsWindowControls;
-
 -(void) validateWhenToConnect: (VPNConnection *) connection;
 
 @end
@@ -394,6 +392,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[configurationsPrefsView setNameserverPopUpButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
     [settingsSheetWindowController setupPrependDomainNameCheckbox];
 	[settingsSheetWindowController setupFlushDNSCheckbox];
+    [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
 }
 
 -(void) setupNetworkMonitoring: (VPNConnection *) connection
@@ -675,25 +674,16 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Left split view
         
-        [[configurationsPrefsView addConfigurationButton]               setEnabled: ! [gTbDefaults boolForKey: @"disableAddConfigurationButton"                          ]];
-        [[configurationsPrefsView removeConfigurationButton]            setEnabled: ! [gTbDefaults boolForKey: @"disableRemoveConfigurationButton"                       ]];
-        [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"                       ]];
-        
-        [[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: NO];
-        
-        [[configurationsPrefsView renameConfigurationMenuItem]          setEnabled: ! [gTbDefaults boolForKey: @"disableRenameConfigurationMenuItem"                     ]];
-        [[configurationsPrefsView duplicateConfigurationMenuItem]       setEnabled: ! [gTbDefaults boolForKey: @"disableDuplicateConfigurationMenuItem"                  ]];
+        [[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"]];
+		[[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: YES];
         
         NSString * configurationPath = [connection configPath];
-        if (  [configurationPath hasPrefix: L_AS_T_SHARED]  ) {
+        if (  [configurationPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Private..."  , @"Menu Item")];
-            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled:  ! [gTbDefaults boolForKey: @"disableMakeConfigurationPrivateOrSharedMenuItem"            ]];
-        } else if (  [configurationPath hasPrefix: gPrivatePath]  ) {
+        } else if (  [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
-            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled:  ! [gTbDefaults boolForKey: @"disableMakeConfigurationPrivateOrSharedMenuItem"            ]];
         } else {
             [[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
-            [[configurationsPrefsView makePrivateOrSharedMenuItem] setEnabled: NO];
         }
         
         if (  [[ConfigurationManager defaultManager] userCanEditConfiguration: [connection configPath]]  ) {
@@ -701,10 +691,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         } else {
             [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setTitle: NSLocalizedString(@"Examine OpenVPN Configuration File...", @"Menu Item")];
         }
-        [[configurationsPrefsView editOpenVPNConfigurationFileMenuItem] setEnabled: ! [gTbDefaults boolForKey: @"disableExamineOpenVpnConfigurationFileMenuItem"         ]];
-        
-        [[configurationsPrefsView showOpenvpnLogMenuItem]               setEnabled: ! [gTbDefaults boolForKey: @"disableShowOpenVpnLogInFinderMenuItem"                  ]];
-        [[configurationsPrefsView removeCredentialsMenuItem]            setEnabled: ! [gTbDefaults boolForKey: @"disableDeleteConfigurationCredentialsInKeychainMenuItem"]];
+		
         
         // right split view
         
@@ -737,6 +724,58 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *) anItem
+{
+	VPNConnection * connection = [self selectedConnection];
+	
+	if (  [anItem action] == @selector(addConfigurationButtonWasClicked:)  ) {
+		return ! [gTbDefaults boolForKey: @"disableAddConfigurationButton"];
+		
+	} else if (  [anItem action] == @selector(removeConfigurationButtonWasClicked:)  ) {
+		return [gTbDefaults boolForKey: @"disableRemoveConfigurationButton"];
+		
+	} else if (  [anItem action] == @selector(renameConfigurationMenuItemWasClicked:)  ) {
+		return ! [gTbDefaults boolForKey: @"disableRenameConfigurationMenuItem"];
+		
+	} else if (  [anItem action] == @selector(duplicateConfigurationMenuItemWasClicked:)  ) {
+		return ! [gTbDefaults boolForKey: @"disableDuplicateConfigurationMenuItem"];
+		
+	} else if (  [anItem action] == @selector(revertToShadowMenuItemWasClicked:)  ) {
+		return (   ( ! [gTbDefaults boolForKey: @"disableRevertToShadowMenuItem"] )
+				&& (   [[connection configPath] hasPrefix: [gPrivatePath stringByAppendingString: @"/"]])
+				&& ( ! [connection shadowIsIdenticalMakeItSo: NO] )
+				);
+		
+	} else if (  [anItem action] == @selector(makePrivateOrSharedMenuItemWasClicked:)  ) {
+		NSString * configurationPath = [connection configPath];
+		if (  [configurationPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+			[[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Private..."  , @"Menu Item")];
+			return ! [gTbDefaults boolForKey: @"disableMakeConfigurationPrivateOrSharedMenuItem"];
+		} else if (  [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+			[[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
+			return ! [gTbDefaults boolForKey: @"disableMakeConfigurationPrivateOrSharedMenuItem"];
+		} else {
+			[[configurationsPrefsView makePrivateOrSharedMenuItem] setTitle: NSLocalizedString(@"Make Configuration Shared..."  , @"Menu Item")];
+			return NO;
+		}
+		
+	} else if (  [anItem action] == @selector(editOpenVPNConfigurationFileMenuItemWasClicked:)  ) {
+		return (   ( ! [gTbDefaults boolForKey: @"disableExamineOpenVpnConfigurationFileMenuItem"] )
+				&& [[connection configPath] hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]
+				);
+		
+	} else if (  [anItem action] == @selector(showOpenvpnLogMenuItemWasClicked:)  ) {
+		return (   ( ! [gTbDefaults boolForKey: @"disableShowOpenVpnLogInFinderMenuItem"] )
+				&& [[connection configPath] hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]
+				);
+		
+	} else if (  [anItem action] == @selector(removeCredentialsMenuItemWasClicked:)  ) {
+		return  ! [gTbDefaults boolForKey: @"disableDeleteConfigurationCredentialsInKeychainMenuItem"];
+	}
+	
+	NSLog(@"MyPrefsWindowController:validateMenuItem: Unknown menuItem %@", [anItem description]);
+	return NO;
+}
 
 
 // Overrides superclass method
@@ -975,7 +1014,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     NSString * configurationPath = [connection configPath];
     
-    if (  [configurationPath hasPrefix: gDeployPath]  ) {
+    if (  [configurationPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not delete a Deployed configuration.", @"Window text"),
                         nil, nil, nil);
@@ -1073,7 +1112,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     NSString * sourcePath = [connection configPath];
-    if (  [sourcePath hasPrefix: gDeployPath]  ) {
+    if (  [sourcePath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not rename a Deployed configuration.", @"Window text"),
                         nil, nil, nil);
@@ -1163,7 +1202,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     NSString * source = [connection configPath];
-    if (  [source hasPrefix: gDeployPath]  ) {
+    if (  [source hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                         NSLocalizedString(@"You may not duplicate a Deployed configuration.", @"Window text"),
                         nil, nil, nil);
@@ -1261,7 +1300,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     if (  ! [connection isDisconnected]  ) {
-        NSString * msg = (  [path hasPrefix: L_AS_T_SHARED]
+        NSString * msg = (  [path hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
                           ? NSLocalizedString(@"You cannot make a configuration private unless it is disconnected.", @"Window text")
                           : NSLocalizedString(@"You cannot make a configuration shared unless it is disconnected.", @"Window text")
                           );
@@ -1272,6 +1311,73 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [[ConfigurationManager defaultManager] shareOrPrivatizeAtPath: path];
+}
+
+
+-(IBAction) revertToShadowMenuItemWasClicked: (id) sender
+{
+	(void) sender;
+	
+    VPNConnection * connection = [self selectedConnection];
+    if (  ! connection  ) {
+        NSLog(@"revertToShadowMenuItemWasClicked but no configuration has been selected");
+        return;
+    }
+    
+	NSString * source = [connection configPath];
+
+    if (  ! [source hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                        NSLocalizedString(@"You may only revert a private configuration.", @"Window text"),
+                        nil, nil, nil);
+        return;
+    }
+	
+	if ( [connection shadowIsIdenticalMakeItSo: NO]  ) {
+		TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+						[NSString stringWithFormat:
+						 NSLocalizedString(@"%@is already identical to its last secured (shadow) copy.\n\n", @"Window text"),
+						 [connection displayName]],
+						nil, nil, nil);
+        return;
+	}
+    
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 [NSString stringWithFormat:
+								  NSLocalizedString(@"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n", @"Window text"),
+								  [connection displayName]],
+								 NSLocalizedString(@"Revert", @"Button"),
+								 NSLocalizedString(@"Cancel", @"Button"), nil);
+	
+	if (  result != NSAlertDefaultReturn  ) {
+		return;
+	}
+    
+	NSString * fileName = lastPartOfPath(source);
+	NSArray * arguments = [NSArray arrayWithObjects: @"revertToShadow", fileName, nil];
+	result = runOpenvpnstart(arguments, nil, nil);
+	switch (  result  ) {
+			
+		case OPENVPNSTART_REVERT_CONFIG_OK:
+			TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+							[NSString stringWithFormat:
+							 NSLocalizedString(@"%@ has been reverted to its last secured (shadow) copy.\n\n", @"Window text"),
+							 [connection displayName]],
+							nil, nil, nil);
+			break;
+			
+		case OPENVPNSTART_REVERT_CONFIG_MISSING:
+			TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+							NSLocalizedString(@"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.", @"Window text"),
+							nil, nil, nil);
+			break;
+			
+		default:
+			TBRunAlertPanel(NSLocalizedString(@"Configuration Installation Error", @"Window title"),
+							NSLocalizedString(@"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n", @"Window text"),
+							nil, nil, nil);
+			break;
+	}
 }
 
 
@@ -1410,7 +1516,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
     if (  [self selectedConnection]  ) {
         NSString * configurationPath = [[self selectedConnection] configPath];
-        if (  [configurationPath hasPrefix: gPrivatePath]  ) {
+        if (  [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             NSUInteger ix = selectedWhenToConnectIndex;
             selectedWhenToConnectIndex = 2;
             [[configurationsPrefsView whenToConnectPopUpButton] selectItemAtIndex: (int)ix];
@@ -1556,7 +1662,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * configurationPath = [connection configPath];
     NSString * displayName = [connection displayName];
     
-    BOOL enableWhenComputerStarts = ! [configurationPath hasPrefix: gPrivatePath];
+    BOOL enableWhenComputerStarts = ! [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
     
     NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
     BOOL autoConnect   = [gTbDefaults boolForKey: autoConnectKey];
@@ -1793,6 +1899,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
         [settingsSheetWindowController setupPrependDomainNameCheckbox];
 		[settingsSheetWindowController setupFlushDNSCheckbox];
+        [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
     }
 }
 
@@ -1867,6 +1974,11 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                      inverted: YES
                    defaultsTo: FALSE];
     
+    [self setValueForCheckbox: [generalPrefsView checkIPAddressAfterConnectCheckbox]
+                preferenceKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+                     inverted: YES
+                   defaultsTo: TRUE];
+	
     // Select value for the update automatically checkbox and set the last update date/time
     [self setValueForCheckbox: [generalPrefsView updatesCheckAutomaticallyCheckbox]
                 preferenceKey: @"updateCheckAutomatically"
@@ -2011,6 +2123,16 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	}
     
     [[NSApp delegate] changedMonitorConfigurationFoldersSettings];
+}
+
+
+-(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender
+{
+	if (  [sender state]  ) {
+		[gTbDefaults setBool: FALSE forKey:@"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+	} else {
+		[gTbDefaults setBool: TRUE  forKey:@"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+	}
 }
 
 
@@ -2484,11 +2606,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                                     @"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
                                     @"tell application \"Terminal\"",
                                     @"     activate",
-                                    @"     if terminalIsRunning is true then",
-                                    @"        do script with command cmd",
-                                    @"     else",
-                                    @"        do script with command cmd in window 1",
-                                    @"     end if",
+                                    @"     do script with command cmd",
                                     @"end tell",
                                     nil];
     
