@@ -185,6 +185,13 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
+- (void) setupReconnectOnWakeFromSleepCheckbox
+{
+    [self setupCheckbox: reconnectOnWakeFromSleepCheckbox
+                    key: @"-doNotReconnectOnWakeFromSleep"
+               inverted: YES];
+}
+
 -(void) showSettingsSheet: (id) sender
 {
 	(void) sender;
@@ -235,6 +242,7 @@ extern TBUserDefaults       * gTbDefaults;
     [useTunTapDriversCheckbox               setTitle: NSLocalizedString(@"Use Tunnelblick tun/tap drivers"                       , @"Checkbox name")];
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
     [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
+    [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
     
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
@@ -403,6 +411,8 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupPrependDomainNameCheckbox];
     
     [self setupFlushDNSCheckbox];
+    
+    [self setupReconnectOnWakeFromSleepCheckbox];
     
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -680,6 +690,14 @@ extern TBUserDefaults       * gTbDefaults;
     [self changeBooleanPreference: @"-prependDomainNameToSearchDomains"
                                to: ([sender state] == NSOnState)
                          inverted: NO];
+}
+
+
+-(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:(id)sender
+{
+    [self changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
+                               to: ([sender state] == NSOnState)
+                         inverted: YES];
 }
 
 

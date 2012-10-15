@@ -65,6 +65,7 @@ typedef enum
     IBOutlet NSButton            * useTunTapDriversCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
+    IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
     
     IBOutlet NSButton            * connectingHelpButton;
     
@@ -157,6 +158,7 @@ typedef enum
 
 -(void) setupPrependDomainNameCheckbox;
 -(void) setupFlushDNSCheckbox;
+-(void) setupReconnectOnWakeFromSleepCheckbox;
 
 
 // Methods for Connecting tab
@@ -165,6 +167,7 @@ typedef enum
 -(IBAction) useTunTapDriversCheckboxWasClicked:               (id) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
 -(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
+-(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
 
 -(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
 

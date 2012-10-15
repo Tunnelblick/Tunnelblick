@@ -47,6 +47,7 @@
     IBOutlet NSTextField        * configurationFilesTF;
     IBOutlet NSTextFieldCell    * configurationFilesTFC;
     IBOutlet NSButton           * monitorConfigurationFolderCheckbox;
+    IBOutlet NSButton           * checkIPAddressAfterConnectCheckbox;
     
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
@@ -57,6 +58,7 @@
 }
 
 TBPROPERTY_READONLY(NSButton *,          monitorConfigurationFolderCheckbox)
+TBPROPERTY_READONLY(NSButton *,          checkIPAddressAfterConnectCheckbox)
 
 TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)

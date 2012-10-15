@@ -20,7 +20,6 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
 #import "defines.h"
 #import "DBPrefsWindowController.h"
 
@@ -108,6 +107,7 @@
 -(IBAction) renameConfigurationMenuItemWasClicked:    (id) sender;
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender;
 -(IBAction) makePrivateOrSharedMenuItemWasClicked:    (id) sender;
+-(IBAction) revertToShadowMenuItemWasClicked:         (id) sender;
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender;
 -(IBAction) showOpenvpnLogMenuItemWasClicked:         (id)  sender;
 -(IBAction) removeCredentialsMenuItemWasClicked:      (id) sender;
@@ -123,6 +123,8 @@
 
 -(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:    (id) sender;
 
+-(void)		validateDetailsWindowControls;
+
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
 -(IBAction) whenToConnectTunnelBlickLaunchMenuItemWasClicked: (id) sender;
 -(IBAction) whenToConnectOnComputerStartMenuItemWasClicked:   (id) sender;
@@ -133,6 +135,8 @@
 // Methods for GeneralView
 
 -(IBAction) monitorConfigurationFolderCheckboxWasClicked: (id) sender;
+
+-(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender;
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
 -(IBAction) updatesCheckNowButtonWasClicked:              (id) sender;

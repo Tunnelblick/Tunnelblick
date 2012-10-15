@@ -120,8 +120,8 @@ extern TBUserDefaults * gTbDefaults;
         
         [self shift: configurationFilesTF               by: +10.0];
         [self shift: monitorConfigurationFolderCheckbox by: +10.0];
+        [self shift: checkIPAddressAfterConnectCheckbox by: +10.0];
     }
-    
     
     // Log display size popup
     // We allow specific log display sizes
@@ -142,6 +142,7 @@ extern TBUserDefaults * gTbDefaults;
 
     [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                               @"Window text")];
     [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes", @"Checkbox name")];
+    [checkIPAddressAfterConnectCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connection", @"Checkbox name")];
 
     [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
     [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
@@ -155,6 +156,7 @@ extern TBUserDefaults * gTbDefaults;
 // Getters
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          monitorConfigurationFolderCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          checkIPAddressAfterConnectCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)

@@ -36,8 +36,6 @@
 
 // External references that must be defined in Tunnelblick, installer, and any other target using this module
 
-NSFileManager * gFileMgr;		// [NSFileManager defaultManager]
-
 void appendLog(NSString * msg);	// Appends a string to the log
 
 
@@ -111,7 +109,7 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     BOOL changedBase = FALSE;
     BOOL changedDeep = FALSE;
     
-    NSDictionary * atts = [gFileMgr tbFileAttributesAtPath: path traverseLink: YES];
+    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
     if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithUnsignedInt: uid]]
              && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithUnsignedInt: gid]]  )  ) {
         if (  [atts fileIsImmutable]  ) {
@@ -136,7 +134,7 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     
     if (  deeply  ) {
         NSString * file;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: path];
+        NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
         while (  (file = [dirEnum nextObject])  ) {
             NSString * filePath = [path stringByAppendingPathComponent: file];
             if (  itemIsVisible(filePath)  ) {
@@ -180,14 +178,14 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
 	// Returns YES on success, NO on failure
 	// Also returns YES if no such file or folder and 'fileMustExist' is FALSE
 	
-    if (  ! [gFileMgr fileExistsAtPath: path]  ) {
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
         if (  fileMustExist  ) {
             return NO;
         }
         return YES;
     }
 	
-    NSDictionary * atts = [gFileMgr tbFileAttributesAtPath: path traverseLink: NO];
+    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
     unsigned long  perms = [atts filePosixPermissions];
     
     if (  perms == permsShouldHave  ) {
@@ -224,7 +222,7 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions,
     
     BOOL isDir;
     
-    if (  ! (   [gFileMgr fileExistsAtPath: dirPath isDirectory: &isDir]
+    if (  ! (   [[NSFileManager defaultManager] fileExistsAtPath: dirPath isDirectory: &isDir]
              && isDir )  ) {
         // No such directory. Create its parent directory if necessary
         NSString * parentPath = [dirPath stringByDeletingLastPathComponent];
@@ -300,5 +298,103 @@ BOOL itemIsVisible(NSString * path)
     return YES;
 }
 
-
-
+BOOL secureOneFolder(NSString * path, BOOL isPrivate)
+{
+    // Makes sure that ownership/permissions of a FOLDER AND ITS CONTENTS are secure (a .tblk, or the shared, Deploy, private, or alternate config folder)
+    // Returns YES if successfully secured everything, otherwise returns NO
+    //
+    // There is a SIMILAR function in openvpnstart: exitIfTblkNeedsRepair
+    //
+    // There is a SIMILAR function in MenuController: needToSecureFolderAtPath
+    
+    if (  getuid() == 0  ) {
+        appendLog(@"No user");
+        return NO;
+    }
+	uid_t user;
+	gid_t group;
+	
+    // Permissions:
+    mode_t selfPerms;           //  For the folder itself (if not a .tblk)
+    mode_t tblkFolderPerms;     //  For a .tblk itself and its Contents and Resources folders
+    mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
+    mode_t publicFolderPerms;   //  For all other folders
+    mode_t scriptPerms;         //  For files with .sh extensions
+    mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
+    mode_t otherPerms;          //  For all other files
+    
+    if (  isPrivate  ) {
+		user  = getuid();               // Private files are owned by <user>:admin
+		group = ADMIN_GROUP_ID;
+        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+            selfPerms   = PERMS_PRIVATE_TBLK_FOLDER;
+        } else {
+            selfPerms   = PERMS_PRIVATE_SELF;
+        }
+        tblkFolderPerms    = PERMS_PRIVATE_TBLK_FOLDER;
+		privateFolderPerms = PERMS_PRIVATE_PRIVATE_FOLDER;
+        publicFolderPerms  = PERMS_PRIVATE_PUBLIC_FOLDER;
+        scriptPerms        = PERMS_PRIVATE_SCRIPT;
+        executablePerms    = PERMS_PRIVATE_EXECUTABLE;
+        otherPerms         = PERMS_PRIVATE_OTHER;
+    } else {
+        user  = 0;                      // Secured files are owned by root:wheel
+        group = 0;
+        if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+            selfPerms   = PERMS_SECURED_TBLK_FOLDER;
+        } else {
+            selfPerms   = PERMS_SECURED_SELF;
+        }
+        tblkFolderPerms    = PERMS_SECURED_TBLK_FOLDER;
+		privateFolderPerms = PERMS_SECURED_PRIVATE_FOLDER;
+        publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
+        scriptPerms        = PERMS_SECURED_SCRIPT;
+        executablePerms    = PERMS_SECURED_EXECUTABLE;
+        otherPerms         = PERMS_SECURED_OTHER;
+    }
+    
+    BOOL result = checkSetOwnership(path, YES, user, group);
+    
+    result = result && checkSetPermissions(path, selfPerms, YES);
+    
+    BOOL isDir;
+    NSString * file;
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+	
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * filePath = [path stringByAppendingPathComponent: file];
+        if (  itemIsVisible(filePath)  ) {
+            
+            NSString * ext  = [file pathExtension];
+            
+            if (  [ext isEqualToString: @"tblk"]  ) {
+                result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
+                
+            } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
+                
+                if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
+                    result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
+                    
+                } else if (   [filePath hasPrefix: [L_AS_T_BACKUP stringByAppendingString: @"/"]]
+						   || [filePath hasPrefix: [L_AS_T_DEPLOY stringByAppendingString: @"/"]]
+                           || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+                    result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
+                    
+                } else {
+                    result = result && checkSetPermissions(filePath, privateFolderPerms, YES);
+				}
+                
+            } else if ( [ext isEqualToString:@"sh"]  ) {
+				result = result && checkSetPermissions(filePath, scriptPerms, YES);
+                
+            } else if ( [ext isEqualToString:@"executable"]  ) {
+				result = result && checkSetPermissions(filePath, executablePerms, YES);
+                
+            } else {
+				result = result && checkSetPermissions(filePath, otherPerms, YES);
+            }
+        }
+    }
+    
+	return result;
+}

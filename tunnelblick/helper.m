@@ -111,13 +111,13 @@ NSString * firstPartOfPath(NSString * thePath)
 {
     unsigned i;
     for (i=0; i < [gConfigDirs count]; i++) {
-        if (  [thePath hasPrefix: [gConfigDirs objectAtIndex: i]]  ) {
+        if (  [thePath hasPrefix: [[gConfigDirs objectAtIndex: i] stringByAppendingString: @"/"]]  ) {
             return [[[gConfigDirs objectAtIndex: i] copy] autorelease];
         }
     }
     
     NSString *altPath = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
-    if (  [thePath hasPrefix: altPath]  ) {
+    if (  [thePath hasPrefix: [altPath stringByAppendingString:@ "/"]]  ) {
         return altPath;
     }
     

@@ -296,6 +296,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"disableRenameConfigurationMenuItem",
                                 @"disableDuplicateConfigurationMenuItem",
                                 @"disableMakeConfigurationPublicOrPrivateMenuItem",
+                                @"disableRevertToShadowMenuItem",
                                 @"disableExamineOpenVpnConfigurationFileMenuItem",
                                 @"disableShowOpenVpnLogInFinderMenuItem",
                                 @"disableDeleteConfigurationCredentialsInKeychainMenuItem",
@@ -2974,6 +2975,18 @@ static void signal_handler(int signalNumber)
     return url;
 }
 
+-(BOOL)applicationShouldHandleReopen: (NSApplication *) theApp hasVisibleWindows: (BOOL) hasWindows
+{
+	// Invoked when the Dock item is clicked to relaunch Tunnelblick, or it is double-clicked.
+	// Just show the VPN Details… window.
+	
+	(void) theApp;
+	(void) hasWindows;
+	
+	[self openPreferencesWindow: self];
+	return NO;
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
 	(void) notification;
@@ -3862,6 +3875,7 @@ BOOL warnAboutNonTblks(void)
 				[self terminateBecause: terminatingBecauseOfQuit];
 			}
 		}
+#ifndef TBDebug
 	} else {
 		if (  allowCheckbox  ) {
 			checkboxPrefKey = @"skipWarningAboutNoSignature";
@@ -3883,6 +3897,7 @@ BOOL warnAboutNonTblks(void)
 		if (  result == NSAlertDefaultReturn  ) {
 			[self terminateBecause: terminatingBecauseOfQuit];
 		}
+#endif
 	}
     
 }
@@ -3992,7 +4007,14 @@ BOOL warnAboutNonTblks(void)
 	} else {
 		signatureWarningText = @"";
 	}
-
+	
+	NSString * convertTblksText;
+	if (  gOkToConvertNonTblks  ) {
+		convertTblksText = NSLocalizedString(@" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n", @"Window text");
+	} else {
+		convertTblksText = @"";
+	}
+	
     if (  [gFileMgr fileExistsAtPath: tbInApplicationsPath]  ) {
         NSBundle * previousBundle = [NSBundle bundleWithPath: tbInApplicationsPath];
         NSString * previousVersion = tunnelblickVersion(previousBundle);
@@ -4009,13 +4031,15 @@ BOOL warnAboutNonTblks(void)
     
     // Get authorization to install and secure
     gAuthorization = [NSApplication getAuthorizationRef:
-                      [[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
-						stringByAppendingString: signatureWarningText]
-                       stringByAppendingString: authorizationText]];
-    if (  ! gAuthorization  ) {
-        NSLog(@"The Tunnelblick installation was cancelled by the user.");
-        [self terminateBecause: terminatingBecauseOfQuit];
-    }
+                      [[[NSLocalizedString(@" Tunnelblick must be installed in Applications.\n\n", @"Window text")
+						 stringByAppendingString: authorizationText]
+                        stringByAppendingString: convertTblksText]
+					   stringByAppendingString: signatureWarningText]
+					  ];
+	if (  ! gAuthorization  ) {
+		NSLog(@"The Tunnelblick installation was cancelled by the user.");
+		[self terminateBecause: terminatingBecauseOfQuit];
+	}
     
     // Stop any currently running Tunnelblicks
     int numberOfOthers = [NSApp countOtherInstances];
@@ -4155,7 +4179,7 @@ BOOL warnAboutNonTblks(void)
 // Returns TRUE if can run Tunnelblick from this volume (can run setuid binaries), FALSE otherwise
 -(BOOL) canRunFromVolume: (NSString *)path
 {
-    if ([path hasPrefix:@"/Volumes/Tunnelblick"]  ) {
+    if ([path hasPrefix:@"/Volumes/Tunnelblick/"]  ) {
         return FALSE;
     }
     
@@ -4460,9 +4484,9 @@ BOOL needToSecureFolderAtPath(NSString * path)
 						return YES;
 					}
 				
-                } else if (   [filePath hasPrefix: L_AS_T_BACKUP]
-						   || [filePath hasPrefix: L_AS_T_DEPLOY]
-                           || [filePath hasPrefix: L_AS_T_SHARED]  ) {
+                } else if (   [filePath hasPrefix: [L_AS_T_BACKUP stringByAppendingString: @"/"]]
+						   || [filePath hasPrefix: [L_AS_T_DEPLOY stringByAppendingString: @"/"]]
+                           || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
 					if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
 						return YES;
 					}
@@ -5016,9 +5040,16 @@ void terminateBecauseOfBadConfiguration(void)
 	NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
 	VPNConnection *connection;
 	while (  (connection = [e nextObject])  ) {
-		if(NSDebugEnabled) NSLog(@"Restoring Connection %@", [connection displayName]);
-        [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
-		[connection connect:self userKnows: YES];
+        NSString * name = [connection displayName];
+        NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
+        if (  ! [gTbDefaults boolForKey: key]  ) {
+            if (NSDebugEnabled) NSLog(@"Restoring connection %@", name);
+            [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
+            [connection connect:self userKnows: YES];
+        } else {
+            if (NSDebugEnabled) NSLog(@"Not restoring connection %@ because of preference", name);
+            [connection addToLog: @"*Tunnelblick: Woke up from sleep. Not attempting to re-establish connection..."];
+        }
 	}
     
     [connectionsToRestoreOnWakeup removeAllObjects];
