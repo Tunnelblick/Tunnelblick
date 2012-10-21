@@ -49,9 +49,20 @@
     
     [iconIV setImage: [NSApp applicationIconImage]];
     
+	NSString * displayName = [[self delegate] displayName];
+	NSString * groupMsg;
+	NSString * group = credentialsGroupFromDisplayName(displayName);
+	if (  group  ) {
+		groupMsg = [NSString stringWithFormat: NSLocalizedString(@"\nusing %@ credentials.", @"Window text"),
+					group];
+	} else {
+		groupMsg = @"";
+	}
+	
     NSString * text = [NSString stringWithFormat:
-                       NSLocalizedString(@"A passphrase is required to connect to\n  %@", @"Window text"),
-                       [[self delegate] displayName]];
+                       NSLocalizedString(@"A passphrase is required to connect to\n  %@%@", @"Window text"),
+                       displayName,
+					   groupMsg];
     [mainText setTitle: text];
     
     [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];

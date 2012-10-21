@@ -61,11 +61,6 @@
 
 -(BOOL) boolForKey:                 (NSString *)        key;    // Note: returns [object boolValue], which works only on booleans until OS X 10.5
 
--(unsigned) unsignedIntForKey:      (NSString *) key
-                      default:      (unsigned)   defaultValue
-                          min:      (unsigned)   minValue
-                          max:      (unsigned)   maxValue;
-
 -(id)   objectForKey:               (NSString *)        key;
 
 -(void) setBool:                    (BOOL)              value
@@ -94,5 +89,18 @@
 
 -(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
                                   displayName: (NSString *) dictName;
+
+-(unsigned) unsignedIntForKey:				   (NSString *) key
+                      default:      		   (unsigned)   defaultValue
+                          min:      		   (unsigned)   minValue
+                          max:      		   (unsigned)   maxValue;
+
+-(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName;
+
+-(NSString *) removeNamedCredentialsGroup: (NSString *) groupName;
+
+-(NSString *) addNamedCredentialsGroup: (NSString *) groupName;
+
+-(NSArray *) sortedCredentialsGroups;
 
 @end

@@ -332,6 +332,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"doNotUnrebrandLicenseDescription",
                                 @"useSharedConfigurationsWithDeployedOnes",
                                 @"usePrivateConfigurationsWithDeployedOnes",
+								@"allConfigurationsUseTheSameCredentials",
                                 
                                 @"delayToShowStatistics",
                                 @"delayToHideStatistics",
@@ -405,7 +406,8 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                       @"-doNotLoadTunKext",
                                       @"-loadTapKext",
                                       @"-loadTunKext",
-                                      
+                                      @"-credentialsGroup",
+									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
                                       @"-changeSearchDomainAction",
@@ -4732,8 +4734,10 @@ BOOL needToUpdateDeploy(void)
         
         // Don't have version numbers, so update only if Deploy in app is later
         
-        NSDate * lastModifiedInL_AS_T  = [[gFileMgr attributesOfItemAtPath: gDeployPath     error: nil] objectForKey: NSFileModificationDate];
-        NSDate * lastModifiedInThisApp = [[gFileMgr attributesOfItemAtPath: thisAppDeployPath error: nil] objectForKey: NSFileModificationDate];
+        NSDate * lastModifiedInL_AS_T  = [[gFileMgr tbFileAttributesAtPath: gDeployPath traverseLink: NO]
+										  objectForKey: NSFileModificationDate];
+        NSDate * lastModifiedInThisApp = [[gFileMgr tbFileAttributesAtPath: thisAppDeployPath traverseLink: NO]
+										  objectForKey: NSFileModificationDate];
         
         if (  [lastModifiedInL_AS_T compare: lastModifiedInThisApp] == NSOrderedAscending ) {
             return YES;

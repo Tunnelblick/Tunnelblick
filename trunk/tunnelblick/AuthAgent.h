@@ -42,7 +42,9 @@
     
     NSString * authMode;                    // Either @"privateKey" or @"password", depending on type of authentication desired
 	NSString * displayName;                 // Name of configuration file (filename EXCLUDING the extension)
-    
+    NSString * group;						// nil or name of credentials group
+    NSString * credentialsName;             // Name of a group, or the displayName if no group
+	
     // Passphrase for "privateKey" authentication, username & password for "password" authentication
     // The appropriate ones are set by the performAuthentication method, and come either from the keychain, or from asking the user for them
 	NSString * passphrase;
@@ -68,6 +70,9 @@
 // PUBLIC METHODS:
 // (Private method interfaces are in AuthAgent.m)
 
+-(id)           initWithConfigName:                 (NSString *)inConfigName
+				credentialsGroup:					(NSString *)inGroup;
+
 -(NSString *)   authMode;
 -(void)         setAuthMode:                        (NSString *)value;
 -(NSString *)   passphrase;
@@ -79,7 +84,7 @@
 -(void)         setUsername:                        (NSString *)value;
 
 -(void)         deleteCredentialsFromKeychain;
--(id)           initWithConfigName:                 (NSString *)inConfigName;
+
 -(void)         performAuthentication;
 -(BOOL)         keychainHasCredentials;
 -(BOOL)         authenticationWasFromKeychain;

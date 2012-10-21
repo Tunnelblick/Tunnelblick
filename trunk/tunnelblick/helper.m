@@ -694,15 +694,14 @@ NSString * newTemporaryDirectoryPath(void)
 	if (  [tempFolder hasPrefix: @"/var/"]  ) {
 		NSDictionary * fileAttributes = [gFileMgr tbFileAttributesAtPath: @"/var" traverseLink: NO];
 		if (  [[fileAttributes objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
-			if (   ( ! runningOnLeopardOrNewer())
+			if (   ( ! [gFileMgr respondsToSelector: @selector(destinationOfSymbolicLinkAtPath:error:)] )
 				|| [[gFileMgr destinationOfSymbolicLinkAtPath: @"/var" error: NULL]
 					isEqualToString: @"private/var"]  ) {
-				NSString * afterVar = [tempFolder substringFromIndex: 5];
-				tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
+					NSString * afterVar = [tempFolder substringFromIndex: 5];
+					tempFolder = [@"/private/var" stringByAppendingPathComponent:afterVar];
 			} else {
 				NSLog(@"Warning: /var is not a symlink to /private/var so it is being left intact");
 			}
-
 		}
 	}
     
@@ -829,6 +828,23 @@ NSString * TBGetDisplayName(NSString * msg,
     return newName;
 }
 
+NSString * credentialsGroupFromDisplayName (NSString * displayName)
+{
+	NSString * allGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	if (   allGroup
+		&& [[allGroup class] isSubclassOfClass: [NSString class]]  ) {
+		return allGroup;
+	}
+	
+	NSString * prefKey = [displayName stringByAppendingString: @"-credentialsGroup"];
+	NSString * group = [gTbDefaults objectForKey: prefKey];
+	if (   ( ! group )
+		|| ( [group length] == 0 )  ) {
+		return nil;
+	}
+	
+	return group;
+}	
 
 BOOL copyCredentials(NSString * fromDisplayName, NSString * toDisplayName)
 {
@@ -842,11 +858,16 @@ BOOL moveCredentials(NSString * fromDisplayName, NSString * toDisplayName)
 
 BOOL copyOrMoveCredentials(NSString * fromDisplayName, NSString * toDisplayName, BOOL moveNotCopy)
 {
+	NSString * group = credentialsGroupFromDisplayName(fromDisplayName);
+	if (  group  ) {
+		return YES;
+	}		
+		
     NSString * myPassphrase = nil;
     NSString * myUsername = nil;
     NSString * myPassword = nil;
     
-    AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName] autorelease];
+    AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: fromDisplayName credentialsGroup: nil] autorelease];
     [myAuthAgent setAuthMode: @"privateKey"];
     if (  [myAuthAgent keychainHasCredentials]  ) {
         [myAuthAgent performAuthentication];
@@ -1240,7 +1261,8 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
         // For each path in listThatTunnelblickCanUseWithDupes, find the path to the latest Deploy which is identical to it and put that in results
         
         NSString * latestPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: i];
-        NSDate   * latestDate = [[gFileMgr attributesOfItemAtPath: latestPath error: nil] objectForKey: NSFileModificationDate];
+        NSDate   * latestDate = [[gFileMgr tbFileAttributesAtPath: latestPath traverseLink: NO]
+								 objectForKey: NSFileModificationDate];
         if (  ! latestDate  ) {
             NSLog(@"No last modified date for %@", latestPath);
             return nil;
@@ -1256,7 +1278,8 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
                 if ( ! [results containsObject: thisPath]  ) {
                     if (  ! [pathsToRemove containsObject: thisPath]  ) {
                         if (  [gFileMgr contentsEqualAtPath: latestPath andPath: thisPath]  ) {
-                            NSDate   * thisDate = [[gFileMgr attributesOfItemAtPath: thisPath error: nil] objectForKey: NSFileModificationDate];
+                            NSDate   * thisDate = [[gFileMgr tbFileAttributesAtPath: thisPath traverseLink: NO]
+												   objectForKey: NSFileModificationDate];
                             if ( ! thisDate  ) {
                                 NSLog(@"No last modified date for %@", thisPath);
                                 return nil;

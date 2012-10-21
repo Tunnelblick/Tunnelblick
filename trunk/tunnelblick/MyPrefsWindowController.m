@@ -601,9 +601,13 @@ static BOOL firstTimeShowingWindow = TRUE;
     // Create an array of dictionaries of sounds. (Don't get the actual sounds, just the names of the sounds)
     NSMutableArray * soundsDictionaryArray = [NSMutableArray arrayWithCapacity: [soundsSorted count]];
     
-    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys: 
-                                       NSLocalizedString(@"No sound", @"Button"), @"name", 
+    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"No sound", @"Button"), @"name",
                                        @"None", @"value", nil]];
+    
+    [soundsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                       NSLocalizedString(@"Speak", @"Button"), @"name",
+                                       @"Speak", @"value", nil]];
     
     unsigned i;
     for (  i=0; i<[soundsSorted count]; i++  ) {
@@ -617,7 +621,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 }
 
 
-//  Set a sound popup button from preferences
+//  Set up a sound popup button from preferences
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
               preference: (NSString *)          preference
@@ -626,11 +630,11 @@ static BOOL firstTimeShowingWindow = TRUE;
     NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
     NSString * soundName = [gTbDefaults objectForKey: key];
     if (   soundName
-        && [soundName isNotEqualTo: @"None"]  ) {
+		&& ( ! [soundName isEqualToString: @"None"] )  ) {
         NSArray * listContent = [ac content];
         NSDictionary * dict;
         unsigned i;
-        for (  i=1; i<[listContent count]; i++  ) {  // Look for the sound in the array, skipping the first entry, which is "None"
+        for (  i=0; i<[listContent count]; i++  ) {  // Look for the sound in the array
             dict = [listContent objectAtIndex: i];
             if (  [[dict objectForKey: @"name"] isEqualToString: soundName]  ) {
                 ix = i;
@@ -645,7 +649,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         ix = 0;
     }
-    
+
     //******************************************************************************
     // Don't play sounds because we are just setting the button from the preferences
     BOOL oldDoNotPlaySounds = doNotPlaySounds;
@@ -993,7 +997,6 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
-    
     NSString * displayName = [connection displayName];
     NSString * autoConnectKey = [displayName stringByAppendingString: @"autoConnect"];
     NSString * onSystemStartKey = [displayName stringByAppendingString: @"-onSystemStart"];
@@ -1021,6 +1024,17 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
+	NSString * group = credentialsGroupFromDisplayName(displayName);
+
+	BOOL removeCredentials = TRUE;
+	NSString * credentialsNote = @"";
+	if (  group  ) {
+		if (  1 != [gTbDefaults numberOfConfigsInCredentialsGroup: group]  ) {
+			credentialsNote = NSLocalizedString(@"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them.", @"Window text");
+			removeCredentials = FALSE;
+		}
+	}
+	
     NSString * notDeletingOtherFilesMsg;
     NSString * ext = [configurationPath pathExtension];
     if (  [ext isEqualToString: @"tblk"]  ) {
@@ -1033,8 +1047,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     if (  authorization == nil  ) {
         // Get an AuthorizationRef and use executeAuthorized to run the installer to delete the file
         NSString * msg = [NSString stringWithFormat: 
-                          NSLocalizedString(@" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@", @"Window text"),
+                          NSLocalizedString(@" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@", @"Window text"),
                           displayName,
+						  credentialsNote,
                           notDeletingOtherFilesMsg];
         authorization = [NSApplication getAuthorizationRef: msg];
         if (  authorization == nil) {
@@ -1044,8 +1059,9 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         int button = TBRunAlertPanel(NSLocalizedString(@"Please Confirm", @"Window title"),
                                      [NSString stringWithFormat:
-                                      NSLocalizedString(@"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?", @"Window text"),
-                                      notDeletingOtherFilesMsg,
+                                      NSLocalizedString(@"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?", @"Window text"),
+                                      credentialsNote,
+									  notDeletingOtherFilesMsg,
                                       displayName],
                                      NSLocalizedString(@"Cancel", @"Button"),    // Default button
                                      NSLocalizedString(@"Delete", @"Button"),    // Alternate button
@@ -1063,16 +1079,19 @@ static BOOL firstTimeShowingWindow = TRUE;
                                                   usingAuthRefPtr: &authorization
                                                        warnDialog: YES]  ) {
         //Remove credentials
-        AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: displayName] autorelease];
-        [myAuthAgent setAuthMode: @"privateKey"];
-        if (  [myAuthAgent keychainHasCredentials]  ) {
-            [myAuthAgent deleteCredentialsFromKeychain];
-        }
-        [myAuthAgent setAuthMode: @"password"];
-        if (  [myAuthAgent keychainHasCredentials]  ) {
-            [myAuthAgent deleteCredentialsFromKeychain];
-        }
-        
+		if (  removeCredentials  ) {
+			AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: group credentialsGroup: group] autorelease];
+			
+			[myAuthAgent setAuthMode: @"privateKey"];
+			if (  [myAuthAgent keychainHasCredentials]  ) {
+				[myAuthAgent deleteCredentialsFromKeychain];
+			}
+			[myAuthAgent setAuthMode: @"password"];
+			if (  [myAuthAgent keychainHasCredentials]  ) {
+				[myAuthAgent deleteCredentialsFromKeychain];
+			}
+		}
+		
         [gTbDefaults removePreferencesFor: displayName];
     }
     
@@ -1424,8 +1443,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     VPNConnection * connection = [self selectedConnection];
     if (  connection  ) {
         NSString * name = [connection displayName];
-        AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: name] autorelease];
-        
+		
+		NSString * group = credentialsGroupFromDisplayName(name);
+		AuthAgent * myAuthAgent = [[[AuthAgent alloc] initWithConfigName: name credentialsGroup: group] autorelease];
+		
         BOOL hasCredentials = FALSE;
         [myAuthAgent setAuthMode: @"privateKey"];
         if (  [myAuthAgent keychainHasCredentials]  ) {
@@ -1437,8 +1458,17 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
         
         if (  hasCredentials  ) {
+			NSString * msg;
+			if (  group  ) {
+				msg =[NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private"
+																   @" key or username and password) stored in the Keychain for '%@'"
+                                                                   @" credentials?", @"Window text"), group];
+			} else {
+				msg =[NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?", @"Window text"), name];
+			}
+			
             int button = TBRunAlertPanel(NSLocalizedString(@"Please Confirm", @"Window title"),
-                                         [NSString stringWithFormat: NSLocalizedString(@"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?", @"Window text"), name],
+                                         msg,
                                          NSLocalizedString(@"Cancel", @"Button"),             // Default button
                                          NSLocalizedString(@"Delete Credentials", @"Button"), // Alternate button
                                          nil);
@@ -2709,9 +2739,21 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
         NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
         NSString * newName;
         NSSound  * newSound;
+		BOOL       speakIt = FALSE;
         if (  newValue == 0) {
             newName = @"None";
             newSound = nil;
+		} else if (  newValue == 1) {
+			newName = @"Speak";
+			newSound = nil;
+			if (  ! doNotPlaySounds  ) {
+				if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
+					[connection speakActivity: @"connected"];
+				} else {
+					[connection speakActivity: @"disconnected"];
+				}
+			}			
+			speakIt = TRUE;
         } else {
             newName = [[contents objectAtIndex: newValue] objectForKey: @"name"];
             newSound = [NSSound soundNamed: newName];
@@ -2728,8 +2770,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
         
         if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
             [connection setTunnelUpSound: newSound];
+			[connection setSpeakWhenConnected: speakIt];
         } else {
             [connection setTunnelDownSound: newSound];
+			[connection setSpeakWhenDisconnected: speakIt];
         }
 
         *index = newValue;

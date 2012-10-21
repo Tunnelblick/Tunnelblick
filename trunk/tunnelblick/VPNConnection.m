@@ -120,6 +120,14 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 @implementation VPNConnection
 
+-(void) initializeAuthAgent
+{
+	NSString * group = credentialsGroupFromDisplayName([self displayName]);
+	[myAuthAgent release];
+	myAuthAgent = [[AuthAgent alloc] initWithConfigName: [self displayName]
+									   credentialsGroup: group];
+}
+
 -(id) initWithConfigPath: (NSString *) inPath withDisplayName: (NSString *) inDisplayName
 {	
     if (  (self = [super init])  ) {
@@ -134,14 +142,21 @@ extern NSString * lastPartOfPath(NSString * thePath);
         [logDisplay setConnection: self];
         lastState = @"EXITING";
         requestedState = @"EXITING";
-		myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
+		[self initializeAuthAgent];
+		
+		speakWhenConnected    = FALSE;
+		speakWhenDisconnected = FALSE;
         NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
         NSString * upSoundName = [gTbDefaults objectForKey: upSoundKey];
         if (  upSoundName  ) {
             if (  ! [upSoundName isEqualToString: @"None"]  ) {
-                tunnelUpSound   = [NSSound soundNamed: upSoundName];
-                if (  ! tunnelUpSound  ) {
-                    NSLog(@"%@ '%@' not found; no sound will be played when connecting", upSoundKey, upSoundName);
+                if (  [upSoundName isEqualToString: @"Speak"]  ) {
+					speakWhenConnected = TRUE;
+				} else {
+                    tunnelUpSound   = [NSSound soundNamed: upSoundName];
+                    if (  ! tunnelUpSound  ) {
+                        NSLog(@"%@ '%@' not found; no sound will be played when connecting", upSoundKey, upSoundName);
+                    }
                 }
             }
         }
@@ -149,9 +164,13 @@ extern NSString * lastPartOfPath(NSString * thePath);
         NSString * downSoundName = [gTbDefaults objectForKey: downSoundKey];
         if (  downSoundName  ) {
             if (  ! [downSoundName isEqualToString: @"None"] ) {
-                tunnelDownSound = [NSSound soundNamed: downSoundName];
-                if (  ! tunnelDownSound  ) {
-                    NSLog(@"%@ '%@' not found; no sound will be played when an unexpected disconnection occurs", downSoundKey, downSoundName);
+                if (  [downSoundName isEqualToString: @"Speak"]  ) {
+					speakWhenDisconnected = TRUE;
+				} else {
+                    tunnelDownSound = [NSSound soundNamed: downSoundName];
+                    if (  ! tunnelDownSound  ) {
+                        NSLog(@"%@ '%@' not found; no sound will be played when an unexpected disconnection occurs", downSoundKey, downSoundName);
+                    }
                 }
             }
         }
@@ -241,10 +260,10 @@ extern NSString * lastPartOfPath(NSString * thePath);
     [self disconnectFromManagmentSocket];
     [connectedSinceDate release]; connectedSinceDate = [[NSDate alloc] init];
     [self clearStatisticsIncludeTotals: NO];
+    [self initializeAuthAgent];
     // Don't change logDisplay -- we want to keep it
     [lastState          release]; lastState = @"EXITING";
     [requestedState     release]; requestedState = @"EXITING";
-    [myAuthAgent        release]; myAuthAgent = [[AuthAgent alloc] initWithConfigName:[self displayName]];
     [tunOrTap           release]; tunOrTap = nil;
     portNumber       = 0;
     pid              = 0;
@@ -2774,14 +2793,26 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (   [newState isEqualToString: @"EXITING"]
         && [requestedState isEqualToString: @"CONNECTED"]
         && ( ! [[NSApp delegate] terminatingAtUserRequest] )  ) {
-        [tunnelDownSound play];
+        if (  speakWhenDisconnected  ) {
+            [self speakActivity: @"disconnected"];
+        } else {
+            [tunnelDownSound play];
+        }
     } else if (  [newState isEqualToString: @"CONNECTED"]  ) {
-        [tunnelUpSound play];
+        if (  speakWhenConnected  ) {
+            [self speakActivity: @"connected"];
+        } else {
+            [tunnelUpSound play];
+        }
         // Run the connected script, if any
         [self runScriptNamed: @"connected" openvpnstartCommand: @"connected"];
         [gTbDefaults setObject: displayName forKey: @"lastConnectedDisplayName"];
     } else if (  [newState isEqualToString: @"RECONNECTING"]  ) {
-        [tunnelDownSound play];
+        if (  speakWhenDisconnected  ) {
+            [self speakActivity: @"disconnected"];
+        } else {
+            [tunnelDownSound play];
+        }
         // Run the reconnecting script, if any
         [self runScriptNamed: @"reconnecting" openvpnstartCommand: @"reconnecting"];
     }
@@ -2808,6 +2839,29 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [[NSApp delegate] performSelectorOnMainThread:@selector(setState:) withObject:newState waitUntilDone:NO];
     [delegate performSelector: @selector(connectionStateDidChange:) withObject: self];    
+}
+
+-(void) speakActivity: (NSString *) activityName
+{
+    NSString * speech;
+    
+    if (  [activityName isEqualToString: @"connected"]  ) {
+        speech = [NSString stringWithFormat:
+                  NSLocalizedString(@"Connected to %@", @"Speak string"),
+                  [self displayName]];
+    } else if (  [activityName isEqualToString: @"disconnected"]  ) {
+        speech = [NSString stringWithFormat:
+                  NSLocalizedString(@"Disconnected from %@", @"Speak string"),
+                  [self displayName]];
+    } else {
+		NSLog(@"speakActivity: No activity '%@'", activityName);
+		return;
+	}
+    
+    if (  [speech length] != 0  ) {
+        NSSpeechSynthesizer * speechSynth = [[[NSSpeechSynthesizer alloc] initWithVoice: nil] autorelease];
+        [speechSynth startSpeakingString: speech];
+    }
 }
 
 -(void) runScriptNamed: (NSString *) scriptName openvpnstartCommand: (NSString *) command
@@ -3015,6 +3069,16 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(BOOL) logFilesMayExist {
 
     return logFilesMayExist;
+}
+
+-(void) setSpeakWhenConnected: (BOOL) newValue
+{
+	speakWhenConnected = newValue;
+}
+
+-(void) setSpeakWhenDisconnected: (BOOL) newValue
+{
+	speakWhenDisconnected = newValue;
 }
 
 TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelUpSound,   setTunnelUpSound)

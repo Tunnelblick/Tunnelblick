@@ -31,7 +31,13 @@ extern TBUserDefaults  * gTbDefaults;
 @interface AuthAgent()          // PRIVATE METHODS
 
 -(NSString *)   displayName;
--(void)         setDisplayName:                      (NSString *)value;
+-(void)         setDisplayName:                (NSString *)value;
+
+-(NSString *)   group;
+-(void)         setGroup:                      (NSString *)value;
+
+-(NSString *)   credentialsName;
+-(void)         setCredentialsName:            (NSString *)value;
 
 -(void) setUsernameKeychain: (KeyChain *) newKeyChain;
 -(void) setPasswordKeychain: (KeyChain *) newKeyChain;
@@ -46,22 +52,40 @@ extern TBUserDefaults  * gTbDefaults;
 
 @implementation AuthAgent
 
--(id) initWithConfigName:(NSString *)inConfigName
+-(id) initWithConfigName: (NSString *)inConfigName
+		credentialsGroup: (NSString *)inGroup
 {
-	if (inConfigName == nil) return nil;
+	if (  ! inConfigName  ) return nil;
+	
     if (  (self = [super init])  ) {
-        [self setDisplayName:inConfigName];
-        
+		
         passphrase = nil;
         username   = nil;
         password   = nil;
         
-        passphraseKeychain      = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"privateKey" ];
-        usernameKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"username"   ];
-        passwordKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"password"   ];
+		NSString * allUseGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+		if (  allUseGroup  ) {
+			inGroup = allUseGroup;
+		}
+		
+        displayName = [inConfigName copy];
+        group = [inGroup copy];
+        
+		NSString * prefix;
+        if (  inGroup  ) {
+			prefix = @"Tunnelblick-Auth-Group-";
+            credentialsName = [group copy];
+        } else {
+			prefix = @"Tunnelblick-Auth-";
+            credentialsName = [displayName copy];
+        }
+		
+        passphraseKeychain      = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"privateKey" ];
+        usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"   ];
+        passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"   ];
 
-        passphrasePreferenceKey = [[NSString alloc] initWithFormat:@"%@-keychainHasPrivateKey",             [self displayName]   ];
-        usernamePreferenceKey   = [[NSString alloc] initWithFormat:@"%@-keychainHasUsernameAndPassword",    [self displayName]   ];
+		passphrasePreferenceKey = [[NSString alloc] initWithFormat: @"%@-keychainHasGroupPrivateKey",          [self credentialsName]];
+        usernamePreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasGroupUsernameAndPassword", [self credentialsName]];
         
         usedUniversalCredentials = NO;
     }
@@ -70,10 +94,14 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void) dealloc
 {
-    [[loginScreen window] close];
+    [[loginScreen window]       close];
+    [[passphraseScreen window]  close];
     
     [loginScreen                release];
+    [passphraseScreen           release];
     [displayName                release];
+    [group                      release];
+    [credentialsName            release];
     
     [passphrase                 release];
     [username                   release];
@@ -416,6 +444,28 @@ extern TBUserDefaults  * gTbDefaults;
     if (displayName != value) {
         [displayName release];
         displayName = [value copy];
+    }
+}
+
+- (NSString *)group {
+    return [[group retain] autorelease];
+}
+
+- (void)setGroup:(NSString *)value {
+    if (group != value) {
+        [group release];
+        group = [value copy];
+    }
+}
+
+- (NSString *)credentialsName {
+    return [[credentialsName retain] autorelease];
+}
+
+- (void)setCredentialsName:(NSString *)value {
+    if (credentialsName != value) {
+        [credentialsName release];
+        credentialsName = [value copy];
     }
 }
 

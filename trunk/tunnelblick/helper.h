@@ -37,6 +37,8 @@ BOOL           checkOwnerAndPermissions (NSString * fPath,
 int            createDir                (NSString * d,
                                          unsigned long perms);
 
+NSString     * credentialsGroupFromDisplayName (NSString * displayName);
+
 BOOL           copyCredentials          (NSString * fromDisplayName,
                                          NSString * toDisplayName);
 
@@ -79,6 +81,9 @@ BOOL           isSanitizedOpenvpnVersion(NSString * s);
 
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
+
+NSString     * TBGetString				(NSString * msg,
+										 NSString * nameToPrefill);
 
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
