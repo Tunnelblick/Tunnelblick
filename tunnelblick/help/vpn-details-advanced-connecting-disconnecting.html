@@ -57,6 +57,13 @@
   <li class="li3"><b>Restore</b>. The network setting will be restored to the value it had after establishing the VPN.</li>
   <li class="li3"><b>Restart connection</b>. The network setting change will cause the connection to be restarted.</li>
 </ul>
+<p class="p2"><br></p>
+<p class="p1"><b>VPN Credentials Tab</b></p>
+<p class="p2"><br></p>
+<p class="p3">This tab deals with the credentials (username and password or private key) that configurations ask the user for. By default, each configuration uses its own credentials, separate from each other configuration. If the user saves the credentials for one configuration in the Keychain, they will need to enter credentials for each of their other configurations (and save them in the keychain) separately.</p>
+<p class="p3">This tab contains a checkbox that allows the user to specify that all configurations should share the same credentials &emdash; so the user can enter the credentials once, save them in the Keychain, and they will be used to for all configurations.</p>
+<p class="p3"><br></p>
+<p class="p3">This tab also contains controls for "named" credentials. If all configurations do not share the same credentials, the user can create named credentials and specify the configurations that use them. For example, if a user has two sets of configurations, one from VPN service provider A, and one from VPN service provider B, the user can create two credential names (for example, "VPN A" and "VPN B"), and then specify that each of the configurations can be assigned to one or the other named credentials. So, for example, ten configurations for VPN service provider A can be set to use the "VPN A" credentials, and twenty-three configurations for VPN service provider B can be set to use "VPN B" credentials. The user then only needs to enter the "VPN A" credentials once and save them to the Keychain, and enter the "VPN B" credentials once and save them to the Keychain, instead of needing to enter the credentials for each of the thirty-two configurations and save each of them to the Keychain.</p>
 
 </body>
 </html>

@@ -41,16 +41,11 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(void) initializeStaticContent;
 
--(void) underlineLabel: tf string: inString alignment: (NSTextAlignment) align;
-
 //**********************************************************************************************************************************
 // Methods that set up up content that depends on a connection's settings
 
 // Overall set up
 -(void) setupSettingsFromPreferences;
-
--(void) initializeDnsWinsPopUp: (NSPopUpButton *)     popUpButton
-               arrayController: (NSArrayController *) ac;
 
 // Methods for setting up specific types of information
 
@@ -78,8 +73,7 @@ extern TBUserDefaults       * gTbDefaults;
 
 @implementation SettingsSheetWindowController
 
--(id) init
-{
+-(id) init {
     self = [super initWithWindowNibName:@"SettingsSheet"];
     if (  ! self  ) {
         return nil;
@@ -96,18 +90,15 @@ extern TBUserDefaults       * gTbDefaults;
     return self;
 }
 
-
--(void) dealloc
-{
+-(void) dealloc {
     [configurationName release];
     [connection        release];
+    [removeNamedCredentialsNames release];
     
     [super dealloc];
 }
 
-
--(void) setConfigurationName: (NSString *) newName
-{
+-(void) setConfigurationName: (NSString *) newName {
     if (  ! [configurationName isEqualToString: newName]  ) {
         [configurationName release];
         configurationName = [newName retain];
@@ -123,15 +114,11 @@ extern TBUserDefaults       * gTbDefaults;
     return;
 }
 
-
--(void) setStatus: (NSString *) newStatus
-{
+-(void) setStatus: (NSString *) newStatus {
     [configurationStatusTFC setTitle: localizeNonLiteral(newStatus, @"Connection status")];
 }                                                            
 
-
--(void) updateConnectionStatusAndTime
-{
+-(void) updateConnectionStatusAndTime {
     if ( showingSettingsSheet  ) {
         NSString * state = [connection state];
         NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
@@ -145,8 +132,38 @@ extern TBUserDefaults       * gTbDefaults;
     }    
 }
 
-- (void) setupPrependDomainNameCheckbox
-{
+- (void) setupCredentialsGroupButton {
+	selectedCredentialsGroupIndex = NSNotFound;
+	
+	NSInteger ix = 0;
+	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
+	NSString * group = [gTbDefaults objectForKey: prefKey];
+	if (   group
+		&& (  [group length] != 0 )  ) {
+        NSArray * listContent = [credentialsGroupArrayController content];
+        NSDictionary * dict;
+        unsigned i;
+        for (  i=0; i<[listContent count]; i++  ) { 
+            dict = [listContent objectAtIndex: i];
+            if (  [[dict objectForKey: @"value"] isEqualToString: group]  ) {
+                ix = i;
+                break;
+            }
+        }
+        
+        if (  ix == NSNotFound  ) {
+            NSLog(@"Preference '%@' ignored: credentials group '%@' was not found", prefKey, group);
+        }
+	}
+	
+	[self setSelectedCredentialsGroupIndex: (unsigned) ix];
+	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults boolForKey: @"allConfigurationsUseTheSameCredentials"] )
+												  && [gTbDefaults canChangeValueForKey: @"allConfigurationsUseTheSameCredentials"]
+												  && [gTbDefaults canChangeValueForKey: prefKey])];
+	
+}
+
+- (void) setupPrependDomainNameCheckbox {
     // Select the appropriate Set nameserver entry
     int ix = 1; // Default is 'Set nameserver'
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
@@ -165,8 +182,7 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
--(void) setupFlushDNSCheckbox
-{
+-(void) setupFlushDNSCheckbox {
     // Select the appropriate Set nameserver entry
     int ix = 1; // Default is 'Set nameserver'
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
@@ -185,15 +201,13 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
-- (void) setupReconnectOnWakeFromSleepCheckbox
-{
+- (void) setupReconnectOnWakeFromSleepCheckbox {
     [self setupCheckbox: reconnectOnWakeFromSleepCheckbox
                     key: @"-doNotReconnectOnWakeFromSleep"
                inverted: YES];
 }
 
--(void) showSettingsSheet: (id) sender
-{
+-(void) showSettingsSheet: (id) sender {
 	(void) sender;
 	
     if (  ! settingsSheet  ) {
@@ -208,9 +222,7 @@ extern TBUserDefaults       * gTbDefaults;
     [NSApp activateIgnoringOtherApps:YES];
 }
 
-
--(void) endSettingsSheet:  (id) sender
-{
+-(void) endSettingsSheet:  (id) sender {
     showingSettingsSheet = FALSE;
     [NSApp endSheet: settingsSheet];
     [settingsSheet orderOut: sender];
@@ -218,24 +230,99 @@ extern TBUserDefaults       * gTbDefaults;
     settingsSheet = nil;
 }
 
-
--(void) awakeFromNib
-{
+-(void) awakeFromNib {
     showingSettingsSheet = TRUE;
     
     [self initializeStaticContent];
     [self setupSettingsFromPreferences];
 }
 
-
 //**********************************************************************************************************************************
--(void) initializeStaticContent
-{    
+
+-(void) setTitle: (NSString *) newTitle ofControl: (id) theControl {
+	// Sets the title for a control, shifting the origin of the control itself to the left.
+
+    NSRect oldRect = [theControl frame];
+    [theControl setTitle: newTitle];
+    [theControl sizeToFit];
+    
+    NSRect newRect = [theControl frame];
+    float widthChange = newRect.size.width - oldRect.size.width;
+    NSRect oldPos;
+    
+    if (   [theControl isEqual: addNamedCredentialsButton]  ) {
+        oldPos = [theControl frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange;
+        [theControl setFrame:oldPos];
+    }
+}
+
+-(void) underlineLabel: tf string: inString alignment: (NSTextAlignment) align {
+    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
+    NSRange range = NSMakeRange(0, [attrString length]);
+    
+    [attrString beginEditing];
+    
+    // make the text appear with an underline
+    [attrString addAttribute:
+     NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSSingleUnderlineStyle] range:range];
+    
+    // make the text appear flush-right
+    [attrString setAlignment: align range: range];
+    
+    [attrString endEditing];
+    
+    [tf setAttributedStringValue: attrString];
+    [attrString release];
+}
+
+-(void) initializeDnsWinsPopUp: (NSPopUpButton *) popUpButton arrayController: (NSArrayController *) ac {
+    NSArray * content = [NSArray arrayWithObjects:
+                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Ignore"            , @"Button"), @"name", @"ignore" , @"value", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restore"           , @"Button"), @"name", @"restore", @"value", nil],
+                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restart connection", @"Button"), @"name", @"restart", @"value", nil],
+                         nil];
+    [ac setContent: content];
+    
+    /*
+     if (  popUpButton == dnsServersPopUpButton  ) {
+     
+     // When resize this control, shift the columns that are to its right either left or right to match the size change
+     NSRect oldRect = [popUpButton frame];
+     [popUpButton sizeToFit];
+     NSRect newRect = [popUpButton frame];
+     float widthChange = newRect.size.width - oldRect.size.width;
+     
+     NSArray * stuffToShift = [NSArray arrayWithObjects:
+     whenChangesToAnythingElseTF,
+     otherdnsServersPopUpButton,
+     otherdomainPopUpButton,
+     othersearchDomainPopUpButton,
+     otherwinsServersPopUpButton,
+     othernetBiosNamePopUpButton,
+     otherworkgroupPopUpButton,
+     nil];
+     NSEnumerator * arrayEnum = [stuffToShift objectEnumerator];
+     id control;
+     while (  (control = [arrayEnum nextObject])  ) {
+     NSRect oldPos;
+     oldPos = [control frame];
+     oldPos.origin.x = oldPos.origin.x + widthChange;
+     [control setFrame:oldPos];
+     }
+     } else {
+     */
+    [popUpButton sizeToFit];
+    /*
+     }
+     */
+}
+
+-(void) initializeStaticContent {
     [configurationNameTFC setTitle: [NSString stringWithFormat: @"%@:", configurationName]];
     
-    
     // For Connecting tab
-    
+	
     [connectingAndDisconnectingTabViewItem  setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
      
     [scanConfigurationFileCheckbox          setTitle: NSLocalizedString(@"Scan configuration file for problems before connecting", @"Checkbox name")];
@@ -284,76 +371,13 @@ extern TBUserDefaults       * gTbDefaults;
     [self initializeDnsWinsPopUp: othernetBiosNamePopUpButton  arrayController: othernetBiosNameArrayController ];
     [self initializeDnsWinsPopUp: otherworkgroupPopUpButton    arrayController: otherworkgroupArrayController   ];
     
-}
-
--(void) underlineLabel: tf string: inString alignment: (NSTextAlignment) align
-{
-    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
-    NSRange range = NSMakeRange(0, [attrString length]);
-    
-    [attrString beginEditing];
-    
-    // make the text appear with an underline
-    [attrString addAttribute:
-     NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSSingleUnderlineStyle] range:range];
-    
-    // make the text appear flush-right
-    [attrString setAlignment: align range: range];
-    
-    [attrString endEditing];
-    
-    [tf setAttributedStringValue: attrString];
-    [attrString release];
-}
-
-
-
--(void) initializeDnsWinsPopUp: (NSPopUpButton *) popUpButton arrayController: (NSArrayController *) ac
-{
-    NSArray * content = [NSArray arrayWithObjects:
-                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Ignore"            , @"Button"), @"name", @"ignore" , @"value", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restore"           , @"Button"), @"name", @"restore", @"value", nil],
-                         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"Restart connection", @"Button"), @"name", @"restart", @"value", nil],
-                         nil];
-    [ac setContent: content];
-    
-/*    
-    if (  popUpButton == dnsServersPopUpButton  ) {
-        
-        // When resize this control, shift the columns that are to its right either left or right to match the size change
-        NSRect oldRect = [popUpButton frame];
-        [popUpButton sizeToFit];
-        NSRect newRect = [popUpButton frame];
-        float widthChange = newRect.size.width - oldRect.size.width;
-        
-        NSArray * stuffToShift = [NSArray arrayWithObjects:
-                                  whenChangesToAnythingElseTF,
-                                  otherdnsServersPopUpButton,
-                                  otherdomainPopUpButton,
-                                  othersearchDomainPopUpButton,
-                                  otherwinsServersPopUpButton,
-                                  othernetBiosNamePopUpButton,
-                                  otherworkgroupPopUpButton,
-                                  nil];
-        NSEnumerator * arrayEnum = [stuffToShift objectEnumerator];
-        id control;
-        while (  (control = [arrayEnum nextObject])  ) {
-            NSRect oldPos;
-            oldPos = [control frame];
-            oldPos.origin.x = oldPos.origin.x + widthChange;
-            [control setFrame:oldPos];
-        }
-    } else {
- */
-        [popUpButton sizeToFit];
- /*
-    }
-*/
+	
+	// For Credentials tab, everything depends on preferences; there is nothing static
+	
 }
 
 //**********************************************************************************************************************************
--(void) setupSettingsFromPreferences
-{
+-(void) setupSettingsFromPreferences {
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
         programName = @"";
@@ -366,6 +390,8 @@ extern TBUserDefaults       * gTbDefaults;
     
     // For Connecting tab
     
+	[self setupCredentialsGroupButton];
+	
     [self setupCheckbox: scanConfigurationFileCheckbox
                     key: @"-doNotParseConfigurationFile"
                inverted: YES];
@@ -434,10 +460,101 @@ extern TBUserDefaults       * gTbDefaults;
     }
     
     [self setupMonitoringOptions];
+	
+	
+	// For VPN Credentials tab
+	
+	[self setRemoveNamedCredentialsNames: [gTbDefaults sortedCredentialsGroups]];
+	
+    [credentialsTabViewItem setLabel:
+	 NSLocalizedString(@"VPN Credentials", @"Window title")];
+	
+	[namedCredentialsBox
+	 setTitle: NSLocalizedString(@"Named Credentials", @"Window text")];
+	
+	[self setTitle: NSLocalizedString(@"Add Credentials...", @"Window text")
+		 ofControl: addNamedCredentialsButton];
+	
+    // Create a menu for the Remove Credentials pull-down button
+    NSMenu * removeCredentialMenu = [[[NSMenu alloc] init] autorelease];
+	NSMenuItem * item = [[[NSMenuItem alloc] initWithTitle: NSLocalizedString(@"Remove Credentials", @"Button")
+													action: @selector(removeNamedCredentialsCommand:)
+											 keyEquivalent: @""] autorelease];	
+	[item setTag: 0];
+	[item setTarget: self];
+	[removeCredentialMenu addItem: item];
+    
+	// Create an array of dictionaries of credentials groups, with both name and value = name of group
+ 	NSMutableArray * groupsDictionaryArray = [NSMutableArray arrayWithCapacity: [removeNamedCredentialsNames count]];
+	NSString * groupName = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	if (  groupName  ) {
+		[groupsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+										   [NSString stringWithFormat:
+											NSLocalizedString(@"This configuration uses %@ credentials", @"Button"),
+											groupName], @"name",
+										   groupName, @"value", nil]];
+	} else {
+		[groupsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+										   NSLocalizedString(@"This configuration has its own separate credentials", @"Button"), @"name",
+										   @"", @"value", nil]];
+	}
+	unsigned i;
+	for (  i=0; i<[removeNamedCredentialsNames count]; i++  ) {
+        NSString * groupName = [removeNamedCredentialsNames objectAtIndex: i];
+		[groupsDictionaryArray addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+										   [NSString stringWithFormat:
+											NSLocalizedString(@"This configuration uses %@ credentials", @"Button"),
+											groupName], @"name",
+										   groupName, @"value", nil]];
+        
+		NSMenuItem * item = [[[NSMenuItem alloc] initWithTitle: groupName
+                                                        action: @selector(removeNamedCredentialsCommand:)
+                                                 keyEquivalent: @""] autorelease];
+        [item setTag: (int) i];
+		[item setTarget: self];
+        [removeCredentialMenu addItem: item];
+	}
+	
+	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
+	[credentialsGroupArrayController setContent: groupsDictionaryArray];
+	[credentialsGroupButton          sizeToFit];
+	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults boolForKey: @"allConfigurationsUseTheSameCredentials"] )
+												  && [gTbDefaults canChangeValueForKey: @"allConfigurationsUseTheSameCredentials"]
+												  && [gTbDefaults canChangeValueForKey: prefKey])];
+	
+    
+    [removeNamedCredentialsButton setMenu: removeCredentialMenu];
+	[removeNamedCredentialsButton setEnabled: (   (!  [gTbDefaults boolForKey: @"allConfigurationsUseTheSameCredentials"] )
+                                               && [gTbDefaults canChangeValueForKey: @"allConfigurationsUseTheSameCredentials"] )];
+	
+	NSString * groupAllConfigurationsUse = [removeNamedCredentialsNames objectAtIndex: 0];
+	if (  ! groupAllConfigurationsUse  ) {
+		groupAllConfigurationsUse = NSLocalizedString(@"Common", @"Credentials name");
+	}
+	
+	[self setupCredentialsGroupButton];
+	
+	NSString * groupFromPrefs = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
+	if (  groupFromPrefs  ) {
+		[allConfigurationsUseTheSameCredentialsCheckbox setState: NSOnState];
+		[credentialsGroupButton       setEnabled: NO];
+		[addNamedCredentialsButton    setEnabled: NO];
+		[removeNamedCredentialsButton setEnabled: NO];
+		
+	} else {
+		[allConfigurationsUseTheSameCredentialsCheckbox setState: NSOffState];
+		[credentialsGroupButton       setEnabled: YES];
+		[addNamedCredentialsButton    setEnabled: YES];
+		[removeNamedCredentialsButton setEnabled: YES];
+	}
+	
+	[allConfigurationsUseTheSameCredentialsCheckbox setTitle: [NSString stringWithFormat:
+															   NSLocalizedString(@"All configurations use %@ credentials", @"Window text"),
+															   groupAllConfigurationsUse]];
+	[allConfigurationsUseTheSameCredentialsCheckbox sizeToFit];
 }
 
--(void) setupMonitoringOptions
-{
+-(void) setupMonitoringOptions {
     if (   connection
         && ( ! [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring] )
         && ( ! [gTbDefaults boolForKey: [configurationName stringByAppendingString: @"-notMonitoringConnection"]] )  ) {
@@ -566,12 +683,10 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
-
 -(NSInteger) indexForMonitoringOptionButton: (NSPopUpButton *) button
                               newPreference: (NSString *)      preference
                               oldPreference: (NSString *)      oldPreference
-                      leasewatchOptionsChar: (NSString *)      leasewatchOptionsChar
-{
+                      leasewatchOptionsChar: (NSString *)      leasewatchOptionsChar {
     NSString * monitorKey = [configurationName stringByAppendingString: @"-notMonitoringConnection"];
 
     BOOL ignoringBecauseOfLeasewatchOptions = FALSE;
@@ -639,28 +754,25 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
-
 // Methods for Connecting & Disconnecting tab
 
-// This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
--(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (id) sender
-{
+-(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (id) sender {
+    // This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
+    
     [self changeBooleanPreference: @"-doNotReconnectOnUnexpectedDisconnect"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
 }
 
 
--(IBAction) scanConfigurationFileCheckboxWasClicked: (id) sender
-{
+-(IBAction) scanConfigurationFileCheckboxWasClicked: (id) sender {
     [self changeBooleanPreference: @"-doNotParseConfigurationFile"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
 }
 
 
--(IBAction) useTunTapDriversCheckboxWasClicked: (id) sender
-{
+-(IBAction) useTunTapDriversCheckboxWasClicked: (id) sender {
     BOOL value = ([sender state] == NSOnState);
     [self changeBooleanPreference: @"-loadTapKext"
                                to: value
@@ -677,24 +789,21 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
--(IBAction) flushDnsCacheCheckboxWasClicked: (id) sender
-{
+-(IBAction) flushDnsCacheCheckboxWasClicked: (id) sender {
     [self changeBooleanPreference: @"-doNotFlushCache"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
 }
 
 
--(IBAction) prependDomainNameCheckboxWasClicked:(id)sender
-{
+-(IBAction) prependDomainNameCheckboxWasClicked:(id)sender {
     [self changeBooleanPreference: @"-prependDomainNameToSearchDomains"
                                to: ([sender state] == NSOnState)
                          inverted: NO];
 }
 
 
--(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:(id)sender
-{
+-(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:(id)sender {
     [self changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
@@ -703,17 +812,14 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(BOOL) changeBooleanPreference: (NSString *) key
                              to: (BOOL)       newValue
-                       inverted: (BOOL)       inverted
-{
+                       inverted: (BOOL)       inverted {
     NSString * actualKey = [configurationName stringByAppendingString: key];
     BOOL state = (inverted ? ! newValue : newValue);
     [gTbDefaults setBool: state forKey: actualKey];
     return state;
 }
 
-
--(IBAction) connectingHelpButtonWasClicked: (id) sender
-{
+-(IBAction) connectingHelpButtonWasClicked: (id) sender {
 	(void) sender;
 	
     OSStatus err;
@@ -723,16 +829,14 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 
--(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (id) sender
-{
+-(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (id) sender  {
     [self changeBooleanPreference: @"-doNotDisconnectOnFastUserSwitch"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
 }
 
 
--(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (id) sender
-{
+-(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (id) sender {
     [self changeBooleanPreference: @"-doNotReconnectOnFastUserSwitch"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
@@ -741,9 +845,9 @@ extern TBUserDefaults       * gTbDefaults;
 
 // Methods for While Connecting tab
 
-// Checkbox was changed by another window
--(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection
-{
+-(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection {
+    // Checkbox was changed by another window
+    
     if (   connection
         && (connection == theConnection)  ) {
         if (  [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring]  ) {
@@ -761,9 +865,7 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
-
--(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender
-{
+-(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender {
     [self changeBooleanPreference: @"-notMonitoringConnection"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
@@ -773,146 +875,105 @@ extern TBUserDefaults       * gTbDefaults;
     [[[NSApp delegate] logScreen] monitorNetworkForChangesCheckboxChangedForConnection: connection];
 }
 
-
--(NSInteger) selectedDnsServersIndex
-{
+-(NSInteger) selectedDnsServersIndex {
     return selectedDnsServersIndex;
 }
 
-
--(void) setSelectedDnsServersIndex: (NSInteger) newValue
-{
+-(void) setSelectedDnsServersIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedDnsServersIndex to: newValue preference: @"-changeDNSServersAction"];
 }
 
-
--(NSInteger) selectedDomainIndex
-{
+-(NSInteger) selectedDomainIndex {
     return selectedDomainIndex;
 }
 
-
--(void) setSelectedDomainIndex: (NSInteger) newValue
-{
+-(void) setSelectedDomainIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedDomainIndex to: newValue preference: @"-changeDomainAction"];
 }
 
--(NSInteger) selectedSearchDomainIndex
-{
+-(NSInteger) selectedSearchDomainIndex {
     return selectedSearchDomainIndex;
 }
 
--(void) setSelectedSearchDomainIndex: (NSInteger) newValue
-{
+-(void) setSelectedSearchDomainIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedSearchDomainIndex to: newValue preference: @"-changeSearchDomainAction"];
 }
 
--(NSInteger) selectedWinsServersIndex
-{
+-(NSInteger) selectedWinsServersIndex {
     return selectedWinsServersIndex;
 }
 
-
--(void) setSelectedWinsServersIndex: (NSInteger) newValue
-{
+-(void) setSelectedWinsServersIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedWinsServersIndex to: newValue preference: @"-changeWINSServersAction"];
 }
 
--(NSInteger) selectedNetBiosNameIndex
-{
+-(NSInteger) selectedNetBiosNameIndex {
     return selectedNetBiosNameIndex;
 }
 
-
--(void) setSelectedNetBiosNameIndex: (NSInteger) newValue
-{
+-(void) setSelectedNetBiosNameIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedNetBiosNameIndex to: newValue preference: @"-changeNetBIOSNameAction"];
 }
 
--(NSInteger) selectedWorkgroupIndex
-{
+-(NSInteger) selectedWorkgroupIndex {
     return selectedWorkgroupIndex;
 }
 
-
--(void) setSelectedWorkgroupIndex: (NSInteger) newValue
-{
+-(void) setSelectedWorkgroupIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedWorkgroupIndex to: newValue preference: @"-changeWorkgroupAction"];
 }
 
-
--(NSInteger) selectedOtherdnsServersIndex
-{
+-(NSInteger) selectedOtherdnsServersIndex {
     return selectedDnsServersIndex;
 }
 
-
--(void) setSelectedOtherdnsServersIndex: (NSInteger) newValue
-{
+-(void) setSelectedOtherdnsServersIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedDnsServersIndex to: newValue preference: @"-changeOtherDNSServersAction"];
 }
 
-
--(NSInteger) selectedOtherdomainIndex
-{
+-(NSInteger) selectedOtherdomainIndex {
     return selectedDomainIndex;
 }
 
-
--(void) setSelectedOtherdomainIndex: (NSInteger) newValue
-{
+-(void) setSelectedOtherdomainIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedDomainIndex to: newValue preference: @"-changeOtherDomainAction"];
 }
 
--(NSInteger) selectedOthersearchDomainIndex
-{
+-(NSInteger) selectedOthersearchDomainIndex {
     return selectedSearchDomainIndex;
 }
 
--(void) setSelectedOthersearchDomainIndex: (NSInteger) newValue
-{
+-(void) setSelectedOthersearchDomainIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedSearchDomainIndex to: newValue preference: @"-changeOtherSearchDomainAction"];
 }
 
--(NSInteger) selectedOtherwinsServersIndex
-{
+-(NSInteger) selectedOtherwinsServersIndex {
     return selectedWinsServersIndex;
 }
 
-
--(void) setSelectedOtherwinsServersIndex: (NSInteger) newValue
-{
+-(void) setSelectedOtherwinsServersIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedWinsServersIndex to: newValue preference: @"-changeOtherWINSServersAction"];
 }
 
--(NSInteger) selectedOthernetBiosNameIndex
-{
+-(NSInteger) selectedOthernetBiosNameIndex {
     return selectedNetBiosNameIndex;
 }
 
-
--(void) setSelectedOthernetBiosNameIndex: (NSInteger) newValue
-{
+-(void) setSelectedOthernetBiosNameIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedNetBiosNameIndex to: newValue preference: @"-changeOtherNetBIOSNameAction"];
 }
 
--(NSInteger) selectedOtherworkgroupIndex
-{
+-(NSInteger) selectedOtherworkgroupIndex {
     return selectedWorkgroupIndex;
 }
 
-
--(void) setSelectedOtherworkgroupIndex: (NSInteger) newValue
-{
+-(void) setSelectedOtherworkgroupIndex: (NSInteger) newValue {
     [self setDnsWinsIndex: &selectedWorkgroupIndex to: newValue preference: @"-changeOtherWorkgroupAction"];
 }
 
-
-// set a DNS/WINS change index
 -(void) setDnsWinsIndex: (NSInteger *) index
                      to: (NSInteger)   newValue
-             preference: (NSString *)  key
-{
+             preference: (NSString *)  key {
     if (  ! doNotModifyPreferences  ) {
         NSString * newSetting = nil;
         switch (  newValue  ) {
@@ -948,21 +1009,150 @@ extern TBUserDefaults       * gTbDefaults;
     *index = newValue;
 }
 
-
--(IBAction) whileConnectedHelpButtonWasClicked: (id) sender
-{
-	(void) sender;
-	
+-(NSUInteger) selectedCredentialsGroupIndex {
+	return (unsigned)selectedCredentialsGroupIndex;
 }
 
+-(void) setSelectedCredentialsGroupIndex: (NSUInteger) newValue {
+    NSArray * contents = [credentialsGroupArrayController content];
+    NSUInteger size = [contents count];
+    if (  newValue < size  ) {
+        NSString * prefKey = [configurationName stringByAppendingString: @"-credentialsGroup"];
+        if (  newValue == 0) {
+			[gTbDefaults removeObjectForKey: prefKey];
+        } else {
+            NSString * groupValue = [[contents objectAtIndex: newValue] objectForKey: @"value"];
+			NSArray * groups = [gTbDefaults sortedCredentialsGroups];
+            if (  [groups containsObject: groupValue]  ) {
+				[gTbDefaults setObject: groupValue forKey: prefKey];
+			} else {
+                NSLog(@"'%@' credentials are not available", groupValue);
+            }
+        }
+		selectedCredentialsGroupIndex = (int)newValue;
+		[connection initializeAuthAgent];
+		
+    } else if (  size != 0  ) {
+        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld sounds", (long) newValue, (long) size);
+    }
+}
+
+-(void) bringToFront2
+{
+	NSLog(@"activate/makeKeyAndOrderFront; window = %@", [self window]);
+	[NSApp activateIgnoringOtherApps: YES];
+	[[self window] display];
+	[self showWindow: self];
+	[[self window] makeKeyAndOrderFront: self];
+}
+
+-(void) bringToFront1
+{
+	[self performSelectorOnMainThread: @selector(bringToFront2) withObject: nil waitUntilDone: NO];
+}
+
+-(void) removeNamedCredentialsCommand: (id) sender {
+    unsigned ix = (unsigned)[sender tag];
+    NSString * groupName = [removeNamedCredentialsNames objectAtIndex: ix];
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+								 [NSString stringWithFormat:
+								  NSLocalizedString(@"Do you wish to delete the %@ credentials?", @"Window text"),
+								  groupName],
+								 NSLocalizedString(@"Cancel", @"Button"),    // Default button
+								 NSLocalizedString(@"Delete", @"Button"),    // Alternate button
+								 nil);
+	
+	if (  result == NSAlertDefaultReturn  ) {
+		return;
+	}
+    
+	NSString * errMsg = [gTbDefaults removeNamedCredentialsGroup: groupName];
+	if (  errMsg  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                        [NSString stringWithFormat:
+						 NSLocalizedString(@"The credentials named %@ could not be removed:\n\n%@", @"Window text"),
+						 groupName,
+						 errMsg],
+                        nil, nil, nil);
+	} else {
+		[self initializeStaticContent];
+		[self setupSettingsFromPreferences];
+		[self performSelectorOnMainThread: @selector(bringToFront1) withObject: nil waitUntilDone: NO];
+	}
+}
+
+-(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (id) sender {
+	NSString * prefKey = @"namedCredentialsThatAllConfigurationsUse";
+	if (  [gTbDefaults canChangeValueForKey: prefKey]  ) {
+		if (  [sender state] == NSOffState) {
+			[gTbDefaults removeObjectForKey: prefKey];
+		} else {
+			NSString * name = [removeNamedCredentialsNames objectAtIndex: 0];
+			[gTbDefaults setObject: name forKey: prefKey];
+		}
+		[self setupSettingsFromPreferences];
+	} else {
+		NSLog(@"allConfigurationsUseTheSameCredentialsCheckboxWasClicked: but the '%@' preference is forced.", prefKey);
+	}
+}
+
+-(IBAction) addNamedCredentialsButtonWasClicked: (id) sender {
+	(void) sender;
+	
+	NSString * msg = NSLocalizedString(@"Please enter a name for the credentials:\n\n", @"Window text");
+	NSString * newName = @"";
+	while (  newName  ) {
+		newName = TBGetString(msg, newName);
+		if (   newName
+			&& ([newName length] > 0)  ) {
+			if (  invalidConfigurationName(newName)  ) {
+				msg = [NSString stringWithFormat:
+					   NSLocalizedString(@"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n", @"Window text"),
+					   PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING];
+			} else {
+				NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
+				if (  errMsg  ) {
+					[NSString stringWithFormat:
+					 NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
+					 newName,
+					 errMsg],
+					nil, nil, nil;
+				} else {
+					[self initializeStaticContent];
+					[self setupSettingsFromPreferences];
+				}
+				
+				[self performSelectorOnMainThread: @selector(bringToFront1) withObject: nil waitUntilDone: NO];
+				return;
+			}
+		}
+	}
+}
+
+-(IBAction) whileConnectedHelpButtonWasClicked: (id) sender {
+	(void) sender;
+	
+    OSStatus err;
+    if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
+    }
+}
+
+-(IBAction) vpnCredentialsHelpButtonWasClicked: (id) sender {
+	(void) sender;
+	
+    OSStatus err;
+    if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
+        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
+    }
+}
 
 // General methods
 
 // Set a checkbox from preferences
 -(void) setupCheckbox: (NSButton *) checkbox
                   key: (NSString *) key
-             inverted: (BOOL) inverted
-{
+             inverted: (BOOL) inverted {
     NSString * actualKey = [configurationName stringByAppendingString: key];
     BOOL state = [gTbDefaults boolForKey: actualKey];
     if (  inverted  ) {
@@ -978,8 +1168,22 @@ extern TBUserDefaults       * gTbDefaults;
     [checkbox setEnabled: enable];
 }
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, connectingAndDisconnectingTabViewItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *, whileConnectedTabViewItem)
-TBSYNTHESIZE_OBJECT(retain, VPNConnection *, connection, setConnection)
+TBSYNTHESIZE_OBJECT(retain, VPNConnection *,         connection, setConnection)
+TBSYNTHESIZE_OBJECT(retain, NSArray *,               removeNamedCredentialsNames, setRemoveNamedCredentialsNames)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     connectingAndDisconnectingTabViewItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     whileConnectedTabViewItem)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTabViewItem *,     credentialsTabViewItem)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, allConfigurationsUseTheSameCredentialsCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSBox *, namedCredentialsBox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          credentialsGroupButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, credentialsGroupArrayController)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *, addNamedCredentialsButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            removeNamedCredentialsButton)
 
 @end

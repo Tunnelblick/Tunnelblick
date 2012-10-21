@@ -354,4 +354,133 @@ NSArray * gConfigurationPreferences;
     return value;
 }
 
+-(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName
+                                 inDictionary: (NSDictionary *) dict
+{
+    unsigned n = 0;
+    NSString * prefKey = @"-credentialsGroup";
+    if (  ! dict  ) {
+        NSEnumerator * e = [forcedDefaults keyEnumerator];
+        NSString * key;
+        while (  (key = [e nextObject])  ) {
+            if (  [key hasSuffix: prefKey]  ) {
+                if (  [[forcedDefaults objectForKey: key] isEqualToString: groupName]  ) {
+                    n++;
+                }
+            }
+        }
+    }
+
+    return n;
+}
+
+-(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName
+{
+    unsigned nForced = [self numberOfConfigsInCredentialsGroup: groupName
+                                                  inDictionary: forcedDefaults];
+    unsigned nNormal = [self numberOfConfigsInCredentialsGroup: groupName
+                                                  inDictionary: [userDefaults dictionaryRepresentation]];
+    return nForced + nNormal;
+}
+
+-(NSString *) removeNamedCredentialsGroup: (NSString *) groupName
+{
+    // Make sure the list of groups are not forced
+	NSString * groupsKey = @"namedCredentialsNames";
+    if (  ! [self canChangeValueForKey: groupsKey]  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"The '%@' credentials may not be deleted because the list of named credentials is being forced.", @"Window text"), groupName];
+    }
+    
+    // Make sure there are no forced preferences with this group
+    unsigned n = [self numberOfConfigsInCredentialsGroup: groupName inDictionary: forcedDefaults];
+    if (  n != 0  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"The '%@' credentials may not be deleted because one or more configurations are being forced to use them.", @"Window text"), groupName];
+    }
+    
+    // Remove all non-forced preferences with this group
+    unsigned nRemoved = 0;
+    NSString * prefKey = @"-credentialsGroup";
+    if (  ! userDefaults  ) {
+        NSDictionary * dict = [userDefaults dictionaryRepresentation];
+        NSEnumerator * e = [dict keyEnumerator];
+        NSString * key;
+        while (  (key = [e nextObject])  ) {
+            if (  [key hasSuffix: prefKey]  ) {
+                if (  [[dict objectForKey: key] isEqualToString: groupName]  ) {
+                    [userDefaults removeObjectForKey: key];
+                    nRemoved++;
+                }
+            }
+        }
+    }
+    
+    if (  nRemoved == 0  ) {
+        NSLog(@"Warning: No configurations use the '%@' credentials.", groupName);
+    }
+    
+    // Remove the group itself
+    NSMutableArray * groups = [[[self objectForKey: groupsKey] mutableCopy] autorelease];
+    if (  groups  ) {
+        if (  [[groups class] isSubclassOfClass: [NSArray class]]  ) {
+            unsigned ix = [groups indexOfObject: groupName];
+            if (  ix != NSNotFound  ) {
+                [groups removeObjectAtIndex: ix];
+				if (  [groups count] == 0  ) {
+					[self removeObjectForKey: groupsKey];
+				} else {
+					[self setObject: groups forKey: groupsKey];
+				}
+            } else {
+                NSLog(@"Warning: '%@' does not appear in the list of named credentials.", groupName);
+            }
+        } else {
+            return NSLocalizedString(@"The 'namedCredentialsNames' preference must be an array of strings", @"Window text");
+        }
+    }
+    
+	return nil;
+}
+
+-(NSString *) addNamedCredentialsGroup: (NSString *) groupName
+{
+	NSString * groupsKey = @"namedCredentialsNames";
+    if (  [self canChangeValueForKey: groupsKey]  ) {
+        NSMutableArray * groups = [[[self objectForKey: groupsKey] mutableCopy] autorelease];
+        if (  groups  ) {
+            if (  [[groups class] isSubclassOfClass: [NSArray class]]  ) {
+                unsigned ix = [groups indexOfObject: groupName];
+                if (  ix == NSNotFound  ) {
+                    [groups addObject: groupName];
+                    [self setObject: groups forKey: groupsKey];
+                } else {
+                    return [NSString stringWithFormat:
+							NSLocalizedString(@"Warning: '%@' is already a named credential.", @"Window text"),
+											  groupName];
+                }
+            } else {
+                return NSLocalizedString(@"The 'credentialsNames' preference must be an array of strings.", @"Window text");
+            }
+        } else {
+            NSArray * newGroups = [NSArray arrayWithObject: groupName];
+            [self setObject: newGroups forKey: groupsKey];
+        }
+        
+        return nil;
+    } else {
+        return [NSString stringWithFormat: NSLocalizedString(@"The '%@' credentials may not be added because the list of named credentials is being forced.", @"Window text"), groupName];
+    }
+}
+
+-(NSArray *) sortedCredentialsGroups
+{
+	NSArray * groups = [self objectForKey: @"namedCredentialsNames"];
+	if (  groups  ) {
+		groups = [groups sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
+	} else {
+		groups = [NSArray arrayWithObject: NSLocalizedString(@"Common", @"Button")];
+	}
+	
+	return groups;
+}
+
 @end

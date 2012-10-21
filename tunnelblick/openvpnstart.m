@@ -867,20 +867,21 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
         noSuchVersion = TRUE;
     }
     
-    // No version specified or not known; use the last one (in lexicographical order)
+    // No version specified or not known; use the first one (in NSNumericSearch order)
+    NSString * lowestDirSoFar = nil;
     NSString * dir;
-    NSString * highestDirSoFar = @"\001"; // Comes before all characters that are allowed in the folder name, so will be replaced by any valid folder name)
     NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnFolderPath];
     while (  (dir = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
         if (  [dir hasPrefix: @"openvpn-"]  ) {
-            if (  [dir compare: highestDirSoFar options: NSNumericSearch] == NSOrderedDescending  ) {
-                highestDirSoFar = dir;
+            if (   ( ! lowestDirSoFar )
+                || ( [dir compare: lowestDirSoFar options: NSNumericSearch] == NSOrderedAscending )  ) {
+                lowestDirSoFar = dir;
             }
         }
     }
     
-    if (  [highestDirSoFar isEqualToString: @"\001"]  ) {
+    if (  ! lowestDirSoFar  ) {
         fprintf(stderr, "Tunnelblick: %s does not have any versions of OpenVPN\n", [openvpnFolderPath UTF8String]);
         exitOpenvpnstart(214);
     }
@@ -888,10 +889,10 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     if (  noSuchVersion  ) {
         fprintf(stderr, "Tunnelblick: OpenVPN version '%s' is not included in this copy of Tunnelblick, using version %s.\n",
                 [openvpnVersion UTF8String],
-                [[highestDirSoFar substringFromIndex: [@"openvpn-" length]] UTF8String]);
+                [[lowestDirSoFar substringFromIndex: [@"openvpn-" length]] UTF8String]);
     }
     
-    openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: highestDirSoFar] // Folder with version to be used
+    openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: lowestDirSoFar] // Folder with version to be used
                    stringByAppendingPathComponent: @"openvpn"];                        // openvpn binary
     
     return openvpnPath;
