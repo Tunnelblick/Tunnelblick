@@ -55,36 +55,46 @@ setDnsServersAndDomainName()
 {
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 	
-	PSID=$( (scutil | grep PrimaryService | sed -e 's/.*PrimaryService : //')<<- EOF
+	PSID="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/IPv4
 		quit
-EOF )
+EOF
+grep PrimaryService | sed -e 's/.*PrimaryService : //'
+)"
 
 	set -e # resume abort on error
 
-	MAN_DNS_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+	MAN_DNS_CONFIG="$( scutil <<-EOF |
 		open
 		show Setup:/Network/Service/${PSID}/DNS
 		quit
-EOF )"
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
 
-	MAN_SMB_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+	MAN_SMB_CONFIG="$( scutil <<-EOF |
 		open
 		show Setup:/Network/Service/${PSID}/SMB
 		quit
-EOF )"
-	CUR_DNS_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	CUR_DNS_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/DNS
 		quit
-EOF )"
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
 
-	CUR_SMB_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+	CUR_SMB_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/SMB
 		quit
-EOF )"
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
 
 # Set up the DYN_... variables to contain what is asked for (dynamically, by a 'push' directive, for example)
 
@@ -486,7 +496,7 @@ EOF )"
 	# PPID is a script variable (defined by bash itself) that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
 	# config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
 
-	scutil > /dev/null <<- EOF
+	scutil <<-EOF > /dev/null
 		open
 
 		# Store our variables for the other scripts (leasewatch, down, etc.) to use
@@ -555,7 +565,7 @@ EOF
 	logMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
 	sleep 1
 	
-	scutil > /dev/null <<- EOF
+	scutil <<-EOF > /dev/null
 		open
 
 		# Initialize the maps that will be compared when a configuration change occurs
@@ -572,46 +582,62 @@ EOF
 		quit
 EOF
 	
-	readonly NEW_DNS_SETUP_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+	readonly NEW_DNS_SETUP_CONFIG="$( scutil <<-EOF |
 		open
 		show Setup:/Network/Service/${PSID}/DNS
 		quit
-EOF )"
-	readonly NEW_SMB_SETUP_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly NEW_SMB_SETUP_CONFIG="$( scutil <<-EOF |
 		open
 		show Setup:/Network/Service/${PSID}/SMB
 		quit
-EOF )"
-	readonly NEW_DNS_STATE_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly NEW_DNS_STATE_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/Service/${PSID}/DNS
 		quit
-EOF )"
-	readonly NEW_SMB_STATE_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly NEW_SMB_STATE_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/Service/${PSID}/SMB
 		quit
-EOF )"
-	readonly NEW_DNS_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly NEW_DNS_GLOBAL_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/DNS
 		quit
-EOF )"
-	readonly NEW_SMB_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly NEW_SMB_GLOBAL_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/Global/SMB
 		quit
-EOF )"
-	readonly EXPECTED_NEW_DNS_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly EXPECTED_NEW_DNS_GLOBAL_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/OpenVPN/DNS
 		quit
-EOF )"
-	readonly EXPECTED_NEW_SMB_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
+	readonly EXPECTED_NEW_SMB_GLOBAL_CONFIG="$( scutil <<-EOF |
 		open
 		show State:/Network/OpenVPN/SMB
 		quit
-EOF )"
+EOF
+sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
+)"
 
 
 	logMessage "DEBUG:"

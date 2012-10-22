@@ -1252,7 +1252,7 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
         // For each path in listThatTunnelblickCanUseWithDupes, find the path to the latest Deploy which is identical to it and put that in results
         
         NSString * latestPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: i];
-        NSDate   * latestDate = [[gFileMgr attributesOfItemAtPath: latestPath error: nil] objectForKey: NSFileModificationDate];
+        NSDate   * latestDate = [[gFileMgr tbFileAttributesAtPath: latestPath traverseLink: NO] objectForKey: NSFileModificationDate];
         if (  ! latestDate  ) {
             appendLog([NSString stringWithFormat: @"No last modified date for %@", latestPath]);
             return nil;
@@ -1268,7 +1268,7 @@ NSArray * pathsForLatestNonduplicateDeployBackups(void)
                 if ( ! [results containsObject: thisPath]  ) {
                     if (  ! [pathsToRemove containsObject: thisPath]  ) {
                         if (  [gFileMgr contentsEqualAtPath: latestPath andPath: thisPath]  ) {
-                            NSDate   * thisDate = [[gFileMgr attributesOfItemAtPath: thisPath error: nil] objectForKey: NSFileModificationDate];
+                            NSDate   * thisDate = [[gFileMgr tbFileAttributesAtPath: thisPath traverseLink: NO] objectForKey: NSFileModificationDate];
                             if ( ! thisDate  ) {
                                 appendLog([NSString stringWithFormat: @"No last modified date for %@", thisPath]);
                                 return nil;

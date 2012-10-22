@@ -82,11 +82,12 @@ fi
 # NOTE: This script does not use any arguments passed to it by OpenVPN, so it doesn't shift Tunnelblick options out of the argument list
 
 # Get info saved by the up script
-TUNNELBLICK_CONFIG="$(/usr/sbin/scutil <<-EOF
+TUNNELBLICK_CONFIG="$( scutil <<-EOF
 	open
 	show State:/Network/OpenVPN
 	quit
-EOF)"
+EOF
+)"
 
 ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
 LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
@@ -117,11 +118,13 @@ if ${ARG_TAP} ; then
 fi
 
 # Issue warning if the primary service ID has changed
-PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
+PSID_CURRENT="$( scutil <<-EOF |
 	open
 	show State:/Network/OpenVPN
 	quit
-EOF)"
+EOF
+grep Service | sed -e 's/.*Service : //'
+)"
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
 	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
 fi
@@ -133,33 +136,36 @@ if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 fi
 
 # Restore configurations
-DNS_OLD="$(/usr/sbin/scutil <<-EOF
+DNS_OLD="$( scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldDNS
 	quit
-EOF)"
-SMB_OLD="$(/usr/sbin/scutil <<-EOF
+EOF
+)"
+SMB_OLD="$( scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldSMB
 	quit
-EOF)"
-DNS_OLD_SETUP="$(/usr/sbin/scutil <<-EOF
+EOF
+)"
+DNS_OLD_SETUP="$( scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldDNSSetup
 	quit
-EOF)"
+EOF
+)"
 TB_NO_SUCH_KEY="<dictionary> {
   TunnelblickNoSuchKey : true
 }"
 
 if [ "${DNS_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<- EOF
+	scutil <<-EOF
 		open
 		remove State:/Network/Service/${PSID}/DNS
 		quit
 EOF
 else
-	scutil <<- EOF
+	scutil <<-EOF
 		open
 		get State:/Network/OpenVPN/OldDNS
 		set State:/Network/Service/${PSID}/DNS
@@ -170,7 +176,7 @@ fi
 if [ "${DNS_OLD_SETUP}" = "${TB_NO_SUCH_KEY}" ] ; then
 	if ${bSetSetupDNSStateKeys} ; then
 		logMessage "DEBUG: Removing 'Setup:' DNS key"
-		scutil <<- EOF
+		scutil <<-EOF
 			open
 			remove Setup:/Network/Service/${PSID}/DNS
 			quit
@@ -181,7 +187,7 @@ EOF
 else
 	if ${bSetSetupDNSStateKeys} ; then
 		logMessage "DEBUG: Restoring 'Setup:' DNS key"
-		scutil <<- EOF
+		scutil <<-EOF
 			open
 			get State:/Network/OpenVPN/OldDNSSetup
 			set Setup:/Network/Service/${PSID}/DNS
@@ -193,13 +199,13 @@ EOF
 fi
 
 if [ "${SMB_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<- EOF
+	scutil <<-EOF
 		open
 		remove State:/Network/Service/${PSID}/SMB
 		quit
 EOF
 else
-	scutil <<- EOF
+	scutil <<-EOF
 		open
 		get State:/Network/OpenVPN/OldSMB
 		set State:/Network/Service/${PSID}/SMB
@@ -212,7 +218,7 @@ logMessage "Restored the DNS and SMB configurations"
 flushDNSCache
 
 # Remove our system configuration data
-scutil <<- EOF
+scutil <<-EOF
 	open
 	remove State:/Network/OpenVPN/OldDNS
 	remove State:/Network/OpenVPN/OldSMB

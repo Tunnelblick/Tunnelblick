@@ -31,11 +31,12 @@ fi
 # NOTE: This script does not use any arguments passed to it by OpenVPN, so it doesn't shift Tunnelblick options out of the argument list
 
 # Get info saved by the up script
-TUNNELBLICK_CONFIG="$(/usr/sbin/scutil <<-EOF
+TUNNELBLICK_CONFIG="$( scutil <<-EOF
 	open
 	show State:/Network/OpenVPN
 	quit
-EOF)"
+EOF
+)"
 
 ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
 LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
@@ -67,11 +68,13 @@ if ${ARG_TAP} ; then
 		else
         
             # Issue warning if the primary service ID has changed
-            PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
+            PSID_CURRENT="$( scutil <<-EOF |
                 open
                 show State:/Network/OpenVPN
                 quit
-EOF)"
+EOF
+grep Service | sed -e 's/.*Service : //'
+)"
             if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
                 logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
             fi
@@ -82,7 +85,7 @@ EOF)"
                 logMessage "Cancelled monitoring of system configuration changes"
             
                 # Indicate leasewatcher has been removed
-                scutil <<- EOF
+                scutil <<-EOF
                 open
                 get State:/Network/OpenVPN
                 d.remove MonitorNetwork

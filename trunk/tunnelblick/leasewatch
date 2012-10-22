@@ -1,6 +1,10 @@
 #!/bin/bash -e
 #
 # 2011-04-18 modified to use standardize-scutil-output
+trap "" TSTP
+trap "" HUP
+trap "" INT
+export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
@@ -8,11 +12,12 @@ if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	exit 0
 fi
 
-TUNNELBLICK_CONFIG="$(/usr/sbin/scutil <<-EOF
+TUNNELBLICK_CONFIG="$( scutil <<-EOF
 	open
 	show State:/Network/OpenVPN
 	quit
-EOF)"
+EOF
+)"
 
 ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 ARG_RESTORE_ON_DNS_RESET="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RestoreOnDNSReset :' | sed -e 's/^.*: //g')"
@@ -34,42 +39,48 @@ sleep 1
 if (( M=${PROCESS:-0} )) ; then
 
 	# What's the correct DNS info?
-	DNS_GOOD="$(/usr/sbin/scutil <<-EOF
+	DNS_GOOD="$( scutil <<-EOF
 		open
 		show State:/Network/OpenVPN/DNS
 		quit
-	EOF)"
+EOF
+)"
     # What's the old DNS info?
-    DNS_OLD="$(/usr/sbin/scutil <<-EOF
+    DNS_OLD="$( scutil <<-EOF
         open
         show State:/Network/OpenVPN/OldDNS
         quit
-    EOF)"
+EOF
+)"
 	# What's the current DNS info?
-	DNS_NOW="$(/usr/sbin/scutil <<-EOF
+	DNS_NOW="$( scutil <<-EOF
 		open
 		show State:/Network/Global/DNS
 		quit
-	EOF)"
+EOF
+)"
 
 	# What's the correct WINS info?
-    WINS_GOOD="$(/usr/sbin/scutil <<-EOF
+    WINS_GOOD="$( scutil <<-EOF
 		open
 		show State:/Network/OpenVPN/SMB
 		quit
-    EOF)"
+EOF
+)"
     # What's the old WINS info?
-    WINS_OLD="$(/usr/sbin/scutil <<-EOF
+    WINS_OLD="$( scutil <<-EOF
         open
         show State:/Network/OpenVPN/OldSMB
         quit
-    EOF)"
+EOF
+)"
 	# What's the current WINS info?
-	WINS_NOW="$(/usr/sbin/scutil <<-EOF
+	WINS_NOW="$( scutil <<-EOF
 		open
 		show State:/Network/Global/SMB
 		quit
-	EOF)"
+EOF
+)"
     
     # "Standardize" the output from scutil
     SSO_PATH="$(dirname "${0}")/standardize-scutil-output"
