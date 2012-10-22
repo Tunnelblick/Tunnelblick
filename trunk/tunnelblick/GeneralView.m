@@ -87,7 +87,7 @@ extern TBUserDefaults * gTbDefaults;
         [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
     }
     
-    NSString * ver = [versions lastObject];
+    NSString * ver = [versions objectAtIndex:0];
     NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: 10];
     [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
