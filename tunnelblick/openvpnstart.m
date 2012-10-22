@@ -216,9 +216,7 @@ BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
 {
 	const char *pathC = [path fileSystemRepresentation];
     
-    NSError * errInfo;
-    
-    NSDictionary * attributes = [gFileMgr attributesOfItemAtPath: path error: &errInfo];
+    NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: path traverseLink: NO];
     
     if (  ! attributes  ) {
         fprintf(stderr, "%s does not have attributes (!)\nError was: %s\n", pathC, strerror(errno));
@@ -250,7 +248,14 @@ BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
             return YES;
         }
     } else {
-        if (  perms != permissionsIfNot002  ) {
+        if (   (perms != permissionsIfNot002)
+			&& (   (permissionsIfNot002 != 0755) // On OS X 10.4, kextload/kextunload are 0555 instead of 0755
+				|| (perms != 0555)
+				|| (   ( ! [[path lastPathComponent] isEqualToString: @"kextload"]   )
+					&& ( ! [[path lastPathComponent] isEqualToString: @"kextunload"] )
+					)
+				)
+			) {
             fprintf(stderr, "%s permissions are %o, not %o\n", pathC, perms, permissionsIfNot002);
             return YES;
         }
