@@ -332,7 +332,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"doNotUnrebrandLicenseDescription",
                                 @"useSharedConfigurationsWithDeployedOnes",
                                 @"usePrivateConfigurationsWithDeployedOnes",
-								@"allConfigurationsUseTheSameCredentials",
+								@"namedCredentialsThatAllConfigurationsUse",
                                 
                                 @"delayToShowStatistics",
                                 @"delayToHideStatistics",
@@ -3622,10 +3622,10 @@ static void signal_handler(int signalNumber)
     [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNMainProcesses]];
     if (  [pIDsWeAreTryingToHookUpTo count] != 0  ) {
         NSString * filename;
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
+        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
         while (  (filename = [dirEnum nextObject])  ) {
             [dirEnum skipDescendents];
-            NSString * oldFullPath = [LOG_DIR stringByAppendingPathComponent: filename];
+            NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
             if (  [[filename pathExtension] isEqualToString: @"log"]) {
                 if (  [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]) {
                     unsigned port = 0;
@@ -3659,7 +3659,7 @@ static void signal_handler(int signalNumber)
 // Returns a configuration path (and port number and the starting arguments from openvpnstart) from a path created by openvpnstart
 -(NSString *) deconstructOpenVPNLogPath: (NSString *) logPath toPort: (unsigned *) portPtr toStartArgs: (NSString * *) startArgsPtr
 {
-    NSString * prefix = [NSString stringWithFormat:@"%@/", LOG_DIR];
+    NSString * prefix = [NSString stringWithFormat:@"%@/", L_AS_T_LOGS];
     NSString * suffix = @".openvpn.log";
     if (  [logPath hasPrefix: prefix]  ) {
         if (  [logPath hasSuffix: suffix]  ) {
@@ -4641,12 +4641,12 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     }
     
     // check that log directory exists and has proper ownership and permissions
-    if (  ! (   [gFileMgr fileExistsAtPath: LOG_DIR isDirectory: &isDir]
+    if (  ! (   [gFileMgr fileExistsAtPath: L_AS_T_LOGS isDirectory: &isDir]
              && isDir )  ) {
         NSLog(@"Need to create log directory");
         return YES;
     }
-    if (  ! checkOwnerAndPermissions(LOG_DIR, 0, 0, 0755)  ) {
+    if (  ! checkOwnerAndPermissions(L_AS_T_LOGS, 0, 0, 0755)  ) {
         return YES; // NSLog already called
     }
     

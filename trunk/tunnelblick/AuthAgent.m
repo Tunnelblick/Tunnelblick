@@ -84,8 +84,8 @@ extern TBUserDefaults  * gTbDefaults;
         usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"   ];
         passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"   ];
 
-		passphrasePreferenceKey = [[NSString alloc] initWithFormat: @"%@-keychainHasGroupPrivateKey",          [self credentialsName]];
-        usernamePreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasGroupUsernameAndPassword", [self credentialsName]];
+		passphrasePreferenceKey = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
+        usernamePreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
         
         usedUniversalCredentials = NO;
     }

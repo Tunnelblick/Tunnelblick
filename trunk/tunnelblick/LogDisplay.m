@@ -1247,7 +1247,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     
     [logBase replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logBase length])];
     [logBase replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logBase length])];
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logBase];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", L_AS_T_LOGS, logBase];
     return returnVal;
 }
 
@@ -1278,13 +1278,13 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     
     [logBase replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logBase length])];
     [logBase replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logBase length])];
-    NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", LOG_DIR, logBase];
+    NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", L_AS_T_LOGS, logBase];
 
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
-        NSString * oldFullPath = [LOG_DIR stringByAppendingPathComponent: filename];
+        NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
             if (   [[filename pathExtension] isEqualToString: @"log"]
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {

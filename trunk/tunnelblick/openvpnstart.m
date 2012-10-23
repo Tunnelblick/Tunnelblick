@@ -1176,7 +1176,7 @@ NSString * constructOpenVPNLogPath(NSString * configurationFile, unsigned cfgLoc
 	// folder may be located in a non-standard location (on a remote volume for example).
 	
     NSString * logBase = constructLogBase(configurationFile, cfgLocCode);
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.%@.%d.openvpn.log", LOG_DIR, logBase, openvpnstartArgString, port];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.%@.%d.openvpn.log", L_AS_T_LOGS, logBase, openvpnstartArgString, port];
     return returnVal;
 }
 
@@ -1192,7 +1192,7 @@ NSString * constructScriptLogPath(NSString * configurationFile, unsigned cfgLocC
 	// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extensions of "script.log"
 	
     NSString * logBase = constructLogBase(configurationFile, cfgLocCode);
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logBase];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", L_AS_T_LOGS, logBase];
     return returnVal;
 }
 
@@ -1245,10 +1245,10 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
                                 stringByDeletingPathExtension];     // Remove .<start-args>.<port #>.openvpn.log
     
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
-        NSString * oldFullPath = [LOG_DIR stringByAppendingPathComponent: filename];
+        NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
             if (   [[filename pathExtension] isEqualToString: @"log"]
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
