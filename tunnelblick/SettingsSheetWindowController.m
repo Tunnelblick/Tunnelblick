@@ -146,7 +146,7 @@ extern TBUserDefaults       * gTbDefaults;
         for (  i=0; i<[listContent count]; i++  ) { 
             dict = [listContent objectAtIndex: i];
             if (  [[dict objectForKey: @"value"] isEqualToString: group]  ) {
-                ix = i;
+                ix = (int)i;
                 break;
             }
         }
@@ -157,8 +157,7 @@ extern TBUserDefaults       * gTbDefaults;
 	}
 	
 	[self setSelectedCredentialsGroupIndex: (unsigned) ix];
-	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults boolForKey: @"allConfigurationsUseTheSameCredentials"] )
-												  && [gTbDefaults canChangeValueForKey: @"allConfigurationsUseTheSameCredentials"]
+	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"] )
 												  && [gTbDefaults canChangeValueForKey: prefKey])];
 	
 }
@@ -518,14 +517,12 @@ extern TBUserDefaults       * gTbDefaults;
 	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
 	[credentialsGroupArrayController setContent: groupsDictionaryArray];
 	[credentialsGroupButton          sizeToFit];
-	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults boolForKey: @"allConfigurationsUseTheSameCredentials"] )
-												  && [gTbDefaults canChangeValueForKey: @"allConfigurationsUseTheSameCredentials"]
+	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"] )
 												  && [gTbDefaults canChangeValueForKey: prefKey])];
 	
     
     [removeNamedCredentialsButton setMenu: removeCredentialMenu];
-	[removeNamedCredentialsButton setEnabled: (   (!  [gTbDefaults boolForKey: @"allConfigurationsUseTheSameCredentials"] )
-                                               && [gTbDefaults canChangeValueForKey: @"allConfigurationsUseTheSameCredentials"] )];
+	[removeNamedCredentialsButton setEnabled: ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"]];
 	
 	NSString * groupAllConfigurationsUse = [removeNamedCredentialsNames objectAtIndex: 0];
 	if (  ! groupAllConfigurationsUse  ) {
@@ -1112,11 +1109,12 @@ extern TBUserDefaults       * gTbDefaults;
 			} else {
 				NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
 				if (  errMsg  ) {
-					[NSString stringWithFormat:
-					 NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
-					 newName,
-					 errMsg],
-					nil, nil, nil;
+					TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
+                                    [NSString stringWithFormat:
+                                     NSLocalizedString(@"The credentials named %@ could not be added:\n\n%@", @"Window text"),
+                                     newName,
+                                     errMsg],
+                                    nil, nil, nil);
 				} else {
 					[self initializeStaticContent];
 					[self setupSettingsFromPreferences];

@@ -51,11 +51,12 @@
 //*************************************************************************************************
 // Paths:
 // Note: Several up scripts refer to the log directory without using this header file
-#define LOG_DIR                            @"/Library/Application Support/Tunnelblick/Logs"
+
 #define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
 
 #define L_AS_T_BACKUP @"/Library/Application Support/Tunnelblick/Backup"
 #define L_AS_T_DEPLOY @"/Library/Application Support/Tunnelblick/Deploy"
+#define L_AS_T_LOGS   @"/Library/Application Support/Tunnelblick/Logs"
 #define L_AS_T_SHARED @"/Library/Application Support/Tunnelblick/Shared"
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
 
@@ -70,14 +71,14 @@
 // (Shared, Deploy, and alternate configurations are 0:0/600)
 #define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil]
 
-
 //*************************************************************************************************
 // Permissions for files and folders
 //
-// These are used in three places:
+// These are used in four places:
 //       MenuController's function needToSecureFolderAtPath()
 //       openvpnstart's   function exitIfTblkNeedsRepair()
 //       sharedRoutine's  function secureOneFolder()
+//       installer
 //
 // _PRIVATE... entries are for ~/Library/Application Support/Tunnelblick/Configurations
 // _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
@@ -93,6 +94,8 @@
 // _SCRIPT         entries are for files with the .sh
 // _EXECUTABLE     entries are for files with the .executable extension (in Deploy folders only)
 // _OTHER          entries are for all other files
+
+// These folders are owned by root:wheel
 
 #define PERMS_PRIVATE_SELF           0750
 #define PERMS_PRIVATE_TBLK_FOLDER    0750
@@ -110,9 +113,6 @@
 #define PERMS_SECURED_EXECUTABLE     0711
 #define PERMS_SECURED_OTHER          0600
 
-
-//*************************************************************************************************
-// Bit masks for openvpnstart's kextLoad and kextUnload subcommands
 
 //*************************************************************************************************
 // Values for the location of the configuration file (cfgLocCode argument to openvpnstart) 
