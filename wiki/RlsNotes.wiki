@@ -10,6 +10,42 @@
 
 ==Version 3.3==
 
+*3.3beta28 (2012-10-24)*
+
+ * Configurations can share credentials (usernames/passwords and pass phrases) so that the credentials need not be entered separately for each configuration. (This may be set on the 'Advanced' settings window's 'VPN Credentials' tab.)
+
+ * Triple-clicking the Tunnelblick icon opens the VPN Details… window, as does relaunching Tunnelblick from a Dock icon or double-clicking the application in a Finder window.
+
+ * Adds 'Speak' to list of connect/disconnect sounds. If selected, connections and unexpected disconnections will be announced with the system default voice.
+
+ * Defaults to use the oldest version of OpenVPN available, instead of the newest version.
+
+ * Adds the 'Check apparent IP address after connecting' checkbox to the 'Preferences' panel. There is no default; the user is asked whether to do this the first time the user launches Tunnelblick.
+
+ * Adds the 'Reconnect when computer wakes up from sleep (if connected when computer went to sleep)' checkbox to the 'Advanced' settings panel. The default is to reconnect.
+
+ * Adds the 'Revert Configuration…' menu command to revert a private configuration to it's last secured (shadow) version.
+
+ * When requesting a computer administrator username/password for installation, Tunnelblick also shows that it will convert OpenVPN configurations to Tunnelblick VPN Configurations if the user has requested the conversion.
+
+ * Adds a subcommand to openvpnstart to revert a configuration to when it was last secured.
+
+ * Does not warn about Tunnelblick being unsigned if Debug build.
+
+ * Fixes a problem that sometimes left horizontal lines on the list of configurations when the list was scrolled up and down.
+
+ * Fixes a problem if a configuration was Deployed and needed to be secured.
+
+ * Fixes a problem that caused the help button on the 'While Connected' tab of the 'Advanced' settings window to do nothing.
+
+ * Fixes several problems running Tunnelblick on OS X 10.4 ('Tiger').
+
+ * Inhibits flush of DNS cache on OS X 10.7 or 10.8 if Hands Off is running. (This was included in 3.3beta26.)
+
+ * Fixes a bug that sometimes caused Tunnelblick installations to fail.
+
+--------------------
+
 *3.3beta26 (2012-10-12)*
 
  * Installs, and should be used, only if no Deployed versions of Tunnelblick have previously been installed. (This restriction will probably be removed in later releases.)
