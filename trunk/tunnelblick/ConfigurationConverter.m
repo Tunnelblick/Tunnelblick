@@ -242,7 +242,8 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 	return arr;
 }
 
--(BOOL) processPathRange: (NSRange) rng removeBackslashes: (BOOL) removeBackslashes
+-(BOOL) processPathRange: (NSRange) rng
+	   removeBackslashes: (BOOL) removeBackslashes
 {
 	NSString * inPathString = [configString substringWithRange: rng];
 	NSString * inPath = [[inPathString copy] autorelease];
@@ -272,16 +273,23 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
             [self logMessage: [NSString stringWithFormat: @"Unable to create %@", inPath]];
         }
         
-        if (  [[[gFileMgr tbFileAttributesAtPath: inPath traverseLink: NO] objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+		unsigned linkCounter = 0;
+        while (   [[[gFileMgr tbFileAttributesAtPath: inPath traverseLink: NO] objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]
+			   && (linkCounter++ < 20)  ) {
             NSString * newInPath = [gFileMgr tbPathContentOfSymbolicLinkAtPath: inPath];
             if (  newInPath  ) {
-                inPath = [[newInPath copy] autorelease];
                 [self logMessage: [NSString stringWithFormat: @"Resolved symbolic link at '%@' to '%@'", inPath, newInPath]];
+                inPath = [[newInPath copy] autorelease];
             } else {
                 [self logMessage: [NSString stringWithFormat: @"Could not resolve symbolic link at %@", inPath]];
                 return FALSE;
             }
-        }
+		}
+		
+		if (  [[[gFileMgr tbFileAttributesAtPath: inPath traverseLink: NO] objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]  ) {
+			[self logMessage: [NSString stringWithFormat: @"Symbolic links nested too deeply. Gave up at %@", inPath]];
+			return FALSE;
+		}
         
         if (  [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
             [self logMessage: [NSString stringWithFormat: @"Copied %@", [self nameToDisplayFromPath: inPath]]];
