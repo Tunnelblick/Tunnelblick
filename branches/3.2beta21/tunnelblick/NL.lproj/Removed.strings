@@ -1,0 +1,18 @@
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Uitgeschakeld omdat de naam van de toepassing werd gewijzigd";
+
+/* Menu item tooltip */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Uitgeschakeld omdat u niet de beheerder van deze computer bent en de 'onlyAdminCanUpdate'-voorkeur is ingesteld";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+"Tunnelblick.app" = "Tunnelblick.app";
+
+/* Window title */
+"Updates are disabled" = "Updates zijn uitgeschakeld";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick kan enkel worden geupdated indien het de naam 'Tunnelblick' heeft. U heeft de naam gewijzigd in %@, dus de updates zijn uitgeschakeld.";
+
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Gelieve te wachten terwijl Tunnelblick wordt geïnstalleerd en beveiligd…";
+

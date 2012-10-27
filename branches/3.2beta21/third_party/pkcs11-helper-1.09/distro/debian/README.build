@@ -1,0 +1,12 @@
+pkcs11-helper1 for Debian
+-------------------------
+
+To build pkcs11-helper follow these steps
+
+1) unpack the tarball
+2) cd pkcs11-helper-<version>
+3) ln -s distro/debian 
+4) invoke your build tool, e.g. 
+    dpkg-buildpackage -rfakeroot
+
+ -- S. Wefel <wefel@informatik.uni-halle.de>  Mon, 29 Jan 2007 16:56:30 +0100

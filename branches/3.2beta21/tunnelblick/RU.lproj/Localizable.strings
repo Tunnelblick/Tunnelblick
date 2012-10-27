@@ -1,0 +1,1258 @@
+/* Status message */
+"%@ is Connected" = "%@ подключёно";
+
+/* Status message */
+"%d Connections" = "%d соединений";
+
+/* status message */
+"1 connection" = "1 соединение";
+
+/* Status message */
+"Disconnect All (%@)" = "Отключить всё (%@)";
+
+/* Status message */
+"Disconnect All (%d Connections)" = "Отключить всё (соединений %d)";
+
+/* Status message */
+"No Active Connections" = "Нет активных соединений";
+
+/* Textbox name */
+"Username:" = "Имя пользователя:";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+
+/* Button */
+"(None available)" = "(Недоступно)";
+
+/* Button */
+"1 MB" = "1 МБ";
+
+/* Button */
+"10 KB" = "10 КБ";
+
+/* Button */
+"10 MB" = "10 МБ";
+
+/* Button */
+"100 KB" = "100 КБ";
+
+/* Button */
+"Advanced..." = "Дополнительно…";
+
+/* Button */
+"All Users" = "Все пользователи";
+
+/* Button */
+"Always use the plugin" = "Всегда использовать это дополнение";
+
+/* Button */
+"Back" = "Назад";
+
+/* Button */
+"Cancel" = "Отменить";
+
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Проверить наличие обновлений";
+
+/* Button */
+"Check Now" = "Проверить сейчас";
+
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Закрыть VPN соединения и остановить Tunnelblick";
+
+/* Button */
+"Connect" = "Соединиться";
+
+/* Button */
+"Copy Log to Clipboard" = "Скопировать журнал в буфер обмена";
+
+/* Button */
+"Create Tunnelblick VPN Configuration" = "Создать конфигурацию Tunnelblick VPN";
+
+/* Button */
+"Create sample configuration and edit it" = "Создать пример конфигурации и отредактировать его";
+
+/* Button */
+"Default (%@)" = "По умолчанию (%@)";
+
+/* Button */
+"Delete Credentials" = "Удалить учётные данные";
+
+/* Button */
+"Delete" = "Удалить";
+
+/* Button */
+"Disconnect" = "Отключить";
+
+/* Button */
+"Do not use the plugin" = "Не использовать это дополнение";
+
+/* Button */
+"Done" = "Готово";
+
+/* Button */
+"Download" = "Загрузить";
+
+/* Button */
+"Examine" = "Просмотреть";
+
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Перейти к документации OpenVPN в сети";
+
+/* Button */
+"I DO NOT have configuration files" = "У меня НЕТ файлов конфигурации";
+
+/* Button */
+"I have configuration files" = "У меня ЕСТЬ файлы конфигурации";
+
+/* Button */
+"Ignore" = "Игнорировать";
+
+/* Button */
+"Install Sample" = "Установить пример";
+
+/* Button */
+"Launch" = "Запустить";
+
+/* Button */
+"Manually" = "Вручную";
+
+/* Button */
+"Monochrome icon" = "Монохромная иконка";
+
+/* Button */
+"Never show" = "Никогда не показывать";
+
+/* Button */
+"No keyboard shortcut" = "Сочетания клавиш не присвоено";
+
+/* Button */
+"No sound" = "Без звука";
+
+/* Button */
+"OK" = "ОК";
+
+/* Button */
+"Only Me" = "Только я";
+
+/* Button */
+"Open Private Configurations Folder" = "Открыть папку личных конфигураций";
+
+/* Button */
+"OpenVPN Configuration(s)" = "Конфигурация(и) OpenVPN";
+
+/* Button */
+"Quit" = "Выйти";
+
+/* Button */
+"Replace" = "Заменить";
+
+/* Button */
+"Reset Disabled Warnings" = "Сбросить отключенные предупреждения";
+
+/* Button */
+"Restart connection" = "Перезапустить соединение";
+
+/* Button */
+"Restore" = "Восстановить";
+
+/* Button */
+"Show when connection status changes" = "Показывать когда состояние соединения меняется";
+
+/* Button */
+"Show while connecting" = "Показывать в процессе соединения";
+
+/* Button */
+"Standard icon" = "Стандартная иконка";
+
+/* Button */
+"Terminate" = "Уничтожить";
+
+/* Button */
+"Try again with different credentials" = "Попробовать снова с другими учетными данными";
+
+/* Button */
+"Try again" = "Попробовать ещё раз";
+
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Конфигурация(и) Tunnelblick VPN";
+
+/* Button */
+"Unprotect and Modify" = "Снять защиту и изменить";
+
+/* Button */
+"When Tunnelblick launches" = "Когда запускается Tunnelblick";
+
+/* Button */
+"When computer starts" = "Когда запускается компьютер";
+
+/* Menu item */
+"Add a VPN..." = "Добавить VPN…";
+
+/* Menu item */
+"Connect %@%@" = "Соединить %@%@";
+
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Удалить учётные данные конфигурации в Связке ключей…";
+
+/* eugene.trufanov *******************************************************/
+
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "Отключено, поскольку данный параметр был установлен принудительно";
+
+/* Menu item */
+"Disconnect %@%@" = "Отключить %@%@";
+
+/* Menu Item */
+"Duplicate Configuration..." = "Дублировать конфигурацию…";
+
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "Редактировать файл конфигурации OpenVPN…";
+
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "Просмотреть файл конфигурации OpenVPN…";
+
+/* Menu Item */
+"Make Configuration Private..." = "Сделать конфигурацию личной…";
+
+/* Menu Item */
+"Make Configuration Shared..." = "Сделать конфигурацию общей…";
+
+/* Menu item */
+"No VPN Configurations Available" = "Конфигурации VPN недоступны";
+
+/* Menu item */
+"Quit Tunnelblick" = "Выйти из Tunnelblick";
+
+/* Menu Item */
+"Rename Configuration..." = "Переименовать конфигурацию…";
+
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "Показать журнал OpenVPN в Finder";
+
+/* Menu Item */
+"Show configuration on Tunnelblick menu" = "Показывать конфигурацию в меню Tunnelblick";
+
+/* Menu item */
+"VPN Details..." = "Подробности VPN…";
+
+/* Checkbox name */
+"Check for updates automatically" = "Автоматически проверять наличие обновлений";
+
+/* Checkbox name */
+"Disconnect when user switches out" = "Отключаться при выходе пользователя";
+
+/* Checkbox name */
+"Display connection submenus" = "Отображать подменю соединения";
+
+/* Checkbox name */
+"Display connection timers" = "Отображать время соединения";
+
+/* Checkbox name */
+"Display window while Tunnelblick is starting up" = "Показывать заставку при запуске Tunnelblick";
+
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Больше не спрашивать, всегда 'Игнорировать'";
+
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Больше не предупреждать для этой конфигурации";
+
+/* Checkbox name */
+"Do not warn about this again" = "Больше не предупреждать";
+
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Больше не предупреждать, всегда выбирать 'Просмотреть'";
+
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Очищать кэш DNS после соединения или разъединения";
+
+/* Checkbox name */ /* System profile item */
+"Monitor connection" = "Отслеживать соединение";
+
+/* Checkbox name */
+"Monitor network settings" = "Отслеживать настройки сети";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Отслеживать папки с конфигурациями на наличие изменений";
+
+/* Checkbox name */
+"Place next to Spotlight icon" = "Разместить рядом с иконкой Spotlight";
+
+/* Checkbox name */
+"Reconnect when user switches in" = "Переподключаться при входе пользователя";
+
+/* Checkbox name */
+"Save in Keychain" = "Сохранить в Связке ключей";
+
+/* Checkbox name */
+"Scan configuration file for problems before connecting" = "Сканировать конфигурационный файл на наличие проблем перед подключением";
+
+/* Checkbox name */
+"Use Tunnelblick tun/tap drivers" = "Испольльзовать Tunnelblick драйверы tun/tap";
+
+/* Checkbox name */
+"Use shadow copies of configuration files" = "Использовать теневые копии конфигурационных файлов";
+
+/* PopUpButton */
+"Do not set nameserver" = "Не устанавливать DNS сервер";
+
+/* PopUpButton */
+"Set nameserver (3.0b10)" = "Установка DNS сервера (3.0b10)";
+
+/* PopUpButton */
+"Set nameserver (3.1)" = "Установка DNS сервера (3.1)";
+
+/* PopUpButton */
+"Set nameserver (alternate 1)" = "Установка DNS сервера (вариант 1)";
+
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "Установка DNS сервера";
+
+/* Text on disk image */
+"Double-click to begin" = "Дважды кликните для начала";
+
+/* Connection status */
+"ADD_ROUTES" = "Добавление маршрутов";
+
+/* Connection status */
+"ASSIGN_IP" = "Присвоение IP-адреса";
+
+/* Connection status */
+"AUTH" = "Авторизация";
+
+/* Connection status */
+"CONNECTED" = "Соединён";
+
+/* Connection status */
+"CONNECTING" = "Соединение";
+
+/* Connection status */
+"EXITING" = "Отключён";     // Please translate "Disconnected"
+
+/* Connection status */
+"GET_CONFIG" = "Получение конфигурации";
+
+/* Connection status */
+"RECONNECTING" = "Переподключение";
+
+/* Connection status */
+"RESOLVE" = "Определение доменного имени";
+
+/* Connection status */
+"SLEEP" = "Ожидание процесса демона";   // Please translate "Waiting for daemon process"
+
+/* Connection status */
+"TCP_CONNECT" = "Осуществляется TCP соединение";
+
+/* Connection status */
+"UDP_CONNECT" = "Осуществляется UDP соединение";
+
+/* Connection status */
+"WAIT" = "Ожидание ответа сервера";   // Please translate "Waiting for Server Response"
+
+/* Folder name */
+"Empty Tunnelblick VPN Configuration" = "Пустая конфигурация Tunnelblick VPN";
+
+/* Folder name */
+"Sample Tunnelblick VPN Configuration" = "Образец конфигурации Tunnelblick VPN";
+
+/* System profile item */
+"Computer admin" = "Администратор компьютера";
+
+/* System profile item */
+"Configurations" = "Конфигурации";
+
+/* System profile item */
+"Deployed" = "Развёрнутые";
+
+/* Window title */
+" (Deployed)" = " (Развёрнутые)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
+
+/* Window title */
+" (Private)" = " (Личное)";
+
+/* Window title */
+" (Shared)" = " (Общее)"; /* Indicates a shared configuration */
+
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ Расширенные настройки%2$@";
+
+/* Window title */
+"'%@' has been disconnected" = "'%@' был разъединён";
+
+/* Window title */
+"Active connection" = "Активное соединение";
+
+/* Window title */
+"Add a Configuration" = "Добавить конфигурацию";
+
+/* Window title */
+"Alert sounds" = "Звуки уведомлений";
+
+/* Window title */
+"Alert" = "Уведомление";
+
+/* Window title */
+"All configuration files removed" = "Все конфигурационные файлы были удалены";
+
+/* Window title */
+"An Empty Tunnelblick VPN Configuration Has Been Created" = "Была создана пусткая конфигурация Tunnelblick VPN";
+
+/* Window title */
+"Appearance" = "Внешний вид";
+
+/* Window title */
+"Authentication failed" = "Аутентификация не удалась";
+
+/* Window title */
+"Configuration Installation Error" = "Ошибка установки конфигурации";
+
+/* Window title */
+"Configuration(s) Ignored" = "Конфигурация(и) проигнорированы";
+
+/* Window title */
+"Connecting & Disconnecting" = "Подключения & Отключения";
+
+/* Window title */
+"Could Not Copy Configuration" = "Невозможно скопировать конфигурацию";
+
+/* Window title */
+"Could Not Move Configuration" = "Невозможно переместить конфигурацию";
+
+/* Window title */
+"Could Not Secure Configuration" = "Невозможно обеспечить безопасность конфигурации";
+
+/* Window title */
+"Could Not Uninstall Configuration" = "Невозможно удалить конфигурацию";
+
+/* Window title */
+"Create and Edit a Sample Configuration?" = "Создать и отредактировать образец конфигурации?";
+
+/* Window title */
+"Details - Tunnelblick" = "Детали - Tunnelblick";
+
+/* Window title */
+"Do you wish to connect?" = "Вы хотите соединиться?";
+
+/* Window title */
+"Examine the configuration file?" = "Проанализировать конфигурационный файл?";
+
+/* Window title */
+"File not found" = "Файл не найден";
+
+/* Window title */
+"Info" = "Информация";
+
+/* Window title */
+"Install Configuration For All Users?" = "Установить конфигурацию для всех пользователей?";
+
+/* Window Title */
+"Install Sample Configuration?" = "Установить образец конфигурации?";
+
+/* Window title */
+"Installation failed" = "Установка потерпела неудачу";
+
+/* Window title */
+"Installation or Repair Failed" = "Установка или Исправление потерпели неудачу";
+
+/* Window title */
+"Installation succeeded" = "Установка произведена успешна";
+
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Устанавливается конфигурация Tunnelblick VPN";
+
+/* Window title */
+"Log" = "Журнал";
+
+/* Window title */
+"Name In Use" = "Имя используется";
+
+/* Window title */
+"Name Required" = "Необходимо имя";
+
+/* Window title */
+"No 'dev tun' or 'dev tap' found" = "Параметры конфигурации 'dev tun' или 'dev tap' не найдены";
+
+/* Window title */
+"No Credentials" = "Нет учётных данных";
+
+/* Window title */
+"Not connecting" = "Не подключается";
+
+/* Window title */
+"Only computer administrators should update Tunnelblick" = "Только администраторы компьютера должны обновлять Tunnelblick";
+
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN не отвечает";
+
+/* Window title */
+"Perform installation?" = "Выполнить установку?";
+
+/* Window title */
+"Please Confirm" = "Пожалуйста подтвердите";
+
+/* Window title */
+"Please enter a username and password." = "Пожалуйста введите имя пользователя и пароль.";
+
+/* Window title */
+"Please insert token" = "Пожалуйста вставьте токен";
+
+/* Window title */
+"Preferences" = "Настройки";
+
+/* Window title */
+"Private Configuration Folder is Open" = "Личная папка конфигураций открыта";
+
+/* Window title */
+"Replace Existing Configuration?" = "Заменить существующую конфигурацию?";
+
+/* Window title */
+"Replace Existing File?" = "Заменить существующий файл?";
+
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "Заменить конфигурацию Tunnelblick VPN";
+
+/* Window title */
+"Sample Configuration Created" = "Образец конфигурации создана";
+
+/* Window title */
+"Settings" = "Настройки";
+
+/* Window title */
+"System Requirements Not Met" = "Системные требования не удовлетворены";
+
+/* Window title */
+"The configuration file is protected" = "Файл конфигурациии защищён";
+
+/* Window title */
+"Tunnelblick Configuration Problem" = "Ошибка конфигурирования Tunnelblick";
+
+/* Window title */
+"Tunnelblick Error" = "Ошибка Tunnelblick";
+
+/* Window title */
+"Tunnelblick VPN Configuration Installation Error" = "Ошибка установки конфигурации Tunnelblick VPN";
+
+/* Window title */
+"Tunnelblick VPN Configuration Installation" = "Установка конфигурации Tunnelblick VPN";
+
+/* Window title */
+"Tunnelblick is currently running" = "Tunnelblick в данный момент запущен";
+
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
+"Tunnelblick" = "Tunnelblick";
+
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: необходим логин";
+
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: необходима секретная фраза";
+
+/* Window title */
+"Unable to launch Tunnelblick" = "Невозможно запустить Tunnelblick";
+
+/* Window title */
+"Uninstall Tunnelblick VPN Configuration" = "Удалить конфигурацию Tunnelblick VPN";
+
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Использовать расширение 'down-root' для OpenVPN?";
+
+/* Window title */
+"Warning!" = "Предупреждение!";
+
+/* Window title */
+"Warning" = "Предупреждение";
+
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Предупреждение: Неизвестный процесс OpenVPN";
+
+/* Window title */
+"Welcome to Tunnelblick" = "Добро пожаловать в Tunnelblick";
+
+/* Window title */
+"Which Type of Configuration Do You Have?" = "Каков тип вашей конфигурация?";
+
+/* Window title */
+"Which Type of Configuration Do You Wish to Create?" = "Конфигурацию какого типа вы хотите создать?";
+
+/* Window title */
+"While Connected" = "Когда подключено";
+
+/* Window title */
+"You cannot use the sample configuration" = "Вы не можете использовать образец конфигурации";
+
+/* Window text */
+"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • С единым файлом конфигурации вы можете создать конфигурацию Tunnelblick VPN.\n\n     • С несколькими конфигурационными файлами вы можете разместить их (аналогично сертификатам и ключам) в папке личных конфигураций Tunnelblick.\nЭто является традиционным способом использования конфигураций OpenVPN.\n\nПримечание: конфигурации Tunnelblick VPN предпочтительнее, потому что они могут быть сделаны общими, запускаемыми автоматически вместе с компьютером и для них может быть автоматически обеспечена безопасность.";
+
+/* Window text */
+"  • Change ownership and permissions of the program to secure it\n" = "  • Смена владельцев программых файлов и прав доступа для увеличения её безопасности\n";
+
+/* Window text */
+"  • Repair the private configurations folder\n" = "  • Исправить папку с личными конфигурациями\n";
+
+/* Window text */
+"  • Restore configuration(s) from the backup\n" = "  • Восстановить конфигурацию(и) из резервной копии\n";
+
+/* Window text */
+"  • Secure configurations\n" = "  • Обеспечить безопасность конфигурации\n";
+
+/* Window text */
+" (To install in a different location, drag %@ to that location.)" = " (Для установки в другое место перетащите %@ туда.)";
+
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Конфигурации могут быть удалены только администратором компьютера.\n\n Удаление необратимо. Все настройки для '%1$@' также будут безвозвратно удалены.%2$@";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n%@" = " Вы хотите установить %1$@ в %2$@%3$@?\n\n%4$@";
+
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@" = " Вы хотите заменить\n    %1$@\n    в %2$@\nна %3$@%4$@?\n\n%5$@";
+
+/* Window text */
+" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = " Tunnelblick не может быть запущен отсюда. Он должен быть утановлен на локальный жёсткий диск.\n\n";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick  требуются права администратора для автоматического соединения с '%@' при запуске компьютера.";
+
+/* Window text */
+" Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick требуются права администратора для отключения автоматического соединения с '%@' при запуске компьютера.";
+
+/* Window text */
+" and install %d configurations" = " и установить конфигурации %d";
+
+/* Window text */
+" and install one configuration" = " и установить одну конфигурацию";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were installed successfully." = "Файлы конфигурации VPN Tunnelblick %d были успешно установлены.";
+
+/* Window text */
+"%d Tunnelblick VPN Configurations were uninstalled successfully." = "Файлы конфигурации VPN Tunnelblick %d были успешно удалены ";
+
+/* Window text */
+"%d configurations were not installed. See the Console Log for details." = "Конфигурация %d не была установлена. Обратитесь к Консоли для более детальной информации.";
+
+/* Window text */
+"'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "'%@' уже присутствует на Рабочем Столе.\n\nХотите её заменить?";
+
+/* Window text */
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "У конфигурации '%@' нет никаких учётных данных (закрытого ключа или имени пользователя и пароля) сохранённых в Связке ключей.";
+
+/* Window text */
+"(Never checked)" = "(Никогда не отмечен)";
+
+/* Window text */
+"(if connected when user switched out)" = "(при подключении, когда пользователь отключён)";
+
+/* Window text */
+"<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Основано на Tunnelblick, бесплатном программном обеспечении, доступном по адресу: <br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
+
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "Конфигурация не была установлена. Обратитесь к Консоли для более детальной информации.";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@" = "Секретная фраза необходима для подключения к \n  %@";
+
+/* Window text */
+"A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Личная конфигурация '%@' уже существует.\n\nВы хотите заменить её Общей конфигурацией?";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "Необходимы имя пользователя и пароль для подключения к\n  %@";
+
+/* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "Все конфигурационные файлы в %@ были удалены. Tunnelblick должен завершить свою работу.";
+
+/* Window text */
+"An error occurred while trying to launch %@" = "В процессе запуска %@ произошла ошибка";
+
+/* Window text */
+"Anonymous unique ID" = "Уникальный ID анонимного пользователя";
+
+/* Window text */
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Вы уверены, что хотите удалить учётные данные (закрытый ключ или имя пользователя с паролем) для '%@' которые сохранены в Связке ключей?";
+
+/* Window text */
+"Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Конфигурации обычно устанавливаются из файлов, предоставляемых вашим администратором или поставщиком VPN.\n\nКонфигурационные файлы имеют расширения .tblk, .ovpn, или .conf.\n\n(Также могут быть другие файлы, связанные с конфигурацией; на этом этапе их можно опустить)\n\nУ вас есть конфигурационные файлы?\n";
+
+/* Window text */
+"Configurations:" = "Конфигурации:";
+
+/* Window text */
+"Connect:" = "Соединиться:";
+
+/* Window text */
+"Connection:" = "Соединение:";
+
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub и другие.";
+
+/* Window text */
+"DNS servers:" = "DNS серверы:";
+
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Удаление конфигурации необратимо.\n\nВсе параметры и настройки конфигурации также будут удалены безвозвратно.\n\n%1$@\n\nВы уверены, что хотите удалить конфигурацию '%2$@'?";
+
+/* Window text */
+"Do you wish to install %d configurations" = "Вы хотите установить %d конфигураций(и)";
+
+/* Window text */
+"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Вы хотите установить конфигурацию '%@' так, чтобы использовать её могли все пользователи или только вы?\n\n";
+
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "Вы хотите переустановить '%1$@'%2$@ версии %3$@?";
+
+/* Window text */
+"Do you wish to replace '%@'%@ version %@ with version %@?" = "Вы хотите заменить '%1$@'%2$@ версии %3$@ на версию %4$@?";
+
+/* Window text */
+"Do you wish to uninstall %d configurations" = "Вы хотите удалить %d конфигураций(и)";
+
+/* Window text */
+"Do you wish to uninstall '%@'%@ version %@?" = "Вы хотите удалить '%1$@'%2$@ версии %3$@?";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Вы хотите удалить одну конфигурацию";
+
+/* Window text */
+"Domain:" = "Домен:";
+
+/* Window text */
+"Fast User Switching" = "Быстрое переключение пользователей";
+
+/* Window text */
+"Icon:" = "Иконка:";
+
+/* Window text */
+"Installation finished successfully." = "Установка завершена успешно.";
+
+/* Window text */
+"Installation of .tblk packages is not allowed" = "Установка пакетов .tblk не разрешена";
+
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Устанавливаются конфигурации VPN Tunnelblick…";
+
+/* Window text */
+"Installing and securing Tunnelblick..." = "Установка и защита Tunnelblick…";
+
+/* Window text */
+"Keyboard shortcut:" = "Комбинация клавиш:";
+
+/* Window text */
+"Last checked: %@" = "Последняя проверка: %@";
+
+/* Window text */
+"Maximum log display size:" = "Максимальный размер журнала:";
+
+/* Window text */
+"Menu:" = "Меню:";
+
+/* Window text */
+"Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Будут созданы несколько соединений (%1$d с 'Установкой DNS', %2$d без 'Установки DNS').";
+
+/* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Имена не могут содержать косую черту (\"/\")\n\n";
+
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "Имена не могут начинаться с точки (\".\")\n\n";
+
+/* Window text */
+"NetBIOS name:" = "NetBIOS имя:";
+
+/* Window text */
+"Network setting" = "Сетевые настройки";
+
+/* Window text */
+"Notification window:" = "Окно уведомления:";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was installed successfully." = "Одна VPN конфигурация Tunnelblick была успешно установлена.";
+
+/* Window text */
+"One Tunnelblick VPN Configuration was uninstalled successfully." = "Одна VPN конфигурация Tunnelblick была успешно удалена.";
+
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Один или более процессов OpenVPN запущены, но неизветны для Tunnelblick. Если вы не запускаете OpenVPN отдельно от Tunnelblick, то обычно это означает, что более ранние запуски Tunnelblick не смогли корректно завершить работу этих процессов и вам следует принудительно завершить их. Скорее всего они препятствуют работоспособности Tunnelblick. Желаете принудительно завершить их работу?";
+
+/* Window text */
+"One or more configurations are being ignored. See the Console Log for details." = "Одна или более конфигураций были проигнорированы. Обратитесь к Консоли для более подробной информации.";
+
+/* Window text */
+"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Только конфигуация Tunnelblick VPN (.tblk) может стартовать при запуске компьютера.";
+
+/* Window text */
+"OpenVPN has not responded to disconnect requests for %d seconds.\n\nThe connection will be considered disconnected, but this computer's network configuration may be in an inconsistent state." = "OpenVPN не ответил на запрос разъединения в течении %d секунд.\n\nСоединение будет считаться разъединённым, однако сетевая конфигурация этого компьютера может находиться в непостоянном состоянии.";
+
+/* Window text */
+"OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN не отвечает на запрос отключения.\n\nСуществует известная ошибка в OpenVPN версии 2.1 которая иногда вызывает задержку в 1-2 минуты прежде чем отправить отклик на подобный запрос.\n\nTunnelblick будет продолжать пытаться отключиться в течении %1$d секунд.\n\nСоединение будет недоступно, пока не будет разорвано OpenVPN или по прошествии %2$d секунд, в зависимости от того, что произойдёт первее.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN версии %1$@ недоступен. Используется версия по умолчанию (%2$@)";
+
+/* Window text */
+"OpenVPN version:" = "Версия OpenVPN:";
+
+/* Window text */
+"Password:" = "Пароль:";
+
+/* Window text */
+"Please enter VPN passphrase." = "Пожалуйста введите секретную фразу VPN.";
+
+/* Window text */
+"Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Пожалуйста, введите имя и нажмите \"OK\", либо нажмите \"Отмена\".\n\n";
+
+/* Window text */
+"Please enter a new name for '%@'." = "Пожалуйста введите новое имя для '%@'.";
+
+/* Window text */
+"Please insert token \"%@\", then click \"OK\"" = "Пожалуйста вставьте токен \"%@\", и затем нажмите \"OK\"";
+
+/* Window text */
+"Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Личная конфигурация не может подключаться при запуске компьютера.\n\nСначала сделайте конфигурацию общей, а потом меняйте этот параметр.";
+
+/* Window text */
+"Search domain:" = "Домен поиска:";
+
+/* Window text */
+"Securing Tunnelblick..." = "Защита Tunnelblick…";
+
+/* Window text */
+"Set DNS/WINS:" = "Установите DNS/WINS:";
+
+/* Window text */
+"Starting Tunnelblick..." = "Запуск Tunnelblick…";
+
+/* Window text */
+"Startup window:" = "Заставка:";
+
+/* Window text */
+"That name is being used.\n\n" = "Это имя используется.\n\n";
+
+/* Window text */
+"The OpenVPN log does not yet exist or has been deleted." = "Журнал событий OpenVPN не существует или был удален.";
+
+/* Window text */
+"The VPN name '%@' is already in use.\n\nPlease enter a new name." = "Имя VPN '%@' уже используется.\n\nПожалуйста, введите новое имя.";
+
+/* Window text */
+"The VPN name cannot be empty.\n\nPlease enter a new name." = "Имя VPN не может быть пустым.\n\nПожалуйста, введите новое имя.";
+
+/* Window text */
+"The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "Попытка соединения %@ была отменена: скрипт runOnConnect возвратил статус: %2$d.";
+
+/* Window text */
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "В конфигурационном файле для '%@' присутствуют параметры 'user' и/или 'group', а также используется скрипт отключения ('Do not set nameserver' не выбрал, либо в конфигурационном файле есть параметр 'down').\n\nИз-за этого переподключение (осуществляемое автоматически при обрыве соедниения) не будет работать, пока не будет использоваться дополнение 'openvpn-down-root.so' для OpenVPN.\n\nХотите использовать это дополнение?";
+
+/* Window text */
+"The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Файл конфигурации для '%@' не содержит параметр 'dev tun' или 'dev tap'. Этот параметр может быть необходим для корректной работы Tunnelblick. Проконсультируйтесь со своим администратором или обратитесь к документации OpenVPN.";
+
+/* Window text */
+"The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Учётные данные (секретная фраза или связка имя пользователя/пароль) не были приняты удалённым сервером VPN.";
+
+/* dennis.ukhanov ***********************************************/
+
+/* Window text */
+"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Процесс установки, удаления или восстановления одного или нескольких компонентов Tunnelblick прошёл неудачно. Подробности в журнале Консоли.";
+
+/* Window text */
+"The passphrase must not be empty!\nPlease enter VPN passphrase." = "Секретная фраза должна быть заполнена!\nПожалуйста, заполните секретную фразу VPN.";
+
+/* Window text */
+"The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "Папка с личной конфигурацией была открыта в Finder'е.\n\nСкопируйте или переместите файлы конфигураций OpenVPN, файлы ключей и сертификатов в эту папку.\n\nНовая(ые) конфигурация(и) будет(ут) доступна(ы) в Tunnelblick сразу же.";
+
+/* Window text */
+"The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "На вашем Рабочем столе была создана папка с примером конфигурации, конфигурационный файл OpenVPN открыт в TextEdit чтобы вы могли подготовить его для запуска VPN.\n\nКогда вы закончите редактирование файла конфигурации OpenVPN и сохраните изменения, пожалуйста\n\n1. Переместите или скопируйте файлы ключа и сертификата относящиеся к конфигурации в папку 'Sample Tunnelblick VPN Configuration' которая на вашем Рабочем столе.\n\n(Эта папка была открыта в Finder, так что вы можете просто перетащить файлы туда.)\n\n2. Переименуйте папку в соответствии с вашими предпочтениями. Это имя Tunnelblick будет использовать для обозначения конфигурации.\n\n3. Добавьте раширение .tblk в конец имени папки.\n\n4. Запустите двойным щелчком на папке установку этой конфигурации.\n\nНовая конфигурация будет доступна в Tunnelblick сразу же.";
+
+/* Window text */
+"The username and the password must not be empty!\nPlease enter VPN username/password combination." = "Имя пользователя и пароль должны быть заполнены!\nПожалуйста, введите сочетание имя пользователя/пароль для VPN.";
+
+/* Window text */
+"There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Не ни одной установленной VPN конфигурации.\n\nЧтобы соединиться с VPN, Tunnelblick требует хотя бы одну конфигурацию. Обычно, файлы конфигураций предоставляются поставщиком VPN. Чтобы файлами можно было воспользоваться, они должны быть установлены.\n\nФайлы конфигураций обычно имеют расширение .tblk, .ovpn, или .conf.\n\n(К файлам конфигураций могут относится файлы и с другими расширениями, пока про них можно забыть.)\n\nУ вас есть какие-нибудь файлы конфигураций?\n";
+
+/* Window text */
+"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Есть два типа конфигурационных файлов:\n\n     • конфигурации Tunnelblick VPN (расширение .tblk)\n\n     • конфигурации OpenVPN (расширение .ovpn или .conf)\n\nУ вас какая в наличии?\n\n";
+
+/* Window text */
+"There was a problem with %d configurations. Details are in the Console Log\n\n" = "Проблемы в %d конфигурациях. Подробности в журнале Консоли\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "С одной из конфигураций возникли проблемы. Подробности в журнале Консоли\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Возникли некоторые проблемы с одной или несколькими конфигурациями. Подробности в журнале Консоли\n\n";
+
+/* Window text */
+"To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Двойной клик на файле с раширением .tblk, чтобы установить его как конфигурацию Tunnelblick VPN.\n\nНовая конфигурация будет доступна в Tunnelblick сразу же.";
+
+/* Window text */
+"To install it as a Tunnelblick VPN Configuration:\n\n1. Move or copy one OpenVPN configuration file (.ovpn or .conf extension) into the 'Empty Tunnelblick VPN Configuration' folder which has been created on the Desktop.\n\n2. Move or copy any key or certificate files associated with the configuration into the folder.\n\n3. Rename the folder to the name you want Tunnelblick to use for the configuration.\n\n4. Add an extension of .tblk to the end of the name of the folder.\n\n5. Double-click the folder to install it.\n\nThe new configuration will be available in Tunnelblick immediately.\n\n(For your convenience, the folder has been opened in a Finder window.)" = "Чтобы использовать как конфигурацию Tunnelblick VPN:\n\n1. Переместите или скопируйте файл конфигурации OpenVPN (расширение .ovpn или .conf) в папку 'Empty Tunnelblick VPN Configuration' которая была создана на Рабочем столе.\n\n2. Переместите или скопируйте файлы ключа и сертификата относящуеся к этой конфигурации в папку.\n\n3. Дайте папке имя, которое вы хотели бы видеть в Tunnelblick для этой конфигурации.\n\n4. Добавьте расширение .tblk в конец имени папки.\n\n5. Двойным щелчком на папке запустите установку конфигурации.\n\nНовая конфигурация будет доступна в Tunnelblick сразу же.\n\n(Для удобства папка была открыта в окне Finder.)";
+
+/* Window text */
+"Too many duplicate configurations already exist." = "Дублирующихся конфигураций уже и так слишком много.";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Конфигурация Tunnelblick VPN '%@' пустая. Создать образец конфигурации с таким именем?";
+
+/* Window text */
+"Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Из-за проблем с конфигурацией Tunnelblick не может быть запущен. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick не смог поменять владельца и права на конфигурационный файл чтобы его защитить. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not copy the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог скопировать конфигурацию '%@'. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick не смог создать папку для альтернативной локальной конфигурации. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not create the empty configuration folder" = "Tunnelblick не смог создать пустую папку для конфигурации";
+
+/* Window text */
+"Tunnelblick could not create the sample configuration" = "Tunnelblick не смог создать пример конфигурации";
+
+/* Window text */
+"Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог переместить конфигурацию '%@'. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог защитить конфигурацию '%@'. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not uninstall the '%@' configuration. See the Console Log for details." = "Tunnelblick не смог деинсталировать конфигурацию '%@'. Подробности в журнале Консоли.";
+
+/* Window text */
+"Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick не смог снять защиту с конфигурационного файла. Подробности в журнале Консоли.\n\nЖелаете посмотреть конфигурационный файл не взирая на невозможность его изменять?";
+
+/* Window text */
+"Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick не смог разрешить проблемы с предпочтениями '%@'. Подробности в журнале Консоли";
+
+/* Window text */
+"Tunnelblick has been secured successfully." = "Tunnelblick был успешно защищён";
+
+/* Window text */
+"Tunnelblick has disconnected '%@' because its configuration file has been removed." = "Tunnelblick отключил '%@' потому что его конфигурационный файл был удалён.";
+
+/* Window text */
+"Tunnelblick is based on %@. " = "Tunnelblick сделан на основе %@.";
+
+/* Window text */
+"Tunnelblick is ready." = "Tunnelblick готов.";
+
+/* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick'у требуется создать теневую копию конфигурационного файла.";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick'у требуется установить и/или удалить одну или больше конфигураций Tunnelblick VPN.";
+
+/* Window text */
+"Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick'у требуется установить одну или больше конфигураций Tunnelblick VPN.";
+
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Для обеспечения безопасности, Tunnelblick'у требуется восстановить владение/права на конфигурационный файл.";
+
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Для обеспечения безопасности, Tunnelblick'у требуется восстановить владение/права на теневую копию конфигурационного файла.";
+
+/* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick'у требуется обновить теневую копию конфигурационного файла из оригинала.";
+
+/* Window text */
+"Tunnelblick needs to:\n" = "Tunnelblick потребуется:\n";
+
+/* Window text */
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")"="Tunnelblick требует установленной OS X 10.4 или выше\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
+
+/* Window text */
+"Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick успешно установлен.\n\nЗапустить Tunnelblick?";
+
+/* Window text */
+"Tunnelblick was successfully replaced.\n\nDo you wish to launch the new version of Tunnelblick now?" = "Tunnelblick успешно заменён.\n\nЗапустить новую версию Tunnelblick?";
+
+/* Window text */
+"Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick не смог установить связь с существующим процессом OpenVPN '%1$@' в течении %2$d секунд. Больше попыток установить связь не делается.";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick не смог запустить OpenVPN чтобы соединиться с %@. Подробности в журнале OpenVPN в окне VPN Подробно…";
+
+/* Window text */
+"Unable to Establish Communication" = "Не удаётся установить связь";
+
+/* Window text */
+"Unexpected disconnection:" = "Неожиданный обрыв соединения:";
+
+/* Window text */
+"Updates:" = "Обновления:";
+
+/* Window text */
+"VPN Connections" = "VPN соединения:";
+
+/* Window text */
+"WINS servers:" = "WINS сервера:";
+
+/* Window text */
+"Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Предупреждение: Не удаётся дублировать одно или несколько предпочтений. Подробности в журнале Консоли.";
+
+/* Window text */
+"Warning: One or more preferences could not be renamed. See the Console Log for details." = "Предупреждение: Не удаётся переименовать одно или несколько предпочтений. Подробности в журнале Консоли.";
+
+/* Window text */
+"Warnings:" = "Предупреждения:";
+
+/* Window text */
+"When changes to anything else" = "Когда меняется на что-нибудь ещё";
+
+/* Window text */
+"When changes to pre-VPN value" = "Когда меняется на значение предшествовавшие VPN";
+
+/* Window text */
+"Workgroup:" = "Рабочая группа:";
+
+/* Window text */
+"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Желаете ли вы\n\n     • Создать конфигурацию с примером на Рабочем столе\n             и\n     • Открыть конфигурационный файл OpenVPN в TextEdit с тем, чтобы вы могли его поправить для соединения с вашим VPN?\n\n";
+
+/* Window text */
+"You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Вы не можете установить конфигурацию Tunnelblick VPN из установленной копии.\n\nАдминистратор может скопировать установленное и установить из копии.";
+
+/* Window text */
+"You cannot make a configuration private if it is set to start when the computer starts." = "Конфигурацию нельзя сделать личной, если она используется при запуске компьютера.";
+
+/* Window text */
+"You cannot make a configuration private unless it is disconnected." = "Вам необходимо отключить конфигурацию, прежде чем сделать её личной.";
+
+/* Window text */
+"You cannot make a configuration shared if it is not a Tunnelblick VPN Configuration (.tblk)." = "Конфигурацию нельзя сделать общей, если только это не конфигураци Tunnelblick VPN (.tblk).";
+
+/* Window text */
+"You cannot make a configuration shared unless it is disconnected." = "Вам необходимо отключить конфигурацию, прежде чем сделать её общей.";
+
+/* Window text */
+"You cannot rename a configuration unless it is disconnected." = "Вам необходимо отключить конфигурацию, прежде чем переименовывать.";
+
+/* Window text */
+"You have asked to duplicate '%@'." = "Вы попросили дублировать '%@'.";
+
+/* Window text */
+"You have asked to make the '%@' configuration private, instead of shared." = "Вы попросили сделать общую конфигурацию '%@' личной.";
+
+/* Window text */
+"You have asked to make the '%@' configuration shared, instead of private." = "Вы попросили сделать личную конфигурацию '%@' общей.";
+
+/* Window text */
+"You have asked to rename '%@' to '%@'." = "Вы попросили переименовать '%1$@' в '%2$@'.";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Вы попытались использовать точно такой же конфигурационный файл, как и файл примера, созданный при установке Tunnelblick'ом. Конфигурационный файл надо поменять, чтобы соединиться с VPN. Более того, вам могут потребоваться другие файлы, например ключи и сертификаты для соединения с VPN.\n\nПопросите администратора вашей сети или того, кто предоставляет вам VPN, выслать вам файлы конфигурации или подсказать, что поправить в файле примера.\n\nДокументация по OpenVPN находится здесь\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+
+/* Window text */
+"You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Вы можете просмотреть файл, но если вы планируете там что-то менять, потребуется снять защиту. Снятие защиты с файла приведёт к необходимости предоставить административные имя пользователя и пароль, при следующем соединении с его использованием.";
+
+/* Window text */
+"You may not delete a Deployed configuration." = "Нельзя удалять развёрнутые конфигурации.";
+
+/* Window text */
+"You may not delete a configuration unless it is disconnected." = "Нельзя удалить конфигурацию до тех пор, пока она используется (пока соединение установлено).";
+
+/* Window text */
+"You may not delete a configuration which is set to start when the computer starts." = "Нельзя удалять конфигурации, которые используются при запуске компьютера.";
+
+/* Window text */
+"You may not duplicate a Deployed configuration." = "Нельзя дублировать развёрнутые конфигурации.";
+
+/* Window text */
+"You may not duplicate a configuration which is set to start when the computer starts." = "Нельзя дублировать конфигурации, которые используются при запуске компьютера.";
+
+/* Window text */
+"You may not rename a Deployed configuration." = "Нельзя переименовывать развёрнутые конфигурации.";
+
+/* Window text */
+"You may not rename a configuration which is set to start when the computer starts." = "Нельзя переименовывать конфигурации, которые используются при запуске компьютера.";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Вы должны переустановить Tunnelblick. Пожалуйста, переместите Tunnelblick в Корзину и загрузите свежую копию. А дело было вот в чём:\n\n%@";
+
+/* Window text */
+"You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Чтобы запустить новую копию Tunnelblick надо остановить уже запущенную.\n\nНажмите \"Закрыть VPN соединения и остановить Tunnelblick\" чтобы закрыть все текущие VPN соединения Tunnelblick и выйти перед запуском новой копии Tunnelblick.";
+
+/* Window text */
+"You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Вы не сможете использовать Tunnelblick после обновления, если не предоставите административные имя пользователя и пароль. Вы уверены, что надо проверять обновления сейчас?";
+
+/* Window text */
+"\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Замечание: конфигурационные файлы (ключ, сертификат и т. д.) удаляться не будут.";
+
+/* Window text */
+"\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d конфигураций Tunnelblick VPN успешно установлены.";
+
+/* Window text */
+"\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nОдна конфигурация Tunnelblick VPN успешно установлена.";
+
+/* Window text */
+"\n\nand install %d Tunnelblick VPN Configurations" = "\n\nи установить %d конфигураций Tunnelblick VPN";
+
+/* Suffix for a duplicate of a file */
+" copy %d" = " копия %d";
+
+/* Suffix for a duplicate of a file */
+" copy" = " копия";
+
+/* Button VPNService */
+"Accept" = "Принять";
+
+/* Button VPNService */
+"Create a Free Account" = "Создать бесплатную учётную запись";
+
+/* Button VPNService */
+"Get Different Image" = "Получить другое изображение";
+
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Вход";
+
+/* Button VPNService */
+"Next" = "Далее";
+
+/* Button VPNService */
+"Reject" = "Отклонить";
+
+/* Menu item VPNService */
+"Register for Tunnelblick..." = "Регистрация в Tunnelblick…";
+
+/* Window title  VPNService */
+"Cannot obtain image" = "Изображение получить не удалось";
+
+/* Window title  VPNService */
+"Cannot register" = "Зарегистрировать не получилось";
+
+/* Window title  VPNService */
+"Email not verified" = "Адрес эл. почты не подтверждён";
+
+/* Window title  VPNService */
+"Entries required" = "Требуется ввести данные";
+
+/* Window title  VPNService */
+"Failed to load Terms of Service" = "Загрузка Условий О Предоставлении Услуги не удалась";
+
+/* Window title VPNService */
+"No configuration available" = "Нет доступной конфигурации";
+
+/* Window title  VPNService */
+"Password entries must match" = "Введённые пароли должны совпадать";
+
+/* Window title  VPNService */
+"Prove You are Human" = "Докажите, что вы Человек";
+
+/* Window title  VPNService */
+"Register with Tunnelblick" = "Зарегистрироваться через Tunnelblick";
+
+/* Window title  VPNService */
+"Sorry" = "Извините";
+
+/* Window title  VPNService */
+"Terms of Service" = "Соглашение О Предоставлении Услуги";
+
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - бесплатный VPN";
+
+/* Window title  VPNService */
+"Welcome!" = "Добро пожаловать!";
+
+/* Window title  VPNService */
+"You Must Type the Characters" = "Вы должны ввести символы";
+
+/* Window text VPNService */
+"Confirm password:" = "Подтверждение пароля:";
+
+/* Window text VPNService */
+"Congratulations! Your account has been created. You should receive an email from Tunnelblick soon. Follow the instructions in the email to verify your email address and then click 'Next'." = "Поздравляем! Ваша учётная запись создана. Вскоре вы должны получить эл. письмо от Tunnelblick. Чтобы подтвердить адрес эл. почты - следуйте инструкциям в письме, после чего нажмите 'Далее'.";
+
+/* Window text VPNService */
+"Could not check registration" = "Не получается проверить регистрацию";
+
+/* Window text VPNService */
+"Could not get a captcha image" = "Не получается получить изображение CAPTCHA";
+
+/* Window text VPNService */
+"Could not get a session token" = "Не получается получить токен сессии";
+
+/* Window text VPNService */
+"Email address %@ is already registered for an account" = "Адрес эл. почты %@ уже зарегистрирован на учётную запись";
+
+/* Window text VPNService */
+"Email address:" = "Адрес эл. почты:";
+
+/* Window text VPNService */
+"Invalid URL: %@" = "Недействительный адрес URL: %@";
+
+/* Window text VPNService */
+"No valid session token." = "Токен сессии недействительный.";
+
+/* Window text VPNService */
+"Please read our Terms of Service and indicate your acceptance or rejection of them." = "Прочтите пожалуйста Условия Предоставления Услуги, и выразите своё согласие или отказ от использования.";
+
+/* Window text VPNService */
+"Please type the characters in the image and click next." = "Наберите символы на картинке и нажмите 'Далее'";
+
+/* Window text VPNService */
+"Session token requires encoding" = "Токен сессии требует шифрования";
+
+/* Window text VPNService */
+"Session token too long" = "Токен сессии слишком длинный";
+
+/* Window text VPNService */
+"Sorry, but your request for an account could not be processed:\n     %@" = "Извините, но ваш запрос об учётной записи не получается обработать:\n     %@";
+
+/* Window text VPNService */
+"Terms of service are unavailable." = "Условия предоставления услуги недоступны.";
+
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "Не получается загрзить Условия Предоставления Услуги:";
+
+/* Window text VPNService */
+"The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "Адрес эл. почты не подтверждён.\n\nВы не сможете войти и пользоваться VPN до тех пор, пока адрес эл. почты не будет подтверждён. Соответствующие инструкции, вы получили в письме от Tunnelblick при регистрации.";
+
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "Введённый адрес эл. почты некорректен.";
+
+/* Window text VPNService */
+"The password entries must match to proceed." = "Пароли должны совпадать.";
+
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "Введённый текст не соответствует тексту на картинке.";
+
+/* Window text VPNService */
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Конфигурация с именем '%@' не установлена.\n\nПопробуйте переустановить Tunnelblick с образа диска.";
+
+/* Window text VPNService */
+"To create your free Tunnelblick account we need your email address and a password of your choosing." = "Для того чтобы создать бесплатную учётную запись на Tunnelblick, нам нужен ваш адрес эл. почты, и пароль на ваш выбор.";
+
+/* Window text VPNService */
+"Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick позволяет свободно путешествовать по интернету и в то же время защитить ваше интернет подключение.";
+
+/* Window text VPNService */
+"Type the characters above:" = "Введите символы выше:";
+
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "Невозможно проверить состояние учётной записи:\n     %@";
+
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "С пустым адресом эл. почты проверить регистрацию невозможно.";
+
+/* Window text VPNService */
+"Unable to connect to server" = "Невозможно соединиться с сервером.";
+
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "Вы уже зарегистрировались, но не подтвердили свой адрес эл. почты.";
+
+/* Window text VPNService */
+"You have already registered." = "Вы уже зарегистрировались.";
+
+/* Window text VPNService */
+"You must enter an email address and password to login." = "Для того, чтобы войти, вы должны ввести адрес эл. почты и пароль.";
+
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "Чтобы продолжить, вы должны ввести адрес эл. почты, пароль и подтверждение пароля.";
+
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "Необходимо ввести символы на изображении, чтобы продолжить.";
+
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Состояние вашей учётной записи не подтверждено:\n     %@.";
+
