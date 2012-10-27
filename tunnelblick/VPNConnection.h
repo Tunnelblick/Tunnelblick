@@ -116,9 +116,7 @@ struct Statistics {
     BOOL            loadedOurTun;       // True iff last connection loaded our tun kext
     BOOL            logFilesMayExist;   // True iff have tried to connect (thus may have created log files) or if hooked up to existing OpenVPN process
     BOOL            showingStatusWindow; // True iff displaying statusScreen
-    BOOL            ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
-	BOOL            speakWhenConnected; // True iff should speak that we are connected
-	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
+   BOOL             ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
 }
 
 // PUBLIC METHODS:
@@ -159,8 +157,6 @@ struct Statistics {
 
 -(void)             readStatisticsTo:           (struct Statistics *)  returnValue;
 
--(void)				initializeAuthAgent;
-
 -(id)               initWithConfigPath:         (NSString *)    inPath
                        withDisplayName:         (NSString *)    inDisplayName;
 
@@ -198,13 +194,9 @@ struct Statistics {
 
 -(void)             setState:                   (NSString *)    newState;
 
--(BOOL)				shadowIsIdenticalMakeItSo:  (BOOL)		    makeItSo;
-
 -(BOOL)             shouldDisconnectWhenBecomeInactiveUser;
 
 -(void)             showStatusWindow;
-
--(void)             speakActivity:              (NSString *)    activityName;
 
 -(void)             startMonitoringLogFiles;
 -(void)             stopMonitoringLogFiles;
@@ -215,7 +207,7 @@ struct Statistics {
 
 -(IBAction)         toggle:                     (id)            sender;
 
--(void)             tryToHookupToPort:          (unsigned)      inPortNumber
+-(void)             tryToHookupToPort:          (int)           inPortNumber
                  withOpenvpnstartArgs:          (NSString *)    inStartArgs;
 
 -(int)              useDNSStatus;
@@ -224,8 +216,6 @@ struct Statistics {
 
 TBPROPERTY_WRITEONLY(NSSound *, tunnelUpSound, setTunnelUpSound)
 TBPROPERTY_WRITEONLY(NSSound *, tunnelDownSound, setTunnelDownSound)
-TBPROPERTY_WRITEONLY(BOOL, speakWhenConnected, setSpeakWhenConnected)
-TBPROPERTY_WRITEONLY(BOOL, speakWhenDisconnected, setSpeakWhenDisconnected)
 TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
 
 //*********************************************************************************************************

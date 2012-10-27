@@ -269,8 +269,8 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 
 -(void) removePathFromQueue: (NSString*)path
 {
-    unsigned index = 0;
-    int		 fd = -1;
+    int		index = 0;
+    int		fd = -1;
     
     AT_SYNCHRONIZED( self )
     {
@@ -299,7 +299,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 //      2004-12-28  UK  Added as suggested by bbum.
 // -----------------------------------------------------------------------------
 
--(void) removeAllPathsFromQueue
+-(void) removeAllPathsFromQueue;
 {
     AT_SYNCHRONIZED( self )
     {
@@ -337,8 +337,6 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 
 -(void)		watcherThread: (id)sender
 {
-	(void) sender;
-	
 	int					n;
     struct kevent		ev;
     struct timespec     timeout = { 5, 0 }; // 5 seconds timeout.

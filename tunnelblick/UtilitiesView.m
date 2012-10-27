@@ -40,15 +40,12 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
-	
-	(void) dirtyRect;
 }
 
 -(void) awakeFromNib
 {
     [utilitiesKillAllOpenVpnButton setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
     [utilitiesKillAllOpenVpnButton sizeToFit];
-	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILL];
     
     NSString * easyRsaPathMessage;
     if (  [gTbDefaults objectForKey: @"easy-rsaPath"]  ) {

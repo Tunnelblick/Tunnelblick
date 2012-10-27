@@ -20,6 +20,7 @@
  */
 
 
+#import <Cocoa/Cocoa.h>
 #import "defines.h"
 #import "DBPrefsWindowController.h"
 
@@ -61,22 +62,22 @@
     
     BOOL                           doNotPlaySounds;                  // Used to inhibit playing sounds while switching configurations
     
-    NSUInteger                     selectedWhenToConnectIndex;
+    NSInteger                      selectedWhenToConnectIndex;
     
-    NSUInteger                     selectedLeftNavListIndex;
-    IBOutlet NSUInteger            selectedSetNameserverIndex;
-    IBOutlet NSUInteger            selectedSoundOnConnectIndex;
-    IBOutlet NSUInteger            selectedSoundOnDisconnectIndex;    
+    NSInteger                      selectedLeftNavListIndex;
+    IBOutlet NSInteger             selectedSetNameserverIndex;
+    IBOutlet NSInteger             selectedSoundOnConnectIndex;
+    IBOutlet NSInteger             selectedSoundOnDisconnectIndex;    
     
     
     // For GeneralView
-    IBOutlet NSUInteger            selectedOpenvpnVersionIndex;
-    IBOutlet NSUInteger            selectedKeyboardShortcutIndex;
-    IBOutlet NSUInteger            selectedMaximumLogSizeIndex;
+    IBOutlet NSInteger             selectedOpenvpnVersionIndex;
+    IBOutlet NSInteger             selectedKeyboardShortcutIndex;
+    IBOutlet NSInteger             selectedMaximumLogSizeIndex;
     
     // For AppearanceView
-    IBOutlet NSUInteger            selectedAppearanceIconSetIndex;
-    IBOutlet NSUInteger            selectedAppearanceConnectionWindowDisplayCriteriaIndex;
+    IBOutlet NSInteger             selectedAppearanceIconSetIndex;
+    IBOutlet NSInteger             selectedAppearanceConnectionWindowDisplayCriteriaIndex;
 }
 
 
@@ -107,7 +108,6 @@
 -(IBAction) renameConfigurationMenuItemWasClicked:    (id) sender;
 -(IBAction) duplicateConfigurationMenuItemWasClicked: (id) sender;
 -(IBAction) makePrivateOrSharedMenuItemWasClicked:    (id) sender;
--(IBAction) revertToShadowMenuItemWasClicked:         (id) sender;
 -(IBAction) editOpenVPNConfigurationFileMenuItemWasClicked: (id) sender;
 -(IBAction) showOpenvpnLogMenuItemWasClicked:         (id)  sender;
 -(IBAction) removeCredentialsMenuItemWasClicked:      (id) sender;
@@ -123,8 +123,6 @@
 
 -(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:    (id) sender;
 
--(void)		validateDetailsWindowControls;
-
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
 -(IBAction) whenToConnectTunnelBlickLaunchMenuItemWasClicked: (id) sender;
 -(IBAction) whenToConnectOnComputerStartMenuItemWasClicked:   (id) sender;
@@ -134,9 +132,8 @@
 
 // Methods for GeneralView
 
+-(IBAction) useShadowCopiesCheckboxWasClicked:            (id) sender;
 -(IBAction) monitorConfigurationFolderCheckboxWasClicked: (id) sender;
-
--(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender;
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
 -(IBAction) updatesCheckNowButtonWasClicked:              (id) sender;
@@ -156,8 +153,6 @@
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (id) sender;
 
 -(IBAction) appearanceDisplayStatisticsWindowCheckboxWasClicked:   (id) sender;
-
--(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender;
 
 -(IBAction) appearanceHelpButtonWasClicked:                        (id) sender;
 
@@ -179,18 +174,18 @@
 
 TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)
 
-TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
+TBPROPERTY_READONLY(NSInteger, selectedWhenToConnectIndex)
 
-TBPROPERTY(NSUInteger, selectedLeftNavListIndex,       setSelectedLeftNavListIndex)
-TBPROPERTY(NSUInteger, selectedSetNameserverIndex,     setSelectedSetNameserverIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnConnectIndex,    setSelectedSoundOnConnectIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnDisconnectIndex, setSelectedSoundOnDisconnectIndex)
+TBPROPERTY(NSInteger, selectedLeftNavListIndex,       setSelectedLeftNavListIndex)
+TBPROPERTY(NSInteger, selectedSetNameserverIndex,     setSelectedSetNameserverIndex)
+TBPROPERTY(NSInteger, selectedSoundOnConnectIndex,    setSelectedSoundOnConnectIndex)
+TBPROPERTY(NSInteger, selectedSoundOnDisconnectIndex, setSelectedSoundOnDisconnectIndex)
 
-TBPROPERTY(NSUInteger, selectedOpenvpnVersionIndex,   setSelectedOpenvpnVersionIndex)
-TBPROPERTY(NSUInteger, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
-TBPROPERTY(NSUInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
+TBPROPERTY(NSInteger, selectedOpenvpnVersionIndex,   setSelectedOpenvpnVersionIndex)
+TBPROPERTY(NSInteger, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
+TBPROPERTY(NSInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
 
-TBPROPERTY(NSUInteger, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
-TBPROPERTY(NSUInteger, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
+TBPROPERTY(NSInteger, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
+TBPROPERTY(NSInteger, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
 
 @end

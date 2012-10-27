@@ -275,7 +275,7 @@ NSString * standardizedString(NSString * s, NSRange r)
     NSMutableArray * trimmedLines = [NSMutableArray arrayWithCapacity: [lines count]];
     NSString * line;
     NSEnumerator * lineEnum = [lines objectEnumerator];
-    while (  (line = [lineEnum nextObject])  ) {
+    while (  line = [lineEnum nextObject]  ) {
         [trimmedLines addObject: [line stringByTrimmingCharactersInSet: ws]];
     }
     

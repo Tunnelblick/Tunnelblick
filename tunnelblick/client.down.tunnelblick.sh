@@ -12,59 +12,6 @@
 # 
 # ******************************************************************************************************************
 
-# @param String message - The message to log
-logMessage()
-{
-echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
-}
-
-trim()
-{
-echo ${@}
-}
-
-##########################################################################################
-flushDNSCache()
-{
-    if ${ARG_FLUSH_DNS_CACHE} ; then
-        readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
-        case "${OSVER}" in
-            10.4 )
-                if [ -f /usr/sbin/lookupd ] ; then
-                    /usr/sbin/lookupd -flushcache
-                    logMessage "Flushed the DNS Cache"
-                else
-                    logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
-                fi
-                ;;
-            10.5 | 10.6 )
-                if [ -f /usr/bin/dscacheutil ] ; then
-                    /usr/bin/dscacheutil -flushcache
-                    logMessage "Flushed the DNS Cache"
-                else
-                    logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache"
-                fi
-                ;;
-            * )
-				set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
-				set -e # We instruct bash that it CAN again fail on errors
-				if [ "${hands_off_ps}" = "" ] ; then
-					if [ -f /usr/bin/killall ] ; then
-						/usr/bin/killall -HUP mDNSResponder
-						logMessage "Flushed the DNS Cache"
-					else
-						logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
-					fi
-				else
-					logMessage "Hands Off is running. Not flushing the DNS cache"
-				fi
-                ;;
-        esac
-    fi
-}
-
-##########################################################################################
 trap "" TSTP
 trap "" HUP
 trap "" INT
@@ -82,12 +29,11 @@ fi
 # NOTE: This script does not use any arguments passed to it by OpenVPN, so it doesn't shift Tunnelblick options out of the argument list
 
 # Get info saved by the up script
-TUNNELBLICK_CONFIG="$( scutil <<-EOF
+TUNNELBLICK_CONFIG="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN
 	quit
-EOF
-)"
+EOF)"
 
 ARG_MONITOR_NETWORK_CONFIGURATION="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*MonitorNetwork :' | sed -e 's/^.*: //g')"
 LEASEWATCHER_PLIST_PATH="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*LeaseWatcherPlistPath :' | sed -e 's/^.*: //g')"
@@ -98,10 +44,20 @@ SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLo
 # Don't need: PROCESS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*PID :' | sed -e 's/^.*: //g')"
 # Don't need: ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
-ARG_FLUSH_DNS_CACHE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*FlushDNSCache :' | sed -e 's/^.*: //g')"
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
 bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
 bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
+
+# @param String message - The message to log
+logMessage()
+{
+	echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
+}
+
+trim()
+{
+	echo ${@}
+}
 
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
@@ -118,13 +74,11 @@ if ${ARG_TAP} ; then
 fi
 
 # Issue warning if the primary service ID has changed
-PSID_CURRENT="$( scutil <<-EOF |
+PSID_CURRENT="$( (scutil | grep Service | sed -e 's/.*Service : //')<<- EOF
 	open
 	show State:/Network/OpenVPN
 	quit
-EOF
-grep Service | sed -e 's/.*Service : //'
-)"
+EOF)"
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
 	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
 fi
@@ -136,36 +90,33 @@ if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 fi
 
 # Restore configurations
-DNS_OLD="$( scutil <<-EOF
+DNS_OLD="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldDNS
 	quit
-EOF
-)"
-SMB_OLD="$( scutil <<-EOF
+EOF)"
+SMB_OLD="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldSMB
 	quit
-EOF
-)"
-DNS_OLD_SETUP="$( scutil <<-EOF
+EOF)"
+DNS_OLD_SETUP="$(/usr/sbin/scutil <<-EOF
 	open
 	show State:/Network/OpenVPN/OldDNSSetup
 	quit
-EOF
-)"
+EOF)"
 TB_NO_SUCH_KEY="<dictionary> {
   TunnelblickNoSuchKey : true
 }"
 
 if [ "${DNS_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<-EOF
+	scutil <<- EOF
 		open
 		remove State:/Network/Service/${PSID}/DNS
 		quit
 EOF
 else
-	scutil <<-EOF
+	scutil <<- EOF
 		open
 		get State:/Network/OpenVPN/OldDNS
 		set State:/Network/Service/${PSID}/DNS
@@ -176,7 +127,7 @@ fi
 if [ "${DNS_OLD_SETUP}" = "${TB_NO_SUCH_KEY}" ] ; then
 	if ${bSetSetupDNSStateKeys} ; then
 		logMessage "DEBUG: Removing 'Setup:' DNS key"
-		scutil <<-EOF
+		scutil <<- EOF
 			open
 			remove Setup:/Network/Service/${PSID}/DNS
 			quit
@@ -187,7 +138,7 @@ EOF
 else
 	if ${bSetSetupDNSStateKeys} ; then
 		logMessage "DEBUG: Restoring 'Setup:' DNS key"
-		scutil <<-EOF
+		scutil <<- EOF
 			open
 			get State:/Network/OpenVPN/OldDNSSetup
 			set Setup:/Network/Service/${PSID}/DNS
@@ -199,13 +150,13 @@ EOF
 fi
 
 if [ "${SMB_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<-EOF
+	scutil <<- EOF
 		open
 		remove State:/Network/Service/${PSID}/SMB
 		quit
 EOF
 else
-	scutil <<-EOF
+	scutil <<- EOF
 		open
 		get State:/Network/OpenVPN/OldSMB
 		set State:/Network/Service/${PSID}/SMB
@@ -215,10 +166,8 @@ fi
 
 logMessage "Restored the DNS and SMB configurations"
 
-flushDNSCache
-
 # Remove our system configuration data
-scutil <<-EOF
+scutil <<- EOF
 	open
 	remove State:/Network/OpenVPN/OldDNS
 	remove State:/Network/OpenVPN/OldSMB

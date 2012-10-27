@@ -34,8 +34,7 @@
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    self = [super initWithWindowNibName:@"LoginWindow"];
-    if (  ! self  ) {
+    if (  ![super initWithWindowNibName:@"LoginWindow"]  ) {
         return nil;
     }
     
@@ -49,21 +48,9 @@
     
     [iconIV setImage: [NSApp applicationIconImage]];
     
-	NSString * displayName = [[self delegate] displayName];
-	NSString * groupMsg;
-	NSString * group = credentialsGroupFromDisplayName(displayName);
-	if (  group  ) {
-		groupMsg = [NSString stringWithFormat: NSLocalizedString(@"\nusing %@ credentials.", @"Window text"),
-					group];
-	} else {
-		groupMsg = @"";
-	}
-
     NSString * text = [NSString stringWithFormat:
-                       NSLocalizedString(@"A username and password are required to connect to\n  %@%@", @"Window text"),
-                       displayName,
-					   groupMsg];
-	
+                       NSLocalizedString(@"A username and password are required to connect to\n  %@", @"Window text"),
+                       [[self delegate] displayName]];
     [mainText setTitle: text];
     
     [usernameTFC setTitle: NSLocalizedString(@"Username:", @"Window text")];
@@ -123,17 +110,13 @@
 
 - (IBAction) cancelButtonWasClicked: sender
 {
- 	(void) sender;
-	
-   [cancelButton setEnabled: NO];
+    [cancelButton setEnabled: NO];
     [OKButton setEnabled: NO];
     [NSApp abortModal];
 }
 
 - (IBAction) OKButtonWasClicked: sender
 {
-	(void) sender;
-	
     if (   ( [[[self username] stringValue] length] == 0 )
         || ( [[[self password] stringValue] length] == 0 )  ){
         TBRunAlertPanel(NSLocalizedString(@"Please enter a username and password.", @"Window title"),

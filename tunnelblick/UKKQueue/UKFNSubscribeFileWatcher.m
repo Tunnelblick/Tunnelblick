@@ -144,8 +144,6 @@ void    UKFileSubscriptionProc(FNMessage message, OptionBits flags, void *refcon
 
 -(void) sendDelegateMessage: (FNMessage)message forSubscription: (FNSubscriptionRef)subscription
 {
-	(void) message;
-	
     NSValue*                    subValue = [NSValue valueWithPointer: subscription];
     NSString*                   path = [[subscriptions allKeysForObject: subValue] objectAtIndex: 0];
     
@@ -194,8 +192,6 @@ void    UKFileSubscriptionProc(FNMessage message, OptionBits flags, void *refcon
 
 void    UKFileSubscriptionProc( FNMessage message, OptionBits flags, void *refcon, FNSubscriptionRef subscription )
 {
-	(void) flags;
-	
     UKFNSubscribeFileWatcher*   obj = (UKFNSubscribeFileWatcher*) refcon;
     
     if( message == kFNDirectoryModifiedMessage )    // No others exist as of 10.4

@@ -28,6 +28,4 @@
 
 -(NSComparisonResult) caseInsensitiveNumericCompare: (NSString*) theString;
 
--(unsigned) unsignedIntValue;
-
 @end

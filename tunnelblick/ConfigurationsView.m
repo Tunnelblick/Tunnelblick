@@ -47,8 +47,6 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
-	
-	(void) dirtyRect;
 }
 
 -(void) awakeFromNib
@@ -63,7 +61,6 @@ extern TBUserDefaults * gTbDefaults;
     
     [renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
-    [revertToShadowMenuItem			      setTitle: NSLocalizedString(@"Revert Configuration..."                          , @"Menu Item")];
     [editOpenVPNConfigurationFileMenuItem setTitle: NSLocalizedString(@"Edit OpenVPN Configuration File..."               , @"Menu Item")];
     [showOpenvpnLogMenuItem               setTitle: NSLocalizedString(@"Show OpenVPN Log in Finder"                       , @"Menu Item")];
     [removeCredentialsMenuItem            setTitle: NSLocalizedString(@"Delete Configuration's Credentials in Keychain...", @"Menu Item")];
@@ -132,6 +129,7 @@ extern TBUserDefaults * gTbDefaults;
     }
 }
 
+
 //***************************************************************************************************************
 // Getters
 
@@ -147,7 +145,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   workOnConfigurationArrayC
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          renameConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          duplicateConfigurationMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          makePrivateOrSharedMenuItem)
-TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          revertToShadowMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOpenvpnLogMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          removeCredentialsMenuItem)

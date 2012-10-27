@@ -61,8 +61,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    self = [super initWithWindowNibName:@"StatusWindow"];
-    if (  ! self  ) {
+    if (  ![super initWithWindowNibName:@"StatusWindow"]  ) {
         return nil;
     }
     
@@ -113,13 +112,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) restore
 {
-    if (   [status isEqualToString: @"EXITING"]  ) {
-		[connectButton setEnabled: YES];
-		[disconnectButton setEnabled: NO];
-    } else {
-		[connectButton setEnabled: NO];
-		[disconnectButton setEnabled: YES];
-    }
+    [cancelButton setEnabled: YES];
     [self startMouseTracking];
     [self setSizeAndPosition];
     [[self window] display];
@@ -168,13 +161,13 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     // But the number in each column and row needs to be calculated.
     
     double verticalScreenSize = screen.size.height - 10.0;  // Size we can use on the screen
-    NSUInteger screensWeCanStackVertically = (unsigned) (verticalScreenSize / (panelFrame.size.height + 5));
+    NSUInteger screensWeCanStackVertically = verticalScreenSize / (panelFrame.size.height + 5);
     if (  screensWeCanStackVertically < 1  ) {
         screensWeCanStackVertically = 1;
     }
     
     double horizontalScreenSize = screen.size.width - 10.0;  // Size we can use on the screen
-    NSUInteger screensWeCanStackHorizontally = (unsigned) (horizontalScreenSize / (panelFrame.size.width + 5));
+    NSUInteger screensWeCanStackHorizontally = horizontalScreenSize / (panelFrame.size.width + 5);
     if (  screensWeCanStackHorizontally < 1  ) {
         screensWeCanStackHorizontally = 1;
     }
@@ -261,7 +254,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     double horizontalPosition = screen.origin.x + screen.size.width  - panelFrame.size.width  - 10.0 - horizontalOffset + screenOverlapHorizontalOffset;
     
     // Put the window in the upper-right corner of the screen but offset in X and Y by the position number    
-    NSRect onScreenRect = NSMakeRect((float)horizontalPosition, (float)verticalPosition, panelFrame.size.width, panelFrame.size.height);
+    NSRect onScreenRect = NSMakeRect(horizontalPosition,
+                              verticalPosition,
+                              panelFrame.size.width,
+                              panelFrame.size.height);
     
     [panel setFrame: onScreenRect display: YES];
     currentWidth = onScreenRect.size.width;
@@ -280,12 +276,9 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     if (  ! runningOnLeopardOrNewer()  ) {
         [[self window] setBackgroundColor: [NSColor blackColor]];
-        [[self window] setAlphaValue: 0.77f];
+        [[self window] setAlphaValue: 0.77];
     }
     
-	[self setTitle: localizeNonLiteral(@"Connect",    @"Button") ofControl: connectButton];
-	[self setTitle: localizeNonLiteral(@"Disconnect", @"Button") ofControl: disconnectButton];
-
     [self setSizeAndPosition];
     [[self window] setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
     
@@ -316,14 +309,10 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     float widthChange = newRect.size.width - oldRect.size.width;
     NSRect oldPos;
     
-    if (   [theControl isEqual: connectButton]  ) {  // Shift the disconnect button left/right if necessary
-        oldPos = [disconnectButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [disconnectButton setFrame:oldPos];
-    } else if (   [theControl isEqual: disconnectButton]  ) {
-        oldPos = [disconnectButton frame];
+    if (   [theControl isEqual: cancelButton]  ) {  // Shift the control itself left/right if necessary
+        oldPos = [theControl frame];
         oldPos.origin.x = oldPos.origin.x - (widthChange/2);
-        [disconnectButton setFrame:oldPos];
+        [theControl setFrame:oldPos];
     }
 }
 
@@ -357,7 +346,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     CGFloat maxWidth = 0.0;
     NSString * unitsName;
     NSEnumerator * e = [array objectEnumerator];
-    while (  (unitsName = [e nextObject])  ) {
+    while (  unitsName = [e nextObject]  ) {
         [tfc1 setTitle: unitsName];
         [tf1 sizeToFit];
         NSRect f = [tf1 frame];
@@ -382,7 +371,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void) initialiseAnim
 {
     if (  theAnim == nil  ) {
-        unsigned i;
+        int i;
         // theAnim is an NSAnimation instance variable
         theAnim = [[NSAnimation alloc] initWithDuration:2.0
                                          animationCurve:NSAnimationLinear];
@@ -391,7 +380,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         
         for (i=1; i<=[[[NSApp delegate] largeAnimImages] count]; i++) {
             NSAnimationProgress p = ((float)i)/((float)[[[NSApp delegate] largeAnimImages] count]);
-            [theAnim addProgressMark: p];
+            [theAnim addProgressMark:p];
         }
         [theAnim setAnimationBlockingMode:  NSAnimationNonblocking];
         [theAnim startAnimation];
@@ -400,10 +389,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void)animationDidEnd:(NSAnimation*)animation
 {
-	if (  animation != theAnim  ) {
-		return;
-	}
-	
 	if (   (![status isEqualToString:@"EXITING"])
         && (![status isEqualToString:@"CONNECTED"])) {
 		[theAnim startAnimation];
@@ -413,7 +398,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 -(void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress
 {
 	if (animation == theAnim) {
-        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[[NSApp delegate] largeAnimImages] objectAtIndex:(unsigned) lround(progress * [[[NSApp delegate] largeAnimImages] count]) - 1] waitUntilDone:YES];
+        [animationIV performSelectorOnMainThread:@selector(setImage:) withObject:[[[NSApp delegate] largeAnimImages] objectAtIndex:lround(progress * [[[NSApp delegate] largeAnimImages] count]) - 1] waitUntilDone:YES];
 	}
 }
 
@@ -475,8 +460,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) closeAfterFadeOutHandler: (NSTimer *) timer
 {
-	(void) timer;
-	
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -486,8 +469,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(void) closeAfterFadeOut: (NSDictionary *) dict
 {
-	(void) dict;
-	
     if ( [[self window] alphaValue] == 0.0 ) {
         [[self window] close];
     } else {
@@ -500,19 +481,11 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 }
 
-- (IBAction) connectButtonWasClicked: sender
+- (IBAction) cancelButtonWasClicked: sender
 {
     [sender setEnabled: NO];
 	[[NSApp delegate] statusWindowController: self
-                          finishedWithChoice: statusWindowControllerConnectChoice
-                              forDisplayName: [self name]];
-}
-
-- (IBAction) disconnectButtonWasClicked: sender
-{
-    [sender setEnabled: NO];
-	[[NSApp delegate] statusWindowController: self
-                          finishedWithChoice: statusWindowControllerDisconnectChoice
+                          finishedWithChoice: (cancelButtonIsConnectButton ? statusWindowControllerConnectChoice : statusWindowControllerDisconnectChoice)
                               forDisplayName: [self name]];
 }
 
@@ -524,8 +497,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
 
-    [connectButton   release];
-    [disconnectButton release];
+    [cancelButton   release];
     
     [statusTFC      release];
     [animationIV    release];
@@ -554,6 +526,14 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     return [[configurationNameTFC retain] autorelease];
 }
 
+-(void) setCancelButtonTitle: (NSString *) buttonName {
+    if (  cancelButton  ) {
+        [self setTitle: localizeNonLiteral(buttonName, @"Button") ofControl: cancelButton ];
+        [cancelButton setEnabled: YES];
+        cancelButtonIsConnectButton = [buttonName isEqualToString: @"Connect"];
+    }
+}
+
 -(void) setStatus: (NSString *) theStatus forName: (NSString *) theName connectedSince: (NSString *) theTime
 {
     if (  gShuttingDownWorkspace  ) {
@@ -578,23 +558,20 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [statusTFC            setTextColor: [NSColor redColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeMainImage]];
-		[connectButton setEnabled: YES];
-		[disconnectButton setEnabled: NO];
+        [self setCancelButtonTitle: @"Connect"];
         
     } else if (  [theStatus isEqualToString: @"CONNECTED"]  ) {
         [configurationNameTFC setTextColor: [NSColor greenColor]];
         [statusTFC            setTextColor: [NSColor greenColor]];
         [theAnim stopAnimation];
         [animationIV setImage: [[NSApp delegate] largeConnectedImage]];
-		[connectButton setEnabled: NO];
-		[disconnectButton setEnabled: YES];
+        [self setCancelButtonTitle: @"Disconnect"];
 
     } else {
         [configurationNameTFC setTextColor: [NSColor yellowColor]];
         [statusTFC            setTextColor: [NSColor yellowColor]];
         [theAnim startAnimation];
-		[connectButton setEnabled: NO];
-		[disconnectButton setEnabled: YES];
+        [self setCancelButtonTitle: @"Disconnect"];
     }
 }
 
@@ -646,8 +623,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
 -(void) NSWindowWillCloseNotification: (NSNotification *) n {
     // Event handler; NOT on MainThread
     
-	(void) n;
-	
     [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
 }
 @end

@@ -31,13 +31,7 @@ extern TBUserDefaults  * gTbDefaults;
 @interface AuthAgent()          // PRIVATE METHODS
 
 -(NSString *)   displayName;
--(void)         setDisplayName:                (NSString *)value;
-
--(NSString *)   group;
--(void)         setGroup:                      (NSString *)value;
-
--(NSString *)   credentialsName;
--(void)         setCredentialsName:            (NSString *)value;
+-(void)         setDisplayName:                      (NSString *)value;
 
 -(void) setUsernameKeychain: (KeyChain *) newKeyChain;
 -(void) setPasswordKeychain: (KeyChain *) newKeyChain;
@@ -52,40 +46,22 @@ extern TBUserDefaults  * gTbDefaults;
 
 @implementation AuthAgent
 
--(id) initWithConfigName: (NSString *)inConfigName
-		credentialsGroup: (NSString *)inGroup
+-(id) initWithConfigName:(NSString *)inConfigName
 {
-	if (  ! inConfigName  ) return nil;
-	
-    if (  (self = [super init])  ) {
-		
+	if (inConfigName == nil) return nil;
+    if (self = [super init]) {
+        [self setDisplayName:inConfigName];
+        
         passphrase = nil;
         username   = nil;
         password   = nil;
         
-		NSString * allUseGroup = [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"];
-		if (  allUseGroup  ) {
-			inGroup = allUseGroup;
-		}
-		
-        displayName = [inConfigName copy];
-        group = [inGroup copy];
-        
-		NSString * prefix;
-        if (  inGroup  ) {
-			prefix = @"Tunnelblick-Auth-Group-";
-            credentialsName = [group copy];
-        } else {
-			prefix = @"Tunnelblick-Auth-";
-            credentialsName = [displayName copy];
-        }
-		
-        passphraseKeychain      = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"privateKey" ];
-        usernameKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"username"   ];
-        passwordKeychain        = [[KeyChain alloc] initWithService:[prefix stringByAppendingString:[self credentialsName]] withAccountName: @"password"   ];
+        passphraseKeychain      = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"privateKey" ];
+        usernameKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"username"   ];
+        passwordKeychain        = [[KeyChain alloc] initWithService:[@"Tunnelblick-Auth-" stringByAppendingString:[self displayName]] withAccountName: @"password"   ];
 
-		passphrasePreferenceKey = [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey",          [self credentialsName]];
-        usernamePreferenceKey   = [[NSString alloc] initWithFormat: @"%@-keychainHasUsernameAndPassword", [self credentialsName]];
+        passphrasePreferenceKey = [[NSString alloc] initWithFormat:@"%@-keychainHasPrivateKey",             [self displayName]   ];
+        usernamePreferenceKey   = [[NSString alloc] initWithFormat:@"%@-keychainHasUsernameAndPassword",    [self displayName]   ];
         
         usedUniversalCredentials = NO;
     }
@@ -94,14 +70,10 @@ extern TBUserDefaults  * gTbDefaults;
 
 -(void) dealloc
 {
-    [[loginScreen window]       close];
-    [[passphraseScreen window]  close];
+    [[loginScreen window] close];
     
     [loginScreen                release];
-    [passphraseScreen           release];
     [displayName                release];
-    [group                      release];
-    [credentialsName            release];
     
     [passphrase                 release];
     [username                   release];
@@ -201,10 +173,10 @@ extern TBUserDefaults  * gTbDefaults;
         
     } else if (   [gTbDefaults boolForKey: @"keychainHasUniversalUsernameAndPassword"]  ) {
         // No connection-specific credentials, but universal credentials exist 
-        [self setUsernameKeychain: [[[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"] autorelease]];
-        [self setPasswordKeychain: [[[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"] autorelease]];
-        [self setPassphrasePreferenceKey: [NSString stringWithFormat: @"%@-keychainHasPrivateKey", [self displayName]]];
-        [self setUsernamePreferenceKey:   [NSString stringWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
+        [self setUsernameKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"username"]];
+        [self setPasswordKeychain: [[KeyChain alloc] initWithService: @"Tunnelblick-AuthUniversal" withAccountName: @"password"]];
+        [self setPassphrasePreferenceKey: [[NSString alloc] initWithFormat: @"%@-keychainHasPrivateKey", [self displayName]]];
+        [self setUsernamePreferenceKey:   [[NSString alloc] initWithFormat: @"keychainHasUniversalUsernameAndPassword"]];
         usernameLocal= [usernameKeychain password]; // Get username and password from Keychain if they've been saved
         if ( usernameLocal ) {
             passwordLocal = [passwordKeychain password];    // Only try to get password if have username. Avoids second "OK to use Keychain? query if the user says 'no'
@@ -444,28 +416,6 @@ extern TBUserDefaults  * gTbDefaults;
     if (displayName != value) {
         [displayName release];
         displayName = [value copy];
-    }
-}
-
-- (NSString *)group {
-    return [[group retain] autorelease];
-}
-
-- (void)setGroup:(NSString *)value {
-    if (group != value) {
-        [group release];
-        group = [value copy];
-    }
-}
-
-- (NSString *)credentialsName {
-    return [[credentialsName retain] autorelease];
-}
-
-- (void)setCredentialsName:(NSString *)value {
-    if (credentialsName != value) {
-        [credentialsName release];
-        credentialsName = [value copy];
     }
 }
 

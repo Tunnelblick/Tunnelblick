@@ -20,10 +20,6 @@
  *  or see http://www.gnu.org/licenses/.
  */
 
-#import "sharedRoutines.h"
-
-void           appendLog				 (NSString * msg);
-
 uint64_t       nowAbsoluteNanoseconds    (void);
 
 NSString     * configPathFromTblkPath   (NSString * path);
@@ -32,12 +28,10 @@ NSString     * tblkPathFromConfigPath   (NSString * path);
 BOOL           checkOwnerAndPermissions (NSString * fPath,
                                          uid_t      uid,
                                          gid_t      gid,
-                                         mode_t     permsShouldHave);
+                                         NSString * permsShouldHave);
 
 int            createDir                (NSString * d,
                                          unsigned long perms);
-
-NSString     * credentialsGroupFromDisplayName (NSString * displayName);
 
 BOOL           copyCredentials          (NSString * fromDisplayName,
                                          NSString * toDisplayName);
@@ -53,17 +47,11 @@ NSString     * userEasyRsaPath          (BOOL       mustExistAndBeADir);
 
 NSString     * newTemporaryDirectoryPath(void);
 
-NSArray      * pathsForDeployBackups    (void);
-NSArray      * pathsForLatestNonduplicateDeployBackups(void);
-
 NSString     * escaped                  (NSString * string);
 
 NSMutableString * encodeSlashesAndPeriods(NSString * s);
 
-NSString     * stringForLog             (NSString * outputString,
-                                         NSString * header);
-
-BOOL           invalidConfigurationName (NSString * name);
+BOOL           itemIsVisible            (NSString * path);
 
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
@@ -82,9 +70,6 @@ BOOL           isSanitizedOpenvpnVersion(NSString * s);
 NSString     * localizeNonLiteral        (NSString * status,
                                          NSString * type);
 
-NSString     * TBGetString				(NSString * msg,
-										 NSString * nameToPrefill);
-
 NSString     * TBGetDisplayName         (NSString * msg,
                                          NSString * sourcePath);
 
@@ -101,12 +86,7 @@ int            TBRunAlertPanelExtended  (NSString * title,
                                          NSString * otherButtonLabel,
                                          NSString * doNotShowAgainPreferenceKey,
                                          NSString * checkboxLabel,
-                                         BOOL     * checkboxResult,
-										 int		notShownReturnValue);
-
-OSStatus       runOpenvpnstart          (NSArray  * arguments,
-                                         NSString ** stdoutString,
-                                         NSString ** stderrString);
+                                         BOOL     * checkboxResult);
 
 BOOL           isUserAnAdmin            (void);
 
@@ -115,12 +95,6 @@ BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
 BOOL           runningOnLionOrNewer(void);
 BOOL           runningOnMountainLionOrNewer(void);
-
-BOOL           tunnelblickTestPrivateOnlyHasTblks(void);
-BOOL           tunnelblickTestAppInApplications(void);
-BOOL           tunnelblickTestDeployed(void);
-BOOL           tunnelblickTestHasDeployBackups(void);
-
 
 OSStatus       MyGotoHelpPage           (CFStringRef pagePath, 
                                          CFStringRef anchorName);

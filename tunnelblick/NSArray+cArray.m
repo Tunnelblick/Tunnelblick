@@ -29,8 +29,8 @@
 /* returns an array of character pointers that is guaranteed to be NULL terminated */
 -(char **) cArray 
 {
-	unsigned i;
-	unsigned count = [self count];
+	int i=0;
+	int count = [self count];
 	char **myCArray = calloc(count + 1, sizeof(char *));
 	for(i=0;i < count;i++) {
 		const char *string = [[self objectAtIndex:i] UTF8String];
@@ -45,7 +45,7 @@
 void freeCArray(char ** theArray)
 {
     // Free the individual strings in the array
-    unsigned i = 0;
+    int i = 0;
     while (  theArray[i] != NULL  ) {
         free(theArray[i]);
         i++;

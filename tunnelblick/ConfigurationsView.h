@@ -38,8 +38,6 @@
     IBOutlet NSMenuItem          * renameConfigurationMenuItem;
     IBOutlet NSMenuItem          * duplicateConfigurationMenuItem;
     IBOutlet NSMenuItem          * makePrivateOrSharedMenuItem;
-	IBOutlet NSMenuItem          * revertToShadowMenuItem;
-	
     IBOutlet NSMenuItem          * editOpenVPNConfigurationFileMenuItem;
     IBOutlet NSMenuItem          * showOpenvpnLogMenuItem;
     IBOutlet NSMenuItem          * removeCredentialsMenuItem;
@@ -106,7 +104,6 @@ TBPROPERTY_READONLY(NSArrayController *,   workOnConfigurationArrayController)
 TBPROPERTY_READONLY(NSMenuItem *,          renameConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          duplicateConfigurationMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          makePrivateOrSharedMenuItem)
-TBPROPERTY_READONLY(NSMenuItem *,          revertToShadowMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          showOpenvpnLogMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          removeCredentialsMenuItem)

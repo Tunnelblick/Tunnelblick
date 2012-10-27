@@ -54,7 +54,6 @@ typedef enum
     
     IBOutlet NSTabViewItem       * connectingAndDisconnectingTabViewItem;
     IBOutlet NSTabViewItem       * whileConnectedTabViewItem;
-    IBOutlet NSTabViewItem       * credentialsTabViewItem;
     
     IBOutlet NSTextFieldCell     * configurationNameTFC;
     IBOutlet NSTextFieldCell     * configurationStatusTFC;
@@ -66,7 +65,6 @@ typedef enum
     IBOutlet NSButton            * useTunTapDriversCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
-    IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
     
     IBOutlet NSButton            * connectingHelpButton;
     
@@ -144,22 +142,6 @@ typedef enum
     IBOutlet NSTextFieldCell     * winsServersTFC;
     IBOutlet NSTextFieldCell     * netBiosNameTFC;
     IBOutlet NSTextFieldCell     * workgroupTFC;
-    
-    
-    // For Credentials tab
-	
-    IBOutlet NSButton            * allConfigurationsUseTheSameCredentialsCheckbox;
-	
-	IBOutlet NSBox               * namedCredentialsBox;
-    
-    IBOutlet NSButton            * credentialsGroupButton;
-    IBOutlet NSArrayController   * credentialsGroupArrayController;
-	IBOutlet NSInteger             selectedCredentialsGroupIndex;
-	
-	IBOutlet NSButton            * addNamedCredentialsButton;
-	
-	IBOutlet NSButton            * removeNamedCredentialsButton;
-    NSArray                      * removeNamedCredentialsNames;
 }
 
 // General methods
@@ -174,8 +156,6 @@ typedef enum
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 
 -(void) setupPrependDomainNameCheckbox;
--(void) setupFlushDNSCheckbox;
--(void) setupReconnectOnWakeFromSleepCheckbox;
 
 
 // Methods for Connecting tab
@@ -184,7 +164,6 @@ typedef enum
 -(IBAction) useTunTapDriversCheckboxWasClicked:               (id) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
 -(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
--(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
 
 -(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
 
@@ -234,34 +213,10 @@ typedef enum
 -(NSInteger) selectedOtherworkgroupIndex;
 -(void)      setSelectedOtherworkgroupIndex:    (NSInteger) newValue;
 
-
-// Methods for Credentials tab
-
--(IBAction) allConfigurationsUseTheSameCredentialsCheckboxWasClicked: (id) sender;
-
--(IBAction) addNamedCredentialsButtonWasClicked: (id) sender;
-
--(IBAction) vpnCredentialsHelpButtonWasClicked: (id) sender;
-
-
 // Getters & Setters
-
-TBPROPERTY_READONLY(NSButton *, allConfigurationsUseTheSameCredentialsCheckbox)
-
-TBPROPERTY_READONLY(NSBox *, namedCredentialsBox)
-
-TBPROPERTY_READONLY(NSButton *, removeNamedCredentialsButton)
-TBPROPERTY(NSArray *,           removeNamedCredentialsNames, setRemoveNamedCredentialsNames)
-
-TBPROPERTY_READONLY(NSButton *,            credentialsGroupButton)
-TBPROPERTY_READONLY(NSArrayController *,   credentialsGroupArrayController)
-TBPROPERTY(NSUInteger, selectedCredentialsGroupIndex,    setSelectedCredentialsGroupIndex)
-
-TBPROPERTY_READONLY(NSButton *, addNamedCredentialsButton)
 
 TBPROPERTY_READONLY(NSTabViewItem *, connectingAndDisconnectingTabViewItem)
 TBPROPERTY_READONLY(NSTabViewItem *, whileConnectedTabViewItem)
-TBPROPERTY_READONLY(NSTabViewItem *, credentialsTabViewItem)
 TBPROPERTY(VPNConnection *, connection, setConnection)
 
 @end

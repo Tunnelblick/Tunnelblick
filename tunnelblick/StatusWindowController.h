@@ -25,8 +25,7 @@
 @interface StatusWindowController : NSWindowController <NSAnimationDelegate,NSWindowDelegate>
 {
     
-    IBOutlet NSButton        * connectButton;
-    IBOutlet NSButton        * disconnectButton;
+    IBOutlet NSButton        * cancelButton;
     IBOutlet NSTextFieldCell * configurationNameTFC;
     IBOutlet NSTextFieldCell * statusTFC;
     IBOutlet NSImageView     * animationIV;
@@ -72,6 +71,8 @@
     
     BOOL                       isOpen;          // Flag for animating window fade-in and fade-out
 
+    BOOL                       cancelButtonIsConnectButton; // Otherwise it is a "Disconnect" button
+
     BOOL                       haveLoadedFromNib;
     
     id                         delegate;
@@ -79,9 +80,7 @@
 
 -(id)         initWithDelegate:       (id)         theDelegate;
 
--(IBAction)   connectButtonWasClicked: (id)        sender;
-
--(IBAction)   disconnectButtonWasClicked: (id)     sender;
+-(IBAction)   cancelButtonWasClicked: (id)         sender;
 
 -(id)         delegate;
 

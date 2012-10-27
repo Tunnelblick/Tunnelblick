@@ -79,7 +79,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // If the developer attached a window to this controller
     // in Interface Builder, it gets replaced with this one.
     
-    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 760.0, 390.0)
+    NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,760,390)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
                                                                NSResizableWindowMask |
@@ -94,7 +94,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
 	[[[self window] contentView] addSubview:contentSubview];
 	[[self window] setShowsToolbarButton:NO];
-    [[self window] setContentMinSize: NSMakeSize(760.0, 390.0)];
+    [[self window] setContentMinSize: NSMakeSize(760, 390)];
 }
 
 
@@ -285,23 +285,18 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 // Override in subclass if desired
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
 {
-	(void) view;
-	(void) identifier;
 }
 
 
 // Override in subclass if desired
 -(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
 {
-	(void) view;
-	(void) identifier;
 }
 
 
 // Override in subclass if desired
 -(void) newViewDidAppear: (NSView *) view
 {
-	(void) view;
 }
 
 
@@ -323,7 +318,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		
         // Remove any others.
 		NSView *reallyOldView = nil;
-		while (  (reallyOldView = [subviewsEnum nextObject])  ) {
+		while ((reallyOldView = [subviewsEnum nextObject]) != nil) {
 			[reallyOldView removeFromSuperviewWithoutNeedingDisplay];
 		}
 	}
@@ -426,7 +421,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // Remove everything else. There should be just one, but
     // if the user does a lot of fast clicking, we might have
     // more than one to remove.
-	while (  (subview = [subviewsEnum nextObject])  ) {
+	while ((subview = [subviewsEnum nextObject]) != nil) {
 		[subview removeFromSuperviewWithoutNeedingDisplay];
 	}
     

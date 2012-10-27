@@ -34,26 +34,15 @@ extern BOOL              gShuttingDownWorkspace;
 
 -(void) mouseDownMainThread: (NSEvent *) theEvent
 {
-    // Invoked in the main thread only
-	
     if (  gShuttingDownWorkspace  ) {
         return;
     }
     
-	// Detect a triple-click:
-	//        First click comes here and pops up the menu
-	//        Second click pops the menu back (it does not come here)
-	//        Third click comes here and (if within 1 second of first click) opens VPN Details… window
-	NSTimeInterval thisTime = [theEvent timestamp];
-	if (  (mainIconLastClickTime + 1.0) > thisTime  ) {
-		[[NSApp delegate] openPreferencesWindow: self];
-	} else {
-		NSStatusItem * statusI = [[NSApp delegate] statusItem];
-		NSMenu       * menu    = [[NSApp delegate] myVPNMenu];
-		[statusI popUpStatusItemMenu: menu];
-	}
+    // Invoked in the main thread only
 	
-	mainIconLastClickTime = thisTime;
+    NSStatusItem * statusI = [[NSApp delegate] statusItem];
+	NSMenu       * menu    = [[NSApp delegate] myVPNMenu];
+    [statusI popUpStatusItemMenu: menu];
 }
 
 -(void) setOrRemoveTrackingRect
@@ -66,7 +55,7 @@ extern BOOL              gShuttingDownWorkspace;
 	} else {
         if (  ! mainIconTrackingRectTagIsValid  ) {
 			NSRect frame = [self frame];
-			NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+			NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0, frame.origin.y, frame.size.width - 1.0, frame.size.height);
 			mainIconTrackingRectTag = [self addTrackingRect: trackingRect
 													  owner: self
 												   userData: nil
@@ -151,8 +140,7 @@ extern BOOL              gShuttingDownWorkspace;
 {
     // Event handler; NOT on MainThread
 	
-	(void) theEvent;	// We don't do anything
-	
+    ;   // We needn't do anything
 }
 
 @end

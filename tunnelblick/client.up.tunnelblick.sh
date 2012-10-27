@@ -55,46 +55,36 @@ setDnsServersAndDomainName()
 {
 	set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 	
-	PSID="$( scutil <<-EOF |
+	PSID=$( (scutil | grep PrimaryService | sed -e 's/.*PrimaryService : //')<<- EOF
 		open
 		show State:/Network/Global/IPv4
 		quit
-EOF
-grep PrimaryService | sed -e 's/.*PrimaryService : //'
-)"
+EOF )
 
 	set -e # resume abort on error
 
-	MAN_DNS_CONFIG="$( scutil <<-EOF |
+	MAN_DNS_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show Setup:/Network/Service/${PSID}/DNS
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+EOF )"
 
-	MAN_SMB_CONFIG="$( scutil <<-EOF |
+	MAN_SMB_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show Setup:/Network/Service/${PSID}/SMB
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	CUR_DNS_CONFIG="$( scutil <<-EOF |
+EOF )"
+	CUR_DNS_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/Global/DNS
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+EOF )"
 
-	CUR_SMB_CONFIG="$( scutil <<-EOF |
+	CUR_SMB_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/Global/SMB
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+EOF )"
 
 # Set up the DYN_... variables to contain what is asked for (dynamically, by a 'push' directive, for example)
 
@@ -496,7 +486,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# PPID is a script variable (defined by bash itself) that contains the process ID of the parent of the process running the script (i.e., OpenVPN's process ID)
 	# config is an environmental variable set to the configuration path by OpenVPN prior to running this up script
 
-	scutil <<-EOF > /dev/null
+	scutil > /dev/null <<- EOF
 		open
 
 		# Store our variables for the other scripts (leasewatch, down, etc.) to use
@@ -510,9 +500,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		d.add RestoreOnDNSReset     "${ARG_RESTORE_ON_DNS_RESET}"
 		d.add RestoreOnWINSReset    "${ARG_RESTORE_ON_WINS_RESET}"
 		d.add IgnoreOptionFlags     "${ARG_IGNORE_OPTION_FLAGS}"
-        d.add IsTapInterface        "${ARG_TAP}"
-        d.add FlushDNSCache         "${ARG_FLUSH_DNS_CACHE}"
-        d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
+		d.add IsTapInterface        "${ARG_TAP}"
+		d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
 		d.add bAlsoUsingSetupKeys   "${bAlsoUsingSetupKeys}"
         d.add TapDeviceHasBeenSetNone "false"
 		set State:/Network/OpenVPN
@@ -565,7 +554,7 @@ EOF
 	logMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
 	sleep 1
 	
-	scutil <<-EOF > /dev/null
+	scutil > /dev/null <<- EOF
 		open
 
 		# Initialize the maps that will be compared when a configuration change occurs
@@ -582,62 +571,46 @@ EOF
 		quit
 EOF
 	
-	readonly NEW_DNS_SETUP_CONFIG="$( scutil <<-EOF |
+	readonly NEW_DNS_SETUP_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show Setup:/Network/Service/${PSID}/DNS
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_SMB_SETUP_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly NEW_SMB_SETUP_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show Setup:/Network/Service/${PSID}/SMB
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_DNS_STATE_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly NEW_DNS_STATE_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/Service/${PSID}/DNS
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_SMB_STATE_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly NEW_SMB_STATE_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/Service/${PSID}/SMB
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_DNS_GLOBAL_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly NEW_DNS_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/Global/DNS
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly NEW_SMB_GLOBAL_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly NEW_SMB_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/Global/SMB
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly EXPECTED_NEW_DNS_GLOBAL_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly EXPECTED_NEW_DNS_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/OpenVPN/DNS
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
-	readonly EXPECTED_NEW_SMB_GLOBAL_CONFIG="$( scutil <<-EOF |
+EOF )"
+	readonly EXPECTED_NEW_SMB_GLOBAL_CONFIG="$( (scutil | sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' ')<<- EOF
 		open
 		show State:/Network/OpenVPN/SMB
 		quit
-EOF
-sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
-)"
+EOF )"
 
 
 	logMessage "DEBUG:"
@@ -687,9 +660,7 @@ configureDhcpDns()
 	
 	# - wait until we get a lease before extracting the DNS domain name and merging into SC
 	# - despite it's name, ipconfig waitall doesn't (but maybe one day it will :-)
-	logMessage "DEBUG_TAP: About to 'ipconfig waitall'"
 	ipconfig waitall
-	logMessage "DEBUG_TAP: Completed 'ipconfig waitall'"
 	
 	unset test_domain_name
 	unset test_name_server
@@ -713,14 +684,12 @@ configureDhcpDns()
 			test_name_server=`ipconfig getoption $dev domain_name_server 2>/dev/null`
 		fi
 	done
-
-    logMessage "DEBUG_TAP: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
-    
-    logMessage "DEBUG_TAP: About to 'ipconfig getpacket $dev'"
+	
 	sGetPacketOutput=`ipconfig getpacket $dev`
-    logMessage "DEBUG_TAP: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
-
+	
 	set -e # We instruct bash that it CAN again fail on individual errors
+	
+	#echo "`date` test_domain_name = $test_domain_name, test_name_server = $test_name_server, sGetPacketOutput = $sGetPacketOutput"
 	
 	unset aNameServers
 	unset aWinsServers
@@ -730,7 +699,7 @@ configureDhcpDns()
 	
 	if [ "$sGetPacketOutput" ]; then
 		sGetPacketOutput_FirstLine=`echo "$sGetPacketOutput"|head -n 1`
-		logMessage "DEBUG_TAP: sGetPacketOutput_FirstLine = $sGetPacketOutput_FirstLine"
+		#echo $sGetPacketOutput_FirstLine
 		
 		if [ "$sGetPacketOutput_FirstLine" == "op = BOOTREPLY" ]; then
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
@@ -772,17 +741,9 @@ configureDhcpDns()
 	unset sNameServer
 	unset aNameServers
 	
-    set +e # We instruct bash NOT to exit on individual command errors, because if we need to wait longer these commands will fail
-	
-	logMessage "DEBUG_TAP: About to 'ipconfig getoption $dev domain_name'"
 	sDomainName=`ipconfig getoption $dev domain_name 2>/dev/null`
-	logMessage "DEBUG_TAP: Completed 'ipconfig getoption $dev domain_name'"
-	logMessage "DEBUG_TAP: About to 'ipconfig getoption $dev domain_name_server'"
 	sNameServer=`ipconfig getoption $dev domain_name_server 2>/dev/null`
-	logMessage "DEBUG_TAP: Completed 'ipconfig getoption $dev domain_name_server'"
-    
-	set -e # We instruct bash that it CAN again fail on individual errors
-
+	
 	sDomainName="$(trim "$sDomainName")"
 	sNameServer="$(trim "$sNameServer")"
 	
@@ -896,46 +857,6 @@ configureOpenVpnDns()
 }
 
 ##########################################################################################
-flushDNSCache()
-{
-    if ${ARG_FLUSH_DNS_CACHE} ; then
-        case "${OSVER}" in
-            10.4 )
-                if [ -f /usr/sbin/lookupd ] ; then
-                    /usr/sbin/lookupd -flushcache
-                    logMessage "Flushed the DNS Cache"
-                else
-                    logMessage "/usr/sbin/lookupd not present. Not flushing the DNS cache"
-                fi
-                ;;
-            10.5 | 10.6 )
-                if [ -f /usr/bin/dscacheutil ] ; then
-                    /usr/bin/dscacheutil -flushcache
-                    logMessage "Flushed the DNS Cache"
-                else
-                    logMessage "/usr/bin/dscacheutil not present. Not flushing the DNS cache"
-                fi
-                ;;
-            * )
-				set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
-				hands_off_ps="$( ps -ax | grep HandsOffDaemon | grep -v grep.HandsOffDaemon )"
-				set -e # We instruct bash that it CAN again fail on errors
-				if [ "${hands_off_ps}" = "" ] ; then
-					if [ -f /usr/bin/killall ] ; then
-						/usr/bin/killall -HUP mDNSResponder
-						logMessage "Flushed the DNS Cache"
-					else
-						logMessage "/usr/bin/killall not present. Not flushing the DNS cache"
-					fi
-				else
-					logMessage "Hands Off is running. Not flushing the DNS cache"
-				fi
-                ;;
-        esac
-    fi
-}
-
-##########################################################################################
 #
 # START OF SCRIPT
 #
@@ -956,7 +877,6 @@ ARG_RESTORE_ON_DNS_RESET="false"
 ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
 ARG_PREPEND_DOMAIN_NAME="false"
-ARG_FLUSH_DNS_CACHE="false"
 ARG_IGNORE_OPTION_FLAGS=""
 
 while [ {$#} ] ; do
@@ -975,9 +895,6 @@ while [ {$#} ] ; do
 	elif [ "$1" = "-p" ] ; then
 		ARG_PREPEND_DOMAIN_NAME="true"
 		shift
-    elif [ "$1" = "-f" ] ; then
-        ARG_FLUSH_DNS_CACHE="true"
-        shift
 	elif [ "${1:0:2}" = "-i" ] ; then
 		ARG_IGNORE_OPTION_FLAGS="${1}"
 		shift
@@ -990,7 +907,7 @@ while [ {$#} ] ; do
 	fi
 done
 
-readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_IGNORE_OPTION_FLAGS
+readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_IGNORE_OPTION_FLAGS
 
 # Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn
@@ -1016,9 +933,7 @@ readonly TB_RESOURCE_PATH=$(dirname "${0}")
 
 LEASEWATCHER_PLIST_PATH="/Library/Application Support/Tunnelblick/LeaseWatch.plist"
 
-set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
 readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
-set -e # We instruct bash that it CAN again fail on errors
 
 readonly DEFAULT_DOMAIN_NAME="openvpn"
 
@@ -1037,31 +952,22 @@ if ${ARG_TAP} ; then
 	fi
 	
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-		logMessage "DEBUG_TAP: bRouteGatewayIsDhcp is TRUE"
 		if [ -z "$dev" ]; then
 			logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
 			exit 1
 		fi
 		
-		logMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
 		ipconfig set "$dev" DHCP
-		logMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
 		
-#		configureDhcpDns &
-		logMessage "Configuring tap DNS via DHCP"
-		configureDhcpDns
-		EXIT_CODE=$?
-        flushDNSCache
+		configureDhcpDns &
 	elif [ "$foreign_option_1" == "" ]; then
 		logMessage "No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 			logMessage "Will NOT monitor for other network configuration changes."
 		fi
 	else
-		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
-        flushDNSCache
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
@@ -1072,7 +978,6 @@ else
 	else
 		configureOpenVpnDns
 		EXIT_CODE=$?
-        flushDNSCache
 	fi
 fi
 

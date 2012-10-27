@@ -64,9 +64,9 @@ extern BOOL                   gShuttingDownWorkspace;
                   inString:             (NSString *)            text
                      range:             (NSRange)               r;
 
--(NSRange)      rangeOfLineBeforeLineThatStartsAt: (unsigned long) lineStartIndex
-                                         inString: (NSString *)    text
-                                            after: (unsigned long) start;
+-(NSRange)      rangeOfLineBeforeLineThatStartsAt: (long)       lineStartIndex
+                                         inString: (NSString *) text
+                                            after: (long)       start;
 
 -(void)    loadLogsWithInitialContents: (NSAttributedString *)  initialContents
          skipToStartOfLineInOpenvpnLog: (BOOL)                  skipToStartOfLineInOpenvpnLog;
@@ -117,7 +117,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(LogDisplay *) initWithConfigurationPath: (NSString *) inConfigPath
 {
-	if (  (self = [super init])  ) {
+	if (  self = [super init]  ) {
         
         savedLog = nil;
         configurationPath = [inConfigPath copy];
@@ -145,10 +145,21 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
             return nil;
         }
         
-        maxLogDisplaySize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
-                                                   default: DEFAULT_LOG_SIZE_BYTES
-                                                       min: MIN_LOG_SIZE_BYTES
-                                                       max: MAX_LOG_SIZE_BYTES];
+        maxLogDisplaySize = 100000;
+        NSString * maxLogDisplaySizeKey = @"maxLogDisplaySize";
+        id obj = [gTbDefaults objectForKey: maxLogDisplaySizeKey];
+        if (  obj  ) {
+            if (  [obj respondsToSelector: @selector(intValue)]  ) {
+                unsigned maxSize = [obj intValue];
+                if (  maxSize < 10000  ) {
+                    NSLog(@"'%@' preference ignored because it is less than 10000. Using %d", maxLogDisplaySizeKey, maxLogDisplaySize);
+                } else {
+                    maxLogDisplaySize = maxSize;
+                }
+            } else {
+                NSLog(@"'%@' preference ignored because it is not a number", maxLogDisplaySizeKey);
+            }
+        }
         
         tbLog = [[NSMutableString alloc] init];
     }
@@ -237,7 +248,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  [self logStorage]  ) {
         // Do some primitive throttling -- only queue three requests per second
-        long rightNow = (long)floor([NSDate timeIntervalSinceReferenceDate]);
+        long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
         if (  rightNow == secondWeLastQueuedAScrollRequest  ) {
             numberOfScrollRequestsInThatSecond++;
             if (  numberOfScrollRequestsInThatSecond > 3) {
@@ -262,8 +273,6 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     
 -(void) scrollWatchdogTimedOutHandler: (NSTimer *) timer
 {
-	(void) timer;
-	
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -275,8 +284,6 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) scrollWatchdogTimedOut: (NSTimer *) timer
 {
-	(void) timer;
-	
     if (  gShuttingDownWorkspace || ignoreChangeRequests  ) {
         return;
     }
@@ -291,7 +298,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    [self setMonitorQueue: [[[UKKQueue alloc] init] autorelease]];
+    [self setMonitorQueue: [[UKKQueue alloc] init]];
     
     [[self monitorQueue] setDelegate: self];
     [[self monitorQueue] setAlwaysNotify: YES];
@@ -454,9 +461,8 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
                 // We have loaded up the first part of the log. Skip the OpenVPN log ahead
                 haveSkippedAhead = TRUE;
                 if (  savedOpenVPNLogPosition < [openvpnString length]  ) {
-                    unsigned savedPosition = (unsigned)savedOpenVPNLogPosition;
-                    NSRange s = NSMakeRange(savedPosition, [openvpnString length] - savedPosition);
-                    NSRange r = [openvpnString rangeOfString: @"\n" options: 0 range: s];
+                    NSRange s = NSMakeRange(savedOpenVPNLogPosition, [openvpnString length] - savedOpenVPNLogPosition);
+                    NSRange r = [openvpnString rangeOfCharacterFromSet: [NSCharacterSet newlineCharacterSet] options: 0 range: s];
                     if (  r.location != NSNotFound  ) {
                         openvpnStringPosition = r.location + 1;
                     }
@@ -598,7 +604,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     NSRange rStartAt = r;
     NSRange rLf;
     unsigned i = 0;
-    while (   ( NSNotFound != (rLf = [text rangeOfString: s options: 0 range: rStartAt] ).location )
+    while (   ( NSNotFound != (rLf = [text rangeOfString: @"\n" options: 0 range: rStartAt] ).location )
            && (i++ < n)  ) {
         rStartAt.location = rLf.location + 1;
         rStartAt.length   = [text length] - rStartAt.location;
@@ -634,7 +640,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * scriptLogContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
     if (  ! scriptLogContents  ) {
         NSLog(@"contentsOfPath:usePosition:fileHandleForReadingAtPath: initWithData: returned nil with data of length %lld from position %lld for path=%@", (long long) [data length], *logPosition, logPath);
-        unsigned i;
+        int i;
         char * b = (char *) [data bytes];
         NSMutableString * s = [NSMutableString stringWithCapacity: 2 * [data length]];
         for ( i=0; i<[data length]; i++ ) {
@@ -903,15 +909,12 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 // Invoked when either log file has changed.
 -(void) watcher: (UKKQueue *) kq receivedNotification: (NSString *) nm forPath: (NSString *) fpath
 {
-	(void) kq;
-	(void) nm;
-	
     if (  gShuttingDownWorkspace || ignoreChangeRequests  ) {
         return;
     }
     
     // Do some primitive throttling -- only queue three requests per second
-    long rightNow = (long)floor([NSDate timeIntervalSinceReferenceDate]);
+    long rightNow = floor([NSDate timeIntervalSinceReferenceDate]);
     if (  rightNow == secondWeLastQueuedAChange  ) {
         numberOfRequestsInThatSecond++;
         if (  numberOfRequestsInThatSecond > 3) {
@@ -979,6 +982,11 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
+    // Return without doing anything if an error has occurred
+    if (  *logPositionPtr == -1  ) {
+        return;
+    }
+    
     // Return without doing anything if log file doesn't exist
     if (   ( ! logPath )
         || ( ! [gFileMgr fileExistsAtPath: logPath])  ) {
@@ -1000,7 +1008,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     // Go through the log file contents one line at a time
     NSString * logString = [self contentsOfPath: logPath  usePosition: logPositionPtr];
     if (  ! logString  ) {
-        NSLog(@"logString is nil in logChangedAtPath: %@ usePosition: %llu fromOpenvpnLog: %@", logPath, *logPositionPtr, (isFromOpenvpnLog ? @"YES" : @"NO"));
+        NSLog(@"logString is nil in logChangedAtPath: %@ usePosition: %lld fromOpenvpnLog: %@", logPath, *logPositionPtr, (isFromOpenvpnLog ? @"YES" : @"NO"));
         pthread_mutex_unlock( &makingChangesMutex );
         return;
     }
@@ -1039,10 +1047,8 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     beforeOpenVPNEntries: (BOOL) beforeOpenVPNEntries
           fromOpenVPNLog: (BOOL) isFromOpenVPNLog
-      fromTunnelblickLog: (BOOL) isFromTunnelblickLog
+      fromTunnelblickLog: (BOOL) isFromTunnelblickLog;
 {
-    (void) isFromTunnelblickLog;
-    
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -1201,13 +1207,13 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
 
 // Returns an NSRange for the previous line
 // Considers the "previous line" to include all lines with no date/time
--(NSRange) rangeOfLineBeforeLineThatStartsAt: (unsigned long) lineStartIndex inString: (NSString *) text after: (unsigned long) start
+-(NSRange) rangeOfLineBeforeLineThatStartsAt: (long) lineStartIndex inString: (NSString *) text after: (long) start
 {
     if (  lineStartIndex <= start  ) {
         return NSMakeRange(NSNotFound, 0);
     }
     
-    unsigned long justPastEnd = lineStartIndex;
+    long justPastEnd = lineStartIndex;
     
     NSRange currentLineRng;
     do {
@@ -1235,7 +1241,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
 -(NSString *) constructScriptLogPath
 {
     NSMutableString * logBase;
-    if (  [[self configurationPath] hasPrefix: [NSHomeDirectory() stringByAppendingString: @"/"]]  ) {
+    if (  [[self configurationPath] hasPrefix: NSHomeDirectory()]  ) {
         logBase = [[[NSString stringWithFormat: @"/Users/%@%@", NSUserName(), [[self configurationPath] substringFromIndex: [NSHomeDirectory() length]]] mutableCopy] autorelease];
     } else {
         logBase = [[[self configurationPath] mutableCopy] autorelease];
@@ -1247,7 +1253,7 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     
     [logBase replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logBase length])];
     [logBase replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logBase length])];
-    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", L_AS_T_LOGS, logBase];
+    NSString * returnVal = [NSString stringWithFormat: @"%@/%@.script.log", LOG_DIR, logBase];
     return returnVal;
 }
 
@@ -1278,13 +1284,13 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
     
     [logBase replaceOccurrencesOfString: @"-" withString: @"--" options: 0 range: NSMakeRange(0, [logBase length])];
     [logBase replaceOccurrencesOfString: @"/" withString: @"-S" options: 0 range: NSMakeRange(0, [logBase length])];
-    NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", L_AS_T_LOGS, logBase];
+    NSString * logPathPrefix = [NSString stringWithFormat: @"%@/%@", LOG_DIR, logBase];
 
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
-    while (  (filename = [dirEnum nextObject])  ) {
+    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: LOG_DIR];
+    while (  filename = [dirEnum nextObject]  ) {
         [dirEnum skipDescendents];
-        NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
+        NSString * oldFullPath = [LOG_DIR stringByAppendingPathComponent: filename];
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
             if (   [[filename pathExtension] isEqualToString: @"log"]
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {

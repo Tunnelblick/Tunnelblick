@@ -42,7 +42,6 @@
     IBOutlet NSButton           * appearanceConnectionWindowDisplayCriteriaButton;
     
     IBOutlet NSButton           * appearanceDisplayStatisticsWindowsCheckbox;
-    IBOutlet NSButton           * appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox;
     
     IBOutlet NSButton           * appearanceHelpButton;
 }
@@ -60,6 +59,5 @@ TBPROPERTY_READONLY(NSArrayController *, appearanceConnectionWindowDisplayCriter
 TBPROPERTY_READONLY(NSButton *,          appearanceConnectionWindowDisplayCriteriaButton)
 
 TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsCheckbox)
-TBPROPERTY_READONLY(NSButton *,          appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
 
 @end

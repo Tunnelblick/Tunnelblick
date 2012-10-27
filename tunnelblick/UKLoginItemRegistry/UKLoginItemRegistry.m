@@ -35,7 +35,7 @@
 
 +(BOOL)		addLoginItemWithURL: (NSURL*)url hideIt: (BOOL)hide			// Main bottleneck for adding a login item.
 {
-	OSStatus err = LIAEAddURLAtEnd( (CFURLRef) url, (hide ? true : false) );	// CFURLRef is toll-free bridged to NSURL.
+	OSStatus err = LIAEAddURLAtEnd( (CFURLRef) url, hide );	// CFURLRef is toll-free bridged to NSURL.
 	
 	if( err != noErr )
 		NSLog(@"Couldn't add login item error %ld", (long) err);

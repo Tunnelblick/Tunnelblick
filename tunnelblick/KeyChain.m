@@ -29,10 +29,8 @@
 -(id) initWithService:(NSString *)sName
       withAccountName:(NSString *)aName
 {
-	if (  (sName == nil)
-        | (aName == nil)  )
-        return nil;
-    if (  (self = [super init])  ) {
+	if (sName == nil | aName == nil) return nil;
+    if (self = [super init]) {
         serviceName = [sName retain];
         accountName = [aName retain];
     }
@@ -81,7 +79,6 @@
             NSLog(@"Keychain item retrieved successfully for service = '%@' account = '%@'", serviceName, accountName);
             return returnPassword;            
         } else {
-            SecKeychainItemFreeContent(NULL,passData);
             NSLog(@"Zero-length Keychain item retrieved for service = '%@' account = '%@'", serviceName, accountName);
         }
     } else {

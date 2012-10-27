@@ -31,8 +31,7 @@ extern BOOL gShuttingDownWorkspace;
 
 -(id) init
 {
-    self = [super initWithWindowNibName:@"SplashWindow"];
-    if (  ! self  ) {
+    if (  ![super initWithWindowNibName:@"SplashWindow"]  ) {
         return nil;
     }
 
@@ -70,7 +69,7 @@ extern BOOL gShuttingDownWorkspace;
     NSWindow * window = [self window];
     if (   [window respondsToSelector: @selector(animator)]
         && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
-        [[window animator] setAlphaValue: 0.0];
+        [[window animator] setAlphaValue:0.0];
         [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0   // Wait for the window to become transparent
                                          target: self
                                        selector: @selector(closeAfterFadeOutHandler:)
@@ -83,8 +82,6 @@ extern BOOL gShuttingDownWorkspace;
 
 -(void) closeAfterFadeOutHandler: (NSTimer *) timer
 {
-	(void) timer;
-	
     if (  gShuttingDownWorkspace  ) {
         return;
     }
@@ -94,8 +91,6 @@ extern BOOL gShuttingDownWorkspace;
 
 -(void) closeAfterFadeOut: (NSDictionary *) dict
 {
-	(void) dict;
-	
     [self close];
 }
 

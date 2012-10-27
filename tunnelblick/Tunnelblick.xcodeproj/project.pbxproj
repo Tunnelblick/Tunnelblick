@@ -155,16 +155,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
-		B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
-		B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
 		B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B5DBC15F2430900EDCF95 /* WelcomeController.m */; };
 		B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85B5DBE15F2436200EDCF95 /* Welcome.xib */; };
-		B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
-		B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
-		B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -435,15 +427,9 @@
 		63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationUpdater.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8045A07161EF26700609C98 /* sharedRoutines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedRoutines.h; sourceTree = "<group>"; };
-		B8045A08161EF26700609C98 /* sharedRoutines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharedRoutines.m; sourceTree = "<group>"; };
-		B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationToken.h; sourceTree = "<group>"; };
-		B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationToken.m; sourceTree = "<group>"; };
 		B85B5DBB15F2430900EDCF95 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		B85B5DBC15F2430900EDCF95 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 		B85B5DBE15F2436200EDCF95 /* Welcome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
-		B87F82901612964D008E0EB1 /* ConfigurationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationConverter.h; sourceTree = "<group>"; };
-		B87F82911612964D008E0EB1 /* ConfigurationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationConverter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,18 +501,12 @@
 				63DAFD5311CBA9F4002F9F91 /* defines.h */,
 				6185E73E0E76045D0009C2FD /* helper.h */,
 				6185E73F0E76045D0009C2FD /* helper.m */,
-				B8045A07161EF26700609C98 /* sharedRoutines.h */,
-				B8045A08161EF26700609C98 /* sharedRoutines.m */,
 				635C80441300353000DB27AE /* ApplescriptCommands.h */,
 				635C80451300353000DB27AE /* ApplescriptCommands.m */,
 				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
 				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
-				B87F82901612964D008E0EB1 /* ConfigurationConverter.h */,
-				B87F82911612964D008E0EB1 /* ConfigurationConverter.m */,
 				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
 				633DF4581312B13100B8606C /* ConfigurationManager.m */,
-				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
-				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
 				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
 				63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */,
 				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
@@ -1105,7 +1085,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Copy the tun and tap kexts\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n  cp -R \"../third_party/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n  cp -R \"../third_party/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telse\n\t\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\tfi\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn-executable\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n# Remove extra files that are not needed\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/ExternalBuildCleanScript.sh\"\n\n# Remove extended attributes\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*\"\ndo\n  xattr -d \"com.apple.FinderInfo\" ${f} 2> /dev/null\ndone\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\"\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools if Release\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/process-network-changes\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Frameworks/Sparkle.framework/Versions/A\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH\"\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\n\nfi";
+			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Copy the tun and tap kexts\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n  cp -R \"../third_party/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n  cp -R \"../third_party/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telse\n\t\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\tfi\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn-executable\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n# Remove extra files that are not needed\n\nrm \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\"\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools if Release\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/process-network-changes\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Resources/standardize-scutil-output\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH/Contents/Frameworks/Sparkle.framework/Versions/A\"\n  codesign -s TunnelblickSigning \"$CODESIGNING_FOLDER_PATH\"\nfi\n\n# Create a .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file, then make the folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\n\nfi";
 			showEnvVarsInLog = 0;
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
@@ -1130,7 +1110,6 @@
 			files = (
 				61BC4CDF0E2F9FFA00F24255 /* openvpnstart.m in Sources */,
 				63F2AD9C12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
-				B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,9 +1119,6 @@
 			files = (
 				61BC4D9E0E2FA2F300F24255 /* installer.m in Sources */,
 				63F2AD9D12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
-				B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */,
-				B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
-				B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1152,7 +1128,6 @@
 			files = (
 				63179444118D7EC20057ACAF /* atsystemstart.m in Sources */,
 				63F2AD9E12AD5F1600826724 /* NSFileManager+TB.m in Sources */,
-				B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,9 +1200,6 @@
 				63D39B4814F9860E002D1297 /* UtilitiesView.m in Sources */,
 				63F0A8B11507D13700526AF9 /* MainIconView.m in Sources */,
 				B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */,
-				B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */,
-				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
-				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1286,8 +1258,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1297,11 +1267,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -1313,7 +1278,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1323,11 +1287,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1340,8 +1299,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1351,11 +1308,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -1367,7 +1319,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1377,11 +1328,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1397,8 +1343,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1412,11 +1356,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 			};
 			name = Debug;
 		};
@@ -1430,7 +1369,6 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1444,11 +1382,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1492,8 +1425,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1507,11 +1438,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 			};
 			name = Debug;
 		};
@@ -1525,7 +1451,6 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1539,11 +1464,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1573,25 +1493,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Unsigned Release";
@@ -1603,7 +1510,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1613,11 +1519,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = "Unsigned Release";
@@ -1629,7 +1530,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1639,11 +1539,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = "Unsigned Release";
@@ -1658,7 +1553,6 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1672,11 +1566,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = "Unsigned Release";
@@ -1691,7 +1580,6 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1705,11 +1593,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = "Unsigned Release";
@@ -1723,16 +1606,9 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 			};
 			name = Debug;
 		};
@@ -1744,15 +1620,9 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1763,15 +1633,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 			};
 			name = "Unsigned Release";
 		};
@@ -1803,26 +1667,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
 			};
 			name = "Clean Tunnelblick";
 		};
@@ -1834,7 +1686,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1844,11 +1695,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = YES;
 			};
 			name = "Clean Tunnelblick";
@@ -1861,7 +1707,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1871,11 +1716,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = YES;
 			};
 			name = "Clean Tunnelblick";
@@ -1891,7 +1731,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1905,11 +1744,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 			};
 			name = "Clean Tunnelblick";
 		};
@@ -1924,7 +1758,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -1938,12 +1771,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
 			};
 			name = "Clean Tunnelblick";
 		};
@@ -1956,16 +1783,9 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
 			};
 			name = "Clean Tunnelblick";
 		};
@@ -2007,26 +1827,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
 			};
 			name = "Clean Third Party";
 		};
@@ -2038,7 +1846,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2048,11 +1855,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = YES;
 			};
 			name = "Clean Third Party";
@@ -2065,7 +1867,6 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2075,11 +1876,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				ZERO_LINK = YES;
 			};
 			name = "Clean Third Party";
@@ -2095,7 +1891,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2109,11 +1904,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 			};
 			name = "Clean Third Party";
 		};
@@ -2128,7 +1918,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-sectcreate",
@@ -2142,12 +1931,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
 			};
 			name = "Clean Third Party";
 		};
@@ -2160,16 +1943,9 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
 				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
 			};
 			name = "Clean Third Party";
 		};
@@ -2182,203 +1958,6 @@
 				PRODUCT_NAME = ExternalBuildCleanScript;
 			};
 			name = "Clean Third Party";
-		};
-		B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_VERSION = 4.0;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../third_party\"",
-				);
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = Tunnelblick;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				WRAPPER_EXTENSION = app;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = openvpnstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = installer;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = atsystemstart;
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					$PROJECT_DIR/Info.plist,
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = "standardize-scutil-output";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = 4.2;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = "process-network-changes";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-					"-Wconversion",
-				);
-			};
-			name = "Unsigned Release -Wconversion";
-		};
-		B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = ExternalBuildCleanScript;
-			};
-			name = "Unsigned Release -Wconversion";
 		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2394,26 +1973,14 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
 				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
@@ -2428,25 +1995,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = "";
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
-				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
-				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Tunnelblick;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				WARNING_CFLAGS = (
-					"-Wall",
-					"-Wextra",
-					"-Wstrict-overflow",
-				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2456,8 +2010,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				GCC_VERSION = 4.2;
+				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
@@ -2489,7 +2042,6 @@
 				61BC4BC30E2F9FE900F24255 /* Debug */,
 				61BC4BC40E2F9FE900F24255 /* Release */,
 				6398C40313DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FC1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C81502509400C3801D /* Clean Third Party */,
 			);
@@ -2502,7 +2054,6 @@
 				61BC4D6D0E2FA06900F24255 /* Debug */,
 				61BC4D6E0E2FA06900F24255 /* Release */,
 				6398C40413DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FD1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C91502509400C3801D /* Clean Third Party */,
 			);
@@ -2515,7 +2066,6 @@
 				63179440118D7E830057ACAF /* Debug */,
 				63179441118D7E830057ACAF /* Release */,
 				6398C40513DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FE1502380400C3801D /* Clean Tunnelblick */,
 				63DA34CA1502509400C3801D /* Clean Third Party */,
 			);
@@ -2528,7 +2078,6 @@
 				635BF17F1501CCDF00D87717 /* Debug */,
 				635BF1801501CCDF00D87717 /* Release */,
 				635BF1811501CCDF00D87717 /* Unsigned Release */,
-				B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA34011502380400C3801D /* Clean Tunnelblick */,
 				63DA34CD1502509400C3801D /* Clean Third Party */,
 			);
@@ -2541,7 +2090,6 @@
 				638A1FFE135CC35100FB932C /* Debug */,
 				638A1FFF135CC35100FB932C /* Release */,
 				6398C40613DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FF1502380400C3801D /* Clean Tunnelblick */,
 				63DA34CB1502509400C3801D /* Clean Third Party */,
 			);
@@ -2554,7 +2102,6 @@
 				63AA8E5A1492C75300C791C9 /* Debug */,
 				63AA8E5B1492C75300C791C9 /* Release */,
 				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
-				B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA34001502380400C3801D /* Clean Tunnelblick */,
 				63DA34CC1502509400C3801D /* Clean Third Party */,
 			);
@@ -2567,7 +2114,6 @@
 				C01FCF4B08A954540054247B /* Debug */,
 				C01FCF4C08A954540054247B /* Release */,
 				6398C40213DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FB1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C71502509400C3801D /* Clean Third Party */,
 			);
@@ -2580,7 +2126,6 @@
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
 				6398C40113DB30F60005FEB0 /* Unsigned Release */,
-				B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */,
 				63DA33FA1502380400C3801D /* Clean Tunnelblick */,
 				63DA34C61502509400C3801D /* Clean Third Party */,
 			);

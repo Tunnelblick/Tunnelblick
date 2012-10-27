@@ -40,10 +40,9 @@ extern TBUserDefaults  * gTbDefaults;
 				 urlString: (NSString *) theUrlString
 			   windowWidth: (float) windowWidth
 			  windowHeight: (float) windowHeight
-showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
+showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox;
 {
-    self = [super initWithWindowNibName:@"Welcome"];
-    if (  ! self  ) {
+    if (  ![super initWithWindowNibName:@"Welcome"]  ) {
         return nil;
     }
     
@@ -118,51 +117,32 @@ showDoNotShowAgainCheckbox: (BOOL) showTheCheckbox
 
 -(void) webView: (WebView *) wv didStartProvisionalLoadForFrame: (WebFrame *) wf
 {
-    (void) wf;
-    
-    if (  wv == welcomeWV  ) {
-        welcomeFrameStartCount++;
-    }
+    welcomeFrameStartCount++;
 }
 
 -(void)webView: (WebView *) wv didFinishLoadForFrame: (WebFrame *) wf
 {
-    (void) wf;
-    
-    if (  wv == welcomeWV  ) {
-        welcomeFrameStartCount--;
-        if (  welcomeFrameStartCount <= 0  ) {
-            [progressIndicator stopAnimation: self];
-            [wv setPolicyDelegate: self];
-        }
+    welcomeFrameStartCount--;
+    if (  welcomeFrameStartCount <= 0  ) {
+        [progressIndicator stopAnimation: self];
+        [wv setPolicyDelegate: self];
     }
 }
 
 -(void)webView: (WebView *) wv didFailProvisionalLoadWithError: (NSError *) error forFrame: (WebFrame *) wf
 {
-    (void) wf;
-    
-    if (  wv == welcomeWV  ) {
-        NSLog(@"Failed to load welcome message; error = %@", [error description]);
-        [progressIndicator stopAnimation: self];
-        [NSApp activateIgnoringOtherApps:YES];
-    }
+	NSLog(@"Failed to load welcome message; error = %@", [error description]);
+    [progressIndicator stopAnimation: self];
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
--(void)                 webView: (WebView *)      wv
+-(void)                 webView: (WebView *)      webView
 decidePolicyForNavigationAction: (NSDictionary *) actionInformation
                         request: (NSURLRequest *) request
                           frame: (WebFrame *)     frame
                decisionListener: (id < WebPolicyDecisionListener >)listener
 {
-    (void) actionInformation;
-    (void) request;
-    (void) frame;
-    (void) listener;
-    
-    if (  wv == welcomeWV  ) {
-        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
-    }
+    [[NSWorkspace sharedWorkspace] openURL:[request URL]];
 }
 
 - (void) dealloc
@@ -183,14 +163,11 @@ decidePolicyForNavigationAction: (NSDictionary *) actionInformation
 
 -(IBAction) okButtonWasClicked: sender
 {
-	(void) sender;
-	
 	[[self delegate] welcomeOKButtonWasClicked];
 }
 
 -(IBAction)   doNotShowAgainCheckboxWasClicked: sender
 {
-    (void) sender;
 	if (  [doNotShowAgainCheckbox state] == NSOnState  ) {
 		[gTbDefaults setBool: YES forKey: @"skipWelcomeScreen"];
 	} else {

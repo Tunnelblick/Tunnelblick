@@ -140,7 +140,7 @@
 -(BOOL) tbRemoveFileAtPath:(NSString *)path handler:(id)handler
 {
     if (  [self respondsToSelector:@selector (removeFileAtPath:handler:)]  ) {
-        return [self removeFileAtPath:path handler:handler];
+        return [self removeFileAtPath:path handler:nil];
     } else if (  [self respondsToSelector:@selector (removeItemAtPath:error:)]  ) {
         return [self removeItemAtPath:path error:NULL];
     } else {

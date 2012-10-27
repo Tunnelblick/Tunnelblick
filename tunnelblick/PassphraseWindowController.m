@@ -34,8 +34,7 @@
 
 -(id) initWithDelegate: (id) theDelegate
 {
-    self = [super initWithWindowNibName:@"PassphraseWindow"];
-    if (  ! self  ) {
+    if (  ![super initWithWindowNibName:@"PassphraseWindow"]  ) {
         return nil;
     }
     
@@ -49,20 +48,9 @@
     
     [iconIV setImage: [NSApp applicationIconImage]];
     
-	NSString * displayName = [[self delegate] displayName];
-	NSString * groupMsg;
-	NSString * group = credentialsGroupFromDisplayName(displayName);
-	if (  group  ) {
-		groupMsg = [NSString stringWithFormat: NSLocalizedString(@"\nusing %@ credentials.", @"Window text"),
-					group];
-	} else {
-		groupMsg = @"";
-	}
-	
     NSString * text = [NSString stringWithFormat:
-                       NSLocalizedString(@"A passphrase is required to connect to\n  %@%@", @"Window text"),
-                       displayName,
-					   groupMsg];
+                       NSLocalizedString(@"A passphrase is required to connect to\n  %@", @"Window text"),
+                       [[self delegate] displayName]];
     [mainText setTitle: text];
     
     [saveInKeychainCheckbox setTitle: NSLocalizedString(@"Save in Keychain", @"Checkbox name")];
@@ -119,8 +107,6 @@
 
 - (IBAction) cancelButtonWasClicked: sender
 {
-	(void) sender;
-	
     [cancelButton setEnabled: NO];
     [OKButton setEnabled: NO];
     [NSApp abortModal];
@@ -128,8 +114,6 @@
 
 - (IBAction) OKButtonWasClicked: sender
 {
-	(void) sender;
-	
     if (  [[[self passphrase] stringValue] length] == 0  ) {
         TBRunAlertPanel(NSLocalizedString(@"Please enter VPN passphrase.", @"Window title"),
                         NSLocalizedString(@"The passphrase must not be empty!\nPlease enter VPN passphrase.", @"Window text"),

@@ -54,14 +54,18 @@ enum TerminationReason {
     terminatingBecauseOfFatalError = 6
 };
 
-unsigned needToRunInstaller(BOOL inApplications);
+BOOL needToRunInstaller(BOOL * changeOwnershipAndOrPermissions,
+                        BOOL * moveLibraryOpenVPN,
+                        BOOL * restoreDeploy,
+                        BOOL * needsPkgRepair,
+                        BOOL * needsBundleCopy,
+                        BOOL inApplications); 
 
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
 BOOL needToMoveLibraryOpenVPN(void);
 BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
 BOOL needToCopyBundle(void);
-BOOL needToConvertNonTblks(void);
 
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
@@ -148,8 +152,6 @@ BOOL needToConvertNonTblks(void);
     BOOL                      mouseIsInMainIcon;            // Indicates that the mouse is over the Tunnelblick (not tracked unless preference says to)
     BOOL                      mouseIsInStatusWindow;        // Indicates that the mouse is over the icon or a status window
     
-	BOOL					  signatureIsInvalid;			// Indicates the app is digitally signed but the signature does not check out
-	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
@@ -157,7 +159,7 @@ BOOL needToConvertNonTblks(void);
     EventHotKeyRef            hotKeyRef;                    // Reference for the current hot key
     UInt32                    hotKeyKeyCode;                // Current hot key: Virtual key code
     UInt32                    hotKeyModifierKeys;           //                  Modifier keys code or 0 to indicate no hot key active
-    unsigned                  hotKeyCurrentIndex;           // Index of the hot key that is currently in use (0 = none, else 1...MAX_HOTKEY_IX)
+    int                       hotKeyCurrentIndex;           // Index of the hot key that is currently in use (0 = none, else 1...12)
 
     NSMutableArray          * customMenuScripts;            // Array of paths to the scripts for custom menu items
     int                       customMenuScriptIndex;        // Index used while building the customMenuScripts array
@@ -187,9 +189,11 @@ BOOL needToConvertNonTblks(void);
 -(void)             changedMonitorConfigurationFoldersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;
+-(void)             createLinkToApp;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
+-(void)             flushDnsCache:							(VPNConnection *)	connection;
 -(NSURL *)          getIPCheckURL;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
 -(void)             installConfigurationsUpdateInBundleAtPath: (NSString *)     path;
@@ -213,15 +217,8 @@ BOOL needToConvertNonTblks(void);
 -(NSString *)       openVPNLogHeader;
 -(void)             reconnectAfterBecomeActiveUser;
 -(void)             removeConnection:                       (id)                sender;
--(BOOL)             runInstaller:                           (unsigned)          installerFlags
-                  extraArguments:                           (NSArray *)         extraArguments;
-
--(BOOL)             runInstaller: (unsigned) installFlags
-                  extraArguments: (NSArray *) extraArguments
-                 usingAuthRefPtr: (AuthorizationRef *) authRef
-                         message: (NSString *) message;
 -(void)             saveConnectionsToRestoreOnRelaunch;
--(void)             setHotKeyIndex:                         (unsigned)          newIndex;
+-(void)             setHotKeyIndex:                         (int)               newIndex;
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setupSparklePreferences;
 -(NSArray *)        sortedSounds;

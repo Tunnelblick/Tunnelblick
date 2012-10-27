@@ -31,15 +31,4 @@
     return [self compare: theString options: NSCaseInsensitiveSearch | NSNumericSearch];
 }
 
--(unsigned) unsignedIntValue
-{
-    int i = [self intValue];
-    if (  i < 0  ) {
-        NSLog(@"unsignedIntValue: Negative value %d is invalid in this context", i);
-        return UINT_MAX;
-    }
-    
-    return (unsigned) i;
-}
-
 @end

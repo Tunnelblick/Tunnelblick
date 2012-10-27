@@ -47,7 +47,6 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
-	(void) dirtyRect;
 }
 
 -(void) awakeFromNib
@@ -126,18 +125,12 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) oldViewWillDisappear: (NSView *) view identifier: (NSString *) identifier
 {
-	(void) view;
-	(void) identifier;
-	
     [scrollTimer invalidate];
 }
 
 
 -(void) newViewWillAppear: (NSView *) view identifier: (NSString *) identifier
 {
-	(void) view;
-	(void) identifier;
-	
     requestedPosition = 0.0;
     restartAtTop = YES;
     startTime = [NSDate timeIntervalSinceReferenceDate] + 2.0;  // Time between initial display and start of scrolling (but it also
@@ -154,8 +147,6 @@ extern TBUserDefaults * gTbDefaults;
 
 - (void)scrollCredits:(NSTimer *)timer
 {
-	(void) timer;
-	
     if ([NSDate timeIntervalSinceReferenceDate] >= startTime) {
         if (  restartAtTop  ) {
             // Reset the startTime
