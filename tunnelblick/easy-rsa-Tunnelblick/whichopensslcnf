@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 cnf="$1/openssl.cnf"
 
