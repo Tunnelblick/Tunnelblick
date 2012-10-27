@@ -65,6 +65,7 @@ export KEY_COUNTRY="US"
 export KEY_PROVINCE="CA"
 export KEY_CITY="SanFrancisco"
 export KEY_ORG="Fort-Funston"
+export KEY_EMAIL="me@myhost.mydomain"
 export KEY_EMAIL=mail@host.domain
 export KEY_CN=changeme
 export KEY_NAME=changeme

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Make a certificate/private key pair using a locally generated
 # root certificate.
@@ -7,4 +7,4 @@
 # extension in the openssl.cnf file.
 
 export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --interact --server "$@"
+"$EASY_RSA/pkitool" --interact --server $*

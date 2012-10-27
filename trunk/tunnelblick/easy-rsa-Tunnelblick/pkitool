@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #  OpenVPN -- An application to securely tunnel IP networks
 #             over a single TCP/UDP port, with support for SSL/TLS-based
@@ -31,7 +31,7 @@
 # variable to set the "name" X509 subject field.
 
 PROGNAME=pkitool
-VERSION=2.0.1
+VERSION=2.0
 DEBUG=0
 
 die()
@@ -260,11 +260,11 @@ if [ $DO_ROOT -eq 1 ]; then
 	    KEY_CN="$KEY_ORG CA"
 	fi
     fi
-    if [ "$BATCH" ] && [ "$KEY_CN" ]; then
+    if [ $BATCH ] && [ "$KEY_CN" ]; then
 	echo "Using CA Common Name:" "$KEY_CN"
     fi
     FN="$KEY_CN"
-elif [ "$BATCH" ] && [ "$KEY_CN" ]; then
+elif [ $BATCH ] && [ "$KEY_CN" ]; then
     echo "Using Common Name:" "$KEY_CN"
     FN="$KEY_CN"
     if [ "$1" ]; then
@@ -322,7 +322,7 @@ if [ -d "$KEY_DIR" ] && [ "$KEY_CONFIG" ]; then
 
     # Build root CA
     if [ $DO_ROOT -eq 1 ]; then
-	"$OPENSSL" req "$BATCH" -days "$CA_EXPIRE" $NODES_REQ -new -newkey "rsa:$KEY_SIZE" -sha1 \
+	"$OPENSSL" req $BATCH -days $CA_EXPIRE $NODES_REQ -new -newkey rsa:$KEY_SIZE -sha1 \
 	    -x509 -keyout "$CA.key" -out "$CA.crt" -config "$KEY_CONFIG" && \
 	    chmod 0600 "$CA.key"
     else        
@@ -353,9 +353,9 @@ if [ -d "$KEY_DIR" ] && [ "$KEY_CONFIG" ]; then
 	fi
 
         # Build cert/key
-	( [ $DO_REQ -eq 0 ] || "$OPENSSL" req "$BATCH" -days "$KEY_EXPIRE" $NODES_REQ -new -newkey "rsa:$KEY_SIZE" \
+	( [ $DO_REQ -eq 0 ] || "$OPENSSL" req $BATCH -days $KEY_EXPIRE $NODES_REQ -new -newkey rsa:$KEY_SIZE \
 	        -keyout "$FN.key" -out "$FN.csr" $REQ_EXT -config "$KEY_CONFIG" $PKCS11_ARGS ) && \
-	    ( [ $DO_CA -eq 0 ]  || "$OPENSSL" ca "$BATCH" -days "$KEY_EXPIRE" -out "$FN.crt" \
+	    ( [ $DO_CA -eq 0 ]  || "$OPENSSL" ca $BATCH -days $KEY_EXPIRE -out "$FN.crt" \
 	        -in "$FN.csr" $CA_EXT -md sha1 -config "$KEY_CONFIG" ) && \
 	    ( [ $DO_P12 -eq 0 ] || "$OPENSSL" pkcs12 -export -inkey "$FN.key" \
 	        -in "$FN.crt" -certfile "$CA.crt" -out "$FN.p12" $NODES_P12 ) && \
