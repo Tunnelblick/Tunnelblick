@@ -146,15 +146,15 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +
 +- (BOOL)tunnelblickTestAppInApplications
 +{
-+    NSString * resourcesPath = [[NSBundle mainBundle] bundlePath];
-+    return [resourcesPath isEqualToString: @"/Applications/Tunnelblick.app/Contents/Resources"];
++    NSString * appPath = [[NSBundle mainBundle] bundlePath];
++    return [[appPath stringByDeletingLastPathComponent] isEqualToString: @"/Applications"];
 +}
 +
 +- (BOOL)tunnelblickTestDeployed
 +{
-+    // Returns TRUE if no Deploy folder or if the folder doesn't contain anything
++    // Returns TRUE if Deploy folder exists and contains something
 +    
-+    NSString * resourcesPath = [[NSBundle mainBundle] bundlePath];
++    NSString * resourcesPath = [[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"];
 +    NSString * deployPath = [resourcesPath stringByAppendingPathComponent: @"Deploy"];
 +    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: deployPath];
 +    NSString * file;
