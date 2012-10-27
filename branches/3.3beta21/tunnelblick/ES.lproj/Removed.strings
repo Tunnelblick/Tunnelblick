@@ -1,0 +1,6 @@
+/* Window text */
+"Please wait while Tunnelblick is being installed and secured..." = "Por favor espere mientras Tunnelblick se instala y es asegurado…";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick solo puede ser actualizado si su nombre es 'Tunnelblick'. Usted cambió el nombre a %@, así que las actualizaciones han sido desactivadas.";
+
