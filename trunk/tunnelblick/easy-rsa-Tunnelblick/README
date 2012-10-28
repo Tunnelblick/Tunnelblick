@@ -3,7 +3,6 @@ EASY-RSA version 2.0.1-Tunnelblick
 Based on EASY-RSA Version 2.0-rc1 as distributed with the source code of OpenVPN version 2.2.1.
 
 Customized for Tunnelblick as follows:
-  * Uses /bin/bash instead of /bin/sh
   * Fixes bugs caused by paths that contain whitespace
   * Removes extra "openssl-1.0.0.cnf-old-copy"
   * Removes "tmp" folder
