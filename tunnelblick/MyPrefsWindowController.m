@@ -36,6 +36,7 @@
 #import "SettingsSheetWindowController.h"
 #import "Sparkle/SUUpdater.h"
 #import "MainIconView.h"
+#import "easyRsa.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -2622,37 +2623,14 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	(void) sender;
 	
-    NSString * userPath = userEasyRsaPath(YES);
+    NSString * userPath = easyRsaPathToUse(YES);
     if (  ! userPath  ) {
         NSLog(@"utilitiesRunEasyRsaButtonWasClicked: no easy-rsa folder!");
         [[utilitiesPrefsView utilitiesRunEasyRsaButton] setEnabled: NO];
         return;
     }
     
-    // Run an AppleScript to open Terminal.app and cd to the easy-rsa folder
-    
-    NSArray * applescriptProgram = [NSArray arrayWithObjects:
-                                    [NSString stringWithFormat: @"set cmd to \"cd \\\"%@\\\"\"", userPath],
-                                    @"tell application \"System Events\" to set terminalIsRunning to exists application process \"Terminal\"",
-                                    @"tell application \"Terminal\"",
-                                    @"     activate",
-                                    @"     do script with command cmd",
-                                    @"end tell",
-                                    nil];
-    
-    NSMutableArray * arguments = [[[NSMutableArray alloc] initWithCapacity:6] autorelease];
-    NSEnumerator * e = [applescriptProgram objectEnumerator];
-    NSString * line;
-    while (  (line = [e nextObject])  ) {
-        [arguments addObject: @"-e"];
-        [arguments addObject: line];
-    }
-    
-    NSTask* task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: @"/usr/bin/osascript"];
-    [task setArguments: arguments];
-    [task setCurrentDirectoryPath: @"/tmp"];
-    [task launch];
+    openTerminalWithEasyRsaFolder(userPath);
 }
 
 -(IBAction) utilitiesKillAllOpenVpnButtonWasClicked: (id) sender

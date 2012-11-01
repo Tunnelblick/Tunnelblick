@@ -47,6 +47,7 @@
 #import "Sparkle/SUUpdater.h"
 #import "VPNConnection.h"
 #import "WelcomeController.h"
+#import "easyRsa.h"
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"
@@ -3161,26 +3162,9 @@ static void signal_handler(int signalNumber)
     
     [self setHotKeyIndex: kbsIx];
     
-    // Install easy-rsa if it isn't installed already
-    NSString * easyRsaPath = userEasyRsaPath(NO);
-    BOOL exists = FALSE;
-    BOOL isDir  = FALSE;
-    if (  easyRsaPath  ) {
-        exists = [gFileMgr fileExistsAtPath: easyRsaPath isDirectory: &isDir];
-    }
+    // Install easy-rsa if it isn't installed already, or update it if appropriate
+    installOrUpdateOurEasyRsa();
     
-    if (   ( ! easyRsaPath )
-        || (   exists && ( ! isDir ) )  ) {
-            NSLog(@"The 'easy-rsaPath' preference is invalid");
-            TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                            NSLocalizedString(@"The 'easy-rsaPath' preference is invalid. easy-rsa will not be available until the preference is removed or corrected.", @"Window title"),
-                            nil, nil, nil);
-    } else {
-        if (  ! exists  ) {
-            updateEasyRsa(YES);
-        }
-    }
-
     AuthorizationFree(gAuthorization, kAuthorizationFlagDefaults);
     gAuthorization = nil;
     
