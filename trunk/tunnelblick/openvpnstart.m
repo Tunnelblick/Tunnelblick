@@ -364,8 +364,8 @@ void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, NSStr
 {
 	// Exits if file doesn't exist, or does not have the specified ownership and permissions
 	
-    if (  [gFileMgr fileExistsAtPath: fPath]  ) {
-        fprintf(stderr, "*Tunnelblick: File does not exists: %s", [fPath UTF8String]);
+    if (  ! [gFileMgr fileExistsAtPath: fPath]  ) {
+        fprintf(stderr, "*Tunnelblick: File does not exist: %s", [fPath UTF8String]);
         exitOpenvpnstart(200);
     }
     
