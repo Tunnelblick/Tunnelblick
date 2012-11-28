@@ -75,8 +75,9 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://www.urbanshield.net Urban Shield]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.versavpn.com VersaVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://vpnfacile.fr VPNFacile]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnsecure.me VPN.S]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.vpnmaster.com VPNMaster]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnsecure.me VPN.S]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.vpnservice.ru VPNService.ru]*
   * *[http://www.tunnelblick.net/to.php?to=https://vpnuk.info VPNUK]*
 </td></tr></table>
 </td></tr></table>
