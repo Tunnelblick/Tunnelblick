@@ -270,6 +270,10 @@ int main(int argc, char *argv[])
         errorExit();
     }
     
+    if (  [gFileMgr fileExistsAtPath: L_AS_T_DEPLOY]  ) {
+        secureL_AS_T_DEPLOY();
+    }
+    
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_SHARED,
                                                 0755, 0, 0)  ) {
         errorExit();

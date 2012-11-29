@@ -614,6 +614,25 @@ enum state_t {                      // These are the "states" of the guideState 
         return;
     }
     
+    BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
+    BOOL installToPrivateOK = (   (! isDeployed)
+                               || (   [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]
+                                   && ( ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"])
+                                   )  );
+    BOOL installToSharedOK = (   (! isDeployed)
+                              || (   [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]
+                                  && ( ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"])
+                                  )  );
+    
+    if (  ! installToPrivateOK  ) {
+        if (  ! installToSharedOK  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                            NSLocalizedString(@"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.", "Window text"),
+                            nil, nil, nil);
+            return;
+        }
+    }
+    
     NSMutableArray * sourceList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to source of files OK to install
     NSMutableArray * targetList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to destination to install them
     NSMutableArray * deleteList = [NSMutableArray arrayWithCapacity: [filePaths count]];        // Paths to delete
@@ -1206,11 +1225,37 @@ enum state_t {                      // These are the "states" of the guideState 
         // Ask if it should be shared or private
         if ( ! replacementPath  ) {
             if (  [pkgSharePackage isEqualToString: @"ask"]  ) {
-                int result = TBRunAlertPanel(NSLocalizedString(@"Install Configuration For All Users?", @"Window title"),
-                                             [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), tryDisplayName],
-                                             NSLocalizedString(@"Only Me", @"Button"),      //Default button
-                                             NSLocalizedString(@"All Users", @"Button"),    // Alternate button
-                                             NSLocalizedString(@"Cancel", @"Button"));      // Alternate button);
+                BOOL isDeployed = [gFileMgr fileExistsAtPath: gDeployPath];
+                BOOL installToPrivateOK = (   (! isDeployed)
+                                           || (   [gTbDefaults boolForKey: @"usePrivateConfigurationsWithDeployedOnes"]
+                                               && ( ! [gTbDefaults canChangeValueForKey: @"usePrivateConfigurationsWithDeployedOnes"])
+                                               )  );
+                BOOL installToSharedOK = (   (! isDeployed)
+                                          || (   [gTbDefaults boolForKey: @"useSharedConfigurationsWithDeployedOnes"]
+                                              && ( ! [gTbDefaults canChangeValueForKey: @"useSharedConfigurationsWithDeployedOnes"])
+                                              )  );
+                
+                int result;
+                if (  installToPrivateOK  ) {
+                    if (  installToSharedOK  ) {
+                        result = TBRunAlertPanel(NSLocalizedString(@"Install Configuration For All Users?", @"Window title"),
+                                                 [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), tryDisplayName],
+                                                 NSLocalizedString(@"Only Me", @"Button"),      //Default button
+                                                 NSLocalizedString(@"All Users", @"Button"),    // Alternate button
+                                                 NSLocalizedString(@"Cancel", @"Button"));      // Alternate button);
+                    } else {
+                        NSLog(@"Configuration installer: Forcing install of %@ as private because Deployed version of Tunnelblick and 'useSharedConfigurationsWithDeployedOnes' preference is not forced", tryDisplayName);
+                        result = NSAlertDefaultReturn;
+                    }
+                } else {
+                    if (  installToSharedOK  ) {
+                        NSLog(@"Configuration installer: Forcing install of %@ as shared because Deployed version of Tunnelblick and 'usePrivateConfigurationsWithDeployedOnes' preference is not forced", tryDisplayName);
+                        result = NSAlertAlternateReturn;
+                    } else {
+                        NSLog(@"Configuration installer: : %@ cannot be installed as shared or private because this is a Deployed version of Tunnelblick.", tryDisplayName);
+                        return nil;
+                    }
+                }
                 if (  result == NSAlertDefaultReturn  ) {
                     pkgSharePackage = @"private";
                 } else if (  result == NSAlertAlternateReturn  ) {
