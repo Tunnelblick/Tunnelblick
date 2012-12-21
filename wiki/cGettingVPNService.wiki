@@ -31,7 +31,7 @@ Another way to get access to a VPN server is to use a VPN service provider, an o
 
 <table><tr><td>
 <table border="1" width="100%"><tr><td>
-The following VPN service provider  contributes a portion of your fees to Tunnelblick if you use these links
+The following VPN service provider  contributes a portion of your fees to Tunnelblick if you use this link:
   * *[http://btguard.com/?a=tunnelblick BTGuard]*
 </td></tr></table>
 
