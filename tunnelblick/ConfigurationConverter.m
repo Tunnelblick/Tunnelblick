@@ -265,13 +265,9 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 			inPath = [firstPartOfPath(configPath) stringByAppendingPathComponent: inPath];
 		}
 				
-		NSString * tblkResourcesPath = [[outputPath stringByAppendingPathComponent: @"Contents"]
-                                        stringByAppendingPathComponent: @"Resources"];
-        NSString * outPath = [tblkResourcesPath stringByAppendingPathComponent: file];
-        
-        if (  ! createDirWithPermissionAndOwnership(tblkResourcesPath, PERMS_PRIVATE_TBLK_FOLDER, getuid(), ADMIN_GROUP_ID)  ) {
-            [self logMessage: [NSString stringWithFormat: @"Unable to create %@", inPath]];
-        }
+        NSString * outPath = [[[outputPath stringByAppendingPathComponent: @"Contents"]
+                               stringByAppendingPathComponent: @"Resources"]
+                              stringByAppendingPathComponent: file];
         
 		unsigned linkCounter = 0;
         while (   [[[gFileMgr tbFileAttributesAtPath: inPath traverseLink: NO] objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]
@@ -377,6 +373,16 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     
     inputIx         = 0;
     inputLineNumber = 1;
+    
+    // Create the .tblk/Contents/Resources folder
+    if (  outputPath  ) {
+		NSString * tblkResourcesPath = [[outputPath stringByAppendingPathComponent: @"Contents"]
+                                        stringByAppendingPathComponent: @"Resources"];
+        if (  ! createDirWithPermissionAndOwnership(tblkResourcesPath, PERMS_PRIVATE_TBLK_FOLDER, getuid(), ADMIN_GROUP_ID)  ) {
+            [self logMessage: [NSString stringWithFormat: @"Unable to create %@ owned by %ld:%ld with %lo permissions",
+                               tblkResourcesPath, (long) getuid(), (long) ADMIN_GROUP_ID, (long) PERMS_PRIVATE_OTHER]];
+        }
+    }
     
     unsigned tokenIx = 0;
     while (  tokenIx < [tokens count]  ) {
