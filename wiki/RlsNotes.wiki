@@ -10,6 +10,22 @@
 
 ==Version 3.3==
 
+*3.3beta30 (2012-12-25)*
+
+ * Updates the easy-rsa programs to fix bugs in the Tunnelblick patches.
+
+ * Secures the easy-rsa folder and its contents.
+
+ * Warns the user when trying to install a Tunnelblick VPN Configuration (.tblk) into a Deployed version of Tunnelblick that does not allow shared and/or private configurations.
+
+ * Fixes bugs in Sparkle Updater's isDeployed and hasDeployBackups detection
+ 
+ * Fixes a bug that caused a log message to show permissions as decimal instead of octal.
+
+ * Fixes a bug that caused installer to fail if /Library/Application Support/Deploy subfolder was not secure."
+
+ * Fixes bug that caused failures in conversion of an OpenVPN configuration file to a Tunnelblick VPN Configuration (.tblk) if the configuration file does not use separate key, certificate, script, etc. files.
+
 *3.3beta28 (2012-10-24)*
 
  * Configurations can share credentials (usernames/passwords and pass phrases) so that the credentials need not be entered separately for each configuration. (This may be set on the 'Advanced' settings window's 'VPN Credentials' tab.)

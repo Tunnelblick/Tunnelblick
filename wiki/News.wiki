@@ -1,6 +1,19 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2012-112-25: *Tunnelblick 3.3beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Updates the easy-rsa programs to fix bugs in the Tunnelblick patches.
+
+ * Secures the easy-rsa folder and its contents.
+
+ * Warns the user when trying to install a Tunnelblick VPN Configuration (.tblk) into a Deployed version of Tunnelblick that does not allow shared and/or private configurations.
+
+ * Contains several bug fixes.
+
+ See the [https://code.google.com/p/tunnelblick/wiki/RlsNotes Release Notes] for details.
+--------------------
+
 2012-10-24: *Tunnelblick 3.3beta28 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Configurations can share credentials (usernames/passwords and pass phrases) so that the credentials need not be entered separately for each configuration.
