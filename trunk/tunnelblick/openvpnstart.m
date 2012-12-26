@@ -212,7 +212,7 @@ void printUsageMessageAndExitOpenvpnstart(void)
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
 }
 
-BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
+BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002)
 {
 	const char *pathC = [path fileSystemRepresentation];
     
@@ -241,10 +241,10 @@ BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
         return YES;
     }
     
-    int perms = [[attributes objectForKey: NSFilePosixPermissions] shortValue];
+    mode_t perms = (mode_t) [[attributes objectForKey: NSFilePosixPermissions] shortValue];
     if (  permissionsIfNot002 == 0  ) {
         if (  (perms & S_IWOTH) != 0   ) {
-            fprintf(stderr, "%s is writable by other (%o)\n", pathC, perms);
+            fprintf(stderr, "%s is writable by other (permissions = 0%lo)\n", pathC, (long) perms);
             return YES;
         }
     } else {
@@ -256,7 +256,7 @@ BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
 					)
 				)
 			) {
-            fprintf(stderr, "%s permissions are %o, not %o\n", pathC, perms, permissionsIfNot002);
+            fprintf(stderr, "%s permissions are 0%lo, not 0%lo\n", pathC, (long) perms, (long) permissionsIfNot002);
             return YES;
         }
     }
@@ -299,16 +299,16 @@ BOOL pathComponentIsNotSecure(NSString * path, int permissionsIfNot002)
     return NO;
 }
 
-BOOL pathIsNotSecure(NSString * path, int terminusPermissions)
+BOOL pathIsNotSecure(NSString * path, mode_t terminusPermissions)
 {
 #ifdef TBDebug
 	if (  [path hasPrefix: [gResourcesPath stringByAppendingString: @"/"]]  ) {
 		// Debugging and path is within the app
 		// Verify only that the path itself is secure: owned by root:wheel with no user write permissions
         if (  pathComponentIsNotSecure(path, terminusPermissions)  ) {
-			fprintf(stderr, "pathIsNotSecure: pathComponentIsNotSecure(%s, %o)\n",
+			fprintf(stderr, "pathIsNotSecure: pathComponentIsNotSecure(%s, 0%lo)\n",
 					[path UTF8String],
-					terminusPermissions);
+					(long) terminusPermissions);
             return YES;
         }
 		
@@ -340,11 +340,11 @@ BOOL pathIsNotSecure(NSString * path, int terminusPermissions)
                                        (i == (nComponents - 1))
                                        ? terminusPermissions
                                        : 0)  ) {
-			fprintf(stderr, "pathIsNotSecure: pathComponentIsNotSecure(%s, %o)\n",
+			fprintf(stderr, "pathIsNotSecure: pathComponentIsNotSecure(%s, 0%lo)\n",
 					[pathSoFar UTF8String],
 					(i == (nComponents - 1))
-					? terminusPermissions
-					: 0);
+					? (long) terminusPermissions
+					: 0L);
             return YES;
         }
     }
@@ -352,7 +352,7 @@ BOOL pathIsNotSecure(NSString * path, int terminusPermissions)
     return  NO;
 }
 
-void exitIfPathIsNotSecure(NSString * path, int permissions, OSStatus statusToReturnIfNotSecure)
+void exitIfPathIsNotSecure(NSString * path, mode_t permissions, OSStatus statusToReturnIfNotSecure)
 {
     if (  pathIsNotSecure(path, permissions)  ) {
         fprintf(stderr, "%s is not secured\n", [path UTF8String]);
@@ -360,7 +360,7 @@ void exitIfPathIsNotSecure(NSString * path, int permissions, OSStatus statusToRe
     }
 }
 
-void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, NSString * permsShouldHave)
+void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
 {
 	// Exits if file doesn't exist, or does not have the specified ownership and permissions
 	
@@ -371,17 +371,19 @@ void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, NSStr
     
     NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
     unsigned long perms = [fileAttributes filePosixPermissions];
-    NSString *permissionsOctal = [NSString stringWithFormat:@"%lo",perms];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
     
-    if (   [permissionsOctal isEqualToString: permsShouldHave]
+    if (   (perms == (unsigned long) permsShouldHave)
         && [fileOwner isEqualToNumber:[NSNumber numberWithInt:(int) uid]]
         && [fileGroup isEqualToNumber:[NSNumber numberWithInt:(int) gid]]) {
         return;
     }
     
-    fprintf(stderr, "File %s has permissions: %s, is owned by %d:%d and needs repair\n", [fPath UTF8String], [permissionsOctal UTF8String], [fileOwner intValue], [fileGroup intValue]);
+    fprintf(stderr, "File %s has permissions: 0%lo and is owned by %d:%d but should have permissions 0%lo and be owned by %d:%d\n",
+            [fPath UTF8String],
+            perms, [fileOwner intValue], [fileGroup intValue],
+            (long) permsShouldHave, (int) uid, (int) gid);
     exitOpenvpnstart(201);
 }
 
@@ -465,20 +467,21 @@ void exitIfOvpnNeedsRepair(void)
         exitOpenvpnstart(203);
     }
     
-    exitIfPathIsNotSecure(gConfigPath, 0600, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+    exitIfPathIsNotSecure(gConfigPath, PERMS_SECURED_OTHER, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
 }
 
 void becomeRoot(void)
 {
 	// Returns as root, having setuid(0) if necessary; complains and exits if can't become root
 	
-	int result =1234;
 	uid_t uidBefore  = getuid();
 	uid_t euidBefore = geteuid();
     
 	if (   ( uidBefore  != 0 )
-		|| ( euidBefore != 0 )  ){
-		if (  (result = setuid(0))  ) {
+		|| ( euidBefore != 0 )  ) {
+        
+        int result = setuid(0);
+		if (  result  ) {
 			fprintf(stderr, 
 					"Error: Unable to become root: setuid(0) returned %d;"
 					" getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
@@ -586,7 +589,7 @@ void exitIfRunExecutableIsNotGood(NSString * path)
 	}
 }
 
-int runAsRoot(NSString * thePath, NSArray * theArguments, int permissions)
+int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions)
 {
 	// Runs a program as root
 	// Returns program's termination status
@@ -691,11 +694,11 @@ int runScript(NSString * scriptName, int argc, char * argv[])
                               stringByAppendingPathComponent: @"Resources"]
                              stringByAppendingPathComponent: scriptName];
 	
-    exitIfWrongOwnerOrPermissions(scriptPath, 0, 0, @"744");
+    exitIfWrongOwnerOrPermissions(scriptPath, 0, 0, PERMS_SECURED_SCRIPT);
 
     fprintf(stderr, "'%s' executing...\n", [scriptName UTF8String]);
     
-    returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+    returnValue = runAsRoot(scriptPath, [NSArray array], PERMS_SECURED_SCRIPT);
     
     fprintf(stderr, "'%s' returned with status %d\n", [scriptName UTF8String], returnValue);
     
@@ -2057,11 +2060,11 @@ int startVPN(NSString * configFile,
         
         if (   [gFileMgr fileExistsAtPath: preConnectPath isDirectory: &isDir]  ) {
             if (  ! isDir  ) {
-				exitIfWrongOwnerOrPermissions(preConnectPath, 0, 0, @"744");
+				exitIfWrongOwnerOrPermissions(preConnectPath, 0, 0, PERMS_SECURED_SCRIPT);
 				
 				fprintf(stderr, "'pre-connect.sh' executing...\n");
 				
-				int result = runAsRoot(preConnectPath, [NSArray array], 0744);
+				int result = runAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_SCRIPT);
 				
 				fprintf(stderr, "'pre-connect.sh' returned with status %d\n", result);
 				
@@ -2110,11 +2113,11 @@ int startVPN(NSString * configFile,
         
         if (   [gFileMgr fileExistsAtPath: postTunTapPath isDirectory: &isDir]  ) {
             if (  ! isDir  ) {
-				exitIfWrongOwnerOrPermissions(postTunTapPath, 0, 0, @"744");
+				exitIfWrongOwnerOrPermissions(postTunTapPath, 0, 0, PERMS_SECURED_SCRIPT);
 				
 				fprintf(stderr, "'post-tun-tap-load.sh' executing...\n");
 				
-				int result = runAsRoot(postTunTapPath, [NSArray array], 0744);
+				int result = runAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_SCRIPT);
 				
 				fprintf(stderr, "'post-tun-tap-load.sh' returned with status %d\n", result);
 				
