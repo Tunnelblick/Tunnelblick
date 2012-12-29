@@ -776,8 +776,28 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
 	} else if (  [anItem action] == @selector(removeCredentialsMenuItemWasClicked:)  ) {
 		return  ! [gTbDefaults boolForKey: @"disableDeleteConfigurationCredentialsInKeychainMenuItem"];
-	}
 	
+	} else if (  [anItem action] == @selector(whenToConnectManuallyMenuItemWasClicked:)  ) {
+		return TRUE;
+	
+	} else if (  [anItem action] == @selector(whenToConnectTunnelBlickLaunchMenuItemWasClicked:)  ) {
+		return TRUE;
+	
+	} else if (  [anItem action] == @selector(whenToConnectOnComputerStartMenuItemWasClicked:)  ) {
+		VPNConnection * conn = [self selectedConnection];
+		if (  ! conn  ) {
+			return NO;  // No connection selected
+		}
+		NSString * configurationPath = [conn configPath];
+		if (  [configurationPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+			return NO;  // Private paths may not start when computer starts
+		}
+		if (  ! [[configurationPath pathExtension] isEqualToString: @"tblk"]  ) {
+			return NO;  // Only .tblks may start when computer starts
+		}
+		return YES;
+	}
+
 	NSLog(@"MyPrefsWindowController:validateMenuItem: Unknown menuItem %@", [anItem description]);
 	return NO;
 }
