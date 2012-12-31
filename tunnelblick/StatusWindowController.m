@@ -53,8 +53,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 
 -(NSTextFieldCell *) statusTFC;
 
--(void)              setTitle:        (NSString *) newTitle ofControl: (id) theControl;
-
 @end
 
 @implementation StatusWindowController
@@ -283,9 +281,24 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
         [[self window] setAlphaValue: 0.77f];
     }
     
-	[self setTitle: localizeNonLiteral(@"Connect",    @"Button") ofControl: connectButton];
-	[self setTitle: localizeNonLiteral(@"Disconnect", @"Button") ofControl: disconnectButton];
-
+	[connectButton    setTitle: localizeNonLiteral(@"Connect",   @"Button")];
+	[disconnectButton setTitle: localizeNonLiteral(@"Disonnect", @"Button")];
+	
+	// Size both buttons to the max size of either button
+	[connectButton    sizeToFit];
+	[disconnectButton sizeToFit];
+	CGFloat cWidth = [connectButton    frame].size.width;
+	CGFloat dWidth = [disconnectButton frame].size.width;
+	if (  cWidth > dWidth  ) {
+		NSRect f = [disconnectButton frame];
+		f.size.width = cWidth;
+		[disconnectButton setFrame: f];
+	} else if (  dWidth > cWidth) {
+		NSRect f = [connectButton frame];
+		f.size.width = dWidth;
+		[connectButton setFrame: f];
+	}
+	
     [self setSizeAndPosition];
     [[self window] setTitle: NSLocalizedString(@"Tunnelblick", @"Window title")];
     
@@ -303,28 +316,6 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     [self initialiseAnim];
     haveLoadedFromNib = TRUE;
     [self fadeIn];
-}
-
-// Sets the title for a control, shifting the origin of the control itself to the left, and the origin of other controls to the left or right to accomodate any change in width.
--(void) setTitle: (NSString *) newTitle ofControl: (id) theControl
-{
-    NSRect oldRect = [theControl frame];
-    [theControl setTitle: newTitle];
-    [theControl sizeToFit];
-    
-    NSRect newRect = [theControl frame];
-    float widthChange = newRect.size.width - oldRect.size.width;
-    NSRect oldPos;
-    
-    if (   [theControl isEqual: connectButton]  ) {  // Shift the disconnect button left/right if necessary
-        oldPos = [disconnectButton frame];
-        oldPos.origin.x = oldPos.origin.x - widthChange;
-        [disconnectButton setFrame:oldPos];
-    } else if (   [theControl isEqual: disconnectButton]  ) {
-        oldPos = [disconnectButton frame];
-        oldPos.origin.x = oldPos.origin.x - (widthChange/2);
-        [disconnectButton setFrame:oldPos];
-    }
 }
 
 -(CGFloat) adjustWidthsToLargerOf: (NSTextField *) tf1 and: (NSTextField *) tf2 {
