@@ -74,15 +74,26 @@ void printUsageMessageAndExitOpenvpnstart(void) {
         
         "./openvpnstart kill   processId\n"
         "               to terminate the 'openvpn' process with the specified processID\n\n";
-        
     } else {
         killStringC = "";
+    }
+    
+    const char * killAllStringC;
+    if (  ALLOW_OPENVPNSTART_KILLALL  ) {
+        killAllStringC =
+        "./openvpnstart killall\n"
+        "               to terminate all processes named 'openvpn'\n\n";
+    } else {
+        killAllStringC = "";
     }
     
     fprintf(stderr,
             "\n\nopenvpnstart usage:\n\n"
             
             // killStringC is inserted here:
+            "%s"
+            
+            // killAllStringC is inserted here:
             "%s"
             
             "./openvpnstart loadKexts     [bitMask]\n"
@@ -208,7 +219,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "Tunnelblick must have been run and an administrator password entered at least once before openvpnstart can be used.\n\n"
             
             "For more information on using Deploy, see the Deployment wiki at http://code.google.com/p/tunnelblick/wiki/cCusDeployed\n"
-            , killStringC);
+            , killStringC, killAllStringC);
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
 }
 
@@ -1087,10 +1098,10 @@ void waitUntilAllGone(void) {
     
 	struct kinfo_proc*	info	= NULL;
         
-    found = FALSE;
-	
     for (j=0; j<6; j++) {   // Try up to six times, with one second _between_ each try -- max five seconds total
         
+		found = FALSE;
+		
         if (j != 0) {       // Don't sleep the first time through
             sleep(1);
         }
@@ -1098,20 +1109,19 @@ void waitUntilAllGone(void) {
         getProcesses(&info, &count);
         for (i = 0; i < count; i++) {
             char* process_name = info[i].kp_proc.p_comm;
-            if(strcmp(process_name, "openvpn") == 0) {
+            if (  strcmp(process_name, "openvpn") == 0  ) {
                 found = TRUE;
-                break;
             }
         }
         
         free(info);
-        
-        if (! found) {
-            break;
-        }
+		
+		if (  ! found  ) {
+			break;
+		}
     }
     
-    if (found) {
+    if (  found  ) {
         fprintf(stderr, "Error: Timeout (5 seconds) waiting for openvpn process(es) to terminate\n");
     }
 }
@@ -1149,8 +1159,8 @@ void killOneOpenvpn(pid_t pid) {
 void killAllOpenvpn(void) {
 	//Kills all processes named 'openvpn'
 	
-    if (  ! ALLOW_OPENVPNSTART_KILL  ) {
-        fprintf(stderr, "The kill command is no longer allowed\n");
+    if (  ! ALLOW_OPENVPNSTART_KILLALL  ) {
+        fprintf(stderr, "The killall command is no longer allowed\n");
         exitOpenvpnstart(220);
     }
     
@@ -2427,7 +2437,7 @@ int main(int argc, char * argv[]) {
     if (  argc > 1  ) {
 		char * command = argv[1];
 		
-		if ( ALLOW_OPENVPNSTART_KILL && (strcmp(command, "killall") == 0) ) {
+		if ( ALLOW_OPENVPNSTART_KILLALL && (strcmp(command, "killall") == 0) ) {
 			if (  argc == 2  ) {
 				killAllOpenvpn();
 				syntaxError = FALSE;

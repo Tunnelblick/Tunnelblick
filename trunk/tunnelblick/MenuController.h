@@ -187,6 +187,7 @@ BOOL needToConvertNonTblks(void);
 -(void)             changedMonitorConfigurationFoldersSettings;
 -(void)             checkForUpdates:                        (id)                sender;
 -(BOOL)             cleanup;
+-(NSArray *)        connectionsNotDisconnected;
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
@@ -196,6 +197,8 @@ BOOL needToConvertNonTblks(void);
 -(unsigned)         decrementTunCount;
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
+-(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
+                                            logMessage:     (NSString *)        logMessage;
 -(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName
                                main:                        (NSImage **)        ptrMainImage

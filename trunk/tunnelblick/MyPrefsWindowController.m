@@ -2657,29 +2657,15 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	(void) sender;
 	
-	if (  ! ALLOW_OPENVPNSTART_KILL  ) {
+	if (  ! ALLOW_OPENVPNSTART_KILLALL  ) {
 		return;
 	}
 	
     NSArray  * arguments = [NSArray arrayWithObject: @"killall"];
-    NSString * stdOut;
-    NSString * stdErrOut;
-    runOpenvpnstart(arguments, &stdOut, &stdErrOut);
-    
-    stdErrOut = [stdErrOut stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (  [stdErrOut length] == 0  ) {
-        int numberKilled = [stdOut intValue];
-        NSString * message;
-        if (  numberKilled == 0  ) {
-            message = NSLocalizedString(@"No OpenVPN process were terminated.", @"Window title");
-        } else if (  numberKilled == 1  ) {
-            message = NSLocalizedString(@"One OpenVPN process was terminated.", @"Window title");
-        } else {
-            message = [NSString stringWithFormat: NSLocalizedString(@"%d OpenVPN processes were terminated.", @"Window title"), numberKilled];
-        }
-        
+    OSStatus status = runOpenvpnstart(arguments, nil, nil);
+    if (  status == 0  ) {
         TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),
-                        message,
+                        NSLocalizedString(@"All OpenVPN process were terminated.", @"Window title"),
                         nil, nil, nil);
     } else {
         TBRunAlertPanel(NSLocalizedString(@"Warning!", @"Window title"),

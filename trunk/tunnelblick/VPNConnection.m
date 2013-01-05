@@ -1875,12 +1875,20 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL disconnectionComplete = FALSE;
 
     pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
+    NSArray * connectedList = nil;
+    
     if (  ALLOW_OPENVPNSTART_KILL && (thePid > 0)  ) {
         [self killProcess];
         if (  [wait boolValue]  ) {
             // Wait up to five seconds for the OpenVPN process to disappear
             disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
         }
+    } else if (   ALLOW_OPENVPNSTART_KILLALL
+               && (  [(connectedList = [[NSApp delegate] connectionsNotDisconnected]) count] == 1  )
+               && (  [connectedList objectAtIndex: 0] == self  )  ) {
+		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
+        [[NSApp delegate] killAllConnectionsIncludingDaemons: FALSE logMessage: [NSString stringWithFormat: @"Using 'killall' to disconnect %@", [self displayName]]];
+		disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
     } else {
         if([managementSocket isConnected]) {
             NSLog(@"Disconnecting via management interface");
