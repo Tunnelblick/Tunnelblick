@@ -49,7 +49,7 @@ extern TBUserDefaults * gTbDefaults;
 {
     [utilitiesKillAllOpenVpnButton setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
     [utilitiesKillAllOpenVpnButton sizeToFit];
-	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILL];
+	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILLALL];
     
     NSString * easyRsaPathMessage;
     if (  [gTbDefaults objectForKey: @"easy-rsaPath"]  ) {

@@ -147,8 +147,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                   afterIndex:               (int)               theIndex
                                     withName:               (NSString *)        displayName;
 -(NSString *)       installationId;
--(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
-                                            logMessage:     (NSString *)        logMessage;
 -(void)             makeSymbolicLink;
 -(NSString *)       menuNameFromFilename:                   (NSString *)        inString;
 -(void)             removeConnectionWithDisplayName:        (NSString *)        theName
@@ -1984,7 +1982,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
     
 	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d ",
 		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons);
-    if (   ALLOW_OPENVPNSTART_KILL
+    if (   ALLOW_OPENVPNSTART_KILLALL
 		&& ( includeDaemons
 			|| ( noUnknownOpenVPNsRunning && noActiveDaemons )
 			)
@@ -2169,7 +2167,19 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
 	}
 }
 
-// If there aren't ANY config files in the config folders 
+-(NSArray *) connectionsNotDisconnected {
+    NSMutableArray * list = [[[NSMutableArray alloc] initWithCapacity:10] autorelease];
+    NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
+    VPNConnection * connection;
+    while (  (connection = [connEnum nextObject])  ) {
+        if (  ! [[connection state] isEqualToString: @"EXITING"]  ) {
+            [list addObject: connection];
+        }
+    }
+    
+    return list;
+}
+// If there aren't ANY config files in the config folders
 // then guide the user
 //
 // When Sparkle updates us while we're running, it moves us to the Trash, then replaces us, then terminates us, then launches the new copy.
@@ -3403,7 +3413,22 @@ static void signal_handler(int signalNumber)
 				   noUnknownOpenVPNsRunning = YES;
 			   }
 		   }
-	   } else {
+	   } else if (  ALLOW_OPENVPNSTART_KILLALL  ) {
+		   int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
+												NSLocalizedString(@"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?", @"Window text"),
+												NSLocalizedString(@"Ignore", @"Button"),
+												NSLocalizedString(@"Terminate All OpenVPN processes", @"Button"),
+												nil,
+												@"skipWarningAboutUnknownOpenVpnProcesses",
+												NSLocalizedString(@"Do not ask again, always 'Ignore'", @"Checkbox name"),
+												nil,
+												NSAlertDefaultReturn);
+		   if (  result == NSAlertAlternateReturn  ) {
+               NSArray  * arguments = [NSArray arrayWithObject:@"killall"];
+               runOpenvpnstart(arguments, nil, nil);
+               noUnknownOpenVPNsRunning = YES;
+           }
+       } else {
 		   TBRunAlertPanel(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
 						   NSLocalizedString(@"One or more OpenVPN processes are running but are unknown"
 											 @" to Tunnelblick. If you are not running OpenVPN separately"
