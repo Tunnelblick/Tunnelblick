@@ -34,11 +34,11 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  <font size="3"><strong>Tunnelblick 3.3beta21a</strong></font> (build 3114.1) released 2012-09-12 [RlsNotes#Version_3.3 Release Notes]
    <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21a.dmg          Tunnelblick 3.3beta21a]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21a_Unsigned.dmg Tunnelblick 3.3beta21a Unsigned]</strong> (Used for the creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br/> <strong>NOTE: 3.3beta21a installs on any system.</strong>
 
-  <font size="3"><strong>Tunnelblick 3.3beta30</strong></font> (build 3176) released 2012-12-25 [RlsNotes#Version_3.3 Release Notes]
-    <font color="red"><strong>NOTE: 3.3beta30 will refuse to install itself if:</strong>
-      • It is a "[cCusDeployed Deployed]" version; and<br />
-      • A "[cCusDeployed Deployed]" version of Tunnelblick has previously been installed.</font>
-   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta30.dmg Tunnelblick 3.3beta30]</strong><br />
+  <font size="3"><strong>Tunnelblick 3.3beta32</strong></font> (build 3183) released 2013-01-05 [RlsNotes#Version_3.3 Release Notes]
+    <font color="red"><strong>NOTE: 3.3beta32 will refuse to install itself if:</strong>
+      • It is a "[cCusDeployed Deployed]" version; or<br />
+      • A "[cCusDeployed Deployed]" version of Tunnelblick has previously been installed and has not been fully uninstalled.</font>
+   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta32.dmg Tunnelblick 3.3beta32]</strong><br />
    <strong>Note: Unsigned versions of Tunnelblick that do not support "Deployed" configurations are no longer available.</strong><br />
    
 </td></tr></tbody></table>
