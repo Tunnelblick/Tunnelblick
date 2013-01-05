@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
     
     if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS
                                                  stringByAppendingPathComponent: NSUserName()],
-                                                0755, 0, 0)  ) {
+                                                0750, 0, 0)  ) {
         errorExit();
     }
     
