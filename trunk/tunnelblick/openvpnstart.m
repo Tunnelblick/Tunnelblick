@@ -34,7 +34,6 @@
 //**************************************************************************************************************************
 NSAutoreleasePool   * pool;
 
-NSFileManager       * gFileMgr       = nil;     // [NSFileManager defaultManager]
 NSString			* gConfigPath    = nil;     // Path to configuration file
 //                                                 in ~/Library/Application Support/Tunnelblick/Configurations/
 //                                                 or /Library/Application Support/Tunnelblick/Users/<username>/
@@ -44,28 +43,29 @@ NSString			* gResourcesPath = nil;     // Path to Tunnelblick.app/Contents/Resou
 NSString            * gDeployPath    = nil;     // Path to /Library/Application Support/Tunnelblick/Deploy/<application name>
 NSString            * gStartArgs     = nil;     // String with an underscore-delimited list of the following arguments to openvpnstart's start
 //                                              // subcommand: useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
-uid_t                 gOriginalUid   = 0;       // Uid of user (not root)
+
+uid_t                 gOriginalUid   = 0;       // Uid, short name, and home folder of _user_ (not root)
+NSString            * gUserName      = nil;
+NSString            * gUserHome      = nil;
+
+int                   gPendingRootCounter = 0;  // Number of becomeRoot requests that are pending
+//                                              //        incremented by becomeRoot, decremented by stopBeingRoot
+//                                              //        when increments to one, become root
+//                                              //        when decements to zero, become non-root
 
 //**************************************************************************************************************************
-void appendLog(NSString * msg)
-{
+
+void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-//**************************************************************************************************************************
-void validateConfigName(NSString * name);
-void validateCfgLocCode(unsigned cfgLocCode);
-
-//**************************************************************************************************************************
-void exitOpenvpnstart(OSStatus returnValue)
-{
-    // returnValue: have used 199-248, plus the values in define.h (249-254)
+void exitOpenvpnstart(OSStatus returnValue) {
+    // returnValue: have used 187-248, plus the values in define.h (249-254)
     [pool drain];
     exit(returnValue);
 }
 
-void printUsageMessageAndExitOpenvpnstart(void)
-{
+void printUsageMessageAndExitOpenvpnstart(void) {
     const char * killStringC;
     if (  ALLOW_OPENVPNSTART_KILL  ) {
         killStringC =
@@ -91,8 +91,8 @@ void printUsageMessageAndExitOpenvpnstart(void)
             "./openvpnstart unloadKexts   [bitMask]\n"
             "               to unload the .tun and .tap kexts\n\n"
             
-            "./openvpnstart compareTblkShadowCopy      displayName\n"
-            "               to compare a private .tblk with its secure (shadow) copy\n\n"
+            "./openvpnstart compareShadowCopy      displayName\n"
+            "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
             
             "./openvpnstart printSanitizedConfigurationFile   configName   cfgLocCode\n"
             "               to print a configuration file with inline data (such as the data within <cert>...</cert>) removed.\n\n"
@@ -212,11 +212,164 @@ void printUsageMessageAndExitOpenvpnstart(void)
     exitOpenvpnstart(OPENVPNSTART_RETURN_SYNTAX_ERROR);      // This exit code is used in the VPNConnection connect: method to inhibit display of this long syntax error message because it means there is an internal Tunnelblick error
 }
 
-BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002)
-{
-	const char *pathC = [path fileSystemRepresentation];
+void becomeRoot(NSString * reason) {
+	// Returns as root; complains and exits if can't become root
+
+	uid_t uidBefore  = getuid();
+	uid_t euidBefore = geteuid();
     
-    NSDictionary * attributes = [gFileMgr tbFileAttributesAtPath: path traverseLink: NO];
+    gPendingRootCounter++;
+
+	if (   (uidBefore  == 0)
+		&& (euidBefore == 0)  ) {
+		
+		// Are root already
+		return;
+	}
+    
+    // Not root yet
+    if (   (uidBefore  != 0)
+        || (euidBefore != gOriginalUid)  ) {
+        fprintf(stderr, "Error: becomeRoot (%s) Not root and not non-root: getuid() = %d; geteuid() = %d; gOriginalUid = %d\n",
+                [reason UTF8String], uidBefore, euidBefore, gOriginalUid);
+        exitOpenvpnstart(204);
+    }
+    
+    int result = seteuid(0);
+    
+    if (  result != 0  ) {
+        fprintf(stderr, "Error: Unable to becomeRoot (%s): seteuid(0) returned %d. getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
+                [reason UTF8String], result, getuid(), geteuid(), uidBefore, euidBefore, gOriginalUid);
+        exitOpenvpnstart(204);
+    }
+    
+    if (   (getuid()  != 0)
+        || (geteuid() != 0)  ) {
+        fprintf(stderr, "Error: Unable to becomeRoot (%s): seteuid(0) returned %d but getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
+                [reason UTF8String], result, getuid(), geteuid(), uidBefore, euidBefore, gOriginalUid);
+        exitOpenvpnstart(197);
+    }
+}
+
+void stopBeingRoot(void) {
+	// Returns as the original user; complains and exits if can't
+    
+	uid_t uidBefore  = getuid();
+	uid_t euidBefore = geteuid();
+	
+    if (  gPendingRootCounter < 1  ) {
+        fprintf(stderr, "Error: Unable to stopBeingRoot because gPendingRootCounter = %d. getuid() = %d; geteuid() = %d; gOriginalUid = %d\n",
+                gPendingRootCounter, uidBefore, euidBefore, gOriginalUid);
+        exitOpenvpnstart(192);
+    }
+    
+    gPendingRootCounter--;
+
+	if (   (uidBefore == 0)
+		&& (euidBefore == 0)  ) {
+        
+        // Are root
+        
+        // If we were root _before_ the last call to becomeRoot, do nothing
+        if (  gPendingRootCounter > 0  ) {
+            return;
+        }
+        
+		int result = setuid(0);
+		if (  result < 0  ) {
+			fprintf(stderr, "Error: Unable to stopBeingRoot: setuid(0) returned %d; getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
+					result, getuid(), geteuid(), uidBefore, euidBefore, gOriginalUid);
+			exitOpenvpnstart(206);
+		}
+		
+		result = seteuid(gOriginalUid);
+		if (  result < 0  ) {
+			fprintf(stderr, "Error: Unable to stopBeingRoot: seteuid(%d) returned %d; getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d\n",
+					gOriginalUid, result, getuid(), geteuid(), uidBefore, euidBefore);
+			exitOpenvpnstart(191);
+		}
+        
+        if (   (getuid()  != 0)
+            || (geteuid() != gOriginalUid)  ) {
+            fprintf(stderr, "Error: Unable to stopBeingRoot: after setuid(0) then seteuid(%d): getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d\n",
+                    gOriginalUid, getuid(), geteuid(), uidBefore, euidBefore);
+            exitOpenvpnstart(196);
+        }
+    } else {
+        
+        // Are not root
+        fprintf(stderr, "Error: Unable to stopBeingRoot because already are not root: getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
+                getuid(), geteuid(), uidBefore, euidBefore, gOriginalUid);
+        exitOpenvpnstart(207);
+    }
+}
+
+void becomeRootToAccessPath(NSString * path, NSString * reason) {
+    if (   (   [path hasPrefix: L_AS_T_USERS]
+            && (  [path length] > [L_AS_T_USERS length]  )  )
+        || ([path rangeOfString: @".tblk/"].location != NSNotFound) ) {
+            becomeRoot(reason);
+        }
+}
+
+void stopBeingRootToAccessPath(NSString * path) {
+    if (   (   [path hasPrefix: L_AS_T_USERS]
+            && (  [path length] > [L_AS_T_USERS length]  )  )
+        || ([path rangeOfString: @".tblk/"].location != NSNotFound)  ) {
+            stopBeingRoot();
+        }
+}
+
+BOOL fileExistsForRootAtPath(NSString * path) {
+    BOOL isDir;
+    becomeRootToAccessPath(path, [NSString stringWithFormat: @"check file exists: %@", [path lastPathComponent]]);
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir];
+    stopBeingRootToAccessPath(path);
+    if (   exists
+        && isDir  ) {
+        fprintf(stderr, "Must not be a directory: %s", [path UTF8String]);
+        exitOpenvpnstart(198);
+    }
+    return exists;
+}
+
+BOOL folderExistsForRootAtPath(NSString * path) {
+    BOOL isDir;
+    becomeRootToAccessPath(path, [NSString stringWithFormat: @"check folder exists: %@", [path lastPathComponent]]);
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: path isDirectory: &isDir];
+    stopBeingRootToAccessPath(path);
+    if (   exists
+        && ( ! isDir)  ) {
+        fprintf(stderr, "Must be a directory: %s", [path UTF8String]);
+        exitOpenvpnstart(190);
+    }
+    return exists;
+}
+
+//**************************************************************************************************************************
+
+BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002) {
+	
+	static NSMutableArray * secureComponentsCache = nil;  // cache containing components known to be secure
+    //                                                    // entries are strings: "permissionsIfNot002;path"
+	
+	const char * pathC = [path fileSystemRepresentation];
+    if (  ! pathC) {
+        fprintf(stderr, "pathComponentIsNotSecure(nil)\n");
+        return YES;
+    }
+    
+	NSString * cacheString = [NSString stringWithFormat: @"%ld;%@", (unsigned long) permissionsIfNot002, path];
+	
+	if (  ! secureComponentsCache  ) {
+		secureComponentsCache = [[NSMutableArray alloc] initWithCapacity: 100]; // Never dealloc this
+	} else if (  [secureComponentsCache containsObject: cacheString] ) {
+		return NO;
+	}
+	
+    becomeRootToAccessPath(path, [NSString stringWithFormat: @"check path component secure: %@", path]);
+    NSDictionary * attributes = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    stopBeingRootToAccessPath(path);
     
     if (  ! attributes  ) {
         fprintf(stderr, "%s does not have attributes (!)\nError was: %s\n", pathC, strerror(errno));
@@ -249,19 +402,20 @@ BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002)
         }
     } else {
         if (   (perms != permissionsIfNot002)
-			&& (   (permissionsIfNot002 != 0755) // On OS X 10.4, kextload/kextunload are 0555 instead of 0755
-				|| (perms != 0555)
-				|| (   ( ! [[path lastPathComponent] isEqualToString: @"kextload"]   )
+			&& (   (permissionsIfNot002 != 0755) // On OS X 10.4, kextload/kextunload permissions are 0555 instead of 0755
+				|| (perms != 0555)               // On OS X 10.7 & lower, killall permissions are 0555 instead of 0755
+				|| (   ( ! [[path lastPathComponent] isEqualToString: @"kextload"  ] )
 					&& ( ! [[path lastPathComponent] isEqualToString: @"kextunload"] )
+					&& ( ! [[path lastPathComponent] isEqualToString: @"killall"   ] )
 					)
 				)
 			) {
-            fprintf(stderr, "%s permissions are 0%lo, not 0%lo\n", pathC, (long) perms, (long) permissionsIfNot002);
+            fprintf(stderr, "%s permissions are 0%lo; they should be 0%lo\n", pathC, (long) perms, (long) permissionsIfNot002);
             return YES;
         }
     }
     
-/* Too much variation to implement these (for now)
+/* Too much variation to implement these (for now) MAY NEED becomeRoot/stopBeingRoot
  
     const char namebuff[1000];
     size_t size = sizeof(namebuff);
@@ -296,11 +450,12 @@ BOOL pathComponentIsNotSecure(NSString * path, mode_t permissionsIfNot002)
     }
  */
     
+	[secureComponentsCache addObject: cacheString];
+	
     return NO;
 }
 
-BOOL pathIsNotSecure(NSString * path, mode_t terminusPermissions)
-{
+BOOL pathIsNotSecure(NSString * path, mode_t terminusPermissions) {
 #ifdef TBDebug
 	if (  [path hasPrefix: [gResourcesPath stringByAppendingString: @"/"]]  ) {
 		// Debugging and path is within the app
@@ -352,24 +507,25 @@ BOOL pathIsNotSecure(NSString * path, mode_t terminusPermissions)
     return  NO;
 }
 
-void exitIfPathIsNotSecure(NSString * path, mode_t permissions, OSStatus statusToReturnIfNotSecure)
-{
+void exitIfPathIsNotSecure(NSString * path, mode_t permissions, OSStatus statusToReturnIfNotSecure) {
     if (  pathIsNotSecure(path, permissions)  ) {
         fprintf(stderr, "%s is not secured\n", [path UTF8String]);
         exitOpenvpnstart(statusToReturnIfNotSecure);
     }
 }
 
-void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave)
-{
+void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_t permsShouldHave) {
 	// Exits if file doesn't exist, or does not have the specified ownership and permissions
 	
-    if (  ! [gFileMgr fileExistsAtPath: fPath]  ) {
+    if (  ! fileExistsForRootAtPath(fPath)  ) {
         fprintf(stderr, "*Tunnelblick: File does not exist: %s", [fPath UTF8String]);
         exitOpenvpnstart(200);
     }
     
-    NSDictionary *fileAttributes = [gFileMgr tbFileAttributesAtPath:fPath traverseLink:YES];
+    becomeRootToAccessPath(fPath, [NSString stringWithFormat: @"check ownership/permissions of %@", [fPath lastPathComponent]]);
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] tbFileAttributesAtPath:fPath traverseLink:YES];
+    stopBeingRootToAccessPath(fPath);
+    
     unsigned long perms = [fileAttributes filePosixPermissions];
     NSNumber *fileOwner = [fileAttributes fileOwnerAccountID];
     NSNumber *fileGroup = [fileAttributes fileGroupOwnerAccountID];
@@ -387,17 +543,13 @@ void exitIfWrongOwnerOrPermissions(NSString * fPath, uid_t uid, gid_t gid, mode_
     exitOpenvpnstart(201);
 }
 
-void exitIfTblkNeedsRepair(void)
-{
+void exitIfTblkNeedsRepair(void) {
     // There is a SIMILAR function in MenuController: needToSecureFolderAtPath
     //
     // There is a SIMILAR function in sharedRoutines: secureOneFolder, that SECURES a .tblk
     
-    BOOL isDir;
-    
     // If it isn't an existing folder, then it can't be secured!
-    if (  ! (   [gFileMgr fileExistsAtPath: gConfigPath isDirectory: &isDir]
-             && isDir )  ) {
+    if (  ! folderExistsForRootAtPath(gConfigPath)  ) {
         fprintf(stderr, "Configuration file does not exist: %s", [gConfigPath UTF8String]);
         exitOpenvpnstart(202);
     }
@@ -423,8 +575,11 @@ void exitIfTblkNeedsRepair(void)
 
     exitIfPathIsNotSecure(gConfigPath, selfPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
     
+    becomeRootToAccessPath(gConfigPath, [NSString stringWithFormat: @"check if needs repair: %@", [gConfigPath lastPathComponent]]);
+    
     NSString * file;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gConfigPath];
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: gConfigPath];
+    BOOL isDir;
 	
     while (  (file = [dirEnum nextObject])  ) {
         NSString * filePath = [gConfigPath stringByAppendingPathComponent: file];
@@ -435,7 +590,7 @@ void exitIfTblkNeedsRepair(void)
             if (  [ext isEqualToString: @"tblk"]  ) {
                 exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                 
-            } else if (   [gFileMgr fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
+            } else if (   [[NSFileManager defaultManager] fileExistsAtPath: filePath isDirectory: &isDir] && isDir  ) {
                 
                 if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
@@ -457,12 +612,13 @@ void exitIfTblkNeedsRepair(void)
             }
         }
     }
+    
+    stopBeingRootToAccessPath(gConfigPath);
 }
 
-void exitIfOvpnNeedsRepair(void)
-{
+void exitIfOvpnNeedsRepair(void) {
     // If it isn't an existing file, then it can't be secured!
-    if (  ! [gFileMgr fileExistsAtPath: gConfigPath]  ) {
+    if (  ! fileExistsForRootAtPath(gConfigPath)  ) {
         fprintf(stderr, "Configuration file does not exist: %s", [gConfigPath UTF8String]);
         exitOpenvpnstart(203);
     }
@@ -470,64 +626,7 @@ void exitIfOvpnNeedsRepair(void)
     exitIfPathIsNotSecure(gConfigPath, PERMS_SECURED_OTHER, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
 }
 
-void becomeRoot(void)
-{
-	// Returns as root, having setuid(0) if necessary; complains and exits if can't become root
-	
-	uid_t uidBefore  = getuid();
-	uid_t euidBefore = geteuid();
-    
-	if (   ( uidBefore  != 0 )
-		|| ( euidBefore != 0 )  ) {
-        
-        int result = setuid(0);
-		if (  result  ) {
-			fprintf(stderr, 
-					"Error: Unable to become root: setuid(0) returned %d;"
-					" getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
-					result, getuid(), geteuid(), uidBefore, euidBefore, gOriginalUid);
-            exitOpenvpnstart(204);
-		} else {
-			fprintf(stderr, 
-					"DEBUG: Became root\n");
-		}
-	} else {
-		fprintf(stderr, 
-				"Already am root:"
-				" getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d; gOriginalUid = %d\n",
-				getuid(), geteuid(), uidBefore, euidBefore, gOriginalUid);
-        exitOpenvpnstart(205);
-	}
-}
-
-void stopBeingRoot(void)
-{
-	// Returns as the original user, having setuid(0) if necessary; complains and exits if can't become root
-	
-	int iResult;
-    uid_t result;
-	uid_t uidBefore  = getuid();
-	uid_t euidBefore = geteuid();
-	
-	if (  (result = geteuid()) == 0  ) {
-		if (  (iResult = seteuid(gOriginalUid))  ) {
-			fprintf(stderr, "Error: Unable to become original user: seteuid(%d) returned %d;"
-					" getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d\n",
-					gOriginalUid, iResult, getuid(), geteuid(), uidBefore, euidBefore);
-			exitOpenvpnstart(206);
-		} else {
-			fprintf(stderr, "DEBUG: Stopped being root\n");					
-		}
-	} else {
-		fprintf(stderr, "Am already not root: geteuid() returned %d;"
-				" getuid() = %d; geteuid() = %d; prior getuid() = %d; prior geteuid() = %d\n",
-				result, getuid(), geteuid(), uidBefore, euidBefore);
-        exitOpenvpnstart(207);
-	}	
-}
-
-void exitIfRunExecutableIsNotGood(NSString * path)
-{
+void exitIfRunExecutableIsNotGood(NSString * path) {
 #ifdef TBDebug
     return;
 #endif
@@ -562,10 +661,14 @@ void exitIfRunExecutableIsNotGood(NSString * path)
 		} else if (  [path hasPrefix: @"/L"]  ) {
             if (   (   [path hasSuffix: @".tblk/Contents/Resources/pre-connect.sh"]
 					|| [path hasSuffix: @".tblk/Contents/Resources/post-tun-tap-load.sh"]
+					|| [path hasSuffix: @".tblk/Contents/Resources/connected.sh"]
+					|| [path hasSuffix: @".tblk/Contents/Resources/reconnecting.sh"]
+					|| [path hasSuffix: @".tblk/Contents/Resources/post-disconnect.sh"]
 					)
-				&& (   [path hasPrefix: [[L_AS_T_USERS
-										  stringByAppendingPathComponent: NSUserName()]
-										 stringByAppendingString: @"/"] ]
+				&& (   (   (gOriginalUid != 0)	// Allow alternate only if not root
+						&& [path hasPrefix: [[L_AS_T_USERS
+										  stringByAppendingPathComponent: gUserName]
+										 stringByAppendingString: @"/"] ])
 					|| [path hasPrefix: [L_AS_T_SHARED
 										 stringByAppendingString: @"/"] ]
 					|| [path hasPrefix: [gDeployPath
@@ -581,16 +684,15 @@ void exitIfRunExecutableIsNotGood(NSString * path)
         exitOpenvpnstart(208);
     }
     
-	BOOL isDir;
-	if (   (! [gFileMgr fileExistsAtPath: path isDirectory: &isDir])
-		|| isDir  ) {
+	if (  ! fileExistsForRootAtPath(path)  ) {
 		fprintf(stderr, "Cannot runAsRoot: File %s does not exist\n", [path UTF8String]);
 		exitOpenvpnstart(209);
 	}
 }
 
-int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions)
-{
+//**************************************************************************************************************************
+
+int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	// Runs a program as root
 	// Returns program's termination status
 	
@@ -601,20 +703,14 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions)
 	[task setLaunchPath:thePath];
 	[task setArguments:theArguments];
 	
-	NSString * argumentsAsString = [theArguments componentsJoinedByString: @" "];
-	
 	NSPipe * stdPipe = [[NSPipe alloc] init];
 	[task setStandardOutput: stdPipe];
 		
 	NSPipe * errPipe = [[NSPipe alloc] init];
 	[task setStandardError: errPipe];
 	
-	becomeRoot();
-    
-	fprintf(stderr, "DEBUG: runAsRoot: Executing %s %s\n", [thePath UTF8String], [argumentsAsString UTF8String]);
-	
+	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
 	[task launch];
-	
     stopBeingRoot();
 
 	[task waitUntilExit];
@@ -631,20 +727,26 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions)
 	[stdPipe release];
 	NSString * stdOutput = [[[NSString alloc] initWithData: stdData encoding: NSUTF8StringEncoding] autorelease];
     stdOutput = [stdOutput stringByTrimmingCharactersInSet: trimCharacterSet];
-	fprintf(stderr, "DEBUG: stdout: %s\n", [stdOutput UTF8String]);
+	if (  [stdOutput length] != 0  ) {
+		fprintf(stderr, "stdout from %s: %s\n", [[thePath lastPathComponent] UTF8String], [stdOutput UTF8String]);
+	}
 	
 	[errPipe release];
 	NSString * errOutput = [[[NSString alloc] initWithData: errData encoding: NSUTF8StringEncoding] autorelease];
     errOutput = [errOutput stringByTrimmingCharactersInSet: trimCharacterSet];
-	fprintf(stderr, "DEBUG: stderr: %s\n", [errOutput UTF8String]);
+	if (  [errOutput length] != 0  ) {
+		fprintf(stderr, "stderr from %s: %s\n", [[thePath lastPathComponent] UTF8String], [errOutput UTF8String]);
+	}
 	
-	fprintf(stderr, "DEBUG: runAsRoot: Finished execution\n");
-
     return [task terminationStatus];
 }
 
-int runScript(NSString * scriptName, int argc, char * argv[])
-{
+//**************************************************************************************************************************
+
+void validateConfigName(NSString * name);
+void validateCfgLocCode(unsigned cfgLocCode);
+
+int runScript(NSString * scriptName, int argc, char * argv[]) {
 	// Runs one of the following scripts: connected.sh, reconnecting.sh, or post-disconnect.sh
 	// Exits on error; otherwise returns the exit code from the script
 	
@@ -671,11 +773,15 @@ int runScript(NSString * scriptName, int argc, char * argv[])
             break;
             
         case CFG_LOC_ALTERNATE:
-            configPrefix = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+			if (  gOriginalUid == 0) {
+				fprintf(stderr, "Invalid cfgLocCode (alternate configuration not allowed when running as root)\n");
+				exitOpenvpnstart(195);
+			}
+            configPrefix = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
             break;
             
         case CFG_LOC_DEPLOY:
-            configPrefix = gDeployPath;
+            configPrefix = [[gDeployPath copy] autorelease];
             break;
             
         case CFG_LOC_SHARED:
@@ -696,20 +802,19 @@ int runScript(NSString * scriptName, int argc, char * argv[])
 	
     exitIfWrongOwnerOrPermissions(scriptPath, 0, 0, PERMS_SECURED_SCRIPT);
 
-    fprintf(stderr, "'%s' executing...\n", [scriptName UTF8String]);
+    fprintf(stderr, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
     
     returnValue = runAsRoot(scriptPath, [NSArray array], PERMS_SECURED_SCRIPT);
     
-    fprintf(stderr, "'%s' returned with status %d\n", [scriptName UTF8String], returnValue);
+    fprintf(stderr, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
     
     return returnValue;
 }
 
 //**************************************************************************************************************************
-NSString * newTemporaryDirectoryPath(void)
-{
+NSString * newTemporaryDirectoryPath(void) {
     // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use gFileMgr, and use more readable length for stringWithFileSystemRepresentation
+    // Modified to check for malloc returning NULL, use strlcpy, use [NSFileManager defaultManager], and use more readable length for stringWithFileSystemRepresentation
     
     NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
     const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
@@ -724,20 +829,20 @@ NSString * newTemporaryDirectoryPath(void)
     strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
     
     char * dirPath = mkdtemp(tempDirectoryNameCString);
+    
     if (  ! dirPath  ) {
         fprintf(stderr, "Unable to create a temporary directory\n");
         return nil;
     }
     
-    NSString *tempFolder = [gFileMgr stringWithFileSystemRepresentation: tempDirectoryNameCString
+    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
                                                                  length: strlen(tempDirectoryNameCString)];
     free(tempDirectoryNameCString);
     
     return [tempFolder retain];
 }
 
-unsigned getLoadedKextsMask(void)
-{
+unsigned getLoadedKextsMask(void) {
 	// Returns with a bitmask of kexts that are loaded that can be unloaded
 	// Launches "kextstat" to get the list of loaded kexts, and does a simple search
 	
@@ -748,16 +853,16 @@ unsigned getLoadedKextsMask(void)
     }
     
     NSString * kextOutputPath = [tempDir stringByAppendingPathComponent: @"Tunnelblick-kextstat-output.txt"];
-    if (  ! [gFileMgr createFileAtPath: kextOutputPath contents: [NSData data] attributes: nil]  ) {
-        fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+    if (  ! [[NSFileManager defaultManager] createFileAtPath: kextOutputPath contents: [NSData data] attributes: nil]  ) {
+        fprintf(stderr, "Warning: Unable to create file in temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil];
         return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
     NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
     if (  ! kextOutputHandle  ) {
-        fprintf(stderr, "Warning: Unable to create temporary output file for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+        fprintf(stderr, "Warning: Unable to obtain file handle of temporary output for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
+        [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil];
         return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
@@ -783,9 +888,9 @@ unsigned getLoadedKextsMask(void)
         return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
-    NSData * data = [gFileMgr contentsAtPath: kextOutputPath];
+    NSData * data = [[NSFileManager defaultManager] contentsAtPath: kextOutputPath];
     
-    [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
+    [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil];
     
     NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     
@@ -807,30 +912,7 @@ unsigned getLoadedKextsMask(void)
     return bitMask;
 }
 
-BOOL createDir(NSString * d, unsigned long perms)
-{
-	// Recursive function to create a directory if it doesn't already exist
-	// Returns YES if the directory was created, NO if it already existed
-	
-    BOOL isDir;
-    if (   [gFileMgr fileExistsAtPath: d isDirectory: &isDir]
-        && isDir  ) {
-        return NO;
-    }
-    
-    createDir([d stringByDeletingLastPathComponent], perms);
-    
-    NSDictionary * dirAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: perms] forKey: NSFilePosixPermissions];
-
-    if (  ! [gFileMgr tbCreateDirectoryAtPath: d attributes: dirAttributes] ) {
-        fprintf(stderr, "Tunnelblick: Unable to create directory %s\n", [d UTF8String]);
-    }
-    
-    return YES;
-}
-
-NSString *escaped(NSString *string)
-{
+NSString *escaped(NSString *string) {
 	// Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 	
     if (  [string rangeOfString: @" "].length == 0  ) {
@@ -840,23 +922,18 @@ NSString *escaped(NSString *string)
     }
 }
 
-NSString * configPathFromTblkPath(NSString * path)
-{
+NSString * configPathFromTblkPath(NSString * path) {
 	// Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
 	
     NSString * cfgPath = [path stringByAppendingPathComponent:@"Contents/Resources/config.ovpn"];
-    BOOL isDir;
-    
-    if (   [gFileMgr fileExistsAtPath: cfgPath isDirectory: &isDir]
-        && (! isDir)  ) {
+    if (   fileExistsForRootAtPath(cfgPath)  ) {
         return cfgPath;
     }
 
     return nil;
 }
 
-NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVersion)
-{
+NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVersion) {
 	// Returns the path to the openvpn executable to be used.
 	// Arguments are the path to ...Resources/Contents/openvpn" and the name of the version to be used.
     BOOL noSuchVersion = FALSE;
@@ -867,7 +944,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
         openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: openvpnFolderName] // Folder with version to be used
                        stringByAppendingPathComponent: @"openvpn"];                        // openvpn binary
         BOOL isDir;
-        if (   [gFileMgr fileExistsAtPath: openvpnPath isDirectory: &isDir]
+        if (   [[NSFileManager defaultManager] fileExistsAtPath: openvpnPath isDirectory: &isDir]
             && (! isDir)  ) {
             return openvpnPath;
         }
@@ -878,7 +955,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     // No version specified or not known; use the first one (in NSNumericSearch order)
     NSString * lowestDirSoFar = nil;
     NSString * dir;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnFolderPath];
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: openvpnFolderPath];
     while (  (dir = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
         if (  [dir hasPrefix: @"openvpn-"]  ) {
@@ -906,17 +983,16 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     return openvpnPath;
 }
 
-NSString * TunTapSuffixToUse(NSString * prefix)
-{
+NSString * TunTapSuffixToUse(NSString * prefix) {
     // If only one tun/tap driver is available, use it (error if neither exists)
-    if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @".kext"]] ) {
-        if ( [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
+    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: [prefix stringByAppendingString: @".kext"]] ) {
+        if ( [[NSFileManager defaultManager] fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
             return @"-20090913.kext";
         }
         fprintf(stderr, "Tunnelblick: No tun/tap binaries exist.");
         exitOpenvpnstart(215);
     }
-    if ( ! [gFileMgr fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
+    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
         return @".kext";
     }
     
@@ -937,8 +1013,7 @@ NSString * TunTapSuffixToUse(NSString * prefix)
 }
 
 //**************************************************************************************************************************
-void getProcesses(struct kinfo_proc** procs, unsigned * number)
-{
+void getProcesses(struct kinfo_proc** procs, unsigned * number) {
 	//Fills in process information
 	
 	int					mib[4]	= { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
@@ -952,12 +1027,12 @@ void getProcesses(struct kinfo_proc** procs, unsigned * number)
         free(info);
         return;
     }
+    
 	*procs = info;
 	*number = length / sizeof(struct kinfo_proc);
 }
 
-BOOL isOpenvpn(pid_t pid)
-{
+BOOL isOpenvpn(pid_t pid) {
 	//Returns TRUE if process is an openvpn process (i.e., process name = "openvpn"), otherwise returns FALSE
 	
 	BOOL				is_openvpn	= FALSE;
@@ -982,8 +1057,7 @@ BOOL isOpenvpn(pid_t pid)
 	return is_openvpn;
 }
 
-BOOL processExists(pid_t pid)
-{
+BOOL processExists(pid_t pid) {
 	//Returns TRUE if process exists, otherwise returns FALSE
 	
 	BOOL				does_exist	= FALSE;
@@ -1003,17 +1077,17 @@ BOOL processExists(pid_t pid)
 	return does_exist;
 }
 
-void waitUntilAllGone(void)
-{
+void waitUntilAllGone(void) {
 	//Waits until all OpenVPN processes are gone or five seconds, whichever comes first
 	
+    BOOL     found   = FALSE;
     unsigned count   = 0;
     unsigned i       = 0;
     unsigned j       = 0;
     
-    BOOL found  = FALSE;
-    
 	struct kinfo_proc*	info	= NULL;
+        
+    found = FALSE;
 	
     for (j=0; j<6; j++) {   // Try up to six times, with one second _between_ each try -- max five seconds total
         
@@ -1022,8 +1096,6 @@ void waitUntilAllGone(void)
         }
         
         getProcesses(&info, &count);
-        
-        found = FALSE;
         for (i = 0; i < count; i++) {
             char* process_name = info[i].kp_proc.p_comm;
             if(strcmp(process_name, "openvpn") == 0) {
@@ -1044,8 +1116,7 @@ void waitUntilAllGone(void)
     }
 }
 
-void killOneOpenvpn(pid_t pid)
-{
+void killOneOpenvpn(pid_t pid) {
 	//Returns having killed an openvpn process, or complains and exits
 	
     if (  ! ALLOW_OPENVPNSTART_KILL  ) {
@@ -1061,7 +1132,7 @@ void killOneOpenvpn(pid_t pid)
     }
     
 	if(isOpenvpn(pid)) {
-		becomeRoot();
+		becomeRoot(@"kill one specific OpenVPN process");
 		didnotKill = kill(pid, SIGTERM);
         stopBeingRoot();
         
@@ -1075,56 +1146,22 @@ void killOneOpenvpn(pid_t pid)
 	}
 }
 
-unsigned killAllOpenvpn(void)
-{
-	//Kills all openvpn processes and returns the number of processes that were killed. May complain and exit if can't become root or some openvpn processes can't be killed
+void killAllOpenvpn(void) {
+	//Kills all processes named 'openvpn'
 	
     if (  ! ALLOW_OPENVPNSTART_KILL  ) {
         fprintf(stderr, "The kill command is no longer allowed\n");
         exitOpenvpnstart(220);
     }
     
-	unsigned count      = 0;
-    unsigned i			= 0;
-    unsigned nKilled	= 0;		//# of openvpn processes succesfully killed
-    unsigned nNotKilled	= 0;		//# of openvpn processes not killed
-    int      didnotKill;			//return value from kill() -- zero indicates killed successfully
-	
-	struct kinfo_proc*	info	= NULL;
-	
-	getProcesses(&info, &count);
-	
-	for (i = 0; i < count; i++) {
-		char* process_name = info[i].kp_proc.p_comm;
-		pid_t pid = info[i].kp_proc.p_pid;
-		if(strcmp(process_name, "openvpn") == 0) {
-			becomeRoot();
-			didnotKill = kill(pid, SIGTERM);
-            stopBeingRoot();
-			if (didnotKill) {
-				fprintf(stderr, "Error: Unable to kill openvpn process %ld\n", (long) pid);
-				nNotKilled++;
-			} else {
-				nKilled++;
-			}
-		}
-	}
-	
-	free(info);
+    NSArray  * arguments = [NSArray arrayWithObject: @"openvpn"];
+    runAsRoot(@"/usr/bin/killall", arguments, 0755);
 	
     waitUntilAllGone();
-    
-	if (nNotKilled) {
-		// An error message for each openvpn process that wasn't killed has already been output
-		exitOpenvpnstart(221);
-	}
-	
-	return(nKilled);
 }
 
 //**************************************************************************************************************************
-NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode)
-{
+NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode) {
     // Get a "standardized" path to the configuration file to construct the name of the log file
     // This standardized path is used only for constructing the name of the log file, and is NOT used as a path to get to anything.
     //
@@ -1141,11 +1178,15 @@ NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode)
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
         case CFG_LOC_ALTERNATE:
+			if (  gOriginalUid == 0  ) {
+				fprintf(stderr, "Invalid cfgLocCode (alternate configuration not allowed when running as root)\n");
+				exitOpenvpnstart(194);
+			}
 			// THIS IS NOT USED AS A PATHNAME. SEE NOTE ABOVE.
-            configPrefix = [NSString stringWithFormat: @"/Users/%@/Library/Application Support/Tunnelblick/Configurations", NSUserName()];
+            configPrefix = [NSString stringWithFormat: @"/Users/%@/Library/Application Support/Tunnelblick/Configurations", gUserName];
             break;
         case CFG_LOC_DEPLOY:
-            configPrefix = gDeployPath;
+            configPrefix = [[gDeployPath copy] autorelease];
             break;
         case CFG_LOC_SHARED:
             configPrefix = L_AS_T_SHARED;
@@ -1165,8 +1206,7 @@ NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode)
     return [[base copy] autorelease];
 }
 
-NSString * constructOpenVPNLogPath(NSString * configurationFile, unsigned cfgLocCode, NSString * openvpnstartArgString, unsigned port)
-{
+NSString * constructOpenVPNLogPath(NSString * configurationFile, unsigned cfgLocCode, NSString * openvpnstartArgString, unsigned port) {
 	// Returns a path for an OpenVPN log file.
 	// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and extensions of
 	//      * an underscore-separated list of the values for useScripts, skipScrSec, cfgLocCode, noMonitor, and bitMask
@@ -1183,8 +1223,7 @@ NSString * constructOpenVPNLogPath(NSString * configurationFile, unsigned cfgLoc
     return returnVal;
 }
 
-NSString * constructScriptLogPath(NSString * configurationFile, unsigned cfgLocCode)
-{
+NSString * constructScriptLogPath(NSString * configurationFile, unsigned cfgLocCode) {
 	// Returns a path for a script log file.
 	// It is composed of a prefix, the configuration path with "-" replaced by "--" and "/" replaced by "-S", and an extension of "log"
 	//
@@ -1199,15 +1238,18 @@ NSString * constructScriptLogPath(NSString * configurationFile, unsigned cfgLocC
     return returnVal;
 }
 
-NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, unsigned port)
-{
+NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, unsigned port) {
 	// Sets up the OpenVPN log file. The filename itself encodes the configuration file path, openvpnstart arguments, and port info.
 	// The log file is created with permissions allowing everyone read/write access. (OpenVPN truncates the file, so the ownership and permissions are preserved.)
 	
     NSString * logPath = constructOpenVPNLogPath(configurationFile, cfgLocCode, gStartArgs, port);
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
     
-    if (  ! [gFileMgr createFileAtPath: logPath contents: [NSData data] attributes: logAttributes]  ) {
+	becomeRoot(@"create OpenVPN log file");
+    BOOL created = [[NSFileManager defaultManager] createFileAtPath: logPath contents: [NSData data] attributes: logAttributes];
+    stopBeingRoot();
+	
+    if (  ! created  ) {
         NSString * msg = [NSString stringWithFormat: @"Warning: Failed to create OpenVPN log file at %@ with attributes %@", logPath, logAttributes];
         fprintf(stderr, "%s\n", [msg UTF8String]);
         exitOpenvpnstart(222);
@@ -1216,8 +1258,7 @@ NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, un
     return logPath;
 }
 
-NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSString* cmdLine)
-{
+NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSString* cmdLine) {
 	// Sets up a new script log file. The filename itself encodes the configuration file path.
 	// The log file is created with permissions allowing everyone read/write access
 	
@@ -1228,7 +1269,11 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSS
     NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart starting OpenVPN:\n%@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], cmdLine];
     NSData * dateCmdLineAsData = [NSData dataWithBytes: [dateCmdLine UTF8String] length: [dateCmdLine length]];
     
-    if (  ! [gFileMgr createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes]  ) {
+	becomeRoot(@"create script log file");
+    BOOL created = [[NSFileManager defaultManager] createFileAtPath: logPath contents: dateCmdLineAsData attributes: logAttributes];
+    stopBeingRoot();
+	
+    if (  ! created  ) {
         NSString * msg = [NSString stringWithFormat: @"Failed to create scripts log file at %@ with attributes %@", logPath, logAttributes];
         fprintf(stderr, "%s\n", [msg UTF8String]);
     }
@@ -1236,10 +1281,11 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSS
     return logPath;
 }
 
-void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
-{
+void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode) {
 	// Deletes OpenVPN log files and script log files associated with a specified configuration file and location code
 	
+	becomeRoot(@"delete log files");
+    
     // Delete ALL log files for the specified configuration file and location code, whatever port or start args are encoded into their names
     NSString * logPath = constructOpenVPNLogPath(configurationFile, cfgLocCode, @"XX", 0); // openvpnstart args and port # don't matter
     NSString * logPathPrefix = [[[[logPath stringByDeletingPathExtension]
@@ -1248,14 +1294,14 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
                                 stringByDeletingPathExtension];     // Remove .<start-args>.<port #>.openvpn.log
     
     NSString * filename;
-    NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: L_AS_T_LOGS];
     while (  (filename = [dirEnum nextObject])  ) {
         [dirEnum skipDescendents];
         NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
         if (  [oldFullPath hasPrefix: logPathPrefix]  ) {
             if (   [[filename pathExtension] isEqualToString: @"log"]
                 && [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]  ) {
-                if (  ! [gFileMgr tbRemoveFileAtPath:oldFullPath handler: nil]  ) {
+                if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath:oldFullPath handler: nil]  ) {
                     fprintf(stderr, "Error occurred trying to delete OpenVPN log file %s\n", [oldFullPath UTF8String]);
                 }
             }
@@ -1265,16 +1311,18 @@ void deleteLogFiles(NSString * configurationFile, unsigned cfgLocCode)
     // Delete the script log file
     NSString * scriptLogPath = constructScriptLogPath(configurationFile, cfgLocCode);
     
-    if (  [gFileMgr fileExistsAtPath: scriptLogPath]  ) {
-        if (  ! [gFileMgr tbRemoveFileAtPath: scriptLogPath handler: nil]  ) {
+    if (  [[NSFileManager defaultManager] fileExistsAtPath: scriptLogPath]  ) {
+        if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath: scriptLogPath handler: nil]  ) {
             fprintf(stderr, "Error occurred trying to delete script log file %s\n", [scriptLogPath UTF8String]);
         }
     }
+	
+	stopBeingRoot();
 }
 
 //**************************************************************************************************************************
-void compareTblkShadowCopy (NSString * fileName)
-{
+
+void compareShadowCopy (NSString * fileName) {
 	// Compares the specified private configuration .tblk with its shadow copy.
 	// Returns the results as one of the following result codes:
     //      OPENVPNSTART_COMPARE_CONFIG_SAME
@@ -1284,59 +1332,72 @@ void compareTblkShadowCopy (NSString * fileName)
         exitOpenvpnstart(EXIT_FAILURE);
     }
     
-    NSString * privatePrefix = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
-    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+	if (  gOriginalUid == 0  ) {
+		fprintf(stderr, "Invalid cfgLocCode (compareShadowCopy not allowed when running as root)\n");
+		exitOpenvpnstart(193);
+	}
+	
+    NSString * privatePrefix = [gUserHome stringByAppendingPathComponent:@"/Library/Application Support/Tunnelblick/Configurations"];
+    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
     
     NSString * privatePath = [[privatePrefix stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
     NSString * shadowPath  = [[shadowPrefix  stringByAppendingPathComponent: fileName] stringByAppendingPathExtension: @"tblk"];
     
-    if (  [gFileMgr fileExistsAtPath: privatePath]  ) {
-        if (  [gFileMgr fileExistsAtPath: shadowPath]  ) {
-            if (  [gFileMgr contentsEqualAtPath: privatePath andPath: shadowPath]  ) {
+    if (  folderExistsForRootAtPath(privatePath)  ) {
+        if (  folderExistsForRootAtPath(shadowPath)  ) {
+            becomeRoot(@"check if config contents are equal");
+            BOOL areEqual = [[NSFileManager defaultManager] contentsEqualAtPath: privatePath andPath: shadowPath];
+            stopBeingRoot();
+            if (  areEqual  ) {
                 exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_SAME);
             }
+		} else {
+			fprintf(stderr, "Shadow configuration does not exist: %s", [shadowPath UTF8String]);
 		}
+	} else {
+		fprintf(stderr, "Private configuration does not exist: %s", [privatePath UTF8String]);
 	}
 	
 	exitOpenvpnstart(OPENVPNSTART_COMPARE_CONFIG_DIFFERENT);
 }
 
-void revertToShadow (NSString * fileName)
-{
+void revertToShadow (NSString * fileName) {
 	// Compares the specified private configuration .tblk with its shadow copy.
 	// Returns the results as one of the following result codes:
     //      OPENVPNSTART_COMPARE_CONFIG_SAME
     //      OPENVPNSTART_COMPARE_CONFIG_DIFFERENT
 	
-    NSString * homeDir = NSHomeDirectory();
-    if (   ( ! homeDir)
-        || ( getuid() == 0 ) ) {
-        NSLog(@"Running as root or no home directory");
-        exitOpenvpnstart(248);
-    }
-    
+	if (  gOriginalUid == 0  ) {
+		fprintf(stderr, "Invalid cfgLocCode (revertToShadow not allowed when running as root)\n");
+		exitOpenvpnstart(188);
+	}
+	
     if (  [fileName length] == 0  ) {
         exitOpenvpnstart(EXIT_FAILURE);
     }
     
-    NSString * privatePrefix = [homeDir       stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
+    NSString * privatePrefix = [gUserHome     stringByAppendingPathComponent: @"Library/Application Support/Tunnelblick/Configurations"];
 	NSString * privatePath   = [privatePrefix stringByAppendingPathComponent: fileName];
 	
-    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: NSUserName()];
+    NSString * shadowPrefix  = [L_AS_T_USERS stringByAppendingPathComponent: gUserName];
     NSString * shadowPath    = [shadowPrefix stringByAppendingPathComponent: fileName];
     
 	NSString * createdReplaced = @"Created";
-    BOOL isDir;
-	if (   [gFileMgr fileExistsAtPath: shadowPath isDirectory: &isDir]
-        && isDir  ) {
-		if (  [gFileMgr fileExistsAtPath: privatePath]  ) {
+	if (   folderExistsForRootAtPath(shadowPath)  ) {
+		if (  folderExistsForRootAtPath(privatePath)  ) {
 			createdReplaced = @"Replaced";
-			if (  ! [gFileMgr tbRemoveFileAtPath: privatePath handler: nil]  ) {
+            becomeRoot(@"remove config that is being replaced");
+			BOOL removed = [[NSFileManager defaultManager] tbRemoveFileAtPath: privatePath handler: nil];
+            stopBeingRoot();
+            if (  ! removed  ) {
 				fprintf(stderr, "Unable to delete %s\n", [privatePath UTF8String]);
 				exitOpenvpnstart(246);
 			}
 		}
-		if (  [gFileMgr tbCopyPath: shadowPath toPath: privatePath handler: nil]  ) {
+        becomeRoot(@"copy config");
+		BOOL copied = [[NSFileManager defaultManager] tbCopyPath: shadowPath toPath: privatePath handler: nil];
+        stopBeingRoot();
+        if ( ! copied  ) {
 			fprintf(stderr, "%s %s\n", [createdReplaced UTF8String], [privatePath UTF8String]);
 			if (  secureOneFolder(privatePath, YES)  ) {
                 exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_OK);
@@ -1353,8 +1414,9 @@ void revertToShadow (NSString * fileName)
 	}
 }
 
-NSArray * tokensFromConfigurationLine(NSString * line)
-{
+//**************************************************************************************************************************
+
+NSArray * tokensFromConfigurationLine(NSString * line) {
 	// Returns an array of whitespace-separated tokens from one line of
 	// a configuration file, skipping comments.
     //
@@ -1481,19 +1543,23 @@ NSArray * tokensFromConfigurationLine(NSString * line)
     return tokens;
 }
 
-void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
-{
+void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode) {
     NSString * configPrefix = nil;
     switch (cfgLocCode) {
         case CFG_LOC_PRIVATE:
         case CFG_LOC_ALTERNATE:
-            configPrefix = [[[[NSHomeDirectory() stringByAppendingPathComponent: @"Library"]
+			if (  gOriginalUid == 0  ) {
+				fprintf(stderr, "Invalid cfgLocCode (printSanitizedConfigurationFile on alternate configuration not allowed when running as root)\n");
+				exitOpenvpnstart(205);
+			}
+			
+            configPrefix = [[[[gUserHome stringByAppendingPathComponent: @"Library"]
                               stringByAppendingPathComponent: @"Application Support"]
                              stringByAppendingPathComponent: @"Tunnelblick"]
                             stringByAppendingPathComponent: @"Configurations"];
             break;
         case CFG_LOC_DEPLOY:
-            configPrefix = gDeployPath;
+            configPrefix = [[gDeployPath copy] autorelease];
             break;
         case CFG_LOC_SHARED:
             configPrefix = L_AS_T_SHARED;
@@ -1512,7 +1578,10 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
                                     stringByAppendingPathComponent: configFile]
                                    stringByAppendingPathComponent: configSuffix];
     
-    NSData * data = [gFileMgr contentsAtPath: actualConfigPath];
+    becomeRootToAccessPath(actualConfigPath, @"get config contents");
+    NSData * data = [[NSFileManager defaultManager] contentsAtPath: actualConfigPath];
+    stopBeingRootToAccessPath(actualConfigPath);
+    
     if (  ! data  ) {
         fprintf(stderr, "No configuration file at %s\n", [actualConfigPath UTF8String]);
         exit(EXIT_FAILURE);
@@ -1597,8 +1666,9 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
     exit(EXIT_SUCCESS);
 }
 
-void loadKexts(unsigned int bitMask)
-{
+//**************************************************************************************************************************
+
+void loadKexts(unsigned int bitMask) {
 	//Tries to load kexts. May complain and exit if can't become root or if can't load kexts
 	
     if (  ( bitMask & (OPENVPNSTART_OUR_TAP_KEXT | OPENVPNSTART_OUR_TUN_KEXT) ) == 0  ) {
@@ -1610,7 +1680,7 @@ void loadKexts(unsigned int bitMask)
         NSString * tapkext = [@"tap" stringByAppendingString: TunTapSuffixToUse([gResourcesPath stringByAppendingPathComponent: @"tap"])];
         NSString * tapPath = [gResourcesPath stringByAppendingPathComponent: tapkext];
         BOOL isDir;
-        if (   ! (   [gFileMgr fileExistsAtPath: tapPath isDirectory: &isDir]
+        if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tapPath isDirectory: &isDir]
                   && isDir)  ) {
             fprintf(stderr, "%s not found\n", [tapkext UTF8String]);
             exitOpenvpnstart(224);
@@ -1622,7 +1692,7 @@ void loadKexts(unsigned int bitMask)
         NSString * tunkext = [@"tun" stringByAppendingString: TunTapSuffixToUse([gResourcesPath stringByAppendingPathComponent: @"tun"])];
         NSString * tunPath = [gResourcesPath stringByAppendingPathComponent: tunkext];
         BOOL isDir;
-        if (   ! (   [gFileMgr fileExistsAtPath: tunPath isDirectory: &isDir]
+        if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tunPath isDirectory: &isDir]
                   && isDir)  ) {
             fprintf(stderr, "%s not found\n", [tunkext UTF8String]);
             exitOpenvpnstart(225);
@@ -1646,8 +1716,7 @@ void loadKexts(unsigned int bitMask)
     }
 }
 
-void unloadKexts(unsigned int bitMask)
-{
+void unloadKexts(unsigned int bitMask) {
 	// Tries to UNload kexts. Will complain and exit if can't become root
 	// We ignore errors because this is a non-critical function, and the unloading fails if a kext is in use
 	
@@ -1674,6 +1743,7 @@ void unloadKexts(unsigned int bitMask)
     
     runAsRoot(@"/sbin/kextunload", arguments, 0755);
 }
+
 //**************************************************************************************************************************
 int startVPN(NSString * configFile,
              unsigned   port,
@@ -1683,11 +1753,8 @@ int startVPN(NSString * configFile,
              BOOL       noMonitor,
              unsigned   bitMask,
              NSString * leasewatchOptions,
-             NSString * openvpnVersion)
-{
+             NSString * openvpnVersion) {
 	//Tries to start an openvpn connection
-	
-	BOOL isDir;
 	
 	NSString * openvpnPath  = openvpnToUsePath([gResourcesPath stringByAppendingPathComponent: @"openvpn"], openvpnVersion);    
     NSString * downRootPath = [[openvpnPath stringByDeletingLastPathComponent]
@@ -1723,13 +1790,18 @@ int startVPN(NSString * configFile,
             break;
             
         case CFG_LOC_ALTERNATE:
-            cdFolderPath = [NSString stringWithFormat:@"%@/%@", L_AS_T_USERS, NSUserName()];  // Will be set below BECAUSE this is a .tblk.
-            gConfigPath   = [cdFolderPath stringByAppendingPathComponent: configFile];
+			if (  gOriginalUid == 0  ) {
+				fprintf(stderr, "Invalid cfgLocCode (alternate configuration not allowed when running as root)\n");
+				exitOpenvpnstart(189);
+			}
+						
+            cdFolderPath = [NSString stringWithFormat:@"%@/%@", L_AS_T_USERS, gUserName];  // Will be set below BECAUSE this is a .tblk.
+            gConfigPath  = [[cdFolderPath stringByAppendingPathComponent: configFile] copy];
             break;
             
         case CFG_LOC_DEPLOY:
-            cdFolderPath = gDeployPath; // Will be set below IF this is a .tblk.
-            gConfigPath   = [gDeployPath stringByAppendingPathComponent: configFile];
+            cdFolderPath = [[gDeployPath copy] autorelease]; // Will be set below IF this is a .tblk.
+            gConfigPath  = [[gDeployPath stringByAppendingPathComponent: configFile] copy];
             break;
             
         case CFG_LOC_SHARED:
@@ -1738,7 +1810,7 @@ int startVPN(NSString * configFile,
                 exitOpenvpnstart(228);
             }
             cdFolderPath = L_AS_T_SHARED; // Will be set below BECAUSE this is a .tblk.
-            gConfigPath   = [L_AS_T_SHARED stringByAppendingPathComponent: configFile];
+            gConfigPath  = [[L_AS_T_SHARED stringByAppendingPathComponent: configFile] copy];
             break;
             
         default:
@@ -1754,11 +1826,11 @@ int startVPN(NSString * configFile,
         tblkPath = [[gConfigPath copy] autorelease];
         NSString * cfg = configPathFromTblkPath(gConfigPath);
         if (  ! cfg  ) {
-            fprintf(stderr, "Unable to find configuration file in %s\n", [cfg UTF8String]);
+            fprintf(stderr, "Unable to find configuration file in %s\n", [gConfigPath UTF8String]);
             exitOpenvpnstart(229);
         }
         cdFolderPath = [gConfigPath stringByAppendingPathComponent: @"Contents/Resources"];
-        gConfigPath = cfg;
+        gConfigPath = [cfg copy];
     } else {
         exitIfOvpnNeedsRepair();
         if (  ! [gConfigPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) { // Not a .tblk, so check that it is Deployed
@@ -1814,73 +1886,73 @@ int startVPN(NSString * configFile,
             NSString * deployNewRoutePreDownscriptPath  = [deployScriptPath stringByAppendingPathExtension: [NSString stringWithFormat: @"%@route-pre-down.tunnelblick.sh", scriptNumString]];
             
             if (  noMonitor  ) {
-                if (  [gFileMgr fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployUpscriptNoMonitorPath]  ) {
                     upscriptPath = deployUpscriptNoMonitorPath;
-                } else if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
-                } else if (  [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptNoMonitorPath]  ) {
                     upscriptPath = upscriptNoMonitorPath;
-                } else if (  [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewUpscriptPath]  ) {
                     upscriptPath = deployNewUpscriptPath;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployDownscriptNoMonitorPath]  ) {
                     downscriptPath = deployDownscriptNoMonitorPath;
-                } else if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
-                } else if (  [gFileMgr fileExistsAtPath: downscriptNoMonitorPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptNoMonitorPath]  ) {
                     downscriptPath = downscriptNoMonitorPath;
-                } else if (  [gFileMgr fileExistsAtPath: deployNewDownscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewDownscriptPath]  ) {
                     downscriptPath = deployNewDownscriptPath;
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
                     newRoutePreDownscriptPath = deployNewRoutePreDownscriptPath;
                 }
             } else {
-                if (  [gFileMgr fileExistsAtPath: deployUpscriptPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployUpscriptPath]  ) {
                     upscriptPath = deployUpscriptPath;
-                } else if (  [gFileMgr fileExistsAtPath: upscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptPath]  ) {
                     ;
-                } else if (  [gFileMgr fileExistsAtPath: deployNewUpscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewUpscriptPath]  ) {
                     upscriptPath = deployNewUpscriptPath;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: deployDownscriptPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployDownscriptPath]  ) {
                     downscriptPath = deployDownscriptPath;
-                } else if (  [gFileMgr fileExistsAtPath: downscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptPath]  ) {
                     ;
-                } else if (  [gFileMgr fileExistsAtPath: deployNewDownscriptPath]  ) {
+                } else if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewDownscriptPath]  ) {
                     downscriptPath = deployNewDownscriptPath;
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: deployNewRoutePreDownscriptPath]  ) {
                     newRoutePreDownscriptPath = deployNewRoutePreDownscriptPath;
                 }
             }
         } else {
             if (  noMonitor  ) {
-                if (  [gFileMgr fileExistsAtPath: upscriptNoMonitorPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptNoMonitorPath]  ) {
                     upscriptPath = upscriptNoMonitorPath;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: downscriptNoMonitorPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptNoMonitorPath]  ) {
                     downscriptPath = downscriptNoMonitorPath;
                 } else {
                     downscriptPath = newDownscriptPath;
                 }
             } else {
-                if (  [gFileMgr fileExistsAtPath: upscriptPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: upscriptPath]  ) {
                     ;
                 } else {
                     upscriptPath = newUpscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: downscriptPath]  ) {
+                if (  [[NSFileManager defaultManager] fileExistsAtPath: downscriptPath]  ) {
                     ;
                 } else {
                     downscriptPath = newDownscriptPath;
@@ -1900,32 +1972,31 @@ int startVPN(NSString * configFile,
             NSString * tblkNewRoutePreDownscriptPath = [cdFolderPath stringByAppendingPathComponent: [NSString stringWithFormat: @"%@route-pre-down.tunnelblick.sh", scriptNumString]];
             
             if (  noMonitor  ) {
-                if (  [gFileMgr fileExistsAtPath: tblkUpscriptNoMonitorPath]  ) {
+                if (  fileExistsForRootAtPath(tblkUpscriptNoMonitorPath)  ) {
                     upscriptPath = tblkUpscriptNoMonitorPath;
-                } else if (  [gFileMgr fileExistsAtPath: tblkNewUpscriptPath]  ) {
+                } else if (  fileExistsForRootAtPath(tblkNewUpscriptPath)  ) {
                     upscriptPath = tblkNewUpscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: tblkDownscriptNoMonitorPath]  ) {
+                if (  fileExistsForRootAtPath(tblkDownscriptNoMonitorPath)  ) {
                     downscriptPath = tblkDownscriptNoMonitorPath;
-                } else if (  [gFileMgr fileExistsAtPath: tblkNewDownscriptPath]  ) {
+                } else if (  fileExistsForRootAtPath(tblkNewDownscriptPath)  ) {
                     downscriptPath = tblkNewDownscriptPath;
                 }
             } else {
-                if (  [gFileMgr fileExistsAtPath: tblkUpscriptPath]  ) {
+                if (  fileExistsForRootAtPath(tblkUpscriptPath)  ) {
                     upscriptPath = tblkUpscriptPath;
-                } else if (  [gFileMgr fileExistsAtPath: tblkNewUpscriptPath]  ) {
+                } else if (  fileExistsForRootAtPath(tblkNewUpscriptPath)  ) {
                     upscriptPath = tblkNewUpscriptPath;
                 }
-                if (  [gFileMgr fileExistsAtPath: tblkDownscriptPath]  ) {
+                if (  fileExistsForRootAtPath(tblkDownscriptPath)  ) {
                     downscriptPath = tblkDownscriptPath;
-                } else if (  [gFileMgr fileExistsAtPath: tblkNewDownscriptPath]  ) {
+                } else if (  fileExistsForRootAtPath(tblkNewDownscriptPath)  ) {
                     downscriptPath = tblkNewDownscriptPath;
                 }
             }
-            if (  [gFileMgr fileExistsAtPath: tblkNewRoutePreDownscriptPath]  ) {
+            if (  fileExistsForRootAtPath(tblkNewRoutePreDownscriptPath)  ) {
                 newRoutePreDownscriptPath = tblkNewRoutePreDownscriptPath;
             }
-            
         }
         
         // Process script options if scripts are "new" scripts
@@ -2005,7 +2076,7 @@ int startVPN(NSString * configFile,
              ];
         }
         
-        if (  [gFileMgr fileExistsAtPath: newRoutePreDownscriptPath]  ) {
+        if (  fileExistsForRootAtPath(newRoutePreDownscriptPath)  ) {
             BOOL customRoutePreDownScript = ! [newRoutePreDownscriptPath isEqualToString: standardRoutePreDownscriptPath];
             NSString * versionToUse = [[openvpnPath
                                         stringByDeletingLastPathComponent]     // remove "openvpn", the executable
@@ -2054,30 +2125,27 @@ int startVPN(NSString * configFile,
         [fakeCmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
     }
     createScriptLog(configFile, cfgLocCode, fakeCmdLine);
-    
+	
     if (  tblkPath  ) {
-        NSString * preConnectPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/pre-connect.sh"];
         
-        if (   [gFileMgr fileExistsAtPath: preConnectPath isDirectory: &isDir]  ) {
-            if (  ! isDir  ) {
-				exitIfWrongOwnerOrPermissions(preConnectPath, 0, 0, PERMS_SECURED_SCRIPT);
-				
-				fprintf(stderr, "'pre-connect.sh' executing...\n");
-				
-				int result = runAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_SCRIPT);
-				
-				fprintf(stderr, "'pre-connect.sh' returned with status %d\n", result);
-				
-				if (  result != 0 ) {
-					exitOpenvpnstart(232);
-				}
-			} else {
-				fprintf(stderr, "'pre-connect.sh' is a folder, not a file\n");
-				exitOpenvpnstart(233);
-			}
+        NSString * preConnectFolder = [tblkPath         stringByAppendingPathComponent: @"Contents/Resources"];
+        NSString * preConnectPath   = [preConnectFolder stringByAppendingPathComponent: @"pre-connect.sh"];
+        
+        if (   fileExistsForRootAtPath(preConnectPath)  ) {
+            exitIfWrongOwnerOrPermissions(preConnectPath, 0, 0, PERMS_SECURED_SCRIPT);
+            
+            fprintf(stderr, "Executing pre-connect.sh in %s...\n", [preConnectFolder UTF8String]);
+            
+            int result = runAsRoot(preConnectPath, [NSArray array], PERMS_SECURED_SCRIPT);
+            
+            fprintf(stderr, "Status %d returned by pre-connect.sh in %s\n", result, [preConnectFolder UTF8String]);
+            
+            if (  result != 0 ) {
+                exitOpenvpnstart(232);
+            }
 		}
     }
-    
+	
     // Unload foo.tun/tap iff we are loading the new net.tunnelblick.tun/tap and foo.tun/tap are loaded
     unsigned unloadMask  = 0;
     unsigned loadedKexts = getLoadedKextsMask();
@@ -2109,28 +2177,24 @@ int startVPN(NSString * configFile,
     }
     
     if (  tblkPath  ) {
-        NSString * postTunTapPath = [tblkPath stringByAppendingPathComponent: @"Contents/Resources/post-tun-tap-load.sh"];
+        NSString * postTunTapFolder = [tblkPath         stringByAppendingPathComponent: @"Contents/Resources"];
+        NSString * postTunTapPath   = [postTunTapFolder stringByAppendingPathComponent: @"post-tun-tap-load.sh"];
         
-        if (   [gFileMgr fileExistsAtPath: postTunTapPath isDirectory: &isDir]  ) {
-            if (  ! isDir  ) {
-				exitIfWrongOwnerOrPermissions(postTunTapPath, 0, 0, PERMS_SECURED_SCRIPT);
-				
-				fprintf(stderr, "'post-tun-tap-load.sh' executing...\n");
-				
-				int result = runAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_SCRIPT);
-				
-				fprintf(stderr, "'post-tun-tap-load.sh' returned with status %d\n", result);
-				
-				if (  result != 0 ) {
-					exitOpenvpnstart(234);
-				}
-			} else {
-				fprintf(stderr, "'post-tun-tap-load.sh' is a folder, not a file\n");
-				exitOpenvpnstart(235);
-			}
+        if (  fileExistsForRootAtPath(postTunTapPath)  ) {
+            exitIfWrongOwnerOrPermissions(postTunTapPath, 0, 0, PERMS_SECURED_SCRIPT);
+            
+            fprintf(stderr, "Executing post-tun-tap-load.sh in %s...\n", [postTunTapFolder UTF8String]);
+            
+            int result = runAsRoot(postTunTapPath, [NSArray array], PERMS_SECURED_SCRIPT);
+            
+            fprintf(stderr, "Status %d returned by post-tun-tap-load.sh in %s\n", result, [postTunTapFolder UTF8String]);
+            
+            if (  result != 0 ) {
+                exitOpenvpnstart(234);
+            }
 		}
     }
-    
+	
 	NSTask* task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:openvpnPath];
 	[task setArguments:arguments];
@@ -2145,7 +2209,8 @@ int startVPN(NSString * configFile,
     if (  status != 0  ) {
         // Get the OpenVPN log contents and then delete both log files, since Tunnelblick won't "hook up" to OpenVPN and thus won't set up to monitor the log file
         NSString * logContents = @"";
-        NSData * logData = [gFileMgr contentsAtPath: logPath];
+        NSData * logData = [[NSFileManager defaultManager] contentsAtPath: logPath];
+        
         if (  logData  ) {
             logContents = [[[NSString alloc] initWithData: logData encoding: NSASCIIStringEncoding] autorelease];
             if (  ! logContents  ) {
@@ -2157,7 +2222,8 @@ int startVPN(NSString * configFile,
         [tempMutableString replaceOccurrencesOfString: @"\n" withString: @"\n     " options: 0 range: NSMakeRange(0, [tempMutableString length])];
         logContents = [NSString stringWithString: tempMutableString];
         
-        [gFileMgr tbRemoveFileAtPath: logPath    handler: nil];
+        [[NSFileManager defaultManager] tbRemoveFileAtPath: logPath    handler: nil];
+        
         NSString * scriptPath = [[[[[[logPath
                                       stringByDeletingPathExtension]        // Remove openvpnstart args
                                      stringByDeletingPathExtension]         // Remove port #
@@ -2165,7 +2231,8 @@ int startVPN(NSString * configFile,
                                    stringByDeletingPathExtension]           // Remove 'log'
                                   stringByAppendingPathExtension: @"script"]
                                  stringByAppendingPathExtension: @"log"];
-        [gFileMgr tbRemoveFileAtPath: scriptPath handler: nil];
+        [[NSFileManager defaultManager] tbRemoveFileAtPath: scriptPath handler: nil];
+        
         fprintf(stderr, "\n"
                 "OpenVPN returned with status %d, errno = %ld:\n"
                 "     %s\n\n"
@@ -2187,8 +2254,7 @@ int startVPN(NSString * configFile,
 }
 
 //**************************************************************************************************************************
-void validateConfigName(NSString * name)
-{
+void validateConfigName(NSString * name) {
     BOOL haveBadChar = FALSE;
 	unsigned i;
 	for (  i=0; i<[name length]; i++  ) {
@@ -2215,16 +2281,14 @@ void validateConfigName(NSString * name)
 	}
 }
 
-void validatePort(unsigned port)
-{
+void validatePort(unsigned port) {
     if (  port > 65534  ) {
         fprintf(stderr, "Tunnelblick: port value of %u is too large\n", port);
         printUsageMessageAndExitOpenvpnstart();
     }
 }
 
-void validateUseScripts(unsigned useScripts)
-{
+void validateUseScripts(unsigned useScripts) {
     if (  useScripts & OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS  ) {
         if (  useScripts > OPENVPNSTART_USE_SCRIPTS_MAX  ) {
             fprintf(stderr, "Tunnelblick: useScripts value of %u is too large\n", useScripts);
@@ -2238,8 +2302,7 @@ void validateUseScripts(unsigned useScripts)
     }
 }
 
-void validateCfgLocCode(unsigned cfgLocCode)
-{
+void validateCfgLocCode(unsigned cfgLocCode) {
 	if (  cfgLocCode > CFG_LOC_MAX  ) {
         fprintf(stderr, "Tunnelblick: cfgLocCode too large\n");
         exitOpenvpnstart(238);
@@ -2249,18 +2312,23 @@ void validateCfgLocCode(unsigned cfgLocCode)
         fprintf(stderr, "Tunnelblick: cfgLocCode = private configuration; private configurations are not allowed\n");
         exitOpenvpnstart(239);
     }
+    
+    if (  cfgLocCode == CFG_LOC_ALTERNATE  ) {
+		if (  gOriginalUid == 0  ) {
+			fprintf(stderr, "Tunnelblick: cfgLocCode = private configuration; private configurations are not allowed\n");
+			exitOpenvpnstart(187);
+		}
+	}
 }
 
-void validateBitmask(unsigned bitMask)
-{
+void validateBitmask(unsigned bitMask) {
     if (  bitMask > OPENVPNSTART_START_BITMASK_MAX  ) {
         fprintf(stderr, "Tunnelblick: bitMask value of %u is too large\n", bitMask);
         printUsageMessageAndExitOpenvpnstart();
     }
 }
 
-void validateLeasewatchOptions(NSString * leasewatchOptions)
-{
+void validateLeasewatchOptions(NSString * leasewatchOptions) {
     if (  [leasewatchOptions length] != 0  ) {
         if (  [leasewatchOptions hasPrefix: @"-i"]  ) {
             NSCharacterSet * optionCharacterSet = [NSCharacterSet characterSetWithCharactersInString: @"dasngw"];
@@ -2287,8 +2355,7 @@ void validateLeasewatchOptions(NSString * leasewatchOptions)
     }
 }
 
-void validateOpenvpnVersion(NSString * s)
-{
+void validateOpenvpnVersion(NSString * s) {
     NSCharacterSet * badChars = [[NSCharacterSet characterSetWithCharactersInString:
                                   @"._-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"]
                                  invertedSet];
@@ -2299,14 +2366,24 @@ void validateOpenvpnVersion(NSString * s)
 }
 
 //**************************************************************************************************************************
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
     pool = [[NSAutoreleasePool alloc] init];
 	
-    gFileMgr = [NSFileManager defaultManager];
+    gOriginalUid = getuid();	// Save user's ID, short name, and home folder for later
+	gUserName = [NSUserName() copy];
+	gUserHome = [NSHomeDirectory() copy];
+	
+    // The uid and euid are set as follows in this program:
+    //     When running as root:     uid == 0 and euid == 0
+    //     When running as non-root: uid == 0 and euid == gOriginalUid
+
+    gPendingRootCounter = 1;    // Set up as root initially
+    if (  setuid(0) != 0  ) {   // (On entry to program, uid is the user's and euid is 0)
+        fprintf(stderr, "setuid(0) failed; probably the openvpnstart program has not been secured. Secure it by launching Tunnelblick.");
+    }
     
-    gOriginalUid = getuid();
-    
+    stopBeingRoot();			// Stop being root
+	
     NSBundle * ourBundle = [NSBundle mainBundle];
     gResourcesPath  = [[ourBundle bundlePath] copy];
     NSArray  * execComponents = [gResourcesPath pathComponents];
@@ -2352,9 +2429,7 @@ int main(int argc, char * argv[])
 		
 		if ( ALLOW_OPENVPNSTART_KILL && (strcmp(command, "killall") == 0) ) {
 			if (  argc == 2  ) {
-				unsigned nKilled;
-				nKilled = killAllOpenvpn();
-				fprintf(stderr, "%d openvpn processes were killed\n", nKilled);
+				killAllOpenvpn();
 				syntaxError = FALSE;
 			}
 			
@@ -2395,12 +2470,12 @@ int main(int argc, char * argv[])
 				syntaxError = FALSE;
 			}
             
-        } else if ( strcmp(command, "compareTblkShadowCopy") == 0 ) {
+        } else if ( strcmp(command, "compareShadowCopy") == 0 ) {
 			if (argc == 3  ) {
 				NSString* fileName = [NSString stringWithUTF8String:argv[2]];
                 validateConfigName(fileName);
-                compareTblkShadowCopy(fileName);
-                // compareTblkShadowCopy should never return (it does exit() with its own exit codes)
+                compareShadowCopy(fileName);
+                // compareShadowCopy should never return (it does exit() with its own exit codes)
                 // but just in case, we force a syntax error by NOT setting syntaxError FALSE
             }
             
@@ -2487,7 +2562,7 @@ int main(int argc, char * argv[])
                 validateLeasewatchOptions(leasewatchOptions);
                 validateOpenvpnVersion(openvpnVersion);
 				
-                gStartArgs = [NSString stringWithFormat: @"%u_%u_%u_%u_%u", useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask];
+                gStartArgs = [[NSString stringWithFormat: @"%u_%u_%u_%u_%u", useScripts, skipScrSec, cfgLocCode, noMonitor, bitMask] copy];
 				
                 retCode = startVPN(configFile,
 								   port,

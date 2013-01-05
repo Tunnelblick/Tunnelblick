@@ -353,6 +353,10 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate)
         otherPerms         = PERMS_SECURED_OTHER;
     }
     
+	if (  [path hasPrefix: L_AS_T_USERS]  ) {
+		selfPerms = PERMS_SECURED_PRIVATE_FOLDER;
+	}
+	
     BOOL result = checkSetOwnership(path, YES, user, group);
     
     result = result && checkSetPermissions(path, selfPerms, YES);

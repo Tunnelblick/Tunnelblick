@@ -1450,7 +1450,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 		return NO;
 	}
 	
-	NSArray * arguments = [NSArray arrayWithObjects:@"compareTblkShadowCopy", [self displayName], nil];
+	NSArray * arguments = [NSArray arrayWithObjects:@"compareShadowCopy", [self displayName], nil];
 	OSStatus status =  runOpenvpnstart(arguments, nil, nil);
 	
 	switch (  status  ) {
@@ -1484,7 +1484,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 														   moveNotCopy: NO] ) {    // Copy the config to the alt config
 				AuthorizationFree(authRef, kAuthorizationFlagDefaults);
 				NSLog(@"Created or updated secure (shadow) copy of configuration file %@", cfgPath);
-				break;
+				return YES;
 			}
 			
 			AuthorizationFree(authRef, kAuthorizationFlagDefaults); // Couldn't make alt file
@@ -1493,7 +1493,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 			break;
 			
 		default:
-			NSLog(@"Internal Tunnelblick error: unknown status %ld from compareTblkShadowCopy(%@)", (long) status, [self displayName]);
+			NSLog(@"Internal Tunnelblick error: unknown status %ld from compareShadowCopy(%@)", (long) status, [self displayName]);
 			return NO;
 	}
 	
@@ -2872,10 +2872,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                    stringByAppendingPathComponent: @"Resources"]
                                   stringByAppendingPathComponent: scriptName]
                                  stringByAppendingPathExtension: @"sh"];
-        if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {
+        if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {  // Note: Looks for private, not alternate, so will see it if it exists
             NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
-            if (   startArguments
-                && ( ! [[startArguments objectAtIndex: 5] isEqualToString: @"1"] )  ) {
+            if (  startArguments  ) {
                 NSArray * arguments = [NSArray arrayWithObjects:
                                        command,
                                        [startArguments objectAtIndex: 1],    // configFile
@@ -2892,8 +2891,10 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     [self addToLog: @"*Tunnelblick: Disconnecting; script failed"];
                     [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
                 }
+            } else {
+                [self addToLog: @"*Tunnelblick: argumentsForOpenvpnstartForNow returned nil"];
             }
-        }
+		}
     }
 }
 
