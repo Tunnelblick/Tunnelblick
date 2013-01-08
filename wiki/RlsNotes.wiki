@@ -130,6 +130,16 @@
 
 --------------------
 
+*3.3beta21b (2013-01-08)*
+
+ * Prepares for update to 3.3beta32.
+
+ * Fixes problem detecting Deployed versions of Tunnelblick.
+ 
+ * Fixes problem detecting that Tunnelblick is not installed in /Applications.
+
+--------------------
+
 *3.3beta21a (2012-09-12)*
 
  * New 'Welcome window' feature:

@@ -1,7 +1,17 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
-2013-01-05: *Tunnelblick 3.3beta30 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+2013-01-08: *Tunnelblick 3.3beta21b is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Prepares for update to 3.3beta32.
+
+ * Fixes problem detecting Deployed versions of Tunnelblick.
+ 
+ * Fixes problem detecting that Tunnelblick is not installed in /Applications.
+
+--------------------
+
+2013-01-05: *Tunnelblick 3.3beta32 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes several security issues.
 
