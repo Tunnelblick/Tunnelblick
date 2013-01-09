@@ -132,7 +132,7 @@
 
 *3.3beta21b (2013-01-08)*
 
- * Prepares for update to 3.3beta32.
+ * *<font color="red">Security update to prepare for Tunnelblick 3.3beta32.</font>*
 
  * Fixes problem detecting Deployed versions of Tunnelblick.
  
