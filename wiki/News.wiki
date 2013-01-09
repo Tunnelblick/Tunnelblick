@@ -3,7 +3,7 @@
 
 2013-01-08: *Tunnelblick 3.3beta21b is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
- * Prepares for update to 3.3beta32.
+ * *<font color="red">Security update to prepare for Tunnelblick 3.3beta32.</font>*
 
  * Fixes problem detecting Deployed versions of Tunnelblick.
  
