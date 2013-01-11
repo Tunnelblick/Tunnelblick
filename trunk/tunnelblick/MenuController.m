@@ -5047,6 +5047,9 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)wokeUpFromSleep
 {
+    [self menuExtrasWereAdded]; // Recreate the Tunnelblick icon
+    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover]; // Recreate tracking rectangle if needed
+    
     gComputerIsGoingToSleep = FALSE;
 	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep");
 	
