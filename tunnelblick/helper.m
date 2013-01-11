@@ -341,7 +341,7 @@ NSDictionary * getOpenVPNVersion(void)
     } else {
         NSArray * versions = availableOpenvpnVersions();
         if (   versions  ) {
-            useVersion = [versions objectAtIndex: [versions count]-1];
+            useVersion = [versions objectAtIndex: 0];
         }
     }
     
