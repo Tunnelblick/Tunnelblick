@@ -1153,6 +1153,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [contactTunnelblickItem release];
     contactTunnelblickItem = nil;
+/*
     if ( ! [gTbDefaults boolForKey: @"doNotShowSuggestionOrBugReportMenuItem"]  ) {
         if (  [self contactURL]  ) {
             NSString * menuTitle = nil;
@@ -1172,6 +1173,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         }
     }
+ */
     
     [quitItem release];
     quitItem = [[NSMenuItem alloc] init];
