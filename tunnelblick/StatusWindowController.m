@@ -282,7 +282,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     }
     
 	[connectButton    setTitle: localizeNonLiteral(@"Connect",   @"Button")];
-	[disconnectButton setTitle: localizeNonLiteral(@"Disonnect", @"Button")];
+	[disconnectButton setTitle: localizeNonLiteral(@"Disconnect", @"Button")];
 	
 	// Size both buttons to the max size of either button
 	[connectButton    sizeToFit];
