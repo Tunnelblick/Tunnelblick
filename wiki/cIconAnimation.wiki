@@ -25,6 +25,8 @@ When Tunnelblick is launched, it looks for an icon set to use in three places, i
  #. /Library/Application Support/Tunnelblick/Shared/!IconSets/!TunnelBlick.TBMenuIcons; and
  #. Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons.
 
+Each icon set must be accompanied by an icon set named with a prefix of "large-". That icon set should contain icons that are three times larger than the normal icons, in both width and height. Thus the "large" icons should be 54 x 48 pixels (since the normal icons are 18 x 16 pixels).
+
 Note: The "menuIconSet" preference, if present, specifies the name of the folder (within the "!IconSets" folder) that contains the icon set to be used. If not present, this defaults to "!TunnelBlick.TBMenuIcons".
 
 ==Custom Icon Sets==
@@ -35,9 +37,11 @@ First, create a folder named "!TunnelBlick.TBMenuIcons" containing the images. T
  * "closed.png": this is the icon used to indicate a closed tunnel (no VPN connection is active)
  * "1.png", "2.png", "3.png", etc.: these icons are used in sequence to indicate a transition from open to closed or closed to open.
 
+Next, create a folder named "large-!TunnelBlick.TBMenuIcons" containing larger images.
+
 Next, either
- #. Replace the Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons folder with your folder; or
- #. Create an "!IconSets" folder, place your folder inside it, and place it in either
+ #. Replace the Tunnelblick.app/Contents/Resources/!IconSets/!TunnelBlick.TBMenuIcons folder with your folder (and the large-!TunnelBlick.TBMenuIcons folder with your "large-" folder) ; or
+ #. Create an "!IconSets" folder, place your folders inside it, and place it in either
   * Tunnelblick.app/Contents/Resources/Deploy; or
   * /Library/Application Support/Tunnelblick/Shared.
 
