@@ -950,22 +950,32 @@ BOOL checkOwnedByRootWheel(NSString * path);
     // Try with the specified icon set
     NSString * requestedMenuIconSet = [gTbDefaults objectForKey:@"menuIconSet"];
     if (  requestedMenuIconSet   ) {
-        if (   [self loadMenuIconSet: requestedMenuIconSet
-                                main: &mainImage
-                          connecting: &connectedImage
-                                anim: &animImages]
-            && [self loadMenuIconSet: [NSString stringWithFormat: @"large-%@", requestedMenuIconSet]
-                                main: &largeMainImage
-                          connecting: &largeConnectedImage
-                                anim: &largeAnimImages]  )
-        {    
-            [self updateUI];    // Display the new images
-            return YES;
+        NSString * requestedLargeIconSet = [NSString stringWithFormat: @"large-%@", requestedMenuIconSet];
+        if (  [self loadMenuIconSet: requestedMenuIconSet
+                               main: &mainImage
+                         connecting: &connectedImage
+                               anim: &animImages]  ) {
+            if (  [self loadMenuIconSet: requestedLargeIconSet
+                                   main: &mainImage
+                             connecting: &connectedImage
+                                   anim: &animImages]  ) {
+                [self updateUI];    // Display the new images
+                return YES;
+            } else {
+                NSLog(@"Icon set '%@' not found", requestedLargeIconSet);
+            }
         } else {
-            NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
+            if (  [self loadMenuIconSet: requestedLargeIconSet
+                                   main: &mainImage
+                             connecting: &connectedImage
+                                   anim: &animImages]  ) {
+                NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
+            } else {
+                NSLog(@"Icon set '%@' not found and icon set '%@' not found", requestedMenuIconSet, requestedLargeIconSet);
+            }
         }
     }
-        
+    
     // Try with standard icon set if haven't already
     NSString * menuIconSet = @"TunnelBlick.TBMenuIcons";
     if (  ! [requestedMenuIconSet isEqualToString: menuIconSet]  ) {
