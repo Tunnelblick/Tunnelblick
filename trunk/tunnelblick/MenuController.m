@@ -2466,6 +2466,20 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
         [NSApp terminate: self];
 }
 
+int runUnrecoverableErrorPanel(NSString * msg)
+{
+	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
+                                 [NSString stringWithFormat: NSLocalizedString(@"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@", @"Window text"),
+                                  msg],
+                                 NSLocalizedString(@"Download", @"Button"),
+                                 NSLocalizedString(@"Quit", @"Button"),
+                                 nil);
+	if( result == NSAlertDefaultReturn ) {
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://tunnelblick.net/"]];
+	}
+    exit(2);
+}
+
 static void signal_handler(int signalNumber)
 {
     if (signalNumber == SIGHUP) {
@@ -2486,6 +2500,7 @@ static void signal_handler(int signalNumber)
             NSLog(@"signal_handler: Error while handling signal.");
             exit(0);
         } else {
+            runUnrecoverableErrorPanel([NSString stringWithFormat: NSLocalizedString(@"Received fatal signal %d.", @"Window text"), signalNumber]);
             reasonForTermination = terminatingBecauseOfFatalError;
             gShuttingDownTunnelblick = TRUE;
             NSLog(@"signal_handler: Starting cleanup.");
@@ -2779,8 +2794,6 @@ static void signal_handler(int signalNumber)
     // Otherwise, use the Info.plist entry. We don't check the normal preferences because an unprivileged user can set them and thus
     // could send the update check somewhere it shouldn't go. (For example, to force Tunnelblick to ignore an update.)
     
-    forcingUnsignedUpdate = FALSE;
-    
     if (  feedURL == nil  ) {
         NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
         NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: [contentsPath stringByAppendingPathComponent: @"Info.plist"]];
@@ -2788,26 +2801,7 @@ static void signal_handler(int signalNumber)
         if (  feedURL == nil ) {
             NSLog(@"Missing 'SUFeedURL' item in Info.plist");
         } else {
-            if (  [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-                // Use 'appcast.rss' normally
-                // Use 'appcast-u.rss' to do a normal update check but for an unsigned version.
-                // Use 'appcast-f.rss' to _force_ an update to the latest unsigned version, no matter what the build # we currently have
-                if (   [feedURL hasPrefix: @"http://tunnelblick.net/"]
-                    && [feedURL hasSuffix: @"/appcast.rss"]
-                    && ( ! [gTbDefaults boolForKey: @"updateSigned"]) ) {
-                    // Have a "standard" update setup at tunnelblick.net and are not forcing a signed version
-                    if (  signatureIsInvalid  ) {
-                        forcingUnsignedUpdate = TRUE;
-                        feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-f.rss"];
-                        NSLog(@"Tunnelblick's digital signature is invalid");
-                    } else {
-                        if (  [gTbDefaults boolForKey: @"updateUnsigned"]  ) {
-                            feedURL = [[feedURL substringToIndex: [feedURL length] - 4] stringByAppendingString: @"-u.rss"];
-                            NSLog(@"The 'updateUnsigned' preference is set");
-                        }
-                    }
-                }
-            } else {
+            if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
                 NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
                 feedURL = nil;
             }
@@ -2833,16 +2827,8 @@ static void signal_handler(int signalNumber)
     // Set up automatic update checking
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
-            if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] != nil  ) {
-                if (   forcingUnsignedUpdate
-                    && [gTbDefaults canChangeValueForKey: @"updateCheckAutomatically"]  ) {
-                    [updater setAutomaticallyChecksForUpdates: YES];
-                    NSLog(@"Checking for an update because of a problem with Tunnelblick's digital signature");
-                } else if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
-                    [updater setAutomaticallyChecksForUpdates: YES];
-                } else {
-                    [updater setAutomaticallyChecksForUpdates: NO];
-                }
+            if (  [gTbDefaults objectForKey: @"updateCheckAutomatically"]  ) {
+                [updater setAutomaticallyChecksForUpdates: [gTbDefaults boolForKey: @"updateCheckAutomatically"]];
             }
         } else {
             if (  [gTbDefaults boolForKey: @"updateCheckAutomatically"]  ) {
@@ -2859,11 +2845,7 @@ static void signal_handler(int signalNumber)
     if (  [updater respondsToSelector: @selector(setAutomaticallyDownloadsUpdates:)]  ) {
         if (  userIsAdminOrNonAdminsCanUpdate  ) {
             if (  [gTbDefaults objectForKey: @"updateAutomatically"] != nil  ) {
-                if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
-                    [updater setAutomaticallyDownloadsUpdates: YES];
-                } else {
-                    [updater setAutomaticallyDownloadsUpdates: NO];
-                }
+                [updater setAutomaticallyDownloadsUpdates: [gTbDefaults boolForKey: @"updateAutomatically"]];
             }
         } else {
             if (  [gTbDefaults boolForKey: @"updateAutomatically"]  ) {
@@ -3024,7 +3006,6 @@ static void signal_handler(int signalNumber)
     // will ask the user whether to check or not, then we set our preferences from that.)
     if (      [gTbDefaults boolForKey:   @"updateCheckAutomatically"]
         || (  [gTbDefaults objectForKey: @"updateCheckAutomatically"] == nil  )
-        || forcingUnsignedUpdate
         ) {
         if (  [updater respondsToSelector: @selector(checkForUpdatesInBackground)]  ) {
             if (  feedURL != nil  ) {
@@ -5146,20 +5127,6 @@ void terminateBecauseOfBadConfiguration(void)
     
     [connectionsToRestoreOnUserActive release];
     connectionsToRestoreOnUserActive = nil;
-}
-
-int runUnrecoverableErrorPanel(NSString * msg)
-{
-	int result = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick Error", @"Window title"),
-                                 [NSString stringWithFormat: NSLocalizedString(@"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@", @"Window text"),
-                                  msg],
-                                 NSLocalizedString(@"Download", @"Button"),
-                                 NSLocalizedString(@"Quit", @"Button"),
-                                 nil);
-	if( result == NSAlertDefaultReturn ) {
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://tunnelblick.net/"]];
-	}
-    exit(2);
 }
 
 -(void) setHotKeyIndex: (unsigned) newIndex
