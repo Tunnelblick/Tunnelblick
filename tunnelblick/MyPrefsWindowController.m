@@ -478,7 +478,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
             [leftNavDisplayNames addObject: @""];
             NSString * folderName = [currentConfig objectAtIndex: i];
-            [leftNavList         addObject: [self indent: folderName by: firstDiff+i]];
+            [leftNavList         addObject: [self indent: folderName by: i]];
             [currentFolders addObject: folderName];
             ++currentLeftNavIndex;
         }

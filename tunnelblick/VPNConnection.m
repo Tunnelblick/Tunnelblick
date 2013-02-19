@@ -2643,6 +2643,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSString * outTotal      = nil;
     NSString * outTotalUnits = nil;
 
+    // The Xcode 4.6 analyzer gives spurious warnings about the stats.xxx variables having garbage values, because it does not realize that readStatisticsTo: sets them
     [self setNumber: &inTotal  andUnits: &inTotalUnits  from: (stats.totalInBytecount  + stats.totalInByteCountBeforeThisConnection ) unitsArray: gTotalUnits];
     [self setNumber: &outTotal andUnits: &outTotalUnits from: (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection) unitsArray: gTotalUnits];
 
@@ -3132,12 +3133,14 @@ TBSYNTHESIZE_OBJECT(retain, NSDate *, bytecountsUpdated, setBytecountsUpdated)
 - (NSString *) bytesIn
 {
     struct Statistics stats;
+    stats.totalInBytecount = 0;  stats.totalInByteCountBeforeThisConnection = 0;   // Avoid Xcode 4.6 analyzer warnings
     [self readStatisticsTo: &stats];
     return [NSString stringWithFormat: @"%llu", (unsigned long long) (stats.totalInBytecount + stats.totalInByteCountBeforeThisConnection)];
 }
 - (NSString *) bytesOut
 {
     struct Statistics stats;
+    stats.totalOutBytecount = 0; stats.totalOutByteCountBeforeThisConnection = 0;    // Avoid Xcode 4.6 analyzer warnings
     [self readStatisticsTo: &stats];
     return [NSString stringWithFormat: @"%llu", (unsigned long long) (stats.totalOutBytecount + stats.totalOutByteCountBeforeThisConnection)];
 }
