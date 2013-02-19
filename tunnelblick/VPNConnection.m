@@ -1494,6 +1494,13 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 			
 		default:
 			NSLog(@"Internal Tunnelblick error: unknown status %ld from compareShadowCopy(%@)", (long) status, [self displayName]);
+            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                            [NSString stringWithFormat: NSLocalizedString(@"An error (status %ld) ocurred while trying to"
+                                                                          @" check the security of the %@ configuration.\n\n"
+                                                                          @"Please quit and relaunch Tunnelblick. If the problem persists, please"
+                                                                          @" reinstall Tunnelblick.", @"Window text"),
+							 (long) status, [self displayName]],
+                            nil, nil, nil);
 			return NO;
 	}
 	
