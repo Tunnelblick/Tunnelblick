@@ -2304,6 +2304,28 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         return TRUE;
     }
     
+    NSLog(@"DEBUG: Cleanup: Setting callDelegateOnNetworkChange: NO");
+    [NSApp callDelegateOnNetworkChange: NO];
+    
+    if (  ! [lastState isEqualToString:@"EXITING"]) {
+        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
+        [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
+    }
+    
+    if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
+        NSLog(@"Skipping unloading of kexts because of fatal error.");
+    } else {
+        NSLog(@"DEBUG: Cleanup: Unloading kexts");
+        [self unloadKexts];     // Unload .tun and .tap kexts
+    }
+    
+    if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
+        NSLog(@"Skipping deleting logs because of fatal error.");
+    } else {
+        NSLog(@"DEBUG: Cleanup: Deleting logs");
+        [self deleteLogs];
+    }
+
     if ( ! gShuttingDownWorkspace  ) {
         if (  statusItem  ) {
             NSLog(@"DEBUG: Cleanup: Removing status bar item");
@@ -2316,24 +2338,6 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
     
-    NSLog(@"DEBUG: Cleanup: Setting callDelegateOnNetworkChange: NO");
-    [NSApp callDelegateOnNetworkChange: NO];
-    
-    if (  ! [lastState isEqualToString:@"EXITING"]) {
-        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
-        [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
-    }
-    if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
-        NSLog(@"Skipping rest of cleanup (unload kexts, delete logs) because of fatal error.");
-        return TRUE;
-    }
-    
-    NSLog(@"DEBUG: Cleanup: Unloading kexts");
-    [self unloadKexts];     // Unload .tun and .tap kexts
-    
-    NSLog(@"DEBUG: Cleanup: Deleting logs");
-    [self deleteLogs];
-
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     return TRUE;
 }
