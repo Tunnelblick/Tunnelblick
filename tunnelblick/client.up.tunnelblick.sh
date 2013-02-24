@@ -33,6 +33,7 @@ trim()
 # @param String[] dnsServers - The name servers to use
 # @param String domainName - The domain name to use
 # @param \optional String[] winsServers - The SMB servers to use
+# @param \optional String[] searchDomains - The search domains to use
 #
 # Throughout this routine:
 #            MAN_ is a prefix for manually set parameters
@@ -100,6 +101,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	declare -a vDNS=("${!1}")
 	declare -a vSMB=("${!3}")
+	declare -a vSD=("${!4}")
 
 	if [ ${#vDNS[*]} -eq 0 ] ; then
 		readonly DYN_DNS_SA=""
@@ -113,10 +115,15 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		readonly DYN_SMB_WA="${!3}"
 	fi
 
+	if [ ${#vSD[*]} -eq 0 ] ; then
+		readonly DYN_DNS_SD=""
+	else
+		readonly DYN_DNS_SD="${!4}"
+	fi
+	
 	DYN_DNS_DN="$2"
 	
 	# The variables
-	#     DYN_DNS_SD
 	#     DYN_SMB_WG
 	#     DYN_SMB_NN
 	# are left empty. There isn't a way for OpenVPN to set them.
@@ -333,39 +340,61 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	# NEW BEHAVIOR (done if ARG_PREPEND_DOMAIN_NAME is "true"):
 	#
 	#     if SearchDomains was entered manually, we do nothing
-	#     else we PREpend DomainName to the existing SearchDomains
+	#     else we  PREpend new SearchDomains (if any) to the existing SearchDomains (NOT replacing them)
+	#          and PREpend DomainName to that
+	#
+	#              (done if ARG_PREPEND_DOMAIN_NAME is "false" and there are new SearchDomains from DOMAIN-SEARCH):
+	#
+	#     if SearchDomains was entered manually, we do nothing
+	#     else we  PREpend any new SearchDomains to the existing SearchDomains (NOT replacing them)
 	#
 	#     This behavior is meant to behave like Linux with Network Manager and Windows
 	
 	if "${ARG_PREPEND_DOMAIN_NAME}" ; then
 		if [ "${MAN_DNS_SD}" = "" ] ; then
+			if [ "${DYN_DNS_SD}" != "" ] ; then
+				readonly TMP_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
+				logMessage "Prepended '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+			else
+				readonly TMP_DNS_SD="${CUR_DNS_SD}"
+			fi
 			logMessage "Prepended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
-			readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${CUR_DNS_SD}")"
+			readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${TMP_DNS_SD}")"
 		else
+			if [ "${DYN_DNS_SD}" != "" ] ; then
+				logMessage "Did not prepend '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and 'Prepend domain name to search domains' was selected"
+			fi
 			logMessage "Did not prepend '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and 'Prepend domain name to search domains' was selected"
 			readonly FIN_DNS_SD="${CUR_DNS_SD}"
 		fi
 	else
-		case "${OSVER}" in
-			10.4 | 10.5 )
-				if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-					logMessage "Did not append '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
-					readonly FIN_DNS_SD="${CUR_DNS_SD}"
-				else
-					logMessage "Appended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
-					readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
-				fi
-				;;
-			* )
-				if [ "${MAN_DNS_SD}" = "" ] ; then
-					logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
-					readonly FIN_DNS_SD="${FIN_DNS_DN}"
-				else
-					logMessage "Did not replace search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were set manually and 'Prepend domain name to search domains' was not selected"
-					readonly FIN_DNS_SD="${CUR_DNS_SD}"
-				fi
-				;;
-		esac
+		if [ "${DYN_DNS_SD}" != "" ] ; then
+			if [ "${MAN_DNS_SD}" = "" ] ; then
+				readonly FIN_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
+				logMessage "Prepended '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
+			fi
+		else
+			case "${OSVER}" in
+				10.4 | 10.5 )
+					if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
+						logMessage "Did not append '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
+						readonly FIN_DNS_SD="${CUR_DNS_SD}"
+					else
+						logMessage "Appended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
+						readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
+					fi
+					;;
+				* )
+					if [ "${MAN_DNS_SD}" = "" ] ; then
+						logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
+						readonly FIN_DNS_SD="${FIN_DNS_DN}"
+					else
+						logMessage "Did not replace search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were set manually and 'Prepend domain name to search domains' was not selected"
+						readonly FIN_DNS_SD="${CUR_DNS_SD}"
+					fi
+					;;
+			esac
+		fi
 	fi
 		
 	logMessage "DEBUG:"
@@ -724,9 +753,11 @@ configureDhcpDns()
 	
 	unset aNameServers
 	unset aWinsServers
+	unset aSearchDomains
 	
 	nNameServerIndex=1
 	nWinsServerIndex=1
+	nSearchDomainIndex=1
 	
 	if [ "$sGetPacketOutput" ]; then
 		sGetPacketOutput_FirstLine=`echo "$sGetPacketOutput"|head -n 1`
@@ -745,16 +776,21 @@ configureDhcpDns()
 				let nWinsServerIndex++
 			done
 			
+			for tSearchDomain in `echo "$sGetPacketOutput"|grep "search_domain"|grep -Eo "\{([-A-Za-z0-9\-\.]+)(, [-A-Za-z0-9\-\.]+)*\}"|grep -Eo "([-A-Za-z0-9\-\.]+)"`; do
+				aSearchDomains[nSearchDomainIndex-1]="$(trim "$tSearchDomain")"
+				let nSearchDomainIndex++
+			done
+			
 			sDomainName=`echo "$sGetPacketOutput"|grep "domain_name "|grep -Eo ": [-A-Za-z0-9\-\.]+"|grep -Eo "[-A-Za-z0-9\-\.]+"`
 			sDomainName="$(trim "$sDomainName")"
 			
 			if [ ${#aNameServers[*]} -gt 0 -a "$sDomainName" ]; then
-				logMessage "Retrieved name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], and SMB server(s) [ ${aWinsServers[@]} ]"
-				setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@]
+				logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ]"
+				setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
 				return 0
 			elif [ ${#aNameServers[*]} -gt 0 ]; then
-				logMessage "Retrieved name server(s) [ ${aNameServers[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
-				setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@]
+				logMessage "Retrieved from DHCP/BOOTP packet: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+				setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 				return 0
 			else
 				# Should we return 1 here and indicate an error, or attempt the old method?
@@ -786,16 +822,17 @@ configureDhcpDns()
 	sDomainName="$(trim "$sDomainName")"
 	sNameServer="$(trim "$sNameServer")"
 	
-	declare -a aWinsServers=( ) # Declare empty WINSServers array to avoid any useless error messages
+	declare -a aWinsServers=( )   # Declare empty WINSServers   array to avoid any useless error messages
+	declare -a aSearchDomains=( ) # Declare empty SearchDomains array to avoid any useless error messages
 	
 	if [ "$sDomainName" -a "$sNameServer" ]; then
 		aNameServers[0]=$sNameServer
-		logMessage "Retrieved name server [ $sNameServer ], domain name [ $sDomainName ], and no SMB servers"
-		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@]
+		logMessage "Retrieved OpenVPN (DHCP): name server [ $sNameServer ], domain name [ $sDomainName ], and no SMB servers or search domains"
+		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
 	elif [ "$sNameServer" ]; then
 		aNameServers[0]=$sNameServer
-		logMessage "Retrieved name server [ $sNameServer ] and no SMB servers, and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
-		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@]
+		logMessage "Retrieved OpenVPN (DHCP): name server [ $sNameServer ] and no SMB servers or search domains, and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 	elif [ "$sDomainName" ]; then
 		logMessage "WARNING: Retrieved domain name [ $sDomainName ] but no name servers from OpenVPN (DHCP), which is not sufficient to make network/DNS configuration changes."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
@@ -819,6 +856,9 @@ configureOpenVpnDns()
 # Description of foreign_option_ parameters (from OpenVPN 2.3-alpha_2 man page):
 #
 # DOMAIN name -- Set Connection-specific DNS Suffix.
+#
+# DOMAIN-SEARCH name -- Set Connection-specific DNS Search Address. Repeat this option to
+#               set additional search domains. (Tunnelblick-specific addition.)
 #
 # DNS addr -- Set primary domain name server address.  Repeat  this  option  to  set
 #              secondary DNS server addresses.
@@ -853,14 +893,20 @@ configureOpenVpnDns()
 	unset vOptions
 	unset aNameServers
 	unset aWinsServers
+	unset aSearchDomains
 	
 	nOptionIndex=1
 	nNameServerIndex=1
 	nWinsServerIndex=1
+	nSearchDomainIndex=1
 
 	while vForOptions=foreign_option_$nOptionIndex; [ -n "${!vForOptions}" ]; do
 		vOptions[nOptionIndex-1]=${!vForOptions}
 		case ${vOptions[nOptionIndex-1]} in
+			*DOMAIN-SEARCH*    )
+				aSearchDomains[nSearchDomainIndex-1]="$(trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN-SEARCH /}")"
+				let nSearchDomainIndex++
+				;;
 			*DOMAIN* )
 				sDomainName="$(trim "${vOptions[nOptionIndex-1]//dhcp-option DOMAIN /}")"
 				;;
@@ -873,18 +919,18 @@ configureOpenVpnDns()
 				let nWinsServerIndex++
 				;;
             *   )
-                logMessage "Unknown: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
+                logMessage "UNKNOWN: 'foreign_option_${nOptionIndex}' = '${vOptions[nOptionIndex-1]}' ignored"
                 ;;
 		esac
 		let nOptionIndex++
 	done
 	
 	if [ ${#aNameServers[*]} -gt 0 -a "$sDomainName" ]; then
-		logMessage "Retrieved name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], and SMB server(s) [ ${aWinsServers[@]} ]"
-		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@]
+		logMessage "Retrieved from OpenVPN: name server(s) [ ${aNameServers[@]} ], domain name [ $sDomainName ], search domain(s) [ ${aSearchDomains[@]} ], and SMB server(s) [ ${aWinsServers[@]} ]"
+		setDnsServersAndDomainName aNameServers[@] "$sDomainName" aWinsServers[@] aSearchDomains[@]
 	elif [ ${#aNameServers[*]} -gt 0 ]; then
-		logMessage "Retrieved name server(s) [ ${aNameServers[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
-		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@]
+		logMessage "Retrieved from OpenVPN: name server(s) [ ${aNameServers[@]} ], search domain(s) [ ${aSearchDomains[@]} ] and SMB server(s) [ ${aWinsServers[@]} ] and using default domain name [ $DEFAULT_DOMAIN_NAME ]"
+		setDnsServersAndDomainName aNameServers[@] "$DEFAULT_DOMAIN_NAME" aWinsServers[@] aSearchDomains[@]
 	else
 		logMessage "No DNS information received from OpenVPN, so no network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
