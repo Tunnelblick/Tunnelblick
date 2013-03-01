@@ -180,6 +180,11 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
             
             inDoubleQuote = TRUE;       // processing a double-quote string
             inToken = TRUE;
+			// If haven't started token, this is the start of the token
+			if (  returnRange.location == NSNotFound  ) {
+				returnRange.location = inputIx - 1;
+				returnRange.length   = 1;
+			}
             continue;
             
         } else if (  c == '\''  ) {
@@ -190,6 +195,11 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
             
             inSingleQuote = TRUE;       // processing a single-quote string
             inToken       = TRUE;
+			// If haven't started token, this is the start of the token
+			if (  returnRange.location == NSNotFound  ) {
+				returnRange.location = inputIx - 1;
+				returnRange.length   = 1;
+			}
             continue;
             
         } else if (  c == '\\'  ) {
@@ -400,7 +410,19 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
             
             if (  [optionsWithPath containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
-                    if (  ! [self processPathRange: [secondToken range] removeBackslashes: NO]  ) {
+                    // remove leading/trailing single- or double-quotes
+					NSRange r2 = [secondToken range];
+                    if (   (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"\""]
+                            && [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"\""]  )
+                        || (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"'"]
+                            && [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"'"]  )  )
+                    {
+                        r2.location++;
+                        r2.length -= 2;
+                    }
+                    
+                    // copy the file and change the path in the configuration string if necessary
+                    if (  ! [self processPathRange: r2 removeBackslashes: NO]  ) {
                         return FALSE;
                     }
                     tokenIx++;
@@ -423,6 +445,12 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
                         r2.length -= 2;
                     }
                     
+                    // Find end of first token (i.e. path) that is within secondToken (i.e. the command)
+                    NSRange r3 = [[configString substringWithRange: r2] rangeOfCharacterFromSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    if (  r3.length != 0  ) {
+                        r2.length = r3.location;    // secondToken has a file and arguments; file token ends at separator between them
+                    }
+
                     // copy the file and change the path in the configuration string if necessary
                     if (  [self processPathRange: r2 removeBackslashes: YES]  ) {
                         [self logMessage: [NSString stringWithFormat: @"Copied '%@'", firstToken]];
