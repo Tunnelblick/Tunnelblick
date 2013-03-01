@@ -67,7 +67,7 @@
 			if (  [stringToDisplay isEqualToString: @"\n"]  ) {
 				stringToDisplay = @"\\n";
 			}
-			return [NSString stringWithFormat: @"Token {%lu,%lu}:\t'%@'",
+			return [NSString stringWithFormat: @"Token {%lu,%lu}:  '%@'",
 					(unsigned long) range.location,
 					(unsigned long) range.length,
 					stringToDisplay];
