@@ -4,6 +4,8 @@ Before *posting a new* Issue, please
 
   * Discuss the problem, suggestion, feature request, etc. in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]. More people monitor the discussion group and you will probably receive help more quickly there than if you post an Issue. You can specify that you do not want to receive email, receive daily digests, or an email for each post. <font color="red">New</font> 2011-02-08: You also may specify that you wish to receive email only for specific discussions.
 
+-----
+
 Go to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
 No, I really want to go to [http://code.google.com/p/tunnelblick/issues/list Tunnelblick Issues].
