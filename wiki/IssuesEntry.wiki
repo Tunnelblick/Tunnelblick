@@ -1,9 +1,13 @@
 Before *posting a new* Issue, please
 
-  * Take a look at [cKnown Known Issues] and [cCommonProblems Common Problems].
+  # Take a look at [cKnown Known Issues] and [cCommonProblems Common Problems].
+  # Discuss the problem, suggestion, feature request, etc. in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
 
-  * Discuss the problem, suggestion, feature request, etc. in the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]. More people monitor the discussion group and you will probably receive help more quickly there than if you post an Issue. You can specify that you do not want to receive email, receive daily digests, or an email for each post. <font color="red">New</font> 2011-02-08: You also may specify that you wish to receive email only for specific discussions.
+   More people monitor the discussion group and you will probably receive help more quickly there than if you post an Issue.
 
+   You may post either via the group's [https://groups.google.com/forum/#!forum/tunnelblick-discuss web interface], or by sending email to tunnelblick-discuss@googlegroups.com.
+
+   Please read [https://groups.google.com/d/topic/tunnelblick-discuss/kNfBfyoevkA/ this post] before posting.
 -----
 
 Go to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group].
