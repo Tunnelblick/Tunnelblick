@@ -207,7 +207,7 @@ BOOL checkSetPermissions(NSString * path, mode_t permsShouldHave, BOOL fileMustE
 }
 
 
-BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group)
+BOOL createDirWithPermissionAndOwnershipWorker(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group, unsigned level)
 {
 	// Function to create a directory with specified ownership and permissions
 	// Recursively creates all intermediate directories (with the same ownership and permissions) as needed
@@ -226,29 +226,41 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions,
              && isDir )  ) {
         // No such directory. Create its parent directory if necessary
         NSString * parentPath = [dirPath stringByDeletingLastPathComponent];
-        if (  ! createDirWithPermissionAndOwnership(parentPath, permissions, owner, group)  ) {
+        if (  ! createDirWithPermissionAndOwnershipWorker(parentPath, permissions, owner, group, level+1)  ) {
             return NO;
         }
         
         // Parent directory exists. Create the directory we want
-        if (  mkdir([dirPath fileSystemRepresentation], (mode_t) permissions) != 0  ) {
-            appendLog([NSString stringWithFormat: @"Unable to create directory %@", dirPath]);
+        if (  mkdir([dirPath fileSystemRepresentation], permissions) != 0  ) {
+            appendLog([NSString stringWithFormat: @"Unable to create directory %@ with permissions %lo", dirPath, (long) permissions]);
             return NO;
         }
 		
-        appendLog([NSString stringWithFormat: @"Created directory %@", dirPath]);
+        NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: dirPath traverseLink: NO];
+        unsigned long theOwner = [[atts fileOwnerAccountID] unsignedLongValue];
+        unsigned long theGroup = [[atts fileGroupOwnerAccountID] unsignedLongValue];
+        appendLog([NSString stringWithFormat: @"Created directory %@ with owner %lu:%lu and permissions %lo",
+                   dirPath, (unsigned long) theOwner, (unsigned long) theGroup, (long) permissions]);
     }
 	
     
-    // Directory exists. Check/set ownership and permissions
-    if (  ! checkSetOwnership(dirPath, NO, owner, group)  ) {
-        return NO;
-    }
-    if (  ! checkSetPermissions(dirPath, permissions, YES)  ) {
-        return NO;
+    // Directory exists. Check/set ownership and permissions if this is level 0
+    
+    if (  level == 0 ) {
+        if (  ! checkSetOwnership(dirPath, NO, owner, group)  ) {
+            return NO;
+        }
+        if (  ! checkSetPermissions(dirPath, permissions, YES)  ) {
+            return NO;
+        }
     }
     
     return YES;
+}
+
+BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions, uid_t owner, gid_t group)
+{
+    return createDirWithPermissionAndOwnershipWorker(dirPath, permissions, owner, group, 0);
 }
 
 unsigned int getFreePort(void)
@@ -298,19 +310,18 @@ BOOL itemIsVisible(NSString * path)
     return YES;
 }
 
-BOOL secureOneFolder(NSString * path, BOOL isPrivate)
+BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 {
     // Makes sure that ownership/permissions of a FOLDER AND ITS CONTENTS are secure (a .tblk, or the shared, Deploy, private, or alternate config folder)
+    //
+    // 'theUser' is used only if 'isPrivate' is TRUE. It should be the uid of the user who should own the folder and its contents.
+    //
     // Returns YES if successfully secured everything, otherwise returns NO
     //
     // There is a SIMILAR function in openvpnstart: exitIfTblkNeedsRepair
     //
     // There is a SIMILAR function in MenuController: needToSecureFolderAtPath
     
-    if (  getuid() == 0  ) {
-        appendLog(@"No user");
-        return NO;
-    }
 	uid_t user;
 	gid_t group;
 	
@@ -324,7 +335,12 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate)
     mode_t otherPerms;          //  For all other files
     
     if (  isPrivate  ) {
-		user  = getuid();               // Private files are owned by <user>:admin
+        // Private files are owned by <user>:admin
+		user  = theUser;
+        if (  user == 0  ) {
+            appendLog(@"Tunnelblick internal error: secureOneFolder: No user");
+            return NO;
+        }
 		group = ADMIN_GROUP_ID;
         if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
             selfPerms   = PERMS_PRIVATE_TBLK_FOLDER;

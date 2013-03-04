@@ -332,6 +332,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"useSharedConfigurationsWithDeployedOnes",
                                 @"usePrivateConfigurationsWithDeployedOnes",
 								@"namedCredentialsThatAllConfigurationsUse",
+                                @"namedCredentialsNames",
                                 
                                 @"delayToShowStatistics",
                                 @"delayToHideStatistics",
@@ -393,6 +394,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                       @"-leasewatchOptions",
                                       @"-doNotDisconnectOnFastUserSwitch",
                                       @"-doNotReconnectOnFastUserSwitch",
+                                      @"-doNotReconnectOnWakeFromSleep",
                                       @"-doNotFlushCache",
                                       @"-useDownRootPlugin",
                                       @"-keychainHasPrivateKey",
@@ -2490,13 +2492,18 @@ static void signal_handler(int signalNumber)
         NSLog(@"SIGHUP received. Restarting active connections");
         [[NSApp delegate] resetActiveConnections];
     } else  {
-        if (   (signalNumber == SIGTERM)
-            && gShuttingDownTunnelblick
-            && (   (reasonForTermination == terminatingBecauseOfLogout)
-                || (reasonForTermination == terminatingBecauseOfRestart)
-                || (reasonForTermination == terminatingBecauseOfShutdown) )  ) {
-            NSLog(@"Ignoring SIGTERM (signal %d) because Tunnelblick is already terminating", signalNumber);
-            return;
+        if (  signalNumber == SIGTERM ) {
+            if (   gShuttingDownTunnelblick
+                && (   (reasonForTermination == terminatingBecauseOfLogout)
+                    || (reasonForTermination == terminatingBecauseOfRestart)
+                    || (reasonForTermination == terminatingBecauseOfShutdown) )  ) {
+                NSLog(@"Ignoring SIGTERM (signal %d) because Tunnelblick is already terminating", signalNumber);
+                return;
+            } else {
+                NSLog(@"SIGTERM (signal %d) received", signalNumber);
+                [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+                return;
+            }
         }
         
         NSLog(@"Received fatal signal %d.", signalNumber);
@@ -3207,7 +3214,7 @@ static void signal_handler(int signalNumber)
             [gTbDefaults removeObjectForKey: @"openvpnVersion"];
         }
     }
-	
+    
 	[[self ourMainIconView] setOrRemoveTrackingRect];
     
     NSString * text = NSLocalizedString(@"Tunnelblick is ready.", @"Window text");
@@ -4649,7 +4656,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
     // check that log directory exists and has proper ownership and permissions
     if (  ! (   [gFileMgr fileExistsAtPath: L_AS_T_LOGS isDirectory: &isDir]
              && isDir )  ) {
-        NSLog(@"Need to create log directory");
+        NSLog(@"Need to create log directory '%@'", L_AS_T_LOGS);
         return YES;
     }
     if (  ! checkOwnerAndPermissions(L_AS_T_LOGS, 0, 0, 0755)  ) {
@@ -4756,10 +4763,12 @@ BOOL needToUpdateDeploy(void)
 BOOL needToRepairPackages(void)
 {
     // Check permissions of private .tblk packages.
+    //
 	// If ...tblk/Contents is owned by root:wheel (old setup), we need to change the ownership to user:group,
 	// because in the new setup, the private configs are no longer secured (the shadow copies are secured)
     //
     // This check is to detect when the permissions have been reverted to the old scheme _after_ using the new scheme and setting the preference
+    // 
 	
     NSString * file;
     BOOL isDir;

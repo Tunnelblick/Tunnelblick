@@ -274,6 +274,11 @@ int main(int argc, char *argv[])
         secureL_AS_T_DEPLOY();
     }
     
+    if (  ! createDirWithPermissionAndOwnership(L_AS_T_LOGS,
+                                                0755, 0, 0)  ) {
+        errorExit();
+    }
+    
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_SHARED,
                                                 0755, 0, 0)  ) {
         errorExit();
@@ -282,11 +287,6 @@ int main(int argc, char *argv[])
     if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS
                                                  stringByAppendingPathComponent: NSUserName()],
                                                 0750, 0, 0)  ) {
-        errorExit();
-    }
-    
-    if (  ! createDirWithPermissionAndOwnership(L_AS_T_LOGS,
-                                                0755, 0, 0)  ) {
         errorExit();
     }
     
@@ -570,7 +570,7 @@ int main(int argc, char *argv[])
         // Check/set the app's Deploy folder
         if (   [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
             && isDir  ) {
-            okSoFar = okSoFar && secureOneFolder(deployPath, NO);
+            okSoFar = okSoFar && secureOneFolder(deployPath, NO, 0);
         }
 		
 		// Save this for last, so if something goes wrong, it isn't SUID inside a damaged app
@@ -605,7 +605,7 @@ int main(int argc, char *argv[])
 		NSString * folderPath;
 		NSEnumerator * e = [deployBackups objectEnumerator];
 		while (  (folderPath = [e nextObject])  ) {
-			okSoFar = okSoFar && secureOneFolder(folderPath, NO);
+			okSoFar = okSoFar && secureOneFolder(folderPath, NO, 0);
 		}
 		
 		if (  ! okSoFar  ) {
@@ -671,13 +671,13 @@ int main(int argc, char *argv[])
                 NSString * privateTblkPath = [gPrivatePath stringByAppendingPathComponent: file];
                 NSString * altTblkPath     = [altPath stringByAppendingPathComponent: file];
                 if (  ! [gFileMgr fileExistsAtPath: altTblkPath]  ) {
-					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_PUBLIC_FOLDER, 0, 0)  ) {
+					if (  ! createDirWithPermissionAndOwnership([altTblkPath stringByDeletingLastPathComponent], PERMS_SECURED_PRIVATE_FOLDER, 0, 0)  ) {
 						errorExit();
 					}
                     if (  [gFileMgr tbCopyPath: privateTblkPath toPath: altTblkPath handler: nil]  ) {
-                        appendLog([NSString stringWithFormat: @"Created secure (shadow) backup of %@", privateTblkPath]);
+                        appendLog([NSString stringWithFormat: @"Created shadow copy of %@", privateTblkPath]);
                     } else {
-                        appendLog([NSString stringWithFormat: @"Unable to create secure (shadow) backup of %@", privateTblkPath]);
+                        appendLog([NSString stringWithFormat: @"Unable to create shadow copy of %@", privateTblkPath]);
                         errorExit();
                     }
 				}
@@ -693,7 +693,7 @@ int main(int argc, char *argv[])
         for (i=0; i < [foldersToSecure count]; i++) {
             NSString * folderPath = [foldersToSecure objectAtIndex: i];
             BOOL isPrivate = [folderPath hasPrefix: gPrivatePath];
-            okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate);
+            okSoFar = okSoFar && secureOneFolder(folderPath, isPrivate, gRealUserID);
 		}
         
         if (  ! okSoFar  ) {
@@ -779,7 +779,7 @@ int main(int argc, char *argv[])
 			}
 			
 			safeCopyOrMovePathToPath(targetPath, shadowTargetPath, FALSE);
-            secureOneFolder(shadowTargetPath, NO);
+            secureOneFolder(shadowTargetPath, NO, 0);
             if (  deletedOldShadowCopy  ) {
                 appendLog([NSString stringWithFormat: @"Updated secure (shadow) copy of %@", lastPartOfTarget]);
             } else {
@@ -787,7 +787,7 @@ int main(int argc, char *argv[])
             }
             
         } else {
-            secureOneFolder(targetPath, NO);
+            secureOneFolder(targetPath, NO, 0);
         }
         
         if (  [sourcePath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
@@ -831,7 +831,7 @@ int main(int argc, char *argv[])
             okSoFar = okSoFar && checkSetPermissions(firstPath, 0644, YES);
         } else if (  [ext isEqualToString: @"tblk"]  ) {
             BOOL isPrivate = [firstPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]];
-            okSoFar = okSoFar && secureOneFolder(firstPath, isPrivate);
+            okSoFar = okSoFar && secureOneFolder(firstPath, isPrivate, gRealUserID);
         } else {
             appendLog([NSString stringWithFormat: @"trying to secure unknown item at %@", firstPath]);
             errorExit();
@@ -1162,7 +1162,7 @@ void secureL_AS_T_DEPLOY()
     appendLog([NSString stringWithFormat: @"Securing %@", L_AS_T_DEPLOY]);
     if (  checkSetOwnership(L_AS_T_DEPLOY, YES, 0, 0)  ) {
         if (  checkSetPermissions(L_AS_T_DEPLOY, 0755, YES)  ) {
-            if (  secureOneFolder(L_AS_T_DEPLOY, NO)  ) {
+            if (  secureOneFolder(L_AS_T_DEPLOY, NO, 0)  ) {
                 appendLog([NSString stringWithFormat: @"Secured %@", L_AS_T_DEPLOY]);
             } else {
                 appendLog([NSString stringWithFormat: @"Unable to secure %@", L_AS_T_DEPLOY]);
