@@ -60,7 +60,7 @@ void appendLog(NSString * msg) {
 }
 
 void exitOpenvpnstart(OSStatus returnValue) {
-    // returnValue: have used 187-248, plus the values in define.h (249-254)
+    // returnValue: have used 186-248, plus the values in define.h (249-254)
     [pool drain];
     exit(returnValue);
 }
@@ -1407,9 +1407,12 @@ void revertToShadow (NSString * fileName) {
         becomeRoot(@"copy config");
 		BOOL copied = [[NSFileManager defaultManager] tbCopyPath: shadowPath toPath: privatePath handler: nil];
         stopBeingRoot();
-        if ( ! copied  ) {
+        if (  copied  ) {
 			fprintf(stderr, "%s %s\n", [createdReplaced UTF8String], [privatePath UTF8String]);
-			if (  secureOneFolder(privatePath, YES)  ) {
+            becomeRoot(@"secure reverted .tblk");
+			BOOL secured = secureOneFolder(privatePath, YES, gOriginalUid);
+            stopBeingRoot();
+            if (  secured  ) {
                 exitOpenvpnstart(OPENVPNSTART_REVERT_CONFIG_OK);
             } else {
                 exitOpenvpnstart(199);  // Already logged an error message
@@ -2442,7 +2445,7 @@ int main(int argc, char * argv[]) {
 				killAllOpenvpn();
 				syntaxError = FALSE;
 			}
-			
+		
         } else if (  strcmp(command, "loadKexts") == 0  ) {
 			if (  argc == 2  ) {
                 loadKexts(OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);
