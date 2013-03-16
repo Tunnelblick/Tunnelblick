@@ -79,15 +79,25 @@ If Tunnelblick does not have an open window, you will have to force Tunnelblick 
 ==Absolutely Complete Uninstall==
 For a complete uninstall of the program and all support files, do the following:
 
- # Make sure you have a backup of your Tunnelblick configuration file(s) -- the .ovpn and/or .tblk files.
- # Make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
- # Follow the instructions above at [Uninstalling_Tunnelblick Uninstalling 3.1 & 3.2].
- # Delete any files whose names start with "net.tunnelblick" in the /Library/LaunchDaemons folder:
- # Delete the following folders: /Library/Application Support/Tunnelblick and ~/Library/Application Support/Tunnelblick
- # Delete the following files: ~/Library/Preferences/net.tunnelblick.tunnelblick.plist and ~/Library/Preferences/com.openvpn.tunnelblick.plist
- # Delete the following link if it exists: ~/Library/openvpn
- # Use Keychain Access to delete all Keychain items with names starting with "Tunnelblick".
- # Restart your computer.
+ Make sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files.
+
+ Make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
+
+ Quit Tunnelblick
+
+ Delete the following:
+  * */Applications/Tunnelblick.app*
+  * */Library/Application Support/Tunnelblick*
+  * */Library/LaunchDaemons/net.tunnelblick.startup.`*`*
+  * *~/Library/Application Support/Tunnelblick*
+  * *~/Library/Preferences/net.tunnelblick.tunnelblick.plist*
+  * *~/Library/Preferences/com.openvpn.tunnelblick.plist* (if it exists)
+  * *~/Library/openvpn* (if it exists -- it could be a folder or a symbolic link to a folder)
+
+ Delete  usernames, passwords, and private keys that Tunnelblick saved in the Keychain by launching *Keychain Access* and deleting everything with a name starting with "*Tunnelblick-*".
+
+Restart your computer.
+
 
 ------------------
 
