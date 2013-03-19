@@ -88,7 +88,7 @@ For a complete uninstall of the program and all support files, do the following:
  Delete the following:
   * */Applications/Tunnelblick.app*
   * */Library/Application Support/Tunnelblick*
-  * */Library/LaunchDaemons/net.tunnelblick.startup.`*`*
+  * in */Library/!LaunchDaemons*, any files whose names start with *net.tunnelblick.startup.* (if any exist)
   * *~/Library/Application Support/Tunnelblick*
   * *~/Library/Preferences/net.tunnelblick.tunnelblick.plist*
   * *~/Library/Preferences/com.openvpn.tunnelblick.plist* (if it exists)
