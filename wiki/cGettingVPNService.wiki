@@ -68,7 +68,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=http://info.psmail.net/noah PSMail]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.raptorvpn.com RaptorVPN]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=http://www.roadwarriorvpn.com Road Warrior VPN]*
-  * *[http://www.tunnelblick.net/to.php?to=http://www.securitykiss.com SecurityKiss]*
+  * *[http://www.tunnelblick.net/to.php?to=http://www.securitykiss.com SecurityKiss]* (Free)
   * *[http://www.tunnelblick.net/to.php?to=https://www.shellfire.net/vpn ShellFireVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.smallvpn.com Small VPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.surfbouncer.com SurfBouncer Personal VPN]*
