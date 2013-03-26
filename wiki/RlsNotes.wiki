@@ -291,7 +291,7 @@
 
  * Includes a customized version of OpenVPN's 'easy-rsa' 2.0  command-line scripts for creating certificates and keys.
 
- * Adds two AppleScript nouns for configurations: 'bytesIn' and 'bytesOut' report bytes in or out through a client connection since Tunnelblick was launched.
+ * Adds two !AppleScript nouns for configurations: 'bytesIn' and 'bytesOut' report bytes in or out through a client connection since Tunnelblick was launched.
 
  * Adds a 'Suggestion or Bug Report…' menu item to beta versions of Tunnelblick unless the 'doNotShowSuggestionOrBugReportMenuItem' preference is true.
 
@@ -520,7 +520,7 @@
   * Fixes a bug that caused a forced 'updateFeedURL' preference to be ignored. (Note: this preference can only be forced; an 'updateFeedURL' user preference will be ignored for security  reasons).
   * Fixes a bug that caused the 'updateCheckInterval' preference to be ignored
   * Fixes a bug that caused the 'Notification window' button to be enabled even if the 'connectionWindowDisplayCriteria' preference was forced.
-  * Fixes a bug that caused the Tunnelblick icon to continue to blink when AppleScript was used to 'connect all', even after all connections had been successfully made.
+  * Fixes a bug that caused the Tunnelblick icon to continue to blink when !AppleScript was used to 'connect all', even after all connections had been successfully made.
 
 --------------------
 
