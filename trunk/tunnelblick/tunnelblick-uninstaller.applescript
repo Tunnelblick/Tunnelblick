@@ -83,7 +83,7 @@ on GetMyScriptPath() -- As POSIX path
 	if lastFour = ".app" then
 		set myScriptPath to myPath & ":Contents:Resources:tunnelblick-uninstaller.sh"
 	else
-		set myScriptPath to "/Users/Shared/TunnelblickReleasePrep/r2207z-Built-Uninstall-AppleScript/tunnelblick/tunnelblick-uninstaller.sh"
+		set myScriptPath to "/Users/Shared/TunnelblickReleasePrep/3.3beta34-r2218/tunnelblick/tunnelblick-uninstaller.sh"
 	end if
 	
 	-- Check that the script exists
@@ -170,11 +170,11 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 	
 	-- If the user asked for details, store the log in /tmp and open the log in TextEdit
 	if alertResult = {button returned:"Details"} then
-		do shell script "echo " & quoted form of scriptOutput & " > /tmp/Tunnelblick-uninstaller-log.txt"
-		delay 1 -- needed because sometimes log isn't closed quickly enough and TextEdit can't open it
 		tell application "TextEdit"
-		activate
-		open "/tmp/Tunnelblick-uninstaller-log.txt"
+			activate
+			set the clipboard to scriptOutput
+			make new document
+			tell front document to set its text to the clipboard
 		end tell
 	end if
 	
