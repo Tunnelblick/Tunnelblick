@@ -1,6 +1,18 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-03-27: *Tunnelblick 3.3beta34 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * <font color="red">Security update:</font> Replaces OpenSSL 1.0.1c with 1.0.1e. (See [http://www.openssl.org/news/secadv_20130204.txt http://www.openssl.org/news/secadv_20130204.txt] and [http://www.openssl.org/source/exp/CHANGES http://www.openssl.org/source/exp/CHANGES]).
+
+ * Accepts multiple "dhcp-option DOMAIN-SEARCH `<`domain`>`" options in the configuration file or "pushed" by the VPN server. If present and search domains were not manually set, they are prepended to any search domains that came from DHCP.
+
+ * Adds an Uninstaller to the Tunnelblick disk image. Double-click to uninstall /Applications/Tunnelblick, or drop a Tunnelblick application onto a copy of the Uninstaller on your boot drive.
+
+ * Several bug fixes and some other small changes.
+
+--------------------
+
 2013-01-08: *Tunnelblick 3.3beta21b is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * *<font color="red">Security update to prepare for Tunnelblick 3.3beta32.</font>*

@@ -60,44 +60,25 @@ To launch Tunnelblick after setting up configuration and other files, double-cli
 If Tunnelblick is running when you log out, shut down, or restart your computer, it will automatically be launched when you log in.
 
 ==Uninstalling Tunnelblick==
-*Special note for those who may have installed RaptorVPN or Urban Shield VPN, VPN In China, or other VPN software*: These installations have backups that must be removed before installing or reinstalling Tunnelblick unless you are continuing to use the same service. See [https://groups.google.com/d/topic/tunnelblick-discuss/s368xGP5Qpk/discussion this Discussion Group thread].
 
-To uninstall Tunnelblick:
- # Disconnect any open connections.
- # Change any configurations that are set to connect when the computer starts to connect when Tunnelblick is launched.
- # Quit Tunnelblick.
- # Move Tunnelblick.app from the Applications folder to the Trash.
+If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files, and make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
 
-If you get a "spinning beachball" when you click the Tunnelblick icon, that usually means that Tunnelblick has a window open and is waiting for your response. Minimize or close the windows of all other applications (and in all Spaces) to expose the window.
+These instructions use the Tunnelblick uninstall program located on the Tunnelblick installer disk image for Tunnelblick 3.3beta34 and later. Download that disk image and double-click it; you will see the uninstall program in the lower-left corner of the Finder window. (The uninstall program may be used to uninstall any version of Tunnelblick.)
 
-If Tunnelblick does not have an open window, you will have to force Tunnelblick to quit. Follow the procedure described in [https://groups.google.com/d/topic/tunnelblick-discuss/CcqADLK5Ttg/discussion this discussion] in the Tunnelblick Discussion Group.
+The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
- * Other than the preferences, configuration files, and !LaunchDaemon files described in [cFileLocations File Locations], there are no other files installed -- OpenVPN, scripts, and the tun/tap kernel extensions are contained within Tunnelblick and are loaded only when needed directly from there.
- * Tunnelblick may store passphrases or passwords in the Keychain at the user's request.
- * Tunnelblick version 3.1beta02 and later automatically unload the tun and tap kexts when you disconnect; otherwise you can unload them by restarting your computer or manually with the "kextunload" Terminal command. (Usually it doesn't matter if they are loaded unless you are using other VPN software.)
+*To uninstall Tunnelblick located in /Applications:*
+ * Quit Tunnelblick*
+ * Double-click the "Uninstaller"
+ * Click on "Test" or "Uninstall"
 
-==Absolutely Complete Uninstall==
-For a complete uninstall of the program and all support files, do the following:
+*To uninstall Tunnelblick, RaptorVPN, Urban Shield VPN, or other rebranded Tunnelblick:*
+ * Quit Tunnelblick*
+ * Drag and drop the "Uninstaller" to your Desktop
+ * Drag and drop the application you want to uninstall to the "Uninstaller" on your Desktop
+ * Click on "Test" or "Uninstall"
 
- Make sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files.
-
- Make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
-
- Quit Tunnelblick
-
- Delete the following:
-  * */Applications/Tunnelblick.app*
-  * */Library/Application Support/Tunnelblick*
-  * in */Library/!LaunchDaemons*, any files whose names start with *net.tunnelblick.startup.* (if any exist)
-  * *~/Library/Application Support/Tunnelblick*
-  * *~/Library/Preferences/net.tunnelblick.tunnelblick.plist*
-  * *~/Library/Preferences/com.openvpn.tunnelblick.plist* (if it exists)
-  * *~/Library/openvpn* (if it exists -- it could be a folder or a symbolic link to a folder)
-
- Delete  usernames, passwords, and private keys that Tunnelblick saved in the Keychain by launching *Keychain Access* and deleting everything with a name starting with "*Tunnelblick-*".
-
-Restart your computer.
-
+* If you get a "spinning beachball" when you click the Tunnelblick icon, that usually means that Tunnelblick has a window open and is waiting for your response. Minimize or close the windows of all other applications (and in all Spaces) to expose the window. If Tunnelblick does not have an open window, you will have to force Tunnelblick to quit. Follow the procedure described in [https://groups.google.com/d/topic/tunnelblick-discuss/CcqADLK5Ttg/discussion this discussion] in the Tunnelblick Discussion Group.
 
 ------------------
 

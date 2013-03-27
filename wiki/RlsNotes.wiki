@@ -9,6 +9,44 @@
 
 ==Version 3.3==
 
+*3.3beta34 (2013-03-27)*
+
+ * <font color="red">Security update:</font> Replaces OpenSSL 1.0.1c with 1.0.1e. (See [http://www.openssl.org/news/secadv_20130204.txt http://www.openssl.org/news/secadv_20130204.txt] and [http://www.openssl.org/source/exp/CHANGES http://www.openssl.org/source/exp/CHANGES]).
+
+ * Accepts multiple "dhcp-option DOMAIN-SEARCH `<`domain`>`" options in the configuration file or "pushed" by the VPN server. If present and search domains were not manually set, they are prepended to any search domains that came from DHCP.
+
+ * Adds an Uninstaller to the Tunnelblick disk image. Double-click to uninstall /Applications/Tunnelblick, or drop a Tunnelblick application onto a copy of the Uninstaller on your boot drive.
+
+ * Removes the 'Suggestion or Bug Report' menu item. (Only 4 suggestions or bug reports were made among several hundred submissions.)
+
+ * Displays dialog when a fatal error occurs.
+
+ * Clearer error messages when a menu icon set is not found.
+
+ * No longer checks for unsigned updates.
+
+ * Adds the contents of /etc/resolv.conf to the Tunnelblick log before and after making network configuration changes.
+
+ * Adds Erwann Thoraval in the credits for French translations on the Info panel for all languages.
+ 
+ * Fixes problems indenting configuration subfolders properly in the VPN Details… window.
+
+ * Fixes misspelling of 'Disconnect' in status window.
+
+ * Fixes bug that caused the Info panel to display an incorrect OpenVPN version if no OpenVPN version was chosen on the Preferences panel.
+
+ * Fixes bug that caused the Tunnelblick icon to not respond to clicks properly after a sleep/wake cycle.
+
+ * Fixes bug that caused the Tunnelblick icon to disappear when an aborted logout takes place.
+
+ * Fixes bug that caused reverting a configuration to its last secure shadow copy to fail.
+ 
+ * Fixes bug that caused a spurious warning if Tunnelblick was Quit by Activity Monitor or reinstallation.
+
+ * Fixes warnings about unknown preferences.
+
+ * Complains with an error dialog window if an internal error occurs while trying to check the security of a configuration.
+
 *3.3beta32 (2013-01-05)*
 
  * Fixes several security issues.
