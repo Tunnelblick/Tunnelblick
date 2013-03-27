@@ -215,6 +215,10 @@ fi
 
 logMessage "Restored the DNS and SMB configurations"
 
+new_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
+logMessage "DEBUG:"
+logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
+
 flushDNSCache
 
 # Remove our system configuration data

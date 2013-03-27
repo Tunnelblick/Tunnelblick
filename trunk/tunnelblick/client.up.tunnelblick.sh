@@ -506,6 +506,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logMessage "DEBUG: SKP_SETUP_DNS = ${SKP_SETUP_DNS}"
 	logMessage "DEBUG: SKP_SMB = ${SKP_SMB}; SKP_SMB_NN = ${SKP_SMB_NN}; SKP_SMB_WG = ${SKP_SMB_WG}; SKP_SMB_WA = ${SKP_SMB_WA}"
 
+    original_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
+    logMessage "DEBUG:"
+    logMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
+    logMessage "DEBUG:"
+
 	logMessage "DEBUG:"
 	logMessage "DEBUG: Configuration changes:"
 	logMessage "DEBUG: ${SKP_DNS}${SKP_DNS_SA}ADD State: ServerAddresses  ${FIN_DNS_SA}"
@@ -683,6 +688,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logMessage "DEBUG: Expected by process-network-changes:"
     logMessage "DEBUG: State:/Network/OpenVPN/DNS = ${EXPECTED_NEW_DNS_GLOBAL_CONFIG}"
     logMessage "DEBUG: State:/Network/OpenVPN/SMB = ${EXPECTED_NEW_SMB_GLOBAL_CONFIG}"
+
+    new_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
+    logMessage "DEBUG:"
+    logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
+    logMessage "DEBUG:"
 
 	logMessage "Saved the DNS and SMB configurations for later use"
 
