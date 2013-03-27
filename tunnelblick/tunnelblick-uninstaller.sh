@@ -363,30 +363,50 @@ uninstall_tb_per_user_data()
 
 usage_message="Usage:
 
-      tunnelblick-uninstaller.sh  [ -u | -t ]   [ app-path [ app-name [ bundle-id ] ] ]
+      tunnelblick-uninstaller.sh  [ -u | -t ] [ -i ]   [ app-path [ app-name [ bundle-id ] ] ]
 
            app-path:  The path to the application.
-                      Defaults to \"/Applications/Tunnelblick.app\".
 
            app-name:  The name of the application.
-                      Defaults to the name of the file contained in Contents/MacOS.
+                      Defaults to the name of the file contained in app-path/Contents/MacOS.
                       If the Tunnelblick application has been rebuilt from source with a
                       new name (i.e., rebranded), app-name is the new name.
                      
            bundle-id: The CFBundleIdentifier for the application.
-                      Defaults to the CFBundleIdentifier in the application's Info.plist.
+                      Defaults to the CFBundleIdentifier in app-path/Contents/Info.plist.
 
-           -t:        Causes the script to perform a TEST, or \"dry run\": the program logs
-                      what it would do if run with the -u option, but NO DATA IS REMOVED.
+           -t:        Causes the script to perform a TEST, or \"dry run\": the program logs to
+                      stdout what it would do if run with the -u option, but NO DATA IS REMOVED.
 
-           -u:        Causes the script to perform an UNINSTALL, REMOVING DATA. Otherwise,
-                      only a test is performed: the program logs what it would do if run
-                      with the -u option.
+           -u:        Causes the script to perform an UNINSTALL, REMOVING DATA; the program logs
+                      to stdout what it has done.
 
            -i:        Causes the installer to always exit with a status of 0. Otherwise, the
                       uninstaller will exit with a status of 1 if a critical error occurred.
 
      If neither the -u option nor the -t option is specified, this usage message is displayed.
+
+     The app-path, app-name, and bundle-id arguments are optional and may be blank. If app-path
+     is specified, the application is examined for the name of its binary (in
+     app-path/Contents/MacOS) and that name is used as the app-name; the CFBundleIdentifier (in
+     app-path/Contents/Info.plist) is used as the bundle-id; and the application at app-path is
+     removed. If app-name is specified or  obtained from app-path, it is used in the path of
+     files to remove. If bundle-id is specified or obtained from app-path, it is used in the
+     name of the preferences files to remove.
+
+     Examples:
+
+     ./tunnelblick-uninstaller.sh /User/joe/Applications/Tunnelblick.app
+     This is the normal use. It will remove the application at PATH and all files and folders
+     associated with the application.
+
+     ./tunnelblick-uninstaller.sh "" NAME BUNDLE_ID
+     This can be used if the application itself is not available. It will remove files and
+     folders associated with NAME and preferences associated with BUNDLE_ID.
+
+     ./tunnelblick-uninstaller.sh "" "" BUNDLE_ID
+     This can be used if the application itself and its name are not available. It will remove
+     preferences associated with BUNDLE_ID.
 "
 
 show_usage_message="false"
