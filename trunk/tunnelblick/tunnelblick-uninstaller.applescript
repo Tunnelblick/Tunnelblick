@@ -82,10 +82,8 @@ on GetMyScriptPath() -- As POSIX path
 	-- Set myScriptPath
 	if lastFour = ".app" then
 		set myScriptPath to myPath & ":Contents:Resources:tunnelblick-uninstaller.sh"
-		--	display dialog ("JKB: Executing an app; myScriptPath =" & return & myScriptPath)
 	else
 		set myScriptPath to "/Users/Shared/TunnelblickReleasePrep/r2207z-Built-Uninstall-AppleScript/tunnelblick/tunnelblick-uninstaller.sh"
-		--	display dialog ("JKB: Executing a script; myScriptPath =" & return & myScriptPath)
 	end if
 	
 	-- Check that the script exists
