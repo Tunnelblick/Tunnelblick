@@ -172,8 +172,10 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 	if alertResult = {button returned:"Details"} then
 		do shell script "echo " & quoted form of scriptOutput & " > /tmp/Tunnelblick-uninstaller-log.txt"
 		delay 1 -- needed because sometimes log isn't closed quickly enough and TextEdit can't open it
-		tell application "TextEdit" to open "/tmp/Tunnelblick-uninstaller-log.txt"
-		tell application "TextEdit" to activate
+		tell application "TextEdit"
+		activate
+		open "/tmp/Tunnelblick-uninstaller-log.txt"
+		end tell
 	end if
 	
 end ProcessFile
