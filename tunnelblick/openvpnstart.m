@@ -60,7 +60,7 @@ void appendLog(NSString * msg) {
 }
 
 void exitOpenvpnstart(OSStatus returnValue) {
-    // returnValue: have used 186-248, plus the values in define.h (249-254)
+    // returnValue: have used 186-247, plus the values in define.h (249-254) -- 248 IS NOT USED
     [pool drain];
     exit(returnValue);
 }
