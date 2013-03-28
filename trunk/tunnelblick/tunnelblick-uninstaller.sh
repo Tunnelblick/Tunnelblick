@@ -680,16 +680,18 @@ for user in `dscl . list /users` ; do
 
 	# run the per-user routine to delete keychain items
     output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_per_user_data")"
-    echo "${output}"
-    if [ "${output:0:7}" = "Error: " ] ; then
-      exit error_exit_code
+    if [ "${output}" != "" ] ; then
+	  echo "${output}"
+      if [ "${output:0:7}" = "Error: " ] ; then
+        exit error_exit_code
+      fi
     fi
 
   fi
 
 done
 
-# delete login items
+# delete login items for this user only
 if [ "{uninstall_remove_data}" = "true" ] ; then
   output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'repeat (the number of login_items) times' -e 'remove login item \"${uninstall_tb_app_name}\"' -e 'end repeat' -e 'end tell' -e 'n'")
 else
