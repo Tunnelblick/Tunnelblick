@@ -49,6 +49,9 @@
 #define MAX_LOG_SIZE_BYTES 100000000
 #define DEFAULT_LOG_SIZE_BYTES 102400
 
+// Maximum number of entries to keep in the TunnelblickVersionsHistory preference
+#define MAX_VERSIONS_IN_HISTORY 10
+
 //*************************************************************************************************
 // Paths:
 // Note: Several up scripts refer to the log directory without using this header file
