@@ -23,6 +23,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>droplet</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.tunnelblick.tunnelblick-uninstaller</string>
 	<key>CFBundleIconFile</key>

@@ -83,7 +83,7 @@ on GetMyScriptPath() -- As POSIX path
 	if lastFour = ".app" then
 		set myScriptPath to myPath & ":Contents:Resources:tunnelblick-uninstaller.sh"
 	else
-		set myScriptPath to "/Users/Shared/TunnelblickReleasePrep/3.3beta34-r2218/tunnelblick/tunnelblick-uninstaller.sh"
+		set myScriptPath to "/Users/Shared/TunnelblickReleasePrep/r2220z/tunnelblick/tunnelblick-uninstaller.sh"
 	end if
 	
 	-- Check that the script exists
