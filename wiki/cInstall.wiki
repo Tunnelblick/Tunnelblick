@@ -63,7 +63,7 @@ If Tunnelblick is running when you log out, shut down, or restart your computer,
 
 If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files, and make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
 
-These instructions use the Tunnelblick uninstall program located on the Tunnelblick installer disk image for Tunnelblick 3.3beta34 and later. Download that disk image and double-click it; you will see the uninstall program in the lower-left corner of the Finder window. (The uninstall program may be used to uninstall any version of Tunnelblick.)
+Download the latest uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
 
 The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
