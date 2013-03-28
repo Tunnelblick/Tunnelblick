@@ -256,38 +256,6 @@ uninstall_tb_per_user_data()
 	fi
   fi
 
-  # Remove any and all Tunnelblick login items for the current user
-
-  if [ "${uninstall_tb_app_path}" != "" ] ; then
-
-    # Strip enclosing folder and extension from app's path to get string to search for in login items
-    name_to_use="`basename "${uninstall_tb_app_path}" ".app"`"
-  
-    # all_login_item_names contains a list of the names of login items; each name is prefixed by ', ' and suffixed by ', '
-    all_login_item_names=", $(osascript -e 'tell application "System Events" to get the name of every login item'), "
-
-    # has_tunnelblick is empty if Tunnelblick was not on the list
-    has_tunnelblick="$(echo "${all_login_item_names}" | grep ", ${name_to_use}, ")"
-
-    while [ "${has_tunnelblick}" != "" ] ; do
-      if [ "${uninstall_remove_data}" = "true" ] ; then
-        osascript -e 'tell application "System Events" to delete login item "${name_to_use}"'
-        status=$?
-      else
-        status="0"
-      fi
-      if [ "${status}" = "0" ]; then
-        echo "Removed          login item ${name_to_use}"
-      else
-        echo "Problem removing login item ${name_to_use}"
-      fi
-
-      all_login_item_names=", $(osascript -e 'tell application "System Events" to get the name of every login item'), "
-      has_tunnelblick="$(echo "${all_login_item_names}" | grep ", ${name_to_use}, ")"
-    done
-
-  fi
-
   # Remove any and all items stored by Tunnelblick in all of the current user's Keychains
   #
   # Note: It is possible, although unlikely, that a non-Tunnelblick Keychain item would be deleted
@@ -349,9 +317,11 @@ uninstall_tb_per_user_data()
           last_service="${service}"
         fi
       done
+      
     done
 
   fi
+
 }
 
 
@@ -708,16 +678,26 @@ for user in `dscl . list /users` ; do
       uninstall_tb_remove_item_at_path "${path}"
     done
 
-	# run the per-user routine to delete login items and keychain items
+	# run the per-user routine to delete keychain items
     output="$(/usr/bin/su "${user}" -c "/bin/bash -c uninstall_tb_per_user_data")"
+    echo "${output}"
     if [ "${output:0:7}" = "Error: " ] ; then
-      echo "output"
       exit error_exit_code
     fi
 
   fi
 
 done
+
+# delete login items
+if [ "{uninstall_remove_data}" = "true" ] ; then
+  output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'repeat (the number of login_items) times' -e 'remove login item \"${uninstall_tb_app_name}\"' -e 'end repeat' -e 'end tell' -e 'n'")
+else
+  output=$(/usr/bin/su ${USER} -c "osascript -e 'set n to 0' -e 'tell application \"System Events\"' -e 'set login_items to the name of every login item whose name is \"${uninstall_tb_app_name}\"' -e 'tell me to set n to the number of login_items' -e 'end tell' -e 'n'")
+fi
+if [ "${output}" != "0" ] ; then
+  echo "Removed ${output} of  ${USER}'s login items"
+fi
 
 # Remove the application itself
 if [ "${uninstall_tb_app_path}" != "" ] ; then
