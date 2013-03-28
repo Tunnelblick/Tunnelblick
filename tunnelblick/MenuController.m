@@ -283,6 +283,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"timeoutForIPAddressCheckBeforeConnection",
                                 @"timeoutForIPAddressCheckAfterConnection",
                                 @"delayBeforeIPAddressCheckAfterConnection",
+                                @"tunnelblickVersionHistory",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -1913,7 +1914,14 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@", major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle])]);
+    
+    NSArray  * versionHistory     = [gTbDefaults objectForKey: @"tunnelblickVersionHistory"];
+    NSString * priorVersionString = (  (  [versionHistory count] > 1  )
+                                     ? [NSString stringWithFormat: @"; prior version %@", [versionHistory objectAtIndex: 1]]
+                                     : @"");
+
+    return ([NSString stringWithFormat:@"*Tunnelblick: OS X %d.%d.%d; %@%@",
+             major, minor, bugFix, tunnelblickVersion([NSBundle mainBundle]), priorVersionString]);
 }
 
 - (void) checkForUpdates: (id) sender
@@ -3212,6 +3220,33 @@ static void signal_handler(int signalNumber)
                              prefVersion, useVersion],
                             nil, nil, nil);
             [gTbDefaults removeObjectForKey: @"openvpnVersion"];
+        }
+    }
+    
+    // Add this Tunnelblick version to the start of the tunnelblickVersionHistory preference array if it isn't already the first entry
+    NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
+    NSString * thisVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
+    if (  thisVersion  ) {
+        BOOL dirty = FALSE;
+        NSMutableArray * versions = [[[gTbDefaults objectForKey: @"tunnelblickVersionHistory"] mutableCopy] autorelease];
+        if (  ! versions  ) {
+            versions = [[[NSArray array] mutableCopy] autorelease];
+            dirty = TRUE;
+        }
+        
+        if (   (  [versions count] == 0  )
+            || (! [[versions objectAtIndex: 0] isEqualToString: thisVersion])  ) {
+            [versions insertObject: thisVersion atIndex: 0];
+            dirty = TRUE;
+        }
+
+        while (  [versions count] > MAX_VERSIONS_IN_HISTORY  ) {
+            [versions removeLastObject];
+            dirty = TRUE;
+        }
+        
+        if (  dirty  ) {
+            [gTbDefaults setObject: versions forKey: @"tunnelblickVersionHistory"];
         }
     }
     
