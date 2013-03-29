@@ -4698,6 +4698,16 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         return YES; // NSLog already called
     }
     
+    // check that Users directory exists and has proper ownership and permissions
+    if (  ! (   [gFileMgr fileExistsAtPath: L_AS_T_USERS isDirectory: &isDir]
+             && isDir )  ) {
+        NSLog(@"Need to create Users directory '%@'", L_AS_T_USERS);
+        return YES;
+    }
+    if (  ! checkOwnerAndPermissions(L_AS_T_USERS, 0, 0, 0750)  ) {
+        return YES; // NSLog already called
+    }
+    
     // check permissions of files in Resources/Deploy (if it exists)
     if (  [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
         && isDir  ) {

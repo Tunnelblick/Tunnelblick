@@ -284,6 +284,11 @@ int main(int argc, char *argv[])
         errorExit();
     }
     
+    if (  ! createDirWithPermissionAndOwnership(L_AS_T_USERS,
+                                                0750, 0, 0)  ) {
+        errorExit();
+    }
+    
     if (  ! createDirWithPermissionAndOwnership([L_AS_T_USERS
                                                  stringByAppendingPathComponent: NSUserName()],
                                                 0750, 0, 0)  ) {
