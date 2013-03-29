@@ -7,7 +7,7 @@
 
 The Tunnelblick application contains the Tunnelblick GUI, OpenVPN, and OpenSSL, so no other installations are needed.
 
-*Special note for those who may have installed RaptorVPN or Urban Shield VPN, VPN In China, or other VPN software*: These installations have backups that must be removed before installing or reinstalling Tunnelblick unless you are continuing to use the same service. See [https://groups.google.com/d/topic/tunnelblick-discuss/s368xGP5Qpk/discussion this Discussion Group thread]. An [#Uninstalling_Tunnelblick uninstall] will remove these backups.
+*Special note for those who may have installed RaptorVPN or Urban Shield VPN, VPN In China, or other VPN software*: These installations have backups that must be removed before installing or reinstalling Tunnelblick unless you are continuing to use the same service. See [https://groups.google.com/d/topic/tunnelblick-discuss/s368xGP5Qpk/discussion this Discussion Group thread]. [#Uninstalling_Tunnelblick Uninstalling Tunnelblick] will remove these backups.
 
 First, download the latest disk image from the [DownloadsEntry Downloads page]. Double-click the downloaded .dmg file. An icon for a "Tunnelblick” disk will appear on the Desktop, and a window similar to the following will appear:
 
