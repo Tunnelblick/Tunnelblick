@@ -344,7 +344,11 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) stopMonitoringLogFiles
 {
     [self setMonitorQueue: nil];
-    
+
+    // Process any existing log changes before we stop monitoring
+    [self performSelectorOnMainThread: @selector(openvpnLogChanged) withObject: nil waitUntilDone: NO];
+    [self performSelectorOnMainThread: @selector(scriptLogChanged)  withObject: nil waitUntilDone: NO];
+
     // MUTEX LOCK to change ignoreChangeRequests (so we know that no changes will be processed after we change ignoreChangeRequests
     OSStatus status = pthread_mutex_lock( &makingChangesMutex );
     if (  status != EXIT_SUCCESS  ) {
