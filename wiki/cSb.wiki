@@ -11,7 +11,7 @@
     [cHowHelp How you can help]<br>
     [cFAQ FAQ]<br>
 *Installation, Setup, and Usage*
-    [cInstall Installing 3.1 & 3.2]<br>
+    [cInstall Installing Tunnelblick]<br>
     [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
     [wUsing Using Tunnelblick 3.1]<br>
     [zUsing Using Tunnelblick 3.2]<br>
