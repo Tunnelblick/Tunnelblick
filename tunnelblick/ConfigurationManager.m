@@ -82,24 +82,25 @@ enum state_t {                      // These are the "states" of the guideState 
 
 @implementation ConfigurationManager
 
-+(id)   defaultManager
-{
++(id)   defaultManager {
+    
     return [[[ConfigurationManager alloc] init] autorelease];
 }
 
-// Returns a dictionary with information about the configuration files in gConfigDirs.
-// The key for each entry is the display name for the configuration; the object is the path to the configuration file
-// (which may be a .tblk package or a .ovpn or .conf file) for the configuration
-//
-// Only searches folders that are in gConfigDirs.
-//
-// First, it goes through gDeploy looking for packages,
-//           then through gDeploy looking for configs NOT in packages,
-//           then through L_AS_T_SHARED looking for packages (does not look for configs that are not in packages in L_AS_T_SHARED)
-//           then through gPrivatePath looking for packages,
-//           then through gPrivatePath looking for configs NOT in packages
--(NSMutableDictionary *) getConfigurations
-{
+-(NSMutableDictionary *) getConfigurations {
+    
+    // Returns a dictionary with information about the configuration files in gConfigDirs.
+    // The key for each entry is the display name for the configuration; the object is the path to the configuration file
+    // (which may be a .tblk package or a .ovpn or .conf file) for the configuration
+    //
+    // Only searches folders that are in gConfigDirs.
+    //
+    // First, it goes through gDeploy looking for packages,
+    //           then through gDeploy looking for configs NOT in packages,
+    //           then through L_AS_T_SHARED looking for packages (does not look for configs that are not in packages in L_AS_T_SHARED)
+    //           then through gPrivatePath looking for packages,
+    //           then through gPrivatePath looking for configs NOT in packages
+    
     NSMutableDictionary * dict = [[[NSMutableDictionary alloc] init] autorelease];
     BOOL noneIgnored = TRUE;
     
@@ -120,15 +121,16 @@ enum state_t {                      // These are the "states" of the guideState 
     return dict;
 }
 
-// Adds configurations to a dictionary based on input parameters
-// Returns TRUE if succeeded, FALSE if one or more configurations were ignored.
-//
-// If searching L_AS_T_SHARED, looks for .ovpn and .conf and ignores them even if searching for packages (so we can complain to the user)
 -(BOOL)  addConfigsFromPath: (NSString *)               folderPath
             thatArePackages: (BOOL)                     onlyPkgs
                      toDict: (NSMutableDictionary *)    dict
-               searchDeeply: (BOOL)                     deep
-{
+               searchDeeply: (BOOL)                     deep {
+    
+    // Adds configurations to a dictionary based on input parameters
+    // Returns TRUE if succeeded, FALSE if one or more configurations were ignored.
+    //
+    // If searching L_AS_T_SHARED, looks for .ovpn and .conf and ignores them even if searching for packages (so we can complain to the user)
+    
     if (  ! [gConfigDirs containsObject: folderPath]  ) {
         return TRUE;
     }
@@ -229,8 +231,8 @@ enum state_t {                      // These are the "states" of the guideState 
     return  ! ignored;
 }            
 
--(BOOL) userCanEditConfiguration: (NSString *) filePath
-{
+-(BOOL) userCanEditConfiguration: (NSString *) filePath {
+    
     NSString * realPath = filePath;
     if (  [[filePath pathExtension] isEqualToString: @"tblk"]  ) {
         realPath = [filePath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"];
@@ -256,8 +258,9 @@ enum state_t {                      // These are the "states" of the guideState 
             || ( ! [gTbDefaults boolForKey: @"onlyAdminsCanUnprotectConfigurationFiles"] )   );
 }
 
--(void) editConfigurationAtPath: (NSString *) thePath forConnection: (VPNConnection *) connection
-{
+-(void) editConfigurationAtPath: (NSString *) thePath
+                  forConnection: (VPNConnection *) connection {
+    
     NSString * targetPath = [[thePath copy] autorelease];
     if ( ! targetPath  ) {
         targetPath = [gPrivatePath stringByAppendingPathComponent: @"openvpn.conf"];
@@ -314,9 +317,10 @@ enum state_t {                      // These are the "states" of the guideState 
     [[NSWorkspace sharedWorkspace] openFile: targetConfig withApplication: @"TextEdit"];
 }
 
-// Make a private configuration shared, or a shared configuration private
--(void) shareOrPrivatizeAtPath: (NSString *) path
-{
+-(void) shareOrPrivatizeAtPath: (NSString *) path {
+    
+    // Make a private configuration shared, or a shared configuration private
+    
     NSString * source;
     NSString * target;
     NSString * msg;
@@ -367,14 +371,15 @@ enum state_t {                      // These are the "states" of the guideState 
     }
 }
 
-// Unprotect a configuration file without using authorization by replacing the root-owned
-// file with a user-owned writable copy so it can be edited (keep root-owned file as a backup)
-// Sets ownership/permissions on the copy to the current user:group/0666 without using authorization
-// Invoke with path to .ovpn or .conf file or .tblk package
-// Returns TRUE if succeeded
-// Returns FALSE if can't find config in .tblk or couldn't change owner/permissions or user doesn't have write access to the parent folder
--(BOOL)unprotectConfigurationFile: (NSString *) filePath
-{
+-(BOOL)unprotectConfigurationFile: (NSString *) filePath {
+    
+    // Unprotect a configuration file without using authorization by replacing the root-owned
+    // file with a user-owned writable copy so it can be edited (keep root-owned file as a backup)
+    // Sets ownership/permissions on the copy to the current user:group/0666 without using authorization
+    // Invoke with path to .ovpn or .conf file or .tblk package
+    // Returns TRUE if succeeded
+    // Returns FALSE if can't find config in .tblk or couldn't change owner/permissions or user doesn't have write access to the parent folder
+    
     NSString * actualConfigPath = [[filePath copy] autorelease];
     if (  [[actualConfigPath pathExtension] isEqualToString: @"tblk"]  ) {
         NSString * actualPath = configPathFromTblkPath(actualConfigPath);
@@ -418,12 +423,14 @@ enum state_t {                      // These are the "states" of the guideState 
     return TRUE;
 }
 
-// Parses the configuration file.
-// Gives user the option of adding the down-root plugin if appropriate
-// Returns with device type: "tun" or "tap", or nil if it can't be determined
-// Returns with string "Cancel" if user cancelled
--(NSString *)parseConfigurationPath: (NSString *) cfgPath forConnection: (VPNConnection *) connection
-{
+-(NSString *)parseConfigurationPath: (NSString *) cfgPath
+                      forConnection: (VPNConnection *) connection {
+    
+    // Parses the configuration file.
+    // Gives user the option of adding the down-root plugin if appropriate
+    // Returns with device type: "tun" or "tap", or nil if it can't be determined
+    // Returns with string "Cancel" if user cancelled
+
     NSString * doNotParseKey = [[connection displayName] stringByAppendingString: @"-doNotParseConfigurationFile"];
     if (  [gTbDefaults boolForKey: doNotParseKey]  ) {
         return nil;
@@ -531,8 +538,9 @@ enum state_t {                      // These are the "states" of the guideState 
     return devOptionFirst3Chars;
 }
 
--(NSString *) parseString: (NSString *) cfgContents forOption: (NSString *) option
-{
+-(NSString *) parseString: (NSString *) cfgContents
+                forOption: (NSString *) option {
+    
     NSCharacterSet * notWhitespace = [[NSCharacterSet whitespaceCharacterSet] invertedSet];
     NSCharacterSet * notWhitespaceNotNewline = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
     NSCharacterSet * newline = [NSCharacterSet characterSetWithCharactersInString: @"(\n\r"];
@@ -600,12 +608,13 @@ enum state_t {                      // These are the "states" of the guideState 
     return nil;
 }
 
-// The filePaths array entries are NSStrings with the path to a .tblk to install.
 -(void) openDotTblkPackages: (NSArray *) filePaths
                   usingAuth: (AuthorizationRef) authRef
     skipConfirmationMessage: (BOOL) skipConfirmMsg
-          skipResultMessage: (BOOL) skipResultMsg
-{
+          skipResultMessage: (BOOL) skipResultMsg {
+    
+    // The filePaths array entries are NSStrings with the path to a .tblk to install.
+    
     if (  [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]  )  {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
                         NSLocalizedString(@"Installation of .tblk packages is not allowed", "Window text"),
@@ -878,14 +887,15 @@ enum state_t {                      // These are the "states" of the guideState 
     }
 }
 
-// Checks one .tblk package to make sure it should be installed
-//     Returns an array with [source, dest] paths if it should be installed
-//     Returns an array with [source] if it should be UNinstalled
-//     Returns an empty array if the user cancelled the installation
-//     Returns nil if an error occurred
-// If filePath is a nested .tblk (i.e., a .tblk contained within another .tblk), the destination path will be a subfolder of the private or shared configurations folder
--(NSArray *) checkOneDotTblkPackage: (NSString *) filePath
-{
+-(NSArray *) checkOneDotTblkPackage: (NSString *) filePath {
+    
+    // Checks one .tblk package to make sure it should be installed
+    //     Returns an array with [source, dest] paths if it should be installed
+    //     Returns an array with [source] if it should be UNinstalled
+    //     Returns an empty array if the user cancelled the installation
+    //     Returns nil if an error occurred
+    // If filePath is a nested .tblk (i.e., a .tblk contained within another .tblk), the destination path will be a subfolder of the private or shared configurations folder
+    
     if (   [filePath hasPrefix: [gPrivatePath  stringByAppendingString: @"/"]]
         || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]
         || [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
@@ -932,11 +942,14 @@ enum state_t {                      // These are the "states" of the guideState 
     NSString * pkgSharePackage;
     BOOL       pkgDoUninstall = FALSE;
     BOOL       pkgUninstallFailOK = FALSE;
+    BOOL       pkgHasInfoPlist = FALSE;
     
     NSString * infoPath = [pathToTblk stringByAppendingPathComponent: @"Contents/Info.plist"];
     NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
     
     if (  infoDict  ) {
+        pkgHasInfoPlist = TRUE;
+        
         pkgId = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: infoDict defaultTo: nil];
         
         pkgVersion = [self getLowerCaseStringForKey: @"CFBundleVersion" inDictionary: infoDict defaultTo: nil];
@@ -1142,13 +1155,15 @@ enum state_t {                      // These are the "states" of the guideState 
             }
         }
     }
-        
+    
     // **************************************************************************************
     // Check for name conflicts if not replacing or uninstalling a package
     if (   (! replacementPath )
         && (! pkgDoUninstall )  ) {
-        while (   ([tryDisplayName length] == 0)
-               || [[[NSApp delegate] myConfigDictionary] objectForKey: tryDisplayName]  ) {
+        NSString * curPath;
+        while (   (curPath = [[[NSApp delegate] myConfigDictionary] objectForKey: tryDisplayName])
+			   || ([tryDisplayName length] == 0)
+			   ) {
             NSString * msg;
             if (  [tryDisplayName length] == 0  ) {
                 msg = NSLocalizedString(@"The VPN name cannot be empty.\n\nPlease enter a new name.", @"Window text");
@@ -1162,6 +1177,13 @@ enum state_t {                      // These are the "states" of the guideState 
             [panelDict setObject:@""                                                forKey:(NSString *)kCFUserNotificationTextFieldTitlesKey];
             [panelDict setObject:NSLocalizedString(@"OK", @"Button")                forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
             [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")            forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
+            
+            // If neither old nor new .tblks have an Info.plist
+            if (   ( ! pkgHasInfoPlist  )
+                && ( ! [gFileMgr fileExistsAtPath: [curPath stringByAppendingPathComponent: @"Contents/Info.plist"]]  )    ) {
+                [panelDict setObject:NSLocalizedString(@"Replace Existing Configuration", @"Button") forKey:(NSString *)kCFUserNotificationOtherButtonTitleKey];
+            }
+            
             [panelDict setObject:[NSURL fileURLWithPath:[[NSBundle mainBundle]
                                                          pathForResource:@"tunnelblick"
                                                          ofType: @"icns"]]               forKey:(NSString *)kCFUserNotificationIconURLKey];
@@ -1177,6 +1199,17 @@ enum state_t {                      // These are the "states" of the guideState 
                 CFRelease(notification);    // Couldn't receive a response
                 NSLog(@"Configuration installer: The Tunnelblick VPN Package has NOT been installed.\n\nAn unknown error occured.");
                 return nil;
+            }
+            
+            if((response & 0x3) == kCFUserNotificationOtherResponse) {
+                CFRelease(notification);    // User clicked "Replace Existing Configuration"
+                replacementPath = curPath;
+				if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]]  ) {
+					pkgSharePackage = @"shared";
+				} else {
+					pkgSharePackage = @"private";
+				}
+                break;
             }
             
             if((response & 0x3) != kCFUserNotificationDefaultResponse) {
@@ -1240,9 +1273,9 @@ enum state_t {                      // These are the "states" of the guideState 
                     if (  installToSharedOK  ) {
                         result = TBRunAlertPanel(NSLocalizedString(@"Install Configuration For All Users?", @"Window title"),
                                                  [NSString stringWithFormat: NSLocalizedString(@"Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n", @"Window text"), tryDisplayName],
-                                                 NSLocalizedString(@"Only Me", @"Button"),      //Default button
+                                                 NSLocalizedString(@"Only Me", @"Button"),      // Default button
                                                  NSLocalizedString(@"All Users", @"Button"),    // Alternate button
-                                                 NSLocalizedString(@"Cancel", @"Button"));      // Alternate button);
+                                                 NSLocalizedString(@"Cancel", @"Button"));      // Other button);
                     } else {
                         NSLog(@"Configuration installer: Forcing install of %@ as private because Deployed version of Tunnelblick and 'useSharedConfigurationsWithDeployedOnes' preference is not forced", tryDisplayName);
                         result = NSAlertDefaultReturn;
@@ -1285,8 +1318,10 @@ enum state_t {                      // These are the "states" of the guideState 
     return nil;
 }
 
--(NSString *) getLowerCaseStringForKey: (NSString *) key inDictionary: (NSDictionary *) dict defaultTo: (id) replacement
-{
+-(NSString *) getLowerCaseStringForKey: (NSString *) key
+                          inDictionary: (NSDictionary *) dict
+                             defaultTo: (id) replacement {
+    
     id retVal;
     retVal = [[dict objectForKey: key] lowercaseString];
     if (  retVal  ) {
@@ -1301,19 +1336,19 @@ enum state_t {                      // These are the "states" of the guideState 
     return retVal;
 }
 
-// Does simple checks on a .tblk package.
-// If it has a single folder at the top level named "Contents", returns the .tblk's path without looking inside "Contents"
-// If it can be "fixed", returns the path to a temporary copy with the problems fixed.
-// If it is empty, and the user chooses, a path to a temporay copy with the sample configuration file is returned.
-// If it is empty, and the user cancels, an empty string (@"") is returned.
-// Otherwise, returns nil to indicate an error;
-// Can fix the following:
-//   * Package contains, or has a single folder which contains, one .ovpn or .conf, zero or one Info.plist, and any number of .key, .crt, etc. files:
-//          Moves the .ovpn or .conf to Contents/Resources/config.ovpn
-//          Moves the .key, .crt, etc. files to Contents/Resources
--(NSString *) getPackageToInstall: (NSString *) thePath
-
-{
+-(NSString *) getPackageToInstall: (NSString *) thePath {
+    
+    // Does simple checks on a .tblk package.
+    // If it has a single folder at the top level named "Contents", returns the .tblk's path without looking inside "Contents"
+    // If it can be "fixed", returns the path to a temporary copy with the problems fixed.
+    // If it is empty, and the user chooses, a path to a temporay copy with the sample configuration file is returned.
+    // If it is empty, and the user cancels, an empty string (@"") is returned.
+    // Otherwise, returns nil to indicate an error;
+    // Can fix the following:
+    //   * Package contains, or has a single folder which contains, one .ovpn or .conf, zero or one Info.plist, and any number of .key, .crt, etc. files:
+    //          Moves the .ovpn or .conf to Contents/Resources/config.ovpn
+    //          Moves the .key, .crt, etc. files to Contents/Resources
+    
     NSMutableArray * pkgList = [[gFileMgr tbDirectoryContentsAtPath: thePath] mutableCopy];
     if (  ! pkgList  ) {
         return nil;
@@ -1459,8 +1494,8 @@ enum state_t {                      // These are the "states" of the guideState 
     return emptyTblk;
 }
 
--(NSString *) makeTemporarySampleTblkWithName: (NSString *) name
-{
+-(NSString *) makeTemporarySampleTblkWithName: (NSString *) name {
+    
     NSString * emptyTblk = [self makeEmptyTblk: name];
     if (  ! emptyTblk  ) {
         NSLog(@"Unable to create temporary .tblk");
@@ -1474,13 +1509,14 @@ enum state_t {                      // These are the "states" of the guideState 
         return nil;
     }
     return emptyTblk;
-}    
+}
 
-// Creates an "empty" .tblk with name taken from input argument, and with Contents/Resources created,
-// in a newly-created temporary folder
-// Returns nil on error, or with the path to the .tblk
--(NSString *) makeEmptyTblk: (NSString *) thePath
-{
+-(NSString *) makeEmptyTblk: (NSString *) thePath {
+    
+    // Creates an "empty" .tblk with name taken from input argument, and with Contents/Resources created,
+    // in a newly-created temporary folder
+    // Returns nil on error, or with the path to the .tblk
+    
     NSString * tempFolder = newTemporaryDirectoryPath();
     NSString * tempTblk = [tempFolder stringByAppendingPathComponent: [thePath lastPathComponent]];
     
@@ -1497,8 +1533,8 @@ enum state_t {                      // These are the "states" of the guideState 
     return tempTblk;
 }
 
--(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath
-{
+-(BOOL) isSampleConfigurationAtPath: (NSString *) cfgPath {
+    
     NSString * samplePath = [[NSBundle mainBundle] pathForResource: @"openvpn" ofType: @"conf"];
     if (  [[cfgPath pathExtension] isEqualToString: @"tblk"]  ) {
         if (  ! [gFileMgr contentsEqualAtPath: [cfgPath stringByAppendingPathComponent: @"Contents/Resources/config.ovpn"] andPath: samplePath]  ) {
@@ -1512,9 +1548,9 @@ enum state_t {                      // These are the "states" of the guideState 
     
     int button = TBRunAlertPanel(NSLocalizedString(@"You cannot use the sample configuration", @"Window title"),
                                  NSLocalizedString(@"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n", @"Window text"),
-                                 NSLocalizedString(@"Cancel", @"Button"),                           // Default button
+                                 NSLocalizedString(@"Cancel", @"Button"),                                     // Default button
                                  NSLocalizedString(@"Go to the OpenVPN documentation on the web", @"Button"), // Alternate button
-                                 nil);                                                              // No Other button
+                                 nil);                                                                        // No Other button
 	
     if( button == NSAlertAlternateReturn ) {
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://openvpn.net/index.php/open-source/documentation.html"]];
@@ -1523,11 +1559,16 @@ enum state_t {                      // These are the "states" of the guideState 
     return TRUE;
 }
 
-// Copies or moves a config file or package and sets ownership and permissions on the target
-// Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
-// Returns FALSE if failed, having already output an error message to the console log
--(BOOL) copyConfigPath: (NSString *) sourcePath toPath: (NSString *) targetPath usingAuthRefPtr: (AuthorizationRef *) authRefPtr warnDialog: (BOOL) warn moveNotCopy: (BOOL) moveInstead
-{
+-(BOOL) copyConfigPath: (NSString *) sourcePath
+                toPath: (NSString *) targetPath
+       usingAuthRefPtr: (AuthorizationRef *) authRefPtr
+            warnDialog: (BOOL) warn
+           moveNotCopy: (BOOL) moveInstead {
+    
+    // Copies or moves a config file or package and sets ownership and permissions on the target
+    // Returns TRUE if succeeded in the copy or move -- EVEN IF THE CONFIG WAS NOT SECURED (an error message was output to the console log).
+    // Returns FALSE if failed, having already output an error message to the console log
+    
     if (  [sourcePath isEqualToString: targetPath]  ) {
         NSLog(@"You cannot copy or move a configuration to itself. Trying to do that with %@", sourcePath);
         return FALSE;
@@ -1565,11 +1606,14 @@ enum state_t {                      // These are the "states" of the guideState 
     }
 }
 
-// Deletes a config file or package
-// Returns TRUE if succeeded
-// Returns FALSE if failed, having already output an error message to the console log
--(BOOL) deleteConfigPath: (NSString *) targetPath usingAuthRefPtr: (AuthorizationRef *) authRefPtr warnDialog: (BOOL) warn
-{
+-(BOOL) deleteConfigPath: (NSString *) targetPath
+         usingAuthRefPtr: (AuthorizationRef *) authRefPtr
+              warnDialog: (BOOL) warn {
+    
+    // Deletes a config file or package
+    // Returns TRUE if succeeded
+    // Returns FALSE if failed, having already output an error message to the console log
+    
     unsigned firstArg = INSTALLER_DELETE;
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
@@ -1590,21 +1634,23 @@ enum state_t {                      // These are the "states" of the guideState 
     return TRUE;
 }
 
-// There are no configurations installed. Guide the user
--(void) haveNoConfigurationsGuide
-{
+-(void) haveNoConfigurationsGuide {
+    // There are no configurations installed. Guide the user
+    
     [self guideState: entryNoConfigurations];
 }
 
-// Guide the user through the process of adding a configuration (.tblk or .ovpn/.conf)
--(void) addConfigurationGuide
-{
+-(void) addConfigurationGuide {
+    
+    // Guide the user through the process of adding a configuration (.tblk or .ovpn/.conf)
+    
     [self guideState: entryAddConfiguration];
 }
 
-// guideState is sort of a state machine for displaying configuration dialog windows. It has a simple, LIFO history stored in an array to implement a "back" button
--(void) guideState: (enum state_t) state
-{
+-(void) guideState: (enum state_t) state {
+    
+    // guideState is sort of a state machine for displaying configuration dialog windows. It has a simple, LIFO history stored in an array to implement a "back" button
+    
     enum state_t nextState;
 
     int button;
@@ -1904,8 +1950,7 @@ enum state_t {                      // These are the "states" of the guideState 
     } 
 }
 
--(NSString *) displayNameForPath: (NSString *) thePath
-{
+-(NSString *) displayNameForPath: (NSString *) thePath {
     return [lastPartOfPath(thePath) stringByDeletingPathExtension];
 }
 

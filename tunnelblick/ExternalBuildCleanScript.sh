@@ -43,18 +43,12 @@ buildAction () {
         
     elif [ "$1" = "Release" ] ; then
         # Remove the .app so the digital signature will be created on a fresh copy
+		# Don't need to remove Tunnelblick Uninstaller.app; it is always freshly compiled
         if [ -e "build/$1/${PROJECT_NAME}.app" ] ; then
             rm -r "build/$1/${PROJECT_NAME}.app"
             echo "Removed the .app"
         else
             echo "(No action required because the .app does not exist)"
-        fi
-		# Remove Tunnelblick Uninstaller.app; it is always compiled
-        if [ -e "build/$1/Tunnelblick Uninstaller.app" ] ; then
-            rm -r "build/$1/Tunnelblick Uninstaller.app"
-            echo "Removed Tunnelblick Uninstaller.app"
-        else
-            echo "(No action required because Tunnelblick Uninstaller.app does not exist)"
         fi
         
     elif [ "$1" = "Debug" ] ; then
@@ -117,12 +111,24 @@ cleanAction () {
         cd "../tunnelblick"
         
     elif [ "$1" = "Release" ] ; then
-        # Remove the .dmg and Tunnelblick Uninstaller.app and the staging folder
+        # Remove the .dmgs and Tunnelblick Uninstaller.app and the staging folders
         if [ -e "build/$1/${PROJECT_NAME}.dmg" ] ; then
             rm "build/$1/${PROJECT_NAME}.dmg"
             echo "Removed the .dmg"
         else
             echo "(No action required because the .dmg does not exist)"
+        fi
+        if [ -e "build/$1/${PROJECT_NAME} Uninstaller.dmg" ] ; then
+            rm "build/$1/${PROJECT_NAME} Uninstaller.dmg"
+            echo "Removed the Uninstaller .dmg"
+        else
+            echo "(No action required because the Uninstaller .dmg does not exist)"
+        fi
+        if [ -d "build/$1/Tunnelblick Uninstaller.app" ] ; then
+            rm -r "build/$1/Tunnelblick Uninstaller.app"
+            echo "Removed Tunnelblick Uninstaller.app"
+        else
+            echo "(No action required because Tunnelblick Uninstaller.app does not exist)"
         fi
         if [ -d "build/$1/${PROJECT_NAME}" ] ; then
             rm -r "build/$1/${PROJECT_NAME}"
@@ -130,11 +136,11 @@ cleanAction () {
         else
             echo "(No action required because the staging folder does not exist)"
         fi
-        if [ -d "build/$1/Tunnelblick Uninstaller.app" ] ; then
-            rm -r "build/$1/Tunnelblick Uninstaller.app"
-            echo "Removed Tunnelblick Uninstaller.app"
+        if [ -d "build/$1/${PROJECT_NAME} Uninstaller" ] ; then
+            rm -r "build/$1/${PROJECT_NAME} Uninstaller"
+            echo "Removed the Uninstaller staging folder"
         else
-            echo "(No action required because Tunnelblick Uninstaller.app does not exist)"
+            echo "(No action required because the Uninstaller staging folder does not exist)"
         fi
         
     elif [ "$1" = "Unsigned Release" ] ; then
