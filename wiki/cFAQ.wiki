@@ -19,12 +19,12 @@
   Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 
 ==Where is the documentation?==
-The Tunnelblick disk image includes a link to the [Documentation Tunnelblick Documentation]. There is also help available on the VPN Details… page.
+The Tunnelblick disk image includes a link to the [Documentation Tunnelblick Documentation]. There is also help available in Tunnelblick's main window, the VPN Details… window.
 
-==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Lion? Panther? Intel? PowerPC?==
-Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard's 32-bit kernel, and Snow Leopard's 64-bit kernel. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel uses the 64-bit tun/tap.
+==Does Tunnelblick work on Snow Leopard? Leopard? Tiger? Lion? Mountain Lion? Panther? Intel? PowerPC?==
+Yes. Tunnelblick is a Universal 32-bit application, so it runs as an application in 32-bit mode on both Intel and PowerPC Macs under Tiger, Leopard, Snow Leopard, Lion, and Mountain Lion, under 32-bit and 64-bit kernels. It includes 32/64-bit versions of tun.kext and tap.kext. Tiger, Leopard, and Snow Leopard's 32-bit kernel use the 32-bit tun/tap, and Snow Leopard's 64-bit kernel, Lion, and Mountain Lion use the 64-bit tun/tap.
 
-Lion requres Tunnelblick version 3.2beta22 and up.
+Mountain Lion works best with Tunnelblick 3.3beta36 and up, but can be run on 3.3beta21 and with some setups, on 3.2.8.
 
 Panther requires a very old version, [http://tunnelblick.googlecode.com/files/Tunnelblick-Panther-2.0.1.dmg Tunnelblick 2.0.1].
 
@@ -77,7 +77,7 @@ Start Tunnelblick by double-clicking it in Applications. It will step you throug
 Click on the Tunnelblick icon to reveal the Tunnelblick menu, then click on a configuration to connect using it, or click on "VPN Details…" for a window with details for each configuration.
 
 ==How do I uninstall Tunnelblick?==
-Simply move Tunnelblick.app to the trash. There are no other files installed into the system except for preferences and OpenVPN configuration files. Tunnelblick may also have saved credentials in your Keychain. See [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick] for details.
+See [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick].
 
 ==How do I revert to an earlier version of  Tunnelblick?==
 For Tunnelblick 3.1beta18 (2010-010-16) and later, download the disk image with the version you wish to install (all available versions are on the [DownloadsEntry Downloads Page]. Double-click it and a window will open with the Tunnelblick icon and the words "Double-click to begin". Double-click the Tunnelblick icon and you will be guided through the process.  Reinstalls, upgrades, and downgrades will be recognized and the old version of the program is moved to the Trash before installing the new version.
