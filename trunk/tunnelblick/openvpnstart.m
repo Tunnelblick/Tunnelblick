@@ -38,7 +38,7 @@ NSString			* gConfigPath    = nil;     // Path to configuration file
 //                                                 in ~/Library/Application Support/Tunnelblick/Configurations/
 //                                                 or /Library/Application Support/Tunnelblick/Users/<username>/
 //                                                 or /Library/Application Support/Tunnelblick/Shared
-//                                                 or /Applications/Tunnelblick.app/Resources/Deploy
+//                                                 or /Applications/XXXXX.app/Resources/Deploy
 NSString			* gResourcesPath = nil;     // Path to Tunnelblick.app/Contents/Resources
 NSString            * gDeployPath    = nil;     // Path to /Library/Application Support/Tunnelblick/Deploy/<application name>
 NSString            * gStartArgs     = nil;     // String with an underscore-delimited list of the following arguments to openvpnstart's start
@@ -649,12 +649,20 @@ void exitIfRunExecutableIsNotGood(NSString * path) {
 	if (  ! [path isEqualToString: @"INVALID"]  ) {
 
 		if (  [path hasPrefix: @"/A"]  ) {
-            if (  (   [path hasPrefix: @"/Applications/Tunnelblick.app/Contents/Resources/openvpn/openvpn-"]
-				   && [path hasSuffix: @"/openvpn"] )
+            NSArray  * pathComponents = [path pathComponents];
+            if (   ([pathComponents count] == 8)
+                && [[pathComponents objectAtIndex: 0] isEqualToString: @"/"]
+                && [[pathComponents objectAtIndex: 1] isEqualToString: @"Applications"]
+                && [[pathComponents objectAtIndex: 2] hasSuffix:       @".app"]
+                && [[pathComponents objectAtIndex: 3] isEqualToString: @"Contents"]
+                && [[pathComponents objectAtIndex: 4] isEqualToString: @"Resources"]
+                && [[pathComponents objectAtIndex: 5] isEqualToString: @"openvpn"]
+                && [[pathComponents objectAtIndex: 6] hasPrefix:       @"openvpn-"]
+                && [[pathComponents objectAtIndex: 7] isEqualToString: @"openvpn"]
                 ) {
                 notOk = FALSE;
             }
-			
+
 		} else if (  [path hasPrefix: @"/s"]  ) {
 			if (   [path isEqualToString: @"/sbin/kextload"    ]
 		   	 	|| [path isEqualToString: @"/sbin/kextunload"  ]

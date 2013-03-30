@@ -43,8 +43,8 @@
 // where
 //   bitMask (See defines.h for bit assignments) -- DETERMINES WHAT THE INSTALLER WILL DO:
 //
-//     INSTALLER_COPY_APP:      set to copy this app to /Applications/Tunnelblick.app
-//                                  (Any existing /Applications/Tunnelblick.app will be moved to the Trash)
+//     INSTALLER_COPY_APP:      set to copy this app to /Applications/XXXXX.app
+//                                  (Any existing /Applications/XXXXX.app will be moved to the Trash)
 //
 //     INSTALLER_SECURE_APP:    set to secure Tunnelblick.app and all of its contents and update L_AS_T/Deploy if appropriate
 //                                  (also set if INSTALLER_COPY_APP)
@@ -173,9 +173,9 @@ int main(int argc, char *argv[])
 	
     // Set gDeployPath from the name of this application without the ".app"
 	NSBundle * ourBundle = [NSBundle mainBundle];
-	NSString * resourcesPath = [ourBundle bundlePath];
+	NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
-    if (  [execComponents count] < 3  ) {
+	if (  [execComponents count] < 3  ) {
         appendLog([NSString stringWithFormat: @"too few execComponents; resourcesPath = %@", resourcesPath]);
         errorExit();
     }
@@ -218,12 +218,14 @@ int main(int argc, char *argv[])
     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     
     // If we copy the .app to /Applications, other changes to the .app affect THAT copy, otherwise they affect the currently running copy
-    NSString * appResourcesPath;
-    if (  copyApp  ) {
-        appResourcesPath = @"/Applications/Tunnelblick.app/Contents/Resources";
-    } else {
-        appResourcesPath = [[gFileMgr stringWithFileSystemRepresentation: argv[0] length: strlen(argv[0])] stringByDeletingLastPathComponent];
-    }
+    NSString * appResourcesPath = (copyApp
+                                   
+                                   ? [[[@"/Applications"
+                                        stringByAppendingPathComponent: [ourAppName stringByAppendingPathExtension: @"app"]]
+                                       stringByAppendingPathComponent: @"Contents"]
+                                      stringByAppendingPathComponent: @"Resources"]
+
+                                   : [[resourcesPath copy] autorelease]);
     
     gAppConfigurationsBundlePath    = [appResourcesPath stringByAppendingPathComponent:@"Tunnelblick Configurations.bundle"];
 
@@ -382,17 +384,17 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // (4)
     // If INSTALLER_COPY_APP is set:
-    //    Move /Applications/Tunnelblick.app to the Trash, then copy this app to /Applications/Tunnelblick.app
+    //    Move /Applications/XXXXX.app to the Trash, then copy this app to /Applications/XXXXX.app
     
     if (  copyApp  ) {
         NSString * currentPath = [[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
-        NSString * targetPath = @"/Applications/Tunnelblick.app";
+        NSString * targetPath = [@"/Applications" stringByAppendingPathComponent: [ourAppName stringByAppendingPathExtension: @"app"]];
         if (  [gFileMgr fileExistsAtPath: targetPath]  ) {
             errorExitIfAnySymlinkInPath(targetPath, 1);
             if (  [[NSWorkspace sharedWorkspace] performFileOperation: NSWorkspaceRecycleOperation
                                                                source: @"/Applications"
                                                           destination: @""
-                                                                files: [NSArray arrayWithObject:@"Tunnelblick.app"]
+                                                                files: [NSArray arrayWithObject: [ourAppName stringByAppendingPathExtension: @"app"]]
                                                                   tag: nil]  ) {
                 appendLog([NSString stringWithFormat: @"Moved %@ to the Trash", targetPath]);
             } else {
