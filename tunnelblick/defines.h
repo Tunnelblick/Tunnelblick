@@ -89,7 +89,7 @@
 //                             /Library/Application Support/Tunnelblick/Users/username/,
 //                             /Library/Application Support/Tunnelblick/Deployed/
 //                             /Library/Application Support/Tunnelblick/Backup/
-//                             /Applications/Tunnelblick.app/Contents/Resources/Deploy/
+//                             /Applications/XXXXX.app/Contents/Resources/Deploy/
 //
 // _SELF           entries are for the folder itself (if not a .tblk folder
 // _TBLK_FOLDER    entries are for folders with the .tblk extension and their subfolders (Contents & Resources)

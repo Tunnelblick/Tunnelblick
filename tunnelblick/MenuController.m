@@ -3955,7 +3955,9 @@ BOOL warnAboutNonTblks(void)
 
 -(void) relaunchIfNecessary
 {
-	NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
+	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
+	
+	NSString * contentsPath = [currentPath stringByAppendingPathComponent: @"Contents"];
     if (   [gFileMgr fileExistsAtPath: [contentsPath stringByAppendingPathComponent: @"_CodeSignature"]]
 		&& ( ! [self hasValidSignature] )  ) {
 		signatureIsInvalid = TRUE;
@@ -3965,8 +3967,6 @@ BOOL warnAboutNonTblks(void)
 	
     // Move or copy Tunnelblick.app to /Applications if it isn't already there
     
-	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
-	
     BOOL canRunOnThisVolume = [self canRunFromVolume: currentPath];
     
     if (  canRunOnThisVolume ) {
@@ -3975,11 +3975,11 @@ BOOL warnAboutNonTblks(void)
         [self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
         return;
 #endif
-        if (  [currentPath isEqualToString: @"/Applications/Tunnelblick.app"]  ) {
+        if (  [[currentPath stringByDeletingLastPathComponent] isEqualToString: @"/Applications"]  ) {
 			[self warnIfInvalidOrNoSignatureAllowCheckbox: YES];
             return;
         } else {
-            NSLog(@"Tunnelblick can only run when it is in /Applications, not %@.", currentPath);
+            NSLog(@"Tunnelblick can only run when it is in /Applications; path = %@.", currentPath);
         }
     } else {
         NSLog(@"Tunnelblick cannot run when it is on /%@ because the volume has the MNT_NOSUID statfs flag set.", [[currentPath pathComponents] objectAtIndex: 1]);
@@ -4043,7 +4043,7 @@ BOOL warnAboutNonTblks(void)
     
     // Set up messages to get authorization and notify of success
 	NSString * appVersion   = tunnelblickVersion([NSBundle mainBundle]);	
-    NSString * tbInApplicationsPath = @"/Applications/Tunnelblick.app";
+    NSString * tbInApplicationsPath = [@"/Applications" stringByAppendingPathComponent: [currentPath lastPathComponent]];
     NSString * applicationsPath = @"/Applications";
     NSString * tbInApplicationsDisplayName = [[gFileMgr componentsToDisplayForPath: tbInApplicationsPath] componentsJoinedByString: @"/"];
     NSString * applicationsDisplayName = [[gFileMgr componentsToDisplayForPath: applicationsPath] componentsJoinedByString: @"/"];
@@ -4572,11 +4572,14 @@ BOOL needToSecureFolderAtPath(NSString * path)
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 {
 	// Check ownership and permissions on components of Tunnelblick.app
-    NSString * resourcesPath;
+    NSString * resourcesPath = [[NSBundle mainBundle] resourcePath];
     if ( inApplications  ) {
-        resourcesPath = @"/Applications/Tunnelblick.app/Contents/Resources";
-    } else {
-        resourcesPath = [[NSBundle mainBundle] resourcePath];
+		NSString * ourAppName = [[[resourcesPath 
+								   stringByDeletingLastPathComponent]	// Remove "/Resources
+								  stringByDeletingLastPathComponent]	// Remove "/Contents"
+								 lastPathComponent];
+								  
+        resourcesPath = [NSString stringWithFormat: @"/Applications/%@/Contents/Resources", ourAppName];
 	}
     
 	NSString *contentsPath			    = [resourcesPath stringByDeletingLastPathComponent];
@@ -4626,7 +4629,7 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
 	const char *path = [gFileMgr fileSystemRepresentationWithPath: openvpnstartPath];
     struct stat sb;
 	if (  stat(path, &sb)  != 0  ) {
-        NSLog(@"Unable to determine status of openvpnstart\nError was '%s'", strerror(errno));
+        NSLog(@"Unable to determine status of %s\nError was '%s'", path, strerror(errno));
         return YES;
 	}
 	if (   (sb.st_uid != 0)
