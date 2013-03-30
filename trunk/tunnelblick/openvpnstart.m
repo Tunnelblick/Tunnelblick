@@ -171,8 +171,10 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
             "                            bit 6 is 1 to indicate a TAP connection is being made; 0 to indicate a TUN connection is being made\n"
             "                            bit 7 is 1 to indicate the domain name should be prepended to the search domains if search domains are not set manually\n"
+            "                            bit 8 is 1 to indicate the DNS cache should be flushed after each connection or disconnection\n"
+            "                            bit 9 is 1 to indicate the 'redirect-gateway def1' option should be passed to OpenVPN\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
-            
+
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
             
             "           If the string starts with '-i', the leasewatch script will be used to monitor network settings.\n"
@@ -1873,14 +1875,18 @@ int startVPN(NSString * configFile,
 	// conditionally push additional arguments to array
     
 	if ( ! withoutGUI ) {
-        [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                         @"--management-query-passwords",
-                                         @"--management-hold",
-                                         nil]];
+        [arguments addObject: @"--management-query-passwords"];
+        [arguments addObject: @"--management-hold"];
+    }
+    
+    if (  (bitMask & OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1) != 0  ) {
+        [arguments addObject: @"--redirect-gateway"];
+        [arguments addObject: @"def1"];
     }
     
     if( ! skipScrSec ) {        // permissions must allow us to call the up and down scripts or scripts defined in config
-		[arguments addObjectsFromArray: [NSArray arrayWithObjects: @"--script-security", @"2", nil]];
+        [arguments addObject: @"--script-security"];
+        [arguments addObject: @"2"];
     }
     
     // Figure out which scripts to use (if any)

@@ -206,6 +206,12 @@ extern TBUserDefaults       * gTbDefaults;
                inverted: YES];
 }
 
+- (void) setupRouteAllTrafficThroughVpnCheckbox {
+    [self setupCheckbox: routeAllTrafficThroughVpnCheckbox
+                    key: @"-routeAllTrafficThroughVpn"
+               inverted: NO];
+}
+
 -(void) showSettingsSheet: (id) sender {
 	(void) sender;
 	
@@ -329,6 +335,7 @@ extern TBUserDefaults       * gTbDefaults;
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
     [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
+    [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN", @"Checkbox name")];
     
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
@@ -438,6 +445,8 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupFlushDNSCheckbox];
     
     [self setupReconnectOnWakeFromSleepCheckbox];
+    
+    [self setupRouteAllTrafficThroughVpnCheckbox];
     
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -804,6 +813,13 @@ extern TBUserDefaults       * gTbDefaults;
     [self changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
+}
+
+
+-(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:(id)sender {
+    [self changeBooleanPreference: @"-routeAllTrafficThroughVpn"
+                               to: ([sender state] == NSOnState)
+                         inverted: NO];
 }
 
 

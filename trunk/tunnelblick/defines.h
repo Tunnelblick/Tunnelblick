@@ -146,8 +146,9 @@
 #define OPENVPNSTART_USE_TAP                   0x040u
 #define OPENVPNSTART_PREPEND_DOMAIN_NAME       0x080u
 #define OPENVPNSTART_FLUSH_DNS_CACHE           0x100u
+#define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x200u
 
-#define OPENVPNSTART_START_BITMASK_MAX         0x1FFu
+#define OPENVPNSTART_START_BITMASK_MAX         0x3FFu
 
 
 //*************************************************************************************************
