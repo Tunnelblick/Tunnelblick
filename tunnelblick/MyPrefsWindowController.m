@@ -394,6 +394,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController setupPrependDomainNameCheckbox];
 	[settingsSheetWindowController setupFlushDNSCheckbox];
     [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
+    [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
 }
 
 -(void) setupNetworkMonitoring: (VPNConnection *) connection
@@ -1951,6 +1952,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [settingsSheetWindowController setupPrependDomainNameCheckbox];
 		[settingsSheetWindowController setupFlushDNSCheckbox];
         [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
+        [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
     }
 }
 
