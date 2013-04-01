@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="661"/>
+			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -191,9 +191,9 @@
 												<reference key="NSSuperview" ref="1031541742"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="712087121">
-													<int key="NSCellFlags">-2080244224</int>
+													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
-													<string key="NSContents">Route all traffic through the VPN$</string>
+													<string key="NSContents">Reset the primary service interface after disconnecting$</string>
 													<reference key="NSSupport" ref="704877937"/>
 													<reference key="NSControlView" ref="893291553"/>
 													<int key="NSButtonFlags">1211912703</int>
@@ -377,7 +377,7 @@
 											<object class="NSButton" id="78593346">
 												<reference key="NSNextResponder" ref="733870518"/>
 												<int key="NSvFlags">266</int>
-												<string key="NSFrame">{{15, 261}, {752, 18}}</string>
+												<string key="NSFrame">{{15, 234}, {752, 18}}</string>
 												<reference key="NSSuperview" ref="733870518"/>
 												<reference key="NSNextKeyView" ref="55661684"/>
 												<bool key="NSEnabled">YES</bool>
@@ -1430,6 +1430,28 @@
 													<int key="NSPeriodicInterval">25</int>
 												</object>
 											</object>
+											<object class="NSButton" id="214731680">
+												<reference key="NSNextResponder" ref="733870518"/>
+												<int key="NSvFlags">266</int>
+												<string key="NSFrame">{{15, 261}, {752, 18}}</string>
+												<reference key="NSSuperview" ref="733870518"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="612322312">
+													<int key="NSCellFlags">67239424</int>
+													<int key="NSCellFlags2">0</int>
+													<string key="NSContents">Route all traffic through the VPN$</string>
+													<reference key="NSSupport" ref="704877937"/>
+													<reference key="NSControlView" ref="214731680"/>
+													<int key="NSButtonFlags">1211912703</int>
+													<int key="NSButtonFlags2">2</int>
+													<reference key="NSNormalImage" ref="251990877"/>
+													<reference key="NSAlternateImage" ref="799096363"/>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
+												</object>
+											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {774, 280}}</string>
 										<reference key="NSNextKeyView" ref="78593346"/>
@@ -1621,12 +1643,12 @@
 																</object>
 															</object>
 														</object>
-														<string key="NSFrame">{{1, 146.441}, {744, 179}}</string>
+														<string key="NSFrame">{{1, 146.716}, {744, 179}}</string>
 														<reference key="NSSuperview" ref="556094857"/>
 													</object>
 												</object>
 												<string key="NSFrame">{{6, 29.9453}, {746, 195.184}}</string>
-												<string key="NSBounds">{{0, 145.441}, {746, 195}}</string>
+												<string key="NSBounds">{{0, 145.716}, {746, 195}}</string>
 												<reference key="NSSuperview" ref="270005480"/>
 												<string key="NSOffsets">{0, 0}</string>
 												<object class="NSTextFieldCell" key="NSTitleCell">
@@ -3581,20 +3603,36 @@
 					<int key="connectionID">659</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">routeAllTrafficThroughVpnCheckbox</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="893291553"/>
-					</object>
-					<int key="connectionID">663</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">routeAllTrafficThroughVpnCheckboxWasClicked:</string>
 						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="214731680"/>
+					</object>
+					<int key="connectionID">667</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">resetPrimaryInterfaceAfterDisconnectCheckbox</string>
+						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="893291553"/>
 					</object>
-					<int key="connectionID">664</int>
+					<int key="connectionID">669</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">routeAllTrafficThroughVpnCheckbox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="214731680"/>
+					</object>
+					<int key="connectionID">670</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="893291553"/>
+					</object>
+					<int key="connectionID">671</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3738,9 +3776,10 @@
 						<reference key="object" ref="733870518"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="78593346"/>
 							<reference ref="55661684"/>
 							<reference ref="207066435"/>
+							<reference ref="78593346"/>
+							<reference ref="214731680"/>
 						</object>
 						<reference key="parent" ref="542953865"/>
 					</object>
@@ -4849,6 +4888,20 @@
 						<reference key="object" ref="1064527771"/>
 						<reference key="parent" ref="207066435"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">665</int>
+						<reference key="object" ref="214731680"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="612322312"/>
+						</object>
+						<reference key="parent" ref="733870518"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">666</int>
+						<reference key="object" ref="612322312"/>
+						<reference key="parent" ref="214731680"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4998,6 +5051,8 @@
 					<string>66.IBPluginDependency</string>
 					<string>660.IBPluginDependency</string>
 					<string>661.IBPluginDependency</string>
+					<string>665.IBPluginDependency</string>
+					<string>666.IBPluginDependency</string>
 					<string>67.IBPluginDependency</string>
 					<string>68.IBPluginDependency</string>
 					<string>69.IBPluginDependency</string>
@@ -5034,9 +5089,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{62, 223}, {820, 383}}</string>
+					<string>{{58, 282}, {820, 383}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{62, 223}, {820, 383}}</string>
+					<string>{{58, 282}, {820, 383}}</string>
 					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5220,6 +5275,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -5238,7 +5295,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">664</int>
+			<int key="maxID">671</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5309,6 +5366,7 @@
 							<string>prependDomainNameCheckboxWasClicked:</string>
 							<string>reconnectOnWakeFromSleepCheckboxWasClicked:</string>
 							<string>reconnectWhenUserSwitchesInCheckboxWasClicked:</string>
+							<string>resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:</string>
 							<string>routeAllTrafficThroughVpnCheckboxWasClicked:</string>
 							<string>scanConfigurationFileCheckboxWasClicked:</string>
 							<string>showSettingsSheet:</string>
@@ -5318,6 +5376,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -5383,6 +5442,7 @@
 							<string>reconnectOnWakeFromSleepCheckbox</string>
 							<string>reconnectWhenUserSwitchesInCheckbox</string>
 							<string>removeNamedCredentialsButton</string>
+							<string>resetPrimaryInterfaceAfterDisconnectCheckbox</string>
 							<string>routeAllTrafficThroughVpnCheckbox</string>
 							<string>scanConfigurationFileCheckbox</string>
 							<string>searchDomainArrayController</string>
@@ -5445,6 +5505,7 @@
 							<string>NSPopUpButton</string>
 							<string>NSArrayController</string>
 							<string>NSPopUpButton</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>

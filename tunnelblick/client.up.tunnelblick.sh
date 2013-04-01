@@ -546,6 +546,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		d.add IgnoreOptionFlags     "${ARG_IGNORE_OPTION_FLAGS}"
         d.add IsTapInterface        "${ARG_TAP}"
         d.add FlushDNSCache         "${ARG_FLUSH_DNS_CACHE}"
+        d.add ResetPrimaryInterface "${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT}"
         d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
 		d.add bAlsoUsingSetupKeys   "${bAlsoUsingSetupKeys}"
         d.add TapDeviceHasBeenSetNone "false"
@@ -1013,6 +1014,7 @@ ARG_RESTORE_ON_WINS_RESET="false"
 ARG_TAP="false"
 ARG_PREPEND_DOMAIN_NAME="false"
 ARG_FLUSH_DNS_CACHE="false"
+ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="false"
 ARG_IGNORE_OPTION_FLAGS=""
 
 while [ {$#} ] ; do
@@ -1034,6 +1036,9 @@ while [ {$#} ] ; do
     elif [ "$1" = "-f" ] ; then
         ARG_FLUSH_DNS_CACHE="true"
         shift
+    elif [ "$1" = "-r" ] ; then
+        ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="true"
+        shift
 	elif [ "${1:0:2}" = "-i" ] ; then
 		ARG_IGNORE_OPTION_FLAGS="${1}"
 		shift
@@ -1046,7 +1051,7 @@ while [ {$#} ] ; do
 	fi
 done
 
-readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_IGNORE_OPTION_FLAGS
+readonly ARG_MONITOR_NETWORK_CONFIGURATION ARG_RESTORE_ON_DNS_RESET ARG_RESTORE_ON_WINS_RESET ARG_TAP ARG_PREPEND_DOMAIN_NAME ARG_FLUSH_DNS_CACHE ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT ARG_IGNORE_OPTION_FLAGS
 
 # Note: The script log path name is constructed from the path of the regular config file, not the shadow copy
 # if the config is shadow copy, e.g. /Library/Application Support/Tunnelblick/Users/Jonathan/Folder/Subfolder/config.ovpn

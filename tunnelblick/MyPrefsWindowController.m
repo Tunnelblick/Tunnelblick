@@ -394,6 +394,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController setupPrependDomainNameCheckbox];
 	[settingsSheetWindowController setupFlushDNSCheckbox];
     [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
+    [settingsSheetWindowController setupResetPrimaryInterfaceAfterDisconnectCheckbox];
     [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
 }
 
@@ -1952,6 +1953,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [settingsSheetWindowController setupPrependDomainNameCheckbox];
 		[settingsSheetWindowController setupFlushDNSCheckbox];
         [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
+        [settingsSheetWindowController setupResetPrimaryInterfaceAfterDisconnectCheckbox];
         [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
     }
 }
