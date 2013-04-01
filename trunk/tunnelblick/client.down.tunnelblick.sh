@@ -99,6 +99,7 @@ SCRIPT_LOG_FILE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ScriptLo
 # Don't need: ARG_IGNORE_OPTION_FLAGS="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IgnoreOptionFlags :' | sed -e 's/^.*: //g')"
 ARG_TAP="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*IsTapInterface :' | sed -e 's/^.*: //g')"
 ARG_FLUSH_DNS_CACHE="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*FlushDNSCache :' | sed -e 's/^.*: //g')"
+ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*ResetPrimaryInterface :' | sed -e 's/^.*: //g')"
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
 bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
 bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
@@ -232,5 +233,27 @@ scutil <<-EOF
 	remove State:/Network/OpenVPN
 	quit
 EOF
+
+if ${ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT} ; then
+
+    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
+    PINTERFACE="$( scutil <<-EOF |
+    open
+    show State:/Network/Global/IPv4
+    quit
+EOF
+    grep PrimaryInterface | sed -e 's/.*PrimaryInterface : //'
+)"
+    set -e # resume abort on error
+
+    if [ "${PINTERFACE}" != "" ] ; then
+        logMessage "Resetting primary interface '${PINTERFACE}'..."
+        /sbin/ifconfig "${PINTERFACE}" down
+        /sbin/ifconfig "${PINTERFACE}" up
+    else
+        logMessage "Not resetting primary interface because it cannot be found."
+    fi
+
+fi
 
 exit 0

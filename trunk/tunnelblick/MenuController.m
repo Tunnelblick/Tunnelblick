@@ -396,6 +396,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                       @"-doNotDisconnectOnFastUserSwitch",
                                       @"-doNotReconnectOnFastUserSwitch",
                                       @"-doNotReconnectOnWakeFromSleep",
+                                      @"-resetPrimaryInterfaceAfterDisconnect",
                                       @"-routeAllTrafficThroughVpn",
                                       @"-doNotFlushCache",
                                       @"-useDownRootPlugin",

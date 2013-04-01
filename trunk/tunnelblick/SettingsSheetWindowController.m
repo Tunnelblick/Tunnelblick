@@ -206,6 +206,12 @@ extern TBUserDefaults       * gTbDefaults;
                inverted: YES];
 }
 
+- (void) setupResetPrimaryInterfaceAfterDisconnectCheckbox {
+    [self setupCheckbox: resetPrimaryInterfaceAfterDisconnectCheckbox
+                    key: @"-resetPrimaryInterfaceAfterDisconnect"
+               inverted: NO];
+}
+
 - (void) setupRouteAllTrafficThroughVpnCheckbox {
     [self setupCheckbox: routeAllTrafficThroughVpnCheckbox
                     key: @"-routeAllTrafficThroughVpn"
@@ -335,6 +341,7 @@ extern TBUserDefaults       * gTbDefaults;
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
     [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
+    [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN", @"Checkbox name")];
     
     
@@ -445,6 +452,8 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupFlushDNSCheckbox];
     
     [self setupReconnectOnWakeFromSleepCheckbox];
+    
+    [self setupResetPrimaryInterfaceAfterDisconnectCheckbox];
     
     [self setupRouteAllTrafficThroughVpnCheckbox];
     
@@ -813,6 +822,13 @@ extern TBUserDefaults       * gTbDefaults;
     [self changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
                                to: ([sender state] == NSOnState)
                          inverted: YES];
+}
+
+
+-(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:(id)sender {
+    [self changeBooleanPreference: @"-resetPrimaryInterfaceAfterDisconnect"
+                               to: ([sender state] == NSOnState)
+                         inverted: NO];
 }
 
 

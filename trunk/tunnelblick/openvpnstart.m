@@ -163,16 +163,17 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "noMonitor  is 0 to monitor the connection for interface configuration changes\n"
             "           or 1 to not monitor the connection for interface configuration changes\n\n"
             
-            "bitMask    contains a mask: bit 0 is 1 to unload/load net.tunnelblick.tun (bit 0 is the lowest ordered bit)\n"
-            "                            bit 1 is 1 to unload/load net.tunnelblick.tap\n"
-            "                            bit 2 is 1 to unload foo.tun\n"
-            "                            bit 3 is 1 to unload foo.tap\n"
-            "                            bit 4 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
-            "                            bit 5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
-            "                            bit 6 is 1 to indicate a TAP connection is being made; 0 to indicate a TUN connection is being made\n"
-            "                            bit 7 is 1 to indicate the domain name should be prepended to the search domains if search domains are not set manually\n"
-            "                            bit 8 is 1 to indicate the DNS cache should be flushed after each connection or disconnection\n"
-            "                            bit 9 is 1 to indicate the 'redirect-gateway def1' option should be passed to OpenVPN\n"
+            "bitMask    contains a mask: bit  0 is 1 to unload/load net.tunnelblick.tun (bit 0 is the lowest ordered bit)\n"
+            "                            bit  1 is 1 to unload/load net.tunnelblick.tap\n"
+            "                            bit  2 is 1 to unload foo.tun\n"
+            "                            bit  3 is 1 to unload foo.tap\n"
+            "                            bit  4 is 1 to restore settings on a reset of DNS  to pre-VPN settings (restarts connection otherwise)\n"
+            "                            bit  5 is 1 to restore settings on a reset of WINS to pre-VPN settings (restarts connection otherwise)\n"
+            "                            bit  6 is 1 to indicate a TAP connection is being made; 0 to indicate a TUN connection is being made\n"
+            "                            bit  7 is 1 to indicate the domain name should be prepended to the search domains if search domains are not set manually\n"
+            "                            bit  8 is 1 to indicate the DNS cache should be flushed after each connection or disconnection\n"
+            "                            bit  9 is 1 to indicate the 'redirect-gateway def1' option should be passed to OpenVPN\n"
+            "                            bit 10 is 1 to indicate the primary interface should be reset after disconnect (via ifconfig up; ifconfig down\n"
             "                            Note: Bits 2 and 3 are ignored by the start subcommand (for which foo.tun and foo.tap are unloaded only as needed)\n\n"
 
             "leasewatchOptions is a string containing characters indicating options for leasewatch.\n\n"
@@ -2051,6 +2052,10 @@ int startVPN(NSString * configFile,
         
         if (  (bitMask & OPENVPNSTART_FLUSH_DNS_CACHE) != 0  ) {
             [scriptOptions appendString: @" -f"];
+        }
+        
+        if (  (bitMask & OPENVPNSTART_RESET_PRIMARY_INTERFACE) != 0  ) {
+            [scriptOptions appendString: @" -r"];
         }
         
         if (  [leasewatchOptions length] > 2  ) {
