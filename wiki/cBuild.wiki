@@ -24,7 +24,7 @@ For tips on building Tunnelblick on Lion (OS X 10.7.x), see [#BUILDING_ON_LION B
 
 (Prior to Tunnelblick source code revision 232, you needed to be running Leopard and Xcode 3.1.1 or above to build Tunnelblick. See [#BUILDING_ON_LEOPARD "Building on Leopard"].)
 
-Second, you must download and install Xcode 3.2.2 if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode.app", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is version 3.2.2.) If you don't have Xcode, download the version for Mac-only development from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "XcodeTools.mpkg" and following the instructions.
+Second, you must download and install Xcode 3.2.2 if it isn't already installed on your computer. (To determine if it is already installed, use Spotlight to search for "Xcode.app", start it, and check the version number. Start Xcode and click "Xcode", then "About Xcode" and make sure it is version 3.2.2.) If you don't have Xcode, download the version for Mac-only development from http://developer.apple.com/technology/xcode.html. (A free ADC membership is required for the download.) It downloads as a huge - about 800MB(!) - disk image (.dmg) file. Install it, as usual, by double-clicking the .dmg and then double-clicking "!XcodeTools.mpkg" and following the instructions.
 
 Xcode versions later than 3.2.2 may be used, but they do not generate code for PowerPC processors.
 
