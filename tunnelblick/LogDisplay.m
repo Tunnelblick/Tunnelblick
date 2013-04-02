@@ -365,6 +365,11 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     return;
 }
 
+-(void) outputLogFiles {
+	[self openvpnLogChanged];
+	[self scriptLogChanged];
+}
+
 // Does the initial load of the logs, inserting entries from them in the "correct" chronological order.
 //
 // The "correct" order is that all OpenVPN log entries for a particular date/time come before

@@ -83,6 +83,7 @@
 
 -(void)             stopMonitoringLogFiles;
 
+-(void)				outputLogFiles;
 
 TBPROPERTY_READONLY(NSString *, openvpnLogPath)
 

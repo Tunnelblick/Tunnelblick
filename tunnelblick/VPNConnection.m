@@ -2797,6 +2797,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     if (  [newState isEqualToString: @"EXITING"]  ) {
         [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
+		[logDisplay outputLogFiles]; 
     }
     
     if (  newState != lastState  ) {
