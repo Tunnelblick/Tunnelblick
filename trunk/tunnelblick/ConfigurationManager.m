@@ -608,6 +608,68 @@ enum state_t {                      // These are the "states" of the guideState 
     return nil;
 }
 
+-(BOOL) fileReferencesInConfigAreOk: (NSString *) cfgPath {
+    
+    NSData * data = [gFileMgr contentsAtPath: cfgPath];
+    NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    
+    NSArray * optionsWithPath = [NSArray arrayWithObjects:
+                                 @"dh",
+                                 @"ca",
+                                 @"capath",
+                                 @"cert",
+                                 @"extra-certs",
+                                 @"key",
+                                 @"pkcs12",
+                                 @"crl-verify",
+                                 @"tls-auth",
+                                 @"secret",
+                                 @"replay-persist",
+                                 @"askpass",
+                                 @"management-user-password-file",
+                                 @"tls-export-cert",
+                                 @"client-connect",
+                                 @"client-disconnect",
+                                 @"--auth-user-pass-verify",
+                                 nil];
+    
+    NSString * option;
+    NSEnumerator * e = [optionsWithPath objectEnumerator];
+	NSString * tblkName = [[[[cfgPath stringByDeletingLastPathComponent]
+							 stringByDeletingLastPathComponent]
+							stringByDeletingLastPathComponent]
+						   lastPathComponent];
+	
+    while (  (option = [e nextObject])  ) {
+        NSString * argument = [self parseString: cfgContents forOption: option];
+        if (  argument  ) {
+            if (   ([argument rangeOfString: @".."].length != 0)
+                || ([argument rangeOfString: @"/"].length != 0)  ) {
+				NSLog(@"The configuration file in %@ has a '%@' option with argument '%@'. Only a filename is allowed as an argument.",
+					  tblkName, option, argument);
+					  TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                                [NSString stringWithFormat:
+                                 NSLocalizedString(@"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path.", "Window text"),
+                                 tblkName, option, argument],
+                                nil, nil, nil);
+                return FALSE;
+            }
+            if (  ! [gFileMgr fileExistsAtPath: [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: argument]]  ) {
+				NSLog(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
+					  tblkName, option, argument);
+				TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                                [NSString stringWithFormat:
+                                 NSLocalizedString(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).", "Window text"),
+                                 tblkName, option, argument],
+                                nil, nil, nil);
+                return FALSE;
+            }
+        }
+    }
+    
+    return TRUE;
+}
+
 -(void) openDotTblkPackages: (NSArray *) filePaths
                   usingAuth: (AuthorizationRef) authRef
     skipConfirmationMessage: (BOOL) skipConfirmMsg
@@ -1049,6 +1111,14 @@ enum state_t {                      // These are the "states" of the guideState 
     if (   pathToConfigFile
         && ( ! pkgDoUninstall)
         && [self isSampleConfigurationAtPath: pathToConfigFile]  ) {
+        pkgIsOK = FALSE;            // have already informed the user of the problem
+    }
+    
+    // **************************************************************************************
+    // Make sure the .tblk contains all key/cert/etc. files that are in the configuration file
+    if (   pathToConfigFile
+        && ( ! pkgDoUninstall)
+        && ( ! [self fileReferencesInConfigAreOk: pathToConfigFile] )  ) {
         pkgIsOK = FALSE;            // have already informed the user of the problem
     }
     
