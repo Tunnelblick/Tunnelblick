@@ -37,11 +37,6 @@ and press the "return" key. This will download the latest version of the Tunnelb
 
 To get an older version of the source code (for example, for a release), see [cGettingSource Getting source code for Tunnelblick].
 
-<font color="red">Note:</font> As of 2012-04-03, the current trunk (the 3.3beta source code) works only on 10.5 - 10.8, not on 10.4. That may change in the future.) If you need a version that works on OS X 10.4, you must build from the 3.2 branch. To do that, type
-http://tunnelblick.googlecode.com/svn/3.2/ tunnelblick-read-only
-instead of
-http://tunnelblick.googlecode.com/svn/trunk/ tunnelblick-read-only
-
 ==SET XCODE TO CREATE A "RELEASE"==
 Tunnelblick versions after 3.2beta10 can be built as a "Signed Release", an "Unsigned Release", or as "Debug". Under most circumstances, a "Signed Release" should be built. An "Unsigned Release" should be built and the code signed manually if a Deployed version of Tunnelblick will be created from the build result and users will be able to save username/password/passphrase in the Keychain. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
 
