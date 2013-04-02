@@ -1,5 +1,5 @@
 #summary How to build Tunnelblick from the source code
-Sb
+#sidebar cSb
 
 *HOW TO BUILD TUNNELBLICK FROM THE SOURCE CODE*
 
