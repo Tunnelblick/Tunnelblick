@@ -749,9 +749,9 @@ enum state_t {                      // These are the "states" of the guideState 
                             [targetList addObject: [dest objectAtIndex: 1]];
                         } else if (  [dest count] == 1  ) {
                             [deleteList addObject: [dest objectAtIndex: 0]];
-                        } else {
+                        } else if (  [dest count] > 2  ) {
                             NSLog(@"Invalid dest = %@ for .tblk %@", dest, fullInnerPath);
-                        }
+                        } // Ignore empty dest -- user cancelled
                         
                     } else {
                         [errList addObject: path];
@@ -769,9 +769,9 @@ enum state_t {                      // These are the "states" of the guideState 
                     [targetList addObject: [dest objectAtIndex: 1]];
                 } else if (  [dest count] == 1  ) {
                     [deleteList addObject: [dest objectAtIndex: 0]];
-                } else {
+                } else if (  [dest count] > 2  ) {
                     NSLog(@"Invalid dest = %@ for .tblk %@", dest, path);
-                }
+                } // (ignore empty dest -- user cancelled)
             } else {
                 [errList addObject: path];
             }
@@ -1544,11 +1544,37 @@ enum state_t {                      // These are the "states" of the guideState 
         } else {
             newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
         }
-
-        if (  ! [gFileMgr tbCopyPath: oldPath toPath: newPath handler: nil]  ) {
-            NSLog(@"Unable to copy %@ to %@", oldPath, newPath);
-            [pkgList release];
-            return nil;
+        
+        // Filter CR characters out of any script files
+        BOOL doCopy = TRUE;
+        if (  [[oldPath pathExtension] isEqualToString: @"sh"]  ) {
+            NSData * data = [gFileMgr contentsAtPath: oldPath];
+            if (  data  ) {
+                NSString * scriptContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
+                if (  [scriptContents rangeOfString: @"\r"].length != 0  ) {
+                    NSLog(@"Script %@ has a CR characters which are being removed in the installed copy", oldPath);
+                    doCopy = FALSE;
+                    NSMutableString * ms = [[scriptContents mutableCopy] autorelease];
+					[ms replaceOccurrencesOfString: @"\r"
+										withString: @""
+										   options: 0
+											 range: NSMakeRange(0, [scriptContents length])];
+					data = [ms dataUsingEncoding: NSASCIIStringEncoding];
+                    if (  ! [gFileMgr createFileAtPath: newPath contents: data attributes: nil]  ) {
+                        NSLog(@"Unable to create file at %@", newPath);
+                        [pkgList release];
+                        return nil;
+                    }
+                }
+            }
+        }
+        
+        if (  doCopy  ) {
+            if (  ! [gFileMgr tbCopyPath: oldPath toPath: newPath handler: nil]  ) {
+                NSLog(@"Unable to copy %@ to %@", oldPath, newPath);
+                [pkgList release];
+                return nil;
+            }
         }
         
         if (  [[oldPath lastPathComponent] isEqualToString: @"config.ovpn"]) {

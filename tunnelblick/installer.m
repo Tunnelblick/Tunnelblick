@@ -761,7 +761,8 @@ int main(int argc, char *argv[])
         // Do the move or copy
         //
         // If   we MOVED OR COPIED TO PRIVATE
-        // Then create a shadow copy of the target and secure it
+        // Then secure the target
+		//      create a shadow copy of the target and secure the shadow copy
         // Else secure the target
         //
         // If   we MOVED FROM PRIVATE
@@ -770,7 +771,10 @@ int main(int argc, char *argv[])
         safeCopyOrMovePathToPath(sourcePath, targetPath, moveNotCopy);
         
 		NSString * lastPartOfTarget = lastPartOfPath(targetPath);
+		
         if (   [targetPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+			secureOneFolder(targetPath, YES, getuid());
+			
             NSString * shadowTargetPath   = [NSString stringWithFormat: @"%@/%@/%@",
                                              L_AS_T_USERS,
                                              NSUserName(),
@@ -995,17 +999,19 @@ void errorExit()
 //**************************************************************************************************************************
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
 {
-    // Copy the file or package to a ".partial" file/folder first, then rename it
+    // Copy the file or package to a ".temp" file/folder first, then rename it
     // This avoids a race condition: folder change handling code runs while copy is being made, so it sometimes can
     // see the .tblk (which has been copied) but not the config.ovpn (which hasn't been copied yet), so it complains.
-    NSString * dotPartialPath = [toPath stringByAppendingPathExtension: @"partial"];
-    errorExitIfAnySymlinkInPath(dotPartialPath, 3);
-    [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
-    if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotPartialPath handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotPartialPath]);
-        [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
+    NSString * dotTempPath = [toPath stringByAppendingPathExtension: @"temp"];
+    errorExitIfAnySymlinkInPath(dotTempPath, 3);
+    [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
+    if (  ! [gFileMgr tbCopyPath: fromPath toPath: dotTempPath handler: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Failed to copy %@ to %@", fromPath, dotTempPath]);
+        [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
         errorExit();
-    }
+    } else {
+		appendLog([NSString stringWithFormat: @"Copied %@ to %@", fromPath, dotTempPath]);
+	}
     
     // Now, if we are doing a move, delete the original file, to avoid a similar race condition that will cause a complaint
     // about duplicate configuration names.
@@ -1018,12 +1024,12 @@ void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveN
     
     errorExitIfAnySymlinkInPath(toPath, 5);
     [gFileMgr tbRemoveFileAtPath:toPath handler: nil];
-    if (  ! [gFileMgr tbMovePath: dotPartialPath toPath: toPath handler: nil]  ) {
-        appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@", dotPartialPath, toPath]);
-        [gFileMgr tbRemoveFileAtPath:dotPartialPath handler: nil];
+    if (  ! [gFileMgr tbMovePath: dotTempPath toPath: toPath handler: nil]  ) {
+        appendLog([NSString stringWithFormat: @"Failed to rename %@ to %@", dotTempPath, toPath]);
+        [gFileMgr tbRemoveFileAtPath:dotTempPath handler: nil];
         errorExit();
     } else {
-        appendLog([NSString stringWithFormat: @"%@ %@ to %@", (moveNotCopy ? @"Moved" : @"Copied"), fromPath, toPath]);
+        appendLog([NSString stringWithFormat: @"%@ %@ to %@", (moveNotCopy ? @"Moved" : @"Copied"), dotTempPath, toPath]);
     }
 }
 
