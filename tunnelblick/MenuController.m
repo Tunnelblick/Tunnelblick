@@ -544,6 +544,11 @@ BOOL checkOwnedByRootWheel(NSString * path);
             }
         }
         
+        gMaximumLogSize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
+                                                 default: DEFAULT_LOG_SIZE_BYTES
+                                                     min: MIN_LOG_SIZE_BYTES
+                                                     max: MAX_LOG_SIZE_BYTES];
+        
 		id obj;
         if (   (obj = [gTbDefaults objectForKey: @"delayToShowStatistics"])
             && [obj respondsToSelector: @selector(doubleValue)]  ) {

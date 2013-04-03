@@ -2108,12 +2108,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     // Select the log size
     
-    unsigned prefSize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
-                                               default: DEFAULT_LOG_SIZE_BYTES
-                                                   min: MIN_LOG_SIZE_BYTES
-                                                   max: MAX_LOG_SIZE_BYTES];
-    
-
+    unsigned prefSize = gMaximumLogSize;
     
     NSUInteger logSizeIx = UINT_MAX;
     ac = [generalPrefsView maximumLogSizeArrayController];
@@ -2341,7 +2336,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             [gTbDefaults setObject: newPref forKey: @"maxLogDisplaySize"];
             
             // Set the value we use
-            gMaximumLogSize = (unsigned)[newPref intValue];
+            gMaximumLogSize = [newPref unsignedIntValue];
         }
     }
 }
