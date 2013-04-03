@@ -284,6 +284,9 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 	[connectButton    setTitle: localizeNonLiteral(@"Connect",   @"Button")];
 	[disconnectButton setTitle: localizeNonLiteral(@"Disconnect", @"Button")];
 	
+	// Remember frame of disconnect button so we can shift it left or right
+	CGFloat oldDisconnectWidth = [disconnectButton frame].size.width;
+	
 	// Size both buttons to the max size of either button
 	[connectButton    sizeToFit];
 	[disconnectButton sizeToFit];
@@ -292,11 +295,15 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
 	if (  cWidth > dWidth  ) {
 		NSRect f = [disconnectButton frame];
 		f.size.width = cWidth;
+		f.origin.x = f.origin.x + (oldDisconnectWidth - cWidth);
 		[disconnectButton setFrame: f];
 	} else if (  dWidth > cWidth) {
 		NSRect f = [connectButton frame];
 		f.size.width = dWidth;
 		[connectButton setFrame: f];
+		f = [disconnectButton frame];
+		f.origin.x = f.origin.x + (oldDisconnectWidth - dWidth);
+		[disconnectButton setFrame: f];
 	}
 	
     [self setSizeAndPosition];
