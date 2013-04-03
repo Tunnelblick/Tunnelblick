@@ -52,8 +52,6 @@
     
     NSString      * lastEntryTime;                  // Date/time of last entry in the log window
     
-    unsigned        maxLogDisplaySize;              // Maximum number of bytes that we display in the log window
-    
     BOOL            logsHaveBeenLoaded;             // Causes the initial load of the logs
     
     BOOL            ignoreChangeRequests;           // We use this flag and mutex to insure that when we ask to ignore change requests

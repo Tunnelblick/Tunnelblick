@@ -34,6 +34,7 @@
 extern NSFileManager        * gFileMgr;
 extern TBUserDefaults       * gTbDefaults;
 extern BOOL                   gShuttingDownWorkspace;
+extern unsigned               gMaximumLogSize;
 
 @interface LogDisplay() // PRIVATE METHODS
 
@@ -144,11 +145,6 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
             NSLog(@"logDisplay:initWithConfigurationPath: pthread_mutex_init( &makingChangesMutex ) failed; status = %ld", (long) status);
             return nil;
         }
-        
-        maxLogDisplaySize = [gTbDefaults unsignedIntForKey: @"maxLogDisplaySize"
-                                                   default: DEFAULT_LOG_SIZE_BYTES
-                                                       min: MIN_LOG_SIZE_BYTES
-                                                       max: MAX_LOG_SIZE_BYTES];
         
         tbLog = [[NSMutableString alloc] init];
     }
@@ -315,7 +311,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         
         BOOL skipToStartOfLineInOpenvpnLog = FALSE;
-        unsigned long long amountToExamine = maxLogDisplaySize;
+        unsigned long long amountToExamine = gMaximumLogSize;
         if (   ( fileSize > amountToExamine )
             && ( (fileSize - openvpnLogPosition) > amountToExamine)  ) {
             openvpnLogPosition = fileSize - amountToExamine;
@@ -856,7 +852,7 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    if (  [[self logStorage] length] > maxLogDisplaySize  ) {
+    if (  [[self logStorage] length] > gMaximumLogSize  ) {
         [self pruneLog];
     }
 }
