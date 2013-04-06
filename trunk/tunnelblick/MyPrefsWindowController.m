@@ -596,19 +596,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) updateConnectionStatusAndTime
 {
-    VPNConnection* newConnection = [self selectedConnection];
-    NSString * state = [newConnection state];
-    NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
-    if (  [state isEqualToString: @"CONNECTED"]  ) {
-        NSString * time = [newConnection connectTimeString];
-        [[configurationsPrefsView configurationStatusTFC] setTitle: [NSString stringWithFormat: @"%@%@",
-                                           localizedStatus, time]];
-    } else {
-        [[configurationsPrefsView configurationStatusTFC] setTitle: localizedStatus];
-    }
-    
-    [[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
-    
+	[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
     [settingsSheetWindowController updateConnectionStatusAndTime];
 }
 
@@ -738,6 +726,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     [self validateConnectAndDisconnectButtonsForConnection: connection];
     
+	[self updateConnectionStatusAndTime];
+	
     if (  connection  ) {
         
         // Left split view
@@ -775,10 +765,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self validateWhenToConnect: [self selectedConnection]];
         
     } else {
-        
-        [[configurationsPrefsView configurationNameTFC]   setTitle: @""];
-        [[configurationsPrefsView configurationStatusTFC] setTitle: @""];
-        
+
         [[configurationsPrefsView removeConfigurationButton]            setEnabled: NO];
         [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: NO];
         
@@ -2077,14 +2064,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         selectedLeftNavListIndex = newValue;
         [[configurationsPrefsView leftNavTableView] selectRowIndexes: [NSIndexSet indexSetWithIndex: (unsigned) newValue] byExtendingSelection: NO];
         
-        VPNConnection* newConnection = [self selectedConnection];
+		// Set name and status of the new connection in the window title.
+		VPNConnection* newConnection = [self selectedConnection];
         NSString * dispNm = [newConnection displayName];
-        [[configurationsPrefsView configurationNameTFC] setTitle: [NSString stringWithFormat: @"%@:", dispNm]];
-        [[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
-        
-        NSString * status = localizeNonLiteral([newConnection state], @"Connection status");
-        [[configurationsPrefsView configurationStatusTFC] setTitle: status];
-        
+		
+		
         [self setupSetNameserver:         newConnection];
         [self setupNetworkMonitoring:     newConnection];
         [self setupShowOnTunnelblickMenu: newConnection];

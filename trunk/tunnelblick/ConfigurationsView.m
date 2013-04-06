@@ -174,9 +174,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          editOpenVPNConfigurationF
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          showOpenvpnLogMenuItem)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMenuItem *,          removeCredentialsMenuItem)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     configurationNameTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,     configurationStatusTFC)
-
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            configurationsHelpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            disconnectButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            connectButton)

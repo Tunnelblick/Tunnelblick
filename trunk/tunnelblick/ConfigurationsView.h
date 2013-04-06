@@ -51,9 +51,6 @@
     IBOutlet NSMenuItem          * showOpenvpnLogMenuItem;
     IBOutlet NSMenuItem          * removeCredentialsMenuItem;
     
-    IBOutlet NSTextFieldCell     * configurationNameTFC;
-    IBOutlet NSTextFieldCell     * configurationStatusTFC;
-    
     IBOutlet NSButton            * configurationsHelpButton;
     IBOutlet NSButton            * disconnectButton;
     IBOutlet NSButton            * connectButton;
@@ -122,9 +119,6 @@ TBPROPERTY_READONLY(NSMenuItem *,          revertToShadowMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          editOpenVPNConfigurationFileMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          showOpenvpnLogMenuItem)
 TBPROPERTY_READONLY(NSMenuItem *,          removeCredentialsMenuItem)
-
-TBPROPERTY_READONLY(NSTextFieldCell *,     configurationNameTFC)
-TBPROPERTY_READONLY(NSTextFieldCell *,     configurationStatusTFC)
 
 TBPROPERTY_READONLY(NSButton *,            configurationsHelpButton)
 TBPROPERTY_READONLY(NSButton *,            disconnectButton)
