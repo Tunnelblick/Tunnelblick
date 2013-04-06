@@ -267,6 +267,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
+								@"doNotLaunchOnLogin",
                                 @"onlyAdminsCanUnprotectConfigurationFiles",
                                 @"standardApplicationPath",
                                 @"doNotCreateLaunchTunnelblickLinkinConfigurations",
@@ -311,6 +312,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"doNotShowSuggestionOrBugReportMenuItem",
                                 @"doNotShowAddConfigurationMenuItem",
                                 @"doNotShowSplashScreen",
+								@"doNotShowOutlineViewOfConfigurations",
                                 @"showConnectedDurations",
                                 @"showStatusWindow",
                                 
@@ -941,7 +943,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
 {
 	(void) sender;
 	
-    terminatingAtUserRequest = TRUE;
     [self terminateBecause: terminatingBecauseOfQuit];
 }
 
@@ -3182,8 +3183,10 @@ static void signal_handler(int signalNumber)
         }
     }
     
-    [NSApp setAutoLaunchOnLogin: YES];
-
+	if (  ! [gTbDefaults boolForKey: @"doNotLaunchOnLogin"]  ) {
+		[NSApp setAutoLaunchOnLogin: YES];
+	}
+	
     unsigned kbsIx = [gTbDefaults unsignedIntForKey: @"keyboardShortcutIndex"
                                             default: 1 /* F1     */
                                                 min: 0 /* (none) */
@@ -4916,7 +4919,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) sender;
 	
 	NSArray * reasons = [NSArray arrayWithObjects:
-						 @"for unknown reason",
+						 @"for unknown reason, probably Command-Q",
 						 @"because of logout",
 						 @"because of shutdown",
 						 @"because of restart",

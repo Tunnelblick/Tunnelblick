@@ -31,7 +31,7 @@
 @class VPNConnection;
 @class SettingsSheetWindowController;
 
-@interface MyPrefsWindowController : DBPrefsWindowController <NSTextStorageDelegate, NSWindowDelegate, NSTabViewDelegate>
+@interface MyPrefsWindowController : DBPrefsWindowController <NSTextStorageDelegate, NSWindowDelegate, NSTabViewDelegate, NSTableViewDelegate>
 {   
     NSString                      * currentViewName;
     NSRect                          currentFrame;
@@ -42,6 +42,10 @@
     IBOutlet InfoView             * infoPrefsView;
     IBOutlet UtilitiesView        * utilitiesPrefsView;
     
+	NSSize                          windowContentMinSize;	// Saved when switch FROM Configurations view
+	NSSize                          windowContentMaxSize;   // And restored when switch back
+	//												        // (In other views, set min = max so can't change size)
+	
     // For ConfigurationsView
     NSString                      * previouslySelectedNameOnLeftNavList;
     
@@ -100,6 +104,8 @@
 // Methods for ConfigurationsView
 
 - (VPNConnection*) selectedConnection;
+
+-(void) setSelectedLeftNavListIndexFromDisplayName: (NSString *) displayName;
 
 -(IBAction) addConfigurationButtonWasClicked:         (id)  sender;
 -(IBAction) removeConfigurationButtonWasClicked:      (id)  sender;

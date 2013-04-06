@@ -165,7 +165,11 @@
 		B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
 		B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB42170C77A400BCA243 /* LeftNavDataSource.m */; };
+		B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB44170C77A400BCA243 /* LeftNavItem.m */; };
+		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
+		B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F888451710704700978A35 /* Preferences-pre-10.6.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -449,8 +453,15 @@
 		B891E53316F60F4700627008 /* tunnelblick-uninstaller.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "tunnelblick-uninstaller.sh"; sourceTree = "<group>"; };
 		B891E56116F6164E00627008 /* tunnelblick-uninstaller.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = "tunnelblick-uninstaller.applescript"; sourceTree = "<group>"; };
 		B891E57416F61A3800627008 /* tunnelblick-uninstaller.Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "tunnelblick-uninstaller.Info.plist"; sourceTree = "<group>"; };
+		B8C9FB41170C77A400BCA243 /* LeftNavDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftNavDataSource.h; sourceTree = "<group>"; };
+		B8C9FB42170C77A400BCA243 /* LeftNavDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftNavDataSource.m; sourceTree = "<group>"; };
+		B8C9FB43170C77A400BCA243 /* LeftNavItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftNavItem.h; sourceTree = "<group>"; };
+		B8C9FB44170C77A400BCA243 /* LeftNavItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftNavItem.m; sourceTree = "<group>"; };
+		B8C9FB45170C77A400BCA243 /* LeftNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftNavViewController.h; sourceTree = "<group>"; };
+		B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftNavViewController.m; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
+		B8F888451710704700978A35 /* Preferences-pre-10.6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-pre-10.6.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -519,57 +530,21 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				63DAFD5311CBA9F4002F9F91 /* defines.h */,
-				B8F6264A1641C8C700943C59 /* easyRsa.h */,
-				B8F6264B1641C8C700943C59 /* easyRsa.m */,
-				6185E73E0E76045D0009C2FD /* helper.h */,
-				6185E73F0E76045D0009C2FD /* helper.m */,
-				B8045A07161EF26700609C98 /* sharedRoutines.h */,
-				B8045A08161EF26700609C98 /* sharedRoutines.m */,
-				635C80441300353000DB27AE /* ApplescriptCommands.h */,
-				635C80451300353000DB27AE /* ApplescriptCommands.m */,
-				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
-				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
-				B87F82901612964D008E0EB1 /* ConfigurationConverter.h */,
-				B87F82911612964D008E0EB1 /* ConfigurationConverter.m */,
-				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
-				633DF4581312B13100B8606C /* ConfigurationManager.m */,
-				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
-				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
-				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
-				63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */,
-				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
-				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
-				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
-				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
+				B8407882170CE4E10002B941 /* Authorization & Keychain */,
+				B840787F170CE4130002B941 /* Common */,
+				B8407881170CE4B00002B941 /* Class Extensions & Subclasses */,
+				B8407880170CE44C0002B941 /* Configurations */,
+				B8407883170CE5400002B941 /* EasyRSA & AppleScript */,
+				63ABFE901349E370003DEB64 /* UI */,
+				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
+				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
+				63E56ED51384831C007E39AB /* VPNService */,
 				61BC4B690E2F9EBC00F24255 /* MenuController.h */,
 				61BC4B6A0E2F9EBC00F24255 /* MenuController.m */,
 				61BC4B6B0E2F9EBC00F24255 /* NetSocket.h */,
 				61BC4B6C0E2F9EBC00F24255 /* NetSocket.m */,
-				61BC4B6D0E2F9EBC00F24255 /* NetSocket+Text.h */,
-				61BC4B6E0E2F9EBC00F24255 /* NetSocket+Text.m */,
-				61BC4B6F0E2F9EBC00F24255 /* NSApplication+LoginItem.h */,
-				61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */,
-				61BC4B710E2F9EBC00F24255 /* NSApplication+NetworkNotifications.h */,
-				61BC4B720E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m */,
-				6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */,
-				6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */,
-				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
-				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
-				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
-				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
-				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
-				63DEC28F13B890F70063CE11 /* NSString+TB.m */,
-				6337527B101A1EBD00775AA2 /* TBTextView.h */,
-				6337527C101A1EBD00775AA2 /* TBTextView.m */,
-				638E695F1097725500587933 /* TBUserDefaults.h */,
-				638E69601097725500587933 /* TBUserDefaults.m */,
 				61BC4B650E2F9EBC00F24255 /* VPNConnection.h */,
 				61BC4B660E2F9EBC00F24255 /* VPNConnection.m */,
-				63E56ED51384831C007E39AB /* VPNService */,
-				63ABFE901349E370003DEB64 /* UI */,
-				61BC4B880E2F9EDA00F24255 /* UKKQueue */,
-				6311305E11041B89003435F1 /* UKLoginItemRegistry */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -710,18 +685,12 @@
 				635ECCF41378885600F67F8D /* DBPrefsWindowController.m */,
 				635ECCF8137888A800F67F8D /* MyPrefsWindowController.h */,
 				635ECCF9137888A800F67F8D /* MyPrefsWindowController.m */,
-				63490251139F9C6B00025BD5 /* ConfigurationsView.h */,
-				634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */,
-				635ECE5E1378EA1F00F67F8D /* GeneralView.h */,
-				635ECE5F1378EA1F00F67F8D /* GeneralView.m */,
-				635ECE611378EA4000F67F8D /* AppearanceView.h */,
-				635ECE621378EA4000F67F8D /* AppearanceView.m */,
-				635ECE6A1378EA7000F67F8D /* InfoView.h */,
-				635ECE6B1378EA7000F67F8D /* InfoView.m */,
-				63D39B4614F9860E002D1297 /* UtilitiesView.h */,
-				63D39B4714F9860E002D1297 /* UtilitiesView.m */,
-				6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */,
-				6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */,
+				B8407884170CE57D0002B941 /* Configurations */,
+				B8407885170CE5AE0002B941 /* Preferences */,
+				B8407886170CE5DD0002B941 /* Appearance */,
+				B8407887170CE5EE0002B941 /* Utilities */,
+				B8407888170CE6220002B941 /* Info */,
+				B8407889170CE6490002B941 /* Advanced */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -730,18 +699,12 @@
 			isa = PBXGroup;
 			children = (
 				635ECCF71378886E00F67F8D /* Preferences */,
-				63F0A8AF1507D13700526AF9 /* MainIconView.h */,
-				63F0A8B01507D13700526AF9 /* MainIconView.m */,
-				637A871713B74B81003C1871 /* SplashWindowController.h */,
-				637A871813B74B81003C1871 /* SplashWindowController.m */,
-				63ABFE9A1349E435003DEB64 /* LoginWindowController.h */,
-				63ABFE9B1349E435003DEB64 /* LoginWindowController.m */,
-				6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */,
-				6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */,
-				639A10FF132AC9D800754C2A /* StatusWindowController.h */,
-				639A10FE132AC9D800754C2A /* StatusWindowController.m */,
-				B85B5DBB15F2430900EDCF95 /* WelcomeController.h */,
-				B85B5DBC15F2430900EDCF95 /* WelcomeController.m */,
+				B840788A170CE6A20002B941 /* Main Icon */,
+				B840788B170CE6B60002B941 /* Splash Window */,
+				B840788C170CE6C90002B941 /* Login Window */,
+				B840788D170CE6DB0002B941 /* Passphrase Window */,
+				B840788E170CE6FF0002B941 /* Status Window */,
+				B840788F170CE7140002B941 /* Welcome Window */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -856,6 +819,7 @@
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
 				6388569F134B8056008DF8C1 /* PassphraseWindow.xib */,
 				635ECD061378B4A900F67F8D /* Preferences.xib */,
+				B8F888451710704700978A35 /* Preferences-pre-10.6.xib */,
 				6375FB4A1387F0E20034CB78 /* SettingsSheet.xib */,
 				637A871B13B74DFB003C1871 /* SplashWindow.xib */,
 				639A10EA132AC74B00754C2A /* StatusWindow.xib */,
@@ -863,6 +827,196 @@
 				63E56EB71384813C007E39AB /* VPNService xibs */,
 			);
 			name = xibs;
+			sourceTree = "<group>";
+		};
+		B840787F170CE4130002B941 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				63DAFD5311CBA9F4002F9F91 /* defines.h */,
+				6185E73E0E76045D0009C2FD /* helper.h */,
+				6185E73F0E76045D0009C2FD /* helper.m */,
+				B8045A07161EF26700609C98 /* sharedRoutines.h */,
+				B8045A08161EF26700609C98 /* sharedRoutines.m */,
+				638E695F1097725500587933 /* TBUserDefaults.h */,
+				638E69601097725500587933 /* TBUserDefaults.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		B8407880170CE44C0002B941 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				B87F82901612964D008E0EB1 /* ConfigurationConverter.h */,
+				B87F82911612964D008E0EB1 /* ConfigurationConverter.m */,
+				63E8427A117A147500529DE2 /* ConfigurationManager.h */,
+				633DF4581312B13100B8606C /* ConfigurationManager.m */,
+				B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */,
+				B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */,
+				63FB74EC1311D4BC002F4E7F /* ConfigurationUpdater.h */,
+				63FB74ED1311D4BC002F4E7F /* ConfigurationUpdater.m */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+		B8407881170CE4B00002B941 /* Class Extensions & Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				61BC4B6D0E2F9EBC00F24255 /* NetSocket+Text.h */,
+				61BC4B6E0E2F9EBC00F24255 /* NetSocket+Text.m */,
+				61BC4B6F0E2F9EBC00F24255 /* NSApplication+LoginItem.h */,
+				61BC4B700E2F9EBC00F24255 /* NSApplication+LoginItem.m */,
+				61BC4B710E2F9EBC00F24255 /* NSApplication+NetworkNotifications.h */,
+				61BC4B720E2F9EBC00F24255 /* NSApplication+NetworkNotifications.m */,
+				6305E5D610F7974200E30B11 /* NSApplication+SystemVersion.h */,
+				6305E5D710F7974200E30B11 /* NSApplication+SystemVersion.m */,
+				61BC4B730E2F9EBC00F24255 /* NSArray+cArray.h */,
+				61BC4B680E2F9EBC00F24255 /* NSArray+cArray.m */,
+				63F2AD9912AD5F1600826724 /* NSFileManager+TB.h */,
+				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
+				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
+				63DEC28F13B890F70063CE11 /* NSString+TB.m */,
+				6337527B101A1EBD00775AA2 /* TBTextView.h */,
+				6337527C101A1EBD00775AA2 /* TBTextView.m */,
+			);
+			name = "Class Extensions & Subclasses";
+			sourceTree = "<group>";
+		};
+		B8407882170CE4E10002B941 /* Authorization & Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				61BC4B760E2F9EBC00F24255 /* AuthAgent.h */,
+				61BC4B770E2F9EBC00F24255 /* AuthAgent.m */,
+				61BC4B750E2F9EBC00F24255 /* KeyChain.h */,
+				61BC4B740E2F9EBC00F24255 /* KeyChain.m */,
+			);
+			name = "Authorization & Keychain";
+			sourceTree = "<group>";
+		};
+		B8407883170CE5400002B941 /* EasyRSA & AppleScript */ = {
+			isa = PBXGroup;
+			children = (
+				B8F6264A1641C8C700943C59 /* easyRsa.h */,
+				B8F6264B1641C8C700943C59 /* easyRsa.m */,
+				635C80441300353000DB27AE /* ApplescriptCommands.h */,
+				635C80451300353000DB27AE /* ApplescriptCommands.m */,
+			);
+			name = "EasyRSA & AppleScript";
+			sourceTree = "<group>";
+		};
+		B8407884170CE57D0002B941 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				63490251139F9C6B00025BD5 /* ConfigurationsView.h */,
+				634DC4AF139F9BC600403DD3 /* ConfigurationsView.m */,
+				B8C9FB41170C77A400BCA243 /* LeftNavDataSource.h */,
+				B8C9FB42170C77A400BCA243 /* LeftNavDataSource.m */,
+				B8C9FB43170C77A400BCA243 /* LeftNavItem.h */,
+				B8C9FB44170C77A400BCA243 /* LeftNavItem.m */,
+				B8C9FB45170C77A400BCA243 /* LeftNavViewController.h */,
+				B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */,
+				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
+				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+		B8407885170CE5AE0002B941 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				635ECE5E1378EA1F00F67F8D /* GeneralView.h */,
+				635ECE5F1378EA1F00F67F8D /* GeneralView.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		B8407886170CE5DD0002B941 /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				635ECE611378EA4000F67F8D /* AppearanceView.h */,
+				635ECE621378EA4000F67F8D /* AppearanceView.m */,
+			);
+			name = Appearance;
+			sourceTree = "<group>";
+		};
+		B8407887170CE5EE0002B941 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				63D39B4614F9860E002D1297 /* UtilitiesView.h */,
+				63D39B4714F9860E002D1297 /* UtilitiesView.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		B8407888170CE6220002B941 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				635ECE6A1378EA7000F67F8D /* InfoView.h */,
+				635ECE6B1378EA7000F67F8D /* InfoView.m */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
+		B8407889170CE6490002B941 /* Advanced */ = {
+			isa = PBXGroup;
+			children = (
+				6375FB471387F0270034CB78 /* SettingsSheetWindowController.h */,
+				6375FB461387F0270034CB78 /* SettingsSheetWindowController.m */,
+			);
+			name = Advanced;
+			sourceTree = "<group>";
+		};
+		B840788A170CE6A20002B941 /* Main Icon */ = {
+			isa = PBXGroup;
+			children = (
+				63F0A8AF1507D13700526AF9 /* MainIconView.h */,
+				63F0A8B01507D13700526AF9 /* MainIconView.m */,
+			);
+			name = "Main Icon";
+			sourceTree = "<group>";
+		};
+		B840788B170CE6B60002B941 /* Splash Window */ = {
+			isa = PBXGroup;
+			children = (
+				637A871713B74B81003C1871 /* SplashWindowController.h */,
+				637A871813B74B81003C1871 /* SplashWindowController.m */,
+			);
+			name = "Splash Window";
+			sourceTree = "<group>";
+		};
+		B840788C170CE6C90002B941 /* Login Window */ = {
+			isa = PBXGroup;
+			children = (
+				63ABFE9A1349E435003DEB64 /* LoginWindowController.h */,
+				63ABFE9B1349E435003DEB64 /* LoginWindowController.m */,
+			);
+			name = "Login Window";
+			sourceTree = "<group>";
+		};
+		B840788D170CE6DB0002B941 /* Passphrase Window */ = {
+			isa = PBXGroup;
+			children = (
+				6388563C134B7E1C008DF8C1 /* PassphraseWindowController.h */,
+				6388563D134B7E1C008DF8C1 /* PassphraseWindowController.m */,
+			);
+			name = "Passphrase Window";
+			sourceTree = "<group>";
+		};
+		B840788E170CE6FF0002B941 /* Status Window */ = {
+			isa = PBXGroup;
+			children = (
+				639A10FE132AC9D800754C2A /* StatusWindowController.m */,
+				639A10FF132AC9D800754C2A /* StatusWindowController.h */,
+			);
+			name = "Status Window";
+			sourceTree = "<group>";
+		};
+		B840788F170CE7140002B941 /* Welcome Window */ = {
+			isa = PBXGroup;
+			children = (
+				B85B5DBC15F2430900EDCF95 /* WelcomeController.m */,
+				B85B5DBB15F2430900EDCF95 /* WelcomeController.h */,
+			);
+			name = "Welcome Window";
 			sourceTree = "<group>";
 		};
 		B891E52016F60E7000627008 /* Uninstaller */ = {
@@ -1109,6 +1263,7 @@
 				63AF2CAE15065BCB00F6D6DC /* client.route-pre-down.tunnelblick.sh in Resources */,
 				63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */,
 				B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */,
+				B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,7 +1295,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd ../third_party/\n\nif [ ! -e built ]; then\n\tCOMMAND_MODE=unix2003\n\tmake clean\nfi\n\n# The following line is needed so make openssl works\nCOMMAND_MODE=unix2003\n\nmake\n\ntouch built";
+			shellScript = "printenv > /tmp/jkb-list.txt\n\ncd ../third_party/\n\nif [ ! -e built ]; then\n\tCOMMAND_MODE=unix2003\n\tmake clean\nfi\n\n# The following line is needed so make openssl works\nCOMMAND_MODE=unix2003\n\nmake\n\ntouch built";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1250,6 +1405,9 @@
 				B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */,
 				B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */,
 				B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */,
+				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
+				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
+				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

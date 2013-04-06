@@ -37,6 +37,9 @@
 #import "Sparkle/SUUpdater.h"
 #import "MainIconView.h"
 #import "easyRsa.h"
+#import "LeftNavItem.h"
+#import "LeftNavDataSource.h"
+#import "LeftNavViewController.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -104,6 +107,19 @@ extern NSArray        * gConfigurationPreferences;
 @end
 
 @implementation MyPrefsWindowController
+
++ (NSString *)nibName
+// Overrides DBPrefsWindowController method
+{
+	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
+		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		return @"Preferences";
+	} else {
+		return @"Preferences-pre-10.6";
+	}
+
+}
+
 
 -(void) setupToolbar
 {
@@ -228,8 +244,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     //                                   and stop monitoring the log
     if (   [identifier isEqualToString: @"Configurations"]  ) {
         currentFrame = [view frame];
-        [[view window] setShowsResizeIndicator: NO];
-        
+		NSWindow * w = [view window];
+        [w setShowsResizeIndicator: NO];
+		windowContentMinSize = [w contentMinSize];	// Don't allow size changes except in 'Configurations' view
+		windowContentMaxSize = [w contentMaxSize];	// But remember min & max for when we restore 'Configurations' view
+		NSRect f = [w frame];
+		NSSize s = [w contentRectForFrameRect: f].size;
+        [w setContentMinSize: s];
+		[w setContentMaxSize: s];
+		
         [[self selectedConnection] stopMonitoringLogFiles];
     }
 }
@@ -249,8 +272,10 @@ static BOOL firstTimeShowingWindow = TRUE;
     // Otherwise, restore all other views' frames to the Configurations frame
     if (   [identifier isEqualToString: @"Configurations"]  ) {
         [view setFrame: currentFrame];
-        [[view window] setShowsResizeIndicator: YES];
-        
+		NSWindow * w = [view window];
+        [w setShowsResizeIndicator: YES];
+		[w setContentMinSize: windowContentMinSize];
+		[w setContentMaxSize: windowContentMaxSize];        
         [[self selectedConnection] startMonitoringLogFiles];
     } else {
         [appearancePrefsView setFrame: currentFrame];
@@ -442,11 +467,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     int leftNavIndexToSelect = NSNotFound;
     
-    [leftNavList         release];
-    [leftNavDisplayNames release];
-    leftNavList         = [[NSMutableArray alloc] initWithCapacity: [[[NSApp delegate] myVPNConnectionDictionary] count]];
-    leftNavDisplayNames = [[NSMutableArray alloc] initWithCapacity: [[[NSApp delegate] myVPNConnectionDictionary] count]];
-    int currentLeftNavIndex = 0;
     NSMutableArray * currentFolders = [NSMutableArray array]; // Components of folder enclosing most-recent leftNavList/leftNavDisplayNames entry
     NSArray * allConfigsSorted = [[[[NSApp delegate] myVPNConnectionDictionary] allKeys] sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
     
@@ -456,52 +476,58 @@ static BOOL firstTimeShowingWindow = TRUE;
             displayNameToSelect = nil;
         }
     }
-    
-    NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
-    VPNConnection * connection;
-    while (  (connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: [configEnum nextObject]])  ) {
-        NSString * dispNm = [connection displayName];
-        NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
-        unsigned firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
-        
-        // Track any necessary "outdenting"
-        if (  firstDiff < [currentFolders count]  ) {
-            // Remove components from the end of currentFolders until we have a match
-            unsigned i;
-            for (  i=0; i < ([currentFolders count]-firstDiff); i++  ) {
-                [currentFolders removeLastObject];
-            }
-        }
-        
-        // currentFolders and currentConfig now match, up to but not including the firstDiff-th entry
-        
-        // Add a "folder" line for each folder in currentConfig starting with the first-Diff-th entry (if any)
-        unsigned i;
-        for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
-            [leftNavDisplayNames addObject: @""];
-            NSString * folderName = [currentConfig objectAtIndex: i];
-            [leftNavList         addObject: [self indent: folderName by: i]];
-            [currentFolders addObject: folderName];
-            ++currentLeftNavIndex;
-        }
-        
-        // Add a "configuration" line
-        [leftNavDisplayNames addObject: [connection displayName]];
-        [leftNavList         addObject: [self indent: [currentConfig lastObject] by: [currentConfig count]-1u]];
-        
-        if (  displayNameToSelect  ) {
-            if (  [displayNameToSelect isEqualToString: [connection displayName]]  ) {
-                leftNavIndexToSelect = currentLeftNavIndex;
-            }
-        } else if (   ( leftNavIndexToSelect == NSNotFound )
-                   && ( ! [connection isDisconnected] )  ) {
-            leftNavIndexToSelect = currentLeftNavIndex;
-        }
-        ++currentLeftNavIndex;
-    }
-    
-    [[configurationsPrefsView leftNavTableView] reloadData];
-    
+	
+	[leftNavList         release];
+	[leftNavDisplayNames release];
+	leftNavList         = [[NSMutableArray alloc] initWithCapacity: [[[NSApp delegate] myVPNConnectionDictionary] count]];
+	leftNavDisplayNames = [[NSMutableArray alloc] initWithCapacity: [[[NSApp delegate] myVPNConnectionDictionary] count]];
+	int currentLeftNavIndex = 0;
+	
+	NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
+	VPNConnection * connection;
+	while (  (connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: [configEnum nextObject]])  ) {
+		NSString * dispNm = [connection displayName];
+		NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
+		unsigned firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
+		
+		// Track any necessary "outdenting"
+		if (  firstDiff < [currentFolders count]  ) {
+			// Remove components from the end of currentFolders until we have a match
+			unsigned i;
+			for (  i=0; i < ([currentFolders count]-firstDiff); i++  ) {
+				[currentFolders removeLastObject];
+			}
+		}
+		
+		// currentFolders and currentConfig now match, up to but not including the firstDiff-th entry
+		
+		// Add a "folder" line for each folder in currentConfig starting with the first-Diff-th entry (if any)
+		unsigned i;
+		for (  i=firstDiff; i < [currentConfig count]-1; i++  ) {
+			[leftNavDisplayNames addObject: @""];
+			NSString * folderName = [currentConfig objectAtIndex: i];
+			[leftNavList         addObject: [self indent: folderName by: i]];
+			[currentFolders addObject: folderName];
+			++currentLeftNavIndex;
+		}
+		
+		// Add a "configuration" line
+		[leftNavDisplayNames addObject: [connection displayName]];
+		[leftNavList         addObject: [self indent: [currentConfig lastObject] by: [currentConfig count]-1u]];
+		
+		if (  displayNameToSelect  ) {
+			if (  [displayNameToSelect isEqualToString: [connection displayName]]  ) {
+				leftNavIndexToSelect = currentLeftNavIndex;
+			}
+		} else if (   ( leftNavIndexToSelect == NSNotFound )
+				   && ( ! [connection isDisconnected] )  ) {
+			leftNavIndexToSelect = currentLeftNavIndex;
+		}
+		++currentLeftNavIndex;
+	}
+	
+	[[configurationsPrefsView leftNavTableView] reloadData];
+	
     // If there are any entries in the list
     // Select the entry that was selected previously, or the first that was not disconnected, or the first
     if (  currentLeftNavIndex > 0  ) {
@@ -516,6 +542,41 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView leftNavTableView] scrollRowToVisible: leftNavIndexToSelect];
         }
     }
+    
+	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
+		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		
+		LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
+        NSOutlineView         * oView = [oVC outlineView];
+        LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
+        [oDS reload];
+		
+        NSInteger ix = 0;
+		if (  displayNameToSelect  ) {
+			NSDictionary * dict = [oDS rowsByDisplayName];
+			NSNumber * rowNum = [dict objectForKey: displayNameToSelect];
+			if (  rowNum  ) {
+				ix = [rowNum unsignedIntValue];
+			} else {
+				NSLog(@"Error in setupLeftNavigationToDisplayName: Can't find displayNameToSelect = %@ in rowsByDisplayName = %@",
+					  displayNameToSelect, dict);
+			}
+		}
+			
+		while (  TRUE  ) {
+			LeftNavItem * it = [oView itemAtRow: ix];
+			if (  it  ) {
+				if (  ! [oDS outlineView: oView isItemExpandable: it]  ) {
+					[oView selectRowIndexes: [NSIndexSet indexSetWithIndex: ix] byExtendingSelection: NO];
+					break;
+				}
+			} else {
+				break;
+			}
+			
+			ix++;
+		}
+	}
 }
 
 // Call this when a configuration was added or deleted
@@ -956,6 +1017,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     return nil;
+}
+
+-(void) setSelectedLeftNavListIndexFromDisplayName: (NSString *) displayName {
+    NSUInteger ix = [leftNavDisplayNames indexOfObject: displayName];
+    if (  ix == NSNotFound  ) {
+        NSLog(@"Error: setSelectedLeftNavListIndexFromDisplayName: -- leftNavDisplayNames does not contain '%@'; leftNavDisplayNames = %@", displayName, leftNavDisplayNames);
+    } else {
+        [self setSelectedLeftNavListIndex: ix];
+    }
 }
 
 
@@ -1967,8 +2037,27 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) selectedLeftNavListIndexChanged
 {
-    int n = [[configurationsPrefsView leftNavTableView] selectedRow];
-    [self setSelectedLeftNavListIndex: (unsigned)n];
+    int n;
+	
+	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
+		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		n = [[[configurationsPrefsView outlineViewController] outlineView] selectedRow];
+		NSOutlineView * oV = [[configurationsPrefsView outlineViewController] outlineView];
+		LeftNavItem * item = [oV itemAtRow: n];
+		LeftNavDataSource * oDS = (LeftNavDataSource *) [oV dataSource];
+		NSString * displayName = [oDS outlineView: oV displayNameForTableColumn: nil byItem: item];
+		NSDictionary * dict = [oDS rowsByDisplayName];
+		NSNumber * ix = [dict objectForKey: displayName];
+		if (  ix  ) {
+			n = [ix intValue];
+		} else {
+			NSLog(@"Error: no row for displayName %@ in rowsByDisplayName = %@", displayName, dict);
+		}
+	} else {
+		n = [[configurationsPrefsView leftNavTableView] selectedRow];
+	}
+		
+    [self setSelectedLeftNavListIndex: (unsigned) n];
 }
 
 -(void) setSelectedLeftNavListIndex: (NSUInteger) newValue

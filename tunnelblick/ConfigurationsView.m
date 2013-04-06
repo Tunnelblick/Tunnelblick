@@ -23,6 +23,10 @@
 #import "ConfigurationsView.h"
 #import "NSString+TB.h"
 #import "TBUserDefaults.h"
+#import "LeftNavDataSource.h"
+#import "Helper.h"
+#import "MenuController.h"
+#import "MyPrefsWindowController.h"
 
 extern NSFileManager  * gFileMgr;
 extern TBUserDefaults * gTbDefaults;
@@ -51,17 +55,30 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
--(void) awakeFromNib
-{
+-(void) awakeFromNib {
+	
     [self setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton   ];
     [self setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton];
     
     
     // Left split view -- list of configurations and configuration manipulation
     
-    [[leftNavTableColumn headerCell] setTitle: NSLocalizedString(@"Configurations", @"Window text")];
-    
-    [renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
+	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
+		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		[[self leftNavTableScrollView] setHidden: YES];
+		[leftNavDataSrc reload];
+        NSOutlineView * ov = [ (NSScrollView *)[outlineViewController view] documentView];
+        [ov setDataSource: leftNavDataSrc];
+        [ov setDelegate:   leftNavDataSrc];
+        [ov expandItem: [ov itemAtRow: 0]];
+	} else {
+		[[[self outlineViewController] view] setHidden: YES];
+		[leftNavTableView setDelegate: [[NSApp delegate] logScreen]];
+ 	}
+	
+	[[leftNavTableColumn headerCell] setTitle: NSLocalizedString(@"Configurations", @"Window text")];
+	
+	[renameConfigurationMenuItem          setTitle: NSLocalizedString(@"Rename Configuration..."                          , @"Menu Item")];
     [duplicateConfigurationMenuItem       setTitle: NSLocalizedString(@"Duplicate Configuration..."                       , @"Menu Item")];
     [revertToShadowMenuItem			      setTitle: NSLocalizedString(@"Revert Configuration..."                          , @"Menu Item")];
     [editOpenVPNConfigurationFileMenuItem setTitle: NSLocalizedString(@"Edit OpenVPN Configuration File..."               , @"Menu Item")];
@@ -136,6 +153,11 @@ extern TBUserDefaults * gTbDefaults;
 // Getters
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSView *,              leftSplitView)
+
+TBSYNTHESIZE_OBJECT_GET(retain, LeftNavViewController *, outlineViewController)
+TBSYNTHESIZE_OBJECT_GET(retain, LeftNavDataSource *,   leftNavDataSrc)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSScrollView *,        leftNavTableScrollView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableView *,         leftNavTableView)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTableColumn *,       leftNavTableColumn)
 

@@ -44,14 +44,12 @@
 
 - (BOOL)performKeyEquivalent:(NSEvent *)e
 {
+	// Note: Command-Q is not sent to this function
+	
     if (  ([e modifierFlags] & NSDeviceIndependentModifierFlagsMask) == NSCommandKeyMask  ) {
         NSString * c = [e charactersIgnoringModifiers];
 
-        if (         [c isEqual: @"q"]  ) {     // Command-Q - Quit
-            [[NSApp delegate] quit: self];
-            return YES;
-
-        } else if (  [c isEqual: @"c"]  ) {     // Command-C - Copy to pasteboard
+        if (         [c isEqual: @"c"]  ) {     // Command-C - Copy to pasteboard
             [super copy:nil];
             return YES;
             
