@@ -23,10 +23,17 @@
 #import <Cocoa/Cocoa.h>
 #import "defines.h"
 
+@class LeftNavViewController;
+@class LeftNavDataSource;
+
 @interface ConfigurationsView : NSView
 {    
     IBOutlet NSView              * leftSplitView;
     
+    IBOutlet LeftNavViewController * outlineViewController;
+    IBOutlet LeftNavDataSource   * leftNavDataSrc;
+    
+    IBOutlet NSScrollView        * leftNavTableScrollView;
     IBOutlet NSTableView         * leftNavTableView;
     IBOutlet NSTableColumn       * leftNavTableColumn;
     
@@ -95,6 +102,11 @@
 // Getters
 
 TBPROPERTY_READONLY(NSView *,              leftSplitView)
+
+TBPROPERTY_READONLY(LeftNavViewController *, outlineViewController)
+TBPROPERTY_READONLY(LeftNavDataSource *,   leftNavDataSrc)
+
+TBPROPERTY_READONLY(NSScrollView *,	       leftNavTableScrollView)
 TBPROPERTY_READONLY(NSTableView *,         leftNavTableView)
 TBPROPERTY_READONLY(NSTableColumn *,       leftNavTableColumn)
 
