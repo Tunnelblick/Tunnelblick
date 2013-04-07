@@ -140,6 +140,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
             return nil;
         }
         [logDisplay setConnection: self];
+		[logDisplay clear];
+		
         lastState = @"EXITING";
         requestedState = @"EXITING";
 		[self initializeAuthAgent];
@@ -1300,7 +1302,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     [self disconnectFromManagmentSocket];
 
     [self clearLog];
-    
+	    
 	NSArray * arguments = [self argumentsForOpenvpnstartForNow: YES];
     if (  arguments == nil  ) {
         if (  userKnows  ) {
@@ -1338,8 +1340,6 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     [gTbDefaults setBool: NO forKey: [displayName stringByAppendingString: @"-lastConnectionSucceeded"]];
     
-    [self addToLog: [[NSApp delegate] openVPNLogHeader]];
-
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           [self displayName],
                           (  [[arguments objectAtIndex: 5] isEqualToString:@"1"]

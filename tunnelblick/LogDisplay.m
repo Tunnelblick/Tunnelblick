@@ -223,6 +223,8 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  logStore  ) {
         [self doLogScrolling];
     }
+	
+	[self addToLog: [[NSApp delegate] openVPNLogHeader]];
 }
 
 -(void) doLogScrolling

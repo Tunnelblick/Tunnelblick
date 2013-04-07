@@ -1579,15 +1579,55 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 // Log tab
 
--(IBAction) logToClipboardButtonWasClicked: (id) sender
-{
+-(IBAction) logToClipboardButtonWasClicked: (id) sender {
+
 	(void) sender;
 	
-    if (  [self selectedConnection]  ) {
+    VPNConnection * connection = [self selectedConnection];
+    if (  connection  ) {
+		
+		// Get OS and Tunnelblick version info
+		NSString * versionContents = [[NSApp delegate] openVPNLogHeader];
+		
+		// Get contents of configuration file
+		NSString * path = [connection configPath];
+		if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
+			path = configPathFromTblkPath(path);
+		}
+        NSData * data = [gFileMgr contentsAtPath: path];
+		NSString * configFileContents = (  data
+										 ? [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
+										 : @"(No configuration file");
+		
+		// Get Tunnelblick log
         NSTextStorage * store = [[configurationsPrefsView logView] textStorage];
+        NSString * logContents = [store string];
+        
+		// Get tail of Console
+		NSString * consoleRawContents = @""; // stdout (ignore stderr)
+		runAsUser(@"/bin/bash",
+				  [NSArray arrayWithObjects:
+				   @"-c",
+				   @"cat /var/log/system.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100",
+				   nil],
+				  &consoleRawContents, nil);
+		
+		// Replace backslash-n with newline
+		NSMutableString * consoleContents = [[consoleRawContents mutableCopy] autorelease];
+		[consoleContents replaceOccurrencesOfString: @"\\n"
+										 withString: @"\n"
+											options: 0
+											  range: NSMakeRange(0, [consoleRawContents length])];
+		
+		NSString * separatorString = @"================================================================================\n\n";
+		
+        NSString * output = [NSString stringWithFormat:
+							 @"%@\n\nConfiguration file for %@:\n\n%@\n\n%@Tunnelblick Log:\n\n%@\n%@Console:\n\n%@",
+                             versionContents, [connection displayName], configFileContents, separatorString, logContents, separatorString, consoleContents];
+        
         NSPasteboard * pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
-        [pb setString: [store string] forType: NSStringPboardType];
+        [pb setString: output forType: NSStringPboardType];
     } else {
         NSLog(@"logToClipboardButtonWasClicked but no configuration selected");
     }
