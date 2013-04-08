@@ -1590,14 +1590,44 @@ static BOOL firstTimeShowingWindow = TRUE;
 		NSString * versionContents = [[NSApp delegate] openVPNLogHeader];
 		
 		// Get contents of configuration file
-		NSString * path = [connection configPath];
-		if (  [[path pathExtension] isEqualToString: @"tblk"]  ) {
-			path = configPathFromTblkPath(path);
-		}
-        NSData * data = [gFileMgr contentsAtPath: path];
-		NSString * configFileContents = (  data
-										 ? [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
-										 : @"(No configuration file");
+        NSString * configFileContents = @"(No configuration file found!)";
+
+        unsigned cfgLoc = CFG_LOC_MAX + 1;
+        NSString * cfgPath = [connection configPath];
+        if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+            cfgLoc = CFG_LOC_PRIVATE;
+        } else if (  [cfgPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+            cfgLoc = CFG_LOC_DEPLOY;
+        } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+            cfgLoc = CFG_LOC_SHARED;
+        } else {
+            cfgLoc = CFG_LOC_ALTERNATE;
+        }
+        NSString * cfgLocString = [NSString stringWithFormat: @"%u", cfgLoc];
+        
+        NSString * stdOutString = nil;
+        NSString * stdErrString = nil;
+		NSArray  * arguments = [NSArray arrayWithObjects:
+								@"printSanitizedConfigurationFile",
+								lastPartOfPath([connection configPath]),
+								cfgLocString,
+								nil];
+        OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
+        
+        if (  status != EXIT_SUCCESS) {
+            NSLog(@"Error status %d returned from 'openvpnstart printSanitizedConfigurationFile %@ %@'",
+                  (int) status, [connection displayName], cfgLocString);
+        }
+        if (   stdErrString
+            && ([stdErrString length] != 0)  ) {
+            NSLog(@"Error returned from 'openvpnstart printSanitizedConfigurationFile %@ %@':\n%@",
+                  [connection displayName], cfgLocString, stdErrString);
+        }
+        
+        if (   stdOutString
+            && ([stdOutString length] != 0)  ) {
+            configFileContents = [NSString stringWithString: stdOutString];
+        }
 		
 		// Get Tunnelblick log
         NSTextStorage * store = [[configurationsPrefsView logView] textStorage];
@@ -1622,8 +1652,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n\nConfiguration file for %@:\n\n%@\n\n%@Tunnelblick Log:\n\n%@\n%@Console:\n\n%@",
-                             versionContents, [connection displayName], configFileContents, separatorString, logContents, separatorString, consoleContents];
+							 @"%@\n\nConfiguration file for %@:\n\n%@\n\n%@Tunnelblick Log:\n\n%@\n%@Console Log:\n\n%@",
+                             versionContents, [connection configPath], configFileContents, separatorString, logContents, separatorString, consoleContents];
         
         NSPasteboard * pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
