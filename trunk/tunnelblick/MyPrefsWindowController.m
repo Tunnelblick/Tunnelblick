@@ -1635,13 +1635,25 @@ static BOOL firstTimeShowingWindow = TRUE;
         
 		// Get tail of Console
 		NSString * consoleRawContents = @""; // stdout (ignore stderr)
-		runAsUser(@"/bin/bash",
-				  [NSArray arrayWithObjects:
-				   @"-c",
-				   @"cat /var/log/system.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100",
-				   nil],
-				  &consoleRawContents, nil);
-		
+
+        if (  runningOnLeopardOrNewer()  ) {
+            // OS X 10.5 ("Leopard") through 10.8 ("Mountain Lion")
+            runAsUser(@"/bin/bash",
+                      [NSArray arrayWithObjects:
+                       @"-c",
+                       @"cat /var/log/system.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100",
+                       nil],
+                      &consoleRawContents, nil);
+        } else {
+            // OS X 10.4 ("Tiger")
+            runAsUser(@"/bin/bash",
+                      [NSArray arrayWithObjects:
+                       @"-c",
+                       [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
+                       nil],
+                      &consoleRawContents, nil);
+        }
+        
 		// Replace backslash-n with newline
 		NSMutableString * consoleContents = [[consoleRawContents mutableCopy] autorelease];
 		[consoleContents replaceOccurrencesOfString: @"\\n"
