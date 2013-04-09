@@ -1,6 +1,23 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-04-09: *Tunnelblick 3.3beta38 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Enhances installation of Tunnelblick VPN Configurations with improved error detection and correction.
+
+ * Adds an option to force all traffic through the VPN.
+
+ * Replaces OpenVPN version 2.3alpha1 with version 2.3.1, and runs OpenVPN, OpenSSL, and LZO in 64-bit mode when it is available (Intel only) -- many thanks to HAROLD MOLINA-BULLA.
+
+ * Displays configurations in a way that is similar to the 'List View' in a Finder window: contents of folders can be hidden or exposed by clicking on a disclosure triangle next to the folder name. Available only on OS X 10.6 ('Snow Leopard') and higher.
+
+ * Includes a button to copy diagnostic information to the Clipboard.
+
+ * Includes many other enhancements and fixes several bugs.
+
+
+--------------------
+
 2013-03-28: *Tunnelblick 3.3beta36 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Removes uninstaller from disk image.

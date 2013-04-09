@@ -9,9 +9,53 @@
 
 ==Version 3.3==
 
+*3.3beta38 (2013-04-09)*
+
+ * On OS X 10.6 ('Snow Leopard') and higher, Tunnelblick now displays configurations in a way that is similar to the 'List View' in a Finder window: contents of folders can be hidden or exposed by clicking on a disclosure triangle next to the folder name. This may be disabled (and the old way of displaying configurations used) by setting the 'doNotShowOutlineViewOfConfigurations' preference to 'TRUE'.
+
+ * Replaces OpenVPN version 2.3alpha1 with version 2.3.1, and runs OpenVPN, OpenSSL, and LZO in 64-bit mode when it is available (Intel only) -- many thanks to HAROLD MOLINA-BULLA.
+
+ * Enhances installation of Tunnelblick VPN Configurations with improved error detection and correction.
+   * The user can now replace an existing configuration with a new one.
+   * Tunnelblick now complains about files referenced in the OpenVPN configuration file that do not exist or are accessed via a path instead of just a filename. 
+   * Tunnelblick now removes CR characters from script files.
+
+ * Changes the 'Copy Log to Clipboard' button to the 'Copy Diagnostic Info to Clipboard' button. The info copied to the clipboard includes the configuration file contents, the log contents, and recent Console log output from Tunnelblick and OpenVPN. (Configuration file contents have inline data removed so as to not disclose private keys.)
+
+ * Keeps a history of Tunnelblick versions that were launched, and displays the most recently used prior version in the log.
+
+ * Adds a checkbox to 'Route all traffic through the VPN' on the Advanced settings window. This adds the 'redirect-gateway def1' option to the arguments to OpenVPN. Note that even if is NOT checked, the configuration file may include the option, or the server may push the option.) Default is not checked.
+
+ * Adds a checkbox to 'Reset the primary interface after disconnecting' on the Advanced settings window. The reset is done via an 'ifconfig down' followed by an 'ifconfig up' on the primary interface after the configuration is disconnected. Default is not checked.
+
+ * Adds the 'doNotLaunchOnLogin' preference, which causes Tunnelblick to not launch when the user next logs in, even if Tunnelblick was running when the user logged out. This preference cannot be set in the GUI; to set it type the following into Terminal 'defaults write net.tunnelblick.tunnelblick doNotLaunchOnLogin -bool yes'. To restore normal behavior, type 'defaults write net.tunnelblick.tunnelblick doNotLaunchOnLogin -bool yes'.
+
+ * Allows Tunnelblick.app to have any name (but it still must be installed into /Applications).
+
+ * Updates LZO to version 2.06.
+
+ * Updates the help displays.
+
+ * Changes to the maximum log size now take effect immediately.
+
+ * Clarified entry made in Console log when Tunnelblick is shut down because of a Command-Q typed by the user.
+
+ * Fixes a problem that didn't repair invalid ownership of /Library/Application Support/Tunnelblick/Users if the ownership was modified by the user.
+
+ * Fixes a problem that sometimes caused the last part of the log to be hidden.
+
+ * Fixes a problem that caused failures when converting a shared Tunnelblick VPN Configurations to be private.
+
+ * Fixes a problem that allowed the user to resize the VPN Details… window when a panel other than 'Configurations' is being displayed on OS X 10.7 ('Lion') and higher.
+
+
+--------------------
+
 *3.3beta36 (2013-03-28)*
 
  * Removes uninstaller from disk image.
+
+--------------------
 
 *3.3beta34 (2013-03-27)*
 
@@ -51,6 +95,8 @@
 
  * Complains with an error dialog window if an internal error occurs while trying to check the security of a configuration.
 
+--------------------
+
 *3.3beta32 (2013-01-05)*
 
  * Fixes several security issues.
@@ -62,6 +108,8 @@
  * Fixes a problem that did not connect a configuration automatically after updating a shadow configuration.
 
  * Fixes problems that caused some scripts in Tunnelblick VPN Configurations to not be executed.
+
+--------------------
 
 *3.3beta30 (2012-12-25)*
 
@@ -78,6 +126,8 @@
  * Fixes a bug that caused installer to fail if /Library/Application Support/Deploy subfolder was not secure."
 
  * Fixes bug that caused failures in conversion of an OpenVPN configuration file to a Tunnelblick VPN Configuration (.tblk) if the configuration file does not use separate key, certificate, script, etc. files.
+
+--------------------
 
 *3.3beta28 (2012-10-24)*
 
