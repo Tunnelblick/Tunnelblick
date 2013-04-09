@@ -13,8 +13,10 @@ The Tunnelblick log is the record of output from OpenVPN for a connection. It in
 
  The level of detail about OpenVPN operations in the log is controlled by OpenVPN's "verb" option. The default (if no "verb" option appears in the configuration file) is "verb 3". That usually provides sufficient information for finding problems, and does not log anything about ordinary traffic through the VPN, so it is the best choice. "verb" levels higher than 3 are usually not necessary, and "verb" levels 1 and 2 do not usually provide sufficient information to determine why a connection fails.
 
+*NOTE: Tunnelblick 3.3beta38 and higher will include the Tunnelblick log in the data copied to the Clipboard by the 'Copy Diagnostic Info to the Clipboard' button on the 'Settings' tab of the 'Configurations' panel of the 'VPN Details…' window.*
 
-*You can view the Tunnelblick log for a configuration as follows*:
+
+You can view the Tunnelblick log for a configuration as follows:
 
  * Tunnelblick 3.2 and up:
    # Click on the Tunnelblick icon at the top of the screen;
