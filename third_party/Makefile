@@ -48,7 +48,7 @@ built-openssl-patch:
 	touch built-openssl-patch
 
 built-openssl: built-openssl-patch
-	for a in darwin-ppc-cc darwin-i386-cc darwin64-x86_64-cc; do\
+	for a in darwin-ppc-cc darwin-i386-cc; do\
 		@echo Configure OpenSSL for $$a; \
 		cd $(OPENSSL_BUILD_DIR); \
 		@echo Forcefully be clean; \
@@ -60,7 +60,6 @@ built-openssl: built-openssl-patch
 		$(MAKE) install_sw; \
 		cd -; \
 	done
-	ditto -v $(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)/darwin64-x86_64-cc/include $(OPENSSL_DEST_DIR)/include/x86_64
 	ditto -v $(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)/darwin-i386-cc/include $(OPENSSL_DEST_DIR)/include/i386
 	ditto -v $(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)/darwin-ppc-cc/include $(OPENSSL_DEST_DIR)/include/ppc
 	mkdir -p $(OPENSSL_DEST_DIR)/lib
@@ -71,7 +70,7 @@ built-openssl: built-openssl-patch
 	touch built-openssl
 	
 built-pkcs11-helper: built-openssl
-	for a in ppc i386 x86_64; do \
+	for a in ppc i386; do \
 		@echo Configure PKCS11-Helper for $$a; \
 		cd $(PKCS11_DIR); \
 		@echo Forcefully be clean; \
@@ -94,7 +93,7 @@ built-pkcs11-helper-clean:
 	rm -f built-pkcs11-helper
 
 built-lzo:
-	for a in ppc i386 x86_64; do \
+	for a in ppc i386; do \
 		@echo Configure LZO for $$a; \
 		cd $(LZO_DIR); \
 		@echo Forcefully be clean; \
@@ -151,7 +150,7 @@ built-openvpn: built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
 		cd openvpn/$$openvpndir/openvpn; \
 		if [ -d src ]; then \
 			echo "Making $$openvpndir from post-2.3-alpha1 build system"; \
-			for a in ppc i386 x86_64; do \
+			for a in ppc i386; do \
 				$(MAKE) clean; \
 				autoreconf -i -v; \
 				CC="$(CC)" CFLAGS="$(CFLAGS) -arch $$a" LZO_CFLAGS="-I$(LZO_DIR)/staging/include" LZO_LIBS="-L$(LZO_DIR)/staging/lib -llzo2" OPENSSL_SSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_SSL_LIBS="$(OPENSSL_DEST_DIR)/lib/libssl.a" OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_CRYPTO_LIBS="$(OPENSSL_DEST_DIR)/lib/libcrypto.a -static -lz" PKCS11_HELPER_CFLAGS="-I$(PKCS11_TUNNELBLICK_STAGING_DIR)/include/"  PKCS11_HELPER_LIBS="-L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper" ./configure --enable-static=yes --enable-shared --enable-pkcs11 --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking ; \
@@ -167,14 +166,14 @@ built-openvpn: built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
 			rm ../openvpn-plugin-down-root.so_tblk_* ; \
 		else \
 			echo "Making $$openvpndir from pre-2.3-alpha2 build system"; \
-			for a in ppc i386 x86_64; do \
+			for a in ppc i386; do \
 				$(MAKE) clean; \
 				autoreconf -i -v; \
 				CC=$(CC) CFLAGS="$(CFLAGS) -arch $$a" ./configure --with-lzo-headers=$(LZO_DIR)/staging/include --with-lzo-lib=$(LZO_DIR)/staging/lib --with-pkcs11-helper-headers=$(PKCS11_TUNNELBLICK_STAGING_DIR)/include --with-pkcs11-helper-lib=$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib --with-ssl-headers=$(OPENSSL_DEST_DIR)/include/$$a --with-ssl-lib=$(OPENSSL_DEST_DIR)/lib --disable-dependency-tracking; \
 				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -lpkcs11-helper -llzo2 -lz"; \
 				mv openvpn ../openvpn_tblk_$$a; \
 			done; \
-			$(MAKE) CC_FLAGS="-Wall -isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET) -arch i386 -arch ppc -arch x86_64" -C plugin/down-root; \
+			$(MAKE) CC_FLAGS="-Wall -isysroot $(SDKROOT) -Os -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET) -arch i386 -arch ppc" -C plugin/down-root; \
 			mv plugin/down-root/openvpn-down-root.so ../openvpn-down-root.so; \
 		fi; \
 		cd ../; \
