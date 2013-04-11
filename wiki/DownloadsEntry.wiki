@@ -32,8 +32,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion") Intel or PowerPC, 32- or 64-bit
 
-  <font size="3"><strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta38.dmg Tunnelblick 3.3beta38]</strong></font> (build 3228) released 2013-04-09 [RlsNotes#Version_3.3 Release Notes]
-    <font color="red"><strong>NOTE: 3.3beta38 will refuse to install itself if:</strong>
+  <font size="3"><strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta40.dmg Tunnelblick 3.3beta40]</strong></font> (build 3265) released 2013-04-11 [RlsNotes#Version_3.3 Release Notes]
+    <font color="red"><strong>NOTE: 3.3beta40 will refuse to install itself if:</strong>
       • It is a "[cCusDeployed Deployed]" version; or<br />
       • A "[cCusDeployed Deployed]" version of Tunnelblick has previously been installed and has not been fully uninstalled.</font>
     <strong>Note: Versions of Tunnelblick that do not support "Deployed" configurations are no longer available in unsigned form.</strong><br />

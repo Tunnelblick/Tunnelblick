@@ -9,6 +9,12 @@
 
 ==Version 3.3==
 
+*3.3beta40 (2013-04-11)*
+
+ * Fixes a problem with Tunnelblick's new 64-bit OpenVPN 2.2.1 by only including the 32-bit versions of OpenVPN.
+
+--------------------
+
 *3.3beta38 (2013-04-09)*
 
  * On OS X 10.6 ('Snow Leopard') and higher, Tunnelblick now displays configurations in a way that is similar to the 'List View' in a Finder window: contents of folders can be hidden or exposed by clicking on a disclosure triangle next to the folder name. This may be disabled (and the old way of displaying configurations used) by setting the 'doNotShowOutlineViewOfConfigurations' preference to 'TRUE'.

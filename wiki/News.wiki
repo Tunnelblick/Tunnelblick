@@ -1,6 +1,13 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-04-11: *Tunnelblick 3.3beta40 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a problem with Tunnelblick's new 64-bit OpenVPN 2.2.1 by only including the 32-bit versions of OpenVPN.
+ 
+
+--------------------
+
 2013-04-09: *Tunnelblick 3.3beta38 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Enhances installation of Tunnelblick VPN Configurations with improved error detection and correction.
