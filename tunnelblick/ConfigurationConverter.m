@@ -360,7 +360,6 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     // List of OpenVPN options that take a command
 	optionsWithCommand = [NSArray arrayWithObjects:
 						  @"tls-verify",
-						  @"auth-user-pass-verify",
 						  @"auth-user-pass",
                           @"auth-user-pass-verify",
                           @"client-connect",
