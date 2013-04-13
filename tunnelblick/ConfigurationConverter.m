@@ -343,32 +343,28 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     [s release];
     tokens = [[self getTokensFromString: configString] copy];
 	
-    // List of OpenVPN options that take a script file path
+    // List of OpenVPN options that take a file path
     optionsWithPath = [NSArray arrayWithObjects:
-					   @"dh",
+//					   @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
 					   @"ca",
-					   @"capath",
 					   @"cert",
+					   @"dh",
 					   @"extra-certs",
 					   @"key",
 					   @"pkcs12",
-					   @"crl-verify",
-					   @"tls-auth",
-					   @"secret",
-					   @"replay-persist",
-					   @"askpass",
-					   @"management-user-password-file",
-					   @"tls-export-cert",
-					   @"client-connect",
-					   @"client-disconnect",
-					   @"--auth-user-pass-verify",
+					   @"crl-verify",                    // Optional 'direction' argument
+					   @"secret",                        // Optional 'direction' argument
+					   @"tls-auth",                      // Optional 'direction' argument
 					   nil];
     
     // List of OpenVPN options that take a command
 	optionsWithCommand = [NSArray arrayWithObjects:
-						  @"tle-verify",
+						  @"tls-verify",
 						  @"auth-user-pass-verify",
 						  @"auth-user-pass",
+                          @"auth-user-pass-verify",
+                          @"client-connect",
+                          @"client-disconnect",
 						  @"up",
 						  @"down",
 						  @"ipchange",
@@ -378,7 +374,10 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 						  nil];
 	
 	optionsWithArgsThatAreOptional = [NSArray arrayWithObjects:
-									  @"auth-user-pass",
+//									  @"auth-user-pass",                // Optional 'file' argument not supported since we don't compile with --enable-password-save
+                                      @"crl-verify",                    // Optional 'direction' argument
+                                      @"secret",                        // Optional 'direction' argument
+                                      @"tls-auth",                      // Optional 'direction' argument after 'file' argument
 									  nil];
     
     inputIx         = 0;
