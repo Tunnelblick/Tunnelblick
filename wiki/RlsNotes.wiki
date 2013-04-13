@@ -9,6 +9,22 @@
 
 ==Version 3.3==
 
+*3.3beta42 (2013-04-13)*
+
+ * Fixes a problem that caused DHCP over tap connections to fail.
+
+ * Fixes a problem that caused the failure to install a 'Tunnelblick VPN Configuration'.
+
+ * Fixes a problem that caused fatal errors in the down script if a '-useDownRootPlugin'preference was set for the configuration but 'user nobody' and 'group nobody' were not used.
+
+ * Fixes a problem that caused warnings about obsolete preferences.
+
+ * Fixes a problem that caused the Console log to not be included on the Clipboard when the 'Copy Diagnostic Info to the Clipboard' button is used by a user who is not an administrator.
+
+ * Diagnostic information now includes the user's status as a 'standard' or 'admin' user.
+
+--------------------
+
 *3.3beta40 (2013-04-11)*
 
  * Fixes a problem with Tunnelblick's new 64-bit OpenVPN 2.2.1 by only including the 32-bit versions of OpenVPN.
