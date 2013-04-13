@@ -459,13 +459,14 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * cfgContents = [stdOut copy];
     
+    NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
+    NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
     NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
     NSString * skipWarningKey = [[connection displayName] stringByAppendingString: @"-skipWarningAboutDownroot"];
     if (   ( ! [gTbDefaults boolForKey: useDownRootPluginKey] )
         &&     [gTbDefaults canChangeValueForKey: useDownRootPluginKey]
         && ( ! [gTbDefaults boolForKey: skipWarningKey] )  ) {
-        NSString * userOption  = [self parseString: cfgContents forOption: @"user" ];
-        NSString * groupOption = [self parseString: cfgContents forOption: @"group"];
+        
         NSString * downOption  = [self parseString: cfgContents forOption: @"down" ];
         
         if (   (userOption || groupOption)
@@ -491,13 +492,13 @@ enum state_t {                      // These are the "states" of the guideState 
                     return @"Cancel";
                 }
             }
-        
-        if (   (   [gTbDefaults boolForKey: useDownRootPluginKey]
-                && [gTbDefaults canChangeValueForKey: useDownRootPluginKey] )
-            && (! (userOption || groupOption))  ) {
-            [gTbDefaults removeObjectForKey: useDownRootPluginKey];
-            NSLog(@"Removed '%@' preference", useDownRootPluginKey);
-        }
+    }
+    
+    if (   (   [gTbDefaults boolForKey: useDownRootPluginKey]
+            && [gTbDefaults canChangeValueForKey: useDownRootPluginKey] )
+        && (! (userOption || groupOption))  ) {
+        [gTbDefaults removeObjectForKey: useDownRootPluginKey];
+        NSLog(@"Removed '%@' preference", useDownRootPluginKey);
     }
     
     NSString * devTypeOption = [[self parseString: cfgContents forOption: @"dev-type"] lowercaseString];
@@ -563,6 +564,8 @@ enum state_t {                      // These are the "states" of the guideState 
             mainRng.location = restRng.location;
             mainRng.length   = mainEnd - mainRng.location;
         }
+		
+		NSUInteger startOfLine = mainRng.location;
         
         // If option is next
         NSRange optRng = NSMakeRange(curPos, [option length]);
@@ -576,19 +579,50 @@ enum state_t {                      // These are the "states" of the guideState 
                                                    options: 0
                                                      range: mainRng];
             if (  restRng.location != mainRng.location  ) {
-                // Whitespace found, so "value" for option is the rest of the line (if any)
+				
+				// Whitespace found, so "value" for option is the next token
                 mainRng.location = restRng.location;
                 mainRng.length = mainEnd - mainRng.location;
                 NSRange nlRng = [cfgContents rangeOfCharacterFromSet: newline
                                                              options: 0
                                                                range: mainRng];
-                NSRange valRng;
+				NSRange rolRng; // range of rest of line
                 if (  nlRng.length == 0  ) {
-                    valRng = NSMakeRange(mainRng.location, mainEnd - mainRng.location);
+                    rolRng = NSMakeRange(mainRng.location, mainEnd - mainRng.location);
                 } else {
-                    valRng = NSMakeRange( mainRng.location, nlRng.location - mainRng.location);
+                    rolRng = NSMakeRange( mainRng.location, nlRng.location - mainRng.location);
                 }
-                return [cfgContents substringWithRange: valRng];
+				
+				NSString * firstCh = [cfgContents substringWithRange: NSMakeRange(rolRng.location, 1)];
+				if (   [firstCh isEqualToString: @"\""]
+					|| [firstCh isEqualToString: @"'"]  ) {
+					
+					// quoted token is everything after first quote up to but not including last quote in line
+					NSRange endQuoteRng = [cfgContents rangeOfString: firstCh
+															 options: NSBackwardsSearch
+															   range: rolRng];
+					if (  endQuoteRng.location != rolRng.location  ) {
+						return [cfgContents substringWithRange: NSMakeRange(rolRng.location + 1, endQuoteRng.location - rolRng.location - 1)];
+					}
+					
+					NSLog(@"Error; unterminated %@ in '%@'",
+						  firstCh,
+						  [cfgContents substringWithRange:
+						   NSMakeRange(startOfLine, rolRng.location + rolRng.length - startOfLine)]);
+				}
+				
+				// normal; token is everything to first whitespace
+				NSRange wsRng = [cfgContents rangeOfCharacterFromSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]
+															 options: 0
+															   range: rolRng];
+				if (  wsRng.length == 0  ) {
+					return [cfgContents substringWithRange: rolRng];
+				} else {
+					return [cfgContents substringWithRange:
+							NSMakeRange(rolRng.location, wsRng.location - rolRng.location)];
+				}
+			
+				return [cfgContents substringWithRange: rolRng];
             }
             
             // No whitespace after option, so it is no good (either optionXXX or option\n
@@ -613,25 +647,19 @@ enum state_t {                      // These are the "states" of the guideState 
     NSData * data = [gFileMgr contentsAtPath: cfgPath];
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     
-    NSArray * optionsWithPath = [NSArray arrayWithObjects:
-                                 @"dh",
-                                 @"ca",
-                                 @"capath",
-                                 @"cert",
-                                 @"extra-certs",
-                                 @"key",
-                                 @"pkcs12",
-                                 @"crl-verify",
-                                 @"tls-auth",
-                                 @"secret",
-                                 @"replay-persist",
-                                 @"askpass",
-                                 @"management-user-password-file",
-                                 @"tls-export-cert",
-                                 @"client-connect",
-                                 @"client-disconnect",
-                                 @"--auth-user-pass-verify",
-                                 nil];
+    // List of OpenVPN options that take a file path
+    optionsWithPath = [NSArray arrayWithObjects:
+                       //					   @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
+					   @"ca",
+					   @"cert",
+					   @"dh",
+					   @"extra-certs",
+					   @"key",
+					   @"pkcs12",
+					   @"crl-verify",                    // Optional 'direction' argument
+					   @"secret",                        // Optional 'direction' argument
+					   @"tls-auth",                      // Optional 'direction' argument
+					   nil];
     
     NSString * option;
     NSEnumerator * e = [optionsWithPath objectEnumerator];

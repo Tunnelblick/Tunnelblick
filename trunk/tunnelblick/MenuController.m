@@ -380,6 +380,9 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"doNotShowForcedPreferenceMenuItems",
                                 @"doNotShowKeyboardShortcutSubmenu",
                                 @"doNotShowOptionsSubmenu",
+                                @"keyboardShortcutKeyCode",
+                                @"keyboardShortcutModifiers",
+                                @"maximumLogSize",
                                 
                                 nil] retain];
         
@@ -434,6 +437,10 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                       @"-doNotReconnectOnUnexpectedDisconnect", // This preference is NOT IMPLEMENTED and it is not in the .xib
 
                                       @"-doNotShowOnTunnelblickMenu",
+                                      
+                                      // No longer used
+                                      @"-authUsername",
+                                      @"-usernameIsSet",
                                       nil] retain];
         
         // If this is the first time we are using the new CFBundleIdentifier

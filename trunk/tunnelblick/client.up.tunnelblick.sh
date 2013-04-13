@@ -696,6 +696,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logMessage "DEBUG:"
 
 	logMessage "Saved the DNS and SMB configurations for later use"
+	
+	flushDNSCache
 
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
         if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-a" ] ; then
@@ -1108,11 +1110,9 @@ if ${ARG_TAP} ; then
 		ipconfig set "$dev" DHCP
 		logMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
 		
-#		configureDhcpDns &
-		logMessage "Configuring tap DNS via DHCP"
-		configureDhcpDns
-		EXIT_CODE=$?
-        flushDNSCache
+		logMessage "Configuring tap DNS via DHCP asynchronously"
+		configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
+		EXIT_CODE=0
 	elif [ "$foreign_option_1" == "" ]; then
 		logMessage "No network configuration changes need to be made."
 		if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
@@ -1122,7 +1122,6 @@ if ${ARG_TAP} ; then
 		logMessage "Configuring tap DNS via OpenVPN"
 		configureOpenVpnDns
 		EXIT_CODE=$?
-        flushDNSCache
 	fi
 else
 	if [ "$foreign_option_1" == "" ]; then
@@ -1133,7 +1132,6 @@ else
 	else
 		configureOpenVpnDns
 		EXIT_CODE=$?
-        flushDNSCache
 	fi
 fi
 
