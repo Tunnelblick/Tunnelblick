@@ -648,18 +648,18 @@ enum state_t {                      // These are the "states" of the guideState 
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
     
     // List of OpenVPN options that take a file path
-    optionsWithPath = [NSArray arrayWithObjects:
-                       //					   @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
-					   @"ca",
-					   @"cert",
-					   @"dh",
-					   @"extra-certs",
-					   @"key",
-					   @"pkcs12",
-					   @"crl-verify",                    // Optional 'direction' argument
-					   @"secret",                        // Optional 'direction' argument
-					   @"tls-auth",                      // Optional 'direction' argument
-					   nil];
+    NSArray * optionsWithPath = [NSArray arrayWithObjects:
+	//					         @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
+								 @"ca",
+								 @"cert",
+								 @"dh",
+								 @"extra-certs",
+								 @"key",
+								 @"pkcs12",
+								 @"crl-verify",                    // Optional 'direction' argument
+								 @"secret",                        // Optional 'direction' argument
+								 @"tls-auth",                      // Optional 'direction' argument
+								 nil];
     
     NSString * option;
     NSEnumerator * e = [optionsWithPath objectEnumerator];
