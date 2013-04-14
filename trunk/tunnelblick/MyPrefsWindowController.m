@@ -20,6 +20,7 @@
  */
 
 
+#import <asl.h>
 #import "MyPrefsWindowController.h"
 #import "TBUserDefaults.h"
 #import "ConfigurationManager.h"
@@ -1579,6 +1580,145 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 // Log tab
 
+-(NSString *) tigerConsoleContents {
+    
+    // Tiger doesn't implement the asl API (or not enough of it). So we get the console log from the file if we are running as an admin
+	NSString * consoleRawContents = @""; // stdout (ignore stderr)
+	
+	if (  isUserAnAdmin()  ) {
+		runAsUser(@"/bin/bash",
+				  [NSArray arrayWithObjects:
+				   @"-c",
+				   [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
+				   nil],
+				  &consoleRawContents, nil);
+	} else {
+		consoleRawContents = (@"The Console log cannot be obtained because you are not\n"
+							  @"logged in as an administrator. To view the Console log,\n"
+							  @"please use the Console application in /Applications/Utilities.\n");
+	}
+	    
+    // Replace backslash-n with newline and indent the continuation lines
+    NSMutableString * consoleContents = [[consoleRawContents mutableCopy] autorelease];
+    [consoleContents replaceOccurrencesOfString: @"\\n"
+                                     withString: @"\n                                       " // Note all the spaces in the string
+                                        options: 0
+                                          range: NSMakeRange(0, [consoleRawContents length])];
+
+    return consoleContents;
+}
+
+-(NSString *) stringFromLogEntry: (NSDictionary *) dict {
+    
+    // Returns a string with a console log entry, terminated with a LF
+    
+    NSString * timestampS = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_TIME]];
+    NSString * senderS    = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_SENDER]];
+    NSString * pidS       = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_PID]];
+    NSString * msgS       = [dict objectForKey: [NSString stringWithUTF8String: ASL_KEY_MSG]];
+    
+    NSDate * dateTime = [NSDate dateWithTimeIntervalSince1970: (NSTimeInterval) [timestampS doubleValue]];
+    NSDateFormatter * formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+
+    NSString * timeString = [formatter stringFromDate: dateTime];
+    NSString * senderString = [NSString stringWithFormat: @"%@[%@]", senderS, pidS];
+    
+	// Set up to indent continuation lines by converting newlines to \n (i.e., "backslash n")
+	NSMutableString * msgWithBackslashN = [[msgS mutableCopy] autorelease];
+	[msgWithBackslashN replaceOccurrencesOfString: @"\n"
+									   withString: @"\\n"
+										  options: 0
+											range: NSMakeRange(0, [msgWithBackslashN length])];
+	
+    return [NSString stringWithFormat: @"%@ %21@ %@\n", timeString, senderString, msgWithBackslashN];
+}
+
+-(NSString *) stringContainingRelevantConsoleLogEntries {
+    
+    // Returns a string with relevant entries from the Console log
+    
+	// First, search the log for all entries fewer than six hours old from Tunnelblick or openvpnstart
+    // And append them to tmpString
+	
+	NSMutableString * tmpString = [NSMutableString string];
+    
+    aslmsg q = asl_new(ASL_TYPE_QUERY);
+	time_t sixHoursAgoTimeT = time(NULL) - 6 * 60 * 60;
+	const char * sixHoursAgo = [[NSString stringWithFormat: @"%ld", (long) sixHoursAgoTimeT] UTF8String];
+    asl_set_query(q, ASL_KEY_TIME, sixHoursAgo, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
+    aslresponse r = asl_search(NULL, q);
+    
+    aslmsg m;
+    while (NULL != (m = aslresponse_next(r))) {
+        
+        NSMutableDictionary *tmpDict = [NSMutableDictionary dictionary];
+        
+        BOOL includeDict = FALSE;
+        const char * key;
+        const char * val;
+        unsigned i;
+        for (  i = 0; (NULL != (key = asl_key(m, i))); i++  ) {
+            val = asl_get(m, key);
+            NSString * string    = [NSString stringWithUTF8String: val];
+            NSString * keyString = [NSString stringWithUTF8String: key];
+            [tmpDict setObject: string forKey: keyString];
+            
+            if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
+                if (   [string isEqualToString: @"Tunnelblick"]
+                    || [string isEqualToString: @"openvpnstart"]
+                    || [string isEqualToString: @"atsystemstart"]  ) {
+                    includeDict = TRUE;
+				}
+			} else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
+				if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
+					|| ([string rangeOfString: @"tunnelblick"].length != 0)  ) {
+					includeDict = TRUE;
+				}
+			}
+		}
+		
+		if (  includeDict  ) {
+			[tmpString appendString: [self stringFromLogEntry: tmpDict]];
+		}
+	}
+		
+	aslresponse_free(r);
+	
+	// Next, extract the tail of the entries -- the last 200 lines of them
+	// (The loop test is "i<201" because we look for the 201-th newline from the end of the string; just after that is the
+	//  start of the 200th entry from the end of the string.)
+    
+	NSRange tsRng = NSMakeRange(0, [tmpString length]);	// range we are looking at currently; start with entire string
+    unsigned i;
+	for (  i=0; i<201; i++  ) {
+		NSRange nlRng = [tmpString rangeOfString: @"\n"	// range of last newline at end of part we are looking at
+										 options: NSBackwardsSearch
+										   range: tsRng];
+		
+		if (  nlRng.length == 0  ) {   // newline not found;  set up to start at start of string
+			tsRng.length = -2;         // (-2 + 2 = 0, so we will start at start of string)
+			break;
+		}
+		
+        if (  nlRng.location == 0  ) {  // newline at start of string (shouldn't happen, but...)
+			tsRng.length = -1;			// set up to start _after_ the newline (-1 + 2 = 1)
+            break;
+        }
+        
+		tsRng.length = nlRng.location - 1;				// change so looking before that newline 
+	}
+	NSString * tail = [tmpString substringFromIndex: tsRng.length + 2];
+	
+	// Finally, indent continuation lines
+	NSMutableString * indentedMsg = [[tail mutableCopy] autorelease];
+	[indentedMsg replaceOccurrencesOfString: @"\\n"
+								 withString: @"\n                                       " // Note all the spaces in the string
+									options: 0
+									  range: NSMakeRange(0, [indentedMsg length])];
+	return indentedMsg;	
+}
+
 -(IBAction) logToClipboardButtonWasClicked: (id) sender {
 
 	(void) sender;
@@ -1636,40 +1776,14 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSTextStorage * store = [[configurationsPrefsView logView] textStorage];
         NSString * logContents = [store string];
         
-		// Get tail of Console
-		NSString * consoleRawContents = @""; // stdout (ignore stderr)
-        
-        if (  isUserAnAdmin()  ) {
-            if (  runningOnLeopardOrNewer()  ) {
-                // OS X 10.5 ("Leopard") through 10.8 ("Mountain Lion")
-                runAsUser(@"/bin/bash",
-                          [NSArray arrayWithObjects:
-                           @"-c",
-                           @"cat /var/log/system.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100",
-                           nil],
-                          &consoleRawContents, nil);
-            } else {
-                // OS X 10.4 ("Tiger")
-                runAsUser(@"/bin/bash",
-                          [NSArray arrayWithObjects:
-                           @"-c",
-                           [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
-                           nil],
-                          &consoleRawContents, nil);
-            }
+		// Get tail of Console log
+        NSString * consoleContents;
+        if (  runningOnLeopardOrNewer()  ) {
+            consoleContents = [self stringContainingRelevantConsoleLogEntries];
         } else {
-            consoleRawContents = (@"The Console log cannot be obtained because you are not\n"
-                                  @"logged in as an administrator. To view the Console log,\n"
-                                  @"please use the Console application in /Applications/Utilities.\n");
+            consoleContents = [self tigerConsoleContents];
         }
         
-		// Replace backslash-n with newline
-		NSMutableString * consoleContents = [[consoleRawContents mutableCopy] autorelease];
-		[consoleContents replaceOccurrencesOfString: @"\\n"
-										 withString: @"\n"
-											options: 0
-											  range: NSMakeRange(0, [consoleRawContents length])];
-		
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
