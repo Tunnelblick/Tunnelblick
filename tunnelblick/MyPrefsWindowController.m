@@ -551,6 +551,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSOutlineView         * oView = [oVC outlineView];
         LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
         [oDS reload];
+		[oView reloadData];
 		
         NSInteger ix = 0;
 		if (  displayNameToSelect  ) {
