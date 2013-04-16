@@ -344,40 +344,40 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     tokens = [[self getTokensFromString: configString] copy];
 	
     // List of OpenVPN options that take a file path
-    optionsWithPath = [NSArray arrayWithObjects:
-//					   @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
-					   @"ca",
-					   @"cert",
-					   @"dh",
-					   @"extra-certs",
-					   @"key",
-					   @"pkcs12",
-					   @"crl-verify",                    // Optional 'direction' argument
-					   @"secret",                        // Optional 'direction' argument
-					   @"tls-auth",                      // Optional 'direction' argument
-					   nil];
+    NSArray * optionsWithPath = [NSArray arrayWithObjects:
+//					             @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
+								 @"auth-user-pass",				   // Optional 'file'
+								 @"ca",
+								 @"cert",
+								 @"dh",
+								 @"extra-certs",
+								 @"key",
+								 @"pkcs12",
+								 @"crl-verify",                    // Optional 'direction' argument
+								 @"secret",                        // Optional 'direction' argument
+								 @"tls-auth",                      // Optional 'direction' argument
+								 nil];
     
     // List of OpenVPN options that take a command
-	optionsWithCommand = [NSArray arrayWithObjects:
-						  @"tls-verify",
-						  @"auth-user-pass",
-                          @"auth-user-pass-verify",
-                          @"client-connect",
-                          @"client-disconnect",
-						  @"up",
-						  @"down",
-						  @"ipchange",
-						  @"route-up",
-						  @"route-pre-down",
-						  @"learn-address",
-						  nil];
+	NSArray * optionsWithCommand = [NSArray arrayWithObjects:
+									@"tls-verify",
+									@"auth-user-pass-verify",
+									@"client-connect",
+									@"client-disconnect",
+									@"up",
+									@"down",
+									@"ipchange",
+									@"route-up",
+									@"route-pre-down",
+									@"learn-address",
+									nil];
 	
-	optionsWithArgsThatAreOptional = [NSArray arrayWithObjects:
-//									  @"auth-user-pass",                // Optional 'file' argument not supported since we don't compile with --enable-password-save
-                                      @"crl-verify",                    // Optional 'direction' argument
-                                      @"secret",                        // Optional 'direction' argument
-                                      @"tls-auth",                      // Optional 'direction' argument after 'file' argument
-									  nil];
+	NSArray * optionsWithArgsThatAreOptional = [NSArray arrayWithObjects:
+									            @"auth-user-pass",                // Optional 'file' argument not supported since we don't compile with --enable-password-save
+												@"crl-verify",                    // Optional 'direction' argument
+												@"secret",                        // Optional 'direction' argument
+												@"tls-auth",                      // Optional 'direction' argument after 'file' argument
+												nil];
     
     inputIx         = 0;
     inputLineNumber = 1;
