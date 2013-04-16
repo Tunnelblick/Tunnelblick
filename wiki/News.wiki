@@ -1,6 +1,14 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-04-16: *Tunnelblick 3.3beta44 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a problem when converting an OpenVPN configuration with the 'auth-user-pass' option to a Tunnelblick VPN Configuration.
+
+ * Fixes a problem updating the configurations display when a configuration is added or deleted.
+ 
+--------------------
+
 2013-04-13: *Tunnelblick 3.3beta42 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes several problems.

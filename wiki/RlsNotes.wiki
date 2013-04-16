@@ -9,6 +9,14 @@
 
 ==Version 3.3==
 
+*3.3beta44 (2013-04-16)*
+
+ * Fixes a problem when converting an OpenVPN configuration with the 'auth-user-pass' option to a Tunnelblick VPN Configuration.
+
+ * Fixes a problem updating the configurations display when a configuration is added or deleted.
+ 
+--------------------
+
 *3.3beta42 (2013-04-13)*
 
  * Fixes a problem that caused DHCP over tap connections to fail.
