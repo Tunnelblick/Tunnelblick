@@ -190,7 +190,7 @@ diff -u -r -x .svn -x .DS_Store Sparkle-1.5b6-ORIGINAL/Extras/Source Code/SUBasi
 +	{
 +		if (  ! [self tunnelblickTestPrivateOnlyHasTblks]  )
 +		{
-+			NSLog(@"DEBUG: Tunnelblick '@privateOnlyHasTblks' test was not satisified");
++			NSLog(@"DEBUG: Tunnelblick 'privateOnlyHasTblks' test was not satisified");
 +			return NO;
 +		}
 +	}
