@@ -30,14 +30,9 @@
 extern NSFileManager * gFileMgr;
 extern NSString      * gPrivatePath;
 
-NSArray * optionsWithPath;					// List of OpenVPN options that take a file path as an argument
-NSArray * optionsWithCommand;				// List of OpenVPN options that take a command as an argument
-NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which the path or command is optional
-
 @implementation ConfigurationConverter
 
--(id) init
-{
+-(id) init {
 	self = [super init];
 	if (  self  ) {
 		logFile = NULL;
@@ -46,8 +41,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 	return self;	
 }
 
--(void) dealloc
-{
+-(void) dealloc {
     [configPath         release];
     [outputPath         release];
     [configString       release];
@@ -58,8 +52,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     [super dealloc];
 }
 
--(NSString *) nameToDisplayFromPath: path
-{
+-(NSString *) nameToDisplayFromPath: path {
 	if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
 		return [path substringFromIndex: [gPrivatePath length] + 1];
 	} else {
@@ -67,8 +60,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 	}
 }
 
--(void) logMessage: (NSString *) msg
-{
+-(void) logMessage: (NSString *) msg {
 	NSString * fullMsg;
 	if (  inputLineNumber != 0  ) {
 		fullMsg = [NSString stringWithFormat: @"%@ line %u: %@", [self nameToDisplayFromPath: configPath], inputLineNumber, msg];
@@ -82,8 +74,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 	}
 }
 
--(void) skipToNextLine
-{
+-(void) skipToNextLine {
     NSRange r = [configString rangeOfString: @"\n" options: 0 range: NSMakeRange(inputIx, [configString length] - inputIx)];
     if (  r.location == NSNotFound  ) {
         inputIx = [configString length];    // point past end of string
@@ -93,8 +84,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     }
 }
 
--(NSRange) nextTokenInLine
-{
+-(NSRange) nextTokenInLine {
     BOOL inSingleQuote = FALSE;
     BOOL inDoubleQuote = FALSE;
     BOOL inBackslash   = FALSE;
@@ -228,8 +218,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
     return returnRange;
 }
 
--(NSArray *) getTokensFromString: (NSString *) string
-{
+-(NSArray *) getTokensFromString: (NSString *) string {
 	NSMutableArray * arr = [NSMutableArray arrayWithCapacity: 300];
 	
 	inputIx = 0;
@@ -253,8 +242,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 }
 
 -(BOOL) processPathRange: (NSRange) rng
-	   removeBackslashes: (BOOL) removeBackslashes
-{
+	   removeBackslashes: (BOOL) removeBackslashes {
 	NSString * inPathString = [configString substringWithRange: rng];
 	NSString * inPath = [[inPathString copy] autorelease];
 	if (  removeBackslashes  ) {
@@ -322,8 +310,7 @@ NSArray * optionsWithArgsThatAreOptional;   // List of OpenVPN options for which
 
 -(BOOL) convertConfigPath: (NSString *) theConfigPath
                outputPath: (NSString *) theOutputPath
-                  logFile: (FILE *)     theLogFile
-{
+                  logFile: (FILE *)     theLogFile {
     // Converts a configuration file for use in a .tblk by removing all path information from ca, cert, etc. options.
     //
 	// If outputPath is specified, it is created as a .tblk and the configuration file and keys and certificates are copied into it.
