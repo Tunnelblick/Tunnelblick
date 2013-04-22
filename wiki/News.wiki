@@ -1,6 +1,14 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-04-22: *Tunnelblick 3.3beta46 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * <font color="red">Security</font>: Digitally signs Tunnelblick's copies of OpenVPN.
+ 
+ * Includes a 64-bit Intel version of OpenVPN 2.3.1.
+ 
+--------------------
+
 2013-04-16: *Tunnelblick 3.3beta44 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a problem when converting an OpenVPN configuration with the 'auth-user-pass' option to a Tunnelblick VPN Configuration.

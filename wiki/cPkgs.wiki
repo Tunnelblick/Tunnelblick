@@ -65,6 +65,7 @@ Info.plist is optional. If it exists, it must be an OS X property list file, wit
 ||TBReplaceIdentical||A string specifying whether to install the Configuration over a Configuration with the same CFBundleIdentifier. Must be "yes", "no", "ask", or "force" (without the quotation marks)||ask||yes||
 ||TBSharePackage||A string specifying whether to install the Configuration as shared or private, or to ask the user. Must be "shared", "private", or "ask" (without the quotation marks)||ask||ask||
 ||TBPreference||See [cPkgs#Preferences Preferences]|| ||TBPreferenceuseDNS||
+||TBUninstall||If present (with any value), the .tblk will be uninstalled|| || ||
 
 ==Preferences==
 A Configuration's Info.plist may also optionally contain entries (strings, numbers, and booleans) with keys that start with "TBPreference". The entries are preferences for the configuration. If not already present (with any value), each entry will be copied to the user's regular preferences each time Tunnelblick loads the Configuration (when Tunnelblick is launched or the Configuration is installed). When the entries are copied, "TBPreference" is replaced with the display name of the Configuration. Note that the "autoConnect" option triggers a connection when Tunnelblick is started, so a configuration with "TBPreferenceautoConnect" is not connected automatically when it is installed, but is connected automatically the next time Tunnelblick is launched.
