@@ -119,6 +119,7 @@ struct Statistics {
     BOOL            ipCheckLastHostWasIPAddress; // Host part of server's URL that was last used to check IP info was an IP address, not a name
 	BOOL            speakWhenConnected; // True iff should speak that we are connected
 	BOOL            speakWhenDisconnected; // True iff should speak that we are disconnected
+    BOOL            retryingConnectAfterSecuringConfiguration; // True only during such an attempt, to avoid infinte recursion if securing the config fails
 }
 
 // PUBLIC METHODS:
