@@ -191,7 +191,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
         credentialsAskedFor = FALSE;
         showingStatusWindow = FALSE;
         serverNotClient = FALSE;
-        
+        retryingConnectAfterSecuringConfiguration = FALSE;
+
         userWantsState   = userWantsUndecided;
         
         // If a package, set preferences that haven't been defined yet
@@ -1416,8 +1417,15 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 				return;
             }
             
-            [self connect: sender userKnows: userKnows];
-            return;
+            
+            if (  ! retryingConnectAfterSecuringConfiguration  ) {
+                retryingConnectAfterSecuringConfiguration = TRUE;
+                [self connect: sender userKnows: userKnows];
+                retryingConnectAfterSecuringConfiguration = FALSE;
+                return;
+            }
+            
+            retryingConnectAfterSecuringConfiguration = FALSE;
         }
         
 		if (  userKnows  ) {
