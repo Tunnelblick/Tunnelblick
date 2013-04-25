@@ -134,7 +134,7 @@ Tunnelblick is made possible by the efforts of many people:
 
   <tr>
     <td>      Nick Williams    </td> 
-    <td>      Up/Down scripts
+    <td>      Up/Down scripts [http://www.nicholaswilliams.net nicholaswilliams.net]
     </td>
   </tr>
 
