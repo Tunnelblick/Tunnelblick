@@ -822,13 +822,22 @@ int runScript(NSString * scriptName, int argc, char * argv[]) {
                               stringByAppendingPathComponent: @"Resources"]
                              stringByAppendingPathComponent: scriptName];
 	
+	becomeRootToAccessPath(scriptPath, @"Check if script exists");
+	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	stopBeingRootToAccessPath(scriptPath);
+
+	if (  ! scriptExists  ) {
+		fprintf(stdout, "No such script exists: %s\n", [scriptPath UTF8String]);
+		return 0;
+	}
+	
     exitIfWrongOwnerOrPermissions(scriptPath, 0, 0, PERMS_SECURED_SCRIPT);
 
-    fprintf(stderr, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
+    fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
     
     returnValue = runAsRoot(scriptPath, [NSArray array], PERMS_SECURED_SCRIPT);
     
-    fprintf(stderr, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
+    fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
     
     return returnValue;
 }

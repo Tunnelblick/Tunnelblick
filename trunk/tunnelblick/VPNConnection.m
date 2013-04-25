@@ -2894,33 +2894,54 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) runScriptNamed: (NSString *) scriptName openvpnstartCommand: (NSString *) command
 {
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-        NSString * scriptPath = [[[[configPath
-                                    stringByAppendingPathComponent: @"Contents"]
-                                   stringByAppendingPathComponent: @"Resources"]
-                                  stringByAppendingPathComponent: scriptName]
-                                 stringByAppendingPathExtension: @"sh"];
-        if (  [gFileMgr fileExistsAtPath: scriptPath]  ) {  // Note: Looks for private, not alternate, so will see it if it exists
-            NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
-            if (  startArguments  ) {
-                NSArray * arguments = [NSArray arrayWithObjects:
-                                       command,
-                                       [startArguments objectAtIndex: 1],    // configFile
-                                       [startArguments objectAtIndex: 5],    // cfgLocCode
-                                       nil];
-                
-                NSString * msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' executing…", scriptName];
-                [self addToLog: msg];
-                OSStatus status = runOpenvpnstart(arguments, nil, nil);
-                msg = [NSString stringWithFormat: @"*Tunnelblick: '%@.sh' returned with status %ld", scriptName, (long)status];
-                [self addToLog: msg];
-                if (   (status != 0)
-                    && ( ! [scriptName isEqualToString: @"post-disconnect"] )  ) {
-                    [self addToLog: @"*Tunnelblick: Disconnecting; script failed"];
-                    [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
-                }
-            } else {
-                [self addToLog: @"*Tunnelblick: argumentsForOpenvpnstartForNow returned nil"];
-            }
+		NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
+		if (  startArguments  ) {
+			NSArray * arguments = [NSArray arrayWithObjects:
+								   command,
+								   [startArguments objectAtIndex: 1],    // configFile
+								   [startArguments objectAtIndex: 5],    // cfgLocCode
+								   nil];
+			
+			NSString * stdOutString = @"";
+			NSString * stdErrString = @"";
+			OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
+			
+			if (   (status == 0)
+				&& [stdOutString hasPrefix: @"No such script exists: "]  ) {
+				[self addToLog: [NSString stringWithFormat: @"*Tunnelblick: No '%@.sh' script to execute", scriptName]];
+			} else {
+				NSMutableString * msg = [NSMutableString stringWithCapacity: 1000];
+				
+				if (  [stdOutString hasSuffix: @"\n"]  ) {
+					stdOutString = [stdOutString substringToIndex: [stdOutString length] - 1];
+				}
+				if (  [stdErrString hasSuffix: @"\n"]  ) {
+					stdErrString = [stdErrString substringToIndex: [stdErrString length] - 1];
+				}
+				
+				if (  [stdOutString length] != 0  ) {
+					[msg appendString: stdOutString];
+				}
+				if (  [stdErrString length] != 0  ) {
+					[msg appendFormat: @"\nOutput from openvpnstart stderr:\n%@", stdErrString];
+				}
+				if (  [msg length] == 0  ) {
+					[msg appendString: [NSString stringWithFormat:
+										@"*Tunnelblick: No output from openvpnstart's execution of '%@.sh' script",
+										scriptName]];
+				} else {
+					[msg insertString: @"*Tunnelblick: " atIndex: 0];
+				}
+				[self addToLog: msg];
+			}
+			
+			if (   (status != 0)
+				&& ( ! [scriptName isEqualToString: @"post-disconnect"] )  ) {
+				[self addToLog: @"*Tunnelblick: Disconnecting because script failed"];
+				[self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES]; // Disconnect because script failed
+			}
+		} else {
+			[self addToLog: @"*Tunnelblick: argumentsForOpenvpnstartForNow returned nil"];
 		}
     }
 }
