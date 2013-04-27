@@ -175,7 +175,7 @@ EOF
 fi
 
 if [ "${DNS_OLD_SETUP}" = "${TB_NO_SUCH_KEY}" ] ; then
-	if ${bSetSetupDNSStateKeys} ; then
+	if ${bAlsoUsingSetupKeys} ; then
 		logMessage "DEBUG: Removing 'Setup:' DNS key"
 		scutil <<-EOF
 			open
@@ -186,7 +186,7 @@ EOF
 		logMessage "DEBUG: Not removing 'Setup:' DNS key"
 	fi
 else
-	if ${bSetSetupDNSStateKeys} ; then
+	if ${bAlsoUsingSetupKeys} ; then
 		logMessage "DEBUG: Restoring 'Setup:' DNS key"
 		scutil <<-EOF
 			open
