@@ -28,7 +28,8 @@
  * If the first argument is "1", this program will set up to RUN openvpnstart at system startup with the rest of the arguments.
  * If the first argument is "0", this program will set up to NOT RUN openvpnstart at system startup with the rest of the arguments.
  *
- * When finished (or if an error occurs), the file /tmp/tunnelblick-authorized-running is deleted to indicate the program has finished
+ // If no error occurs, the file AUTHORIZED_ERROR_PATH is deleted
+ * When finished (or if an error occurs), the file AUTHORIZED_RUNNING_PATH is deleted to indicate the program has finished
  *
  * Note: Although this program returns EXIT_SUCCESS or EXIT_FAILURE, that code is not returned to the invoker of executeAuthorized.
  * The code returned by executeAuthorized indicates only success or failure to launch this program. Thus, the invoking program must
@@ -54,7 +55,7 @@ void        setNoStart(NSString * plistPath);
 void        setStart(NSString * plistPath, NSString * daemonDescription, NSString * daemonLabel, int argc, char* argv[]);
 NSString *  getWorkingDirectory(int argc, char* argv[]);
 void        errorExit(void);
-void        deleteFlagFile(void);
+void        deleteFlagFile(NSString * path);
 
 //**************************************************************************************************************************
 int main(int argc, char* argv[])
@@ -122,7 +123,8 @@ int main(int argc, char* argv[])
         setStart(plistPath, daemonDescription, daemonLabel, argc, argv);
     }
     
-    deleteFlagFile();
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
+    deleteFlagFile(AUTHORIZED_ERROR_PATH);
 
     [pool drain];
     exit(EXIT_SUCCESS);
@@ -217,27 +219,29 @@ NSString * getWorkingDirectory(int argc, char* argv[])
     return workingDirectory;
 }
 
-void errorExit(void)
-{
-    deleteFlagFile();
+void deleteFlagFile(NSString * path) {
+    
+	const char * fsrPath = [path fileSystemRepresentation];
+    struct stat sb;
+	if (  0 == stat(fsrPath, &sb)  ) {
+        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
+            if (  0 != unlink(fsrPath)  ) {
+                appendLog([NSString stringWithFormat: @"Unable to delete %@", path]);
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"%@ is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
+        }
+    } else {
+        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was '%s'", path, strerror(errno)]);
+    }
+}
+
+void errorExit() {
+    
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
     
     [pool drain];
     exit(EXIT_FAILURE);
 }
 
-void deleteFlagFile(void)
-{
-    char * path = "/tmp/tunnelblick-authorized-running";
-    struct stat sb;
-	if (  0 == stat(path, &sb)  ) {
-        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
-            if (  0 != unlink(path)  ) {
-                NSLog(@"Tunnelblick atsystemstart: Unable to delete %s", path);
-            }
-        } else {
-            NSLog(@"Tunnelblick atsystemstart: %s is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode);
-        }
-    } else {
-        NSLog(@"Tunnelblick atsystemstart: stat of %s failed\nError was '%s'", path, strerror(errno));
-    }
-}
+

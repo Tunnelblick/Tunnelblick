@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="856"/>
 			<integer value="1059"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -2589,7 +2590,7 @@
 				<string key="NSClassName">InfoView</string>
 			</object>
 			<object class="NSCustomView" id="552065829">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">269</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2632,6 +2633,26 @@
 							<int key="NSPeriodicInterval">25</int>
 						</object>
 					</object>
+					<object class="NSButton" id="415693899">
+						<reference key="NSNextResponder" ref="552065829"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{222, 115}, {167, 32}}</string>
+						<reference key="NSSuperview" ref="552065829"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="38502250">
+							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags2">0</int>
+							<string key="NSContents">Copy Console Log$</string>
+							<reference key="NSSupport" ref="644301394"/>
+							<reference key="NSControlView" ref="415693899"/>
+							<int key="NSButtonFlags">-2038284033</int>
+							<int key="NSButtonFlags2">129</int>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+					</object>
 					<object class="NSButton" id="26026892">
 						<reference key="NSNextResponder" ref="552065829"/>
 						<int key="NSvFlags">268</int>
@@ -2641,7 +2662,7 @@
 						<object class="NSButtonCell" key="NSCell" id="918727657">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">KillAllOpenVPN...</string>
+							<string key="NSContents">KillAllOpenVPN$</string>
 							<reference key="NSSupport" ref="644301394"/>
 							<reference key="NSControlView" ref="26026892"/>
 							<int key="NSButtonFlags">-2038284033</int>
@@ -2661,7 +2682,7 @@
 						<object class="NSButtonCell" key="NSCell" id="635669041">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Open easy-rsa in Terminal...</string>
+							<string key="NSContents">Open easy-rsa in Terminal$</string>
 							<reference key="NSSupport" ref="644301394"/>
 							<reference key="NSControlView" ref="205480544"/>
 							<int key="NSButtonFlags">-2038284033</int>
@@ -2674,6 +2695,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{760, 390}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">UtilitiesView</string>
 			</object>
 		</object>
@@ -4401,14 +4423,6 @@
 					<int key="connectionID">855</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="26026892"/>
-						<reference key="destination" ref="196927989"/>
-					</object>
-					<int key="connectionID">984</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">utilitiesHelpButtonWasClicked:</string>
 						<reference key="source" ref="1001"/>
@@ -4447,14 +4461,6 @@
 						<reference key="destination" ref="26026892"/>
 					</object>
 					<int key="connectionID">997</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="205480544"/>
-						<reference key="destination" ref="196927989"/>
-					</object>
-					<int key="connectionID">1012</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -4631,6 +4637,54 @@
 						<reference key="destination" ref="745170213"/>
 					</object>
 					<int key="connectionID">1079</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="415693899"/>
+						<reference key="destination" ref="196927989"/>
+					</object>
+					<int key="connectionID">1087</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">utilitiesCopyConsoleLogButtonWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="415693899"/>
+					</object>
+					<int key="connectionID">1089</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="26026892"/>
+						<reference key="destination" ref="205480544"/>
+					</object>
+					<int key="connectionID">1090</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="196927989"/>
+						<reference key="destination" ref="26026892"/>
+					</object>
+					<int key="connectionID">1092</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">utilitiesCopyConsoleLogButton</string>
+						<reference key="source" ref="552065829"/>
+						<reference key="destination" ref="415693899"/>
+					</object>
+					<int key="connectionID">1093</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="205480544"/>
+						<reference key="destination" ref="415693899"/>
+					</object>
+					<int key="connectionID">1094</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6066,6 +6120,7 @@
 							<reference ref="205480544"/>
 							<reference ref="26026892"/>
 							<reference ref="892700438"/>
+							<reference ref="415693899"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Utilities</string>
@@ -6229,6 +6284,20 @@
 						<reference key="parent" ref="0"/>
 						<string key="objectName">LeftNavDataSource</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1085</int>
+						<reference key="object" ref="415693899"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="38502250"/>
+						</object>
+						<reference key="parent" ref="552065829"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1086</int>
+						<reference key="object" ref="38502250"/>
+						<reference key="parent" ref="415693899"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -6269,6 +6338,9 @@
 					<string>1068.CustomClassName</string>
 					<string>1068.IBPluginDependency</string>
 					<string>1069.IBPluginDependency</string>
+					<string>1085.IBPluginDependency</string>
+					<string>1085.IBViewBoundsToFrameTransform</string>
+					<string>1086.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.IBViewBoundsToFrameTransform</string>
 					<string>117.IBEditorWindowLastContentRect</string>
@@ -6607,6 +6679,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>LeftNavViewController</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDDAAAw5OAAA</bytes>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
@@ -7025,7 +7102,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{104, 245}, {760, 390}}</string>
+					<string>{{104, 120}, {760, 390}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -7074,7 +7151,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1084</int>
+			<int key="maxID">1094</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7396,6 +7473,7 @@
 							<string>showOpenvpnLogMenuItemWasClicked:</string>
 							<string>updatesCheckAutomaticallyCheckboxWasClicked:</string>
 							<string>updatesCheckNowButtonWasClicked:</string>
+							<string>utilitiesCopyConsoleLogButtonWasClicked:</string>
 							<string>utilitiesHelpButtonWasClicked:</string>
 							<string>utilitiesKillAllOpenVpnButtonWasClicked:</string>
 							<string>utilitiesRunEasyRsaButtonWasClicked:</string>
@@ -7405,6 +7483,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7531,6 +7610,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>utilitiesCopyConsoleLogButton</string>
 							<string>utilitiesEasyRsaPathTFC</string>
 							<string>utilitiesHelpButton</string>
 							<string>utilitiesKillAllOpenVpnButton</string>
@@ -7538,6 +7618,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSButton</string>
 							<string>NSTextFieldCell</string>
 							<string>NSButton</string>
 							<string>NSButton</string>

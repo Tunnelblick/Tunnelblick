@@ -64,7 +64,8 @@
 -(void)                     openDotTblkPackages:        (NSArray *)         filePaths
                                       usingAuth:        (AuthorizationRef)  authRef
                         skipConfirmationMessage:        (BOOL)              skipConfirmMsg
-                              skipResultMessage:        (BOOL)              skipResultMsg;
+                              skipResultMessage:        (BOOL)              skipResultMsg
+                                 notifyDelegate:        (BOOL)              notifyDelegate;
 
 -(NSString *)               parseConfigurationPath:     (NSString *)        cfgPath
                                      forConnection:     (VPNConnection *)   connection;

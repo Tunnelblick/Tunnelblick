@@ -174,9 +174,11 @@
 
 // Methods for UtiltiesView
 
+-(IBAction) utilitiesKillAllOpenVpnButtonWasClicked:      (id) sender;
+
 -(IBAction) utilitiesRunEasyRsaButtonWasClicked:          (id) sender;
 
--(IBAction) utilitiesKillAllOpenVpnButtonWasClicked:      (id) sender;
+-(IBAction) utilitiesCopyConsoleLogButtonWasClicked:      (id) sender;
 
 -(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 

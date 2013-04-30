@@ -220,6 +220,11 @@ new_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
 logMessage "DEBUG:"
 logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
+scutil_dns="$( scutil --dns)"
+logMessage "DEBUG:"
+logMessage "DEBUG: scutil --dns = ${scutil_dns}"
+logMessage "DEBUG:"
+
 flushDNSCache
 
 # Remove our system configuration data

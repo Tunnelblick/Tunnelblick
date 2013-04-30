@@ -66,16 +66,20 @@ extern TBUserDefaults * gTbDefaults;
     
     [utilitiesRunEasyRsaButton setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")];
     [utilitiesRunEasyRsaButton sizeToFit];
+	
+	[utilitiesCopyConsoleLogButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
+    [utilitiesCopyConsoleLogButton sizeToFit];	
 }
 
 //***************************************************************************************************************
 // Getters
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesRunEasyRsaButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesKillAllOpenVpnButton)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesRunEasyRsaButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   utilitiesEasyRsaPathTFC)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesKillAllOpenVpnButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesCopyConsoleLogButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesHelpButton)
 

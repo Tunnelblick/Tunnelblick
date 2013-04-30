@@ -73,7 +73,10 @@ enum state_t {                      // These are the "states" of the guideState 
 
 -(NSString *)   makeEmptyTblk:              (NSString *)                thePath;
 
--(NSArray *)    checkOneDotTblkPackage:     (NSString *)                filePath;
+-(NSArray *) checkOneDotTblkPackage:		(NSString *)				filePath
+		   overrideReplaceIdentical:		(NSString *)				overrideReplaceIdentical
+			   overrideSharePackage:		(NSString *)				overrideSharePackage
+				  overrideUninstall:		(NSString *)				overrideUninstall;
 
 -(NSString *)   parseString:                (NSString *)                cfgContents
                   forOption:                (NSString *)                option;
@@ -701,7 +704,8 @@ enum state_t {                      // These are the "states" of the guideState 
 -(void) openDotTblkPackages: (NSArray *) filePaths
                   usingAuth: (AuthorizationRef) authRef
     skipConfirmationMessage: (BOOL) skipConfirmMsg
-          skipResultMessage: (BOOL) skipResultMsg {
+          skipResultMessage: (BOOL) skipResultMsg
+             notifyDelegate: (BOOL) notifyDelegate {
     
     // The filePaths array entries are NSStrings with the path to a .tblk to install.
     
@@ -709,7 +713,9 @@ enum state_t {                      // These are the "states" of the guideState 
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
                         NSLocalizedString(@"Installation of .tblk packages is not allowed", "Window text"),
                         nil, nil, nil);
-        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
         return;
     }
     
@@ -728,6 +734,9 @@ enum state_t {                      // These are the "states" of the guideState 
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
                             NSLocalizedString(@"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.", "Window text"),
                             nil, nil, nil);
+            if (  notifyDelegate  ) {
+                [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+            }
             return;
         }
     }
@@ -743,6 +752,34 @@ enum state_t {                      // These are the "states" of the guideState 
     unsigned i;
     for (i=0; i < [filePaths count]; i++) {
         NSString * path = [filePaths objectAtIndex: i];
+        
+        NSString * overrideReplaceIdentical = nil;
+		NSString * overrideSharePackage     = nil;
+		NSString * overrideUninstall        = nil;
+		
+        // Set up overrides for TBReplaceIdentical, TBSharePackage, and TBUninistall
+        if (  [path hasSuffix: @".tblk"]  ) {
+            NSString * infoPlistPath = [path stringByAppendingPathComponent:@"Contents/Info.plist"];
+            NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+            
+            overrideReplaceIdentical = [infoPlist objectForKey: @"TBReplaceIdentical"];
+            NSArray * okValues = [NSArray arrayWithObjects: @"yes", @"no", @"ask", @"force", nil];
+            if (  ! [okValues containsObject: overrideReplaceIdentical]  ) {
+                NSLog(@"Ignoring invalid TBReplaceIdentical value of '%@' in %@",
+                      overrideReplaceIdentical, infoPlistPath);
+                overrideReplaceIdentical = nil;
+            }
+            
+            overrideSharePackage = [infoPlist objectForKey: @"TBSharePackage"];
+            okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
+            if (  ! [okValues containsObject: overrideSharePackage]  ) {
+                NSLog(@"Ignoring invalid TBSharePackage value of '%@' in %@",
+                      overrideSharePackage, infoPlistPath);
+                overrideSharePackage = nil;
+            }
+            
+            overrideUninstall = [infoPlist objectForKey: @"TBUninstall"];
+        }
         
         // Deal with nested .tblks -- i.e., .tblks inside of a .tblk. One level of that is processed.
         // If there are any .tblks inside the .tblk, the .tblk itself is not created, only the inner .tblks
@@ -770,7 +807,10 @@ enum state_t {                      // These are the "states" of the guideState 
                 
                 if (  ! nestedTooDeeply  ) {
                     // This .tblk is not nested too deeply, so process it
-                    dest = [self checkOneDotTblkPackage: fullInnerPath];
+                    dest = [self checkOneDotTblkPackage: fullInnerPath
+							   overrideReplaceIdentical: overrideReplaceIdentical
+								   overrideSharePackage: overrideSharePackage
+									  overrideUninstall: overrideUninstall];
                     if (  dest  ) {
                         if (  [dest count] == 2  ) {
                             [sourceList addObject: [dest objectAtIndex: 0]];
@@ -790,7 +830,10 @@ enum state_t {                      // These are the "states" of the guideState 
         }
         
         if (  [innerTblksAlreadyProcessed count] == 0  ) {
-            dest = [self checkOneDotTblkPackage: path];
+            dest = [self checkOneDotTblkPackage: path
+                       overrideReplaceIdentical: nil    // Don't override the .tblk itself!
+                           overrideSharePackage: nil
+                              overrideUninstall: nil];
             if (  dest  ) {
                 if (  [dest count] == 2  ) {
                     [sourceList addObject: [dest objectAtIndex: 0]];
@@ -831,6 +874,14 @@ enum state_t {                      // These are the "states" of the guideState 
         }
     }
     
+	NSString * windowHeaderText = ([deleteList count] == 0
+								   ? NSLocalizedString(@"Install?", @"Window title")
+								   : ([sourceList count] == 0
+                                      ? NSLocalizedString(@"Uninstall?", @"Window title")
+                                      : NSLocalizedString(@"Install and Uninstall?", @"Window title")
+                                      )
+                                   );
+    
     NSString * windowText = nil;
     if (  [deleteList count] == 1  ) {
         windowText = NSLocalizedString(@"Do you wish to uninstall one configuration", @"Window text");
@@ -865,17 +916,20 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (  windowText  ) {
         if (   ( ! skipConfirmMsg ) || ( [errList count] != 0 )  ) {
-            int result = TBRunAlertPanel(NSLocalizedString(@"Perform installation?", @"Window title"),
+            int result = TBRunAlertPanel(windowHeaderText,
                                          [NSString stringWithFormat: @"%@%@?", errPrefix, windowText],
                                          NSLocalizedString(@"OK", @"Button"),       // Default
                                          nil,                                       // Alternate
                                          NSLocalizedString(@"Cancel", @"Button"));  // Other
             if (  result == NSAlertOtherReturn  ) {
-                if (  [errList count] == 0  ) {
-                    [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
-                } else {
-                    [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+                if (  notifyDelegate  ) {
+                    if (  [errList count] == 0  ) {
+                        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
+                    } else {
+                        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+                    }
                 }
+                
                 return;
             }
         }
@@ -892,7 +946,9 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (  ! localAuth  ) {
         NSLog(@"Configuration installer: The Tunnelblick VPN Configuration installation was cancelled by the user.");
-        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
+        }
         return;
     }
     
@@ -939,7 +995,9 @@ enum state_t {                      // These are the "states" of the guideState 
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
                         msg,
                         nil, nil, nil);
-        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
     } else {
         unsigned nOK = [sourceList count];
         unsigned nUninstalled = [deleteList count];
@@ -973,11 +1031,16 @@ enum state_t {                      // These are the "states" of the guideState 
                             msg,
                             nil, nil, nil);
         }
-        [NSApp replyToOpenOrPrint: NSApplicationDelegateReplySuccess];
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplySuccess];
+        }
     }
 }
 
--(NSArray *) checkOneDotTblkPackage: (NSString *) filePath {
+-(NSArray *) checkOneDotTblkPackage: (NSString *) filePath
+		   overrideReplaceIdentical: (NSString *) overrideReplaceIdentical
+			   overrideSharePackage: (NSString *) overrideSharePackage
+				  overrideUninstall: (NSString *) overrideUninstall {
     
     // Checks one .tblk package to make sure it should be installed
     //     Returns an array with [source, dest] paths if it should be installed
@@ -1101,7 +1164,30 @@ enum state_t {                      // These are the "states" of the guideState 
 //        pkgInstallWhenInstalling    = @"ask";
     }
 
-        
+	if (  overrideReplaceIdentical  ) {
+		if (   pkgReplaceIdentical  ) {
+			NSLog(@"Overriding TBReplaceIdentical in %@", filePath);
+		}
+		pkgReplaceIdentical = [[overrideReplaceIdentical retain] autorelease];
+	}
+	
+	if (  overrideSharePackage  ) {
+		if (   pkgSharePackage  ) {
+			NSLog(@"Overriding TBSharePackage in %@", filePath);
+		}
+		pkgSharePackage = [[overrideSharePackage retain] autorelease];
+	}
+    
+	if (  overrideUninstall  ) {
+		if (  ! pkgDoUninstall  ) {
+			NSLog(@"Overriding absense of TBUninstall in %@", filePath);
+		}
+		pkgDoUninstall = TRUE;
+		if (  [overrideUninstall isEqualToString: @"ignoreError"]  ) {
+			pkgUninstallFailOK = TRUE;
+		}
+	}
+	
     // **************************************************************************************
     // Make sure there is exactly one configuration file
     NSString * pathToConfigFile = nil;
@@ -1262,6 +1348,17 @@ enum state_t {                      // These are the "states" of the guideState 
         while (   (curPath = [[[NSApp delegate] myConfigDictionary] objectForKey: tryDisplayName])
 			   || ([tryDisplayName length] == 0)
 			   ) {
+			if (   [pkgReplaceIdentical isEqualToString: @"force"]
+                || [pkgReplaceIdentical isEqualToString: @"yes"]
+                ) {
+				replacementPath = curPath;
+				if (  [replacementPath hasPrefix: [L_AS_T_SHARED stringByAppendingPathComponent: @"/"]]  ) {
+					pkgSharePackage = @"shared";
+				} else {
+					pkgSharePackage = @"private";
+				}
+                break;
+ 			}
             NSString * msg;
             if (  [tryDisplayName length] == 0  ) {
                 msg = NSLocalizedString(@"The VPN name cannot be empty.\n\nPlease enter a new name.", @"Window text");
@@ -1278,7 +1375,8 @@ enum state_t {                      // These are the "states" of the guideState 
             
             // If neither old nor new .tblks have an Info.plist
             if (   ( ! pkgHasInfoPlist  )
-                && ( ! [gFileMgr fileExistsAtPath: [curPath stringByAppendingPathComponent: @"Contents/Info.plist"]]  )    ) {
+                && ( ! [gFileMgr fileExistsAtPath: [curPath stringByAppendingPathComponent: @"Contents/Info.plist"]]  )
+                && ( ! [pkgReplaceIdentical isEqualToString: @"no"])  ) {
                 [panelDict setObject:NSLocalizedString(@"Replace Existing Configuration", @"Button") forKey:(NSString *)kCFUserNotificationOtherButtonTitleKey];
             }
             
@@ -1328,9 +1426,8 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (   pkgIsOK ) {
         if (  pkgDoUninstall  ) {
-            if (  replacementPath  ) {
-                // **************************************************************************************
-                // Indicate the package is to be UNinstalled
+            if (  ! replacementPath  ) {
+                
                 NSString * tblkName = [tryDisplayName stringByAppendingPathExtension: @"tblk"];
                 NSString * pathPrefix;
                 if (  [pkgSharePackage isEqualToString: @"private"]  ) {
@@ -1341,15 +1438,18 @@ enum state_t {                      // These are the "states" of the guideState 
                 if (  subfolder  ) {
                     pathPrefix = [pathPrefix stringByAppendingPathComponent: subfolder];
                 }
-                return [NSArray arrayWithObject: [pathPrefix stringByAppendingPathComponent: tblkName]];
-            } else {
-                NSLog(@"Cannot find configuration %@ to be uninstalled.", tryDisplayName);
-                if (  pkgUninstallFailOK  ) {
-                    return [NSArray array];
-                } else {
-                    return nil;
+                replacementPath = [pathPrefix stringByAppendingPathComponent: tblkName];
+                if (  ! [gFileMgr fileExistsAtPath: replacementPath]  ) {
+                    NSLog(@"Cannot find configuration %@ to be uninstalled.", tryDisplayName);
+                    if (  pkgUninstallFailOK  ) {
+                        return [NSArray array];
+                    } else {
+                        return nil;
+                    }
                 }
             }
+            
+            return [NSArray arrayWithObject: replacementPath];
         }
         
         // **************************************************************************************
@@ -1703,7 +1803,7 @@ enum state_t {                      // These are the "states" of the guideState 
                          : 0);
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, sourcePath, nil];
     
-    if (  [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil]  ) {
+    if (  [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil]  ) {
         return TRUE;
     }
     
@@ -1741,7 +1841,7 @@ enum state_t {                      // These are the "states" of the guideState 
     unsigned firstArg = INSTALLER_DELETE;
     NSArray * arguments = [NSArray arrayWithObjects: targetPath, nil];
     
-    [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil];
+    [[NSApp delegate] runInstaller: firstArg extraArguments: arguments usingAuthRefPtr: authRefPtr message: nil installTblksFirst: nil];
     
     if ( [gFileMgr fileExistsAtPath: targetPath]  ) {
         NSString * name = [[targetPath lastPathComponent] stringByDeletingPathExtension];
