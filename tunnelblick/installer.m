@@ -119,15 +119,8 @@ uid_t           gRealUserID;                  // User ID & Group ID for the real
 gid_t           gRealGroupID;
 NSAutoreleasePool * pool;
 
-void openLog(BOOL clearLog);
-void appendLog(NSString * s);
-void closeLog(void);
-void errorExitIfAnySymlinkInPath(NSString * path, int testPoint);
-BOOL createSymLink(NSString * fromPath, NSString * toPath);
-void deleteFlagFile(void);
 BOOL makeFileUnlockedAtPath(NSString * path);
 BOOL moveContents(NSString * fromPath, NSString * toPath);
-void errorExit();
 NSString * firstPartOfPath(NSString * path);
 NSString * lastPartOfPath(NSString * path);
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy);
@@ -138,7 +131,83 @@ NSArray * pathsForDeployBackups(void);
 BOOL convertAllPrivateOvpnAndConfToTblk(void);
 BOOL tunnelblickTestPrivateOnlyHasTblks(void);
 
-int main(int argc, char *argv[]) 
+//**************************************************************************************************************************
+
+void errorExit();
+void errorExitIfAnySymlinkInPath(NSString * path,
+								 int testPoint);
+
+void debugLog(NSString * string) {
+	
+	// Call this function to create files in /tmp to show progress through this program
+	// when there are problems that cause the log not to be available
+	// For example, if this installer hangs.
+	//
+	// "string" is a string identifier indicating where debugLog was called from.
+	
+	NSString * path = [NSString stringWithFormat: @"/tmp/0-tunnelblick-installer-debug-point-%@.txt", string];
+	[[NSFileManager defaultManager] createFileAtPath: path contents: [NSData data] attributes: nil];
+}
+
+void openLog(BOOL clearLog) {
+    
+    const char * path = [INSTALLER_LOG_PATH fileSystemRepresentation];
+	
+	if (  clearLog  ) {
+		gLogFile = fopen(path, "w");
+	} else {
+		gLogFile = fopen(path, "a");
+	}
+    
+	if (  gLogFile == NULL  ) {
+		errorExit();
+	}
+}
+
+void appendLog(NSString * s) {
+    
+	if (  gLogFile != NULL  ) {
+		fprintf(gLogFile, "%s\n", [s UTF8String]);
+	} else {
+		NSLog(@"%@", s);
+	}
+}
+
+void closeLog(void) {
+    
+	if (  gLogFile != NULL  ) {
+		fclose(gLogFile);
+	}
+}
+
+void deleteFlagFile(NSString * path) {
+    
+	const char * fsrPath = [path fileSystemRepresentation];
+    struct stat sb;
+	if (  0 == stat(fsrPath, &sb)  ) {
+        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
+            if (  0 != unlink(fsrPath)  ) {
+                appendLog([NSString stringWithFormat: @"Unable to delete %@", path]);
+            }
+        } else {
+            appendLog([NSString stringWithFormat: @"%@ is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
+        }
+    } else {
+        appendLog([NSString stringWithFormat: @"stat of %@ failed\nError was '%s'", path, strerror(errno)]);
+    }
+}
+
+void errorExit() {
+    
+    // Leave AUTHORIZED_ERROR_PATH to indicate an error occurred
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
+	closeLog();
+    
+    [pool drain];
+    exit(EXIT_FAILURE);
+}
+
+int main(int argc, char *argv[])
 {
 	pool = [NSAutoreleasePool new];
     
@@ -197,23 +266,6 @@ int main(int argc, char *argv[])
 	
 	appendLog([NSString stringWithFormat: @"Tunnelblick installer started %@. %d arguments:%@", dateMsg, argc - 1, argString]);
 	
-#ifdef TBDebug
-    appendLog(@"WARNING: This is an insecure copy of installer to be used for debugging only!");
-#else
-    if (   ([execComponents count] != 5)
-        || [[execComponents objectAtIndex: 0] isNotEqualTo: @"/"]
-        || [[execComponents objectAtIndex: 1] isNotEqualTo: @"Applications"]
-        //                                                  Allow any name for Tunnelblick.app
-        || [[execComponents objectAtIndex: 3] isNotEqualTo: @"Contents"]
-        || [[execComponents objectAtIndex: 4] isNotEqualTo: @"Resources"]
-        ) {
-		if (  ! copyApp  ) {
-			appendLog([NSString stringWithFormat: @"Tunnelblick must be in /Applications (bundlePath = %@", resourcesPath]);
-			errorExit();
-		}
-    }
-#endif
-    
     gFileMgr = [NSFileManager defaultManager];
     gPrivatePath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Tunnelblick/Configurations/"] copy];
     
@@ -959,42 +1011,13 @@ int main(int argc, char *argv[])
     //**************************************************************************************************************************
     // DONE
     
-    deleteFlagFile();
+    deleteFlagFile(AUTHORIZED_ERROR_PATH);
+    deleteFlagFile(AUTHORIZED_RUNNING_PATH);
 	closeLog();
     
     [pool release];
     exit(EXIT_SUCCESS);
 }
-
-//**************************************************************************************************************************
-
-void deleteFlagFile(void)
-{
-    char * path = "/tmp/tunnelblick-authorized-running";
-    struct stat sb;
-	if (  0 == stat(path, &sb)  ) {
-        if (  (sb.st_mode & S_IFMT) == S_IFREG  ) {
-            if (  0 != unlink(path)  ) {
-                appendLog([NSString stringWithFormat: @"Unable to delete %s", path]);
-            }
-        } else {
-            appendLog([NSString stringWithFormat: @"%s is not a regular file; st_mode = 0%lo", path, (unsigned long) sb.st_mode]);
-        }
-    } else {
-        appendLog([NSString stringWithFormat: @"stat of %s failed\nError was '%s'", path, strerror(errno)]);
-    }
-}
-
-//**************************************************************************************************************************
-void errorExit()
-{
-    deleteFlagFile();
-	closeLog();
-
-    [pool release];
-    exit(EXIT_FAILURE);
-}
-
 
 //**************************************************************************************************************************
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy)
@@ -1071,24 +1094,6 @@ BOOL moveContents(NSString * fromPath, NSString * toPath)
     }
     
     return YES;
-}
-
-//**************************************************************************************************************************
-BOOL createSymLink(NSString * fromPath, NSString * toPath)
-{
-    if (  [gFileMgr tbCreateSymbolicLinkAtPath: fromPath pathContent: toPath]  ) {
-        // Since we're running as root, owner of symbolic link is root:wheel. Try to change to real user:group
-        if (  0 != lchown([gFileMgr fileSystemRepresentationWithPath: fromPath], gRealUserID, gRealGroupID)  ) {
-            appendLog([NSString stringWithFormat: @"Error: Unable to change ownership of symbolic link %@\nError was '%s'", fromPath, strerror(errno)]);
-            return NO;
-        } else {
-            appendLog([NSString stringWithFormat: @"Successfully created a symbolic link from %@ to %@", fromPath, toPath]);
-            return YES;
-        }
-    }
-
-    appendLog([NSString stringWithFormat: @"Error: Unable to create symbolic link from %@ to %@", fromPath, toPath]);
-    return NO;
 }
 
 //**************************************************************************************************************************
@@ -1476,35 +1481,4 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
     }
     
     return TRUE;
-}
-
-void openLog(BOOL clearLog)
-{
-    char * path = "/tmp/tunnelblick-installer-log.txt";
-	
-	if (  clearLog  ) {
-		gLogFile = fopen(path, "w");
-	} else {
-		gLogFile = fopen(path, "a");
-	}
-
-	if (  gLogFile == NULL  ) {
-		errorExit();
-	}
-}
-
-void appendLog(NSString * s)
-{
-	if (  gLogFile != NULL  ) {
-		fprintf(gLogFile, "%s\n", [s UTF8String]);
-	} else {
-		NSLog(@"%@", s);
-	}
-}
-
-void closeLog(void)
-{
-	if (  gLogFile != NULL  ) {
-		fclose(gLogFile);
-	}
 }

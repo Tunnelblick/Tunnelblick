@@ -54,15 +54,22 @@
 
 //*************************************************************************************************
 // Paths:
-// Note: Several up scripts refer to the log directory without using this header file
 
-#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
+// NOTE: Several up scripts refer to the log directory without using this header file
+#define L_AS_T_LOGS   @"/Library/Application Support/Tunnelblick/Logs"
 
 #define L_AS_T_BACKUP @"/Library/Application Support/Tunnelblick/Backup"
 #define L_AS_T_DEPLOY @"/Library/Application Support/Tunnelblick/Deploy"
-#define L_AS_T_LOGS   @"/Library/Application Support/Tunnelblick/Logs"
 #define L_AS_T_SHARED @"/Library/Application Support/Tunnelblick/Shared"
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
+
+#define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
+#define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
+
+// NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
+#define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
+
+#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
 
 
 //*************************************************************************************************

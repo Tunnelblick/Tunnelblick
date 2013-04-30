@@ -511,6 +511,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
     logMessage "DEBUG:"
 
+	scutil_dns="$( scutil --dns)"
+	logMessage "DEBUG:"
+	logMessage "DEBUG: scutil --dns BEFORE CHANGES = ${scutil_dns}"
+	logMessage "DEBUG:"
+
 	logMessage "DEBUG:"
 	logMessage "DEBUG: Configuration changes:"
 	logMessage "DEBUG: ${SKP_DNS}${SKP_DNS_SA}ADD State: ServerAddresses  ${FIN_DNS_SA}"
@@ -695,6 +700,11 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
     logMessage "DEBUG:"
 
+	scutil_dns="$( scutil --dns)"
+	logMessage "DEBUG:"
+	logMessage "DEBUG: scutil --dns AFTER CHANGES = ${scutil_dns}"
+	logMessage "DEBUG:"
+	
 	logMessage "Saved the DNS and SMB configurations for later use"
 	
 	flushDNSCache

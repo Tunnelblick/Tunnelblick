@@ -54,27 +54,27 @@
 #endif
 
 // These are global variables rather than class variables to make access to them easier
-NSMutableArray        * gConfigDirs;            // Array of paths to configuration directories currently in use
-NSString              * gPrivatePath;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
-NSString              * gDeployPath;            // Path to /Library/Application Support/Tunnelblick/Deploy/<application-name>
-TBUserDefaults        * gTbDefaults;            // Our preferences
-NSFileManager         * gFileMgr;               // [NSFileManager defaultManager]
-AuthorizationRef        gAuthorization;         // Used to call installer
-NSArray               * gProgramPreferences;    // E.g., 'placeIconInStandardPositionInStatusBar'
-NSArray               * gConfigurationPreferences; // E.g., '-onSystemStart'
-BOOL                    gShuttingDownTunnelblick;// TRUE if applicationShouldTerminate: has been invoked
-BOOL                    gShuttingDownWorkspace;
-BOOL                    gShuttingDownOrRestartingComputer;
-BOOL                    gComputerIsGoingToSleep;// Flag that the computer is going to sleep
-BOOL                    gUserWasAskedAboutConvertNonTblks;// Flag that the user has been asked to convert non-.tblk configurations
-BOOL                    gOkToConvertNonTblks;          // Flag that the user has agreed to convert non-.tblk configurations
-unsigned                gHookupTimeout;         // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
-//                                              // or zero to keep trying indefinitely
-unsigned                gMaximumLogSize;        // Maximum size (bytes) of buffer used to display the log
-NSArray               * gRateUnits;             // Array of strings with localized data units      (KB/s, MB/s, GB/s, etc.)
-NSArray               * gTotalUnits;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
-NSTimeInterval          gDelayToShowStatistics; // Time delay from mouseEntered icon or statistics window until showing the statistics window
-NSTimeInterval          gDelayToHideStatistics; // Time delay from mouseExited icon or statistics window until hiding the statistics window
+NSMutableArray        * gConfigDirs = nil;            // Array of paths to configuration directories currently in use
+NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
+NSString              * gDeployPath = nil;            // Path to /Library/Application Support/Tunnelblick/Deploy/<application-name>
+TBUserDefaults        * gTbDefaults = nil;            // Our preferences
+NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
+AuthorizationRef        gAuthorization = nil;         // Used to call installer
+NSArray               * gProgramPreferences = nil;    // E.g., 'placeIconInStandardPositionInStatusBar'
+NSArray               * gConfigurationPreferences = nil; // E.g., '-onSystemStart'
+BOOL                    gShuttingDownTunnelblick = FALSE;// TRUE if applicationShouldTerminate: has been invoked
+BOOL                    gShuttingDownWorkspace = FALSE;
+BOOL                    gShuttingDownOrRestartingComputer = FALSE;
+BOOL                    gComputerIsGoingToSleep = FALSE;// Flag that the computer is going to sleep
+BOOL                    gUserWasAskedAboutConvertNonTblks = FALSE;// Flag that the user has been asked to convert non-.tblk configurations
+BOOL                    gOkToConvertNonTblks = FALSE; // Flag that the user has agreed to convert non-.tblk configurations
+unsigned                gHookupTimeout = 0;           // Number of seconds to try to establish communications with (hook up to) an OpenVPN process
+//                                                    // or zero to keep trying indefinitely
+unsigned                gMaximumLogSize = 0;          // Maximum size (bytes) of buffer used to display the log
+NSArray               * gRateUnits = nil;             // Array of strings with localized data units      (KB/s, MB/s, GB/s, etc.)
+NSArray               * gTotalUnits = nil;            // Array of strings with localized data rate units (KB,   MB,   GB,   etc.)
+NSTimeInterval          gDelayToShowStatistics = 0.0; // Time delay from mouseEntered icon or statistics window until showing the statistics window
+NSTimeInterval          gDelayToHideStatistics = 0.0; // Time delay from mouseExited icon or statistics window until hiding the statistics window
 
 
 enum TerminationReason  reasonForTermination;   // Why we are terminating execution
@@ -121,10 +121,10 @@ BOOL checkOwnedByRootWheel(NSString * path);
 -(void)             activateStatusMenu;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
--(BOOL)             application:                            (NSApplication *)   theApplication
-                      openFiles:                            (NSArray * )        filePaths
+-(BOOL)             installTblks:                           (NSArray * )        filePaths
         skipConfirmationMessage:                            (BOOL)              skipConfirmMsg
-              skipResultMessage:                            (BOOL)              skipResultMsg;
+              skipResultMessage:                            (BOOL)              skipResultMsg
+                 notifyDelegate:                            (BOOL)              notifyDelegate;
 
 -(BOOL)             canRunFromVolume:                       (NSString *)        path;
 -(NSURL *)          contactURL;
@@ -2628,7 +2628,7 @@ static void signal_handler(int signalNumber)
                 return;
             }
             
-            [self application: nil openFiles: paths skipConfirmationMessage: YES skipResultMessage: YES];   // Install .tblks
+            [self installTblks: paths skipConfirmationMessage: YES skipResultMessage: YES notifyDelegate: NO];   // Install .tblks
             
         } else {
             NSLog(@"Configuration update installer: Not installing update: No items to install in %@", installFolder);
@@ -2707,21 +2707,20 @@ static void signal_handler(int signalNumber)
 - (BOOL)application: (NSApplication * )theApplication
           openFiles: (NSArray * )filePaths
 {
-    return [self application: theApplication openFiles: filePaths skipConfirmationMessage: NO skipResultMessage: NO];
+	(void) theApplication;
+	
+    return [self installTblks: filePaths skipConfirmationMessage: NO skipResultMessage: NO notifyDelegate: YES];
 }
 
 
--(BOOL)             application: (NSApplication *) theApplication
-                      openFiles: (NSArray * )      filePaths
+-(BOOL)            installTblks: (NSArray * )      filePaths
         skipConfirmationMessage: (BOOL)            skipConfirmMsg
               skipResultMessage: (BOOL)            skipResultMsg
-
-{
+                 notifyDelegate: (BOOL)            notifyDelegate {
+    
     // If we have finished launching Tunnelblick, we open the file(s) now
     // otherwise the file(s) opening launched us, but we have not initialized completely.
     // so we store the paths and open the file(s) later, in applicationDidFinishLaunching.
-	
-	(void) theApplication;
 	
     if (  launchFinished  ) {
         BOOL oldIgnoreNoConfigs = ignoreNoConfigs;
@@ -2729,7 +2728,8 @@ static void signal_handler(int signalNumber)
         [[ConfigurationManager defaultManager] openDotTblkPackages: filePaths
                                                          usingAuth: gAuthorization
                                            skipConfirmationMessage: skipConfirmMsg
-                                                 skipResultMessage: skipResultMsg];
+                                                 skipResultMessage: skipResultMsg
+                                                    notifyDelegate: notifyDelegate];
         ignoreNoConfigs = oldIgnoreNoConfigs;
     } else {
         if (  ! dotTblkFileList  ) {
@@ -3055,9 +3055,10 @@ static void signal_handler(int signalNumber)
     // Install configuration updates if any are available
     NSString * installFolder = [CONFIGURATION_UPDATES_BUNDLE_PATH stringByAppendingPathComponent: @"Contents/Resources/Install"];
     if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
-        launchFinished = TRUE;  // Fake out openFiles so it installs the .tblk(s) immediately
+        BOOL oldLaunchFinished = launchFinished;    // Fake out installTblks so it installs the .tblk(s) immediately
+        launchFinished = TRUE;
         [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
-        launchFinished = FALSE;
+        launchFinished = oldLaunchFinished;
     }
     
     if (  dotTblkFileList  ) {
@@ -3069,7 +3070,8 @@ static void signal_handler(int signalNumber)
         [[ConfigurationManager defaultManager] openDotTblkPackages: dotTblkFileList
                                                          usingAuth: gAuthorization
                                            skipConfirmationMessage: YES
-                                                 skipResultMessage: YES];
+                                                 skipResultMessage: YES
+                                                    notifyDelegate: YES];
         text = NSLocalizedString(@"Installation finished successfully.", @"Window text");
         [splashScreen setMessage: text];
 
@@ -3969,6 +3971,40 @@ BOOL warnAboutNonTblks(void)
     
 }
 
+-(int) countTblks: (NSArray *) tblksToInstallPaths {
+    
+    // Given an array of paths to .tblks to be installed, counts how many will be installed, including nested .tblks
+
+    int counter = 0;
+    
+    unsigned i;
+    for (  i=0; i<[tblksToInstallPaths count]; i++) {
+        BOOL innerTblksFound = FALSE;
+        NSString * outerPath = [tblksToInstallPaths objectAtIndex: i];
+        if (  [outerPath hasSuffix: @".tblk"]  ) {
+            NSString * file;
+            NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: outerPath];
+            while (  (file = [dirEnum nextObject])  ) {
+                NSString * fullPath = [outerPath stringByAppendingPathComponent: file];
+                if (   itemIsVisible( fullPath)
+                    && [file hasSuffix: @".tblk"]  ) {
+                    [dirEnum skipDescendents];
+                    counter++;
+                    innerTblksFound = TRUE;
+                }
+            }
+            
+            if (  ! innerTblksFound  ) {
+                counter++;
+            }
+        } else {
+            NSLog(@"%@ is not a .tblk and can't be installed", outerPath);
+        }
+    }
+    
+    return counter;
+}
+
 -(void) relaunchIfNecessary
 {
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
@@ -4052,7 +4088,7 @@ BOOL warnAboutNonTblks(void)
     NSArray * tblksToInstallPaths = [self findTblksToInstallInPath: [currentPath stringByDeletingLastPathComponent]];
     if (  tblksToInstallPaths  ) {
         tblksMsg = [NSString stringWithFormat: NSLocalizedString(@"\n\nand install %ld Tunnelblick VPN Configurations", @"Window text"),
-                    (long) [tblksToInstallPaths count]];
+                    (long) [self countTblks: tblksToInstallPaths]];
     } else {
         tblksMsg = @"";
     }
@@ -4141,14 +4177,6 @@ BOOL warnAboutNonTblks(void)
     
     [splashScreen setMessage: NSLocalizedString(@"Installing and securing Tunnelblick...", @"Window text")];
     
-    // Install .tblks
-    if (  tblksToInstallPaths  ) {
-        // Install the .tblks
-        launchFinished = TRUE;  // Fake out openFiles so it installs the .tblk(s) immediately
-        [self application: NSApp openFiles: tblksToInstallPaths];
-        launchFinished = FALSE;
-    }
-	
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
     
@@ -4167,7 +4195,11 @@ BOOL warnAboutNonTblks(void)
                                     ? INSTALLER_UPDATE_DEPLOY
                                     : 0)
                                  )
-                extraArguments: nil]  ) {
+                extraArguments: nil
+               usingAuthRefPtr: &gAuthorization
+                       message: nil
+              installTblksFirst: tblksToInstallPaths]
+        ) {
         // An error dialog and a message in the console log have already been displayed if an error occurred
         [self terminateBecause: terminatingBecauseOfError];
     }
@@ -4180,9 +4212,10 @@ BOOL warnAboutNonTblks(void)
     if (  [gFileMgr fileExistsAtPath: installFolder]  ) {
         NSString * text = NSLocalizedString(@"Installing Tunnelblick VPN Configurations...", @"Window text");
         [splashScreen setMessage: text];
-        launchFinished = TRUE;  // Fake out openFiles so it installs the .tblk(s) immediately
+        BOOL oldLaunchFinished = launchFinished;    // Fake out installTblks so it installs the .tblk(s) immediately
+        launchFinished = TRUE;
         [self installConfigurationsUpdateInBundleAtPath: CONFIGURATION_UPDATES_BUNDLE_PATH];
-        launchFinished = FALSE;
+        launchFinished = oldLaunchFinished;
     }
     
     [splashScreen setMessage: NSLocalizedString(@"Installation finished successfully.", @"Window text")];
@@ -4296,13 +4329,14 @@ BOOL warnAboutNonTblks(void)
 -(BOOL) runInstaller: (unsigned) installFlags
       extraArguments: (NSArray *) extraArguments
 {
-    return [self runInstaller: installFlags extraArguments: extraArguments usingAuthRefPtr: &gAuthorization message: nil];
+    return [self runInstaller: installFlags extraArguments: extraArguments usingAuthRefPtr: &gAuthorization message: nil installTblksFirst: nil];
 }
 
 -(BOOL) runInstaller: (unsigned) installFlags
       extraArguments: (NSArray *) extraArguments
      usingAuthRefPtr: (AuthorizationRef *) authRefPtr
              message: (NSString *) message
+   installTblksFirst: (NSArray *) tblksToInstallFirst
 {
     // Returns TRUE if installer ran successfully and does not need to be run again, FALSE otherwise
     
@@ -4334,7 +4368,8 @@ BOOL warnAboutNonTblks(void)
             if (    installFlags & INSTALLER_COPY_APP              ) [msg appendString: NSLocalizedString(@"  • Be installed in /Applications\n", @"Window text")];
             if (    installFlags & INSTALLER_SECURE_APP            ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
             if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN  ) [msg appendString: NSLocalizedString(@"  • Update the private configurations folder\n", @"Window text")];
-            if (    installFlags & INSTALLER_UPDATE_DEPLOY         ) [msg appendString: NSLocalizedString(@"  • Update configuration(s)\n", @"Window text")];
+            if (   (0 != (installFlags & INSTALLER_UPDATE_DEPLOY))
+                    || tblksToInstallFirst                         ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
             if (    installFlags & INSTALLER_CONVERT_NON_TBLKS     ) [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")];
             if (   (installFlags & INSTALLER_SECURE_TBLKS)
                 || (installFlags & INSTALLER_COPY_BUNDLE)          ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
@@ -4361,6 +4396,13 @@ BOOL warnAboutNonTblks(void)
         // NOTE: We do NOT free gAuthorization here. It may be used to install .tblk packages, so we free it when we
         // are finished launching, in applicationDidFinishLaunching
     }
+    
+    if (  tblksToInstallFirst  ) {
+		BOOL oldLaunchFinished = launchFinished;
+        launchFinished = TRUE;  // Fake out installTblks so it installs the .tblk(s) immediately
+        [self installTblks: tblksToInstallFirst skipConfirmationMessage: YES skipResultMessage: YES notifyDelegate: NO];
+        launchFinished = oldLaunchFinished;
+    }
         
     NSLog(@"Beginning installation or repair");
 
@@ -4368,6 +4410,7 @@ BOOL warnAboutNonTblks(void)
 
 	installFlags = installFlags | INSTALLER_CLEAR_LOG;
 	
+    int result = -1;    // Last result from waitForExecuteAuthorized
     BOOL okNow = FALSE;
     unsigned i;
     for (i=0; i<5; i++) {
@@ -4387,8 +4430,35 @@ BOOL warnAboutNonTblks(void)
 		
 		installFlags = installFlags & ( ~ INSTALLER_CLEAR_LOG );
 		
-        if (  [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: *authRefPtr] ) {
-            okNow = needToRunInstaller(installFlags & INSTALLER_COPY_APP) == 0;
+        result = [NSApplication waitForExecuteAuthorized: launchPath withArguments: arguments withAuthorizationRef: *authRefPtr];
+        
+        okNow = FALSE;
+        
+        if (  result == wfeaExecAuthFailed  ) {
+            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
+            continue;
+        } else if (  result == wfeaTimedOut  ) {
+            NSLog(@"Timed out executing %@: %@", launchPath, arguments);
+            continue;
+        } else if (  result == wfeaFailure  ) {
+            NSLog(@"installer reported failure: %@: %@", launchPath, arguments);
+            continue;
+        } else if (  result == wfeaSuccess  ) {
+            okNow = (0 == (   installFlags
+                           & (  INSTALLER_COPY_APP
+                              | INSTALLER_SECURE_APP
+                              | INSTALLER_COPY_BUNDLE
+                              | INSTALLER_SECURE_TBLKS
+                              | INSTALLER_CONVERT_NON_TBLKS
+                              | INSTALLER_MOVE_LIBRARY_OPENVPN
+                              | INSTALLER_UPDATE_DEPLOY
+                              )
+                           )
+                     ? YES
+                     
+                     // We do this to make sure installer actually did what MenuController told it to do
+                     : needToRunInstaller(installFlags & INSTALLER_COPY_APP) == 0
+                     );
             
             if (  okNow  ) {
                 break;
@@ -4396,7 +4466,7 @@ BOOL warnAboutNonTblks(void)
                 NSLog(@"installer did not make the necessary changes");
             }
         } else {
-            NSLog(@"Failed to execute %@: %@", launchPath, arguments);
+            NSLog(@"Unknown value %d returned by waitForExecuteAuthorized:withArguments:withAuthorizationRef:", result);
         }
     }
 	
@@ -4408,26 +4478,25 @@ BOOL warnAboutNonTblks(void)
 		}
 	}
     
-    if (   (! okNow )
-        && (  needToRunInstaller(installFlags & INSTALLER_COPY_APP) != 0  )  )
-    {
-        NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
-        TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
-                        NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
-                        nil, nil, nil);
+    if (  okNow  ) {
+        NSLog(@"Installation or repair succeeded; Log:\n%@", installerLog);
         [installerLog release];
         if (  authRefIsLocal  ) {
             AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
         }
-        return FALSE;
+        
+        return TRUE;
     }
     
-    NSLog(@"Installation or repair succeeded; Log:\n%@", installerLog);
+    NSLog(@"Installation or repair failed; Log:\n%@", installerLog);
+    TBRunAlertPanel(NSLocalizedString(@"Installation or Repair Failed", "Window title"),
+                    NSLocalizedString(@"The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details.", "Window text"),
+                    nil, nil, nil);
     [installerLog release];
     if (  authRefIsLocal  ) {
         AuthorizationFree(localAuthRef, kAuthorizationFlagDefaults);
     }
-    return TRUE;
+    return FALSE;
 }
 
 // Checks whether the installer needs to be run

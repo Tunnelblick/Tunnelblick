@@ -38,12 +38,16 @@
 
 +(AuthorizationRef) getAuthorizationRef:        (NSString *)        msg;
 
-+(OSStatus)         executeAuthorized:          (NSString *)        toolPath
-                        withArguments:          (NSArray *)         arguments
-                 withAuthorizationRef:          (AuthorizationRef)  myAuthorizationRef;
+typedef enum {
+    wfeaExecAuthFailed,
+    wfeaTimedOut,
+    wfeaFailure,
+    wfeaSuccess
+} wfeaReturnValue;
 
-+(BOOL)         waitForExecuteAuthorized:       (NSString *)        toolPath
-                           withArguments:       (NSArray *)         arguments
-                    withAuthorizationRef:       (AuthorizationRef)  myAuthorizationRef;
+
++(wfeaReturnValue)  waitForExecuteAuthorized:   (NSString *)        toolPath
+                               withArguments:   (NSArray *)         arguments
+                        withAuthorizationRef:   (AuthorizationRef)  myAuthorizationRef;
 
 @end

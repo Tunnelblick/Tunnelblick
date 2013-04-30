@@ -2952,6 +2952,33 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
 }
 
+-(IBAction) utilitiesCopyConsoleLogButtonWasClicked: (id) sender {
+	
+	(void) sender;
+	
+	// Get OS and Tunnelblick version info
+	NSString * versionContents = [[[NSApp delegate] openVPNLogHeader] stringByAppendingString:
+								  (isUserAnAdmin()
+								   ? @"; Admin user"
+								   : @"; Standard user")];
+	
+	// Get tail of Console log
+	NSString * consoleContents;
+	if (  runningOnLeopardOrNewer()  ) {
+		consoleContents = [self stringContainingRelevantConsoleLogEntries];
+	} else {
+		consoleContents = [self tigerConsoleContents];
+	}
+	
+	NSString * output = [NSString stringWithFormat:
+						 @"%@\n\nConsole Log:\n\n%@",
+						 versionContents, consoleContents];
+	
+	NSPasteboard * pb = [NSPasteboard generalPasteboard];
+	[pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
+	[pb setString: output forType: NSStringPboardType];
+}
+
 -(IBAction) utilitiesHelpButtonWasClicked: (id) sender
 {
 	(void) sender;

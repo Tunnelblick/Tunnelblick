@@ -28,6 +28,8 @@
 #import "NSArray+cArray.h"
 #import "UKLoginItemRegistry/UKLoginItemRegistry.h"
 #import "helper.h"
+#import "defines.h"
+#import "MenuController.h"
 
 // The following external, global variable is used by functions in this file and must be declared and set elsewhere before the
 // functions in this file are called:
@@ -431,52 +433,76 @@ extern NSFileManager * gFileMgr;
 	return myStatus;
 }
 
-// Creates a flag file, runs executeAuthorized, then waits for up to 6.35 seconds for the flag file to disappear
-// Returns YES if the executeAuthorize succeeded (which may or may not mean execution has completed; it may have timed out or been unable to create the flag file)
-+(BOOL) waitForExecuteAuthorized: (NSString *) toolPath withArguments: (NSArray *) arguments withAuthorizationRef: (AuthorizationRef) myAuthorizationRef {
++(BOOL) createFlagFile: (NSString *) path {
     
-    // Create flag file or indicate there isn't one
-    char * path = "/tmp/tunnelblick-authorized-running";
-    BOOL noFlagFile = FALSE;
-    int fd = open(path, O_RDONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    int fd = open([path fileSystemRepresentation], O_RDONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fd < 0) {
-        NSLog(@"Unable to create flag file %s\nError was '%s'", path, strerror(errno));
-        noFlagFile = TRUE;
+        NSLog(@"Unable to create flag file %@\nError was '%s'", path, strerror(errno));
+        return NO;
     } else {
         if (  0 != close(fd)  ) {
-            NSLog(@"Unable to close flag file %s with file descriptor %d\nError was '%s'", path, fd, strerror(errno));
+            NSLog(@"Unable to close flag file %@ with file descriptor %d\nError was '%s'", path, fd, strerror(errno));
+            return NO;
         }
+    }
+    
+    return YES;
+}
+
++(wfeaReturnValue) waitForExecuteAuthorized: (NSString *)       toolPath
+                              withArguments: (NSArray *)        arguments
+                       withAuthorizationRef: (AuthorizationRef) myAuthorizationRef {
+    
+    // Creates a "running" and an "error" flag file, runs executeAuthorized, then waits for up to 12.75 seconds for the "running" flag file to disappear
+    
+    if (   ( ! [self createFlagFile: AUTHORIZED_RUNNING_PATH] )
+        || ( ! [self createFlagFile: AUTHORIZED_ERROR_PATH]   )  ) {
+        unlink([AUTHORIZED_RUNNING_PATH fileSystemRepresentation]);
+        unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation]);
+        return wfeaExecAuthFailed;
     }
     
     if (  EXIT_SUCCESS != [NSApplication executeAuthorized: toolPath withArguments: arguments withAuthorizationRef: myAuthorizationRef]  ) {
-        if (  ! noFlagFile  ) {
-            if (  0 != unlink(path)  ) {
-                NSLog(@"Unable to delete %s", path);
-            }
+        if (  0 != unlink([AUTHORIZED_RUNNING_PATH fileSystemRepresentation])  ) {
+            NSLog(@"Unable to delete %@", AUTHORIZED_RUNNING_PATH);
         }
-        return NO;
+        if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
+            NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
+        }
+        return wfeaExecAuthFailed;
     }
     
-    if (  noFlagFile  ) {
-        return YES;
-    }
-    
-    // Try for up to 6.35 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6,
-    // and 3.2 seconds (totals 6.35 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
+    // Wait for up to 12.75 seconds for the program to finish -- sleeping .05 seconds first, then .1, .2, .4, .8, 1.6, 3.2, and 6.4
+    // seconds (totals 12.75 seconds) between tries as a cheap and easy throttling mechanism for a heavily loaded computer
     useconds_t sleepTime;
     struct stat sb;
-    for (sleepTime=50000; sleepTime < 7000000; sleepTime=sleepTime*2) {
+    for (sleepTime=50000; sleepTime < 13000000; sleepTime=sleepTime*2) {
         usleep(sleepTime);
         
-        if (  0 != stat(path, &sb)  ) {
-            return YES; // flag file has been deleted, indicating we're done
+        if (  0 != stat([AUTHORIZED_RUNNING_PATH fileSystemRepresentation], &sb)  ) {
+            // running flag file has been deleted, indicating we're done
+			if (  0 == stat([AUTHORIZED_ERROR_PATH fileSystemRepresentation], &sb)  ) {
+                // error flag file exists, so there was an error
+				if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
+					NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
+				}
+				
+				return wfeaFailure;
+			}
+			
+            return wfeaSuccess;
         }
     }
     
-    NSLog(@"Timed out waiting for %s to disappear indicting %@ finished", path, [toolPath lastPathComponent]);
-    if (  0 != unlink(path)  ) {
-        NSLog(@"Unable to delete %s", path);
+    NSLog(@"Timed out waiting for %@ to disappear indicting %@ finished", AUTHORIZED_RUNNING_PATH, [toolPath lastPathComponent]);
+    if (  0 != unlink([AUTHORIZED_RUNNING_PATH fileSystemRepresentation])  ) {
+        NSLog(@"Unable to delete %@", AUTHORIZED_RUNNING_PATH);
     }
-    return YES;
+    if (  0 != unlink([AUTHORIZED_ERROR_PATH fileSystemRepresentation])  ) {
+        NSLog(@"Unable to delete %@", AUTHORIZED_ERROR_PATH);
+    }
+    
+    return wfeaTimedOut;
 }
+
 @end

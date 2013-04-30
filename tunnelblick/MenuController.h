@@ -220,7 +220,9 @@ BOOL needToConvertNonTblks(void);
 -(BOOL)             runInstaller: (unsigned) installFlags
                   extraArguments: (NSArray *) extraArguments
                  usingAuthRefPtr: (AuthorizationRef *) authRef
-                         message: (NSString *) message;
+                         message: (NSString *) message
+               installTblksFirst: (NSArray *) tblksToInstallFirst;
+
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
