@@ -46,7 +46,7 @@
 //     INSTALLER_COPY_APP:      set to copy this app to /Applications/XXXXX.app
 //                                  (Any existing /Applications/XXXXX.app will be moved to the Trash)
 //
-//     INSTALLER_SECURE_APP:    set to secure Tunnelblick.app and all of its contents and update L_AS_T/Deploy if appropriate
+//     INSTALLER_SECURE_APP:    set to secure Tunnelblick.app and all of its contents
 //                                  (also set if INSTALLER_COPY_APP)
 //     INSTALLER_COPY_BUNDLE:   set to copy this app's Resources/Tunnelblick Configurations.bundle to /Library/Application Support/Tunnelblick/Configuration Updates
 //                                  (Will only be done if this app's Tunnelblick Configurations.bundle's version # is higher, or INSTALLER_COPY_APP is set)
@@ -57,8 +57,6 @@
 //	   INSTALLER_CONVERT_NON_TBLKS: set to convert all .ovpn and .conf files (and their associated keys, scripts, etc.) to .tblk packages
 //
 //	   INSTALLER_MOVE_LIBRARY_OPENVPN: set to move ~/Library/openvpn to ~/Library/Application Support/Tunnelblick
-//
-//	   INSTALLER_UPDATE_DEPLOY: set to update /Library/Application Support/Deploy/xxx.app/ from the application
 //
 //     INSTALLER_MOVE_NOT_COPY: set to move, instead of copy, if target path and source path are supplied
 //
@@ -85,10 +83,7 @@
 //      (4) If INSTALLER_COPY_APP, this app is copied to /Applications
 //      (5) If INSTALLER_COPY_BUNDLE, if /Resources/Tunnelblick Configurations.bundle exists, copies it to /Library/Application Support/T/Configuration Updates
 //      (6) If INSTALLER_SECURE_APP, secures Tunnelblick.app by setting the ownership and permissions of its components.
-//      (7) If INSTALLER_COPY_APP or INSTALLER_SECURE_APP, or INSTALLER_UPDATE_DEPLOY, deals with Deploy:
-//             * Prunes any duplicate copies of Deploy in L_AS_T/Backup
-//             * If exactly one copy of Deploy is in L_AS_T/Backup, copies it to gDeployPath and removes L_AS_T/Backup
-//             * Updates the gDeployPath folder from this app if appropriate (using version # or modification date) and secures it
+//      (7) (Removed)
 //      (8) If INSTALLER_SECURE_TBLKS, secures all .tblk packages in the following folders:
 //           /Library/Application Support/Tunnelblick/Shared
 //           ~/Library/Application Support/Tunnelblick/Configurations
@@ -113,7 +108,7 @@
 FILE          * gLogFile;					  // FILE for log
 NSFileManager * gFileMgr;                     // [NSFileManager defaultManager]
 NSString      * gPrivatePath;                 // Path to ~/Library/Application Support/Tunnelblick/Configurations
-NSString      * gDeployPath;                  // Path to /Library/Application Support/Tunnelblick/Deploy/<application-name>
+NSString      * gDeployPath;                  // Path to Tunnelblick.app/Contents/Resources/Deploy
 NSString      * gAppConfigurationsBundlePath; // Path to Tunnelblick.app/Contents/Resources/Tunnelblick Configurations.bundle (after copy if INSTALLER_COPY_APP is set)
 uid_t           gRealUserID;                  // User ID & Group ID for the real user (i.e., not "root:wheel", which is what we are running as)
 gid_t           gRealGroupID;
@@ -125,9 +120,6 @@ NSString * firstPartOfPath(NSString * path);
 NSString * lastPartOfPath(NSString * path);
 void safeCopyOrMovePathToPath(NSString * fromPath, NSString * toPath, BOOL moveNotCopy);
 BOOL deleteThingAtPath(NSString * path);
-NSArray * pathsForLatestNonduplicateDeployBackups(void);
-void secureL_AS_T_DEPLOY();
-NSArray * pathsForDeployBackups(void);
 BOOL convertAllPrivateOvpnAndConfToTblk(void);
 BOOL tunnelblickTestPrivateOnlyHasTblks(void);
 
@@ -228,7 +220,6 @@ int main(int argc, char *argv[])
     BOOL secureTblks      = (arg1 & INSTALLER_SECURE_TBLKS) != 0;		// secureTblks will also be set if any private .ovpn or .conf configurations were converted to .tblks
 	BOOL convertNonTblks  = (arg1 & INSTALLER_CONVERT_NON_TBLKS) != 0;
 	BOOL moveLibOpenvpn   = (arg1 & INSTALLER_MOVE_LIBRARY_OPENVPN) != 0;
-	BOOL updateDeploy     = (arg1 & INSTALLER_UPDATE_DEPLOY) != 0;
 
 	
     BOOL setBundleVersion = (arg1 & INSTALLER_SET_VERSION) != 0;
@@ -240,7 +231,6 @@ int main(int argc, char *argv[])
 	openLog(  clearLog  );
 	
 	
-    // Set gDeployPath from the name of this application without the ".app"
 	NSBundle * ourBundle = [NSBundle mainBundle];
 	NSString * resourcesPath = [ourBundle bundlePath]; // (installer itself is in Resources)
     NSArray  * execComponents = [resourcesPath pathComponents];
@@ -252,7 +242,7 @@ int main(int argc, char *argv[])
 	if (  [ourAppName hasSuffix: @".app"]  ) {
 		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 	}
-	gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
+	gDeployPath = [[resourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
     
 	// Log the arguments installer was started with
 	unsigned long firstArg = strtoul(argv[1], NULL, 10);
@@ -322,10 +312,6 @@ int main(int argc, char *argv[])
     if (  ! createDirWithPermissionAndOwnership(@"/Library/Application Support/Tunnelblick",
                                                 0755, 0, 0)  ) {
         errorExit();
-    }
-    
-    if (  [gFileMgr fileExistsAtPath: L_AS_T_DEPLOY]  ) {
-        secureL_AS_T_DEPLOY();
     }
     
     if (  ! createDirWithPermissionAndOwnership(L_AS_T_LOGS,
@@ -644,76 +630,7 @@ int main(int argc, char *argv[])
     }
     
     //**************************************************************************************************************************
-    // (7) Deal with Deploy folders
-    //     * Secure the old Deploy backups
-    //     * If INSTALLER_COPY_APP or INSTALLER_SECURE_APP, deals with Deploy:
-    //       * If this app has a Deploy folder, copies it to gDeployPath and secures the copy
-    //       * If gDeployPath doesn't exist and there is exactly one unique Deploy backup, copies it to gDeployPath and secures it
-    
-    if ( copyApp || secureApp || updateDeploy ) {
-        
-        // Secure the old Deploy backups
-        NSArray * deployBackups = pathsForDeployBackups();
-		if (  ! deployBackups  ) {
-			appendLog(@"Error occurred while looking for Deploy backups");
-			errorExit();
-		}
-		appendLog([NSString stringWithFormat: @"%u Deploy backup folders to secure", [deployBackups count]]);
-
-		BOOL okSoFar = TRUE;
-		NSString * folderPath;
-		NSEnumerator * e = [deployBackups objectEnumerator];
-		while (  (folderPath = [e nextObject])  ) {
-			okSoFar = okSoFar && secureOneFolder(folderPath, NO, 0);
-		}
-		
-		if (  ! okSoFar  ) {
-			appendLog(@"Unable to secure Deploy backups");
-			errorExit();
-		}
-        
-        // If this app has a Deploy folder, copy it to gDeployPath
-        NSString * thisAppDeployPath = [[NSBundle mainBundle] pathForResource: @"Deploy" ofType: nil];
-        if (  [gFileMgr fileExistsAtPath: thisAppDeployPath]  ) {
-            [gFileMgr tbRemoveFileAtPath: gDeployPath handler: nil];
-            if (  [gFileMgr tbCopyPath: thisAppDeployPath toPath: gDeployPath handler: nil]  ) {
-                appendLog([NSString stringWithFormat: @"Updated Deploy with copy in %@", [[[thisAppDeployPath stringByDeletingLastPathComponent] // delete Deploy
-                                                                stringByDeletingLastPathComponent]                    // delete Resources
-                                                               stringByDeletingLastPathComponent]]);                  // delete Contents
-                appendLog([NSString stringWithFormat: @"Updated Deploy with copy in %@", [[[thisAppDeployPath stringByDeletingLastPathComponent] // delete Deploy
-                                                                stringByDeletingLastPathComponent]                    // delete Resources
-                                                               stringByDeletingLastPathComponent]]);                  // delete Contents
-            } else {
-                appendLog([NSString stringWithFormat: @"Error ocurred copying %@ to %@", thisAppDeployPath, gDeployPath]);
-                errorExit();
-            }
-            
-            secureL_AS_T_DEPLOY();
-            
-        } else {
-            
-            NSArray * backupDeployPathsWithoutDupes = pathsForLatestNonduplicateDeployBackups();
-			if (  ! backupDeployPathsWithoutDupes  ) {
-				errorExit();
-			}
-            appendLog([NSString stringWithFormat: @"%u unique Deploy Backups", [backupDeployPathsWithoutDupes count]]);
-            
-            // If there is only one unique Deploy backup and gDeployPath doesn't exist, copy it to gDeployPath
-            if (   ([backupDeployPathsWithoutDupes count] == 1)
-                && ( ! [gFileMgr fileExistsAtPath: gDeployPath] )  ) {
-                NSString * pathToCopy = [backupDeployPathsWithoutDupes objectAtIndex: 0];
-                [gFileMgr tbRemoveFileAtPath: gDeployPath handler: nil];
-                if (  [gFileMgr tbCopyPath: pathToCopy toPath: gDeployPath handler: nil]  ) {
-                    appendLog([NSString stringWithFormat: @"Copied the only non-duplicate Deploy backup folder %@ to %@", pathToCopy, gDeployPath]);
-                } else {
-                    appendLog([NSString stringWithFormat: @"Error occurred copying the only Deploy backup folder %@ to %@", pathToCopy, gDeployPath]);
-                    errorExit();
-                }
-                
-                secureL_AS_T_DEPLOY();
-            }
-        }
-    }
+    // (7) (Removed)
     
     //**************************************************************************************************************************
     // (8)
@@ -1173,166 +1090,6 @@ NSString * lastPartOfPath(NSString * path)
         }
     }
     return nil;
-}
-
-void secureL_AS_T_DEPLOY()
-{
-    appendLog([NSString stringWithFormat: @"Securing %@", L_AS_T_DEPLOY]);
-    if (  checkSetOwnership(L_AS_T_DEPLOY, YES, 0, 0)  ) {
-        if (  checkSetPermissions(L_AS_T_DEPLOY, 0755, YES)  ) {
-            if (  secureOneFolder(L_AS_T_DEPLOY, NO, 0)  ) {
-                appendLog([NSString stringWithFormat: @"Secured %@", L_AS_T_DEPLOY]);
-            } else {
-                appendLog([NSString stringWithFormat: @"Unable to secure %@", L_AS_T_DEPLOY]);
-                errorExit();
-            }
-        } else {
-            appendLog([NSString stringWithFormat: @"Unable to set permissions on %@", L_AS_T_DEPLOY]);
-            errorExit();
-        }
-    } else {
-        appendLog([NSString stringWithFormat: @"Unable to set ownership on %@ and its contents", L_AS_T_DEPLOY]);
-        errorExit();
-    }
-}
-
-// Returns array of paths to Deploy backups. The paths end in the folder that contains TunnelblickBackup
-NSArray * pathsForDeployBackups(void)
-{
-    NSMutableArray * result = [NSMutableArray arrayWithCapacity: 10];
-	NSString * deployBackupPath = L_AS_T_BACKUP;
-    NSMutableString * path = [NSMutableString stringWithCapacity: 1000];
-	BOOL isDir;
-	NSString * file;
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: deployBackupPath];
-	while (  (file = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendents];
-		NSString * fullPath = [deployBackupPath stringByAppendingPathComponent: file];
-		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-			&& isDir
-			&& itemIsVisible(fullPath)  ) {
-            // Chase down this folder chain until we see the Deploy folder, then save the
-            // path to and including the Deploy folder
-            NSString * file2;
-            NSDirectoryEnumerator * dirEnum2 = [gFileMgr enumeratorAtPath: fullPath];
-            while (  (file2 = [dirEnum2 nextObject])  ) {
-                NSString * fullPath2 = [fullPath stringByAppendingPathComponent: file2];
-                if (   [gFileMgr fileExistsAtPath: fullPath2 isDirectory: &isDir]
-                    && isDir
-                    && itemIsVisible(fullPath)  ) {
-                    NSArray * pathComponents = [fullPath2 pathComponents];
-                    if (   [[pathComponents objectAtIndex: [pathComponents count] - 1] isEqualToString: @"Deploy"]
-                        && [[pathComponents objectAtIndex: [pathComponents count] - 2] isEqualToString: @"TunnelblickBackup"]
-                        ) {
-                        unsigned i;
-                        for (  i=0; i<[pathComponents count]; i++  ) {
-                            [path appendString: [pathComponents objectAtIndex: i]];
-							if (   (i != 0)
-								&& (i != [pathComponents count] - 1)  ) {
-								[path appendString: @"/"];
-							}
-                        }
-                        break;
-                    }
-                }
-            }
-            if (  [path hasPrefix: [fullPath stringByAppendingString: @"/"]]  ) {
-                [result addObject: [NSString stringWithString: path]];
-            } else {
-                appendLog([NSString stringWithFormat: @"Unrecoverable error dealing with Deploy backups"]);
-                return  nil;
-            }
-            [path setString: @""];
-        }
-    }
-    
-    return result;
-}
-
-// Returns nil on error, or a possibly empty array with paths of the latest non-duplicate Deploy backups that can be used by a copy of Tunnelblick
-NSArray * pathsForLatestNonduplicateDeployBackups(void)
-{
-    // Get a list of paths to Deploys that may include duplicates (identical Deploys)
-    NSArray * listWithDupes = pathsForDeployBackups();
-    if (  ! listWithDupes  ) {
-        return nil;
-    }
-    
-    if (  [listWithDupes count] == 0  ) {
-        return listWithDupes;
-    }
-    
-    // Get a list of those paths that have a Tunnelblick that can use them (even if it has been renamed)
-    NSMutableArray * listThatTunnelblickCanUseWithDupes = [NSMutableArray arrayWithCapacity: [listWithDupes count]];
-    unsigned i;
-    for (  i=0; i<[listWithDupes count]; i++) {
-        NSString * backupPath = [listWithDupes objectAtIndex: i];
-        NSString * pathToDirWithTunnelblick = [[[backupPath substringFromIndex: [L_AS_T_BACKUP length]]
-                                                stringByDeletingLastPathComponent]	// Remove Deploy
-                                               stringByDeletingLastPathComponent];		// Remove TunnelblickBackup];
-        
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: pathToDirWithTunnelblick];
-        NSString * file;
-        while (  (file = [dirEnum nextObject])  ) {
-            [dirEnum skipDescendents];
-            if (  [[file pathExtension] isEqualToString: @"app"]  ) {
-                NSString * openvpnstartPath = [[[[pathToDirWithTunnelblick
-                                                  stringByAppendingPathComponent: file]
-                                                 stringByAppendingPathComponent: @"Contents"]
-                                                stringByAppendingPathComponent: @"Resources"]
-                                               stringByAppendingPathComponent: @"openvpnstart"];
-                if (  [gFileMgr fileExistsAtPath: openvpnstartPath]  ) {
-                    [listThatTunnelblickCanUseWithDupes addObject: backupPath];
-                }
-            }
-        }
-    }
-    
-    NSMutableArray * pathsToRemove = [NSMutableArray arrayWithCapacity: 10];
-    NSMutableArray * results       = [NSMutableArray arrayWithCapacity: 10];
-    
-    for (  i=0; i<[listThatTunnelblickCanUseWithDupes count]; i++  ) {
-        
-        // For each path in listThatTunnelblickCanUseWithDupes, find the path to the latest Deploy which is identical to it and put that in results
-        
-        NSString * latestPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: i];
-        NSDate   * latestDate = [[gFileMgr tbFileAttributesAtPath: latestPath traverseLink: NO] objectForKey: NSFileModificationDate];
-        if (  ! latestDate  ) {
-            appendLog([NSString stringWithFormat: @"No last modified date for %@", latestPath]);
-            return nil;
-        }
-        
-        unsigned j;
-        for (  j=0; j<[listThatTunnelblickCanUseWithDupes count]; j++  ) {
-            
-            // Look for a folder which is identical but has a later date
-            
-            if (  i != j  ) {
-                NSString * thisPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: j];
-                if ( ! [results containsObject: thisPath]  ) {
-                    if (  ! [pathsToRemove containsObject: thisPath]  ) {
-                        if (  [gFileMgr contentsEqualAtPath: latestPath andPath: thisPath]  ) {
-                            NSDate   * thisDate = [[gFileMgr tbFileAttributesAtPath: thisPath traverseLink: NO] objectForKey: NSFileModificationDate];
-                            if ( ! thisDate  ) {
-                                appendLog([NSString stringWithFormat: @"No last modified date for %@", thisPath]);
-                                return nil;
-                            }
-                            if (  [latestDate compare: thisDate] == NSOrderedAscending  ) {
-                                // Have a later version of the same
-                                latestPath = thisPath;
-                                latestDate = thisDate;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            [results addObject: latestPath];
-			[pathsToRemove addObject: latestPath];
-        }
-    }
-    
-    return results;
 }
 
 BOOL tunnelblickTestPrivateOnlyHasTblks(void)

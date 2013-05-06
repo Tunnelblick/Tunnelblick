@@ -56,7 +56,7 @@
 // These are global variables rather than class variables to make access to them easier
 NSMutableArray        * gConfigDirs = nil;            // Array of paths to configuration directories currently in use
 NSString              * gPrivatePath = nil;           // Path to ~/Library/Application Support/Tunnelblick/Configurations
-NSString              * gDeployPath = nil;            // Path to /Library/Application Support/Tunnelblick/Deploy/<application-name>
+NSString              * gDeployPath = nil;            // Path to Tunnelblick.app/Contents/Resources/Deploy
 TBUserDefaults        * gTbDefaults = nil;            // Our preferences
 NSFileManager         * gFileMgr = nil;               // [NSFileManager defaultManager]
 AuthorizationRef        gAuthorization = nil;         // Used to call installer
@@ -83,7 +83,6 @@ UInt32 fKeyCode[16] = {0x7A, 0x78, 0x63, 0x76, 0x60, 0x61, 0x62, 0x64,        //
     0x65, 0x6D, 0x67, 0x6F, 0x69, 0x6B, 0x71, 0x6A};
 
 void terminateBecauseOfBadConfiguration(void);
-BOOL needToUpdateDeploy(void);
 
 OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData);
 OSStatus RegisterMyHelpBook(void);
@@ -135,7 +134,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
 -(void)             checkNoConfigurations;
 -(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             deleteLogs;
--(void)             initialChecks;
+-(void)             initialChecks:							(NSString *)        ourAppName;
 -(unsigned)         getLoadedKextsMask;
 -(BOOL)             hasValidSignature;
 -(void)             hookupWatchdogHandler;
@@ -242,7 +241,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
 		if (  [ourAppName hasSuffix: @".app"]  ) {
 			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 		}
-        gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
+        gDeployPath = [[[ourBundle resourcePath] stringByAppendingPathComponent: @"Deploy"] copy];
 		
 		// Remove any old "Launch Tunnelblick" link in the private configurations folder
 		NSString * tbLinkPath = [gPrivatePath stringByAppendingPathComponent: @"Launch Tunnelblick"];
@@ -272,7 +271,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"standardApplicationPath",
                                 @"doNotCreateLaunchTunnelblickLinkinConfigurations",
                                 @"useShadowConfigurationFiles",
-                                @"usePrivateConfigurationsWithDeployedOnes",
                                 @"hookupTimeout",
                                 @"openvpnTerminationInterval",
                                 @"openvpnTerminationTimeout",
@@ -504,7 +502,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
         [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Preferences"];
         
         // Check that we can run Tunnelblick from this volume, that it is in /Applications, and that it is secured
-        [self initialChecks];    // WE MAY NOT RETURN FROM THIS METHOD (it may install a new copy of Tunnelblick, launch it, and quit)
+        [self initialChecks: ourAppName];    // WE MAY NOT RETURN FROM THIS METHOD (it may install a new copy of Tunnelblick, launch it, and quit)
 		
         // If gDeployPath exists and has one or more .tblk packages or .conf or .ovpn files,
         // Then make it the first entry in gConfigDirs
@@ -1366,7 +1364,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     customMenuScripts = [[NSMutableArray alloc] init];
     
     // Process the contents of the Menu folder
-    NSString * menuDirPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"/Deploy/Menu"];
+    NSString * menuDirPath = [gDeployPath stringByAppendingPathComponent: @"Menu"];
     if (  [self addCustomMenuItemsFromFolder: menuDirPath toMenu: myVPNMenu]  ) {
         [myVPNMenu addItem: [NSMenuItem separatorItem]];
     }
@@ -3790,52 +3788,6 @@ static void signal_handler(int signalNumber)
     return --tunCount;
 }
 
-int warnAndReinstallOrQuit(void)
-{
-    return TBRunAlertPanel(NSLocalizedString(@"Installing Tunnelblick", @"Window title"),
-                           
-						   NSLocalizedString(@"Tunnelblick must be installed in Applications on"
-                                             @" the startup disk.\n\n"
-                                             
-                                             @"Before installing Tunnelblick in Applications, which"
-                                             @" will include migrating a Deployed configuration, you"
-                                             @" should backup your computer.\n\n"
-                                             
-											 @"Should Tunnelblick be installed in Applications?",
-											 @"Window text"),
-                           
-						   NSLocalizedString(@"Move to Applications", @"Button"), // Default button
-						   NSLocalizedString(@"Quit", @"Button"),                 // Alternate button
-						   nil);
-}
-
-void warnAboutMultiplesAndQuit(void)
-{
-    TBRunAlertPanel(NSLocalizedString(@"SECURITY WARNING", @"Window title"),
-                    
-                    NSLocalizedString(@"THIS COMPUTER IS NOT SECURE because Tunnelblick"
-                                      @" is not installed in Applications.\n\n"
-                                      
-                                      @"This computer has had Deployed versions of Tunnelblick installed in"
-                                      @" more than one location and some locations have had different sets"
-                                      @" of configurations. This is no longer allowed. Only one"
-                                      @" Deployed version of Tunnelblick may be installed, it must be installed"
-                                      @" in Applications, and only one set of Deployed configurations will be"
-                                      @" available.\n\n"
-                                      
-                                      @"Before this version of Tunnelblick can be installed, all other copies of"
-                                      @" Tunnelblick must be deleted from this computer.\n\n"
-                                      
-                                      @"DELETING COPIES OF TUNNELBLICK MAY MAKE SOME VPN SERVERS UNAVAILABLE.\n\n"
-                                      
-                                      @" For more information, please see\n"
-                                      @"http://code.google.com/p/tunnelblick/wiki/cMultiDeploy\n\n", @"Window text"),
-                    
-                    NSLocalizedString(@"Quit", @"Button"),  // Default button
-                    nil,                                    // Alternate button
-                    nil);
-}
-
 BOOL anyNonTblkConfigs(void)
 {
 	// Returns TRUE if there were any private non-tblks (and they need to be converted)
@@ -3890,20 +3842,74 @@ BOOL warnAboutNonTblks(void)
 	return NO;
 }
 
--(void) initialChecks
+-(void) initialChecks: (NSString *) ourAppName
 {
     [NSApp setAutoLaunchOnLogin: NO];
     
-    if (   tunnelblickTestHasDeployBackups()
-		|| tunnelblickTestDeployed()) {
-        TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
-                        NSLocalizedString(@"This version of Tunnelblick cannot be installed because it is a Deployed version"
-										  @" or one or more 'Deployed' versions"
-                                          @" of Tunnelblick have already been installed.\n\n", @"Window text"),
-                        nil,nil,nil);
+#ifdef TBDebug
+	(void) ourAppName;
+#else
+	if (  tunnelblickTestDeployed()  ) {
+		NSDictionary * bundleInfoDict = [[NSBundle mainBundle] infoDictionary];
+		if (  ! bundleInfoDict  ) {
+			TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+							NSLocalizedString(@"This 'Deployed' version of Tunnelblick cannot be launched or installed because it"
+											  @" does not have an Info.plist.\n\n", @"Window text"),
+							nil,nil,nil);
+			[self terminateBecause: terminatingBecauseOfQuit];
+		}
+		
+		NSString * ourBundleIdentifier = [bundleInfoDict objectForKey: @"CFBundleIdentifier"];
+		
+		NSString * ourUpdateFeedURLString;
+		if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
+			ourUpdateFeedURLString = [gTbDefaults objectForKey: @"updateFeedURL"];
+		} else {
+			ourUpdateFeedURLString = [bundleInfoDict objectForKey: @"SUFeedURL"];
+		}
+		
+		NSString * ourExecutable = [bundleInfoDict objectForKey: @"CFBundleExecutable"];
+		
+		if (   [@"Tunnelblick" isEqualToString: @"T" @"unnelblick"] // Quick rebranding checks (not exhaustive, obviously)
+			
+            || ( ! ourAppName )
+			|| [ourAppName     isEqualToString: @"Tunnelbl" @"ick"]
+			
+			|| ( ! ourExecutable )
+			|| [ourExecutable  isEqualToString: @"Tun" @"nelblick"]
+            
+            || ( ! ourBundleIdentifier )
+			|| ([ourBundleIdentifier    rangeOfString: @"net.tunnelb" @"lick."].length != 0)
+			
+			|| ( ! ourUpdateFeedURLString )
+			|| ([ourUpdateFeedURLString rangeOfString: @"tu" @"nnelblick.net" ].length != 0)
+			) {
+			TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+							NSLocalizedString(@"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it"
+											  @" has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tu" @"nnelbli" @"ck.net',"
+											  @" or CFBundleIdentifier is missing or contains 'net.tunnelbl" @"ick'.\n\n", @"Window text"),
+							nil,nil,nil);
+			[self terminateBecause: terminatingBecauseOfQuit];
+		}
         
-        [self terminateBecause: terminatingBecauseOfQuit];
-    }
+        NSURL * ourUpdateFeedURL = [NSURL URLWithString: ourUpdateFeedURLString];
+        if (  ! ourUpdateFeedURL  ) {
+            TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+                            NSLocalizedString(@"This version of Tunnelblick cannot be launched or installed because"
+                                              @" it has an invalid update URL.\n\n", @"Window text"),
+                            nil,nil,nil);
+			[self terminateBecause: terminatingBecauseOfQuit];
+        }
+	} else if (  tunnelblickTestHasDeployBackups()  ) {
+		
+		TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
+						NSLocalizedString(@"This version of Tunnelblick cannot be launched or installed because"
+										  @" it is not a 'Deployed' version, and one or more 'Deployed' versions"
+										  @" of Tunnelblick were previously installed.\n\n", @"Window text"),
+						nil,nil,nil);
+		[self terminateBecause: terminatingBecauseOfQuit];
+	}
+#endif
 	
     // If necessary, warn that non-.tblks will be converted
 	gOkToConvertNonTblks = warnAboutNonTblks();
@@ -3946,29 +3952,32 @@ BOOL warnAboutNonTblks(void)
 		}
 #ifndef TBDebug
 	} else {
-		if (  allowCheckbox  ) {
-			checkboxPrefKey = @"skipWarningAboutNoSignature";
-			checkboxText    = NSLocalizedString(@"Do not ask again, always Continue", @"Checkbox name");
-		}
-		
-		int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
-											 NSLocalizedString(@"This copy of Tunnelblick is not digitally signed.\n\n"
-															   @"There is no way to verify that this copy has not been tampered with.\n\n"
-															   @" Check with the the provider of this copy of Tunnelblick before"
-															   @" using it.\n\n", @"Window text"),
-											 NSLocalizedString(@"Quit", @"Button"),
-											 nil,
-											 NSLocalizedString(@"Continue", @"Button"),
-											 checkboxPrefKey,
-											 checkboxText,
-											 nil,
-											 NSAlertOtherReturn);
-		if (  result == NSAlertDefaultReturn  ) {
-			[self terminateBecause: terminatingBecauseOfQuit];
+		if (   [gTbDefaults canChangeValueForKey: @"skipWarningAboutNoSignature"]
+			|| ( ! [gTbDefaults boolForKey: @"skipWarningAboutNoSignature"] )
+			) {
+			if (  allowCheckbox  ) {
+				checkboxPrefKey = @"skipWarningAboutNoSignature";
+				checkboxText    = NSLocalizedString(@"Do not ask again, always Continue", @"Checkbox name");
+			}
+			
+			int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning!", @"Window title"),
+												 NSLocalizedString(@"This copy of Tunnelblick is not digitally signed.\n\n"
+																   @"There is no way to verify that this copy has not been tampered with.\n\n"
+																   @" Check with the the provider of this copy of Tunnelblick before"
+																   @" using it.\n\n", @"Window text"),
+												 NSLocalizedString(@"Quit", @"Button"),
+												 nil,
+												 NSLocalizedString(@"Continue", @"Button"),
+												 checkboxPrefKey,
+												 checkboxText,
+												 nil,
+												 NSAlertOtherReturn);
+			if (  result == NSAlertDefaultReturn  ) {
+				[self terminateBecause: terminatingBecauseOfQuit];
+			}
 		}
 #endif
 	}
-    
 }
 
 -(int) countTblks: (NSArray *) tblksToInstallPaths {
@@ -4041,46 +4050,6 @@ BOOL warnAboutNonTblks(void)
     
 	[self warnIfInvalidOrNoSignatureAllowCheckbox: NO];
 	
-    // If no gDeployPath folder exists, we may not have dealt with L_AS_T/Backup
-    if (   ( ! [gFileMgr fileExistsAtPath: gDeployPath])
-        && [gFileMgr fileExistsAtPath: L_AS_T_BACKUP]  ) {
-        
-        NSArray * nonduplicateDeployBackupPaths = pathsForLatestNonduplicateDeployBackups();
-        if (  ! nonduplicateDeployBackupPaths  ) {
-            NSLog(@"An error occurred checking for non-duplicated Deploy backup paths");
-            exit(EXIT_FAILURE);
-        }
-        
-        if (  [nonduplicateDeployBackupPaths count] > 1  ) {
-            
-            // Multiple Deploy backups that aren't duplicates of each other. Explain and quit
-            
-            warnAboutMultiplesAndQuit();
-            [self terminateBecause: terminatingBecauseOfQuit];
-			
-        } else if (   ([nonduplicateDeployBackupPaths count] == 1)
-				   && ( ! [gFileMgr fileExistsAtPath: [[NSBundle mainBundle]
-													  pathForResource: @"Deploy" ofType: nil]])  ) {
-            
-            // No Deploy in this app, but one Deployed backup (or a bunch of duplicates), which installer will deal with.
-            //
-            // If there is a Deploy in this Tunnelblick, it will also be dealt with by the installer.
-            //
-            // So we let the user (re)install in /Applications or quit
-            // after warning the user to back up before (re)installing 
-            
-            if (  warnAndReinstallOrQuit() == NSAlertAlternateReturn ) {
-                [self terminateBecause: terminatingBecauseOfQuit];
-            }
-        }
-		
-		// No Deployed backups and/or Deploy in the app
-		//
-		// If there is a Deploy in this Tunnelblick, it will be dealt with by the installer.
-		//
-		// So we fall through to copy to /Applications
-	}
-                
     //Install into /Applications
 	
     // Set up message about installing .tblks on the .dmg
@@ -4190,9 +4159,6 @@ BOOL warnAboutNonTblks(void)
                                     : 0)
                                  | (needToMoveLibraryOpenVPN()
                                     ? INSTALLER_MOVE_LIBRARY_OPENVPN
-                                    : 0)
-                                 | (needToUpdateDeploy()
-                                    ? INSTALLER_UPDATE_DEPLOY
                                     : 0)
                                  )
                 extraArguments: nil
@@ -4367,9 +4333,8 @@ BOOL warnAboutNonTblks(void)
             msg = [NSMutableString stringWithString: NSLocalizedString(@"Tunnelblick needs to:\n", @"Window text")];
             if (    installFlags & INSTALLER_COPY_APP              ) [msg appendString: NSLocalizedString(@"  • Be installed in /Applications\n", @"Window text")];
             if (    installFlags & INSTALLER_SECURE_APP            ) [msg appendString: NSLocalizedString(@"  • Change ownership and permissions of the program to secure it\n", @"Window text")];
-            if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN  ) [msg appendString: NSLocalizedString(@"  • Update the private configurations folder\n", @"Window text")];
-            if (   (0 != (installFlags & INSTALLER_UPDATE_DEPLOY))
-                    || tblksToInstallFirst                         ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
+            if (    installFlags & INSTALLER_MOVE_LIBRARY_OPENVPN  ) [msg appendString: NSLocalizedString(@"  • Move the private configurations folder\n", @"Window text")];
+            if (    tblksToInstallFirst                            ) [msg appendString: NSLocalizedString(@"  • Install or update configuration(s)\n", @"Window text")];
             if (    installFlags & INSTALLER_CONVERT_NON_TBLKS     ) [msg appendString: NSLocalizedString(@"  • Convert OpenVPN configurations\n", @"Window text")];
             if (   (installFlags & INSTALLER_SECURE_TBLKS)
                 || (installFlags & INSTALLER_COPY_BUNDLE)          ) [msg appendString: NSLocalizedString(@"  • Secure configurations\n", @"Window text")];
@@ -4451,7 +4416,6 @@ BOOL warnAboutNonTblks(void)
                               | INSTALLER_SECURE_TBLKS
                               | INSTALLER_CONVERT_NON_TBLKS
                               | INSTALLER_MOVE_LIBRARY_OPENVPN
-                              | INSTALLER_UPDATE_DEPLOY
                               )
                            )
                      ? YES
@@ -4514,7 +4478,6 @@ unsigned needToRunInstaller(BOOL inApplications)
     if (  needToRepairPackages()                                 ) flags = flags | INSTALLER_SECURE_TBLKS;
     if (  needToConvertNonTblks()                                ) flags = flags | INSTALLER_CONVERT_NON_TBLKS;
     if (  needToMoveLibraryOpenVPN()                             ) flags = flags | INSTALLER_MOVE_LIBRARY_OPENVPN;
-    if (  needToUpdateDeploy()                                   ) flags = flags | INSTALLER_UPDATE_DEPLOY;
     
     return flags;
 }
@@ -4569,14 +4532,14 @@ BOOL needToMoveLibraryOpenVPN(void)
 
 BOOL needToSecureFolderAtPath(NSString * path)
 {
-    // Returns YES if the folder (a Deploy folder in the app or in /Library/Application Support/Tunnelblick) needs to be secured
+    // Returns YES if the folder (a Deploy folder in the app needs to be secured
     //
     // There is a SIMILAR function in openvpnstart: exitIfTblkNeedsRepair
     //
     // There is a SIMILAR function in installer: secureOneFolder, that secures a folder with these permissions
     
     mode_t selfPerms;           //  For the folder itself (if not a .tblk)
-    mode_t tblkFolderPerms;     //  For a .tblk itself and its Contents and Resources folders
+    mode_t tblkFolderPerms;     //  For a .tblk itself and any folders inside it
     mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
     mode_t publicFolderPerms;   //  For all other folders
     mode_t scriptPerms;         //  For files with .sh extensions
@@ -4620,8 +4583,7 @@ BOOL needToSecureFolderAtPath(NSString * path)
 						return YES;
 					}
 				
-                } else if (   [filePath hasPrefix: [L_AS_T_BACKUP stringByAppendingString: @"/"]]
-						   || [filePath hasPrefix: [L_AS_T_DEPLOY stringByAppendingString: @"/"]]
+                } else if (   [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
                            || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
 					if (  ! checkOwnerAndPermissions(filePath, user, group, publicFolderPerms)  ) {
 						return YES;
@@ -4805,26 +4767,6 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         }
     }
     
-    // check permissions of files in the master Deploy folder
-    if (  [gFileMgr fileExistsAtPath: gDeployPath isDirectory: &isDir]
-        && isDir  ) {
-        if (  needToSecureFolderAtPath(gDeployPath)  ) {
-            return YES;
-        }
-    }
-    
-    // check permissions of files in the Deploy backup, also (if any)        
-    NSString * deployBackupPath = [[[[L_AS_T_BACKUP stringByAppendingPathComponent: [[NSBundle mainBundle] bundlePath]]
-                                     stringByDeletingLastPathComponent]
-                                    stringByAppendingPathComponent: @"TunnelblickBackup"]
-                                   stringByAppendingPathComponent: @"Deploy"];
-    if (  [gFileMgr fileExistsAtPath: deployBackupPath isDirectory: &isDir]
-        && isDir  ) {
-        if (  needToSecureFolderAtPath(deployBackupPath)  ) {
-            return YES;
-        }
-    }
-    
     return NO;
 }
 
@@ -4867,33 +4809,6 @@ BOOL checkOwnedByRootWheel(NSString * path)
 	return YES;
 }
         
-BOOL needToUpdateDeploy(void)
-{
-    NSString * thisAppDeployPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Deploy"];
-    BOOL isDir;
-    BOOL haveDeployInL_AS_T  = [gFileMgr fileExistsAtPath: gDeployPath       isDirectory: &isDir] && isDir;
-    BOOL haveDeployInThisApp = [gFileMgr fileExistsAtPath: thisAppDeployPath isDirectory: &isDir] && isDir;
-    
-    if (  haveDeployInThisApp  ) {
-        if (  ! haveDeployInL_AS_T ) {
-            return YES;
-        }
-        
-        // Don't have version numbers, so update only if Deploy in app is later
-        
-        NSDate * lastModifiedInL_AS_T  = [[gFileMgr tbFileAttributesAtPath: gDeployPath traverseLink: NO]
-										  objectForKey: NSFileModificationDate];
-        NSDate * lastModifiedInThisApp = [[gFileMgr tbFileAttributesAtPath: thisAppDeployPath traverseLink: NO]
-										  objectForKey: NSFileModificationDate];
-        
-        if (  [lastModifiedInL_AS_T compare: lastModifiedInThisApp] == NSOrderedAscending ) {
-            return YES;
-        }
-    }
-    
-    return NO;
-}    
-
 BOOL needToRepairPackages(void)
 {
     // Check permissions of private .tblk packages.

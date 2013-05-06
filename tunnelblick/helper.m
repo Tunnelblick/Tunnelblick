@@ -43,6 +43,7 @@ BOOL           copyOrMoveCredentials    (NSString * fromDisplayName,
 // functions in this file are called:
 extern NSMutableArray  * gConfigDirs;
 extern NSString        * gPrivatePath;
+extern NSString        * gDeployPath;
 extern NSFileManager   * gFileMgr;
 extern TBUserDefaults  * gTbDefaults;
 
@@ -1084,149 +1085,6 @@ NSArray * availableOpenvpnVersions (void)
     return list;
 }
 
-// Returns array of paths to Deploy backups. The paths end in the folder that contains TunnelblickBackup
-NSArray * pathsForDeployBackups(void)
-{
-    NSMutableArray * result = [NSMutableArray arrayWithCapacity: 10];
-	NSString * deployBackupPath = L_AS_T_BACKUP;
-    NSMutableString * path = [NSMutableString stringWithCapacity: 1000];
-	BOOL isDir;
-	NSString * file;
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: deployBackupPath];
-	while (  (file = [dirEnum nextObject])  ) {
-		[dirEnum skipDescendents];
-		NSString * fullPath = [deployBackupPath stringByAppendingPathComponent: file];
-		if (   [gFileMgr fileExistsAtPath: fullPath isDirectory: &isDir]
-			&& isDir
-			&& itemIsVisible(fullPath)  ) {
-            // Chase down this folder chain until we see the Deploy folder, then save the
-            // path to and including the Deploy folder
-            NSString * file2;
-            NSDirectoryEnumerator * dirEnum2 = [gFileMgr enumeratorAtPath: fullPath];
-            while (  (file2 = [dirEnum2 nextObject])  ) {
-                NSString * fullPath2 = [fullPath stringByAppendingPathComponent: file2];
-                if (   [gFileMgr fileExistsAtPath: fullPath2 isDirectory: &isDir]
-                    && isDir
-                    && itemIsVisible(fullPath)  ) {
-                    NSArray * pathComponents = [fullPath2 pathComponents];
-                    if (   [[pathComponents objectAtIndex: [pathComponents count] - 1] isEqualToString: @"Deploy"]
-                        && [[pathComponents objectAtIndex: [pathComponents count] - 2] isEqualToString: @"TunnelblickBackup"]
-                        ) {
-                        unsigned i;
-                        for (  i=0; i<[pathComponents count]; i++  ) {
-                            [path appendString: [pathComponents objectAtIndex: i]];
-							if (   (i != 0)
-								&& (i != [pathComponents count] - 1)  ) {
-								[path appendString: @"/"];
-							}
-                        }
-                        break;
-                    }
-                }
-            }
-            if (  [path hasPrefix: fullPath]  ) {
-                [result addObject: [NSString stringWithString: path]];
-            } else {
-                NSLog(@"Unrecoverable error dealing with Deploy backups");
-                return  nil;
-            }
-            [path setString: @""];
-        }
-    }
-    
-    return result;
-}
-
-// Returns nil on error, or a possibly empty array with paths of the latest non-duplicate Deploy backups that can be used by a copy of Tunnelblick
-NSArray * pathsForLatestNonduplicateDeployBackups(void)
-{
-    // Get a list of paths to Deploys that may include duplicates (identical Deploys)
-    NSArray * listWithDupes = pathsForDeployBackups();
-    if (  ! listWithDupes  ) {
-        return nil;
-    }
-    
-    if (  [listWithDupes count] == 0  ) {
-        return listWithDupes;
-    }
-    
-    // Get a list of those paths that have a Tunnelblick that can use them (even if it has been renamed)
-    NSMutableArray * listThatTunnelblickCanUseWithDupes = [NSMutableArray arrayWithCapacity: [listWithDupes count]];
-    unsigned i;
-    for (  i=0; i<[listWithDupes count]; i++) {
-        NSString * backupPath = [listWithDupes objectAtIndex: i];
-        NSString * pathToDirWithTunnelblick = [[[backupPath substringFromIndex: [L_AS_T_BACKUP length]]
-											   stringByDeletingLastPathComponent]	// Remove Deploy
-											stringByDeletingLastPathComponent];		// Remove TunnelblickBackup];
-        
-        NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: pathToDirWithTunnelblick];
-        NSString * file;
-        while (  (file = [dirEnum nextObject])  ) {
-            [dirEnum skipDescendents];
-            if (  [[file pathExtension] isEqualToString: @"app"]  ) {
-                NSString * openvpnstartPath = [[[[pathToDirWithTunnelblick
-                                                    stringByAppendingPathComponent: file]
-                                                   stringByAppendingPathComponent: @"Contents"]
-                                                  stringByAppendingPathComponent: @"Resources"]
-                                                 stringByAppendingPathComponent: @"openvpnstart"];
-                if (  [gFileMgr fileExistsAtPath: openvpnstartPath]  ) {
-                    [listThatTunnelblickCanUseWithDupes addObject: backupPath];
-                }
-            }
-        }
-    }
-    
-    NSMutableArray * pathsToRemove = [NSMutableArray arrayWithCapacity: 10];
-    NSMutableArray * results       = [NSMutableArray arrayWithCapacity: 10];
-    
-    for (  i=0; i<[listThatTunnelblickCanUseWithDupes count]; i++  ) {
-        
-        // For each path in listThatTunnelblickCanUseWithDupes, find the path to the latest Deploy which is identical to it and put that in results
-        
-        NSString * latestPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: i];
-        NSDate   * latestDate = [[gFileMgr tbFileAttributesAtPath: latestPath traverseLink: NO]
-								 objectForKey: NSFileModificationDate];
-        if (  ! latestDate  ) {
-            NSLog(@"No last modified date for %@", latestPath);
-            return nil;
-        }
-        
-        unsigned j;
-        for (  j=0; j<[listThatTunnelblickCanUseWithDupes count]; j++  ) {
-            
-            // Look for a folder which is identical but has a later date
-            
-            if (  i != j  ) {
-                NSString * thisPath = [listThatTunnelblickCanUseWithDupes objectAtIndex: j];
-                if ( ! [results containsObject: thisPath]  ) {
-                    if (  ! [pathsToRemove containsObject: thisPath]  ) {
-                        if (  [gFileMgr contentsEqualAtPath: latestPath andPath: thisPath]  ) {
-                            NSDate   * thisDate = [[gFileMgr tbFileAttributesAtPath: thisPath traverseLink: NO]
-												   objectForKey: NSFileModificationDate];
-                            if ( ! thisDate  ) {
-                                NSLog(@"No last modified date for %@", thisPath);
-                                return nil;
-                            }
-                            if (  [latestDate compare: thisDate] == NSOrderedAscending  ) {
-                                // Have a later version of the same
-                                latestPath = thisPath;
-                                latestDate = thisDate;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            if (  ! [results containsObject: latestPath]  ) {
-				[results addObject: latestPath];
-				[pathsToRemove addObject: latestPath];
-			}
-        }
-    }
-    
-    return results;
-}
-
 BOOL invalidConfigurationName(NSString * name)
 {
 	unsigned i;
@@ -1351,11 +1209,7 @@ BOOL tunnelblickTestDeployed(void)
 {
     // Returns TRUE if Deploy folder exists and contains anything
     
-    NSString * appPath = [[NSBundle mainBundle] bundlePath];
-    NSString * deployPath = [[[appPath stringByAppendingPathComponent: @"Contents"]
-							  stringByAppendingPathComponent: @"Resources"]
-							 stringByAppendingPathComponent: @"Deploy"];
-	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: deployPath];
+ 	NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: gDeployPath];
     NSString * file;
     BOOL haveSomethingInDeployFolder = FALSE;
     while (  (file = [dirEnum nextObject])  )

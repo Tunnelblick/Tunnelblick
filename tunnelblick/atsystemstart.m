@@ -69,11 +69,7 @@ int main(int argc, char* argv[])
         NSLog(@"Tunnelblick: too few execComponents; resourcesPath = %@", resourcesPath);
         errorExit();
     }
-	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 3];
-	if (  [ourAppName hasSuffix: @".app"]  ) {
-		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
-	}
-	gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
+	gDeployPath = [[resourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
 	
 #ifdef TBDebug
     NSLog(@"Tunnelblick: WARNING: This is an insecure copy of atsystemstart to be used for debugging only!");
@@ -208,6 +204,10 @@ NSString * getWorkingDirectory(int argc, char* argv[])
     
     if (  cfgLocCode == CFG_LOC_DEPLOY  ) {
         cfgPath = [gDeployPath stringByAppendingPathComponent: cfgFile];
+        if (  ! [[NSFileManager defaultManager] fileExistsAtPath: cfgPath]  ) {
+            NSLog(@"Tunnelblick atsystemstart: Configuration does not exist: %@",cfgPath);
+            errorExit();
+        }
     } else if (cfgLocCode == CFG_LOC_SHARED  ) {
         cfgPath = [L_AS_T_SHARED stringByAppendingPathComponent: cfgFile];
     } else {

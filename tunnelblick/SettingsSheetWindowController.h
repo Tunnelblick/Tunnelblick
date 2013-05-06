@@ -23,8 +23,7 @@
 #import <Cocoa/Cocoa.h>
 #import "defines.h"
 
-typedef enum
-{
+typedef enum {
 	sharedConfiguration,
     privateConfiguration,
     deployedConfiguration

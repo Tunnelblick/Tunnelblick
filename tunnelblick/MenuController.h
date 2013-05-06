@@ -58,7 +58,6 @@ unsigned needToRunInstaller(BOOL inApplications);
 
 BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
 BOOL needToMoveLibraryOpenVPN(void);
-BOOL needToRestoreDeploy(void);
 BOOL needToRepairPackages(void);
 BOOL needToCopyBundle(void);
 BOOL needToConvertNonTblks(void);
