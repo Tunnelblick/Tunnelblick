@@ -49,9 +49,6 @@ NSString     * copyrightNotice          ();
 
 NSString     * newTemporaryDirectoryPath(void);
 
-NSArray      * pathsForDeployBackups    (void);
-NSArray      * pathsForLatestNonduplicateDeployBackups(void);
-
 NSString     * escaped                  (NSString * string);
 
 NSMutableString * encodeSlashesAndPeriods(NSString * s);

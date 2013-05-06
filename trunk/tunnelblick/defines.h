@@ -58,8 +58,6 @@
 // NOTE: Several up scripts refer to the log directory without using this header file
 #define L_AS_T_LOGS   @"/Library/Application Support/Tunnelblick/Logs"
 
-#define L_AS_T_BACKUP @"/Library/Application Support/Tunnelblick/Backup"
-#define L_AS_T_DEPLOY @"/Library/Application Support/Tunnelblick/Deploy"
 #define L_AS_T_SHARED @"/Library/Application Support/Tunnelblick/Shared"
 #define L_AS_T_USERS  @"/Library/Application Support/Tunnelblick/Users"
 
@@ -92,21 +90,22 @@
 //       installer
 //
 // _PRIVATE... entries are for ~/Library/Application Support/Tunnelblick/Configurations
+//                             (These folders are owned by <user>:Admin)
+//
 // _SECURED... entries are for /Library/Application Support/Tunnelblick/Shared/,
 //                             /Library/Application Support/Tunnelblick/Users/username/,
-//                             /Library/Application Support/Tunnelblick/Deployed/
 //                             /Library/Application Support/Tunnelblick/Backup/
 //                             /Applications/XXXXX.app/Contents/Resources/Deploy/
+//                             (These folders are owned by root:wheel)
 //
 // _SELF           entries are for the folder itself (if not a .tblk folder
-// _TBLK_FOLDER    entries are for folders with the .tblk extension and their subfolders (Contents & Resources)
+// _TBLK_FOLDER    entries are for folders with the .tblk extension and their subfolders
 // _PRIVATE_FOLDER entries are for folders IN .../Users/username/
 // _PUBLIC_FOLDER  entries are for all other folders
-// _SCRIPT         entries are for files with the .sh
+// _SCRIPT         entries are for files with the .sh extension
 // _EXECUTABLE     entries are for files with the .executable extension (in Deploy folders only)
 // _OTHER          entries are for all other files
 
-// These folders are owned by root:wheel
 
 #define PERMS_PRIVATE_SELF           0750
 #define PERMS_PRIVATE_TBLK_FOLDER    0750
@@ -193,7 +192,6 @@
 #define INSTALLER_SECURE_TBLKS          0x0010u
 #define INSTALLER_CONVERT_NON_TBLKS     0x0020u
 #define INSTALLER_MOVE_LIBRARY_OPENVPN  0x0040u
-#define INSTALLER_UPDATE_DEPLOY         0x0080u
 
 #define INSTALLER_MOVE_NOT_COPY         0x1000u
 #define INSTALLER_DELETE                0x2000u

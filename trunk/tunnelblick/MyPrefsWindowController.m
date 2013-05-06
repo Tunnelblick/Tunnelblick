@@ -1740,7 +1740,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         NSString * cfgPath = [connection configPath];
         if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
             cfgLoc = CFG_LOC_PRIVATE;
-        } else if (  [cfgPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
+        } else if (  [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
             cfgLoc = CFG_LOC_DEPLOY;
         } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
             cfgLoc = CFG_LOC_SHARED;

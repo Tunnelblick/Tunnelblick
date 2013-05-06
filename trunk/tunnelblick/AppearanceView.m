@@ -123,8 +123,8 @@ extern NSString       * gDeployPath;
     NSMutableArray * paths = [[[NSMutableArray alloc] initWithCapacity: 30] autorelease];
     NSMutableArray * iconNames = [[[NSMutableArray alloc] initWithCapacity: 30] autorelease];
     NSArray * iconDirs = [NSArray arrayWithObjects:
-                          [gDeployPath stringByAppendingPathComponent: @"IconSets"],
-                          [L_AS_T_SHARED stringByAppendingPathComponent: @"IconSets"],
+                          [gDeployPath                          stringByAppendingPathComponent: @"IconSets"],
+                          [L_AS_T_SHARED                        stringByAppendingPathComponent: @"IconSets"],
                           [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"IconSets"],
                           nil];
     NSEnumerator * iconDirEnum = [iconDirs objectEnumerator];

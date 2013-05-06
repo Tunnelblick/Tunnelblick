@@ -1286,8 +1286,10 @@ enum state_t {                      // These are the "states" of the guideState 
                             sharedPrivateDeployed = NSLocalizedString(@" (Shared)", @"Window title");
                         } else if (  [replacementPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
                             sharedPrivateDeployed = NSLocalizedString(@" (Private)", @"Window title");
-                        } else {
+                        } else if (  [replacementPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) {
                             sharedPrivateDeployed = NSLocalizedString(@" (Deployed)", @"Window title");
+                        } else {
+                            sharedPrivateDeployed = NSLocalizedString(@" (?)", @"Window title");
                         }
                         if (  pkgDoUninstall  ) {
                             msg = [NSString stringWithFormat: NSLocalizedString(@"Do you wish to uninstall '%@'%@ version %@?", @"Window text"),

@@ -38,7 +38,7 @@ NSString			* gConfigPath    = nil;     // Path to configuration file
 //                                                 in ~/Library/Application Support/Tunnelblick/Configurations/
 //                                                 or /Library/Application Support/Tunnelblick/Users/<username>/
 //                                                 or /Library/Application Support/Tunnelblick/Shared
-//                                                 or /Applications/XXXXX.app/Resources/Deploy
+//                                                 or /Applications/XXXXX.app/Contents/Resources/Deploy
 NSString			* gResourcesPath = nil;     // Path to Tunnelblick.app/Contents/Resources
 NSString            * gDeployPath    = nil;     // Path to /Library/Application Support/Tunnelblick/Deploy/<application name>
 NSString            * gStartArgs     = nil;     // String with an underscore-delimited list of the following arguments to openvpnstart's start
@@ -59,8 +59,8 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
+    // returnValue: have used 185-247, plus the values in define.h (249-254) -- 248 IS NOT USED
 void exitOpenvpnstart(OSStatus returnValue) {
-    // returnValue: have used 186-247, plus the values in define.h (249-254) -- 248 IS NOT USED
     [pool drain];
     exit(returnValue);
 }
@@ -153,7 +153,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "              0 is no longer an accepted value. Private configurations may not be used by openvpnstart\n"
             "           or 1 to use the alternate folder (/Library/Application Support/Tunnelblick/Users/<username>)\n"
             "                for configuration files and the standard folder for other files,\n"
-            "           or 2 to use /Library/Application Support/Tunnelblick/Deploy folder for configuration and other files,\n"
+            "           or 2 to use the Deploy folder in Tunnelblick.app/Contents/Resources for configuration and other files,\n"
             "                and If 'useScripts' is not 0\n"
             "                    Then If .../Deploy/<configName>.up.sh   exists,           it is used instead of .../Resources/client.up.osx.sh,\n"
             "                     and If .../Deploy/<configName>.down.sh exists,           it is used instead of .../Resources/client.down.osx.sh\n"
@@ -570,7 +570,7 @@ void exitIfTblkNeedsRepair(void) {
     
     //                          // Permissions:
     mode_t selfPerms;           //  For the folder itself (if not a .tblk)
-    mode_t tblkFolderPerms;     //  For a .tblk itself and its Contents and Resources folders
+    mode_t tblkFolderPerms;     //  For a .tblk itself and any subfolders
     mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
     mode_t publicFolderPerms;   //  For all other folders
     mode_t scriptPerms;         //  For files with .sh extensions
@@ -609,13 +609,12 @@ void exitIfTblkNeedsRepair(void) {
                 if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     exitIfPathIsNotSecure(filePath, tblkFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                     
-                } else if (   [filePath hasPrefix: [L_AS_T_BACKUP stringByAppendingString: @"/"]]
-						   || [filePath hasPrefix: [L_AS_T_DEPLOY stringByAppendingString: @"/"]]
+                } else if (   [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
                            || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-                    exitIfPathIsNotSecure(filePath, privateFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+                    exitIfPathIsNotSecure(filePath, publicFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
                     
                 } else {
-                    exitIfPathIsNotSecure(filePath, publicFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
+                    exitIfPathIsNotSecure(filePath, privateFolderPerms, OPENVPNSTART_RETURN_CONFIG_NOT_SECURED_ERROR);
 				}
                 
             } else if ( [ext isEqualToString:@"sh"]  ) {
@@ -1209,7 +1208,7 @@ NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode) {
         case CFG_LOC_PRIVATE:
         case CFG_LOC_ALTERNATE:
 			if (  gOriginalUid == 0  ) {
-				fprintf(stderr, "Invalid cfgLocCode (alternate configuration not allowed when running as root)\n");
+				fprintf(stderr, "Tunnelblick: Invalid cfgLocCode (private or alternate configuration  but no user ID is avalable)\n");
 				exitOpenvpnstart(194);
 			}
 			// THIS IS NOT USED AS A PATHNAME. SEE NOTE ABOVE.
@@ -1222,7 +1221,8 @@ NSString * constructLogBase(NSString * configurationFile, unsigned cfgLocCode) {
             configPrefix = L_AS_T_SHARED;
             break;
         default:
-            return FALSE;
+            fprintf(stderr, "Tunnelblick: Invalid cfgLocCode = %u\n", cfgLocCode);
+            exit(EXIT_FAILURE);
     }
     
     NSMutableString * base = [[[configPrefix stringByAppendingPathComponent: configurationFile] mutableCopy] autorelease];
@@ -2344,22 +2344,36 @@ void validateUseScripts(unsigned useScripts) {
 }
 
 void validateCfgLocCode(unsigned cfgLocCode) {
-	if (  cfgLocCode > CFG_LOC_MAX  ) {
-        fprintf(stderr, "Tunnelblick: cfgLocCode too large\n");
-        exitOpenvpnstart(238);
-	}
     
-    if (  cfgLocCode == CFG_LOC_PRIVATE  ) {
-        fprintf(stderr, "Tunnelblick: cfgLocCode = private configuration; private configurations are not allowed\n");
-        exitOpenvpnstart(239);
+    switch (  cfgLocCode  ) {
+            
+        case CFG_LOC_PRIVATE:
+            fprintf(stderr, "Tunnelblick: cfgLocCode = private; private configurations are not allowed -- use the alternate location instead\n");
+            exitOpenvpnstart(239);
+            break;
+            
+        case CFG_LOC_ALTERNATE:
+            if (  gOriginalUid == 0  ) {
+                fprintf(stderr, "Tunnelblick: cfgLocCode = alternate but no user ID is avalable\n");
+                exitOpenvpnstart(187);
+            }
+            break;
+            
+        case CFG_LOC_DEPLOY:
+            if (  ! [[NSFileManager defaultManager] fileExistsAtPath: gDeployPath]  ) {
+                fprintf(stderr, "Tunnelblick: cfgLocCode = deployed but this is not a Deployed version of Tunnelblick\n");
+                exitOpenvpnstart(185);
+            }
+            break;
+            
+        case CFG_LOC_SHARED:
+            break;
+            
+        default:
+            fprintf(stderr, "Tunnelblick: cfgLocCode %u is invalid\n", cfgLocCode);
+            exitOpenvpnstart(238);
+            break;
     }
-    
-    if (  cfgLocCode == CFG_LOC_ALTERNATE  ) {
-		if (  gOriginalUid == 0  ) {
-			fprintf(stderr, "Tunnelblick: cfgLocCode = private configuration; private configurations are not allowed\n");
-			exitOpenvpnstart(187);
-		}
-	}
 }
 
 void validateBitmask(unsigned bitMask) {
@@ -2432,12 +2446,7 @@ int main(int argc, char * argv[]) {
         NSLog(@"Tunnelblick: too few execComponents; gResourcesPath = %@", gResourcesPath);
         exitOpenvpnstart(242);
     }
-	NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 3];
-	if (  [ourAppName hasSuffix: @".app"]  ) {
-		ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
-	}
-	gDeployPath = [[L_AS_T_DEPLOY stringByAppendingPathComponent: ourAppName] copy];
-	
+	gDeployPath = [[gResourcesPath stringByAppendingPathComponent: @"Deploy"] copy];
 	
 #ifdef TBDebug
     fprintf(stderr, "Tunnelblick: WARNING: This is an insecure copy of openvpnstart to be used for debugging only!\n");

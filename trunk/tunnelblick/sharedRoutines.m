@@ -34,6 +34,8 @@
 #import "NSFileManager+TB.h"
 
 
+extern NSString * gDeployPath;
+
 // External references that must be defined in Tunnelblick, installer, and any other target using this module
 
 void appendLog(NSString * msg);	// Appends a string to the log
@@ -327,7 +329,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 	
     // Permissions:
     mode_t selfPerms;           //  For the folder itself (if not a .tblk)
-    mode_t tblkFolderPerms;     //  For a .tblk itself and its Contents and Resources folders
+    mode_t tblkFolderPerms;     //  For a .tblk itself and any subfolders
     mode_t privateFolderPerms;  //  For folders in /Library/Application Support/Tunnelblick/Users/...
     mode_t publicFolderPerms;   //  For all other folders
     mode_t scriptPerms;         //  For files with .sh extensions
@@ -395,8 +397,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
                 if (  [filePath rangeOfString: @".tblk/"].location != NSNotFound  ) {
                     result = result && checkSetPermissions(filePath, tblkFolderPerms, YES);
                     
-                } else if (   [filePath hasPrefix: [L_AS_T_BACKUP stringByAppendingString: @"/"]]
-						   || [filePath hasPrefix: [L_AS_T_DEPLOY stringByAppendingString: @"/"]]
+                } else if (   [filePath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]
                            || [filePath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
                     result = result && checkSetPermissions(filePath, publicFolderPerms, YES);
                     
