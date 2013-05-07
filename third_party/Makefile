@@ -75,6 +75,7 @@ built-openssl: built-openssl-patch
 	mkdir -p $(OPENSSL_DEST_DIR)/lib
 	for t in $(OPENSSL_TARGET_FILES); do \
 		lipo $(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)/darwin*/lib/$$(basename $$t) -create -output $$t; \
+		ranlib $$t; \
 	done
 	rm -rf $(BUILD_DIR)/staging/$(OPENSSL_SRC_DIR)/darwin*
 	touch built-openssl
@@ -95,6 +96,7 @@ built-pkcs11-helper: built-openssl
 	rm -r -f $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib
 	mkdir -p $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib
 	lipo $(PKCS11_TUNNELBLICK_STAGING_DIR)_*/lib/libpkcs11-helper.a -create -output $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib/libpkcs11-helper.a
+	ranlib $(PKCS11_TUNNELBLICK_STAGING_DIR)/lib/libpkcs11-helper.a
 	touch built-pkcs11-helper
 
 built-pkcs11-helper-clean:
@@ -119,6 +121,7 @@ built-lzo:
 	# Use lipo to create a universal library
 	mkdir -p $(LZO_DIR)/staging/lib
 	lipo $(LZO_DIR)/staging_*/lib/liblzo2.a -create -output $(LZO_DIR)/staging/lib/liblzo2.a
+	ranlib $(LZO_DIR)/staging/lib/liblzo2.a
 	touch built-lzo
 	
 built-lzo-clean:
@@ -163,7 +166,7 @@ built-openvpn: built-openvpn-patch built-lzo built-pkcs11-helper built-openssl
 			for a in $(TARGET_ARCHS); do \
 				$(MAKE) clean; \
 				autoreconf -i -v; \
-				CC="$(CC)" CFLAGS="$(CFLAGS) -arch $$a" LZO_CFLAGS="-I$(LZO_DIR)/staging/include" LZO_LIBS="-L$(LZO_DIR)/staging/lib -llzo2" OPENSSL_SSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_SSL_LIBS="$(OPENSSL_DEST_DIR)/lib/libssl.a" OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_CRYPTO_LIBS="$(OPENSSL_DEST_DIR)/lib/libcrypto.a -static -lz" PKCS11_HELPER_CFLAGS="-I$(PKCS11_TUNNELBLICK_STAGING_DIR)/include/"  PKCS11_HELPER_LIBS="-L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper" ./configure --enable-static=yes --enable-shared --enable-pkcs11 --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking ; \
+				CC="$(CC)" CFLAGS="$(CFLAGS) -arch $$a" LZO_CFLAGS="-I$(LZO_DIR)/staging/include" LZO_LIBS="-L$(LZO_DIR)/staging/lib -llzo2" OPENSSL_SSL_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_SSL_LIBS="$(OPENSSL_DEST_DIR)/lib/libssl.a" OPENSSL_CRYPTO_CFLAGS="-I$(OPENSSL_DEST_DIR)/include/$$a" OPENSSL_CRYPTO_LIBS="$(OPENSSL_DEST_DIR)/lib/libcrypto.a -lz" PKCS11_HELPER_CFLAGS="-I$(PKCS11_TUNNELBLICK_STAGING_DIR)/include/"  PKCS11_HELPER_LIBS="-L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper" ./configure --enable-static=yes --enable-shared --enable-pkcs11 --disable-debug --disable-plugin-auth-pam --disable-dependency-tracking --enable-crypto --enable-ssl ; \
 				echo "Compiling openvpn"; \
 				$(MAKE) LIBS="$(OPENSSL_TARGET_FILES) -L$(PKCS11_TUNNELBLICK_STAGING_DIR)/lib -lpkcs11-helper -L$(LZO_DIR)/staging/lib -llzo2"; \
 				echo "Fixing down-root plugin" ; \
