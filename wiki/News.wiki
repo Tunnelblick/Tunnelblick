@@ -1,6 +1,16 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-05-08: *Tunnelblick 3.3beta48 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a security issue when installing Tunnelblick VPN Configurations (.tblks).
+ 
+ * Fixes a problem in the build of OpenVPN 2.3.1 that caused it to reject the 'keysize' option.
+
+ * Includes several enhancements and fixes several other bugs.
+ 
+--------------------
+
 2013-04-22: *Tunnelblick 3.3beta46 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * <font color="red">Security</font>: Digitally signs Tunnelblick's copies of OpenVPN.

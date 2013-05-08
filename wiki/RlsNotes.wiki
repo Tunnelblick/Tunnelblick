@@ -9,6 +9,36 @@
 
 ==Version 3.3==
 
+*3.3beta48 (2013-05-08)*
+
+ * Allows install and launch of a 'Deployed' version of Tunnelblick:
+   * If it is a 'rebranded' version of Tunnelblick (source code modified to use a different name); and
+   * If Info.plist does not have 'tunnelblick.net' in the 'updateFeedURL' forced preference (or in SUFeedURL if there is no 'updateFeedURL' forced preference); and
+   * If Info.plist does not have 'net.tunnelblick' in the CFBundleIdentifier; and
+   * All copies of the program include the Deploy folder. (Even updates must include the Deploy folder. Udpates did not previously require the Deploy folder because it would be restored from backups maintained by the program. The program no longer maintains backups.)
+
+ * Allows the 'skipWarningAboutNoSignature' preference to be forced. This preference inhibits warnings about the application not being digitally signed.
+
+ * Adds additional DNS information to the Tunnelblick log.
+
+ * Adds a 'Copy Console Log to Clipboard' button to the Utilities panel.
+
+ * When installing Tunnelblick VPN Configurations (.tblks) that include nested .tblks inside them, TBReplaceIdentical, TBSharePackage, and TBUninstall in the outer Info.plist will override corresponding entries in the nested .tblks.
+
+ * No longer  restores the 'Setup:' DNS key in scutil if it isn't needed (some OS X 10.7 setups, and all OS X below 10.7).
+
+ * Fixes a security issue when installing Tunnelblick VPN Configurations (.tblks).
+
+ * Fixes a problem in the build of OpenVPN 2.3.1 that caused it to reject the 'keysize' option.
+
+ * Fixes a problem that caused failures when using auto-install and .auto-install folders to install Tunnelblick VPN Configurations when Tunnelblick is installed.
+
+ * Fixes a problem that caused 'pre-connect', 'connected.sh', 'reconnecting.sh', and 'post-disconnect.sh' scripts in shared configurations to not be executed.
+
+ * Fixes a problem when the installer fails when trying to connect an unsecured configuration. (This would only happen if something is drastically wrong with the system, such as incorrect ownership or permissions on /Library).
+ 
+--------------------
+
 *3.3beta46 (2013-04-22)*
 
  * <font color="red">Security</font>: Digitally signs Tunnelblick's copies of OpenVPN.
