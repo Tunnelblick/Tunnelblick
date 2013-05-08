@@ -1,18 +1,79 @@
-#summary Welcome
+#summary Entry page for Downloads
 #sidebar cSb
+<font size="5">*Downloads*</font>
+<table><tr>
+<td valign="middle"><a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a></td>
+<td valign="middle">Tunnelblick is free, but if you like it, you can support its progress by making a donation.</td>
+</tr></table>
+<br>
+<hr>
 
-==Welcome to Tunnelblick==
+<wiki:toc max_depth="2" />
 
-If you're new to Tunnelblick, you might want to start with the "Getting Started" section:
-   * *[cWhatIs What is Tunnelblick?]* - you do need to know this!
-   * *[cWhatElse What else you need]* - the program, a VPN server/service, a configuration, and administrator access.
-   * *[cGettingVPNService Getting VPN Service]* - your company, your own, or a service provider.
-   * *[zQuick Quick start guide (3.2)]* *[wQuick (3.1)]* *[QuickStartGuide (3.0)]* - a quick, non-illustrated guide covering installation, configuration, and use.
-   * *[cHowHelp How you can help]* - Tunnelblick is free -- here's how you can help "pay" for it.
-   * *[cFAQ FAQ] - Frequently Asked Questions (Answered!)
+_Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [cGettingVPNService Getting VPN Service]._
+
+<hr>
+
+<table border="1" width="100%"><tbody><tr><td>
+ ==Tunnelblick Stable Releases==
+ <i>(A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a beta release, but may be more reliable.)</i>
+
+ For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit<br /><font color="red">Not recommended for OS X 10.8 ("Mountain Lion") -- use a beta version (below).</font>
+
+ <font size="3"><strong>Tunnelblick 3.2.8</strong></font> (build 2891.3099) released 2012-08-10 [RlsNotes#Version_3.2 Release Notes]
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.8.dmg                 Tunnelblick 3.2.8]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.8_Unsigned.dmg     Tunnelblick 3.2.8 Unsigned]</strong> 
+  (Used for Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)
+
+</td></tr></tbody></table>
+
+<table border="1" width="100%"><tbody><tr><td>
+ ==Tunnelblick Beta Releases==
+ <i>(A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations.)</i>
+
+ For use on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion") Intel or PowerPC, 32- or 64-bit
+
+  <font size="3"><strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta48.dmg Tunnelblick 3.3beta48]</strong></font> (build 3290) released 2013-05-08 [RlsNotes#Version_3.3 Release Notes]
+    <font color="red"><strong>NOTE: This version will refuse to install itself unless:</strong>
+      • It is a normal (not "[cCusDeployed Deployed]") version, and
+      • A "[cCusDeployed Deployed]" version of Tunnelblick has previously been installed and has not been fully uninstalled.</font>
+      OR
+      • It is a "Deployed" version that meets certain conditions (see the [RlsNotes#Version_3.3 Release Notes]); and<br />
+    <strong>Note: Versions of Tunnelblick that do not support "Deployed" configurations are no longer available in unsigned form.</strong><br />
    
-Good luck!
+ <font size="3"><strong>Tunnelblick 3.3beta21b</strong></font> (build 3114.3185) released 2013-01-08 [RlsNotes#Version_3.3 Release Notes]
+   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21b.dmg          Tunnelblick 3.3beta21b]</strong><br />
+   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21b_Unsigned.dmg Tunnelblick 3.3beta21b Unsigned]</strong> (Used for Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)<br/> <strong>NOTE: 3.3beta21b installs on any system.</strong>
+
+</td></tr></tbody></table>
+
+<table border="1" width="100%"><tbody><tr><td>
+ ==Tunnelblick Uninstaller==
+ 
+ For use with all versions of Tunnelblick on OS X 10.4 - 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion") Intel or PowerPC, 32- or 64-bit<br />
+
+ <font size="3"><strong>Tunnelblick Uninstaller 1.0</strong></font> released 2013-03-28
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_Uninstaller_1.0.dmg Tunnelblick Uninstaller 1.0]</strong><br />
+
+</td></tr></tbody></table>
+
+<table border="1" width="100%"><tbody><tr><td>
+ ==Older Tunnelblick Releases==
+    <strong>[DownloadsOlder Older Releases]</strong> including a release for OS X 10.3 ("Panther")
+</td></tr></tbody></table>
+
+<table border="1" width="100%"><tbody><tr><td>
+ ==User-Contributed Scripts==
+ These downloads have been contributed by users and usually help deal with special circumstances. They are not endorsed or checked by the Tunnelblick project or Google, and you use them at your own risk. To contribute a download, please email project owner [http://code.google.com/u/jkbullard/ Jon].
+
+ <font color="red">Note: scripts are executed as root.</font> [cUsingScripts Instructions for using scripts].
+
+    * *Scripts to Unload Cisco Tun Kext*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-001-pre-post.zip user-contributed-001-pre-post.zip]*_ Contributed by petiepooo. These scripts unload the Cisco !AnyConnect tun kext before a Tunnelblick connection is started, and reload the Cisco tun kext after a Tunnelblick connection is stopped. (The Cisco kext interferes with Tunnelblick's operation of tun connections.) Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher.
+
+    * *Scripts to Mount/Unmount a Volume*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-002-mount-unmount-volume.zip user-contributed-002-mount-unmount-volume.zip]*_ Contributed by John Griffis. These scripts mount a volume after a configuration is connected and unmount it when the configuration is disconnected. Scripts must be edited before use (in any plain-text editor) to specify details of the volume to be connected. Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher. For a note about connecting to a CIFS account, see <a href="https://groups.google.com/d/topic/tunnelblick-discuss/b2jboQHeqAs/discussion">https://groups.google.com/d/topic/tunnelblick-discuss/b2jboQHeqAs/discussion</a>.
+
+    * *Scripts to Monitor Connection Time and Bandwidth Use*:  _*[http://code.google.com/p/tunnelblick/downloads/detail?name=user-contributed-003-monitor-uptime-and-bandwidth.zip user-contributed-003-monitor-uptime-and-bandwidth.zip]*_ Contributed by "vkapovit". These scripts  provide a mechanism for the user to be alerted when the VPN has been up for more than 20 minutes or when bandwidth has exceeded 100MB. See [https://groups.google.com/d/msg/tunnelblick-discuss/7lGWKR1-rC4/OGHhCfmrXfgJ this post] on the Tunnelblick Discussion Group for details. Requires Growl. Must be used in a Tunnelblick VPN Configuration (.tblk package) with Tunnelblick 3.1beta06 or higher. <strong><font color="red">Includes compiled binaries; use at your own risk.</font></strong>
+</td></tr></tbody></table>
 
 ------------------
 
-===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
+===PLEASE USE THE [http://groups.google.com/group/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS===
