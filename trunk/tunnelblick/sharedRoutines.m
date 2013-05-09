@@ -334,6 +334,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     mode_t publicFolderPerms;   //  For all other folders
     mode_t scriptPerms;         //  For files with .sh extensions
     mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
+    mode_t forcedPrefsPerms;    //  For files named forced-preferences (only appear in a Deploy folder
     mode_t otherPerms;          //  For all other files
     
     if (  isPrivate  ) {
@@ -354,6 +355,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
         publicFolderPerms  = PERMS_PRIVATE_PUBLIC_FOLDER;
         scriptPerms        = PERMS_PRIVATE_SCRIPT;
         executablePerms    = PERMS_PRIVATE_EXECUTABLE;
+        forcedPrefsPerms   = PERMS_PRIVATE_FORCED_PREFS;
         otherPerms         = PERMS_PRIVATE_OTHER;
     } else {
         user  = 0;                      // Secured files are owned by root:wheel
@@ -368,6 +370,7 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
         publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
         scriptPerms        = PERMS_SECURED_SCRIPT;
         executablePerms    = PERMS_SECURED_EXECUTABLE;
+        forcedPrefsPerms   = PERMS_SECURED_FORCED_PREFS;
         otherPerms         = PERMS_SECURED_OTHER;
     }
     
@@ -410,6 +413,9 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
                 
             } else if ( [ext isEqualToString:@"executable"]  ) {
 				result = result && checkSetPermissions(filePath, executablePerms, YES);
+                
+            } else if ( [file isEqualToString:@"forced-preferences.plist"]  ) {
+				result = result && checkSetPermissions(filePath, forcedPrefsPerms, YES);
                 
             } else {
 				result = result && checkSetPermissions(filePath, otherPerms, YES);
