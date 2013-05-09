@@ -234,7 +234,7 @@ void installOrUpdateOurEasyRsa(void) {
 		return;
 	}
 	
-    NSString * appEasyRsaPath = [[NSBundle mainBundle] pathForResource: @"easy-rsa-Tunnelblick" ofType: @""];
+    NSString * appEasyRsaPath = [[NSBundle mainBundle] pathForResource: @"easy-rsa-tunnelblick" ofType: @""];
     if (  ! appEasyRsaPath  ) {
         easyRsaInstallFailed(NSLocalizedString(@"Could not find easy-rsa in Tunnelblick.app", @"Window text"));
         return;
