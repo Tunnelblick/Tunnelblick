@@ -4544,6 +4544,7 @@ BOOL needToSecureFolderAtPath(NSString * path)
     mode_t publicFolderPerms;   //  For all other folders
     mode_t scriptPerms;         //  For files with .sh extensions
     mode_t executablePerms;     //  For files with .executable extensions (only appear in a Deploy folder
+    mode_t forcedPrefsPerms;    //  For files named forced-preferences (only appear in a Deploy folder
     mode_t otherPerms;          //  For all other files
     
 	uid_t user = 0;
@@ -4555,6 +4556,7 @@ BOOL needToSecureFolderAtPath(NSString * path)
     publicFolderPerms  = PERMS_SECURED_PUBLIC_FOLDER;
     scriptPerms        = PERMS_SECURED_SCRIPT;
     executablePerms    = PERMS_SECURED_EXECUTABLE;
+    forcedPrefsPerms   = PERMS_SECURED_FORCED_PREFS;
     otherPerms         = PERMS_SECURED_OTHER;
 
     if (  ! checkOwnerAndPermissions(path, 0, 0, selfPerms)  ) {
@@ -4605,6 +4607,11 @@ BOOL needToSecureFolderAtPath(NSString * path)
                     return YES;
                 }
             
+            } else if ( [file isEqualToString:@"forced-preferences.plist"]  ) {
+                if (  ! checkOwnerAndPermissions(filePath, user, group, forcedPrefsPerms)  ) {
+                    return YES;
+                }
+                
             } else {
                 if (  ! checkOwnerAndPermissions(filePath, user, group, otherPerms)  ) {
                     return YES;
