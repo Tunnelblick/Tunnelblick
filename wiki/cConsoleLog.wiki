@@ -1,7 +1,9 @@
 #summary The Console Log
 #sidebar cSb
 
-*NOTE: Tunnelblick 3.3beta38 and higher will include the "tail" of the Console log in the data copied to the Clipboard by the 'Copy Diagnostic Info to the Clipboard' button on the 'Settings' tab of the 'Configurations' panel of the 'VPN Details…' window.*
+*NOTES:
+ # Tunnelblick 3.3beta38 and higher include the "tail" of the Console log in the data copied to the Clipboard by the 'Copy Diagnostic Info to the Clipboard' button on the 'Settings' tab of the 'Configurations' panel of the 'VPN Details…' window.
+ # Tunnelblick 3.3beta48 and higher include a "Copy Console Log to Clipboard" button, which copies relevant (Tunnelblick and OpenVPN) Console Log entries to the Clipboard.*
 
 Tunnelblick and OpenVPN sometimes output diagnostic information to the OS X logs. The logs include output from all of the programs running on your computer, not just Tunnelblick and OpenVPN.
 
