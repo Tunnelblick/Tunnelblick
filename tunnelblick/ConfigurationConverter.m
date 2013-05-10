@@ -407,7 +407,7 @@ extern NSString      * gPrivatePath;
                     }
                     
                     // copy the file and change the path in the configuration string if necessary
-                    if (  ! [self processPathRange: r2 removeBackslashes: NO]  ) {
+                    if (  ! [self processPathRange: r2 removeBackslashes: YES]  ) {
                         return FALSE;
                     }
                     tokenIx++;
