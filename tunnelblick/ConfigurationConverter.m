@@ -80,7 +80,6 @@ extern NSString      * gPrivatePath;
         inputIx = [configString length];    // point past end of string
     } else {
         inputIx = r.location + 1;  // point past newline character
-        inputLineNumber++;
     }
 }
 
@@ -222,19 +221,24 @@ extern NSString      * gPrivatePath;
 	NSMutableArray * arr = [NSMutableArray arrayWithCapacity: 300];
 	
 	inputIx = 0;
-	inputLineNumber = 1;
+	unsigned lineNum = 1;
 	
 	while (  inputIx < [string length]  ) {
 		NSRange r = [self nextTokenInLine];
 		if (  r.location == NSNotFound  ) {
 			while (  inputIx++ < [string length]  ) {
 				if (  [[string substringWithRange: NSMakeRange(inputIx - 1, 1)] isEqualToString: @"\n"]  ) {
+					lineNum++;
 					break;
 				}
 			}
-			[arr addObject: [[[ConfigurationToken alloc] initWithRange:NSMakeRange(inputIx - 1, 1) inString: string] autorelease]];
+			[arr addObject: [[[ConfigurationToken alloc] initWithRange:NSMakeRange(inputIx - 1, 1)
+                                                              inString: string
+                                                            lineNumber: lineNum] autorelease]];
 		} else {
-			[arr addObject: [[[ConfigurationToken alloc] initWithRange: r inString: string] autorelease]];
+			[arr addObject: [[[ConfigurationToken alloc] initWithRange: r
+                                                              inString: string
+                                                            lineNumber: lineNum] autorelease]];
 		}
 	}
 	
@@ -242,7 +246,8 @@ extern NSString      * gPrivatePath;
 }
 
 -(BOOL) processPathRange: (NSRange) rng
-	   removeBackslashes: (BOOL) removeBackslashes {
+	   removeBackslashes: (BOOL) removeBackslashes
+        needsShExtension: (BOOL) needsShExtension {
 	NSString * inPathString = [configString substringWithRange: rng];
 	NSString * inPath = [[inPathString copy] autorelease];
 	if (  removeBackslashes  ) {
@@ -256,6 +261,13 @@ extern NSString      * gPrivatePath;
 	
 	NSString * file = [inPath lastPathComponent];
 	
+    NSString * fileWithNeededExtension = file;
+    if (   needsShExtension
+        && ( ! [inPath hasSuffix: @".sh"] )  ) {
+        fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
+		[self logMessage: [NSString stringWithFormat: @"Adding '.sh' extension to %@ so it will be secured properly", file]];
+    }
+    
     if (  outputPath  ) {
 
 		if (  ! (   [inPath hasPrefix: @"/"]
@@ -265,7 +277,7 @@ extern NSString      * gPrivatePath;
 				
         NSString * outPath = [[[outputPath stringByAppendingPathComponent: @"Contents"]
                                stringByAppendingPathComponent: @"Resources"]
-                              stringByAppendingPathComponent: file];
+                              stringByAppendingPathComponent: fileWithNeededExtension];
         
 		unsigned linkCounter = 0;
         while (   [[[gFileMgr tbFileAttributesAtPath: inPath traverseLink: NO] objectForKey: NSFileType] isEqualToString: NSFileTypeSymbolicLink]
@@ -284,14 +296,24 @@ extern NSString      * gPrivatePath;
 			[self logMessage: [NSString stringWithFormat: @"Symbolic links nested too deeply. Gave up at %@", inPath]];
 			return FALSE;
 		}
-        
-        if (  [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
-            [self logMessage: [NSString stringWithFormat: @"Copied %@", [self nameToDisplayFromPath: inPath]]];
-        } else {
-            [self logMessage: [NSString stringWithFormat: @"Unable to copy file at '%@' to '%@'", inPath, outPath]];
-            return FALSE;
-        }
-        
+
+		if (  ! [gFileMgr fileExistsAtPath: outPath]  ) {
+			if (  [gFileMgr tbCopyPath: inPath toPath: outPath handler: nil]  ) {
+				[self logMessage: [NSString stringWithFormat: @"Copied %@", [self nameToDisplayFromPath: inPath]]];
+			} else {
+				[self logMessage: [NSString stringWithFormat: @"Unable to copy file at '%@' to '%@'",
+								   inPath, outPath]];
+				return FALSE;
+			}
+		} else if (  [gFileMgr contentsEqualAtPath: inPath andPath: outPath ]) {
+			[self logMessage: [NSString stringWithFormat: @"Skipped copying %@ because a file with that name and contents has already been copied.",
+							   [self nameToDisplayFromPath: inPath]]];
+		} else {
+			[self logMessage: [NSString stringWithFormat: @"Unable to copy file at '%@' to '%@' because the same name is used for different contents",
+							   inPath, outPath]];
+			return FALSE;
+		}
+		
         NSString * ext = [outPath pathExtension];
         if (  [ext isEqualToString: @"sh"]  ) {
             checkSetPermissions(outPath, PERMS_PRIVATE_SCRIPT, YES);
@@ -300,9 +322,12 @@ extern NSString      * gPrivatePath;
         }
     }
 	
-	if (  ! [inPathString isEqualToString: file]  ) {
-		[tokensToReplace  addObject: [[[ConfigurationToken alloc] initWithRange: rng inString: configString] autorelease]];
-		[replacementStrings addObject: file];
+	if (  ! [inPathString isEqualToString: fileWithNeededExtension]  ) {
+		[tokensToReplace  addObject: [[[ConfigurationToken alloc] initWithRange: rng
+																	   inString: configString
+																	 lineNumber: inputLineNumber
+									   ] autorelease]];
+		[replacementStrings addObject: fileWithNeededExtension];
     }
 	
     return TRUE;
@@ -367,7 +392,7 @@ extern NSString      * gPrivatePath;
 												nil];
     
     inputIx         = 0;
-    inputLineNumber = 1;
+    inputLineNumber = 0;
     
     // Create the .tblk/Contents/Resources folder
     if (  outputPath  ) {
@@ -383,6 +408,7 @@ extern NSString      * gPrivatePath;
     while (  tokenIx < [tokens count]  ) {
         
         ConfigurationToken * firstToken = [tokens objectAtIndex: tokenIx++];
+        inputLineNumber = [firstToken lineNumber];
         
         if (  ! [firstToken isLinefeed]  ) {
             ConfigurationToken * secondToken = nil;
@@ -407,7 +433,7 @@ extern NSString      * gPrivatePath;
                     }
                     
                     // copy the file and change the path in the configuration string if necessary
-                    if (  ! [self processPathRange: r2 removeBackslashes: YES]  ) {
+                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO]  ) {
                         return FALSE;
                     }
                     tokenIx++;
@@ -437,9 +463,7 @@ extern NSString      * gPrivatePath;
                     }
 
                     // copy the file and change the path in the configuration string if necessary
-                    if (  [self processPathRange: r2 removeBackslashes: YES]  ) {
-                        [self logMessage: [NSString stringWithFormat: @"Copied '%@'", firstToken]];
-                    } else {
+                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES]  ) {
                         return FALSE;
                     }
                     
@@ -461,6 +485,9 @@ extern NSString      * gPrivatePath;
         [configString replaceCharactersInRange: [[tokensToReplace objectAtIndex: i - 1] range] withString: [replacementStrings objectAtIndex: i - 1]];
     }
 	
+	// Inhibit display of line number
+	inputLineNumber = 0;
+
 	// Write out the (possibly modified) configuration file
 	NSString * outputConfigPath;
     if (  outputPath  ) {
@@ -476,9 +503,9 @@ extern NSString      * gPrivatePath;
                                 contents: [NSData dataWithBytes: [configString UTF8String]
                                                          length: [configString length]]
                               attributes: attributes]  ) {
-            [self logMessage: @"Copied OpenVPN configuration file"];
+            [self logMessage: @"Converted OpenVPN configuration"];
         } else {
-            [self logMessage: @"Unable to copy OpenVPN configuration file"];
+            [self logMessage: @"Unable to convert OpenVPN configuration"];
             return FALSE;
         }
     } else if (  [tokensToReplace count] != 0  ) {
@@ -490,7 +517,6 @@ extern NSString      * gPrivatePath;
 			}
 			
 			fclose(outFile);
-			inputLineNumber = 0; // Inhibit display of line number
 			[self logMessage: @"Modified configuration file to remove path information"];
 		} else {
 			[self logMessage: @"Unable to open configuration file for modification"];
