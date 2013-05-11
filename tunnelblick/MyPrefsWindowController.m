@@ -349,15 +349,15 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController        release];
     settingsSheetWindowController       = nil;
     [previouslySelectedNameOnLeftNavList  release];
-    previouslySelectedNameOnLeftNavList = nil;
+    previouslySelectedNameOnLeftNavList = [[gTbDefaults objectForKey: @"leftNavSelectedDisplayName"] retain];
 
     authorization = 0;
     doNotPlaySounds = FALSE;
     
     [self initializeSoundPopUpButtons];
     
-    [self setupLeftNavigationToDisplayName: nil];   // MUST DO THIS FIRST SO A CONFIGURATION IS SELECTED
-    
+	[self setupLeftNavigationToDisplayName: previouslySelectedNameOnLeftNavList];
+	
     // Right split view
     
     [[configurationsPrefsView configurationsTabView] setDelegate: self];
@@ -529,6 +529,44 @@ static BOOL firstTimeShowingWindow = TRUE;
 	
 	[[configurationsPrefsView leftNavTableView] reloadData];
 	
+	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
+		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		
+		LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
+        NSOutlineView         * oView = [oVC outlineView];
+        LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
+        [oDS reload];
+		[oView reloadData];
+		
+		// Expand items that were left expanded previously and get row # we should select (that matches displayNameToSelect)
+		
+		NSInteger ix = 0;	// Track row # of name we are to display
+
+		NSArray * expandedDisplayNames = [gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"];
+        LeftNavViewController * outlineViewController = [configurationsPrefsView outlineViewController];
+        NSOutlineView * outlineView = [outlineViewController outlineView];
+        [outlineView expandItem: [outlineView itemAtRow: 0]];
+        NSInteger r;
+        id item;
+        for (  r=0; r<[outlineView numberOfRows]; r++) {
+            item = [outlineView itemAtRow: r];
+            NSString * itemDisplayName = [item displayName];
+            if (  [itemDisplayName hasSuffix: @"/"]  ) {
+                if (  [expandedDisplayNames containsObject: itemDisplayName]  ) {
+                    [outlineView expandItem: item];
+                }
+            }
+            if (  [displayNameToSelect isEqualToString: itemDisplayName]  ) {
+                ix = r;
+            }
+        }
+		
+		if (  displayNameToSelect  ) {
+			[oView selectRowIndexes: [NSIndexSet indexSetWithIndex: ix] byExtendingSelection: NO];
+            [[[configurationsPrefsView outlineViewController] outlineView] scrollRowToVisible: ix];
+		}
+	}
+	
     // If there are any entries in the list
     // Select the entry that was selected previously, or the first that was not disconnected, or the first
     if (  currentLeftNavIndex > 0  ) {
@@ -543,42 +581,6 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView leftNavTableView] scrollRowToVisible: leftNavIndexToSelect];
         }
     }
-    
-	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
-		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
-		
-		LeftNavViewController * oVC = [[self configurationsPrefsView] outlineViewController];
-        NSOutlineView         * oView = [oVC outlineView];
-        LeftNavDataSource     * oDS = [[self configurationsPrefsView] leftNavDataSrc];
-        [oDS reload];
-		[oView reloadData];
-		
-        NSInteger ix = 0;
-		if (  displayNameToSelect  ) {
-			NSDictionary * dict = [oDS rowsByDisplayName];
-			NSNumber * rowNum = [dict objectForKey: displayNameToSelect];
-			if (  rowNum  ) {
-				ix = [rowNum unsignedIntValue];
-			} else {
-				NSLog(@"Error in setupLeftNavigationToDisplayName: Can't find displayNameToSelect = %@ in rowsByDisplayName = %@",
-					  displayNameToSelect, dict);
-			}
-		}
-			
-		while (  TRUE  ) {
-			LeftNavItem * it = [oView itemAtRow: ix];
-			if (  it  ) {
-				if (  ! [oDS outlineView: oView isItemExpandable: it]  ) {
-					[oView selectRowIndexes: [NSIndexSet indexSetWithIndex: ix] byExtendingSelection: NO];
-					break;
-				}
-			} else {
-				break;
-			}
-			
-			ix++;
-		}
-	}
 }
 
 // Call this when a configuration was added or deleted
@@ -2285,6 +2287,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [dispNm retain];
         [previouslySelectedNameOnLeftNavList release];
         previouslySelectedNameOnLeftNavList = dispNm;
+        [gTbDefaults setObject: dispNm forKey: @"leftNavSelectedDisplayName"];
         
         [settingsSheetWindowController setConfigurationName: dispNm];
         
