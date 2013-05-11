@@ -1,6 +1,14 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-05-11: *Tunnelblick 3.3beta50 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Saves and restores folder expansion states and the configuration selected in the configuration list in the 'VPN Details…' window.
+
+ * Fixes several problems converting OpenVPN configurations to Tunnelblick VPN Configurations.
+ 
+--------------------
+
 2013-05-08: *Tunnelblick 3.3beta48 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a security issue when installing Tunnelblick VPN Configurations (.tblks).

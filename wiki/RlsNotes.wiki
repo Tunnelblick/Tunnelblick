@@ -9,6 +9,24 @@
 
 ==Version 3.3==
 
+*3.3beta50 (2013-05-11)*
+
+ * Saves and restores the configuration selected in the configuration list in the 'VPN Details…' window.
+
+ * Saves and restores folder expansion states in the configuration list in the 'VPN Details…' window.
+
+ * Fixes a problem converting OpenVPN configuration files that have backslashes in paths.
+
+ * Fixes a problem converting OpenVPN configuration files that have multiple OpenVPN options using the same file or files with the same name.
+
+ * Fixes a problem converting OpenVPN configuration files that have script file names that do not have a '.sh' extension.
+
+ * Fixes a problem displaying line numbers in OpenVPN configuration files in the log when converting OpenVPN configurations.
+
+ * Fixes a problem that caused Deployed versions to ignore forced preferences.
+ 
+--------------------
+
 *3.3beta48 (2013-05-08)*
 
  * Allows install and launch of a 'Deployed' version of Tunnelblick:
