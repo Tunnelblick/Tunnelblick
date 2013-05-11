@@ -354,6 +354,8 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 @"detailsWindowFrameVersion",
                                 @"detailsWindowFrame",
                                 @"detailsWindowLeftFrame",
+								@"leftNavOutlineViewExpandedDisplayNames",
+								@"leftNavSelectedDisplayName",
                                 
                                 @"haveDealtWithSparkle1dot5b6",
                                 

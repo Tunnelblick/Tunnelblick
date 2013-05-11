@@ -23,6 +23,9 @@
 #import "LeftNavItem.h"
 #import "MenuController.h"
 #import "MyPrefsWindowController.h"
+#import "TBUserDefaults.h"
+
+extern TBUserDefaults * gTbDefaults;
 
 @implementation LeftNavDataSource
 
@@ -95,7 +98,12 @@ haveSameParent: (unsigned)  theLevel {
 				(*theIxPtr)++;
 			} else if (  nComponents > theLevel + 1  ) {
 				LeftNavItem * item = [[[LeftNavItem alloc] init] autorelease];
-				[item setDisplayName:             @""];
+				NSMutableString * dispNm = [NSMutableString stringWithCapacity: 1000];
+				unsigned i;
+				for (  i=0; i<=theLevel; i++  ) {
+					[dispNm appendFormat: @"%@/", [components objectAtIndex: i]];
+				}
+				[item setDisplayName:             dispNm];
 				[item setNameToShowInOutlineView: [components objectAtIndex: theLevel]];
 				[item setChildren:                [[[NSMutableArray alloc] initWithCapacity: 20] autorelease]];
 				[item setParent:                  theParent];
@@ -225,6 +233,41 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 	
 	MyPrefsWindowController * mpwc = [[NSApp delegate] logScreen]; 
     [mpwc performSelectorOnMainThread: @selector(selectedLeftNavListIndexChanged) withObject: nil waitUntilDone: NO];
+}
+
+-(void) outlineViewItemDidExpand: (NSNotification *) notification {
+    id item = [[notification userInfo] valueForKey: @"NSObject"];
+    NSString * displayName = [item displayName];
+	if (  [displayName length] == 0  ) {
+		return;
+	}
+    NSMutableArray * expandedDisplayNames = [[[gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
+    if (  expandedDisplayNames  ) {
+		if (  [expandedDisplayNames containsObject: displayName]  ) {
+			return;
+		}
+	} else {
+        expandedDisplayNames = [NSMutableArray arrayWithCapacity: 1];
+    }
+    [expandedDisplayNames addObject: displayName];
+    [gTbDefaults setObject: expandedDisplayNames forKey:@"leftNavOutlineViewExpandedDisplayNames"];
+    [gTbDefaults synchronize];
+}
+
+-(void) outlineViewItemDidCollapse: (NSNotification *) notification {
+    id item = [[notification userInfo] valueForKey: @"NSObject"];
+    NSString * displayName = [item displayName];
+	if (  [displayName length] == 0  ) {
+		return;
+	}
+    NSMutableArray * expandedDisplayNames = [[[gTbDefaults objectForKey: @"leftNavOutlineViewExpandedDisplayNames"] mutableCopy] autorelease];
+    if (  expandedDisplayNames  ) {
+		if (  [expandedDisplayNames containsObject: displayName]  ) {
+            [expandedDisplayNames removeObject: displayName];
+            [gTbDefaults setObject: expandedDisplayNames forKey:@"leftNavOutlineViewExpandedDisplayNames"];
+            [gTbDefaults synchronize];
+        }
+    }
 }
 
 @end
