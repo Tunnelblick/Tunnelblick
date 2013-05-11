@@ -37,11 +37,13 @@
 
 -(id) initWithRange: (NSRange)    theRange
            inString: (NSString *) theString
+         lineNumber: (unsigned)   theLineNumber
 {
 	self = [super init];
 	if (  self  ) {
-		range = theRange;
-		string = [theString retain];
+		range      = theRange;
+		string     = [theString retain];
+        lineNumber = theLineNumber;
 	}
 	
 	return self;
@@ -97,6 +99,11 @@
 -(NSRange) range
 {
     return range;
+}
+
+-(unsigned) lineNumber
+{
+    return lineNumber;
 }
 
 @end

@@ -27,11 +27,12 @@
 {
     NSRange    range;
     NSString * string;
-    
+    unsigned   lineNumber;
 }
 
 -(id) initWithRange: (NSRange)    theRange
-           inString: (NSString *) theString;
+           inString: (NSString *) theString
+         lineNumber: (unsigned)   theLineNumber;
 
 -(BOOL) isLinefeed;
 
@@ -39,5 +40,6 @@ TBPROPERTY_READONLY(NSString *, stringValue)
 TBPROPERTY_READONLY(NSUInteger, location)
 TBPROPERTY_READONLY(NSUInteger, length)
 TBPROPERTY_READONLY(NSRange,    range)
+TBPROPERTY_READONLY(unsigned,   lineNumber)
 
 @end
