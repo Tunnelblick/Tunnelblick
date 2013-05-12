@@ -8,7 +8,7 @@ Some users are experiencing a problem with Tunnelblick on OS X 10.8 ("Mountain L
 
 _Note: by "connect" we mean get a successful VPN connection, with the Tunnelblick icon showing an open tunnel._
 
-*<font color="red">The latest "stable" version of Tunnelblick is NOT recommended for OS X 10.8 ("Mountain Lion"), so before doing anything else, please make sure you are using one of the latest beta versions of Tunnelblick from the [DownloadsEntry Downloads] page. (There are currently two "latest" betas. See the [DownloadsEntry download page] for details about which is right for you.)</font>*
+*<font color="red">The latest "stable" version of Tunnelblick is NOT recommended for OS X 10.8 ("Mountain Lion"), so before doing anything else, please make sure you are using one of the latest beta versions of Tunnelblick from the [DownloadsEntry Downloads] page. (There are currently two "latest" betas. See the Downloads page for details about which is right for you.)</font>*
 
 This document describes some troubleshooting steps you can take and provides a workaround you can use until these problems are fixed.
 
