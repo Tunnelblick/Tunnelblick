@@ -16,3 +16,126 @@
 /* Window text */
 "Please wait while Tunnelblick is being installed and secured..." = "Tunnelblick이 설치되고 보호되는 동안 기다리십시오…";
 
+/* Status message */
+"%@ is Connected" = "%@ 연결 됨";
+
+/* Status message */
+"%d Connections" = "%d개 연결";
+
+/* status message */
+"1 connection" = "1개 연결";
+
+/* Button */
+"Copy Log to Clipboard" = "로그를 클립보드에 복사";
+
+/* Button */
+"Create Tunnelblick VPN Configuration" = "Tunnelblick VPN 설정 만들기";
+
+/* Button */
+"Open Private Configurations Folder" = "개인 설정 폴더 열기";
+
+/* Checkbox name */
+"Use shadow copies of configuration files" = "설정 파일의 가상본 사용";
+
+/* Window title */
+"Could Not Secure Configuration" = "설정을 안전하게 할 수 없습니다";
+
+/* Window title */
+"Not connecting" = "연결 안 됨";
+
+/* Window title */
+"Perform installation?" = "설치하겠습니까?";
+
+/* Window title */
+"Private Configuration Folder is Open" = "개인 설정 폴더가 열렸습니다";
+
+/* Window title */
+"Which Type of Configuration Do You Wish to Create?" = "만들려고 하는 설정 종류는 무엇입니까?";
+
+/* Window text */
+"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • 한 번에 1개의 설정 파일로 1개의 Tunnelblick VPN 설정을 만들 수 있다.\n\n     • 여러 개 설정 파일들은 Tunnelblick의 개인 설정 폴더 안에 설정 파일들(과 있다면 인증서와\n       키 파일들)을 넣을 수 있다.\n       이 것은 OpenVPN 설정이 사용하는 일반적인 방법이다.\n\n주의: Tunnelblick VPN 설정은 공유할 수 있고 컴퓨터가 시작할 때 실행할 수 있고 자동으로 보호되기 때문에 더 좋습니다.";
+
+/* Window text */
+"  • Repair the private configurations folder\n" = "  • 개인 설정 폴더를 복구한다\n";
+
+/* Window text */
+"  • Restore configuration(s) from the backup\n" = "  • 백업에서 설정을 복원한다\n";
+
+/* Window text */
+" (To install in a different location, drag %@ to that location.)" = " (다은 위치에 설치하려면 %@를 그 위치로 드래그한다.)";
+
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " 설정은 컴퓨터 관리자만 삭제할 수 있습니다.\n\n 즉시 영원히 삭제됩니다. '%1$@'을 위한 모든 설정 값도 같이 영원히 삭제될 것입니다.%2$@";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n%@" = " %1$@을 %2$@%3$@에 설치하겠습니까?\n\n%4$@";
+
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@" = " %2$@ 안의 %1$@을 %3$@%4$@로 교체하겠습니까?\n\n%5$@";
+
+/* Window text */
+" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = " Tunnelblick은 이 위치에서 사용할 수 없습니다. 로컬 하드 드라이브에서 설치되어야 합니다.\n\n";
+
+/* Window text */
+" and install %d configurations" = " 과 %d개 설정을 설치";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@" = "%@에 연결하려면 암호가 필요합니다";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "%@애 연결하려면 사용자 계정과 암호가 필요합니다.";
+
+/* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "%@의 모든 설정 파일이 삭제되었습니다. Tunnelblick을 종료해야 합니다.";
+
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "설정 삭제는 되돌릴 수 없습니다.\n\n설정의 모든 설정 값도 같이 영원히 삭제됩니다.\n\n%1$@\n\n'%2$@' 설정을 삭제하겠습니까?";
+
+/* Window text */
+"Do you wish to install %d configurations" = "%d개 설정을 설치하겠습니까";
+
+/* Window text */
+"Do you wish to uninstall %d configurations" = "%d개 설정을 삭제하겠습니까";
+
+/* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "이름은 슬래시 (\"/\")를 포함할 수 없습니다\n\n";
+
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "이름은 점 (\".\")으로 시작할 수 없습니다\n\n";
+
+/* Window text */
+"The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "개인 설정 폴더가 Finder 창으로 열렸습니다.\n\nOpenVPN 설정 파일과 키, 그리고 인증서 파일을 폴더로 옮기거나 복사합니다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있습니다.";
+
+/* Window text */
+"There was a problem with %d configurations. Details are in the Console Log\n\n" = "%d개 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
+
+/* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick이 보안을 위해 설정 파일의 소유자와 권한을 변경할 수 없습니다. 자세한 것은 Console 로그 파일을 보십시오.";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick이 다른 로컬 설정을 위한 폴더를 만들 수 없습니다. 자세한 것은 Console 로그를 보십시오.";
+
+/* Window text */
+"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick이 '%@' 설정을 안전하게 할 수 없습니다. 자세한 것은 Console 로그를 보십시오.";
+
+/* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick이 설정 파일의 가상본 만들려고 합니다";
+
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Tunnelblick이 보안을 위해 설정 파일의 소유자와 권한을 복구하려고 합니다.";
+
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Tunnelblick이 보안을 위해 설정 파일 가상본의 소유자와 권한을 복구하려고 합니다.";
+
+/* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick이 원본을 사용하여 설정 파일의 가상본을 변경하려고 합니다.";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick이 %@에 연결하기 위해 OpenVPN을 시작할 수 없습니다. 자세한 것을 위해 'VPN 상세…' 창의 OpenVPN 로그를 보십시오.";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Tunnelblick을 재 설치해야 합니다. Tunnelblick을 휴지통으로 옮기고 새 복사본을 다운로드 받으십시오. 문제는 다음과 같습니다:\n\n%@";
+
+/* Window text */
+"\n\nand install %d Tunnelblick VPN Configurations" = "\n\n과 %d개 Tunnelblick VPN 설정을 설치";
+
