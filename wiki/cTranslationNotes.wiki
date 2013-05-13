@@ -36,6 +36,8 @@ so it is talking about a checking for a change in IP address.
 
 *Window title " (?)"* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…) You should prefix the <font color="green">/`*` Window title `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment if the "?" is appropriate in your language.
 
+<hr>
 
+The "*apparent public IP address*" is the address that the computer presents when it requests something on the Internet (its return address, if you will). When a computer asks for a web page, for example, it tells the web server to reply to a public IP address. I use the word "apparent" because it isn't the IP address of the computer itself (which may be on a LAN and have a private IP address such as 192.168.0.123), but it is the IP address of the computer as far as the outside world is concerned.
 ------------------
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
