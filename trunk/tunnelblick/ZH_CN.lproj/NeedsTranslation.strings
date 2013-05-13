@@ -1,10 +1,5 @@
 /* Button */
 "Check for a change" = "Check for a change";
-
-/* Button
-   Credentials name */
-"Common" = "Common";
-
 /* Button */
 "Continue" = "Continue";
 
@@ -16,46 +11,34 @@
 
 /* Button */
 "Copy Diagnostic Info to Clipboard" = "Copy Diagnostic Info to Clipboard";
-
 /* Button */
 "Do not check for a change" = "Do not check for a change";
-
 /* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
-
 /* Button */
 "Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
-
 /* Button */
 "Remove Credentials" = "Remove Credentials";
 
 /* Button */
 "Replace Existing Configuration" = "Replace Existing Configuration";
-
 /* Button */
 "Revert" = "Revert";
-
 /* Button */
 "Speak" = "Speak";
-
 /* Button */
 "Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
-
 /* Button */
 "This configuration has its own separate credentials" = "This configuration has its own separate credentials";
 
 /* Button */
 "This configuration uses %@ credentials" = "This configuration uses %@ credentials";
-
 /* Menu Item */
 "Revert Configuration..." = "Revert Configuration…";
-
 /* Menu item */
 "Suggestion or Bug Report..." = "Suggestion or Bug Report…";
-
 /* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
-
 /* Checkbox name */
 "Do not ask again, always Continue" = "Do not ask again, always Continue";
 
@@ -64,64 +47,50 @@
 
 /* Checkbox name */
 "Do not check for IP address changes" = "Do not check for IP address changes";
-
 /* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
 
 /* Checkbox name */
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Reconnect when computer wakes from sleep (if connected when computer went to sleep)";
-
 /* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
 
 /* Checkbox name */
 "Route all traffic through the VPN" = "Route all traffic through the VPN";
-
 /* Checkbox name */
 "Show when disconnected" = "Show when disconnected";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
-
 /* Window title */
 " (?)" = " (?)";
-
 /* Window title */
 "All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
-
 /* Window title */
 "Install and Uninstall?" = "Install and Uninstall?";
 
 /* Window title */
 "Install?" = "Install?";
-
 /* Window title */
 "Name not allowed" = "Name not allowed";
 
 /* Window title */
 "New Feature" = "New Feature";
-
 /* Window title */
 "One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
-
 /* Window title */
 "Unavailable" = "Unavailable";
-
 /* Window title */
 "Uninstall?" = "Uninstall?";
-
 /* Window title */
 "Utilities" = "Utilities";
 
 /* Window title */
 "VPN Credentials" = "VPN Credentials";
-
 /* Window title */
 "Welcome" = "Welcome";
-
 /* Window text */
 "  • Be installed in /Applications\n" = "  • Be installed in /Applications\n";
-
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
 
@@ -130,7 +99,6 @@
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
-
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@%3$@";
 
@@ -145,13 +113,11 @@
 
 /* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
-
 /* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
 
 /* Window text */
 " and install %ld configurations" = " and install %ld configurations";
-
 /* Window text */
 "%@ exists but is not a folder" = "%@ exists but is not a folder";
 
@@ -160,13 +126,10 @@
 
 /* Window text */
 "%@is already identical to its last secured (shadow) copy.\n\n" = "%@is already identical to its last secured (shadow) copy.\n\n";
-
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
-
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
-
 /* Window text */
 "A username and password are required to connect to\n  %@%@" = "A username and password are required to connect to\n  %1$@%2$@";
 
@@ -190,10 +153,8 @@
 
 /* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
-
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
-
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?";
 
@@ -208,7 +169,6 @@
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
-
 /* Window text */
 "Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
 
@@ -220,7 +180,6 @@
 
 /* Window text */
 "Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
-
 /* Window text */
 "Could not get attributes of %@" = "Could not get attributes of %@";
 
@@ -232,7 +191,6 @@
 
 /* Window text */
 "Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
-
 /* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@%2$@\n\nAre you sure you wish to delete configuration '%3$@'?";
 
@@ -241,43 +199,35 @@
 
 /* Window text */
 "Do you wish to install %ld configurations" = "Do you wish to install %ld configurations";
-
 /* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
 
 /* Window text */
 "Do you wish to uninstall %ld configurations" = "Do you wish to uninstall %ld configurations";
-
 /* Window text */
 "EB" = "EB";
 
 /* Window text */
 "EB/s" = "EB/s";
-
 /* Window text */
 "GB" = "GB";
 
 /* Window text */
 "GB/s" = "GB/s";
-
 /* Window text */
 "In:" = "In:";
-
 /* Window text */
 "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.";
-
 /* Window text */
 "KB" = "KB";
 
 /* Window text */
 "KB/s" = "KB/s";
-
 /* Window text */
 "MB" = "MB";
 
 /* Window text */
 "MB/s" = "MB/s";
-
 /* Window text */
 "Named Credentials" = "Named Credentials";
 
@@ -286,16 +236,12 @@
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n";
-
 /* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
-
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
-
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
-
 /* Window text */
 "Out:" = "Out:";
 
@@ -304,25 +250,20 @@
 
 /* Window text */
 "PB/s" = "PB/s";
-
 /* Window text */
 "Please enter a name for the credentials:\n\n" = "Please enter a name for the credentials:\n\n";
-
 /* Window text */
 "Received fatal signal %d." = "Received fatal signal %d.";
-
 /* Window text */
 "TB" = "TB";
 
 /* Window text */
 "TB/s" = "TB/s";
-
 /* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
 
 /* Window text */
 "Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
-
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "The '%@' credentials may not be added because the list of named credentials is being forced.";
 
@@ -337,25 +278,20 @@
 
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "The 'namedCredentialsNames' preference must be an array of strings";
-
 /* Window text */
 "The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "The configuration file in %1$@ has a '%2$@' option with argument '%3$@'.\n\nThe argument can only be a filename -- it may not be a path.";
 
 /* Window text */
 "The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "The configuration file in %1$@ has a '%2$@' option with file '%3$@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).";
-
 /* Window text */
 "The credentials named %@ could not be added:\n\n%@" = "The credentials named %1$@ could not be added:\n\n%2$@";
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
-
 /* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
-
 /* Window text */
 "There was a problem with %ld configurations. Details are in the Console Log\n\n" = "There was a problem with %ld configurations. Details are in the Console Log\n\n";
-
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
 
@@ -376,31 +312,22 @@
 
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
-
 /* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n";
-
 /* Window text */
 "Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@";
-
 /* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
-
 /* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details… window";
-
 /* Window text */
 "Warning: '%@' is already a named credential." = "Warning: '%@' is already a named credential.";
-
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n";
-
 /* Window text */
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect.";
-
 /* Window text */
 "You may only revert a private configuration." = "You may only revert a private configuration.";
-
 /* Window text */
 "ZB" = "ZB";
 
@@ -412,10 +339,8 @@
 
 /* Window text */
 "\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n";
-
 /* Window text */
 "\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\nNote: The configuration's group credentials will not be deleted because other configurations use them.";
-
 /* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nand install %ld Tunnelblick VPN Configurations";
 
@@ -424,9 +349,10 @@
 
 /* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa installation failed: %@";
-
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+/* Credentials name */
+"Common" = "Common";
 
 /* Speak string */
 "Connected to %@" = "Connected to %@";
@@ -436,4 +362,3 @@
 
 /* Checkbox */
 "Do not show this again" = "Do not show this again";
-

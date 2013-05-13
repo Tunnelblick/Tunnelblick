@@ -46,10 +46,6 @@
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 
-/* Button
-   Credentials name */
-"Common" = "Common";
-
 /* Button */
 "Continue" = "Continue";
 
@@ -1256,6 +1252,9 @@
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+
+/* Credentials name */
+"Common" = "Common";
 
 /* Speak string */
 "Connected to %@" = "Connected to %@";

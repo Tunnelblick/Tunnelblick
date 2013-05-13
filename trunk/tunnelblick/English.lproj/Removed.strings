@@ -142,3 +142,6 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent public IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent public IP address changes when %2$@ is connected.\n\n";
+

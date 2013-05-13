@@ -477,7 +477,7 @@ NSArray * gConfigurationPreferences;
 	if (  groups  ) {
 		groups = [groups sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];
 	} else {
-		groups = [NSArray arrayWithObject: NSLocalizedString(@"Common", @"Button")];
+		groups = [NSArray arrayWithObject: NSLocalizedString(@"Common", @"Credentials name")];
 	}
 	
 	return groups;
