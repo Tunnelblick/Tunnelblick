@@ -5,7 +5,7 @@
 <td valign="middle"><a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a></td>
 <td valign="middle">Tunnelblick is free, but if you like it, you can support its progress by making a donation.</td>
 </tr></table>
-<font color="red">*Translators needed:*</font> The Tunnelblick project needs translators to help localize the next stable release. Contact project owner jon for details at jkbullard at gmail dot com.
+<font color="red">*Translators needed:*</font> The Tunnelblick project needs translators to help localize the next stable release. Contact project owner Jon for details at jkbullard at gmail dot com.
 <br>
 <hr>
 
