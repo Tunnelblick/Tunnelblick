@@ -22,7 +22,7 @@ The following table shows the status of translations for Tunnelblick as of 2013-
 || Catalan                || CA     || 1  || Partial                                || Partial                                ||
 || Czech                  || CS     || 0  || Partial                                || Partial                                ||
 || German                 || DE     || 1  || Partial                                || Partial                                ||
-|| Spanish                || ES     || 1  || Partial                                || Partial                                ||
+|| Spanish                || ES     || 0  || Partial                                || Partial                                ||
 || French                 || FR     || 1  || Partial                                || Partial                                ||
 || Hungarian              || HU     || 0  || Partial                                || Partial                                ||
 || Italian                || IT     || 1  || Partial                                || Partial                                ||
