@@ -124,3 +124,6 @@
 /* Window text */
 "\n\nand install %d Tunnelblick VPN Configurations" = "\n\nand installera %d Tunnelblick VPN-konfigurationer";
 
+/* Tooltip */
+"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+

@@ -2766,7 +2766,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
     NSString * cTimeS;
     if (  days > 0  ) {
-        cTimeS = [NSString stringWithFormat: NSLocalizedString(@"%d days %li:%02li:%02li", @"Tooltip"), days, hours, mins, secs];
+        cTimeS = [NSString stringWithFormat: NSLocalizedString(@"%d days %d:%02d:%02d", @"Tooltip"), days, hours, mins, secs];
     } else if (  hours > 0) {
         cTimeS = [NSString stringWithFormat: @"%d:%02d:%02d", hours, mins, secs];
     } else {

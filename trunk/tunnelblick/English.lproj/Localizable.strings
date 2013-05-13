@@ -1395,7 +1395,7 @@
 " copy" = " copy";
 
 /* Tooltip */
-"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+"%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
 
 /* Speak string */
 "Connected to %@" = "Connected to %@";

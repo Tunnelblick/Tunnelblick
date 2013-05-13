@@ -49,29 +49,29 @@
 /* Button */
 "Check Now" = "Ellenőrzés most";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Check for a change" = "Check for a change";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "VPN kapcsolatok bezárása és a Tunnelblick leállítása";
 
-/* Button
+/* NEEDS TRANSLATION *//* Button
    Credentials name */
 "Common" = "Common";
 
 /* Button */
 "Connect" = "Kapcsolódás";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Continue" = "Continue";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Convert Configurations" = "Convert Configurations";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Copy Console Log to Clipboard" = "Copy Console Log to Clipboard";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Copy Diagnostic Info to Clipboard" = "Copy Diagnostic Info to Clipboard";
 
 /* Button */
@@ -89,7 +89,7 @@
 /* Button */
 "Disconnect" = "Megszakítás";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Do not check for a change" = "Do not check for a change";
 
 /* Button */
@@ -143,22 +143,22 @@
 /* Button */
 "Only Me" = "Csak én";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
 
 /* Button */
 "OpenVPN Configuration(s)" = "OpenVPN Konfiguráció(k)";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
 
 /* Button */
 "Quit" = "Kilépés";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Remove Credentials" = "Remove Credentials";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Replace Existing Configuration" = "Replace Existing Configuration";
 
 /* Button */
@@ -173,7 +173,7 @@
 /* Button */
 "Restore" = "Visszaállítás";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Revert" = "Revert";
 
 /* Button */
@@ -182,22 +182,22 @@
 /* Button */
 "Show while connecting" = "Mutassa, kapcsolat közben";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Speak" = "Speak";
 
 /* Button */
 "Standard icon" = "Szabványos ikon";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
 
 /* Button */
 "Terminate" = "Megszakít";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "This configuration has its own separate credentials" = "This configuration has its own separate credentials";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "This configuration uses %@ credentials" = "This configuration uses %@ credentials";
 
 /* Button */
@@ -257,13 +257,13 @@
 /* Menu Item */
 "Rename Configuration..." = "Konfiguráció átnevezése…";
 
-/* Menu Item */
+/* NEEDS TRANSLATION *//* Menu Item */
 "Revert Configuration..." = "Revert Configuration…";
 
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "OpenVPN Log megjelenítése a Finder-ben";
 
-/* Menu item */
+/* NEEDS TRANSLATION *//* Menu item */
 "Suggestion or Bug Report..." = "Suggestion or Bug Report…";
 
 /* Menu item */
@@ -272,7 +272,7 @@
 /* Checkbox name */
 "Check for updates automatically" = "Frissítések automatikus ellenőrzése";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
 
 /* Checkbox name */
@@ -290,13 +290,13 @@
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Ne kérdezzen rá ismét, mindig 'Mellőzze'";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Do not ask again, always Continue" = "Do not ask again, always Continue";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Do not ask again, always convert" = "Do not ask again, always convert";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Do not check for IP address changes" = "Do not check for IP address changes";
 
 /* Checkbox name */
@@ -323,19 +323,19 @@
 /* Checkbox name */
 "Place next to Spotlight icon" = "Elhelyezés a Spotlight ikon mellett";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Reconnect when computer wakes from sleep (if connected when computer went to sleep)";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Újracsatlakozás amikor a felhasználó bejelentkezik";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Route all traffic through the VPN" = "Route all traffic through the VPN";
 
 /* Checkbox name */
@@ -347,10 +347,10 @@
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Mutassa a konfigurációt a Tunnelblick menüben";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Show when disconnected" = "Show when disconnected";
 
-/* Checkbox name */
+/* NEEDS TRANSLATION *//* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
 
 /* Checkbox name */
@@ -428,7 +428,7 @@
 /* System profile item */
 "Deployed" = "Telepített";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 " (?)" = " (?)";
 
 /* Window title */
@@ -458,7 +458,7 @@
 /* Window title */
 "Alert" = "Figyelmeztetés";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
 
 /* Window title */
@@ -515,10 +515,10 @@
 /* Window Title */
 "Install Sample Configuration?" = "Példa konfiguráció telepítése?";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Install and Uninstall?" = "Install and Uninstall?";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Install?" = "Install?";
 
 /* Window title */
@@ -542,10 +542,10 @@
 /* Window title */
 "Name Required" = "Név megadása szükséges";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Name not allowed" = "Name not allowed";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "New Feature" = "New Feature";
 
 /* Window title */
@@ -554,7 +554,7 @@
 /* Window title */
 "No Credentials" = "Nem található biztonsági bizonyítvány";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
 
 /* Window title */
@@ -623,22 +623,22 @@
 /* Window title */
 "Unable to launch Tunnelblick" = "Nem indítható a Tunnelblick";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Unavailable" = "Unavailable";
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Tunnelblick VPN Konfiguráció eltávolítása";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Uninstall?" = "Uninstall?";
 
 /* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Használ 'down-root' plugin-t az OpenVPN-hez?";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Utilities" = "Utilities";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "VPN Credentials" = "VPN Credentials";
 
 /* Window title */
@@ -653,7 +653,7 @@
 /* Window title */
 "Welcome to Tunnelblick" = "Üdvözöljük a Tunnelblick-ben";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Welcome" = "Welcome";
 
 /* Window title */
@@ -665,37 +665,37 @@
 /* Window title */
 "You cannot use the sample configuration" = "Nem használhatja a minta konfigurációt";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "  • Be installed in /Applications\n" = "  • Be installed in /Applications\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Tulajdonosok és jogosultságok lecserélése a programon, annak biztonságossá tételéhez\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Biztonságos konfigurációk\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@%3$@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
 
 /* Window text */
@@ -704,22 +704,22 @@
 /* Window text */
 " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " A Tunnelblick-nek egy adminisztrátorra van szükséges ahhoz, hogy megszüntesse az automatikus '%@' kapcsolódást amikor a számítógép elindul.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 " and install %ld configurations" = " and install %ld configurations";
 
 /* Window text */
 " and install one configuration" = " és telepítsen egy konfigurációt";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "%@ exists but is not a folder" = "%@ exists but is not a folder";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "%@is already identical to its last secured (shadow) copy.\n\n" = "%@is already identical to its last secured (shadow) copy.\n\n";
 
 /* Window text */
@@ -740,7 +740,7 @@
 /* Window text */
 "(Never checked)" = "(Nem ellenőrzött)";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
 
 /* Window text */
@@ -752,40 +752,40 @@
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "Egy konfigurációt nem sikerült telepíteni. Nézzem meg a Konzol log-ot a részletekért.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A(z) '%@' személyes konfiguráció már létezik.\n\nSzeretné lecserélni a megosztott konfigurációval?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "A username and password are required to connect to\n  %@%@" = "A username and password are required to connect to\n  %1$@%2$@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Add Credentials..." = "Add Credentials…";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "All configurations use %@ credentials" = "All configurations use %@ credentials";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Hiba történt az indítás során %@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
 
 /* Window text */
@@ -794,19 +794,19 @@
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Biztosan törölni szeretné a biztonsági bizonyítványt (privát kulcs, vagy felhasználónév és jelszó) a(z) '%@' névhez, ami a kulcstartón található?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "B" = "B";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "B/s" = "B/s";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuration '%@' will be ignored because its name contains characters that are not allowed.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* Window text */
@@ -824,40 +824,40 @@
 /* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Szerzői jogok © 2004-%@ Angelo Laub és mások.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not delete %@" = "Could not delete %@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not get attributes of %@" = "Could not get attributes of %@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not get modification date of %@" = "Could not get modification date of %@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not make %@ deletable" = "Could not make %@ deletable";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
 
 /* Window text */
 "DNS servers:" = "DNS szerverek:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@%2$@\n\nAre you sure you wish to delete configuration '%3$@'?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Do you wish to install %ld configurations" = "Do you wish to install %ld configurations";
 
 /* Window text */
@@ -869,10 +869,10 @@
 /* Window text */
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Szeretné lecserélni a(z) '%1$@'%2$@ verziót %3$@ a(z) %4$@ verzióval?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Do you wish to uninstall %ld configurations" = "Do you wish to uninstall %ld configurations";
 
 /* Window text */
@@ -884,25 +884,25 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Domain:" = "Domain:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "EB" = "EB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "EB/s" = "EB/s";
 
 /* Window text */
 "Fast User Switching" = "Gyors felhasználó váltás";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "GB" = "GB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "GB/s" = "GB/s";
 
 /* Window text */
 "Icon:" = "Ikon:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "In:" = "In:";
 
 /* Window text */
@@ -911,7 +911,7 @@
 /* Window text */
 "Installation of .tblk packages is not allowed" = "A .tblk csomagok telepítése nem engedélyezett";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.";
 
 /* Window text */
@@ -920,10 +920,10 @@
 /* Window text */
 "Installing and securing Tunnelblick..." = "Tunnelblick telepítése és biztosítása…";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "KB" = "KB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "KB/s" = "KB/s";
 
 /* Window text */
@@ -932,10 +932,10 @@
 /* Window text */
 "Last checked: %@" = "Utoljára ellenőrizve: %@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "MB" = "MB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "MB/s" = "MB/s";
 
 /* Window text */
@@ -947,13 +947,13 @@
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Több egyidejű kapcsolat készült (%1$d a 'Névszerver beállítás'-sal, %2$d 'Névszerver beállítás' nélkül).";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Named Credentials" = "Named Credentials";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n";
 
 /* Window text */
@@ -962,7 +962,7 @@
 /* Window text */
 "Network setting" = "Hálózati beállítások";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
 
 /* Window text */
@@ -974,13 +974,13 @@
 /* Window text */
 "One Tunnelblick VPN Configuration was uninstalled successfully." = "Egy Tunnelblick VPN konfiguráció sikeresen el lett távolítva.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "Egy vagy több OpenVPN folyamat már fut, de a Tunnelblick számára ismeretlenek. Ha nem futtat más OpenVPN programot a Tunnelblick-en kívül akkor előfordulhat, hogy ezeket a Tunnelblick indította korábban, de valami miatt a leállításuk nem volt sikeres, ebben az esetben ezek leállíthatók. A jelenlegi állapotban akadályozzák a Tunnelblick futását. Le kívánja állítani őket?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
 
 /* Window text */
@@ -1001,13 +1001,13 @@
 /* Window text */
 "OpenVPN version:" = "OpenVPN verzió:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Out:" = "Out:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "PB" = "PB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "PB/s" = "PB/s";
 
 /* Window text */
@@ -1019,7 +1019,7 @@
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Kérem adjon meg egy nevet és kattintson az \"OK\" gombra vagy kattintson a \"Mégse\" gombra.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Please enter a name for the credentials:\n\n" = "Please enter a name for the credentials:\n\n";
 
 /* Window text */
@@ -1031,7 +1031,7 @@
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "A személyes konfiguráció nem használható automatikus indításra.\n\nElőször tegye a konfigurációt megosztottá, majd ismét állítsa be az automatikus indítást.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Received fatal signal %d." = "Received fatal signal %d.";
 
 /* Window text */
@@ -1049,34 +1049,34 @@
 /* Window text */
 "Startup window:" = "Induló képernyő:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "TB" = "TB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "TB/s" = "TB/s";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
 
 /* Window text */
 "That name is being used.\n\n" = "A megadott név már használatban van.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "The '%@' credentials may not be added because the list of named credentials is being forced.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "The '%@' credentials may not be deleted because one or more configurations are being forced to use them.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "The '%@' credentials may not be deleted because the list of named credentials is being forced.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "The 'credentialsNames' preference must be an array of strings.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "The 'namedCredentialsNames' preference must be an array of strings";
 
 /* Window text */
@@ -1097,19 +1097,19 @@
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "A(z) '%@' konfigurációhoz tartozó állományban nincsen 'dev tun' vagy 'dev tap' opció. Ez pedig feltétlen szükséges a Tunnelblick kapcsolathoz. Kérem tájékoztassa a hibáról a Hálózati Adminisztrátort, vagy tekintse meg az OpenVPN dokumentációt.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "The configuration file in %1$@ has a '%2$@' option with argument '%3$@'.\n\nThe argument can only be a filename -- it may not be a path.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "The configuration file in %1$@ has a '%2$@' option with file '%3$@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "A biztonsági bizonyítványt (jelmondat vagy felhasználónév/jelszó) nem fogadta el a távoli VPN szerver";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The credentials named %@ could not be added:\n\n%@" = "The credentials named %1$@ could not be added:\n\n%2$@";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
 
 /* Window text */
@@ -1118,7 +1118,7 @@
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "A jelmondat nem lehet üres!\nKérem írjon be egy jelmondatot a VPN-hez.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
 
 /* Window text */
@@ -1133,7 +1133,7 @@
 /* Window text */
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Két konfigurációs típus létezik:\n\n     • Tunnelblick VPN konfiguráció (.tblk kiterjesztéssel)\n\n     • OpenVPN konfiguráció (.ovpn vagy .conf kiterjesztéssel)\n\nMilyen típusú konfigurációs állománnyal rendelkezik?\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "There was a problem with %ld configurations. Details are in the Console Log\n\n" = "There was a problem with %ld configurations. Details are in the Console Log\n\n";
 
 /* Window text */
@@ -1142,25 +1142,25 @@
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Valamilyen hiba lépett fel egy vagy több konfigurációval. Részletek a Konzol log-ban\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "This computer's apparent public IP address was not different after connecting to %1$@. It is still %2$@.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
 
 /* Window text */
@@ -1175,7 +1175,7 @@
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "A(z) '%@' nevű VPN konfiguráció üres. Szeretne egy mint konfigurációt létrehozni ezen a néven?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n";
 
 /* Window text */
@@ -1199,7 +1199,7 @@
 /* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "A Tunnelblick nem tudta feloldani a védelmet a konfigurációs fájlon. Részletek a Konzol log-ban.\n\nSzeretné megvizsgálni a konfigurációs állományt, annak ellenére, hogy nem módosíthatja azt?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@";
 
 /* Window text */
@@ -1217,7 +1217,7 @@
 /* Window text */
 "Tunnelblick is ready." = "A Tunnelblick készen áll a munkára.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
 
 /* Window text */
@@ -1241,7 +1241,7 @@
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "A Tunnelblick nem tudta felvenni a kapcsolatot a meglévő OpenVPN folyamattal a(z) '%1$@' konfigurációnak, %2$d mp alatt. A kísérlet a kapcsolatfelvételre, meghiúsult";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details… window";
 
 /* Window text */
@@ -1259,7 +1259,7 @@
 /* Window text */
 "WINS servers:" = "WINS szerverek:";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Warning: '%@' is already a named credential." = "Warning: '%@' is already a named credential.";
 
 /* Window text */
@@ -1313,7 +1313,7 @@
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "Azt kérte, hogy a(z) '%1$@' konfiguráció legyen átnevezve. Új neve: '%2$@'.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n";
 
 /* Window text */
@@ -1322,7 +1322,7 @@
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Lehet, hogy van jogosultsága megtekinteni a konfigurációs fájlt, de ha annak módosítását is tervezi, előbb ki kell kapcsolnia a fájl védelmét. Ha kikapcsolta a védelmet, a következő csatlakozás előtt meg kell adnia egy adminisztrátor jogosultságú felhasználónevet és jelszót.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect.";
 
 /* Window text */
@@ -1346,7 +1346,7 @@
 /* Window text */
 "You may not rename a configuration which is set to start when the computer starts." = "Nem nevezhető át egy olyan konfiguráció, ami a számítógép indulásakor automatikusan elindul.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "You may only revert a private configuration." = "You may only revert a private configuration.";
 
 /* Window text */
@@ -1355,16 +1355,16 @@
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "A frissítés után addig nem tudja használni a Tunnelblick-et amíg meg nem ad egy adminisztrátor jogú felhasználónevet és jelszót.\n\nBiztosan ellenőrizni szeretné a frissítéseket?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "ZB" = "ZB";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "ZB/s" = "ZB/s";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n";
 
 /* Window text */
@@ -1373,19 +1373,19 @@
 /* Window text */
 "\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN Konfiguráció sikeresen feltelepült.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\nNote: The configuration's group credentials will not be deleted because other configurations use them.";
 
 /* Window text */
 "\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nEgy Tunnelblick Konfiguráció sikeresen települt.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nand install %ld Tunnelblick VPN Configurations";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "\nusing %@ credentials." = "\nusing %@ credentials.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa installation failed: %@";
 
 /* Suffix for a duplicate of a file */
@@ -1394,16 +1394,16 @@
 /* Suffix for a duplicate of a file */
 " copy" = " másolat";
 
-/* Tooltip */
-"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+/* NEEDS TRANSLATION *//* Tooltip */
+"%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
 
-/* Speak string */
+/* NEEDS TRANSLATION *//* Speak string */
 "Connected to %@" = "Connected to %@";
 
-/* Speak string */
+/* NEEDS TRANSLATION *//* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
 
-/* Checkbox */
+/* NEEDS TRANSLATION *//* Checkbox */
 "Do not show this again" = "Do not show this again";
 
 /* Button VPNService */

@@ -1379,6 +1379,15 @@
 /* Window text */
 "\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nOne Tunnelblick VPN Configuration was installed successfully.";
 
+/* Window text */
+"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nand install %ld Tunnelblick VPN Configurations";
+
+/* Window text */
+"\nusing %@ credentials." = "\nusing %@ credentials.";
+
+/* Window text */
+"easy-rsa installation failed: %@" = "easy-rsa installation failed: %@";
+
 /* Suffix for a duplicate of a file */
 " copy %d" = " copy %d";
 
@@ -1386,7 +1395,7 @@
 " copy" = " copy";
 
 /* Tooltip */
-"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+"%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
 
 /* Speak string */
 "Connected to %@" = "Connected to %@";
