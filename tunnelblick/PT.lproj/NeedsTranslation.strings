@@ -1,10 +1,6 @@
 /* Button */
 "Check for a change" = "Check for a change";
 
-/* Button
- Credentials name */
-"Common" = "Common";
-
 /* Button */
 "Do not check for a change" = "Do not check for a change";
 
@@ -157,4 +153,7 @@
 
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+
+/* Credentials name */
+"Common" = "Common";
 

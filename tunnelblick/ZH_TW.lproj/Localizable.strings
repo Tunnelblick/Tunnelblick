@@ -55,10 +55,6 @@
 /* NEEDS TRANSLATION *//* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Button
-   Credentials name */
-"Common" = "Common";
-
 /* Button */
 "Connect" = "連線";
 
@@ -1394,6 +1390,9 @@
 
 /* NEEDS TRANSLATION *//* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+
+/* NEEDS TRANSLATION *//* Credentials name */
+"Common" = "Common";
 
 /* NEEDS TRANSLATION *//* Speak string */
 "Connected to %@" = "Connected to %@";

@@ -67,9 +67,6 @@
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "断开所有 VPN 连接，并且退出 Tunnelblick";
-/* NEEDS TRANSLATION *//* Button
-   Credentials name */
-"Common" = "Common";
 
 
 
@@ -1911,6 +1908,8 @@
 " copy" = " 复制";
 /* NEEDS TRANSLATION *//* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+/* NEEDS TRANSLATION *//* Credentials name */
+"Common" = "Common";
 
 /* NEEDS TRANSLATION *//* Speak string */
 "Connected to %@" = "Connected to %@";
@@ -1920,4 +1919,3 @@
 
 /* NEEDS TRANSLATION *//* Checkbox */
 "Do not show this again" = "Do not show this again";
-
