@@ -124,3 +124,6 @@
 
 "1 connection" = "1 connessione";
 
+/* Tooltip */
+"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+
