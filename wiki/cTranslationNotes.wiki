@@ -1,0 +1,41 @@
+#summary Translation Notes
+#sidebar cSb
+
+* Translation Notes*
+
+<wiki:toc max_depth="2" />
+
+This document provides some notes about specific strings that are being translated.
+ * For information about working with the translation files, see [cTranslate Translating Tunnelblick].
+ * For an overview of how to integrate these files into Tunnelblick, see [cLocalize Localizing Tunnelblick].
+ * For the current status of translations, see [cTranslationStatus Translation Status].
+
+<hr>
+
+There is a series of "Window text" strings: *"B"*, *"KB"*, *"MB"*, *"GB"*, *"TB"*, *"PB"*, *"EB"*, and *"ZB"*. These are abbreviations for bytes, kilobytes, megabytes, gigabytes, terrabytes, petabytes, exabytes, and zetabytes, respectively. If they are not translated for your language you should prefix the <font color="green">/`*` Window text `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment for each such string --like the following:
+
+ <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`//`*` Window text `*`/</font>
+
+ <font color="red">"GB"</font> = <font color="red">"GB"</font>;
+
+There is a similar series of strings: *"B/s"*, *"KB/s"*, *"MB/s"*, etc., which refer to byes per second, kilobytes per second, megabytes per second, etc. They should be treated similarly, but they probably are translated for most languages (because the abbreviation for second is different than the "s" used in English).
+
+<hr>
+
+*Button "Common"* is the name of a "credentials group" -- something new in 3.3. A credentials group is a set of configurations that all share the same credentials (username and password). For example, most VPN service providers give a user one username and password, which works for all of the configurations (servers). If a user has not defined any credentials groups, there is one named "Common" that can be used. So "common" is used in the sense of having something "in common" or "shared".
+
+<hr>
+
+*Button "Check for a change"* is in response to a dialog window with a long message that starts
+ "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't"
+so it is talking about a checking for a change in IP address.
+
+*Button "Do not check for a change"* is referring to the same dialog window.
+
+<hr>
+
+*Window title " (?)"* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…) You should prefix the <font color="green">/`*` Window title `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment if the "?" is appropriate in your language.
+
+
+------------------
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
