@@ -45,8 +45,8 @@
 *Localization & Translation*
     [cLocalize Localizing Tunnelblick]<br>
     [cTranslate Making Translations]<br>
-    [cTranslationStatus Translation Status]<br>
     [cTranslationNotes Translation Notes]<br>
+    [cTranslationStatus Translation Status]<br>
 *Reference*
     [cFAQ FAQ]<font color="white">!TunnelblickGoogleCodePage</font><br>
     [cThanks Thanks]<br>
