@@ -1455,7 +1455,7 @@ NSArray * tokensFromConfigurationLine(NSString * line) {
     //
     // Ignores errors such as unbalanced quotes or a backslash at the end of the line
     
-    NSMutableArray * tokens = [[NSMutableArray alloc] initWithCapacity: 10];
+    NSMutableArray * tokens = [[[NSMutableArray alloc] initWithCapacity: 10]  autorelease];
     
     BOOL inSingleQuote = FALSE;
     BOOL inDoubleQuote = FALSE;
