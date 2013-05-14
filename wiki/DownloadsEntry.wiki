@@ -21,8 +21,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit<br /><font color="red">Not recommended for OS X 10.8 ("Mountain Lion") -- use a beta version (below).</font>
 
- <font size="3"><strong>Tunnelblick 3.2.8</strong></font> (build 2891.3099) released 2012-08-10 [RlsNotes#Version_3.2 Release Notes]
-  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.8.dmg                 Tunnelblick 3.2.8]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.8_Unsigned.dmg     Tunnelblick 3.2.8 Unsigned]</strong> 
+ <font size="3"><strong>Tunnelblick 3.2.9</strong></font> (build 2891.3328) released 2013-05-14 [RlsNotes#Version_3.2 Release Notes]
+  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.9.dmg                 Tunnelblick 3.2.9]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.9_Unsigned.dmg     Tunnelblick 3.2.9 Unsigned]</strong> 
   (Used for Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details and restrictions.)
 
 </td></tr></tbody></table>
@@ -38,7 +38,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
       • It is a normal (not "[cCusDeployed Deployed]") version, and a "[cCusDeployed Deployed]" version of Tunnelblick has not previously been installed (or has been completely uninstalled).
     OR
       • It is a "Deployed" version that meets certain conditions (see the [RlsNotes#Version_3.3 Release Notes]).</font><br />
-    <strong>Note: Versions of Tunnelblick that do not support "Deployed" configurations are no longer available in unsigned form.</strong><br />
+    <strong>Note: Unsigned versions of recent Tunnelblick builds are no longer available in binary form.</strong> Use signed versions or (for Deployed versions) build an unsigned version from rebranded source code, add the Deploy folder, and then optionally sign the binary yourself. To comply with Tunnelblick's [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html license], you must make the rebranded source code available to anyone to whom you "distribute" the binary.<br />
    
  <font size="3"><strong>Tunnelblick 3.3beta21b</strong></font> (build 3114.3185) released 2013-01-08 [RlsNotes#Version_3.3 Release Notes]
    <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta21b.dmg          Tunnelblick 3.3beta21b]</strong><br />
