@@ -685,15 +685,17 @@ enum state_t {                      // These are the "states" of the guideState 
                                 nil, nil, nil);
                 return FALSE;
             }
-            if (  ! [gFileMgr fileExistsAtPath: [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: argument]]  ) {
-				NSLog(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
-					  tblkName, option, argument);
-				TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
-                                [NSString stringWithFormat:
-                                 NSLocalizedString(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).", "Window text"),
-                                 tblkName, option, argument],
-                                nil, nil, nil);
-                return FALSE;
+            if (  ! [argument isEqualToString: @"[inline]"]  ) {
+                if (  ! [gFileMgr fileExistsAtPath: [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: argument]]  ) {
+                    NSLog(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
+                          tblkName, option, argument);
+                    TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                                    [NSString stringWithFormat:
+                                     NSLocalizedString(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).", "Window text"),
+                                     tblkName, option, argument],
+                                    nil, nil, nil);
+                    return FALSE;
+                }
             }
         }
     }
@@ -763,21 +765,25 @@ enum state_t {                      // These are the "states" of the guideState 
             NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
             
             overrideReplaceIdentical = [infoPlist objectForKey: @"TBReplaceIdentical"];
-            NSArray * okValues = [NSArray arrayWithObjects: @"yes", @"no", @"ask", @"force", nil];
-            if (  ! [okValues containsObject: overrideReplaceIdentical]  ) {
-                NSLog(@"Ignoring invalid TBReplaceIdentical value of '%@' in %@",
-                      overrideReplaceIdentical, infoPlistPath);
-                overrideReplaceIdentical = nil;
-            }
-            
+			if (  overrideReplaceIdentical  ) {
+				NSArray * okValues = [NSArray arrayWithObjects: @"yes", @"no", @"ask", @"force", nil];
+				if (  ! [okValues containsObject: overrideReplaceIdentical]  ) {
+					NSLog(@"Ignoring invalid TBReplaceIdentical value of '%@' in %@",
+						  overrideReplaceIdentical, infoPlistPath);
+					overrideReplaceIdentical = nil;
+				}
+			}
+				
             overrideSharePackage = [infoPlist objectForKey: @"TBSharePackage"];
-            okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
-            if (  ! [okValues containsObject: overrideSharePackage]  ) {
-                NSLog(@"Ignoring invalid TBSharePackage value of '%@' in %@",
-                      overrideSharePackage, infoPlistPath);
-                overrideSharePackage = nil;
-            }
-            
+			if (  overrideSharePackage  ) {
+				NSArray * okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
+				if (  ! [okValues containsObject: overrideSharePackage]  ) {
+					NSLog(@"Ignoring invalid TBSharePackage value of '%@' in %@",
+						  overrideSharePackage, infoPlistPath);
+					overrideSharePackage = nil;
+				}
+			}
+			
             overrideUninstall = [infoPlist objectForKey: @"TBUninstall"];
         }
         

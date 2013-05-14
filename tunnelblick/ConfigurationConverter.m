@@ -433,8 +433,10 @@ extern NSString      * gPrivatePath;
                     }
                     
                     // copy the file and change the path in the configuration string if necessary
-                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO]  ) {
-                        return FALSE;
+                    if (  ! [[configString substringWithRange: r2] isEqualToString: @"[inline]"]  ) {
+                        if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO]  ) {
+                            return FALSE;
+                        }
                     }
                     tokenIx++;
                 } else {
