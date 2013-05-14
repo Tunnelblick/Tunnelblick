@@ -29,20 +29,26 @@ Tunnelblick also has two ".strings"  files for each language:
  * A "Localizable.strings" file, which contains all of the strings used by Tunnelblick, whether they have been translated or not; and
  * A "!NeedsTranslations.strings" file, which contains only the strings that have not yet been translated.
 
-*The rest of this document describes how to work with these ".strings" files.*
+There is also a "Removed.strings" file, which contains strings that were used in an old version of Tunnelblick but are no longer being used. They may contain useful translations.
 
+*The rest of this document describes how to work with these ".strings" files.*
 <hr>
 
-==Integrating the ".strings" Files into Tunnelblick==
-To integrate your translation into Tunnelblick, send your translated or partially translated .strings file to project owner Jon via email at jkbullard at gmail dot com. A program is used to integrate the .strings files into Tunnelblick. The program:
- * Accepts Localizable.strings or NeedsTranslation.strings files.
- * Accepts files with translated and untranslated strings, i.e. partially translated files.
- * Accepts strings in any order.
- * Marks strings as needing translation or removes that marking.
- * Creates the !NeedsTranslations.strings file.
+==Editing Localizable.strings and !NeedsTranslation.strings Files==
+<font color="red">You can edit Localizable.strings files in `TextEdit`, but you need to open them a special way.</font> If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
+
+To open one of the .strings files in `TextEdit`:
+  # Open `TextEdit`, which is in /Applications
+  # Click "File", then "Open"
+  # Navigate to and select the .strings file you wish to edit
+  # At the bottom of the window to the right of "Plain Text Encoding", select "Unicode (UTF-8)
+  # At the bottom of the window, remove the check in the "Ignore rich text commands" checkbox if there is one
+  # Click the "Open" button
+
+Now you can edit the file. When you are done, be sure to save it. If you do a "Save As", be sure to save it as "Unicode (UTF-8)".
 
 ==Format of the ".strings" Files==
-Both ".strings" files have the same format. They contain a series of lines that look like this:
+The ".strings" files all have the same format. They contain a series of lines that look like this:
 
 {{{
 /* Button */
@@ -54,7 +60,7 @@ The second line has two strings, separated by an equal sign and followed by a se
 
 In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
 
-*You can edit this file in `TextEdit`* (but you need to open it in a special way, see <a href="#Opening_Localizable.strings_Files">Opening Localizable.strings Files</a>) change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see <a href="#Adding_Your_Translations_to_Your_Copy_of_Tunnelblick">Adding Your Translations to Your Copy of Tunnelblick</a>).
+*You can edit this file in `TextEdit`* (but you need to open it in a special way, see <a href="#Opening_Localizable.strings_Files">Opening Localizable.strings Files</a>) change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see [cLocalize#Adding_Your_Translations_to_Your_Copy_of_Tunnelblick Adding Your Translations to Your Copy of Tunnelblick]).
 
 
 ==You Need Not Translate Everything==
@@ -85,7 +91,7 @@ Notice that, in this file, both of the strings on each line are in English (sort
 
 Translation consists of replacing the second string on each line with the target language's equivalent, using the hint on the line above the strings.
 
-"Localizable.strings" will have a "/`*` Needs Translation `*`/" comment before every line that appears to not have been translated. (A program we use to create these files decides that a line needs translating if the left-side and right-side strings are identical, which does not always mean they need translation, but is a reasonable guess.) You should remove the "/`*` Needs Translation `*`/" comments on any strings that you have translated.
+"Localizable.strings" will have a "/`*` Needs Translation `*`/" comment before every line that appears to not have been translated. (A program we use to create these files decides that a line needs translating if the left-side and right-side strings are identical, which does not always mean they need translation, but is a reasonable guess.) You can (but do not need to) remove the "/`*` Needs Translation `*`/" comments on any strings that you have translated. If appropriate, it will be removed automatically when the .strings file is integrated into Tunnelblick.
 
 ==If a String is the Same in Both Languages==
 If a string is the same in both the development language and the target language, then put a hint of
@@ -96,23 +102,6 @@ before the string. For example,
 "OK" = "OK";
 }}}
 This helps the program which process the strings files understand that the string does not need translation.
-
-==Editing Localizable.strings and !NeedsTranslation.strings Files==
-You can edit Localizable.strings files in `TextEdit`, but you need to open them a special way. If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
-
-To open one of the .strings files in `TextEdit`:
-  # Open `TextEdit`, which is in /Applications
-  # Click "File", then "Open"
-  # Navigate to and select the .strings file you wish to edit
-  # At the bottom of the window to the right of "Plain Text Encoding", select "Unicode (UTF-8)
-  # At the bottom of the window, remove the check in the "Ignore rich text commands" checkbox if there is one
-  # Click the "Open" button
-
-Now you can edit the file. When you are done, be sure to save it. If you do a "Save As", be sure to save it as "Unicode (UTF-8)".
-
-Here is what the bottom of the "Open file" dialog window should look like when you click the "Open" button:
-
-http://tunnelblick-discuss.googlegroups.com/web/add-translations-open-file-window.png?gda=4jqTW1cAAADVQgPybVoDdkjSA0U14ywk_BVAdCKiMoncTpEXaIarzhOnNyGOrq4Mj_c6JQjursoenAryYyiYF7HXKAZo0RGXFXmOG-PcRnDCvNNomWfEhXleHbr-qQzBoYYWXY0JTQM
 
 ==Weird Characters in the Strings==
 Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
@@ -128,6 +117,16 @@ we would translate that into Yoda's English by changing it to
 "The %@ is %@" = "%2$@ the %1$@ is"
 }}}
 (We'll ignore the fact that %2$@ needs to be capitalized because it now starts a sentence.)
+
+==Integrating the ".strings" Files into Tunnelblick==
+To integrate your translation into Tunnelblick, send your translated or partially translated .strings file to project owner Jon via email at jkbullard at gmail dot com. He will email you back a version of Tunnelblick that incorporates your changes.
+
+A program is used to integrate the .strings files into Tunnelblick. The program:
+ * Accepts Localizable.strings or NeedsTranslation.strings files.
+ * Accepts files with translated and untranslated strings, i.e. partially translated files.
+ * Accepts strings in any order.
+ * Marks strings as needing translation or removes that marking.
+ * Updates the Localizable.strings !NeedsTranslations.strings, and Removed.strings files.
 
 ------------------
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
