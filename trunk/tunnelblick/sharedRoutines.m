@@ -300,16 +300,9 @@ unsigned int getFreePort(void)
 
 BOOL itemIsVisible(NSString * path)
 {
-	// Returns YES if path to an item has no components starting with a period
-
-    if (  [path hasPrefix: @"."]  ) {
-        return NO;
-    }
-    NSRange rng = [path rangeOfString:@"/."];
-    if (  rng.length != 0) {
-        return NO;
-    }
-    return YES;
+	// Returns YES if the final component of a path does NOT start  with a period
+    
+    return ! [[path lastPathComponent] hasPrefix: @"."];
 }
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)

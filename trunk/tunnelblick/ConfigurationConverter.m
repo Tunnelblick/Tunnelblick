@@ -261,11 +261,20 @@ extern NSString      * gPrivatePath;
 	
 	NSString * file = [inPath lastPathComponent];
 	
+    // Make sure the file has an extension that Tunnelblick can secure properly
     NSString * fileWithNeededExtension = file;
-    if (   needsShExtension
-        && ( ! [inPath hasSuffix: @".sh"] )  ) {
-        fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
-		[self logMessage: [NSString stringWithFormat: @"Adding '.sh' extension to %@ so it will be secured properly", file]];
+    NSString * extension = [file pathExtension];
+    if (   needsShExtension  ) {
+        if (  ! [extension isEqualToString: @"sh"]  ) {
+            fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
+            [self logMessage: [NSString stringWithFormat: @"Added '.sh' extension to %@ so it will be secured properly", file]];
+        }
+    } else {
+        if (   ( ! extension)
+            || ( ! [KEY_AND_CRT_EXTENSIONS containsObject: extension] )  ) {
+            fileWithNeededExtension = [file stringByAppendingPathExtension: @"key"];
+            [self logMessage: [NSString stringWithFormat: @"Added a 'key' extension to %@ so it will be secured properly", file]];
+        }
     }
     
     if (  outputPath  ) {
@@ -347,12 +356,16 @@ extern NSString      * gPrivatePath;
     outputPath   = [theOutputPath copy];
     logFile      = theLogFile;
 	
-	tokensToReplace  = [[NSMutableArray alloc] initWithCapacity: 8];
+	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
 	
-    NSString * s = [[NSString alloc] initWithContentsOfFile: configPath encoding: NSASCIIStringEncoding error: NULL];
-    configString = [s mutableCopy];
-    [s release];
+    configString = [[[[NSString alloc] initWithContentsOfFile: configPath encoding: NSASCIIStringEncoding error: NULL] autorelease] mutableCopy];
+    
+    // Append newline to file if it doesn't aleady end in one (simplifies parsing)
+    if (  ! [configString hasSuffix: @"\n"]  ) {
+        [configString appendString: @"\n"];
+    }
+    
     tokens = [[self getTokensFromString: configString] copy];
 	
     // List of OpenVPN options that take a file path
