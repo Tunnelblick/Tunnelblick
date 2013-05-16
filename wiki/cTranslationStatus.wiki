@@ -18,26 +18,27 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
 The following table shows the status of translations for Tunnelblick as of 2013-05-15:
-|| <br>Language  || <br>Code  || Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
-|| Catalan                || CA     || 1  || Partial                                || Partial                                ||
-|| Czech                  || CS     || 1  || Partial                                || Partial                                ||
-|| German                 || DE     || 2  || Partial                                || Partial                                ||
-|| Spanish                || ES     || 0  || Partial                                || Partial                                ||
-|| Finnish                 || FI     || 1  || Not started                                || Not started               ||
-|| French                 || FR     || 3  || Partial                                || Partial                                ||
-|| Hungarian              || HU     || 1  || Partial                                || Partial                                ||
-|| Italian                || IT     || 1  || Partial                                || Partial                                ||
-|| Japanese               || JA     || 1  || Partial                                || Partial                                ||
-|| Korean                 || KO     || 1  || Partial                                || Partial                                ||
-|| Norwegian              || NB     || 1  || Partial                                || Partial                                ||
-|| Dutch                  || NL     || 3  || Partial                                || Partial                                ||
-|| Polish                 || PL     || 2  || Partial                                || Partial                                ||
-|| Portuguese             || PT     || 1  || Partial                                || Partial                                ||
-|| Portuguese (Brazil)             || PT_BR     || 1  || Not started                           || Not started                            ||
-|| Russian                || RU     || 3  || Partial                                || Partial                                ||
-|| Swedish                || SV     || 1  || Partial                                || Partial                                ||
-|| Chinese (Simplified)   || ZN_CN  || 3  || Partial                                || Partial                                ||
-|| Chinese (Traditional)  || ZN_TW  || 0  || Partial                                || Partial                                ||
+
+|| <br>Language  || <br>Code  || Translators  || Stable<br>Status || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
+|| Catalan                || CA     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Czech                  || CS     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| German                 || DE     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Spanish                || ES     || 0  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Finnish                || FI     || 1  || (none)                              || Not started                           || Not started                            ||
+|| French                 || FR     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Hungarian              || HU     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Italian                || IT     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Japanese               || JA     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Korean                 || KO     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Norwegian              || NB     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Dutch                  || NL     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Polish                 || PL     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Portuguese             || PT     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Portuguese (Brazil)    || PT-BR  || 1  || (none)                              || Not started                            ||
+|| Russian                || RU     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Swedish                || SV     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Chinese (Simplified)   || ZN_CN  || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Chinese (Traditional)  || ZN_TW  || 0  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 
 1. Translation status of the most recent beta release.
 
