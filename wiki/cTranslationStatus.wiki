@@ -23,20 +23,20 @@ The following table shows the status of translations for Tunnelblick as of 2013-
 || Catalan                || CA     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Czech                  || CS     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || German                 || DE     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
-|| Spanish                || ES     || 0  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Spanish                || ES     || 4  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Finnish                || FI     || 1  || (none)                              || Not started                           || Not started                            ||
-|| French                 || FR     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| French                 || FR     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Hungarian              || HU     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Italian                || IT     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Japanese               || JA     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Korean                 || KO     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Norwegian              || NB     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
-|| Dutch                  || NL     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Dutch                  || NL     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Polish                 || PL     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Portuguese             || PT     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Portuguese (Brazil)    || PT-BR  || 1  || (none)                              || Not started                            ||
 || Russian                || RU     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
-|| Swedish                || SV     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Swedish                || SV     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Chinese (Simplified)   || ZN_CN  || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Chinese (Traditional)  || ZN_TW  || 0  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 
