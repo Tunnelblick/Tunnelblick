@@ -17,20 +17,20 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2013-05-13:
+The following table shows the status of translations for Tunnelblick as of 2013-05-15:
 || <br>Language  || <br>Code  || Translators  || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
 || Catalan                || CA     || 1  || Partial                                || Partial                                ||
-|| Czech                  || CS     || 0  || Partial                                || Partial                                ||
+|| Czech                  || CS     || 1  || Partial                                || Partial                                ||
 || German                 || DE     || 2  || Partial                                || Partial                                ||
 || Spanish                || ES     || 0  || Partial                                || Partial                                ||
 || Finnish                 || FI     || 1  || Not started                                || Not started               ||
-|| French                 || FR     || 1  || Partial                                || Partial                                ||
+|| French                 || FR     || 3  || Partial                                || Partial                                ||
 || Hungarian              || HU     || 1  || Partial                                || Partial                                ||
 || Italian                || IT     || 1  || Partial                                || Partial                                ||
 || Japanese               || JA     || 1  || Partial                                || Partial                                ||
-|| Korean                 || KO     || 0  || Partial                                || Partial                                ||
+|| Korean                 || KO     || 1  || Partial                                || Partial                                ||
 || Norwegian              || NB     || 1  || Partial                                || Partial                                ||
-|| Dutch                  || NL     || 2  || Partial                                || Partial                                ||
+|| Dutch                  || NL     || 3  || Partial                                || Partial                                ||
 || Polish                 || PL     || 2  || Partial                                || Partial                                ||
 || Portuguese             || PT     || 1  || Partial                                || Partial                                ||
 || Portuguese (Brazil)             || PT_BR     || 1  || Not started                           || Not started                            ||
