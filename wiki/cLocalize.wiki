@@ -6,9 +6,11 @@
 <hr>
 
 This document gives an overview of how to localize Tunnelblick.
- * For information about working with the translation files, see [cTranslate Translating Tunnelblick].
- * For the current status of translations, see [cTranslationStatus Translation Status].
+ * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
+ * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
+ * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
+ * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
 
@@ -36,6 +38,8 @@ NOTE: Prior to Tunnelblick versions 3.0b24, all .lproj folders had the English n
 
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
 
+Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.
+
 *If you edited an existing translation*, here's how to put your modified .strings file into your copy of Tunnelblick:
   # Put the Localizable.strings file that you have modified in the folder
   # Get a fresh copy of Tunnelblick (one that has never been used; copy from a downloaded disk image file if necessary) and put it on your Desktop
@@ -47,6 +51,8 @@ You're done. The copy of Tunnelblick.app on your Desktop now has your translatio
   # Close the Finder window
 
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
+
+Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.
 
 ------------------
 

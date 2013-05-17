@@ -1,0 +1,29 @@
+#summary Translating .rtf Files
+#sidebar cSb
+
+* Translating .rtf Files*
+
+<wiki:toc max_depth="2" />
+
+<hr>
+
+This document describes how to translate one of the the two types of files that Tunnelblick uses for translation: .rtf files.
+ * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
+ * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
+ * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
+ * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
+ * For the current status of translations, see [cTranslationStatus Translation Status].
+
+<hr>
+
+Tunnelblick has two .rtf files for each language:
+ * A "Description.rtf" file, which contains a description of the license under which Tunnelblick may be distributed.
+ * A "Credits.rtf" file, which lists people who have contributed code or translations to Tunnelblick.
+These files should be translated using !TextEdit or another editor (such as Windows Word or !WordPad) that can edit RTF files. They may be opened in !TextEdit by double-clicking them -- the special procedure  used to open .strings files is *not* needed for .rft files.
+
+*Editing Credits.rtf is difficult* because the names are in a table and the formatting of the table is messed up in most of the languages. So it is a good idea to select all the names in a particular section and then click "Format", then "Table…". In the new window that appears, change "Cell Border" to 1 px and you'll be able to see the way the table is set up. If you want to make it a less messy table, that's great, but what counts is how it looks when "Cell Border" is set to 0
+
+_Note: The primary translator(s) of the language being translated should be listed at the end of the first section of the "Credits.rtf" file._
+
+------------------
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===

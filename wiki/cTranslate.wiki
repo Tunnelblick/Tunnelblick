@@ -7,121 +7,31 @@
 
 <hr>
 
-This document describes how to translate the two types of files that Tunnelblick uses for translation: RTF files and ".strings" files..
- * For an overview of how to integrate these files into Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For the current status of translations, see [cTranslationStatus Translation Status].
+This document is an overview of translating Tunnelblick.
+ * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
+ * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
+ * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
+ * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
+ * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
 
-==RTF Files==
-Tunnelblick has two RTF files for each language:
- * A "Description.rtf" file, which contains a description of the license under which Tunnelblick may be distributed.
- * A "Credits.rtf" file, which lists people who have contributed code or translations to Tunnelblick.
-These files should be translated using !TextEdit or another editor (such as Windows Word or !WordPad) that can edit RTF files. They may be opened in !TextEdit by double-clicking them -- no special procedure is needed.
+==Starting a Translation==
+Please contact project owner Jon via email at jkbullard at gmail dot com before starting a translation -- he will tell you about other translators for your language that you should coordinate with, and supply you with the appropriate versions of files that need translating.
 
-Editing Credits.rtf is tricky because the names are in a table and the formatting of the table is messed up in most of the languages. So it is a good idea to select all the names and then click "Format", then "Table…". In the new window that appears, change "Cell Border" to 1 px and you'll be able to see the way the table is set up. If you want to make it a less messy table, that's great, but what counts is how it looks when "Cell Border" is set to 0
+==".strings" Files and .rtf Files==
+Tunnelblick has two types of files for each language:
+ * *.strings files* contain strings -- words, phrases, sentences, or paragraphs -- that are to be translated from English to the target language.
+ * *.rtf files* each contain an entire document that is to be translated to the target language.
 
-_Note: The primary translator(s) of the language being translated should be listed at the end of the first section of the "Credits.rtf" file._
-
-<hr>
-
-==".strings" Files==
-Tunnelblick also has two ".strings"  files for each language:
- * A "Localizable.strings" file, which contains all of the strings used by Tunnelblick, whether they have been translated or not; and
- * A "!NeedsTranslations.strings" file, which contains only the strings that have not yet been translated.
-
-There is also a "Removed.strings" file, which contains strings that were used in an old version of Tunnelblick but are no longer being used. They may contain useful translations.
-
-*The rest of this document describes how to work with these ".strings" files.*
-<hr>
-
-==Editing Localizable.strings and !NeedsTranslation.strings Files==
-<font color="red">You can edit Localizable.strings files in `TextEdit`, but you need to open them a special way.</font> If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
-
-To open one of the .strings files in `TextEdit`:
-  # Open `TextEdit`, which is in /Applications
-  # Click "File", then "Open"
-  # Navigate to and select the .strings file you wish to edit
-  # At the bottom of the window to the right of "Plain Text Encoding", select "Unicode (UTF-8)
-  # At the bottom of the window, remove the check in the "Ignore rich text commands" checkbox if there is one
-  # Click the "Open" button
-
-Now you can edit the file. When you are done, be sure to save it. If you do a "Save As", be sure to save it as "Unicode (UTF-8)".
-
-==Format of the ".strings" Files==
-The ".strings" files all have the same format. They contain a series of lines that look like this:
-
-{{{
-/* Button */
-"Disconnect" = "Desconectar";
-}}}
-The first line, /`*` Button `*`/, is a hint about what the string is used for -- this one tells you that the string "Disconnect" is for a button. Other hints may indicate a string is for the title of a window, or the text of a window, or is a status  message from OpenVPN.
-
-The second line has two strings, separated by an equal sign and followed by a semicolon. The first string is in the language that the application was developed in (English), and the second string is in the "target" language.
-
-In the example above, from the "ES.lproj" folder (Spanish), "Disconnect" is the English string, and "Desconectar" is the equivalent in Spanish.
-
-*You can edit this file in `TextEdit`* (but you need to open it in a special way, see <a href="#Opening_Localizable.strings_Files">Opening Localizable.strings Files</a>) change the second string on each line, and send it back to the Tunnelblick project for incorporation into Tunnelblick. You can, if you wish, put it into your own copy of Tunnelblick, too (see [cLocalize#Adding_Your_Translations_to_Your_Copy_of_Tunnelblick Adding Your Translations to Your Copy of Tunnelblick]).
-
+Most of the translation work is done with .strings files, so usually they are translated first.
 
 ==You Need Not Translate Everything==
 If you can translate everything, that's great. But there are a lot of strings. They are placed in the .strings files in approximate order of importance, so start at the top and work your way down.
 
-*Any string with a comment "VPNService" does not need to be translated* for a standard build of Tunnelblick -- these strings are used only by VPN service providers in their registration windows, and are not usually built into Tunnelblick. They appear last in the .strings files for this reason.
-
-==Doing the Translations==
-If you are the first translator for a language, you will be editing a Localizable.strings file. If you are working on a language that has been worked on before, you will be editing a !NeedsTranslation.strings file. 
-
-Either file will have lines such as the following:
-
-{{{
-/`*` Connection status `*`/
-"AUTH" = "Authorizing";
-
-/`*` Window title `*`/
-"Authentication failed" = "Authentication failed";
-
-/`*` Checkbox name `*`/
-"Automatically connect on launch" = "Automatically connect on launch";
-
-/`*` Button `*`/
-"Cancel" = "Cancel";
-}}}
-
-Notice that, in this file, both of the strings on each line are in English (sort of). The string "AUTH" is a string describing a connection's status -- what it is doing -- in this case, the status is something called "AUTH". The second string is the string as it should be displayed in English -- this is what you as translator are to replace. Note that for the last three examples, both strings are identical. That is more common. The program requests that the title of a window be "Authentication failed", for example, and, in English, that should be displayed as "Authentication failed".
-
-Translation consists of replacing the second string on each line with the target language's equivalent, using the hint on the line above the strings.
-
-"Localizable.strings" will have a "/`*` Needs Translation `*`/" comment before every line that appears to not have been translated. (A program we use to create these files decides that a line needs translating if the left-side and right-side strings are identical, which does not always mean they need translation, but is a reasonable guess.) You can (but do not need to) remove the "/`*` Needs Translation `*`/" comments on any strings that you have translated. If appropriate, it will be removed automatically when the .strings file is integrated into Tunnelblick.
-
-==If a String is the Same in Both Languages==
-If a string is the same in both the development language and the target language, then put a hint of
- `/* TRANSLATION SAME AS DEVELOPMENT */`
-before the string. For example,
-{{{
-/* TRANSLATION SAME AS DEVELOPMENT */ /* Button */
-"OK" = "OK";
-}}}
-This helps the program which process the strings files understand that the string does not need translation.
-
-==Weird Characters in the Strings==
-Some of the strings have character sequences of "\n". This causes a line break when the text is displayed. A sequence of "\n\n" would cause a line break followed by an empty line.
-
-Some of the strings have %@, %d, or other special sequences of characters. They indicate a place where some other item (a filename, a number, etc.) will be inserted into the string. Usually that's all there is to it. However, when there are two or more such items in one string, the target language may need to use them in a different order than English uses.
-
-Here's an example: for English speakers, one of the distinctive features of the character Yoda in _Star Wars_ was the way he spoke -- he spoke "backwards". For example, he would say "Hot the food is", when the usual way to express that in English is "The food is hot". If the line in Localizable.strings was
-{{{
-"The %@ is %@" = "The %1$@ is %2$@";
-}}}
-we would translate that into Yoda's English by changing it to
-{{{
-"The %@ is %@" = "%2$@ the %1$@ is"
-}}}
-(We'll ignore the fact that %2$@ needs to be capitalized because it now starts a sentence.)
-
 ==Integrating the ".strings" Files into Tunnelblick==
-To integrate your translation into Tunnelblick, send your translated or partially translated .strings file to project owner Jon via email at jkbullard at gmail dot com. He will email you back a version of Tunnelblick that incorporates your changes.
+To integrate your translation into Tunnelblick, return your translated or partially translated file(s) to project owner Jon via email at jkbullard at gmail dot com. He will reply with a link to a version of Tunnelblick that incorporates your translations (and perhaps others' translations, too).
 
 A program is used to integrate the .strings files into Tunnelblick. The program:
  * Accepts Localizable.strings or NeedsTranslation.strings files.

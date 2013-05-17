@@ -6,8 +6,10 @@
 <wiki:toc max_depth="2" />
 
 This document provides some notes about specific strings that are being translated.
- * For information about working with the translation files, see [cTranslate Translating Tunnelblick].
- * For an overview of how to integrate these files into Tunnelblick, see [cLocalize Localizing Tunnelblick].
+ * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
+ * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
+ * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
+ * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
@@ -22,7 +24,7 @@ There is a similar series of strings: *"B/s"*, *"KB/s"*, *"MB/s"*, etc., which r
 
 <hr>
 
-*Button "Common"* is the name of a "credentials group" -- something new in 3.3. A credentials group is a set of configurations that all share the same credentials (username and password). For example, most VPN service providers give a user one username and password, which works for all of the configurations (servers). If a user has not defined any credentials groups, there is one named "Common" that can be used. So "common" is used in the sense of having something "in common" or "shared".
+*Credentials group "Common"* is the name of a "credentials group" -- something new in Tunnelblick 3.3. A credentials group is a set of configurations that all share the same credentials (username and password). For example, most VPN service providers give a user one username and password, which works for all of the configurations (servers). If a user has not defined any credentials groups, there is one named "Common" that can be used. So "common" is used in the sense of having something "in common" or "shared".
 
 <hr>
 
