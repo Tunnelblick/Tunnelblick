@@ -9,7 +9,6 @@
 
 This document is an overview of translating Tunnelblick.
  * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
  * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
  * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
