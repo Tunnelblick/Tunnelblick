@@ -9,6 +9,24 @@
 
 ==Version 3.3==
 
+*3.3beta52 (2013-05-20)*
+
+ * Fixes problems converting an OpenVPN configuration file that:
+   * Uses files with extensions that Tunnelblick does not know how to secure properly; or
+   * Does not end with a linefeed; or
+   * Has '[inline] options; or
+   * Has a path component that starts with a dot (".").
+
+ * Fixes a problem that caused Tunnelblick to be unable to install a Tunnelblick VPN Configuration (".tblk") that has a path component that starts with a dot (".").
+
+ * Fixes a problem on OS X 10.4 ("Tiger") that caused the copyright date in the startup screen to be displayed incorrectly.
+
+ * Fixes a extraneous warning about Info.plist options that do not exist being ignored when installing or converting to a .tblk.
+
+ * Fixes a minor memory leak.
+
+--------------------
+
 *3.3beta50 (2013-05-11)*
 
  * Saves and restores the configuration selected in the configuration list in the 'VPN Details…' window.

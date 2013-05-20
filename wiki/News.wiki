@@ -1,6 +1,17 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-05-20: *Tunnelblick 3.3beta52 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes several problems converting OpenVPN configurations to Tunnelblick VPN Configurations.
+ 
+ * Fixes several other problems.
+ 
+See the [RlsNotes#Version_3.3 Release Notes] for details.
+
+
+--------------------
+
 2013-05-14: *Tunnelblick 3.2.9 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Preparation for updating to Tunnelblick 3.3.
