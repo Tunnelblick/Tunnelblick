@@ -37,7 +37,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
     <font color="red"><strong>NOTE: This version will only install or launch if:</strong>
       • It is a normal (not "[cCusDeployed Deployed]") version, and a "[cCusDeployed Deployed]" version of Tunnelblick has not previously been installed (or has been completely uninstalled).
     OR
-      • It is a "Deployed" version that meets certain conditions (see the [RlsNotes#Version_3.3 Release Notes]).</font><br />
+      • It is a "Deployed" version that meets certain conditions (see the 3.3beta48 [RlsNotes#Version_3.3 Release Notes]).</font><br />
     <strong>Note: Unsigned versions of recent Tunnelblick builds are no longer available in binary form.</strong> Use signed versions or (for Deployed versions) build an unsigned version from rebranded source code, add the Deploy folder, and then optionally sign the binary yourself. To comply with Tunnelblick's [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html license], you must make the rebranded source code available to anyone to whom you "distribute" the binary.<br />
    
  <font size="3"><strong>Tunnelblick 3.3beta21b</strong></font> (build 3114.3185) released 2013-01-08 [RlsNotes#Version_3.3 Release Notes]
