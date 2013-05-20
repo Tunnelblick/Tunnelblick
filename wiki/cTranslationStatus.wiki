@@ -17,7 +17,7 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2013-05-19:
+The following table shows the status of translations for Tunnelblick as of 2013-05-20:
 
 || <br>Language  || <br>Code  || Translators  || Stable<br>Status || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
 || Catalan                || CA     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
@@ -32,7 +32,7 @@ The following table shows the status of translations for Tunnelblick as of 2013-
 || Korean                 || KO     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Norwegian              || NB     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Dutch                  || NL     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
-|| Polish                 || PL     || 2  || <font color="green">Complete</font> || Partial                                || Partial                                ||
+|| Polish                 || PL     || 2  || <font color="green">Complete</font> || Partial                                || <font color="green">Complete</font> ||
 || Portuguese             || PT     || 1  || <font color="green">Complete</font> || Partial                                || Partial                                ||
 || Portuguese (Brazil)    || PT-BR  || 1  || (none)                              || Not started                            || Not started                            ||
 || Russian                || RU     || 3  || <font color="green">Complete</font> || Partial                                || Partial                                ||
