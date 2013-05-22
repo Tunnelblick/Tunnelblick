@@ -15,7 +15,7 @@ If you are distributing Tunnelblick to multiple clients or servers, you might wa
  * A Tunnelblick VPN Configuration may be private to each individual user (and need to be installed separately for each user), or it may be shared by all users of the computer.
  * A Tunnelblick VPN Configuration can optionally contain identification and version information which Tunnelblick will use when a user installs or reinstalls a configuration.
  * A Tunnelblick VPN Configuration can also contain default preferences which are installed when the configuration is first used, but which the user can subsequently override.
- * Tunnelblick VPN Configurations which are contained on the disk image used to distribute the application may be automatically installed when the application itself is installed.
+ * Tunnelblick VPN Configurations which are contained on the disk image or .zip file used to distribute the application may be automatically installed when the application itself is installed.
 
 ------------------
 
