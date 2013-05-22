@@ -1,4 +1,4 @@
-#summary Tunnelblick VPN Configurations Details
+#summary Rebranding Tunnelblick
 #sidebar cSb
 
 ==Rebranding Tunnelblick==
