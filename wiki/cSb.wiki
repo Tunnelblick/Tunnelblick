@@ -34,6 +34,7 @@
 *Customized Versions*
     [cDistribute Distributing Tunnelblick]<br>
     [cCusDeployed "Deployed" versions]<br>
+    [cRebranding Rebranding Tunnelblick]<br>
     [cPkgs ".tblk" Details]<br>
     [cUsingScripts Using Scripts]<br>
     [cIconAnimation Icon Animation]<br>
