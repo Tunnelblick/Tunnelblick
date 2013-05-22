@@ -2216,12 +2216,37 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     return list;
 }
-// If there aren't ANY config files in the config folders
-// then guide the user
-//
-// When Sparkle updates us while we're running, it moves us to the Trash, then replaces us, then terminates us, then launches the new copy.
--(void) checkNoConfigurations
+
+BOOL anyNonTblkConfigs(void)
 {
+	// Returns TRUE if there were any private non-tblks (and they need to be converted)
+    NSString * file;
+    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString * fullPath = [gPrivatePath stringByAppendingPathComponent: file];
+        if (  itemIsVisible(fullPath)  ) {
+			NSString * ext = [file pathExtension];
+            if (  [ext isEqualToString: @"tblk"]  ) {
+				[dirEnum skipDescendents];
+            } else {
+				if (   [ext isEqualToString: @"ovpn"]
+					|| [ext isEqualToString: @"conf"]  ) {
+					return YES;
+				}
+			}
+		}
+	}
+	
+	return NO;
+}
+
+-(void) checkNoConfigurations {
+    
+    // If there aren't ANY config files in the config folders
+    // then guide the user
+    //
+    // When Sparkle updates us while we're running, it moves us to the Trash, then replaces us, then terminates us, then launches the new copy.
+
     if (   ignoreNoConfigs
         || ( [[self myConfigDictionary] count] != 0 )
         ) {
@@ -2246,6 +2271,40 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
         [self terminateBecause: terminatingBecauseOfError];
     }
     
+    if (  anyNonTblkConfigs()  ) {
+        int response = TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                                       NSLocalizedString(@"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\n"
+                                                         @"You must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n", @"Window text"),
+                                       NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
+                                       NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
+                                       NSLocalizedString(@"Quit", @"Button"));                  // Other return
+        
+		if (  response == NSAlertOtherReturn  ) {
+			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+		}
+		
+		if (  response == NSAlertDefaultReturn  ) {
+            ignoreNoConfigs = TRUE; // Because we do the testing and don't want interference
+            if (  [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
+                      extraArguments: nil
+                     usingAuthRefPtr: &gAuthorization
+                             message: nil
+                   installTblksFirst: nil]  ) {
+                // Installer did conversion(s); set up to use the new configurations
+                [self activateStatusMenu];
+                if (  [[self myConfigDictionary] count] != 0  ) {
+                    ignoreNoConfigs = FALSE;
+                    return;
+                }
+                
+                // fall through if still don't have any configurations
+            }
+            
+            ignoreNoConfigs = FALSE;
+            // fall through if installer failed or still don't have any configurations
+        }
+	}
+	
     [[ConfigurationManager defaultManager] haveNoConfigurationsGuide];
 }
 
@@ -3790,29 +3849,6 @@ static void signal_handler(int signalNumber)
     return --tunCount;
 }
 
-BOOL anyNonTblkConfigs(void)
-{
-	// Returns TRUE if there were any private non-tblks (and they need to be converted)
-    NSString * file;
-    NSDirectoryEnumerator *dirEnum = [gFileMgr enumeratorAtPath: gPrivatePath];
-    while (  (file = [dirEnum nextObject])  ) {
-        NSString * fullPath = [gPrivatePath stringByAppendingPathComponent: file];
-        if (  itemIsVisible(fullPath)  ) {
-			NSString * ext = [file pathExtension];
-            if (  [ext isEqualToString: @"tblk"]  ) {
-				[dirEnum skipDescendents];
-            } else {
-				if (   [ext isEqualToString: @"ovpn"]
-					|| [ext isEqualToString: @"conf"]  ) {
-					return YES;
-				}
-			}
-		}
-	}
-	
-	return NO;
-}
-
 BOOL warnAboutNonTblks(void)
 {
 	// Returns TRUE if there were any private non-tblks and the user has agreed to convert them
@@ -3823,15 +3859,30 @@ BOOL warnAboutNonTblks(void)
                                                                  @" when using this version of Tunnelblick. You can:\n\n"
 																 @"     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n"
                                                                  @"     • Quit and install a different version of Tunnelblick; or\n"
-                                                                 @"     • Ignore this and continue without converting.\n\n", @"Window text"),
-											   NSLocalizedString(@"Convert Configurations", @"Button"),
-											   NSLocalizedString(@"Ignore", @"Button"),
-											   NSLocalizedString(@"Quit", @"Button"),
+                                                                 @"     • Ignore this and continue without converting.\n\n"
+                                                                 @"If you choose 'Ignore' the configurations will not be available!\n\n", @"Window text"),
+											   NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
+											   NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
+											   NSLocalizedString(@"Quit", @"Button"),                   // Other return
 											   @"skipWarningAboutConvertingToTblks",
 											   NSLocalizedString(@"Do not ask again, always convert", @"Checkbox name"),
 											   nil,
 											   NSAlertDefaultReturn);
 		gUserWasAskedAboutConvertNonTblks = TRUE;
+		if (  response == NSAlertOtherReturn  ) {
+			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+		}
+		
+		if (  response == NSAlertDefaultReturn  ) {
+			return YES;
+		}
+        
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
+                        NSLocalizedString(@"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\n"
+                                          @"CONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n", @"Window text"),
+                        NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
+                        NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
+                        NSLocalizedString(@"Quit", @"Button"));                  // Other return
 		if (  response == NSAlertOtherReturn  ) {
 			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
 		}
@@ -3872,6 +3923,14 @@ BOOL warnAboutNonTblks(void)
 		
 		NSString * ourExecutable = [bundleInfoDict objectForKey: @"CFBundleExecutable"];
 		
+        // PLEASE DO NOT REMOVE THE FOLLOWING REBRANDING CHECKS!
+        //
+        // Running a Deployed version of Tunnelblick without rebranding it can lead to unpredictable behavior,
+        // may be less secure, can lead to problems with updating, and can interfere with other installations
+        // of Tunnelblick on the same computer. Please don't do it!
+        //
+        // For instructions on rebranding Tunnelblick, see https://code.google.com/p/tunnelblick/wiki/cRebranding
+        
 		if (   [@"Tunnelblick" isEqualToString: @"T" @"unnelblick"] // Quick rebranding checks (not exhaustive, obviously)
 			
             || ( ! ourAppName )
