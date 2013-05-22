@@ -26,6 +26,8 @@ There may also be a "Removed.strings" file, which contains strings that were use
 If you are the first translator for a language, you will be editing a Localizable.strings file. If you are working on a language that has been worked on before, you could be editing either a !NeedsTranslation.strings file or a Localizable.strings file -- it is your choice. But only edit one file, not both. 
 
 ==Editing .strings Files==
+If you have Xcode, you can just double-click the files to open them in Xcode, which works fine.
+
 *<font color="red">You can edit .strings files in `TextEdit`, but you need to open them a special way.</font>* If you double-click them, or just File | Open them, things might look OK, but they aren't. The .strings files are in a special format called UTF-8, and need to be opened, edited, and saved in that format or bad things happen (such as losing diacritical marks or changing characters into different characters!)
 
 To open one of the .strings files in `TextEdit`:
