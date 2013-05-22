@@ -3,6 +3,15 @@
 
 *This  document describes how to create a deployed version of Tunnelblick and was last modified 2010-02-23.* It reflects the behavior of Tunnelblick built from the r412 source code.
 
+*<font color="red">Tunnelblick versions 3.3beta22 and higher CANNOT BE CREATED THIS WAY AND DO NOT BEHAVE LIKE EARLIER VERSIONS!</font>*
+
+Until this page is updated, please note that:
+ * Only [cRebranding "rebranded"] versions of Tunnelblick can be Deployed.
+ * All Deployed versions must contain all configurations. The Deploy folder is not restored from a backup if a "plain" (i.e. non-Deploy) copy is installed over, or updates, a Deployed version.
+ * Each configuration in /Deploy must be a Tunnelblick VPN Configuration (".tblk"), and must be structured as described in the [cPkgs#Format Format] section of the [cPkgs ".tblk" Details] page.
+
+---------------------------
+
 <wiki:toc max_depth="2" />
 
 ==What is a Deployed Version?==
