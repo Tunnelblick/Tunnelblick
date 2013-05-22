@@ -23,6 +23,8 @@ Finally, create a .zip of the "YOURNAME" folder by control-clicking the "RiseupY
 
 That "YOURNAME.zip" file is what users should download.
 
+(Or you can create a .dmg that contains the contents of the "YOURNAME" folder. That's more complicated and not explained here.)
+
 --------------------
 
 USER INSTRUCTIONS
