@@ -1,0 +1,62 @@
+#summary Tunnelblick VPN Configurations Details
+#sidebar cSb
+
+==Rebranding Tunnelblick==
+After Tunnelblick 3.3beta21, "Deployed" versions of Tunnelblick must be "rebranded" with a different name. This is done to make sure that different versions of Tunnelblick on one computer do not interfere with each other.
+
+There is an alternate method of distributing Tunnelblick with configurations that will be installed automatically when Tunnelblick itself is installed. The alternate does not require rebranding and uses a standard, digitally-signed Tunnelblick.app, however, it cannot update configurations the way that a "Deployed" version can. See [cAutoInstall Auto-Install Configurations].
+
+Creating a Deployed Tunnelblick without rebranding (by removing the source code that checks for rebranding) can cause unpredictable behavior, may be less secure, can lead to problems with updating, and can interfere with other installations of Tunnelblick on the same computer. Please don't do it!
+
+To rebrand Tunnelblick you need to be able to build Tunnelblick from the source (see [cBuild Building from Source]). That requires Xcode 3.2.2 running on OS X 10.6.8. Here are step-by-step instructions for rebranding:
+
+First, make sure there are NO SPACES in the path to the source.
+
+Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
+
+ Project | Rename<br>
+ (wait for it to fill in the big white box)
+
+ Rename project to: NEWPROJECTNAME<br>
+ Click "OK"
+
+ (wait for it to finish)<br>
+ Click "OK"
+
+ Close the window; Xcode will say it failed to save NEWPROJECTNAME.xcodeproj.<br>
+ Click "Close"
+
+ An alert window will pop up.<br>
+ Click "Save"
+
+ Quit Xcode (it is important to quit the PROGRAM completely, not just close all the windows)
+
+Remove ....../tunnelblick/build/Tunnelblick.build
+
+
+Double-click NEWPROJECTNAME.xcodeproj
+
+ In left pane, collapse and highlight Classes, Other Sources, and Resources
+
+ Edit | Find | Find in Project (opens "Project Find" window)
+
+ Find:    Tunnelblick<br>
+ Replace: NEWPROJECTNAME<br>
+ In Selected Project Items<br>
+ Textual<br>
+ Contains<br>
+ Un-check Ignore case<br>
+ Click "Find"
+
+ (wait, it should get 6107 occurrences (for build 3297))<br>
+ Click "Replace"
+
+ Do you really want to replace 6107 (of 6107)…<br>
+ Click "Replace"
+
+ (wait for it to finish)<br>
+ Quit Xcode, saving all changes (it is important to quit the PROGRAM completely, not just close all the  windows).
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
