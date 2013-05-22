@@ -12,6 +12,12 @@ To rebrand Tunnelblick you need to be able to build Tunnelblick from the source 
 
 First, make sure there are NO SPACES in the path to the source.
 
+Next, edit Info.plist:
+ * Change CFBundleIdentifier to something that doesn't include "net.tunnelblick" -- something like "com.YOUR_COMPANY_NAME.NEWPROJECTNAME.deployed-application"
+ * Change SUFeedURL to something that doesn't include "tunnelblick.net". It should be the URL for an "appcast.rss" used by the Sparkle updater module of Tunnelblick to check for available updates. See the [http://sparkle.andymatuschak.org Sparkle] documentation for details on the contents of "appacast.rss". (If you override this setting with a forced-preference for "updateURL", that URL cannot contain "tunnelblick.net" either.)
+
+Finally, edit the source code as follows:
+
 Start Xcode 3.2.2 on Snow Leopard by double-clicking Tunnelblick.xcodeproj
 
  Project | Rename<br>
