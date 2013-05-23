@@ -13,17 +13,16 @@
 *Installation, Setup, and Usage*
     [cInstall Installing Tunnelblick]<br>
     [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
-    [UsingTunnelblick Using Tunnelblick 3.0]<br>
-    [wUsing Using Tunnelblick 3.1]<br>
     [zUsing Using Tunnelblick 3.2]<br>
     [cConfigT Setting up Tunnelblick]<br>
     [cConfigO Configuring OpenVPN]<br>
-    [cServer Tunnelblick as a VPN Server]<br>
-    [cIpInfo IP Address Changes]<br><br>
+    [cIpInfo IP Address Changes]<br>
+    [cServer Tunnelblick as a VPN Server]<br><br>
 *Troubleshooting*
     [cKnown Known Issues]<br>
     [cCommonProblems Common Problems]<br>
     [cConnectedBut Connects OK, But...]<br>
+    [cIpInfo IP Address Changes]<br>
     [cMountainLionDnsIssue Mountain Lion Issues]<br>
     [cOpenVPNLog The Tunnelblick Log]<br>
     [cConsoleLog The Console Log]<br>
@@ -58,7 +57,9 @@
     [RlsNotes Release notes]<br>
     [cAppleScriptSupport AppleScript Support]<br>
     [cGettingVPNService Getting VPN Service]<br>
-    [cSysReq System requirements]<br>
+    [wUsing Using Tunnelblick 3.1]<br>
+   [UsingTunnelblick Using Tunnelblick 3.0]<br>
+     [cSysReq System requirements]<br>
     [z33Prefs Preferences 3.3]<br>
     [zPrefs Preferences 3.2]<br>
     [wPrefs Preferences 3.1]<br>
