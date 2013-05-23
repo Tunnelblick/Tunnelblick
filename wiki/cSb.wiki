@@ -13,12 +13,13 @@
 *Installation, Setup, and Usage*
     [cInstall Installing Tunnelblick]<br>
     [cInstall#Uninstalling_Tunnelblick Uninstalling Tunnelblick]<br>
+    [UsingTunnelblick Using Tunnelblick 3.0]<br>
     [wUsing Using Tunnelblick 3.1]<br>
     [zUsing Using Tunnelblick 3.2]<br>
     [cConfigT Setting up Tunnelblick]<br>
     [cConfigO Configuring OpenVPN]<br>
-    [cServer Tunnelblick as a VPN Server]<br><br>
-    [UsingTunnelblick Installing and Using Tunnelblick 3.0]<br>
+    [cServer Tunnelblick as a VPN Server]<br>
+    [cIpInfo IP Address Changes]<br><br>
 *Troubleshooting*
     [cKnown Known Issues]<br>
     [cCommonProblems Common Problems]<br>
