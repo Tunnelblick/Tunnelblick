@@ -14,32 +14,50 @@ This document provides some notes about specific strings that are being translat
 
 <hr>
 
+<font color="red>
+*" and install %ld configurations" Window text*<br />
+*"Do you wish to install %ld configurations" Window text*<br />
+*"Do you wish to uninstall %ld configurations" Window text*<br />
+*"Do you wish to uninstall one configuration" Window text*
+
+These strings are used to construct a question; none of them have a "?" because the "?" is added at the end of the dialog box outside of the translated strings. There are languages in which this is a problem, so for the final round of translations for Tunnelblick 3.3, *these strings will be removed and a new string or strings will be added which provide the complete question in a single string or deal with the problem in some other way*.
+</font>
+
+<hr>
+
+This document has comments about some sets of strings with common characteristics and some strings that appear more than one time within other strings, followed by comments on full strings in alphabetical order.
+<hr>
+
 There is a series of "Window text" strings: *"B"*, *"KB"*, *"MB"*, *"GB"*, *"TB"*, *"PB"*, *"EB"*, and *"ZB"*. These are abbreviations for bytes, kilobytes, megabytes, gigabytes, terrabytes, petabytes, exabytes, and zetabytes, respectively. If they are not translated for your language you should prefix the <font color="green">/`*` Window text `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment for each such string --like the following:
 
- <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`//`*` Window text `*`/</font>
-
+ <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`//`*` Window text `*`/</font><br>
  <font color="red">"GB"</font> = <font color="red">"GB"</font>;
 
 There is a similar series of strings: *"B/s"*, *"KB/s"*, *"MB/s"*, etc., which refer to byes per second, kilobytes per second, megabytes per second, etc. They should be treated similarly, but they probably are translated for most languages (because the abbreviation for second is different than the "s" used in English).
 
+Several strings refer to the "*apparent public IP address*". That is the address that the computer presents when it requests something on the Internet (its return address, if you will). When a computer asks for a web page, for example, it tells the web server to reply to a public IP address. I use the word "apparent" because it isn't the IP address of the computer itself (which may be on a LAN and have a private IP address such as 192.168.0.123), but it is the IP address of the computer as far as the outside world is concerned.
+
+Several strings refer to something as *"being forced."*. They refer to a setting that the user cannot change. "Deployed" versions of Tunnelblick can contain a "forced-preferences.plist" file that specifies the values of preferences that are usually chosen by the user. Any preference that appears in this file is "forced" to the value specified in the file, and the user is not allowed to change it.
+
 <hr>
 
-*Credentials group "Common"* is the name of a "credentials group" -- something new in Tunnelblick 3.3. A credentials group is a set of configurations that all share the same credentials (username and password). For example, most VPN service providers give a user one username and password, which works for all of the configurations (servers). If a user has not defined any credentials groups, there is one named "Common" that can be used. So "common" is used in the sense of having something "in common" or "shared".
+*" (?)" Window title* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…) You should prefix the <font color="green">/`*` Window title `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment if the "?" is appropriate in your language.
 
-<hr>
-
-*Button "Check for a change"* is in response to a dialog window with a long message that starts
+*"Check for a change" Button* is in response to a dialog window with a long message that starts
  "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't"
-so it is talking about a checking for a change in IP address.
+so it is talking about a checking for a change in IP address. (See "*apparent public IP address*" above.)
 
-*Button "Do not check for a change"* is referring to the same dialog window.
+*"Common" Credentials group* is the name of a "credentials group" -- something new in Tunnelblick 3.3. A credentials group is a set of configurations that all share the same credentials (username and password). For example, most VPN service providers give a user one username and password, which works for all of the configurations (servers). If a user has not defined any credentials groups, there is one named "Common" that can be used. So "common" is used in the sense of having something "in common" or "shared".
 
-<hr>
+*"Do not check for a change" Button* refers to the same dialog window as *"Check for a change"* (above).
 
-*Window title " (?)"* is used only if an internal error in Tunnelblick has made a string unavailable. (The user should never see it, but you never know…) You should prefix the <font color="green">/`*` Window title `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment if the "?" is appropriate in your language.
+*"(None available)" Button* will appear in the drop-down box to the right of "Icons:" in the Appearance tab. It indicates that there are no icon sets to choose from. This should never happen unless someone is creating a customized version of Tunnelblick or something has gone horribly wrong in the program. (We have to put something there.)
 
-<hr>
+*"Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." Window text* is displayed when a user tries to set a configuration to start when the computer starts, but the configuration is not a "Tunnelblick VPN Configuration" (.tblk). This should never happen in Tunnelblick 3.3 because all configurations must be .tblks, but if a non-.tblk configuration is somehow being shown (because of a bug), this message would appear.
 
-The "*apparent public IP address*" is the address that the computer presents when it requests something on the Internet (its return address, if you will). When a computer asks for a web page, for example, it tells the web server to reply to a public IP address. I use the word "apparent" because it isn't the IP address of the computer itself (which may be on a LAN and have a private IP address such as 192.168.0.123), but it is the IP address of the computer as far as the outside world is concerned.
+*"Prepend domain name to search domains" Checkbox name* is the description for a checkbox. If checked, it means that the domain name (DNS name) of the computer will be prepended -- put a the front of -- the list of search domains. "Search Domains" is the label on the bottom row on the right of the Network System Preference (in English), underneath "DNS Server:".
+
+*"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded <font color="grey">[ rest of string omitted]</font>" Window text* -- here "rebranded" means renamed, with all references to the name "Tunnelblick" replaced by something else.
+
 ------------------
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
