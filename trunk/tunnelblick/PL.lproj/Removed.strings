@@ -141,3 +141,33 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Window text */
+" and install %ld configurations" = " i zainstalować konfiguracje %ld";
+
+/* Window text */
+" and install one configuration" = " i zainstaluj pojedyńczą konfigurację";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Czy chcesz zainstalować %ld konfiguracje";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Czy chcesz odinstalować %ld konfiguracje";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Czy chcesz odinstalować pojedynczą konfigurację";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Napotkano problem z %ld konfiguracjami. Szczegóły dostępne są w logu konsoli\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Wystąpił problem z jedną konfiguracją. Sprawdź szczegóły w dzienniku konsoli\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Wystąpił problem z jedną bądź wieloma konfiguracjami. Szczegóły są dostępne w dzienniku konsoli\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick musi zainstalować i/lub usunąć jedną bądź więcej konfiguracji Tunnelblick VPN.";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Wykryto konfiguracje w formacie OpenVPN, obsługa których nie jest wspierana przez tą wersję Tunnelblick'a. Aby kontynuować:\n\n     • Pozwól Tunnelblick'owi skonwertować te konfiguracje do formatu 'Połączenie VPN Tunnelblick'a' (.tblk); lub\n     • Zakończ program i zainstaluje inną wersję Tunnelblick'a; lub\n     • Zingoruj tą wiadomość i kontynuuj pomijając konwersję.\n\n";
+
