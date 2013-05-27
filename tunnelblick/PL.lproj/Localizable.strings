@@ -677,6 +677,12 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Konwertuj konfiguracje OpenVPN\n";
 
+/* NEEDS TRANSLATION *//* Window text */
+"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Zainstaluj lub zmodyfukuj konfiguracje/ę \n";
 
@@ -685,6 +691,12 @@
 
 /* Window text */
 "  • Secure configurations\n" = "  • Zapezpieczone konfiguracje\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Konfiguracje mogą być usunięte jedynie przez administratora.\n\n Usunięcie jest natychmiastowe i trwałe. Wszystkie ustawienia dla '%1$@' również zostaną trwale usunięte.%2$@%3$@";
@@ -711,19 +723,13 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " UWAGA: Ta kopia Tunnelblicka została poddana nieautoryzowanym zmianon.\n\n";
 
 /* Window text */
-" and install %ld configurations" = " i zainstalować konfiguracje %ld";
-
-/* Window text */
-" and install one configuration" = " i zainstaluj pojedyńczą konfigurację";
-
-/* Window text */
 "%@ exists but is not a folder" = "%@ istnieje ale nie jest katalogiem";
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ zostało przywrócone do swojej ostatniej bezpiecznej (ukrytej) kopii.\n\n";
 
 /* Window text */
-"%@is already identical to its last secured (shadow) copy.\n\n" = "%@jest identyczne ze swoją ostatnią bezpieczną (ukrytą) kopią.\n\n";
+"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ jest identyczne ze swoją ostatnią bezpieczną (ukrytą) kopią.\n\n";
 
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d konfiguracje/i VPN Tunnelblick zostały/o pomyślnie zainstalowane.";
@@ -794,6 +800,9 @@
 /* Window text */
 "Anonymous unique ID" = "Anonimowy identyfikator";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Jesteś pewien, że chcesz usunąć dane logowania (prywatny klucz lub nazwę użytkownika i hasło) dla '%@', które są przechowywane w programie Keychain?";
 
@@ -861,9 +870,6 @@
 "Do you wish to delete the %@ credentials?" = "Czy chcesz usunąć następujące dane logowania : %@?";
 
 /* Window text */
-"Do you wish to install %ld configurations" = "Czy chcesz zainstalować %ld konfiguracje";
-
-/* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Czy chcesz zainstalować konfigurację '%@', która będzie dostępna tylko dla ciebie, czy dla wszystkich użytkowników?\n\n";
 
 /* Window text */
@@ -876,13 +882,7 @@
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Czy chcesz przywrócić konfigurację '%@' do jej ostaniej bezpiecznej (ukrytej) kopii?\n\n";
 
 /* Window text */
-"Do you wish to uninstall %ld configurations" = "Czy chcesz odinstalować %ld konfiguracje";
-
-/* Window text */
 "Do you wish to uninstall '%@'%@ version %@?" = "Czy chcesz odinstalować '%@'%@ wersja %@ ";
-
-/* Window text */
-"Do you wish to uninstall one configuration" = "Czy chcesz odinstalować pojedynczą konfigurację";
 
 /* Window text */
 "Domain:" = "Domena:";
@@ -1134,14 +1134,8 @@
 /* Window text */
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" =  "Występują dwa typy plików konfiguracyjnych:\n\n     • Konfiguracja Tunnelblick VPN (rozszerzenie .tblk)\n\n     • Konfuguracja OpenVPN (rozszerzenie .ovpn lub .conf)\n\nKtóry rodzaj konfiguracji posiadasz?\n\n";
 
-/* Window text */
-"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Napotkano problem z %ld konfiguracjami. Szczegóły dostępne są w logu konsoli\n\n";
-
-/* Window text */
-"There was a problem with one configuration. Details are in the Console Log\n\n" = "Wystąpił problem z jedną konfiguracją. Sprawdź szczegóły w dzienniku konsoli\n\n";
-
-/* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Wystąpił problem z jedną bądź wieloma konfiguracjami. Szczegóły są dostępne w dzienniku konsoli\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Ta spersonalizowana wersja Tunnelblick'a nie może zostać uruchomiona lub zainstalowana, ponieważ nie została przebrandowana lub updateFeedURL lub SUFeedURL nie są zdefiniowane, lub zawierają wartość 'tunnelblick.net', lub CFBundleIdentifier nie jest zdefiniowany lub zawiera 'net.tunnelblick'.\n\n";
@@ -1222,13 +1216,13 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick musi stworzyć lub uaktualnić zabezpieczone (ukryte) kopie plików konfiguracji.";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick musi zainstalować i/lub usunąć jedną bądź więcej konfiguracji Tunnelblick VPN.";
-
-/* Window text */
 "Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick musi zainstalować jedną bądź więcej konfiguracji Tunnelblick VPN.";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick musi:\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
 
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick wymaga OSX 10.4 lub nowszego\n     (\"Tiger\", \"Leopard\", lub \"Snow Leopard\")";
@@ -1303,6 +1297,9 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Nie można zmienić nazwy konfiguracji, jeśli jest ona w użyciu.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+
 /* Window text */
 "You have asked to duplicate '%@'." = "Zażądano powielenia '%@'.";
 
@@ -1315,8 +1312,8 @@
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "Zażądano zmiany nazwy z '%@' na '%@'.";
 
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Wykryto konfiguracje w formacie OpenVPN, obsługa których nie jest wspierana przez tą wersję Tunnelblick'a. Aby kontynuować:\n\n     • Pozwól Tunnelblick'owi skonwertować te konfiguracje do formatu 'Połączenie VPN Tunnelblick'a' (.tblk); lub\n     • Zakończ program i zainstaluje inną wersję Tunnelblick'a; lub\n     • Zingoruj tą wiadomość i kontynuuj pomijając konwersję.\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Próbujesz użyć pliku przykładowej konfiguracji , który jest taki sam jak plik konfiguracji przykładowej zainstalowany przez Tunnelblick. Plik konfiguracyjny musi zostać zmodyfikowany, aby mógł się połączyć z VPN. Aby połączyć się z VPN być może będą potrzebne inne pliki, takie jak pliki certyfikatów i kluczy.\n\nSkonsultuj się ze swoim administratorem sieci lub dostawcą usługi VPN, aby otrzymać konfigurację wraz z innymi plikami lub informację na temat koniecznej modyfikacji przykładowego pliku .\n\nDokumentacja OpenVPN jest dostępna pod adresem\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
