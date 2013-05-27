@@ -886,19 +886,19 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (  [deleteList count] == 1  ) {
         needsToText = [needsToText stringByAppendingString:
-                       NSLocalizedString(@"     • Uninstall one configuration\n\n", @"Window text")];
+                       NSLocalizedString(@"  • Uninstall one configuration\n\n", @"Window text")];
     } else if (  [deleteList count] > 1  ) {
         needsToText = [needsToText stringByAppendingFormat:
-                       NSLocalizedString(@"     • Uninstall %ld configurations\n\n", @"Window text"),
+                       NSLocalizedString(@"  • Uninstall %ld configurations\n\n", @"Window text"),
                        (unsigned long) [deleteList count]];
     }
     
     if (  [sourceList count] == 1  ) {
         needsToText = [needsToText stringByAppendingString:
-                       NSLocalizedString(@"     • Install one configuration\n\n", @"Window text")];
+                       NSLocalizedString(@"  • Install one configuration\n\n", @"Window text")];
     } else if (  [sourceList count] > 0  ) {
         needsToText = [needsToText stringByAppendingFormat:
-                       NSLocalizedString(@"     • Install %ld configurations\n\n", @"Window text"),
+                       NSLocalizedString(@"  • Install %ld configurations\n\n", @"Window text"),
                        (unsigned long) [sourceList count]];
     }
     
