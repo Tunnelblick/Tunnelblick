@@ -1439,7 +1439,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 	if ( [connection shadowIsIdenticalMakeItSo: NO]  ) {
 		TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
 						[NSString stringWithFormat:
-						 NSLocalizedString(@"%@is already identical to its last secured (shadow) copy.\n\n", @"Window text"),
+						 NSLocalizedString(@"%@ is already identical to its last secured (shadow) copy.\n\n", @"Window text"),
 						 [connection displayName]],
 						nil, nil, nil);
         return;
