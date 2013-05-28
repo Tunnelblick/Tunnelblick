@@ -158,6 +158,7 @@
 		B8045A01161EF15300609C98 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
 		B8045A09161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		B8045A0A161EF26700609C98 /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
+		B8051F521754DA630024841C /* SK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B8051F4C1754DA630024841C /* SK.lproj */; };
 		B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
 		B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
 		B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B5DBC15F2430900EDCF95 /* WelcomeController.m */; };
@@ -442,6 +443,7 @@
 		8D1107320486CEB800E47090 /* Tunnelblick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tunnelblick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8045A07161EF26700609C98 /* sharedRoutines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharedRoutines.h; sourceTree = "<group>"; };
 		B8045A08161EF26700609C98 /* sharedRoutines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharedRoutines.m; sourceTree = "<group>"; };
+		B8051F4C1754DA630024841C /* SK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SK.lproj; sourceTree = "<group>"; };
 		B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationToken.h; sourceTree = "<group>"; };
 		B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationToken.m; sourceTree = "<group>"; };
 		B85B5DBB15F2430900EDCF95 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				63AE8596116CCF7A00D36CB1 /* PL.lproj */,
 				63B5EFD913693F0A006BC27B /* PT.lproj */,
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
+				B8051F4C1754DA630024841C /* SK.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
@@ -1264,6 +1267,7 @@
 				63F0A8B31507D24800526AF9 /* MainIcon.xib in Resources */,
 				B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */,
 				B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */,
+				B8051F521754DA630024841C /* SK.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
