@@ -130,3 +130,36 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Window text */
+" and install one configuration" = " e instala una configuracion";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Desea desinstalar una configuración";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "THubo un problema con una configuracion. Detalles en el Registro de Consola\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Hubo un problema con una o más configuraciones. Detalles en el Registro de Consola\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick necesita instalar y/o desinstalar una o más Configuraciones VPN de Tunnelblick.";
+
+/* Window text */
+" and install %ld configurations" = " e instalar %ld configuracion(es)";
+
+/* Window text */
+"%@is already identical to its last secured (shadow) copy.\n\n" = "%@ ya es idéntico a su última copia de seguridad.\n\n";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Quiere instalar %ld configuraciones";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Quiere desinstalar %ld configuraciones";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Hubo un problema con %ld configuraciones. Para más detalles ver los Logs de Consola\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Tienes una o más configuraciones de OpenVPN que no etarán disponibles usando esta versión de Tunnelblick. Puedes:\n\n     • Dejar que Tunnelblick convierta estas configuraciones a Confiburaciones de VPN de Tunnelblick; o\n     • Cerrar e instalar otra versión de Tunnelblick; o\n     • Ignorar esto y continuar sin convertir.\n\n";
+
