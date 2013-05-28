@@ -673,11 +673,11 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • OpenVPN-Konfigurationen konvertieren\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • Installiere %ld Konfigurationen\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+/* Window text */
+"  • Install one configuration\n\n" = "  • Installiere eine Konfiguration\n\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Konfiguration(en) installieren oder aktualisieren\n";
@@ -688,11 +688,11 @@
 /* Window text */
 "  • Secure configurations\n" = "  • Tunnelblick-VPN-Konfigurationen absichern\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Deinstalliere%ld Konfigurationen\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • Deinstalliere eine Konfiguration\n\n";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Konfigurationen können nur durch einen Administrator gelöscht werden.\n\n Das Löschen erfolgt sofort und ist nicht rückgängig zu machen. Zusätzlich werden dadurch alle Einstellungen für '%1$@' permanent gelöscht.%2$@%3$@";
@@ -796,8 +796,8 @@
 /* Window text */
 "Anonymous unique ID" = "Anonyme eindeutige ID";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Sind Sie sicher, dass Sie OpenVPN Konfigurationen nicht zu Tunnelblick VPN Konfigurationen konvertieren möchten?\n\nKONFIGURATIONEN WERDEN NICHT VERFÜGBAR SEIN, WENN SIE SIE NICHT KONVERTIEREN!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Sind Sie sicher, dass Sie die Zugangsdaten (privater Schlüssel oder Benutzername und Kennwort) für '%@' aus dem Schlüsselbund löschen möchten?";
@@ -883,25 +883,25 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Domain:" = "Domain:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "EB" = "EB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "EB/s" = "EB/s";
 
 /* Window text */
 "Fast User Switching" = "Schneller Benutzerwechsel";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB" = "GB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB/s" = "GB/s";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Icon:" = "Icon:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "In:" = "In:";
 
 /* Window text */
@@ -919,10 +919,10 @@
 /* Window text */
 "Installing and securing Tunnelblick..." = "Installation und Absicherung von Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "KB" = "KB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "KB/s" = "KB/s";
 
 /* Window text */
@@ -931,10 +931,10 @@
 /* Window text */
 "Last checked: %@" = "Zuletzt geprüft: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB" = "MB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB/s" = "MB/s";
 
 /* Window text */
@@ -1000,13 +1000,13 @@
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "OpenVPN version:" = "OpenVPN Version:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Out:" = "Out:";
+/* Window text */
+"Out:" = "Ausgehend:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB" = "PB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB/s" = "PB/s";
 
 /* Window text */
@@ -1129,8 +1129,8 @@
 /* Window text */
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Es gibt zwei Arten von Konfigurationsdateien:\n\n     • Tunnelblick-VPN-Konfigurationen (Suffix „.tblk“)\n\n     • OpenVPN-Konfigurationen (Suffix „.ovpn“ or „.conf“)\n\nWelche Art von Datei haben Sie?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Es gab ein Problem mit einer oder mehreren Konfigurationen. Details finden Sie in der Konsole.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Diese 'Ausgelieferte' Version von Tunnelblick kann nicht gestartet oder installiert werden, da sie nicht rebranded wurde, oder updateFeedURL oder SUFeedURL fehlen oder beinhalten 'tunnelblick.net', oder CFBundleIdentifier fehlt oder beinhaltet 'net.tunnelblick'.\n\n";
@@ -1216,8 +1216,8 @@
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick muss:\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick muss:\n\n";
 
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick setzt OS X 10.4 oder höher voraus\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
@@ -1291,8 +1291,8 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Sie können eine Konfiguration nicht umbenennen, solange die Verbindung nicht getrennt wurde.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sie haben OpenVPN Konfigurationen, aber Sie haben keine Tunnelblick VPN Konfigurationen.\n\nSie müssen die OpenVPN Konfigurationen in Tunnelblick VPN Konfigurationen konvertieren, wenn Sie sie nutzen möchten.\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Sie wollten '%@' duplizieren.";
@@ -1307,8 +1307,8 @@
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "Sie möchten '%1$@' in '%2$@' umbenennen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sie haben eine oder mehrere OpenVPN Konfigurationen, die nicht verfügbar sein werden, wenn Sie diese Version von Tunnelblick nutzen. Sie können:\n\n     • Tunnelblick diese OpenVPN Konfigurationen zu Tunnelblick VPN Konfigurationen konvertieren lassen; oder\n     • Beenden und eine andere Version von Tunnelblick installieren; oder\n     • Diese Meldung ignorieren und ohne Konvertierung fortfahren.\n\nWenn Sie 'Diese Meldung ignorieren' wählen, werden die Konfigurationen nicht verfügbar sein!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Sie versuchen, die von Tunnelblick erzeugte Beispielkonfiguration zu installieren. Sie müssen die Konfiguration zuerst anpassen und Zertifikats- und Schlüsseldateien hinzufügen, bevor die VPN-Verbindung hergestellt werden kann.\n\nIhr Netzwerkadministrator oder VPN-Anbieter, um die notwendigen Information und Dateien zu erhalten.\n\nDie OpenVPN-Documentation finden Sie unter\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -1564,4 +1564,3 @@
 
 /* Window text VPNService */
 "Your account status could not be verified:\n     %@." = "Ihr Accountstatus konnte nicht verifiziert werden:\n     %@.";
-
