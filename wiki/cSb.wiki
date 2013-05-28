@@ -58,8 +58,8 @@
     [cAppleScriptSupport AppleScript Support]<br>
     [cGettingVPNService Getting VPN Service]<br>
     [wUsing Using Tunnelblick 3.1]<br>
-   [UsingTunnelblick Using Tunnelblick 3.0]<br>
-     [cSysReq System requirements]<br>
+    [UsingTunnelblick Using Tunnelblick 3.0]<br>
+    [cSysReq System requirements]<br>
     [z33Prefs Preferences 3.3]<br>
     [zPrefs Preferences 3.2]<br>
     [wPrefs Preferences 3.1]<br>
