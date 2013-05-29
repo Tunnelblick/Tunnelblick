@@ -774,6 +774,9 @@
 "Add Credentials..." = "Dodaj dane logownaia…";
 
 /* Window text */
+"Additional contributions by" = "przy współudziale następujących osób";
+
+/* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Po %1$.1f sekundach, nie udało się pobrać adresu IP.\n\nTunnelblick nie sprawdzi zmiany adresu tego komputera w chwili nawiązania połączenia %2$@.\n\n";
 
 /* Window text */
@@ -934,6 +937,9 @@
 
 /* Window text */
 "Last checked: %@" = "Ostatnio sprawdzane: %@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Localization by" = "Localization by";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB" = "MB";
@@ -1210,6 +1216,9 @@
 "Tunnelblick is based on %@. " = "Tunnelblick opiera się na %@. ";
 
 /* Window text */
+"Tunnelblick is brought to you by" = "Tunnelblick istnieje dzięki";
+
+/* Window text */
 "Tunnelblick is ready." = "Tunnelblick jest gotowy.";
 
 /* Window text */
@@ -1396,17 +1405,128 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d dni %2$d:%3$02d:%4$02d";
 
+/* Credit description */
+"64-bit enabling and testing" = "implementacja i testowanie wersji 64-bitowej";
+
+/* Credit description */
+"Animation and icon sets code" = "animacja, kod implementacji zestawów ikon";
+
+/* Credit description */
+"Button images" = "projekt przycisków (buttons)";
+
+/* Credit description */
+"Catalan localization" = "katalońska wersja językowa";
+
+/* Credit description */
+"Chinese (simplified) localization" = "chiński (uproszczony) wersja językowa";
+
+/* Credit description */
+"Chinese (traditional) localization" = "chińska wersja językowa";
+
 /* Credentials name */
 "Common" = "Wspólne";
 
 /* Speak string */
 "Connected to %@" = "Połączono z %@";
 
+/* Credit description */
+"Contributed much to the early code" = "współudział w tworzeniu wcześniejszej wersji kodu";
+
+/* Credit description */
+"Contributed to early code" = "współudział w tworzeniu wcześniejszej wersji kodu";
+
+/* Credit description */
+"Czech localization" = "czeski wersja językowa";
+
 /* Speak string */
 "Disconnected from %@" = "Rozłączono z %@";
 
 /* Checkbox */
 "Do not show this again" = "Nie pokazuj tej informacji ponownie";
+
+/* Credit description */
+"Dutch localization" = "duńska wersja językowa";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Finnish localization" = "Finnish localization";
+
+/* Credit description */
+"Founder, original program and documentation" = "twórca programu i dokumentacji";
+
+/* Credit description */
+"French localization" = "francuska wersja językowa";
+
+/* Credit description */
+"German localization" = "niemiecka wersja językowa";
+
+/* Credit description */
+"Hungarian localization" = "węgierskiej wersji językowej";
+
+/* Credit description */
+"Italian localization" = "włoska wersja językowa";
+
+/* Credit description */
+"Japanese localization" = "japoński wersja językowa";
+
+/* Credit description */
+"Korean localization" = "koreańska wersja językowa";
+
+/* NEEDS TRANSLATION *//* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+
+/* NEEDS TRANSLATION *//* Names of lead translators */
+"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Localization code tweaks" = "Localization code tweaks";
+
+/* Credit description */
+"Multiple configuration folders" = "możliwość używania wielu katalogów konfiguracji";
+
+/* Credit description */
+"Norwegian localization" = "norweska wersja językowa";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"PKCS#11 support" = "PKCS#11 support";
+
+/* Credit description */
+"Polish localization" = "polska wersja językowa";
+
+/* Credit description */
+"Portuguese localization" = "portugalska wersja językowa";
+
+/* Credit description */
+"Program and documentation enhancements and maintenance after version 3.0b10" = "ulepszenia w programie i dokumentacji po wersji 3.0b10";
+
+/* Credit description */
+"Russian localization" = "rosyjska wersja językowa";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Slovak localization" = "Slovak localization";
+
+/* Credit description */
+"Spanish localization" = "hiszpańska wersja językowa";
+
+/* Credit description */
+"Swedish localization" = "szwedzka wersja językowa";
+
+/* Credit description */
+"Tunnelblick icon" = "ikona Tunnelblick";
+
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue i UKLoginItemRegistry";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Ukrainian localization" = "Ukrainian localization";
+
+/* Credit description */
+"Up and Down scripts" = "skrypty połączenia/rozłączenia dla VPN";
+
+/* Credit description */
+"Xcode help and OpenSSL integration" = "pomoc przy Xcode i integracji OpenSSL";
 
 /* Button VPNService */
 "Accept" = "Zaakceptuj";
