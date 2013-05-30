@@ -74,15 +74,6 @@ extern NSString      * gPrivatePath;
 	}
 }
 
--(void) skipToNextLine {
-    NSRange r = [configString rangeOfString: @"\n" options: 0 range: NSMakeRange(inputIx, [configString length] - inputIx)];
-    if (  r.location == NSNotFound  ) {
-        inputIx = [configString length];    // point past end of string
-    } else {
-        inputIx = r.location + 1;  // point past newline character
-    }
-}
-
 -(NSRange) nextTokenInLine {
     BOOL inSingleQuote = FALSE;
     BOOL inDoubleQuote = FALSE;
@@ -404,6 +395,28 @@ extern NSString      * gPrivatePath;
 												@"tls-auth",                      // Optional 'direction' argument after 'file' argument
 												nil];
     
+    NSArray * beginInlineKeys = [NSArray arrayWithObjects:
+                                 @"<ca>",
+                                 @"<cert>",
+                                 @"<dh>",
+                                 @"<extra-certs>",
+                                 @"<key>",
+                                 @"<pkcs12>",
+                                 @"<secret>",
+                                 @"<tls-auth>",
+                                 nil];
+    
+    NSArray * endInlineKeys = [NSArray arrayWithObjects:
+                               @"</ca>",
+                               @"</cert>",
+                               @"</dh>",
+                               @"</extra-certs>",
+                               @"</key>",
+                               @"</pkcs12>",
+                               @"</secret>",
+                               @"</tls-auth>",
+                               nil];
+    
     inputIx         = 0;
     inputLineNumber = 0;
     
@@ -489,6 +502,34 @@ extern NSString      * gPrivatePath;
                         [self logMessage: [NSString stringWithFormat: @"Expected command not found for '%@'", firstToken]];
                         return FALSE;
                     }
+                }
+            } else if (  [beginInlineKeys containsObject: [firstToken stringValue]]  ) {
+                NSString * startTokenStringValue = [firstToken stringValue];
+                BOOL foundEnd = FALSE;
+                ConfigurationToken * token;
+                while (  tokenIx < [tokens count]  ) {
+                    token = [tokens objectAtIndex: tokenIx++];
+                    if (  [token isLinefeed]  ) {
+                        if (  tokenIx < [tokens count]  ) {
+                            token = [tokens objectAtIndex: tokenIx++];
+                            if (  [endInlineKeys containsObject: [token stringValue]] ) {
+                                foundEnd = TRUE;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (  ! foundEnd ) {
+                    [self logMessage: [NSString stringWithFormat: @"%@ was not terminated", startTokenStringValue]];
+                    return FALSE;
+                }
+            }
+            
+            // Skip to end of line
+            while (  tokenIx < [tokens count]  ) {
+                if (  [[tokens objectAtIndex: tokenIx++] isLinefeed]  ) {
+                    break;
                 }
             }
 		}
