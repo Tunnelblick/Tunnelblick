@@ -254,6 +254,7 @@ EOF
     if [ "${PINTERFACE}" != "" ] ; then
         logMessage "Resetting primary interface '${PINTERFACE}'..."
         /sbin/ifconfig "${PINTERFACE}" down
+        sleep 2
         /sbin/ifconfig "${PINTERFACE}" up
     else
         logMessage "Not resetting primary interface because it cannot be found."
