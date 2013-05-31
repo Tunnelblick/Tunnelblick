@@ -1058,6 +1058,9 @@
 "TB/s" = "TB/s";
 
 /* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
+
+/* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
 
 /* Window text */
@@ -1211,7 +1214,7 @@
 "Tunnelblick is based on %@. " = "Tunnelblick is based on %@. ";
 
 /* Window text */
-"Tunnelblick is brought to you by" = "Tunnelblick is brought to you by";
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick is ready.";

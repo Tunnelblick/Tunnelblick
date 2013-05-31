@@ -50,9 +50,49 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
-- (void) substitute: (NSString *) new in: (NSMutableAttributedString *) s {
-    NSRange r = [[s string] rangeOfString: @"@@STRING@@"];
-    [s replaceCharactersInRange: r withString: new];
+- (void) substitute: (NSString *) newString
+                 in: (NSMutableAttributedString *) attrString {
+    NSRange range = [[attrString string] rangeOfString: @"@@STRING@@"];
+    [attrString replaceCharactersInRange: range withString: newString];
+}
+
+- (void) replaceString: (NSString *)                  oldString
+            withString: (NSString *)                  newString
+             urlString: (NSString *)                  urlString
+                    in: (NSMutableAttributedString *) target {
+    
+    // Create the new string with a link in it
+    NSMutableAttributedString* newAttrString = [[[NSMutableAttributedString alloc] initWithString: newString] autorelease];
+    
+    NSURL * aURL = [NSURL URLWithString: urlString];
+    if (  ! aURL  ) {
+        NSLog(@"Invalid URL '%@'", urlString);
+        return;
+    }
+    
+    NSRange range = NSMakeRange(0, [newAttrString length]);
+    
+    [newAttrString beginEditing];
+    
+    [newAttrString addAttribute: NSLinkAttributeName value: [aURL absoluteString] range: range];
+    
+    // make the text appear in blue
+    [newAttrString addAttribute: NSForegroundColorAttributeName value: [NSColor blueColor] range: range];
+    
+    // next make the text appear with an underline
+    [newAttrString addAttribute: NSUnderlineStyleAttributeName value: [NSNumber numberWithInt: NSSingleUnderlineStyle] range: range];
+    
+    [newAttrString endEditing];
+    
+    // Now substitute that string for the old string
+    range = [[target string] rangeOfString: oldString];
+    if (  range.length == 0  ) {
+        NSLog(@"Unable to find '%@' in '%@'", oldString, [target string]);
+        return;
+    }
+    
+    [target deleteCharactersInRange: range];
+    [target insertAttributedString: newAttrString atIndex: range.location];
 }
 
 -(void) awakeFromNib
@@ -83,36 +123,52 @@ extern TBUserDefaults * gTbDefaults;
         [[infoDescriptionTV textStorage] setAttributedString: description];
     } else {
         
-        //Otherwise, use Description.rtf as the basis for the license description, but deal with "branded" versions of Tunnelblick
-        NSString * descriptionPath = [[NSBundle mainBundle] pathForResource:@"Description" ofType:@"rtf"];
-        if (  descriptionPath  ) {
-            [infoDescriptionTV setEditable: NO];
-            [infoDescriptionSV setHasHorizontalScroller: NO];
-            [infoDescriptionSV setHasVerticalScroller:   NO];
-            
-            NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithPath:descriptionPath documentAttributes:nil] autorelease];
-            
-            // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
-            // And change XXX back to Tunnelblick
-            if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
-                if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
-                    NSString * prefix = [NSString stringWithFormat:
-                                         NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
-                                         @"Tunnel" @"blick"];
-                    
-                    NSMutableString * s = [descriptionString mutableString];
-                    [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
-                    [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
-                }
+        // Create HTML trailer and convert to an mutable attributed string
+        NSString * trailingHTML = @"<br /><center><a href= \"http://www.tunnelblick.net\">http://www.tunnelblick.net</a><br /></center>";
+        NSData * htmlData = [[[NSData alloc] initWithBytes: [trailingHTML UTF8String] length: [trailingHTML length]] autorelease];
+        NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
+
+        NSAttributedString * contents = [[[NSMutableAttributedString alloc] initWithString:
+                                         NSLocalizedString(@"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@.", @"Window text")] autorelease];
+        
+        // Insert the localized contents before the trailer
+        [descriptionString insertAttributedString: contents atIndex: 0];
+        
+        // Replace the placeholders in the localized content with links
+        [self replaceString: @"%1$@"
+                 withString: @"GNU General Public License version 2"
+                  urlString: @"https://www.gnu.org/licenses/gpl-2.0.html"
+                         in: descriptionString];
+        
+        [self replaceString: @"%2$@"
+                 withString: @"Free Software Foundation"
+                  urlString: @"https://fsf.org"
+                         in: descriptionString];
+        
+        [infoDescriptionTV setEditable: NO];
+        [infoDescriptionSV setHasHorizontalScroller: NO];
+        [infoDescriptionSV setHasVerticalScroller:   NO];
+        
+        // If Tunnelblick has been globally replaced with XXX, prefix the license description with "XXX is based on Tunnelblick. "
+        // And change XXX back to Tunnelblick
+        if (  ! [gTbDefaults boolForKey: @"doNotUnrebrandLicenseDescription"]  ) {
+            if (   ! [@"Tunnelblick" isEqualToString: @"Tunnel" @"blick"]  ) {
+                NSString * prefix = [NSString stringWithFormat:
+                                     NSLocalizedString(@"Tunnelblick is based on %@. ", @"Window text"),
+                                     @"Tunnel" @"blick"];
+                
+                NSMutableString * s = [descriptionString mutableString];
+                [s replaceOccurrencesOfString: @"Tunnelblick" withString: @"Tunnel" @"blick" options: 0 range: NSMakeRange(0, [s length])];
+                [descriptionString replaceCharactersInRange: NSMakeRange(0, 0) withString: prefix];
             }
-            
-            [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] ) 
-                                                withRTF:[descriptionString RTFFromRange:
-                                                         NSMakeRange( 0, [descriptionString length] ) 
-                                                                     documentAttributes:nil]];
         }
+        
+        [infoDescriptionTV replaceCharactersInRange:NSMakeRange( 0, [[infoDescriptionTV string] length] )
+                                            withRTF:[descriptionString RTFFromRange:
+                                                     NSMakeRange( 0, [descriptionString length] )
+                                                                 documentAttributes:nil]];
     }
-	
+
 	// Credits: create HTML, convert to an NSMutableAttributedString, substitute localized strings, and display
 	//
     // Credits data comes from the following arrays:
@@ -218,33 +274,38 @@ extern TBUserDefaults * gTbDefaults;
                             nil];
 	
     // Construct an HTML page with the dummy credits, consisting of a table.
-    NSString * htmlHead = (@"<table width=\"100%\"><tr><td colspan=\"2\"><strong><center>"
-                           @"@@STRING@@"  // Tunnelblick is brought to you by
+    NSString * htmlHead = (@"<table width=\"100%\">"
+						   @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+						   @"<tr><td colspan=\"2\"><strong><center>"
+                           @"@@STRING@@"  // "TUNNELBLICK is brought to you by"
                            @"</strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
 	
-    NSString * htmlMainTb = (@"<tr><td valign=\"top\"><strong>"
-                             @"@@STRING@@"
-                             @"</center></strong></td><td valign=\"top\">"
-                             @"@@STRING@@"
+    NSString * htmlMainTb = (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\"><strong>"
+                             @"@@STRING@@&nbsp;&nbsp;"  // Localization people
+                             @"</center></strong></td><td width=\"60%\" valign=\"top\">"
+                             @"@@STRING@@"				// <Language> localization
                              @"</td></tr>\n");
     	    
-    NSString * htmlAfterMain = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n<tr><td colspan=\"2\"><strong><center>"
-                                @"@@STRING@@"  // Additional contributions by
+    NSString * htmlAfterMain = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+								@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+								@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
+								@"<tr><td colspan=\"2\"><strong><center>"
+                                @"@@STRING@@"  // "Additional contributions by"
                                 @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
     
-    NSString * htmlPgmTb = (@"<tr><td valign=\"top\"><strong>"
-                            @"@@STRING@@"
-                            @"</strong></td><td valign=\"top\">"
+    NSString * htmlPgmTb = (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\"><strong>"
+                            @"@@STRING@@&nbsp;&nbsp;"
+                            @"</strong></td><td width=\"60%\" valign=\"top\">"
                             @"@@STRING@@"
                             @"</td></tr>\n");
     
     NSString * htmlAfterPgm = (@"<tr><td colspan=\"2\">&nbsp;</td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n<tr><td colspan=\"2\"><strong><center>"
-                               @"@@STRING@@"  // Localization by
+                               @"@@STRING@@"  // "Localization by"
                                @"</center></strong></td></tr>\n<tr><td colspan=\"2\">&nbsp;</td></tr>\n");
 	
-    NSString * htmlLocTb = (@"<tr><td valign=\"top\"><strong>"
-							@"@@STRING@@"
-							@"</strong></td><td valign=\"top\">"
+    NSString * htmlLocTb = (@"<tr><td width=\"40%\" align=\"right\" valign=\"top\"><strong>"
+							@"@@STRING@@&nbsp;&nbsp;"
+							@"</strong></td><td width=\"60%\" valign=\"top\">"
 							@"@@STRING@@"
 							@"</td></tr>\n");
     
@@ -282,7 +343,7 @@ extern TBUserDefaults * gTbDefaults;
     
     // Make substitutions in the NSMutableAttributedString
 
-    [self substitute: NSLocalizedString(@"Tunnelblick is brought to you by", @"Window text") in: creditsString];
+    [self substitute: NSLocalizedString(@"TUNNELBLICK is brought to you by", @"Window text") in: creditsString];
     
     NSEnumerator * e = [mainCredits objectEnumerator];
     NSArray * row;
