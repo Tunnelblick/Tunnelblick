@@ -44,6 +44,9 @@
 "KB/s" = "KB/s";
 
 /* Window text */
+"Localization by" = "Localization by";
+
+/* Window text */
 "MB" = "MB";
 
 /* Window text */
@@ -78,4 +81,28 @@
 
 /* Window text */
 "ZB/s" = "ZB/s";
+
+/* Credit description */
+"Chinese (traditional) localization" = "Chinese (traditional) localization";
+
+/* Credit description */
+"Finnish localization" = "Finnish localization";
+
+/* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+
+/* Credit description */
+"Localization code tweaks" = "Localization code tweaks";
+
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+
+/* Credit description */
+"Slovak localization" = "Slovak localization";
+
+/* Credit description */
+"Ukrainian localization" = "Ukrainian localization";
 
