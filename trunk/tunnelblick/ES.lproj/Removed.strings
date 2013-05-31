@@ -163,3 +163,6 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Tienes una o más configuraciones de OpenVPN que no etarán disponibles usando esta versión de Tunnelblick. Puedes:\n\n     • Dejar que Tunnelblick convierta estas configuraciones a Confiburaciones de VPN de Tunnelblick; o\n     • Cerrar e instalar otra versión de Tunnelblick; o\n     • Ignorar esto y continuar sin convertir.\n\n";
 
+/* Window text */
+"Tunnelblick is brought to you by" = " es traido a usted por";
+
