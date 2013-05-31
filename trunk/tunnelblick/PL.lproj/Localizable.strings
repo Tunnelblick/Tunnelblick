@@ -938,8 +938,8 @@
 /* Window text */
 "Last checked: %@" = "Ostatnio sprawdzane: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Localization by" = "Localization by";
+/* Window text */
+"Localization by" = "Przetłumaczone przez:";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB" = "MB";
@@ -1061,6 +1061,9 @@
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text *//* Window text */
 "TB/s" = "TB/s";
+
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK istnieje dzięki";
 
 /* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Bardzo dziękujemy za wsparcie projektu Tunnelblick.";
@@ -1216,7 +1219,7 @@
 "Tunnelblick is based on %@. " = "Tunnelblick opiera się na %@. ";
 
 /* Window text */
-"Tunnelblick is brought to you by" = "Tunnelblick istnieje dzięki";
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick jest darmowym oprogramowaniem: możesz go rozpowszechniać i/lub modyfikować zgodnie z %1$@ (Powszechną Licencją Publiczną GNU w wersji 2), na zasadach opublikowanych przez %2$@ (Fundację Wolnego Oprogramowania).";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick jest gotowy.";
@@ -1447,8 +1450,8 @@
 /* Credit description */
 "Dutch localization" = "duńska wersja językowa";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Finnish localization" = "Finnish localization";
+/* Credit description */
+"Finnish localization" = "Fińskia wersja językowa";
 
 /* Credit description */
 "Founder, original program and documentation" = "twórca programu i dokumentacji";
@@ -1471,14 +1474,14 @@
 /* Credit description */
 "Korean localization" = "koreańska wersja językowa";
 
-/* NEEDS TRANSLATION *//* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+/* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "polska wersja językowa";
 
-/* NEEDS TRANSLATION *//* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Magdalena Zając i Łukasz M., i Wojciech Sromek";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Localization code tweaks" = "Localization code tweaks";
+/* Credit description */
+"Localization code tweaks" = "modyifkacje kodu tłumaczeń";
 
 /* Credit description */
 "Multiple configuration folders" = "możliwość używania wielu katalogów konfiguracji";
@@ -1486,11 +1489,11 @@
 /* Credit description */
 "Norwegian localization" = "norweska wersja językowa";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 i integracja 64-bit ";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"PKCS#11 support" = "PKCS#11 support";
+/* Credit description */
+"PKCS#11 support" = "wsparcie PKCS#11";
 
 /* Credit description */
 "Polish localization" = "polska wersja językowa";
@@ -1504,8 +1507,8 @@
 /* Credit description */
 "Russian localization" = "rosyjska wersja językowa";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Slovak localization" = "Slovak localization";
+/* Credit description */
+"Slovak localization" = "Słowackia wersja językowa";
 
 /* Credit description */
 "Spanish localization" = "hiszpańska wersja językowa";
@@ -1519,8 +1522,8 @@
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue i UKLoginItemRegistry";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+/* Credit description */
+"Ukrainian localization" = "Ukraińska wersja językowa";
 
 /* Credit description */
 "Up and Down scripts" = "skrypty połączenia/rozłączenia dla VPN";
