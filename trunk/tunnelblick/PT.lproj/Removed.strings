@@ -145,3 +145,30 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d dias %2$li:%3$li:%4$li";
 
+/* Window text */
+" and install %ld configurations" = " e instalar %ld configurações";
+
+/* Window text */
+" and install one configuration" = " e instalar uma configuração";
+
+/* Window text */
+"%@is already identical to its last secured (shadow) copy.\n\n" = "%@já é idêntico à sua última cópia protegida.\n\n";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Deseja instalar %ld configurações";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Deseja desinstalar %ld configurações";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Deseja desinstalar uma configuração";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Havia um problema com uma configuração. Detalhes estão no Log do Console\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Havia um problema com uma ou mais configurações. Detalhes estão no Log do Console\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "O Tunnelblick precisa instalar e/ou deinstalar uma ou mais Configurações VPN do Tunnelblick.";
+

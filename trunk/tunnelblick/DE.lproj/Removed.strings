@@ -157,3 +157,6 @@
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick muss eine oder mehrere Tunnelblick-VPN-Konfigurationen installieren und/oder deinstallieren.";
 
+/* Window text */
+"Tunnelblick is brought to you by" = "Tunnelblick wurde ermöglicht durch";
+

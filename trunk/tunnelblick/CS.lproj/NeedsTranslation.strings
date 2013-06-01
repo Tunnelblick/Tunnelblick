@@ -122,10 +122,22 @@
 "  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
 
 /* Window text */
+"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+
+/* Window text */
+"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+
+/* Window text */
 "  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
 
 /* Window text */
 "  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@%3$@";
@@ -146,16 +158,13 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
 
 /* Window text */
-" and install %ld configurations" = " and install %ld configurations";
-
-/* Window text */
 "%@ exists but is not a folder" = "%@ exists but is not a folder";
 
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
 
 /* Window text */
-"%@is already identical to its last secured (shadow) copy.\n\n" = "%@is already identical to its last secured (shadow) copy.\n\n";
+"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ is already identical to its last secured (shadow) copy.\n\n";
 
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
@@ -189,6 +198,9 @@
 
 /* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
+
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?";
@@ -236,13 +248,7 @@
 "Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
 
 /* Window text */
-"Do you wish to install %ld configurations" = "Do you wish to install %ld configurations";
-
-/* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
-
-/* Window text */
-"Do you wish to uninstall %ld configurations" = "Do you wish to uninstall %ld configurations";
 
 /* Window text */
 "EB" = "EB";
@@ -267,6 +273,9 @@
 
 /* Window text */
 "KB/s" = "KB/s";
+
+/* Window text */
+"Localization by" = "Localization by";
 
 /* Window text */
 "MB" = "MB";
@@ -350,7 +359,7 @@
 "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
 
 /* Window text */
-"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "There was a problem with %ld configurations. Details are in the Console Log\n\n";
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -383,13 +392,19 @@
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
 
 /* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
+
+/* Window text */
 "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details… window";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Warning: '%@' is already a named credential.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n";
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
 /* Window text */
 "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect.";
@@ -424,6 +439,9 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
 
+/* Credit description */
+"Chinese (traditional) localization" = "Chinese (traditional) localization";
+
 /* Credentials name */
 "Common" = "Common";
 
@@ -435,4 +453,22 @@
 
 /* Checkbox */
 "Do not show this again" = "Do not show this again";
+
+/* Credit description */
+"Finnish localization" = "Finnish localization";
+
+/* Credit description */
+"Localization code tweaks" = "Localization code tweaks";
+
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+
+/* Credit description */
+"PKCS#11 support" = "PKCS#11 support";
+
+/* Credit description */
+"Slovak localization" = "Slovak localization";
+
+/* Credit description */
+"Ukrainian localization" = "Ukrainian localization";
 

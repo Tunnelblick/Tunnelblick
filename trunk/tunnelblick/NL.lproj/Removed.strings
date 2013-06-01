@@ -142,3 +142,18 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Window text */
+" and install one configuration" = " en installeer een configuratie";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Wilt u een configuratie verwijderen";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Er is een probleem met een configuratie. Details staan in het Console Log\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Er is een probleem met een of meer configuraties. Details staan in het Console Log\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick moet een of meerdere Tunnelblick VPN Configuraties installeren/verwijderen.";
+
