@@ -142,3 +142,18 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Window text */
+" and install one configuration" = " i instal·lar una configuració";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Desitges desinstal·lar una configuració";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Hi ha hagut un problema amb una configuració. Els detalls són a la consola de missatges\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Hi ha hagut un problema amb una o més configuracions. Els detalls són a la consola de missatges\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick necessita instal·lar i/o desinstal·lar una o més configuracions VPN.";
+

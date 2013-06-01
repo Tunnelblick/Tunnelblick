@@ -674,6 +674,12 @@
 "  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
 
 /* NEEDS TRANSLATION *//* Window text */
+"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
 "  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -681,6 +687,12 @@
 
 /* Window text */
 "  • Secure configurations\n" = "  • 보안 설정\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@%3$@";
@@ -707,19 +719,13 @@
 " WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
-" and install %ld configurations" = " and install %ld configurations";
-
-/* Window text */
-" and install one configuration" = " 과 1개 설정을 설치";
-
-/* NEEDS TRANSLATION *//* Window text */
 "%@ exists but is not a folder" = "%@ exists but is not a folder";
 
 /* NEEDS TRANSLATION *//* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
-"%@is already identical to its last secured (shadow) copy.\n\n" = "%@is already identical to its last secured (shadow) copy.\n\n";
+"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ is already identical to its last secured (shadow) copy.\n\n";
 
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d개 Tunnelblick VPN 설정이 올바르게 설치되었습니다.";
@@ -763,6 +769,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Add Credentials..." = "Add Credentials…";
 
+/* Window text */
+"Additional contributions by" = "공헌한 사람들";
+
 /* NEEDS TRANSLATION *//* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
 
@@ -789,6 +798,9 @@
 
 /* Window text */
 "Anonymous unique ID" = "익명의 유일한 ID";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "키체인에 저장된 '%@'의 인증(개인 키 또는 사용자 계정과 암호)을 삭제하겠습니까?";
@@ -856,9 +868,6 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to install %ld configurations" = "Do you wish to install %ld configurations";
-
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "'%@' 설정을 모든 사용자가 사용할 수 있도록 설치하겠습니까? 아니면 자신만 사용할 수 있도록 설치하겠습니까?\n\n";
 
@@ -871,14 +880,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to uninstall %ld configurations" = "Do you wish to uninstall %ld configurations";
-
 /* Window text */
 "Do you wish to uninstall '%@'%@ version %@?" = "'%1$@'%2$@ 버전 %3$@을 삭제하겠습니까?";
-
-/* Window text */
-"Do you wish to uninstall one configuration" = "1개 설정을 삭제하겠습니까";
 
 /* Window text */
 "Domain:" = "도메인:";
@@ -930,6 +933,9 @@
 
 /* Window text */
 "Last checked: %@" = "최신 확인: %@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Localization by" = "Localization by";
 
 /* NEEDS TRANSLATION *//* Window text */
 "MB" = "MB";
@@ -1051,6 +1057,9 @@
 /* NEEDS TRANSLATION *//* Window text */
 "TB/s" = "TB/s";
 
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK 만든 사람";
+
 /* NEEDS TRANSLATION *//* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
 
@@ -1130,13 +1139,7 @@
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "두 가지 종류의 설정 파일이 있습니다:\n\n     • Tunnelblick VPN 설정 (.tblk 확장자)\n\n     • OpenVPN 설정 (.ovpn 또는 .conf 확장자)\n\n가지고 있는 설정 종류는 무엇입니까?\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
-"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "There was a problem with %ld configurations. Details are in the Console Log\n\n";
-
-/* Window text */
-"There was a problem with one configuration. Details are in the Console Log\n\n" = "1개 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
-
-/* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "1개 또는 그 이상 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
@@ -1211,19 +1214,23 @@
 "Tunnelblick is based on %@. " = "Tunnelblick은 %@을 기반으로 되어있습니다. ";
 
 /* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick은 자유 소프트웨어입니다. %2$@에서 만든 %1$@의 약관에 따라 이 소프트웨어를 재배포할 수 있고 변형 할 수 있습니다.
+";
+
+/* Window text */
 "Tunnelblick is ready." = "Tunnelblick이 준비되었습니다.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick이 1개 또는 그 이상 Tunnelblick VPN 설정을 설치나 삭제하려고 합니다.";
-
-/* Window text */
 "Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick이 1개 또는 이상의 Tunnelblick VPN 설정을 설치하려고 합니다.";
 
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick이 아래와 같이 하려고 합니다:\n";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
 
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick은 OS X 10.4 또는 이상 (\"Tiger\", \"Leopard\", 또는 \"Snow Leopard\")이 필요합니다.";
@@ -1297,6 +1304,9 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "연결 해제를 하지 않으면 설정 이름을 바꿀 수 없습니다.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+
 /* Window text */
 "You have asked to duplicate '%@'." = "'%@' 설정을 복사하려고 합니다.";
 
@@ -1310,7 +1320,7 @@
 "You have asked to rename '%@' to '%@'." = "'%1$@'에서 '%2$@'로 이름을 변경하려고 합니다";
 
 /* NEEDS TRANSLATION *//* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Tunnelblick으로 만든 예제 설정 파일을 그대로 사용하려 했습니다. VPN에 연결하기 위해서는 반드시 설정 파일을 수정해야 합니다. VPN에 연결하기 위해서 인증서 또는 키 파일과 같은 다른 파일들이 필요할 수 있습니다.\n\n설정 및 설정과 관련된 다른 파일 또는 예제 파일을 수정하기 위해 필요한 정보를 얻으려면 네트워크 관리자 또는 VPN 서비스 제공자에게 문의합니다.\n\nOpenVPN 문서는 다음에서 볼 수 있습니다.\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -1391,17 +1401,128 @@
 /* NEEDS TRANSLATION *//* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
 
+/* Credit description */
+"64-bit enabling and testing" = "64-bit 지원 및 테스트";
+
+/* Credit description */
+"Animation and icon sets code" = "애니메이션, 아이콘 세트 코드";
+
+/* Credit description */
+"Button images" = "버튼 이미지";
+
+/* Credit description */
+"Catalan localization" = "카탈로이나어 지역화";
+
+/* Credit description */
+"Chinese (simplified) localization" = "중국어 (간체) 번역";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Chinese (traditional) localization" = "Chinese (traditional) localization";
+
 /* NEEDS TRANSLATION *//* Credentials name */
 "Common" = "Common";
 
 /* NEEDS TRANSLATION *//* Speak string */
 "Connected to %@" = "Connected to %@";
 
+/* Credit description */
+"Contributed much to the early code" = "초기 코드에 큰 공헌";
+
+/* Credit description */
+"Contributed to early code" = "초기 코드 공헌";
+
+/* Credit description */
+"Czech localization" = "체코어로 번역";
+
 /* NEEDS TRANSLATION *//* Speak string */
 "Disconnected from %@" = "Disconnected from %@";
 
 /* NEEDS TRANSLATION *//* Checkbox */
 "Do not show this again" = "Do not show this again";
+
+/* Credit description */
+"Dutch localization" = "네덜란드 현지화";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Finnish localization" = "Finnish localization";
+
+/* Credit description */
+"Founder, original program and documentation" = "발기인, 초기 프로그램과 문서";
+
+/* Credit description */
+"French localization" = "프랑스어 지역화";
+
+/* Credit description */
+"German localization" = "독일어 지역화";
+
+/* Credit description */
+"Hungarian localization" = "헝가리어 지역화";
+
+/* Credit description */
+"Italian localization" = "이탈리아어 지역화";
+
+/* Credit description */
+"Japanese localization" = "일본어 현지화";
+
+/* Credit description */
+"Korean localization" = "한국어 지역화";
+
+/* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "한국어 지역화";
+
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Kyoungmin Kim";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Localization code tweaks" = "Localization code tweaks";
+
+/* Credit description */
+"Multiple configuration folders" = "다중 설정 폴더";
+
+/* Credit description */
+"Norwegian localization" = "노르웨이어 지역화";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+
+/* Credit description */
+"PKCS#11 support" = "PKCS#11 지원";
+
+/* Credit description */
+"Polish localization" = "폴란드어 지역화";
+
+/* Credit description */
+"Portuguese localization" = "포르트갈어 지역화";
+
+/* Credit description */
+"Program and documentation enhancements and maintenance after version 3.0b10" = "버전 3.0b10 이후 프로그램과 문서 강화";
+
+/* Credit description */
+"Russian localization" = "러시아어 현지화";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Slovak localization" = "Slovak localization";
+
+/* Credit description */
+"Spanish localization" = "스페인어 지역화";
+
+/* Credit description */
+"Swedish localization" = "스웨덴어 지역화";
+
+/* Credit description */
+"Tunnelblick icon" = "Tunnelblick 아이콘";
+
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue &UKLoginItemRegistry";
+
+/* NEEDS TRANSLATION *//* Credit description */
+"Ukrainian localization" = "Ukrainian localization";
+
+/* Credit description */
+"Up and Down scripts" = "Up/down 스크립트";
+
+/* Credit description */
+"Xcode help and OpenSSL integration" = "Xcode 지원 & OpenSSL 통합";
 
 /* Button VPNService */
 "Accept" = "수락";

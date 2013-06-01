@@ -124,3 +124,18 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Window text */
+" and install one configuration" = "そして、1 個の接続先をインストールしますか？";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "1 個の接続先をアンインストールしますか？";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "接続先に問題がありました。詳細はコンソールログを参照してください。\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "接続先に問題がありました。詳細はコンソールログを参照してください。\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "いくつかの接続先をインストール／アンインストールする必要があります。";
+
