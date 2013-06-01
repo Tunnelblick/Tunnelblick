@@ -17,12 +17,12 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2013-05-28:
+The following table shows the status of translations for Tunnelblick as of 2013-05-31:
 
 || <br>Language  || <br>Code  || Translators  || Stable<br>Status || Beta<br>Status ^1^ ||Head<br>Status ^2^ ||
 || Catalan                || CA     || 1  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
 || Czech                  || CS     || 1  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
-|| German                 || DE     || 3  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*    ||
+|| German                 || DE     || 3  || *<font color="green">Complete</font>* || Partial                                || 99% complete                           ||
 || Spanish                || ES     || 4  || *<font color="green">Complete</font>* || Partial                                || 99% complete                           ||
 || Finnish                || FI     || 6  || (none)                                || (none)                                 || (none)                                 ||
 || French                 || FR     || 2  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
