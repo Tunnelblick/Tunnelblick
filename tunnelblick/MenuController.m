@@ -1998,8 +1998,8 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
     
     NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     VPNConnection * connection;
-    BOOL noActiveDaemons = YES;
     
+    BOOL noActiveDaemons = YES;
     if (  ! includeDaemons  ) {
         // See if any of our daemons are active -- i.e., have a process ID (they may be in the process of connecting or disconnecting)
         while (  (connection = [connEnum nextObject])  ) {
@@ -2017,9 +2017,24 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
     
     NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
     
-	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d ",
-		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons);
+    // See if any connections that are not disconnected use down-root
+    BOOL noDownRootsActive = YES;
+    connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
+    while (  (connection = [connEnum nextObject])  ) {
+        if (  ! [connection isDisconnected]  ) {
+            NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
+            if (   [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
+                noDownRootsActive = NO;
+				NSLog(@"DEBUG: %@ is not disconnected and is using the down-root plugin", [connection displayName]);
+                break;
+            }
+        }
+    }
+    
+	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
+		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
     if (   ALLOW_OPENVPNSTART_KILLALL
+		&& noDownRootsActive
 		&& ( includeDaemons
 			|| ( noUnknownOpenVPNsRunning && noActiveDaemons )
 			)
@@ -2068,7 +2083,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
 						}
 					} else {
-						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu)",
+						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
 							  [connection displayName], (long) procId);
 						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
 					}

@@ -1872,6 +1872,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
     
     if (  [self isDisconnected]  ) {
+		NSLog(@"DEBUG: disconnectAndWait but %@ is already disconnected", [self displayName]);
         return;
     }
     
@@ -1894,7 +1895,13 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     pid_t thePid = pid; // Avoid pid changing between this if statement and the invokation of waitUntilNoProcessWithID (pid can change outside of main thread)
     NSArray * connectedList = nil;
     
-    if (  ALLOW_OPENVPNSTART_KILL && (thePid > 0)  ) {
+	NSString * useDownRootPluginKey = [[self displayName] stringByAppendingString: @"-useDownRootPlugin"];
+	BOOL notUsingDownRootPlugin = ! [gTbDefaults boolForKey: useDownRootPluginKey];
+	
+    if (   ALLOW_OPENVPNSTART_KILL
+		&& (thePid > 0)
+		&& notUsingDownRootPlugin  ) {
+		[self addToLog: @"*Tunnelblick: Disconnecting using 'kill'"];
         [self killProcess];
         if (  [wait boolValue]  ) {
             // Wait up to five seconds for the OpenVPN process to disappear
@@ -1902,7 +1909,8 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     } else if (   ALLOW_OPENVPNSTART_KILLALL
                && (  [(connectedList = [[NSApp delegate] connectionsNotDisconnected]) count] == 1  )
-               && (  [connectedList objectAtIndex: 0] == self  )  ) {
+               && (  [connectedList objectAtIndex: 0] == self  )
+			   && notUsingDownRootPlugin  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
         [[NSApp delegate] killAllConnectionsIncludingDaemons: FALSE logMessage: [NSString stringWithFormat: @"Using 'killall' to disconnect %@", [self displayName]]];
 		disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
