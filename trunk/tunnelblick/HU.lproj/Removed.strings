@@ -157,3 +157,21 @@
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "A Tunnelblick telepítene és vagy eltávolítana egy vagy több Tunnelblick VPN konfigurációt";
 
+/* Window text */
+" and install %ld configurations" = " és a(z) %ld konfigurációk telepítése";
+
+/* Window text */
+"%@is already identical to its last secured (shadow) copy.\n\n" = "A(z) %@ már egyezik a biztonsági másolattal.\n\n";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Telepíteni kívánja a(z) %ld konfigurációt";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "El kívánja távolítani a(z) %ld konfigurációt";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Hiba történt a(z) %ld konfigurációval. Részletek a Konzol Naplóban találhatók\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van. Ezek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n     • A Tunnelblick elvégzi az OpenVPN konfigurációk átalakítását Tunnelblick konfigurációs állományokra; vagy\n     • Kiléphet és választhat másik Tunnelblick változatot; vagy\n     • Figyelmen kívül hagyhatja ezt az üzenetet.\n\n";
+
