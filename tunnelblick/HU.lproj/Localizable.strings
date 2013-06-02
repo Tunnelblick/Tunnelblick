@@ -1471,8 +1471,8 @@
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "Magyar lokalizáció";
 
-/* NEEDS TRANSLATION *//* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Marcell Szabo";
 
 /* NEEDS TRANSLATION *//* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
