@@ -506,7 +506,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logMessage "DEBUG: SKP_SETUP_DNS = ${SKP_SETUP_DNS}"
 	logMessage "DEBUG: SKP_SMB = ${SKP_SMB}; SKP_SMB_NN = ${SKP_SMB_NN}; SKP_SMB_WG = ${SKP_SMB_WG}; SKP_SMB_WA = ${SKP_SMB_WA}"
 
+    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
     original_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
+    set -e # resume abort on error
     logMessage "DEBUG:"
     logMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
     logMessage "DEBUG:"
@@ -695,7 +697,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
     logMessage "DEBUG: State:/Network/OpenVPN/DNS = ${EXPECTED_NEW_DNS_GLOBAL_CONFIG}"
     logMessage "DEBUG: State:/Network/OpenVPN/SMB = ${EXPECTED_NEW_SMB_GLOBAL_CONFIG}"
 
+    set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
     new_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
+    set -e # resume abort on error
     logMessage "DEBUG:"
     logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
     logMessage "DEBUG:"
