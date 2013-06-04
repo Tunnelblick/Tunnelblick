@@ -3323,18 +3323,17 @@ static void signal_handler(int signalNumber)
 #endif
     
     NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
-    if (  prefVersion  ) {
+    if (   prefVersion
+        && ( ! [prefVersion isEqualToString: @"-"] )  ) {
         NSArray * versions = availableOpenvpnVersions();
+        if (  [versions count] == 0  ) {
+            NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+            [self terminateBecause: terminatingBecauseOfError];
+            return;
+        }
         if (  ! [versions containsObject: prefVersion]  ) {
             NSString * useVersion;
-            if (  [versions count] > 0  ) {
-                useVersion = [versions objectAtIndex: [versions count]-1];
-            } else {
-                NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-                [self terminateBecause: terminatingBecauseOfError];
-                return;
-            }
-            
+            useVersion = [versions objectAtIndex: 0];
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
                             [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
                              prefVersion, useVersion],

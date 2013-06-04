@@ -100,7 +100,11 @@ extern TBUserDefaults * gTbDefaults;
                                ver, @"value",
                                nil]];
     }
-    
+    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), [versions lastObject]], @"name",
+                          @"-", @"value",    // "-" means latest
+                          nil]];
+
     [openvpnVersionArrayController setContent: ovContent];
     [openvpnVersionButton sizeToFit];
     
