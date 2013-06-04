@@ -6,7 +6,7 @@
 <td valign="middle">Tunnelblick is free, but if you like it, you can support its progress by making a donation.</td>
 </tr></table>
 <hr>
-<font color="red">*Translators needed:*</font> The Tunnelblick project needs translators -- especially for <font color="red">*Slovak*</font> and <font color="red">*Ukrainian*</font> -- to help localize the next stable release. Contact project owner Jon for details at jkbullard at gmail dot com.
+<font color="red">*Translators needed:*</font> The Tunnelblick project needs translators -- especially for <font color="red">*Slovak*</font> -- to help localize the next stable release. Contact project owner Jon for details at jkbullard at gmail dot com.
 <br>
 <hr>
 
