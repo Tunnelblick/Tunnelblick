@@ -1035,7 +1035,8 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     BOOL noSuchVersion = FALSE;
     NSString * openvpnPath;
     if (   openvpnVersion  
-        && [openvpnVersion length] > 0  ) {
+        && ( [openvpnVersion length] > 0 )
+		&& ( ! [openvpnVersion isEqualToString: @"-"] )  ) {
         NSString * openvpnFolderName = [@"openvpn-" stringByAppendingString: openvpnVersion];
         openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: openvpnFolderName] // Folder with version to be used
                        stringByAppendingPathComponent: @"openvpn"];                        // openvpn binary
@@ -1048,8 +1049,9 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
         noSuchVersion = TRUE;
     }
     
-    // No version specified or not known; use the first one (in NSNumericSearch order)
+    // No version specified or highest version specified or not known; find the lowest and highest versions (in NSNumericSearch order)
     NSString * lowestDirSoFar = nil;
+    NSString * highestDirSoFar = nil;
     NSString * dir;
     NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: openvpnFolderPath];
     while (  (dir = [dirEnum nextObject])  ) {
@@ -1059,6 +1061,10 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
                 || ( [dir compare: lowestDirSoFar options: NSNumericSearch] == NSOrderedAscending )  ) {
                 lowestDirSoFar = dir;
             }
+            if (   ( ! highestDirSoFar )
+                || ( [dir compare: highestDirSoFar options: NSNumericSearch] == NSOrderedDescending )  ) {
+                highestDirSoFar = dir;
+            }
         }
     }
     
@@ -1066,6 +1072,10 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
         fprintf(stderr, "Tunnelblick: %s does not have any versions of OpenVPN\n", [openvpnFolderPath UTF8String]);
         exitOpenvpnstart(214);
     }
+	
+	NSString * dirToUse = ([openvpnVersion isEqualToString: @"-"]
+						   ? highestDirSoFar
+						   : lowestDirSoFar);
     
     if (  noSuchVersion  ) {
         fprintf(stderr, "Tunnelblick: OpenVPN version '%s' is not included in this copy of Tunnelblick, using version %s.\n",
@@ -1073,7 +1083,7 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
                 [[lowestDirSoFar substringFromIndex: [@"openvpn-" length]] UTF8String]);
     }
     
-    openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: lowestDirSoFar] // Folder with version to be used
+    openvpnPath = [[openvpnFolderPath stringByAppendingPathComponent: dirToUse] // Folder with version to be used
                    stringByAppendingPathComponent: @"openvpn"];                        // openvpn binary
     
     return openvpnPath;

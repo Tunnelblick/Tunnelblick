@@ -413,25 +413,28 @@ NSDictionary * getOpenVPNVersion(void)
     
     NSString * useVersion = nil;
     NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
+    NSArray  * versions = availableOpenvpnVersions();
     if (  prefVersion  ) {
-        NSArray * versions = availableOpenvpnVersions();
-        if (  [versions containsObject: prefVersion]  ) {
-            useVersion = prefVersion;
+        if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
+            useVersion = [versions lastObject];
         } else {
-            if (  [versions count] == 0  ) {
-                NSLog(@"Tunnelblick does not include any versions of OpenVPN");
-                return nil;
+            if (  [versions containsObject: prefVersion]  ) {
+                useVersion = prefVersion;
+            } else {
+                if (  [versions count] == 0  ) {
+                    NSLog(@"Tunnelblick does not include any versions of OpenVPN");
+                    return nil;
+                }
+                
+                useVersion = [versions objectAtIndex: [versions count]-1];
+                TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                                [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
+                                 prefVersion, useVersion],
+                                nil, nil, nil);
+                [gTbDefaults setObject: useVersion forKey: @"openvpnVersion"];
             }
-            
-            useVersion = [versions objectAtIndex: [versions count]-1];
-            TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
-                             prefVersion, useVersion],
-                            nil, nil, nil);
-            [gTbDefaults removeObjectForKey: @"openvpnVersion"];
         }
     } else {
-        NSArray * versions = availableOpenvpnVersions();
         if (   versions  ) {
             useVersion = [versions objectAtIndex: 0];
         }
