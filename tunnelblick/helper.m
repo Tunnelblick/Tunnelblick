@@ -1124,6 +1124,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
 {
     NSString * path = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
     if (  ! path  ) {
+        NSLog(@"Unable to find openvpnstart");
         return -1;
     }
     
@@ -1139,6 +1140,12 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
     [task launch];
     [task waitUntilExit];
     
+	OSStatus status = [task terminationStatus];
+    
+    NSString * subcommand = ([arguments count] > 0
+                             ? [arguments objectAtIndex: 0]
+                             : @"(no subcommand!)");
+    
     NSFileHandle * file = [stdPipe fileHandleForReading];
     NSData * data = [file readDataToEndOfFile];
     [file closeFile];
@@ -1147,7 +1154,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         *stdoutString = outputString;
     } else {
         if (  [outputString length] != 0  ) {
-            NSLog(@"openvpnstart stdout:\n%@", outputString);
+            NSLog(@"openvpnstart stdout from %@:\n%@", subcommand, outputString);
         }
     }
     
@@ -1159,17 +1166,14 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         *stderrString = outputString;
     } else {
         if (  [outputString length] != 0  ) {
-			NSString * subcommand;
-			if (  [arguments count] > 0  ) {
-				subcommand = [arguments objectAtIndex: 0];
-			} else {
-				subcommand = @"(no subcommand!)";
-			}
             NSLog(@"openvpnstart stderr from %@:\n%@", subcommand, outputString);
         }
     }
 	
-	OSStatus status = [task terminationStatus];
+    if (   (status != EXIT_SUCCESS)
+        && ( ! stderrString)  ) {
+        NSLog(@"openvpnstart status from %@: %ld", subcommand, (long) status);
+    }
 	
     return status;
 }

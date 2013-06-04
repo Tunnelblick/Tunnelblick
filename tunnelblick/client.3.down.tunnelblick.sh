@@ -41,6 +41,7 @@ fi
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
     launchctl unload "${LEASEWATCHER_PLIST_PATH}"
+    rm -f "${LEASEWATCHER_PLIST_PATH}"
     echo "$(date '+%a %b %e %T %Y') *Tunnelblick client.3.down.tunnelblick.sh: Cancelled monitoring of system configuration changes" >> "${SCRIPT_LOG_FILE}"
 fi
 

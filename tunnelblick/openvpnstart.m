@@ -59,7 +59,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 185-247, plus the values in define.h (249-254) -- 248 IS NOT USED
+    // returnValue: have used 183-247, plus the values in define.h (249-254) -- 248 IS NOT USED
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -95,6 +95,12 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             // killAllStringC is inserted here:
             "%s"
+            
+            "./openvpnstart down\n"
+            "               to run Tunnelblick's client.down.tunnelblick.sh script\n\n"
+            
+            "./openvpnstart checkSignature\n"
+            "               to verify the application's signature using codesign\n\n"
             
             "./openvpnstart loadKexts     [bitMask]\n"
             "               to load .tun and .tap kexts\n\n"
@@ -672,8 +678,9 @@ void exitIfRunExecutableIsNotGood(NSString * path) {
 
 		} else if (  [path hasPrefix: @"/u"]  ) {
 			if (   [path isEqualToString: @"/usr/bin/dscacheutil"  ]
-		   	 	|| [path isEqualToString: @"/usr/sbin/kextstat"    ]
 		   	 	|| [path isEqualToString: @"/usr/bin/killall"      ]
+		   	 	|| [path isEqualToString: TOOL_PATH_FOR_CODESIGN     ]
+		   	 	|| [path isEqualToString: TOOL_PATH_FOR_KEXTSTAT    ]
 		    	|| [path isEqualToString: @"/usr/sbin/lookupd"     ]
 			    ) {
                 notOk = FALSE;
@@ -842,6 +849,67 @@ int runScript(NSString * scriptName, int argc, char * argv[]) {
 }
 
 //**************************************************************************************************************************
+int runDownScript(void) {
+    
+    int returnValue = 0;
+    
+    NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"client.down.tunnelblick.sh"];
+	
+	becomeRootToAccessPath(scriptPath, @"Check if script exists");
+	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	stopBeingRootToAccessPath(scriptPath);
+    
+	if (  scriptExists  ) {
+        
+        exitIfWrongOwnerOrPermissions(scriptPath, 0, 0, 0744);
+        
+        fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
+        returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+        fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
+	
+    } else {
+        
+		fprintf(stdout, "No such script exists: %s\n", [scriptPath UTF8String]);
+		returnValue = 184;
+    }
+    
+    exitOpenvpnstart(returnValue);
+    return returnValue; // Avoid analyzer warnings
+}
+
+//**************************************************************************************************************************
+int checkSignature(void) {
+    
+    mode_t permissions = 0755;  // Permissions for codesign for Snow Leopard & higher. Leopard has 0555 permissions
+    
+    OSErr err;
+    SInt32 systemVersion;
+    if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
+        if ( systemVersion < 0x1050) {
+            fprintf(stdout, "Tunnelblick: Assuming digital signature is valid because OS X 10.4 (\"Tiger\") doesn't support digital signatures");
+            exitOpenvpnstart(EXIT_SUCCESS);
+        }
+        if ( systemVersion < 0x1060) {
+            permissions = 0550;
+        }
+    } else {
+        fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming 'codesign' has permissions of 0755. Error = %ld\nError was '%s'",
+                (long) err, strerror(errno));
+    }
+    
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
+        fprintf(stdout, "Tunnelblick: Assuming digital signature invalid because '%s' does not exist", [TOOL_PATH_FOR_CODESIGN UTF8String]);
+        exitOpenvpnstart(183);
+    }
+    
+    NSString * appPath =[[gResourcesPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]; // Remove /Contents/Resources
+    NSArray * arguments = [NSArray arrayWithObjects: @"-v", appPath, nil];
+    int returnValue = runAsRoot(TOOL_PATH_FOR_CODESIGN, arguments, permissions);
+    exitOpenvpnstart(returnValue);
+    return returnValue; // Avoid analyzer warnings
+}
+
+//**************************************************************************************************************************
 NSString * newTemporaryDirectoryPath(void) {
     // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
     // Modified to check for malloc returning NULL, use strlcpy, use [NSFileManager defaultManager], and use more readable length for stringWithFileSystemRepresentation
@@ -896,10 +964,8 @@ unsigned getLoadedKextsMask(void) {
         return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
-    NSString * kextstatPath = @"/usr/sbin/kextstat";
-    
     NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: kextstatPath];
+    [task setLaunchPath: TOOL_PATH_FOR_KEXTSTAT];
     
     NSArray  *arguments = [NSArray array];
     [task setArguments: arguments];
@@ -2483,6 +2549,18 @@ int main(int argc, char * argv[]) {
 				syntaxError = FALSE;
 			}
 		
+        } else if (  strcmp(command, "down") == 0  ) {
+            if (  argc == 2  ) {
+				runDownScript();
+				syntaxError = FALSE;
+			}
+            
+        } else if (  strcmp(command, "checkSignature") == 0  ) {
+            if (  argc == 2  ) {
+				checkSignature();
+				syntaxError = FALSE;
+			}
+            
         } else if (  strcmp(command, "loadKexts") == 0  ) {
 			if (  argc == 2  ) {
                 loadKexts(OPENVPNSTART_KEXTS_MASK_LOAD_DEFAULT);

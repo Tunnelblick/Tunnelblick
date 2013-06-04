@@ -82,9 +82,10 @@ grep Service | sed -e 's/.*Service : //'
             # Remove leasewatcher
             if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
                 launchctl unload "${LEASEWATCHER_PLIST_PATH}"
+                rm -f "${LEASEWATCHER_PLIST_PATH}"
                 logMessage "Cancelled monitoring of system configuration changes"
             
-                # Indicate leasewatcher has been removed
+                # Indicate leasewatcher has been removed and tap device has been set to none
                 scutil <<-EOF
                 open
                 get State:/Network/OpenVPN

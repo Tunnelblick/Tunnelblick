@@ -27,7 +27,9 @@ echo ${@}
 flushDNSCache()
 {
     if ${ARG_FLUSH_DNS_CACHE} ; then
+        set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
         readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
+set -e # We instruct bash that it CAN again fail on errors
         case "${OSVER}" in
             10.4 )
                 if [ -f /usr/sbin/lookupd ] ; then
@@ -119,6 +121,7 @@ if ${ARG_TAP} ; then
 fi
 
 # Issue warning if the primary service ID has changed
+set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
 PSID_CURRENT="$( scutil <<-EOF |
 	open
 	show State:/Network/OpenVPN
@@ -126,6 +129,7 @@ PSID_CURRENT="$( scutil <<-EOF |
 EOF
 grep Service | sed -e 's/.*Service : //'
 )"
+set -e # resume abort on error
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
 	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
 fi
@@ -133,6 +137,7 @@ fi
 # Remove leasewatcher
 if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
 	launchctl unload "${LEASEWATCHER_PLIST_PATH}"
+    rm -f "${LEASEWATCHER_PLIST_PATH}"
 	logMessage "Cancelled monitoring of system configuration changes"
 fi
 
