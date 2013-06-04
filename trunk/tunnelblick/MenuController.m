@@ -2157,10 +2157,8 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
         return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
     }
     
-    NSString * kextstatPath = @"/usr/sbin/kextstat";
-    
     NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: kextstatPath];
+    [task setLaunchPath: TOOL_PATH_FOR_KEXTSTAT];
     
     NSArray  *arguments = [NSArray array];
     [task setArguments: arguments];
@@ -3045,18 +3043,47 @@ static void signal_handler(int signalNumber)
         return TRUE;
     }
     
-    NSString * toolPath = @"/usr/bin/codesign";
-    if (  ! [gFileMgr fileExistsAtPath: toolPath]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
-        NSLog(@"Assuming digital signature invalid because '%@' does not exist", toolPath);
+    // Normal versions of Tunnelblick can be checked with codesign running as the user
+    //
+    // But Deployed versions need to run codesign as root, so codesign will "see" the .tblk contents that
+    // are owned by root and not accessible to other users (like keys and certificates)
+    //
+    // "openvpnstart checkSignature" runs codesign as root, but it can only be used if openvpnstart has been set SUID by the
+    // installation process.
+    //
+    // So if a Deployed Tunnelblick hasn't been installed yet (e.g., it is running from .dmg), we don't check the signature here.
+    //
+    // There could be a separate check for an invalid signature in installer, when it is not run from /Applications, since it could run
+    // codesign as root using the installer's authorization. However, installer runs without a UI, so it is complicated to provide the ability
+    // to report a failure and provide the option to continue. Considering that the first run after installation will catch an invalid
+    // signature, this separate check has a low priority.
+    
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    
+    if (  [gFileMgr fileExistsAtPath: gDeployPath]  ) {
+        NSString * appContainer = [appPath stringByDeletingLastPathComponent];
+        if (  ! [appContainer isEqualToString: @"/Applications"]  ) {
+            // Deployed but not in /Applications
+            // Return TRUE because we must check the signature as root but we can't because openvpnstart isn't suid
+            return YES;
+        }
+        
+        // Deployed and in /Applications, so openvpnstart has SUID root, so we can run it to check the signature
+        OSStatus status = runOpenvpnstart([NSArray arrayWithObject: @"checkSignature"], nil, nil);
+        return (status == EXIT_SUCCESS);
+    }
+    
+    // Not a Deployed version of Tunnelblick, so we can run codesign as the user
+    if (  ! [gFileMgr fileExistsAtPath: TOOL_PATH_FOR_CODESIGN]  ) {  // If codesign binary doesn't exist, complain and assume it is NOT valid
+        NSLog(@"Assuming digital signature invalid because '%@' does not exist", TOOL_PATH_FOR_CODESIGN);
         return FALSE;
     }
     
-    NSString * appPath = [[NSBundle mainBundle] bundlePath];
     NSArray *arguments = [NSArray arrayWithObjects:@"-v", appPath, nil];
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we should specify something
-    [task setLaunchPath: toolPath];
+    [task setLaunchPath: TOOL_PATH_FOR_CODESIGN];
     [task setArguments:arguments];
     [task launch];
     [task waitUntilExit];

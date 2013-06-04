@@ -64,12 +64,16 @@
 #define AUTHORIZED_RUNNING_PATH @"/tmp/tunnelblick-authorized-running"
 #define AUTHORIZED_ERROR_PATH   @"/tmp/tunnelblick-authorized-error"
 
+#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
+
 // NOTE: tunnelblick-uninstaller.sh refers to the installer log path without using this header file
 #define INSTALLER_LOG_PATH      @"/tmp/tunnelblick-installer-log.txt"
 
-#define CONFIGURATION_UPDATES_BUNDLE_PATH  @"/Library/Application Support/Tunnelblick/Configuration Updates/Tunnelblick Configurations.bundle"
+// NOTE: client.up.tunnelblick.sh refers to the leasewatcher plist path without using this header file
+#define LEASEWATCHER_PLIST_PATH @"/Library/Application Support/Tunnelblick/LeaseWatch.plist"
 
-
+#define TOOL_PATH_FOR_CODESIGN @"/usr/bin/codesign"
+#define TOOL_PATH_FOR_KEXTSTAT @"/usr/sbin/kextstat"
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
 // Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.

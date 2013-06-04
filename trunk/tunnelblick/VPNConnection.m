@@ -2814,6 +2814,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  [newState isEqualToString: @"EXITING"]  ) {
         [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
 		[logDisplay outputLogFiles]; 
+/* Issue to resolve before implementing this:
+   What if we are disconnecting a configuration that didn't run 'up' (but some other config did and is still connected)?
+ 
+        if (  [gFileMgr fileExistsAtPath: LEASEWATCHER_PLIST_PATH]  ) {
+            NSLog(@"Although OpenVPN appears to have run the 'up' script successfully, it appears not to have run the 'down' script successfully; Tunnelblick will run the 'down' script.");
+            runOpenvpnstart([NSArray arrayWithObject: @"down"], nil, nil);
+        }
+ */    
     }
     
     if (  newState != lastState  ) {
