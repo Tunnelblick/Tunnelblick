@@ -133,8 +133,8 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Nick Williams    </td> 
-    <td>      Up/Down scripts [http://www.nicholaswilliams.net nicholaswilliams.net]
+    <td>      Nick Williams ([http://www.nicholaswilliams.net nicholaswilliams.net])    </td> 
+    <td>      Up/Down scripts
     </td>
   </tr>
 
@@ -255,6 +255,11 @@ Tunnelblick is made possible by the efforts of many people:
 
   <tr>
     <td>      Diego Rivera    </td>
+    <td>      Spanish    </td>
+  </tr>
+
+  <tr>
+    <td>      Nicolás A. Rodríguez ([http://www.tupaca.com http://www.tupaca.com])    </td>
     <td>      Spanish    </td>
   </tr>
 
