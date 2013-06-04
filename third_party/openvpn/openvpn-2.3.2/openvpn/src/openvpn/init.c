@@ -1145,13 +1145,14 @@ do_init_traffic_shaper (struct context *c)
 }
 
 /*
- * Allocate a route list structure if at least one
- * --route option was specified.
+ * Allocate route list structures for IPv4 and IPv6
+ * (we do this for IPv4 even if no --route option has been seen, as other
+ * parts of OpenVPN might want to fill the route-list with info, e.g. DHCP)
  */
 static void
 do_alloc_route_list (struct context *c)
 {
-  if (c->options.routes && !c->c1.route_list)
+  if (!c->c1.route_list)
     c->c1.route_list = new_route_list (c->options.max_routes, &c->gc);
   if (c->options.routes_ipv6 && !c->c1.route_ipv6_list)
     c->c1.route_ipv6_list = new_route_ipv6_list (c->options.max_routes, &c->gc);
@@ -2191,7 +2192,12 @@ do_init_crypto_tls (struct context *c, const unsigned int flags)
   to.renegotiate_seconds = options->renegotiate_seconds;
   to.single_session = options->single_session;
 #ifdef ENABLE_PUSH_PEER_INFO
-  to.push_peer_info = options->push_peer_info;
+  if (options->push_peer_info)		/* all there is */
+    to.push_peer_info_detail = 2;
+  else if (options->pull)		/* pull clients send some details */
+    to.push_peer_info_detail = 1;
+  else					/* default: no peer-info at all */
+    to.push_peer_info_detail = 0;
 #endif
 
   /* should we not xmit any packets until we get an initial
@@ -2480,12 +2486,16 @@ do_option_warnings (struct context *c)
     msg (M_WARN, "NOTE: --connect-timeout option is not supported on this OS");
 #endif
 
-  if (script_security >= SSEC_SCRIPTS)
-    msg (M_WARN, "NOTE: the current --script-security setting may allow this configuration to call user-defined scripts");
-  else if (script_security >= SSEC_PW_ENV)
-    msg (M_WARN, "WARNING: the current --script-security setting may allow passwords to be passed to scripts via environmental variables");
-  else
-    msg (M_WARN, "NOTE: " PACKAGE_NAME " 2.1 requires '--script-security 2' or higher to call user-defined scripts or executables");
+  /* If a script is used, print appropiate warnings */
+  if (o->user_script_used)
+   {
+     if (script_security >= SSEC_SCRIPTS)
+       msg (M_WARN, "NOTE: the current --script-security setting may allow this configuration to call user-defined scripts");
+     else if (script_security >= SSEC_PW_ENV)
+       msg (M_WARN, "WARNING: the current --script-security setting may allow passwords to be passed to scripts via environmental variables");
+     else
+       msg (M_WARN, "NOTE: starting with " PACKAGE_NAME " 2.1, '--script-security 2' or higher is required to call user-defined scripts or executables");
+   }
 }
 
 static void
