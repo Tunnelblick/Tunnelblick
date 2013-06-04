@@ -934,8 +934,8 @@
 /* Window text */
 "Last checked: %@" = "Zuletzt geprüft: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Localization by" = "Localization by";
+/* Window text */
+"Localization by" = "Lokalisierung durch";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB" = "MB";
@@ -1213,6 +1213,10 @@
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick basiert auf %@. ";
 
+
+
+
+
 /* Window text */
 "Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick ist freie Software: Sie können es unter den Bedingungen der %1$@, wie von der %2$@ herausgegeben, weitergeben und/oder modifizieren.";
 
@@ -1418,8 +1422,8 @@
 /* Credit description */
 "Chinese (simplified) localization" = "Chinesische (vereinfacht) Lokalisierung";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+/* Credit description */
+"Chinese (traditional) localization" = "Chinesische (traditionell) Lokalisierung";
 
 /* Credentials name */
 "Common" = "Gemeinsam";
@@ -1445,8 +1449,8 @@
 /* Credit description */
 "Dutch localization" = "Niederländische Lokalisierung";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Finnish localization" = "Finnish localization";
+/* Credit description */
+"Finnish localization" = "Finnische Lokalisierung";
 
 /* Credit description */
 "Founder, original program and documentation" = "Gründer, Erschaffer des ursprünglichen Programms und der Dokumentation";
@@ -1469,14 +1473,14 @@
 /* Credit description */
 "Korean localization" = "Koreanische Lokalisierung";
 
-/* NEEDS TRANSLATION *//* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+/* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "Deutsche Lokalisierung";
 
-/* NEEDS TRANSLATION *//* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Markus Schneider, Andreas Finke und Janek Schwarz";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Localization code tweaks" = "Localization code tweaks";
+/* Credit description */
+"Localization code tweaks" = "Lokalisierung Code Anpassungen";
 
 /* Credit description */
 "Multiple configuration folders" = "Mehrere Konfigurationsordner";
@@ -1484,11 +1488,11 @@
 /* Credit description */
 "Norwegian localization" = "Norwegische Lokalisierung";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 und 64-Bit Integration";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"PKCS#11 support" = "PKCS#11 support";
+/* TRANSLATION SAME AS DEVELOPMENT *//* Credit description */
+"PKCS#11 support" = "PKCS#11 Support";
 
 /* Credit description */
 "Polish localization" = "Polnische Lokalisierung";
@@ -1500,10 +1504,10 @@
 "Program and documentation enhancements and maintenance after version 3.0b10" = "Erweiterungen im Programm und der Dokumentation ab Version 3.0b10";
 
 /* Credit description */
-"Russian localization" = "Russischen Lokalisierung";
+"Russian localization" = "Russische Lokalisierung";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Slovak localization" = "Slovak localization";
+/* Credit description */
+"Slovak localization" = "Slowakische Lokalisierung";
 
 /* Credit description */
 "Spanish localization" = "Spanische Lokalisierung";
@@ -1512,19 +1516,19 @@
 "Swedish localization" = "Schwedische Lokalisierung";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+"Tunnelblick icon" = "Tunnelblick Icon";
 
-/* TRANSLATION SAME AS DEVELOPEMENT *//* Credit description */
-"UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue und UKLoginItemRegistry";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+/* Credit description */
+"Ukrainian localization" = "Ukrainische Lokalisierung";
 
 /* Credit description */
 "Up and Down scripts" = "Up/down Skripte";
 
 /* Credit description */
-"Xcode help and OpenSSL integration" = "Xcode Hilfe & OpenSSL Integration";
+"Xcode help and OpenSSL integration" = "Xcode Hilfe und OpenSSL Integration";
 
 /* Button VPNService */
 "Accept" = "Akzeptieren";
