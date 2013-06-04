@@ -169,6 +169,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Andreas Finke     </td>
+    <td>      German    </td>
+  </tr>
+
+  <tr>
     <td>      Aleix Dorca     </td>
     <td>      Catalan    </td>
   </tr>
@@ -265,6 +270,11 @@ Tunnelblick is made possible by the efforts of many people:
 
   <tr>
     <td>      Markus Schneider    </td>
+    <td>      German    </td>
+  </tr>
+
+  <tr>
+    <td>      Janek Schwarz     </td>
     <td>      German    </td>
   </tr>
 
