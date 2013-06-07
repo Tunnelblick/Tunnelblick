@@ -171,7 +171,7 @@ enum state_t {                      // These are the "states" of the guideState 
             }
             
             if (  addIt  ) {
-                if (  invalidConfigurationName(dispName)  ) {
+                if (  invalidConfigurationName(dispName, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
                     TBRunAlertPanel(NSLocalizedString(@"Name not allowed", @"Window title"),
                                     [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
                                                                                   @" name contains characters that are not allowed.\n\n"

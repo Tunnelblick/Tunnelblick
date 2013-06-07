@@ -59,7 +59,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 183-247, plus the values in define.h (249-254) -- 248 IS NOT USED
+    // returnValue: have used 180-247, plus the values in define.h (249-254) -- 248 IS NOT USED
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -1119,7 +1119,7 @@ NSString * TunTapSuffixToUse(NSString * prefix) {
 }
 
 //**************************************************************************************************************************
-void getProcesses(struct kinfo_proc** procs, unsigned * number) {
+int getProcesses(struct kinfo_proc** procs, unsigned * number) {
 	//Fills in process information
 	
 	int					mib[4]	= { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
@@ -1127,15 +1127,16 @@ void getProcesses(struct kinfo_proc** procs, unsigned * number) {
 	size_t				length;
     unsigned			level	= 3;
     
-    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return;
-    if (!(info = malloc(length))) return;
+    if (sysctl(mib, level, NULL, &length, NULL, 0) < 0) return -1;
+    if (!(info = malloc(length))) return -1;
     if (sysctl(mib, level, info, &length, NULL, 0) < 0) {
         free(info);
-        return;
+        return -1;
     }
     
 	*procs = info;
 	*number = length / sizeof(struct kinfo_proc);
+    return 0;
 }
 
 BOOL isOpenvpn(pid_t pid) {
@@ -1146,21 +1147,26 @@ BOOL isOpenvpn(pid_t pid) {
 	unsigned            i			= 0;
 	struct kinfo_proc*	info		= NULL;
 	
-	getProcesses(&info, &count);
-    for (i = 0; i < count; i++) {
-        char* process_name = info[i].kp_proc.p_comm;
-        pid_t thisPid = info[i].kp_proc.p_pid;
-        if (pid == thisPid) {
-			if (strcmp(process_name, "openvpn")==0) {
-				is_openvpn = TRUE;
-			} else {
-				is_openvpn = FALSE;
-			}
-			break;
-		}
-    }    
-    free(info);
-	return is_openvpn;
+	if (  getProcesses(&info, &count) == 0 ) {
+        for (i = 0; i < count; i++) {
+            char* process_name = info[i].kp_proc.p_comm;
+            pid_t thisPid = info[i].kp_proc.p_pid;
+            if (pid == thisPid) {
+                if (strcmp(process_name, "openvpn")==0) {
+                    is_openvpn = TRUE;
+                } else {
+                    is_openvpn = FALSE;
+                }
+                break;
+            }
+        }    
+        free(info);
+        return is_openvpn;
+    }
+    
+    appendLog([NSString stringWithFormat: @"isOpenvpn(%lu): Unable to get process information via getProcesses()", (long) pid]);
+    exitOpenvpnstart(180);
+    return NO;
 }
 
 BOOL processExists(pid_t pid) {
@@ -1171,16 +1177,21 @@ BOOL processExists(pid_t pid) {
 	unsigned            i           = 0;
 	struct kinfo_proc*	info		= NULL;
 	
-	getProcesses(&info, &count);
-    for (i = 0; i < count; i++) {
-        pid_t thisPid = info[i].kp_proc.p_pid;
-        if (pid == thisPid) {
-            does_exist = TRUE;
-            break;
+	if (  getProcesses(&info, &count) == 0 ) {
+        for (i = 0; i < count; i++) {
+            pid_t thisPid = info[i].kp_proc.p_pid;
+            if (pid == thisPid) {
+                does_exist = TRUE;
+                break;
+            }
         }
-    }    
-    free(info);
-	return does_exist;
+        free(info);
+        return does_exist;
+    }
+    
+    appendLog([NSString stringWithFormat: @"processExists(%lu): Unable to get process information via getProcesses()", (long) pid]);
+    exitOpenvpnstart(181);
+    return NO;
 }
 
 void waitUntilAllGone(void) {
@@ -1201,19 +1212,24 @@ void waitUntilAllGone(void) {
             sleep(1);
         }
         
-        getProcesses(&info, &count);
-        for (i = 0; i < count; i++) {
-            char* process_name = info[i].kp_proc.p_comm;
-            if (  strcmp(process_name, "openvpn") == 0  ) {
-                found = TRUE;
+        if (  getProcesses(&info, &count) == 0 ) {
+            for (i = 0; i < count; i++) {
+                char* process_name = info[i].kp_proc.p_comm;
+                if (  strcmp(process_name, "openvpn") == 0  ) {
+                    found = TRUE;
+                    break;
+                }
             }
+            
+            free(info);
+            
+            if (  ! found  ) {
+                break;
+            }
+        } else {
+            appendLog(@"waitUntilAllGone(): Unable to get process information via getProcesses()");
+            exitOpenvpnstart(182);
         }
-        
-        free(info);
-		
-		if (  ! found  ) {
-			break;
-		}
     }
     
     if (  found  ) {

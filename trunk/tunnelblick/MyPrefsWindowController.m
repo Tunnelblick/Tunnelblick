@@ -1275,6 +1275,17 @@ static BOOL firstTimeShowingWindow = TRUE;
         // moveCredentials deleted "-keychainHasUsernameAndPassword" for the from configuration's preferences, so we restore it to the "to" configuration's preferences
         key = [targetDisplayName stringByAppendingString: @"-keychainHasUsernameAndPassword"];
         [gTbDefaults setBool: haveCredentials forKey: key];
+		
+		// We also need to change the name of the configuration that is selected
+		NSString * pref = [gTbDefaults objectForKey: @"leftNavSelectedDisplayName"];
+		if (  [pref isEqualToString: sourceDisplayName]  ) {
+			[gTbDefaults setObject: targetDisplayName forKey: @"leftNavSelectedDisplayName"];
+		}
+		
+		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetDisplayName];
+		
+		[[NSApp delegate] updateMenuAndLogWindow];
+		
     }
     
     if (  localAuthorization  ) {
@@ -3079,6 +3090,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
     return [configurationsPrefsView logView];
 }
+
+TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 
 TBSYNTHESIZE_OBJECT_GET(retain, ConfigurationsView *, configurationsPrefsView)
 

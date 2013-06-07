@@ -235,6 +235,7 @@ BOOL needToConvertNonTblks(void);
 -(void)             showStatisticsWindows;
 -(void)             hideStatisticsWindows;
 -(void)             updateUI;
+-(void)				updateMenuAndLogWindow;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 
 -(void) addActiveIPCheckThread: (NSString *) threadID;

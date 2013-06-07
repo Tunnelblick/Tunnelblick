@@ -187,6 +187,8 @@
 
 TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)
 
+TBPROPERTY(NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
+
 TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
 
 TBPROPERTY(NSUInteger, selectedLeftNavListIndex,       setSelectedLeftNavListIndex)

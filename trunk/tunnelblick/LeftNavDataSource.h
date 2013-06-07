@@ -47,6 +47,11 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 displayNameForTableColumn: (NSTableColumn *) tableColumn
                    byItem: (id)              item;
 
+- (void)      outlineView: (NSOutlineView *) outlineView
+           setObjectValue: (id)              object
+           forTableColumn: (NSTableColumn *) tableColumn
+                   byItem: (id)              item;
+
 -(NSDictionary *) rowsByDisplayName;
 
 @end
