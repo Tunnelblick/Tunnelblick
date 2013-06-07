@@ -1731,11 +1731,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 // Note: The menu item's title will be set on demand in VPNConnection's validateMenuItem
 -(void) addNewConfig: (NSString *) path withDisplayName: (NSString *) dispNm
 {
-    if (  invalidConfigurationName(dispNm)  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Name not allowed", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
-                                                                      @" name contains characters that are not allowed.", @"Window text"), dispNm],
-                        nil, nil, nil);
+    if (  invalidConfigurationName(dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
+		TBRunAlertPanel(NSLocalizedString(@"Name not allowed", @"Window title"),
+						[NSString stringWithFormat: NSLocalizedString(@"Configuration '%@' will be ignored because its"
+																	  @" name contains characters that are not allowed.\n\n"
+																	  @"Characters that are not allowed: '%s'\n\n", @"Window text"),
+						 dispNm, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING],
+						nil, nil, nil);
         return;
     }
     VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path

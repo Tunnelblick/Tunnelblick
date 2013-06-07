@@ -274,7 +274,8 @@ extern TBUserDefaults * gTbDefaults;
                             nil];
 	
     // Construct an HTML page with the dummy credits, consisting of a table.
-    NSString * htmlHead = (@"<table width=\"100%\">"
+    NSString * htmlHead = (@"<font face=\"Arial, Georgia, Garamond\">"
+						   @"<table width=\"100%\">"
 						   @"<tr><td colspan=\"2\">&nbsp;</td></tr>\n"
 						   @"<tr><td colspan=\"2\"><strong><center>"
                            @"@@STRING@@"  // "TUNNELBLICK is brought to you by"
@@ -309,7 +310,7 @@ extern TBUserDefaults * gTbDefaults;
 							@"@@STRING@@"
 							@"</td></tr>\n");
     
-    NSString * htmlTail = @"</table>";
+    NSString * htmlTail = @"</table></font>";
 
     NSMutableString * creditsHTML = [NSMutableString stringWithCapacity:1000];
 

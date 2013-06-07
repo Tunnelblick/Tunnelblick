@@ -2588,12 +2588,14 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) readStatisticsTo: (struct Statistics *) returnValue
 {
     OSStatus status = pthread_mutex_lock( &bytecountMutex );
+    
+    // Get the statisticss even if the lock failed; so non-garbage values are filled in
+    *returnValue = statistics;
+    
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"VPNConnection:readStatisticsTo: pthread_mutex_lock( &bytecountMutex ) failed; status = %ld", (long) status);
         return;
     }
-    
-    *returnValue = statistics;
     
     pthread_mutex_unlock( &bytecountMutex );    
 }

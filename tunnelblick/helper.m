@@ -901,10 +901,10 @@ NSString * TBGetDisplayName(NSString * msg,
     NSString * nameToPrefill = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
     NSString * newName = TBGetString(msg, nameToPrefill);
     while (  newName  ) {
-        if (  invalidConfigurationName(newName)) {
+        if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
             newName = TBGetString([NSString stringWithFormat:
 								   NSLocalizedString(@"Names may not include any of the following characters: %s\n\n%@", @"Window text"),
-								   PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING,
+								   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING,
 								   msg],
 								  nameToPrefill);
         } else if (  [newName length] == 0  ) {
@@ -1089,7 +1089,7 @@ NSArray * availableOpenvpnVersions (void)
     return list;
 }
 
-BOOL invalidConfigurationName(NSString * name)
+BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
 {
 	unsigned i;
 	for (  i=0; i<[name length]; i++  ) {
@@ -1102,7 +1102,6 @@ BOOL invalidConfigurationName(NSString * name)
 	}
 	
 	const char * nameC          = [name UTF8String];
-	const char   badCharsC[]    = PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING;
 	
 	return (   ( [name length] == 0)
             || ( [name hasPrefix: @"."] )

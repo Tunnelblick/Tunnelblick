@@ -1134,10 +1134,10 @@ extern TBUserDefaults       * gTbDefaults;
 		newName = TBGetString(msg, newName);
 		if (   newName
 			&& ([newName length] > 0)  ) {
-			if (  invalidConfigurationName(newName)  ) {
+			if (  invalidConfigurationName(newName, PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING)  ) {
 				msg = [NSString stringWithFormat:
 					   NSLocalizedString(@"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n", @"Window text"),
-					   PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING];
+					   PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING];
 			} else {
 				NSString * errMsg = [gTbDefaults addNamedCredentialsGroup: newName];
 				if (  errMsg  ) {
