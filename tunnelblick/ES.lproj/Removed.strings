@@ -166,3 +166,6 @@
 /* Window text */
 "Tunnelblick is brought to you by" = " es traido a usted por";
 
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "La configuración '%@' será ignorada porque su nombre contiene caracteres no permitidos.";
+
