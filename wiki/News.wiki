@@ -1,6 +1,21 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-06-08: *Tunnelblick 3.3beta54 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Includes complete German, Spanish, and Polish localization.
+
+ * Includes OpenVPN  version 2.3.2.
+
+ * Adds the ability to edit a configuration name by clicking on it and editing it directly (OS X 10.6 and higher only).
+
+ * Includes several other enhancements and fixes several problems.
+ 
+See the [RlsNotes#Version_3.3 Release Notes] for details.
+
+
+--------------------
+
 2013-05-20: *Tunnelblick 3.3beta52 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes several problems converting OpenVPN configurations to Tunnelblick VPN Configurations.

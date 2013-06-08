@@ -13,6 +13,7 @@ Please don't use a deprecated version of Tunnelblick unless you are having probl
 
 Note: Unsigned versions should be used only for creation of certain Deployed versions of Tunnelblick. See [cDigitalSignatures Tunnelblick and Digital Signatures] for details.
 
+    [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta52.dmg          Tunnelblick 3.3beta52          (build 3352)]      released 2013-05-20<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta50.dmg          Tunnelblick 3.3beta50          (build 3302)]      released 2013-05-11<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta48.dmg          Tunnelblick 3.3beta48          (build 3292)]      released 2013-05-08<br>
     [http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.3beta46.dmg          Tunnelblick 3.3beta46          (build 3281)]      released 2013-04-22<br>

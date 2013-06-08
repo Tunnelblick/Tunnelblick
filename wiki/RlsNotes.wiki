@@ -9,6 +9,43 @@
 
 ==Version 3.3==
 
+*3.3beta54 (2013-06-08)*
+
+ * Includes complete German, Spanish, and Polish localization.
+
+ * Includes OpenVPN  version 2.3.2.
+
+ * Adds the ability to edit a configuration name by clicking on it and editing it directly (OS X 10.6 and higher only).
+
+ * Adds the ability to always use the latest OpenVPN version that is available. 
+
+ * Adds a confirmation dialog if user has no Tunnelblick VPN Configurations and does not want to convert OpenVPN configurations to Tunnelblick VPN Configurations.
+
+ * Fixes a problem that caused openvpn and down-root.so binaries to not be digitally signed.
+
+ * Fixes a problem disconnecting configurations using the down-root plugin if killall is allowed.
+
+ * Fixes a problem with up & down scripts failing when /etc/resolv.conf is empty except for comments.
+
+ * Fixes a problem that displayed the wrong version of VPN that would be used if the requested version is not available.
+
+ * Fixes a problem using WiFi after disconnecting if 'Reset the primary interface after disconnecting' is checked.
+
+ * Fixes a problem converting an OpenVPN configuration that contains an inline key/cert/etc.
+
+ * Fixes a problem that failed to keep a configuration selected after it was renamed.
+
+ * Fixes a problem verifying digital signatures of Deployed versions of Tunnelblick.
+
+ * Fixes a problem that could cause double-freeing of memory.
+
+ * Fixes a problem that could cause the the status window to show incorrect statistics.
+
+ * Fixes a problem that could cause credits on Info panel to appear in an incorrect font.
+ 
+
+--------------------
+
 *3.3beta52 (2013-05-20)*
 
  * Fixes problems converting an OpenVPN configuration file that:
