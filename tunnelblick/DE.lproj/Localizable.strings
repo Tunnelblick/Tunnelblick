@@ -277,8 +277,9 @@
 /* Checkbox name */
 "Check for updates automatically" = "Automatisch nach Updates suchen";
 
-/* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Prüfen ob die scheinbare öffentliche IP Adresse sich nach Verbindungsherstellung geändert hat";
+/* Checkbox name *//* NOTE: Return used to force second line */
+"Check if the apparent public IP address changed after connection" = "Prüfen ob die scheinbare öffentliche IP Adresse
+sich nach Verbindungsherstellung geändert hat";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Verbindung trennen, wenn der Benutzer wechselt";
