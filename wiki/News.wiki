@@ -9,7 +9,7 @@
 
  * Adds the ability to edit a configuration name by clicking on it and editing it directly (OS X 10.6 and higher only).
 
- * Includes several other enhancements and fixes several problems.
+ * Includes other enhancements and fixes several problems.
  
 See the [RlsNotes#Version_3.3 Release Notes] for details.
 
