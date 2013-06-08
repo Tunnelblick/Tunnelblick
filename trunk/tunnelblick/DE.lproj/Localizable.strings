@@ -116,6 +116,9 @@
 "Install Sample" = "Beispiel installieren";
 
 /* Button */
+"Latest (%@)" = "Neuste (%@)";
+
+/* Button */
 "Launch" = "Ausführen";
 
 /* Button */
@@ -815,9 +818,6 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Die Konfiguration '%@' kann wegen unzulässiger Zeichen im Namen nicht verwendet werden.";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Die Konfiguration '%1$@' kann wegen unzulässiger Zeichen im Namen nicht verwendet werden.\n\nNicht zulässige Zeichen sind: '%2$s'\n\n";
 
 /* Window text */
@@ -1002,6 +1002,9 @@
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN Version %1$@ ist nicht verfügbar. Es wird daher die Standardversion %2$@ genutzt.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN Version %1$@ ist nicht verfügbar. Nutze die neuste Version %2$@";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "OpenVPN version:" = "OpenVPN Version:";

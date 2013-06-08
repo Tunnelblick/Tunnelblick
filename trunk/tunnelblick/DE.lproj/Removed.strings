@@ -160,3 +160,6 @@
 /* Window text */
 "Tunnelblick is brought to you by" = "Tunnelblick wurde ermöglicht durch";
 
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Die Konfiguration '%@' kann wegen unzulässiger Zeichen im Namen nicht verwendet werden.";
+

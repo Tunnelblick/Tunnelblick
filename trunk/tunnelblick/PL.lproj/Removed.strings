@@ -171,3 +171,6 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Wykryto konfiguracje w formacie OpenVPN, obsługa których nie jest wspierana przez tą wersję Tunnelblick'a. Aby kontynuować:\n\n     • Pozwól Tunnelblick'owi skonwertować te konfiguracje do formatu 'Połączenie VPN Tunnelblick'a' (.tblk); lub\n     • Zakończ program i zainstaluje inną wersję Tunnelblick'a; lub\n     • Zingoruj tą wiadomość i kontynuuj pomijając konwersję.\n\n";
 
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Konfiguracja '%@' zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.";
+
