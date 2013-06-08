@@ -17,7 +17,7 @@ There are several ways to get access to a VPN server:
 ==Employer-provided VPN Servers==
 Your employer should supply you with an OpenVPN configuration file (.ovpn or .conf file), along with the appropriate certificate and key files, or with a [http://code.google.com/p/tunnelblick/wiki/cConfigT Tunnelblick VPN Configuration] (.tblk, which includes the certificate and key files within it).
 
-Follow the instructions from your employer or in [http://code.google.com/p/tunnelblick/wiki/cInstall Installing Tunnelblick 3.1 & 3.2] to install Tunnelblick and configurations.
+Follow the instructions from your employer or in [cInstall Installing Tunnelblick] to install Tunnelblick and configurations.
 
 ==Set Up Your Own VPN Server==
 This is more complicated. It involves creating your own OpenVPN configuration file (or modifying the sample file provided by Tunnelblick) and creating your own certificate and key files for encryption. (Tunnelblick versions 3.3 and higher include 'EasyRSA' to help you with creating certificate and key files.) There are tutorials about doing this -- try searching the Internet for "set up openvpn server".
@@ -58,6 +58,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
   * *[http://www.tunnelblick.net/to.php?to=https://www.comodo.com/home/internet-security/wifi-security.php Comodo TrustConnect]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.frozenway.com FrozenWay]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.goldenfrog.com/vyprvpn Golden Frog Vypr VPN]*
+  * *[http://www.tunnelblick.net/to.php?to=https://www.hostvpn.com/ HostVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.ibvpn.com Invisible browsing VPN]*
   * *[http://www.tunnelblick.net/to.php?to=https://www.ivpn.net iVPN]*
   * *[http://www.tunnelblick.net/to.php?to=http://www.my-expat-network.co.uk My Expat Network]*
@@ -85,7 +86,7 @@ The following VPN service providers  recommend or use Tunnelblick exclusively fo
 </td></tr></table>
 
 
-If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2012-07-15.)
+If you are a VPN service provider that recommends or uses Tunnelblick exclusively for Mac OS X, contact project owner [http://code.google.com/u/jkbullard/ Jon] to get yourself added this list. (The list was last updated 2013-06-08.)
 
 
 Disclaimer: The products, services, and links on this page are not endorsed or recommended by the Tunnelblick developers or Google (host of this website). They are offered solely for the convenience of those wishing to use Tunnelblick.
