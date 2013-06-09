@@ -139,3 +139,39 @@
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick potřebuje nainstalovat a nebo odinstalovat jeden nebo více konfigurací VPN Tunnelblick.";
 
+/* Window text */
+" and install %ld configurations" = " a instalovat %ld konfigurací";
+
+/* Window text */
+" and install one configuration" = " a instalovat jednu konfiguraci";
+
+/* Window text */
+"%@is already identical to its last secured (shadow) copy.\n\n" = "%@je již identická s poslední bezpečnou (stínovou) kopií.\n\n";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Konfigurace '%@' bude ignorována, poněvadž její jméno obsahuje nepovolené znaky.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Přejete si instalovat %ld konfigurací";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Přejete si odinstalovat %ld konfigurací";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Přejete si odinstalovat jednu konfiguraci";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "There was a problem with %ld configurations. Details are in the Console Log\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Byl nalezen problém s jednou konfigurací. Detaily naleznete v logu konzoly\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Byl nalezen problém s jednou nebo více konfiguracemi. Detaily naleznete v logu konzoly\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick potřebuje nainstalovat a nebo odinstalovat jeden nebo více konfigurací VPN Tunnelblick.";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Máte jednu nebo více konfigurací OpenVPN, které nebudou dotupné pokud použijete tuto verzi Tunnelblicku. Můžete:\n\n     • Nechat Tunnelblick zkonvertovat tyto konfigurace OpenVPN do konfigurací VPN Tunnelblicku; nebo\n     • Ukončit a nainstalovat jinou verzi Tunnelblicku; nebo\n     • Ignorovat a pokračovat bez konverze.\n\n";
+
