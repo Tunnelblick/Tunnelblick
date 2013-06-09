@@ -14,18 +14,17 @@ This document provides some notes about specific strings that are being translat
 
 <hr>
 
-<font color="red>
+This document has comments about some sets of strings with common characteristics and some strings that appear more than one time within other strings, followed by comments on full strings.
+
+<hr>
+
 *" and install %ld configurations" Window text*<br />
 *"Do you wish to install %ld configurations" Window text*<br />
 *"Do you wish to uninstall %ld configurations" Window text*<br />
 *"Do you wish to uninstall one configuration" Window text*
 
 These strings are used to construct a question; none of them have a "?" because the "?" is added at the end of the dialog box outside of the translated strings. There are languages in which this is a problem, so for the final round of translations for Tunnelblick 3.3, *these strings will be removed and a new string or strings will be added which provide the complete question in a single string or deal with the problem in some other way*.
-</font>
 
-<hr>
-
-This document has comments about some sets of strings with common characteristics and some strings that appear more than one time within other strings, followed by comments on full strings in alphabetical order.
 <hr>
 
 There is a series of "Window text" strings: *"B"*, *"KB"*, *"MB"*, *"GB"*, *"TB"*, *"PB"*, *"EB"*, and *"ZB"*. These are abbreviations for bytes, kilobytes, megabytes, gigabytes, terrabytes, petabytes, exabytes, and zetabytes, respectively. If they are not translated for your language you should prefix the <font color="green">/`*` Window text `*`/</font> comment with a <font color="green">/`*` TRANSLATION SAME AS DEVELOPMENT `*`/</font> comment for each such string --like the following:
@@ -59,5 +58,6 @@ so it is talking about a checking for a change in IP address. (See "*apparent pu
 
 *"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded <font color="grey">[ rest of string omitted]</font>" Window text* -- here "rebranded" means renamed, with all references to the name "Tunnelblick" replaced by something else.
 
+*"Latest (%@)"* Button -- this refers to the latest (newest) version of OpenVPN and is used in the list of OpenVPN versions that the user can choose to use. It is like the "Default (%@)" button.
 ------------------
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
