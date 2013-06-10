@@ -17,7 +17,7 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2013-06-09:
+The following table shows the status of translations for Tunnelblick as of 2013-06-10:
 
 || <br>Language           || <br>Code  || #  || Stable<br>Status                      || Beta<br>Status ^1^                     ||Head<br>Status ^2^                      ||
 || Catalan                || CA        || 1  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
@@ -26,7 +26,7 @@ The following table shows the status of translations for Tunnelblick as of 2013-
 || Spanish                || ES        || 4  || *<font color="green">Complete</font>* || *<font color="green">Complete</font>*  || *<font color="green">Complete</font>*  ||
 || Finnish                || FI        || 6  || (none)                                || (none)                                 || (none)                                 ||
 || French                 || FR        || 2  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
-|| Hungarian              || HU        || 1  || *<font color="green">Complete</font>* || Partial                                || 99% complete                           ||
+|| Hungarian              || HU        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>* ||
 || Italian                || IT        || 2  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
 || Japanese               || JA        || 1  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
 || Korean                 || KO        || 1  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
