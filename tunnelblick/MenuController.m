@@ -237,7 +237,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
             NSLog(@"Too few execComponents; ourBundlePath = %@", ourBundlePath);
             exit(1);
         }
-        NSString * ourAppName = [execComponents objectAtIndex: [execComponents count] - 1];
+        NSString * ourAppName = [execComponents lastObject];
 		if (  [ourAppName hasSuffix: @".app"]  ) {
 			ourAppName = [ourAppName substringToIndex: [ourAppName length] - 4];
 		}
@@ -3334,13 +3334,12 @@ static void signal_handler(int signalNumber)
             return;
         }
         if (  ! [versions containsObject: prefVersion]  ) {
-            NSString * useVersion;
-            useVersion = [versions objectAtIndex: 0];
+            NSString * useVersion = [versions lastObject];
             TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
+                            [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
                              prefVersion, useVersion],
                             nil, nil, nil);
-            [gTbDefaults removeObjectForKey: @"openvpnVersion"];
+            [gTbDefaults setObject: @"-" forKey: @"openvpnVersion"];
         }
     }
     

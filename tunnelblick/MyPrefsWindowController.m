@@ -1010,16 +1010,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     return nil;
 }
 
--(void) setSelectedLeftNavListIndexFromDisplayName: (NSString *) displayName {
-    NSUInteger ix = [leftNavDisplayNames indexOfObject: displayName];
-    if (  ix == NSNotFound  ) {
-        NSLog(@"Error: setSelectedLeftNavListIndexFromDisplayName: -- leftNavDisplayNames does not contain '%@'; leftNavDisplayNames = %@", displayName, leftNavDisplayNames);
-    } else {
-        [self setSelectedLeftNavListIndex: ix];
-    }
-}
-
-
 // User Interface
 
 // Window
@@ -2340,52 +2330,57 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     // Select the OpenVPN version
     
-    BOOL warnAboutVersion = FALSE;
     NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
-    NSString * useVersion;
-    if (  ! isSanitizedOpenvpnVersion(prefVersion)  ) {
-        warnAboutVersion = TRUE;
-        useVersion = @"";
-    } else {
-        useVersion = (prefVersion ? prefVersion : @"");
-    }
     
-    unsigned ovSizeIx = UINT_MAX;
-    NSString * lastValue = @"";
     NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
     NSArray * list = [ac content];
-    unsigned i;
-    for (  i=0; i<[list count]; i++  ) {
-        NSDictionary * dict = [list objectAtIndex: i];
-        lastValue = [dict objectForKey: @"value"];
-        if (  [lastValue isEqualToString: useVersion]  ) {
-            ovSizeIx = i;
-            break;
-        }
-    }
+    NSString * lastValue = [[list objectAtIndex: [list count] - 2] objectForKey: @"value"]; // don't get "latest (xxx)" -- get last real OpenVPN version number
     
-    if (  ovSizeIx == UINT_MAX  ) {
-        if (  [useVersion length] != 0  ) {
-            warnAboutVersion = TRUE;
-        }
-        ovSizeIx = [list count]-1;
-    }
+    BOOL warnAndUseLatestVersion = FALSE;
     
-    if (  ovSizeIx < [list count]  ) {
-        [self setSelectedOpenvpnVersionIndex: ovSizeIx];
+    unsigned openvpnVersionIx = UINT_MAX;   // Flag value as not set
+    
+    if ( ! prefVersion  ) {
+        openvpnVersionIx = 0;
+        
+    } else if ( [prefVersion isEqualToString: @"-"]  ) {
+        openvpnVersionIx = [list count] - 1;
+    
+    } else if (  ! isSanitizedOpenvpnVersion(prefVersion)  ) {
+        warnAndUseLatestVersion = TRUE;
+    
     } else {
-        NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %ld", ovSizeIx, (long) [list count]-1);
+        unsigned i;
+        for (  i=1; i<[list count]-1; i++  ) {                      // 1st array entry is "default (xxx)", last is "latest (xxx)", so don't try to match them
+            NSDictionary * dict = [list objectAtIndex: i];
+            NSString * thisValue = [dict objectForKey: @"value"];
+            if (  [thisValue isEqualToString: prefVersion]  ) {
+                openvpnVersionIx = i;
+                break;
+            }
+        }
+        
+        if (  openvpnVersionIx == UINT_MAX  ) {
+            warnAndUseLatestVersion = TRUE;
+        }
+    }
+    
+    if (  warnAndUseLatestVersion  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
+                         prefVersion, lastValue],
+                        nil, nil, nil);
+        [gTbDefaults setObject: @"-" forKey: @"openvpnVersion"];
+        openvpnVersionIx = [list count] - 1;
+    }
+    
+    if (  openvpnVersionIx < [list count]  ) {
+        [self setSelectedOpenvpnVersionIndex: openvpnVersionIx];
+    } else {
+        NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %ld", openvpnVersionIx, (long) [list count]-1);
     }
     
     [[generalPrefsView openvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: @"openvpnVersion"]];
-    
-    if (  warnAboutVersion  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the default, version %@", @"Window text"),
-                         prefVersion, lastValue],
-                        nil, nil, nil);
-        [gTbDefaults removeObjectForKey: @"openvpnVersion"];
-    }
     
     // Select the keyboard shortcut
     
@@ -2406,6 +2401,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     NSUInteger logSizeIx = UINT_MAX;
     ac = [generalPrefsView maximumLogSizeArrayController];
     list = [ac content];
+    unsigned i;
     for (  i=0; i<[list count]; i++  ) {
         NSDictionary * dict = [list objectAtIndex: i];
         NSString * listValue = [dict objectForKey: @"value"];
