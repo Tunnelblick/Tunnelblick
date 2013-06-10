@@ -175,3 +175,9 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van. Ezek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n     • A Tunnelblick elvégzi az OpenVPN konfigurációk átalakítását Tunnelblick konfigurációs állományokra; vagy\n     • Kiléphet és választhat másik Tunnelblick változatot; vagy\n     • Figyelmen kívül hagyhatja ezt az üzenetet.\n\n";
 
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "A(z) '%@' nevű konfiguráció figyelmen kívül lesz hagyva, mert nem megengedett karaktereket tartalmaz.";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "A(z) '%@' nevű konfiguráció figyelmen kívül lesz hagyva, mert nem megengedett karaktereket tartalmaz.";
+
