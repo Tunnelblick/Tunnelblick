@@ -105,8 +105,6 @@
 
 - (VPNConnection*) selectedConnection;
 
--(void) setSelectedLeftNavListIndexFromDisplayName: (NSString *) displayName;
-
 -(IBAction) addConfigurationButtonWasClicked:         (id)  sender;
 -(IBAction) removeConfigurationButtonWasClicked:      (id)  sender;
 
