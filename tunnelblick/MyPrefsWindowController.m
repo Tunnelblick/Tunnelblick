@@ -476,6 +476,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         if (  ! [allConfigsSorted containsObject: displayNameToSelect]  ) {
             displayNameToSelect = nil;
         }
+	}
+	
+	if (  ! displayNameToSelect  ) {
+        displayNameToSelect = [allConfigsSorted objectAtIndex: 0];
     }
 	
 	[leftNavList         release];
@@ -552,7 +556,8 @@ static BOOL firstTimeShowingWindow = TRUE;
             item = [outlineView itemAtRow: r];
             NSString * itemDisplayName = [item displayName];
             if (  [itemDisplayName hasSuffix: @"/"]  ) {
-                if (  [expandedDisplayNames containsObject: itemDisplayName]  ) {
+                if (   [expandedDisplayNames containsObject: itemDisplayName]
+                    || [displayNameToSelect hasPrefix: itemDisplayName]  ) {
                     [outlineView expandItem: item];
                 }
             }
