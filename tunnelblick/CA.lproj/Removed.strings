@@ -175,3 +175,24 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Tens una o més configuracions OpenVPN que no estaran disponibles en aquesta versió de Tunnelblick. Pots:\n\n     • Deixar que Tunnelblick les converteixi; o\n     • Sortir i instal·lar una versió diferent de Tunnelblick; o\n     • Ignorar això i continuar sense la conversió.\n\n";
 
+/* Window text */
+" and install %ld configurations" = " i instal·lar %ld configuracions";
+
+/* Window text */
+"%@is already identical to its last secured (shadow) copy.\n\n" = "%@és idèntica a la darrera còpia (shadow).\n\n";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "La configuració '%@' serà ignorada ja que el seu nom conté caràcters no permesos.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Desitges instal·lar %ld configuracions";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Estàs segur que desitges desinstal·lar %ld configuracions";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Hi ha hagut un problema amb %ld configuracions. Els detalls són a la Consola\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Tens una o més configuracions OpenVPN que no estaran disponibles en aquesta versió de Tunnelblick. Pots:\n\n     • Deixar que Tunnelblick les converteixi; o\n     • Sortir i instal·lar una versió diferent de Tunnelblick; o\n     • Ignorar això i continuar sense la conversió.\n\n";
+
