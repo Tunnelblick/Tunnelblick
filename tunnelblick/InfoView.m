@@ -249,24 +249,25 @@ extern TBUserDefaults * gTbDefaults;
                             
 // NEW TRANSLATORS FOR 3.3, must be verified and then inserted above in alphabetical order:
 
+                            [NSArray arrayWithObjects: @"Jesse Hulkko",                  NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Jarmo Isotalo",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Kalle Kärkkäinen",              NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Feetu Nyrhine",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Petra Penttila",                NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Mikko Toivola",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
+                            
                             [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Hello Chan",                    NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Mats Cronqvist",                NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Bart Helbers",                  NSLocalizedString(@"Dutch localization",                   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Evandro Hora",                  NSLocalizedString(@"Portuguese localization",              @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Jesse Hulkko",                  NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Jarmo Isotalo",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"John Jean",                     NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Michel Jansen",                 NSLocalizedString(@"Portuguese localization",              @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Kalle Kärkkäinen",              NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Daniel Kvist",                  NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Aleksey Likholob",              NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Artem Logvyn",                  NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Massimo",                       NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Feetu Nyrhine",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Petra Penttila",                NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Vitalii Skakun",                NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Mikko Toivola",                 NSLocalizedString(@"Finnish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Pompin Wu",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             nil];
 	
