@@ -59,5 +59,11 @@ so it is talking about a checking for a change in IP address. (See "*apparent pu
 *"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded <font color="grey">[ rest of string omitted]</font>" Window text* -- here "rebranded" means renamed, with all references to the name "Tunnelblick" replaced by something else.
 
 *"Latest (%@)"* Button -- this refers to the latest (newest) version of OpenVPN and is used in the list of OpenVPN versions that the user can choose to use. It is like the "Default (%@)" button.
+
+*"LANGUAGE_LOCALIZATION"* -- This is a description of localization for your language. For example, for the German translation, it is "Deutsche Lokalisierung".
+
+*"LEAD_TRANSLATORS"* -- This should be "translated" into a list of the names of the main translators (lead translators). These names will be listed in the top section of the credits on the "Info" panel. All translators, including those in this list, will be included in the localization section -- the third section -- of the credits. For example, for the German translation, it is "Markus Schneider, Andreas Finke und Janek Schwar". 
+
+
 ------------------
 ===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
