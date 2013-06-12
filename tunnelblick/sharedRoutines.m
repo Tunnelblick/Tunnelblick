@@ -418,3 +418,41 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
     
 	return result;
 }
+
+NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
+    
+    // Returns nil if the file at path is a plain text file, or a string describing the error if it isn't
+    //
+    // If crOK is TRUE, CR (0x0D) characters are allowed.
+    // Note: all files except script files can have CR characters.
+    
+    NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
+    
+    const char * chars = [data bytes];
+    
+    if (   chars[0] == '{'  ) {
+        return @"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
+    }
+    
+    unsigned i;
+    unsigned lineNumber = 1;
+    for (  i=0; i<[data length]; i++  ) {
+        char c = chars[i];
+        if (   ((c & 0x80) != 0)   // If high bit set
+            || (c == 0x7F)         // Or DEL
+            || (   (c == 0x0D)     // Or CR and CR is not allowed
+                && (! crIsOK))
+            || (   (c < 0x20)      // Or a control character
+                && (c != 0x09)     //    but not an HTAB
+                && (c != 0x0A)     //            or LF
+                )
+            ) {
+            return [NSString stringWithFormat: @"Line %d of the file contains a non-printable character (0x%02X) which is not allowed.", lineNumber, c];
+        }
+        if (  c == 0x0A  ) {
+            lineNumber++;
+        }
+    }
+    
+    return nil;
+}

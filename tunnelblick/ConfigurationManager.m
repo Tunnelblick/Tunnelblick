@@ -652,7 +652,8 @@ enum state_t {                      // These are the "states" of the guideState 
     
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
-	//					         @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
+								 // @"askpass",                    // askpass        'file' not supported since we don't compile with --enable-password-save
+								 // @"auth-user-pass",             // auth-user-pass 'file' not supported since we don't compile with --enable-password-save
 								 @"ca",
 								 @"cert",
 								 @"dh",
@@ -686,7 +687,14 @@ enum state_t {                      // These are the "states" of the guideState 
                 return FALSE;
             }
             if (  ! [argument isEqualToString: @"[inline]"]  ) {
-                if (  ! [gFileMgr fileExistsAtPath: [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: argument]]  ) {
+                NSString * newPath = [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: argument];
+                if (  [gFileMgr fileExistsAtPath: newPath]  ) {
+                    NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES);
+                    if (  errorText  ) {
+                        NSLog(@"Error in %@ (referenced in %@): %@", [newPath lastPathComponent], tblkName, errorText);
+                        return FALSE;
+                    }
+                } else {
                     NSLog(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
                           tblkName, option, argument);
                     TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
@@ -862,9 +870,13 @@ enum state_t {                      // These are the "states" of the guideState 
                             : NSLocalizedString(@"There was a problem with one or more configurations. Details are in the Console Log.\n\n", @"Window text")
                             );
     
-    if (   ([errList    count] != 0)
-        && ([deleteList count] == 0)
+    if (   ([deleteList count] == 0)
         && ([sourceList count] == 0)  ) {
+        
+        if ( [errList   count] == 0  ) {
+            return;		// The user cancelled
+        }
+        
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
                         errPrefix,
                         nil, nil, nil);
@@ -1214,6 +1226,22 @@ enum state_t {                      // These are the "states" of the guideState 
         && ( ! pkgDoUninstall)
         && [self isSampleConfigurationAtPath: pathToConfigFile]  ) {
         pkgIsOK = FALSE;            // have already informed the user of the problem
+    }
+    
+    // **************************************************************************************
+    // Make sure the configuration file is a plain text file
+    NSString * errorText = errorIfNotPlainTextFileAtPath(pathToConfigFile, YES);
+    if (  errorText  ) {
+		NSString * tblkName = [pathToConfigFile stringByDeletingLastPathComponent];	// Remove config.ovpn
+        if (   [[tblkName lastPathComponent] isEqualToString: @"Resources"]  ) {    // Remove Contents/Resources
+            tblkName = [tblkName stringByDeletingLastPathComponent];
+            if (   [[tblkName lastPathComponent] isEqualToString: @"Contents"]  ) {
+                tblkName = [tblkName stringByDeletingLastPathComponent];
+            }
+        }
+        tblkName = [tblkName lastPathComponent];									// Isolate whatever.tblk
+		NSLog(@"Error in configuration file in %@: %@", tblkName, errorText);
+        return nil;
     }
     
     // **************************************************************************************

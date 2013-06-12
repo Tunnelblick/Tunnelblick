@@ -62,10 +62,10 @@ extern NSString      * gPrivatePath;
 
 -(void) logMessage: (NSString *) msg {
 	NSString * fullMsg;
-	if (  inputLineNumber != 0  ) {
-		fullMsg = [NSString stringWithFormat: @"%@ line %u: %@", [self nameToDisplayFromPath: configPath], inputLineNumber, msg];
-	} else {
+	if (  inputLineNumber == 0  ) {
 		fullMsg = [NSString stringWithFormat: @"%@: %@", [self nameToDisplayFromPath: configPath], msg];
+	} else {
+		fullMsg = [NSString stringWithFormat: @"%@ line %u: %@", [self nameToDisplayFromPath: configPath], inputLineNumber, msg];
 	}
 	if (  logFile == NULL  ) {
 		NSLog(@"%@", fullMsg);
@@ -239,6 +239,7 @@ extern NSString      * gPrivatePath;
 -(BOOL) processPathRange: (NSRange) rng
 	   removeBackslashes: (BOOL) removeBackslashes
         needsShExtension: (BOOL) needsShExtension {
+    
 	NSString * inPathString = [configString substringWithRange: rng];
 	NSString * inPath = [[inPathString copy] autorelease];
 	if (  removeBackslashes  ) {
@@ -259,6 +260,12 @@ extern NSString      * gPrivatePath;
         if (  ! [extension isEqualToString: @"sh"]  ) {
             fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
             [self logMessage: [NSString stringWithFormat: @"Added '.sh' extension to %@ so it will be secured properly", file]];
+        }
+        
+        NSString * errorMsg = errorIfNotPlainTextFileAtPath(inPath, NO);
+        if (  errorMsg  ) {
+            [self logMessage: [NSString stringWithFormat: @"File %@: %@", inPath, errorMsg]];
+            return FALSE;
         }
     } else {
         if (   ( ! extension)
@@ -347,9 +354,18 @@ extern NSString      * gPrivatePath;
     outputPath   = [theOutputPath copy];
     logFile      = theLogFile;
 	
+    inputIx         = 0;
+    inputLineNumber = 0;
+    
 	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
 	
+    NSString * errorMsg = errorIfNotPlainTextFileAtPath(theConfigPath, YES);
+    if (  errorMsg  ) {
+        [self logMessage: errorMsg];
+        return FALSE;
+    }
+    
     configString = [[[[NSString alloc] initWithContentsOfFile: configPath encoding: NSASCIIStringEncoding error: NULL] autorelease] mutableCopy];
     
     // Append newline to file if it doesn't aleady end in one (simplifies parsing)
@@ -361,8 +377,8 @@ extern NSString      * gPrivatePath;
 	
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
-//					             @"askpass",                       // askpass 'file' not supported since we don't compile with --enable-password-save
-								 @"auth-user-pass",				   // Optional 'file'
+//					             @"askpass",                       // askpass        'file' not supported since we don't compile with --enable-password-save
+//								 @"auth-user-pass",				   // auth-user-pass 'file' not supported since we don't compile with --enable-password-save
 								 @"ca",
 								 @"cert",
 								 @"dh",
@@ -416,9 +432,6 @@ extern NSString      * gPrivatePath;
                                @"</secret>",
                                @"</tls-auth>",
                                nil];
-    
-    inputIx         = 0;
-    inputLineNumber = 0;
     
     // Create the .tblk/Contents/Resources folder
     if (  outputPath  ) {
