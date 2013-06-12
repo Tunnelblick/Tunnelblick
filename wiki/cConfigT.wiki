@@ -52,7 +52,7 @@ You can modify a Tunnelblick VPN Configuration two ways:
    # Install the modified .tblk by double-clicking it.
 
 ==Files Contained in a Tunnelblick VPN Configuration==
-The files that should be contained in a Tunnelblick VPN Configuration (the "files related to the connection" in 3. above):
+The files that should be contained in a Tunnelblick VPN Configuration (the "files related to the connection" in 3. above) should all be "plain text" files:
  * One (and only one) OpenVPN configuration file (a .ovpn or .conf file).
  * Any certificate or key files for that configuration (.key, .crt, .pem, .cer, .der, .p12, .p7b, .p7c, and .pfx files); and
  * Any script files for the configuration. Script files must must have a .sh extension so that Tunnelblick can secure them and use them properly.
