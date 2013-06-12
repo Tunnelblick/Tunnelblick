@@ -49,3 +49,5 @@ unsigned int getFreePort(void);
 BOOL itemIsVisible(NSString * path);
 
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
+
+NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK);
