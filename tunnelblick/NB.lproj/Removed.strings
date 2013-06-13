@@ -152,8 +152,23 @@
 "There was a problem with one configuration. Details are in the Console Log\n\n" = "Det var problemer med en konfigurasjon. du finner detaljer i Konsoll loggen\n\n";
 
 /* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Det var problemer med en eller flere konfigurasjoner. du finner detaljer i Konsoll loggen\n\n";
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick har behov for å installere og/eller avinstallere en eller flere Tunnelblick VPN Konfigurasjoner.";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick har behov for å installere og/eller avinstallere en eller flere Tunnelblick VPN Konfigurasjoner.";
+" and install %ld configurations" = " og innstaller %ld konfigurasjoner";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Konfigurasjonen '%@' vil bli ignorert fordi navnet inneholder tegn som ikke er tillatt.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Vil du innstallere %ld konfigurasjoner";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Vil du avinnstallere %ld konfigurasjoner";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Det var et problem med %ld konfigurasjonen. Detaljer finnes i konsoll loggen\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Du har en eller flere OpenVPN konfigurasjoner som vil bli utilgjengelig ved å bruke denne versjonen av Tunnelblick. Du kan:\n\n     • La Tunnelblick konvertere disse OpenVPN konfigurasjoner til Tunnelblick VPN konfigurasjoner; or\n     • Avslutte og installere en annen versjon av Tunnelblick; eller\n     • Overse dette og fortsette installasjonen uten å konvertere.\n\n";
 
