@@ -278,7 +278,8 @@
 "Check for updates automatically" = "Se etter oppdateringer automatisk";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Sjekk om den offisielle ip-adressen har endret seg etter oppkobling";
+"Check if the apparent public IP address changed after connection" = "Sjekk om den offisielle ip-adressen har endret
+seg etter oppkobling";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Koble fra når bruker byttes";
