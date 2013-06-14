@@ -427,6 +427,10 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
     // Note: all files except script files can have CR characters.
     
     NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
+	
+	if (  ! data  ) {
+		return @"The file is missing.";
+	}
     
     const char * chars = [data bytes];
     
@@ -445,6 +449,7 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
             || (   (c < 0x20)      // Or a control character
                 && (c != 0x09)     //    but not an HTAB
                 && (c != 0x0A)     //            or LF
+                && (c != 0x0D)     //            or CR
                 )
             ) {
             return [NSString stringWithFormat: @"Line %d of the file contains a non-printable character (0x%02X) which is not allowed.", lineNumber, c];

@@ -1228,22 +1228,25 @@ enum state_t {                      // These are the "states" of the guideState 
         pkgIsOK = FALSE;            // have already informed the user of the problem
     }
     
-    // **************************************************************************************
-    // Make sure the configuration file is a plain text file
-    NSString * errorText = errorIfNotPlainTextFileAtPath(pathToConfigFile, YES);
-    if (  errorText  ) {
-		NSString * tblkName = [pathToConfigFile stringByDeletingLastPathComponent];	// Remove config.ovpn
-        if (   [[tblkName lastPathComponent] isEqualToString: @"Resources"]  ) {    // Remove Contents/Resources
-            tblkName = [tblkName stringByDeletingLastPathComponent];
-            if (   [[tblkName lastPathComponent] isEqualToString: @"Contents"]  ) {
-                tblkName = [tblkName stringByDeletingLastPathComponent];
-            }
-        }
-        tblkName = [tblkName lastPathComponent];									// Isolate whatever.tblk
-		NSLog(@"Error in configuration file in %@: %@", tblkName, errorText);
-        return nil;
-    }
-    
+	if (  pathToConfigFile  ) {
+		// **************************************************************************************
+		// Make sure the configuration file is a plain text file
+		NSString * errorText = errorIfNotPlainTextFileAtPath(pathToConfigFile, YES);
+		if (  errorText  ) {
+			NSString * tblkName = [pathToConfigFile stringByDeletingLastPathComponent];	// Remove config.ovpn
+			if (   [[tblkName lastPathComponent] isEqualToString: @"Resources"]  ) {    // Remove Contents/Resources
+				tblkName = [tblkName stringByDeletingLastPathComponent];
+				if (   [[tblkName lastPathComponent] isEqualToString: @"Contents"]  ) {
+					tblkName = [tblkName stringByDeletingLastPathComponent];
+				}
+			}
+			tblkName = [tblkName lastPathComponent];									// Isolate whatever.tblk
+			NSLog(@"Error in configuration file in %@: %@", tblkName, errorText);
+			return nil;
+		}
+	}
+
+	
     // **************************************************************************************
     // Make sure the .tblk contains all key/cert/etc. files that are in the configuration file
     if (   pathToConfigFile
