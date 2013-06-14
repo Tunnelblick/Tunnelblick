@@ -14,7 +14,7 @@
 
   * *Explanation 2*: Tunnelblick is a ready-to-use Graphic User Interface (GUI) for OpenVPN on Mac OS X. It provides easy-to-use control of OpenVPN server and/or client connections.
 
-  It runs on OS X 10.4 through 10.8 (Tiger, Leopard, Snow Leopard, Lion, and Mountain Lion). It comes as a ready-to-use Universal application with all necessary binaries and drivers (including OpenVPN and tun/tap) included. No additional installation is necessary -- just add your configuration and encryption information.
+  It runs on OS X 10.4 through 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks"). It comes as a ready-to-use Universal application with all necessary binaries and drivers (including OpenVPN and tun/tap) included. No additional installation is necessary -- just add your configuration and encryption information.
 
   Tunnelblick is free software licensed under the GNU General Public License (GPL) Version 2.
 

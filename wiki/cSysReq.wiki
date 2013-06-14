@@ -5,9 +5,9 @@ Note: To use Tunnelblick you need access to a VPN server -- your computer is one
 
 Tunnelblick comes as a ready-to-use application with all necessary binaries and drivers (including OpenVPN and tun/tap). No additional installation is necessary -- just add your configuration and encryption information.
 
-Tunnelblick 3.3 runs on OS X 10.4 through 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion").
+Tunnelblick 3.3 runs on OS X 10.4 through 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks").
 
-Tunnelblick 3.2 runs on OS X 10.4 through 10.7 ("Tiger", "Leopard", "Snow Leopard", and  "Lion"). It _may or may not_ work for you on OS X 10.8 ("Mountain Lion").
+Tunnelblick 3.2 runs on OS X 10.4 through 10.7 ("Tiger", "Leopard", "Snow Leopard", and  "Lion"). It _may or may not_ work for you on OS X 10.8 or 10.9 ("Mountain Lion" or "Mavericks").
 
 Tunnelblick 3.1 and 3.0 run on OS X 10.4 through 10.6 ("Tiger", "Leopard", and "Snow Leopard").
 

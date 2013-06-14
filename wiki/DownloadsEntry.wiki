@@ -20,7 +20,7 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  ==Tunnelblick Stable Releases==
  <i>(A stable release is a version that has been tested as thoroughly as possible and is as reliable as we can make it. It usually does not have all the new features of a beta release, but may be more reliable.)</i>
 
- For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit<br /><font color="red">Not recommended for OS X 10.8 or 10.9 ("Mountain Lion" or "Mavericks") -- use a beta version (below).</font>
+ For use on OS X 10.4 - 10.7 ("Tiger", "Leopard", "Snow Leopard", and "Lion") Intel or PowerPC, 32- or 64-bit<br /><font color="red"><strong>Not recommended</strong> for OS X 10.8 or 10.9 ("Mountain Lion" or "Mavericks") -- use a beta version (below).</font>
 
  <font size="3"><strong>Tunnelblick 3.2.9</strong></font> (build 2891.3328) released 2013-05-14 [RlsNotes#Version_3.2 Release Notes]
   <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.9.dmg                 Tunnelblick 3.2.9]</strong><br />  <strong>[http://code.google.com/p/tunnelblick/downloads/detail?name=Tunnelblick_3.2.9_Unsigned.dmg     Tunnelblick 3.2.9 Unsigned]</strong> 

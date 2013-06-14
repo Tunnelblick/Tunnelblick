@@ -42,7 +42,7 @@ Tunnelblick versions after 3.2beta10 can be built as a "Signed Release", an "Uns
 
 You should set up Xcode to create a "Signed Release" or "Unsigned Release" build instead of a "Debug" build. Navigate to the "tunnelblick-read-only" folder that was created above, double-click the the "tunnelblick" folder within it, then double-click "Tunnelblick.xcodeproj". That will start Xcode in a new window with the Tunnelblick project. Click "Build" in the menu bar, then click "Build Results". That will open a new window. In that window click on the drop-down button at the top left that says something like "10.6 | Debug | Tunnelblick | i386", and under the "Active configuration" heading, click on "Signed Release". The button should now read "10.6 | Signed Release | Tunnelblick | i386".
 
-Don't worry about the "10.6"; Tunnelblick will still be built for OS X 10.4 - 10.8. The "10.6" refers to the SDK that is used. System methods introduced after 10.4 are only used if they exist (that is, if Tunnelblick is being executed on a version of OS X that supports them). 
+Don't worry about the "10.6"; Tunnelblick will still be built for OS X 10.4 - 10.9. The "10.6" refers to the SDK that is used. System methods introduced after 10.4 are only used if they exist (that is, if Tunnelblick is being executed on a version of OS X that supports them). 
 
 ==BUILD A RELEASE==
 Finally! You are ready to build a release of Tunnelblick. In the "Build Results" window, click the "Build" button. The build process will start, and a series of status messages will be displayed. There should be no errors, but see [#BUILD_WARNINGS BUILD WARNINGS] about warnings that are considered "normal".
@@ -93,7 +93,7 @@ It is possible to build versions of Tunnelblick prior to r232 on Leopard. The in
       svn checkout http://tunnelblick.googlecode.com/svn/trunk/ *-r 231* tunnelblick-read-only
 
 ==BUILDING ON LION==
-Current versions of Tunnelblick are built on OS X 10.6 ("Snow Leopard") with Xcode 3.2.2, as described above. That is because higher versions of Xcode do not support PowerPC processor builds. At some point, perhaps in Tunnelblick 3.3, PowerPC and/or OS X 10.4 support will be dropped, and Tunnelblick will be built on OS X 10.7 and/or 10.8 ("Lion" and/or "Mountain Lion").
+Current versions of Tunnelblick are built on OS X 10.6 ("Snow Leopard") with Xcode 3.2.2, as described above. That is because higher versions of Xcode do not support PowerPC processor builds. At some point, perhaps in Tunnelblick 3.3, PowerPC and/or OS X 10.4 support will be dropped, and Tunnelblick will be built on OS X 10.7 and/or 10.9 ("Lion" and/or "Mavericks").
 
 To build on Lion (with the understanding that PowerPC Macs and Macs with OS X 10.4 will not be able to execute the resulting binary), see [https://groups.google.com/d/msg/tunnelblick-discuss/vJYGdD-et4k/MFM1a-7Dt2QJ this discussion].
 ------------------
