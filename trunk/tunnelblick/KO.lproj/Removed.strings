@@ -107,9 +107,6 @@
 "The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "개인 설정 폴더가 Finder 창으로 열렸습니다.\n\nOpenVPN 설정 파일과 키, 그리고 인증서 파일을 폴더로 옮기거나 복사합니다.\n\n새 설정은 즉시 Tunnelblick에서 사용할 수 있습니다.";
 
 /* Window text */
-"There was a problem with %d configurations. Details are in the Console Log\n\n" = "%d개 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
-
-/* Window text */
 "Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick이 보안을 위해 설정 파일의 소유자와 권한을 변경할 수 없습니다. 자세한 것은 Console 로그 파일을 보십시오.";
 
 /* Window text */
@@ -152,8 +149,26 @@
 "There was a problem with one configuration. Details are in the Console Log\n\n" = "1개 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
 
 /* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "1개 또는 그 이상 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick이 1개 또는 그 이상 Tunnelblick VPN 설정을 설치나 삭제하려고 합니다.";
+
+/* Window text */
+" and install one configuration" = " 과 1개 설정을 설치";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "1개 설정을 삭제하겠습니까";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "1개 설정에 문제가 있습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "1개 또는 그 이상 설정에 문제가 있습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n";
 
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick이 1개 또는 그 이상 Tunnelblick VPN 설정을 설치나 삭제하려고 합니다.";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log.\n\n" = "%ld개 설정에 문제가 있습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n";
+
+/* Window text */
+"There was a problem with %d configurations. Details are in the Console Log.\n\n" = "%d개 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
 
