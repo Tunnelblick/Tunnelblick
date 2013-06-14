@@ -19,7 +19,7 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 The following table shows the status of translations for Tunnelblick as of 2013-06-14:
 
-|| <br>Language           || <br>Code  || #  || Stable<br>Status                      || Beta<br>Status ^1^                     ||Head<br>Status ^2^                      ||
+|| <br>Language           || <br>Code  || #  || Stable<br>Status ^1^                  || Beta<br>Status ^2^                     ||Head<br>Status ^3^                      ||
 || Catalan                || CA        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*  ||
 || Czech                  || CS        || 1  || *<font color="green">Complete</font>* || Partial                                || Nearly complete ||
 || German                 || DE        || 3  || *<font color="green">Complete</font>* || *<font color="green">Complete</font>*  || *<font color="green">Complete</font>*  ||
@@ -41,9 +41,11 @@ The following table shows the status of translations for Tunnelblick as of 2013-
 || Chinese (Simplified)   || ZN_CN     || 2  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
 || Chinese (Traditional)  || ZN_TW     || 2  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
 
-1. Translation status of the most recent beta release.
+1. Translation status of the most recent stable release.
 
-2. Translation status of the source code as committed but not yet built into a release.
+2. Translation status of the most recent beta release.
+
+3. Translation status of the source code as committed but not yet built into a release.
 
 ------------------
 
