@@ -152,8 +152,26 @@
 "There was a problem with one configuration. Details are in the Console Log\n\n" = "Er is een probleem met een configuratie. Details staan in het Console Log\n\n";
 
 /* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Er is een probleem met een of meer configuraties. Details staan in het Console Log\n\n";
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick moet een of meerdere Tunnelblick VPN Configuraties installeren/verwijderen.";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick moet een of meerdere Tunnelblick VPN Configuraties installeren/verwijderen.";
+" and install %ld configurations" = " en installeer %ld configuraties";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuratie '%@' zal genegeerd worden omdat de naam karakters bevat die niet zijn toegestaan.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Wil je %ld configuraties installeren";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Wil je %ld configuraties verwijderen";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Er was een probleem met %ld configuraties. Details zijn te vinden in de console log\n\n";
+
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Deze 'uitgerolde' versie van Tunnelblick kan niet opgestart of geinstalleerd worden, omdat het niet opnieuw gebrandmerkt is, of updateFeedURL of SUFeedURL missen of bevatten 'tunnelblick.net', or CFBundleIdentifier mist of bevat 'net.tunnelblick'.\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "U heeft een of meer OpenVPN configuraties die niet beschikbaar zijn, wanneer u deze versie van Tunnelblick gebruikt. U kan:\n\n     • Tunnelblick de OpenVPN laten converteren naar Tunnelblick configuraties; of\n     • Sluit Tunnelblick en installeer een andere versie van Tunnelblick; of\n     • Negeer het en ga verder zonder conversie.\n\n";
 
