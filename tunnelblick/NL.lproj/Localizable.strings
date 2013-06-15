@@ -115,8 +115,8 @@
 /* Button */
 "Install Sample" = "Voorbeeld Installeren";
 
-/* NEEDS TRANSLATION *//* Button */
-"Latest (%@)" = "Latest (%@)";
+/* Button */
+"Latest (%@)" = "Laatste (%@)";
 
 /* Button */
 "Launch" = "Starten";
@@ -142,7 +142,7 @@
 /* Button */
 "Only Me" = "Ik alleen";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
 
 /* Button */
@@ -673,11 +673,11 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Converteer OpenVPN configuraties\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • Installeer %ld configuraties\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+/* Window text */
+"  • Install one configuration\n\n" = "  • Installeer één configuratie\n\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Installeer of update configuratie(s)\n";
@@ -688,11 +688,11 @@
 /* Window text */
 "  • Secure configurations\n" = "  • Configuraties beveiligen\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Verwijder %ld configuraties\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • Verwijder één configuratie\n\n";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configuraties mogen alleen verwijderd worden door een beheerder.\n\n Verwijderen gebeurt direct en is permanent. Alle instellingen voor '%1$@' zullen ook permanent verwijderd worden.%2$@%3$@";
@@ -769,8 +769,8 @@
 /* Window text */
 "Add Credentials..." = "Voeg aanmeldgegevens toe…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Additional contributions by" = "Additional contributions by";
+/* Window text */
+"Additional contributions by" = "Additionele bijdragen door";
 
 /* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Na %1$.1f seconden, gestopt met proberen om informatie te verkrijgen over het IP adres.\n\nTunnelblick zal niet controleren of het IP adres wijzigt terwijl %2$@ is verbonden.\n\n";
@@ -799,8 +799,8 @@
 /* Window text */
 "Anonymous unique ID" = "Anoniem uniek ID";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Weet je zeker dat je de OpenVPN configuraties niet wilt omzetten naar Tunnelblick VPN Configuraties?\n\nCONFIGURATIES ZULLEN NIET BESCHIKBAAR ZIJN ALS JE ZE NIET OMZET!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Bent u zeker dat u de waarmerkingskenmerken (persoonlijke sleutel en wachtwoord) voor '%@' in de Sleutelhanger wilt verwijderen?";
@@ -931,8 +931,8 @@
 /* Window text */
 "Last checked: %@" = "Laatste controle: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Localization by" = "Localization by";
+/* Window text */
+"Localization by" = "Vertaling door";
 
 /* TRANSLATION SAME AS DEVELOPMENT */ /* Window text */
 "MB" = "MB";
@@ -1000,8 +1000,8 @@
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. Standaard wordt gebruikt, versie %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. De meest recente versie %2$@ wordt gebruikt";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN versie:";
@@ -1146,8 +1146,8 @@
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Er is een probleem met een of meer configuraties. Details staan in het Console Log.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Deze 'Uitgerolde' versie van Tunnelblick kan niet gestart of geïnstalleerd worden omdat het niet voorzien is van een nieuw brandmerk, of updateFeedURL of SUFeedURL missen of bevatten 'tunnelblick.net', of CFBundleIdentifier mist of bevat 'net.tunnelblick'.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Deze 'verspreide' versie van Tunnelblick kan niet opgestart of geïnstalleerd worden, omdat het geen Info.plist bevat.\n\n";
@@ -1235,8 +1235,8 @@
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick moet:\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick moet:\n\n";
 
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick vereist OS X 10.4 of hoger\n     (\"Tiger\", \"Leopard\", of \"Snow Leopard\")";
@@ -1304,8 +1304,8 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "U kunt een instelling enkel hernoemen wanneer deze niet verbonden is.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Je beschikt over OpenVPN configuraties maar je beschikt niet over Tunnelblick VPN Configuraties.\n\nJe moet OpenVPN configuraties omzetten naar Tunnelblick VPN Configuraties als je ze wilt gebruiken.\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "U heeft verzocht om '%@' te dupliceren.";
@@ -1319,8 +1319,8 @@
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "U heeft verzocht om '%1$@' te hernoemen naar '%2$@'.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Je beschikt over één of meerdere OpenVPN configuraties die niet beschikbaar zullen zijn als je deze versie van Tunnelblick gebruikt. Je kunt:\n\n     • Tunnelblick deze OpenVPN configuraties laten omzetten naar Tunnelblick VPN Configuraties; of\n     • Stop en installeer een andere versie van Tunnelblick; of\n     • Negeer dit en ga verder zonder omzetten.\n\nAls je 'Negeren' kiest zullen de configuraties niet beschikbaar zijn!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "U heeft geprobeerd om een configuratiebestand te gebruiken welke hetzelfde is als het voorbeeld configuratiebestand geïnstalleerd door Tunnelblick. Het configuratiebestand dient gewijzigd te worden om verbinding te kunnen maken met een VPN. U heeft wellicht ook andere bestanden nodig, zoals certificaat- of sleutelbestanden, om verbinding te kunnen maken met het VPN.\n\nRaadpleeg uw netwerkbeheerder of uw VPN serviceprovider voor configuratiebestanden of de benodigde informatie om het voorbeeldbestand te wijzigen.\n\nOpenVPN documentatie is beschikbaar op\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -1352,8 +1352,8 @@
 /* Window text */
 "You may not rename a configuration which is set to start when the computer starts." = "Het is niet toegestaan een configuratie te hernoemen welke is ingesteld om te starten wanneer de computer start.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You may only revert a private configuration." = "You may only revert a private configuration.";
+/* Window text */
+"You may only revert a private configuration." = "Je mag alleen een privé configuratie herstellen.";
 
 /* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "U moet de reeds actieve versie van Tunnelblick stoppen om de nieuwe versie te kunnen starten.\n\nDruk op \"Verbreek VPN verbindingen en stop Tunnelblick\" om alle VPN verbindingen te verbreken en stop de reeds actieve Tunnelblick voordat u Tunnelblick start.";
@@ -1418,8 +1418,8 @@
 /* Credit description */
 "Chinese (simplified) localization" = "Chinese (vereenvoudigd) vertaling";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+/* Credit description */
+"Chinese (traditional) localization" = "Chinese (traditioneel) vertaling";
 
 /* Credentials name */
 "Common" = "Algemeen";
@@ -1445,8 +1445,8 @@
 /* Credit description */
 "Dutch localization" = "Nederlandse vertaling";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Finnish localization" = "Finnish localization";
+/* Credit description */
+"Finnish localization" = "Finse vertaling";
 
 /* Credit description */
 "Founder, original program and documentation" = "Oorspronkelijke auteur, originele programmatuur en documentatie";
@@ -1472,11 +1472,11 @@
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "Nederlandse vertaling";
 
-/* NEEDS TRANSLATION *//* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Emma Segev en Tjalling Soldaat";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Localization code tweaks" = "Localization code tweaks";
+/* Credit description */
+"Localization code tweaks" = "Vertaling code tweaks";
 
 /* Credit description */
 "Multiple configuration folders" = "Meerdere configuratiemappen";
@@ -1484,8 +1484,8 @@
 /* Credit description */
 "Norwegian localization" = "Noorse vertaling";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 en 64-bit integratie";
 
 /* Credit description */
 "PKCS#11 support" = "PKCS#11 ondersteuning";
@@ -1502,8 +1502,8 @@
 /* Credit description */
 "Russian localization" = "Russische vertaling";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Slovak localization" = "Slovak localization";
+/* Credit description */
+"Slovak localization" = "Slowaakse vertaling";
 
 /* Credit description */
 "Spanish localization" = "Spaanse vertaling";
@@ -1517,8 +1517,8 @@
 /* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue & UKLoginItemRegistry";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+/* Credit description */
+"Ukrainian localization" = "Oekraïnse vertaling";
 
 /* Credit description */
 "Up and Down scripts" = "Up/Down scripts";
