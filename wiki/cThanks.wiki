@@ -189,6 +189,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Ricardo Guijt      </td>
+    <td>      Dutch    </td>
+  </tr>
+
+  <tr>
     <td>      Pierpaolo Gulla      </td>
     <td>      Italian    </td>
   </tr>
