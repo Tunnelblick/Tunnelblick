@@ -118,8 +118,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
 -(void)             addPath:                                (NSString *)        path
              toMonitorQueue:                                (UKKQueue *)        queue;
 -(void)             activateStatusMenu;
--(void)             addNewConfig:                           (NSString *)        path
-                 withDisplayName:                           (NSString *)        dispNm;
 -(BOOL)             installTblks:                           (NSArray * )        filePaths
         skipConfirmationMessage:                            (BOOL)              skipConfirmMsg
               skipResultMessage:                            (BOOL)              skipResultMsg
@@ -132,7 +130,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                   toStartArgs:              (NSString * *)      startArgsPtr;
 -(NSArray *)        findTblksToInstallInPath:               (NSString *)        thePath;
 -(void)             checkNoConfigurations;
--(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(void)             deleteLogs;
 -(void)             initialChecks:							(NSString *)        ourAppName;
 -(unsigned)         getLoadedKextsMask;

@@ -711,6 +711,17 @@ enum state_t {                      // These are the "states" of the guideState 
     return TRUE;
 }
 
+-(NSDictionary *) infoPlistForTblkAtPath: (NSString *) path {
+    
+    NSString * infoPlistPath = [path stringByAppendingPathComponent:@"/Contents/Info.plist"];
+    
+    if (  ! [gFileMgr fileExistsAtPath: infoPlistPath]  ) {
+        infoPlistPath = [path stringByAppendingPathComponent:@"Info.plist"];
+    }
+    
+    return [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+}
+
 -(void) openDotTblkPackages: (NSArray *) filePaths
                   usingAuth: (AuthorizationRef) authRef
     skipConfirmationMessage: (BOOL) skipConfirmMsg
@@ -769,15 +780,14 @@ enum state_t {                      // These are the "states" of the guideState 
 		
         // Set up overrides for TBReplaceIdentical, TBSharePackage, and TBUninistall
         if (  [path hasSuffix: @".tblk"]  ) {
-            NSString * infoPlistPath = [path stringByAppendingPathComponent:@"Contents/Info.plist"];
-            NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: infoPlistPath];
+            NSDictionary * infoPlist = [self infoPlistForTblkAtPath: path];
             
             overrideReplaceIdentical = [infoPlist objectForKey: @"TBReplaceIdentical"];
 			if (  overrideReplaceIdentical  ) {
 				NSArray * okValues = [NSArray arrayWithObjects: @"yes", @"no", @"ask", @"force", nil];
 				if (  ! [okValues containsObject: overrideReplaceIdentical]  ) {
-					NSLog(@"Ignoring invalid TBReplaceIdentical value of '%@' in %@",
-						  overrideReplaceIdentical, infoPlistPath);
+					NSLog(@"Ignoring invalid TBReplaceIdentical value of '%@' in Info.plist in %@",
+						  overrideReplaceIdentical, path);
 					overrideReplaceIdentical = nil;
 				}
 			}
@@ -786,8 +796,8 @@ enum state_t {                      // These are the "states" of the guideState 
 			if (  overrideSharePackage  ) {
 				NSArray * okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
 				if (  ! [okValues containsObject: overrideSharePackage]  ) {
-					NSLog(@"Ignoring invalid TBSharePackage value of '%@' in %@",
-						  overrideSharePackage, infoPlistPath);
+					NSLog(@"Ignoring invalid TBSharePackage value of '%@' in Info.plist in %@",
+						  overrideSharePackage, path);
 					overrideSharePackage = nil;
 				}
 			}
@@ -966,6 +976,9 @@ enum state_t {                      // These are the "states" of the guideState 
     for (  i=0; i < [sourceList count]; i++  ) {
         NSString * source = [sourceList objectAtIndex: i];
         NSString * target = [targetList objectAtIndex: i];
+		NSString * targetDisplayName = [lastPartOfPath(target) stringByDeletingPathExtension];
+		NSDictionary * connDict = [[NSApp delegate] myVPNConnectionDictionary];
+		BOOL replacedTblk = (nil != [connDict objectForKey: targetDisplayName]);
         if (  ! [self copyConfigPath: source
                               toPath: target
                      usingAuthRefPtr: &localAuth
@@ -978,6 +991,13 @@ enum state_t {                      // These are the "states" of the guideState 
         if (  r.length != 0  ) {
             [gFileMgr tbRemoveFileAtPath:[source stringByDeletingLastPathComponent] handler: nil];
         }
+        
+		if (  replacedTblk  ) {
+            // Force a reload of the configuration's preferences using any new TBPreferences items it its Info.plist
+            [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
+            [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
+            [[[NSApp delegate] logScreen] update];
+		}
     }
     
     if (  ! authRef  ) {    // If we weren't given an AuthorizationRef, free the one we got
@@ -1095,13 +1115,10 @@ enum state_t {                      // These are the "states" of the guideState 
     NSString * pkgSharePackage;
     BOOL       pkgDoUninstall = FALSE;
     BOOL       pkgUninstallFailOK = FALSE;
-    BOOL       pkgHasInfoPlist = FALSE;
     
-    NSString * infoPath = [pathToTblk stringByAppendingPathComponent: @"Contents/Info.plist"];
-    NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
+    NSDictionary * infoDict = [self infoPlistForTblkAtPath: pathToTblk];
     
     if (  infoDict  ) {
-        pkgHasInfoPlist = TRUE;
         
         pkgId = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: infoDict defaultTo: nil];
         
@@ -1112,25 +1129,25 @@ enum state_t {                      // These are the "states" of the guideState 
         pkgPkgVersion = [self getLowerCaseStringForKey: @"TBPackageVersion" inDictionary: infoDict defaultTo: nil];
         if (  pkgPkgVersion  ) {
             if (  ! [pkgPkgVersion isEqualToString: @"1"]  ) {
-                NSLog(@"Configuration installer: Unknown 'TBPackageVersion' = '%@' (only '1' is allowed) in %@", pkgPkgVersion, infoPath);
+                NSLog(@"Configuration installer: Unknown 'TBPackageVersion' = '%@' (only '1' is allowed) in Info.plist in %@", pkgPkgVersion, pathToTblk);
                 pkgIsOK = FALSE;
             }
         } else {
-            NSLog(@"Configuration installer: Missing 'TBPackageVersion' in %@", infoPath);
+            NSLog(@"Configuration installer: Missing 'TBPackageVersion' in Info.plist in %@", pathToTblk);
             pkgIsOK = FALSE;
         }
         
         pkgReplaceIdentical = [self getLowerCaseStringForKey: @"TBReplaceIdentical" inDictionary: infoDict defaultTo: @"ask"];
         NSArray * okValues = [NSArray arrayWithObjects: @"no", @"yes", @"force", @"ask", nil];
         if ( ! [okValues containsObject: pkgReplaceIdentical]  ) {
-            NSLog(@"Configuration installer: Invalid value '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical' in %@", pkgReplaceIdentical, infoPath);
+            NSLog(@"Configuration installer: Invalid value '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical' in Info.plist in %@", pkgReplaceIdentical, pathToTblk);
             pkgIsOK = FALSE;
         }
         
         pkgSharePackage = [self getLowerCaseStringForKey: @"TBSharePackage" inDictionary: infoDict defaultTo: @"ask"];
         okValues = [NSArray arrayWithObjects: @"private", @"shared", @"ask", nil];
         if ( ! [okValues containsObject: pkgSharePackage]  ) {
-            NSLog(@"Configuration installer: Invalid value '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage' in %@", pkgSharePackage, infoPath);
+            NSLog(@"Configuration installer: Invalid value '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage' in Info.plist in %@", pkgSharePackage, pathToTblk);
             pkgIsOK = FALSE;
         }
         
@@ -1149,7 +1166,7 @@ enum state_t {                      // These are the "states" of the guideState 
         while (  (key = [e nextObject])  ) {
             if (  ! [validKeys containsObject: key]  ) {
                 if (  ! [key hasPrefix: @"TBPreference"]  ) {
-                    NSLog(@"Configuration installer: Unknown key '%@' in %@", key, infoPath);
+                    NSLog(@"Configuration installer: Unknown key '%@' in Info.plist in %@", key, pathToTblk);
                     pkgIsOK = FALSE;
                 }
             }
@@ -1271,7 +1288,7 @@ enum state_t {                      // These are the "states" of the guideState 
             NSString * last = lastPartOfPath(path);
             NSString * oldDisplayFirstPart = firstPathComponent(last);
             if (  [[oldDisplayFirstPart pathExtension] isEqualToString: @"tblk"]  ) {
-                NSDictionary * oldInfo = [NSDictionary dictionaryWithContentsOfFile: [path stringByAppendingPathComponent: @"Contents/Info.plist"]];
+                NSDictionary * oldInfo = [self infoPlistForTblkAtPath: path];
                 NSString * oldVersion = [oldInfo objectForKey: @"CFBundleVersion"];
                 NSString * oldIdentifier = [self getLowerCaseStringForKey: @"CFBundleIdentifier" inDictionary: oldInfo defaultTo: nil];
                 if (  [oldIdentifier isEqualToString: pkgId]) {
@@ -1394,9 +1411,11 @@ enum state_t {                      // These are the "states" of the guideState 
             [panelDict setObject:NSLocalizedString(@"OK", @"Button")                forKey:(NSString *)kCFUserNotificationDefaultButtonTitleKey];
             [panelDict setObject:NSLocalizedString(@"Cancel", @"Button")            forKey:(NSString *)kCFUserNotificationAlternateButtonTitleKey];
             
-            // If neither old nor new .tblks have an Info.plist
-            if (   ( ! pkgHasInfoPlist  )
-                && ( ! [gFileMgr fileExistsAtPath: [curPath stringByAppendingPathComponent: @"Contents/Info.plist"]]  )
+            // If neither old nor new .tblks have a CFBundleIdentifier, allow replacement
+            // (The situation when they both have a CFBundleIdentifer was processed above)
+			NSString * oldCFBundleIdentifier = [[self infoPlistForTblkAtPath: curPath] objectForKey: @"CFBundleIdentifier"];
+            if (   ( ! pkgId  )
+                && ( ! oldCFBundleIdentifier )
                 && ( ! [pkgReplaceIdentical isEqualToString: @"no"])  ) {
                 [panelDict setObject:NSLocalizedString(@"Replace Existing Configuration", @"Button") forKey:(NSString *)kCFUserNotificationOtherButtonTitleKey];
             }
