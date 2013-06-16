@@ -179,6 +179,8 @@ BOOL needToConvertNonTblks(void);
 
 // General methods
 -(void)             addConnection:                          (id)                sender;
+-(void)             addNewConfig:                           (NSString *)        path
+                 withDisplayName:                           (NSString *)        dispNm;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             changedMonitorConfigurationFoldersSettings;
@@ -188,6 +190,7 @@ BOOL needToConvertNonTblks(void);
 -(void)             createMenu;
 -(void)             createStatusItem;
 -(unsigned)         decrementTapCount;
+-(void)             deleteExistingConfig:                   (NSString *)        dispNm;
 -(NSURL *)          getIPCheckURL;
 -(void)             installConfigurationsUpdateInBundleAtPathHandler: (NSString *)path;
 -(void)             installConfigurationsUpdateInBundleAtPath: (NSString *)     path;
