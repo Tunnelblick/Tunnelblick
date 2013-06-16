@@ -422,8 +422,8 @@ muutos yhteyden luomisen jälkeen";
 /* System profile item */
 "Computer admin" = "Tietokoneen pääkäyttäjä";
 
-/* NEEDS TRANSLATION *//* System profile item *//* TRANSLATION MUST BE DIFFERENT THAN THE TRANSLATION FOR "Preferences" */
-"Configurations" = "Configurations";
+/* System profile item *//* TRANSLATION MUST BE DIFFERENT THAN THE TRANSLATION FOR "Preferences" */
+"Configurations" = "Konfiguraatiot";
 
 /* System profile item */
 "Deployed" = "Otettu käyttöön";
@@ -572,8 +572,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window title */
 "Please insert token" = "Aseta tunnus";
 
-/* NEEDS TRANSLATION *//* Window title *//* TRANSLATION MUST BE DIFFERENT THAN THE TRANSLATION FOR "Configurations" */
-"Preferences" = "Preferences";
+/* Window title *//* TRANSLATION MUST BE DIFFERENT THAN THE TRANSLATION FOR "Configurations" */
+"Preferences" = "Asetukset";
 
 /* Window title */
 "Replace Existing Configuration?" = "Korvaa olemassa oleva konfiguraatio?";
@@ -997,9 +997,6 @@ muutos yhteyden luomisen jälkeen";
 
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN ei vastaa pyyntöihin katkaista yhteys.\n\nOpenVPN-versiossa 2.1 on tunnettu virhe, joka toisinaan aiheuttaa minuutin tai kahden minuutin viipeen ennen kuin se vastaa sellaisiin pyyntöihin.\n\nTunnelblick jatkaa yhteyden katkaisemisen yrittämistä %1$d sekuntia.\n\nYhteys ei ole käytettävissä, kunnes OpenVPN katkaisee yhteyden tai  %2$d sekuntia kuluu, kumpi hyvänsä tapahtuu ensin.";
-
-/* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN-versio %1$@ ei ole käytettävissä. Käytetään oletusta, versiota %2$@";
 
 /* NEEDS TRANSLATION *//* Window text */
 "OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
