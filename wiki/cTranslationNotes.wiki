@@ -56,7 +56,7 @@ so it is talking about a checking for a change in IP address. (See "*apparent pu
 
 *"Prepend domain name to search domains" Checkbox name* is the description for a checkbox. If checked, it means that the domain name (DNS name) of the computer will be prepended -- put a the front of -- the list of search domains. "Search Domains" is the label on the bottom row on the right of the Network System Preference (in English), underneath "DNS Server:".
 
-*"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded <font color="grey">[ rest of string omitted]</font>" Window text* -- here "rebranded" means renamed, with all references to the name "Tunnelblick" replaced by something else.
+*"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded <font color="grey"> _(rest of string omitted)_</font>" Window text* -- here "rebranded" means renamed, with all references to the name "Tunnelblick" replaced by something else.
 
 *"Latest (%@)"* Button -- this refers to the latest (newest) version of OpenVPN and is used in the list of OpenVPN versions that the user can choose to use. It is like the "Default (%@)" button.
 
