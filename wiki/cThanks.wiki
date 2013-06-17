@@ -164,6 +164,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Zhanchong Chen     </td>
+    <td>      Chinese (simplified)    </td>
+  </tr>
+
+  <tr>
     <td>      Grzegorz Danecki      </td>
     <td>      Polish    </td>
   </tr>
