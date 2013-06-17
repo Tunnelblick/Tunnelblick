@@ -204,9 +204,44 @@
 
 
 /* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "一个或多个设置存在问题. 详情请查看控制台日志\n\n";
-
-
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick 需要安装和/或卸载一个或多个 Tunnelblick VPN 设置.";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick 需要安装和/或卸载一个或多个 Tunnelblick VPN 设置.";
+
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN 版本 %1$@ 不可用. 使用默认版本 %2$@";
+
+/* Window text */
+" and install %ld configurations" = " 安装了 %ld 的配置";
+
+/* Window text */
+" and install one configuration" = " 并且安装一个配置";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "配置 '%@' 将会被忽略，因为它的名字里含有不合法的字符.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "你确定要安装配置 %ld 吗";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "你确定要安装配置 %ld 吗";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "你想要卸载一个配置吗";
+
+/* Window text */
+
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN 版本 %1$@ 不可用. 使用默认版本 %2$@";
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "配置 %ld 发生错误. 详情请查看控制台日志\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "一个配置存在问题. 详情请查看控制台日志\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "一个或多个配置存在问题. 详情请查看控制台日志\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick 需要安装和/或卸载一个或多个 Tunnelblick VPN 配置.";
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "你有一个或多个 OpenVPN 配置文件不能在这个版本的 Tunnelblick 上使用. 你可以 :\n\n     •让 Tunnelblick 将 OpenVPN 格式的配置文件转换为 Tunnelblick 的配置文件; 或者 \n     • 退出并安装一个不同版本的 Tunnelblick ; 或者 \n     • 忽略这个问题不做转换并继续.\n\n";
+
