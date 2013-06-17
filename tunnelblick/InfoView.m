@@ -212,6 +212,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Stefan Bethke",                 NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Olivier Borowski",              NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Sergio Andrés Castro Cárdenas", NSLocalizedString(@"Spanish localization",                 @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Zhanchong Chen",                NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Grzegorz Danecki",              NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Aleix Dorca",                   NSLocalizedString(@"Catalan localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Andreas Finke",                 NSLocalizedString(@"German localization",                  @"Credit description"), nil],
@@ -223,7 +224,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"'Dr Hok'",                      NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Yoshihisa Kawamoto",            NSLocalizedString(@"Japanese localization",                @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Kyoungmin Kim",                 NSLocalizedString(@"Korean localization",                  @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Aming Lau",                     NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Aming Lau",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jon Luberth",                   NSLocalizedString(@"Norwegian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Łukasz M",                      NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tim Malmström",                 NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
@@ -271,7 +272,6 @@ extern TBUserDefaults * gTbDefaults;
 							
                             [NSArray arrayWithObjects: @"Artem Logvyn",                  NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Vitalii Skakun",                NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Zhanchong Chen",                NSLocalizedString(@"Chinese (simplified) localization",    @"Credit description"), nil],
 							
                             [NSArray arrayWithObjects: @"Pompin Wu",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             nil];
