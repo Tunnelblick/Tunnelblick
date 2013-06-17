@@ -139,3 +139,12 @@
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "いくつかの接続先をインストール／アンインストールする必要があります。";
 
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN バージョン %1$@ が利用できません。バージョン %2$@ を使用します。";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "名前に使用できない文字が含まれているため、接続先「%@」は無視されます。";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN バージョン %1$@ が利用できません。バージョン %2$@ を使用します。";
+
