@@ -1,6 +1,0 @@
-/* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
-
-/* Button */
-"Latest (%@)" = "Latest (%@)";
-

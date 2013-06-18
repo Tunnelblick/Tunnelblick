@@ -2,7 +2,7 @@
 "Disconnect All (%@)" = "全て切断 (%@)";
 
 /* Status message */
-"Disconnect All (%d Connections)" = "全て切断 (%d Connections)";
+"Disconnect All (%d Connections)" = "全て切断 (%d 個の接続)";
 
 /* Status message */
 "No Active Connections" = "接続なし";
@@ -275,7 +275,7 @@
 "Check for updates automatically" = "更新を自動的にチェックする";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "接続後に見かけ上のグローバルIPアドレスが変わったかどうかチェックする";
+"Check if the apparent public IP address changed after connection" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "切り替え時に切断する";
@@ -689,7 +689,7 @@
 "  • Move the private configurations folder\n" = "  • 個人用設定フォルダに移動します\n";
 
 /* Window text */
-"  • Secure configurations\n" = "  • 接続先設定ファイルを安全にする\n";
+"  • Secure configurations\n" = "  • 接続先設定ファイルを安全にします\n";
 
 /* Window text */
 "  • Uninstall %ld configurations\n\n" = "  • %ld 個の接続先をアンインストールします\n\n";
@@ -1415,7 +1415,7 @@
 "Catalan localization" = "カタロニア語翻訳";
 
 /* Credit description */
-"Chinese (simplified) localization" = "初期のコードへの貢献";
+"Chinese (simplified) localization" = "中国語(簡体字)翻訳";
 
 /* Credit description */
 "Chinese (traditional) localization" = "中国語(繁体字)翻訳";
@@ -1427,7 +1427,7 @@
 "Connected to %@" = "%@ に接続しました";
 
 /* Credit description */
-"Contributed much to the early code" = "初期のコードを多く提供";
+"Contributed much to the early code" = "初期のコードへの大きな貢献";
 
 /* Credit description */
 "Contributed to early code" = "初期のコードへの貢献";
@@ -1448,7 +1448,7 @@
 "Finnish localization" = "フィンランド語翻訳";
 
 /* Credit description */
-"Founder, original program and documentation" = "創始者、最初のプログラムとドキュメント";
+"Founder, original program and documentation" = "創始者、オリジナルプログラムとドキュメント";
 
 /* Credit description */
 "French localization" = "フランス語翻訳";
@@ -1484,7 +1484,7 @@
 "Norwegian localization" = "ノルウェー語翻訳";
 
 /* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 と 64-bit 統合";
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 と 64 ビット統合";
 
 /* Credit description */
 "PKCS#11 support" = "PKCS#11のサポート";
