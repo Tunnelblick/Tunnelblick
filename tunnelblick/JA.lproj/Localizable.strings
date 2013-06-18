@@ -115,8 +115,8 @@
 /* Button */
 "Install Sample" = "サンプルをインストール";
 
-/* NEEDS TRANSLATION *//* Button */
-"Latest (%@)" = "Latest (%@)";
+/* Button */
+"Latest (%@)" = "最新 (%@)";
 
 /* Button */
 "Launch" = "起動";
@@ -1000,8 +1000,8 @@
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "切断のリクエストに対して OpenVPN の返事がありません。\n\nOpenVPN のバージョン2.1には既知のバグがあり、このようなリクエストへの返事が1、2分程度遅延することが時々あります。\n\nTunnelblick では、あと%1$d秒間切断を試みます。\n\nOpenVPN が切断するか%2$d秒が過ぎるまでこの接続は使用できません。";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN バージョン %1$@ は利用できません。最新の %2$@ を使用します";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN バージョン:";
