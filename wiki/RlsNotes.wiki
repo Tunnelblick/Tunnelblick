@@ -29,7 +29,7 @@
 
  * Fixes a problem that displayed the wrong version of VPN that would be used if the requested version is not available.
 
- * Fixes a problem using WiFi after disconnecting if 'Reset the primary interface after disconnecting' is checked.
+ * Fixes a problem using !WiFi after disconnecting if 'Reset the primary interface after disconnecting' is checked.
 
  * Fixes a problem converting an OpenVPN configuration that contains an inline key/cert/etc.
 
