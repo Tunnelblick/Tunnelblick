@@ -540,6 +540,7 @@ extern TBUserDefaults       * gTbDefaults;
 	
     
     [removeNamedCredentialsButton setMenu: removeCredentialMenu];
+	[removeNamedCredentialsButton sizeToFit];
 	[removeNamedCredentialsButton setEnabled: ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"]];
 	
 	NSString * groupAllConfigurationsUse = [removeNamedCredentialsNames objectAtIndex: 0];
