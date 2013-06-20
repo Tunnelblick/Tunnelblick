@@ -353,7 +353,7 @@
 "Show when disconnected" = "Montrer lorsque déconnecté";
 
 /* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Afficher lorsque le pointeur de la souris est au dessus de l’icône de Tunnelblick";
+"Show when the pointer is over the Tunnelblick icon" = "Afficher lorsque le pointeur est au dessus de l’icône de Tunnelblick";
 
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Utiliser les pilotes tun/tap de Tunnelblick";
