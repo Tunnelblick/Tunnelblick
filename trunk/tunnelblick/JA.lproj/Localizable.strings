@@ -77,7 +77,7 @@
 "Default (%@)" = "デフォルト (%@)";
 
 /* Button */
-"Delete Credentials" = "項目を削除";
+"Delete Credentials" = "認証を削除";
 
 /* Button */
 "Delete" = "削除";
@@ -155,7 +155,7 @@
 "Quit"   = "終了";
 
 /* Button */
-"Remove Credentials" = "キーチェーン項目名を削除";
+"Remove Credentials" = "認証を削除";
 
 /* Button */
 "Replace Existing Configuration" = "接続先を置き換える";
@@ -194,13 +194,13 @@
 "Terminate" = "停止";
 
 /* Button */
-"This configuration has its own separate credentials" = "この接続先専用のキーチェーン項目を使います";
+"This configuration has its own separate credentials" = "この接続先専用の認証を使う";
 
 /* Button */
-"This configuration uses %@ credentials" = "この接続先には、キーチェーン項目「%@」を使います";
+"This configuration uses %@ credentials" = "この接続先には、認証「%@」を使う";
 
 /* Button */
-"Try again with different credentials" = "もう一度別のキーチェーン項目で試す";
+"Try again with different credentials" = "もう一度別の認証で試す";
 
 /* Button */
 "Try again" = "もう一度試す";
@@ -227,7 +227,7 @@
 "Connect %@%@" = "%@%@ に接続";
 
 /* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "接続先の項目をキーチェーンから削除…";
+"Delete Configuration's Credentials in Keychain..." = "接続先の認証をキーチェーンから削除…";
 
 /* Menu item tooltip */
 "Disabled because this setting is being forced" = "設定により無効";
@@ -554,7 +554,7 @@
 "No 'dev tun' or 'dev tap' found" = "「dev tun」または「dev tap」がありません";
 
 /* Window title */
-"No Credentials" = "パスワードまたは秘密鍵がありません";
+"No Credentials" = "認証情報がありません";
 
 /* Window title */
 "One or more OpenVPN processes could not be terminated." = "いくつかの OpenVPN プロセスを停止できませんでした。";
@@ -641,7 +641,7 @@
 "Utilities" = "ユーティリティ";
 
 /* Window title */
-"VPN Credentials" = "VPN キーチェン項目";
+"VPN Credentials" = "VPN 認証";
 
 /* Window title */
 "Warning!" = "警告!";
@@ -743,7 +743,7 @@
 "'%@' already exists on the Desktop.\n\nWould you like to replace it?" = "「%@」はデスクトップに既に存在します。\n\n置き換えてもよいですか？";
 
 /* Window text */
-"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」に対応するキーチェーン項目(秘密鍵、またはユーザー名とパスワード)がありません。";
+"'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "「%@」に対応する認証情報(秘密鍵、またはユーザー名とパスワード)がありません。";
 
 /* Window text */
 "(Never checked)" = "(未チェック)";
@@ -770,7 +770,7 @@
 "A username and password are required to connect to\n  %@%@" = "以下に接続するにはユーザー名とパスワードが必要です。\n  %1$@%2$@";
 
 /* Window text */
-"Add Credentials..." = "キーチェーン項目名を追加…";
+"Add Credentials..." = "認証を追加…";
 
 /* Window text */
 "Additional contributions by" = "貢献した人々";
@@ -788,7 +788,7 @@
 "All configuration files have been removed. Tunnelblick must quit." = "全ての設定ファイルを削除しました。Tunnelblick を終了してください。";
 
 /* Window text */
-"All configurations use %@ credentials" = "全ての接続先でキーチェーン項目「%@」を使用する";
+"All configurations use %@ credentials" = "全ての接続先で認証「%@」を使用する";
 
 /* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "接続先 %2$@ のセキュリティチェック時にエラー（ステータス %1$ld）がおきました。\n\nTunnelblick を終了して再度起動してください。再び問題が起きる時は、Tunnelblick を再インストールしてください。";
@@ -806,10 +806,10 @@
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "本当に OpenVPN 設定ファイルを Tunnelblick VPN 設定ファイルへ変換しなくてよいですか？\n\n変換しない限りこれらの接続先は利用できません！\n\n";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "キーチェーンに保存されている項目「%@」(秘密鍵またはユーザー名とパスワード)を本当に削除してもよいですか？";
+"Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "キーチェーンに保存されている認証情報「%@」(秘密鍵またはユーザー名とパスワード)を本当に削除してもよいですか？";
 
 /* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "キーチェーンに保存されている項目「%@」(秘密鍵またはユーザー名とパスワード)を本当に削除してもよいですか？";
+"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "キーチェーンに保存されている認証情報「%@」(秘密鍵またはユーザー名とパスワード)を本当に削除してもよいですか？";
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "B" = "B";
@@ -866,7 +866,7 @@
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "接続先はすぐに削除され、元に戻すことができません。\n\nこの接続先の設定も全て削除されます。\n\n%1$@%2$@\n\n本当に接続先「%3$@」を削除しますか？";
 
 /* Window text */
-"Do you wish to delete the %@ credentials?" = "キーチェーン項目名「%@」を削除しますか？";
+"Do you wish to delete the %@ credentials?" = "認証情報「%@」を削除しますか？";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "接続先「%@」を全ユーザが使えるようにインストールしますか？それともあなただけが使えるようにしますか？\n\n";
@@ -953,13 +953,13 @@
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "同時に複数の接続先に繋がっています(%1$d のネームサーバー設定を使用、%2$d のネームサーバー設定は使用していません)。";
 
 /* Window text */
-"Named Credentials" = "キーチェーン項目の指定";
+"Named Credentials" = "認証の指定";
 
 /* Window text */
 "Names may not include any of the following characters: %s\n\n%@" = "名前には次の文字は使用できません: %1$s\n\n%2$@";
 
 /* Window text */
-"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "名前には次の文字は使用できません: %s\n\n新しいキーチェーン項目名を入力してください:\n\n";
+"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "名前には次の文字は使用できません: %s\n\n新しい認証の名前を入力してください:\n\n";
 
 /* Window text */
 "NetBIOS name:" = "NetBIOS 名:";
@@ -1022,7 +1022,7 @@
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "名前を入れて、「了解」または「キャンセル」をクリックしてください。\n\n";
 
 /* Window text */
-"Please enter a name for the credentials:\n\n" = "キーチェーン項目名を入れてください:\n\n";
+"Please enter a name for the credentials:\n\n" = "認証の名前を入れてください:\n\n";
 
 /* Window text */
 "Please enter a new name for '%@'." = "「%@」の新しい名前を入れてください。";
@@ -1070,13 +1070,13 @@
 "That name is being used.\n\n" = "その名前は既に使われています。\n\n";
 
 /* Window text */
-"The '%@' credentials may not be added because the list of named credentials is being forced." = "このリストを強制的に使用するためキーチェーン項目名「%@」は追加できません。";
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "このリストを強制的に使用するため認証「%@」は追加できません。";
 
 /* Window text */
-"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "キーチェーン項目名「%@」は他の接続先で使用しているため削除できません。";
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "認証「%@」は他の接続先で使用しているため削除できません。";
 
 /* Window text */
-"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "このリストを強制的に使用するためキーチェーン項目名「%@」は削除できません。";
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "このリストを強制的に使用するため認証「%@」は削除できません。";
 
 /* Window text */
 "The 'credentialsNames' preference must be an array of strings." = "設定項目「credentialsNames」は文字列の配列でないといけません。";
@@ -1112,10 +1112,10 @@
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "認証情報（パスフレーズまたはユーザー名とパスワード）が相手側 VPN サーバーで受理されませんでした。";
 
 /* Window text */
-"The credentials named %@ could not be added:\n\n%@" = "キーチェーン項目名 %1$@ は追加できませんでした:\n\n%2$@";
+"The credentials named %@ could not be added:\n\n%@" = "認証名 %1$@ は追加できませんでした:\n\n%2$@";
 
 /* Window text */
-"The credentials named %@ could not be removed:\n\n%@" = "キーチェーン項目名 %1$@ は削除できませんでした:\n\n%2$@";
+"The credentials named %@ could not be removed:\n\n%@" = "認証名 %1$@ は削除できませんでした:\n\n%2$@";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Tunnelblickの一部について、インストールまたは削除、回復、修復ができませんでした。詳細はコンソールログを参照してください。";
@@ -1379,7 +1379,7 @@
 "\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\nTunnelblick VPN の接続先を %d 個インストールしました。";
 
 /* Window text */
-"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\n注意: この接続先のキーチェーン項目名は削除できません。他の接続先で使用されています。";
+"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\n注意: この接続先のグループ認証は削除できません。他の接続先で使用されています。";
 
 /* Window text */
 "\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nTunnelblick VPN の接続先をインストールしました。";
@@ -1388,7 +1388,7 @@
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nまた、%ld 個の Tunnelblick VPN 設定ファイルをインストールしますか？";
 
 /* Window text */
-"\nusing %@ credentials." = "\nキーチェーン項目 %@ を使います。";
+"\nusing %@ credentials." = "\n認証 %@ を使います。";
 
 /* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa のインストールに失敗しました: %@";

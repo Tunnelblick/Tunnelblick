@@ -1502,7 +1502,7 @@
 															<object class="NSButton" id="61715087">
 																<reference key="NSNextResponder" ref="491162389"/>
 																<int key="NSvFlags">291</int>
-																<string key="NSFrame">{{572, 43}, {160, 32}}</string>
+																<string key="NSFrame">{{448.469, 43}, {283.531, 32}}</string>
 																<reference key="NSSuperview" ref="491162389"/>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSButtonCell" key="NSCell" id="754045092">
@@ -1522,7 +1522,7 @@
 															<object class="NSPopUpButton" id="579564027">
 																<reference key="NSNextResponder" ref="491162389"/>
 																<int key="NSvFlags">268</int>
-																<string key="NSFrame">{{15, 140}, {437, 26}}</string>
+																<string key="NSFrame">{{15, 140}, {608.75, 26}}</string>
 																<reference key="NSSuperview" ref="491162389"/>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSPopUpButtonCell" key="NSCell" id="1033200474">
@@ -1577,7 +1577,7 @@
 															<object class="NSPopUpButton" id="1067583531">
 																<reference key="NSNextResponder" ref="491162389"/>
 																<int key="NSvFlags">292</int>
-																<string key="NSFrame">{{15, 47}, {176, 26}}</string>
+																<string key="NSFrame">{{15, 47}, {383, 26}}</string>
 																<reference key="NSSuperview" ref="491162389"/>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSPopUpButtonCell" key="NSCell" id="817945274">
@@ -1643,12 +1643,12 @@
 																</object>
 															</object>
 														</object>
-														<string key="NSFrame">{{1, 146.716}, {744, 179}}</string>
+														<string key="NSFrame">{{1, 146.826}, {744, 179}}</string>
 														<reference key="NSSuperview" ref="556094857"/>
 													</object>
 												</object>
 												<string key="NSFrame">{{6, 29.9453}, {746, 195.184}}</string>
-												<string key="NSBounds">{{0, 145.716}, {746, 195}}</string>
+												<string key="NSBounds">{{0, 145.826}, {746, 195}}</string>
 												<reference key="NSSuperview" ref="270005480"/>
 												<string key="NSOffsets">{0, 0}</string>
 												<object class="NSTextFieldCell" key="NSTitleCell">
