@@ -152,8 +152,29 @@
 "There was a problem with one configuration. Details are in the Console Log\n\n" = "Une configuration a rencontré des problèmes. Consultez les messages de la console pour les détails.\n\n";
 
 /* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Il y a eu un problème avec une ou plusieures configurations. Les détails sont dans les messages de la console.\n\n";
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick doit installer ou désinstaller une ou plusieurs configuration(s) de VPN Tunnelblick.";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick doit installer ou désinstaller une ou plusieurs configuration(s) de VPN Tunnelblick.";
+"OpenVPN version %@ is not available. Using the default, version %@" = "La version de OpenVPN %1$@ n’est pas disponible. Tunnelblick utilisera la version par défaut (%2$@).";
+
+/* Window text */
+" and install %ld configurations" = " et installer %ld configurations";
+
+/* Window text */
+"%@is already identical to its last secured (shadow) copy.\n\n" = "%@est déjà identique à sa dernière copie sécurisée.\n\n";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "La configuration '%@' va être ignorée car son nom contient des caractères non autorisés.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Voulez vous installer les %ld configurations";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Voulez vous désinstaller %ld configurations";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Il y a eu un problème avec les configurations %ld. Vous trouverez plus de détails dans le log de Console\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Vous avez une ou plusieurs configurations OpenVPN qui ne seront pas disponibles en utilisant cette version de Tunnelblick. Vous pouvez :\n\n     • Laisser Tunnelblick convertir ces configurations OpenVPN en configurations Tunnelblick; ou\n     • Quitter et installer une version differente de Tunnelblick; ou\n     • Ignorer ceci et continuer sans les convertir.\n\n";
 
