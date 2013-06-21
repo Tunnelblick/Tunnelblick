@@ -172,3 +172,9 @@
 /* Window text */
 "There was a problem with %d configurations. Details are in the Console Log.\n\n" = "%d개 설정에 문제가 있습니다. 자세한 것은 Console 로그에 있습니다.\n\n";
 
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN 버전 %1$@ 은 사용할 수 없습니다. 버전 %2$@을 사용합니다.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN 버전 %1$@ 은 사용할 수 없습니다. 버전 %2$@을 사용합니다.";
+
