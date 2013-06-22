@@ -337,14 +337,18 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     if (  size1.size.width > size2.size.width  ) {
         adjustment = size1.size.width - widthBeforeAdjustment; 
         size2.size.width = size1.size.width;
-        [tf2 setFrame: size2];
     } else {
         adjustment = size2.size.width - widthBeforeAdjustment; 
         size1.size.width = size2.size.width;
-        [tf1 setFrame: size1];
     }
+	
+    size1.origin.x = size1.origin.x - adjustment;
+    size2.origin.x = size2.origin.x - adjustment;
+	
+	[tf1 setFrame: size1];
+	[tf2 setFrame: size2];
     
-    return adjustment;
+	return adjustment;
 }
 
 -(void) setUpUnits: (NSTextField *) tf1 cell: (NSTextFieldCell *) tfc1
