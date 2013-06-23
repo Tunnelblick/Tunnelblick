@@ -1658,7 +1658,7 @@ sich nach Verbindungsherstellung geändert hat";
 "The text you entered did not match the text in the Captcha image." = "Der eingegebene Text stimmt nicht mit dem Captcha Bild überein.";
 
 /* Window text VPNService */
-"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Es ist keine Konfiguratino mit dem Namen '%@' installiert.\n\nVersuchen Sie Tunnelblick von einem Disk Image zu installieren.";
+"There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "Es ist keine Konfiguratino mit dem Namen '%@' installiert.\n\nVersuchen Sie Tunnelblick von einem Disk Image neu zu installieren.";
 
 /* Window text VPNService */
 "To create your free Tunnelblick account we need your email address and a password of your choosing." = "Um einen kostenlosen Tunnelblick Zugang anzulegen, benötigen wir Ihre E-Mail-Adresse und ein Passwort Ihrer Wahl.";
