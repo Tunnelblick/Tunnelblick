@@ -49,8 +49,8 @@
 /* Button */
 "Check Now" = "Kontrollera nu";
 
-/* NEEDS TRANSLATION *//* Button */
-"Check for a change" = "Check for a change";
+/* Button */
+"Check for a change" = "Sök efter ändringar";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Stäng alla VPN anslutningar och avsluta Tunnelblick";
@@ -58,17 +58,17 @@
 /* Button */
 "Connect" = "Anslut";
 
-/* NEEDS TRANSLATION *//* Button */
-"Continue" = "Continue";
+/* Button */
+"Continue" = "Fortsätt";
 
-/* NEEDS TRANSLATION *//* Button */
-"Convert Configurations" = "Convert Configurations";
+/* Button */
+"Convert Configurations" = "Konvertera konfiguration";
 
-/* NEEDS TRANSLATION *//* Button */
-"Copy Console Log to Clipboard" = "Copy Console Log to Clipboard";
+/* Button */
+"Copy Console Log to Clipboard" = "Kopiera konsolloggen till Urklipp";
 
-/* NEEDS TRANSLATION *//* Button */
-"Copy Diagnostic Info to Clipboard" = "Copy Diagnostic Info to Clipboard";
+/* Button */
+"Copy Diagnostic Info to Clipboard" = "Kopiera diagnostisk information till Urklipp";
 
 /* Button */
 "Create sample configuration and edit it" = "Skapa exempelkonfigurationfil och ändra den";
@@ -85,8 +85,8 @@
 /* Button */
 "Disconnect" = "Koppla från";
 
-/* NEEDS TRANSLATION *//* Button */
-"Do not check for a change" = "Do not check for a change";
+/* Button */
+"Do not check for a change" = "Sök inte efter ändringar";
 
 /* Button */
 "Do not use the plugin" = "Använd inte detta plugin";
@@ -115,6 +115,9 @@
 /* Button */
 "Install Sample" = "Installera exempel";
 
+/* NEEDS TRANSLATION *//* Button */
+"Latest (%@)" = "Latest (%@)";
+
 /* Button */
 "Launch" = "Kör";
 
@@ -139,23 +142,23 @@
 /* Button */
 "Only Me" = "Bara jag";
 
-/* NEEDS TRANSLATION *//* Button */
-"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
+/* Button */
+"Open easy-rsa in Terminal" = "Öppna easy-rsa i Terminal";
 
 /* Button */
 "OpenVPN Configuration(s)" = "OpenVPN konfiguration(er)";
 
-/* NEEDS TRANSLATION *//* Button */
-"Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
+/* Button */
+"Quit All OpenVPN Processes" = "Avsluta Alla OpenVPN Processer";
 
 /* Button */
 "Quit" = "Avsluta";
 
-/* NEEDS TRANSLATION *//* Button */
-"Remove Credentials" = "Remove Credentials";
+/* Button */
+"Remove Credentials" = "Ta Bort Användaruppgifter";
 
-/* NEEDS TRANSLATION *//* Button */
-"Replace Existing Configuration" = "Replace Existing Configuration";
+/* Button */
+"Replace Existing Configuration" = "Ersätt Nuvarande Användaruppgifter";
 
 /* Button */
 "Replace" = "Ersätt";
@@ -169,8 +172,8 @@
 /* Button */
 "Restore" = "Återställ";
 
-/* NEEDS TRANSLATION *//* Button */
-"Revert" = "Revert";
+/* Button */
+"Revert" = "Ångra";
 
 /* Button */
 "Show when connection status changes" = "Visa när anslutningsstatus ändras";
@@ -178,23 +181,23 @@
 /* Button */
 "Show while connecting" = "Visa vid anslutning";
 
-/* NEEDS TRANSLATION *//* Button */
-"Speak" = "Speak";
+/* Button */
+"Speak" = "Tala";
 
 /* Button */
 "Standard icon" = "Standardikon";
 
-/* NEEDS TRANSLATION *//* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+/* Button */
+"Terminate All OpenVPN processes" = "Avsluta Alla OpenVPN-processer";
 
 /* Button */
 "Terminate" = "Avbryt";
 
-/* NEEDS TRANSLATION *//* Button */
-"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
+/* Button */
+"This configuration has its own separate credentials" = "Denna konfiguration har separata användaruppgifter";
 
-/* NEEDS TRANSLATION *//* Button */
-"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
+/* Button */
+"This configuration uses %@ credentials" = "Denna konfiguration använder %@ användaruppgifter";
 
 /* Button */
 "Try again with different credentials" = "Försök igen med andra värden";
@@ -253,14 +256,14 @@
 /* Menu Item */
 "Rename Configuration..." = "Döp om konfiguration…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Revert Configuration..." = "Revert Configuration…";
+/* Menu Item */
+"Revert Configuration..." = "Återställ Konfiguration…";
 
 /* Menu Item */
 "Show OpenVPN Log in Finder" = "Visa OpenVPN-logg i Finder";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Suggestion or Bug Report..." = "Suggestion or Bug Report…";
+/* Menu item */
+"Suggestion or Bug Report..." = "Förslag eller felrapport…";
 
 /* Menu item */
 "VPN Details..." = "VPN-inställningar…";
@@ -268,8 +271,8 @@
 /* Checkbox name */
 "Check for updates automatically" = "Sök efter uppdateringar automatiskt";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
+/* Checkbox name */
+"Check if the apparent public IP address changed after connection" = "Kontrollera om den synliga IP adressen har förändrats";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Koppla från vid användarbyte";
@@ -286,14 +289,14 @@
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Fråga inte igen, alltid 'Ignore'";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not ask again, always Continue" = "Do not ask again, always Continue";
+/* Checkbox name */
+"Do not ask again, always Continue" = "Fråga inte igen, Fortsätt alltid";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not ask again, always convert" = "Do not ask again, always convert";
+/* Checkbox name */
+"Do not ask again, always convert" = "Fråga inte igen, Konvertera alltid";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not check for IP address changes" = "Do not check for IP address changes";
+/* Checkbox name */
+"Do not check for IP address changes" = "Kontrollera inte förändringar av IP adress";
 
 /* Checkbox name */
 "Do not warn about this again for this configuration" = "Varna inte igen för denna konfiguraion";
@@ -319,20 +322,20 @@
 /* Checkbox name */
 "Place next to Spotlight icon" = "Placera intill Spotlightikon";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Prepend domain name to search domains" = "Prepend domain name to search domains";
+/* Checkbox name */
+"Prepend domain name to search domains" = "Infoga domänname före sökdomäner";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Reconnect when computer wakes from sleep (if connected when computer went to sleep)";
+/* Checkbox name */
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Koppla upp när datorn vaknar (om den var uppkopplad när den somnade)";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Återanslut när användare byter tillbaka";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
+/* Checkbox name */
+"Reset the primary interface after disconnecting" = "Återställ det primära nätverket efter att ha kopplat ifrån";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Route all traffic through the VPN" = "Route all traffic through the VPN";
+/* Checkbox name */
+"Route all traffic through the VPN" = "All trafik skall gå via VPN";
 
 /* Checkbox name */
 "Save in Keychain" = "Spara i Nyckelhanterare";
@@ -343,11 +346,11 @@
 /* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Visa konfiguraion i Tunnelblick meny";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Show when disconnected" = "Show when disconnected";
+/* Checkbox name */
+"Show when disconnected" = "Visa i frånkopplat läge";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
+/* Checkbox name */
+"Show when the pointer is over the Tunnelblick icon" = "Visa när pekaren är över Tunnelblick-ikonen";
 
 /* Checkbox name */
 "Use Tunnelblick tun/tap drivers" = "Använd Tunnelblick tun/tap drivrutiner";
@@ -424,7 +427,7 @@
 /* System profile item */
 "Deployed" = "Används";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 " (?)" = " (?)";
 
 /* Window title */
@@ -454,8 +457,8 @@
 /* Window title */
 "Alert" = "Varning";
 
-/* NEEDS TRANSLATION *//* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+/* Window title */
+"All OpenVPN process were terminated." = "Alla OpenVPN-processer avslutades.";
 
 /* Window title */
 "All configuration files removed" = "Alla konfigurationsfiler borttagna";
@@ -511,11 +514,11 @@
 /* Window Title */
 "Install Sample Configuration?" = "Installera exempelkonfiguration?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install and Uninstall?" = "Install and Uninstall?";
+/* Window title */
+"Install and Uninstall?" = "Installera och Avinstallera?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install?" = "Install?";
+/* Window title */
+"Install?" = "Installera?";
 
 /* Window title */
 "Installation failed" = "Installationen misslyckades";
@@ -538,11 +541,11 @@
 /* Window title */
 "Name Required" = "Namn krävs";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Name not allowed" = "Name not allowed";
+/* Window title */
+"Name not allowed" = "Otillåtet namn";
 
-/* NEEDS TRANSLATION *//* Window title */
-"New Feature" = "New Feature";
+/* Window title */
+"New Feature" = "Ny funktionalitet";
 
 /* Window title */
 "No 'dev tun' or 'dev tap' found" = "Inga 'dev tun' eller 'dev tap' hittades";
@@ -550,8 +553,8 @@
 /* Window title */
 "No Credentials" = "Inga användaruppgifter";
 
-/* NEEDS TRANSLATION *//* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
+/* Window title */
+"One or more OpenVPN processes could not be terminated." = "Minst en OpenVPN-process kunde inte avslutas.";
 
 /* Window title */
 "Only computer administrators should update Tunnelblick" = "Endast administratörer bör uppdatera Tunnelblick";
@@ -619,23 +622,23 @@
 /* Window title */
 "Unable to launch Tunnelblick" = "Kunde inte starta Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unavailable" = "Unavailable";
+/* Window title */
+"Unavailable" = "Ej tillgänglig";
 
 /* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Avinstallera Tunnelblick VPN-konfiguration";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Uninstall?" = "Uninstall?";
+/* Window title */
+"Uninstall?" = "Avinstallera?";
 
 /* Window title */
 "Use 'down-root' plugin for OpenVPN?" = "Använd 'down-root' plugin för OpenVPN?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Utilities" = "Utilities";
+/* Window title */
+"Utilities" = "Verktyg";
 
-/* NEEDS TRANSLATION *//* Window title */
-"VPN Credentials" = "VPN Credentials";
+/* Window title */
+"VPN Credentials" = "Användaruppgifter för VPN";
 
 /* Window title */
 "Warning!" = "Varning!";
@@ -649,8 +652,8 @@
 /* Window title */
 "Welcome to Tunnelblick" = "Välkommen till Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Welcome" = "Welcome";
+/* Window title */
+"Welcome" = "Välkommen";
 
 /* Window title */
 "Which Type of Configuration Do You Have?" = "Vilken konfigurationstyp har du?";
@@ -661,14 +664,14 @@
 /* Window title */
 "You cannot use the sample configuration" = "Du kan inte använda exempelkonfigurationen";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Be installed in /Applications\n" = "  • Be installed in /Applications\n";
+/* Window text */
+"  • Be installed in /Applications\n" = "  • Installeras i /Program\n";
 
 /* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Ändra ägarrättigheter och tillstånd för programmet för att säkra det\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
+/* Window text */
+"  • Convert OpenVPN configurations\n" = "  • Konvertera OpenVPN-inställningar\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
@@ -676,11 +679,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "  • Install one configuration\n\n" = "  • Install one configuration\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
+/* Window text */
+"  • Install or update configuration(s)\n" = "  • Installera eller uppdatera inställningar\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+/* Window text */
+"  • Move the private configurations folder\n" = "  • Flytta mappen med privata inställningar\n";
 
 /* Window text */
 "  • Secure configurations\n" = "  • Säkra konfigurationer\n";
@@ -691,20 +694,20 @@
 /* NEEDS TRANSLATION *//* Window text */
 "  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@%3$@";
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Inställningar kan endast tas bort av en administratör.\n\n Operationen går inte att ångra. Alla inställningar för '%1$@' kommer också att tas bort.%2$@%3$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n" = " Vill du installera %1$@ i %2$@%3$@?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Vill du ersätta\n    %1$@\n    i %2$@\nmed %3$@%4$@?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
+/* Window text */
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Obs: OpenVPN-inställningarna kommer att omvandlas till Tunnelblick VPN-inställningar.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
+/* Window text */
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick måste installeras i Program.\n\n";
 
 /* Window text */
 " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick behöver administratörsåtkomst för att ansluta '%@' automatiskt när datorn startas.";
@@ -712,17 +715,17 @@
 /* Window text */
 " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick behöver administratörsåtkomst för att sluta ansluta '%@' automatiskt när datorn startas.";
 
-/* NEEDS TRANSLATION *//* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
+/* Window text */
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " VARNING: Din kopia av Tunnelblick har manipulerats.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%@ exists but is not a folder" = "%@ exists but is not a folder";
+/* Window text */
+"%@ exists but is not a folder" = "%@ finns, men är inte en mapp";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
+/* Window text */
+"%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ har återställts till sin senaste säkerhetskopia.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ is already identical to its last secured (shadow) copy.\n\n";
+/* Window text */
+"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ är identisk med sin senaste säkerhetskopia.\n\n";
 
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN-konfigurationer installerades lyckat.";
@@ -742,8 +745,8 @@
 /* Window text */
 "(Never checked)" = "(Aldrig kontrollerad)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(Inställningen 'easy-rsaPath' är ogiltig.)";
 
 /* Window text */
 "(if connected when user switched out)" = "(om ansluten när användare byts)";
@@ -754,44 +757,44 @@
 /* Window text */
 "A configuration was not installed. See the Console log for details." = "En konfiguration installerades inte. Se konsolloggen för detaljer.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
+/* Window text */
+"A passphrase is required to connect to\n  %@%@" = "Det krävs ett lösenord för att kunna ansluta till\n  %1$@%2$@";
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "En privat konfiguration med namnet '%@' existerar redan.\n\nVill du ersätta den med den delade konfigurationen?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"A username and password are required to connect to\n  %@%@" = "A username and password are required to connect to\n  %1$@%2$@";
+/* Window text */
+"A username and password are required to connect to\n  %@%@" = "Det krävs ett användarnamn och ett lösenord för att kunna ansluta till\n  %1$@%2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Add Credentials..." = "Add Credentials…";
+/* Window text */
+"Add Credentials..." = "Lägg till användaruppgifter…";
 
 /* Window text */
 "Additional contributions by" = "Med ytterligare bidrag från";
 
-/* NEEDS TRANSLATION *//* Window text */
-"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "After %1$.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %2$@ is connected.\n\n";
+/* Window text */
+"After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "Gav upp efter att ha försökt hämta IP adress-information i %1$.1f sekunder.\n\nTunnelblick kommer inte att kontrollera att datorns synliga IP adress ändras när %2$@ ansluts.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+/* Window text */
+"After connecting to %@, DNS does not appear to be working.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Efter att ha anslutit till %@, verkar det som DNS inte längre fungerar.\n\nEventuellt är ditt VPN felkonfigurerat.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+/* Window text */
+"After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Efter att ha anslutit till %@, verkar det som Internet inte längre kan nås.\n\nEventuellt är ditt VPN felkonfigurerat.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "Det finns inte längre några konfigurationsfiler. Tunnelblick måste avslutas.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"All configurations use %@ credentials" = "All configurations use %@ credentials";
+/* Window text */
+"All configurations use %@ credentials" = "Alla konfigurationer använder %@ användaruppgifter";
 
-/* NEEDS TRANSLATION *//* Window text */
-"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
+/* Window text */
+"An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "Ett fel (status %1$ld) inträffade under säkerhetskontrollen av konfiguration %2$@.\n\nFörsök starta om Tunnelblick. Om det inte hjälper, installera om Tunnelblick.";
 
 /* Window text */
 "An error occurred while trying to launch %@" = "Ett fel uppstod under försöket att starta %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
+/* Window text */
+"An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "Misslyckades med att återställa senaste säkerhetskopian. Se konsolloggen för mer detaljer.\n\n";
 
 /* Window text */
 "Anonymous unique ID" = "Anonymt unikt ID";
@@ -802,20 +805,17 @@
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Är du säker på att du vill radera användaruppgifterna (privat nyckel eller användarnamn och lösenord) för '%@' som lagras i Nyckelhanteraren?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?";
+/* Window text */
+"Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Är du säker på att du vill ta bort användaruppgifter (privat nyckel eller användarnamn/lösenord) lagrade i Nyckelhanteraren för '%@'?";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "B" = "B";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "B/s" = "B/s";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuration '%@' will be ignored because its name contains characters that are not allowed.";
-
-/* NEEDS TRANSLATION *//* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Konfigurationen '%1$@' kommer att ignoreras eftersom dess namn innehåller otillåtna tecken.\n\nOtillåtna tecken: '%2$s'\n\n";
 
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Konfigurationer installeras vanligen från filer du fått av din nätverksadministratör eller VPN-operatör.\n\nKonfigurationsfiler har filändelserna .tblk, .ovpn, eller .conf.\n\n(Det kan finnas filer associerade med konfigurationen som har andra ändelser; ignorera dem tills vidare.)\n\nHar du några konfigurationsfiler?\n";
@@ -832,38 +832,38 @@
 /* Window text */
 "Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub och andra.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
+/* Window text */
+"Could not copy %@ to %@" = "Kunde inte kopiera %1$@ till %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not delete %@" = "Could not delete %@";
+/* Window text */
+"Could not delete %@" = "Kunde inte ta bort %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
+/* Window text */
+"Could not find easy-rsa in Tunnelblick.app" = "Kunde inte hitta easy-rsa i Tunnelblick.app";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
+/* Window text */
+"Could not find easy-rsa version information in Tunnelblick.app" = "Kunde inte hitta versionsinformation för easy-rsa i Tunnelblick.app";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not get attributes of %@" = "Could not get attributes of %@";
+/* Window text */
+"Could not get attributes of %@" = "Kunde inte hitta attribut för %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not get modification date of %@" = "Could not get modification date of %@";
+/* Window text */
+"Could not get modification date of %@" = "Kunde inte hitta ändringsdatum för %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not make %@ deletable" = "Could not make %@ deletable";
+/* Window text */
+"Could not make %@ deletable" = "Kunde inte göra %@ raderbar";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
+/* Window text */
+"Could not set modification date of %@ to %@" = "Kunde inte sätta ändringsdatum för %1$@ till %2$@";
 
 /* Window text */
 "DNS servers:" = "DNS-servrar:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@%2$@\n\nAre you sure you wish to delete configuration '%3$@'?";
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Att ta bort en konfiguration kan inte ångras.\n\nAlla inställningar för konfigurationen kommer också att utplånas.\n\n%1$@%2$@\n\nÄr du säker på att du vill ta bort konfigurationen '%3$@'?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to delete the %@ credentials?" = "Do you wish to delete the %@ credentials?";
+/* Window text */
+"Do you wish to delete the %@ credentials?" = "Vill du ta bort användaruppgifterna för %@?";
 
 /* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Vill du installera '%@' -konfigurationen så att alla användare kan använda den, eller så att bara du kan använda den?\n\n";
@@ -874,8 +874,8 @@
 /* Window text */
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Vill du ersätta '%1$@'%2$@ version %3$@ med version %4$@?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n";
+/* Window text */
+"Do you wish to revert the '%@' configuration to its last secured (shadow) copy?\n\n" = "Vill du återställa konfigurationen '%@' till sin senaste säkerhetskopia?\n\n";
 
 /* Window text */
 "Do you wish to uninstall '%@'%@ version %@?" = "Vill du avinstallera '%1$@'%2$@ version %3$@?";
@@ -883,19 +883,19 @@
 /* Window text */
 "Domain:" = "Domän:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "EB" = "EB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "EB/s" = "EB/s";
 
 /* Window text */
 "Fast User Switching" = "Snabbt användarbyte";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB" = "GB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB/s" = "GB/s";
 
 /* Window text */
@@ -910,8 +910,8 @@
 /* Window text */
 "Installation of .tblk packages is not allowed" = "Installation av .tblk-packet är inte tillåtet";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.";
+/* Window text */
+"Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Installation av Tunnelblick VPN konfigurationer är inte tillåtna eftersom detta är en Distribuerad version av Tunnelblick.";
 
 /* Window text */
 "Installing Tunnelblick VPN Configurations..." = "Installerar Tunnelblick VPN-konfigurationer…";
@@ -919,10 +919,10 @@
 /* Window text */
 "Installing and securing Tunnelblick..." = "Installerar och säkrar Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "KB" = "KB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "KB/s" = "KB/s";
 
 /* Window text */
@@ -934,10 +934,10 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Localization by" = "Localization by";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB" = "MB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB/s" = "MB/s";
 
 /* Window text */
@@ -949,14 +949,14 @@
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Flera samtidiga anslutningar skulle skapas (%1$d med 'Set nameserver', %2$d utan 'Set nameserver').";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Named Credentials" = "Named Credentials";
+/* Window text */
+"Named Credentials" = "Namngivna uppgifter";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Names may not include any of the following characters: %s\n\n%@" = "Names may not include any of the following characters: %1$s\n\n%2$@";
+/* Window text */
+"Names may not include any of the following characters: %s\n\n%@" = "Namn får inte innehålla något av följande tecken: %1$s\n\n%2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n";
+/* Window text */
+"Names may not include any of the following characters: %s\n\nPlease enter a name for the new credentials:\n\n" = "Namn får inte innehålla något av följande tecken: %s\n\nVar god skriv in ett namn för de nya uppgifterna:\n\n";
 
 /* Window text */
 "NetBIOS name:" = "NetBIOS-namn:";
@@ -964,8 +964,8 @@
 /* Window text */
 "Network setting" = "Nätverksinställning";
 
-/* NEEDS TRANSLATION *//* Window text */
-"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference";
+/* Window text */
+"No path to easy-rsa. The most likely cause is a problem with the 'easy-rsaPath' preference" = "Ingen sökväg till easy-rsa. Den troligaste orsaken för detta är problem med 'easy-rsaPath' inställningen";
 
 /* Window text */
 "Notification window:" = "Statusfönster:";
@@ -976,14 +976,14 @@
 /* Window text */
 "One Tunnelblick VPN Configuration was uninstalled successfully." = "En Tunnelblick-konfiguration avinstallerades lyckat.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?";
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?" = "En eller fler OpenVPN processer körs men är okända för Tunnelblick. Om du inte kör OpenVPN separat från Tunnelblick, betyder detta oftast att Tunneblick fortfarande körs och Tunnelblick kunde inte avsluta processerna korrekt, du bör avsluta dem. De kommer troligtvis att störa Tunnelblick. Vill du avsluta alla OpenVPN processer?";
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate them?" = "En eller flera OpenVPN-processer körs men känns inte igen av Tunnelblick. Om du inte kör OpenVPN separat från Tunnelblick, betyder detta vanligen att en tidigare session av Tunnelblick inte kunde stänga ner dem, och du bör försöka avsluta dem. Detta är troligt att de kommer att störa Tunnelblicks funktion. Vill du avsluta dem?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
+/* Window text */
+"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "En eller fler OpenVPN processer körs men är okända för Tunnelblick. Om du inte kör OpenVPN separat från Tunnelblick, betyder detta oftast att Tunneblick fortfarande körs och Tunnelblick kunde inte avsluta processerna korrekt, du bör avsluta dem. De kommer troligtvis att störa Tunnelblick.\n\nDe kan stängas av i 'Aktivitetshanteraren'.\n\n";
 
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "En eller flera konfigurationer ignoreras. Se konsolloggen för detaljer.";
@@ -997,19 +997,19 @@
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN svarar inte på frånkopplingsanropen.\n\nDet finns en känd bugg i OpenVPN version 2.1 som ibland orsakar en fördröjning på en eller ett par minuter innan den svarar på ett sådant anrop.\n\nTunnelblick kommer att fortsätta försöka koppla från i upp till %1$d seconds.\n\nAnslutningen kommer att förbli otillgänglig tills OpenVPN kopplas från eller tills %2$d sekunder passerat.";
 
-/* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN-versionen %1$@ är inte tillgänglig. Använder standardvalet, version %2$@";
+/* NEEDS TRANSLATION *//* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN-version:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Out:" = "Out:";
+/* Window text */
+"Out:" = "Ut:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB" = "PB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB/s" = "PB/s";
 
 /* Window text */
@@ -1021,8 +1021,8 @@
 /* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Var god ange ett namn och klicka på \"OK\" eller klicka på \"Cancel\".\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please enter a name for the credentials:\n\n" = "Please enter a name for the credentials:\n\n";
+/* Window text */
+"Please enter a name for the credentials:\n\n" = "Var god skriv in ett namn för användaruppgifterna:\n\n";
 
 /* Window text */
 "Please enter a new name for '%@'." = "Var god ange ett nytt namn för '%@'.";
@@ -1033,8 +1033,8 @@
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Privata konfigurationer kan inte ansluta när datorn startas.\n\nGör först konfigurationen delad, ändra sedan den här inställningen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Received fatal signal %d." = "Received fatal signal %d.";
+/* Window text */
+"Received fatal signal %d." = "Mottog en avslutningssignal %d.";
 
 /* Window text */
 "Search domain:" = "Sök domän:";
@@ -1051,38 +1051,38 @@
 /* Window text */
 "Startup window:" = "Uppstartsfönster:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "TB" = "TB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "TB/s" = "TB/s";
 
 /* Window text */
 "TUNNELBLICK is brought to you by" = "TUNNELBLICK har möjliggjorts tack vare";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "Tack för din donation till TunnelblickProject.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
+/* Window text */
+"Thanks for your Tunnelblick donation" = "Tack för din Tunnelblick donation";
 
 /* Window text */
 "That name is being used.\n\n" = "Namnet används redan.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The '%@' credentials may not be added because the list of named credentials is being forced." = "The '%@' credentials may not be added because the list of named credentials is being forced.";
+/* Window text */
+"The '%@' credentials may not be added because the list of named credentials is being forced." = "'%@' uppgifterna kunde inte läggas till eftersom listan med namngivna konfigurationer är låst.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "The '%@' credentials may not be deleted because one or more configurations are being forced to use them.";
+/* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "'%@' uppgifterna kunde inte raderas eftersom en eller fler konfigurationer är låsta för användning.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "The '%@' credentials may not be deleted because the list of named credentials is being forced.";
+/* Window text */
+"The '%@' credentials may not be deleted because the list of named credentials is being forced." = "'%@' uppgifterna kanske inte raderas eftersom listan av namngivna uppgifter är låst.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The 'credentialsNames' preference must be an array of strings." = "The 'credentialsNames' preference must be an array of strings.";
+/* Window text */
+"The 'credentialsNames' preference must be an array of strings." = "'credentialsNames' inställningen måste vara ett fält (lista) av strängar.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The 'namedCredentialsNames' preference must be an array of strings" = "The 'namedCredentialsNames' preference must be an array of strings";
+/* Window text */
+"The 'namedCredentialsNames' preference must be an array of strings" = "'namedCredentialsNames' inställningen måste vara ett fält (lista) av strängar.";
 
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "OpenVPN-loggen existerar inte eller har blivit raderad.";
@@ -1102,20 +1102,20 @@
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfigurationsfilen för '%@' verkar inte innahålla något 'dev tun' eller 'dev tap'-alternativ. Detta alternativ kan behövas för att Tunnelblick ska fungera tillfredställande. Kontakta din nätverksadministratör eller läs igenom OpenVPN-dokumentationen.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "The configuration file in %1$@ has a '%2$@' option with argument '%3$@'.\n\nThe argument can only be a filename -- it may not be a path.";
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "Konfigurationsfilen i %1$@ har ett '%2$@' val med argument '%3$@'.\n\nArgumentet får endast vara ett filnamn -- det får inte vara en sökväg.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "The configuration file in %1$@ has a '%2$@' option with file '%3$@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).";
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "Konfigurationsfilen i %1$@ har ett '%2$@' val med filen '%3$@' som inte kan hittas.\n\nFilen måste vara inkluderad i Tunnelblick VPN konfigurationen (.tblk).";
 
 /* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Användarinformationen (lösenordsfras eller användarnamn/lösenord) accepterades inte av VPN-servern.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The credentials named %@ could not be added:\n\n%@" = "The credentials named %1$@ could not be added:\n\n%2$@";
+/* Window text */
+"The credentials named %@ could not be added:\n\n%@" = "Uppgifterna med namnet %1$@ kunde inte läggas till:\n\n%2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The credentials named %@ could not be removed:\n\n%@" = "The credentials named %1$@ could not be removed:\n\n%2$@";
+/* Window text */
+"The credentials named %@ could not be removed:\n\n%@" = "Uppgifterna med namnet %1$@ kunde inte tas bort:\n\n%2$@";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Installationen, borttagningen, återställningen eller reparationen av en eller flera Tunnelblick-komponenter misslyckades. Se konsolloggen för detaljer";
@@ -1123,8 +1123,8 @@
 /* Window text */
 "The passphrase must not be empty!\nPlease enter VPN passphrase." = "Lösenordsfrasen får inte vara blank!\nVar god ange en VPN-lösenordsfras.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "The private configuration has never been secured, so you cannot revert to the secured (shadow) copy.";
+/* Window text */
+"The private configuration has never been secured, so you cannot revert to the secured (shadow) copy." = "Den privata konfigurationen har aldrig säkrats, alltså kan du inte återställa säkerhetskopian.";
 
 /* Window text */
 "The sample configuration folder has been created on your Desktop, and the OpenVPN configuration file has been opened in TextEdit so you can modify the file for your VPN setup.\n\nWhen you have finished editing the OpenVPN configuration file and saved the changes, please\n\n1. Move or copy any key or certificate files associated with the configuration into the 'Sample Tunnelblick VPN Configuration' folder on your Desktop.\n\n(This folder has been opened in a Finder window so you can drag the files to it.)\n\n2. Change the folder's name to a name of your choice. This will be the name that Tunnelblick uses for the configuration.\n\n3. Add .tblk to the end of the folder's name.\n\n4. Double-click the folder to install the configuration.\n\nThe new configuration will be available in Tunnelblick immediately." = "Exempelkonfigurationsmappen har skapats på ditt skrivbord, och OpenVPN-konfigurationsfilen har öppnats i textredigeraren så att du kan modifiera filen för dina VPN-inställningar.\n\nNär du har redigerat OpenVPN-konfigurationsfilen och sparat ändringarna, var god\n\n1. Flytta eller kopiera eventuella nycklar eller certifikat associerade med konfigurationen till mappen 'Sample Tunnelblick VPN Configuration' på ditt skrivbord.\n\n(Mappen har öppnats i ett Finderfönster så du kan dra filer till den.)\n\n2. Ändra mappens namn till vad du vill. Detta blir namnet Tunnelblick kommer att använda för konfigurationen.\n\n3. Lägg till .tblk till slutet av mappens namn.\n\n4. Dubbelklicka på mappen för att installera konfigurationen.\n\nDen nya konfigurationen kommer att finnas tillgänglig i Tunnelblick omdelbart.";
@@ -1138,29 +1138,30 @@
 /* Window text */
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Det finns två typer av konfigurationsfiler:\n\n     • Tunnelblick VPN-konfigurationer (.tblk filändelse)\n\n     • OpenVPN-konfigurationer (.ovpn eller .conf -filändelse)\n\nVilken typ har du?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Ett problem uppstod med en eller flera konfigurationer. Se konsolloggen för detaljer.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n";
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Denna 'Distribuerade' version av Tunnelblick kan inte startas eller installeras eftersom den inte har blivit ommärkt, eller updateFeedURL eller SUFeedURL saknas eller att båda innehåller 'tunnelblick.net', eller CFBundleIdentifier saknas eller innehåller 'net.tunnelblick'.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "This computer's apparent public IP address was not different after connecting to %1$@. It is still %2$@.\n\nThis may mean that your VPN is not configured correctly.\n\n";
+/* Window text */
+"This 'Deployed' version of Tunnelblick cannot be launched or installed because it does not have an Info.plist.\n\n" = "Denna 'Distribuerade' version av Tunnelblick kan inte startas eller installeras eftersom den inte har en Info.plist.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n";
+/* Window text */
+"This computer's apparent public IP address was not different after connecting to %@. It is still %@.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "Denna dators synliga publika IP-address byttes inte efter anslutning till %1$@. Den är fortfarande %2$@.\n\nDetta kan betyda att din VPN inte är korrekt konfigurerad.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n";
+/* Window text */
+"This copy of Tunnelblick has been tampered with (the digital signature is invalid).\n\nPlease check with the provider of this copy of Tunnelblick before using it.\n\n" = "Denna kopia av Tunnelblick är manipulerad (den digitala signaturen är ogiltig).\n\nVar god fråga den som levererat denna kopia av Tunnelblick innan du använder den.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n";
+/* Window text */
+"This copy of Tunnelblick is not digitally signed.\n\nThere is no way to verify that this copy has not been tampered with.\n\n Check with the the provider of this copy of Tunnelblick before using it.\n\n" = "Denna kopia av Tunnelblick är inte digitalt signerad.\n\nDet finns inget sätt att verifiera att denna kopia inte har blivit manipulerad.\n\n Fråga den som levererat denna kopia av Tunnelblick innan du använder den.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Denna version av Tunnelblick kan inte startas eller installeras eftersom den har en ogiltig uppdaterings-URL.\n\n";
+
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Denna version av Tunnelblick kan inte startas eller installeras eftersom det inte är en 'Distribuerad' version, och en eller fler 'Distribuerade' versioner av Tunnelblick är installerade sen tidigare.\n\n";
 
 /* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "För att installera en Tunnelblick VPN-konfiguration (.tblk filändelse), dubbelklicka på den.\n\nDen nya konfigurationen finns tillgänglig i Tunnelblick omedelbart.";
@@ -1174,8 +1175,8 @@
 /* Window text */
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN-konfiguration '%@' är tom. Vill du installera en exempelkonfiguration med det namnet?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n";
+/* Window text */
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick kan undersöka om den synliga IP-addressen från din dator ändras när du ansluter till en VPN, och varna dig om den inte gör det.\n\nDetta kan hjälpa Tunnelblick att diagnostisera problem med din anslutning.\n\nDenna process försöka komma åt\n%@\n\nVill du undersöka denna ändring av IP-adress?\n";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick kunde inte startas på grund av ett problem med konfigurationen. Var god underök konsolloggen för detaljer.";
@@ -1198,8 +1199,8 @@
 /* Window text */
 "Tunnelblick could not unprotect the configuration file. Details are in the Console Log.\n\nDo you wish to examine the configuration file even though you will not be able to modify it?" = "Tunnelblick kunde inte avskydda konfigurationsfilen. Detaljer finns i konsolloggen.\n\nVill du undersöka konfigurationsfilen trots att du inte kan modifiera den??";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@";
+/* Window text */
+"Tunnelblick encountered a fatal error.\n\nReinstalling Tunnelblick may fix this problem. The problem was:\n\n%@" = "Tunnelblick stötte på ett allvarligt fel.\n\nOminstallation av Tunnelblick kan lösa problemet. Problemet var:\n\n%@";
 
 /* Window text */
 "Tunnelblick failed to repair problems with preferences for '%@'. Details are in the Console Log" = "Tunnelblick misslyckades med att åtgärda problemen med inställningarna för '%@'. Detaljer finns i konsolloggen";
@@ -1219,8 +1220,8 @@
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick är redo.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick needs to create or update a secure (shadow) copy of the configuration file.";
+/* Window text */
+"Tunnelblick needs to create or update a secure (shadow) copy of the configuration file." = "Tunnelblick behöver skapa eller uppdatera en säker (skugg) kopia av konfigurationsfilen.";
 
 /* Window text */
 "Tunnelblick needs to install one or more Tunnelblick VPN Configurations." = "Tunnelblick behöver installera en eller flera Tunnelblick VPN-konfiguration(er).";
@@ -1243,8 +1244,8 @@
 /* Window text */
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick kunde inte upprätta kommunikation med en existerande OpenVPN-process för '%1$@' inom %2$d sekunder. Försöket att upprätta kommunikation har avbrutits.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details… window";
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick kunde inte start OpenVPN för att ansluta %@. För mer information, se loggen i VPN detaljer… fönstret";
 
 /* Window text */
 "Unable to Establish Communication" = "Kunde inte upprätta kommunikation";
@@ -1261,8 +1262,8 @@
 /* Window text */
 "WINS servers:" = "WINS-servrar:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Warning: '%@' is already a named credential." = "Warning: '%@' is already a named credential.";
+/* Window text */
+"Warning: '%@' is already a named credential." = "Varning: '%@' är redan en namngiven uppgift.";
 
 /* Window text */
 "Warning: One or more preferences could not be duplicated. See the Console Log for details." = "Varning: En eller flera inställnignar kunde inte bli duplicerade. Se konsolloggen för detaljer.";
@@ -1327,8 +1328,8 @@
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Du kan undersöka konfigurationsfilen, men om du vill modifiera den, måste du göra den oskyddad nu. Om du gör konfigurationsfilen oskyddad nu, kommer du att behöva ange administratörsanvändarnamn oct lösenord nästa gång du ansluter med den.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect.";
+/* Window text */
+"You may not connect this configuration.\n\nIf you convert it to a 'Tunnelblick VPN Connection' (.tblk), you will be able to connect." = "Du kan inte koppla upp denna konfiguration.\n\nOm du konverterar den till en 'Tunnelblick VPN anslutning' (.tblk), kommer du kunna ansluta.";
 
 /* Window text */
 "You may not delete a Deployed configuration." = "Du kan inte radera en konfiguration som används.";
@@ -1351,8 +1352,8 @@
 /* Window text */
 "You may not rename a configuration which is set to start when the computer starts." = "Du kan inte byta namn på en konfiguration som är inställd att starta när datorn startas .";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You may only revert a private configuration." = "You may only revert a private configuration.";
+/* Window text */
+"You may only revert a private configuration." = "Du kan endast återställa en privat konfiguration.";
 
 /* Window text */
 "You must stop the currently running Tunnelblick to launch the new copy.\n\nClick \"Close VPN Connections and Stop Tunnelblick\" to close all VPN connections and quit the currently running Tunnelblick before launching Tunnelblick." = "Du måste avsluta den pågående Tunnelblicksessionen för att starta den nya kopian.\n\nKlicka på \"Close VPN Connections and Stop Tunnelblick\" för att stänga all a VPN-anslutningar oct avsluta den pågående Tunnelblicksessionen innan du startar Tunnelblick.";
@@ -1360,17 +1361,17 @@
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Du kommer inte kunna använda Tunnelblick efter uppdatering om du inte anger administratörsanvändarnamn och lösenord.\n\nÄr du säker på att du vill söka efter uppdateringar?";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "ZB" = "ZB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "ZB/s" = "ZB/s";
 
-/* NEEDS TRANSLATION *//* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n";
+/* Window text */
+"\n WARNING: THIS COPY OF TUNNELBLICK HAS BEEN TAMPERED WITH.\n" = "\n VARNING: DENNA KOPIA AV TUNNELBLICK HAR BLIVIT MANIPULERAD.\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n";
+/* Window text */
+"\n WARNING: THIS COPY OF TUNNELBLICK MAKES YOUR COMPUTER INSECURE. It is for debugging purposes only.\n" = "\n VARNING: DENNA KOPIA AV TUNNEBLICK GÖR DIN DATOR OSÄKER. Den är endast till för testning.\n";
 
 /* Window text */
 "\n\n Note: Files associated with the configuration, such as key or certificate files, will not be deleted." = "\n\n Notera: Filer associerade med konfigurationen, till exempel nyckel- eller certifikatfiler, kommer inte raderas.";
@@ -1378,20 +1379,20 @@
 /* Window text */
 "\n\n%d Tunnelblick VPN Configurations were installed successfully." = "\n\n%d Tunnelblick VPN-konfigurationer installerades framgångsrikt.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\nNote: The configuration's group credentials will not be deleted because other configurations use them.";
+/* Window text */
+"\n\nNote: The configuration's group credentials will not be deleted because other configurations use them." = "\n\nOBS: Konfigurationens grupp-uppgifter kommer inte att raderas eftersom andra konfigurationer använder dem.";
 
 /* Window text */
 "\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nOne Tunnelblick VPN-konfiguration installerades framgångsrikt.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\nand install %ld Tunnelblick VPN Configurations";
+/* Window text */
+"\n\nand install %ld Tunnelblick VPN Configurations" = "\n\noch installera %ld Tunnelblick VPN konfigurationer";
 
-/* NEEDS TRANSLATION *//* Window text */
-"\nusing %@ credentials." = "\nusing %@ credentials.";
+/* Window text */
+"\nusing %@ credentials." = "\nanvänder %@ uppgifter.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"easy-rsa installation failed: %@" = "easy-rsa installation failed: %@";
+/* Window text */
+"easy-rsa installation failed: %@" = "easy-rsa installation misslyckades: %@";
 
 /* Suffix for a duplicate of a file */
 " copy %d" = " kopiera %d";
@@ -1399,8 +1400,8 @@
 /* Suffix for a duplicate of a file */
 " copy" = " kopiera";
 
-/* NEEDS TRANSLATION *//* Tooltip */
-"%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
+/* Tooltip */
+"%d days %d:%02d:%02d" = "%1$d dagar %2$d:%3$02d:%4$02d";
 
 /* Credit description */
 "64-bit enabling and testing" = "64-bitsutveckling och testning";
@@ -1420,11 +1421,11 @@
 /* NEEDS TRANSLATION *//* Credit description */
 "Chinese (traditional) localization" = "Chinese (traditional) localization";
 
-/* NEEDS TRANSLATION *//* Credentials name */
-"Common" = "Common";
+/* Credentials name */
+"Common" = "Förnamm";
 
-/* NEEDS TRANSLATION *//* Speak string */
-"Connected to %@" = "Connected to %@";
+/* Speak string */
+"Connected to %@" = "Ansluten till %@";
 
 /* Credit description */
 "Contributed much to the early code" = "Bidrog mycket till den tidiga koden";
@@ -1435,11 +1436,11 @@
 /* Credit description */
 "Czech localization" = "Tjeckien lokalanpassning";
 
-/* NEEDS TRANSLATION *//* Speak string */
-"Disconnected from %@" = "Disconnected from %@";
+/* Speak string */
+"Disconnected from %@" = "Nedkopplad från %@";
 
-/* NEEDS TRANSLATION *//* Checkbox */
-"Do not show this again" = "Do not show this again";
+/* Checkbox */
+"Do not show this again" = "Visa inte detta igen";
 
 /* Credit description */
 "Dutch localization" = "Holländsk lokalanpassning";

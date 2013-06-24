@@ -137,8 +137,23 @@
 "There was a problem with one configuration. Details are in the Console Log\n\n" = "Ett problem uppstod med en konfiguration. Se konsolloggen för detaljer\n\n";
 
 /* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Ett problem uppstod med en eller flera konfigurationer. Se konsolloggen för detaljer\n\n";
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick behöver installera och/eller avinstallera en eller flera Tunnelblick VPN-konfiguration(er).";
 
 /* Window text */
-"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick behöver installera och/eller avinstallera en eller flera Tunnelblick VPN-konfiguration(er).";
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN-versionen %1$@ är inte tillgänglig. Använder standardvalet, version %2$@";
+
+/* Window text */
+" and install %ld configurations" = " och installera %ld konfigurationer";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Konfigurationen '%@' kommer att ignoreras eftersom dess namn innehåller otillåtna tecken.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Vill du installera %ld konfigurationer";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Vill du avinstallera %ld konfigurationer";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log.\n\n" = "Det uppstod ett proble med %ld konfigurationerna. Mer information finns i konsolloggen.\n\n";
 
