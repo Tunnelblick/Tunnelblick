@@ -214,11 +214,26 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
+    <td>      Jesse Hulkko      </td>
+    <td>      Finnish    </td>
+  </tr>
+
+   <tr>
+    <td>      Jarmo Isotalo      </td>
+    <td>      Finnish    </td>
+  </tr>
+
+  <tr>
     <td>      Dewey Kang     </td>
     <td>      Korean    </td>
   </tr>
 
-   <tr>
+  <tr>
+    <td>      Kalle Kärkkäinen      </td>
+    <td>      Finnish    </td>
+  </tr>
+
+  <tr>
     <td>      Yoshihisa Kawamoto     </td>
     <td>      Japanese    </td>
   </tr>
@@ -259,11 +274,21 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Feetu Nyrhine      </td>
+    <td>      Finnish    </td>
+  </tr>
+
+  <tr>
     <td>      Peter K. O'Connor    </td>
     <td>      Chinese (Simplified)    </td>
   </tr>
 
   <tr>
+    <td>      Petra Penttila      </td>
+    <td>      Finnish    </td>
+  </tr>
+
+ <tr>
     <td>      Matteo Pillon   </td>
     <td>      Italian    </td>
   </tr>
@@ -321,6 +346,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Erwann Thoraval      </td>
     <td>      French    </td>
+  </tr>
+
+  <tr>
+    <td>      Mikko Toivola      </td>
+    <td>      Finnish    </td>
   </tr>
 
   <tr>
