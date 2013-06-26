@@ -930,7 +930,7 @@ muutos yhteyden luomisen jälkeen";
 "Keyboard shortcut:" = "Näppäinoikotie:";
 
 /* Window text */
-"LEAD_TRANSLATORS" = "Johtavat kääntäjät";
+"LEAD_TRANSLATORS" = "Jesse Hulkko, Jarmo Isotalo, Kalle Kärkkäinen, Feetu Nyrhine, Petra Penttila, Mikko Toivola";
 
 /* Window text */
 "Last checked: %@" = "Viimeksi tarkistettu: %@";
