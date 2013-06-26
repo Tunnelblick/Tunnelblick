@@ -10,26 +10,26 @@
 /* Textbox name */
 "Username:" = "Käyttäjätunnus:";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
 
 /* Button */
 "(None available)" = "(Ei yhtään käytettävissä)";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "1 MB" = "1 MB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 KB" = "10 KB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "10 MB" = "10 MB";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "100 KB" = "100 KB";
 
-/* NEEDS TRANSLATION *//* Button */
-"Advanced..." = "Advanced…";
+/* Button */
+"Advanced..." = "Edistyneet…";
 
 /* Button */
 "All Users" = "Kaikki käyttäjät";
@@ -40,8 +40,8 @@
 /* Button */
 "Back" = "Takaisin";
 
-/* NEEDS TRANSLATION *//* Button */
-"Cancel" = "Cancel";
+/* Button */
+"Cancel" = "Peruuta";
 
 /* Menu item */ /* Button */
 "Check For Updates Now" = "Tarkista päivitykset";
@@ -49,8 +49,8 @@
 /* Button */
 "Check Now" = "Tarkista heti";
 
-/* NEEDS TRANSLATION *//* Button */
-"Check for a change" = "Check for a change";
+/* Button */
+"Check for a change" = "Tarkista muutos";
 
 /* Button */
 "Close VPN Connections and Stop Tunnelblick" = "Sulje VPN-yhteydet ja keskeytä Tunnelblick";
@@ -115,8 +115,8 @@
 /* Button */
 "Install Sample" = "Asenna malli";
 
-/* NEEDS TRANSLATION *//* Button */
-"Latest (%@)" = "Latest (%@)";
+/* Button */
+"Latest (%@)" = "Viimeisin (%@)";
 
 /* Button */
 "Launch" = "Käynnistä";
@@ -136,7 +136,7 @@
 /* Button */
 "No sound" = "Ei ääntä";
 
-/* NEEDS TRANSLATION *//* Button */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Button */
 "OK" = "OK";
 
 /* Button */
@@ -327,7 +327,7 @@ muutos yhteyden luomisen jälkeen";
 "Prepend domain name to search domains" = "Liitä domain-nimi etsittyihin";
 
 /* Checkbox name */
-"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Muodosta yhteys uudelleen, kun tietokone herää unitilasta (jos yhteys oli muodostettu, kun tietokone siirtyi unitilaan)";
+"Reconnect when computer wakes from sleep (if connected when computer went to sleep)" = "Yhdistä uudelleen kun tietokone herää lepotilasta (jos kytketty, kun tietokone meni nukkumaan)";
 
 /* Checkbox name */
 "Reconnect when user switches in" = "Yhdistä uudelleen sisäänkirjautuessa";
@@ -428,7 +428,7 @@ muutos yhteyden luomisen jälkeen";
 /* System profile item */
 "Deployed" = "Otettu käyttöön";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 " (?)" = " (?)";
 
 /* Window title */
@@ -506,7 +506,7 @@ muutos yhteyden luomisen jälkeen";
 /* Window title */
 "File not found" = "Tiedostoa ei löydy";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Info" = "Info";
 
 /* Window title */
@@ -611,7 +611,7 @@ muutos yhteyden luomisen jälkeen";
 /* Window title */
 "Tunnelblick is currently running" = "Tunnelblick on parhaillaan käynnissä";
 
-/* NEEDS TRANSLATION *//* Window title */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
 /* Window title */
@@ -674,11 +674,11 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Muunna OpenVPN-konfiguraatiot\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • Asenna %ld konfiguraatioita\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+/* Window text */
+"  • Install one configuration\n\n" = "  • Asenna konfiguraatio\n\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Asenna tai päivitä konfiguraatio(t)\n";
@@ -689,11 +689,11 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "  • Secure configurations\n" = "  • Suojaa konfiguraatiot\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Poista %ld konfiguraatioita\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • Poista konfiguraatio\n\n";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Vain tietokoneen pääkäyttäjä voi poistaa konfiguraatioita.\n\n Poistaminen on välitön ja pysyvä. Kaikki '%1$@':n asetukset tuhotaan myös pysyvästi.%2$@%3$@";
@@ -743,8 +743,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@':lla ei ole käyttäjätunnuksia (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna Avainnippuun.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"(Never checked)" = "(Never checked)";
+/* Window text */
+"(Never checked)" = "(Ei koskaan tarkasteta)";
 
 /* Window text */
 "(The 'easy-rsaPath' preference is invalid.)" = "('easy-rsaPath'-asetus on virheellinen.)";
@@ -800,8 +800,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Anonymous unique ID" = "Anonyymi yksikäsitteinen ID";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Oletko varma, että et halua muuntaa OpenVPN konfiguraatioita Tunnekblick VPN konfiguraatioiksi?\n\nKONFIGURAATIOT EIVÄT OLE KÄYTÖSSÄ JOS ET MUUNNA NIITÄ!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Oletko varma, että haluat tuhota käyttäjätunnukset (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna käyttäjän '%@' Avainnippuun?";
@@ -809,10 +809,10 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Oletko varma, että haluat tuhota käyttäjätunnukset (yksityinen avain tai käyttäjätunnus ja salasana) tallennettuna käyttäjän '%@' Avainnippuun?";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "B" = "B";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "B/s" = "B/s";
 
 /* Window text */
@@ -881,29 +881,29 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Do you wish to uninstall '%@'%@ version %@?" = "Haluatko poistaa '%1$@'%2$@ version %3$@?";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "Domain:" = "Domain:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "EB" = "EB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "EB/s" = "EB/s";
 
 /* Window text */
 "Fast User Switching" = "Nopea käyttäjien vaihto";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB" = "GB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "GB/s" = "GB/s";
 
 /* Window text */
 "Icon:" = "Ikoni:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"In:" = "In:";
+/* Window text */
+"In:" = "Sisään:";
 
 /* Window text */
 "Installation finished successfully." = "Asennus onnistui.";
@@ -920,10 +920,10 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Installing and securing Tunnelblick..." = "Asentaa ja suojaa Tunnelblickiä…";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "KB" = "KB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "KB/s" = "KB/s";
 
 /* Window text */
@@ -932,20 +932,20 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Last checked: %@" = "Viimeksi tarkistettu: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Localization by" = "Localization by";
+/* Window text */
+"Localization by" = "Kääntetty";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB" = "MB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "MB/s" = "MB/s";
 
 /* Window text */
 "Maximum log display size:" = "Maksimi lokin koko:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Menu:" = "Menu:";
+/* Window text */
+"Menu:" = "Valikko:";
 
 /* Window text */
 "Multiple simultaneous connections would be created (%d with 'Set nameserver', %d without 'Set nameserver')." = "Useita samanaikaisia yhteyksiä luotaisiin (%1$d optiolla 'Set nameserver', %2$d ilman optiota 'Set nameserver').";
@@ -998,8 +998,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN ei vastaa pyyntöihin katkaista yhteys.\n\nOpenVPN-versiossa 2.1 on tunnettu virhe, joka toisinaan aiheuttaa minuutin tai kahden minuutin viipeen ennen kuin se vastaa sellaisiin pyyntöihin.\n\nTunnelblick jatkaa yhteyden katkaisemisen yrittämistä %1$d sekuntia.\n\nYhteys ei ole käytettävissä, kunnes OpenVPN katkaisee yhteyden tai  %2$d sekuntia kuluu, kumpi hyvänsä tapahtuu ensin.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN versiota %1$@ ei ole saatavilla. Käytetään viimeistä versiota, versio %2$@";
 
 /* Window text */
 "OpenVPN version:" = "OpenVPN-versio:";
@@ -1007,10 +1007,10 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Out:" = "Ulos:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB" = "PB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "PB/s" = "PB/s";
 
 /* Window text */
@@ -1052,14 +1052,14 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Startup window:" = "Käynnistysikkuna:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "TB" = "TB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "TB/s" = "TB/s";
 
-/* NEEDS TRANSLATION *//* Window text */
-"TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICKin tarjoaa sinulle";
 
 /* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Suuret kiitokset lahjoituksestasi Tunnelblick-projektille.";
@@ -1139,8 +1139,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Konfiguraatiotiedostoja on kahdentyyppisiä:\n\n     • Tunnelblick VPN-konfiguraatioita (.tblk-tiedostopääte)\n\n     • OpenVPN-konfiguraatioita (.ovpn- or .conf-tiedostopääte)\n\nMinkä tyyppinen konfiguraatiotiedosto sinulla on?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Yhdessä tai useammassa konfiguraatiossa on oli ongelmia. Lisätietoja löydät lokista.\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Tätä 'Käyttöönotettua' Tunnelblickin versiota ei voida käynnistää tai asentaa, koska sitä ei ole uudelleenbrändätty tai updateFeedURL tai SUFeedURL puuttuvat tai sisältävät 'tunnelblick.net' tai CFBundleIdentifier puuttuu tai sisältää 'net.tunnelblick'.\n\n";
@@ -1160,8 +1160,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "This version of Tunnelblick cannot be launched or installed because it has an invalid update URL.\n\n" = "Tätä Tunnelblickin versiota ei voida käynnistää tai asentaa, koska sillä on epäkelpo päivitys-URL.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n";
+/* Window text */
+"This version of Tunnelblick cannot be launched or installed because it is not a 'Deployed' version, and one or more 'Deployed' versions of Tunnelblick were previously installed.\n\n" = "Tätä versiota Tunnelblickistä ei voida käynnistää tai asentaa, koska se ei ole 'Deployed' versio, ja yksi tai useampi 'Deployed' versio Tunnelblickistä on aiemmin asennettu.\n\n";
 
 /* Window text */
 "To install a Tunnelblick VPN Configuration (.tblk extension), double-click it.\n\nThe new configuration will be available in Tunnelblick immediately." = "Asentaaksesi Tunnelblick VPN-konfiguraation (.tblk-tiedostopääte), tuplaklikkaa sitä.\n\nUusi konfiguraatio on käytettävissä Tunnelblickissä välittömästi.";
@@ -1229,8 +1229,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblickin tarvitsee:\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick tarvitsee:\n\n";
 
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick vaatii OS X 10.4 tai uudemman\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")";
@@ -1259,8 +1259,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "VPN Connections" = "VPN-yhteydet";
 
-/* NEEDS TRANSLATION *//* Window text */
-"WINS servers:" = "WINS servers:";
+/* Window text */
+"WINS servers:" = "WINS palvelimet:";
 
 /* Window text */
 "Warning: '%@' is already a named credential." = "Varoitus: '%@' on jo nimetty käyttäjätunnus.";
@@ -1361,10 +1361,10 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "You will not be able to use Tunnelblick after updating unless you provide an administrator username and password.\n\nAre you sure you wish to check for updates?" = "Et pysty käyttämään Tunnelblickiä päivittämisen jälkeen ellet anna pääkäyttäjän käyttäjätunnusta ja salasanaa.\n\nOletko varma, että haluat tarkistaa päivitykset?";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "ZB" = "ZB";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* TRANSLATION SAME AS DEVELOPMENT *//* Window text */
 "ZB/s" = "ZB/s";
 
 /* Window text */
@@ -1403,23 +1403,23 @@ muutos yhteyden luomisen jälkeen";
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d päivää %2$d:%3$02d:%4$02d";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"64-bit enabling and testing" = "64-bit enabling and testing";
+/* Credit description */
+"64-bit enabling and testing" = "64-bit tuki ja testaus";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Animation and icon sets code" = "Animation and icon sets code";
+/* Credit description */
+"Animation and icon sets code" = "Animaatiot ja ikoniryhmien koodi";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Button images" = "Button images";
+/* Credit description */
+"Button images" = "Painikkeiden kuvat";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Catalan localization" = "Catalan localization";
+/* Credit description */
+"Catalan localization" = "Katalonialainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+/* Credit description */
+"Chinese (simplified) localization" = "Kiinalainen (yksinkertaistettu) käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+/* Credit description */
+"Chinese (traditional) localization" = "Kiinalainen (perinteinen) käännös";
 
 /* Credentials name */
 "Common" = "Yhteinen";
@@ -1427,14 +1427,14 @@ muutos yhteyden luomisen jälkeen";
 /* Speak string */
 "Connected to %@" = "Muodostettu yhteys kohteeseen %@";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Contributed much to the early code" = "Contributed much to the early code";
+/* Credit description */
+"Contributed much to the early code" = "Osallistunut paljon aikaisen koodin tuottamiseen";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Contributed to early code" = "Contributed to early code";
+/* Credit description */
+"Contributed to early code" = "Osallistunut aikaisen koodin tuottamiseen";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Czech localization" = "Czech localization";
+/* Credit description */
+"Czech localization" = "Tshekkiläinen käännös";
 
 /* Speak string */
 "Disconnected from %@" = "Yhteys katkaistu kohteesta %@";
@@ -1442,89 +1442,89 @@ muutos yhteyden luomisen jälkeen";
 /* Checkbox */
 "Do not show this again" = "Älä näytä tätä enää uudestaan";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Dutch localization" = "Dutch localization";
+/* Credit description */
+"Dutch localization" = "Hollantilainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Finnish localization" = "Finnish localization";
+/* Credit description */
+"Finnish localization" = "Suomalainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Founder, original program and documentation" = "Founder, original program and documentation";
+/* Credit description */
+"Founder, original program and documentation" = "Perustaja, originaali ohjelma ja dokumentaatio";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"French localization" = "French localization";
+/* Credit description */
+"French localization" = "Ranskalainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"German localization" = "German localization";
+/* Credit description */
+"German localization" = "Saksalainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Hungarian localization" = "Hungarian localization";
+/* Credit description */
+"Hungarian localization" = "Unkarilainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Italian localization" = "Italian localization";
+/* Credit description */
+"Italian localization" = "Italialainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Japanese localization" = "Japanese localization";
+/* Credit description */
+"Japanese localization" = "Japanilainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Korean localization" = "Korean localization";
+/* Credit description */
+"Korean localization" = "Korealainen käännös";
 
-/* NEEDS TRANSLATION *//* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+/* [name of your language] localization */
+"LANGUAGE_LOCALIZATION" = "Suomalainen käännö";
 
-/* NEEDS TRANSLATION *//* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "JOHTAVAT_KÄÄNTÄJÄT";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Localization code tweaks" = "Localization code tweaks";
+/* Credit description */
+"Localization code tweaks" = "Lokalisaatio koodin muokkaukset";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Multiple configuration folders" = "Multiple configuration folders";
+/* Credit description */
+"Multiple configuration folders" = "Useat konfiguraatio kansiot";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Norwegian localization" = "Norwegian localization";
+/* Credit description */
+"Norwegian localization" = "Norjalainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 ja 64-bit integraatio";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"PKCS#11 support" = "PKCS#11 support";
+/* Credit description */
+"PKCS#11 support" = "PKCS#11 tuki";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Polish localization" = "Polish localization";
+/* Credit description */
+"Polish localization" = "Puolalainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Portuguese localization" = "Portuguese localization";
+/* Credit description */
+"Portuguese localization" = "Portugalilainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
+/* Credit description */
+"Program and documentation enhancements and maintenance after version 3.0b10" = "Ohjelman ja dokumentaation kehitys ja ylläpito version 3.0b10 jälkeen";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Russian localization" = "Russian localization";
+/* Credit description */
+"Russian localization" = "Venäläinen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Slovak localization" = "Slovak localization";
+/* Credit description */
+"Slovak localization" = "Slovakialainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Spanish localization" = "Spanish localization";
+/* Credit description */
+"Spanish localization" = "Espanialainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Swedish localization" = "Swedish localization";
+/* Credit description */
+"Swedish localization" = "Ruotsalainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+/* Credit description */
+"Tunnelblick icon" = "Tunnelblick kuvake";
 
 /* NEEDS TRANSLATION *//* Credit description */
 "UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+/* Credit description */
+"Ukrainian localization" = "Ukranialainen käännös";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Up and Down scripts" = "Up and Down scripts";
+/* Credit description */
+"Up and Down scripts" = "Yhteyden muodostus ja katkaisu skriptit";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
+/* Credit description */
+"Xcode help and OpenSSL integration" = "Xcode apu ja OpenSSL integraatio";
 
 /* Button VPNService */
 "Accept" = "Hyväksy";
