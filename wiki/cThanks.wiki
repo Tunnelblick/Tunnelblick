@@ -214,6 +214,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
+    <td>      Dewey Kang     </td>
+    <td>      Korean    </td>
+  </tr>
+
+   <tr>
     <td>      Yoshihisa Kawamoto     </td>
     <td>      Japanese    </td>
   </tr>
