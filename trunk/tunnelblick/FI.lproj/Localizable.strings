@@ -770,8 +770,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Add Credentials..." = "Lisää käyttäjätunnus…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Additional contributions by" = "Additional contributions by";
+/* Window text */
+"Additional contributions by" = "Lisä kontribuutiot";
 
 /* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "%1$.1f sekunnin jälkeen luovuin IP-osoitetietojen hakemisesta.\n\nTunnelblick ei tarkista tämän tietokoneen IP-osoitemuutoksia, kun %2$@ on kytkeytyneenä.\n\n";
@@ -928,6 +928,9 @@ muutos yhteyden luomisen jälkeen";
 
 /* Window text */
 "Keyboard shortcut:" = "Näppäinoikotie:";
+
+/* Window text */
+"LEAD_TRANSLATORS" = "Johtavat kääntäjät";
 
 /* Window text */
 "Last checked: %@" = "Viimeksi tarkistettu: %@";
@@ -1214,8 +1217,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblickin pohjana on %@. ";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@.";
+/* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick on ilmainen ohjelma: voit uudelleen jaella ja/tai muokata sitä samojen termien %1$@, jotka on julkaissut %2$@.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick is valmis.";
@@ -1304,8 +1307,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Et voi uudelleennimetä konfiguraatiota, ellei sitä oteta pois käytöstä.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "Sinulla on OpenVPN configuraatioita, mutta ei yhtään Tunnelblick VPN Configuratiota.\n\nSinun tulee muuntaa OpenVPN configuratiot  Tunnelblick VPN Configuratioiksi jos haluat käyttää niitä.\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Olet pyytänyt monistamaan kohteen '%@'.";
@@ -1319,8 +1322,8 @@ muutos yhteyden luomisen jälkeen";
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "Olet pyytänyt uudelleennimeämään kohteen '%1$@'  '%2$@':ksi.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sinulla on yksi tai useampi OpenVPN-konfiguraatio, jotka eivät ole käytettävissä, kun tätä Tunnelblickin versiota käytetään. Voit:\n\n     • Antaa Tunnelblickin muuntaa nämä OpenVPN-konfiguraatiot Tunnelblick VPN-konfiguraatioiksi; tai\n     • Lopettaa Tunnelblickin ja asentaa toisen version; tai\n     • Jättää tämän huomiotta ja jatkaa muuntamatta konfiguraatioita.\n\nJos valitset 'Ohita' configuraatiot eivät ole käytettävissä!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Olet yrittänyt käyttää mallikonfiguraatiotiedostoa, jonka Tunnelblick on asentanut. Konfiguraatiotiedostoa on muokattava VPN:ään liittymiseksi. Voit myös tarvita muita tiedostoja, kuten varmenne- tai avaintiedostoja, muodostaaksesi yhteydenä VPN:ään.\n\nOta yhteyttä verkkosi ylläpitoon tai VPN-yhteyden tarjoajaasi saadaksesi konfiguraation tai muita tiedostoja tai tietoja, joita tarvitset mallitiedoston muokkaamiseen.\n\nOpenVPN-dokumentaatio on saatavissa osoitteessa\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -1472,9 +1475,6 @@ muutos yhteyden luomisen jälkeen";
 /* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "Suomalainen käännö";
 
-/* Names of lead translators */
-"LEAD_TRANSLATORS" = "JOHTAVAT_KÄÄNTÄJÄT";
-
 /* Credit description */
 "Localization code tweaks" = "Lokalisaatio koodin muokkaukset";
 
@@ -1514,8 +1514,8 @@ muutos yhteyden luomisen jälkeen";
 /* Credit description */
 "Tunnelblick icon" = "Tunnelblick kuvake";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
+/* TRANSLATION SAME AS DEVELOPMENT *//* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue ja UKLoginItemRegistry";
 
 /* Credit description */
 "Ukrainian localization" = "Ukranialainen käännös";
