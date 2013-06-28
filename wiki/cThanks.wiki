@@ -169,6 +169,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Mats Cronqvist     </td>
+    <td>      Swedish    </td>
+  </tr>
+
+  <tr>
     <td>      Grzegorz Danecki      </td>
     <td>      Polish    </td>
   </tr>
@@ -241,6 +246,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Kyoungmin Kim    </td>
     <td>      Korean    </td>
+  </tr>
+
+  <tr>
+    <td>      Daniel Kvist    </td>
+    <td>      Swedish    </td>
   </tr>
 
  <tr>
