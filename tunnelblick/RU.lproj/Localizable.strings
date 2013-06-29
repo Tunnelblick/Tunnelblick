@@ -115,8 +115,8 @@
 /* Button */
 "Install Sample" = "Установить пример";
 
-/* NEEDS TRANSLATION *//* Button */
-"Latest (%@)" = "Latest (%@)";
+/* Button */
+"Latest (%@)" = "Последняя доступная (%@)";
 
 /* Button */
 "Launch" = "Запустить";
@@ -674,11 +674,11 @@
 /* Window text */
 "  • Convert OpenVPN configurations\n" = "  • Конвертирование конфигураций OpenVPN\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
+/* Window text */
+"  • Install %ld configurations\n\n" = "  • Установить %ld конфигурации(ий)\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install one configuration\n\n" = "  • Install one configuration\n\n";
+/* Window text */
+"  • Install one configuration\n\n" = "  • Установить одну конфигурацию\n\n";
 
 /* Window text */
 "  • Install or update configuration(s)\n" = "  • Установка или обновление конфигурации(й))\n";
@@ -689,11 +689,11 @@
 /* Window text */
 "  • Secure configurations\n" = "  • Обеспечение безопасность конфигурации\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
+/* Window text */
+"  • Uninstall %ld configurations\n\n" = "  • Удалить %ld конфигурации(ий)\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Uninstall one configuration\n\n" = "  • Uninstall one configuration\n\n";
+/* Window text */
+"  • Uninstall one configuration\n\n" = "  • Удалить одну конфигуацию\n\n";
 
 /* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Конфигурации могут быть удалены только пользователем с правами администратора.\n\n Удаление немедленно и не подлежит отмене. Все настройки для '%1$@' также будут безвозвратно удалены.%2$@%3$@";
@@ -725,8 +725,8 @@
 /* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ был возвращён к своей последней безопасной копии.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ is already identical to its last secured (shadow) copy.\n\n";
+/* Window text */
+"%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ уже совпадает со своей последней безопасной (теневой) копией.\n\n";
 
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "Файлы конфигурации VPN Tunnelblick %d были успешно установлены.";
@@ -770,8 +770,8 @@
 /* Window text */
 "Add Credentials..." = "Добавить учётные данные…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Additional contributions by" = "Additional contributions by";
+/* Window text */
+"Additional contributions by" = "При дополнительной поддуржке";
 
 /* Window text */
 "After %.1f seconds, gave up trying to fetch IP address information.\n\nTunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n" = "После %1$.1f секунд оставить попытки получить IP адрес.\n\nTunnelblick не будет проверять, изменился ли адрес компьютера, когда %2$@ подключён.\n\n";
@@ -800,8 +800,8 @@
 /* Window text */
 "Anonymous unique ID" = "Уникальный ID анонимного пользователя";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
+/* Window text */
+"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Вы действительно не хотите конвертировать конфигурации OpenVPN?\n\nКОНФИГУРАЦИИ НЕ БУДУТ ДОСТУПНЫ, ПОКА ВЫ ИХ НЕ ПРЕОБРАЗУЕТЕ!\n\n";
 
 /* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) for '%@' that are stored in the Keychain?" = "Вы уверены, что хотите удалить учётные данные (закрытый ключ или имя пользователя с паролем) для '%@' которые сохранены в Связке ключей?";
@@ -932,8 +932,8 @@
 /* Window text */
 "Last checked: %@" = "Последняя проверка: %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Localization by" = "Localization by";
+/* Window text */
+"Localization by" = "Локализовано";
 
 /* Window text */
 "MB" = "МБ";
@@ -998,8 +998,8 @@
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN не отвечает на запрос отключения.\n\nСуществует известная ошибка в OpenVPN версии 2.1 которая иногда вызывает задержку в 1-2 минуты прежде чем отправить отклик на подобный запрос.\n\nTunnelblick будет продолжать пытаться отключиться в течении %1$d секунд.\n\nСоединение будет недоступно, пока не будет разорвано OpenVPN или по прошествии %2$d секунд, в зависимости от того, что произойдёт первее.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN версии %1$@ недоступна. Используем последнюю доступную, версию %2$@";
 
 /* Window text */
 "OpenVPN version:" = "Версия OpenVPN:";
@@ -1058,8 +1058,8 @@
 /* Window text */
 "TB/s" = "ТБ/с";
 
-/* NEEDS TRANSLATION *//* Window text */
-"TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
+/* Window text */
+"TUNNELBLICK is brought to you by" = "TUNNELBLICK сделан для вас";
 
 /* Window text */
 "Thank you very much for your donation to the TunnelblickProject." = "Огромное спасибо за поддержку проекта Tunnelblick.";
@@ -1073,8 +1073,8 @@
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Учётные данные '%@' не могут быть добавлены, поскольку используется принудительный список именованных учётных данных.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "The '%@' credentials may not be deleted because one or more configurations are being forced to use them.";
+/* Window text */
+"The '%@' credentials may not be deleted because one or more configurations are being forced to use them." = "Учётные данные '%@' не могут быть удалены, посколько одна или более конфигураций продолжают их использовать.";
 
 /* Window text */
 "The '%@' credentials may not be deleted because the list of named credentials is being forced." = "Учётные данные '%@' не могут быть удалены, поскольку используется список принудительный список именованных учётных данных.";
@@ -1215,8 +1215,8 @@
 /* Window text */
 "Tunnelblick is based on %@. " = "Tunnelblick сделан на основе %@.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@.";
+/* Window text */
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick - свободное программное обеспечение: вы можете распространять его и/или изменять его согласно условиям %1$@, опубликованным  %2$@.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick готов.";
@@ -1230,8 +1230,8 @@
 /* Window text */
 "Tunnelblick needs to:\n" = "Tunnelblick потребуется:\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Tunnelblick needs to:\n\n" = "Tunnelblick needs to:\n\n";
+/* Window text */
+"Tunnelblick needs to:\n\n" = "Tunnelblick необходимо:\n\n";
 
 /* Window text */
 "Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")"="Tunnelblick требует установленной OS X 10.4 или выше\n     (\"Tiger\", \"Leopard\", или \"Snow Leopard\")";
@@ -1305,8 +1305,8 @@
 /* Window text */
 "You cannot rename a configuration unless it is disconnected." = "Вам необходимо отключить конфигурацию, прежде чем переименовывать.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n";
+/* Window text */
+"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\nYou must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n" = "У вас есть конфигурации OpenVPN, но нету ни одной конфигурации Tunnelblick VPN.\n\nВам необходимо преобразовать конфигурации OpenVPN в Tunnelblick VPN чтобы их использовать.\n\n";
 
 /* Window text */
 "You have asked to duplicate '%@'." = "Вы попросили дублировать '%@'.";
@@ -1320,8 +1320,8 @@
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "Вы попросили переименовать '%1$@' в '%2$@'.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Некоторые из имеющихся конфигураций OpenVPN станут недоступными при использовании Tunnelblick. Вы можете:\n\n     • позволить Tunnelblick преобразовать эти конфигурации OpenVPNв конфигурации Tunnelblick VPN; или\n     • Выйти и установить другую версию Tunnelblick; or\n     • Проигнорировать и продолжить без преобразования.\n\nЕсли вы проиггнорируете, то конфигурации будут недоступны!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Вы попытались использовать точно такой же конфигурационный файл, как и файл примера, созданный при установке Tunnelblick'ом. Конфигурационный файл надо поменять, чтобы соединиться с VPN. Более того, вам могут потребоваться другие файлы, например ключи и сертификаты для соединения с VPN.\n\nПопросите администратора вашей сети или того, кто предоставляет вам VPN, выслать вам файлы конфигурации или подсказать, что поправить в файле примера.\n\nДокументация по OpenVPN находится здесь\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -1404,23 +1404,23 @@
 /* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d дн. %2$d:%3$02d:%4$02d";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"64-bit enabling and testing" = "64-bit enabling and testing";
+/* Credit description */
+"64-bit enabling and testing" = "64-битный функционал и тестирование";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Animation and icon sets code" = "Animation and icon sets code";
+/* Credit description */
+"Animation and icon sets code" = "Анимация и наборы иконок";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Button images" = "Button images";
+/* Credit description */
+"Button images" = "Изображения на кнопках";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Catalan localization" = "Catalan localization";
+/* Credit description */
+"Catalan localization" = "Перевод на каталанский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Chinese (simplified) localization" = "Chinese (simplified) localization";
+/* Credit description */
+"Chinese (simplified) localization" = "Перевод на китайский (упрощённый)";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Chinese (traditional) localization" = "Chinese (traditional) localization";
+/* Credit description */
+"Chinese (traditional) localization" = "Перевод на китайский (традиционный)";
 
 /* Credentials name */
 "Common" = "Общие";
@@ -1428,14 +1428,14 @@
 /* Speak string */
 "Connected to %@" = "Подключено к %@";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Contributed much to the early code" = "Contributed much to the early code";
+/* Credit description */
+"Contributed much to the early code" = "Большой вклад в ранний код";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Contributed to early code" = "Contributed to early code";
+/* Credit description */
+"Contributed to early code" = "Вклад в ранний код";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Czech localization" = "Czech localization";
+/* Credit description */
+"Czech localization" = "Перевод на чешский";
 
 /* Speak string */
 "Disconnected from %@" = "Отключено от %@";
@@ -1443,89 +1443,89 @@
 /* Checkbox */
 "Do not show this again" = "Не показывать это в будущем";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Dutch localization" = "Dutch localization";
+/* Credit description */
+"Dutch localization" = "Перевод на датский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Finnish localization" = "Finnish localization";
+/* Credit description */
+"Finnish localization" = "Перевод на финский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Founder, original program and documentation" = "Founder, original program and documentation";
+/* Credit description */
+"Founder, original program and documentation" = "Основатель, изначальный программист и автор документации";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"French localization" = "French localization";
+/* Credit description */
+"French localization" = "Перевод на французский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"German localization" = "German localization";
+/* Credit description */
+"German localization" = "Перевод на немецкий";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Hungarian localization" = "Hungarian localization";
+/* Credit description */
+"Hungarian localization" = "Перевод на венгерский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Italian localization" = "Italian localization";
+/* Credit description */
+"Italian localization" = "Перевод на итальянский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Japanese localization" = "Japanese localization";
+/* Credit description */
+"Japanese localization" = "Перевод на японский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Korean localization" = "Korean localization";
+/* Credit description */
+"Korean localization" = "Перевод на корейский";
 
-/* NEEDS TRANSLATION *//* [name of your language] localization */
-"LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
+/* [name of your language] localization - TRANSLATE 'Russian localization' */
+"LANGUAGE_LOCALIZATION" = "Перевод на русский";
 
 /* Names of lead translators */
 "LEAD_TRANSLATORS" = "Eugene Trufanov, Dennis Ukhanov, Nail Gilmanov, & Victor Ptichkin";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Localization code tweaks" = "Localization code tweaks";
+/* Credit description */
+"Localization code tweaks" = "Оптимизация кода локализации";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Multiple configuration folders" = "Multiple configuration folders";
+/* Credit description */
+"Multiple configuration folders" = "Различные каталоги конфигураций";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Norwegian localization" = "Norwegian localization";
+/* Credit description */
+"Norwegian localization" = "Перевод на норвежский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 and 64-bit integration";
+/* Credit description */
+"OpenVPN 2.3 and 64-bit integration" = "OpenVPN 2.3 и 64-битная интеграция";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"PKCS#11 support" = "PKCS#11 support";
+/* Credit description */
+"PKCS#11 support" = "Поддержка PKCS#11";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Polish localization" = "Polish localization";
+/* Credit description */
+"Polish localization" = "Перевод на польский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Portuguese localization" = "Portuguese localization";
+/* Credit description */
+"Portuguese localization" = "Перевод на португальский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Program and documentation enhancements and maintenance after version 3.0b10" = "Program and documentation enhancements and maintenance after version 3.0b10";
+/* Credit description */
+"Program and documentation enhancements and maintenance after version 3.0b10" = "Поддержка и улучшение программы и документации после версии 3.0b10";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Russian localization" = "Russian localization";
+/* Credit description */
+"Russian localization" = "Перевод на русский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Slovak localization" = "Slovak localization";
+/* Credit description */
+"Slovak localization" = "Перевод на словакский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Spanish localization" = "Spanish localization";
+/* Credit description */
+"Spanish localization" = "Перевод на испанский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Swedish localization" = "Swedish localization";
+/* Credit description */
+"Swedish localization" = "Перевод на шведский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Tunnelblick icon" = "Tunnelblick icon";
+/* Credit description */
+"Tunnelblick icon" = "Значок Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"UKKQueue and UKLoginItemRegistry" = "UKKQueue and UKLoginItemRegistry";
+/* Credit description */
+"UKKQueue and UKLoginItemRegistry" = "UKKQueue и UKLoginItemRegistry";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Ukrainian localization" = "Ukrainian localization";
+/* Credit description */
+"Ukrainian localization" = "Перевод на украинский";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Up and Down scripts" = "Up and Down scripts";
+/* Credit description */
+"Up and Down scripts" = "Скрипты подключения и разъединения";
 
-/* NEEDS TRANSLATION *//* Credit description */
-"Xcode help and OpenSSL integration" = "Xcode help and OpenSSL integration";
+/* Credit description */
+"Xcode help and OpenSSL integration" = "Помощь Xcode и интеграция OpenSSL";
 
 /* Button VPNService */
 "Accept" = "Принять";
