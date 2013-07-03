@@ -1,5 +1,5 @@
 /* Status message */
-"Disconnect All (%@)" = "Déconnecter toutes (%@)";
+"Disconnect All (%@)" = "Tout déconnecter (%@)";
 
 /* Status message */
 "Disconnect All (%d Connections)" = "Déconnecter toutes (%d connexions)";
@@ -65,13 +65,13 @@
 "Convert Configurations" = "Convertir les configurations";
 
 /* Button */
-"Copy Console Log to Clipboard" = "Copier le log dans le presse-papiers";
+"Copy Console Log to Clipboard" = "Copier les messages console dans le presse-papiers";
 
 /* Button */
 "Copy Diagnostic Info to Clipboard" = "Copier les informations de diagnostique dans le presse-papiers";
 
 /* Button */
-"Create sample configuration and edit it" = "Créer l'exemple de configuration et la rédiger";
+"Create sample configuration and edit it" = "Créer la configuration d'exemple et l'éditer";
 
 /* Button */
 "Default (%@)" = "Par défaut (%@)";
@@ -239,7 +239,7 @@
 "Duplicate Configuration..." = "Dupliquer la configuration…";
 
 /* Menu Item */
-"Edit OpenVPN Configuration File..." = "Rédiger le fichier de configuration OpenVPN…";
+"Edit OpenVPN Configuration File..." = "Modifier le fichier de configuration OpenVPN…";
 
 /* Menu Item */
 "Examine OpenVPN Configuration File..." = "Examiner le fichier de configuration OpenVPN…";
@@ -290,7 +290,7 @@
 "Display connection timers" = "Afficher le temps de connexion";
 
 /* Checkbox name */
-"Display window while Tunnelblick is starting up" = "Montrer la fenêtre pendant que Tunnelblick se lance";
+"Display window while Tunnelblick is starting up" = "Afficher la fenêtre pendant que Tunnelblick se lance";
 
 /* Checkbox name */
 "Do not ask again, always 'Ignore'" = "Ne plus demander, toujours « Ignorer »";
@@ -350,7 +350,7 @@
 "Scan configuration file for problems before connecting" = "Vérifier qu'il n'y a pas de problèmes dans la configuration avant d’établir connexion";
 
 /* Checkbox name */
-"Show when disconnected" = "Montrer lorsque déconnecté";
+"Show when disconnected" = "Afficher lorsque déconnecté";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Afficher lorsque le pointeur est au dessus de l’icône de Tunnelblick";
@@ -1214,7 +1214,7 @@
 "Tunnelblick is based on %@. " = "Tunnelblick se base sur %@. ";
 
 /* Window text */
-"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick est un logiciellibre : vous pouvez le redistribuer et le modifier selon les termes de la %1$@ publiée par la %2$@.";
+"Tunnelblick is free software: you can redistribute it and/or modify it under the terms of the %1$@ as published by the %2$@." = "Tunnelblick est un logiciel libre : vous pouvez le redistribuer et le modifier selon les termes de la %1$@ publiée par la %2$@.";
 
 /* Window text */
 "Tunnelblick is ready." = "Tunnelblick est prêt.";
@@ -1244,7 +1244,7 @@
 "Tunnelblick was unable to establish communications with an existing OpenVPN process for '%@' within %d seconds. The attempt to establish communications has been abandoned." = "Tunnelblick n’a pas pu entrer en communication avec un processus OpenVPN déjà existant pour « %1$@ » après %2$d secondes. La tentative a été annulée.";
 
 /* Window text */
-"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick n’a pas pu lancer OpenVPN pour se connecter %@. Pour plus de détails, regardez le log dans la fenêtre : VPN Details";
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the log in the VPN Details... window" = "Tunnelblick n’a pas pu lancer OpenVPN pour se connecter %@. Pour plus de détails, regardez les messages dans la fenêtre : VPN Details";
 
 /* Window text */
 "Unable to Establish Communication" = "Impossible d'établir la communication";
