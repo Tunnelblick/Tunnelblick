@@ -998,9 +998,6 @@
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN neodpovídá na požadavek ukončení spojení.\n\nExistuje známá chyba v OpenVPN verze 2.1 která někdy způsobí zdržení 1 až 2 minuty před odpovědí na tento požadavek.\n\nTunnelblick se bude pokoušet ukončit spojení příštích  %1$d sekund.\n\nSpojení bude nedostupné dokud se OpenVPN neodpojí nebo dokud neuplyne %2$d sekud.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN verze %1$@ není dostupná. Používám defaultní verzi %2$@";
-
-/* Window text */
 "OpenVPN version %@ is not available. Using the latest, version %@" = "Verze OpenVPN %1$@ není dostupná. Použiji poslední, verzi %2$@";
 
 /* Window text */

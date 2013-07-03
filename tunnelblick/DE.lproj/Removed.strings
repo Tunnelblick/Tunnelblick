@@ -163,3 +163,6 @@
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Die Konfiguration '%@' kann wegen unzulässiger Zeichen im Namen nicht verwendet werden.";
 
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN Version %1$@ ist nicht verfügbar. Es wird daher die Standardversion %2$@ genutzt.";
+

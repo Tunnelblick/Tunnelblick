@@ -118,6 +118,9 @@
 /* Button */
 "Install Sample" = "Instalar Amostra";
 
+/* NEEDS TRANSLATION *//* Button */
+"Latest (%@)" = "Latest (%@)";
+
 /* Button */
 "Launch" = "Iniciar";
 
@@ -815,9 +818,6 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuração '%@' será ignorada porque seu nome contem caracteres que não são permitidos.";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuração '%1$@' será ignorada porque seu nome contem caracteres que não são permitidos.\n\nCaracteres que não são permitidos: '%2$s'\n\n";
 
 /* Window text */
@@ -1000,8 +1000,8 @@
 /* Window text */
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "O OpenVPN não está respondendo para solicitações de desconexão.\n\nExiste um bug conhecido no OpenVPN versão 2.1 que às vezes causa um atraso de um ou dois minutos antes que ele responda a tais requisições.\n\nTunnelblick irá continuar a tentar desconectar por até %1$d segundos.\n\nA conexão estará indisponível até que o OpenVPN desconecte ou passem %2$d segundos, o que vier primeiro.";
 
-/* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "Versão %1$@ do OpenVPN não está disponível. Utilizando a versão padrão %2$@";
+/* NEEDS TRANSLATION *//* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
 
 /* Window text */
 "OpenVPN version:" = "Versão do OpenVPN:";

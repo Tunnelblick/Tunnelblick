@@ -142,3 +142,6 @@
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick ha bisogno di installare e/o disinstallare una o più configurazioni VPN di Tunnelblick.";
 
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "La versione di OpenVPN %1$@ non è disponibile. Uso quella predefinita, versione %2$@";
+

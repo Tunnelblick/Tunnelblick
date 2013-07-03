@@ -175,3 +175,6 @@
 /* Window text */
 "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "U heeft een of meer OpenVPN configuraties die niet beschikbaar zijn, wanneer u deze versie van Tunnelblick gebruikt. U kan:\n\n     • Tunnelblick de OpenVPN laten converteren naar Tunnelblick configuraties; of\n     • Sluit Tunnelblick en installeer een andere versie van Tunnelblick; of\n     • Negeer het en ga verder zonder conversie.\n\n";
 
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. Standaard wordt gebruikt, versie %2$@";
+

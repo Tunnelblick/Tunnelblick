@@ -116,6 +116,9 @@
 "Install Sample" = "Install Sample";
 
 /* NEEDS TRANSLATION *//* Button */
+"Latest (%@)" = "Latest (%@)";
+
+/* NEEDS TRANSLATION *//* Button */
 "Launch" = "Launch";
 
 /* NEEDS TRANSLATION *//* Button */
@@ -812,9 +815,6 @@
 "B/s" = "B/s";
 
 /* NEEDS TRANSLATION *//* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuration '%@' will be ignored because its name contains characters that are not allowed.";
-
-/* NEEDS TRANSLATION *//* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -998,7 +998,7 @@
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %1$d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %2$d seconds elapse, whichever comes first.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN version %1$@ is not available. Using the default, version %2$@";
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
 
 /* NEEDS TRANSLATION *//* Window text */
 "OpenVPN version:" = "OpenVPN version:";

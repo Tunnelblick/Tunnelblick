@@ -17,6 +17,9 @@
 "Do not check for a change" = "Do not check for a change";
 
 /* Button */
+"Latest (%@)" = "Latest (%@)";
+
+/* Button */
 "Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
 
 /* Button */
@@ -212,9 +215,6 @@
 "B/s" = "B/s";
 
 /* Window text */
-"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuration '%@' will be ignored because its name contains characters that are not allowed.";
-
-/* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
 
 /* Window text */
@@ -300,6 +300,9 @@
 
 /* Window text */
 "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n" = "One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation.\n\nThey can be terminated in the 'Activity Monitor' application.\n\n";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
 
 /* Window text */
 "Out:" = "Out:";
