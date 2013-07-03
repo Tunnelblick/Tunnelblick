@@ -1002,9 +1002,6 @@ cambió después de la conexión";
 "OpenVPN is not responding to disconnect requests.\n\nThere is a known bug in OpenVPN version 2.1 that sometimes causes a delay of one or two minutes before it responds to such requests.\n\nTunnelblick will continue to try to disconnect for up to %d seconds.\n\nThe connection will be unavailable until OpenVPN disconnects or %d seconds elapse, whichever comes first." = "OpenVPN no está respondiendo a peticiones de desconexión.\n\nHay un bug conocido en la versión 2.1 de OpenVPN que a veces causa un atraso de uno o dos minutos antes de responder a esas peticiones.\n\nTunnelblick seguirá intentando desconectar por hasta %1$d segundos.\n\nLa conexión no estará disponibñe hasta que OpenVPN se desconecte o %2$d segundos hayan pasado, lo que pase primero.";
 
 /* Window text */
-"OpenVPN version %@ is not available. Using the default, version %@" = "La versión %1$@ de OpenVPN no está disponible. Se usará la versión por defecto, %2$@";
-
-/* Window text */
 "OpenVPN version %@ is not available. Using the latest, version %@" = "La versión %1$@ de OpenVPN no está disponible. Se usará la última versión: %2$@";
 
 /* Window text */

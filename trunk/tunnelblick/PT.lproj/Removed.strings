@@ -172,3 +172,9 @@
 /* Window text */
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "O Tunnelblick precisa instalar e/ou deinstalar uma ou mais Configurações VPN do Tunnelblick.";
 
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Configuração '%@' será ignorada porque seu nome contem caracteres que não são permitidos.";
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "Versão %1$@ do OpenVPN não está disponível. Utilizando a versão padrão %2$@";
+

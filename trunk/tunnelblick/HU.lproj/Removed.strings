@@ -181,3 +181,6 @@
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed." = "A(z) '%@' nevű konfiguráció figyelmen kívül lesz hagyva, mert nem megengedett karaktereket tartalmaz.";
 
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "Az OpenVPN %1$@ verziója nem elérhető. Az alapértelmezett %2$@ verzió kerül felhasználásra";
+
