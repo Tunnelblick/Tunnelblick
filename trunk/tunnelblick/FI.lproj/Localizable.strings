@@ -660,7 +660,7 @@ muutos yhteyden luomisen jälkeen";
 "Which Type of Configuration Do You Have?" = "Minkä tyyppinen konfiguraatio sinulla on?";
 
 /* Window title */
-"While Connected" = "Kun yhteysmuodostettuna";
+"While Connected" = "Kun yhteys muodostettuna";
 
 /* Window title */
 "You cannot use the sample configuration" = "Et voi käyttää mallikonfiguraatiota";
