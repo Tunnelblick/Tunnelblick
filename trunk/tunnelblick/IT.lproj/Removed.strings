@@ -145,3 +145,21 @@
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "La versione di OpenVPN %1$@ non è disponibile. Uso quella predefinita, versione %2$@";
 
+/* Window text */
+" and install %ld configurations" = " and install %ld configurations";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "La configurazione '%@' sarà ignorata poiché il suo nome contiene caratteri che non sono permessi.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Do you wish to install %ld configurations";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Do you wish to uninstall %ld configurations";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Si è verificato un problema con le configurazioni %ld. È possibile esaminare i dettagli del problema tramite l’applicazione Console\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n";
+
