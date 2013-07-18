@@ -140,7 +140,11 @@ extern TBUserDefaults * gTbDefaults;
         oldPos = [theControl frame];
         oldPos.origin.x = oldPos.origin.x - widthChange;
         [theControl setFrame:oldPos];
-    }
+    } else if (   [theControl isEqual: logToClipboardButton]  ) {
+        oldPos = [theControl frame];
+        oldPos.origin.x = oldPos.origin.x - widthChange/2;
+        [theControl setFrame:oldPos];
+	}
     
     if (  [theControl isEqual: connectButton]  )  {          // If the Connect button changes, shift the Disconnect button left/right
         oldPos = [disconnectButton frame];
