@@ -17,7 +17,7 @@ _Note: Help is not currently being translated, pending a rewrite of the English 
 
 *Please contact project owner Jon via email at jkbullard at gmail dot com before beginning work on any translations*.
 
-The following table shows the status of translations for Tunnelblick as of 2013-07-11:
+The following table shows the status of translations for Tunnelblick as of 2013-07-18:
 
 || <br>Language           || <br>Code  || #  || Stable<br>Status ^1^                  || Beta<br>Status ^2^                     ||Head<br>Status ^3^                      ||
 || Catalan                || CA        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*  ||
@@ -27,7 +27,7 @@ The following table shows the status of translations for Tunnelblick as of 2013-
 || Finnish                || FI        || 6  || (none)                                || (none)                                 || *<font color="green">Complete</font>* ||
 || French                 || FR        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>* ||
 || Hungarian              || HU        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*  ||
-|| Italian                || IT        || 2  || *<font color="green">Complete</font>* || Partial                                || Partial                                ||
+|| Italian                || IT        || 2  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*  ||
 || Japanese               || JA        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*  ||
 || Korean                 || KO        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>* ||
 || Norwegian              || NB        || 1  || *<font color="green">Complete</font>* || Partial                                || *<font color="green">Complete</font>*  ||
