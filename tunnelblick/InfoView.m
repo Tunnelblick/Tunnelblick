@@ -233,6 +233,7 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Kyoungmin Kim",                 NSLocalizedString(@"Korean localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Daniel Kvist",                  NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Aming Lau",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Aleksey Likholob",              NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Jon Luberth",                   NSLocalizedString(@"Norwegian localization",               @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Łukasz M",                      NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Tim Malmström",                 NSLocalizedString(@"Swedish localization",                 @"Credit description"), nil],
@@ -265,10 +266,6 @@ extern TBUserDefaults * gTbDefaults;
 // NEW TRANSLATORS FOR 3.3, must be verified and then inserted above in alphabetical order:
 
                             [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak localization",                  @"Credit description"), nil],
-							
-                            [NSArray arrayWithObjects: @"Aleksey Likholob",              NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Artem Logvyn",                  NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Vitalii Skakun",                NSLocalizedString(@"Ukrainian localization",               @"Credit description"), nil],
 							
                             [NSArray arrayWithObjects: @"Pompin Wu",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
                             nil];

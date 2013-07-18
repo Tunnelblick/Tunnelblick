@@ -164,6 +164,7 @@
 		B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B5DBC15F2430900EDCF95 /* WelcomeController.m */; };
 		B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85B5DBE15F2436200EDCF95 /* Welcome.xib */; };
 		B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
+		B87C59DF17982F3900FFE540 /* UK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B87C59DA17982F3900FFE540 /* UK.lproj */; };
 		B896C2E41767B753004D9A21 /* FI.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B896C2DF1767B753004D9A21 /* FI.lproj */; };
 		B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
 		B8C7338C162219E400746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
@@ -450,6 +451,7 @@
 		B85B5DBB15F2430900EDCF95 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		B85B5DBC15F2430900EDCF95 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 		B85B5DBE15F2436200EDCF95 /* Welcome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
+		B87C59DA17982F3900FFE540 /* UK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UK.lproj; sourceTree = "<group>"; };
 		B87F82901612964D008E0EB1 /* ConfigurationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationConverter.h; sourceTree = "<group>"; };
 		B87F82911612964D008E0EB1 /* ConfigurationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationConverter.m; sourceTree = "<group>"; };
 		B891E53216F60F4700627008 /* tunnelblick-uninstaller.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "tunnelblick-uninstaller.icns"; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 				63611FCD13CE2A8B000240F0 /* RU.lproj */,
 				B8051F4C1754DA630024841C /* SK.lproj */,
 				63EA676913DF326600E77443 /* SV.lproj */,
+				B87C59DA17982F3900FFE540 /* UK.lproj */,
 				635CBBDC10F3B3D600BF529B /* ZH_CN.lproj */,
 				635CBBE010F3B3E700BF529B /* ZH_TW.lproj */,
 			);
@@ -1272,6 +1275,7 @@
 				B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */,
 				B8051F521754DA630024841C /* SK.lproj in Resources */,
 				B896C2E41767B753004D9A21 /* FI.lproj in Resources */,
+				B87C59DF17982F3900FFE540 /* UK.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
