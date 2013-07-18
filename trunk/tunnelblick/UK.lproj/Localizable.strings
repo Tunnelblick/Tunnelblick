@@ -1,326 +1,326 @@
-/* NEEDS TRANSLATION *//* Status message */
-"Disconnect All (%@)" = "Disconnect All (%@)";
+/* Status message */
+"Disconnect All (%@)" = "Роз'єднаті Все (%@)";
 
-/* NEEDS TRANSLATION *//* Status message */
-"Disconnect All (%d Connections)" = "Disconnect All (%d Connections)";
+/* Status message */
+"Disconnect All (%d Connections)" = "Роз'єднаті Все (%d З'днання)";
 
-/* NEEDS TRANSLATION *//* Status message */
-"No Active Connections" = "No Active Connections";
+/* Status message */
+"No Active Connections" = "Немає Активних З'єднань";
 
-/* NEEDS TRANSLATION *//* Textbox name */
-"Username:" = "Username:";
+/* Textbox name */
+"Username:" = "Користувач:";
 
-/* NEEDS TRANSLATION *//* Button */
-"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Command-Option-F%3$d)";
+/* Button */
+"%@ F%d (Command-Option-F%d)" = "%1$@ F%2$d (Команда-Опція-F%3$d)";
 
-/* NEEDS TRANSLATION *//* Button */
-"(None available)" = "(None available)";
+/* Button */
+"(None available)" = "(Немає доступних)";
 
-/* NEEDS TRANSLATION *//* Button */
-"1 MB" = "1 MB";
+/* Button */
+"1 MB" = "1 Мб";
 
-/* NEEDS TRANSLATION *//* Button */
-"10 KB" = "10 KB";
+/* Button */
+"10 KB" = "10 Кб";
 
-/* NEEDS TRANSLATION *//* Button */
-"10 MB" = "10 MB";
+/* Button */
+"10 MB" = "10 Мб";
 
-/* NEEDS TRANSLATION *//* Button */
-"100 KB" = "100 KB";
+/* Button */
+"100 KB" = "100 Кб";
 
-/* NEEDS TRANSLATION *//* Button */
-"Advanced..." = "Advanced…";
+/* Button */
+"Advanced..." = "Додаково…";
 
-/* NEEDS TRANSLATION *//* Button */
-"All Users" = "All Users";
+/* Button */
+"All Users" = "Всі користувачі";
 
-/* NEEDS TRANSLATION *//* Button */
-"Always use the plugin" = "Always use the plugin";
+/* Button */
+"Always use the plugin" = "Завжди використовувати плагін";
 
-/* NEEDS TRANSLATION *//* Button */
-"Back" = "Back";
+/* Button */
+"Back" = "Назад";
 
-/* NEEDS TRANSLATION *//* Button */
-"Cancel" = "Cancel";
+/* Button */
+"Cancel" = "Скасувати";
 
-/* NEEDS TRANSLATION *//* Menu item */ /* Button */
-"Check For Updates Now" = "Check For Updates Now";
+/* Menu item */ /* Button */
+"Check For Updates Now" = "Перевірити оновлення";
 
-/* NEEDS TRANSLATION *//* Button */
-"Check Now" = "Check Now";
+/* Button */
+"Check Now" = "Перевірити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Check for a change" = "Check for a change";
+/* Button */
+"Check for a change" = "Перевірити зміни";
 
-/* NEEDS TRANSLATION *//* Button */
-"Close VPN Connections and Stop Tunnelblick" = "Close VPN Connections and Stop Tunnelblick";
+/* Button */
+"Close VPN Connections and Stop Tunnelblick" = "Закрити VPN з'єднання та зупинити Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Button */
-"Connect" = "Connect";
+/* Button */
+"Connect" = "З'єднати";
 
-/* NEEDS TRANSLATION *//* Button */
-"Continue" = "Continue";
+/* Button */
+"Continue" = "Продовжити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Convert Configurations" = "Convert Configurations";
+/* Button */
+"Convert Configurations" = "Конвертувати Конфігурації";
 
-/* NEEDS TRANSLATION *//* Button */
-"Copy Console Log to Clipboard" = "Copy Console Log to Clipboard";
+/* Button */
+"Copy Console Log to Clipboard" = "Скопіювати лог Консолі";
 
-/* NEEDS TRANSLATION *//* Button */
-"Copy Diagnostic Info to Clipboard" = "Copy Diagnostic Info to Clipboard";
+/* Button */
+"Copy Diagnostic Info to Clipboard" = "Скопіювати Діагностичну Інформацію";
 
-/* NEEDS TRANSLATION *//* Button */
-"Create sample configuration and edit it" = "Create sample configuration and edit it";
+/* Button */
+"Create sample configuration and edit it" = "Створити приклад конфігурації для редагування";
 
-/* NEEDS TRANSLATION *//* Button */
-"Default (%@)" = "Default (%@)";
+/* Button */
+"Default (%@)" = "За замовченням (%@)";
 
-/* NEEDS TRANSLATION *//* Button */
-"Delete Credentials" = "Delete Credentials";
+/* Button */
+"Delete Credentials" = "Видалити повноваження";
 
-/* NEEDS TRANSLATION *//* Button */
-"Delete" = "Delete";
+/* Button */
+"Delete" = "Видалити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Disconnect" = "Disconnect";
+/* Button */
+"Disconnect" = "Роз'єднати";
 
-/* NEEDS TRANSLATION *//* Button */
-"Do not check for a change" = "Do not check for a change";
+/* Button */
+"Do not check for a change" = "Не перевіряти зміни";
 
-/* NEEDS TRANSLATION *//* Button */
-"Do not use the plugin" = "Do not use the plugin";
+/* Button */
+"Do not use the plugin" = "Не використовувати плагін";
 
-/* NEEDS TRANSLATION *//* Button */
-"Done" = "Done";
+/* Button */
+"Done" = "Зроблено";
 
-/* NEEDS TRANSLATION *//* Button */
-"Download" = "Download";
+/* Button */
+"Download" = "Завантажити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Examine" = "Examine";
+/* Button */
+"Examine" = "Перевірити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Go to the OpenVPN documentation on the web" = "Go to the OpenVPN documentation on the web";
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Перейти до документації OpenVPN в Інтернеті";
 
-/* NEEDS TRANSLATION *//* Button */
-"I DO NOT have configuration files" = "I DO NOT have configuration files";
+/* Button */
+"I DO NOT have configuration files" = "У мене НЕМАЄ файлів конфігурації";
 
-/* NEEDS TRANSLATION *//* Button */
-"I have configuration files" = "I have configuration files";
+/* Button */
+"I have configuration files" = "У мене є файли конфігурації";
 
-/* NEEDS TRANSLATION *//* Button */
-"Ignore" = "Ignore";
+/* Button */
+"Ignore" = "Ігнорувати";
 
-/* NEEDS TRANSLATION *//* Button */
-"Install Sample" = "Install Sample";
+/* Button */
+"Install Sample" = "Встановити приклад";
 
 /* NEEDS TRANSLATION *//* Button */
 "Latest (%@)" = "Latest (%@)";
 
-/* NEEDS TRANSLATION *//* Button */
-"Launch" = "Launch";
+/* Button */
+"Launch" = "Запустити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Manually" = "Manually";
+/* Button */
+"Manually" = "Власноруч";
 
-/* NEEDS TRANSLATION *//* Button */
-"Monochrome icon" = "Monochrome icon";
+/* Button */
+"Monochrome icon" = "Монохромна іконка";
 
-/* NEEDS TRANSLATION *//* Button */
-"Never show" = "Never show";
+/* Button */
+"Never show" = "Не показувати";
 
-/* NEEDS TRANSLATION *//* Button */
-"No keyboard shortcut" = "No keyboard shortcut";
+/* Button */
+"No keyboard shortcut" = "Немає гарячих клавіш";
 
-/* NEEDS TRANSLATION *//* Button */
-"No sound" = "No sound";
+/* Button */
+"No sound" = "Без звуку";
 
-/* NEEDS TRANSLATION *//* Button */
-"OK" = "OK";
+/* Button */
+"OK" = "ОК";
 
-/* NEEDS TRANSLATION *//* Button */
-"Only Me" = "Only Me";
+/* Button */
+"Only Me" = "Тільки Я";
 
-/* NEEDS TRANSLATION *//* Button */
-"Open easy-rsa in Terminal" = "Open easy-rsa in Terminal";
+/* Button */
+"Open easy-rsa in Terminal" = "Відкрити easy-rsa в терміналі";
 
-/* NEEDS TRANSLATION *//* Button */
-"OpenVPN Configuration(s)" = "OpenVPN Configuration(s)";
+/* Button */
+"OpenVPN Configuration(s)" = "Конфігурації OpenVPN";
 
-/* NEEDS TRANSLATION *//* Button */
-"Quit All OpenVPN Processes" = "Quit All OpenVPN Processes";
+/* Button */
+"Quit All OpenVPN Processes" = "Закрити всі процеси OpenVPN";
 
-/* NEEDS TRANSLATION *//* Button */
-"Quit" = "Quit";
+/* Button */
+"Quit" = "Вийти";
 
-/* NEEDS TRANSLATION *//* Button */
-"Remove Credentials" = "Remove Credentials";
+/* Button */
+"Remove Credentials" = "Видалити Повноваження";
 
-/* NEEDS TRANSLATION *//* Button */
-"Replace Existing Configuration" = "Replace Existing Configuration";
+/* Button */
+"Replace Existing Configuration" = "Замінити існуючу конфігурацію";
 
-/* NEEDS TRANSLATION *//* Button */
-"Replace" = "Replace";
+/* Button */
+"Replace" = "Замінити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Reset Disabled Warnings" = "Reset Disabled Warnings";
+/* Button */
+"Reset Disabled Warnings" = "Скинути відмінені зауваження";
 
-/* NEEDS TRANSLATION *//* Button */
-"Restart connection" = "Restart connection";
+/* Button */
+"Restart connection" = "Перезапустити з'єднання";
 
-/* NEEDS TRANSLATION *//* Button */
-"Restore" = "Restore";
+/* Button */
+"Restore" = "Відновити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Revert" = "Revert";
+/* Button */
+"Revert" = "Повернути";
 
-/* NEEDS TRANSLATION *//* Button */
-"Show when connection status changes" = "Show when connection status changes";
+/* Button */
+"Show when connection status changes" = "Повідомити коли статус з'єднання зміниться";
 
-/* NEEDS TRANSLATION *//* Button */
-"Show while connecting" = "Show while connecting";
+/* Button */
+"Show while connecting" = "Показувати в процесі з'єднання";
 
-/* NEEDS TRANSLATION *//* Button */
-"Speak" = "Speak";
+/* Button */
+"Speak" = "Говорити";
 
-/* NEEDS TRANSLATION *//* Button */
-"Standard icon" = "Standard icon";
+/* Button */
+"Standard icon" = "Стандартна іконка";
 
-/* NEEDS TRANSLATION *//* Button */
-"Terminate All OpenVPN processes" = "Terminate All OpenVPN processes";
+/* Button */
+"Terminate All OpenVPN processes" = "Зупинити всі OpenVPN процеси";
 
-/* NEEDS TRANSLATION *//* Button */
-"Terminate" = "Terminate";
+/* Button */
+"Terminate" = "Припинити";
 
-/* NEEDS TRANSLATION *//* Button */
-"This configuration has its own separate credentials" = "This configuration has its own separate credentials";
+/* Button */
+"This configuration has its own separate credentials" = "Дана конфигурація має свої особисті повноваження";
 
-/* NEEDS TRANSLATION *//* Button */
-"This configuration uses %@ credentials" = "This configuration uses %@ credentials";
+/* Button */
+"This configuration uses %@ credentials" = "Дана конфигурація використовує %@ повноваження";
 
-/* NEEDS TRANSLATION *//* Button */
-"Try again with different credentials" = "Try again with different credentials";
+/* Button */
+"Try again with different credentials" = "Спробуйте знову з іншими повноваженнями";
 
-/* NEEDS TRANSLATION *//* Button */
-"Try again" = "Try again";
+/* Button */
+"Try again" = "Спробуйте знову";
 
-/* NEEDS TRANSLATION *//* Button */
-"Tunnelblick VPN Configuration(s)" = "Tunnelblick VPN Configuration(s)";
+/* Button */
+"Tunnelblick VPN Configuration(s)" = "Конфигурація(ї) Tunnelblick VPN Configuration(s)";
 
-/* NEEDS TRANSLATION *//* Button */
-"Unprotect and Modify" = "Unprotect and Modify";
+/* Button */
+"Unprotect and Modify" = "Розблокувати та редагувати";
 
-/* NEEDS TRANSLATION *//* Button */
-"When Tunnelblick launches" = "When Tunnelblick launches";
+/* Button */
+"When Tunnelblick launches" = "При запуску Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Button */
-"When computer starts" = "When computer starts";
+/* Button */
+"When computer starts" = "При запуску комп'ютера";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Add a VPN..." = "Add a VPN…";
+/* Menu item */
+"Add a VPN..." = "Додати VPN…";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Connect %@%@" = "Connect %@%@";
+/* Menu item */
+"Connect %@%@" = "З'єднати %@%@";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Delete Configuration's Credentials in Keychain..." = "Delete Configuration's Credentials in Keychain…";
+/* Menu Item */
+"Delete Configuration's Credentials in Keychain..." = "Видаліти повноваження конфігурації зі зв'яки ключів…";
 
-/* NEEDS TRANSLATION *//* Menu item tooltip */
-"Disabled because this setting is being forced" = "Disabled because this setting is being forced";
+/* Menu item tooltip */
+"Disabled because this setting is being forced" = "Відключено в зв'язку з примусовим налаштуванням";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Disconnect %@%@" = "Disconnect %@%@";
+/* Menu item */
+"Disconnect %@%@" = "Роз'єднати %@%@";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Duplicate Configuration..." = "Duplicate Configuration…";
+/* Menu Item */
+"Duplicate Configuration..." = "Дублювати конфігурацію…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Edit OpenVPN Configuration File..." = "Edit OpenVPN Configuration File…";
+/* Menu Item */
+"Edit OpenVPN Configuration File..." = "Редагувати файл конфігурації OpenVPN…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Examine OpenVPN Configuration File..." = "Examine OpenVPN Configuration File…";
+/* Menu Item */
+"Examine OpenVPN Configuration File..." = "Перевірити файл конфігурації OpenVPN…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Make Configuration Private..." = "Make Configuration Private…";
+/* Menu Item */
+"Make Configuration Private..." = "Зробити конфігурацію приватною…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Make Configuration Shared..." = "Make Configuration Shared…";
+/* Menu Item */
+"Make Configuration Shared..." = "Зробити конфігурацію загальною…";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"No VPN Configurations Available" = "No VPN Configurations Available";
+/* Menu item */
+"No VPN Configurations Available" = "Немає доступних конфігурацій VPN";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Quit Tunnelblick" = "Quit Tunnelblick";
+/* Menu item */
+"Quit Tunnelblick" = "Вийти з Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Rename Configuration..." = "Rename Configuration…";
+/* Menu Item */
+"Rename Configuration..." = "Перейменувати конфігурацію…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Revert Configuration..." = "Revert Configuration…";
+/* Menu Item */
+"Revert Configuration..." = "Повернути конфігурацію…";
 
-/* NEEDS TRANSLATION *//* Menu Item */
-"Show OpenVPN Log in Finder" = "Show OpenVPN Log in Finder";
+/* Menu Item */
+"Show OpenVPN Log in Finder" = "Показати лог OpenVPN в Finder";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"Suggestion or Bug Report..." = "Suggestion or Bug Report…";
+/* Menu item */
+"Suggestion or Bug Report..." = "Пропозиція або повідомлення про помилку…";
 
-/* NEEDS TRANSLATION *//* Menu item */
-"VPN Details..." = "VPN Details…";
+/* Menu item */
+"VPN Details..." = "Деталі VPN…";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Check for updates automatically" = "Check for updates automatically";
+/* Checkbox name */
+"Check for updates automatically" = "Автоматична перевірка оновлень";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
+/* Checkbox name */
+"Check if the apparent public IP address changed after connection" = "Перевіряти чи змінилась публічна IP адреса";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Disconnect when user switches out" = "Disconnect when user switches out";
+/* Checkbox name */
+"Disconnect when user switches out" = "Роз'єднати коли користувач вимикається";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display connection submenus" = "Display connection submenus";
+/* Checkbox name */
+"Display connection submenus" = "Показати субменю з'єднання";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Display connection timers" = "Display connection timers";
+/* Checkbox name */
+"Display connection timers" = "Показати таймер з'єднання";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Display window while Tunnelblick is starting up" = "Display window while Tunnelblick is starting up";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not ask again, always 'Ignore'" = "Do not ask again, always 'Ignore'";
+/* Checkbox name */
+"Do not ask again, always 'Ignore'" = "Не запитувати знову, завжди 'Ігнорувати'";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not ask again, always Continue" = "Do not ask again, always Continue";
+/* Checkbox name */
+"Do not ask again, always Continue" = "Не запитувати знову, завжди Продовжувати";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not ask again, always convert" = "Do not ask again, always convert";
+/* Checkbox name */
+"Do not ask again, always convert" = "Не запитувати знову, завжди Конвертувати";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not check for IP address changes" = "Do not check for IP address changes";
+/* Checkbox name */
+"Do not check for IP address changes" = "Не перевіряти змину IP адреси";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not warn about this again for this configuration" = "Do not warn about this again for this configuration";
+/* Checkbox name */
+"Do not warn about this again for this configuration" = "Більше не попереджувати для цієї конфігурації";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not warn about this again" = "Do not warn about this again";
+/* Checkbox name */
+"Do not warn about this again" = "Більше не попереджувати про це";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Do not warn about this again, always 'Examine'" = "Do not warn about this again, always 'Examine'";
+/* Checkbox name */
+"Do not warn about this again, always 'Examine'" = "Більше не попереджувати про це, завжди 'Перевіряти'";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Flush DNS cache after connecting or disconnecting" = "Flush DNS cache after connecting or disconnecting";
+/* Checkbox name */
+"Flush DNS cache after connecting or disconnecting" = "Очистити кеш DNS після з'єднання чи роз'єднання";
 
-/* NEEDS TRANSLATION *//* Checkbox name */ /* System profile item */
-"Monitor connection" = "Monitor connection";
+/* Checkbox name */ /* System profile item */
+"Monitor connection" = "Спостерігати за з'єднанням";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Monitor network settings" = "Monitor network settings";
+/* Checkbox name */
+"Monitor network settings" = "Спостерігати за мережевими налаштуваннями";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Monitor the configuration folders for changes" = "Monitor the configuration folders for changes";
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Спостерігати за змінами у папці з конфігураціями";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Place next to Spotlight icon" = "Place next to Spotlight icon";
+/* Checkbox name */
+"Place next to Spotlight icon" = "Встановити після іконки Spotlight";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Prepend domain name to search domains" = "Prepend domain name to search domains";
@@ -334,14 +334,14 @@
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Reset the primary interface after disconnecting" = "Reset the primary interface after disconnecting";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Route all traffic through the VPN" = "Route all traffic through the VPN";
+/* Checkbox name */
+"Route all traffic through the VPN" = "Спрямувати весь трафік через VPN";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Save in Keychain" = "Save in Keychain";
+/* Checkbox name */
+"Save in Keychain" = "Зберегти в ключах";
 
-/* NEEDS TRANSLATION *//* Checkbox name */
-"Scan configuration file for problems before connecting" = "Scan configuration file for problems before connecting";
+/* Checkbox name */
+"Scan configuration file for problems before connecting" = "Сканувати файли конфігурації на помилки перед з'єднанням";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Show configuration on Tunnelblick menu" = "Show configuration on Tunnelblick menu";
@@ -367,8 +367,8 @@
 /* NEEDS TRANSLATION *//* PopUpButton */
 "Set nameserver (alternate 1)" = "Set nameserver (alternate 1)";
 
-/* NEEDS TRANSLATION *//* PopUpButton *//* System profile item */
-"Set nameserver" = "Set nameserver";
+/* PopUpButton *//* System profile item */
+"Set nameserver" = "Встановити сервер імен";
 
 /* NEEDS TRANSLATION *//* Text on disk image */
 "Double-click to begin" = "Double-click to begin";
@@ -376,20 +376,20 @@
 /* NEEDS TRANSLATION *//* Connection status */
 "ADD_ROUTES" = "Adding routes";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"ASSIGN_IP" = "Assigning IP address";
+/* Connection status */
+"ASSIGN_IP" = "Призначення IP адреси";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"AUTH" = "Authorizing";
+/* Connection status */
+"AUTH" = "Авторизація";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"CONNECTED" = "Connected";
+/* Connection status */
+"CONNECTED" = "З'єднано";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"CONNECTING" = "Connecting";
+/* Connection status */
+"CONNECTING" = "З'єднання";
 
-/* NEEDS TRANSLATION *//* Connection status */
-"EXITING" = "Disconnected";     // Please translate "Disconnected"
+/* Connection status */
+"EXITING" = "Роз'єднано";     // Please translate "Disconnected"
 
 /* NEEDS TRANSLATION *//* Connection status */
 "GET_CONFIG" = "Getting configuration";
@@ -433,164 +433,164 @@
 /* NEEDS TRANSLATION *//* Window title */
 " (Deployed)" = " (Deployed)"; /* Indicates a configuration from a customized version of Tunnelblick -- see http://code.google.com/p/tunnelblick/wiki/DeployingTunnelblick */
 
-/* NEEDS TRANSLATION *//* Window title */
-" (Private)" = " (Private)";
+/* Window title */
+" (Private)" = " (Приватно)";
 
 /* NEEDS TRANSLATION *//* Window title */
 " (Shared)" = " (Shared)"; /* Indicates a shared configuration */
 
-/* NEEDS TRANSLATION *//* Window title */
-"%@ Advanced Settings%@" = "%1$@ Advanced Settings%2$@";
+/* Window title */
+"%@ Advanced Settings%@" = "%1$@ Додаткові налаштування%2$@";
 
-/* NEEDS TRANSLATION *//* Window title */
-"'%@' has been disconnected" = "'%@' has been disconnected";
+/* Window title */
+"'%@' has been disconnected" = "'%@' було роз'єднано";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Active connection" = "Active connection";
+/* Window title */
+"Active connection" = "Активне з'єднання";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Add a Configuration" = "Add a Configuration";
+/* Window title */
+"Add a Configuration" = "Додати конфігурацію";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Alert sounds" = "Alert sounds";
+/* Window title */
+"Alert sounds" = "Звуки застрежень";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Alert" = "Alert";
+/* Window title */
+"Alert" = "Застереження";
 
-/* NEEDS TRANSLATION *//* Window title */
-"All OpenVPN process were terminated." = "All OpenVPN process were terminated.";
+/* Window title */
+"All OpenVPN process were terminated." = "Всі OpenVPN було припинено.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"All configuration files removed" = "All configuration files removed";
+/* Window title */
+"All configuration files removed" = "Всі файли конфігурації було видалено";
 
 /* NEEDS TRANSLATION *//* Window title */
 "An Empty Tunnelblick VPN Configuration Has Been Created" = "An Empty Tunnelblick VPN Configuration Has Been Created";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Appearance" = "Appearance";
+/* Window title */
+"Appearance" = "Вигляд";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Authentication failed" = "Authentication failed";
+/* Window title */
+"Authentication failed" = "Невдала аутентифікація";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Configuration Installation Error" = "Configuration Installation Error";
+/* Window title */
+"Configuration Installation Error" = "Помилка встановлення конфігурації";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Configuration(s) Ignored" = "Configuration(s) Ignored";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Connecting & Disconnecting" = "Connecting & Disconnecting";
+/* Window title */
+"Connecting & Disconnecting" = "З'єнання та роз'єднання";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Could Not Copy Configuration" = "Could Not Copy Configuration";
+/* Window title */
+"Could Not Copy Configuration" = "Неможливо скопіювати конфігурацію";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Could Not Move Configuration" = "Could Not Move Configuration";
+/* Window title */
+"Could Not Move Configuration" = "Неможливо перемістити конфігурацію";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Could Not Uninstall Configuration" = "Could Not Uninstall Configuration";
+/* Window title */
+"Could Not Uninstall Configuration" = "Неможливо встановити конфігурацію";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Create and Edit a Sample Configuration?" = "Create and Edit a Sample Configuration?";
+/* Window title */
+"Create and Edit a Sample Configuration?" = "Створити приклад конфігурації для редагування?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Details - Tunnelblick" = "Details - Tunnelblick";
+/* Window title */
+"Details - Tunnelblick" = "Деталі - Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Do you wish to connect?" = "Do you wish to connect?";
+/* Window title */
+"Do you wish to connect?" = "Бажаєте з'єднатись?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Examine the configuration file?" = "Examine the configuration file?";
+/* Window title */
+"Examine the configuration file?" = "Перевірити файл конфігурації?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"File not found" = "File not found";
+/* Window title */
+"File not found" = "Файл не знайдено";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Info" = "Info";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install Configuration For All Users?" = "Install Configuration For All Users?";
+/* Window title */
+"Install Configuration For All Users?" = "Встановити конфігурацію для всіх користувачів?";
 
-/* NEEDS TRANSLATION *//* Window Title */
-"Install Sample Configuration?" = "Install Sample Configuration?";
+/* Window Title */
+"Install Sample Configuration?" = "Встановити приклад конфігурації?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install and Uninstall?" = "Install and Uninstall?";
+/* Window title */
+"Install and Uninstall?" = "Встановлення та відалення?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Install?" = "Install?";
+/* Window title */
+"Install?" = "Встановити?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation failed" = "Installation failed";
+/* Window title */
+"Installation failed" = "Невдале встановлення";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Installation or Repair Failed" = "Installation or Repair Failed";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installation succeeded" = "Installation succeeded";
+/* Window title */
+"Installation succeeded" = "Успішне встановлення";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Installing a Tunnelblick VPN Configuration" = "Installing a Tunnelblick VPN Configuration";
+/* Window title */
+"Installing a Tunnelblick VPN Configuration" = "Встановлення конфігурації VPN";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Log" = "Log";
+/* Window title */
+"Log" = "Лог";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Name In Use" = "Name In Use";
+/* Window title */
+"Name In Use" = "Ім'я використовується";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Name Required" = "Name Required";
+/* Window title */
+"Name Required" = "Необхідно ім'я";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Name not allowed" = "Name not allowed";
+/* Window title */
+"Name not allowed" = "Ім'я не дозволено";
 
-/* NEEDS TRANSLATION *//* Window title */
-"New Feature" = "New Feature";
+/* Window title */
+"New Feature" = "Нова функція";
 
-/* NEEDS TRANSLATION *//* Window title */
-"No 'dev tun' or 'dev tap' found" = "No 'dev tun' or 'dev tap' found";
+/* Window title */
+"No 'dev tun' or 'dev tap' found" = "Не знайдено 'dev tun' або 'dev tap'";
 
-/* NEEDS TRANSLATION *//* Window title */
-"No Credentials" = "No Credentials";
+/* Window title */
+"No Credentials" = "Немає повноважень";
 
-/* NEEDS TRANSLATION *//* Window title */
-"One or more OpenVPN processes could not be terminated." = "One or more OpenVPN processes could not be terminated.";
+/* Window title */
+"One or more OpenVPN processes could not be terminated." = "Один або декілька OpenVPN процесів неможливо припинити.";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Only computer administrators should update Tunnelblick" = "Only computer administrators should update Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"OpenVPN Not Responding" = "OpenVPN Not Responding";
+/* Window title */
+"OpenVPN Not Responding" = "OpenVPN не відповідає";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Please Confirm" = "Please Confirm";
+/* Window title */
+"Please Confirm" = "Необхідно підтвердження";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Please enter a username and password." = "Please enter a username and password.";
+/* Window title */
+"Please enter a username and password." = "Будь ласка введіть ім'я користувача та пароль.";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Please insert token" = "Please insert token";
+/* Window title */
+"Please insert token" = "Будь ласка вставте Тoken";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Preferences" = "Preferences";
+/* Window title */
+"Preferences" = "Преференції";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Replace Existing Configuration?" = "Replace Existing Configuration?";
+/* Window title */
+"Replace Existing Configuration?" = "Замінити існуючу конфігурацію?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Replace Existing File?" = "Replace Existing File?";
+/* Window title */
+"Replace Existing File?" = "Замінити існуючий файл?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Replace Tunnelblick VPN Configuration" = "Replace Tunnelblick VPN Configuration";
+/* Window title */
+"Replace Tunnelblick VPN Configuration" = "Замінити VPN конфігурацію Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Sample Configuration Created" = "Sample Configuration Created";
+/* Window title */
+"Sample Configuration Created" = "Приклад конфігурації створено";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Settings" = "Settings";
+/* Window title */
+"Settings" = "Налаштування";
 
-/* NEEDS TRANSLATION *//* Window title */
-"System Requirements Not Met" = "System Requirements Not Met";
+/* Window title */
+"System Requirements Not Met" = "Системні вимоги незадоволені";
 
 /* NEEDS TRANSLATION *//* Window title */
 "The configuration file is protected" = "The configuration file is protected";
@@ -598,8 +598,8 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick Configuration Problem" = "Tunnelblick Configuration Problem";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick Error" = "Tunnelblick Error";
+/* Window title */
+"Tunnelblick Error" = "Помилка Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick VPN Configuration Installation Error" = "Tunnelblick VPN Configuration Installation Error";
@@ -607,71 +607,71 @@
 /* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick VPN Configuration Installation" = "Tunnelblick VPN Configuration Installation";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick is currently running" = "Tunnelblick is currently running";
+/* Window title */
+"Tunnelblick is currently running" = "Tunnelblick запущений";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Tunnelblick" = "Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick: Login Required" = "Tunnelblick: Login Required";
+/* Window title */
+"Tunnelblick: Login Required" = "Tunnelblick: Потрібно ім'я користвача";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Tunnelblick: Passphrase Required" = "Tunnelblick: Passphrase Required";
+/* Window title */
+"Tunnelblick: Passphrase Required" = "Tunnelblick: Потрібно фраза пароль";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unable to launch Tunnelblick" = "Unable to launch Tunnelblick";
+/* Window title */
+"Unable to launch Tunnelblick" = "Неможливо запустити Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Unavailable" = "Unavailable";
+/* Window title */
+"Unavailable" = "Недоступно";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Uninstall Tunnelblick VPN Configuration" = "Uninstall Tunnelblick VPN Configuration";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Uninstall?" = "Uninstall?";
+/* Window title */
+"Uninstall?" = "Видалити?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Use 'down-root' plugin for OpenVPN?" = "Use 'down-root' plugin for OpenVPN?";
+/* Window title */
+"Use 'down-root' plugin for OpenVPN?" = "Використовувати 'down-root' плагін для OpenVPN?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Utilities" = "Utilities";
+/* Window title */
+"Utilities" = "Інструменти";
 
-/* NEEDS TRANSLATION *//* Window title */
-"VPN Credentials" = "VPN Credentials";
+/* Window title */
+"VPN Credentials" = "VPN Повноваження";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Warning!" = "Warning!";
+/* Window title */
+"Warning!" = "Зауваження!";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Warning" = "Warning";
+/* Window title */
+"Warning" = "Зауваження";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Warning: Unknown OpenVPN processes" = "Warning: Unknown OpenVPN processes";
+/* Window title */
+"Warning: Unknown OpenVPN processes" = "Зауваження: Невідомі OpenVPN процеси";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Welcome to Tunnelblick" = "Welcome to Tunnelblick";
+/* Window title */
+"Welcome to Tunnelblick" = "Ласкаво просимо до Tunnelblick";
 
-/* NEEDS TRANSLATION *//* Window title */
-"Welcome" = "Welcome";
+/* Window title */
+"Welcome" = "Ласкаво просимо";
 
 /* NEEDS TRANSLATION *//* Window title */
 "Which Type of Configuration Do You Have?" = "Which Type of Configuration Do You Have?";
 
-/* NEEDS TRANSLATION *//* Window title */
-"While Connected" = "While Connected";
+/* Window title */
+"While Connected" = "Під час з'єднання";
 
-/* NEEDS TRANSLATION *//* Window title */
-"You cannot use the sample configuration" = "You cannot use the sample configuration";
+/* Window title */
+"You cannot use the sample configuration" = "Ви не можете використовувати приклад конфігурації";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Be installed in /Applications\n" = "  • Be installed in /Applications\n";
+/* Window text */
+"  • Be installed in /Applications\n" = "  • Буде встановлено до /Applications\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "  • Change ownership and permissions of the program to secure it\n" = "  • Change ownership and permissions of the program to secure it\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Convert OpenVPN configurations\n" = "  • Convert OpenVPN configurations\n";
+/* Window text */
+"  • Convert OpenVPN configurations\n" = "  • Конвертувати конфігурації OpenVPN\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "  • Install %ld configurations\n\n" = "  • Install %ld configurations\n\n";
@@ -679,14 +679,14 @@
 /* NEEDS TRANSLATION *//* Window text */
 "  • Install one configuration\n\n" = "  • Install one configuration\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Install or update configuration(s)\n" = "  • Install or update configuration(s)\n";
+/* Window text */
+"  • Install or update configuration(s)\n" = "  • Встановити або оновити конфігурації\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Move the private configurations folder\n" = "  • Move the private configurations folder\n";
+/* Window text */
+"  • Move the private configurations folder\n" = "  • Перемістити папку приватних конфігурацій\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"  • Secure configurations\n" = "  • Secure configurations\n";
+/* Window text */
+"  • Secure configurations\n" = "  • Безпечні конфігурації\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "  • Uninstall %ld configurations\n\n" = "  • Uninstall %ld configurations\n\n";
@@ -697,17 +697,17 @@
 /* NEEDS TRANSLATION *//* Window text */
 " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@%@" = " Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%1$@' will also be deleted permanently.%2$@%3$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Do you wish to install %@ to %@%@?\n\n" = " Do you wish to install %1$@ to %2$@%3$@?\n\n";
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n" = " Ви бажаєте встановити %1$@ в %2$@%3$@?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Do you wish to replace\n    %1$@\n    in %2$@\nwith %3$@%4$@?\n\n";
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n" = " Ви бажаєте замінити\n    %1$@\n    в %2$@\nз %3$@%4$@?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n";
+/* Window text */
+" Note: OpenVPN configurations will be converted to Tunnelblick VPN Configurations.\n\n" = " Зауваження: Конфігурації OpenVPN буде сконвертовано у VPN конфігурації Tunnelblick.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick must be installed in Applications.\n\n";
+/* Window text */
+" Tunnelblick must be installed in Applications.\n\n" = " Tunnelblick повинен бути встановлений в 'Програмах'.\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can automatically connect '%@' when the computer starts.";
@@ -715,11 +715,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts." = " Tunnelblick needs computer administrator access so it can stop automatically connecting '%@' when the computer starts.";
 
-/* NEEDS TRANSLATION *//* Window text */
-" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " WARNING: This copy of Tunnelblick has been tampered with.\n\n";
+/* Window text */
+" WARNING: This copy of Tunnelblick has been tampered with.\n\n" = " УВАГА: Копію Tunnelblick було підроблено.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"%@ exists but is not a folder" = "%@ exists but is not a folder";
+/* Window text */
+"%@ exists but is not a folder" = "%@ існує, але це не папка";
 
 /* NEEDS TRANSLATION *//* Window text */
 "%@ has been reverted to its last secured (shadow) copy.\n\n" = "%@ has been reverted to its last secured (shadow) copy.\n\n";
@@ -742,11 +742,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "'%@' does not have any credentials (private key or username and password) stored in the Keychain." = "'%@' does not have any credentials (private key or username and password) stored in the Keychain.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"(Never checked)" = "(Never checked)";
+/* Window text */
+"(Never checked)" = "(Не перевірялось)";
 
-/* NEEDS TRANSLATION *//* Window text */
-"(The 'easy-rsaPath' preference is invalid.)" = "(The 'easy-rsaPath' preference is invalid.)";
+/* Window text */
+"(The 'easy-rsaPath' preference is invalid.)" = "(Преференція 'easy-rsaPath' є невірною.)";
 
 /* NEEDS TRANSLATION *//* Window text */
 "(if connected when user switched out)" = "(if connected when user switched out)";
@@ -754,20 +754,20 @@
 /* NEEDS TRANSLATION *//* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
 
-/* NEEDS TRANSLATION *//* Window text */
-"A configuration was not installed. See the Console log for details." = "A configuration was not installed. See the Console log for details.";
+/* Window text */
+"A configuration was not installed. See the Console log for details." = "Конфігурацію не встановлено. Для подробиць подивіться лог консолі.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
+/* Window text */
+"A passphrase is required to connect to\n  %@%@" = "Фраза пароль необхідна для з'єднання з\n  %1$@%2$@";
 
 /* NEEDS TRANSLATION *//* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"A username and password are required to connect to\n  %@%@" = "A username and password are required to connect to\n  %1$@%2$@";
+/* Window text */
+"A username and password are required to connect to\n  %@%@" = "Необхдні ім'я користувача та пароль для з'єднання з\n  %1$@%2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Add Credentials..." = "Add Credentials…";
+/* Window text */
+"Add Credentials..." = "Додати повноваження…";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Additional contributions by" = "Additional contributions by";
@@ -781,11 +781,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n" = "After connecting to %@, the Internet does not appear to be reachable.\n\nThis may mean that your VPN is not configured correctly.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"All configuration files have been removed. Tunnelblick must quit." = "All configuration files have been removed. Tunnelblick must quit.";
+/* Window text */
+"All configuration files have been removed. Tunnelblick must quit." = "Всі файли конфігурації видалено. Tunnelblick буде закрито.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"All configurations use %@ credentials" = "All configurations use %@ credentials";
+/* Window text */
+"All configurations use %@ credentials" = "Всі конфігурації використовують %@ повноваження";
 
 /* NEEDS TRANSLATION *//* Window text */
 "An error (status %ld) ocurred while trying to check the security of the %@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick." = "An error (status %1$ld) ocurred while trying to check the security of the %2$@ configuration.\n\nPlease quit and relaunch Tunnelblick. If the problem persists, please reinstall Tunnelblick.";
@@ -796,8 +796,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n" = "An error occurred while trying to revert to the secured (shadow) copy. See the Console Log for details.\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Anonymous unique ID" = "Anonymous unique ID";
+/* Window text */
+"Anonymous unique ID" = "Анонімний унікальний ID";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n" = "Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\nCONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n";
@@ -808,11 +808,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?" = "Are you sure you wish to delete the credentials (private key or username and password) stored in the Keychain for '%@' credentials?";
 
-/* NEEDS TRANSLATION *//* Window text */
-"B" = "B";
+/* Window text */
+"B" = "Б";
 
-/* NEEDS TRANSLATION *//* Window text */
-"B/s" = "B/s";
+/* Window text */
+"B/s" = "Б/с";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%s'\n\n" = "Configuration '%1$@' will be ignored because its name contains characters that are not allowed.\n\nCharacters that are not allowed: '%2$s'\n\n";
@@ -820,46 +820,51 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Configurations:" = "Configurations:";
+/* Window text */
+"Configurations:" = "Конфігурації:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Connect:" = "Connect:";
+/* Window text */
+"Connect:" = "З'єднати:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Connection:" = "Connection:";
+/* Window text */
+"Connection:" = "З'єднання:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Copyright © 2004-%@ Angelo Laub and others." = "Copyright © 2004-%@ Angelo Laub and others.";
+/* Window text */
+"Copyright © 2004-%@ Angelo Laub and others." = "Права захищені © 2004-%@ Анжлело Лауб та інші.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not copy %@ to %@" = "Could not copy %1$@ to %2$@";
+/* Window text */
+"Could not copy %@ to %@" = "Неможливо скопіювати %1$@ до %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not delete %@" = "Could not delete %@";
+/* Window text */
+"Could not delete %@" = "Неможливо видалити %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not find easy-rsa in Tunnelblick.app" = "Could not find easy-rsa in Tunnelblick.app";
+/* Window text */
+"Could not find easy-rsa in Tunnelblick.app" = "Неможливо знайти easy-rsa в Tunnelblick.app";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not find easy-rsa version information in Tunnelblick.app" = "Could not find easy-rsa version information in Tunnelblick.app";
+/* Window text */
+"Could not find easy-rsa version information in Tunnelblick.app" = "Неможливо знайти інформацію про версію easy-rsa в Tunnelblick.app";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not get attributes of %@" = "Could not get attributes of %@";
+/* Window text */
+"Could not get attributes of %@" = "Неможливо отримати атрибути %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not get modification date of %@" = "Could not get modification date of %@";
+/* Window text */
+"Could not get modification date of %@" = "Неможливо отримати дату модифікації %@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not make %@ deletable" = "Could not make %@ deletable";
+/* Window text */
+"Could not make %@ deletable" = "Неможливо підготувати %@ до видалення";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Could not set modification date of %@ to %@" = "Could not set modification date of %1$@ to %2$@";
+/* Window text */
+"Could not set modification date of %@ to %@" = "Неможливо встановити дату модифікації %1$@ на %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"DNS servers:" = "DNS servers:";
+/* Window text */
+"DNS servers:" = "Сервери DNS:";
 
-/* NEEDS TRANSLATION *//* Window text */
+/* NEEDS TRANSLATION */
+/***************************************** Артем **********************************************/
+
+
+
+/* Window text */
 "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@%@\n\nAre you sure you wish to delete configuration '%@'?" = "Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%1$@%2$@\n\nAre you sure you wish to delete configuration '%3$@'?";
 
 /* NEEDS TRANSLATION *//* Window text */
@@ -868,8 +873,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n" = "Do you wish to install the '%@' configuration so that all users can use it, or so that only you can use it?\n\n";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Do you wish to reinstall '%@'%@ version %@?" = "Do you wish to reinstall '%1$@'%2$@ version %3$@?";
+/* Window text */
+"Do you wish to reinstall '%@'%@ version %@?" = "Бажаєте перевстановити '%1$@'%2$@ версія %3$@?";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Do you wish to replace '%@'%@ version %@ with version %@?" = "Do you wish to replace '%1$@'%2$@ version %3$@ with version %4$@?";
@@ -904,38 +909,38 @@
 /* NEEDS TRANSLATION *//* Window text */
 "In:" = "In:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation finished successfully." = "Installation finished successfully.";
+/* Window text */
+"Installation finished successfully." = "Інсталяцію успішно завершено.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installation of .tblk packages is not allowed" = "Installation of .tblk packages is not allowed";
+/* Window text */
+"Installation of .tblk packages is not allowed" = "Інсталяція пакетів .tblk не дозволена";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick." = "Installation of Tunnelblick VPN Configurations is not allowed because this is a Deployed version of Tunnelblick.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Installing Tunnelblick VPN Configurations..." = "Installing Tunnelblick VPN Configurations…";
+/* Window text */
+"Installing Tunnelblick VPN Configurations..." = "Інсталяція конфігурацій VPN Tunnelblick…";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Installing and securing Tunnelblick..." = "Installing and securing Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"KB" = "KB";
+/* Window text */
+"KB" = "Кб";
 
-/* NEEDS TRANSLATION *//* Window text */
-"KB/s" = "KB/s";
+/* Window text */
+"KB/s" = "Кб/с";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Keyboard shortcut:" = "Keyboard shortcut:";
+/* Window text */
+"Keyboard shortcut:" = "Гаряча клавіша:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Last checked: %@" = "Last checked: %@";
+/* Window text */
+"Last checked: %@" = "В останнє перевірено: %@";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Localization by" = "Localization by";
 
-/* NEEDS TRANSLATION *//* Window text */
-"MB" = "MB";
+/* Window text */
+"MB" = "Мб";
 
 /* NEEDS TRANSLATION *//* Window text */
 "MB/s" = "MB/s";
@@ -1000,8 +1005,8 @@
 /* NEEDS TRANSLATION *//* Window text */
 "OpenVPN version %@ is not available. Using the latest, version %@" = "OpenVPN version %1$@ is not available. Using the latest, version %2$@";
 
-/* NEEDS TRANSLATION *//* Window text */
-"OpenVPN version:" = "OpenVPN version:";
+/* Window text */
+"OpenVPN version:" = "Версія OpenVPN:";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Out:" = "Out:";
@@ -1012,11 +1017,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "PB/s" = "PB/s";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Password:" = "Password:";
+/* Window text */
+"Password:" = "Пароль:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Please enter VPN passphrase." = "Please enter VPN passphrase.";
+/* Window text */
+"Please enter VPN passphrase." = "Будь ласка введіть VPN фразу пароль.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Please enter a name and click \"OK\" or click \"Cancel\".\n\n" = "Please enter a name and click \"OK\" or click \"Cancel\".\n\n";
@@ -1036,14 +1041,14 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Received fatal signal %d." = "Received fatal signal %d.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Search domain:" = "Search domain:";
+/* Window text */
+"Search domain:" = "Шукати домен:";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Securing Tunnelblick..." = "Securing Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Set DNS/WINS:" = "Set DNS/WINS:";
+/* Window text */
+"Set DNS/WINS:" = "Добавити DNS/WINS:";
 
 /* NEEDS TRANSLATION *//* Window text */
 "Starting Tunnelblick..." = "Starting Tunnelblick…";
@@ -1051,20 +1056,20 @@
 /* NEEDS TRANSLATION *//* Window text */
 "Startup window:" = "Startup window:";
 
-/* NEEDS TRANSLATION *//* Window text */
-"TB" = "TB";
+/* Window text */
+"TB" = "Tб";
 
-/* NEEDS TRANSLATION *//* Window text */
-"TB/s" = "TB/s";
+/* Window text */
+"TB/s" = "Тб/с";
 
 /* NEEDS TRANSLATION *//* Window text */
 "TUNNELBLICK is brought to you by" = "TUNNELBLICK is brought to you by";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Thank you very much for your donation to the TunnelblickProject." = "Thank you very much for your donation to the TunnelblickProject.";
+/* Window text */
+"Thank you very much for your donation to the TunnelblickProject." = "Дякуємо за пожуртвування для проекту Tunnelblick.";
 
-/* NEEDS TRANSLATION *//* Window text */
-"Thanks for your Tunnelblick donation" = "Thanks for your Tunnelblick donation";
+/* Window text */
+"Thanks for your Tunnelblick donation" = "Дякуємо за пожуртвування для Tunnelblick";
 
 /* NEEDS TRANSLATION *//* Window text */
 "That name is being used.\n\n" = "That name is being used.\n\n";
@@ -1393,11 +1398,11 @@
 /* NEEDS TRANSLATION *//* Window text */
 "easy-rsa installation failed: %@" = "easy-rsa installation failed: %@";
 
-/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
-" copy %d" = " copy %d";
+/* Suffix for a duplicate of a file */
+" copy %d" = " копія %d";
 
-/* NEEDS TRANSLATION *//* Suffix for a duplicate of a file */
-" copy" = " copy";
+/* Suffix for a duplicate of a file */
+" copy" = " копія";
 
 /* NEEDS TRANSLATION *//* Tooltip */
 "%d days %d:%02d:%02d" = "%1$d days %2$d:%3$02d:%4$02d";
@@ -1420,11 +1425,11 @@
 /* NEEDS TRANSLATION *//* Credit description */
 "Chinese (traditional) localization" = "Chinese (traditional) localization";
 
-/* NEEDS TRANSLATION *//* Credentials name */
-"Common" = "Common";
+/* Credentials name */
+"Common" = "Загальне";
 
-/* NEEDS TRANSLATION *//* Speak string */
-"Connected to %@" = "Connected to %@";
+/* Speak string */
+"Connected to %@" = "З'єднано з %@";
 
 /* NEEDS TRANSLATION *//* Credit description */
 "Contributed much to the early code" = "Contributed much to the early code";
@@ -1435,11 +1440,11 @@
 /* NEEDS TRANSLATION *//* Credit description */
 "Czech localization" = "Czech localization";
 
-/* NEEDS TRANSLATION *//* Speak string */
-"Disconnected from %@" = "Disconnected from %@";
+/* Speak string */
+"Disconnected from %@" = "Від'єднано від %@";
 
-/* NEEDS TRANSLATION *//* Checkbox */
-"Do not show this again" = "Do not show this again";
+/* Checkbox */
+"Do not show this again" = "Не відображати це знову";
 
 /* NEEDS TRANSLATION *//* Credit description */
 "Dutch localization" = "Dutch localization";
@@ -1471,8 +1476,8 @@
 /* NEEDS TRANSLATION *//* [name of your language] localization */
 "LANGUAGE_LOCALIZATION" = "LANGUAGE_LOCALIZATION";
 
-/* NEEDS TRANSLATION *//* Names of lead translators */
-"LEAD_TRANSLATORS" = "LEAD_TRANSLATORS";
+/* Names of lead translators */
+"LEAD_TRANSLATORS" = "Aleksey Likholob";
 
 /* NEEDS TRANSLATION *//* Credit description */
 "Localization code tweaks" = "Localization code tweaks";
@@ -1528,17 +1533,17 @@
 /* NEEDS TRANSLATION *//* Button VPNService */
 "Accept" = "Accept";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Create a Free Account" = "Create a Free Account";
+/* Button VPNService */
+"Create a Free Account" = "Створити безкоштовний запис";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Get Different Image" = "Get Different Image";
+/* Button VPNService */
+"Get Different Image" = "Інша картинка";
 
-/* NEEDS TRANSLATION *//* Button VPNService *//* Window title VPNService */
-"Login" = "Login";
+/* Button VPNService *//* Window title VPNService */
+"Login" = "Увійти";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
-"Next" = "Next";
+/* Button VPNService */
+"Next" = "Далі";
 
 /* NEEDS TRANSLATION *//* Button VPNService */
 "Reject" = "Reject";
@@ -1546,14 +1551,14 @@
 /* NEEDS TRANSLATION *//* Menu item VPNService */
 "Register for Tunnelblick..." = "Register for Tunnelblick…";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Cannot obtain image" = "Cannot obtain image";
+/* Window title  VPNService */
+"Cannot obtain image" = "Неможливо отримати картинку";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Cannot register" = "Cannot register";
+/* Window title  VPNService */
+"Cannot register" = "Неможливо зареєструватись";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Email not verified" = "Email not verified";
+/* Window title  VPNService */
+"Email not verified" = "Email не перевірено";
 
 /* NEEDS TRANSLATION *//* Window title  VPNService */
 "Entries required" = "Entries required";
@@ -1561,14 +1566,14 @@
 /* NEEDS TRANSLATION *//* Window title  VPNService */
 "Failed to load Terms of Service" = "Failed to load Terms of Service";
 
-/* NEEDS TRANSLATION *//* Window title VPNService */
-"No configuration available" = "No configuration available";
+/* Window title VPNService */
+"No configuration available" = "Немає конфігурацій";
 
 /* NEEDS TRANSLATION *//* Window title  VPNService */
 "Password entries must match" = "Password entries must match";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Prove You are Human" = "Prove You are Human";
+/* Window title  VPNService */
+"Prove You are Human" = "Підтвердження що ви людина";
 
 /* NEEDS TRANSLATION *//* Window title  VPNService */
 "Register with Tunnelblick" = "Register with Tunnelblick";
@@ -1579,14 +1584,14 @@
 /* NEEDS TRANSLATION *//* Window title  VPNService */
 "Terms of Service" = "Terms of Service";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"Tunnelblick - Free VPN" = "Tunnelblick - Free VPN";
+/* Window title  VPNService */
+"Tunnelblick - Free VPN" = "Tunnelblick - безкоштовний VPN";
 
 /* NEEDS TRANSLATION *//* Window title  VPNService */
 "Welcome!" = "Welcome!";
 
-/* NEEDS TRANSLATION *//* Window title  VPNService */
-"You Must Type the Characters" = "You Must Type the Characters";
+/* Window title  VPNService */
+"You Must Type the Characters" = "Необхідно ввести символи";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "Confirm password:" = "Confirm password:";
@@ -1606,11 +1611,11 @@
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "Email address %@ is already registered for an account" = "Email address %@ is already registered for an account";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Email address:" = "Email address:";
+/* Window text VPNService */
+"Email address:" = "Адреса Email:";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Invalid URL: %@" = "Invalid URL: %@";
+/* Window text VPNService */
+"Invalid URL: %@" = "Невірний URL: %@";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "No valid session token." = "No valid session token.";
@@ -1630,23 +1635,23 @@
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "Sorry, but your request for an account could not be processed:\n     %@" = "Sorry, but your request for an account could not be processed:\n     %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Terms of service are unavailable." = "Terms of service are unavailable.";
+/* Window text VPNService */
+"Terms of service are unavailable." = "Правила сервісу недоступні.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The Terms of Service could not be loaded:" = "The Terms of Service could not be loaded:";
+/* Window text VPNService */
+"The Terms of Service could not be loaded:" = "Немоливо завантажити правила сервісу:";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service." = "The email address has not been verified.\n\nYou will not be able to login and use the VPN until the email address has been verified by following the instructions in an email sent to you by Tunnelblick when you registered for the service.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The email address you entered was not a valid email address." = "The email address you entered was not a valid email address.";
+/* Window text VPNService */
+"The email address you entered was not a valid email address." = "Введено невірну адресу email.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The password entries must match to proceed." = "The password entries must match to proceed.";
+/* Window text VPNService */
+"The password entries must match to proceed." = "Необхідно щоб паролі співпадали.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"The text you entered did not match the text in the Captcha image." = "The text you entered did not match the text in the Captcha image.";
+/* Window text VPNService */
+"The text you entered did not match the text in the Captcha image." = "Введений текст не співпадає з текстом картинки.";
 
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image.";
@@ -1657,33 +1662,33 @@
 /* NEEDS TRANSLATION *//* Window text VPNService */
 "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection." = "Tunnelblick allows you to explore the Internet freely without restrictions while simultaneously securing your Internet connection.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Type the characters above:" = "Type the characters above:";
+/* Window text VPNService */
+"Type the characters above:" = "Введіть символи (зверху):";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to check account status:\n     %@" = "Unable to check account status:\n     %@";
+/* Window text VPNService */
+"Unable to check account status:\n     %@" = "Неможливо перевірити статус запису:\n     %@";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to check registration for empty email address" = "Unable to check registration for empty email address";
+/* Window text VPNService */
+"Unable to check registration for empty email address" = "Неможліво перевірити реєстрацію з пустою адресою email";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Unable to connect to server" = "Unable to connect to server";
+/* Window text VPNService */
+"Unable to connect to server" = "Неможливо під'єднатись до сервера";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You have already registered but not yet confirmed your email address." = "You have already registered but not yet confirmed your email address.";
+/* Window text VPNService */
+"You have already registered but not yet confirmed your email address." = "Ви вже зареєстровані, але e-mail не підтверджений.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You have already registered." = "You have already registered.";
+/* Window text VPNService */
+"You have already registered." = "Ви вже зареєстровані.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must enter an email address and password to login." = "You must enter an email address and password to login.";
+/* Window text VPNService */
+"You must enter an email address and password to login." = "Необхідно ввести email та пароль для входу.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must enter an email address, password, and password confirmation to proceed." = "You must enter an email address, password, and password confirmation to proceed.";
+/* Window text VPNService */
+"You must enter an email address, password, and password confirmation to proceed." = "Для продовження необхідно ввести адресу email, пароль та підтвердження паролю.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"You must type the characters in the image to proceed." = "You must type the characters in the image to proceed.";
+/* Window text VPNService */
+"You must type the characters in the image to proceed." = "Для продовження необхідно ввести символи з картинки.";
 
-/* NEEDS TRANSLATION *//* Window text VPNService */
-"Your account status could not be verified:\n     %@." = "Your account status could not be verified:\n     %@.";
+/* Window text VPNService */
+"Your account status could not be verified:\n     %@." = "Статус Вашого запису неможливо перевірити:\n     %@.";
 
