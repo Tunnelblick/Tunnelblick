@@ -1097,7 +1097,7 @@
 "The attempt to connect %@ has been cancelled: the runOnConnect script returned status: %d." = "The attempt to connect %1$@ 被取消: the runOnConnect script returned status: %2$d.";
 
 /* Window text */
-"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "％@’配置文件使用了”用戶“和/或”用戶組“選項，並使用一個向下的腳本（'不設置域名服務器’沒有被勾選，或者在配置文件設定了'向下'選項）。\n\n重新連接（連線中斷時會自動重新連線）可能失敗，除非使用OpenVPN的'openvpn-down-root.so'插件。\n\n您是否希望使用該插件？";
+"The configuration file for '%@' appears to use the 'user' and/or 'group' options and is using a down script ('Do not set nameserver' not selected, or there is a 'down' option in the configuration file).\n\nIt is likely that restarting the connection (done automatically when the connection is lost) will fail unless the 'openvpn-down-root.so' plugin for OpenVPN is used.\n\nDo you wish to use the plugin?" = "%@’配置文件使用了”用戶“和/或”用戶組“選項，並使用一個向下的腳本（'不設置域名服務器’沒有被勾選，或者在配置文件設定了'向下'選項）。\n\n重新連接（連線中斷時會自動重新連線）可能失敗，除非使用OpenVPN的'openvpn-down-root.so'插件。\n\n您是否希望使用該插件？";
 
 /* Window text */
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "設定檔 for '%@' does not appear to contain a 'dev tun'或'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation.";
