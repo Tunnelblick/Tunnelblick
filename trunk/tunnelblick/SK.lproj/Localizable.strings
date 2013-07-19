@@ -1472,7 +1472,7 @@
 "LANGUAGE_LOCALIZATION" = "Preklad do slovenčiny";
 
 /* Names of lead translators */
-"LEAD_TRANSLATORS" = "Matej Bačík, The Frog";
+"LEAD_TRANSLATORS" = "Matej Bačík";
 
 /* Credit description */
 "Localization code tweaks" = "Vychytávky kódovania prekladov";
