@@ -9,6 +9,34 @@
 
 ==Version 3.3==
 
+*3.3beta56 (2013-07-19)*
+
+ Expected to be the last beta before the 3.3 stable release.
+ 
+ * Complete Catalan, Czech, Finnish, French, Hungarian, Italian, Japanese, Korean, Norwegian, Dutch, Portuguese, Russian, Slovak, Swedish, and Chinese (simplified) localization.
+
+ * Allows the replacement of a Tunnelblick VPN Configuration that has an Info.plist even if it does not have a CFBundleIdentifier entry.
+
+ * Detects rich text files and files with illegal characters when installing a Tunnelblick VPN Configuration or converting an OpenVPN configuration.
+
+ * Allows the Info.plist of a Tunnelblick VPN Configuration to be located either in the .tblk folder directly, or in its "Contents" subfolder.
+
+ * Fixes a problem that sometimes caused an incorrect display of the settings of a Tunnelblick VPN Configuration that had been replaced.
+
+ * Fixes a problem that caused an unnecessary dialog window to appear when canceling the installation of a Tunnelblick VPN Configuration.
+
+ * Fixes a problem that sometimes caused no configuration to be selected the first time a freshly-installed Tunnelblick is launched.
+
+ * Fixes a problem that sometimes caused an invalid OpenVPN version to select the default version of OpenVPN, instead of the latest version.
+
+ * Fixes a problem that caused overwritten or truncated text in the status window, the 'Advanced' window, and the Log tab of the 'VPN Details…' window in some languages.
+
+ * Fixes a problem in status window that displays the 'In:' and 'Out:' text incorrectly in languages other than English.
+
+ * Fixes a problem that caused the 'Remove Credentials' submenu to be too narrow to fit localized text, and updates the Japanese localization with better translations.
+
+--------------------
+
 *3.3beta54 (2013-06-08)*
 
  * Includes complete German, Spanish, and Polish localization.

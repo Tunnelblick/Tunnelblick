@@ -1,6 +1,21 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-07-19: *Tunnelblick 3.3beta56 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ Expected to be the last beta before the 3.3 stable release.
+
+ * Complete Catalan, Czech, Finnish, French, Hungarian, Italian, Japanese, Korean, Norwegian, Dutch, Portuguese, Russian, Slovak, Swedish, and Chinese (simplified) localization.
+
+ * Allows the replacement of a Tunnelblick VPN Configuration that has an Info.plist even if it does not have a CFBundleIdentifier entry.
+
+ * Includes several other enhancements and bug fixes.
+
+See the [RlsNotes#Version_3.3 Release Notes] for details.
+
+
+--------------------
+
 2013-06-08: *Tunnelblick 3.3beta54 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Includes complete German, Spanish, and Polish localization.
