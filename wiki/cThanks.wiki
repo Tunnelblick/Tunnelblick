@@ -149,6 +149,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Matej Bačík     </td>
+    <td>      Slovak    </td>
+  </tr>
+
+  <tr>
     <td>      Stefan Bethke      </td>
     <td>      German    </td>
   </tr>
@@ -179,13 +184,13 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
-    <td>      Andreas Finke     </td>
-    <td>      German    </td>
+    <td>      Aleix Dorca     </td>
+    <td>      Catalan    </td>
   </tr>
 
   <tr>
-    <td>      Aleix Dorca     </td>
-    <td>      Catalan    </td>
+    <td>      Andreas Finke     </td>
+    <td>      German    </td>
   </tr>
 
   <tr>
@@ -196,6 +201,11 @@ Tunnelblick is made possible by the efforts of many people:
   <tr>
     <td>      Nail Gilmanov      </td>
     <td>      Russian    </td>
+  </tr>
+
+   <tr>
+    <td>      Massimo Grassi      </td>
+    <td>      Italian    </td>
   </tr>
 
   <tr>
@@ -219,6 +229,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
    <tr>
+    <td>      Evandro Hora   </td>
+    <td>      Portuguese    </td>
+  </tr>
+
+  <tr>
     <td>      Jesse Hulkko      </td>
     <td>      Finnish    </td>
   </tr>
@@ -256,6 +271,11 @@ Tunnelblick is made possible by the efforts of many people:
  <tr>
     <td>      Aming Lau      </td>
     <td>      Chinese (simplified and traditional)    </td>
+  </tr>
+
+  <tr>
+    <td>      Aleksey Likholob    </td>
+    <td>      Ukrainian    </td>
   </tr>
 
   <tr>
@@ -308,7 +328,12 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      Russian    </td>
   </tr>
 
-  <tr>
+   <tr>
+    <td>      Ricardo Rezende    </td>
+    <td>      Portuguese    </td>
+  </tr>
+
+ <tr>
     <td>      Diego Rivera    </td>
     <td>      Spanish    </td>
   </tr>
@@ -349,6 +374,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Wojtek Sromek      </td>
+    <td>      Polish    </td>
+  </tr>
+
+  <tr>
     <td>      Marcell Szabo      </td>
     <td>      Hungarian    </td>
   </tr>
@@ -378,7 +408,17 @@ Tunnelblick is made possible by the efforts of many people:
     <td>      French    </td>
   </tr>
 
-  <tr>
+   <tr>
+    <td>      Cristiano Verendini      </td>
+    <td>      Italian    </td>
+  </tr>
+
+   <tr>
+    <td>      Pompin Wu      </td>
+    <td>      Chinese (traditional)    </td>
+  </tr>
+
+ <tr>
     <td>      Magdelena Zajac      </td>
     <td>      Polish    </td>
   </tr>
