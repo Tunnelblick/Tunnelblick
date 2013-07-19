@@ -209,6 +209,7 @@ extern TBUserDefaults * gTbDefaults;
                             nil];
     
     NSArray * locCredits = [NSArray arrayWithObjects:
+                            [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Stefan Bethke",                 NSLocalizedString(@"German localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Olivier Borowski",              NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Sergio Andrés Castro Cárdenas", NSLocalizedString(@"Spanish localization",                 @"Credit description"), nil],
@@ -261,13 +262,8 @@ extern TBUserDefaults * gTbDefaults;
                             [NSArray arrayWithObjects: @"Dennis Ukhanov",                NSLocalizedString(@"Russian localization",                 @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"François Varas",                NSLocalizedString(@"French localization",                  @"Credit description"), nil],
                             [NSArray arrayWithObjects: @"Cristiano Verondini",           NSLocalizedString(@"Italian localization",                 @"Credit description"), nil],
-                            [NSArray arrayWithObjects: @"Magdelena Zajac",               NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
-                            
-// NEW TRANSLATORS FOR 3.3, must be verified and then inserted above in alphabetical order:
-
-                            [NSArray arrayWithObjects: @"Matej Bačík",                   NSLocalizedString(@"Slovak localization",                  @"Credit description"), nil],
-							
                             [NSArray arrayWithObjects: @"Pompin Wu",                     NSLocalizedString(@"Chinese (traditional) localization",   @"Credit description"), nil],
+                            [NSArray arrayWithObjects: @"Magdelena Zajac",               NSLocalizedString(@"Polish localization",                  @"Credit description"), nil],
                             nil];
 	
     // Construct an HTML page with the dummy credits, consisting of a table.
