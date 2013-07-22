@@ -41,9 +41,7 @@
     [cIconAnimation Icon Animation]<br>
 *Localization & Translation*
     [cLocalize Localizing Tunnelblick]<br>
-    [cTranslate Making Translations]<br>
     [cTranslateStrings Translating .strings Files]<br>
-    [cTranslateRtf Translating .rtf Files]<br>
     [cTranslationNotes Translation Notes]<br>
     [cTranslationStatus Translation Status]<br>
 *Reference*
