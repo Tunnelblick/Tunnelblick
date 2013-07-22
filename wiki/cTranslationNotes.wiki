@@ -7,23 +7,12 @@
 
 This document provides some notes about specific strings that are being translated.
  * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
  * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
- * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
 
 This document has comments about some sets of strings with common characteristics and some strings that appear more than one time within other strings, followed by comments on full strings.
-
-<hr>
-
-*" and install %ld configurations" Window text*<br />
-*"Do you wish to install %ld configurations" Window text*<br />
-*"Do you wish to uninstall %ld configurations" Window text*<br />
-*"Do you wish to uninstall one configuration" Window text*
-
-These strings are used to construct a question; none of them have a "?" because the "?" is added at the end of the dialog box outside of the translated strings. There are languages in which this is a problem, so for the final round of translations for Tunnelblick 3.3, *these strings will be removed and a new string or strings will be added which provide the complete question in a single string or deal with the problem in some other way*.
 
 <hr>
 

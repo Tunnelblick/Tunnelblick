@@ -1,23 +1,15 @@
 #summary Distributing Tunnelblick
 #sidebar cSb
 
-Tunnelblick is made available under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2]. It can be freely distributed within the restrictions of that license.
+Tunnelblick is made available under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2]  ("GPL"). It can be freely distributed within the restrictions of that license.
 
 If you are distributing Tunnelblick to multiple clients or servers, you might want to consider using a [cCusDeployed "Deployed" version] of Tunnelblick:
+ * Deployed versions of Tunnelblick *must be [cBuild built] from [cRebranding rebranded] source code* and the rebranded source code must be made available to anyone to whom a binary is "distributed" as defined by the GPL.
  * A "Deployed" version contains, within the Tunnelblick application itself, all of the configurations, certificates, keys, and scripts needed for the connection(s) that you wish to make available.
  * A "Deployed" version can also contain "forced" preferences, which the user is not allowed to override, which can avoid problems caused by users inadvertently changing critical configuration parameters.
- * Any user of the computer who can access a "Deployed" version of Tunnelblick can connect using the configuration(s).
- * A minimal "Deployed" version can be created very easily on any platform. See [cCusDeployed#How_to_Make_a_Deployed_Version How To Make a "Deployed" Version of Tunnelblick].
- * Deployed versions of Tunnelblick version 3.3beta22 and later must be based on a [cRebranding "rebranded"] version of Tunnelblick, and that means it is necessary to make the rebranded source code available to anyone to whom a binary is "distributed" in terms of the GPL.
- * In Deployed versions using Tunnelblick version 3.3beta22 and later, the distributor may want to digitally sign the binary so that the user can store usernames, passwords, and passphrases in the Keychain. See [cDigitalSignatures Digital Signatures].
+ * Any user of the computer can connect using the configuration(s).
 
- If you would prefer to distribute configurations separately from the Tunnelblick application, you should consider using [cConfigT Tunnelblick VPN Configurations]. They avoid the necessity of building a rebranded version of Tunnelblick and the problems with digital signatures that Deployed configurations have.
- * A Tunnelblick VPN Configuration is an easily constructed Mac OS X package which contains a configuration file and certificates, keys, and scripts to support the configuration.
- * A Tunnelblick VPN Configuration may be private to each individual user (and need to be installed separately for each user), or it may be shared by all users of the computer.
- * A Tunnelblick VPN Configuration can optionally contain identification and version information which Tunnelblick will use when a user installs or reinstalls a configuration.
- * A Tunnelblick VPN Configuration can also contain default preferences which are installed when the configuration is first used, but which the user can subsequently override.
- * A Tunnelblick VPN Configuration can contain within it an arbitrary number of other Tunnelblick VPN Configurations (nested only one level deep) which will be installed with a single user interaction (instead of an interaction for each nested Tunnelblick VPN Configuration).
- * Tunnelblick VPN Configurations which are contained on a disk image or .zip file used to distribute the application may be automatically installed when the application itself is installed.
+*If you would prefer not to build your own version of Tunnelblick*, you should consider using "standard" Tunnelblick bundled together with your [cConfigT#Creating_and_Installing_a_Tunnelblick_VPN_Configuration Tunnelblick VPN Configurations]. This avoids the need to build a rebranded version of Tunnelblick. Tunnelblick VPN Configurations which are contained on a disk image or .zip file used to distribute the application may be automatically installed when the application itself is installed. See [cPkgs Tunnelblick VPN Configurations] for detailed information.
 
 ------------------
 

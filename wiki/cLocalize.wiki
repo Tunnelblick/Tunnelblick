@@ -6,19 +6,16 @@
 <hr>
 
 This document gives an overview of how to localize Tunnelblick.
- * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
  * For instructions on editing the .strings files, see [cTranslateStrings Translating .strings Files]
- * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
  * For the current status of translations, see [cTranslationStatus Translation Status].
 
 <hr>
 
 ==How Localization Work in Tunnelblick==
-Although some applications have elaborate structures to specify translations, Tunnelblick's is simple. Inside of Tunnelblick.app there is a folder for English, and a folder for each language that has been translated. Each of these folders contains files which are edited to provide the translations:
- * A "Description.rtf" file for the language, which contains a description of the license under which Tunnelblick may be distributed.
- * A "Credits.rtf" file for the language, which lists people who have contributed code or translations to Tunnelblick 
- * A "Localizable.strings" file for the language. That file is used "on-the-fly" to translate the Tunnelblick application's strings, which are in English, to the language specified in the user's System Preferences.
+Although some applications have elaborate structures to specify translations, Tunnelblick's is simple:
+ * Inside of Tunnelblick.app there is a folder for English and a folder for each language that has been translated.
+ * Each of these folders contains a "Localizable.strings" file for the language. That file is used "on-the-fly" to translate the Tunnelblick application's strings, which are in English, to the language specified in the user's System Preferences.
  * A "!NeedsTranslation.strings" file may also be present. It contains only the strings that have not been translated. "!NeedsTranslations.strings" is not used by the program, but is a convenience for translators who prefer to work only on the strings that need translation, without the distraction of strings that have already been translated. Its size is an indication of how much more translation needs to be done.
 
 Each language folder (except English) has as its name the [http://www.loc.gov/standards/iso639-2/php/code_list.php ISO-639-1] two-letter abbreviation of the language and an extension of "lproj". For example, "JA.lproj" is the folder with Japanese strings, "ES.lproj" is the folder with Spanish strings, etc. The one exception is English, which is named English.lproj. That is because Tunnelblick's original development language was English.
@@ -38,7 +35,7 @@ NOTE: Prior to Tunnelblick versions 3.0b24, all .lproj folders had the English n
 
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
 
-Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.
+<font color="red">Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.</font> If you have added translations, you are encouraged to submit them to be included in Tunnelblick; contact project owner Jon via email at jkbullard at gmail dot com.
 
 *If you edited an existing translation*, here's how to put your modified .strings file into your copy of Tunnelblick:
   # Put the Localizable.strings file that you have modified in the folder
@@ -52,7 +49,7 @@ Note: This process invalidates Tunnelblick's "digital signature", and you will b
 
 You're done. The copy of Tunnelblick.app on your Desktop now has your translations.
 
-Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.
+<font color="red">Note: This process invalidates Tunnelblick's "digital signature", and you will be warned about it being a modified version of Tunnelblick.</font> If you have added translations, you are encouraged to submit them to be included in Tunnelblick; contact project owner Jon via email at jkbullard at gmail dot com.
 
 ------------------
 

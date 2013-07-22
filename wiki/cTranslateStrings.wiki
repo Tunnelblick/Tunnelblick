@@ -8,9 +8,7 @@
 <hr>
 
 This document describes how to translate .strings files, one of the the two types of files that Tunnelblick uses for translation.
- * For instructions on editing the .rtf files, see [cTranslateRtf Translating .rtf Files]
  * For an overview of how to localize Tunnelblick, see [cLocalize Localizing Tunnelblick].
- * For an overview of the translation process, see [cTranslate Translating Tunnelblick].
  * For notes about specific strings that are being translated, see [cTranslationNotes Translation Notes].
  * For the current status of translations, see [cTranslationStatus Translation Status].
 

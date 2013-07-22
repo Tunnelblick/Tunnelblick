@@ -9,6 +9,16 @@
 
 ==Version 3.3==
 
+*3.3 (2013-07-22)*
+
+ This is the first stable release of Tunnelblick 3.3. It is identical to version 3.3beta56 except for version information.
+ 
+ [DocumentationForTunnelblick_3_3 Summary of Changes from Version 3.2 to Version 3.3]<br>
+ [cThreeTwoToThreeThreeChanges    Changes from Version 3.2 to Version 3.3]<br>
+ [RlsNotes#Version_3.3            Tunnelblick 3.3 Release Notes]
+ 
+--------------------
+
 *3.3beta56 (2013-07-19)*
 
  Expected to be the last beta before the 3.3 stable release.

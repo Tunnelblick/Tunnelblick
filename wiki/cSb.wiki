@@ -31,18 +31,14 @@
     [cStable Stable Releases]<br>
     [cBeta Beta Releases]<br>
     [RlsNotes Release notes]<br>
-*Customized Versions*
+*Distributing Tunnelblick*
     [cDistribute Distributing Tunnelblick]<br>
+    [cDmg Modifying the Disk Image]<br>
+*Customized Versions*
     [cCusDeployed "Deployed" versions]<br>
     [cRebranding Rebranding Tunnelblick]<br>
-    [cPkgs ".tblk" Details]<br>
-    [cUsingScripts Using Scripts]<br>
-    [cIconAnimation Icon Animation]<br>
-    [cCusDeployPkg Deployed vs. Tunnelblick VPN Configurations]<br>
-    [cLocalize Localizing Tunnelblick]<br>
-*For Developers*
     [cBuild Building from Source]<br>
-    [cDmg Modifying the disk image]<br>
+    [cIconAnimation Icon Animation]<br>
 *Localization & Translation*
     [cLocalize Localizing Tunnelblick]<br>
     [cTranslate Making Translations]<br>
@@ -55,6 +51,8 @@
     [cThanks Thanks]<br>
     [cKnown Known Issues]<br>
     [RlsNotes Release notes]<br>
+    [cPkgs ".tblk" Details]<br>
+    [cUsingScripts Using Scripts]<br>
     [cAppleScriptSupport AppleScript Support]<br>
     [cGettingVPNService Getting VPN Service]<br>
     [wUsing Using Tunnelblick 3.1]<br>
@@ -72,4 +70,5 @@
     [DocumentationForTunnelblick_3_2 What's New in 3.2]<br><br>
     [cThreeBTenToThreeOneChanges Details About 3.0]<br>
     [cThreeZeroToThreeOneChanges Details About 3.1]<br>
-    [cThreeOneToThreeTwoChanges Details About 3.2]
+    [cThreeOneToThreeTwoChanges Details About 3.2]<br>
+    [cThreeOneToThreeTThreeChanges Details About 3.3]
