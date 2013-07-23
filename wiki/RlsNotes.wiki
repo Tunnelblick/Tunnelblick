@@ -14,7 +14,7 @@
  This is the first stable release of Tunnelblick 3.3. It is identical to version 3.3beta56 except for version information.
  
  [DocumentationForTunnelblick_3_3 Summary of Changes from Version 3.2 to Version 3.3]<br>
- [cThreeTwoToThreeThreeChanges    Changes from Version 3.2 to Version 3.3]<br>
+ [cThreeTwoToThreeThreeChanges   Details of Changes from Version 3.2 to Version 3.3]<br>
  
 --------------------
 
