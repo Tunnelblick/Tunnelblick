@@ -15,7 +15,6 @@
  
  [DocumentationForTunnelblick_3_3 Summary of Changes from Version 3.2 to Version 3.3]<br>
  [cThreeTwoToThreeThreeChanges    Changes from Version 3.2 to Version 3.3]<br>
- [RlsNotes#Version_3.3            Tunnelblick 3.3 Release Notes]
  
 --------------------
 
