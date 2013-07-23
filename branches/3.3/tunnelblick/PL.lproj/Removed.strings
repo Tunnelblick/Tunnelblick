@@ -1,0 +1,180 @@
+/* Menu item tooltip */
+"Disabled because the name of the application has been changed" = "Wyłączone, ponieważ nazwa aplikacji została zmieniona";
+
+/* Menu item tooltip */
+"Disabled because you cannot administer this computer and the 'onlyAdminCanUpdate' preference is set" = "Nieaktywne, nie masz uprawnień Administratora, a flaga 'onlyAdminCanUpdate' jest ustawiona";
+
+/* Window title */
+"Updates are disabled" = "Aktualizacje są wyłączone";
+
+/* Window text */
+"Tunnelblick can only be updated if its name is 'Tunnelblick'. You have changed the name to %@, so updates are disabled." = "Tunnelblick może zostać zaktualizowany, jeśli jego nazwa to 'Tunnelblick'. Zmieniłeś nazwę na %@, więc aktualizacje są wyłączone.";
+
+/* Window text */
+"There are two types of configuration files:\n\n     ‚Ä¢ Tunnelblick VPN Configurations (.tblk extension)\n\n     ‚Ä¢ OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" =  "Występują dwa typy plików konfiguracyjnych:\n\n     ‚Ä¢ Konfiguracja Tunnelblick VPN (rozszerzenie .tblk)\n\n     ‚Ä¢ Konfuguracja OpenVPN (rozszerzenie .ovpn lub .conf)\n\nKtóry rodzaj konfiguracji posiadasz?\n\n";
+
+/* Window text */
+"Would you like to\n\n     ‚Ä¢ Create a sample configuration on the Desktop\n             and\n     ‚Ä¢ Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Czy chcesz\n\n     ‚Ä¢ Utworzć przykładową konfigurację na pulpicie\n             i\n     ‚Ä¢ Otworzyć jej plik konfiguracyjny OpenVPN w programie TextEdit, aby dokonać zmian umożliwiających połączenie z Twoim VPN?\n\n";
+
+/* Status message */
+"%@ is Connected" = "%@ jest połączony";
+
+/* Status message */
+"%d Connections" = "%d połączeń";
+
+/* status message */
+"1 connection" = "1 połączenie";
+
+/* Button */
+"Copy Log to Clipboard" = "Skopiuj dziennik do schowka";
+
+/* Button */
+"Create Tunnelblick VPN Configuration" = "Utwórz konfigurację VPN Tunnelblick";
+
+/* Button */
+"Open Private Configurations Folder" = "Otwórz folder konfiguracji indywidualnej";
+
+/* Checkbox name */
+"Use shadow copies of configuration files" = "Użyj zapasowych kopii plików konfiguracyjnych";
+/* Window title */
+"Could Not Secure Configuration" = "Nie można zabezpieczyć konfiguracji";
+
+/* Window title */
+"Not connecting" = "Brak łączenia";
+
+/* Window title */
+"Perform installation?" = "Przeprowadzić instalację?";
+
+/* Window title */
+"Private Configuration Folder is Open" = "Folder indywidualnej konfiguracji jest otwarty";     
+
+/* Window title */
+"Which Type of Configuration Do You Wish to Create?" = "Jaki typ konfiguracji chcesz utworzyć?";
+
+/* Window text */
+"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Używając pojedyńczego pliku konfiguracyjnego na raz, możesz utworzyć Konfigurację VPN Tunnelblick.\n\n     • Używając wielu plików konfiguracyjnych, możesz umieścić je (oraz pliki kluczy i certyfikatów, jeśli je posiadasz) w folderze indywidualnej konfiguracji Tunnelblick.\nTo tradycyjna metoda używania konfiguracji OpenVPN.\n\nUwaga: Konfiguracje VPN Tunnelblick są preferowane, ponieważ mogą być współdzielone, uruchamiane wraz ze startem komputera, oraz automatycznie zabezpieczane.";
+
+/* Window text */
+"  • Repair the private configurations folder\n" = "  • Napraw folder indywidualnych konfiguracji\n";
+
+/* Window text */
+"  • Restore configuration(s) from the backup\n" = "  • Przywróc konfiguracje z kopii zapasowej\n";
+
+/* Window text */
+" (To install in a different location, drag %@ to that location.)" = " (Aby zainstalować w innej lokalizacji, przeciągnij do niej %@.)";
+
+/* Window text */
+" Configurations may be deleted only by a computer administrator.\n\n Deletion is immediate and permanent. All settings for '%@' will also be deleted permanently.%@" = " Konfiguracje mogą być usunięte tylko przez administratora komputera.\n\n Usunięcie jest natychmiastowe i nieodwracalne. Wszystkie ustawienia dla '%@' także będą trwale usunięte.%@";
+
+/* Window text */
+" Do you wish to install %@ to %@%@?\n\n%@" = " Czy chcesz zainstalować %@ do %@%@?\n\n%@";
+
+/* Window text */
+" Do you wish to replace\n    %@\n    in %@\nwith %@%@?\n\n%@" = " Czy chcesz zastąpić\n    %@\n    w %@\n na %@%@?\n\n%@";
+
+/* Window text */
+" Tunnelblick cannot be used from this location. It must be installed on a local hard drive.\n\n" = " Tunnelblick nie może być uruchomiony z tego miejsca, musi zostać zainstalowany na lokalnym dysku twardym\n\n";
+
+/* Window text */
+" and install %d configurations" = " i zainstaluj %d konfiguracje/i";
+
+/* Window text */
+"A passphrase is required to connect to\n  %@" = "Wymagany jest tekst szyfrujący, aby połączyć się z\n %@";
+
+/* Window text */
+"A username and password are required to connect to\n  %@" = "Wymagane są nazwa użytkownika i hasło, aby połączyć się z\n  %@";
+
+/* Window text */
+"All configuration files in %@ have been removed. Tunnelblick must quit." = "Wszystkie pliki konfiguracyjne w %@ zostały usunięte. Tunnelblick zostanie zamknięty.";
+
+/* Window text */
+"Deleting a configuration is permanent and cannot be undone.\n\nAll settings for the configuration will also be deleted permanently.\n\n%@\n\nAre you sure you wish to delete configuration '%@'?" = "Usunięcie konfiguracji jest nieodwracalne i nie może zostać cofnięte.\n\nWszystkie ustawienia konfiguracji zostaną także trwale usunięte.\n\n%@\n\nCzy chcesz usunąć konfigurację '%@'?";
+
+/* Window text */
+"Do you wish to install %d configurations" = "Czy chcesz zainstalować %d konfiguracje";
+
+/* Window text */
+"Do you wish to uninstall %d configurations" = "Czy chcesz usuniąć konfiguracje %d";    
+
+/* Window text */
+"Names must not contain slashes (\"/\")\n\n" = "Nazwy nie mogą zawierać ukośników (\"/\")\n\n";
+
+/* Window text */
+"Names must not start with a period (\".\")\n\n" = "Nazwy nie mogą zaczynać się od kropki (\".\")\n\n";
+
+/* Window text */
+"The private configuration folder has been opened in a Finder window.\n\nMove or copy OpenVPN configuration files and key and certificate files to the folder.\n\nThe new configuration(s) will be available in Tunnelblick immediately." = "Folder dla konfiguracji indywidualnej został otworzony w oknie programu Finder.\n\nPrzenieś lub skopiuj pliki konfiguracyjne, pliki kluczy i pliki certyfikatów do foldera.\n\nNowa/e konfiguracja/e w Tunnelblick będzie/ą natychmiast dostępna/e.";
+
+/* Window text */
+"There was a problem with %d configurations. Details are in the Console Log\n\n" = "Wystąpił problem z konfiguracją %d. \n\nSzczegóły są dostępne w dzienniku konsoli ";
+
+/* Window text */
+"Tunnelblick could not change ownership and permissions of the configuration file to secure it. See the Console Log for details." = "Tunnelblick nie mógł zmienić praw dosępu do pliku konfiguracyjnego. Przejrzyj log konsoli by znależć więcej informacji.";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick nie mógł stworzyć na lokalną kopię konfiguracji. Więcej szczegółów znajdziesz w logu konsoli.";
+
+/* Window text */
+"Tunnelblick could not secure the '%@' configuration. See the Console Log for details." = "Tunnelblick nie mógł zabezpieczyć konfiguracji '%@'. Szczegóły są dostępne w dzienniku konsoli.";
+
+/* Window text */
+"Tunnelblick needs to create a shadow copy of the configuration file." = "Tunnelblick musi zrobić kopię pliku konfiguracyjnego.";
+
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the configuration file to secure it." = "Ze względów bezpieczeństwa, Tunnelblick musi zmienić prawa dostępu do pliku konfiguracyjnego";
+
+/* Window text */
+"Tunnelblick needs to repair ownership/permissions of the shadow copy of the configuration file to secure it." = "Ze względów bezpieczeństwa, Tunnelblick musi zmienić prawa dostępu do pliku zawierającego kopię konfiguracji.";
+
+/* Window text */
+"Tunnelblick needs to update the shadow copy of the configuration file from the original." = "Tunnelblick musi zaktualizować lokalną kopię pliku konfiguracyjnego z oryginału.";
+
+/* Window text */
+"Tunnelblick was unable to start OpenVPN to connect %@. For details, see the OpenVPN log in the VPN Details... window" = "Tunnelblick nie mógł uruchomić OpenVNP dla połączenia %@. Szczegóły są dostępne w dzienniku OpenVPN w oknie Szczegóły VPN.";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "Musisz na nowo zainstalować Tunnelblick. Przenieś Tunnelblick do kosza i ściągnij go jeszcze raz. Problemem było:\n\n%@";
+
+/* Window text */
+"\n\nand install %d Tunnelblick VPN Configurations" = "\n\ni zainstaluj %d konfiguracje Tunnelblick VPN";
+
+/* Tooltip */
+"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+
+/* Window text */
+" and install %ld configurations" = " i zainstalować konfiguracje %ld";
+
+/* Window text */
+" and install one configuration" = " i zainstaluj pojedyńczą konfigurację";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Czy chcesz zainstalować %ld konfiguracje";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Czy chcesz odinstalować %ld konfiguracje";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Czy chcesz odinstalować pojedynczą konfigurację";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Napotkano problem z %ld konfiguracjami. Szczegóły dostępne są w logu konsoli\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Wystąpił problem z jedną konfiguracją. Sprawdź szczegóły w dzienniku konsoli\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Wystąpił problem z jedną bądź wieloma konfiguracjami. Szczegóły są dostępne w dzienniku konsoli\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick musi zainstalować i/lub usunąć jedną bądź więcej konfiguracji Tunnelblick VPN.";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Wykryto konfiguracje w formacie OpenVPN, obsługa których nie jest wspierana przez tą wersję Tunnelblick'a. Aby kontynuować:\n\n     • Pozwól Tunnelblick'owi skonwertować te konfiguracje do formatu 'Połączenie VPN Tunnelblick'a' (.tblk); lub\n     • Zakończ program i zainstaluje inną wersję Tunnelblick'a; lub\n     • Zingoruj tą wiadomość i kontynuuj pomijając konwersję.\n\n";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Konfiguracja '%@' zostanie zignorowana, ponieważ jej nazwa zawiera niedozwolone znaki.";
+
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN wersja %@ nie jest dostępna. Użyj domyślnej wersji %@";
+

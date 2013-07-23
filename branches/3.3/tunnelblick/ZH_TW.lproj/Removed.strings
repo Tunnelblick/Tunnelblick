@@ -1,0 +1,12 @@
+/* Window title */
+"Not connecting" = "未連線";
+
+/* Window text */
+"Tunnelblick could not create a folder for the alternate local configuration. See the Console Log for details." = "Tunnelblick 未能創建交替的本地設定檔之檔案夾. 詳情請查看控制台日誌.";
+
+/* Window text */
+"You must reinstall Tunnelblick. Please move Tunnelblick to the Trash and download a fresh copy. The problem was:\n\n%@" = "您必須重新安裝 Tunnelblick. 請將 Tunnelblick 移至垃圾筒並重新下載. 問題在於:\n\n%@";
+
+/* Tooltip */
+"%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
+

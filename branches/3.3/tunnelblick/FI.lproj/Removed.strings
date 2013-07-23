@@ -1,0 +1,37 @@
+/* Window text */
+" and install %ld configurations" = " ja asenna %ld konfiguraatiota";
+
+/* Window text */
+" and install one configuration" = " ja asenna yksi konfiguraatio";
+
+/* Window text */
+"Configuration '%@' will be ignored because its name contains characters that are not allowed." = "Konfiguraatio '%@' jätetään huomiotta, koska sen nimi sisältää ei-sallittuja merkkejä.";
+
+/* Window text */
+"Do you wish to install %ld configurations" = "Haluatko asentaa %ld konfiguraatiota";
+
+/* Window text */
+"Do you wish to uninstall %ld configurations" = "Haluatko poistaa %ld konfiguraatiota";
+
+/* Window text */
+"Do you wish to uninstall one configuration" = "Haluatko poistaa yhden konfiguraation";
+
+/* Window text */
+"There was a problem with %ld configurations. Details are in the Console Log.\n\n" = "%ld konfiguraatiossa oli ongelma. Yksityiskohdat ovat päätelokissa.\n\n";
+
+/* Window text */
+"There was a problem with one configuration. Details are in the Console Log\n\n" = "Yhdessä konfiguraatiossa oli ongelma. Yksityiskohdat ovat päätelokissa\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log\n\n" = "Yhdessä tai useammassa konfiguraatiossa oli ongelma. Yksityiskohdat ovat päätelokissa\n\n";
+
+/* Window text */
+"Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblickin on asennettava ja/tai poistettava yksi tai useampi Tunnelblick VPN-konfiguraatio.";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Sinulla on yksi tai useampi OpenVPN-konfiguraatio, jotka eivät ole käytettävissä, kun tätä Tunnelblickin versiota käytetään. Voit:\n\n     • Antaa Tunnelblickin muuntaa nämä OpenVPN-konfiguraatiot Tunnelblick VPN-konfiguraatioiksi; tai\n     • Lopettaa Tunnelblickin ja asentaa toisen version; tai\n     • Jättää tämän huomiotta ja jatkaa muuntamatta konfiguraatioita.\n\n";
+
+
+/* Window text */
+"OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN-versio %1$@ ei ole käytettävissä. Käytetään oletusta, versiota %2$@";
+
