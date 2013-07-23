@@ -56,16 +56,17 @@
     [wUsing Using Tunnelblick 3.1]<br>
     [UsingTunnelblick Using Tunnelblick 3.0]<br>
     [cSysReq System requirements]<br>
-    [z33Prefs Preferences 3.3]<br>
-    [zPrefs Preferences 3.2]<br>
-    [wPrefs Preferences 3.1]<br>
     [Preferences Preferences 3.0]<br>
+    [wPrefs Preferences 3.1]<br>
+    [zPrefs Preferences 3.2]<br>
+    [z33Prefs Preferences 3.3]<br>
     [cConfigT Tunnelblick VPN Configurations]<br>
     [cFileLocations File Locations]<br>
     [cDigitalSignatures Digital Signatures]<br>
     [cTranslationStatus Translation Status]<br><br>
     [DocumentationForTunnelblick_3_1 What's New in 3.1]<br>
     [DocumentationForTunnelblick_3_2 What's New in 3.2]<br><br>
+    [DocumentationForTunnelblick_3_3 What's New in 3.3]<br>
     [cThreeBTenToThreeOneChanges Details About 3.0]<br>
     [cThreeZeroToThreeOneChanges Details About 3.1]<br>
     [cThreeOneToThreeTwoChanges Details About 3.2]<br>
