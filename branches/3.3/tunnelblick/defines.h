@@ -74,6 +74,7 @@
 
 #define TOOL_PATH_FOR_CODESIGN @"/usr/bin/codesign"
 #define TOOL_PATH_FOR_KEXTSTAT @"/usr/sbin/kextstat"
+
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
 // Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.
@@ -84,6 +85,10 @@
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
 #define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil]
+
+//*************************************************************************************************
+// Extensions that indicate that a file is in non-binary format -- ASCII, not binary
+#define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", nil]
 
 //*************************************************************************************************
 // Permissions for files and folders
