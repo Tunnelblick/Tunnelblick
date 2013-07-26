@@ -432,7 +432,7 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
 		return @"The file is missing.";
 	}
     
-    const char * chars = [data bytes];
+    const unsigned char * chars = [data bytes];
     
     if (   chars[0] == '{'  ) {
         return @"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
@@ -441,7 +441,7 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
     unsigned i;
     unsigned lineNumber = 1;
     for (  i=0; i<[data length]; i++  ) {
-        char c = chars[i];
+        unsigned char c = chars[i];
         if (   ((c & 0x80) != 0)   // If high bit set
             || (c == 0x7F)         // Or DEL
             || (   (c == 0x0D)     // Or CR and CR is not allowed
@@ -452,7 +452,7 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
                 && (c != 0x0D)     //            or CR
                 )
             ) {
-            return [NSString stringWithFormat: @"Line %d of the file contains a non-printable character (0x%02X) which is not allowed.", lineNumber, c];
+            return [NSString stringWithFormat: @"Line %d of the file contains a non-printable character (0x%02X) which is not allowed.", lineNumber, (unsigned int)c];
         }
         if (  c == 0x0A  ) {
             lineNumber++;

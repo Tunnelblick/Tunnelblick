@@ -689,10 +689,12 @@ enum state_t {                      // These are the "states" of the guideState 
             if (  ! [argument isEqualToString: @"[inline]"]  ) {
                 NSString * newPath = [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: argument];
                 if (  [gFileMgr fileExistsAtPath: newPath]  ) {
-                    NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES);
-                    if (  errorText  ) {
-                        NSLog(@"Error in %@ (referenced in %@): %@", [newPath lastPathComponent], tblkName, errorText);
-                        return FALSE;
+                    if (  [NONBINARY_CONTENTS_EXTENSIONS containsObject: [newPath pathExtension]]  ) {
+                        NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES);
+                        if (  errorText  ) {
+                            NSLog(@"Error in %@ (referenced in %@): %@", [newPath lastPathComponent], tblkName, errorText);
+                            return FALSE;
+                        }
                     }
                 } else {
                     NSLog(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
