@@ -1279,7 +1279,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                                                  NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                                  nil,
 												 NSAlertDefaultReturn);
-            if (  button == NSAlertAlternateReturn  ) {
+            if (  button != NSAlertDefaultReturn  ) {
                 if (  userKnows  ) {
                     requestedState = oldRequestedState;
                 }

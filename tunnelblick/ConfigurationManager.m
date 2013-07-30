@@ -297,7 +297,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                                  NSLocalizedString(@"Do not warn about this again, always 'Examine'", @"Checkbox name"),
                                                  nil,
 												 NSAlertDefaultReturn);
-            if (  button == NSAlertOtherReturn  ) {
+            if (   (button == NSAlertOtherReturn)   // No action if cancelled or error occurred
+                || (button == NSAlertErrorReturn)) {
                 return;
             }
             if (  button == NSAlertAlternateReturn  ) {
@@ -307,7 +308,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                                  NSLocalizedString(@"Cancel", @"Button"),    // Default button
                                                  NSLocalizedString(@"Examine", @"Button"),   // Alternate button
                                                  nil);
-                    if (  button != NSAlertAlternateReturn  ) {
+                    if (  button != NSAlertAlternateReturn  ) {   // No action if cancelled or error occurred
                         return;
                     }
                 }
@@ -342,7 +343,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                              NSLocalizedString(@"Replace", @"Button"),
                                              NSLocalizedString(@"Cancel" , @"Button"),
                                              nil);
-                if (  result == NSAlertAlternateReturn  ) {
+                if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
                     return;
                 }
             }
@@ -490,7 +491,7 @@ enum state_t {                      // These are the "states" of the guideState 
 													 NSAlertDefaultReturn);
                 if (  result == NSAlertAlternateReturn  ) {
                     [gTbDefaults setBool: TRUE forKey: useDownRootPluginKey];
-                } else if (  result == NSAlertOtherReturn  ) {
+                } else if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
                     [cfgContents release];
                     return @"Cancel";
                 }
@@ -938,7 +939,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                          NSLocalizedString(@"OK", @"Button"),       // Default
                                          nil,                                       // Alternate
                                          NSLocalizedString(@"Cancel", @"Button"));  // Other
-            if (  result == NSAlertOtherReturn  ) {
+            if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
                 if (  notifyDelegate  ) {
                     if (  [errList count] == 0  ) {
                         [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyCancel];
@@ -1361,7 +1362,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                                      NSLocalizedString(@"Replace", @"Button"),  // Default
                                                      NSLocalizedString(@"Cancel", @"Button"),   // Alternate
                                                      nil);
-                        if (  result == NSAlertAlternateReturn  ) {
+                        if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
                             NSLog(@"Configuration installer: Tunnelblick VPN Configuration %@ (un)installation declined by user.", tryDisplayName);
                             return [NSArray array];
                         }
@@ -1533,7 +1534,7 @@ enum state_t {                      // These are the "states" of the guideState 
                     pkgSharePackage = @"private";
                 } else if (  result == NSAlertAlternateReturn  ) {
                     pkgSharePackage = @"shared";
-                } else {
+                } else {   // No action if cancelled or error occurred
                     NSLog(@"Configuration installer: Installation of Tunnelblick VPN Package %@ has been cancelled.", tryDisplayName);
                     return [NSArray array];
                 }
@@ -1611,7 +1612,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                      NSLocalizedString(@"Install Sample", @"Button"),
                                      NSLocalizedString(@"Cancel", @"Button"),
                                      nil);
-        if (  result != NSAlertDefaultReturn  ) {
+        if (  result != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
             [pkgList release];
             return @"";
         }
@@ -1822,6 +1823,8 @@ enum state_t {                      // These are the "states" of the guideState 
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://openvpn.net/index.php/open-source/documentation.html"]];
 	}
     
+    // Treat an error as "Cancel"
+    
     return TRUE;
 }
 
@@ -1945,8 +1948,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                          NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
                                          );
                 
-                if (  button == NSAlertAlternateReturn  ) {
-                    // User selected QUIT
+                if (   (button == NSAlertAlternateReturn)   // Quit if quit or error occurred
+                    || (button == NSAlertErrorReturn)  ) {
                     [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
                 }
                 
@@ -1974,7 +1977,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                          nil                                                            // Other button
                                          );
                 
-                if (  button == NSAlertAlternateReturn  ) {
+                if (  button != NSAlertDefaultReturn  ) {   // Back if user selected Back or error occurred
                     // User selected Back
                     nextState = stateGoBack;
                     break;
@@ -2000,8 +2003,7 @@ enum state_t {                      // These are the "states" of the guideState 
                                              NSLocalizedString(@"Back", @"Button"),     // Alternate button
                                              nil);                                      // Other button
                     
-                    if (  button == NSAlertAlternateReturn  ) {
-                        // User selected Back
+                    if (  button != NSAlertDefaultReturn  ) {   // Back if user selected Back or error occurred
                         nextState = stateGoBack;
                         break;
                     }
@@ -2070,7 +2072,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                          NSLocalizedString(@"I DO NOT have configuration files", @"Button") // Other button
                                          );
                 
-                if (  button == NSAlertAlternateReturn  ) {
+                if (   (button == NSAlertAlternateReturn)   // No action if cancelled or error occurred
+                    || (button == NSAlertErrorReturn)  ) {
                     // User selected Cancel
                     return;
                 }
@@ -2100,8 +2103,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                          NSLocalizedString(@"OpenVPN Configuration(s)", @"Button")             // Other button
                                          );
                 
-                if (  button == NSAlertAlternateReturn  ) {
-                    // User selected Back
+                if (   (button == NSAlertAlternateReturn)   // User selected Back or error occurred
+                    || (button == NSAlertErrorReturn)  ) {
                     nextState = stateGoBack;
                     break;
                 }
@@ -2134,6 +2137,8 @@ enum state_t {                      // These are the "states" of the guideState 
                     break;
                 }
                 
+                // Treat error as "Done"
+                
                 return;
                 
                 
@@ -2152,8 +2157,8 @@ enum state_t {                      // These are the "states" of the guideState 
                                              NSLocalizedString(@"Back", @"Button"),     // Alternate button
                                              nil);                                      // Other button
                     
-                    if (  button == NSAlertAlternateReturn  ) {
-                        // User selected Back
+                    if (   (button == NSAlertAlternateReturn)   // User selected Back or error occurred
+                        || (button == NSAlertErrorReturn)  ) {
                         nextState = stateGoBack;
                         break;
                     }
@@ -2191,6 +2196,8 @@ enum state_t {                      // These are the "states" of the guideState 
                     nextState = stateGoBack;
                     break;
                 }
+                
+                // Treat error as "Done"
                 
                 return;
                 
