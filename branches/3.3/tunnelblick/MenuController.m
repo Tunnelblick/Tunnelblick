@@ -1958,7 +1958,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
                                                            NSLocalizedString(@"Do not warn about this again", @"Checkbox name"),
                                                            nil,
 														   NSAlertDefaultReturn);
-                    if (  response == NSAlertAlternateReturn  ) {
+                    if (  response != NSAlertDefaultReturn  ) {   // No action if cancelled or error occurred
                         return;
                     }
                 }
@@ -2291,7 +2291,8 @@ BOOL anyNonTblkConfigs(void)
                                        NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
                                        NSLocalizedString(@"Quit", @"Button"));                  // Other return
         
-		if (  response == NSAlertOtherReturn  ) {
+		if (   (response == NSAlertOtherReturn)
+            || (response == NSAlertErrorReturn)  ) {  // Quit if requested or error
 			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
 		}
 		
@@ -2577,6 +2578,9 @@ int runUnrecoverableErrorPanel(NSString * msg)
 	if( result == NSAlertDefaultReturn ) {
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://tunnelblick.net/"]];
 	}
+    
+    // Quit if "Quit" or error
+    
     exit(2);
 }
 
@@ -3227,7 +3231,8 @@ static void signal_handler(int signalNumber)
 												 NSLocalizedString(@"Check for a change", @"Button"),           // Default
 												 NSLocalizedString(@"Do not check for a change", @"Button"),    // Alternate
 												 nil);
-					[gTbDefaults setBool: (result == NSAlertAlternateReturn)
+                    // Only check for change if requested (not if error)
+					[gTbDefaults setBool: (result != NSAlertDefaultReturn)
 								  forKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
 					[gTbDefaults setBool: YES
 								  forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
@@ -3568,7 +3573,9 @@ static void signal_handler(int signalNumber)
 				   runOpenvpnstart(arguments, nil, nil);
 				   noUnknownOpenVPNsRunning = YES;
 			   }
-		   }
+		   } else if (result == NSAlertErrorReturn  ) {
+               NSLog(@"Ignoring error return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
+           }
 	   } else if (  ALLOW_OPENVPNSTART_KILLALL  ) {
 		   int result = TBRunAlertPanelExtended(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
 												NSLocalizedString(@"One or more OpenVPN processes are running but are unknown to Tunnelblick. If you are not running OpenVPN separately from Tunnelblick, this usually means that an earlier launch of Tunnelblick was unable to shut them down properly and you should terminate them. They are likely to interfere with Tunnelblick's operation. Do you wish to terminate all OpenVPN processes?", @"Window text"),
@@ -3583,6 +3590,8 @@ static void signal_handler(int signalNumber)
                NSArray  * arguments = [NSArray arrayWithObject:@"killall"];
                runOpenvpnstart(arguments, nil, nil);
                noUnknownOpenVPNsRunning = YES;
+		   } else if (result == NSAlertErrorReturn  ) {
+               NSLog(@"Ignoring error return from TBRunAlertPanelExtended; not killing unknown OpenVPN processes");
            }
        } else {
 		   TBRunAlertPanel(NSLocalizedString(@"Warning: Unknown OpenVPN processes", @"Window title"),
@@ -3908,7 +3917,8 @@ BOOL warnAboutNonTblks(void)
 											   nil,
 											   NSAlertDefaultReturn);
 		gUserWasAskedAboutConvertNonTblks = TRUE;
-		if (  response == NSAlertOtherReturn  ) {
+		if (   (response == NSAlertOtherReturn)
+            || (response == NSAlertErrorReturn)  ) {  // Quit if "Quit" or error
 			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
 		}
 		
@@ -3929,6 +3939,8 @@ BOOL warnAboutNonTblks(void)
 		if (  response == NSAlertDefaultReturn  ) {
 			return YES;
 		}
+        
+        // "Ignore" or error occured: fall through to ignore
 	}
 	
 	return NO;
@@ -4046,7 +4058,7 @@ BOOL warnAboutNonTblks(void)
 												 checkboxText,
 												 nil,
 												 NSAlertOtherReturn);
-			if (  result == NSAlertDefaultReturn  ) {
+			if (  result != NSAlertOtherReturn  ) {   // Quit if "Quit" or error
 				[self terminateBecause: terminatingBecauseOfQuit];
 			}
 		}
@@ -4072,7 +4084,7 @@ BOOL warnAboutNonTblks(void)
 												 checkboxText,
 												 nil,
 												 NSAlertOtherReturn);
-			if (  result == NSAlertDefaultReturn  ) {
+			if (  result != NSAlertOtherReturn  ) {   // Quit if "Quit" or error
 				[self terminateBecause: terminatingBecauseOfQuit];
 			}
 		}
@@ -4221,7 +4233,7 @@ BOOL warnAboutNonTblks(void)
                                      NSLocalizedString(@"Close VPN Connections and Stop Tunnelblick", @"Button"), // Default button
                                      NSLocalizedString(@"Cancel",  @"Button"),   // Alternate button
                                      nil);
-        if (  button == NSAlertAlternateReturn  ) {
+        if (  button != NSAlertDefaultReturn  ) {// Cancel or error: Quit Tunnelblick
             [self terminateBecause: terminatingBecauseOfQuit];
         }
         
@@ -4303,6 +4315,8 @@ BOOL warnAboutNonTblks(void)
                             nil);
         }
     }
+    
+    // If error, just terminate this instance
     
     [self terminateBecause: terminatingBecauseOfQuit];
 }

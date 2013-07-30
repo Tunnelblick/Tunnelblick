@@ -642,9 +642,9 @@ int TBRunAlertPanelExtended(NSString * title,
         }
     }
     
-    SInt32 error;
-    CFUserNotificationRef notification;
-    CFOptionFlags response;
+    SInt32 error = 0;
+    CFUserNotificationRef notification = NULL;
+    CFOptionFlags response = 0;
 
     CFOptionFlags checkboxChecked = 0;
     if (  checkboxResult  ) {
@@ -654,16 +654,28 @@ int TBRunAlertPanelExtended(NSString * title,
     }
     
     [NSApp activateIgnoringOtherApps:YES];
+	
     notification = CFUserNotificationCreate(NULL, 0.0, checkboxChecked, &error, (CFDictionaryRef) dict);
-    
-    if(  error || CFUserNotificationReceiveResponse(notification, 0.0, &response)  ) {
-        CFRelease(notification);
+    if (  error  ) {
+		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is returning NSAlertErrorReturn",
+              (long) error, (long) notification);
+		if (  notification  ) {
+			CFRelease(notification);
+		}
         [dict release];
-        return NSAlertErrorReturn;     // Couldn't receive a response
+        return NSAlertErrorReturn;
     }
+    
+	SInt32 responseReturnCode = CFUserNotificationReceiveResponse(notification, 0.0, &response);
     
     CFRelease(notification);
     [dict release];
+    
+    if (  responseReturnCode  ) {
+        NSLog(@"CFUserNotificationReceiveResponse() returned %ld with response = %ld, so TBRunAlertExtended is returning NSAlertErrorReturn",
+              (long) responseReturnCode, (long) response);
+        return NSAlertErrorReturn;
+    }
     
     if (  checkboxResult  ) {
         if (  response & CFUserNotificationCheckBoxChecked(0)  ) {
@@ -717,6 +729,7 @@ int TBRunAlertPanelExtended(NSString * title,
             return NSAlertOtherReturn;
             
         default:
+            NSLog(@"CFUserNotificationReceiveResponse() returned a response but it wasn't the default, alternate, or other response, so TBRunAlertExtended() is returning NSAlertErrorReturn");
             return NSAlertErrorReturn;
     }
 }
