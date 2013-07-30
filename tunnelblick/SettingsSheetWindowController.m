@@ -1092,7 +1092,7 @@ extern TBUserDefaults       * gTbDefaults;
 								 NSLocalizedString(@"Delete", @"Button"),    // Alternate button
 								 nil);
 	
-	if (  result == NSAlertDefaultReturn  ) {
+	if (  result != NSAlertAlternateReturn  ) {
 		return;
 	}
     
