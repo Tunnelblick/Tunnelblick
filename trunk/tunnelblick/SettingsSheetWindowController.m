@@ -120,16 +120,20 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(void) updateConnectionStatusAndTime {
     if ( showingSettingsSheet  ) {
-        NSString * state = [connection state];
-        NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
-        if (  [state isEqualToString: @"CONNECTED"]  ) {
-            NSString * time = [connection connectTimeString];
-            [configurationStatusTFC setTitle: [NSString stringWithFormat: @"%@%@",
-                                               localizedStatus, time]];
+        if (  connection  ) {
+            NSString * state = [connection state];
+            NSString * localizedStatus = localizeNonLiteral(state, @"Connection status");
+            if (  [state isEqualToString: @"CONNECTED"]  ) {
+                NSString * time = [connection connectTimeString];
+                [configurationStatusTFC setTitle: [NSString stringWithFormat: @"%@%@",
+                                                   localizedStatus, time]];
+            } else {
+                [configurationStatusTFC setTitle: localizedStatus];
+            }
         } else {
-            [configurationStatusTFC setTitle: localizedStatus];
+            [configurationStatusTFC setTitle: @""];
         }
-    }    
+    }
 }
 
 - (void) setupCredentialsGroupButton {
