@@ -370,8 +370,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     
         [self updateConnectionStatusAndTime];
         
-        // Right split view - Log tab
-        
         [self indicateNotWaitingForConnection: [self selectedConnection]];
         [self validateWhenToConnect: [self selectedConnection]];
         
@@ -479,7 +477,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 	}
 	
 	if (  ! displayNameToSelect  ) {
-        displayNameToSelect = [allConfigsSorted objectAtIndex: 0];
+        if (  [allConfigsSorted count] > 0  ) {
+            displayNameToSelect = [allConfigsSorted objectAtIndex: 0];
+        } else {
+            return;
+        }
     }
 	
 	[leftNavList         release];
@@ -733,11 +735,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     VPNConnection * connection = [self selectedConnection];
     
-    [self validateConnectAndDisconnectButtonsForConnection: connection];
-    
 	[self updateConnectionStatusAndTime];
 	
     if (  connection  ) {
+        
+        [self validateConnectAndDisconnectButtonsForConnection: connection];
         
         // Left split view
         
@@ -764,27 +766,43 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Right split view - log tab
         
-        [[configurationsPrefsView logToClipboardButton]                 setEnabled: ! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"]];
+        [[configurationsPrefsView logToClipboardButton]             setEnabled: ! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"]];
         
         
         // Right split view - settings tab
         
-        [[configurationsPrefsView advancedButton]                       setEnabled: YES];
+        [[configurationsPrefsView advancedButton]                   setEnabled: YES];
         
         [self validateWhenToConnect: [self selectedConnection]];
         
     } else {
+        
+        // There is not a connection selected. Don't let the user do anything except add a connection.
 
-        [[configurationsPrefsView removeConfigurationButton]            setEnabled: NO];
-        [[configurationsPrefsView workOnConfigurationPopUpButton]       setEnabled: NO];
+        [[configurationsPrefsView removeConfigurationButton]        setEnabled: NO];
+        [[configurationsPrefsView workOnConfigurationPopUpButton]   setEnabled: NO];
         
         // The "Log" and "Settings" items can't be selected because tabView:shouldSelectTabViewItem: will return NO if there is no selected connection
         
-        [[configurationsPrefsView progressIndicator]                    setHidden: YES];
-        [[configurationsPrefsView logToClipboardButton]                 setEnabled: NO];
+        [[configurationsPrefsView progressIndicator]                setHidden: YES];
+        [[configurationsPrefsView logToClipboardButton]             setEnabled: NO];
         
-        [[configurationsPrefsView connectButton]                        setEnabled: NO];
-        [[configurationsPrefsView disconnectButton]                     setEnabled: NO];
+        [[configurationsPrefsView connectButton]                    setEnabled: NO];
+        [[configurationsPrefsView disconnectButton]                 setEnabled: NO];
+        
+        [[configurationsPrefsView whenToConnectPopUpButton]         setEnabled: NO];
+        
+        [[configurationsPrefsView setNameserverPopUpButton]         setEnabled: NO];
+        
+        [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
+        
+        [[configurationsPrefsView showOnTunnelBlickMenuCheckbox]    setEnabled: NO];
+        
+        [[configurationsPrefsView soundOnConnectButton]             setEnabled: NO];
+        [[configurationsPrefsView soundOnDisconnectButton]          setEnabled: NO];
+        
+        [[configurationsPrefsView advancedButton]                   setEnabled: NO];
+
     }
 }
 
