@@ -49,7 +49,7 @@
 	OSStatus err = LIAERemove( idx );
 	
 	if( err != noErr )
-		NSLog(@"Couldn't remove login intem error %ld", (long) err);
+		NSLog(@"Couldn't remove login item error %ld", (long) err);
 	
 	return( err == noErr );
 }

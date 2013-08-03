@@ -12,9 +12,10 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1059"/>
-			<integer value="1"/>
 			<integer value="856"/>
+			<integer value="1"/>
+			<integer value="1059"/>
+			<integer value="44"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1876,7 +1877,7 @@
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSCustomView" id="847392221">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">269</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2219,6 +2220,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{760, 390}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">AppearanceView</string>
 			</object>
 			<object class="NSArrayController" id="880109452">
@@ -4498,22 +4500,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">appearanceDisplayStatisticsWindowsCheckbox</string>
-						<reference key="source" ref="847392221"/>
-						<reference key="destination" ref="438852176"/>
-					</object>
-					<int key="connectionID">1030</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="438852176"/>
-					</object>
-					<int key="connectionID">1031</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
 						<reference key="source" ref="670884726"/>
 						<reference key="destination" ref="269272876"/>
@@ -4687,6 +4673,22 @@
 						<reference key="destination" ref="415693899"/>
 					</object>
 					<int key="connectionID">1094</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">appearanceDisplayStatisticsWindowsCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="438852176"/>
+					</object>
+					<int key="connectionID">1095</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">appearanceDisplayStatisticsWindowsCheckbox</string>
+						<reference key="source" ref="847392221"/>
+						<reference key="destination" ref="438852176"/>
+					</object>
+					<int key="connectionID">1096</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -7153,7 +7155,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1094</int>
+			<int key="maxID">1096</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7450,8 +7452,8 @@
 							<string>appearanceDisplayConnectionSubmenusCheckboxWasClicked:</string>
 							<string>appearanceDisplayConnectionTimersCheckboxWasClicked:</string>
 							<string>appearanceDisplaySplashScreenCheckboxWasClicked:</string>
-							<string>appearanceDisplayStatisticsWindowCheckboxWasClicked:</string>
 							<string>appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked:</string>
+							<string>appearanceDisplayStatisticsWindowsCheckboxWasClicked:</string>
 							<string>appearanceHelpButtonWasClicked:</string>
 							<string>appearancePlaceIconNearSpotlightCheckboxWasClicked:</string>
 							<string>checkIPAddressAfterConnectCheckboxWasClicked:</string>

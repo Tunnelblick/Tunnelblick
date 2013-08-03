@@ -117,7 +117,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                      toMenu:                (NSMenu *)          theMenu;
 -(void)             addPath:                                (NSString *)        path
              toMonitorQueue:                                (UKKQueue *)        queue;
--(void)             activateStatusMenu;
 -(BOOL)             installTblks:                           (NSArray * )        filePaths
         skipConfirmationMessage:                            (BOOL)              skipConfirmMsg
               skipResultMessage:                            (BOOL)              skipResultMsg
@@ -160,7 +159,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
                         andModifierKeys:                    (UInt32)            modifierKeys;
 -(void)				showWelcomeScreen;
 -(NSStatusItem *)   statusItem;
--(void)             updateMenuAndLogWindow;
 -(void)             updateNavigationLabels;
 -(BOOL)             validateMenuItem:                       (NSMenuItem *)      anItem;
 -(void)             watcher:                                (UKKQueue *)        kq
@@ -940,7 +938,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
 {
     [self createStatusItem];
     [self createMenu];
-    [self updateUI];
+    [self updateIconImage];
 }
 
 - (IBAction) quit: (id) sender
@@ -974,7 +972,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                    main: &mainImage
                              connecting: &connectedImage
                                    anim: &animImages]  ) {
-                [self updateUI];    // Display the new images
+                [self updateIconImage];    // Display the new images
                 return YES;
             } else {
                 NSLog(@"Icon set '%@' not found", requestedLargeIconSet);
@@ -1006,7 +1004,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
             if (  requestedMenuIconSet  ) {
                 NSLog(@"Using icon set %@", menuIconSet);
             }
-            [self updateUI];    // Display the new images
+            [self updateIconImage];    // Display the new images
             return YES;
         } else {
             NSLog(@"Icon set '%@' not found", menuIconSet);
@@ -1025,7 +1023,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                             anim: &largeAnimImages]  )
     {
         NSLog(@"Using icon set %@", menuIconSet);
-        [self updateUI];    // Display the new images
+        [self updateIconImage];    // Display the new images
         return YES;
     }
     
@@ -1287,10 +1285,10 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         // The item goes directly in the menu
         for (  i=theIndex; i < [theMenu numberOfItems]; i++  ) {
             id menuItem = [theMenu itemAtIndex: i];
-            NSString * menuItemTitle;
             if (  [menuItem isSeparatorItem]  ) {
                 break;                       // A separator marks the end of list of connection items
             }
+            NSString * menuItemTitle;
             if (   [menuItem submenu]  ) {    // item is a submenu
                 menuItemTitle = [menuItem title];
             } else if (  [[menuItem title] isEqualToString: NSLocalizedString(@"Add a VPN...", @"Menu item")]  ) {
@@ -1299,8 +1297,14 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                 menuItemTitle = [[menuItem target] displayName];
             }
             
-			menuItemTitle = [menuItemTitle lastPathComponent];
-            if (  [menuItemTitle compare: theName options: NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedDescending  ) {
+			NSString * menuItemTitleWithoutSlash = [menuItemTitle lastPathComponent];
+			if (  [menuItemTitle hasSuffix: @"/"]  ) {
+				menuItemTitleWithoutSlash = [menuItemTitleWithoutSlash substringToIndex: [menuItemTitleWithoutSlash length] - 1];
+			}
+			NSString * theNameWithoutSlash = (  [theName hasSuffix: @"/"]
+											  ? [theName substringToIndex: [theName length] - 1]
+											  : theName);
+            if (  [menuItemTitleWithoutSlash compare: theNameWithoutSlash options: NSCaseInsensitiveSearch | NSNumericSearch] == NSOrderedDescending  ) {
                 break;
             }
         }
@@ -1319,8 +1323,14 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
             NSMenu * subMenu = [menuItem submenu];
             if (  subMenu   ) {
                 // Item is a submenu
-                NSString * menuItemTitle = [menuItem title];
-                NSComparisonResult  result = [menuItemTitle compare: subMenuName options: NSCaseInsensitiveSearch | NSNumericSearch];
+                NSString * menuItemTitleWithoutSlash = [menuItem title];
+				if (  [menuItemTitleWithoutSlash hasSuffix: @"/"]  ) {
+					menuItemTitleWithoutSlash = [menuItemTitleWithoutSlash substringToIndex: [menuItemTitleWithoutSlash length] - 1];
+				}
+				NSString * subMenuNameWithoutSlash = (  [subMenuName hasSuffix: @"/"]
+													  ? [subMenuName substringToIndex: [subMenuName length] - 1]
+													  : subMenuName);
+                NSComparisonResult  result = [menuItemTitleWithoutSlash compare: subMenuNameWithoutSlash options: NSCaseInsensitiveSearch | NSNumericSearch];
                 if (  result == NSOrderedSame  ) {
                     // Have found correct submenu, so add this item to it
 					int nItemsInMenu = [subMenu numberOfItems] - 1;
@@ -1334,7 +1344,12 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                     // Have found a different submenu that comes later
 					break;
                 }
-            }
+            } else {
+				if (  [[menuItem title] isEqualToString: NSLocalizedString(@"Add a VPN...", @"Menu item")]  ) {
+					break;
+				}
+			}
+
         }
     }
     
@@ -1503,7 +1518,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     [self createStatusItem];
     [self createMenu];
-    [self updateUI];
+    [self updateIconImage];
 }
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
@@ -1668,7 +1683,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
 // If any config files have been deleted, remove them from the menu and remove their tabs in the Log window
--(void) updateMenuAndLogWindow 
+-(void) updateMenuAndDetailsWindow 
 {
     BOOL needToUpdateLogWindow = FALSE;         // If we changed any configurations, process the changes after we're done
     
@@ -1709,11 +1724,6 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     while (  (dispNm = [e nextObject])  ) {
         [self deleteExistingConfig: dispNm];
         needToUpdateLogWindow = TRUE;
-    }
-    
-	// If there aren't any configuration files left, deal with that
-    if (  ! checkingForNoConfigs  ) {
-        [self checkNoConfigurations];
     }
     
     if (  needToUpdateLogWindow  ) {
@@ -1851,19 +1861,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
-- (void)activateStatusMenu
-{
-    [self updateUI];
-    [self updateMenuAndLogWindow];
-}
-
 - (void)connectionStateDidChange:(id)connection
 {
 	[self updateNavigationLabels];
     [logScreen validateConnectAndDisconnectButtonsForConnection: connection];
 }
 
-- (void) updateUI
+- (void) updateIconImage
 {
     if (  gShuttingDownWorkspace  ) {
         [theAnim stopAnimation];
@@ -2265,11 +2269,6 @@ BOOL anyNonTblkConfigs(void)
         return;
     }
     
-    // Make sure we notice any configurations that have just been installed
-    checkingForNoConfigs = TRUE;    // Avoid infinite recursion
-    [self activateStatusMenu];
-    checkingForNoConfigs = FALSE;
-    
     if (  [[self myConfigDictionary] count] != 0  ) {
         return;
     }
@@ -2297,24 +2296,17 @@ BOOL anyNonTblkConfigs(void)
 		}
 		
 		if (  response == NSAlertDefaultReturn  ) {
-            ignoreNoConfigs = TRUE; // Because we do the testing and don't want interference
             if (  [self runInstaller: INSTALLER_CONVERT_NON_TBLKS
                       extraArguments: nil
                      usingAuthRefPtr: &gAuthorization
                              message: nil
                    installTblksFirst: nil]  ) {
-                // Installer did conversion(s); set up to use the new configurations
-                [self activateStatusMenu];
-                if (  [[self myConfigDictionary] count] != 0  ) {
-                    ignoreNoConfigs = FALSE;
-                    return;
-                }
                 
-                // fall through if still don't have any configurations
+                // Installation succeeded. If there are no configurations even after the install, UKKQueue will cause configFilesChanged to be invoked again
+                return;
             }
             
-            ignoreNoConfigs = FALSE;
-            // fall through if installer failed or still don't have any configurations
+            // fall through if installer failed
         }
 	}
 	
@@ -2499,7 +2491,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
         [newDisplayState retain];
         [lastState release];
         lastState = newDisplayState;
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(updateIconImage) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -3194,8 +3186,8 @@ static void signal_handler(int signalNumber)
     }
     [myQueue setDelegate: self];
     [myQueue setAlwaysNotify: YES];
-    
-    [self activateStatusMenu];
+    [self updateIconImage];
+    [self updateMenuAndDetailsWindow];
     
     ignoreNoConfigs = NO;    // We should NOT ignore the "no configurations" situation
     
@@ -3480,7 +3472,7 @@ static void signal_handler(int signalNumber)
         for (i = 0; i < [gConfigDirs count]; i++) {
             [[NSApp delegate] addPath: [gConfigDirs objectAtIndex: i] toMonitorQueue: myQueue];
         }
-        [self activateStatusMenu];
+        [self updateMenuAndDetailsWindow];
     }
 }
 
@@ -4395,15 +4387,48 @@ BOOL warnAboutNonTblks(void)
     }
 }
 
+-(void) configFilesChanged
+{
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
+    [self updateMenuAndDetailsWindow];
+    [self checkNoConfigurations];
+}
+
+-(void) configsChangedTimerFired {
+    
+    [configsChangedTimer release];
+    configsChangedTimer = nil;
+    
+    [self performSelectorOnMainThread: @selector(configFilesChanged) withObject: nil waitUntilDone: NO];
+}
+
 // Invoked when a folder containing configurations has changed.
 -(void) watcher: (UKKQueue*) kq receivedNotification: (NSString*) nm forPath: (NSString*) fpath {
 	(void) kq;
 	(void) nm;
 	(void) fpath;
-		
-    if (  ! ignoreNoConfigs  ) {
-        [self performSelectorOnMainThread: @selector(activateStatusMenu) withObject: nil waitUntilDone: YES];
+	
+    if (  gShuttingDownWorkspace  ) {
+        return;
     }
+    
+    // If already have set up a timer, invalidate it
+    if (  configsChangedTimer  ) {
+        [configsChangedTimer invalidate];
+        [configsChangedTimer release];
+    }
+    
+    // Set a timer to fire in 0.5 seconds
+    configsChangedTimer = [[NSTimer scheduledTimerWithTimeInterval: 0.5
+                                                            target: self
+                                                          selector: @selector(configsChangedTimerFired)
+                                                          userInfo: nil
+                                                           repeats: NO]
+                           retain];
+
 }
 
 -(BOOL) runInstaller: (unsigned) installFlags
