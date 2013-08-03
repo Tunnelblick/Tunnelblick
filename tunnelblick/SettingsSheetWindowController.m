@@ -99,6 +99,11 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 -(void) setConfigurationName: (NSString *) newName {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
     if (  ! [configurationName isEqualToString: newName]  ) {
         [configurationName release];
         configurationName = [newName retain];
@@ -110,13 +115,16 @@ extern TBUserDefaults       * gTbDefaults;
             [self setupSettingsFromPreferences];
         }
     }
-    
-    return;
 }
 
 -(void) setStatus: (NSString *) newStatus {
-    [configurationStatusTFC setTitle: localizeNonLiteral(newStatus, @"Connection status")];
-}                                                            
+    
+    if (  newStatus  ) {
+        [configurationStatusTFC setTitle: localizeNonLiteral(newStatus, @"Connection status")];
+    } else {
+        [configurationStatusTFC setTitle: @""];
+    }
+}
 
 -(void) updateConnectionStatusAndTime {
     if ( showingSettingsSheet  ) {
@@ -137,6 +145,11 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 - (void) setupCredentialsGroupButton {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
 	selectedCredentialsGroupIndex = NSNotFound;
 	
 	NSInteger ix = 0;
@@ -167,6 +180,11 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 - (void) setupPrependDomainNameCheckbox {
+    
+    if (  ! configurationName  ) {
+        return;
+    }
+    
     // Select the appropriate Set nameserver entry
     int ix = 1; // Default is 'Set nameserver'
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
@@ -186,6 +204,11 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 -(void) setupFlushDNSCheckbox {
+    
+    if (  ! configurationName  ) {
+        return;
+    }
+    
     // Select the appropriate Set nameserver entry
     int ix = 1; // Default is 'Set nameserver'
     NSString * key = [configurationName stringByAppendingString: @"useDNS"];
@@ -205,18 +228,33 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 - (void) setupReconnectOnWakeFromSleepCheckbox {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
     [self setupCheckbox: reconnectOnWakeFromSleepCheckbox
                     key: @"-doNotReconnectOnWakeFromSleep"
                inverted: YES];
 }
 
 - (void) setupResetPrimaryInterfaceAfterDisconnectCheckbox {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
     [self setupCheckbox: resetPrimaryInterfaceAfterDisconnectCheckbox
                     key: @"-resetPrimaryInterfaceAfterDisconnect"
                inverted: NO];
 }
 
 - (void) setupRouteAllTrafficThroughVpnCheckbox {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
     [self setupCheckbox: routeAllTrafficThroughVpnCheckbox
                     key: @"-routeAllTrafficThroughVpn"
                inverted: NO];
@@ -395,6 +433,10 @@ extern TBUserDefaults       * gTbDefaults;
 
 //**********************************************************************************************************************************
 -(void) setupSettingsFromPreferences {
+    
+    if (  ! connection  ) {
+        return;
+    }
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
         programName = @"";
