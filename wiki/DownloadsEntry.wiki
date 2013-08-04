@@ -22,7 +22,13 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.dmg/download Tunnelblick 3.3]</strong></font> `[`sourceforge.net`]` (build 3518) released 2013-07-22 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]
 
- <strong><font color="red">NOTE: Tunnelblick 3.3 will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled].</font> To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions.</strong>
+ <strong><font color="red">NOTE: Tunnelblick 3.3 will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system.</font>
+
+ To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions.
+
+ The latest version that may be used as a "Deployed" version is 3.3beta21b (Unsigned). It may be found on the [SecurityRiskDownloads Security Risk Downloads] page.
+</strong>
+
  
 </td></tr></tbody></table>
 
