@@ -85,6 +85,13 @@ To add your own digital signature to the built application, simply create a sign
 
  * Warnings during the build process that a target is already signed may appear if building the application but not rebuilding that particular target. These warnings may be ignored.
 
+==BUILDING OPENVPN AND OTHER THIRD-PARTY SOFTWARE==
+The normal Tunnelblick build process builds all of the third-party software (OpenVPN, OpenSSL, LZO, Spakle, pkcs11-helper, and tuntap) using third_party/Makefile.
+
+Unlike the usual "Make" procedure, the third_party/Makefile creates special "built-xxx" files to indicate that each of the components has been built, and a "built" file to indicate that everything has been built. After that first build of Tunnelblick, the presence of the "built" file and the "built-xxx" files causes the build process to skip building third party components.
+
+What this means is that if you modify any of the third-party source after building Tunnelblick, you must delete the corresponding "built-xxx" file so that Tunnelblick will rebuild that software when you next build Tunnelblick.
+
 ==BUILDING ON LEOPARD==
 It is possible to build versions of Tunnelblick prior to r232 on Leopard. The instructions above should be followed, except:
   * Xcode 3.1.1 or higher is required.
