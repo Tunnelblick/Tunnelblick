@@ -121,6 +121,8 @@ BOOL needToConvertNonTblks(void);
 	
     NSTimer                 * statisticsWindowTimer;        // Used to check for stale statistics that must be cleared 
     
+    NSTimer                 * configsChangedTimer;          // Used when configurations change
+    
     SUUpdater               * updater;                      // Sparkle Updater item used to check for updates to the program
 
     NSString                * feedURL;                      // URL to send program update requests to
@@ -237,8 +239,8 @@ BOOL needToConvertNonTblks(void);
                             forDisplayName:                 (NSString *)        theName;
 -(void)             showStatisticsWindows;
 -(void)             hideStatisticsWindows;
--(void)             updateUI;
--(void)				updateMenuAndLogWindow;
+-(void)             updateIconImage;
+-(void)				updateMenuAndDetailsWindow;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 
 -(void) addActiveIPCheckThread: (NSString *) threadID;

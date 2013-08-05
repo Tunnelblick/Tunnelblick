@@ -388,6 +388,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) setupSetNameserver: (VPNConnection *) connection
 {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
     // Set up setNameserverPopUpButton with localized content that varies with the connection
     NSInteger ix = 0;
     NSArray * content = [connection modifyNameserverOptionList];
@@ -476,11 +481,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
 	}
 	
+    // If no display name to select and there are any names, select the first one
 	if (  ! displayNameToSelect  ) {
         if (  [allConfigsSorted count] > 0  ) {
             displayNameToSelect = [allConfigsSorted objectAtIndex: 0];
-        } else {
-            return;
         }
     }
 	
@@ -491,9 +495,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 	int currentLeftNavIndex = 0;
 	
 	NSEnumerator* configEnum = [allConfigsSorted objectEnumerator];
-	VPNConnection * connection;
-	while (  (connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: [configEnum nextObject]])  ) {
-		NSString * dispNm = [connection displayName];
+    NSString * dispNm;
+    while (  (dispNm = [configEnum nextObject])  ) {
+        VPNConnection * connection = [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: dispNm];
 		NSArray * currentConfig = [dispNm componentsSeparatedByString: @"/"];
 		unsigned firstDiff = [self firstDifferentComponent: currentConfig and: currentFolders];
 		
@@ -587,6 +591,14 @@ static BOOL firstTimeShowingWindow = TRUE;
             [self setSelectedLeftNavListIndex: (unsigned)leftNavIndexToSelect];
             [[configurationsPrefsView leftNavTableView] scrollRowToVisible: leftNavIndexToSelect];
         }
+    } else {
+        [self setupSetNameserver:         nil];
+        [self setupNetworkMonitoring:     nil];
+        [self setupShowOnTunnelblickMenu: nil];
+        [self setupSoundPopUpButtons:     nil];
+        [self validateDetailsWindowControls];
+        [settingsSheetWindowController setConfigurationName: nil];
+        
     }
 }
 
@@ -595,8 +607,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     [self setupLeftNavigationToDisplayName: previouslySelectedNameOnLeftNavList];
     
-    NSString * newDisplayName = [[self selectedConnection] displayName];
-    [settingsSheetWindowController setConfigurationName: newDisplayName];
+    VPNConnection * connection = [self selectedConnection];
+    if (  connection  ) {
+        NSString * newDisplayName = [connection displayName];
+        [settingsSheetWindowController setConfigurationName: newDisplayName];
+    } else {
+        [[settingsSheetWindowController window] close];
+    }
 }
 
 
@@ -641,19 +658,22 @@ static BOOL firstTimeShowingWindow = TRUE;
                   key: (NSString *) key
              inverted: (BOOL) inverted
 {
-    NSString * actualKey = [[[self selectedConnection] displayName] stringByAppendingString: key];
-    BOOL state = [gTbDefaults boolForKey: actualKey];
-    if (  inverted  ) {
-        state = ! state;
+    VPNConnection * connection = [self selectedConnection];
+    if (  connection  ) {
+        NSString * actualKey = [[connection displayName] stringByAppendingString: key];
+        BOOL state = [gTbDefaults boolForKey: actualKey];
+        if (  inverted  ) {
+            state = ! state;
+        }
+        if (  state  ) {
+            [checkbox setState: NSOnState];
+        } else {
+            [checkbox setState: NSOffState];
+        }
+        
+        BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
+        [checkbox setEnabled: enable];
     }
-    if (  state  ) {
-        [checkbox setState: NSOnState];
-    } else {
-        [checkbox setState: NSOffState];
-    }
-    
-    BOOL enable = [gTbDefaults canChangeValueForKey: actualKey];
-    [checkbox setEnabled: enable];
 }
 
 
@@ -689,46 +709,49 @@ static BOOL firstTimeShowingWindow = TRUE;
          arrayController: (NSArrayController *) ac
               preference: (NSString *)          preference
 {
-    NSUInteger ix = NSNotFound;
-    NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
-    NSString * soundName = [gTbDefaults objectForKey: key];
-    if (   soundName
-		&& ( ! [soundName isEqualToString: @"None"] )  ) {
-        NSArray * listContent = [ac content];
-        NSDictionary * dict;
-        unsigned i;
-        for (  i=0; i<[listContent count]; i++  ) {  // Look for the sound in the array
-            dict = [listContent objectAtIndex: i];
-            if (  [[dict objectForKey: @"name"] isEqualToString: soundName]  ) {
-                ix = i;
-                break;
+    VPNConnection * connection = [self selectedConnection];
+    if (  connection  ) {
+        NSUInteger ix = NSNotFound;
+        NSString * key = [[connection displayName] stringByAppendingString: preference];
+        NSString * soundName = [gTbDefaults objectForKey: key];
+        if (   soundName
+            && ( ! [soundName isEqualToString: @"None"] )  ) {
+            NSArray * listContent = [ac content];
+            NSDictionary * dict;
+            unsigned i;
+            for (  i=0; i<[listContent count]; i++  ) {  // Look for the sound in the array
+                dict = [listContent objectAtIndex: i];
+                if (  [[dict objectForKey: @"name"] isEqualToString: soundName]  ) {
+                    ix = i;
+                    break;
+                }
             }
-        }
-        
-        if (  ix == NSNotFound  ) {
-            NSLog(@"Preference '%@' ignored: sound '%@' was not found", preference, soundName);
+            
+            if (  ix == NSNotFound  ) {
+                NSLog(@"Preference '%@' ignored: sound '%@' was not found", preference, soundName);
+                ix = 0;
+            }
+        } else {
             ix = 0;
         }
-    } else {
-        ix = 0;
+        
+        //******************************************************************************
+        // Don't play sounds because we are just setting the button from the preferences
+        BOOL oldDoNotPlaySounds = doNotPlaySounds;
+        doNotPlaySounds = TRUE;
+        
+        if (  button == [configurationsPrefsView soundOnConnectButton]) {
+            [self setSelectedSoundOnConnectIndex: ix];
+        } else {
+            [self setSelectedSoundOnDisconnectIndex: ix];
+        }
+        
+        doNotPlaySounds = oldDoNotPlaySounds;
+        //******************************************************************************
+        
+        BOOL enable = [gTbDefaults canChangeValueForKey: key];
+        [button setEnabled: enable];
     }
-
-    //******************************************************************************
-    // Don't play sounds because we are just setting the button from the preferences
-    BOOL oldDoNotPlaySounds = doNotPlaySounds;
-    doNotPlaySounds = TRUE;
-    
-    if (  button == [configurationsPrefsView soundOnConnectButton]) {
-        [self setSelectedSoundOnConnectIndex: ix];
-    } else {
-        [self setSelectedSoundOnDisconnectIndex: ix];
-    }
-    
-    doNotPlaySounds = oldDoNotPlaySounds;
-    //******************************************************************************
-    
-    BOOL enable = [gTbDefaults canChangeValueForKey: key];
-    [button setEnabled: enable];
 }
 
 -(void) validateDetailsWindowControls
@@ -1297,7 +1320,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		
 		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetDisplayName];
 		
-		[[NSApp delegate] updateMenuAndLogWindow];
+		[[NSApp delegate] updateMenuAndDetailsWindow];
 		
     }
     
@@ -2270,7 +2293,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		if (  ix  ) {
 			n = [ix intValue];
 		} else {
-			NSLog(@"Error: no row for displayName %@ in rowsByDisplayName = %@", displayName, dict);
+            return; // No configurations
 		}
 	} else {
 		n = [[configurationsPrefsView leftNavTableView] selectedRow];
@@ -2299,7 +2322,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 		// Set name and status of the new connection in the window title.
 		VPNConnection* newConnection = [self selectedConnection];
         NSString * dispNm = [newConnection displayName];
-		
 		
         [self setupSetNameserver:         newConnection];
         [self setupNetworkMonitoring:     newConnection];
@@ -2832,10 +2854,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     // Start using the new setting
     [[NSApp delegate] createStatusItem];
     [[NSApp delegate] createMenu];
-    [[NSApp delegate] updateUI];
+    [[NSApp delegate] updateIconImage];
 }
 
--(IBAction) appearanceDisplayStatisticsWindowCheckboxWasClicked: (id) sender
+-(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (id) sender
 {
 	if (  [sender state]  ) {
 		[gTbDefaults setBool: FALSE forKey:@"doNotShowNotificationWindowOnMouseover"];
@@ -2845,7 +2867,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     [[[NSApp delegate] ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
--(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender
+-(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (NSButton *) sender
 {
 	if (  [sender state]  ) {
 		[gTbDefaults setBool: FALSE forKey:@"doNotShowDisconnectedNotificationWindows"];
