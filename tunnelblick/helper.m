@@ -61,39 +61,41 @@ uint64_t nowAbsoluteNanoseconds (void)
     return nowNs;
 }
 
-BOOL runningOnTigerOrNewer()
+BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 {
     unsigned major, minor, bugFix;
     [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 3) );
+    return ( (major > majorVersion) || (minor > minorVersion) );
+}
+
+BOOL runningOnTigerOrNewer()
+{
+    return runningOnNewerThan(10, 3);
 }
 
 BOOL runningOnLeopardOrNewer()
 {
-    unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 4) );
+    return runningOnNewerThan(10, 4);
 }
 
 BOOL runningOnSnowLeopardOrNewer()
 {
-    unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 5) );
+    return runningOnNewerThan(10, 5);
 }
 
 BOOL runningOnLionOrNewer()
 {
-    unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 6) );
+    return runningOnNewerThan(10, 6);
 }
 
 BOOL runningOnMountainLionOrNewer()
 {
-    unsigned major, minor, bugFix;
-    [[NSApplication sharedApplication] getSystemVersionMajor:&major minor:&minor bugFix:&bugFix];
-    return ( (major > 10) || (minor > 7) );
+    return runningOnNewerThan(10, 7);
+}
+
+BOOL runningOnMavericksOrNewer()
+{
+    return runningOnNewerThan(10, 8);
 }
 
 NSData * availableDataOrError(NSFileHandle * file) {
