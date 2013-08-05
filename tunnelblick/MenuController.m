@@ -103,8 +103,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
 
 -(void)             applicationWillFinishLaunching:         (NSNotification *)  notification;
 
--(void)             applicationWillTerminate:               (NSNotification*)   notification;
-
 // Private interfaces
 -(void)             addCustomMenuItems;
 -(BOOL)             addCustomMenuItemsFromFolder:           (NSString *)        folderPath
@@ -2016,7 +2014,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 {
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances");
         return;
     }
     
@@ -2045,7 +2043,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
     }
     
-    NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
+//    NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
     
     // See if any connections that are not disconnected use down-root
     BOOL noDownRootsActive = YES;
@@ -2055,14 +2053,14 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
             NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
             if (   [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
                 noDownRootsActive = NO;
-				NSLog(@"DEBUG: %@ is not disconnected and is using the down-root plugin", [connection displayName]);
+//				NSLog(@"DEBUG: %@ is not disconnected and is using the down-root plugin", [connection displayName]);
                 break;
             }
         }
     }
     
-	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
-		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
+//	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
+//		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
     if (   ALLOW_OPENVPNSTART_KILLALL
 		&& noDownRootsActive
 		&& ( includeDaemons
@@ -2070,7 +2068,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 			)
 		) {
         
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will use killAll");
+//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will use killAll");
 
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
         // But first append a log entry for each connection that will be restored
@@ -2080,16 +2078,16 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
         if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-            NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: sleeping for logs to settle");
+//            NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: sleeping for logs to settle");
             sleep(1);
         }
         
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requested killAll");
+//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requested killAll");
         runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killAll finished");
+//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killAll finished");
     } else {
         
-        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will kill individually");
+//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will kill individually");
         // Killing selected processes only -- those we know about that are not daemons
 		connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [connEnum nextObject])  ) {
@@ -2103,24 +2101,25 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 						if (  procId > 0  ) {
 							[connection addToLog: logMessage];
 							NSArray * arguments = [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil];
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName]);
+//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName]);
 							runOpenvpnstart(arguments, nil, nil);
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName]);
+//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName]);
 						} else {
 							[connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName]);
+//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName]);
 							[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
-							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
+//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
 						}
 					} else {
-						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
-							  [connection displayName], (long) procId);
+//						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
+//							  [connection displayName], (long) procId);
 						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
 					}
 				} else {
-					NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
-						  @" it is set to connect when the computer starts.",
-						  [connection displayName], (long) [connection pid]);
+//					NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
+//						  @" it is set to connect when the computer starts.",
+//						  [connection displayName], (long) [connection pid]);
+                    ;
 				}
 			}
         }
@@ -2403,7 +2402,7 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 // Returns TRUE if cleaned up, or FALSE if a cleanup is already taking place
 -(BOOL) cleanup 
 {
-    NSLog(@"DEBUG: Cleanup: Entering cleanup");
+//    NSLog(@"DEBUG: Cleanup: Entering cleanup");
     
     OSStatus status = pthread_mutex_trylock( &cleanupMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -2415,41 +2414,41 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
     
     if ( gShuttingDownOrRestartingComputer ) {
-        NSLog(@"DEBUG: Cleanup: Skipping cleanup because computer is shutting down or restarting");
+//        NSLog(@"DEBUG: Cleanup: Skipping cleanup because computer is shutting down or restarting");
         // DO NOT ever unlock cleanupMutex -- we don't want to allow another cleanup to take place
         return TRUE;
     }
     
-    NSLog(@"DEBUG: Cleanup: Setting callDelegateOnNetworkChange: NO");
+//    NSLog(@"DEBUG: Cleanup: Setting callDelegateOnNetworkChange: NO");
     [NSApp callDelegateOnNetworkChange: NO];
     
     if (  ! [lastState isEqualToString:@"EXITING"]) {
-        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
+//        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
         [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Skipping unloading of kexts because of fatal error.");
     } else {
-        NSLog(@"DEBUG: Cleanup: Unloading kexts");
+//        NSLog(@"DEBUG: Cleanup: Unloading kexts");
         [self unloadKexts];     // Unload .tun and .tap kexts
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
         NSLog(@"Skipping deleting logs because of fatal error.");
     } else {
-        NSLog(@"DEBUG: Cleanup: Deleting logs");
+//        NSLog(@"DEBUG: Cleanup: Deleting logs");
         [self deleteLogs];
     }
 
     if ( ! gShuttingDownWorkspace  ) {
         if (  statusItem  ) {
-            NSLog(@"DEBUG: Cleanup: Removing status bar item");
+//            NSLog(@"DEBUG: Cleanup: Removing status bar item");
             [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
         }
         
         if (  hotKeyEventHandlerIsInstalled && hotKeyModifierKeys != 0  ) {
-            NSLog(@"DEBUG: Cleanup: Unregistering hotKeyEventHandler");
+//            NSLog(@"DEBUG: Cleanup: Unregistering hotKeyEventHandler");
             UnregisterEventHotKey(hotKeyRef);
         }
     }
@@ -2623,7 +2622,12 @@ static void signal_handler(int signalNumber)
             }
         }
         
-        NSLog(@"Received fatal signal %d.", signalNumber);
+        if (  [NSThread respondsToSelector: @selector(callStackSymbols)]  ) {
+            NSLog(@"Received fatal signal %d. Stack trace: %@", signalNumber, [NSThread callStackSymbols]);
+        } else {
+            NSLog(@"Received fatal signal %d.", signalNumber);
+        }
+        
         if ( reasonForTermination == terminatingBecauseOfFatalError ) {
             NSLog(@"signal_handler: Error while handling signal.");
             exit(0);
@@ -5105,19 +5109,21 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void) shutDownTunnelblick
 {
-    NSLog(@"DEBUG: shutDownTunnelblick: started.");
+//    NSLog(@"DEBUG: shutDownTunnelblick: started.");
     terminatingAtUserRequest = TRUE;
     
     if (  [theAnim isAnimating]  ) {
-        NSLog(@"DEBUG: shutDownTunnelblick: stopping icon animation.");
+//        NSLog(@"DEBUG: shutDownTunnelblick: stopping icon animation.");
         [theAnim stopAnimation];
     }
     
-    NSLog(@"DEBUG: shutDownTunnelblick: Starting cleanup.");
+//    NSLog(@"DEBUG: shutDownTunnelblick: Starting cleanup.");
     if (  [self cleanup]  ) {
-        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup finished.");
+//        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup finished.");
+        ;
     } else {
-        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup already being done.");
+//        NSLog(@"DEBUG: shutDownTunnelblick: Cleanup already being done.");
+        ;
     }
     
     NSLog(@"Finished shutting down Tunnelblick; allowing termination");
@@ -5125,12 +5131,12 @@ void terminateBecauseOfBadConfiguration(void)
 }
 
 
-- (void) applicationWillTerminate: (NSNotification*) notification
-{
-	(void) notification;
-	
-    NSLog(@"DEBUG: applicationWillTerminate: invoked");
-}
+//- (void) applicationWillTerminate: (NSNotification*) notification
+//{
+//	(void) notification;
+//
+//    NSLog(@"DEBUG: applicationWillTerminate: invoked");
+//}
 
 // These five notifications happen BEFORE the "willLogoutOrShutdown" notification and indicate intention
 
@@ -5139,7 +5145,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfLogout;
-    NSLog(@"DEBUG: Initiated logout");
+//    NSLog(@"DEBUG: Initiated logout");
 }
 
 -(void) restartInitiatedHandler: (NSNotification *) n
@@ -5147,7 +5153,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfRestart;
-    NSLog(@"DEBUG: Initiated computer restart");
+//    NSLog(@"DEBUG: Initiated computer restart");
 }
 
 -(void) shutdownInitiatedHandler: (NSNotification *) n
@@ -5155,7 +5161,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingBecauseOfShutdown;
-    NSLog(@"DEBUG: Initiated computer shutdown");
+//    NSLog(@"DEBUG: Initiated computer shutdown");
 }
 
 -(void) logoutCancelledHandler: (NSNotification *) n
@@ -5163,7 +5169,7 @@ void terminateBecauseOfBadConfiguration(void)
 	(void) n;
 	
     reasonForTermination = terminatingForUnknownReason;
-    NSLog(@"DEBUG: Cancelled logout, or computer shutdown or restart.");
+//    NSLog(@"DEBUG: Cancelled logout, or computer shutdown or restart.");
 }
 
 // reasonForTermination should be set before this is invoked
@@ -5179,9 +5185,9 @@ void terminateBecauseOfBadConfiguration(void)
     int status = pthread_mutex_trylock( &shuttingDownMutex );
     if (  status != EXIT_SUCCESS  ) {
         if (  status == EBUSY  ) {
-            NSLog(@"DEBUG: setShutdownVariables: invoked, but have already set them");
+            NSLog(@"setShutdownVariables: invoked, but have already set them");
         } else {
-            NSLog(@"DEBUG: setShutdownVariables: pthread_mutex_trylock( &myVPNMenuMutex ) failed; status = %ld; %s", (long) status, strerror(status));
+            NSLog(@"setShutdownVariables: pthread_mutex_trylock( &myVPNMenuMutex ) failed; status = %ld; %s", (long) status, strerror(status));
         }
         
         return;
@@ -5205,7 +5211,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-    NSLog(@"DEBUG: logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.");
+//    NSLog(@"DEBUG: logoutContinuedHandler: Confirmed logout, or computer shutdown or restart.");
     [self setShutdownVariables];
 }
 
@@ -5214,7 +5220,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
  	(void) n;
 	
-   NSLog(@"DEBUG: willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification");
+//   NSLog(@"DEBUG: willLogoutOrShutdownHandler: Received 'NSWorkspaceWillPowerOffNotification' notification");
     [self setShutdownVariables];
 }
 
@@ -5223,7 +5229,7 @@ void terminateBecauseOfBadConfiguration(void)
 {
 	(void) n;
 	
-    NSLog(@"DEBUG: TunnelblickShutdownUIHandler: invoked");
+//    NSLog(@"DEBUG: TunnelblickShutdownUIHandler: invoked");
 }
 
 
@@ -5236,7 +5242,7 @@ void terminateBecauseOfBadConfiguration(void)
     }
     
     gComputerIsGoingToSleep = TRUE;
-	NSLog(@"DEBUG: willGoToSleepHandler: Setting up connections to restore when computer wakes up");
+//	NSLog(@"DEBUG: willGoToSleepHandler: Setting up connections to restore when computer wakes up");
     
     [connectionsToRestoreOnWakeup removeAllObjects];
     VPNConnection * connection; 
@@ -5249,18 +5255,18 @@ void terminateBecauseOfBadConfiguration(void)
     
     terminatingAtUserRequest = TRUE;
     if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-        NSLog(@"DEBUG: willGoToSleepHandler: Closing all connections");
+//        NSLog(@"DEBUG: willGoToSleepHandler: Closing all connections");
         [self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
         if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
             // Wait until all OpenVPN processes have terminated
-            NSLog(@"DEBUG: willGoToSleepHandler: Putting off sleep until all OpenVPNs have terminated");
+            NSLog(@"Putting off sleep until all OpenVPNs have terminated");
             while (  [[NSApp pIdsForOpenVPNProcesses] count] != 0  ) {
                 usleep(100000);
             }
         }
     }
     
-    NSLog(@"DEBUG: willGoToSleepHandler: OK to go to sleep");
+    NSLog(@"OK to go to sleep");
 }
 -(void) wokeUpFromSleepHandler: (NSNotification *) n
 {
@@ -5523,7 +5529,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     [activeIPCheckThreads addObject: threadID];
-	NSLog(@"DEBUG: addActiveIPCheckThread: threadID '%@' added to the active list", threadID);
+//	NSLog(@"DEBUG: addActiveIPCheckThread: threadID '%@' added to the active list", threadID);
     
     status = pthread_mutex_unlock( &threadIdsMutex );
     if (  status != EXIT_SUCCESS  ) {
@@ -5544,7 +5550,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  ! [cancellingIPCheckThreads containsObject: threadID]  ) {
             [activeIPCheckThreads removeObject: threadID];
             [cancellingIPCheckThreads addObject: threadID];
-            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' removed from the active list and added to the cancelling list", threadID);
+//            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' removed from the active list and added to the cancelling list", threadID);
             
         } else {
             NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is on both the active and cancelling lists! Removing from active list", threadID);
@@ -5552,7 +5558,8 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     } else {
         if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
-            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' is already on the cancelling list!", threadID);
+//            NSLog(@"DEBUG: cancelIPCheckThread: threadID '%@' is already on the cancelling list!", threadID);
+            ;
         } else {
             NSLog(@"cancelIPCheckThread: ERROR: threadID '%@' is not in the the active or cancelling list! Added it to cancelling list", threadID);
             [cancellingIPCheckThreads addObject: threadID];
@@ -5574,7 +5581,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: Entered");
+//    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: Entered");
     // Make a list of threadIDs to cancel
     NSString * prefix = [NSString stringWithFormat: @"%lu-", (long) connection];
     NSMutableArray * threadsToCancel = [NSMutableArray arrayWithCapacity: 5];
@@ -5586,7 +5593,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
         }
     }
 
-    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: No active threads for connection %lu", (long) connection);
+//    NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: No active threads for connection %lu", (long) connection);
     
     // Then cancel them. (This avoids changing the list while we enumerate it.)
     e = [threadsToCancel objectEnumerator];
@@ -5595,7 +5602,7 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  ! [cancellingIPCheckThreads containsObject: threadID]  ) {
                 [activeIPCheckThreads removeObject: threadID];
                 [cancellingIPCheckThreads addObject: threadID];
-                NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: threadID '%@' removed from the active list and added to the cancelling list", threadID);
+//                NSLog(@"DEBUG: cancelAllIPCheckThreadsForConnection: threadID '%@' removed from the active list and added to the cancelling list", threadID);
 
             } else {
                 NSLog(@"cancelAllIPCheckThreadsForConnection: ERROR: threadID '%@' is on both the active and cancelling lists! Removing from active list", threadID);
@@ -5628,9 +5635,11 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     BOOL answer = ([cancellingIPCheckThreads containsObject: threadID] ? YES : NO);
     if (  answer  ) {
-        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is on the the cancelling list", threadID);
+//        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is on the the cancelling list", threadID);
+        ;
     } else {
-        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is not on the the cancelling list", threadID);
+//        NSLog(@"DEBUG: isOnCancellingListIPCheckThread: threadID '%@' is not on the the cancelling list", threadID);
+        ;
     }
     
     status = pthread_mutex_unlock( &threadIdsMutex );
@@ -5651,12 +5660,12 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  [activeIPCheckThreads containsObject: threadID]  ) {
-        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from active list", threadID);
+//        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from active list", threadID);
         [activeIPCheckThreads removeObject: threadID];
     }
     
     if (  [cancellingIPCheckThreads containsObject: threadID]  ) {
-        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from cancelling list", threadID);
+//        NSLog(@"DEBUG: haveFinishedIPCheckThread: threadID '%@' removed from cancelling list", threadID);
         [cancellingIPCheckThreads removeObject: threadID];
     }
 

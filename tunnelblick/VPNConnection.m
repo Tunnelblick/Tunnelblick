@@ -533,7 +533,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  status != EXIT_SUCCESS  ) {
                 NSLog(@"Error deleting log files for %@", displayName);
             } else {
-                NSLog(@"Deleted log files for %@", displayName);
+//                NSLog(@"DEBUG: Deleted log files for %@", displayName);
+                ;
             }
             
             status = pthread_mutex_unlock( &deleteLogsMutex );
@@ -930,9 +931,10 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         NSLog(@"%@: IP address info could not be fetched within %.1f seconds", logHeader, (double) timeoutInterval);
         return [NSArray array];
     } else {
-        uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
-        long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
-        NSLog(@"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
+//        uint64_t elapsedTimeNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
+//        long elapsedTimeMilliseconds = (long) ((elapsedTimeNanoseconds + 500000) / 1000000);
+//        NSLog(@"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
+        ;
 	}
 
     if (  [data length] > 40  ) {
@@ -959,7 +961,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 		return nil;
     }
     
-    NSLog(@"%@: [%@, %@, %@]", logHeader, [items objectAtIndex: 0], [items objectAtIndex: 1], [items objectAtIndex: 2] );
+//    NSLog(@"%@: [%@, %@, %@]", logHeader, [items objectAtIndex: 0], [items objectAtIndex: 1], [items objectAtIndex: 2] );
     return items;
 }
 
@@ -1135,7 +1137,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     useconds_t delayMicroseconds = (unsigned)(delay * 1.0e6);
     if (  delayMicroseconds != 0  ) {
-        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay);
+//        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: Delaying %f seconds before checking connection", delay);
         usleep(delayMicroseconds);
     }
     
@@ -1155,7 +1157,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  ! ipInfo  ) {
-        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
+//        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
         NSLog(@"An error occured fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
                                withObject: @"*Tunnelblick: An error occured fetching IP address information after connecting"
@@ -1166,7 +1168,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  [ipInfo count] > 0  ) {
-        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@", [ipInfo objectAtIndex:0]);
+//        NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@", [ipInfo objectAtIndex:0]);
         [self performSelectorOnMainThread: @selector(checkIPAddressGoodResult:)
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys: ipAddressBeforeConnect, @"before", [ipInfo objectAtIndex:0], @"after", nil]
                             waitUntilDone: NO];
@@ -1178,7 +1180,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     // Timed out. If the attempt was by IP address, the Internet isn't reachable
     if (  ipCheckLastHostWasIPAddress  ) {
         // URL was already numeric, so it isn't a DNS problem
-        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
+//        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
         [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
                                withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
 		                    waitUntilDone: NO];
@@ -1188,7 +1190,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // Timed out by name, try by IP address
-    NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's name; retrying by IP address");
+//    NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's name; retrying by IP address");
 
     [self performSelectorOnMainThread: @selector(addToLog:)
                            withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's name after connecting.", (double) timeoutToUse]
@@ -1203,7 +1205,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  ! ipInfo  ) {
-        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
+//        NSLog(@"DEBUG: An error occured fetching IP address information after connecting");
         NSLog(@"An error occured fetching IP address information after connecting");
         [self performSelectorOnMainThread: @selector(checkIPAddressErrorResultLogMessage:)
                                withObject: @"*Tunnelblick: An error occured fetching IP address information using the ipInfo host's IP address after connecting"
@@ -1214,7 +1216,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  [ipInfo count] == 0  ) {
-        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
+//        NSLog(@"DEBUG: Timeout getting IP address using the ipInfo host's IP address");
         [self performSelectorOnMainThread: @selector(checkIPAddressBadResultLogMessage:)
                                withObject: [NSString stringWithFormat: @"*Tunnelblick: After %.1f seconds, gave up trying to fetch IP address information using the ipInfo host's IP address after connecting.", timeoutToUse]
 		                    waitUntilDone: NO];
@@ -1224,7 +1226,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     // Got IP address, even though DNS isn't working
-    NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0]);
+//    NSLog(@"DEBUG: checkIPAddressAfterConnectedThread: fetched IP address %@ using the ipInfo host's IP address", [ipInfo objectAtIndex:0]);
     [self performSelectorOnMainThread: @selector(checkIPAddressNoDNSLogMessage:)
                            withObject: [NSString stringWithFormat: @"*Tunnelblick: fetched IP address information using the ipInfo host's IP address after connecting."]
                         waitUntilDone: NO];
@@ -1872,7 +1874,7 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
     
     if (  [self isDisconnected]  ) {
-		NSLog(@"DEBUG: disconnectAndWait but %@ is already disconnected", [self displayName]);
+//		NSLog(@"DEBUG: disconnectAndWait but %@ is already disconnected", [self displayName]);
         return;
     }
     
