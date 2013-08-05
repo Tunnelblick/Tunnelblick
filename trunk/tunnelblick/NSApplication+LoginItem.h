@@ -31,10 +31,7 @@
 
 - (BOOL)            waitUntilNoProcessWithID:   (pid_t)             pid;
 
-- (BOOL)            setAutoLaunchOnLogin:       (BOOL)              doAutoLaunch;
-+ (BOOL)            setAutoLaunchPath:          (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
-+ (BOOL)            setAutoLaunchPathTiger:     (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
-+ (BOOL)            setAutoLaunchPathLeopard:   (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
+- (void)            setAutoLaunchOnLogin:       (BOOL)              doAutoLaunch;
 
 +(AuthorizationRef) getAuthorizationRef:        (NSString *)        msg;
 
