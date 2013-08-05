@@ -58,23 +58,21 @@ extern BOOL              gShuttingDownWorkspace;
 
 -(void) setOrRemoveTrackingRect
 {
-	if (  [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
-        if (  mainIconTrackingRectTagIsValid  ) {
-            [self removeTrackingRect: mainIconTrackingRectTag];
-			mainIconTrackingRectTagIsValid = FALSE;
-        }
-	} else {
-        if (  ! mainIconTrackingRectTagIsValid  ) {
-			NSRect frame = [self frame];
-			NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
-			mainIconTrackingRectTag = [self addTrackingRect: trackingRect
-													  owner: self
-												   userData: nil
-											   assumeInside: NO];
-			mainIconTrackingRectTagIsValid = TRUE;
-		}
+    if (  mainIconTrackingRectTagIsValid  ) {
+        [self removeTrackingRect: mainIconTrackingRectTag];
+        mainIconTrackingRectTagIsValid = FALSE;
+    }
+    
+	if (  ! [gTbDefaults boolForKey: @"doNotShowNotificationWindowOnMouseover"]  ) {
+        NSRect frame = [self frame];
+        NSRect trackingRect = NSMakeRect(frame.origin.x + 1.0f, frame.origin.y, frame.size.width - 1.0f, frame.size.height);
+        mainIconTrackingRectTag = [self addTrackingRect: trackingRect
+                                                  owner: self
+                                               userData: nil
+                                           assumeInside: NO];
+        mainIconTrackingRectTagIsValid = TRUE;
 	}
-}	
+}
 
 
 -(void) changedDoNotShowNotificationWindowOnMouseover

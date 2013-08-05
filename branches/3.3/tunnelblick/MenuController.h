@@ -206,6 +206,7 @@ BOOL needToConvertNonTblks(void);
                                main:                        (NSImage **)        ptrMainImage
                          connecting:                        (NSImage **)        ptrConnectedImage
                                anim:                        (NSMutableArray **) ptrAnimImages;
+- (void)            recreateStatusItemAndMenu;
 -(void)             mouseEnteredMainIcon:                   (id)                control
                                    event:                   (NSEvent *)         theEvent;
 -(void)             mouseExitedMainIcon:                    (id)                windowController

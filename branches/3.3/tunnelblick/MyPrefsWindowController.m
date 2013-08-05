@@ -2772,10 +2772,18 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                      inverted: YES
                    defaultsTo: FALSE];
     
-    [self setValueForCheckbox: [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox]
-                preferenceKey: @"placeIconInStandardPositionInStatusBar"
-                     inverted: YES
-                   defaultsTo: FALSE];
+    BOOL multipleScreens = [[NSScreen screens] count] != 1;
+    if (   multipleScreens
+        && runningOnMavericksOrNewer()  ) {
+        NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
+        [checkbox setState:   NO];
+        [checkbox setEnabled: NO];
+    } else {
+        [self setValueForCheckbox: [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox]
+                    preferenceKey: @"placeIconInStandardPositionInStatusBar"
+                         inverted: YES
+                       defaultsTo: FALSE];
+    }
     
     // Note: [self setupDisplayStatisticsWindowCheckbox] is invoked below, by setSelectedAppearanceConnectionWindowDisplayCriteriaIndex
     
@@ -2852,9 +2860,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	}
     
     // Start using the new setting
-    [[NSApp delegate] createStatusItem];
-    [[NSApp delegate] createMenu];
-    [[NSApp delegate] updateIconImage];
+    [[NSApp delegate] recreateStatusItemAndMenu];
 }
 
 -(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked: (id) sender

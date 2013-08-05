@@ -35,6 +35,14 @@
 // functions in this file are called:
 extern NSFileManager * gFileMgr;
 
+@interface NSApplication (LoginItemPrivate)
+
++ (BOOL)            setAutoLaunchPath:          (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
++ (BOOL)            setAutoLaunchPathTiger:     (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
++ (BOOL)            setAutoLaunchPathLeopard:   (NSString *)        path        onLogin: (BOOL) doAutoLaunch;
+
+@end
+
 @implementation NSApplication (LoginItem)
 
 - (void) killOtherInstances
@@ -263,7 +271,70 @@ extern NSFileManager * gFileMgr;
     return FALSE;
 }
 
-+ (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch 
+
++(void) addAppAsLoginItem {
+
+    // This method is a modified version of a method at http://cocoatutorial.grapewave.com/2010/02/creating-andor-removing-a-login-item/
+    
+	NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    
+	// This will retrieve the path for the application
+	// For example, /Applications/test.app
+	CFURLRef url = (CFURLRef)[NSURL fileURLWithPath: appPath];
+    
+	// Create a reference to the shared file list.
+    // We are adding it to the current user only.
+    // If we want to add it all users, use
+    // kLSSharedFileListGlobalLoginItems instead of
+    //kLSSharedFileListSessionLoginItems
+	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+	if (  loginItems  ) {
+		//Insert an item to the list.
+		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
+                                                                     kLSSharedFileListItemLast, NULL, NULL,
+                                                                     url, NULL, NULL);
+		if (  item  ){
+			CFRelease(item);
+        }
+	}
+    
+	CFRelease(loginItems);
+}
+
++(void) deleteAppFromLoginItems {
+    
+    // This method is a modified version of a method at http://cocoatutorial.grapewave.com/2010/02/creating-andor-removing-a-login-item/
+    
+	NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    
+	// This will retrieve the path for the application
+	// For example, /Applications/test.app
+	CFURLRef url = (CFURLRef)[NSURL fileURLWithPath:appPath];
+    
+	// Create a reference to the shared file list.
+	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    
+	if (  loginItems  ) {
+		UInt32 seedValue;
+		//Retrieve the list of Login Items and cast them to
+		// a NSArray so that it will be easier to iterate.
+		NSArray * loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+		unsigned i;
+		for (  i=0 ; i<[loginItemsArray count]; i++  ) {
+			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray objectAtIndex:i];
+			//Resolve the item with URL
+			if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
+				NSString * urlPath = [(NSURL*)url path];
+				if (  [urlPath isEqualToString: appPath]  ){
+					LSSharedFileListItemRemove(loginItems,itemRef);
+				}
+			}
+		}
+		[loginItemsArray release];
+	}
+}
+
++ (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch
 {
     NSMutableArray *loginItems;
     unsigned i;
@@ -340,14 +411,22 @@ extern NSFileManager * gFileMgr;
     }
 }
 
-- (BOOL) setAutoLaunchOnLogin: (BOOL) doAutoLaunch
+- (void) setAutoLaunchOnLogin: (BOOL) doAutoLaunch
 {
-    NSString* itemPath = [[[NSProcessInfo processInfo] arguments] objectAtIndex: 0];
-    // Remove suffix /Contents/MacOS/AppName
-    itemPath = [itemPath stringByDeletingLastPathComponent];
-    itemPath = [itemPath stringByDeletingLastPathComponent];
-    itemPath = [itemPath stringByDeletingLastPathComponent];
-    return [[self class] setAutoLaunchPath: itemPath onLogin: doAutoLaunch];
+    // Before Mavericks, setAutoLaunchPath:onLogin: worked. According to the docs,
+    // the new methods addAppAsLoginItem and deleteAppFromLoginItems should
+    // work on Leopard and higher, but to "not fix what ain't broken", we only use
+    // the new methods on Mavericks.
+    if (  runningOnMavericksOrNewer()  ) {
+        if (  doAutoLaunch) {
+            [[self class] addAppAsLoginItem];
+        } else {
+            [[self class] deleteAppFromLoginItems];
+        }
+    }
+    
+    NSString* appPath = [[NSBundle mainBundle] bundlePath];
+    [[self class] setAutoLaunchPath: appPath onLogin: doAutoLaunch];
 }
 
 +(AuthorizationRef)getAuthorizationRef: (NSString *) msg {

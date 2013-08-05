@@ -634,6 +634,11 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                                      name: @"LogDidChange" 
                                                    object: nil];
 		
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(screenParametersChangedHandler:)
+                                                     name: NSApplicationDidChangeScreenParametersNotification
+                                                   object: nil];
+        
 		
         // In case the systemUIServer restarts, we observed this notification.
 		// We use it to prevent ending up with a statusItem to the right of Spotlight:
@@ -708,6 +713,13 @@ BOOL checkOwnedByRootWheel(NSString * path);
         [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
                                                                selector: @selector(didBecomeInactiveUserHandler:)
                                                                    name: NSWorkspaceSessionDidResignActiveNotification
+                                                                 object: nil];
+#ifndef NSWorkspaceActiveDisplayDidChangeNotification
+#define NSWorkspaceActiveDisplayDidChangeNotification @"NSWorkspaceActiveDisplayDidChangeNotification"
+#endif
+        [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+                                                               selector: @selector(activeDisplayDidChangeHandler:)
+                                                                   name: NSWorkspaceActiveDisplayDidChangeNotification
                                                                  object: nil];
         
         if (  [gTbDefaults boolForKey: @"notificationsLog"] ) {
@@ -877,68 +889,85 @@ BOOL checkOwnedByRootWheel(NSString * path);
     return userIsAnAdmin;
 }
 
-// Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
-// By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
-// Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
-- (void) createStatusItem
-{
-    [statusItem release];
-    statusItem = nil;
+- (void) createStatusItem {
     
+    // Places an item with our icon in the Status Bar (creating it first if it doesn't already exist)
+    // By default, it uses an undocumented hack to place the icon on the right side, next to SpotLight
+    // Otherwise ("placeIconInStandardPositionInStatusBar" preference or hack not available), it places it normally (on the left)
+    // On Mavericks with multiple displays, it always places it normally (on the left)
+
 	NSStatusBar *bar = [NSStatusBar systemStatusBar];
+	
+    if (  statusItem  ) {
+        [bar removeStatusItem: statusItem];
+        [statusItem release];
+    }
     
-	if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
+    if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
         && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
         && (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
+        && (   ( ! runningOnMavericksOrNewer() )
+            || ( [[NSScreen screens] count] == 1 )
+            )
         ) {
+        
         // Force icon to the right in Status Bar
-        int priority = INT32_MAX;
-        if (  runningOnTigerOrNewer()  ) {
-            priority = MIN(priority, 2147483646); // found by experimenting - dirk
+        int priority = 2147483646;  //Established by experimenting by Dirk
+        if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
+            NSLog(@"can't insert icon in Status Bar near Spotlight icon");
         }
         
-        if ( ! statusItem  ) {
-            if (  ! ( statusItem = [[bar _statusItemWithLength: NSVariableStatusItemLength withPriority: priority] retain] )  ) {
-                NSLog(@"Can't insert icon in Status Bar");
-            }
-        }
-        // Re-insert item to place it correctly, to the left of SpotLight
+        // Re-insert item to place it correctly
         [bar removeStatusItem: statusItem];
         [bar _insertStatusItem: statusItem withPriority: priority];
+
     } else {
         // Standard placement of icon in Status Bar
-        if (  statusItem  ) {
-            [bar removeStatusItem: statusItem];
-            [statusItem release];
-            if (  (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-            } else {
-                NSLog(@"Can't insert icon in Status Bar");
-            }
-        } else {
-            if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
-                NSLog(@"Can't insert icon in Status Bar");
-            }
+        if (  ! (statusItem = [[bar statusItemWithLength: NSVariableStatusItemLength] retain])  ) {
+            NSLog(@"Can't insert icon in Status Bar in standard position");
         }
     }
+}
+
+-(void) screenParametersChangedHandler: (NSNotification *) n {
+    
+    (void) n;
+    
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
+	[self                   performSelectorOnMainThread: @selector(recreateStatusItemAndMenu)                           withObject: nil waitUntilDone: NO];
+}
+
+-(void) activeDisplayDidChangeHandler: (NSNotification *) n {
+    
+    (void) n;
+    
+    if (  gShuttingDownWorkspace  ) {
+        return;
+    }
+    
+	[self                   performSelectorOnMainThread: @selector(recreateStatusItemAndMenu)                           withObject: nil waitUntilDone: NO];
 }
 
 - (void) menuExtrasWereAddedHandler: (NSNotification*) n
 {
 	(void) n;
 	
-    NSLog(@"DEBUG: menuExtrasWereAddedHandler: invoked");
     if (  gShuttingDownWorkspace  ) {
         return;
     }
     
-	[self performSelectorOnMainThread: @selector(menuExtrasWereAdded) withObject: nil waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(recreateStatusItemAndMenu) withObject: nil waitUntilDone: NO];
 }
 
-- (void) menuExtrasWereAdded
+- (void) recreateStatusItemAndMenu
 {
     [self createStatusItem];
     [self createMenu];
     [self updateIconImage];
+    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover];
 }
 
 - (IBAction) quit: (id) sender
@@ -1516,9 +1545,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) changedDisplayConnectionSubmenusSettings
 {
-    [self createStatusItem];
-    [self createMenu];
-    [self updateIconImage];
+    [self recreateStatusItemAndMenu];
 }
 
 -(void) removeConnectionWithDisplayName: (NSString *) theName
@@ -5248,8 +5275,7 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void)wokeUpFromSleep
 {
-    [self menuExtrasWereAdded]; // Recreate the Tunnelblick icon
-    [[self ourMainIconView] changedDoNotShowNotificationWindowOnMouseover]; // Recreate tracking rectangle if needed
+    [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
     
     gComputerIsGoingToSleep = FALSE;
 	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep");
