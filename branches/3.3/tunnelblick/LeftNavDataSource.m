@@ -373,7 +373,7 @@ objectValueForTableColumn: (NSTableColumn *) tableColumn
 		
 		[[[NSApp delegate] logScreen] setPreviouslySelectedNameOnLeftNavList: targetDisplayName];
 		
-		[[NSApp delegate] updateMenuAndLogWindow];
+		[[NSApp delegate] updateMenuAndDetailsWindow];
     }
     
     AuthorizationFree(authorization, kAuthorizationFlagDefaults);

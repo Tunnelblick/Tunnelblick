@@ -159,7 +159,7 @@
 
 -(IBAction) appearanceDisplaySplashScreenCheckboxWasClicked:       (id) sender;
 
--(IBAction) appearanceDisplayStatisticsWindowCheckboxWasClicked:   (id) sender;
+-(IBAction) appearanceDisplayStatisticsWindowsCheckboxWasClicked:  (id) sender;
 
 -(IBAction) appearanceDisplayStatisticsWindowWhenDisconnectedCheckboxWasClicked: (id) sender;
 
