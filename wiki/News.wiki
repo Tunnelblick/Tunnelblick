@@ -1,6 +1,23 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-08-07: *Tunnelblick 3.4beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ This is the first beta release of Tunnelblick 3.4 and includes fixes for several bugs in 3.3.0:
+ 
+ * Fixes a problem installing Tunnelblick VPN Configurations that include .cer, .cert, .der, .p12, .p7b, .p7c, or .pfx files.
+
+ * Fixes several problems that cause Tunnelblick to crash or hang.
+
+ * Fixes two problems on OS X 10.9 ('Mavericks').
+
+ * Includes other enhancements and bug fixes.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+
+--------------------
+
 2013-07-22: *Tunnelblick 3.3 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  This is the first stable release of Tunnelblick 3.3. It is identical to version 3.3beta56 except for version information.
