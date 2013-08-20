@@ -77,8 +77,6 @@ BOOL needToConvertNonTblks(void);
     NSMenuItem              * registerForTunnelblickItem;//    "Register for Tunnelblick..." menu item
 #endif
     
-    NSMenuItem              * checkForUpdatesNowItem;       //    "Check For Updates Now" menu item
-    NSMenuItem              * aboutItem;                    //    "About..." item for menu
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
 
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
@@ -183,6 +181,7 @@ BOOL needToConvertNonTblks(void);
 -(void)             addConnection:                          (id)                sender;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
+-(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
 -(void)             changedMonitorConfigurationFoldersSettings;
@@ -242,6 +241,7 @@ BOOL needToConvertNonTblks(void);
 -(void)             hideStatisticsWindows;
 -(void)             updateIconImage;
 -(void)				updateMenuAndDetailsWindow;
+-(void)				updateUpdateFeedURLForceDowngrade:		(BOOL)				forceDowngrade;
 -(void)             terminateBecause:                       (enum TerminationReason) reason;
 
 -(void) addActiveIPCheckThread: (NSString *) threadID;

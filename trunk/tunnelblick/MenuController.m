@@ -334,6 +334,7 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                 
                                 @"updateAutomatically",
                                 @"updateCheckAutomatically",
+                                @"updateCheckBetas",
                                 @"updateCheckInterval",
                                 @"updateFeedURL",
                                 @"updateSendProfileInfo",
@@ -486,6 +487,14 @@ BOOL checkOwnedByRootWheel(NSString * path);
             [gTbDefaults setBool: TRUE forKey: @"showConnectedDurations"];
         }
         
+        // Remove the 'updateCheckBetas' preference if it is the default, so that a later change to stable from beta or to beta from stable will work as expected
+        id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
+        if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+            if (  [obj boolValue] == runningABetaVersion()  ) {
+                [gTbDefaults removeObjectForKey: @"updateCheckBetas"];
+            }
+        }
+
 		// Scan for unknown preferences
         NSString * bundleId = [[NSBundle mainBundle] bundleIdentifier];
         NSString * prefsPath = [[[[NSHomeDirectory()
@@ -551,7 +560,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
                                                      min: MIN_LOG_SIZE_BYTES
                                                      max: MAX_LOG_SIZE_BYTES];
         
-		id obj;
         if (   (obj = [gTbDefaults objectForKey: @"delayToShowStatistics"])
             && [obj respondsToSelector: @selector(doubleValue)]  ) {
             gDelayToShowStatistics = [obj doubleValue];
@@ -865,8 +873,6 @@ BOOL checkOwnedByRootWheel(NSString * path);
     [customRunOnLaunchPath release];
     [customRunOnConnectPath release];
     
-    [aboutItem release];
-    [checkForUpdatesNowItem release];
     [vpnDetailsItem release];
     [quitItem release];
     [statusMenuItem release];
@@ -1539,6 +1545,88 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  [[[scriptPath stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
         [task waitUntilExit];
     }
+}
+
+-(void) updateUpdateFeedURLForceDowngrade: (BOOL) forceDowngrade {
+    
+    // If the 'updateFeedURL' preference is being forced, set the program update FeedURL from it
+    if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
+        feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
+        if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
+            NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
+            feedURL = nil;
+        } else {
+            if (  ! [NSURL URLWithString: feedURL]  ) {
+                NSLog(@"Ignoring 'updateFeedURL' preference '%@' from 'forced-preferences.plist' because it could not be converted to a URL", feedURL);
+                feedURL = nil;
+            }
+        }
+    }
+    
+    // Otherwise, use the Info.plist 'SUFeedURL' entry. We don't check the normal preferences because an unprivileged user can set them and thus
+    // could send the update check somewhere it shouldn't go.
+    if (  feedURL == nil  ) {
+        feedURL = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"SUFeedURL"];
+        if (  feedURL ) {
+            if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
+                NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
+                feedURL = nil;
+            }
+        } else {
+            NSLog(@"Missing 'SUFeedURL' item in Info.plist");
+        }
+    }
+    
+    if (  feedURL  ) {
+        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
+            
+            // Add "-s", "-b", or "-d" to the URL, so it is:
+			// .../appcast-s.rss --> update to latest Stable version
+			// .../appcast-b.rss --> update to latest Beta version
+			// .../appcast-d.rss --> Downgrade to latest stable version from a later beta version
+			
+			NSString * withoutExt = [feedURL stringByDeletingPathExtension];
+			if (   [withoutExt hasSuffix: @"-b"]
+				|| [withoutExt hasSuffix: @"-d"]
+				|| [withoutExt hasSuffix: @"-s"]  ) {
+				withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
+			}
+			NSString * newSuffix;
+			if (  forceDowngrade  ) {
+				newSuffix = @"-d";
+			} else {
+				id obj = [gTbDefaults objectForKey: @"updateCheckBetas"];
+				BOOL checkBeta = (  [obj respondsToSelector: @selector(boolValue)]
+								  ? [obj boolValue]
+								  : runningABetaVersion());
+				newSuffix = (  checkBeta
+							 ? @"-b"
+							 : (  runningABetaVersion()
+                                ? @"-d"
+                                : @"-s"));
+			}
+			NSString * ext = [feedURL pathExtension];
+			feedURL = [[NSString stringWithFormat: @"%@%@", withoutExt, newSuffix] stringByAppendingPathExtension: ext];
+			
+            NSURL * url = [NSURL URLWithString: feedURL];
+            if ( url  ) {
+                [updater setFeedURL: url];
+                NSLog(@"Set program update feedURL to %@", feedURL);
+            } else {
+                NSLog(@"Not setting program update feedURL because the string '%@' could not be converted to a URL", feedURL);
+                feedURL = nil;
+            }
+        } else {
+            NSLog(@"Not setting program update feedURL because Sparkle Updater does not respond to setFeedURL:");
+            feedURL = nil;
+        }
+        
+        [feedURL retain];
+    }
+}
+
+-(void) changedCheckForBetaUpdatesSettings {
+	[self updateUpdateFeedURLForceDowngrade: NO];
 }
 
 -(void) changedDisplayConnectionSubmenusSettings
@@ -2372,7 +2460,7 @@ BOOL anyNonTblkConfigs(void)
 
 -(NSURL *) contactURL
 {
-    NSString * string = [NSString stringWithFormat: @"http://www.tunnelblick.net/contact?v=%@", tunnelblickVersion([NSBundle mainBundle])];
+    NSString * string = [NSString stringWithFormat: @"https://www.tunnelblick.net/contact?v=%@", tunnelblickVersion([NSBundle mainBundle])];
     string = [string stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
     NSURL * url = [NSURL URLWithString: string];
     if (  ! url  ) {
@@ -2594,7 +2682,7 @@ int runUnrecoverableErrorPanel(NSString * msg)
                                  NSLocalizedString(@"Quit", @"Button"),
                                  nil);
 	if( result == NSAlertDefaultReturn ) {
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://tunnelblick.net/"]];
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/"]];
 	}
     
     // Quit if "Quit" or error
@@ -2914,47 +3002,7 @@ static void signal_handler(int signalNumber)
     
     // We set the Feed URL, even if we haven't run Sparkle yet (and thus haven't set our Sparkle preferences) because
     // the user may do a 'Check for Updates Now' on the first run, and we need to check with the correct Feed URL
-    
-    // If the 'updateFeedURL' preference is being forced, set the program update FeedURL from it
-    if (  ! [gTbDefaults canChangeValueForKey: @"updateFeedURL"]  ) {
-        feedURL = [gTbDefaults objectForKey: @"updateFeedURL"];
-        if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-            NSLog(@"Ignoring 'updateFeedURL' preference from 'forced-preferences.plist' because it is not a string");
-            feedURL = nil;
-        }
-    }
-    // Otherwise, use the Info.plist entry. We don't check the normal preferences because an unprivileged user can set them and thus
-    // could send the update check somewhere it shouldn't go. (For example, to force Tunnelblick to ignore an update.)
-    
-    if (  feedURL == nil  ) {
-        NSString * contentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents"];
-        NSDictionary * infoPlist = [NSDictionary dictionaryWithContentsOfFile: [contentsPath stringByAppendingPathComponent: @"Info.plist"]];
-        feedURL = [infoPlist objectForKey: @"SUFeedURL"];
-        if (  feedURL == nil ) {
-            NSLog(@"Missing 'SUFeedURL' item in Info.plist");
-        } else {
-            if (  ! [[feedURL class] isSubclassOfClass: [NSString class]]  ) {
-                NSLog(@"Ignoring 'SUFeedURL' item in Info.plist because it is not a string");
-                feedURL = nil;
-            }
-        }
-    }
-    
-    if (  feedURL != nil  ) {
-        if (  [updater respondsToSelector: @selector(setFeedURL:)]  ) {
-            NSURL * url = [NSURL URLWithString: feedURL];
-            if ( url  ) {
-                [updater setFeedURL: url];
-                NSLog(@"Set program update feedURL to %@", feedURL);
-            } else {
-                feedURL = nil;
-                NSLog(@"Not setting program update feedURL because the string '%@' could not be converted to a URL", feedURL);
-            }
-        } else {
-            feedURL = nil;
-            NSLog(@"Not setting program update feedURL because Sparkle Updater does not respond to setFeedURL:");
-        }
-    }
+    [self updateUpdateFeedURLForceDowngrade: NO];
     
     // Set up automatic update checking
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
@@ -3928,9 +3976,9 @@ BOOL warnAboutNonTblks(void)
 		int response = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
 											   NSLocalizedString(@"You have one or more OpenVPN configurations that will not be available"
                                                                  @" when using this version of Tunnelblick. You can:\n\n"
-																 @"     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n"
-                                                                 @"     • Quit and install a different version of Tunnelblick; or\n"
-                                                                 @"     • Ignore this and continue without converting.\n\n"
+																 @"  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n"
+                                                                 @"  • Quit and install a different version of Tunnelblick; or\n"
+                                                                 @"  • Ignore this and continue without converting.\n\n"
                                                                  @"If you choose 'Ignore' the configurations will not be available!\n\n", @"Window text"),
 											   NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
 											   NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return

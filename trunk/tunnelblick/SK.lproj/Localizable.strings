@@ -317,9 +317,6 @@
 "Monitor network settings" = "Sledovať nastavenie siete";
 
 /* Checkbox name */
-"Monitor the configuration folders for changes" = "Sledovať zmeny konfiguračných priečinkov";
-
-/* Checkbox name */
 "Place next to Spotlight icon" = "Umiestniť vedľa Spotlight ikony";
 
 /* Checkbox name */
@@ -819,9 +816,6 @@
 
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Konfigurácie sú vo väčšine prípadov inštalované pomocou súborov, ktoré Vám poskytne Váš správca siete alebo poskytovateľ VPN pripojenia.\n\nKonfiguračné súbory majú väčšinou koncovku .tblk, .ovpn alebo .conf.\n\n(Môžu existovať ďalšie súbory s inou koncovkou súvisiace s danou konfiguráciou. Nateraz tieto súbory, prosím, ignorujte.)\n\nMáte k dispozícii konfiguračné súbory?\n";
-
-/* Window text */
-"Configurations:" = "Konfigurácie:";
 
 /* Window text */
 "Connect:" = "Pripojiť:";
@@ -1414,6 +1408,9 @@
 /* Credit description */
 "Catalan localization" = "Preklad katalánčiny";
 
+/* Checkbox title */
+"Check for updates to beta versions" = "Kontrolovať aktualizácie na beta verziu";
+
 /* Credit description */
 "Chinese (simplified) localization" = "Preklad čínštiny (zjednodušená)";
 
@@ -1447,7 +1444,7 @@
 /* Credit description */
 "Finnish localization" = "Preklad fínčiny";
 
-/* NEEDS TRANSLATION *//* Credit description */
+/* Credit description */
 "Founder, original program and documentation" = "Zakladateľ, pôvodný program a dokumentácia";
 
 /* Credit description */
@@ -1540,7 +1537,7 @@
 /* Button VPNService */
 "Next" = "Ďalej";
 
-/* NEEDS TRANSLATION *//* Button VPNService */
+/* Button VPNService */
 "Reject" = "Odmietnuť";
 
 /* Menu item VPNService */

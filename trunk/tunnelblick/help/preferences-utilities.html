@@ -20,26 +20,39 @@
 <p class="p1"><b>Tunnelblick Utilities</b></p>
 <p class="p2"><br></p>
 <p class="p2"><br></p>
+
+
 <p class="p3"><b>Quit All OpenVPN Processes</b></p>
 <p class="p2"><br></p>
 <p class="p4">You may quit all running OpenVPN processes by clicking this button.</p>
 <p class="p2"><br></p>
-<p class="p4">The <strong>Quit All OpenVPN Processes</strong> button
+<p class="p4">Clicking the <strong>Quit All OpenVPN Processes</strong> button
  quits <strong>all</strong> OpenVPN processes, <font color="red"><strong>including those which were not
  started by Tunnelblick</strong></font>. You should use the Tunnelblick "Disconnect" or "Disconnect All" menu 
  commands to disconnect configurations which were connected using Tunnelblick.</strong></font></p>
 <p class="p2"><br></p>
 <p class="p4">Clicking this button sends a "SIGTERM" signal to all processes named "openvpn". Normally this will cause OpenVPN to close all connections and quit.
  If this button does not quit all OpenVPN processes, you may need to use the OS X Activity Monitor application to "Force Quit" the process.</p>
+
+<p class="p2"><br></p>
 <p class="p2"><br></p>
 
+<p class="p3"><b>Copy Console Log to Clipboard</b></p>
+<p class="p2"><br></p>
+<p class="p4">You may copy the last part of the <a href="https://code.google.com/p/tunnelblick/wiki/cConsoleLog">Console Log</a> to the Clipboard by clicking this button.</p>
+<p class="p2"><br></p>
+<p class="p4">Clicking the <strong>Copy Console Log to Clipboard</strong> button causes Tunnelblick to copy the last 200 lines of Tunnelblick's Console Log entries to the Clipboard.</p>
+<p class="p2"><br></p>
+<p class="p4">The Console Log contains details of Tunnelblick's and OpenVPN's operations. It includes normal status messages and detailed error messages that are too long to present to the user in a normal dialog window.</p>
+
+<p class="p2"><br></p>
 <p class="p2"><br></p>
 
 <p class="p3"><b>Open easy-rsa in Terminal</b></p>
 <p class="p5"><b></b><br></p>
 <p class="p4">Tunnelblick includes a customized version of "easy-rsa", which is a set of command line scripts for creating and maintaining certificates and keys.</p>
 <p class="p2"><br></p>
-<p class="p4">The <strong>Open easy-rsa in Terminal</strong> button launches the OS X Terminal application 
+<p class="p4">Clicking the <strong>Open easy-rsa in Terminal</strong> button launches the OS X Terminal application 
 with the working directory set to the folder containing the scripts.</p>
 <p class="p2"><br></p>
 <p class="p4">The scripts are located in the folder at <em>~/Library/Application Support/Tunnelblick/easy-rsa</em>. An "easy-rsaPath" preference 

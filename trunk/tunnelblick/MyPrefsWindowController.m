@@ -2352,11 +2352,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
     // Select values for the configurations checkboxes
     
-    [self setValueForCheckbox: [generalPrefsView monitorConfigurationFolderCheckbox]
-                preferenceKey: @"doNotMonitorConfigurationFolder"
-                     inverted: YES
-                   defaultsTo: FALSE];
-    
     [self setValueForCheckbox: [generalPrefsView checkIPAddressAfterConnectCheckbox]
                 preferenceKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"
                      inverted: YES
@@ -2368,11 +2363,15 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                      inverted: NO
                    defaultsTo: TRUE];
     
+    [self setValueForCheckbox: [generalPrefsView updatesCheckForBetaUpdatesCheckbox]
+                preferenceKey: @"updateCheckBetas"
+                     inverted: NO
+                   defaultsTo: runningABetaVersion()];
+    
     
     // Set the last update date/time
     [self updateLastCheckedDate];
 
-    
     // Select the OpenVPN version
     
     NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
@@ -2498,25 +2497,9 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }
 
 
--(IBAction) monitorConfigurationFolderCheckboxWasClicked: (id) sender
-{
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"doNotMonitorConfigurationFolder"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"doNotMonitorConfigurationFolder"];
-	}
-    
-    [[NSApp delegate] changedMonitorConfigurationFoldersSettings];
-}
-
-
 -(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender
 {
-	if (  [sender state]  ) {
-		[gTbDefaults setBool: FALSE forKey:@"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-	} else {
-		[gTbDefaults setBool: TRUE  forKey:@"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-	}
+	[gTbDefaults setBool: (! [sender state]) forKey:@"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
 }
 
 
@@ -2539,6 +2522,14 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     } else {
         NSLog(@"'Automatically Check for Updates' change ignored because Sparkle Updater does not respond to setAutomaticallyChecksForUpdates:");
     }
+}
+
+
+-(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender
+{
+    [gTbDefaults setBool: [sender state] forKey: @"updateCheckBetas"];
+    
+    [[NSApp delegate] changedCheckForBetaUpdatesSettings];
 }
 
 

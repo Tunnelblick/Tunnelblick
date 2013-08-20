@@ -272,6 +272,9 @@
 "Check for updates automatically" = "Frissítések automatikus ellenőrzése";
 
 /* Checkbox name */
+"Check for updates to beta versions" = "Frissítések keresése a béta verziók között";
+
+/* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Jelezze ha a látható publikus IP cím változott a kapcsolódás után";
 
 /* Checkbox name */
@@ -315,9 +318,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "Hálózati beállítások figyelése";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "A konfigurációs könyvtár változásainak figyelése";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Elhelyezés a Spotlight ikon mellett";
@@ -821,9 +821,6 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "A konfigurációs állományokat rendszerint a hálózati adminisztrátortól vagy a VPN szolgáltatótól kaphatja meg.\n\nAz állományok kiterjesztése általában .tblk, .ovpn, vagy .conf.\n\n(Lehetséges, hogy más állományokat is kapott a konfigurációhoz, azokat egyelőre hagyja figyelmen kívül)\n\nTalált további konfigurációs állományokat?\n";
 
 /* Window text */
-"Configurations:" = "Konfigurációk:";
-
-/* Window text */
 "Connect:" = "Kapcsolódás:";
 
 /* Window text */
@@ -1136,7 +1133,7 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nincsen VPN konfiguráció telepítve.\n\nA Tunnelblick-nek legalább egy szükséges a VPN kapcsolathoz. A konfigurációkat általában a VPN szolgáltatótól vagy a hálózati rendszergazdától kaphatja meg. A fájlokat telepítenie kell, használat előtt.\n\nA konfigurációs fájloknak általában .tblk, .ovpn, vagy .conf végződésük (kiterjesztésük) van.\n\n(Elképzelhető, hogy kapott més kiterjesztésű állományokat is, azokat most hagyja figyelmen kívül.)\n\nVan konfigurációs állománya?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Két konfigurációs típus létezik:\n\n     • Tunnelblick VPN konfiguráció (.tblk kiterjesztéssel)\n\n     • OpenVPN konfiguráció (.ovpn vagy .conf kiterjesztéssel)\n\nMilyen típusú konfigurációs állománnyal rendelkezik?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Két konfigurációs típus létezik:\n\n  • Tunnelblick VPN konfiguráció (.tblk kiterjesztéssel)\n\n  • OpenVPN konfiguráció (.ovpn vagy .conf kiterjesztéssel)\n\nMilyen típusú konfigurációs állománnyal rendelkezik?\n\n";
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Hiba történt egy vagy több konfigurációs állományban. Részletek a Konzol naplóban\n\n";
@@ -1283,7 +1280,7 @@
 "Workgroup:" = "Munkacsoport:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Szeretné ha\n\n     • Készülne egy minta konfiguráció az Íróasztalra\n             és\n     • Megnyitni a hozzá tartozó OpenVPN konfigurációs állományt a Szövegszerkesztőben, hogy módosíthassa az ön VPN beállításainak megfelelően?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Szeretné ha\n\n  • Készülne egy minta konfiguráció az Íróasztalra\n             és\n  • Megnyitni a hozzá tartozó OpenVPN konfigurációs állományt a Szövegszerkesztőben, hogy módosíthassa az ön VPN beállításainak megfelelően?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Nem telepíthet egy  Tunnelblick VPN konfigurációt egy már telepített másolatból.\n\nCsak egy Adminisztrátor tud másolatot készíteni, és tudja azt telepíteni.";
@@ -1319,7 +1316,7 @@
 "You have asked to rename '%@' to '%@'." = "Azt kérte, hogy a(z) '%1$@' konfiguráció legyen átnevezve. Új neve: '%2$@'.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van, amelyek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n     • Engedélyezze, hogy a Tunnelblick konvertálja ezeket a fájlokat Tunnelblick VPN konfigurációs fájlokká; vagy\n     • Lépjen ki és telepítsen egy megfelelő verziójú Tunnelblicket; vagy\n     • Figyelmen kívül hagyja az üzenetet és folytatja.\n\nHa figyelmen kívül hagyja az üzeneteket a konfigurációk nem lesznek elérhetők!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van, amelyek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n  • Engedélyezze, hogy a Tunnelblick konvertálja ezeket a fájlokat Tunnelblick VPN konfigurációs fájlokká; vagy\n  • Lépjen ki és telepítsen egy megfelelő verziójú Tunnelblicket; vagy\n  • Figyelmen kívül hagyja az üzenetet és folytatja.\n\nHa figyelmen kívül hagyja az üzeneteket a konfigurációk nem lesznek elérhetők!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Egy olyan konfigurációs állományt próbál használni, ami megegyezik a Tunnelblick minta konfigurációval. A konfigurációs fájlt módosítani kell, egy sikeres kapcsolat felépítéséhez. Az is elképzelhető, hogy egyéb állományokra is szüksége lesz, úgymint kulcs- és tanúsítványfájl.\n\nVegye fel a kapcsolatot a Hálózati Adminisztrátorral, vagy a VPN szolgáltatóval, hogy beszerezhesse a szükséges fájlokat, vagy információkat a konfiguráció módosításáról.\n\nAz OpenVPN dokumentáció az alábbi weboldalon érhető el: \n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

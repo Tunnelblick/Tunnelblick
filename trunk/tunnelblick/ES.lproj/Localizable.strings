@@ -274,6 +274,9 @@
 /* Checkbox name */
 "Check for updates automatically" = "Chequear actualizaciones automaticamente";
 
+/* Checkbox name */
+"Check for updates to beta versions" = "Buscar actualizaciones para las versiones beta";
+
 /* Checkbox name *//* NOTE: Return used to force second line */
 "Check if the apparent public IP address changed after connection" = "Verificar si la aparente dirección de IP pública
 cambió después de la conexión";
@@ -319,9 +322,6 @@ cambió después de la conexión";
 
 /* Checkbox name */
 "Monitor network settings" = "Monitorear ajustes de red";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "Monitorear las carpetas de configuración por cambios";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Colocar al lado del icono de Spotlight";
@@ -825,9 +825,6 @@ cambió después de la conexión";
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configuraciones son usualmente instaladas desde archivos que son proporcionados por su administrador de red or proveedor de servicio VPN.\n\nLos archivos de configuración tienen extensión .tblk, .ovpn, o .conf.\n\n(Puede haber otros archivos asociados con la configuración que tienen otras extensiones; ignorelos por ahora.)\n\n¿Tiene algún archivo de configuración?\n";
 
 /* Window text */
-"Configurations:" = "Configuraciones:";
-
-/* Window text */
 "Connect:" = "Conectar:";
 
 /* Window text */
@@ -1137,7 +1134,7 @@ cambió después de la conexión";
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "No hay configuraciones VPN instaladas.\n\nTunnelblick necesita una o más configuraciones instaladas para conectarse a una VPN. Las configuraciones son instaladas desde archivos que son usualmente proveidos a usted por su administrador de red o proveedor de servicio VPN. Los archivos deben ser instalados para poder usarse.\n\nLos archivos de configuracione tiene extensiónes .tblk, .ovpn, o .conf.\n\n(Puede haber otros archivos asociados con la configuración que tengan otras extensiones; ignorelos por ahora.)\n\n¿Tiene archivos de configuración?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Hay dos tipos de archivos de configuración:\n\n     • Configuraciones VPN de Tunnelblick VPN (extensión .tblk)\n\n     • Configuraciones OpenVPN (extensión .ovpn o .conf)\n\n¿Qué tipo de archivo de confguración tiene usted?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Hay dos tipos de archivos de configuración:\n\n  • Configuraciones VPN de Tunnelblick VPN (extensión .tblk)\n\n  • Configuraciones OpenVPN (extensión .ovpn o .conf)\n\n¿Qué tipo de archivo de confguración tiene usted?\n\n";
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Hubo un problema con una o más configuraciones. Ver detalles en el registro de consola.\n\n";
@@ -1284,7 +1281,7 @@ cambió después de la conexión";
 "Workgroup:" = "Grupo de trabajo:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "¿Desea\n\n     • Crear una configuración ejemplo en el Escritorio\n             y\n     • Abrir su archivo de configuración OpenVPN en TextEdit para que lo pueda modificar para conectarse a su VPN?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "¿Desea\n\n  • Crear una configuración ejemplo en el Escritorio\n             y\n  • Abrir su archivo de configuración OpenVPN en TextEdit para que lo pueda modificar para conectarse a su VPN?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "No puede instalar una configuración VPN de Tunnelblick desde una copia instalada.\n\nUn administrador puede copiar la instalación e instalar desde la copia.";
@@ -1320,7 +1317,7 @@ cambió después de la conexión";
 "You have asked to rename '%@' to '%@'." = "Ha pedido cambiar el nombre '%1$@' a '%2$@'.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Tienes una o más configuraciones de OpenVPN que no estarán disponibles usando esta versión de Tunnelblick. Puedes:\n\n     • Dejar que Tunnelblick convierta estas configuraciones de OpenVPN en configuraciones VPN de Tunnelblick; o\n     • Cerrar e instalar una versión diferente de Tunnelblick; o\n     • Ignorar esto y continuar sin convertir.\n\nSi seleccionas 'Ignorar', las configuraciones no estarán disponibles!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Tienes una o más configuraciones de OpenVPN que no estarán disponibles usando esta versión de Tunnelblick. Puedes:\n\n  • Dejar que Tunnelblick convierta estas configuraciones de OpenVPN en configuraciones VPN de Tunnelblick; o\n  • Cerrar e instalar una versión diferente de Tunnelblick; o\n  • Ignorar esto y continuar sin convertir.\n\nSi seleccionas 'Ignorar', las configuraciones no estarán disponibles!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Usted intentó usar un archivo de configuración que tiene el mismo nombre que el archivo de configuración instalado por Tunnelblick. El archivo de configuración debe ser modificado para conectarse a una VPN. Puede que también necesite otros archivos, tales como archivos de certificado o llave, para conectarse a la VPN.\n\nConsulte con su administrador de red o su proveedor de servicio VPN para obtener archivos de configuración y otros archivos o la información que necesitará para modificar el archivo ejemplo.\n\nLa documentación de OpenVPN está disponible en\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

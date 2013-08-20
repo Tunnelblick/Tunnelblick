@@ -35,3 +35,9 @@
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN-versio %1$@ ei ole käytettävissä. Käytetään oletusta, versiota %2$@";
 
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Valvo asetuskansion muutoksia";
+
+/* Window text */
+"Configurations:" = "Konfiguraatiot:";
+

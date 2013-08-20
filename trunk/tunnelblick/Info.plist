@@ -50,7 +50,7 @@
 	<key>SUEnableSystemProfiling</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>http://tunnelblick.net/appcast.rss</string>
+	<string>https://www.tunnelblick.net/appcast.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>NSAppleScriptEnabled</key>
@@ -62,6 +62,6 @@
 	<key>CFBundleHelpBookName</key>
 	<string>Tunnelblick Help</string>
 	<key>IPCheckURL</key>
-	<string>http://tunnelblick.net/ipinfo</string>
+	<string>https://www.tunnelblick.net/ipinfo</string>
 </dict>
 </plist>

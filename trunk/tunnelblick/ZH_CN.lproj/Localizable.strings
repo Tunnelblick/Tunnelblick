@@ -1,3 +1,4 @@
+
 /* Status message */
 "Disconnect All (%@)" = "断开所有连接 (%@)";
 
@@ -296,6 +297,8 @@
 
 /* Checkbox name */
 "Check for updates automatically" = "自动检查更新";
+/* Checkbox name */
+"Check for updates to beta versions" = "检查 beta 版的更新";
 
 /* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "如果在连接后对外显示的 IP 改变了请勾选";
@@ -341,9 +344,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "监控网络配置";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "监控配置文件夹的变化";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "置于 Spotlight 的图标旁";
@@ -885,9 +885,6 @@
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "配置文件通常会由你的网络管理员或 VPN 服务提供者提供.\n\n配置文件的后缀包括 .tblk, .ovpn, 或 .conf.\n\n(其它相关文件会有不同后缀; 暂时不要理会这些文件.)\n\n你有配置文件吗?\n";
 
-/* Window text */
-"Configurations:" = "配置:";
-
 /* Window text VPNService */
 "Confirm password:" = "确认密码:";
 
@@ -1254,7 +1251,7 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "没有已安装的 VPN 配置.\n\nTunnelblick 需要一个或多个已安装的配置才能连接 VPN. 配置文件通常会由你的网络管理员或 VPN 服务提供者提供. 这些文件必须安装到 Tunnelblick 才能使用.\n\n配置文件的后缀包括 .tblk, .ovpn, 或 .conf.\n\n(其它相关文件会有不同后缀; 暂时不要理会这些文件.)\n\n你有配置文件吗?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "有两种类型的配置文件:\n\n     • Tunnelblick VPN 配置(.tblk 后缀)\n\n     • OpenVPN 配置(.ovpn 或 .conf 后缀)\n\n你有哪种配置文件?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "有两种类型的配置文件:\n\n  • Tunnelblick VPN 配置(.tblk 后缀)\n\n  • OpenVPN 配置(.ovpn 或 .conf 后缀)\n\n你有哪种配置文件?\n\n";
 
 /* Window text VPNService */
 "There is no configuration named '%@' installed.\n\nTry reinstalling Tunnelblick from a disk image." = "没有安装名为 '%@' 的配置.\n\n请尝试从磁盘映像重新安装 Tunnelblick.";
@@ -1423,7 +1420,7 @@
 "Workgroup:" = "工作组:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "你想要\n\n     • 在桌面新建一个配置样本\n             并且\n     • 在文本编辑软件中编辑 OpenVPN 配置文件, 以连接到你的 VPN 吗?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "你想要\n\n  • 在桌面新建一个配置样本\n             并且\n  • 在文本编辑软件中编辑 OpenVPN 配置文件, 以连接到你的 VPN 吗?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "你不能由已安装的配置来安装 Tunnelblick VPN 配置.\n\n管理员可以复制已安装的配置, 然后安装.";
@@ -1469,7 +1466,7 @@
 "You have asked to rename '%@' to '%@'." = "你已经要求将 '%1$@' 重命名为 '%2$@'.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "你有一个或多个 OpenVPN 格式的配置文件, 这些配置文件在当前版本的 Tunnelblick 下无法使用. 你可以:\n\n     • 让 Tunnelblick 将 OpenVPN 格式的配置文件转换为 Tunnelblick VPN 格式的配置文件; 或者\n     • 退出和安装一个不同版本的 Tunnelblick ; 或者\n     • 忽略不做转换并继续.\n\n如果你选择 '忽略' 这些配置文件将不可用!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "你有一个或多个 OpenVPN 格式的配置文件, 这些配置文件在当前版本的 Tunnelblick 下无法使用. 你可以:\n\n  • 让 Tunnelblick 将 OpenVPN 格式的配置文件转换为 Tunnelblick VPN 格式的配置文件; 或者\n  • 退出和安装一个不同版本的 Tunnelblick ; 或者\n  • 忽略不做转换并继续.\n\n如果你选择 '忽略' 这些配置文件将不可用!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "你试图使用 Tunnelblick 安装的配置样本文件. 在连接到 VPN 之前, 你必须要修改此配置样本文件. 你有可能还需要其它文件, 比如证书或密钥文件, 才能连接 VPN.\n\n咨询你的网络管理员或 VPN 服务供应商, 以得到配置文件和其它相关文件, 或者如何修改样本配置文件的信息.\n\nOpenVPN 的文档可以在以下网址找到\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
@@ -1681,7 +1678,7 @@
 "Ukrainian localization" = "乌克兰本地化";
 
 /* Credit description */
-"Up and Down scripts" = "上/下脚本";
+"Up and Down scripts" = "启动后/关闭后执行脚本";
 
 /* Credit description */
 "Xcode help and OpenSSL integration" = "Xcode 方面的协助和 OpenSSL 整合";
