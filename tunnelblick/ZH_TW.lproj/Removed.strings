@@ -10,3 +10,9 @@
 /* Tooltip */
 "%d days %li:%02li:%02li" = "%1$d days %2$li:%3$li:%4$li";
 
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "監視設定檔資料夾的變化";
+
+/* Window text */
+"Configurations:" = "設定:";
+

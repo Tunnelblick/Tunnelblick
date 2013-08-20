@@ -843,7 +843,12 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 // Returns information about the IP address and port used by the computer, and about the webserver from which the information was obtained
 //
 // If useIPAddress is FALSE, uses the URL in forced-preference IPCheckURL, or in Info.plist item IPCheckURL.
-// If useIPAddress is TRUE,  uses the URL with the host portion of the URL replaced by serverIPAddress
+// If useIPAddress is TRUE,  uses the URL with
+//                           the host portion of the URL replaced by serverIPAddress
+//                           and https:// replaced by http://
+//                               (https: can't be used with an IP address. http:// with an IP address may return a
+//                                "404 Not Found", which is fine because it means the server was contacted,
+//                                which is all we need to know.)
 //
 // Normally returns an array with three strings: client IP address, client port, server IP address
 // If could not fetch data within timeoutInterval seconds, returns an empty array
@@ -865,6 +870,10 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  serverIPAddress  ) {
             NSString * urlString = [url absoluteString];
 			NSMutableString * tempMutableString = [[urlString mutableCopy] autorelease];
+            // Can't access by IP address with https: (because https: needs to verify the domain name)
+            if (  [tempMutableString hasPrefix: @"https://"]  ) {
+                [tempMutableString deleteCharactersInRange: NSMakeRange(0, 8)];
+            }
 			NSRange rng = [tempMutableString rangeOfString: hostName];	// Just replace the first occurance of host
             [tempMutableString replaceOccurrencesOfString: hostName withString: serverIPAddress options: 0 range: rng];
             urlString = [NSString stringWithString: tempMutableString];
@@ -883,11 +892,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     ipCheckLastHostWasIPAddress = ( [[url host] rangeOfCharacterFromSet: [charset invertedSet]].length == 0 );
     
     // Create an NSURLRequest
-    NSDictionary * infoPlist = [[NSBundle mainBundle] infoDictionary];
-    NSString * tbBuild   = [infoPlist objectForKey: @"CFBundleVersion"];
-    NSString * tbVersion = [infoPlist objectForKey: @"CFBundleShortVersionString"];
+    NSString * tbVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
-    NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@: %@", tbBuild, tbVersion];
+    NSString * userAgent = [NSString stringWithFormat: @"Tunnelblick ipInfoChecker: %@", tbVersion];
     NSMutableURLRequest * req = [[[NSMutableURLRequest alloc] initWithURL: url] autorelease];
     if ( ! req  ) {
         NSLog(@"%@: req == nil", logHeader);
@@ -908,7 +915,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     // method from a separate thread.
     //
 	// Implements the timeout and times the requests
-    NSURLResponse * urlResponse;
+    NSHTTPURLResponse * urlResponse;
 	NSData * data = nil;
 	NSTimeInterval checkEvery = 0.01;
 	useconds_t usleepTime = (useconds_t) (checkEvery * 1.0e6);
@@ -936,7 +943,15 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 //        NSLog(@"%@: IP address info was fetched in %ld milliseconds", logHeader, elapsedTimeMilliseconds);
         ;
 	}
-
+    
+    // If checking via IP address, we don't care about the data that is returned.
+    //
+    // Some multi-site servers reply to a by-IP-address request with an error page,
+    // but any response means the server was reachable, which is all we care about.
+    if (  useIPAddress  ) {
+        return [NSArray arrayWithObjects: @"0.0.0.0", @"0", @"0.0.0.0", nil];
+    }
+    
     if (  [data length] > 40  ) {
         NSLog(@"%@:  Response data was too long (%ld bytes)", logHeader, (long) [data length]);
         return nil;

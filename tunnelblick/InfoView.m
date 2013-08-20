@@ -124,7 +124,7 @@ extern TBUserDefaults * gTbDefaults;
     } else {
         
         // Create HTML trailer and convert to an mutable attributed string
-        NSString * trailingHTML = @"<br /><center><a href= \"http://www.tunnelblick.net\">http://www.tunnelblick.net</a><br /></center>";
+        NSString * trailingHTML = @"<br /><center><a href= \"https://www.tunnelblick.net\">https://www.tunnelblick.net</a><br /></center>";
         NSData * htmlData = [[[NSData alloc] initWithBytes: [trailingHTML UTF8String] length: [trailingHTML length]] autorelease];
         NSMutableAttributedString * descriptionString = [[[NSMutableAttributedString alloc] initWithHTML: htmlData documentAttributes: nil] autorelease];
 
