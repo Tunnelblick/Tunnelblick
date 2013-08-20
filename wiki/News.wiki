@@ -1,6 +1,21 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+2013-08-21: *Tunnelblick 3.4beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Uses https: for update and IP address checks.
+
+ * Adds a 'Check for updates to beta versions' checkbox to the 'Preferences' panel.
+ 
+ Note: This feature may be used to revert to the latest stable version from a later beta version: if this is un-checked in a beta version, Tunnelblick will offer to install the latest stable version, which may be a 'downgrade' from the beta version to an earlier stable version.
+
+ * Includes several other minor changes.
+ 
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+
+--------------------
+
 2013-08-07: *Tunnelblick 3.4beta02 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  This is the first beta release of Tunnelblick 3.4 and includes fixes for several bugs in 3.3.0:

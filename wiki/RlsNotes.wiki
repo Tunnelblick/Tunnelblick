@@ -9,6 +9,29 @@
 
 ==Version 3.4==
 
+*3.4beta04 (2013-08-21)*
+
+ * Uses https: for update checks and loading all update information. (Updates are still protected by being digitally signed; this is an additional level of security.)
+
+ * Uses https: for IP address checks that use a domain name in the URL to test DNS. Tunnelblick continues to use http: for IP address checks that use an IP address in the URL, which is done if the first IP address check (using a domain name in the URL) fails. This is done because https: requires a domain name, not an IP address. There is no information sent out that is encrypted, and the received data for this request is discarded, so encryption is not necessary, anyway.
+
+ * Adds a 'Check for updates to beta versions' checkbox in the 'Updates' section of the 'Preferences' panel, which controls the new 'updateCheckBetas' preference. If checked, Tunnelblick will check for new beta versions of Tunnelblick that are available for update, otherwise, Tunnelblick will check for new stable versions. Checked by default when running a beta version, unchecked by default when running a stable version.
+ 
+ Note: This feature may be used to revert to the latest stable version from a later beta version: if this is un-checked in a beta version, Tunnelblick will offer to install the latest stable version, which may be a 'downgrade' from the beta version to an earlier stable version.
+
+ * Uses new URLs when checking for updates:
+   * 'https://www.tunnelblick.net/appcast-s.rss' to check for new stable versions,
+     and
+   * 'https://www.tunnelblick.net/appcast-b.rss' to check for new beta versions.
+   
+   The URL of customized or Deployed versions of Tunnelblick that contain a non-standard update feed URL have '-s' or '-b' appended to the last component of the URL before the extension (e.g. 'http://aaa/bbb/ccc.ddd' becomes 'http://aaa/bbb/ccc-s.ddd' or 'http://aaa/bbb/ccc-b.ddd' to check for stable and beta versions, respectively).
+
+ * Updates several Dutch (NL) translations; a Italian (IT) translation, and a Chinese (simplified) translation.
+
+ * Fixes spacing problems on the 'Preferences' tab that occur when there is only one version of OpenPVN included in Tunnelblick.
+
+--------------------
+
 *3.4beta02 (2013-08-07)*
 
  This is the first beta release of Tunnelblick 3.4 and includes fixes for several bugs in 3.3.0:
@@ -39,7 +62,8 @@
 
  * Fixes a typo in message sent to the Console Log about 'login intems' (changed to 'login items').
 
- 
+--------------------
+
 ==Version 3.3==
 
 *3.3 (2013-07-22)*
