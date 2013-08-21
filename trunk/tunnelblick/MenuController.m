@@ -2710,11 +2710,15 @@ static void signal_handler(int signalNumber)
             }
         }
         
-        if (  [NSThread respondsToSelector: @selector(callStackSymbols)]  ) {
-            NSLog(@"Received fatal signal %d. Stack trace: %@", signalNumber, [NSThread callStackSymbols]);
-        } else {
-            NSLog(@"Received fatal signal %d.", signalNumber);
-        }
+		const char * siglist = (  signalNumber < NSIG
+								? sys_siglist[signalNumber]
+								: "");
+		
+		id stackTrace = (  [NSThread respondsToSelector: @selector(callStackSymbols)]
+						 ? (id) [NSThread callStackSymbols]
+						 : (id) @"not available");
+		
+        NSLog(@"Received fatal signal %s (%d). Stack trace: %@", siglist, signalNumber, stackTrace);
         
         if ( reasonForTermination == terminatingBecauseOfFatalError ) {
             NSLog(@"signal_handler: Error while handling signal.");
@@ -2747,6 +2751,9 @@ static void signal_handler(int signalNumber)
         sigaction(SIGTERM, &action, NULL) ||
         sigaction(SIGBUS,  &action, NULL) ||
         sigaction(SIGSEGV, &action, NULL) ||
+#ifndef TBDebug
+        sigaction(SIGTRAP, &action, NULL) ||
+#endif
         sigaction(SIGPIPE, &action, NULL)) {
         NSLog(@"Warning: setting signal handler failed: '%s'", strerror(errno));
     }	
