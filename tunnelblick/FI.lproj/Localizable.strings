@@ -318,9 +318,6 @@ muutos yhteyden luomisen jälkeen";
 "Monitor network settings" = "Valvo verkko-asetuksia";
 
 /* Checkbox name */
-"Monitor the configuration folders for changes" = "Valvo asetuskansion muutoksia";
-
-/* Checkbox name */
 "Place next to Spotlight icon" = "Aseta Spotlight-ikonin viereen";
 
 /* Checkbox name */
@@ -820,9 +817,6 @@ muutos yhteyden luomisen jälkeen";
 
 /* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Konfiguraatiot asennetaan tavallisesti tiedostoista, jotka toimittaa sinulla verkonvalvoja tai VPN-yhteyden tarjoaja.\n\nKonfiguraatiotiedostoilla on tiedostopäätteenä .tblk, .ovpn, tai .conf.\n\n(Konfiguraatioon voi liittyä muita tiedostoja, joilla on eri tiedostopääte. Jätä ne huomiotta tässä vaiheessa.)\n\nOnko sinulla konfiguraatiotiedostoja?\n";
-
-/* Window text */
-"Configurations:" = "Konfiguraatiot:";
 
 /* Window text */
 "Connect:" = "Muodosta yhteys:";
@@ -1417,6 +1411,9 @@ muutos yhteyden luomisen jälkeen";
 
 /* Credit description */
 "Catalan localization" = "Katalonialainen käännös";
+
+/* Checkbox title */
+"Check for updates to beta versions" = "Salli päivitykset beta-versioihin";
 
 /* Credit description */
 "Chinese (simplified) localization" = "Kiinalainen (yksinkertaistettu) käännös";

@@ -274,6 +274,9 @@
 /* Checkbox name */
 "Check for updates automatically" = "自動檢查更新";
 
+/* Checkbox name */
+"Check for updates to beta versions" = "檢查更新至測試版本";
+
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
 
@@ -318,9 +321,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "監察網絡設定";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "監視設定檔資料夾的變化";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "放置於Spotlight圖示旁";
@@ -824,9 +824,6 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "設定 are usually installed from files that are supplied to you by your network manager或VPN service provider.\n\n設定檔have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any設定檔?\n";
 
 /* Window text */
-"Configurations:" = "設定:";
-
-/* Window text */
 "Connect:" = "連接:";
 
 /* Window text */
@@ -1136,7 +1133,7 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "There are no VPN 設定 installed.\n\nTunnelblick needs one或more installed 設定 to connect to a VPN. 設定 are installed from files that are usually supplied to you by your network manager或VPN service provider. The files must be installed to be used.\n\n設定檔have extensions of .tblk, .ovpn,或.conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any設定檔s?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "There are two types of設定檔s:\n\n     • Tunnelblick VPN 設定 (.tblk extension)\n\n     • OpenVPN 設定 (.ovpn或.conf extension)\n\nWhich type of configuration file do have?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "There are two types of設定檔s:\n\n  • Tunnelblick VPN 設定 (.tblk extension)\n\n  • OpenVPN 設定 (.ovpn或.conf extension)\n\nWhich type of configuration file do have?\n\n";
 
 /* NEEDS TRANSLATION *//* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "There was a problem with one or more configurations. Details are in the Console Log.\n\n";
@@ -1283,7 +1280,7 @@
 "Workgroup:" = "工作群組:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN設定檔 in TextEdit so you can modify it to connect to your VPN?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN設定檔 in TextEdit so you can modify it to connect to your VPN?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "You cannot install a Tunnelblick VPN設定 from an installed 複製本.\n\nAn administrator can 複製the 安裝 及install from the 複製本.";
@@ -1319,7 +1316,7 @@
 "You have asked to rename '%@' to '%@'." = "You have asked to rename '%1$@' to '%2$@'.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "You have tried to use a設定檔 that is the same as the sample設定檔 installed by Tunnelblick. 設定檔 must be modified to connect to a VPN. You may also need other files, such as certificate或key files, to connect to the VPN.\n\nConsult your network administrator或your VPN service provider to obtain configuration 及other files或the information you 需要modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

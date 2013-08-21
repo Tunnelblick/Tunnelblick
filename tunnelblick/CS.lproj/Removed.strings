@@ -35,7 +35,7 @@
 "Which Type of Configuration Do You Wish to Create?" = "Jaký typ konfigurace si přejete vytvořit?";
 
 /* Window text */
-"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Konfiguraci VPN Tunnelblick lze vytvořit s jedním konfiguračním souborem.\n\n     • Více konfiguračních souborů (a certifikát a soubory s klíči pokud je máte) lze umístit do soukromého konfigurační složky Tunnelblicku.\nTo je obvyklý způsob, jak jsou používány konfigurace OpenVPN.\n\nPozn.: Konfigurace VPN Tunnelblicku je preferována, protože může být sdílena, může být spouštěna při zapnutí počítače a je automaticky zabezpečena.";
+"  • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n  • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "  • Konfiguraci VPN Tunnelblick lze vytvořit s jedním konfiguračním souborem.\n\n  • Více konfiguračních souborů (a certifikát a soubory s klíči pokud je máte) lze umístit do soukromého konfigurační složky Tunnelblicku.\nTo je obvyklý způsob, jak jsou používány konfigurace OpenVPN.\n\nPozn.: Konfigurace VPN Tunnelblicku je preferována, protože může být sdílena, může být spouštěna při zapnutí počítače a je automaticky zabezpečena.";
 
 /* Window text */
 "  • Repair the private configurations folder\n" = "  • Opravit složku soukromých konfigurací\n";
@@ -173,8 +173,14 @@
 "Tunnelblick needs to install and/or uninstall one or more Tunnelblick VPN Configurations." = "Tunnelblick potřebuje nainstalovat a nebo odinstalovat jeden nebo více konfigurací VPN Tunnelblick.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Máte jednu nebo více konfigurací OpenVPN, které nebudou dotupné pokud použijete tuto verzi Tunnelblicku. Můžete:\n\n     • Nechat Tunnelblick zkonvertovat tyto konfigurace OpenVPN do konfigurací VPN Tunnelblicku; nebo\n     • Ukončit a nainstalovat jinou verzi Tunnelblicku; nebo\n     • Ignorovat a pokračovat bez konverze.\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\n" = "Máte jednu nebo více konfigurací OpenVPN, které nebudou dotupné pokud použijete tuto verzi Tunnelblicku. Můžete:\n\n  • Nechat Tunnelblick zkonvertovat tyto konfigurace OpenVPN do konfigurací VPN Tunnelblicku; nebo\n  • Ukončit a nainstalovat jinou verzi Tunnelblicku; nebo\n  • Ignorovat a pokračovat bez konverze.\n\n";
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN verze %1$@ není dostupná. Používám defaultní verzi %2$@";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitorovat změny v adresářích předvoleb";
+
+/* Window text */
+"Configurations:" = "Konfigurace:";
 

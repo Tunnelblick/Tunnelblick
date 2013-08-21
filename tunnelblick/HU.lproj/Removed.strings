@@ -53,7 +53,7 @@
 "Which Type of Configuration Do You Wish to Create?" = "Milyen típusú konfigurációt szeretne készíteni?";
 
 /* Window text */
-"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Egyszerre egy konfigurációs állománnyal készíthet Tunnelblick VPN konfigurációt.\n\n     • Ha több konfigurációs állománnyal dolgozik, elhelyezheti azokat (a tanúsítvánnyal és a kulcsfájllal együtt - ha van) a személyes Tunnelblick konfigurációs könyvtárban.\nEz a hagyományos módja az OpenVPN konfigurációk használatának.\n\Megjegyzés: A Tunnelblick VPN konfiguráció használatát javasoljuk, mert ezek megoszthatók, beállítható az automatikus indítás, és biztonságossá is tehetők.";
+"  • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n  • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "  • Egyszerre egy konfigurációs állománnyal készíthet Tunnelblick VPN konfigurációt.\n\n  • Ha több konfigurációs állománnyal dolgozik, elhelyezheti azokat (a tanúsítvánnyal és a kulcsfájllal együtt - ha van) a személyes Tunnelblick konfigurációs könyvtárban.\nEz a hagyományos módja az OpenVPN konfigurációk használatának.\n\Megjegyzés: A Tunnelblick VPN konfiguráció használatát javasoljuk, mert ezek megoszthatók, beállítható az automatikus indítás, és biztonságossá is tehetők.";
 
 /* Window text */
 "  • Repair the private configurations folder\n" = "  • Személyes konfigurációs könyvtár javítása\n";
@@ -173,7 +173,7 @@
 "There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Hiba történt a(z) %ld konfigurációval. Részletek a Konzol Naplóban találhatók\n\n";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van. Ezek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n     • A Tunnelblick elvégzi az OpenVPN konfigurációk átalakítását Tunnelblick konfigurációs állományokra; vagy\n     • Kiléphet és választhat másik Tunnelblick változatot; vagy\n     • Figyelmen kívül hagyhatja ezt az üzenetet.\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\n" = "Önnek egy vagy több OpenVPN konfigurációja van. Ezek nem használhatók a Tunnelblick ezen verziójával. A következőket teheti:\n\n  • A Tunnelblick elvégzi az OpenVPN konfigurációk átalakítását Tunnelblick konfigurációs állományokra; vagy\n  • Kiléphet és választhat másik Tunnelblick változatot; vagy\n  • Figyelmen kívül hagyhatja ezt az üzenetet.\n\n";
 
 /* Window text */
 "Configuration '%@' will be ignored because its name contains characters that are not allowed." = "A(z) '%@' nevű konfiguráció figyelmen kívül lesz hagyva, mert nem megengedett karaktereket tartalmaz.";
@@ -183,4 +183,10 @@
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "Az OpenVPN %1$@ verziója nem elérhető. Az alapértelmezett %2$@ verzió kerül felhasználásra";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "A konfigurációs könyvtár változásainak figyelése";
+
+/* Window text */
+"Configurations:" = "Konfigurációk:";
 

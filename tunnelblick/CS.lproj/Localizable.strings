@@ -272,6 +272,9 @@
 "Check for updates automatically" = "Zkontrolovat automaticky aktualizace";
 
 /* Checkbox name */
+"Check for updates to beta versions" = "Zkontrolovat aktualizace i pro beta verze";
+
+/* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Zkontrolovat jestli se vaše veřejná IP adresa změnila po připojení";
 
 /* Checkbox name */
@@ -315,9 +318,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "Monitorovat síťová nastavení";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "Monitorovat změny v adresářích předvoleb";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Umístit vedle ikony Spotlightu";
@@ -821,9 +821,6 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Konfigurace jsou obvykle instalovány ze souborů které získáte od správce sítě nebo dodavatele služeb VPN.\n\nKonfigurační soubory mají příponu .tblk, .ovpn, nebo .conf.\n\n(Mohou být přítomny ještě další soubory asociované s konfigurací a mající jiné přípony. Ty nyní ignorujte.)\n\nMáte nějaké konfigurační soubory?\n";
 
 /* Window text */
-"Configurations:" = "Konfigurace:";
-
-/* Window text */
 "Connect:" = "Připojit:";
 
 /* Window text */
@@ -1136,7 +1133,7 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Neexistují žádné nainstalované konfigurace VPN.\n\nTunnelblick požaduje pro připojení k VPN jednu nebo více nainstalovaných konfigurací. Konfigurace jsou instalovány ze souborů, které jsou obvykle dodány správcem sítě nebo poskytovatelem služby VPN. Aby bylo možné soubory použít, je nutné nejprve provést instalaci.\n\nKonfigurační soubory mají přípony .tblk, .ovpn, nebo .conf.\n\n(Dále mohou existovat další související soubory, které mají jiné přípony; nyní je ignorujte.)\n\nMáte nějaké konfigurační soubory?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Existují 2 typy konfiguračních souborů:\n\n     • Konfigurace VPN Tunnelblick (přípona .tblk)\n\n     • Konfigurace OpenVPN (přípona .ovpn nebo .conf)\n\nKterý typ konfigurace máte?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Existují 2 typy konfiguračních souborů:\n\n  • Konfigurace VPN Tunnelblick (přípona .tblk)\n\n  • Konfigurace OpenVPN (přípona .ovpn nebo .conf)\n\nKterý typ konfigurace máte?\n\n";
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Byl nalezen problém s jednou nebo více konfiguracemi. Detaily naleznete v logu konzoly.\n\n";
@@ -1283,7 +1280,7 @@
 "Workgroup:" = "Pracovní skupina:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Přejete si\n\n     • Vytvořit příklad konfigurace na Ploše\n             a\n     • Otevřít konfigurační soubor OpenVPN v aplikaci TextEdit, takže ji můžete změnit a následně se připojit na Vaši VPN?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Přejete si\n\n  • Vytvořit příklad konfigurace na Ploše\n             a\n  • Otevřít konfigurační soubor OpenVPN v aplikaci TextEdit, takže ji můžete změnit a následně se připojit na Vaši VPN?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Není možné instalovat konfiguraci VPN Tunnelblick z innstalované kopie.\n\nJen administrátor může provést kopii instalace a instalovat z kopie.";
@@ -1319,7 +1316,7 @@
 "You have asked to rename '%@' to '%@'." = "Požádal jste o změnu jmena z '%1$@' na '%2$@'.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Máte jednu nebo více konfigurací OpenVPN, které nebudou dostupné, pokud používátu tuto verzi Tunnelblicku. Můžete:\n\n     • Nechat Tunnelblick zkonvertovat tyto konfigurace OpenVPN do konfigurací VPN Tunnelblicku; nebo\n     • Skončit a nainstalovat jinou verzi Tunnelblicku; nebo\n     • Ignorovat toto hlášení a pokračovat bez konverze.\n\nPokud vyberete 'Ignorovat', tak konfigurace nebude dostupná!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Máte jednu nebo více konfigurací OpenVPN, které nebudou dostupné, pokud používátu tuto verzi Tunnelblicku. Můžete:\n\n  • Nechat Tunnelblick zkonvertovat tyto konfigurace OpenVPN do konfigurací VPN Tunnelblicku; nebo\n  • Skončit a nainstalovat jinou verzi Tunnelblicku; nebo\n  • Ignorovat toto hlášení a pokračovat bez konverze.\n\nPokud vyberete 'Ignorovat', tak konfigurace nebude dostupná!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Pokusil jste se použít konfiguraci, která je shodná s příkladem konfigurace nainstalovaným Tunnelblickem. Pokud má být možné navázat spojení VPN, je nutná konfiguraci modifikovat. Můžete také potřebovat další soubory jako je certifikát nebo soubory s klíči.\n\nInformace, konfiguraci a další soubory získáte konzultací s Vaším administrátorem sítě nebo zprostředokovatelem VPN.\n\nDokumentace k OpenVPN je dostupná na \n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
