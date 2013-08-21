@@ -1413,7 +1413,7 @@ muutos yhteyden luomisen jälkeen";
 "Catalan localization" = "Katalonialainen käännös";
 
 /* Checkbox title */
-"Check for updates to beta versions" = "Tarkista päivitykset beta-versioita";
+"Check for updates to beta versions" = "Salli päivitykset beta-versioihin";
 
 /* Credit description */
 "Chinese (simplified) localization" = "Kiinalainen (yksinkertaistettu) käännös";
