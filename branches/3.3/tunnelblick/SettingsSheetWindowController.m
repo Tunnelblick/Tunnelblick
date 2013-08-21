@@ -100,21 +100,21 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(void) setConfigurationName: (NSString *) newName {
     
-    if (  ! connection  ) {
-        return;
-    }
-    
     if (  ! [configurationName isEqualToString: newName]  ) {
         [configurationName release];
         configurationName = [newName retain];
-        
-        [self setConnection: [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: configurationName]];
-        
-        if (  showingSettingsSheet  ) {
-            [self initializeStaticContent];
-            [self setupSettingsFromPreferences];
-        }
-    }
+		
+		if (  newName  ) {
+			[self setConnection: [[[NSApp delegate] myVPNConnectionDictionary] objectForKey: configurationName]];
+		} else {
+			[self setConnection: nil];
+		}
+		
+		if (  showingSettingsSheet  ) {
+			[self initializeStaticContent];
+			[self setupSettingsFromPreferences];
+		}
+	}
 }
 
 -(void) setStatus: (NSString *) newStatus {
@@ -146,20 +146,21 @@ extern TBUserDefaults       * gTbDefaults;
 
 - (void) setupCredentialsGroupButton {
     
-    if (  ! connection  ) {
+    if (  ! configurationName  ) {
         return;
     }
     
 	selectedCredentialsGroupIndex = NSNotFound;
 	
 	NSInteger ix = 0;
-	NSString * prefKey = [[connection displayName] stringByAppendingString: @"-credentialsGroup"];
+	NSString * prefKey = [configurationName stringByAppendingString: @"-credentialsGroup"];
 	NSString * group = [gTbDefaults objectForKey: prefKey];
 	if (   group
 		&& (  [group length] != 0 )  ) {
         NSArray * listContent = [credentialsGroupArrayController content];
         NSDictionary * dict;
         unsigned i;
+        ix = NSNotFound;
         for (  i=0; i<[listContent count]; i++  ) { 
             dict = [listContent objectAtIndex: i];
             if (  [[dict objectForKey: @"value"] isEqualToString: group]  ) {
@@ -170,6 +171,7 @@ extern TBUserDefaults       * gTbDefaults;
         
         if (  ix == NSNotFound  ) {
             NSLog(@"Preference '%@' ignored: credentials group '%@' was not found", prefKey, group);
+            ix = 0;
         }
 	}
 	
