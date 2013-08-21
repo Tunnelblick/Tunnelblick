@@ -32,7 +32,7 @@
 "Which Type of Configuration Do You Wish to Create?" = "Che tipo di configurazione vuoi creare?";
 
 /* Window text */
-"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Con un solo file di configurazione, puoi creare una configurazione VPN di Tunnelblick.\n\n     • Con più file di configurazione, puoi mettere i file di configurazione (e i certificati e le chiavi, se li hai) nella cartella privata delle configurazioni di Tunnelblick.\nQuesto è il modo classico di salvare le configurazioni di OpenVPN.\n\nNota: le configurazioni VPN di Tunnelblick sono preferite, poiché possono essere condivise, possono essere connesse all'avvio del computer e sono gestiti i permessi di accesso in automatico.";
+"  • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n  • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "  • Con un solo file di configurazione, puoi creare una configurazione VPN di Tunnelblick.\n\n  • Con più file di configurazione, puoi mettere i file di configurazione (e i certificati e le chiavi, se li hai) nella cartella privata delle configurazioni di Tunnelblick.\nQuesto è il modo classico di salvare le configurazioni di OpenVPN.\n\nNota: le configurazioni VPN di Tunnelblick sono preferite, poiché possono essere condivise, possono essere connesse all'avvio del computer e sono gestiti i permessi di accesso in automatico.";
 
 /* Window text */
 "  • Repair the private configurations folder\n" = "  • Riparare la cartella delle configurazioni private\n";
@@ -161,5 +161,11 @@
 "There was a problem with %ld configurations. Details are in the Console Log\n\n" = "Si è verificato un problema con le configurazioni %ld. È possibile esaminare i dettagli del problema tramite l’applicazione Console\n\n";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\n";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitorizza la cartella dei file di configurazione per cambiamenti";
+
+/* Window text */
+"Configurations:" = "Configurazioni:";
 

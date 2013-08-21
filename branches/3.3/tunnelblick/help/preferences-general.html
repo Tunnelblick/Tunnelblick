@@ -45,20 +45,18 @@
 <p class="p2"><br></p>
 <p class="p4"><span class="Apple-tab-span">	</span>• <b>Check if the apparent public IP address changed after connection</b>: Usually when connected to a VPN all traffic is routed through the VPN server and the computer's apparent public IP address changes. When connected from home to an office VPN, for example, the IP address would change from your home network's public IP address to a public IP address from your office network. Some configurations of VPNs do not route all traffic through the VPN server, however, so Tunnelblick can make an independent check of whether or not the address changed. If it did not change, and you want it to, contact your VPN service provider and ask them to change their configuration files, or check the "Route all traffic through the VPN" on the "While Connected" tab of the "Advanced" settings window for the configuration.</p>
 <p class="p2"><br></p>
-<p class="p3"><b>Configurations</b></p>
-<p class="p2"><br></p>
-<p class="p4">Most configuration settings are made in the "VPN Details…" window and apply to only one configuration at a time. However, the following preference affect all configurations:</p>
-<p class="p2"><br></p>
-<p class="p4"><span class="Apple-tab-span">	</span>• <b>Monitor the configuration folder for changes</b>: Usually, Tunnelblick monitors the configuration folders: as configurations are added or removed, Tunnelblick will adjust it's menu and the "VPN Details…" window accordingly. If the private configuration folder is located on a remote filesystem, however, that can sometimes cause extra network traffic. To avoid that, clear this checkbox. If it is cleared, you will need to relaunch Tunnelblick, or turn this option on (and then back off, if you wish) before Tunnelblick will include new configurations and remove old configurations from it's menu and the "VPN Details…" window.</p>
-<p class="p2"><br></p>
 <p class="p3"><b>Updates</b></p>
 <p class="p2"><br></p>
-<p class="p4">Tunnelblick can check for updates. You can choose whether or not to have Tunnelblick do this automatically, or you can check manually.</p>
+<p class="p4">Tunnelblick can check for updates to the Tunnelblick program. You can choose whether or not to have Tunnelblick do this automatically, and you can check manually. You can also specify whether Tunnelblick should look for updates to beta versions or updates to stable versions.</p>
 <p class="p2"><br></p>
 <p class="p4"><span class="Apple-tab-span">	</span>•<b> Check for updates automatically</b>: When checked, Tunnelblick will check for updates each time it is launched, and every 24 hours thereafter.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>•<b> Check for updates to beta versions</b>: When checked, Tunnelblick will check for updates to beta versions. When not checked, Tunnelblick will check for updates to stable versions. This is checked by default when using a bet version.</p>
 <p class="p2"><br></p>
 <p class="p4"><span class="Apple-tab-span">	</span>• <b>Check Now</b>: You can check for updates at any time by clicking the "Check Now" button.</p>
 <p class="p2"><br></p>
 <p class="p4">Tunnelblick checks for updates by sending a query the Tunnelblick website. If an update is available, you will be asked if you wish to download and install the update, decide later, or skip that particular update.</p>
+<p class="p2"><br></p>
+<p class="p4">Note: If you are using a beta version of Tunnelblick that is later than the most recent stable version and "Check for updates to beta versions" is <strong><em>not</em></strong> checked, you will be offered an "update" to the most recent stable version -- accepting this will actually <em>downgrade</em> to that most recent stable version.</p>
 </body>
 </html>

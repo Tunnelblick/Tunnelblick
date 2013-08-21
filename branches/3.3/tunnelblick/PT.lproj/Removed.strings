@@ -53,7 +53,7 @@
 "Which Type of Configuration Do You Wish to Create?" = "Qual Tipo de Configuração Deseja Criar?";
 
 /* Window text */
-"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Com um arquivo de configuração por vez, você pode criar uma Configuração de VPN do Tunnelblick.\n\n     • Com múltiplos arquivos de configuração, você pode colocar os arquivos de configuração (e arquivos de certificado e chave se tiver) na pasta privada de configurações do Tunnelblick.\nEsta é a forma tradicional que as configurações OpenVPN foram utilizadas.\n\nNota: Configurações VPN do Tunnelblick são preferenciais, porque podem ser compartilhadas, podem ser iniciadas quando o computador iniciar, e são asseguradas automaticamente.";
+"  • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n  • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "  • Com um arquivo de configuração por vez, você pode criar uma Configuração de VPN do Tunnelblick.\n\n  • Com múltiplos arquivos de configuração, você pode colocar os arquivos de configuração (e arquivos de certificado e chave se tiver) na pasta privada de configurações do Tunnelblick.\nEsta é a forma tradicional que as configurações OpenVPN foram utilizadas.\n\nNota: Configurações VPN do Tunnelblick são preferenciais, porque podem ser compartilhadas, podem ser iniciadas quando o computador iniciar, e são asseguradas automaticamente.";
 
 /* Window text */
 "  • Repair the private configurations folder\n" = "  • Reparar a pasta de configurações privadas\n";
@@ -177,4 +177,10 @@
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "Versão %1$@ do OpenVPN não está disponível. Utilizando a versão padrão %2$@";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Monitorar as alterações das pastas de configuração";
+
+/* Window text */
+"Configurations:" = "Configurações:";
 

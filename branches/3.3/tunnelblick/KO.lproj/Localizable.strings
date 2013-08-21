@@ -278,6 +278,9 @@
 "Check for updates automatically" = "자동으로 업데이트 확인";
 
 /* Checkbox name */
+"Check for updates to beta versions" = "베타 버전 업데이트 확인";
+
+/* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "연결 후에 공인 IP 주소 변경 확인";
 
 /* Checkbox name */
@@ -321,9 +324,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "네트워크 설정 감시";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "변경이 있는지 설정 폴더 감시";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Spotlight 옆에 아이콘 위치";
@@ -824,9 +824,6 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "일반적으로 네트워크 관리자 또는 VPN 서비스 제공자가 제공한 파일로 설정을 설치합니다.\n\n설정 파일은 .tblk 나 .ovpn 또는 .conf 확장자를 가집니다.\n\n(설정과 연관이 있는 다른 파일들은 다른 확장자를 가질 수 있습니다. 지금은 무시하십시오)\n\n설정 파일을 가지고 있습니까?\n";
 
 /* Window text */
-"Configurations:" = "설정:";
-
-/* Window text */
 "Connect:" = "연결하기:";
 
 /* Window text */
@@ -1136,7 +1133,7 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "설치된 VPN 설정이 없습니다.\n\nVPN에 연결하려면 Tunnelblick은 1개 또는 이상의 설치된 설정이 필요합니다. 설정은 일반적으로 네트워크 관리자 또는 VPN 서비스 제공자가 제공한 파일을 사용해 설치합니다. 파일은 사용하려면 설치해야 합니다.\n\n설정 파일은 .tblk 이나 .ovpn 또는 .conf 확장자를 가집니다.\n\n(설정과 관련된 다른 파일은 다른 확장자를 가질 수 있습니다. 지금은 무시하십시오.)\n\n설정 파일을 가지고 있습니까?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "두 가지 종류의 설정 파일이 있습니다:\n\n     • Tunnelblick VPN 설정 (.tblk 확장자)\n\n     • OpenVPN 설정 (.ovpn 또는 .conf 확장자)\n\n가지고 있는 설정 종류는 무엇입니까?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "두 가지 종류의 설정 파일이 있습니다:\n\n  • Tunnelblick VPN 설정 (.tblk 확장자)\n\n  • OpenVPN 설정 (.ovpn 또는 .conf 확장자)\n\n가지고 있는 설정 종류는 무엇입니까?\n\n";
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "1개 또는 그 이상 설정에 문제가 있습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n";
@@ -1284,7 +1281,7 @@
 "Workgroup:" = "작업그룹:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "다음과 같이 하겠습니까?\n\n     • Desktop에 예제 설정을 만든다.\n     • 텍스트 편집기로 OpenVPN 설정 파일을 열어서\n        VPN 연결을 위해 수정을 한다.\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "다음과 같이 하겠습니까?\n\n  • Desktop에 예제 설정을 만든다.\n  • 텍스트 편집기로 OpenVPN 설정 파일을 열어서\n        VPN 연결을 위해 수정을 한다.\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "설치된 복사본에서 Tunnelblick VPN 설정을 설치할 수 없습니다.\n\n관리자는 설치를 복사할 수 있고 복사본에서 설치할 수 있습니다.";
@@ -1320,7 +1317,7 @@
 "You have asked to rename '%@' to '%@'." = "'%1$@'에서 '%2$@'로 이름을 변경하려고 합니다";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "이 Tunnelblick 버전에서 사용할 수 없는 1개 또는 이상의 OpenVPN 설정이 있습니다. 다음과 같이 할 수 있습니다:\n\n     • OpenVPN 설정을 Tunnelblick VPN 설정으로 변환\n     • 종료하고 Tunnelblick 다른 버전을 설치\n     • 무시하고 변환없이 계속 진행\n\n'무시'를 선택하면 설정들은 사용할 수 없습니다!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "이 Tunnelblick 버전에서 사용할 수 없는 1개 또는 이상의 OpenVPN 설정이 있습니다. 다음과 같이 할 수 있습니다:\n\n  • OpenVPN 설정을 Tunnelblick VPN 설정으로 변환\n  • 종료하고 Tunnelblick 다른 버전을 설치\n  • 무시하고 변환없이 계속 진행\n\n'무시'를 선택하면 설정들은 사용할 수 없습니다!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Tunnelblick으로 만든 예제 설정 파일을 그대로 사용하려 했습니다. VPN에 연결하기 위해서는 반드시 설정 파일을 수정해야 합니다. VPN에 연결하기 위해서 인증서 또는 키 파일과 같은 다른 파일들이 필요할 수 있습니다.\n\n설정 및 설정과 관련된 다른 파일 또는 예제 파일을 수정하기 위해 필요한 정보를 얻으려면 네트워크 관리자 또는 VPN 서비스 제공자에게 문의합니다.\n\nOpenVPN 문서는 다음에서 볼 수 있습니다.\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

@@ -7,3 +7,9 @@
 /* Window text */
 " and install one configuration" = " та встановити одну конфігурацію";
 
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Спостерігати за змінами у папці з конфігураціями";
+
+/* Window text */
+"Configurations:" = "Конфігурації:";
+

@@ -275,6 +275,9 @@
 "Check for updates automatically" = "Автоматически проверять наличие обновлений";
 
 /* Checkbox name */
+"Check for updates to beta versions" = "При обновлении проверять на наличие бета-версий";
+
+/* Checkbox name */
 "Check if the apparent public IP address changed after connection" = "Проверять, изменился ли внешний IP адрес после соединения";
 
 /* Checkbox name */
@@ -318,9 +321,6 @@
 
 /* Checkbox name */
 "Monitor network settings" = "Отслеживать настройки сети";
-
-/* Checkbox name */
-"Monitor the configuration folders for changes" = "Отслеживать папки с конфигурациями на наличие изменений";
 
 /* Checkbox name */
 "Place next to Spotlight icon" = "Разместить рядом с иконкой Spotlight";
@@ -822,9 +822,6 @@
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Конфигурации обычно устанавливаются из файлов, предоставляемых вашим администратором или поставщиком VPN.\n\nКонфигурационные файлы имеют расширения .tblk, .ovpn, или .conf.\n\n(Также могут быть другие файлы, связанные с конфигурацией; на этом этапе их можно опустить)\n\nУ вас есть конфигурационные файлы?\n";
 
 /* Window text */
-"Configurations:" = "Конфигурации:";
-
-/* Window text */
 "Connect:" = "Соединиться:";
 
 /* Window text */
@@ -1138,7 +1135,7 @@
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Нет ни одной установленной VPN конфигурации.\n\nЧтобы соединиться с VPN, Tunnelblick требует хотя бы одну конфигурацию. Обычно, файлы конфигураций предоставляются поставщиком VPN. Чтобы файлами можно было воспользоваться, они должны быть установлены.\n\nФайлы конфигураций обычно имеют расширение .tblk, .ovpn, или .conf.\n\n(К файлам конфигураций могут относится файлы и с другими расширениями, пока про них можно забыть.)\n\nУ вас есть какие-нибудь файлы конфигураций?\n";
 
 /* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Есть два типа конфигурационных файлов:\n\n     • конфигурации Tunnelblick VPN (расширение .tblk)\n\n     • конфигурации OpenVPN (расширение .ovpn или .conf)\n\nУ вас какая в наличии?\n\n";
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Есть два типа конфигурационных файлов:\n\n  • конфигурации Tunnelblick VPN (расширение .tblk)\n\n  • конфигурации OpenVPN (расширение .ovpn или .conf)\n\nУ вас какая в наличии?\n\n";
 
 /* Window text */
 "There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Возникли некоторые проблемы с одной или несколькими конфигурациями. Подробности в журнале Консоли.\n\n";
@@ -1234,7 +1231,7 @@
 "Tunnelblick needs to:\n\n" = "Tunnelblick необходимо:\n\n";
 
 /* Window text */
-"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")"="Tunnelblick требует установленной OS X 10.4 или выше\n     (\"Tiger\", \"Leopard\", или \"Snow Leopard\")";
+"Tunnelblick requires OS X 10.4 or above\n     (\"Tiger\", \"Leopard\", or \"Snow Leopard\")" = "Tunnelblick требует установленной OS X 10.4 или выше\n     (\"Tiger\", \"Leopard\", или \"Snow Leopard\")";
 
 /* Window text */
 "Tunnelblick was successfully installed.\n\nDo you wish to launch Tunnelblick now?" = "Tunnelblick успешно установлен.\n\nЗапустить Tunnelblick?";
@@ -1285,7 +1282,7 @@
 "Workgroup:" = "Рабочая группа:";
 
 /* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Желаете ли вы\n\n     • Создать конфигурацию с примером на Рабочем столе\n             и\n     • Открыть конфигурационный файл OpenVPN в TextEdit с тем, чтобы вы могли его поправить для соединения с вашим VPN?\n\n";
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Желаете ли вы\n\n  • Создать конфигурацию с примером на Рабочем столе\n             и\n  • Открыть конфигурационный файл OpenVPN в TextEdit с тем, чтобы вы могли его поправить для соединения с вашим VPN?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Вы не можете установить конфигурацию Tunnelblick VPN из установленной копии.\n\nАдминистратор может скопировать установленное и установить из копии.";
@@ -1321,7 +1318,7 @@
 "You have asked to rename '%@' to '%@'." = "Вы попросили переименовать '%1$@' в '%2$@'.";
 
 /* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Некоторые из имеющихся конфигураций OpenVPN станут недоступными при использовании Tunnelblick. Вы можете:\n\n     • позволить Tunnelblick преобразовать эти конфигурации OpenVPNв конфигурации Tunnelblick VPN; или\n     • Выйти и установить другую версию Tunnelblick; or\n     • Проигнорировать и продолжить без преобразования.\n\nЕсли вы проиггнорируете, то конфигурации будут недоступны!\n\n";
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Некоторые из имеющихся конфигураций OpenVPN станут недоступными при использовании Tunnelblick. Вы можете:\n\n  • позволить Tunnelblick преобразовать эти конфигурации OpenVPNв конфигурации Tunnelblick VPN; или\n  • Выйти и установить другую версию Tunnelblick; or\n  • Проигнорировать и продолжить без преобразования.\n\nЕсли вы проиггнорируете, то конфигурации будут недоступны!\n\n";
 
 /* Window text */
 "You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Вы попытались использовать точно такой же конфигурационный файл, как и файл примера, созданный при установке Tunnelblick'ом. Конфигурационный файл надо поменять, чтобы соединиться с VPN. Более того, вам могут потребоваться другие файлы, например ключи и сертификаты для соединения с VPN.\n\nПопросите администратора вашей сети или того, кто предоставляет вам VPN, выслать вам файлы конфигурации или подсказать, что поправить в файле примера.\n\nДокументация по OpenVPN находится здесь\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

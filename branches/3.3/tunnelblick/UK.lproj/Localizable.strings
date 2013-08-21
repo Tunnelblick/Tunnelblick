@@ -317,9 +317,6 @@
 "Monitor network settings" = "Спостерігати за мережевими налаштуваннями";
 
 /* Checkbox name */
-"Monitor the configuration folders for changes" = "Спостерігати за змінами у папці з конфігураціями";
-
-/* Checkbox name */
 "Place next to Spotlight icon" = "Встановити після іконки Spotlight";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
@@ -819,9 +816,6 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Configurations are usually installed from files that are supplied to you by your network manager or VPN service provider.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n";
-
-/* Window text */
-"Configurations:" = "Конфігурації:";
 
 /* Window text */
 "Connect:" = "З'єднати:";
@@ -1418,6 +1412,9 @@
 
 /* NEEDS TRANSLATION *//* Credit description */
 "Catalan localization" = "Catalan localization";
+
+/* Checkbox title */
+"Check for updates to beta versions" = "Перевіряти оновлення до бета версій";
 
 /* NEEDS TRANSLATION *//* Credit description */
 "Chinese (simplified) localization" = "Chinese (simplified) localization";

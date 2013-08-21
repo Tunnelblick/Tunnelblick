@@ -138,11 +138,10 @@
 
 // Methods for GeneralView
 
--(IBAction) monitorConfigurationFolderCheckboxWasClicked: (id) sender;
-
 -(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender;
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
+-(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender;
 -(IBAction) updatesCheckNowButtonWasClicked:              (id) sender;
 
 -(IBAction) resetDisabledWarningsButtonWasClicked:        (id) sender;

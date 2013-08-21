@@ -110,21 +110,22 @@ extern TBUserDefaults * gTbDefaults;
     
     if (  [availableOpenvpnVersions() count] < 2  ) {               //  Hide OpenVPN version popup if only one version of OpenVPN is included in this binary
         [openvpnVersionTFC      setTitle: @""];
+        [openvpnVersionTF      setHidden: YES];
         [openvpnVersionButton setEnabled: NO];
         [openvpnVersionButton  setHidden: YES];
         
-        [self shift: keyboardShortcutTF     by: -20.0];
-        [self shift: keyboardShortcutButton by: -20.0];
+        [self shift: maxLogDisplaySizeTF                by: +40.0];
+        [self shift: maximumLogSizeButton               by: +40.0];
         
-        [self shift: maxLogDisplaySizeTF  by: +25.0];
-        [self shift: maximumLogSizeButton by: +25.0];
+        [self shift: warningsTF                         by: +40.0];
+        [self shift: checkIPAddressAfterConnectCheckbox by: +40.0];
+        [self shift: resetDisabledWarningsButton        by: +40.0];
         
-        [self shift: warningsTF                  by: +20.0];
-        [self shift: resetDisabledWarningsButton by: +20.0];
-        
-        [self shift: configurationFilesTF               by: +10.0];
-        [self shift: monitorConfigurationFolderCheckbox by: +10.0];
-        [self shift: checkIPAddressAfterConnectCheckbox by: +10.0];
+        [self shift: updatesUpdatesTF                   by: +40.0];
+        [self shift: updatesCheckAutomaticallyCheckbox  by: +40.0];
+        [self shift: updatesCheckForBetaUpdatesCheckbox by: +40.0];
+        [self shift: updatesCheckNowButton              by: +40.0];
+        [self shift: updatesLastCheckedTF               by: +40.0];
     }
     
     // Log display size popup
@@ -144,34 +145,67 @@ extern TBUserDefaults * gTbDefaults;
     [resetDisabledWarningsButton sizeToFit];
     [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 
-    [configurationFilesTFC              setTitle: NSLocalizedString(@"Configurations:",                               @"Window text")];
-    [monitorConfigurationFolderCheckbox setTitle: NSLocalizedString(@"Monitor the configuration folders for changes", @"Checkbox name")];
     [checkIPAddressAfterConnectCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connection", @"Checkbox name")];
 
     [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
     [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
+    [updatesCheckForBetaUpdatesCheckbox setTitle: NSLocalizedString(@"Check for updates to beta versions",            @"Checkbox name")];
     [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
     [updatesCheckNowButton sizeToFit];
     [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
+    
+    // If the "Check if he apparent public IP address... checkbox is only one line high
+    // Then move it up so it stays centered on the Warnings: label
+	// and  move the Reset Disabled Warnings button up close to the new bottom of it
+    // and  move the entire Warnings section down half that distance
+    NSRect oldRect = [checkIPAddressAfterConnectCheckbox frame];
+    [checkIPAddressAfterConnectCheckbox sizeToFit];
+    NSRect newRect = [checkIPAddressAfterConnectCheckbox frame];
+    float halfHeightChange = (newRect.size.height - oldRect.size.height) / 2.0;
+    float quarterHeightChange = halfHeightChange / 2.0;
+    
+    NSRect rect = [checkIPAddressAfterConnectCheckbox frame];
+    rect.origin.y = rect.origin.y - halfHeightChange;
+    [checkIPAddressAfterConnectCheckbox setFrame: rect];
+    
+    rect = [resetDisabledWarningsButton frame];
+    rect.origin.y = rect.origin.y - halfHeightChange;
+    [resetDisabledWarningsButton setFrame: rect];
+    
+    rect = [warningsTF frame];
+    rect.origin.y = rect.origin.y + quarterHeightChange;
+    [warningsTF setFrame: rect];
+    
+    rect = [checkIPAddressAfterConnectCheckbox frame];
+    rect.origin.y = rect.origin.y + quarterHeightChange;
+    [checkIPAddressAfterConnectCheckbox setFrame: rect];
+    
+    rect = [resetDisabledWarningsButton frame];
+    rect.origin.y = rect.origin.y + quarterHeightChange;
+    [resetDisabledWarningsButton setFrame: rect];
 }
 
 
 //***************************************************************************************************************
 // Getters
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          monitorConfigurationFolderCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          checkIPAddressAfterConnectCheckbox)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, openvpnVersionArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          openvpnVersionButton)
-
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, keyboardShortcutArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          keyboardShortcutButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, maximumLogSizeArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, openvpnVersionArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          openvpnVersionButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          checkIPAddressAfterConnectCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckForBetaUpdatesCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckNowButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesLastCheckedTF)
 
 @end

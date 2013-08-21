@@ -53,7 +53,7 @@
 "Which Type of Configuration Do You Wish to Create?" = "Welche Art von Konfiguration möchten Sie anlegen?";
 
 /* Window text */
-"     • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n     • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "     • Eine Tunnelblick-VPN-Konfiguration fasst alle notwendigen Informationen zusammen.\n\n     • OpenVPN-Konfigurationsdateien werden im eigenen Tunnelblick-Konfigurationsordner gespeichert.\nDies ist die klassische Konfigurationsvariante für OpenVPN.\n\nTunnelblick-Konfigurationen werden bevorzugt, denn sie können von allen Benutzern geteilt werden, können beim Start des Computers automatisch verbunden werden, und sind automatisch gesichert.";
+"  • With one configuration file at a time, you can create a Tunnelblick VPN Configuration.\n\n  • With multiple configuration files, you can place the configuration files (and certificate and key files if you have them) into Tunnelblick's private configurations folder.\nThis is the traditional way OpenVPN configurations have been used.\n\nNote: Tunnelblick VPN Configurations are preferred, because they may be shared, may be started when the computer starts, and are secured automatically." = "  • Eine Tunnelblick-VPN-Konfiguration fasst alle notwendigen Informationen zusammen.\n\n  • OpenVPN-Konfigurationsdateien werden im eigenen Tunnelblick-Konfigurationsordner gespeichert.\nDies ist die klassische Konfigurationsvariante für OpenVPN.\n\nTunnelblick-Konfigurationen werden bevorzugt, denn sie können von allen Benutzern geteilt werden, können beim Start des Computers automatisch verbunden werden, und sind automatisch gesichert.";
 
 /* Window text */
 "  • Repair the private configurations folder\n" = "  • den eigenen Konfigurationsordner reparieren\n";
@@ -165,4 +165,10 @@
 
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN Version %1$@ ist nicht verfügbar. Es wird daher die Standardversion %2$@ genutzt.";
+
+/* Checkbox name */
+"Monitor the configuration folders for changes" = "Konfigurationsordner überwachen";
+
+/* Window text */
+"Configurations:" = "Konfigurationen:";
 

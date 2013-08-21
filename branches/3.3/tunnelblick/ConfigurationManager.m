@@ -1969,8 +1969,8 @@ enum state_t {                      // These are the "states" of the guideState 
                 // User doesn't have configuration files
                 button = TBRunAlertPanel(NSLocalizedString(@"Create and Edit a Sample Configuration?", @"Window title"),
                                          NSLocalizedString(@"Would you like to\n\n"
-                                                           "     • Create a sample configuration on the Desktop\n             and\n"
-                                                           "     • Open its OpenVPN configuration file in TextEdit so you can modify "
+                                                           "  • Create a sample configuration on the Desktop\n             and\n"
+                                                           "  • Open its OpenVPN configuration file in TextEdit so you can modify "
                                                            "it to connect to your VPN?\n\n", @"Window text"),
                                          NSLocalizedString(@"Create sample configuration and edit it", @"Button"),    // Default button
                                          NSLocalizedString(@"Back", @"Button"),                         // Alternate button
@@ -2094,8 +2094,8 @@ enum state_t {                      // These are the "states" of the guideState 
                 // User has configuration files and wishes to add them
                 button = TBRunAlertPanel(NSLocalizedString(@"Which Type of Configuration Do You Have?", @"Window title"),
                                          NSLocalizedString(@"There are two types of configuration files:\n\n"
-                                                           "     • Tunnelblick VPN Configurations (.tblk extension)\n\n"
-                                                           "     • OpenVPN Configurations (.ovpn or .conf extension)\n\n"
+                                                           "  • Tunnelblick VPN Configurations (.tblk extension)\n\n"
+                                                           "  • OpenVPN Configurations (.ovpn or .conf extension)\n\n"
                                                            "Which type of configuration file do have?\n\n",
                                                            @"Window text"),
                                          NSLocalizedString(@"Tunnelblick VPN Configuration(s)", @"Button"),    // Default button

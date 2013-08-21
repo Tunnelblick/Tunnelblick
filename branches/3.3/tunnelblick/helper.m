@@ -61,6 +61,11 @@ uint64_t nowAbsoluteNanoseconds (void)
     return nowNs;
 }
 
+BOOL runningABetaVersion (void) {
+    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+    return ([version rangeOfString: @"beta"].length != 0);
+}
+
 BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
 {
     unsigned major, minor, bugFix;
