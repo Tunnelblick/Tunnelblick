@@ -1,6 +1,6 @@
 /*
  * Copyright 2004, 2005, 2006, 2007, 2008, 2009 Angelo Laub
- * Contributions by Dirk Theisen <dirk@objectpark.org>, 
+ * Contributions by Dirk Theisen <dirk@objectpark.org>,
  *                  Jens Ohlig, 
  *                  Waldemar Brodkorb
  * Contributions by Jonathan K. Bullard Copyright 2010, 2011
@@ -87,6 +87,14 @@ void terminateBecauseOfBadConfiguration(void);
 OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void * userData);
 OSStatus RegisterMyHelpBook(void);
 BOOL checkOwnedByRootWheel(NSString * path);
+
+unsigned needToRunInstaller(BOOL inApplications);
+
+BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
+BOOL needToMoveLibraryOpenVPN(void);
+BOOL needToRepairPackages(void);
+BOOL needToCopyBundle(void);
+BOOL needToConvertNonTblks(void);
 
 @interface NSStatusBar (NSStatusBar_Private)
 - (id)_statusItemWithLength:(float)l withPriority:(int)p;
@@ -2199,6 +2207,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 //							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
 						}
 					} else {
+                        (void) procId;
 //						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
 //							  [connection displayName], (long) procId);
 						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
