@@ -54,14 +54,6 @@ enum TerminationReason {
     terminatingBecauseOfFatalError = 6
 };
 
-unsigned needToRunInstaller(BOOL inApplications);
-
-BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications);
-BOOL needToMoveLibraryOpenVPN(void);
-BOOL needToRepairPackages(void);
-BOOL needToCopyBundle(void);
-BOOL needToConvertNonTblks(void);
-
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar

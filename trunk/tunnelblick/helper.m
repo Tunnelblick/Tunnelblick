@@ -73,32 +73,32 @@ BOOL runningOnNewerThan(unsigned majorVersion, unsigned minorVersion)
     return ( (major > majorVersion) || (minor > minorVersion) );
 }
 
-BOOL runningOnTigerOrNewer()
+BOOL runningOnTigerOrNewer(void)
 {
     return runningOnNewerThan(10, 3);
 }
 
-BOOL runningOnLeopardOrNewer()
+BOOL runningOnLeopardOrNewer(void)
 {
     return runningOnNewerThan(10, 4);
 }
 
-BOOL runningOnSnowLeopardOrNewer()
+BOOL runningOnSnowLeopardOrNewer(void)
 {
     return runningOnNewerThan(10, 5);
 }
 
-BOOL runningOnLionOrNewer()
+BOOL runningOnLionOrNewer(void)
 {
     return runningOnNewerThan(10, 6);
 }
 
-BOOL runningOnMountainLionOrNewer()
+BOOL runningOnMountainLionOrNewer(void)
 {
     return runningOnNewerThan(10, 7);
 }
 
-BOOL runningOnMavericksOrNewer()
+BOOL runningOnMavericksOrNewer(void)
 {
     return runningOnNewerThan(10, 8);
 }

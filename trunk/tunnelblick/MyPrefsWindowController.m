@@ -393,6 +393,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         return;
     }
     
+    if (  ! configurationsPrefsView  ) {
+        return;
+    }
+    
     // Set up setNameserverPopUpButton with localized content that varies with the connection
     NSInteger ix = 0;
     NSArray * content = [connection modifyNameserverOptionList];
