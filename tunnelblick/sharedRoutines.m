@@ -63,13 +63,14 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
 	// Changes ownership of a single item to the specified user/group if necessary.
 	// Returns YES if changed, NO if not changed
 
+    uid_t oldUid = (uid_t) [[atts fileOwnerAccountID]      unsignedIntValue];
+    gid_t oldGid = (gid_t) [[atts fileGroupOwnerAccountID] unsignedIntValue];
+
 	if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithInt: (int) uid]]
 			 && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithInt: (int) gid]]  )  ) {
 		if (  [atts fileIsImmutable]  ) {
-			appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ to %d:%d because it is locked",
-                       path,
-                       (int) uid,
-                       (int) gid]);
+			appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d because it is locked",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
 			return NO;
 		}
 		
@@ -83,11 +84,8 @@ BOOL checkSetItemOwnership(NSString * path, NSDictionary * atts, uid_t uid, gid_
 		}
         
 		if (  result != 0  ) {
-			appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ to %d:%d\nError was '%s'",
-                       path,
-                       (int) uid,
-                       (int) gid,
-                       strerror(errno)]);
+			appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno)]);
 			return NO;
 		}
 		
@@ -111,23 +109,26 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     BOOL changedBase = FALSE;
     BOOL changedDeep = FALSE;
     
+    if (  ! [[NSFileManager defaultManager] fileExistsAtPath: path]  ) {
+        NSLog(@"checkSetOwnership: '%@' does not exist", path);
+        return NO;
+    }
+    
     NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: YES];
+    uid_t oldUid = (uid_t) [[atts fileOwnerAccountID]      unsignedIntValue];
+    gid_t oldGid = (gid_t) [[atts fileGroupOwnerAccountID] unsignedIntValue];
+
     if (  ! (   [[atts fileOwnerAccountID]      isEqualToNumber: [NSNumber numberWithUnsignedInt: uid]]
              && [[atts fileGroupOwnerAccountID] isEqualToNumber: [NSNumber numberWithUnsignedInt: gid]]  )  ) {
         if (  [atts fileIsImmutable]  ) {
-            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ to %d:%d because it is locked",
-					   path,
-					   (int) uid,
-					   (int) gid]);
+            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d because it is locked",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
 			return NO;
 		}
         
         if (  chown([path fileSystemRepresentation], uid, gid) != 0  ) {
-            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ to %d:%d\nError was '%s'",
-                       path,
-                       (int) uid,
-                       (int) gid,
-                       strerror(errno)]);
+            appendLog([NSString stringWithFormat: @"Unable to change ownership of %@ from %d:%d to %d:%d\nError was '%s'",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid, strerror(errno)]);
             return NO;
         }
         
@@ -152,22 +153,16 @@ BOOL checkSetOwnership(NSString * path, BOOL deeply, uid_t uid, gid_t gid)
     
     if (  changedBase ) {
         if (  changedDeep  ) {
-            appendLog([NSString stringWithFormat: @"Changed ownership of %@ and its contents to %d:%d",
-                       path,
-                       (int) uid,
-                       (int) gid]);
+            appendLog([NSString stringWithFormat: @"Changed ownership of %@ and its contents from %d:%d to %d:%d",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
         } else {
-            appendLog([NSString stringWithFormat: @"Changed ownership of %@ to %d:%d",
-                       path,
-                       (int) uid,
-                       (int) gid]);
+            appendLog([NSString stringWithFormat: @"Changed ownership of %@ from %d:%d to %d:%d",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
         }
     } else {
         if (  changedDeep  ) {
-            appendLog([NSString stringWithFormat: @"Changed ownership of the contents of %@ to %d:%d",
-                       path,
-                       (int) uid,
-                       (int) gid]);
+            appendLog([NSString stringWithFormat: @"Changed ownership of the contents of %@ from %d:%d to %d:%d",
+                       path, (int) oldUid, (int) oldGid, (int) uid, (int) gid]);
         }
     }
     

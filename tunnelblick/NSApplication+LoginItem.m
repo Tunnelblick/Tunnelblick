@@ -296,9 +296,9 @@ extern NSFileManager * gFileMgr;
 		if (  item  ){
 			CFRelease(item);
         }
+        
+        CFRelease(loginItems);
 	}
-    
-	CFRelease(loginItems);
 }
 
 +(void) deleteAppFromLoginItems {
@@ -323,12 +323,15 @@ extern NSFileManager * gFileMgr;
 		for (  i=0 ; i<[loginItemsArray count]; i++  ) {
 			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray objectAtIndex:i];
 			//Resolve the item with URL
-			if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
+			if (LSSharedFileListItemResolve(itemRef, 0, &url, NULL) == noErr) {
 				NSString * urlPath = [(NSURL*)url path];
 				if (  [urlPath isEqualToString: appPath]  ){
 					LSSharedFileListItemRemove(loginItems,itemRef);
 				}
 			}
+            if (  url  ) {
+                CFRelease(url);
+            }
 		}
 		[loginItemsArray release];
 	}

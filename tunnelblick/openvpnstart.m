@@ -1089,29 +1089,26 @@ NSString * openvpnToUsePath (NSString * openvpnFolderPath, NSString * openvpnVer
     return openvpnPath;
 }
 
-NSString * TunTapSuffixToUse(NSString * prefix) {
-    // If only one tun/tap driver is available, use it (error if neither exists)
-    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: [prefix stringByAppendingString: @".kext"]] ) {
-        if ( [[NSFileManager defaultManager] fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
-            return @"-20090913.kext";
-        }
-        fprintf(stderr, "Tunnelblick: No tun/tap binaries exist.");
-        exitOpenvpnstart(215);
-    }
-    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: [prefix stringByAppendingString: @"-20090913.kext"]] ) {
-        return @".kext";
-    }
+NSString * TunTapSuffixToUse(void) {
     
-    // Otherwise, return tun/tap suffix appropriate for OS version -- Snow Leopard & higher get "current" version, earlier get 20090913 version
-    NSString * suffixToReturn = @".kext";
+    // Return tun/tap suffix appropriate for OS version:
+    //        * Tiger - Leopard              -20090913 version
+    //        * Snow Leopard - Mountain Lion UNSIGNED current version
+    //        * Mavericks and higher           SIGNED current version
+    
+    NSString * suffixToReturn;
     OSErr err;
     SInt32 systemVersion;
     if (  (err = Gestalt(gestaltSystemVersion, &systemVersion)) == noErr  ) {
-        if ( systemVersion < 0x1060) {
+        if         ( systemVersion < 0x1060) {
             suffixToReturn = @"-20090913.kext";
+        } else if  ( systemVersion < 0x1090) {
+            suffixToReturn = @".kext";
+        } else {
+            suffixToReturn = @"-signed.kext";
         }
     } else {
-        fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming earlier than Snow Leopard, so using Tuntap version 20090913. Error = %ld\nError was '%s'", (long) err, strerror(errno));
+        fprintf(stderr, "Tunnelblick: Unable to determine OS version; assuming earlier than Snow Leopard, so using Tuntap version 20090913. Error status returned = %ld", (long) err);
         suffixToReturn = @"-20090913.kext";
     }
     
@@ -1802,7 +1799,7 @@ void loadKexts(unsigned int bitMask) {
     
     NSMutableArray*	arguments = [NSMutableArray arrayWithCapacity: 2];
     if (  (bitMask & OPENVPNSTART_OUR_TAP_KEXT) != 0  ) {
-        NSString * tapkext = [@"tap" stringByAppendingString: TunTapSuffixToUse([gResourcesPath stringByAppendingPathComponent: @"tap"])];
+        NSString * tapkext = [@"tap" stringByAppendingString: TunTapSuffixToUse()];
         NSString * tapPath = [gResourcesPath stringByAppendingPathComponent: tapkext];
         BOOL isDir;
         if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tapPath isDirectory: &isDir]
@@ -1814,7 +1811,7 @@ void loadKexts(unsigned int bitMask) {
         fprintf(stderr, "Loading %s\n", [tapkext UTF8String]);
     }
     if (  (bitMask & OPENVPNSTART_OUR_TUN_KEXT) != 0  ) {
-        NSString * tunkext = [@"tun" stringByAppendingString: TunTapSuffixToUse([gResourcesPath stringByAppendingPathComponent: @"tun"])];
+        NSString * tunkext = [@"tun" stringByAppendingString: TunTapSuffixToUse()];
         NSString * tunPath = [gResourcesPath stringByAppendingPathComponent: tunkext];
         BOOL isDir;
         if (   ! (   [[NSFileManager defaultManager] fileExistsAtPath: tunPath isDirectory: &isDir]

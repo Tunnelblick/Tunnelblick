@@ -1173,7 +1173,7 @@ cambió después de la conexión";
 "Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "La Configuración VPN de Tunnelblick '%@' está vacia. ¿Desea instalar una configuración de ejemplo con ese nombre?";
 
 /* Window text */
-"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick puede verificar si su aprante dirección de IP pública cambia cuando se conecta a una VPN, y avisarle si no lo hace.\n\nEsto puede ayudar a Tunnelblick a diagnosticar problemas con su conección.\n\nEste proceso intenta acceder\n%@\n\nDesea verificar si esta dirección IP cambia?\n";
+"Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick puede verificar si su aprante dirección de IP pública cambia cuando se conecta a una VPN, y avisarle si no lo hace.\n\nEsto puede ayudar a Tunnelblick a diagnosticar problemas con su conexión.\n\nEste proceso intenta acceder\n%@\n\nDesea verificar si esta dirección IP cambia?\n";
 
 /* Window text */
 "Tunnelblick could not be launched because of a problem with the configuration. Please examine the Console Log for details." = "Tunnelblick no pudo ser lanzado por un problema con la configuración. Por favor examine el Registro de Consola para encontrar detalles.";
