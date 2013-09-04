@@ -900,10 +900,7 @@ extern TBUserDefaults       * gTbDefaults;
 -(IBAction) connectingHelpButtonWasClicked: (id) sender {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"vpn-details-advanced-connecting-disconnecting.html", nil);
 }
 
 
@@ -1211,19 +1208,13 @@ extern TBUserDefaults       * gTbDefaults;
 -(IBAction) whileConnectedHelpButtonWasClicked: (id) sender {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"vpn-details-advanced-connecting-disconnecting.html", nil);
 }
 
 -(IBAction) vpnCredentialsHelpButtonWasClicked: (id) sender {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("vpn-details-advanced-connecting-disconnecting.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"vpn-details-advanced-connecting-disconnecting.html", nil);
 }
 
 // General methods

@@ -829,9 +829,9 @@ NSString * newTemporaryDirectoryPath(void)
 
 
 // Modified from http://developer.apple.com/library/mac/#documentation/Carbon/Conceptual/ProvidingUserAssitAppleHelp/using_ah_functions/using_ah_functions.html#//apple_ref/doc/uid/TP30000903-CH208-CIHFABIE
-OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
+OSStatus MyGotoHelpPage (NSString * pagePath, NSString * anchorName)
 {
-    OSStatus err = fnfErr;
+    OSStatus err = noErr;
     
     if (  runningOnSnowLeopardOrNewer()  ) {
         
@@ -857,20 +857,24 @@ OSStatus MyGotoHelpPage (CFStringRef pagePath, CFStringRef anchorName)
             goto bail;
         }
         
-        err = AHGotoPage (myBookName, pagePath, anchorName);// 5
+        err = AHGotoPage (myBookName, (CFStringRef) pagePath, (CFStringRef) anchorName);// 5
     } else {
-        NSString * pagePathS = (NSString *) pagePath;
-        NSString * fullPath = [[NSBundle mainBundle] pathForResource: pagePathS ofType: nil inDirectory: @"help"];
+        NSString * fullPath = [[NSBundle mainBundle] pathForResource: pagePath ofType: nil inDirectory: @"help"];
         if (  fullPath  ) {
-            err = ( [[NSWorkspace sharedWorkspace] openFile: fullPath] ) 
-            ? 0
-            : fnfErr;
+            err = (  [[NSWorkspace sharedWorkspace] openFile: fullPath]
+                   ? 0
+                   : fnfErr);
         } else {
-            NSLog(@"Unable to locate %@ in 'help' resource folder", pagePathS);
+            NSLog(@"Unable to locate %@ in 'help' resource folder", pagePath);
+            err = fnfErr;
         }
     }
     
 bail:
+	if ( err != noErr  ) { 
+		NSLog(@"Error %ld in MyGotoHelpPage()", (long) err);
+	}
+	
     return err;
 }
 
