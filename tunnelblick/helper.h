@@ -123,6 +123,5 @@ BOOL           tunnelblickTestAppInApplications(void);
 BOOL           tunnelblickTestDeployed(void);
 BOOL           tunnelblickTestHasDeployBackups(void);
 
-
-OSStatus       MyGotoHelpPage           (CFStringRef pagePath, 
-                                         CFStringRef anchorName);
+OSStatus       MyGotoHelpPage           (NSString * pagePath,
+                                         NSString * anchorName);
