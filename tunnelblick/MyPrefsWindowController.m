@@ -1093,10 +1093,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("vpn-details.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"vpn-details.html", nil);
 }
 
 
@@ -2575,10 +2572,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("preferences-general.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"preferences-general.html", nil);
 }
 
 
@@ -2882,10 +2876,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("preferences-appearance.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"preferences-appearance.html", nil);
 }
 
 
@@ -2954,10 +2945,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("info.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"info.html", nil);
 }
 
 
@@ -3039,10 +3027,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
 	(void) sender;
 	
-    OSStatus err;
-    if ((err = MyGotoHelpPage(CFSTR("preferences-utilities.html"), NULL))  ) {
-        NSLog(@"Error %ld from MyGotoHelpPage()", (long) err);
-    }
+    MyGotoHelpPage(@"preferences-utilities.html", nil);
 }
 
 //***************************************************************************************************************
