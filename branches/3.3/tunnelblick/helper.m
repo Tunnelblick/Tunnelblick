@@ -666,6 +666,18 @@ int TBRunAlertPanelExtended(NSString * title,
     if (  error  ) {
 		NSLog(@"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX, so TBRunAlertExtended is returning NSAlertErrorReturn",
               (long) error, (long) notification);
+        SInt32 status = CFUserNotificationDisplayNotice(60.0,
+                                                        kCFUserNotificationStopAlertLevel,
+                                                        NULL,
+                                                        NULL,
+                                                        NULL,
+                                                        (CFStringRef) NSLocalizedString(@"Alert", @"Window title"),
+                                                        (CFStringRef) [NSString stringWithFormat:
+                                                                       NSLocalizedString(@"Tunnelblick could not display a window.\n\n"
+                                                                                         @"CFUserNotificationCreate() returned with error = %ld; notification = 0x%lX", @"Window text"),
+                                                                       (long) error, (long) notification],
+                                                        NULL);
+        NSLog(@"CFUserNotificationDisplayNotice() returned %ld", (long) status);
 		if (  notification  ) {
 			CFRelease(notification);
 		}
