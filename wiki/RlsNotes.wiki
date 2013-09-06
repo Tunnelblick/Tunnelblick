@@ -9,6 +9,12 @@
 
 ==Version 3.4==
 
+*3.4beta08 (2013-09-06)*
+
+ * Fixes a problem that caused update checks to fail.
+
+--------------------
+
 *3.4beta06 (2013-09-06)*
 
  * Fixes a crash when accessing checkboxes on the 'Advanced' window.
