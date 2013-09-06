@@ -1593,12 +1593,23 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 			// .../appcast-b.rss --> update to latest Beta version
 			// .../appcast-d.rss --> Downgrade to latest stable version from a later beta version
 			
-			NSString * withoutExt = [feedURL stringByDeletingPathExtension];
+            // Get the URL without the .rss (or whatever) extension.
+            // Can't use stringByDeletingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
+            NSString * withoutExt = [[feedURL retain] autorelease];
+            NSRange dotRange = [feedURL rangeOfString: @"." options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
+            if (  dotRange.location != NSNotFound  ) {
+                NSRange slashRange = [feedURL rangeOfString: @"/" options: NSBackwardsSearch range: NSMakeRange(0, [feedURL length])];
+                if (   (slashRange.location == NSNotFound)
+                    || (slashRange.location < dotRange.location)  ) {
+                    withoutExt = [feedURL substringToIndex: dotRange.location];
+                }
+            }
 			if (   [withoutExt hasSuffix: @"-b"]
 				|| [withoutExt hasSuffix: @"-d"]
 				|| [withoutExt hasSuffix: @"-s"]  ) {
 				withoutExt = [withoutExt substringToIndex: [withoutExt length] - 2];
 			}
+            
 			NSString * newSuffix;
 			if (  forceDowngrade  ) {
 				newSuffix = @"-d";
@@ -1614,8 +1625,13 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                                 : @"-s"));
 			}
 			NSString * ext = [feedURL pathExtension];
-			feedURL = [[NSString stringWithFormat: @"%@%@", withoutExt, newSuffix] stringByAppendingPathExtension: ext];
-			
+			// Can't use stringByAppendingPathExtension because it changes double-slashes to single slashes (e.g., changes "https://www" to "https:/www")
+			if (  [ext length] == 0  ) {
+				feedURL = [withoutExt stringByAppendingString: newSuffix];
+			} else {
+				feedURL = [NSString stringWithFormat: @"%@%@.%@", withoutExt, newSuffix, ext];
+			}
+
             NSURL * url = [NSURL URLWithString: feedURL];
             if ( url  ) {
                 [updater setFeedURL: url];
