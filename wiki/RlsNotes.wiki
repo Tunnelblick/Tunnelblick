@@ -9,6 +9,22 @@
 
 ==Version 3.4==
 
+*3.4beta06 (2013-09-06)*
+
+ * Fixes a crash when accessing checkboxes on the 'Advanced' window.
+
+ * Uses digitally signed tun and tap kexts on OS X 10.9 ('Mavericks').
+
+ * Recovers more gracefully from some crashes.
+
+ * Fixes a typo in the ES (Spanish) translation.
+
+ * Fixes a problem that sometimes caused a spurious entry in the Console Log.
+
+ * Fixes a small memory leak.
+
+--------------------
+
 *3.4beta04 (2013-08-21)*
 
  * Uses https: for update checks and loading all update information. (Updates are still protected by being digitally signed; this is an additional level of security.)

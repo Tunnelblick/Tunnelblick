@@ -1,6 +1,23 @@
 #summary The Latest News About Tunnelblick
 #sidebar cSb
 
+*<font size="3">News</font>*
+
+2013-09-06: *Tunnelblick 3.4beta06 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Fixes a crash when accessing checkboxes on the 'Advanced' window.
+
+ * Uses digitally signed tun and tap kexts on OS X 10.9 ('Mavericks').
+
+ * Recovers more gracefully from some crashes.
+
+ * Includes several other minor changes.
+ 
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+
+--------------------
+
 2013-08-21: *Tunnelblick 3.4beta04 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Uses https: for update and IP address checks.
