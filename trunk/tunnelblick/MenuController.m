@@ -3185,7 +3185,9 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
-    NSArray *arguments = [NSArray arrayWithObjects:@"-v", appPath, nil];
+    NSString * sparkleFrameworkPath = [appPath stringByAppendingPathComponent: @"Contents/Frameworks/Sparkle.Framework"];
+    
+    NSArray *arguments = [NSArray arrayWithObjects:@"-v", appPath, sparkleFrameworkPath, nil];
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we should specify something
@@ -5047,6 +5049,52 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         }
     }
     
+	// Check _CodeSignature if it is present. It should have 0755 permissions, and all of its contents should have 0644 permissions
+	NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
+	if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
+		&& isDir  ) {
+		if (  ! checkOwnerAndPermissions(codeSigPath, 0, 0, 0755)  ) {
+			return YES;
+		}
+		dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
+		while (  (file = [dirEnum nextObject])  ) {
+			NSString * itemPath = [codeSigPath stringByAppendingPathComponent: file];
+			if (  ! checkOwnerAndPermissions(itemPath, 0, 0, 0644)  ) {
+				return YES;
+			}
+		}
+	}
+			
+    // Check all kexts
+    // Everything in a kext should have permissions of 0755 except Info.plist and the contents of _CodeSignature, which all should have permissions of 0644
+    dirEnum = [gFileMgr enumeratorAtPath: resourcesPath];
+    while (  (file = [dirEnum nextObject])  ) {
+        [dirEnum skipDescendents];
+        if (  [file hasSuffix: @".kext"]  ) {
+            NSString * kextPath = [resourcesPath stringByAppendingPathComponent: file];
+            if (   [gFileMgr fileExistsAtPath: kextPath isDirectory: &isDir]
+                && isDir  ) {
+                NSString * itemName;
+                NSDirectoryEnumerator * kextEnum = [gFileMgr enumeratorAtPath: kextPath];
+                while (  (itemName = [kextEnum nextObject])  ) {
+                    NSString * fullPath = [kextPath stringByAppendingPathComponent: itemName];
+                    if (   [fullPath hasSuffix: @"/Info.plist"]
+                        || [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]   ) {
+                        if (  ! checkOwnerAndPermissions(fullPath, 0, 0, 0644)  ) {
+                           return YES;
+                        }
+                    } else {
+                        if (  ! checkOwnerAndPermissions(fullPath, 0, 0, 0755)  ) {
+                            return YES;
+                        }
+                    }
+                }
+            } else {
+                NSLog(@"Warning: Kext has disappeared (!) or is not a directory: %@", kextPath);
+            }
+        }
+    }
+    
 	// check files which should be owned by root with 744 permissions
 	NSArray *root744Objects = [NSArray arrayWithObjects:
                                atsystemstartPath, installerPath, ssoPath, leasewatchPath, leasewatch3Path,
@@ -5095,6 +5143,21 @@ BOOL needToChangeOwnershipAndOrPermissions(BOOL inApplications)
         && isDir  ) {
         if (  needToSecureFolderAtPath(deployPath)  ) {
             return YES;
+        }
+    }
+    
+    // Final check: Everything in the application is owned by root:wheel and is not writable by "other" 
+    dirEnum = [gFileMgr enumeratorAtPath: tunnelblickPath];
+    while (  (file = [dirEnum nextObject])  ) {
+        NSString     * fullPath = [tunnelblickPath stringByAppendingPathComponent: file];
+        NSDictionary * atts     = [gFileMgr tbFileAttributesAtPath: fullPath traverseLink: NO];
+        uid_t          owner    = (uid_t) [[atts fileOwnerAccountID]      unsignedIntValue];
+        gid_t          group    = (gid_t) [[atts fileGroupOwnerAccountID] unsignedIntValue];
+        unsigned long  perms    = [atts filePosixPermissions];
+        if (   (owner != 0)
+            || (group != 0)
+            || ( (perms & S_IWOTH) != 0 )  ) {
+            NSLog(@"Security warning: owned by %ld:%ld with permissions 0%lo: %@", (long) owner, (long) group, (long) perms, fullPath);
         }
     }
     
