@@ -590,7 +590,7 @@ int main(int argc, char *argv[])
         okSoFar = okSoFar && checkSetPermissions(clientNewAlt2DownPath,     0744, YES);
         okSoFar = okSoFar && checkSetPermissions(clientNewAlt3UpPath,       0744, YES);
         okSoFar = okSoFar && checkSetPermissions(clientNewAlt3DownPath,     0744, YES);
-                
+        
         // Check/set OpenVPN version folders and openvpn and openvpn-down-root.so in them
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: openvpnPath];
         NSString * file;
@@ -612,7 +612,45 @@ int main(int argc, char *argv[])
             }
         }
         
-        // Check/set the app's Deploy folder
+		// Secure _CodeSignature if it is present. All of its contents should have 0644 permissions
+		NSString * codeSigPath = [contentsPath stringByAppendingPathComponent: @"_CodeSignature"];
+		if (   [gFileMgr fileExistsAtPath: codeSigPath isDirectory: &isDir]
+			&& isDir  ) {
+			okSoFar = okSoFar && checkSetPermissions(codeSigPath, 0755, YES);
+			dirEnum = [gFileMgr enumeratorAtPath: codeSigPath];
+			while (  (file = [dirEnum nextObject])  ) {
+				NSString * itemPath = [codeSigPath stringByAppendingPathComponent: file];
+				okSoFar = okSoFar && checkSetPermissions(itemPath, 0644, YES);
+			}
+		}
+		
+        // Secure kexts
+        // Everything inside the kext should have 0755 permissions except the Info.plist, and all contents of _CodeSignature, which should have 0644 permissions
+        dirEnum = [gFileMgr enumeratorAtPath: appResourcesPath];
+        while (  (file = [dirEnum nextObject])  ) {
+			[dirEnum skipDescendents];
+            if (  [file hasSuffix: @".kext"]  ) {
+                NSString * kextPath = [appResourcesPath stringByAppendingPathComponent: file];
+                if (   [gFileMgr fileExistsAtPath: kextPath isDirectory: &isDir]
+                    && isDir  ) {
+                    NSString * itemName;
+                    NSDirectoryEnumerator * kextEnum = [gFileMgr enumeratorAtPath: kextPath];
+                    while (  (itemName = [kextEnum nextObject])  ) {
+                        NSString * fullPath = [kextPath stringByAppendingPathComponent: itemName];
+                        if (   [fullPath hasSuffix: @"/Info.plist"]
+                            || [[[fullPath stringByDeletingLastPathComponent] lastPathComponent] isEqualToString: @"_CodeSignature"]   ) {
+                            okSoFar = okSoFar && checkSetPermissions(fullPath, 0644, YES);
+                        } else {
+                            okSoFar = okSoFar && checkSetPermissions(fullPath, 0755, YES);
+                        }
+                    }
+				} else {
+                    appendLog([NSString stringWithFormat: @"Warning: kext has disappeared (!) or is not a directory: %@", kextPath]);
+                }
+			}
+		}
+		
+		// Check/set the app's Deploy folder
         if (   [gFileMgr fileExistsAtPath: deployPath isDirectory: &isDir]
             && isDir  ) {
             okSoFar = okSoFar && secureOneFolder(deployPath, NO, 0);
