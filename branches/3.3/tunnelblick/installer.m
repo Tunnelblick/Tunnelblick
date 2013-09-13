@@ -1230,7 +1230,8 @@ BOOL convertAllPrivateOvpnAndConfToTblk(void)
                 
 				BOOL convertedOK = [converter convertConfigPath: inConfPath
 													 outputPath: outTblkPath
-													    logFile: gLogFile];
+													    logFile: gLogFile
+                                           includePathNameInLog: YES];
                 if (  ! convertedOK  ) {
                     appendLog([NSString stringWithFormat: @"Unable to convert %@ to a Tunnelblick private Configuration", inConfPath]);
                     [converter release];
