@@ -96,6 +96,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             // killAllStringC is inserted here:
             "%s"
             
+            "./openvpnstart route-pre-down\n"
+            "               to run Tunnelblick's client.route-pre-down.tunnelblick script\n\n"
+            
             "./openvpnstart checkSignature\n"
             "               to verify the application's signature using codesign\n\n"
             
@@ -673,6 +676,7 @@ void exitIfRunExecutableIsNotGood(NSString * path) {
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.1.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.2.down.tunnelblick.sh"]
                                 || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.3.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.route-pre-down.tunnelblick.sh"]
                                 )
                             )
                         )
@@ -885,6 +889,35 @@ int runDownScript(unsigned scriptNumber) {
     } else {
         
 		fprintf(stdout, "Down script #%d does not exist\n", scriptNumber);
+		returnValue = 184;
+    }
+    
+    exitOpenvpnstart(returnValue);
+    return returnValue; // Avoid analyzer warnings
+}
+
+//**************************************************************************************************************************
+int runRoutePreDownScript(void) {
+    
+    int returnValue = 0;
+    
+    NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"client.route-pre-down.tunnelblick.sh"];
+	
+	becomeRootToAccessPath(scriptPath, @"Check if script exists");
+	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
+	stopBeingRootToAccessPath(scriptPath);
+    
+	if (  scriptExists  ) {
+        
+        exitIfWrongOwnerOrPermissions(scriptPath, 0, 0, 0744);
+        
+        fprintf(stdout, "Executing %s in %s...\n", [[scriptPath lastPathComponent] UTF8String], [[scriptPath stringByDeletingLastPathComponent] UTF8String]);
+        returnValue = runAsRoot(scriptPath, [NSArray array], 0744);
+        fprintf(stdout, "%s returned with status %d\n", [[scriptPath lastPathComponent] UTF8String], returnValue);
+        
+    } else {
+        
+		fprintf(stdout, "No such script exists: %s\n", [scriptPath UTF8String]);
 		returnValue = 184;
     }
     
@@ -2587,6 +2620,12 @@ int main(int argc, char * argv[]) {
 				syntaxError = FALSE;
 			}
 		
+        } else if (  strcmp(command, "route-pre-down") == 0  ) {
+            if (  argc == 2  ) {
+				runRoutePreDownScript();
+				syntaxError = FALSE;
+			}
+            
         } else if (  strcmp(command, "checkSignature") == 0  ) {
             if (  argc == 2  ) {
 				checkSignature();
