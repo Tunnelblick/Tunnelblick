@@ -1117,6 +1117,7 @@ if ${ARG_TAP} ; then
 		logMessage "DEBUG_TAP: bRouteGatewayIsDhcp is TRUE"
 		if [ -z "$dev" ]; then
 			logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
+            # We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
 			exit 1
 		fi
 		
@@ -1148,5 +1149,7 @@ else
 		EXIT_CODE=$?
 	fi
 fi
+
+touch "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
 
 exit $EXIT_CODE
