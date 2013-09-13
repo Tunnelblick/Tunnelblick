@@ -21,14 +21,17 @@
 <p class="p2"><br></p>
 <p class="p3">Tunnelblick's Advanced Settings Window contains less-used settings for the configuration that is selected in the VPN Details Window.<span class="Apple-converted-space"> </span></p>
 <p class="p2"><br></p>
-<p class="p4"><b>Most users do not need to change the settings in this window.</b></p>
+<p class="p4"><b>Most users do not need to change the settings in this window -- Tunnelblick's default settings work best for most situations.</b></p>
 <p class="p2"><br></p>
-<p class="p3">This window has two tabs. One tab contains advanced controls for when Tunnelblick is connecting or disconnecting the configuration; the other tab contains controls that are used while a connection is active.</p>
-<p class="p2"><br></p>
+<p class="p3">This window has three tabs.</p>
+<ul class="ul1">
+  <li class="li3"><b>Connecting & Disconnecting</b> specifies actions to take when connecting or disconnecting from a configuration.</li>
+  <li class="li3"><b>While Connected</b> specifies actions to take while connected to a configuration.</li>
+  <li class="li3"><b>VPN Credentials</b> lets the user manage groups of credentials (usernames, passwords, and passphrases) for configurations.</li>
+</ul>
 <p class="p1"><b>Connecting and Disconnecting Tab</b></p>
 <p class="p2"><br></p>
 <p class="p3">Each setting in this tab is controlled by a checkbox:</p>
-<p class="p2"><br></p>
 <ul class="ul1">
   <li class="li3"><b>Scan configuration file for problems before connecting</b>. When checked, Tunnelblick will scan the OpenVPN configuration file for problems before each attempt at connecting.</li>
   <li class="li3"><b>Use Tunnelblick tun/tap drivers</b>: Tunnelblick contains its own tun/tap drivers. When checked, Tunnelblick will load the appropriate driver before attempting to make a connection if the driver is not already loaded. The driver will be unloaded until all configurations using the driver have been disconnected.</li>
@@ -39,7 +42,6 @@
 </ul>
 <p class="p2"><br></p>
 <p class="p3">Two checkboxes control what Tunnelblick does when a system "Fast User Switch" occurs:</p>
-<p class="p2"><br></p>
 <ul class="ul1">
   <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li>
   <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in, if the configuration was connected before the user switched out.</li>
@@ -47,12 +49,14 @@
 <p class="p2"><br></p>
 <p class="p1"><b>While Connected Tab</b></p>
 <p class="p2"><br></p>
-<p class="p3">This tab contains a checkbox to "Route all traffic through the VPN. When checked, a '--redirect-gateway def1' option is sent to OpenVPN, causing routing to be set up to route all traffic through the VPN. If this is not checked, the OpenVPN configuration file may contain the option, or the option may be "pushed" from the VPN server; in either of these cases also, all traffic will be routed through the VPN.</p>
-<p class="p3">This tab also contains a checkbox to control whether or not the network settings are monitored for changes while a connection is active.</p>
-<p class="p3">It also contains two sets of actions that will be taken when particular network settings change in the following ways:</p>
+<p class="p3">This tab contains two checkboxes:</p>
 <ul class="ul1">
-  <li class="li3"><b>When change to pre-VPN value</b>. These actions are taken when a network setting changes to the value it was before the VPN was established.</li>
-  <li class="li3"><b>When changes to anything else</b>. These actions are taken when a network setting changes to any other value.</li>
+  <li class="li3"><b>Route all traffic through the VPN</b>. When checked, a '--redirect-gateway def1' option is sent to OpenVPN, causing routing to be set up to route all traffic through the VPN. If this is not checked, all traffic may still be sent through the VPN because the OpenVPN configuration file may contain the option, or the option may be "pushed" from the VPN server</li>
+  <li class="li3"><b>Monitor network settings</b>. When checked, Tunnelblick will monitor network settings for changes while the selected configuration is connected and restore settings or restart the VPN if necessary. This may be done to react to DHCP renewals or other network changes. The actions that Tunnelblick takes when various network changes occur may be specified in the two sets of actions that will be taken when particular network settings change in the following ways:</p>
+  <ul class="ul1">
+    <li class="li3"><b>When changes to pre-VPN value</b>. These actions are taken when a network setting changes to the value it was before the VPN was established.</li>
+    <li class="li3"><b>When changes to anything else</b>. These actions are taken when a network setting changes to any other value.</li>
+  </ul>
 </ul>
 <p class="p3">One of three actions may be selected for each change:</p>
 <ul class="ul1">

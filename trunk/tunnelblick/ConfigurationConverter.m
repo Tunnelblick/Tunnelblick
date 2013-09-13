@@ -56,17 +56,18 @@ extern NSString      * gPrivatePath;
 	if (  [path hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
 		return [path substringFromIndex: [gPrivatePath length] + 1];
 	} else {
-		return path;
+        return [path lastPathComponent];
 	}
 }
 
 -(void) logMessage: (NSString *) msg {
-	NSString * fullMsg;
-	if (  inputLineNumber == 0  ) {
-		fullMsg = [NSString stringWithFormat: @"%@: %@", [self nameToDisplayFromPath: configPath], msg];
-	} else {
-		fullMsg = [NSString stringWithFormat: @"%@ line %u: %@", [self nameToDisplayFromPath: configPath], inputLineNumber, msg];
-	}
+	NSString * name = [self nameToDisplayFromPath: configPath];
+	NSString * pathString = (  includePathNameInLog
+							 ? [name stringByAppendingString: @": "]
+							 : @"");
+	NSString * fullMsg = (  inputLineNumber == 0
+						  ? [NSString stringWithFormat: @"%@%@", pathString, msg]
+						  : [NSString stringWithFormat: @"%@line %u: %@", pathString, inputLineNumber, msg]);
 	if (  logFile == NULL  ) {
 		NSLog(@"%@", fullMsg);
 	} else {
@@ -101,8 +102,7 @@ extern NSString      * gPrivatePath;
         
 		if (  inDoubleQuote  ) {
 			if (  c == '"'  ) {
-                returnRange.length++;	// double-quote marks end of token and is part of the token
-                return returnRange;
+                return returnRange;		// double-quote marks end of token but is not part of the token
             }
             if (  c == UNICHAR_LF  ) {
                 [self logMessage: [NSString stringWithFormat: @"Unbalanced double-quote"]];
@@ -115,8 +115,7 @@ extern NSString      * gPrivatePath;
         
         if (  inSingleQuote  ) {
             if (  c == '\''  ) {
-                returnRange.length++;  // single-quote marks end of token and is part of the token
-                return returnRange;
+                return returnRange;  // single-quote marks end of token but is not part of the token
             }
             if (  c == UNICHAR_LF  ) {
                 [self logMessage: [NSString stringWithFormat: @"Unbalanced single-quote"]];
@@ -160,10 +159,10 @@ extern NSString      * gPrivatePath;
             
             inDoubleQuote = TRUE;       // processing a double-quote string
             inToken = TRUE;
-			// If haven't started token, this is the start of the token
+			// If haven't started token, whatever is next is the start of the token
 			if (  returnRange.location == NSNotFound  ) {
-				returnRange.location = inputIx - 1;
-				returnRange.length   = 1;
+				returnRange.location = inputIx;
+				returnRange.length   = 0;
 			}
             continue;
             
@@ -175,10 +174,10 @@ extern NSString      * gPrivatePath;
             
             inSingleQuote = TRUE;       // processing a single-quote string
             inToken       = TRUE;
-			// If haven't started token, this is the start of the token
+			// If haven't started token, whatever is next is the start of the token
 			if (  returnRange.location == NSNotFound  ) {
-				returnRange.location = inputIx - 1;
-				returnRange.length   = 1;
+				returnRange.location = inputIx;
+				returnRange.length   = 0;
 			}
             continue;
             
@@ -208,27 +207,27 @@ extern NSString      * gPrivatePath;
     return returnRange;
 }
 
--(NSArray *) getTokensFromString: (NSString *) string {
+-(NSMutableArray *) getTokens {
 	NSMutableArray * arr = [NSMutableArray arrayWithCapacity: 300];
 	
 	inputIx = 0;
 	unsigned lineNum = 1;
 	
-	while (  inputIx < [string length]  ) {
+	while (  inputIx < [configString length]  ) {
 		NSRange r = [self nextTokenInLine];
 		if (  r.location == NSNotFound  ) {
-			while (  inputIx++ < [string length]  ) {
-				if (  [[string substringWithRange: NSMakeRange(inputIx - 1, 1)] isEqualToString: @"\n"]  ) {
+			while (  inputIx++ < [configString length]  ) {
+				if (  [[configString substringWithRange: NSMakeRange(inputIx - 1, 1)] isEqualToString: @"\n"]  ) {
 					lineNum++;
 					break;
 				}
 			}
 			[arr addObject: [[[ConfigurationToken alloc] initWithRange:NSMakeRange(inputIx - 1, 1)
-                                                              inString: string
+                                                              inString: configString
                                                             lineNumber: lineNum] autorelease]];
 		} else {
 			[arr addObject: [[[ConfigurationToken alloc] initWithRange: r
-                                                              inString: string
+                                                              inString: configString
                                                             lineNumber: lineNum] autorelease]];
 		}
 	}
@@ -236,35 +235,69 @@ extern NSString      * gPrivatePath;
 	return arr;
 }
 
+-(NSArray *) getTokensFromPath: (NSString *) theConfigPath
+                    lineNumber: (unsigned)   theLineNumber
+                        string: (NSString *) theString
+                    outputPath: (NSString *) theOutputPath
+                       logFile: (FILE *)     theLogFile {
+
+    configPath      = [theConfigPath copy];
+    inputLineNumber = theLineNumber;
+    configString    = [theString copy];
+    outputPath      = [theOutputPath copy];
+    logFile         = theLogFile;
+    
+    inputIx         = 0;
+    
+	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
+	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
+
+    NSMutableArray * tokensToReturn = [self getTokens];
+    return tokensToReturn;
+}
+
 -(BOOL) processPathRange: (NSRange) rng
 	   removeBackslashes: (BOOL) removeBackslashes
         needsShExtension: (BOOL) needsShExtension {
     
 	NSString * inPathString = [configString substringWithRange: rng];
-	NSString * inPath = [[inPathString copy] autorelease];
 	if (  removeBackslashes  ) {
-		NSMutableString * path = [[inPath mutableCopy] autorelease];	
-		unsigned slashIx;
-		while (  (slashIx = [path rangeOfString: @"\\"].location) != NSNotFound  ) {
-			[path deleteCharactersInRange: NSMakeRange(slashIx, 1)];
+		NSMutableString * path = [inPathString mutableCopy];
+		[path replaceOccurrencesOfString: @"\\" withString: @"" options: 0 range: NSMakeRange(0, [path length])];
+		inPathString = [NSString stringWithString: path];
+		[path release];
+	}
+	
+	NSString * inPath = [[inPathString copy] autorelease];
+	if (  ! [inPath hasPrefix: @"/"]  ) {
+		if (  [inPath hasPrefix: @"~"]  ) {
+			inPath = [inPath stringByExpandingTildeInPath];
+		} else {
+			NSString * prefix = (  [configPath hasPrefix: @"/private/"]
+								 ? [configPath stringByDeletingLastPathComponent]
+								 : firstPartOfPath(configPath));
+			if (  ! prefix  ) {
+				prefix = [configPath stringByDeletingLastPathComponent];
+			}
+			inPath = [prefix stringByAppendingPathComponent: inPath];
 		}
-		inPath = [NSString stringWithString: path];
 	}
 	
 	NSString * file = [inPath lastPathComponent];
 	
     // Make sure the file has an extension that Tunnelblick can secure properly
-    NSString * fileWithNeededExtension = file;
+    NSString * fileWithNeededExtension = [[file copy] autorelease];
     NSString * extension = [file pathExtension];
     if (   needsShExtension  ) {
         if (  ! [extension isEqualToString: @"sh"]  ) {
             fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
+			inPath = [inPath stringByAppendingPathExtension: @"sh"];
             [self logMessage: [NSString stringWithFormat: @"Added '.sh' extension to %@ so it will be secured properly", file]];
         }
         
         NSString * errorMsg = errorIfNotPlainTextFileAtPath(inPath, NO);
         if (  errorMsg  ) {
-            [self logMessage: [NSString stringWithFormat: @"File %@: %@", inPath, errorMsg]];
+            [self logMessage: [NSString stringWithFormat: @"File %@: %@", [inPath lastPathComponent], errorMsg]];
             return FALSE;
         }
     } else {
@@ -277,11 +310,6 @@ extern NSString      * gPrivatePath;
     
     if (  outputPath  ) {
 
-		if (  ! (   [inPath hasPrefix: @"/"]
-				 || [inPath hasPrefix: @"~"]  )  ) {
-			inPath = [firstPartOfPath(configPath) stringByAppendingPathComponent: inPath];
-		}
-				
         NSString * outPath = [[[outputPath stringByAppendingPathComponent: @"Contents"]
                                stringByAppendingPathComponent: @"Resources"]
                               stringByAppendingPathComponent: fileWithNeededExtension];
@@ -330,11 +358,14 @@ extern NSString      * gPrivatePath;
     }
 	
 	if (  ! [inPathString isEqualToString: fileWithNeededExtension]  ) {
-		[tokensToReplace  addObject: [[[ConfigurationToken alloc] initWithRange: rng
-																	   inString: configString
-																	 lineNumber: inputLineNumber
-									   ] autorelease]];
-		[replacementStrings addObject: fileWithNeededExtension];
+		[tokensToReplace  addObject: [[[ConfigurationToken alloc]
+                                       initWithRange: rng
+                                       inString:      configString
+                                       lineNumber:    inputLineNumber] autorelease]];
+		NSMutableString * temp = [fileWithNeededExtension mutableCopy];
+		[temp replaceOccurrencesOfString: @" " withString: @"\\ " options: 0 range: NSMakeRange(0, [temp length])];
+		[replacementStrings addObject: [NSString stringWithString: temp]];
+		[temp release];
     }
 	
     return TRUE;
@@ -342,7 +373,9 @@ extern NSString      * gPrivatePath;
 
 -(BOOL) convertConfigPath: (NSString *) theConfigPath
                outputPath: (NSString *) theOutputPath
-                  logFile: (FILE *)     theLogFile {
+                  logFile: (FILE *)     theLogFile
+     includePathNameInLog: (BOOL)       theIncludePathNameInLog {
+    
     // Converts a configuration file for use in a .tblk by removing all path information from ca, cert, etc. options.
     //
 	// If outputPath is specified, it is created as a .tblk and the configuration file and keys and certificates are copied into it.
@@ -350,9 +383,10 @@ extern NSString      * gPrivatePath;
     //
 	// If logFile is nil, NSLog is used
 	
-    configPath   = [theConfigPath copy];
-    outputPath   = [theOutputPath copy];
-    logFile      = theLogFile;
+    configPath           = [theConfigPath copy];
+    outputPath           = [theOutputPath copy];
+    logFile              = theLogFile;
+    includePathNameInLog = theIncludePathNameInLog;
 	
     inputIx         = 0;
     inputLineNumber = 0;
@@ -373,7 +407,7 @@ extern NSString      * gPrivatePath;
         [configString appendString: @"\n"];
     }
     
-    tokens = [[self getTokensFromString: configString] copy];
+    tokens = [[self getTokens] copy];
 	
     // List of OpenVPN options that take a file path
     NSArray * optionsWithPath = [NSArray arrayWithObjects:
@@ -486,23 +520,19 @@ extern NSString      * gPrivatePath;
                 }
             } else if (  [optionsWithCommand containsObject: [firstToken stringValue]]  ) {
                 if (  secondToken  ) {
-                    // remove leading/trailing single- or double-quotes
 					NSRange r2 = [secondToken range];
-                    if (   (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"\""]
-                            && [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"\""]  )
-                        || (   [[configString substringWithRange: NSMakeRange(r2.location, 1)] isEqualToString: @"'"]
-                            && [[configString substringWithRange: NSMakeRange(r2.location + r2.length - 1, 1)] isEqualToString: @"'"]  )  )
-                    {
-                        r2.location++;
-                        r2.length -= 2;
-                    }
                     
-                    // Find end of first token (i.e. path) that is within secondToken (i.e. the command)
-                    NSRange r3 = [[configString substringWithRange: r2] rangeOfCharacterFromSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    if (  r3.length != 0  ) {
-                        r2.length = r3.location;    // secondToken has a file and arguments; file token ends at separator between them
-                    }
-
+                    // The second token is a command, which consists of a path and arguments, so we must parse the command
+                    // to extract the path, then use that extracted path
+                    NSString * command = [[configString substringWithRange: [secondToken range]] stringByAppendingString: @"\n"];
+                    ConfigurationConverter * converter = [[ConfigurationConverter alloc] init];
+                    NSArray * commandTokens = [converter getTokensFromPath: configPath lineNumber: inputLineNumber string: command outputPath: outputPath logFile: logFile];
+                    [converter release];
+                    
+                    // Set the length of the path of the command
+                    NSRange r3 = [[commandTokens objectAtIndex: 0] range];
+                    r2.length = r3.length;
+                    
                     // copy the file and change the path in the configuration string if necessary
                     if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES]  ) {
                         return FALSE;
