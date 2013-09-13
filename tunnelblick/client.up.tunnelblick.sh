@@ -557,6 +557,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
         d.add RouteGatewayIsDhcp    "${bRouteGatewayIsDhcp}"
 		d.add bAlsoUsingSetupKeys   "${bAlsoUsingSetupKeys}"
         d.add TapDeviceHasBeenSetNone "false"
+        d.add TunnelDevice          "$dev"
 		set State:/Network/OpenVPN
 		
 		# Back up the device's current DNS and SMB configurations,
