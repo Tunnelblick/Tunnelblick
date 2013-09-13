@@ -59,8 +59,6 @@
 
 -(NSMutableDictionary *)    getConfigurations;
 
--(NSString *)               makeTemporarySampleTblkWithName: (NSString *)   name;
-
 -(void)                     openDotTblkPackages:        (NSArray *)         filePaths
                                       usingAuth:        (AuthorizationRef)  authRef
                         skipConfirmationMessage:        (BOOL)              skipConfirmMsg

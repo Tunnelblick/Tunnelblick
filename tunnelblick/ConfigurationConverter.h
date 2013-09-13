@@ -33,12 +33,13 @@
 	NSString        * outputPath;           // Path to output .tblk to be created or nil to not create a .tblk or copy files
 	NSString        * configPath;           // Path to .ovpn or .conf file to be converted
 	FILE            * logFile;              // Log FILE
+    BOOL              includePathNameInLog; // Whether or not to include the path name in log entries
     
 	NSMutableString * configString;         // String containing contents of input configuration file (modified as we do processing)
     
     NSMutableArray  * tokens;               // Array of ConfigurationTokens
     
-    NSMutableArray  * tokensToReplace;    // Array of ranges (actually of ConfigurationTokens) to be replaced by new strings in configString
+    NSMutableArray  * tokensToReplace;      // Array of ranges (actually of ConfigurationTokens) to be replaced by new strings in configString
     NSMutableArray  * replacementStrings;   // Array of strings to replace the ranges in configString
 
 	unsigned          inputLineNumber;		// Line number we are parsing in the configuration file
@@ -47,6 +48,7 @@
 
 -(BOOL) convertConfigPath: (NSString *) theConfigPath
                outputPath: (NSString *) theOutputPath
-                  logFile: (FILE *)     theLogFile;
+                  logFile: (FILE *)     theLogFile
+     includePathNameInLog: (BOOL)       includePathNameInLog;
 
 @end
