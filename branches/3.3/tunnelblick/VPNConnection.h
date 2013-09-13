@@ -99,7 +99,8 @@ struct Statistics {
     // These variables are updated (outside of the main thread) by netsocket:dataAvailable:
     struct Statistics statistics;
     NSDate        * bytecountsUpdated;  // Time variables were last updated
-
+    NSArray       * argumentsUsedToStartOpenvpnstart;   // The arguments that were last used to run openvpnstart
+    
     pthread_mutex_t bytecountMutex;     // Used to avoid race conditions when accessing the above
 
     BOOL            bytecountMutexOK;   // Flag that the mutex is set up. (If not, we don't do statistics)
@@ -228,6 +229,7 @@ TBPROPERTY_WRITEONLY(NSSound *, tunnelDownSound, setTunnelDownSound)
 TBPROPERTY_WRITEONLY(BOOL, speakWhenConnected, setSpeakWhenConnected)
 TBPROPERTY_WRITEONLY(BOOL, speakWhenDisconnected, setSpeakWhenDisconnected)
 TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
+TBPROPERTY(NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 
 //*********************************************************************************************************
 //

@@ -809,6 +809,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     [tunnelDownSound release];
 	[ipAddressBeforeConnect release];
 	[serverIPAddress release];
+    [argumentsUsedToStartOpenvpnstart release];
     
     [super dealloc];
 }
@@ -1320,9 +1321,11 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     [self disconnectFromManagmentSocket];
 
     [self clearLog];
-	    
-	NSArray * arguments = [self argumentsForOpenvpnstartForNow: YES];
-    if (  arguments == nil  ) {
+    
+    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES]];
+    [argumentsUsedToStartOpenvpnstart retain];
+    
+    if (  argumentsUsedToStartOpenvpnstart == nil  ) {
         if (  userKnows  ) {
             requestedState = oldRequestedState; // User cancelled
         }
@@ -1334,7 +1337,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  path  ) {
         NSTask* task = [[[NSTask alloc] init] autorelease];
         [task setLaunchPath: path];
-        [task setArguments: arguments];
+        [task setArguments: argumentsUsedToStartOpenvpnstart];
         [task setCurrentDirectoryPath: [path stringByDeletingLastPathComponent]];
         [task launch];
         if (  [[[path stringByDeletingPathExtension] pathExtension] isEqualToString: @"wait"]) {
@@ -1360,28 +1363,28 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     NSString * logText = [NSString stringWithFormat:@"*Tunnelblick: Attempting connection with %@%@; Set nameserver = %@%@",
                           [self displayName],
-                          (  [[arguments objectAtIndex: 5] isEqualToString:@"1"]
+                          (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"1"]
                            ? @" using shadow copy"
-                           : (  [[arguments objectAtIndex: 5] isEqualToString:@"2"]
+                           : (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"]
                               ? @" from Deploy"
                               : @""  )  ),
-                          [arguments objectAtIndex: 3],
-                          (  [[arguments objectAtIndex: 6] isEqualToString:@"1"]
+                          [argumentsUsedToStartOpenvpnstart objectAtIndex: 3],
+                          (  [[argumentsUsedToStartOpenvpnstart objectAtIndex: 6] isEqualToString:@"1"]
                            ? @"; not monitoring connection"
                            : @"; monitoring connection" )
                           ];
     [self addToLog: logText];
 
-    NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[arguments count]];
+    NSMutableArray * escapedArguments = [NSMutableArray arrayWithCapacity:[argumentsUsedToStartOpenvpnstart count]];
     unsigned i;
-    for (i=0; i<[arguments count]; i++) {
-        [escapedArguments addObject: [[[arguments objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
+    for (i=0; i<[argumentsUsedToStartOpenvpnstart count]; i++) {
+        [escapedArguments addObject: [[[argumentsUsedToStartOpenvpnstart objectAtIndex: i] componentsSeparatedByString: @" "] componentsJoinedByString: @"\\ "]];
     }
     
     [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: openvpnstart %@",
                      [escapedArguments componentsJoinedByString: @" "]]];
     
-    unsigned bitMask = [[arguments objectAtIndex: 7] unsignedIntValue];
+    unsigned bitMask = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 7] unsignedIntValue];
     if (  (loadedOurTap = (bitMask & OPENVPNSTART_OUR_TAP_KEXT) == OPENVPNSTART_OUR_TAP_KEXT)  ) {
         [[NSApp delegate] incrementTapCount];
     }
@@ -1395,9 +1398,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
     NSString * errOut;
     
-    BOOL isDeployedConfiguration = [[arguments objectAtIndex: 5] isEqualToString:@"2"];
+    BOOL isDeployedConfiguration = [[argumentsUsedToStartOpenvpnstart objectAtIndex: 5] isEqualToString:@"2"];
 
-    OSStatus status = runOpenvpnstart(arguments, nil, &errOut);
+    OSStatus status = runOpenvpnstart(argumentsUsedToStartOpenvpnstart, nil, &errOut);
 	
     NSString * openvpnstartOutput;
     if (  status != 0  ) {
@@ -2832,15 +2835,25 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 {
     if (  [newState isEqualToString: @"EXITING"]  ) {
         [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
-		[logDisplay outputLogFiles]; 
-/* Issue to resolve before implementing this:
-   What if we are disconnecting a configuration that didn't run 'up' (but some other config did and is still connected)?
- 
-        if (  [gFileMgr fileExistsAtPath: LEASEWATCHER_PLIST_PATH]  ) {
-            NSLog(@"Although OpenVPN appears to have run the 'up' script successfully, it appears not to have run the 'down' script successfully; Tunnelblick will run the 'down' script.");
-            runOpenvpnstart([NSArray arrayWithObject: @"down"], nil, nil);
+        
+        // If the up script created the flag file at DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH but the down script did not delete it,
+        // it means the down script did not run, which probably means that OpenVPN crashed.
+        // So OpenVPN did not, and will not, run the down script, so we run the down script here.
+        int useScripts = [(NSString *) [argumentsUsedToStartOpenvpnstart objectAtIndex: 3] intValue];
+        if (  (useScripts & OPENVPNSTART_USE_SCRIPTS_RUN_SCRIPTS) != 0  ) {        //
+            if (  [gFileMgr fileExistsAtPath: DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH]  ) {
+                NSString * scriptNumberString = [NSString stringWithFormat: @"%d",
+                                                 (useScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
+                [self addToLog: [NSString stringWithFormat: @"OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
+                if (  [scriptNumberString isEqualToString: @"0"]  ) {
+                    [self addToLog: @"Running the 'route-pre-down' script first."];
+                    runOpenvpnstart([NSArray arrayWithObject: @"route-pre-down"], nil, nil);
+                }
+                runOpenvpnstart([NSArray arrayWithObjects: @"down", scriptNumberString, nil], nil, nil);
+            }
         }
- */    
+        
+		[logDisplay outputLogFiles];
     }
     
     if (  newState != lastState  ) {
@@ -2848,7 +2861,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         [lastState release];
         lastState = newState;
     }
-
+    
     // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
     // The 'connected.sh' and 'reconnecting.sh' scripts are run here
     // The 'disconnect.sh' script is run by this class's hasDisconnected method
@@ -3170,6 +3183,8 @@ TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelUpSound,   setTunnelUpSound)
 TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelDownSound, setTunnelDownSound)
 
 TBSYNTHESIZE_OBJECT(retain, NSDate *, bytecountsUpdated, setBytecountsUpdated)
+
+TBSYNTHESIZE_OBJECT(retain, NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 
 //*********************************************************************************************************
 //
