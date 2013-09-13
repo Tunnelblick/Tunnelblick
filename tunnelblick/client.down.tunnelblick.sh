@@ -74,6 +74,12 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly LOG_MESSAGE_COMMAND=$(basename "${0}")
 
+# Remove the flag file that indicates we need to run the down script
+
+if [ -e   "/tmp/tunnelblick-downscript-needs-to-be-run.txt" ] ; then
+    rm -f "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
+fi
+
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there, so we forget it

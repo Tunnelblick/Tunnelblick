@@ -96,9 +96,6 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             // killAllStringC is inserted here:
             "%s"
             
-            "./openvpnstart down\n"
-            "               to run Tunnelblick's client.down.tunnelblick.sh script\n\n"
-            
             "./openvpnstart checkSignature\n"
             "               to verify the application's signature using codesign\n\n"
             
@@ -107,6 +104,9 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             
             "./openvpnstart unloadKexts   [bitMask]\n"
             "               to unload the .tun and .tap kexts\n\n"
+            
+            "./openvpnstart down scriptNumber\n"
+            "               to run Tunnelblick's scriptNumber down script\n\n"
             
             "./openvpnstart compareShadowCopy      displayName\n"
             "               to compare a private .ovpn, .conf, or .tblk with its secure (shadow) copy\n\n"
@@ -131,6 +131,8 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "               foo.tun kext will be unloaded before loading net.tunnelblick.tun, and foo.tap will be unloaded before loading net.tunnelblick.tap.\n\n"
             
             "Where:\n\n"
+            
+            "scriptNumber is an integer designating what down script to run. (0 = client.down.tunnelblick.sh; 1 = client.1.down.tunnelblick.sh, etc.\n\n"
             
             "processId  is the process ID of the openvpn process to kill\n\n"
             
@@ -656,15 +658,25 @@ void exitIfRunExecutableIsNotGood(NSString * path) {
 
 		if (  [path hasPrefix: @"/A"]  ) {
             NSArray  * pathComponents = [path pathComponents];
-            if (   ([pathComponents count] == 8)
-                && [[pathComponents objectAtIndex: 0] isEqualToString: @"/"]
-                && [[pathComponents objectAtIndex: 1] isEqualToString: @"Applications"]
-                && [[pathComponents objectAtIndex: 2] hasSuffix:       @".app"]
-                && [[pathComponents objectAtIndex: 3] isEqualToString: @"Contents"]
-                && [[pathComponents objectAtIndex: 4] isEqualToString: @"Resources"]
-                && [[pathComponents objectAtIndex: 5] isEqualToString: @"openvpn"]
-                && [[pathComponents objectAtIndex: 6] hasPrefix:       @"openvpn-"]
-                && [[pathComponents objectAtIndex: 7] isEqualToString: @"openvpn"]
+            if (   (   [[pathComponents objectAtIndex: 0] isEqualToString: @"/"]
+                    && [[pathComponents objectAtIndex: 1] isEqualToString: @"Applications"]
+                    && [[pathComponents objectAtIndex: 2] isEqualToString: @"Tunnelblick.app"]
+                    && [[pathComponents objectAtIndex: 3] isEqualToString: @"Contents"]
+                    && [[pathComponents objectAtIndex: 4] isEqualToString: @"Resources"]
+                    && (   (   ([pathComponents count] == 8)
+                            && [[pathComponents objectAtIndex: 5] isEqualToString: @"openvpn"]
+                            && [[pathComponents objectAtIndex: 6] hasPrefix:       @"openvpn-"]
+                            && [[pathComponents objectAtIndex: 7] isEqualToString: @"openvpn"]
+                            )
+                        || (   ([pathComponents count] == 6)
+                            && (   [[pathComponents objectAtIndex: 5] isEqualToString: @"client.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.1.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.2.down.tunnelblick.sh"]
+                                || [[pathComponents objectAtIndex: 5] isEqualToString: @"client.3.down.tunnelblick.sh"]
+                                )
+                            )
+                        )
+                    )
                 ) {
                 notOk = FALSE;
             }
@@ -849,11 +861,14 @@ int runScript(NSString * scriptName, int argc, char * argv[]) {
 }
 
 //**************************************************************************************************************************
-int runDownScript(void) {
+int runDownScript(unsigned scriptNumber) {
     
     int returnValue = 0;
     
-    NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent: @"client.down.tunnelblick.sh"];
+    NSString * scriptPath = [gResourcesPath stringByAppendingPathComponent:
+                             (   scriptNumber == 0
+                              ?  @"client.down.tunnelblick.sh"
+                              : [NSString stringWithFormat: @"client.%d.down.tunnelblick.sh", scriptNumber])];
 	
 	becomeRootToAccessPath(scriptPath, @"Check if script exists");
 	BOOL scriptExists = [[NSFileManager defaultManager] fileExistsAtPath: scriptPath];
@@ -869,7 +884,7 @@ int runDownScript(void) {
 	
     } else {
         
-		fprintf(stdout, "No such script exists: %s\n", [scriptPath UTF8String]);
+		fprintf(stdout, "Down script #%d does not exist\n", scriptNumber);
 		returnValue = 184;
     }
     
@@ -2572,12 +2587,6 @@ int main(int argc, char * argv[]) {
 				syntaxError = FALSE;
 			}
 		
-        } else if (  strcmp(command, "down") == 0  ) {
-            if (  argc == 2  ) {
-				runDownScript();
-				syntaxError = FALSE;
-			}
-            
         } else if (  strcmp(command, "checkSignature") == 0  ) {
             if (  argc == 2  ) {
 				checkSignature();
@@ -2618,6 +2627,13 @@ int main(int argc, char * argv[]) {
 			if (argc == 3) {
 				pid_t pid = (pid_t) atoi(argv[2]);
 				killOneOpenvpn(pid);
+				syntaxError = FALSE;
+			}
+            
+        } else if (  strcmp(command, "down") == 0  ) {
+            if (  argc == 3  ) {
+                unsigned scriptNumber = atoi(argv[2]);
+				runDownScript(scriptNumber);
 				syntaxError = FALSE;
 			}
             
