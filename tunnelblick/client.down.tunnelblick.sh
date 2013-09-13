@@ -29,7 +29,7 @@ flushDNSCache()
     if ${ARG_FLUSH_DNS_CACHE} ; then
         set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
         readonly OSVER="$(sw_vers | grep 'ProductVersion:' | grep -o '10\.[0-9]*')"
-set -e # We instruct bash that it CAN again fail on errors
+        set -e # We instruct bash that it CAN again fail on errors
         case "${OSVER}" in
             10.4 )
                 if [ -f /usr/sbin/lookupd ] ; then
@@ -74,6 +74,12 @@ export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
 readonly LOG_MESSAGE_COMMAND=$(basename "${0}")
 
+# Remove the flag file that indicates we need to run the down script
+
+if [ -e   "/tmp/tunnelblick-downscript-needs-to-be-run.txt" ] ; then
+    rm -f "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
+fi
+
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there, so we forget it
@@ -105,16 +111,35 @@ ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="$(echo "${TUNNELBLICK_CONFIG}" | grep
 bRouteGatewayIsDhcp="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*RouteGatewayIsDhcp :' | sed -e 's/^.*: //g')"
 bTapDeviceHasBeenSetNone="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TapDeviceHasBeenSetNone :' | sed -e 's/^.*: //g')"
 bAlsoUsingSetupKeys="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*bAlsoUsingSetupKeys :' | sed -e 's/^.*: //g')"
+sTunnelDevice="$(echo "${TUNNELBLICK_CONFIG}" | grep -i '^[[:space:]]*TunnelDevice :' | sed -e 's/^.*: //g')"
+
+# Remove leasewatcher
+if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
+	launchctl unload "${LEASEWATCHER_PLIST_PATH}"
+    rm -f "${LEASEWATCHER_PLIST_PATH}"
+	logMessage "Cancelled monitoring of system configuration changes"
+fi
 
 if ${ARG_TAP} ; then
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
         if [ "$bTapDeviceHasBeenSetNone" == "false" ]; then
             if [ -z "$dev" ]; then
-                logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Device may not have disconnected properly."
+                # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
+                # ($def is not defined when this script is called from MenuController to clean up when exiting Tunnelblick)
+                if [ -n "${sTunnelDevice}" ]; then
+                    logMessage "DEBUG: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
+                    set +e
+                    ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
+                    set -e
+                    logMessage "Released the DHCP lease via ipconfig set ${sTunnelDevice} NONE."
+                else
+                    logMessage "Cannot configure TAP interface to NONE without \$dev or State:/Network/OpenVPN/TunnelDevice being defined. Device may not have disconnected properly."
+                fi
             else
                 set +e
                 ipconfig set "$dev" NONE 2>/dev/null
                 set -e
+                logMessage "Released the DHCP lease via ipconfig set $dev NONE."
             fi
         fi
     fi
@@ -132,13 +157,6 @@ grep Service | sed -e 's/.*Service : //'
 set -e # resume abort on error
 if [ "${PSID}" != "${PSID_CURRENT}" ] ; then
 	logMessage "Ignoring change of Network Primary Service from ${PSID} to ${PSID_CURRENT}"
-fi
-
-# Remove leasewatcher
-if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-	launchctl unload "${LEASEWATCHER_PLIST_PATH}"
-    rm -f "${LEASEWATCHER_PLIST_PATH}"
-	logMessage "Cancelled monitoring of system configuration changes"
 fi
 
 # Restore configurations
