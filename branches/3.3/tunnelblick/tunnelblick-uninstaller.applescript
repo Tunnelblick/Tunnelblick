@@ -103,6 +103,15 @@ end GetMyScriptPath
 on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 	
 	-- Do some quick sanity checks
+	if ((fullPath = "/Applications/Tunnelblick.app/") Â
+		and (not FileExists(fullPath))) then
+		display alert "Uninstall failed" Â
+			message "There is no application named 'Tunnelblick' in /Applications." & return & return & Â
+				"To uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller." as critical Â
+			buttons {"OK"}
+		return
+	end if
+	
 	if ((length of fullPath) < 6) Â
 		or (text ((length of fullPath) - 4) through (length of fullPath) of fullPath ­ ".app/") Â
 		or (not FileExists(fullPath)) Â
@@ -130,7 +139,10 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 		"The " & TBName & " program and all " & TBName & " configuration data, passwords, and preferences for all users of this computer will be removed." & return & return & Â
 		"You will not be able to recover them afterward." & return & return & return & Â
 		"OR CLICK 'Test' to find out what would be removed in an actual uninstall." & return & return & return & Â
-		"OR DROP a " & TBName & " application on the uninstaller." as critical Â
+		"OR DROP a " & TBName & " application on the uninstaller." & return & return & Â
+		"This process may take a long time -- up to several MINUTES -- during which time there will be no indication" & Â
+		Â
+			" that anything is happening. Please be patient; a window will appear when the uninstall or test is complete." as critical Â
 		buttons {"Uninstall", "Test", "Cancel"}
 	if alertResult = {button returned:"Cancel"} then
 		return

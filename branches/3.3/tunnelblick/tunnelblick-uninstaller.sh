@@ -23,10 +23,13 @@
 #		   ~/Library/Application Support/Tunnelblick
 #		   ~/Library/Preferences/net.tunnelblick.tunnelblick.plist.lock
 #		   ~/Library/Preferences/net.tunnelblick.tunnelblick.plist
+#          ~/Library/Caches/net.tunnelblick.tunnelblick
 #		   ~/Library/Preferences/com.openvpn.tunnelblick.plist
 #		   ~/Library/openvpn
 #		   ~/Library/Logs/CrashReporter/Tunnelblick_*.crash
 #		   ~/Library/Logs/CrashReporter/openvpnstart_*.crash
+#
+#      (Uses the appropriate CFBundleIdentifier if it is not net.tunnelblick.tunnelblick)
 #
 # For a usage message, run this script with no arguments.
 #
@@ -362,7 +365,7 @@ usage_message="Usage:
      app-path/Contents/Info.plist) is used as the bundle-id; and the application at app-path is
      removed. If app-name is specified or  obtained from app-path, it is used in the path of
      files to remove. If bundle-id is specified or obtained from app-path, it is used in the
-     name of the preferences files to remove.
+     name of the preferences and cache files to remove.
 
      Examples:
 
@@ -372,11 +375,11 @@ usage_message="Usage:
 
      ./tunnelblick-uninstaller.sh "" NAME BUNDLE_ID
      This can be used if the application itself is not available. It will remove files and
-     folders associated with NAME and preferences associated with BUNDLE_ID.
+     folders associated with NAME and preferences and cache files associated with BUNDLE_ID.
 
      ./tunnelblick-uninstaller.sh "" "" BUNDLE_ID
      This can be used if the application itself and its name are not available. It will remove
-     preferences associated with BUNDLE_ID.
+     preferences and cache files associated with BUNDLE_ID.
 "
 
 show_usage_message="false"
@@ -657,6 +660,7 @@ for user in `dscl . list /users` ; do
     if [ "${uninstall_tb_bundle_identifier}" != "" ] ; then
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Preferences/${uninstall_tb_bundle_identifier}.plist.lock"
       uninstall_tb_remove_item_at_path "/Users/${user}/Library/Preferences/${uninstall_tb_bundle_identifier}.plist"
+      uninstall_tb_remove_item_at_path "/Users/${user}/Library/Caches/${uninstall_tb_bundle_identifier}"
     fi
 
 	# Remove per-user CrashReporter files
