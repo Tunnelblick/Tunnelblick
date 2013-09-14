@@ -251,3 +251,30 @@
 
 /* Window text */
 "Configurations:" = "配置:";
+
+/* Button */
+"Go to the OpenVPN documentation on the web" = "访问 OpenVPN 的网上文档";
+
+/* Button */
+"Install Sample" = "安装样本";
+
+/* Window Title */
+"Install Sample Configuration?" = "安装配置样本吗?";
+
+/* Window title */
+"You cannot use the sample configuration" = "你不能使用配置样本";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "在 %1$@ 里的配置文件有的 '%2$@' 选项设定了一个参数  '%3$@' .\n\n这个参数只能是一个文件名 --不能是一个路径.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "找不到在 %1$@ 里的配置文件中的 '%2$@' 选项设定的文件 '%3$@' .\n\n这个文件必须在 Tunnelblick VPN 的配置文件 (.tblk) 里.";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "一个或多个设置存在问题. 详情请查看控制台日志.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN 配置 '%@' 为空. 你想用这个名字来安装一个配置样本吗?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "你试图使用 Tunnelblick 安装的配置样本文件. 在连接到 VPN 之前, 你必须要修改此配置样本文件. 你有可能还需要其它文件, 比如证书或密钥文件, 才能连接 VPN.\n\n咨询你的网络管理员或 VPN 服务供应商, 以得到配置文件和其它相关文件, 或者如何修改样本配置文件的信息.\n\nOpenVPN 的文档可以在以下网址找到\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";

@@ -41,3 +41,39 @@
 /* Window text */
 "Configurations:" = "Konfiguraatiot:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Mene OpenVPN-dokumentaatioon verkossa";
+
+/* Button */
+"Install Sample" = "Asenna malli";
+
+/* Window Title */
+"Install Sample Configuration?" = "Asenna mallikonfiguraatio?";
+
+/* Window title */
+"You cannot use the sample configuration" = "Et voi käyttää mallikonfiguraatiota";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "Konfiguraatiotiedosto kohteessa %1$@ sisältää option '%2$@' argumentilla '%3$@'.\n\nArgumentti voi olla vain tiedostonimi -. se ei voi olla polku.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "Konfiguraatiotiedosto kohteessa %1$@ sisältää option '%2$@' tiedostolla '%3$@', jota ei löydy.\n\nTiedosto on sisällytettävä Tunnelblick VPN-konfiguraatioon (.tblk).";
+
+/* Window text */
+"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Konfiguraatiotiedostoja on kahdentyyppisiä:\n\n     • Tunnelblick VPN-konfiguraatioita (.tblk-tiedostopääte)\n\n     • OpenVPN-konfiguraatioita (.ovpn- or .conf-tiedostopääte)\n\nMinkä tyyppinen konfiguraatiotiedosto sinulla on?\n\n";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Yhdessä tai useammassa konfiguraatiossa on oli ongelmia. Lisätietoja löydät lokista.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN-konfiguraatio '%@' on tyhjä. Haluatko asentaa mallikonfiguraation sillä nimellä?";
+
+/* Window text */
+"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Haluaisitko\n\n     • Luoda mallikonfiguraation Työpöydälle\n             ja\n     • Avata sen OpenVPN-konfiguraatiotiedoston in TeXturissa, jotta voit muokata sitä yhdistääksesi VPN:ääsi?\n\n";
+
+/* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Sinulla on yksi tai useampi OpenVPN-konfiguraatio, jotka eivät ole käytettävissä, kun tätä Tunnelblickin versiota käytetään. Voit:\n\n     • Antaa Tunnelblickin muuntaa nämä OpenVPN-konfiguraatiot Tunnelblick VPN-konfiguraatioiksi; tai\n     • Lopettaa Tunnelblickin ja asentaa toisen version; tai\n     • Jättää tämän huomiotta ja jatkaa muuntamatta konfiguraatioita.\n\nJos valitset 'Ohita' configuraatiot eivät ole käytettävissä!\n\n";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Olet yrittänyt käyttää mallikonfiguraatiotiedostoa, jonka Tunnelblick on asentanut. Konfiguraatiotiedostoa on muokattava VPN:ään liittymiseksi. Voit myös tarvita muita tiedostoja, kuten varmenne- tai avaintiedostoja, muodostaaksesi yhteydenä VPN:ään.\n\nOta yhteyttä verkkosi ylläpitoon tai VPN-yhteyden tarjoajaasi saadaksesi konfiguraation tai muita tiedostoja tai tietoja, joita tarvitset mallitiedoston muokkaamiseen.\n\nOpenVPN-dokumentaatio on saatavissa osoitteessa\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+

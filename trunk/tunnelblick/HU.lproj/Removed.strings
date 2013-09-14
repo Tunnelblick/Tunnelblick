@@ -190,3 +190,30 @@
 /* Window text */
 "Configurations:" = "Konfigurációk:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "OpenVPN leírás megtekintése a web-en";
+
+/* Button */
+"Install Sample" = "Példa telepítése";
+
+/* Window Title */
+"Install Sample Configuration?" = "Példa konfiguráció telepítése?";
+
+/* Window title */
+"You cannot use the sample configuration" = "Nem használhatja a minta konfigurációt";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "A konfigurációs fájl a(z) %1$@ -ban a(z) '%2$@' opció a következő értékkel: '%3$@'.\n\nAz érték csak fájlnév lehet -- nem lehet útvonal.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "A konfigurációs fájl a(z) %1$@ -ban a(z) '%2$@' opció a(z) '%3$@' fájllal nem található.\n\nA fájlt tartalmaznia kell a Tunnelblick VPN Konfigurációs (.tblk) fájlnak.";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Hiba történt egy vagy több konfigurációs állományban. Részletek a Konzol naplóban\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "A(z) '%@' nevű VPN konfiguráció üres. Szeretne egy mint konfigurációt létrehozni ezen a néven?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Egy olyan konfigurációs állományt próbál használni, ami megegyezik a Tunnelblick minta konfigurációval. A konfigurációs fájlt módosítani kell, egy sikeres kapcsolat felépítéséhez. Az is elképzelhető, hogy egyéb állományokra is szüksége lesz, úgymint kulcs- és tanúsítványfájl.\n\nVegye fel a kapcsolatot a Hálózati Adminisztrátorral, vagy a VPN szolgáltatóval, hogy beszerezhesse a szükséges fájlokat, vagy információkat a konfiguráció módosításáról.\n\nAz OpenVPN dokumentáció az alábbi weboldalon érhető el: \n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+

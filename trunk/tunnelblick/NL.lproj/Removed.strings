@@ -187,3 +187,30 @@
 /* Window text */
 "OpenVPN version %@ is not available. Using the default, version %@" = "OpenVPN versie %1$@ is niet beschikbaar. Standaard wordt gebruikt, versie %2$@";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Naar de OpenVPN-documentatie op het web gaan";
+
+/* Button */
+"Install Sample" = "Voorbeeld Installeren";
+
+/* Window Title */
+"Install Sample Configuration?" = "Voorbeeldconfiguratie Installeren?";
+
+/* Window title */
+"You cannot use the sample configuration" = "U kunt de voorbeeldconfiguratie niet gebruiken";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "Het configuratiebestand %1$@ heeft een optie '%2$@' met argument '%3$@'.\n\nHet argument mag alleen een bestandsnaam zijn -- het mag geen pad bevatten.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "Het configuratiebestand in %1$@ heeft een optie '%2$@' met bestand '%3$@' welke niet gevonden kan worden.\n\nHet bestand moet toegevoegd worden aan de Tunnelblick VPN configuratie (.tblk).";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Er was een probleem met een of meer configuraties. Details staan in het Console Log.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "De Tunnelblick VPN Configuratie '%@' is leeg. Wilt u een voorbeeldconfiguratie met die naam installeren?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "U heeft geprobeerd om een configuratiebestand te gebruiken welke hetzelfde is als het voorbeeld configuratiebestand geïnstalleerd door Tunnelblick. Het configuratiebestand dient gewijzigd te worden om verbinding te kunnen maken met een VPN. U heeft wellicht ook andere bestanden nodig, zoals certificaat- of sleutelbestanden, om verbinding te kunnen maken met het VPN.\n\nRaadpleeg uw netwerkbeheerder of uw VPN serviceprovider voor configuratiebestanden of de benodigde informatie om het voorbeeldbestand te wijzigen.\n\nOpenVPN documentatie is beschikbaar op\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+
