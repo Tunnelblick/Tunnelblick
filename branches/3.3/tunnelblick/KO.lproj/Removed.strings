@@ -184,3 +184,30 @@
 /* Window text */
 "Configurations:" = "설정:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "웹 상의 OpenVPN 문서로 이동";
+
+/* Button */
+"Install Sample" = "예제 설치";
+
+/* Window Title */
+"Install Sample Configuration?" = "예제 설정을 설치하겠습니까?";
+
+/* Window title */
+"You cannot use the sample configuration" = "예제 설정을 사용할 수 없습니다";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "%1$@ 안의 설정 파일은 '%3$@' 인자로 '%2$@' 선택사항을 가지고 있습니다.\n\n인자는 패스가 아니라 파일명이어야 합니다.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "%1$@ 안의 설정 파일은 '%3$@' 파일을 '%2$@' 선택사항으로 가지고 있습니다.\n\n이 파일은 Tunnelblick VPN 설정 (.tblk) 안에 있어야 합니다.";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "1개 또는 그 이상 설정에 문제가 있습니다. 자세한 것은 콘솔 로그에 있습니다.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN 설정 '%@'은 비어있습니다. 이 이름으로 예제 설정을 설치하겠습니까?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Tunnelblick으로 만든 예제 설정 파일을 그대로 사용하려 했습니다. VPN에 연결하기 위해서는 반드시 설정 파일을 수정해야 합니다. VPN에 연결하기 위해서 인증서 또는 키 파일과 같은 다른 파일들이 필요할 수 있습니다.\n\n설정 및 설정과 관련된 다른 파일 또는 예제 파일을 수정하기 위해 필요한 정보를 얻으려면 네트워크 관리자 또는 VPN 서비스 제공자에게 문의합니다.\n\nOpenVPN 문서는 다음에서 볼 수 있습니다.\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+

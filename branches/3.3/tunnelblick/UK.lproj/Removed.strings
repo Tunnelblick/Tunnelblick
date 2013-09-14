@@ -13,3 +13,15 @@
 /* Window text */
 "Configurations:" = "Конфігурації:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Перейти до документації OpenVPN в Інтернеті";
+
+/* Button */
+"Install Sample" = "Встановити приклад";
+
+/* Window Title */
+"Install Sample Configuration?" = "Встановити приклад конфігурації?";
+
+/* Window title */
+"You cannot use the sample configuration" = "Ви не можете використовувати приклад конфігурації";
+

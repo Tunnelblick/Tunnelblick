@@ -704,19 +704,19 @@ enum state_t {                      // These are the "states" of the guideState 
         NSString * argument = [self parseString: cfgContents forOption: option];
         if (  argument  ) {
             if (   ([argument rangeOfString: @".."].length != 0)  ) {
-				NSLog(@"The configuration file in %@ has a '%@' option with argument '%@' which includes \"..\", which is not allowed.",
+				NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' which includes \"..\", which is not allowed.",
 					  tblkName, option, argument);
 				[errMsgs addObject: [NSString stringWithFormat:
-									 NSLocalizedString(@"The configuration file in %@ has a '%@' option with argument '%@' that includes \"..\", which is not allowed.", "Window text"),
+									 NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that includes \"..\", which is not allowed.", "Window text"),
 									 tblkName, option, argument]];
                 return FALSE;
             }
             if (   [argument hasPrefix: @"/"]
                 || [argument hasPrefix: @"~"]  ) {
-				NSLog(@"The configuration file in %@ has a '%@' option with argument '%@' which begins with \"%@\", which is not allowed.",
+				NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' which begins with \"%@\", which is not allowed.",
 					  tblkName, option, argument, [argument substringWithRange: NSMakeRange(0, 1)]);
 				[errMsgs addObject: [NSString stringWithFormat:
-									  NSLocalizedString(@"The configuration file in %@ has a '%@' option with argument '%@' that begins with \"%@\", which is not allowed.", "Window text"),
+									  NSLocalizedString(@"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that begins with \"%@\", which is not allowed.", "Window text"),
 									  tblkName, option, argument, [argument substringWithRange: NSMakeRange(0, 1)]]];
                 return FALSE;
             }
@@ -734,7 +734,7 @@ enum state_t {                      // These are the "states" of the guideState 
                         }
                     }
                 } else {
-                    NSLog(@"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
+                    NSLog(@"The OpenVPN configuration file in %@ has a '%@' option with file '%@' which cannot be found.",
                           tblkName, option, argument);
 					[errMsgs addObject: [NSString stringWithFormat:
 										 NSLocalizedString(@"The OpenVPN configuration file in '%@' has a '%@' option that references '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).", "Window text"),
@@ -1439,8 +1439,8 @@ enum state_t {                      // These are the "states" of the guideState 
             
             if((error) || (CFUserNotificationReceiveResponse(notification, 0.0, &response))) {
                 CFRelease(notification);    // Couldn't receive a response
-                NSLog(@"Configuration installer: The Tunnelblick VPN Package has NOT been installed.\n\nAn unknown error occured.");
-                [errMsgs addObject: NSLocalizedString(@"The Tunnelblick VPN Package has NOT been installed.\n\nAn unknown error occured.", @"Window text")];
+                NSLog(@"Configuration installer: The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.");
+                [errMsgs addObject: NSLocalizedString(@"The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.", @"Window text")];
                 return nil;
             }
             
@@ -1822,7 +1822,7 @@ enum state_t {                      // These are the "states" of the guideState 
                               ? [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
                               : @"");
         NSLog(@"Configuration installer: Failed to parse configuration path '%@':\n%@", newConfigPath, errText);
-        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file in Tunnelblick VPN Configuration '%@' could not be processed:\n\n%@", @"Window text"),
+        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The OpenVPN configuration file in '%@' could not be processed:\n\n%@", @"Window text"),
                              [self extractTblkNameFromPath: newConfigPath], errText]];
 		emptyTblk = nil;	// return error
     } else {
