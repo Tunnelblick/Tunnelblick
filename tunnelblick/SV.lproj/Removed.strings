@@ -163,3 +163,30 @@
 /* Window text */
 "Configurations:" = "Konfigurationer:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Gå till OpenVPN-dokumentationen på Internet";
+
+/* Button */
+"Install Sample" = "Installera exempel";
+
+/* Window Title */
+"Install Sample Configuration?" = "Installera exempelkonfiguration?";
+
+/* Window title */
+"You cannot use the sample configuration" = "Du kan inte använda exempelkonfigurationen";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "Konfigurationsfilen i %1$@ har ett '%2$@' val med argument '%3$@'.\n\nArgumentet får endast vara ett filnamn -- det får inte vara en sökväg.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "Konfigurationsfilen i %1$@ har ett '%2$@' val med filen '%3$@' som inte kan hittas.\n\nFilen måste vara inkluderad i Tunnelblick VPN konfigurationen (.tblk).";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Ett problem uppstod med en eller flera konfigurationer. Se konsolloggen för detaljer.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Tunnelblick VPN-konfiguration '%@' är tom. Vill du installera en exempelkonfiguration med det namnet?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Du har försökt använda en konfigurationsfil som är identisk med exempelfilen som installerades av Tunnelblick. Konfigurationsfilen måste modifieras för att ansluta till en VPN. Det är möjligt att du även behöver andra filer, till example certifikat eller nyckelfiler, för att ansluta till VPN.\n\nKontakta din nätverksadministratör eller VPN-operatör för att erhålla konfigurationsfilen eller andra filer, eller informationen du behöver för att modifiera exempelfilen.\n\nOpenVPN dokumentation finns tillgänglig på\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+

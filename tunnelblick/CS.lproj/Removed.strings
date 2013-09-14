@@ -184,3 +184,30 @@
 /* Window text */
 "Configurations:" = "Konfigurace:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Otevřete dokumentaci OpenVPN na webu";
+
+/* Button */
+"Install Sample" = "Instalovat příklad";
+
+/* Window Title */
+"Install Sample Configuration?" = "Instalovat příklad konfigurace?";
+
+/* Window title */
+"You cannot use the sample configuration" = "Nelze použít příklad konfigurace";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "Konfigurační soubor v %1$@ má '%2$@' volbu s argumentem '%3$@'.\n\nArgument může být jen jméno souboru -- nesmí to být cesta.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "konfigurační soubor v %1$@ má volbu '%2$@' se souborem '%3$@' který nelze nalézt.\n\nSoubor musí být obsažen v VPN konfiguraci Tunnelblicku (.tblk).";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Byl nalezen problém s jednou nebo více konfiguracemi. Detaily naleznete v logu konzoly.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Konfigurace VPN Tunnelblicku '%@' je prázdná. Přejete si instalovat příklad konfigurace s tímto jménem?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Pokusil jste se použít konfiguraci, která je shodná s příkladem konfigurace nainstalovaným Tunnelblickem. Pokud má být možné navázat spojení VPN, je nutná konfiguraci modifikovat. Můžete také potřebovat další soubory jako je certifikát nebo soubory s klíči.\n\nInformace, konfiguraci a další soubory získáte konzultací s Vaším administrátorem sítě nebo zprostředokovatelem VPN.\n\nDokumentace k OpenVPN je dostupná na \n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+

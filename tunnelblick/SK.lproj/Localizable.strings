@@ -100,8 +100,8 @@
 /* Button */
 "Examine" = "Preskúmať";
 
-/* Button */
-"Go to the OpenVPN documentation on the web" = "Prejsť na dokumentáciu OpenVPN na webe";
+/* NEEDS TRANSLATION *//* Button */
+"Help" = "Help";
 
 /* Button */
 "I DO NOT have configuration files" = "Zatiaľ NEMÁM k dispozícii žiadne konfiguračné súbory";
@@ -111,9 +111,6 @@
 
 /* Button */
 "Ignore" = "Ignorovať";
-
-/* Button */
-"Install Sample" = "Nainštalovať vzor";
 
 /* Button */
 "Latest (%@)" = "Najnovšia (%@)";
@@ -508,9 +505,6 @@
 /* Window title */
 "Install Configuration For All Users?" = "Nainštalovať konfiguráciu pre všetkých užívateľov systému?";
 
-/* Window Title */
-"Install Sample Configuration?" = "Nainštalovať vzorovú konfiguráciu?";
-
 /* Window title */
 "Install and Uninstall?" = "Nainštalovať alebo Odinštalovať?";
 
@@ -658,9 +652,6 @@
 /* Window title */
 "While Connected" = "Počas spojenia";
 
-/* Window title */
-"You cannot use the sample configuration" = "Použitie vzorovej konfigurácie nie je možné";
-
 /* Window text */
 "  • Be installed in /Applications\n" = "  • Nainštalovať do /Applications\n";
 
@@ -724,6 +715,9 @@
 /* Window text */
 "%@ is already identical to its last secured (shadow) copy.\n\n" = "%@ je zhodná s už existujúcou bezpečnostnou kópiou.\n\n";
 
+/* NEEDS TRANSLATION *//* Window text */
+"%d Info.plist files were found in '%@'. A Tunnelblick VPN Configuration may have at most one Info.plist." = "%1$d Info.plist files were found in '%2$@'. A Tunnelblick VPN Configuration may have at most one Info.plist.";
+
 /* Window text */
 "%d Tunnelblick VPN Configurations were installed successfully." = "%d Tunnelblick VPN konfigurácie boli úspešne nainštalované.";
 
@@ -747,6 +741,9 @@
 
 /* Window text */
 "(if connected when user switched out)" = "(ak je aktívne pri zmene aktívneho užívateľa)";
+
+/* NEEDS TRANSLATION *//* Window text */
+".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'." = ".tblks are nested too deeply (only one level of .tblk in a .tblk is allowed) in '%@'.";
 
 /* Window text */
 "<br>Based on Tunnelblick, free software available at<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>" = "<br>Vychádza z programu Tunnelblick, ktorý je voľne dostupný na adrese<br><a href=\"http://code.google.com/p/tunnelblick\">http://code.google.com/p/tunnelblick</a>";
@@ -925,6 +922,9 @@
 /* Window text */
 "Last checked: %@" = "Posledná kontrola: %@";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Line %d of the file contains a non-printable character (0x%02X) which is not allowed." = "Line %1$d of the file contains a non-printable character (0x%2$X) which is not allowed.";
+
 /* Window text */
 "Localization by" = "Preklady spracovali";
 
@@ -982,6 +982,9 @@
 /* Window text */
 "One or more configurations are being ignored. See the Console Log for details." = "Jedna alebo viacero konfigurácií je ignorovaných. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"One or more configurations could not be installed.\n\n%@" = "One or more configurations could not be installed.\n\n%@";
+
 /* Window text */
 "Only a Tunnelblick VPN Configuration (.tblk) can start when the computer starts." = "Pri štarte systému je možné spustiť len konfiguráciu Tunnelblick VPN (.tblk).";
 
@@ -1027,6 +1030,15 @@
 /* Window text */
 "Private configurations cannot connect when the computer starts.\n\nFirst make the configuration shared, then change this setting." = "Súkromné konfigurácie nie je možné pripojiť pri štarte systému.\n\nNajprv nastavte konfiguráciu ako zdieľanú a potom zmeňte nastavenia.";
 
+/* NEEDS TRANSLATION *//* Window text */
+"Program error, please report this as a bug: Invalid dest = %@ for .tblk '%@'." = "Program error, please report this as a bug: Invalid dest = %1$@ for .tblk '%2$@'.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Program error, please report this as a bug: Unable to copy '%@' to '%@'" = "Program error, please report this as a bug: Unable to copy '%1$@' to '%2$@'";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Program error, please report this as a bug: Unable to create file at '%@'" = "Program error, please report this as a bug: Unable to create file at '%@'";
+
 /* Window text */
 "Received fatal signal %d." = "Bol obdržaný signál závažnej chyby %d.";
 
@@ -1063,6 +1075,15 @@
 /* Window text */
 "That name is being used.\n\n" = "Názov sa používa.\n\n";
 
+/* NEEDS TRANSLATION *//* Window text */
+"The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The %@ system folder (%@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
+
 /* Window text */
 "The '%@' credentials may not be added because the list of named credentials is being forced." = "Prístupové údaje '%@' nemusí byť možné pridať, pretože zoznam vytvorených prístupových údajov je vynútene daný.";
 
@@ -1078,8 +1099,47 @@
 /* Window text */
 "The 'namedCredentialsNames' preference must be an array of strings" = "Položka nastavení 'namedCredentialsNames' musí obsahovať skupinu znakov";
 
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' contains an invalid 'TBPackageVersion' value of '%@' (only '1' is allowed)." = "The Info.plist in '%1$@' contains an invalid 'TBPackageVersion' value of '%2$@' (only '1' is allowed).";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' contains an invalid 'TBReplaceIdentical' value of '%@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'." = "The Info.plist in '%1$@' contains an invalid 'TBReplaceIdentical' value of '%2$@'.\n\nThe value must be 'yes', 'no', 'ask', or 'force'.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' contains an invalid 'TBSharePackage' value of '%@'.\n\nThe value must be 'private', 'shared', or 'ask'." = "The Info.plist in '%1$@' contains an invalid 'TBSharePackage' value of '%2$@'.\n\nThe value must be 'private', 'shared', or 'ask'.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' does not contain a 'TBPackageVersion' entry." = "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' has an invalid value of '%@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'shared', 'private', or 'ask' are allowed) for 'TBSharePackage'.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' has an unknown key '%@'." = "The Info.plist in '%1$@' has an unknown key '%2$@'.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that begins with \"%@\", which is not allowed." = "The OpenVPN configuration file in %1$@ has a '%2$@' option with argument '%3$@' that begins with \"%4$@\", which is not allowed.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The OpenVPN configuration file in %@ has a '%@' option with argument '%@' that includes \"..\", which is not allowed." = "The OpenVPN configuration file in %1$@ has a '%2$@' option with argument '%3$@' that includes \"..\", which is not allowed.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The OpenVPN configuration file in '%@' could not be processed:\n\n%@" = "The OpenVPN configuration file in '%1$@' could not be processed:\n\n%2$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The OpenVPN configuration file in '%@' has a '%@' option that references '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk).";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The OpenVPN configuration file in '%@' has a '%@' option that references '%@'. That file has a problem:\n\n%@." = "The OpenVPN configuration file in '%1$@' has a '%2$@' option that references '%3$@'. That file has a problem:\n\n%4$@.";
+
 /* Window text */
 "The OpenVPN log does not yet exist or has been deleted." = "Záznam OpenVPN ešte neexistuje alebo bol vymazaný.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured." = "The Tunnelblick VPN Configuration has NOT been installed.\n\nAn unknown error occured.";
 
 /* Window text */
 "The VPN name '%@' is already in use.\n\nPlease enter a new name." = "Pomenovanie VPN '%@' už existuje.\n\nZadajte, prosím, iné pomenovanie.";
@@ -1097,12 +1157,6 @@
 "The configuration file for '%@' does not appear to contain a 'dev tun' or 'dev tap' option. This option may be needed for proper Tunnelblick operation. Consult with your network administrator or the OpenVPN documentation." = "Konfiguračný súbor pre '%@' zdanlivo nepoužíva voľbu 'dev tun' alebo 'dev tap'. Táto voľba môže by potrebná pre správny chod aplikácie Tunnelblick. Poraďte sa, prosím, ohľadne tohto nastavenia s Vašim správcom siete alebo toto nastavenie vyhľadajte v OpenVPN dokumentácii.";
 
 /* Window text */
-"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "Konfiguračný súbor v %1$@ obsahuje voľbu '%2$@' s parametrom '%3$@'.\n\nTento parameter  môže obsahovať iba názov súboru -- nie celú cestu k súboru";
-
-/* Window text */
-"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "Konfiguračný súbor v %1$@ obsahuje voľbu '%2$@' so súborom '%3$@', ktorý nie je možné nájsť.\n\nTento súbor musí byť obsiahnutý v konfigurácii Tunnelblick VPN (.tblk).";
-
-/* Window text */
 "The credentials (passphrase or username/password) were not accepted by the remote VPN server." = "Vzdialený VPN server neprijal poskytnuté prístupové údaje (identifikačné slovo alebo meno/heslo).";
 
 /* Window text */
@@ -1110,6 +1164,9 @@
 
 /* Window text */
 "The credentials named %@ could not be removed:\n\n%@" = "Prístupové údaje s názvom %1$@ nebolo možné odstrániť:\n\n%2$@";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files." = "The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.";
 
 /* Window text */
 "The installation, removal, recovery, or repair of one or more Tunnelblick components failed. See the Console Log for details." = "Inštalácia, odstránenie, obnovenie alebo oprava jednej alebo viacerých súčastí aplikácie Tunnelblick nebola úspešná.";
@@ -1129,11 +1186,8 @@
 /* Window text */
 "There are no VPN configurations installed.\n\nTunnelblick needs one or more installed configurations to connect to a VPN. Configurations are installed from files that are usually supplied to you by your network manager or VPN service provider. The files must be installed to be used.\n\nConfiguration files have extensions of .tblk, .ovpn, or .conf.\n\n(There may be other files associated with the configuration that have other extensions; ignore them for now.)\n\nDo you have any configuration files?\n" = "Nie sú nainštalované žiadne konfigurácie VPN.\n\nPre pripojenie na VPN Tunnelblick potrebuje aspoň jednu nainštalovanú konfiguráciu. Konfigurácie sa inštalujú zo súborov, ktoré Vám najčastejšie poskytne Váš správca siete alebo poskytovateľ služby VPN. Pre správnu funkciu musia byť tieto súbory nainštalované.\n\nKonfiguračné súbory majú väčšinou koncovku .tblk, .ovpn alebo .conf.\n\n(Môžu existovať ďalšie súbory s inou koncovkou súvisiace s danou konfiguráciou. Nateraz tieto súbory, prosím, ignorujte.)\n\nMáte k dispozícii konfiguračné súbory?\n";
 
-/* Window text */
-"There are two types of configuration files:\n\n     • Tunnelblick VPN Configurations (.tblk extension)\n\n     • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "Existujú dva typy konfiguračných súborov:\n\n     • Konfigurácie Tunnelblick VPN (s koncovkou .tblk)\n\n     • Konfigurácie OpenVPN (s koncovkami .ovpn alebo .conf)\n\nKtorý typ konfiguračného súboru máte k dispozícii?\n\n";
-
-/* Window text */
-"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Vyskytol sa problém s jednou alebo viacerými konfiguráciami. Viac informácií nájdte v Zázname konzoly.\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n" = "There are two types of configuration files:\n\n  • Tunnelblick VPN Configurations (.tblk extension)\n\n  • OpenVPN Configurations (.ovpn or .conf extension)\n\nWhich type of configuration file do have?\n\n";
 
 /* Window text */
 "This 'Deployed' version of Tunnelblick cannot be  launched or installed because it has not been rebranded, or updateFeedURL or SUFeedURL are missing or contain 'tunnelblick.net', or CFBundleIdentifier is missing or contains 'net.tunnelblick'.\n\n" = "Túto centrálne spravovovanú verziu aplikácie Tunnelblick nie je možné spustiť ani naištalovať. Možné príčiny tohto stavu sú: zmena značky, pod ktorou je aplikácia vydaná; položky nastavení updateFeedURL alebo SUFeedURL buď chýbajú, alebo obsahujú text 'tunnelblick.net'; alebo položka nastavení CFBundleIdentifier buď chýba, alebo obsahuje text 'net.tunnelblick'.\n\n";
@@ -1165,8 +1219,44 @@
 /* Window text */
 "Too many duplicate configurations already exist." = "Existuje príliš veľa duplikátov konfigurácie.";
 
-/* Window text */
-"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "Konfigurácia Tunnelblick VPN '%@' je prázdna. Prajete si nainštalovať vzorovú konfiguráciu s rovnakým názvom?";
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick." = "Tunnelblick VPN Configuration '%@' cannot be installed as shared or private because this is a Deployed version of Tunnelblick.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' contains file '%@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@." = "Tunnelblick VPN Configuration '%1$@' contains file '%2$@', which does not have an extension. Each file in a Tunnelblick VPN Configuration must have an extension. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %3$@.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' contains file '%@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %@." = "Tunnelblick VPN Configuration '%1$@' contains file '%2$@', which has an extension that may not appear in a Tunnelblick VPN Configuration. Tunnelblick uses extensions to determine how to secure files properly.\n\nThe extensions that are allowed are: %3$@.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with a 'ovpn' extension, and has more than one with a 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension .If it does not, it must have exactly one with a 'conf' extension.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' does not have any OpenVPN configuration files with an 'ovpn' or 'conf' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO." = "Tunnelblick VPN Configuration '%@' has NOT been installed because TBReplaceOption=NO.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number." = "Tunnelblick VPN Configuration '%@' has NOT been installed because it has a lower version number.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO." = "Tunnelblick VPN Configuration '%@' has NOT been uninstalled because TBReplaceOption=NO.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number." = "Tunnelblick VPN Configuration '%@' has NOT been uninstalled because it has a lower version number.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension." = "Tunnelblick VPN Configuration '%@' has more than one OpenVPN configuration file with an 'ovpn' extension.\n\nA Tunnelblick VPN Configuration should have exactly one OpenVPN configuration file with an 'ovpn' extension. If it does not, it must have exactly one with a 'conf' extension.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@' is empty." = "Tunnelblick VPN Configuration '%@' is empty.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@', contains multiple files named '%@'. All file names must be unique, even if they are in different subfolders." = "Tunnelblick VPN Configuration '%1$@', contains multiple files named '%2$@'. All file names must be unique, even if they are in different subfolders.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed." = "Tunnelblick VPN Configuration '%@', which is contained within a Tunnelblick VPN Configuration, contains a Tunnelblick VPN Configuration, which is not allowed. Only one level of nesting is allowed.";
 
 /* Window text */
 "Tunnelblick can check that the apparent public IP address of your computer changes when you connect to a VPN, and warn you if it doesn't.\n\nThis may help Tunnelblick diagnose problems with your connection.\n\nThis process attempts to access\n%@\n\nDo you wish to check for this IP address change?\n" = "Tunnelblick dokáže skontrolovať, či sa verejná IP adresa Vášho počítača po pripojení k VPN zmenila a varovať Vás, ak sa nezmenila.\n\nTo môže pomôcť aplikácii Tunnelblick pri diagnóze problémov použitého spojenia.\n\nTento proces vyžiadaje prístup k\n%@\n\nPrajete si skontrolovať zmeny súčasnej IP adresy?\n";
@@ -1182,6 +1272,9 @@
 
 /* Window text */
 "Tunnelblick could not create the sample configuration" = "Aplikácii Tunnelblick sa nepodarilo vytvoriť vzorový konfiguračný priečinok";
+
+/* NEEDS TRANSLATION *//* Window text */
+"Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %ld; notification = 0x%lX" = "Tunnelblick could not display a window.\n\nCFUserNotificationCreate() returned with error = %1$ld; notification = 0x%2$lX";
 
 /* Window text */
 "Tunnelblick could not move the '%@' configuration. See the Console Log for details." = "Aplikácii Tunnelblick sa nepodarilo premiestniť konfiguráciu '%@'. Pre viac informácií si, prosím, prezrite Záznam konzoly.";
@@ -1276,8 +1369,8 @@
 /* Window text */
 "Workgroup:" = "Pracovná skupina:";
 
-/* Window text */
-"Would you like to\n\n     • Create a sample configuration on the Desktop\n             and\n     • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Prajete si\n\n     • Vytvoriť vzorovú konfiguráciu na Ploche\n             a\n     • Otvoriť konfiguračný súbor OpenVPN vzorovej konfigurácie v aplikácii TextEdit, aby ste ho mohli upraviť pre pripojenie k Vašej VPN?\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n" = "Would you like to\n\n  • Create a sample configuration on the Desktop\n             and\n  • Open its OpenVPN configuration file in TextEdit so you can modify it to connect to your VPN?\n\n";
 
 /* Window text */
 "You cannot install a Tunnelblick VPN configuration from an installed copy.\n\nAn administrator can copy the installation and install from the copy." = "Nie je možné inštalovať konfiguráciu Tunnelblick VPN z inštalovanej kópie.\n\nSkopírovať inštaláciu a inštalovať z kópie môže len správca počítača.";
@@ -1312,11 +1405,11 @@
 /* Window text */
 "You have asked to rename '%@' to '%@'." = "Vyžiadali ste si zmenu názvu '%1$@' na '%2$@'.";
 
-/* Window text */
-"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n     • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n     • Quit and install a different version of Tunnelblick; or\n     • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "Existuje jedna alebo viacero konfigurácií  OpenVPN, ktoré nie je možné v tejto verzii aplikácie Tunnelblick použiť. Dostupné možnosti:\n\n     • Môžete aplikácii Tunnelblick povoliť konvertovať tieto konfigurácie OpenVPN na konfigurácie Tunnelblick VPN; alebo\n     • Ukončiť aplikáciu a nainštalovať inú verziu Tunnelblick; alebo\n     • Ignorovať toto oznámenia a pokračovať bez prevedenia konfigurácií.\n\nAk zvolíte možnosť 'Ignorovať', konfigurácie nebudú dostupné!\n\n";
+/* NEEDS TRANSLATION *//* Window text */
+"You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n" = "You have one or more OpenVPN configurations that will not be available when using this version of Tunnelblick. You can:\n\n  • Let Tunnelblick convert these OpenVPN configurations to Tunnelblick VPN Configurations; or\n  • Quit and install a different version of Tunnelblick; or\n  • Ignore this and continue without converting.\n\nIf you choose 'Ignore' the configurations will not be available!\n\n";
 
-/* Window text */
-"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Pokúsili ste sa použiť konfiguračný súbor zhodný so vzorovým súborom inštalovaným aplikáciou Tunnelblick. Pre pripojenie k VPN je potrebné konfiguračný súbor upraviť. Pre pripojenie k VPN môžete tiež potrebovať ďalšie súbory ako súbory certifikátov alebo kľúčov.\n\nKontaktujte, prosím, Vášho správcu siete alebo poskytovateľa služby VPN, ktorý Vám poskytne konfiguračný súbor a ďalšie potrebné súbory alebo informácie o tom, ako upraviť konfiguračný súbor.\n\nDokumentácia OpenVPN je dostupná na stránke\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+/* NEEDS TRANSLATION *//* Window text */
+"You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file." = "You have tried to install a configuration file that is a sample configuration file. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.";
 
 /* Window text */
 "You may examine the configuration file, but if you plan to modify it, you must unprotect it now. If you unprotect the configuration file now, you will need to provide an administrator username and password the next time you connect using it." = "Konfiguračný súbor je možné preskúmať, pre jeho úpravu ho však musíte odomknúť. Ak túto konfiguráciu teraz odomknete, pri jej nasledujúcom použití budete musieť poskytnúť prihlasovacie meno a heslo správcu.";
@@ -1377,6 +1470,9 @@
 
 /* Window text */
 "\n\nOne Tunnelblick VPN Configuration was installed successfully." = "\n\nKonfigurácia Tunnelblick VPN bola úspešne nainštalovaná.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details." = "\n\nOther problems were also found, but they are likely to be a result of that problem. See the Console Log for details.";
 
 /* Window text *//* TODO */
 "\n\nand install %ld Tunnelblick VPN Configurations" = "\n\na nainštalovať %ld konfigurácií Tunnelblick VPN";

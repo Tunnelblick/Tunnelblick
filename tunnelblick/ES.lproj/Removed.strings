@@ -175,3 +175,30 @@
 /* Window text */
 "Configurations:" = "Configuraciones:";
 
+/* Button */
+"Go to the OpenVPN documentation on the web" = "Ir a la documentación de OpenVPN en la web";
+
+/* Button */
+"Install Sample" = "Instalar ejemplo";
+
+/* Window Title */
+"Install Sample Configuration?" = "¿Instalar Configuración ejemplo?";
+
+/* Window title */
+"You cannot use the sample configuration" = "No puede usar la configuración de ejemplo";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with argument '%@'.\n\nThe argument can only be a filename -- it may not be a path." = "El archivo de configuración en %1$@ tiene una opción '%2$@' con el argumento '%3$@'.\n\nEste argumento sólo puede ser un nombre de archivo -- no puede ser una ruta.";
+
+/* Window text */
+"The configuration file in %@ has a '%@' option with file '%@' which cannot be found.\n\nThe file must be included in the Tunnelblick VPN Configuration (.tblk)." = "El archivo de configuración en %1$@ tiene una opción '%2$@' con el archivo  '%3$@' que no puede ser encontrado.\n\nEl archivo tiene que estar incluido en la configuración de Tunnelblick VPN (.tblk).";
+
+/* Window text */
+"There was a problem with one or more configurations. Details are in the Console Log.\n\n" = "Hubo un problema con una o más configuraciones. Ver detalles en el registro de consola.\n\n";
+
+/* Window text */
+"Tunnelblick VPN Configuration '%@' is empty. Do you wish to install a sample configuration with that name?" = "La Configuración VPN de Tunnelblick '%@' está vacia. ¿Desea instalar una configuración de ejemplo con ese nombre?";
+
+/* Window text */
+"You have tried to use a configuration file that is the same as the sample configuration file installed by Tunnelblick. The configuration file must be modified to connect to a VPN. You may also need other files, such as certificate or key files, to connect to the VPN.\n\nConsult your network administrator or your VPN service provider to obtain configuration and other files or the information you need to modify the sample file.\n\nOpenVPN documentation is available at\n\n     http://openvpn.net/index.php/open-source/documentation.html\n" = "Usted intentó usar un archivo de configuración que tiene el mismo nombre que el archivo de configuración instalado por Tunnelblick. El archivo de configuración debe ser modificado para conectarse a una VPN. Puede que también necesite otros archivos, tales como archivos de certificado o llave, para conectarse a la VPN.\n\nConsulte con su administrador de red o su proveedor de servicio VPN para obtener archivos de configuración y otros archivos o la información que necesitará para modificar el archivo ejemplo.\n\nLa documentación de OpenVPN está disponible en\n\n     http://openvpn.net/index.php/open-source/documentation.html\n";
+
