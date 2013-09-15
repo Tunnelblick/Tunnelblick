@@ -1,59 +1,59 @@
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "OK" = "OK";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Continue" = "Continue";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Cancel" = "Cancel";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Uninstall" = "Uninstall";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Test" = "Test";
 
-/* Button */
+/* NEEDS TRANSLATION *//* Button */
 "Details" = "Details";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Uninstall failed" = "Uninstall failed";
 
-/* Window title */
+/* NEEDS TRANSLATION *//* Window title */
 "Uninstall %s?" = "Uninstall %s?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "There is a problem. The uninstaller shell script does not exist at %s" = "There is a problem. The uninstaller shell script does not exist at %s";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "There is no application named 'Tunnelblick' in %s (/Applications).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller." = "There is no application named 'Tunnelblick' in %s (/Applications).\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\", no changes will be made.\n\nThe uninstaller needs \"root\" access so it can read the %s preferences of other users." = "Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\", no changes will be made.\n\nThe uninstaller needs \"root\" access so it can read the %s preferences of other users.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The next window will ask for a computer administrator username and password.\n\nThe uninstaller needs \"root\" access so it make the changes required to uninstall %s." = "The next window will ask for a computer administrator username and password.\n\nThe uninstaller needs \"root\" access so it can make the changes required to uninstall %s.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Applications/Tunnelblick." = "%s\n\ndoes not exist.\n\nTo uninstall a Tunnelblick-based application, drag and drop it onto the uninstaller, or double-click the installer to uninstall /Applications/Tunnelblick.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "%s\n\nis damaged or is not a Tunnelblick-based application.\n\nDo you wish to use the Tunnelblick Uninstaller to try to uninstall it?" = "%s\n\nis damaged or is not a Tunnelblick-based application.\n\nDo you wish to use the Tunnelblick Uninstaller to try to uninstall it?";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The program at\n\n%s\n\nand all its configuration data, passwords, and preferences for all users of this computer will be removed.\n\nYou will not be able to recover them afterward.\n\nCLICK 'Test' to find out what would be removed in an actual uninstall\n\nOR CLICK 'Uninstall' to uninstall %s\n\nOR CLICK 'Cancel' and drop a different %s application on the uninstaller.\n\nTesting or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete." = "The program at\n\n%s\n\nand all its configuration data, passwords, and preferences for all users of this computer will be removed.\n\nYou will not be able to recover them afterward.\n\nCLICK 'Test' to find out what would be removed in an actual uninstall\n\nOR CLICK 'Uninstall' to uninstall %s\n\nOR CLICK 'Cancel' and drop a different %s application on the uninstaller.\n\nTesting or uninstalling may take a long time -- up to several MINUTES -- during which time there will be no indication that anything is happening. Please be patient; a window will appear when the uninstall or test is complete.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "One or more errors occurred while uninstalling %s." = "One or more errors occurred while uninstalling %s.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "One or more errors occurred during the %s uninstall test." = "One or more errors occurred during the %s uninstall test.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "%s was uninstalled successfully" = "%s was uninstalled successfully";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "The %s uninstall test succeeded." = "The %s uninstall test succeeded.";
 
-/* Window text */
+/* NEEDS TRANSLATION *//* Window text */
 "Please drop only one application at a time onto this uninstaller." = "Please drop only one application at a time onto this uninstaller.";
