@@ -34,6 +34,9 @@
     IBOutlet NSTextField        * openvpnVersionTF;
     IBOutlet NSArrayController  * openvpnVersionArrayController;
     IBOutlet NSButton           * openvpnVersionButton;
+    IBOutlet NSTextFieldCell    * openvpnVersionOverrideMessageTFC;
+    IBOutlet NSTextField        * openvpnVersionOverrideMessageTF;
+
     
     IBOutlet NSTextFieldCell    * maxLogDisplaySizeTFC;
     IBOutlet NSTextField        * maxLogDisplaySizeTF;
@@ -67,6 +70,8 @@ TBPROPERTY_READONLY(NSTextField *,       updatesLastCheckedTF)
 
 TBPROPERTY_READONLY(NSArrayController *, openvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,          openvpnVersionButton)
+TBPROPERTY_READONLY(NSTextFieldCell *,   openvpnVersionOverrideMessageTFC)
+TBPROPERTY_READONLY(NSTextField *,       openvpnVersionOverrideMessageTF)
 
 TBPROPERTY_READONLY(NSArrayController *, keyboardShortcutArrayController)
 TBPROPERTY_READONLY(NSButton *,          keyboardShortcutButton)

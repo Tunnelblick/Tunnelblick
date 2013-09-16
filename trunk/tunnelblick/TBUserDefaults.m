@@ -26,19 +26,11 @@
 NSArray * gProgramPreferences;
 NSArray * gConfigurationPreferences;
 
-@interface TBUserDefaults()       // PRIVATE METHODS
-
--(id)   forcedObjectForKey:                    (NSString *) key;
-
-@end
-
-
 @implementation TBUserDefaults
 
--(TBUserDefaults *) initWithForcedDictionary:   (NSDictionary *)    inForced
-                      andSecondaryDictionary:   (NSDictionary *)    inSecondary
-                           usingUserDefaults:   (BOOL)              inUseUserDefaults
-{
+-(TBUserDefaults *) initWithForcedDictionary: (NSDictionary *) inForced
+                      andSecondaryDictionary: (NSDictionary *) inSecondary
+                           usingUserDefaults: (BOOL)           inUseUserDefaults {
     self = [super init];
     if ( ! self  ) {
         return nil;
@@ -58,38 +50,75 @@ NSArray * gConfigurationPreferences;
     return self;
 }
 
--(void) dealloc
-{
+-(void) dealloc {
     [forcedDefaults release];
     [secondaryDefaults release];
     [super dealloc];
 }
 
--(BOOL) canChangeValueForKey: (NSString *) key     // Returns YES if key's value can be modified, NO if it can't
-{
-    if (   ( ! userDefaults )
-        || ([secondaryDefaults objectForKey:  key] != nil)
-        || ([self forcedObjectForKey: key] != nil)  ) {
-        return NO;
+-(id) forcedObjectForKey: (NSString *) key {
+    // Checks for a forced object for a key, implementing wildcard matches
+
+    id value = [forcedDefaults objectForKey: key];
+    if (  value == nil  ) {
+        // No key for XYZABCDE, so try for a wildcard match
+        // If have a *ABCDE key, returns it's value
+        NSEnumerator * e = [forcedDefaults keyEnumerator];
+        NSString * forcedKey;
+        while (  (forcedKey = [e nextObject])  ) {
+            if (   [forcedKey hasPrefix: @"*"]
+                && ( [forcedKey length] != 1)  ) {
+                if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
+                    return [forcedDefaults objectForKey: forcedKey];
+                }
+            }
+        }
     }
     
-    return YES;
+    return value;
 }
 
--(BOOL) boolForKey: (NSString *) key
-{
+-(id) defaultsObjectForKey: (NSString *) key {
+    // Checks for a defaults object for a key, implementing wildcard matches
+
+    id value = [userDefaults objectForKey: key];
+    if (  value == nil  ) {
+        // No key for XYZABCDE, so try for a wildcard match
+        // If have a *ABCDE key, returns it's value
+        NSDictionary * userDefaultsDictionary = [userDefaults dictionaryRepresentation];
+        NSEnumerator * e = [userDefaultsDictionary keyEnumerator];
+        NSString * defaultsKey;
+        while (  (defaultsKey = [e nextObject])  ) {
+            if (   [defaultsKey hasPrefix: @"*"]
+                && ( [defaultsKey length] != 1)  ) {
+                if (  [key hasSuffix: [defaultsKey substringFromIndex: 1]]  ) {
+                    return [userDefaults objectForKey: defaultsKey];
+                }
+            }
+        }
+    }
+    
+    return value;
+}
+
+-(id) objectForKey: (NSString *) key {
     id value = [self forcedObjectForKey: key];
     if (  value == nil  ) {
         value = [secondaryDefaults objectForKey: key];
         if (  value == nil  ) {
-            if (  userDefaults  ) {
-                return [userDefaults boolForKey: key];
-            }
-            return NO;
+            value = [self defaultsObjectForKey: key];
         }
     }
     
-    if (  [[value class] isSubclassOfClass: [NSNumber class]]  ) {
+    return value;
+}
+
+-(BOOL) boolForKey: (NSString *) key {
+    id value = [self objectForKey: key];
+    if (  ! value  ) {
+        return NO;
+    }
+    if (  [value respondsToSelector: @selector(boolValue)]  ) {
         return [value boolValue];
     }
     
@@ -100,8 +129,7 @@ NSArray * gConfigurationPreferences;
 -(unsigned) unsignedIntForKey: (NSString *) key
                       default: (unsigned)   defaultValue
                           min: (unsigned)   minValue
-                          max: (unsigned)   maxValue
-{
+                          max: (unsigned)   maxValue {
     unsigned returnValue = defaultValue;
 
     id obj = [self objectForKey: key];
@@ -129,22 +157,18 @@ NSArray * gConfigurationPreferences;
     return returnValue;
 }
 
-
--(id) objectForKey: (NSString *) key
-{
-    id value = [self forcedObjectForKey: key];
-    if (  value == nil  ) {
-        value = [secondaryDefaults objectForKey: key];
-        if (  value == nil  ) {
-            return [userDefaults objectForKey: key];
-        }
+-(BOOL) canChangeValueForKey: (NSString *) key {
+    // Returns YES if key's value can be modified, NO if it can't
+    if (   ( ! userDefaults )
+        || ([secondaryDefaults objectForKey:  key] != nil)
+        || ([self forcedObjectForKey: key] != nil)  ) {
+        return NO;
     }
     
-    return value;
+    return YES;
 }
 
--(void) setBool: (BOOL) value forKey: (NSString *) key
-{
+-(void) setBool: (BOOL) value forKey: (NSString *) key {
     if (  [self forcedObjectForKey: key] != nil  ) {
         NSLog(@"setBool: forKey: '%@': ignored because the preference is being forced by Deploy/forced-preferences.plist", key);
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
@@ -157,8 +181,7 @@ NSArray * gConfigurationPreferences;
     }
 }
 
--(void) setObject: (id) value forKey: (NSString *) key
-{
+-(void) setObject: (id) value forKey: (NSString *) key {
     if (  [self forcedObjectForKey: key] != nil  ) {
         NSLog(@"setObject: forKey: '%@': ignored because the preference is being forced by Deploy/forced-preferences.plist", key);
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
@@ -171,8 +194,7 @@ NSArray * gConfigurationPreferences;
     }
 }
 
--(void) removeObjectForKey: (NSString *) key
-{
+-(void) removeObjectForKey: (NSString *) key {
     if (  [self forcedObjectForKey: key] != nil  ) {
         NSLog(@"removeObjectForKey: '%@': ignored because the preference is being forced by Deploy/forced-preferences.plist", key);
     } else if (  [secondaryDefaults objectForKey: key] != nil  ) {
@@ -185,10 +207,8 @@ NSArray * gConfigurationPreferences;
     }
 }
 
-
-// Brute force -- try to remove key ending with the suffix for all configurations
--(void) removeAllObjectsWithSuffix: (NSString *) key
-{
+-(void) removeAllObjectsWithSuffix: (NSString *) key {
+    // Brute force -- try to remove key ending with the suffix for all configurations
     NSEnumerator * dictEnum = [[[NSApp delegate] myConfigDictionary] keyEnumerator];
     NSString * displayName;
     while (  (displayName = [dictEnum nextObject])  ) {
@@ -197,15 +217,50 @@ NSArray * gConfigurationPreferences;
     }
 }
 
+-(void) addToDictionary: (NSMutableDictionary *) targetDict
+			 withSuffix: (NSString *)            keySuffix
+				   from: (NSDictionary *)        fromDict {
+	
+	NSString * key;
+	NSEnumerator * e = [fromDict keyEnumerator];
+	while (  (key = [e nextObject])  ) {
+		if (  [key hasSuffix: keySuffix]  ) {
+			[targetDict setObject: [fromDict objectForKey: key] forKey: key];
+		}
+	}
+}
 
--(void) synchronize
-{
+-(NSArray *) valuesForPreferencesSuffixedWith:(NSString *) key {
+    
+    // Returns an array of the objects for all preferences with keys that have a particular suffix.
+    
+    // Get all key/value pairs
+	NSMutableDictionary * namesAndValues = [[NSMutableDictionary alloc] initWithCapacity: 100];
+	[self addToDictionary: namesAndValues withSuffix: key from: forcedDefaults];
+	[self addToDictionary: namesAndValues withSuffix: key from: secondaryDefaults];
+	[self addToDictionary: namesAndValues withSuffix: key from: [userDefaults dictionaryRepresentation]];
+	
+    // Extract all distinct values
+	NSMutableArray * values = [[[NSMutableArray alloc] initWithCapacity: 10] autorelease];
+	NSString * dictKey;
+	NSEnumerator * e = [namesAndValues keyEnumerator];
+	while (  (dictKey = [e nextObject])  ) {
+		NSString * value = [namesAndValues objectForKey: dictKey];
+		if (  ! [values containsObject: value]  ) {
+			[values addObject: value];
+		}
+	}
+	
+	[namesAndValues release];
+	return values;
+}
+
+-(void) synchronize {
     [userDefaults synchronize];
 }
 
 -(BOOL) movePreferencesFrom: (NSString *) sourceDisplayName
-                         to: (NSString *) targetDisplayName
-{
+                         to: (NSString *) targetDisplayName {
     if (  ! userDefaults  ) {
         return TRUE;
     }
@@ -247,10 +302,8 @@ NSArray * gConfigurationPreferences;
     return ! problemsFound;
 }
 
-
 -(BOOL) copyPreferencesFrom: (NSString *) sourceDisplayName
-                         to: (NSString *) targetDisplayName
-{
+                         to: (NSString *) targetDisplayName {
     if (  ! userDefaults  ) {
         return TRUE;
     }
@@ -287,9 +340,7 @@ NSArray * gConfigurationPreferences;
     return ! problemsFound;
 }
 
-
--(BOOL) removePreferencesFor: (NSString *) displayName
-{
+-(BOOL) removePreferencesFor: (NSString *) displayName {
     BOOL problemsFound = FALSE;
     NSEnumerator * arrayEnum = [gConfigurationPreferences objectEnumerator];
     NSString * preferenceSuffix;
@@ -308,9 +359,8 @@ NSArray * gConfigurationPreferences;
     return ! problemsFound;
 }
 
-
--(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict displayName: (NSString *) dictName
-{
+-(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
+                                  displayName: (NSString *)     dictName {
     NSEnumerator * dictEnum = [dict keyEnumerator];
     NSString * preferenceKey;
     while (  (preferenceKey = [dictEnum nextObject])  ) {
@@ -331,32 +381,8 @@ NSArray * gConfigurationPreferences;
     }
 }
 
-
-// Checks for a forced object for a key, implementing wildcard matches
--(id) forcedObjectForKey: (NSString *) key
-{
-    id value = [forcedDefaults objectForKey: key];
-    if (  value == nil  ) {
-        // No tbDefaults key for XYZABCDE, so try for a wildcard match
-        // If tbDefaults has a *ABCDE key, returns it's value
-        NSEnumerator * e = [forcedDefaults keyEnumerator];
-        NSString * forcedKey;
-        while (  (forcedKey = [e nextObject])  ) {
-            if (   [forcedKey hasPrefix: @"*"] 
-                && ( [forcedKey length] != 1)  ) {
-                if (  [key hasSuffix: [forcedKey substringFromIndex: 1]]  ) {
-                    return [forcedDefaults objectForKey: forcedKey];
-                }
-            }
-        }
-    }
-    
-    return value;
-}
-
--(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName
-                                 inDictionary: (NSDictionary *) dict
-{
+-(unsigned) numberOfConfigsInCredentialsGroup: (NSString *)     groupName
+                                 inDictionary: (NSDictionary *) dict {
     unsigned n = 0;
     NSString * prefKey = @"-credentialsGroup";
     if (  ! dict  ) {
@@ -374,8 +400,7 @@ NSArray * gConfigurationPreferences;
     return n;
 }
 
--(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName
-{
+-(unsigned) numberOfConfigsInCredentialsGroup: (NSString *) groupName {
     unsigned nForced = [self numberOfConfigsInCredentialsGroup: groupName
                                                   inDictionary: forcedDefaults];
     unsigned nNormal = [self numberOfConfigsInCredentialsGroup: groupName
@@ -383,8 +408,7 @@ NSArray * gConfigurationPreferences;
     return nForced + nNormal;
 }
 
--(NSString *) removeNamedCredentialsGroup: (NSString *) groupName
-{
+-(NSString *) removeNamedCredentialsGroup: (NSString *) groupName {
     // Make sure the list of groups are not forced
 	NSString * groupsKey = @"namedCredentialsNames";
     if (  ! [self canChangeValueForKey: groupsKey]  ) {
@@ -441,8 +465,7 @@ NSArray * gConfigurationPreferences;
 	return nil;
 }
 
--(NSString *) addNamedCredentialsGroup: (NSString *) groupName
-{
+-(NSString *) addNamedCredentialsGroup: (NSString *) groupName {
 	NSString * groupsKey = @"namedCredentialsNames";
     if (  [self canChangeValueForKey: groupsKey]  ) {
         NSMutableArray * groups = [[[self objectForKey: groupsKey] mutableCopy] autorelease];
@@ -471,8 +494,7 @@ NSArray * gConfigurationPreferences;
     }
 }
 
--(NSArray *) sortedCredentialsGroups
-{
+-(NSArray *) sortedCredentialsGroups {
 	NSArray * groups = [self objectForKey: @"namedCredentialsNames"];
 	if (  groups  ) {
 		groups = [groups sortedArrayUsingSelector: @selector(caseInsensitiveNumericCompare:)];

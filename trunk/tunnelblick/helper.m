@@ -397,29 +397,32 @@ NSString * tunnelblickVersion(NSBundle * bundle)
     return (version);
 }
 
-// Returns a string with the version # for OpenVPN, e.g., "OpenVPN 2 (2.1_rc15)"
-NSString * openVPNVersion(void)
+NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
 {
-    NSString * version;
-    NSDictionary * openvpnVersion = getOpenVPNVersion();
-    if (  openvpnVersion  ) {
-        version= [NSString stringWithFormat:@"OpenVPN %@",
-                  [openvpnVersion objectForKey:@"full"]
-                  ];
-    } else {
-        version = @"?";
+    // Returns a dictionary from parseVersion with version info about the currently selected version of OpenVPN
+    // for the configuration with displayName "name". If "name" is nil, returns info about the application-wide default version of OpenVPN.
+    //
+    // Launches "openvpn --version" for the openvpn version information (so no matter what Tunnelblick uses in the folder name
+    // of the container for OpenVPN, we use OpenVPN's actual version information.
+    
+    // Uses the version specified for the specific connection (if given) if it is available;
+    // If not, uses the application-wide version if it is available;
+    // If not, uses the first version of OpenVPN found.
+    NSString * prefVersion = nil;
+    id obj = nil;
+    if (  name  ) {
+        obj = [gTbDefaults objectForKey: [name stringByAppendingString: @"-openvpnVersion"]];
     }
-
-    return version;
-}
-
-// Returns a dictionary from parseVersion with version info about the currently selected version of OpenVPN
-NSDictionary * getOpenVPNVersion(void)
-{
-    //Launch "openvpn --version" for the openvpn version specified or used by default, and put the result into an NSString:
+    if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+        prefVersion = (NSString *) obj;
+    } else {
+        obj = [gTbDefaults objectForKey: @"openvpnVersion"];
+        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
+            prefVersion = (NSString *) obj;
+        }
+    }
     
     NSString * useVersion = nil;
-    NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
     NSArray  * versions = availableOpenvpnVersions();
     if (  prefVersion  ) {
         if (  [prefVersion isEqualToString: @"-"]  ) {  // "-" means latest version
@@ -442,7 +445,7 @@ NSDictionary * getOpenVPNVersion(void)
             }
         }
     } else {
-        if (   versions  ) {
+        if (  versions  ) {
             useVersion = [versions objectAtIndex: 0];
         }
     }
