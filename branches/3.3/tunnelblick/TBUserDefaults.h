@@ -87,6 +87,8 @@
 
 -(void) removeAllObjectsWithSuffix:           (NSString *) key;
 
+-(NSArray *) valuesForPreferencesSuffixedWith:(NSString *) key;
+
 -(void) scanForUnknownPreferencesInDictionary: (NSDictionary *) dict
                                   displayName: (NSString *) dictName;
 

@@ -1587,7 +1587,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     // for OpenVPN v. 2.1_rc9 or higher, clear skipScrSec so we use "--script-security 2"
     NSString *skipScrSec = @"1";
-    NSDictionary * openVPNVersionDict = getOpenVPNVersion();
+    NSDictionary * openVPNVersionDict = getOpenVPNVersionForConfigurationNamed([self displayName]);
     if (  openVPNVersionDict  ) {
         int intMajor =  [[openVPNVersionDict objectForKey:@"major"]  intValue];
         int intMinor =  [[openVPNVersionDict objectForKey:@"minor"]  intValue];
@@ -1684,16 +1684,10 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         leasewatchOptions = [self leasewatchOptionsFromPreferences];
     }
     
-    NSString * ourVersionFolder;
-    id obj = [gTbDefaults objectForKey: @"openvpnVersion"];
-    if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-        ourVersionFolder = (NSString *) obj;
-    } else {
-        ourVersionFolder = @"";
-    }
+    NSString * ourOpenVPNVersion = [openVPNVersionDict objectForKey: @"full"];
 
     NSArray * args = [NSArray arrayWithObjects:
-                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourVersionFolder, nil];
+                      @"start", [[lastPartOfPath(cfgPath) copy] autorelease], portString, useDNSArg, skipScrSec, altCfgLoc, noMonitor, bitMaskString, leasewatchOptions, ourOpenVPNVersion, nil];
 
     // IF THE NUMBER OF ARGUMENTS CHANGES:
     //    (1) Modify openvpnstart to use the new arguments
