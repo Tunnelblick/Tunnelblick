@@ -299,9 +299,10 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[self window] makeFirstResponder: [utilitiesPrefsView utilitiesHelpButton]];
     } else if (   view == infoPrefsView  ) {
         [[self window] makeFirstResponder: [infoPrefsView infoHelpButton]];
-        NSString * deployedString = (gDeployPath && [gFileMgr fileExistsAtPath: gDeployPath]
-                                     ? NSLocalizedString(@" (Deployed)", @"Window title") : @"");
-        NSString * version = [NSString stringWithFormat: @"%@%@  -  %@", tunnelblickVersion([NSBundle mainBundle]), deployedString, openVPNVersion()];
+        NSString * deployedString = (  gDeployPath && [gFileMgr fileExistsAtPath: gDeployPath]
+                                     ? NSLocalizedString(@" (Deployed)", @"Window title")
+                                     : @"");
+        NSString * version = [NSString stringWithFormat: @"%@%@", tunnelblickVersion([NSBundle mainBundle]), deployedString];
         [[infoPrefsView infoVersionTFC] setTitle: version];
     } else {
         NSLog(@"newViewDidAppear:identifier: invoked with unknown view");
@@ -2349,6 +2350,34 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 //***************************************************************************************************************
 
+-(void) setupOpenvpnVersionOverrideMessage {
+    
+    NSString * overrideMessage = nil;
+	NSString * applicationWideVersion = [getOpenVPNVersionForConfigurationNamed(nil) objectForKey: @"full"];
+    if (  applicationWideVersion  ) {
+		NSArray * prefVersions = [gTbDefaults valuesForPreferencesSuffixedWith: @"-openvpnVersion"];
+        NSString * name;
+        NSEnumerator * e = [prefVersions objectEnumerator];
+        while (  (name = [e nextObject]) ) {
+            if (  ! [name isEqualToString: applicationWideVersion]  ) {
+                overrideMessage = NSLocalizedString(@"(Some configurations use other versions)", @"Window text");
+                break;
+            }
+        }
+    } else {
+        overrideMessage = NSLocalizedString(@"*** No versions of OpenVPN are available ***", @"Window text");
+    }
+    
+	if (  ! overrideMessage  ) {
+		overrideMessage = NSLocalizedString(@"(This version is used by all configurations)", @"Window text");
+		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTitle: overrideMessage];
+		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTextColor: [NSColor darkGrayColor]];
+	} else {
+		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTitle: overrideMessage];
+		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTextColor: [NSColor redColor]];
+	}
+}
+
 -(void) setupGeneralView
 {
     // Select values for the configurations checkboxes
@@ -2426,6 +2455,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
     
     [[generalPrefsView openvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: @"openvpnVersion"]];
+    
+    [self setupOpenvpnVersionOverrideMessage];
     
     // Select the keyboard shortcut
     
@@ -2611,6 +2642,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                 }
             }
         }
+        
+        [self setupOpenvpnVersionOverrideMessage];
     }
 }    
 
@@ -2664,8 +2697,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
 }
 
-//***************************************************************************************************************
-
 -(void) setupDisplayStatisticsWindowCheckbox {
     if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
         [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setState: NSOffState];
@@ -2689,6 +2720,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                        defaultsTo: FALSE];
     }
 }    
+
+//***************************************************************************************************************
 
 -(void) setupAppearanceView
 {
@@ -2807,7 +2840,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     
     [[appearancePrefsView appearanceConnectionWindowDisplayCriteriaButton] setEnabled: [gTbDefaults canChangeValueForKey: @"connectionWindowDisplayCriteria"]];
 }
-
 
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (id) sender
 {

@@ -418,6 +418,7 @@ BOOL needToConvertNonTblks(void);
                                       @"-loadTapKext",
                                       @"-loadTunKext",
                                       @"-credentialsGroup",
+									  @"-openvpnVersion",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",

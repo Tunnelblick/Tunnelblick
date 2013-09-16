@@ -113,6 +113,7 @@ extern TBUserDefaults * gTbDefaults;
         [openvpnVersionTF      setHidden: YES];
         [openvpnVersionButton setEnabled: NO];
         [openvpnVersionButton  setHidden: YES];
+		[openvpnVersionOverrideMessageTF setHidden: YES];
         
         [self shift: maxLogDisplaySizeTF                by: +40.0];
         [self shift: maximumLogSizeButton               by: +40.0];
@@ -197,6 +198,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, openvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          openvpnVersionButton)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   openvpnVersionOverrideMessageTFC)
+TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       openvpnVersionOverrideMessageTF)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          checkIPAddressAfterConnectCheckbox)
 
