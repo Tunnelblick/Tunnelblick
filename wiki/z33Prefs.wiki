@@ -4,15 +4,19 @@
 <wiki:toc max_depth="2" />
 
 ==Overview==
+Tunnelblick uses preferences to store user-specified settings for the program and for configurations.
+
 Tunnelblick's preferences for a user are stored in `~/Library/Preferences/net.tunnelblick.tunnelblick.plist`.
 
 Note: Tunnelblick's settings for each configuration are stored as Mac OS X preferences. This document includes both Tunnelblick preferences and configuration settings.
 
 Note: In Tunnelblick 3.2beta10 and earlier, preferences are stored in `~/Library/Preferences/com.openvpn.tunnelblick.plist`.
 
-If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference
+If Tunnelblick.app contains a `Contents/Resources/Deploy/forced-preferences.plist` file, then preferences in that file override the corresponding preferences in the `com.openvpn.tunnelblick.plist` file. This overriding is called "forcing" the preference and such preferences are said to be "forced preferences".
 
-Forced preferences can be applied to all configurations by using "`*`" as the configuration name (see [#Per-Configuration_Settings Per-Configuration Settings]). See [cDeployingTunnelblick Deploying Tunnelblick] for more details about Deployed configurations and forced preferences.
+Per-configuration preferences can be applied to all configurations by using "`*`" as the configuration name (see [#Per-Configuration_Settings Per-Configuration Settings]). If a configuration has its own preference corresponding to a "`*`"preferences, the configuration's own preference will override the "`*`" preference. <em>NOTE: Prior to Tunnelblick 3.4beta10, only forced preferences may contain a "`*`".</em>
+
+Forced preferences will override normal preferences. See [cDeployingTunnelblick Deploying Tunnelblick] for more details about Deployed configurations and forced preferences.
 
 When using a [cConfigT Tunnelblick VPN Configuration], it may contain preferences in its Info.plist. Values of those preferences are used if the user has not specified different values. The use may also change the values after they are loaded from Info.plist.
 
@@ -123,6 +127,7 @@ If you wish a forced preference to be used for all configurations, use an asteri
   * *autoConnect* (Boolean): If set, Tunnelblick will connect using the configuration when it Tunnelblick is launched if the -onSystemStart preference is not present or is false, or when the computer starts if the -onSystemStart preference is true. If cleared or not present, the user must connect manually. The user may specify this using the "Connect" selection on the "VPN Details…" "Settings" tab for the configuration. The default is not present.
   * *-onSystemStart* (Boolean): If set and autoConnect is also set, the configuration will be connected when the computer starts instead of when Tunnelblick launches. The  default is not present (check box not checked). The user may set this by selecting the "when computer starts" radio button in the VPN Details… window.
   * *useDNS* (Number): Determines if Tunnelblick will use scripts before and after a connection is made and if so, which scripts. Which scripts depend on the value: 1 uses the standard scripts to save and restore the computer's DNS and WINS settings, 2 uses the scripts provided in Tunnelblick 3.0b10, 3 uses scripts  from http://openvpn.net/archive/openvpn-users/2006-10/msg00120.html. If 0 or not present, no scripts are run by Tunnelblick (the user may specify scripts in the configuration file). The user may specify this by setting "Set Nameserver" on the "VPN Details…" "Settings" tab for the configuration. The default is 1. Note: if this value is non-zero, any "up" and "down" options in the configuration file will be ignored.
+  * *-openvpnVersion* (String, <em>available only in Tunnelblick 3.4beta10 and later</em>): Specifies what version of OpenVPN to use to connect the configuration. If set to "-", uses the latest version of OpenVPN that is available. If set to a version number (for example, "2.2.1"), specifies the specific version of OpenVPN that should be used. If not set, the application-wide "openvpnVersion" preference will be used to determine which version of OpenVPN to use. (If neither preference is set, the earliest version of OpenVPN will be used.)
   * *-notMonitoringConnection* (Boolean): If cleared or not present, Tunnelblick will monitor the network and restart the connection if changes to the network DNS or WINS configurations are detected. If set, no monitoring will be done. The user may specify this using the "Monitor Connection" check box on the "VPN Details…" "Settings" tab for the configuration. This preference is ignored, and the check box is disabled, if the "useDNS" preference is not set to 1 (i.e., the "Set Nameserver" is not specified). The default is cleared (check box checked).
   * *-doNotRestoreOnDnsReset* and *-doNotRestoreOnWinsReset* (Boolean): If set, a DHCP renew which restores the original, pre-VPN DNS or WINS information will restart the connection. If cleared or not present, the post-VPN information will replace the DHCP-supplied information. The default is not present.
   * *-doNotDisconnectOnFastUserSwitch* (Boolean): If set, Tunnelblick will not disconnect the configuration when the user is switched out. If cleared or not present, when the user is switched out using OS X's Fast User Switching, Tunnelblick will disconnect the configuration if it is not set to connect "when computer starts". The default is not present. Only available in Tunnelblick 3.2beta04 and later.
