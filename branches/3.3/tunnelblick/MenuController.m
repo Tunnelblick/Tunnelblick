@@ -4102,16 +4102,19 @@ BOOL warnAboutNonTblks(void)
         
         int result = TBRunAlertPanel(NSLocalizedString(@"System Requirements Not Met", @"Window title"),
                                      [NSString stringWithFormat: NSLocalizedString(@"The %@ system folder (%@) is not secure.\n\n"
+																				   @"Tunnelblick may not work properly unless this is fixed.\n\n"
 																				   @"Disk Utility's 'Repair Disk Permissions' function may be able to repair the problem.", @"Window text"),
 									  [gFileMgr displayNameAtPath: folderPath], folderPath],
                                      NSLocalizedString(@"Quit", @"Button"),
                                      NSLocalizedString(@"Help", @"Button"),
-									 nil);
-        if (  result != NSAlertDefaultReturn  ) {
-            MyGotoHelpPage(@"system-folder-not-secure.html", NULL);
+									 NSLocalizedString(@"Continue", @"Button"));
+        if (  result == NSAlertAlternateReturn  ) {
+            MyGotoHelpPage(@"system-folder-not-secure.html", nil);
         }
 		
-		[self terminateBecause: terminatingBecauseOfError];
+        if (  result == NSAlertDefaultReturn  ) {
+			[self terminateBecause: terminatingBecauseOfError];
+        }
     }
 }
 
@@ -4122,6 +4125,11 @@ BOOL warnAboutNonTblks(void)
     [self checkSystemFolder: @"/Applications"];
     [self checkSystemFolder: @"/Library"];
     [self checkSystemFolder: @"/Library/Application Support"];
+    [self checkSystemFolder: @"/Users"];
+    [self checkSystemFolder: @"/usr"];
+    [self checkSystemFolder: @"/usr/bin"];
+    [self checkSystemFolder: @"/usr/sbin"];
+    [self checkSystemFolder: @"/sbin"];
 }
 
 -(void) initialChecks: (NSString *) ourAppName
