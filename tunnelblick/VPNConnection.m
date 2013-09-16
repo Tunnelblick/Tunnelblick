@@ -146,6 +146,25 @@ extern NSString * lastPartOfPath(NSString * thePath);
         requestedState = @"EXITING";
 		[self initializeAuthAgent];
 		
+        // If a package, set preferences that haven't been defined yet or that should always be set
+        if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
+            NSString * infoPath = [inPath stringByAppendingPathComponent: @"Contents/Info.plist"];
+            NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
+            NSString * key;
+            NSEnumerator * e = [infoDict keyEnumerator];
+            while (  (key = [e nextObject])  ) {
+                if (  [key hasPrefix: @"TBPreference"]  ) {
+                    NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
+                    if (  [gTbDefaults objectForKey: preferenceKey] == nil  ) {
+                        [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
+                    }
+                } else if (  [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+                    NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBAlwaysSetPreference" length]]];
+                    [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
+                }
+            }
+        }
+        
 		speakWhenConnected    = FALSE;
 		speakWhenDisconnected = FALSE;
         NSString * upSoundKey  = [displayName stringByAppendingString: @"-tunnelUpSoundName"];
@@ -194,22 +213,6 @@ extern NSString * lastPartOfPath(NSString * thePath);
         retryingConnectAfterSecuringConfiguration = FALSE;
 
         userWantsState   = userWantsUndecided;
-        
-        // If a package, set preferences that haven't been defined yet
-        if (  [[inPath pathExtension] isEqualToString: @"tblk"]  ) {
-            NSString * infoPath = [inPath stringByAppendingPathComponent: @"Contents/Info.plist"];
-            NSDictionary * infoDict = [NSDictionary dictionaryWithContentsOfFile: infoPath];
-            NSString * key;
-            NSEnumerator * e = [infoDict keyEnumerator];
-            while (  (key = [e nextObject])  ) {
-                if (  [key hasPrefix: @"TBPreference"]  ) {
-                    NSString * preferenceKey = [displayName stringByAppendingString: [key substringFromIndex: [@"TBPreference" length]]];
-                    if (  [gTbDefaults objectForKey: preferenceKey] == nil  ) {
-                        [gTbDefaults setObject: [infoDict objectForKey: key] forKey: preferenceKey];
-                    }
-                }
-            }
-        }
         
         bytecountMutexOK = FALSE;
         OSStatus status = pthread_mutex_init( &bytecountMutex, NULL);

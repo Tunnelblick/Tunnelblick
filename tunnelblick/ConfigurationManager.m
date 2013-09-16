@@ -1034,7 +1034,7 @@ enum state_t {                      // These are the "states" of the guideState 
         }
         
 		if (  replacedTblk  ) {
-            // Force a reload of the configuration's preferences using any new TBPreferences items it its Info.plist
+            // Force a reload of the configuration's preferences using any new TBPreference and TBAlwaysSetPreference items it its Info.plist
             [[NSApp delegate] deleteExistingConfig: targetDisplayName ];
             [[NSApp delegate] addNewConfig: target withDisplayName: targetDisplayName];
             [[[NSApp delegate] logScreen] update];
@@ -1147,7 +1147,7 @@ enum state_t {                      // These are the "states" of the guideState 
     }
     
     // **************************************************************************************
-    // Get the following data from Info.plist (and make sure nothing else is in it except TBPreference***):
+    // Get the following data from Info.plist (and make sure nothing else is in it except TBPreference*** and TBAlwaysSetPreference***):
     
     NSString * pkgId;
     NSString * pkgVersion;
@@ -1211,11 +1211,14 @@ enum state_t {                      // These are the "states" of the guideState 
         NSEnumerator * e = [infoDict keyEnumerator];
         while (  (key = [e nextObject])  ) {
             if (  ! [validKeys containsObject: key]  ) {
-                if (  [key hasPrefix: @"TBPreference"]  ) {
-                    NSString * keySuffix = [key substringFromIndex: [@"TBPreference" length]];
+                if (   [key hasPrefix: @"TBPreference"]
+                    || [key hasPrefix: @"TBAlwaysSetPreference"]  ) {
+                    NSString * keySuffix = (  [key hasPrefix: @"TBPreference"]
+                                            ? [key substringFromIndex: [@"TBPreference"          length]]
+                                            : [key substringFromIndex: [@"TBAlwaysSetPreference" length]]);
                     if (  ! [gConfigurationPreferences containsObject: keySuffix]  ) {
-                        NSLog(@"Configuration installer: Unknown preference '%@' in TBPreference key in Info.plist in %@", keySuffix, pathToTblk);
-                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has a TBPreference key which refers to an unknown preference '%@'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], keySuffix]];
+                        NSLog(@"Configuration installer: Unknown preference '%@' in TBPreference or TBAlwaysSetPreference key in Info.plist in %@", keySuffix, pathToTblk);
+                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%@'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], keySuffix]];
                         pkgIsOK = FALSE;
                     }
                 } else {
