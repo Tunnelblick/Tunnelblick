@@ -32,6 +32,7 @@
 #import "ConfigurationConverter.h"
 
 extern NSMutableArray       * gConfigDirs;
+extern NSArray              * gConfigurationPreferences;
 extern NSString             * gPrivatePath;
 extern NSString             * gDeployPath;
 extern NSFileManager        * gFileMgr;
@@ -1210,7 +1211,14 @@ enum state_t {                      // These are the "states" of the guideState 
         NSEnumerator * e = [infoDict keyEnumerator];
         while (  (key = [e nextObject])  ) {
             if (  ! [validKeys containsObject: key]  ) {
-                if (  ! [key hasPrefix: @"TBPreference"]  ) {
+                if (  [key hasPrefix: @"TBPreference"]  ) {
+                    NSString * keySuffix = [key substringFromIndex: [@"TBPreference" length]];
+                    if (  ! [gConfigurationPreferences containsObject: keySuffix]  ) {
+                        NSLog(@"Configuration installer: Unknown preference '%@' in TBPreference key in Info.plist in %@", keySuffix, pathToTblk);
+                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has a TBPreference key which refers to an unknown preference '%@'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], keySuffix]];
+                        pkgIsOK = FALSE;
+                    }
+                } else {
                     NSLog(@"Configuration installer: Unknown key '%@' in Info.plist in %@", key, pathToTblk);
                     [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The Info.plist in '%@' has an unknown key '%@'.", @"Window text"), [self extractTblkNameFromPath: pathToTblk], key]];
                     pkgIsOK = FALSE;
