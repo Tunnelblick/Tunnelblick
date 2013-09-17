@@ -1773,19 +1773,27 @@ enum state_t {                      // These are the "states" of the guideState 
             newPath = [emptyResources stringByAppendingPathComponent: [oldPath lastPathComponent]];
         }
         
-        BOOL doCopy = TRUE; // Assume we do copy the file, but scripts may be copied separately
+        BOOL doCopy = TRUE; // Assume we don't remove/replace CR characeters, so we do need to copy the file
         
-        // Filter CR characters out of any script files
-        if (  [[oldPath pathExtension] isEqualToString: @"sh"]  ) {
+        // Filter CR characters out of any script files, OpenVPN configuration files, and other non-binary files
+        NSString * theExtension = [oldPath pathExtension];
+        NSArray * otherExtensinons = [NSArray arrayWithObjects: @"sh", @"ovpn", @"conf", nil];
+        NSArray * nonBinaryExtensions = NONBINARY_CONTENTS_EXTENSIONS;
+        if (   [nonBinaryExtensions containsObject: theExtension]
+            || [otherExtensinons    containsObject: theExtension]  ) {
             NSData * data = [gFileMgr contentsAtPath: oldPath];
             if (  data  ) {
                 NSString * scriptContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
                 if (  [scriptContents rangeOfString: @"\r"].length != 0  ) {
-                    NSLog(@"Configuration installer: Script %@ has a CR characters which are being removed in the installed copy. (OS X does not allow CR characters in scripts.)", oldPath);
                     doCopy = FALSE;
+                    NSLog(@"Configuration installer: CR characters are being removed or replaced with LF characters in the installed copy of %@", oldPath);
                     NSMutableString * ms = [[scriptContents mutableCopy] autorelease];
+					[ms replaceOccurrencesOfString: @"\r\n"
+										withString: @"\n"
+										   options: 0
+											 range: NSMakeRange(0, [scriptContents length])];
 					[ms replaceOccurrencesOfString: @"\r"
-										withString: @""
+										withString: @"\n"
 										   options: 0
 											 range: NSMakeRange(0, [scriptContents length])];
 					data = [ms dataUsingEncoding: NSASCIIStringEncoding];
