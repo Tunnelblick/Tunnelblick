@@ -725,7 +725,7 @@ enum state_t {                      // These are the "states" of the guideState 
                 NSString * newPath = [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: [argument lastPathComponent]];
                 if (  [gFileMgr fileExistsAtPath: newPath]  ) {
                     if (  [NONBINARY_CONTENTS_EXTENSIONS containsObject: [newPath pathExtension]]  ) {
-                        NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES);
+                        NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES, nil); // No comments in these files
                         if (  errorText  ) {
                             NSLog(@"Error in %@ (referenced in %@): %@", newPath, tblkName, errorText);
 							[errMsgs addObject: [NSString stringWithFormat:
