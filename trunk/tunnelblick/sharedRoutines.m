@@ -414,12 +414,21 @@ BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser)
 	return result;
 }
 
-NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
+NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK, NSString * charactersThatCommentsStartWith) {
     
     // Returns nil if the file at path is a plain text file, or a string describing the error if it isn't
     //
-    // If crOK is TRUE, CR (0x0D) characters are allowed.
+    // If 'crOK' is TRUE, CR (0x0D) characters are allowed.
     // Note: all files except script files can have CR characters.
+    //
+    // If 'charactersThatCommentsStartWith' is not nil, it is a string of characters that can start comments (which end at the next LF).
+    // _ANY_ character in a comment is allowed.
+    //
+    // This routine is fooled by some bash constructs. For example, in the following two lines, everything after the #
+    // is considered a comment, and is not checked for "bad" characters:
+    //      echo ${PATH#*:}
+    //      echo $(( 2#101011 ))
+ 
     
     NSData * data = [[NSFileManager defaultManager] contentsAtPath: path];
 	
@@ -433,24 +442,61 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK) {
         return NSLocalizedString(@"The file appears to be in \"rich text\" format because it starts with a '{' character. Configuration files and all other OpenVPN-related files must be \"plain text\" files.", @"Window text");
     }
     
+    BOOL inComment     = FALSE;
+    BOOL inDoubleQuote = FALSE;
+    BOOL inSingleQuote = FALSE;
+    BOOL inBackslash   = FALSE;
     unsigned i;
     unsigned lineNumber = 1;
     for (  i=0; i<[data length]; i++  ) {
         unsigned char c = chars[i];
-        if (   ((c & 0x80) != 0)   // If high bit set
-            || (c == 0x7F)         // Or DEL
-            || (   (c == 0x0D)     // Or CR and CR is not allowed
-                && (! crIsOK))
-            || (   (c < 0x20)      // Or a control character
-                && (c != 0x09)     //    but not an HTAB
-                && (c != 0x0A)     //            or LF
-                && (c != 0x0D)     //            or CR
-                )
-            ) {
-            return [NSString stringWithFormat: NSLocalizedString(@"Line %d of the file contains a non-printable character (0x%02X) which is not allowed.", @"Window text"),
-                    lineNumber, (unsigned int)c];
+        if (   ( ! inComment)
+            && ( ! inDoubleQuote)
+            && ( ! inSingleQuote)
+            && ( ! inBackslash)  ) {
+            if (   ((c & 0x80) != 0)   // If high bit set
+                || (c == 0x7F)         // Or DEL
+                || (   (c == 0x0D)     // Or CR and CR is not allowed
+                    && (! crIsOK))
+                || (   (c < 0x20)      // Or a control character
+                    && (c != 0x09)     //    but not an HTAB
+                    && (c != 0x0A)     //            or LF
+                    && (c != 0x0D)     //            or CR
+                    )
+                ) {
+                return [NSString stringWithFormat: NSLocalizedString(@"Line %d of the file contains a non-printable character (0x%02X) which is not allowed.", @"Window text"),
+                        lineNumber, (unsigned int)c];
+            }
         }
+    
+        if (  charactersThatCommentsStartWith  ) {
+            if (  inDoubleQuote  ) {
+                if (  c == '"'  ) {
+                    inDoubleQuote = FALSE;
+                }
+            } else if (  inSingleQuote  ) {
+                if (  c == '\''  ) {
+                    inSingleQuote = FALSE;
+                }
+            } else if (  inBackslash  ) {
+                inBackslash = FALSE;
+                
+            } else if (  c == '\\'  ) {
+                inBackslash = TRUE;
+            } else if (  c == '"'  ) {
+                inDoubleQuote = TRUE;
+            } else if (  c == '\''  ) {
+                inSingleQuote = TRUE;
+            } else  if (  [charactersThatCommentsStartWith rangeOfString: [NSString stringWithFormat: @"%c", c]].length != 0 ) {
+                inComment = TRUE;
+            }
+        }
+        
         if (  c == 0x0A  ) {
+            inComment     = FALSE;
+            inDoubleQuote = FALSE;
+            inSingleQuote = FALSE;
+            inBackslash   = FALSE;
             lineNumber++;
         }
     }
