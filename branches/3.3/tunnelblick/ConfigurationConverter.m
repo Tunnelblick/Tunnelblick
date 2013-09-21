@@ -295,7 +295,7 @@ extern NSString      * gPrivatePath;
             [self logMessage: [NSString stringWithFormat: @"Added '.sh' extension to %@ so it will be secured properly", file]];
         }
         
-        NSString * errorMsg = errorIfNotPlainTextFileAtPath(inPath, NO);
+        NSString * errorMsg = errorIfNotPlainTextFileAtPath(inPath, NO, @"#");  // Scripts use '#' to start comments
         if (  errorMsg  ) {
             [self logMessage: [NSString stringWithFormat: @"File %@: %@", [inPath lastPathComponent], errorMsg]];
             return FALSE;
@@ -394,7 +394,7 @@ extern NSString      * gPrivatePath;
 	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
 	
-    NSString * errorMsg = errorIfNotPlainTextFileAtPath(theConfigPath, YES);
+    NSString * errorMsg = errorIfNotPlainTextFileAtPath(theConfigPath, YES, @"#;"); // Config files use # and ; to start comments
     if (  errorMsg  ) {
         [self logMessage: errorMsg];
         return FALSE;
