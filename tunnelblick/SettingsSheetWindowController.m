@@ -60,10 +60,6 @@ extern TBUserDefaults       * gTbDefaults;
                               oldPreference: (NSString *)      oldPreference
                       leasewatchOptionsChar: (NSString *)      leasewatchOptionsChar;
 
--(BOOL) changeBooleanPreference: (NSString *) key
-                             to: (BOOL)       newValue
-                       inverted: (BOOL)       inverted;
-
 -(void) setDnsWinsIndex: (NSInteger *) index
                      to: (NSInteger)   newValue
              preference: (NSString *)  key;
@@ -821,81 +817,109 @@ extern TBUserDefaults       * gTbDefaults;
 // Methods for Connecting & Disconnecting tab
 
 -(IBAction) reconnectWhenUnexpectedDisconnectCheckboxWasClicked: (id) sender {
+    
     // This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
     
-    [self changeBooleanPreference: @"-doNotReconnectOnUnexpectedDisconnect"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotReconnectOnUnexpectedDisconnect"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to reconnect when an unexpected disconnection occurs?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not reconnect when an unexpected disconnection occurs?", @"Window text"))];
 }
 
 
 -(IBAction) scanConfigurationFileCheckboxWasClicked: (id) sender {
-    [self changeBooleanPreference: @"-doNotParseConfigurationFile"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotParseConfigurationFile"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want to scan the configuration file for problems before connecting all configurations?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want to not scan the configuration file for problems before connecting all configurations?", @"Window text"))];
 }
 
 
 -(IBAction) useTunTapDriversCheckboxWasClicked: (id) sender {
     BOOL value = ([sender state] == NSOnState);
-    [self changeBooleanPreference: @"-loadTapKext"
-                               to: value
-                         inverted: NO];
-    [self changeBooleanPreference: @"-doNotLoadTapKext"
-                               to: value
-                         inverted: YES];
-    [self changeBooleanPreference: @"-loadTunKext"
-                               to: value
-                         inverted: NO];
-    [self changeBooleanPreference: @"-doNotLoadTunKext"
-                               to: value
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-loadTapKext"
+                                forConnection: connection
+                                           to: value
+                                     inverted: NO
+                             localizedMessage: nil];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotLoadTapKext"
+                                forConnection: connection
+                                           to: value
+                                     inverted: YES
+                             localizedMessage: nil];
+    [[NSApp delegate] changeBooleanPreference: @"-loadTunKext"
+                                forConnection: connection
+                                           to: value
+                                     inverted: NO
+                             localizedMessage: nil];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotLoadTunKext"
+                                forConnection: connection
+                                           to: value
+                                     inverted: YES
+                             localizedMessage: nil];
 }
 
 
 -(IBAction) flushDnsCacheCheckboxWasClicked: (id) sender {
-    [self changeBooleanPreference: @"-doNotFlushCache"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotFlushCache"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to flush the DNS cache after connecting and after disconnecting?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not flush the DNS cache after connecting and after disconnecting?", @"Window text"))];
 }
 
 
 -(IBAction) prependDomainNameCheckboxWasClicked:(id)sender {
-    [self changeBooleanPreference: @"-prependDomainNameToSearchDomains"
-                               to: ([sender state] == NSOnState)
-                         inverted: NO];
+    [[NSApp delegate] changeBooleanPreference: @"-prependDomainNameToSearchDomains"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: NO
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to add the domain name to the start of the list of search domains?",    @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not add the domain name to the start of the list of search domains?", @"Window text"))];
 }
 
 
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:(id)sender {
-    [self changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to reconnect when the computer wakes up from sleep if they were connected when the computer went to sleep?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not reconnect when the computer wakes up from sleep if they were connected when the computer went to sleep?", @"Window text"))];
 }
 
 
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:(id)sender {
-    [self changeBooleanPreference: @"-resetPrimaryInterfaceAfterDisconnect"
-                               to: ([sender state] == NSOnState)
-                         inverted: NO];
+    [[NSApp delegate] changeBooleanPreference: @"-resetPrimaryInterfaceAfterDisconnect"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: NO
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to reset the primary network interface after disconnecting?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not reset the primary network interface after disconnecting?", @"Window text"))];
 }
 
 
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:(id)sender {
-    [self changeBooleanPreference: @"-routeAllTrafficThroughVpn"
-                               to: ([sender state] == NSOnState)
-                         inverted: NO];
+    [[NSApp delegate] changeBooleanPreference: @"-routeAllTrafficThroughVpn"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: NO
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to route all traffic through the VPN?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not route all traffic through the VPN?", @"Window text"))];
 }
 
-
--(BOOL) changeBooleanPreference: (NSString *) key
-                             to: (BOOL)       newValue
-                       inverted: (BOOL)       inverted {
-    NSString * actualKey = [configurationName stringByAppendingString: key];
-    BOOL state = (inverted ? ! newValue : newValue);
-    [gTbDefaults setBool: state forKey: actualKey];
-    return state;
-}
 
 -(IBAction) connectingHelpButtonWasClicked: (id) sender {
 	(void) sender;
@@ -905,16 +929,24 @@ extern TBUserDefaults       * gTbDefaults;
 
 
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (id) sender  {
-    [self changeBooleanPreference: @"-doNotDisconnectOnFastUserSwitch"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotDisconnectOnFastUserSwitch"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to disconnect when switching to another user?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not disconnect when switching to another user?", @"Window text"))];
 }
 
 
 -(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (id) sender {
-    [self changeBooleanPreference: @"-doNotReconnectOnFastUserSwitch"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    [[NSApp delegate] changeBooleanPreference: @"-doNotReconnectOnFastUserSwitch"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to reconnect when switching back to the current user?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not reconnect when switching back to the current user?", @"Window text"))];
 }
 
 
@@ -941,9 +973,14 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender {
-    [self changeBooleanPreference: @"-notMonitoringConnection"
-                               to: ([sender state] == NSOnState)
-                         inverted: YES];
+    
+    [[NSApp delegate] changeBooleanPreference: @"-notMonitoringConnection"
+                                forConnection: connection
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Do you want all configurations to monitor for changes to network settings?",     @"Window text")
+                                                : NSLocalizedString(@"Do you want all configurations to not monitor for changes to network settings?", @"Window text"))];
     
     [self setupMonitoringOptions];
     
