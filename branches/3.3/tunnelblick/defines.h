@@ -87,11 +87,12 @@
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group
 // (Shared, Deploy, and alternate configurations are 0:0/600)
-#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"pfx", nil]
+#define KEY_AND_CRT_EXTENSIONS [NSArray arrayWithObjects: @"cer", @"cert", @"crt", @"der", @"key", @"p12", @"p7b", @"p7c", @"pem", @"crl", @"pfx", nil]
 
 //*************************************************************************************************
 // Extensions that indicate that a file is in non-binary format -- ASCII, not binary
-#define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", nil]
+// OpenVPN configuration files and script files may have binary characters in comments, single- and double-quotes, and after backslashes.
+#define NONBINARY_CONTENTS_EXTENSIONS [NSArray arrayWithObjects: @"crt", @"key", @"pem", @"crl", nil]
 
 //*************************************************************************************************
 // Permissions for files and folders
