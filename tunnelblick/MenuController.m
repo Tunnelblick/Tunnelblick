@@ -3738,6 +3738,77 @@ static void signal_handler(int signalNumber)
     }
 }
 
+-(void)askToChangePreferenceForAllConfigurations: (NSDictionary * ) dict {
+	
+    NSString      * localizedMessage = [dict objectForKey: @"LocalizedMessage"];
+    NSString      * keySuffix        = [dict objectForKey: @"PreferenceName"];
+    id              newValue         = [dict objectForKey: @"NewValue"];
+    
+    if (   localizedMessage
+        && keySuffix
+        && newValue
+        && [gTbDefaults canChangeValueForKey: [@"*" stringByAppendingString: keySuffix]]) {
+        
+        int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Configurations?", @"Window title"),
+                                     localizedMessage,
+                                     NSLocalizedString(@"Change for All Configurations", @"Button"),
+                                     NSLocalizedString(@"Change Only for This Configuration", @"Button"),
+                                     nil);
+        if (  result == NSAlertDefaultReturn  ) {
+            
+            // Remove the preference for all specific configurations
+            [gTbDefaults removeAllObjectsWithSuffix: keySuffix];
+            
+            // Set the preference for "all" configurations
+            [gTbDefaults setObject: newValue forKey: [@"*" stringByAppendingString: keySuffix]];
+            
+            // A hack, but easy:
+            if (  [keySuffix isEqualToString: @"-doNotShowOnTunnelblickMenu"]  ) {
+                [self changedDisplayConnectionSubmenusSettings];
+            }
+        }
+    }
+}
+
+-(BOOL) changeBooleanPreference: (NSString *)      key
+                  forConnection: (VPNConnection *) connection
+                             to: (BOOL)            newValue
+                       inverted: (BOOL)            inverted
+			   localizedMessage: (NSString *)      localizedMessage {
+    
+    BOOL state = (  inverted
+                  ? ! newValue
+                  : newValue);
+    
+    if (  key  ) {
+        if (  connection  ) {
+            NSString * actualKey = [[connection displayName] stringByAppendingString: key];
+            [gTbDefaults setBool: state forKey: actualKey];
+            
+            // If "Option" key was held when clicked on the checkbox, ask if user wants to change all configurations' preferences
+            NSUInteger flags = [[NSApp currentEvent] modifierFlags];
+            if (   localizedMessage
+                && (flags & NSAlternateKeyMask)  ) {   // (Option key)
+                NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       [NSNumber numberWithBool: state], @"NewValue",
+                                       key, @"PreferenceName",
+                                       localizedMessage, @"LocalizedMessage",
+                                       nil];
+                [self performSelectorOnMainThread: @selector(askToChangePreferenceForAllConfigurations:) withObject: dict waitUntilDone: NO];
+            }
+        } else {
+            NSLog(@"changeBooleanPreference: No configuration is selected so cannot change the '%@' preference to %@", key, (  state
+                                                                                                                             ? @"YES"
+                                                                                                                             : @"NO"));
+        }
+    } else {
+        NSLog(@"changeBooleanPreference: No key for the boolean preference was provided, so cannot change it to %@", (  state
+                                                                                                                      ? @"YES"
+                                                                                                                      : @"NO"));
+    }
+    return state;
+}
+
 // Sparkle delegate:
 // This method allows you to add extra parameters to the appcast URL,
 // potentially based on whether or not Sparkle will also be sending along

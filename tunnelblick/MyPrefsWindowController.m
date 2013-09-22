@@ -59,10 +59,6 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupUtilitiesView;
 -(void) setupInfoView;
 
--(BOOL) changeBooleanPreference: (NSString *) key
-                             to: (BOOL)       newValue
-                       inverted: (BOOL)       inverted;
-
 -(unsigned) firstDifferentComponent: (NSArray *) a
                                 and: (NSArray *) b;
 
@@ -1924,35 +1920,29 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender
 {
-    if (  [self selectedConnection]  ) {
-        [self changeBooleanPreference: @"-notMonitoringConnection"
-                                   to: ([sender state] == NSOnState)
-                             inverted: YES];
-        
-        [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
-    } else {
-        NSLog(@"monitorNetworkForChangesCheckboxWasClicked but no configuration selected");
-    }
+    [[NSApp delegate] changeBooleanPreference: @"-notMonitoringConnection"
+                                forConnection: [self selectedConnection]
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Would you like all configurations to monitor for changes to network settings?",     @"Window text")
+                                                : NSLocalizedString(@"Would you like all configurations to not monitor for changes to network settings?", @"Window text"))];
+    
+    [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
 }
 
 
 -(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (id) sender
 {
-	(void) sender;
-	
-    VPNConnection * connection = [self selectedConnection];
-    if (  connection  ) {
-        NSString * key = [[connection displayName] stringByAppendingString: @"-doNotShowOnTunnelblickMenu"];
-        if (  [gTbDefaults boolForKey: key]  ) {
-            [gTbDefaults removeObjectForKey: key];
-        } else {
-            [gTbDefaults setBool: TRUE forKey: key];
-        }
-        [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
-    } else {
-        NSLog(@"showOnTunnelblickMenuMenuItemWasClicked but no configuration selected");
-    }
+    [[NSApp delegate] changeBooleanPreference: @"-doNotShowOnTunnelblickMenu"
+                                forConnection: [self selectedConnection]
+                                           to: ([sender state] == NSOnState)
+                                     inverted: YES
+                             localizedMessage: (  [sender state] == NSOnState
+                                                ? NSLocalizedString(@"Would you like all configurations to appear on the Tunnelblick menu?",     @"Window text")
+                                                : NSLocalizedString(@"Would you like all configurations to not appear on the Tunnelblick menu?", @"Window text"))];
     
+    [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
 }
 
 
@@ -1999,17 +1989,6 @@ static BOOL firstTimeShowingWindow = TRUE;
     } else {
         NSLog(@"advancedButtonWasClicked but no configuration selected");
     }
-}
-
-
--(BOOL) changeBooleanPreference: (NSString *) key
-                             to: (BOOL)       newValue
-                       inverted: (BOOL)       inverted
-{
-    NSString * actualKey = [[[self selectedConnection] displayName] stringByAppendingString: key];
-    BOOL state = (inverted ? ! newValue : newValue);
-    [gTbDefaults setBool: state forKey: actualKey];
-    return state;
 }
 
 

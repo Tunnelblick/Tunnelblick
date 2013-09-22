@@ -173,6 +173,12 @@ enum TerminationReason {
 -(void)             addConnection:                          (id)                sender;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
+-(BOOL)             changeBooleanPreference: (NSString *) key
+                              forConnection: (VPNConnection *) connection
+                                         to: (BOOL)       newValue
+                                   inverted: (BOOL)       inverted
+                           localizedMessage: (NSString *) localizedMessage;
+
 -(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
