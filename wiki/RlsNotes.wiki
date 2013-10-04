@@ -23,7 +23,7 @@
 
  * Includes a new per-configuration preference, '-openvpnVersion' which can contain an OpenVPN version string (for example, '2.3.2'). A value of '-' will use the latest version of OpenVPN. If set, it will override the application-wide 'openvpnVersion' preference. (This preference cannot yet be set by the GUI.)
 
- * Includes the ability to use an asterisk ('*') in front of the name of a connection-specific preference to indicate that all configurations should use that preference by default. (A specific preference for a configuration will override this default.)
+ * Includes the ability to use an asterisk ("`*`") in front of the name of a connection-specific preference to indicate that all configurations should use that preference by default. (A specific preference for a configuration will override this default.)
 
  * Includes a new TBAlwaysSetPreference key to Info.plist of a .tblk. It is used like TBPreference, but it causes the preference to be set 'always' -- it is reset each time the configuration is connected and when Tunnelblick starts up.
 
