@@ -1,5 +1,5 @@
 #summary Version-independent Sidebar
-*[https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]*<br><br>
+*[https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP]*<br><br>
 *[http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2 Download Tunnelblick]*<br><br>
 *[News News]*<br>
 <hr>
