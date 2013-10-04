@@ -198,7 +198,7 @@ void printUsageMessageAndExitOpenvpnstart(void) {
             "           g - ignore Workgroup\n"
             "           w - ignore WINSAddresses\n\n"
             
-            "           If the string starts with '-a', the process-network-changes binary will be used to monitor network settings,\n"
+            "           If the string starts with '-p', the process-network-changes binary will be used to monitor network settings,\n"
             "           in which case, it may be followed by:\n"
             "                     a 't' followed by any of the following characters to restart for the corresponding change,\n"
             "              and/or a 'r' followed by any of the following characters to restore the post-VPN value for the corresponding change \n"
@@ -2528,7 +2528,7 @@ void validateLeasewatchOptions(NSString * leasewatchOptions) {
             if (  r.length != 0  ) {
                 leasewatchOptions = nil;
             }
-        } else if (  [leasewatchOptions hasPrefix: @"-a"]  ) {
+        } else if (  [leasewatchOptions hasPrefix: @"-p"]  ) {
             NSCharacterSet * optionCharacterSet = [NSCharacterSet characterSetWithCharactersInString: @"trdasngwDASNGW"];
             NSRange r = [[leasewatchOptions substringFromIndex: 2] rangeOfCharacterFromSet: [optionCharacterSet invertedSet]];
             if (  r.length != 0  ) {
