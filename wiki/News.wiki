@@ -3,6 +3,21 @@
 
 *<font size="3">News</font>*
 
+2013-10-05: *Tunnelblick 3.4beta10 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Includes additional security checking when Tunnelblick is launched.
+
+ * Includes better error checking and reporting when installing a Tunnelblick VPN Configuration.
+
+ * Option-click (Alt-click) on most configuration settings checkboxes allows the choice of changing the setting for the selected configuration or for all configurations.
+
+ * Includes several other enhancements and bug fixes.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+
+--------------------
+
 2013-09-06: *Tunnelblick 3.4beta08 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Fixes a problem that caused update checks to fail.
