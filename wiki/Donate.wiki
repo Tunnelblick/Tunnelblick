@@ -1,10 +1,10 @@
-<h3>Sorry</h3>
+<h3>Money</h3>
 
 Sorry, but donations of money to Tunnelblick can no longer be made because of changes to !PayPal.
 
 To all those who have made donations in the past, thank you. All past donations have been transferred out of !PayPal and have been or will be applied to support Tunnelblick.
 
-<h3>However</h3>
+<h3>Time</h3>
 
 You can still donate your <em>time</em> to Tunnelblick.
 
