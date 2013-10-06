@@ -4,7 +4,11 @@ Sorry, but donations of money to Tunnelblick can no longer be made because of ch
 
 To all those who have made donations in the past, thank you. All past donations have been transferred out of !PayPal and have been or will be applied to support Tunnelblick.
 
-The best ways to support Tunnelblick are
+<h3>However</h3>
+
+You can still donate your <em>time</em> to Tunnelblick.
+
+The best ways to donate your time to Tunnelblick are to
  * Report bugs -- but first please post them to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
  * Make suggestions by posting them on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
  * Answer user's questions on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
