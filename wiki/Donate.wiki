@@ -1,22 +1,10 @@
-*Tunnelblick is a free program, but donations are gratefully accepted!*
+<h3>Sorry</h3>
 
-*Donate with !PayPal or a major credit or debit card.*
+Sorry, but donations of money to Tunnelblick can no longer be made because of changes to !PayPal.
 
-<table>
-  <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=3.00">*Donate $3 USD*</a>
-  </td></tr>
-   <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=5.00">*Donate $5 USD*</a>
-  </td></tr>
-  <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=10.00">*Donate $10 USD*</a>
-  </td></tr>
- <tr><td valign="middle">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=TunnelblickDonations@gmail.com&item_name=Tunnelblick%20Donation&currency_code=USD&amount=0.00">*Donate an amount of your choice*</a> (any amount is appreciated)
-  </td></tr>
-</table>
+To all those who have made donations in the past, thank you. All past donations have been transferred out of !PayPal and have been or will be applied to support Tunnelblick.
 
-<h2>Thank you!</h2>
-
-Donations are probably not tax-deductable. This is not legal advice. Consult your tax professional.
+The best ways to support Tunnelblick are
+ * Report bugs -- but first please post them to the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
+ * Make suggestions by posting them on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
+ * Answer user's questions on the [https://groups.google.com/forum/#!forum/tunnelblick-discuss Tunnelblick Discussion Group]
