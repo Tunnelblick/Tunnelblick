@@ -1,12 +1,6 @@
 #summary Entry page for Downloads
 #sidebar cSb
 <font size="5">*Downloads*</font>
-<table><tr>
-<td valign="middle"><a href="http://code.google.com/p/tunnelblick/wiki/Donate"><img src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate" /></a></td>
-<td valign="middle">Tunnelblick is free, but if you like it, you can support its progress by making a donation.</td>
-</tr></table>
-<hr>
-
 <wiki:toc max_depth="2" />
 
 _Note: To use Tunnelblick you need access to a VPN server -- your computer is one end of the tunnel and the VPN server is the other end. For more information, see [cGettingVPNService Getting VPN Service]._
@@ -36,9 +30,11 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  ==Tunnelblick Beta Release==
  <i>(A beta release is a version that has been tested internally and is ready for testing by the wider community. It usually has new features that are subject to change and need testing, and may have bugs or limitations.)</i>
 
- For use on OS X 10.4 - 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks"), Intel or PowerPC, 32- or 64-bit.
+ For use on OS X 10.7 - 10.9 ("Lion", "Mountain Lion", and "Mavericks"), Intel or PowerPC, 32- or 64-bit.<br />*<font color="red">DO NOT use on OS X 10.4 - 10.6 ("Tiger", "Leopard", or "Snow Leopard")</font>* -- use <a href="https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta08.dmg/download">Tunnelblick 3.3beta08</a> `[`sourceforge.net`]`.
 
-<font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta10.dmg/download Tunnelblick 3.4beta10]</strong></font> `[`sourceforge.net`]` (build 3614) released 2013-10-05 [RlsNotes#Version_3.4 Release Notes]
+
+
+ <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta10.dmg/download Tunnelblick 3.4beta10]</strong></font> `[`sourceforge.net`]` (build 3614) released 2013-10-05 [RlsNotes#Version_3.4 Release Notes]
 
  <strong><font color="red">NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system.</font>
 
