@@ -715,7 +715,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	flushDNSCache
 
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
-        if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-a" ] ; then
+        if [ "${ARG_IGNORE_OPTION_FLAGS:0:2}" = "-p" ] ; then
             # Generate an updated plist with the path for process-network-changes
             readonly LEASEWATCHER_TEMPLATE_PATH="$(dirname "${0}")/ProcessNetworkChanges.plist.template"
             sed -e "s|\${DIR}|$(dirname "${0}")|g" "${LEASEWATCHER_TEMPLATE_PATH}" > "${LEASEWATCHER_PLIST_PATH}"
@@ -1057,7 +1057,10 @@ while [ {$#} ] ; do
         ARG_RESET_PRIMARY_INTERFACE_ON_DISCONNECT="true"
         shift
 	elif [ "${1:0:2}" = "-i" ] ; then
-		ARG_IGNORE_OPTION_FLAGS="${1}"
+		ARG_IGNORE_OPTION_FLAGS="${1}"				# -i arguments are for leasewatcher
+		shift
+	elif [ "${1:0:2}" = "-p" ] ; then
+		ARG_IGNORE_OPTION_FLAGS="${1}"				# -p arguments are for process-network-changes
 		shift
 	else
 		if [ "${1:0:1}" = "-" ] ; then				# Shift out Tunnelblick arguments (they start with "-") that we don't understand
