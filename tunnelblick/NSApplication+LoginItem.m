@@ -282,23 +282,32 @@ extern NSFileManager * gFileMgr;
 	// For example, /Applications/test.app
 	CFURLRef url = (CFURLRef)[NSURL fileURLWithPath: appPath];
     
-	// Create a reference to the shared file list.
-    // We are adding it to the current user only.
-    // If we want to add it all users, use
-    // kLSSharedFileListGlobalLoginItems instead of
-    //kLSSharedFileListSessionLoginItems
-	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-	if (  loginItems  ) {
-		//Insert an item to the list.
-		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
-                                                                     kLSSharedFileListItemLast, NULL, NULL,
-                                                                     url, NULL, NULL);
-		if (  item  ){
-			CFRelease(item);
-        }
+    if (  url  ) {
+        // Create a reference to the shared file list.
+        // We are adding it to the current user only.
+        // If we want to add it all users, use
+        // kLSSharedFileListGlobalLoginItems instead of
+        //kLSSharedFileListSessionLoginItems
+        LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
         
-        CFRelease(loginItems);
-	}
+        if (  loginItems  ) {
+            //Insert an item to the list.
+            LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
+                                                                         kLSSharedFileListItemLast, NULL, NULL,
+                                                                         url, NULL, NULL);
+            if (  item  ){
+                CFRelease(item);
+            } else {
+                NSLog(@"addAppAsLoginItem: LSSharedFileListInsertItemURL() returned NULL");
+            }
+            
+            CFRelease(loginItems);
+        } else {
+            NSLog(@"addAppAsLoginItem: LSSharedFileListCreate() returned NULL");
+        }
+    } else {
+        NSLog(@"addAppAsLoginItem: [NSURL fileURLWithPath: @\"%@\"] returned NULL", appPath);
+    }
 }
 
 +(void) deleteAppFromLoginItems {
@@ -307,34 +316,50 @@ extern NSFileManager * gFileMgr;
     
 	NSString * appPath = [[NSBundle mainBundle] bundlePath];
     
-	// This will retrieve the path for the application
-	// For example, /Applications/test.app
-	CFURLRef url = (CFURLRef)[NSURL fileURLWithPath:appPath];
+    // Create a reference to the shared file list.
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     
-	// Create a reference to the shared file list.
-	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    
-	if (  loginItems  ) {
-		UInt32 seedValue;
-		//Retrieve the list of Login Items and cast them to
-		// a NSArray so that it will be easier to iterate.
-		NSArray * loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
-		unsigned i;
-		for (  i=0 ; i<[loginItemsArray count]; i++  ) {
-			LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray objectAtIndex:i];
-			//Resolve the item with URL
-			if (LSSharedFileListItemResolve(itemRef, 0, &url, NULL) == noErr) {
-				NSString * urlPath = [(NSURL*)url path];
-				if (  [urlPath isEqualToString: appPath]  ){
-					LSSharedFileListItemRemove(loginItems,itemRef);
-				}
-			}
-            if (  url  ) {
-                CFRelease(url);
+    if (  loginItems  ) {
+        UInt32 seedValue;
+        //Retrieve the list of Login Items and cast them to
+        // a NSArray so that it will be easier to iterate.
+        NSArray * loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        
+        if (  loginItemsArray  ) {
+            unsigned i;
+            for (  i=0 ; i<[loginItemsArray count]; i++  ) {
+                LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)[loginItemsArray objectAtIndex:i];
+                if (  itemRef  ) {
+                    //Resolve the item with URL
+                    CFURLRef url = NULL;
+                    OSStatus status = LSSharedFileListItemResolve(itemRef, 0, &url, NULL);
+                    if (  status == noErr  ) {
+                        NSString * urlPath = [(NSURL*)url path];
+                        if (  [urlPath isEqualToString: appPath]  ){
+                            status = LSSharedFileListItemRemove(loginItems,itemRef);
+                            if (  status != noErr  ) {
+                                NSLog(@"deleteAppFromLoginItems: LSSharedFileListItemRemove returned status = %ld for loginItem for %@", (long) status, appPath);
+                            }
+                        }
+                    } else {
+                        NSLog(@"deleteAppFromLoginItems: LSSharedFileListItemResolve returned status = %ld; url is %@",
+                              (long) status, (url ? @"not NULL" : @"NULL"));
+                    }
+                    if (  url  ) {
+                        CFRelease(url);
+                        url = NULL;
+                    }
+                } else {
+                    NSLog(@"deleteAppFromLoginItems: loginItemsArray contains a NULL object");
+                }
             }
-		}
-		[loginItemsArray release];
-	}
+            CFRelease((CFArrayRef)loginItemsArray);
+        } else {
+            NSLog(@"deleteAppFromLoginItems: LSSharedFileListCopySnapshot() returned NULL");
+        }
+    } else {
+        NSLog(@"deleteAppFromLoginItems: LSSharedFileListCreate() returned NULL");
+    }
 }
 
 + (BOOL)setAutoLaunchPathTiger:(NSString *)itemPath onLogin:(BOOL)doAutoLaunch
