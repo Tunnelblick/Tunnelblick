@@ -729,7 +729,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             }
             
             if (  ix == NSNotFound  ) {
-                NSLog(@"Preference '%@' ignored: sound '%@' was not found", preference, soundName);
+                NSLog(@"Preference '%@' ignored: sound '%@' was not found", key, soundName);
                 ix = 0;
             }
         } else {

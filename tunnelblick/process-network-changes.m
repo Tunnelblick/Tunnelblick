@@ -104,8 +104,8 @@ int main (int argc, const char * argv[])
     
     gLogPath = [logFile copy];
     
-    if (  ! [[actions substringWithRange: NSMakeRange(0, 2)] isEqualToString: @"-a"]  ) {
-        appendToLog([NSString stringWithFormat: @"Invalid actions = '%@'; must start with '-a'", actions]);
+    if (  ! [[actions substringWithRange: NSMakeRange(0, 2)] isEqualToString: @"-p"]  ) {
+        appendToLog([NSString stringWithFormat: @"Invalid actions = '%@'; must start with '-p'", actions]);
         [gPool drain];
         exit(EXIT_FAILURE);
     }
