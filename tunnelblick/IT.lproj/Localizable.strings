@@ -435,7 +435,7 @@ dopo la connessione";
 "Appearance" = "Aspetto";
 
 /* Window title */
-"Authentication failed" = "Autenticazione falluta";
+"Authentication failed" = "Autenticazione fallita";
 
 /* Window title */
 "Configuration Installation Error" = "Errore di installazione della configurazione";
