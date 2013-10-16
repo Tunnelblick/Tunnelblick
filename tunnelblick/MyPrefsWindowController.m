@@ -1708,22 +1708,30 @@ static BOOL firstTimeShowingWindow = TRUE;
         unsigned i;
         for (  i = 0; (NULL != (key = asl_key(m, i))); i++  ) {
             val = asl_get(m, key);
-            NSString * string    = [NSString stringWithUTF8String: val];
-            NSString * keyString = [NSString stringWithUTF8String: key];
-            [tmpDict setObject: string forKey: keyString];
-            
-            if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
-                if (   [string isEqualToString: @"Tunnelblick"]
-                    || [string isEqualToString: @"openvpnstart"]
-                    || [string isEqualToString: @"atsystemstart"]  ) {
-                    includeDict = TRUE;
-				}
-			} else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
-				if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
-					|| ([string rangeOfString: @"tunnelblick"].length != 0)  ) {
-					includeDict = TRUE;
-				}
-			}
+            if (  val  ) {
+                NSString * string    = [NSString stringWithUTF8String: val];
+                NSString * keyString = [NSString stringWithUTF8String: key];
+                [tmpDict setObject: string forKey: keyString];
+                
+                if (  ! ASL_KEY_SENDER  ) {
+                    NSLog(@"stringContainingRelevantConsoleLogEntries: ASL_KEY_SENDER = NULL");
+                }
+                if (  ! ASL_KEY_MSG  ) {
+                    NSLog(@"stringContainingRelevantConsoleLogEntries: ASL_KEY_MSG = NULL");
+                }
+                if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_SENDER]]  ) {
+                    if (   [string isEqualToString: @"Tunnelblick"]
+                        || [string isEqualToString: @"openvpnstart"]
+                        || [string isEqualToString: @"atsystemstart"]  ) {
+                        includeDict = TRUE;
+                    }
+                } else if (  [keyString isEqualToString: [NSString stringWithUTF8String: ASL_KEY_MSG]]  ) {
+                    if (   ([string rangeOfString: @"Tunnelblick"].length != 0)
+                        || ([string rangeOfString: @"tunnelblick"].length != 0)  ) {
+                        includeDict = TRUE;
+                    }
+                }
+            }
 		}
 		
 		if (  includeDict  ) {
