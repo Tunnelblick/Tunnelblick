@@ -1123,7 +1123,9 @@ beforeTunnelblickEntries: (BOOL) beforeTunnelblickEntries
         unsigned numberOfLinesSkippedBackward = 0;
         
         while (  currentLineRng.length != 0  ) {
-            NSComparisonResult result = [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]];
+            NSComparisonResult result = (  [text length] < (currentLineRng.location + 19)
+                                         ? NSOrderedAscending
+                                         : [lineTime compare: [text substringWithRange: NSMakeRange(currentLineRng.location, 19)]]);
             
             if (  result == NSOrderedDescending  ) {
                 [logStore insertAttributedString: msgAS atIndex: currentLineRng.location + currentLineRng.length];
