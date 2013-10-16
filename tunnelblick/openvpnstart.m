@@ -735,6 +735,37 @@ void exitIfRunExecutableIsNotGood(NSString * path) {
 }
 
 //**************************************************************************************************************************
+NSString * newTemporaryDirectoryPath(void) {
+    // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
+    // Modified to check for malloc returning NULL, use strlcpy, use [NSFileManager defaultManager], and use more readable length for stringWithFileSystemRepresentation
+    
+    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
+    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
+    
+    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
+    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
+    if (  ! tempDirectoryNameCString  ) {
+        fprintf(stderr, "Unable to allocate memory for a temporary directory name\n");
+        return nil;
+    }
+    
+    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
+    
+    char * dirPath = mkdtemp(tempDirectoryNameCString);
+    
+    if (  ! dirPath  ) {
+        fprintf(stderr, "Unable to create a temporary directory\n");
+        return nil;
+    }
+    
+    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
+                                                                                       length: strlen(tempDirectoryNameCString)];
+    free(tempDirectoryNameCString);
+    
+    return [tempFolder retain];
+}
+
+//**************************************************************************************************************************
 
 int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	// Runs a program as root
@@ -747,35 +778,74 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	[task setLaunchPath:thePath];
 	[task setArguments:theArguments];
 	
-	NSPipe * stdPipe = [[NSPipe alloc] init];
-	[task setStandardOutput: stdPipe];
-		
-	NSPipe * errPipe = [[NSPipe alloc] init];
-	[task setStandardError: errPipe];
-	
+    // Send stdout and stderr to temporary files, and read the files after the task completes
+    NSString * dirPath = newTemporaryDirectoryPath();
+    
+    NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runAsRootStdOut"];
+    if (  [[NSFileManager defaultManager] fileExistsAtPath: stdPath]  ) {
+        fprintf(stderr, "runAsRoot: File exists at %s", [stdPath UTF8String]);
+        return -1;
+    }
+    if (  ! [[NSFileManager defaultManager] createFileAtPath: stdPath contents: nil attributes: nil]  ) {
+        fprintf(stderr, "runAsRoot: Unable to create %s", [stdPath UTF8String]);
+        return -1;
+    }
+    NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
+    if (  ! stdFileHandle  ) {
+        fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s", [stdPath UTF8String]);
+        return -1;
+    }
+    [task setStandardOutput: stdFileHandle];
+
+    NSString * errPath = [dirPath stringByAppendingPathComponent: @"runAsRootErrOut"];
+    if (  [[NSFileManager defaultManager] fileExistsAtPath: errPath]  ) {
+        fprintf(stderr, "runAsRoot: File exists at %s", [errPath UTF8String]);
+		[stdFileHandle release];
+        return -1;
+    }
+    if (  ! [[NSFileManager defaultManager] createFileAtPath: errPath contents: nil attributes: nil]  ) {
+        fprintf(stderr, "runAsRoot: Unable to create %s", [errPath UTF8String]);
+		[stdFileHandle release];
+        return -1;
+    }
+    NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
+    if (  ! errFileHandle  ) {
+        fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s", [errPath UTF8String]);
+		[stdFileHandle release];
+        return -1;
+    }
+    [task setStandardError: errFileHandle];
+    
 	becomeRoot([NSString stringWithFormat: @"launch %@", [thePath lastPathComponent]]);
 	[task launch];
     stopBeingRoot();
 
 	[task waitUntilExit];
 	
-	NSFileHandle * file = [stdPipe fileHandleForReading];
-	NSData * stdData = [file readDataToEndOfFile];
-	[file closeFile];
-	file = [errPipe fileHandleForReading];
-	NSData * errData = [file readDataToEndOfFile];
-	[file closeFile];
+    [stdFileHandle closeFile];
+    [stdFileHandle release];
+    [errFileHandle closeFile];
+    [errFileHandle release];
+    
+    NSFileHandle * file = [NSFileHandle fileHandleForReadingAtPath: stdPath];
+    NSData * stdData = [file readDataToEndOfFile];
+    [file closeFile];
+    file = [NSFileHandle fileHandleForReadingAtPath: errPath];
+    NSData *errData = [file readDataToEndOfFile];
+    [file closeFile];
 	
+    if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath: dirPath handler: nil]  ) {
+        fprintf(stderr, "Unable to remove temporary folder at %s", [dirPath UTF8String]);
+    }
+    
 	NSCharacterSet * trimCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
-	[stdPipe release];
 	NSString * stdOutput = [[[NSString alloc] initWithData: stdData encoding: NSUTF8StringEncoding] autorelease];
     stdOutput = [stdOutput stringByTrimmingCharactersInSet: trimCharacterSet];
 	if (  [stdOutput length] != 0  ) {
 		fprintf(stderr, "stdout from %s: %s\n", [[thePath lastPathComponent] UTF8String], [stdOutput UTF8String]);
 	}
 	
-	[errPipe release];
 	NSString * errOutput = [[[NSString alloc] initWithData: errData encoding: NSUTF8StringEncoding] autorelease];
     errOutput = [errOutput stringByTrimmingCharactersInSet: trimCharacterSet];
 	if (  [errOutput length] != 0  ) {
@@ -955,37 +1025,6 @@ int checkSignature(void) {
     int returnValue = runAsRoot(TOOL_PATH_FOR_CODESIGN, arguments, permissions);
     exitOpenvpnstart(returnValue);
     return returnValue; // Avoid analyzer warnings
-}
-
-//**************************************************************************************************************************
-NSString * newTemporaryDirectoryPath(void) {
-    // Code for creating a temporary directory from http://cocoawithlove.com/2009/07/temporary-files-and-folders-in-cocoa.html
-    // Modified to check for malloc returning NULL, use strlcpy, use [NSFileManager defaultManager], and use more readable length for stringWithFileSystemRepresentation
-    
-    NSString   * tempDirectoryTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"TunnelblickTemporaryDotTblk-XXXXXX"];
-    const char * tempDirectoryTemplateCString = [tempDirectoryTemplate fileSystemRepresentation];
-    
-    size_t bufferLength = strlen(tempDirectoryTemplateCString) + 1;
-    char * tempDirectoryNameCString = (char *) malloc( bufferLength );
-    if (  ! tempDirectoryNameCString  ) {
-        fprintf(stderr, "Unable to allocate memory for a temporary directory name\n");
-        return nil;
-    }
-    
-    strlcpy(tempDirectoryNameCString, tempDirectoryTemplateCString, bufferLength);
-    
-    char * dirPath = mkdtemp(tempDirectoryNameCString);
-    
-    if (  ! dirPath  ) {
-        fprintf(stderr, "Unable to create a temporary directory\n");
-        return nil;
-    }
-    
-    NSString *tempFolder = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempDirectoryNameCString
-                                                                 length: strlen(tempDirectoryNameCString)];
-    free(tempDirectoryNameCString);
-    
-    return [tempFolder retain];
 }
 
 unsigned getLoadedKextsMask(void) {

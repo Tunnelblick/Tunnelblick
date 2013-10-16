@@ -1169,17 +1169,55 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         return -1;
     }
     
-    NSPipe * stdPipe = [NSPipe pipe];
-    NSPipe * errPipe = [NSPipe pipe];
+    // Send stdout and stderr to temporary files, and read the files after the task completes
+    NSString * dirPath = newTemporaryDirectoryPath();
+	
+    NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartStdOut"];
+    if (  [gFileMgr fileExistsAtPath: stdPath]  ) {
+        NSLog(@"runOpenvpnstart: File exists at %@", stdPath);
+        return -1;
+    }
+    if (  ! [gFileMgr createFileAtPath: stdPath contents: nil attributes: nil]  ) {
+        NSLog(@"runOpenvpnstart: Unable to create %@", stdPath);
+        return -1;
+    }
+    NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
+    if (  ! stdFileHandle  ) {
+        NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", stdPath);
+        return -1;
+    }
+    
+    NSString * errPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartErrOut"];
+    if (  [gFileMgr fileExistsAtPath: errPath]  ) {
+        NSLog(@"runOpenvpnstart: File exists at %@", errPath);
+		[stdFileHandle release];
+        return -1;
+    }
+    if (  ! [gFileMgr createFileAtPath: errPath contents: nil attributes: nil]  ) {
+        NSLog(@"runOpenvpnstart: Unable to create %@", errPath);
+		[stdFileHandle release];
+        return -1;
+    }
+    NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
+    if (  ! errFileHandle  ) {
+        NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", errPath);
+		[stdFileHandle release];
+        return -1;
+    }
     
     NSTask * task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath: path];
     [task setArguments:arguments];
-    [task setStandardOutput: stdPipe];
-    [task setStandardError: errPipe];
+    [task setStandardOutput: stdFileHandle];
+    [task setStandardError:  errFileHandle];
     [task setCurrentDirectoryPath: @"/tmp"];
     [task launch];
     [task waitUntilExit];
+    
+    [stdFileHandle closeFile];
+    [stdFileHandle release];
+    [errFileHandle closeFile];
+    [errFileHandle release];
     
 	OSStatus status = [task terminationStatus];
     
@@ -1187,7 +1225,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
                              ? [arguments objectAtIndex: 0]
                              : @"(no subcommand!)");
     
-    NSFileHandle * file = [stdPipe fileHandleForReading];
+    NSFileHandle * file = [NSFileHandle fileHandleForReadingAtPath: stdPath];
     NSData * data = [file readDataToEndOfFile];
     [file closeFile];
     NSString * outputString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -1199,7 +1237,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         }
     }
     
-    file = [errPipe fileHandleForReading];
+    file = [NSFileHandle fileHandleForReadingAtPath: errPath];
     data = [file readDataToEndOfFile];
     [file closeFile];
     outputString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -1211,6 +1249,10 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
         }
     }
 	
+    if (  ! [gFileMgr tbRemoveFileAtPath: dirPath handler: nil]  ) {
+        NSLog(@"Unable to remove temporary folder at %@", dirPath);
+    }
+
     if (   (status != EXIT_SUCCESS)
         && ( ! stderrString)  ) {
         NSLog(@"openvpnstart status from %@: %ld", subcommand, (long) status);
