@@ -1251,7 +1251,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
 	
     if (  ! [gFileMgr tbRemoveFileAtPath: dirPath handler: nil]  ) {
         NSLog(@"Unable to remove temporary folder at %@", dirPath);
-    } else NSLog(@"JKB: Removed temporary folder at %@", dirPath);
+    }
 
     if (   (status != EXIT_SUCCESS)
         && ( ! stderrString)  ) {
