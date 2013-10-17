@@ -9,6 +9,24 @@
 
 ==Version 3.4==
 
+*3.4beta12 (2013-10-07)*
+
+ * Logs more information if a sound is not found.
+
+ * Fixes a problem on OS X 10.5 and 10.6 ('Leopard' and 'Snow Leopard') that caused incorrect 'invalid signature' warnings.
+
+ * Fixes a problem on OS X 10.9 ('Mavericks') that caused Tunnelblick to crash when launched on some systems.
+
+ * Fixes a problem on OS X 10.8 and 10.9 ('Mountain Lion' and 'Mavericks') with 'Copy Diagnostic Info to Clipboard'.
+
+ * Fixes a problem that causes the log to 'freeze' under certain circumstances.
+
+ * Fixes a problem when user-supplied scripts output a lot of text to stdout or stderr.
+
+ * Fixes an error in the Italian (IT) localization.
+
+--------------------
+
 *3.4beta10 (2013-10-05)*
 
  * Includes additional security checking when Tunnelblick is launched:
