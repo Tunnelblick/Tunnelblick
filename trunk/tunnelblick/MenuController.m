@@ -3186,9 +3186,7 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
-    NSString * sparkleFrameworkPath = [appPath stringByAppendingPathComponent: @"Contents/Frameworks/Sparkle.Framework"];
-    
-    NSArray *arguments = [NSArray arrayWithObjects:@"-v", appPath, sparkleFrameworkPath, nil];
+    NSArray *arguments = [NSArray arrayWithObjects: @"-v", appPath, nil];
     
     NSTask* task = [[[NSTask alloc] init] autorelease];
     [task setCurrentDirectoryPath: @"/tmp"];    // Won't be used, but we should specify something
