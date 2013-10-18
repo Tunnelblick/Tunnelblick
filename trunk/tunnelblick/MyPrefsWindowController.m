@@ -866,9 +866,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		}
 		
 	} else if (  [anItem action] == @selector(editOpenVPNConfigurationFileMenuItemWasClicked:)  ) {
-		return (   ( ! [gTbDefaults boolForKey: @"disableExamineOpenVpnConfigurationFileMenuItem"] )
-				&& [[connection configPath] hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]
-				);
+		return ! [gTbDefaults boolForKey: @"disableExamineOpenVpnConfigurationFileMenuItem"];
 		
 	} else if (  [anItem action] == @selector(showOpenvpnLogMenuItemWasClicked:)  ) {
 		return (   ( ! [gTbDefaults boolForKey: @"disableShowOpenVpnLogInFinderMenuItem"] )
@@ -1789,43 +1787,9 @@ static BOOL firstTimeShowingWindow = TRUE;
                                        : @"; Standard user")];
 		
 		// Get contents of configuration file
-        NSString * configFileContents = @"(No configuration file found!)";
-
-        unsigned cfgLoc = CFG_LOC_MAX + 1;
-        NSString * cfgPath = [connection configPath];
-        if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
-            cfgLoc = CFG_LOC_PRIVATE;
-        } else if (  [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
-            cfgLoc = CFG_LOC_DEPLOY;
-        } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
-            cfgLoc = CFG_LOC_SHARED;
-        } else {
-            cfgLoc = CFG_LOC_ALTERNATE;
-        }
-        NSString * cfgLocString = [NSString stringWithFormat: @"%u", cfgLoc];
-        
-        NSString * stdOutString = nil;
-        NSString * stdErrString = nil;
-		NSArray  * arguments = [NSArray arrayWithObjects:
-								@"printSanitizedConfigurationFile",
-								lastPartOfPath([connection configPath]),
-								cfgLocString,
-								nil];
-        OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
-        
-        if (  status != EXIT_SUCCESS) {
-            NSLog(@"Error status %d returned from 'openvpnstart printSanitizedConfigurationFile %@ %@'",
-                  (int) status, [connection displayName], cfgLocString);
-        }
-        if (   stdErrString
-            && ([stdErrString length] != 0)  ) {
-            NSLog(@"Error returned from 'openvpnstart printSanitizedConfigurationFile %@ %@':\n%@",
-                  [connection displayName], cfgLocString, stdErrString);
-        }
-        
-        if (   stdOutString
-            && ([stdOutString length] != 0)  ) {
-            configFileContents = [NSString stringWithString: stdOutString];
+        NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
+        if (  ! configFileContents  ) {
+            configFileContents = @"(No configuration file found!)";
         }
 		
 		// Get Tunnelblick log
@@ -1843,7 +1807,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n\nConfiguration file for %@:\n\n%@\n\n%@Tunnelblick Log:\n\n%@\n%@Console Log:\n\n%@",
+							 @"%@\n\n\"Sanitized\" configuration file for %@:\n\n%@\n\n%@Tunnelblick Log:\n\n%@\n%@Console Log:\n\n%@",
                              versionContents, [connection configPath], configFileContents, separatorString, logContents, separatorString, consoleContents];
         
         NSPasteboard * pb = [NSPasteboard generalPasteboard];

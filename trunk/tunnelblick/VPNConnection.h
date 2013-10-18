@@ -196,6 +196,8 @@ struct Statistics {
 
 -(NSString *)       requestedState;
 
+-(NSString *)       sanitizedConfigurationFileContents;
+
 -(void)             setDelegate:                (id)            newDelegate;
 
 -(void)             setState:                   (NSString *)    newState;

@@ -164,6 +164,8 @@
 		B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B5DBC15F2430900EDCF95 /* WelcomeController.m */; };
 		B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85B5DBE15F2436200EDCF95 /* Welcome.xib */; };
 		B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
+		B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86D13081811859000FDFB3B /* ListingWindowController.m */; };
+		B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86D1313181186E900FDFB3B /* ListingWindow.xib */; };
 		B87C59DF17982F3900FFE540 /* UK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B87C59DA17982F3900FFE540 /* UK.lproj */; };
 		B896C2E41767B753004D9A21 /* FI.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B896C2DF1767B753004D9A21 /* FI.lproj */; };
 		B8C7338B162219E300746C0D /* sharedRoutines.m in Sources */ = {isa = PBXBuildFile; fileRef = B8045A08161EF26700609C98 /* sharedRoutines.m */; };
@@ -451,6 +453,9 @@
 		B85B5DBB15F2430900EDCF95 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		B85B5DBC15F2430900EDCF95 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 		B85B5DBE15F2436200EDCF95 /* Welcome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
+		B86D13071811859000FDFB3B /* ListingWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListingWindowController.h; sourceTree = "<group>"; };
+		B86D13081811859000FDFB3B /* ListingWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListingWindowController.m; sourceTree = "<group>"; };
+		B86D1313181186E900FDFB3B /* ListingWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListingWindow.xib; sourceTree = "<group>"; };
 		B87C59DA17982F3900FFE540 /* UK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UK.lproj; sourceTree = "<group>"; };
 		B87F82901612964D008E0EB1 /* ConfigurationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationConverter.h; sourceTree = "<group>"; };
 		B87F82911612964D008E0EB1 /* ConfigurationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationConverter.m; sourceTree = "<group>"; };
@@ -825,6 +830,7 @@
 		63EA8CE713A3DC5D0034F47C /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				B86D1313181186E900FDFB3B /* ListingWindow.xib */,
 				63ABFE9E1349F086003DEB64 /* LoginWindow.xib */,
 				61BC4DB20E2FA3C300F24255 /* MainMenu.xib */,
 				6388569F134B8056008DF8C1 /* PassphraseWindow.xib */,
@@ -926,6 +932,8 @@
 				B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */,
 				63A505FC11DA0E88006CB2B6 /* LogDisplay.h */,
 				63A505FD11DA0E88006CB2B6 /* LogDisplay.m */,
+				B86D13071811859000FDFB3B /* ListingWindowController.h */,
+				B86D13081811859000FDFB3B /* ListingWindowController.m */,
 			);
 			name = Configurations;
 			sourceTree = "<group>";
@@ -1278,6 +1286,7 @@
 				B8051F521754DA630024841C /* SK.lproj in Resources */,
 				B896C2E41767B753004D9A21 /* FI.lproj in Resources */,
 				B87C59DF17982F3900FFE540 /* UK.lproj in Resources */,
+				B86D1314181186E900FDFB3B /* ListingWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,6 +1431,7 @@
 				B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */,
 				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
 				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
+				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
