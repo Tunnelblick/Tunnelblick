@@ -1802,7 +1802,8 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
     NSMutableString * outputString = [[[NSMutableString alloc] initWithCapacity: [cfgContents length]] autorelease];
     
     NSArray * beginInlineKeys = [NSArray arrayWithObjects:
-                                 @"<ca>",
+                                 @"<auth-user-pass>",
+								 @"<ca>",
                                  @"<cert>",
                                  @"<dh>",
                                  @"<extra-certs>",
@@ -1813,6 +1814,7 @@ void printSanitizedConfigurationFile(NSString * configFile, unsigned cfgLocCode)
                                  nil];
 
     NSArray * endInlineKeys = [NSArray arrayWithObjects:
+							   @"</auth-user-pass>",
                                @"</ca>",
                                @"</cert>",
                                @"</dh>",

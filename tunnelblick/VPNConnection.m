@@ -757,6 +757,49 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 	return [NSString stringWithFormat:@"VPN Connection %@", displayName];
 }
 
+-(NSString *) sanitizedConfigurationFileContents {
+    
+    unsigned cfgLoc = CFG_LOC_MAX + 1;
+    NSString * cfgPath = [self configPath];
+    if (  [cfgPath hasPrefix: [gPrivatePath stringByAppendingString: @"/"]]  ) {
+        cfgLoc = CFG_LOC_PRIVATE;
+    } else if (  [cfgPath hasPrefix: [gDeployPath   stringByAppendingString: @"/"]]  ) {
+        cfgLoc = CFG_LOC_DEPLOY;
+    } else if (  [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]]  ) {
+        cfgLoc = CFG_LOC_SHARED;
+    } else {
+        cfgLoc = CFG_LOC_ALTERNATE;
+    }
+    NSString * cfgLocString = [NSString stringWithFormat: @"%u", cfgLoc];
+    
+    NSString * stdOutString = nil;
+    NSString * stdErrString = nil;
+    NSArray  * arguments = [NSArray arrayWithObjects:
+                            @"printSanitizedConfigurationFile",
+                            lastPartOfPath([self configPath]),
+                            cfgLocString,
+                            nil];
+    OSStatus status = runOpenvpnstart(arguments, &stdOutString, &stdErrString);
+    
+    if (  status != EXIT_SUCCESS) {
+        NSLog(@"Error status %d returned from 'openvpnstart printSanitizedConfigurationFile %@ %@'",
+              (int) status, [self displayName], cfgLocString);
+    }
+    if (   stdErrString
+        && ([stdErrString length] != 0)  ) {
+        NSLog(@"Error returned from 'openvpnstart printSanitizedConfigurationFile %@ %@':\n%@",
+              [self displayName], cfgLocString, stdErrString);
+    }
+    
+    NSString * configFileContents = nil;
+    if (   stdOutString
+        && ([stdOutString length] != 0)  ) {
+        configFileContents = [NSString stringWithString: stdOutString];
+    }
+    
+    return configFileContents;
+}
+
 -(void)setPort:(unsigned int)inPort 
 {
 	portNumber = inPort;

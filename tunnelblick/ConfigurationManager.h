@@ -34,8 +34,11 @@
 #import "defines.h"
 #import "VPNConnection.h"
 
-@interface ConfigurationManager : NSObject {
+@class ListingWindowController;
 
+@interface ConfigurationManager : NSObject {
+	
+	ListingWindowController * listingWindow;
 }
 
 +(id)                       defaultManager;
