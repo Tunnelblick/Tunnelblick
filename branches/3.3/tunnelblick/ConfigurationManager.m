@@ -30,6 +30,7 @@
 #import "TBUserDefaults.h"
 #import "NSFileManager+TB.h"
 #import "ConfigurationConverter.h"
+#import "ListingWindowController.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSArray              * gConfigurationPreferences;
@@ -279,7 +280,7 @@ enum state_t {                      // These are the "states" of the guideState 
     }
     
     // If it is writable, user can edit it
-    if (  ! [gFileMgr isWritableFileAtPath: realPath]  ) {
+    if (  [gFileMgr isWritableFileAtPath: realPath]  ) {
         return YES;
     }
     
@@ -300,7 +301,20 @@ enum state_t {                      // These are the "states" of the guideState 
     if (  [[targetPath pathExtension] isEqualToString: @"tblk"]  ) {
         targetConfig = configPathFromTblkPath(targetPath);
         if (  ! targetConfig  ) {
-            NSLog(@"No configuration file in %@", targetPath);
+            // Doesn't exist; must be protected
+            NSString * configFileContents = [connection sanitizedConfigurationFileContents ];
+            if (  configFileContents  ) {
+                // Display the sanitized contents of the configuration file in a window
+				// NOTE: This controller is allocated here, but is released when the window is closed.
+				//       So we don't release it, and we overwrite it with impunity.
+				NSString * heading = [[connection displayName] stringByAppendingString: @" - Tunnelblick"];
+				listingWindow = [[ListingWindowController alloc] initWithHeading: heading
+                                                                            text: configFileContents];
+				[listingWindow showWindow: self];
+            } else {
+                NSLog(@"editConfigurationAtPath: No configuration file found for %@", [connection displayName]);
+            }
+            
             return;
         }
     } else {
