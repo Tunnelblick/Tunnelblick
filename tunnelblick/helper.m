@@ -198,8 +198,8 @@ OSStatus runAsUser(NSString * launchPath, NSArray * arguments, NSString * * stdO
 NSString * escaped(NSString *string)
 {
 	NSMutableString * stringOut = [[string mutableCopy] autorelease];
-	[stringOut replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
-	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [string length])];
+	[stringOut replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NSLiteralSearch range:NSMakeRange(0, [stringOut length])];
+	[stringOut replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, [stringOut length])];
 	return stringOut;
 }
 
