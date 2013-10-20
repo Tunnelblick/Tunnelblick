@@ -1649,7 +1649,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [consoleContents replaceOccurrencesOfString: @"\\n"
                                      withString: @"\n                                       " // Note all the spaces in the string
                                         options: 0
-                                          range: NSMakeRange(0, [consoleRawContents length])];
+                                          range: NSMakeRange(0, [consoleContents length])];
 
     return consoleContents;
 }
