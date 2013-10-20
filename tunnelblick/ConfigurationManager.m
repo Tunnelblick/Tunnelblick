@@ -1805,11 +1805,11 @@ enum state_t {                      // These are the "states" of the guideState 
 					[ms replaceOccurrencesOfString: @"\r\n"
 										withString: @"\n"
 										   options: 0
-											 range: NSMakeRange(0, [scriptContents length])];
+											 range: NSMakeRange(0, [ms length])];
 					[ms replaceOccurrencesOfString: @"\r"
 										withString: @"\n"
 										   options: 0
-											 range: NSMakeRange(0, [scriptContents length])];
+											 range: NSMakeRange(0, [ms length])];
 					data = [ms dataUsingEncoding: NSASCIIStringEncoding];
                     if (  ! [gFileMgr createFileAtPath: newPath contents: data attributes: nil]  ) {
                         NSLog(@"Configuration installer: Unable to create file at %@", newPath);
