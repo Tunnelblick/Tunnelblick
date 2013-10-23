@@ -15,6 +15,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
 
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.3.dmg/download Tunnelblick 3.3]</strong></font> `[`sourceforge.net`]` (build 3518) released 2013-07-22 [RlsNotes#Version_3.3 Release Notes] [DocumentationForTunnelblick_3_3  What's New in 3.3]
 
+ <strong>You DO NOT need to uninstall</strong> previous versions of Tunnelblick; just install this one.
+
  <strong><font color="red">NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system.</font>
 
  To update a "[cCusDeployed Deployed]" version, you must obtain a new version from the person or organization that provided you with your original "[cCusDeployed Deployed]" version. The Tunnelblick project does <em>not</em> provide "[cCusDeployed Deployed]" versions.
@@ -32,6 +34,8 @@ _Note: To use Tunnelblick you need access to a VPN server -- your computer is on
  For use on OS X 10.4 - 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks"), Intel or PowerPC, 32- or 64-bit.
  
  <font size="3"><strong>[https://sourceforge.net/projects/tunnelblick/files/All%20files/Tunnelblick_3.4beta12.dmg/download Tunnelblick 3.4beta12]</strong></font> `[`sourceforge.net`]` (build 3636) released 2013-10-17 [RlsNotes#Version_3.4 Release Notes]
+
+ <strong>You DO NOT need to uninstall</strong> previous versions of Tunnelblick; just install this one.
 
  <strong><font color="red">NOTE: This version will refuse to install or launch on a computer that has ever had a "[cCusDeployed Deployed]" version installed unless that version has been completely [cInstall#Uninstalling_Tunnelblick uninstalled]. Uninstalling will delete all Tunnelblick VPNs from your system.</font>
 
