@@ -5,7 +5,9 @@ Note: To use Tunnelblick you need access to a VPN server -- your computer is one
 
 Tunnelblick comes as a ready-to-use application with all necessary binaries and drivers (including OpenVPN and tun/tap). No additional installation is necessary -- just add your configuration and encryption information.
 
-Tunnelblick 3.3 runs on OS X 10.4 through 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks").
+Tunnelblick 3.4 runs on OS X 10.4 through 10.9 ("Tiger", "Leopard", "Snow Leopard", "Lion", "Mountain Lion", and "Mavericks").
+
+Tunnelblick 3.3 runs on OS X 10.4 through 10.8 ("Tiger", "Leopard", "Snow Leopard", "Lion", and "Mountain Lion").
 
 Tunnelblick 3.2 runs on OS X 10.4 through 10.7 ("Tiger", "Leopard", "Snow Leopard", and  "Lion"). It _may or may not_ work for you on OS X 10.8 or 10.9 ("Mountain Lion" or "Mavericks").
 
@@ -17,7 +19,9 @@ Tunnelblick 2.0.1 runs on OS X 10.3 ("Panther"). _PowerPC only_
 
 *About 64-bit compatibility*: Tunnelblick is a 32-bit application, so it runs as an application in 32-bit mode on all versions of OS X.
 
-Tunnelblick includes Intel 32/64-bit versions of tun.kext and tap.kext. 32-bit kernels use the 32-bit tun/tap, and 64-bit kernels use the 64-bit tun/tap. Tunnelblick includes 32-bit versions of OpenVPN for PPC, and 32/64-bit versions for Intel.
+Tunnelblick includes Intel 32/64-bit versions of tun.kext and tap.kext. 32-bit kernels use the 32-bit tun/tap, and 64-bit kernels use the 64-bit tun/tap. Signed and unsigned kexts are included; Tunnelblick uses the signed kexts on OS X 10.9 ("Mavericks"); unsigned kexts are used on earlier versions of OS X.
+
+Tunnelblick includes 32-bit versions of OpenVPN for PPC, and 32/64-bit versions for Intel.
 
 
 ------------------
