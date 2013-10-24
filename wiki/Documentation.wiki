@@ -47,3 +47,7 @@
   If there is no version information, it is Tunnelblick version 3.0b9 or earlier.
 
 *[http://code.google.com/p/tunnelblick/w/list All Documentation (unorganized list)]*
+
+------------------
+
+===PLEASE USE THE [https://groups.google.com/forum/#!forum/tunnelblick-discuss TUNNELBLICK DISCUSSION GROUP] FOR COMMENTS OR QUESTIONS*===
