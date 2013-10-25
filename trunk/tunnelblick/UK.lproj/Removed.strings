@@ -25,3 +25,6 @@
 /* Window title */
 "You cannot use the sample configuration" = "Ви не можете використовувати приклад конфігурації";
 
+/* Checkbox name */
+"Scan configuration file for problems before connecting" = "Сканувати файли конфігурації на помилки перед з'єднанням";
+

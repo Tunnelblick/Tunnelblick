@@ -17,10 +17,37 @@
 "100 KB" = "100 KB";
 
 /* Button */
+"Always load Tap driver" = "Always load Tap driver";
+
+/* Button */
+"Always load Tun driver" = "Always load Tun driver";
+
+/* Button */
+"Change Only for This Configuration" = "Change Only for This Configuration";
+
+/* Button */
+"Change for the Selected Configurations" = "Change for the Selected Configurations";
+
+/* Button */
 "Help" = "Help";
 
 /* Button */
 "Latest (%@)" = "Latest (%@)";
+
+/* Button */
+"Load Tap driver automatically" = "Load Tap driver automatically";
+
+/* Button */
+"Load Tun driver automatically" = "Load Tun driver automatically";
+
+/* Button */
+"Never load Tap driver" = "Never load Tap driver";
+
+/* Button */
+"Never load Tun driver" = "Never load Tun driver";
+
+/* Button */
+"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
 
 /* Button */
 "Speak" = "Speak";
@@ -46,11 +73,14 @@
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Show when the pointer is over the Tunnelblick icon";
 
-/* Checkbox name */
-"Use Tunnelblick tun/tap drivers" = "Use Tunnelblick tun/tap drivers";
-
 /* Window title */
 " (?)" = " (?)";
+
+/* Window title */
+"Change for All Selected Configurations?" = "Change for All Selected Configurations?";
+
+/* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
 
 /* Window title */
 "Tunnelblick" = "Tunnelblick";
@@ -99,6 +129,9 @@
 
 /* Window text */
 "A passphrase is required to connect to\n  %@%@" = "A passphrase is required to connect to\n  %1$@%2$@";
+
+/* Window text */
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
 
 /* Window text */
 "Additional contributions by" = "Additional contributions by";
@@ -218,7 +251,7 @@
 "The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
 
 /* Window text */
-"The %@ system folder (%@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
 
 /* Window text */
 "The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
@@ -240,6 +273,9 @@
 
 /* Window text */
 "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry." = "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.";
+
+/* Window text */
+"The Info.plist in '%@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%@'." = "The Info.plist in '%1$@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%2$@'.";
 
 /* Window text */
 "The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.";
