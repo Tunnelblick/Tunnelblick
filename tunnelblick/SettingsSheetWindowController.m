@@ -443,7 +443,7 @@ extern TBUserDefaults       * gTbDefaults;
     [loadTunAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tun driver",        @"Button")];
     [loadTunNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tun driver",         @"Button")];
 	
-    [loadTapAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tap driver  automatically", @"Button")];
+    [loadTapAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tap driver automatically", @"Button")];
     [loadTapAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tap driver",        @"Button")];
     [loadTapNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tap driver",         @"Button")];
 	

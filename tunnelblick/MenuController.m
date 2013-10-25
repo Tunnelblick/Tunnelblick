@@ -3844,7 +3844,7 @@ static void signal_handler(int signalNumber)
 				if  (  [idxSet count] > 1  ) {
 					LeftNavItem * item = [ov itemAtRow: selectedIdx];
 					NSString * displayName = [item displayName];
-					int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Configurations?", @"Window title"),
+					int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Selected Configurations?", @"Window title"),
 												 [NSString stringWithFormat:
 												  NSLocalizedString(@"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?", @"Window title"),
 												  (unsigned long) [idxSet count],

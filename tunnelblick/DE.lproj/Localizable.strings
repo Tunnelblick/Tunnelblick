@@ -37,6 +37,12 @@
 /* Button */
 "All Users" = "Alle Benutzer";
 
+/* NEEDS TRANSLATION *//* Button */
+"Always load Tap driver" = "Always load Tap driver";
+
+/* NEEDS TRANSLATION *//* Button */
+"Always load Tun driver" = "Always load Tun driver";
+
 /* Button */
 "Always use the plugin" = "Immer das Plugin verwenden";
 
@@ -45,6 +51,12 @@
 
 /* Button */
 "Cancel" = "Abbrechen";
+
+/* NEEDS TRANSLATION *//* Button */
+"Change Only for This Configuration" = "Change Only for This Configuration";
+
+/* NEEDS TRANSLATION *//* Button */
+"Change for the Selected Configurations" = "Change for the Selected Configurations";
 
 /* Button */
 "Check Now" = "Jetzt prüfen";
@@ -118,11 +130,23 @@
 /* Button */
 "Launch" = "Ausführen";
 
+/* NEEDS TRANSLATION *//* Button */
+"Load Tap driver automatically" = "Load Tap driver automatically";
+
+/* NEEDS TRANSLATION *//* Button */
+"Load Tun driver automatically" = "Load Tun driver automatically";
+
 /* Button */
 "Manually" = "Manuell";
 
 /* Button */
 "Monochrome icon" = "Schwarz-weißes Icon";
+
+/* NEEDS TRANSLATION *//* Button */
+"Never load Tap driver" = "Never load Tap driver";
+
+/* NEEDS TRANSLATION *//* Button */
+"Never load Tun driver" = "Never load Tun driver";
 
 /* Button */
 "Never show" = "Niemals anzeigen";
@@ -138,6 +162,9 @@
 
 /* Button */
 "Only Me" = "Nur für diesen Benutzer";
+
+/* NEEDS TRANSLATION *//* Button */
+"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
 
 /* Button */
 "Open easy-rsa in Terminal" = "easy-rsa im Terminal öffnen";
@@ -344,16 +371,10 @@
 "Save in Keychain" = "Im Schlüsselbund sichern";
 
 /* Checkbox name */
-"Scan configuration file for problems before connecting" = "Vor dem Verbinden die Konfigurationsdatei auf Fehler überprüfen";
-
-/* Checkbox name */
 "Show when disconnected" = "Bei getrennter Verbindung anzeigen";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "Zeigen, wenn der Mauszeiger über dem Tunnelblick Icon ist";
-
-/* Checkbox name */
-"Use Tunnelblick tun/tap drivers" = "Tunnelblicks TUN/TAP-Treiber verwenden";
 
 /* PopUpButton */
 "Do not set nameserver" = "Nameserver nicht festlegen";
@@ -472,6 +493,9 @@
 /* Window title */
 "Authentication failed" = "Authentifizierung gescheitert";
 
+/* NEEDS TRANSLATION *//* Window title */
+"Change for All Selected Configurations?" = "Change for All Selected Configurations?";
+
 /* Window title */
 "Configuration Installation Error" = "Fehler bei der Installation der Konfiguration";
 
@@ -495,6 +519,9 @@
 
 /* TRANSLATION SAME AS DEVELOPMENT *//* Window title */
 "Details - Tunnelblick" = "Details - Tunnelblick";
+
+/* NEEDS TRANSLATION *//* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
 
 /* Window title */
 "Do you wish to connect?" = "Möchten Sie eine Verbindung herstellen?";
@@ -762,6 +789,9 @@
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "Es gibt bereits eine eigene Konfiguration „%@“\n\nMöchten Sie sie durch die Konfiguration für alle Benutzer ersetzen?";
+
+/* NEEDS TRANSLATION *//* Window text */
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
 
 /* Window text */
 "A username and password are required to connect to\n  %@%@" = "Für eine Verbindung mit\n  %1$@%2$@\nwerden ein Benutzername und ein Kennwort benötigt.";
@@ -1082,7 +1112,7 @@
 "The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"The %@ system folder (%@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
@@ -1113,6 +1143,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry." = "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%@'." = "The Info.plist in '%1$@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%2$@'.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.";

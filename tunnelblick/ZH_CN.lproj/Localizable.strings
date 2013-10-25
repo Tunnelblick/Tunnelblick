@@ -40,6 +40,12 @@
 
 /* Button */
 "All Users" = "所有用户";
+/* NEEDS TRANSLATION *//* Button */
+"Always load Tap driver" = "Always load Tap driver";
+
+/* NEEDS TRANSLATION *//* Button */
+"Always load Tun driver" = "Always load Tun driver";
+
 
 /* Button */
 "Always use the plugin" = "总是使用插件";
@@ -49,6 +55,12 @@
 
 /* Button */
 "Cancel" = "取消";
+/* NEEDS TRANSLATION *//* Button */
+"Change Only for This Configuration" = "Change Only for This Configuration";
+
+/* NEEDS TRANSLATION *//* Button */
+"Change for the Selected Configurations" = "Change for the Selected Configurations";
+
 
 /* Button */
 "Check Now" = "现在检查";
@@ -127,6 +139,12 @@
 
 /* Button */
 "Launch" = "启动";
+/* NEEDS TRANSLATION *//* Button */
+"Load Tap driver automatically" = "Load Tap driver automatically";
+
+/* NEEDS TRANSLATION *//* Button */
+"Load Tun driver automatically" = "Load Tun driver automatically";
+
 
 /* Button VPNService *//* Window title VPNService */
 "Login" = "登入";
@@ -136,6 +154,12 @@
 
 /* Button */
 "Monochrome icon" = "单色图标";
+/* NEEDS TRANSLATION *//* Button */
+"Never load Tap driver" = "Never load Tap driver";
+
+/* NEEDS TRANSLATION *//* Button */
+"Never load Tun driver" = "Never load Tun driver";
+
 
 /* Button */
 "Never show" = "不显示";
@@ -154,6 +178,9 @@
 
 /* Button */
 "Only Me" = "只是我";
+/* NEEDS TRANSLATION *//* Button */
+"Open Uninstall Instructions in Browser" = "Open Uninstall Instructions in Browser";
+
 
 /* Button */
 "Open easy-rsa in Terminal" = "在终端打开 Tunnelblick 的 easy-rsa 目录";
@@ -363,16 +390,10 @@
 "Save in Keychain" = "储存于 Keychain";
 
 /* Checkbox name */
-"Scan configuration file for problems before connecting" = "连接前, 扫描配置文件中的问题";
-
-/* Checkbox name */
 "Show when disconnected" = "当断开连接的时候显示";
 
 /* Checkbox name */
 "Show when the pointer is over the Tunnelblick icon" = "当鼠标放置在 Tunnelblick 的图标上面的时候显示";
-
-/* Checkbox name */
-"Use Tunnelblick tun/tap drivers" = "使用 Tunnelblick tun/tap 驱动程序";
 
 /* PopUpButton */
 "Do not set nameserver" = "不选择域名服务器";
@@ -496,6 +517,9 @@
 
 /* Window title  VPNService */
 "Cannot register" = "未能注册";
+/* NEEDS TRANSLATION *//* Window title */
+"Change for All Selected Configurations?" = "Change for All Selected Configurations?";
+
 
 /* Window title */
 "Configuration Installation Error" = "配置安装错误";
@@ -520,6 +544,9 @@
 
 /* Window title */
 "Details - Tunnelblick" = "详情 - Tunnelblick";
+/* NEEDS TRANSLATION *//* Window title */
+"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?" = "Do you want to make this change for all %1$lu of the selected configurations, or only for '%2$@'?";
+
 
 /* Window title */
 "Do you wish to connect?" = "你要连接吗?";
@@ -822,6 +849,9 @@
 
 /* Window text */
 "A private configuration named '%@' already exists.\n\nDo you wish to replace it with the shared configuration?" = "一个名为 '%@' 的私人配置已经存在.\n\n你想用一个共享配置来取代它吗?";
+/* NEEDS TRANSLATION *//* Window text */
+"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n" = "A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n";
+
 
 /* Window text */
 "A username and password are required to connect to\n  %@%@" = "建立连接需要用户名和密码\n  %1$@%2$@";
@@ -1185,7 +1215,7 @@
 "The %@ system folder (%@) does not exist." = "The %1$@ system folder (%2$@) does not exist.";
 
 /* NEEDS TRANSLATION *//* Window text */
-"The %@ system folder (%@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
+"The %@ system folder (%@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem." = "The %1$@ system folder (%2$@) is not secure.\n\nTunnelblick may not work properly unless this is fixed.\n\nDisk Utility's 'Repair Disk Permissions' function may be able to repair the problem.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The '%@' configuration cannot be found." = "The '%@' configuration cannot be found.";
@@ -1216,6 +1246,9 @@
 
 /* NEEDS TRANSLATION *//* Window text */
 "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry." = "The Info.plist in '%@' does not contain a 'TBPackageVersion' entry.";
+
+/* NEEDS TRANSLATION *//* Window text */
+"The Info.plist in '%@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%@'." = "The Info.plist in '%1$@' has a TBPreference or TBAlwaysSetPreference key which refers to an unknown preference '%2$@'.";
 
 /* NEEDS TRANSLATION *//* Window text */
 "The Info.plist in '%@' has an invalid value of '%@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'." = "The Info.plist in '%1$@' has an invalid value of '%2$@' (only 'no', 'yes', 'force', or 'ask' are allowed) for 'TBReplaceIdentical'.";
