@@ -44,17 +44,6 @@ extern TBUserDefaults * gTbDefaults;
 	(void) dirtyRect;
 }
 
--(void) shift: (id) control by: (CGFloat) amount
-{
-    if (  [control respondsToSelector: @selector(frame)]  ) {
-        NSRect newRect = [control frame];
-        newRect.origin.y = newRect.origin.y + amount;
-        [control setFrame: newRect];
-    } else {
-        NSLog(@"shift:by: %f is not available for this control", (float) amount);
-    }
-}
-
 -(void) awakeFromNib
 {
     // Keyboard Shortcuts popup
@@ -76,58 +65,6 @@ extern TBUserDefaults * gTbDefaults;
     }
     [keyboardShortcutArrayController setContent: kbsContent];
     [keyboardShortcutButton sizeToFit];
-    
-    // OpenVPN Version popup -- only display if more than one version of OpenVPN is included in this binary
-    
-    [openvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
-    
-    NSArray * versions = availableOpenvpnVersions();
-    if (  ! versions  ) {
-        NSLog(@"No versions of OpenVPN are included in this copy of Tunnelblick.");
-        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
-    }
-    
-    NSString * ver = [versions objectAtIndex:0];
-    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: 10];
-    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
-                          @"", @"value",    // Empty name means default
-                          nil]];
-    NSEnumerator * e = [versions objectEnumerator];
-    while (  (ver = [e nextObject])  ) {
-        [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-                               ver, @"name",
-                               ver, @"value",
-                               nil]];
-    }
-    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), [versions lastObject]], @"name",
-                          @"-", @"value",    // "-" means latest
-                          nil]];
-
-    [openvpnVersionArrayController setContent: ovContent];
-    [openvpnVersionButton sizeToFit];
-    
-    if (  [availableOpenvpnVersions() count] < 2  ) {               //  Hide OpenVPN version popup if only one version of OpenVPN is included in this binary
-        [openvpnVersionTFC      setTitle: @""];
-        [openvpnVersionTF      setHidden: YES];
-        [openvpnVersionButton setEnabled: NO];
-        [openvpnVersionButton  setHidden: YES];
-		[openvpnVersionOverrideMessageTF setHidden: YES];
-        
-        [self shift: maxLogDisplaySizeTF                by: +40.0];
-        [self shift: maximumLogSizeButton               by: +40.0];
-        
-        [self shift: warningsTF                         by: +40.0];
-        [self shift: checkIPAddressAfterConnectCheckbox by: +40.0];
-        [self shift: resetDisabledWarningsButton        by: +40.0];
-        
-        [self shift: updatesUpdatesTF                   by: +40.0];
-        [self shift: updatesCheckAutomaticallyCheckbox  by: +40.0];
-        [self shift: updatesCheckForBetaUpdatesCheckbox by: +40.0];
-        [self shift: updatesCheckNowButton              by: +40.0];
-        [self shift: updatesLastCheckedTF               by: +40.0];
-    }
     
     // Log display size popup
     // We allow specific log display sizes
@@ -195,11 +132,6 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          keyboardShortcutButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, maximumLogSizeArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, openvpnVersionArrayController)
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          openvpnVersionButton)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   openvpnVersionOverrideMessageTFC)
-TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       openvpnVersionOverrideMessageTF)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          checkIPAddressAfterConnectCheckbox)
 

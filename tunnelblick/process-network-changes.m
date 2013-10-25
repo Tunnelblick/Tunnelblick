@@ -424,7 +424,7 @@ NSString * getScKey(NSString * key)
     [file closeFile];
     [task setStandardInput: inPipe];
     
-    NSMutableArray * arguments = [NSArray array];
+    NSArray * arguments = [NSArray array];
     [task setArguments: arguments];
     
     [task setCurrentDirectoryPath: @"/"];
@@ -474,7 +474,7 @@ void scCommand(NSString * command)
     [file closeFile];
     [task setStandardInput: inPipe];
     
-    NSMutableArray * arguments = [NSArray array];
+    NSArray * arguments = [NSArray array];
     [task setArguments: arguments];
     
     [task setCurrentDirectoryPath: @"/"];

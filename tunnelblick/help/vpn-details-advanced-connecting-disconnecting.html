@@ -33,8 +33,8 @@
 <p class="p2"><br></p>
 <p class="p3">Each setting in this tab is controlled by a checkbox:</p>
 <ul class="ul1">
-  <li class="li3"><b>Scan configuration file for problems before connecting</b>. When checked, Tunnelblick will scan the OpenVPN configuration file for problems before each attempt at connecting.</li>
-  <li class="li3"><b>Use Tunnelblick tun/tap drivers</b>: Tunnelblick contains its own tun/tap drivers. When checked, Tunnelblick will load the appropriate driver before attempting to make a connection if the driver is not already loaded. The driver will be unloaded until all configurations using the driver have been disconnected.</li>
+  <li class="li3"><b>Check if the apparent public IP address changed after connection</b>. Usually when connected to a VPN all traffic is routed through the VPN server and the computer's apparent public IP address changes. When connected from home to an office VPN, for example, the IP address would change from your home network's public IP address to a public IP address from your office network. Some configurations of VPNs do not route all traffic through the VPN server, however, so Tunnelblick can make an independent check of whether or not the address changed. If it did not change, and you want it to, contact your VPN service provider and ask them to change their configuration files, or check the "Route all traffic through the VPN" on the "While Connected" tab of the "Advanced" settings window for the configuration.</li>
+  <li class="li3"><b>Show configuration on Tunnelblick menu</b>: Un-check this box to prevent the configuration from appearing on the menu that drops down when you click the Tunnelblick icon. (The configuration will always appear in the list on the left of the VPN Details window.)</li>
   <li class="li3"><b>Flush DNS cache after connecting or disconnecting</b>. When checked, Tunnelblick will flush the system's DNS cache after connecting and after disconnecting. This allows the system to use the appropriate DNS settings while the VPN connection is active and after it is disconnected. (Due to limitations in the security program Hands Off!, flushing the DNS cache is skipped on OS X 10.7 ("Lion") and higher if Hands Off! is running.)</li>
   <li class="li3"><b>Prepend domain name to search domains</b>: <em>This checkbox is only available when the default DNS/WINS setting of 'Set nameserver' is selected.</em> When checked, Tunnelblick will add the domain name to the <u>start</u> of the search domain list if the list has not been specified manually. If the search domain list has been specified manually (in the Network System Preference Advanced window DNS tab), then nothing is done. When not checked on OS X 10.4 and 10.5, the domain name is added to the <u>end</u> of the search domains list. When not checked on OS X 10.6 and higher, the domain name replaces the search domains list unless search domains were entered manually, in which case nothing is done.</li>
   <li class="li3"><b>Reconnect when computer wakes from sleep (if connected when computer went to sleep)</b>: <em>This checkbox causes Tunnelblick to attempt to connect the selected connection when the computer wakes up from sleep. (The attempt will be made only if the connection was connected when the computer went to sleep; Tunnelblick automatically disconnects all configurations when the computer goes to sleep).</li>
@@ -45,6 +45,18 @@
 <ul class="ul1">
   <li class="li3"><b>Disconnect when user switches out</b>. When checked, Tunnelblick will disconnect the configuration when the user is switched out.</li>
   <li class="li3"><b>Reconnect when user switches in</b>. When checked, Tunnelblick will reconnect the configuration when the user is switched back in, if the configuration was connected before the user switched out.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Two popup menus control what whether Tunnelblick loads the tun and/or tap kexts (device drivers). Tunnelblick always unloads kexts when they are no longer needed.</p>
+<ul class="ul1">
+  <li class="li3"><b>Load Tun driver automatically</b>. When selected, Tunnelblick will load the tun kext only if it is needed.</li>
+  <li class="li3"><b>Always load Tun driver</b>. When selected, Tunnelblick will always load the tun kext when connecting this configuration.</li>
+  <li class="li3"><b>Never load Tun driver</b>. When selected, Tunnelblick will not load the tun kext when connecting this configuration.</li>
+</ul>
+<ul class="ul1">
+  <li class="li3"><b>Load Tap driver automatically</b>. When selected, Tunnelblick will load the tap kext only if it is needed.</li>
+  <li class="li3"><b>Always load Tap driver</b>. When selected, Tunnelblick will always load the tap kext when connecting this configuration.</li>
+  <li class="li3"><b>Never load Tap driver</b>. When selected, Tunnelblick will not load the tap kext when connecting this configuration.</li>
 </ul>
 <p class="p2"><br></p>
 <p class="p1"><b>While Connected Tab</b></p>

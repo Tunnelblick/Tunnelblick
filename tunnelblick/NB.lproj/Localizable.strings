@@ -278,8 +278,7 @@
 "Check for updates to beta versions" = "Se etter oppdateringer på beta versjoner";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Sjekk om den offisielle ip-adressen har endret
-seg etter oppkobling";
+"Check if the apparent public IP address changed after connection" = "Sjekk om den offisielle ip-adressen har endretseg etter oppkobling";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Koble fra når bruker byttes";

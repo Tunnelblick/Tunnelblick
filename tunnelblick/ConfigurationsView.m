@@ -60,7 +60,9 @@ extern TBUserDefaults * gTbDefaults;
     [self setTitle: NSLocalizedString(@"Connect"   , @"Button") ofControl: connectButton   ];
     [self setTitle: NSLocalizedString(@"Disconnect", @"Button") ofControl: disconnectButton];
     
-    
+	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+    [[NSApp delegate] setDoingSetupOfUI: TRUE];
+	
     // Left split view -- list of configurations and configuration manipulation
     
 	if (   runningOnSnowLeopardOrNewer()  // 10.5 and lower don't have setDelegate and setDataSource
@@ -110,7 +112,36 @@ extern TBUserDefaults * gTbDefaults;
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
     
-    [showOnTunnelBlickMenuCheckbox setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
+    // OpenVPN Version popup
+    
+    [perConfigOpenvpnVersionTFC setTitle: NSLocalizedString(@"OpenVPN version:", @"Window text")];
+    
+    NSArray * versions = availableOpenvpnVersions();
+    if (  ! versions  ) {
+        NSLog(@"No versions of OpenVPN are included in this copy of Tunnelblick.");
+        [[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+    }
+    
+    NSString * ver = [versions objectAtIndex:0];
+    NSMutableArray * ovContent = [NSMutableArray arrayWithCapacity: 10];
+    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Default (%@)", @"Button"), ver], @"name",
+                          @"", @"value",    // Empty name means default
+                          nil]];
+    NSEnumerator * e = [versions objectEnumerator];
+    while (  (ver = [e nextObject])  ) {
+        [ovContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                               ver, @"name",
+                               ver, @"value",
+                               nil]];
+    }
+    [ovContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat: NSLocalizedString(@"Latest (%@)", @"Button"), [versions lastObject]], @"name",
+                          @"-", @"value",    // "-" means latest
+                          nil]];
+    
+    [perConfigOpenvpnVersionArrayController setContent: ovContent];
+    [perConfigOpenvpnVersionButton sizeToFit];
     
     [alertSoundsBox setTitle: NSLocalizedString(@"Alert sounds", @"Window title")];
     
@@ -119,6 +150,8 @@ extern TBUserDefaults * gTbDefaults;
     
     [self setTitle: NSLocalizedString(@"Advanced..." , @"Button") ofControl: advancedButton];
     [advancedButton setEnabled: ! [gTbDefaults boolForKey: @"disableAdvancedButton"]];
+	
+	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 
@@ -206,7 +239,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayControl
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            showOnTunnelBlickMenuCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSBox *,               alertSoundsBox)
 

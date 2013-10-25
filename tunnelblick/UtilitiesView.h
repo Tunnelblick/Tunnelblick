@@ -27,20 +27,23 @@
 
     IBOutlet NSButton           * utilitiesKillAllOpenVpnButton;
     
+    IBOutlet NSButton           * utilitiesCopyConsoleLogButton;
+	
+    IBOutlet NSButton           * utilitiesOpenUninstallInstructionsButton;
+	
     IBOutlet NSButton           * utilitiesRunEasyRsaButton;
     IBOutlet NSTextFieldCell    * utilitiesEasyRsaPathTFC;
  
-    IBOutlet NSButton           * utilitiesCopyConsoleLogButton;
-	
     IBOutlet NSButton           * utilitiesHelpButton;
 }
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesKillAllOpenVpnButton)
 
-TBPROPERTY_READONLY(NSButton *,        utilitiesRunEasyRsaButton)
-TBPROPERTY_READONLY(NSTextFieldCell *, utilitiesEasyRsaPathTFC)
-
 TBPROPERTY_READONLY(NSButton *,        utilitiesCopyConsoleLogButton)
+
+TBPROPERTY_READONLY(NSButton *,        utilitiesOpenUninstallInstructionsButton)
+
+TBPROPERTY_READONLY(NSButton *,        utilitiesRunEasyRsaButton)
 
 TBPROPERTY_READONLY(NSButton *,        utilitiesHelpButton)
 

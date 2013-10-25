@@ -146,6 +146,9 @@ extern TBUserDefaults       * gTbDefaults;
         return;
     }
     
+	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+	
 	selectedCredentialsGroupIndex = NSNotFound;
 	
 	NSInteger ix = 0;
@@ -175,6 +178,7 @@ extern TBUserDefaults       * gTbDefaults;
 	[credentialsGroupButton          setEnabled: (   ( ! [gTbDefaults objectForKey: @"namedCredentialsThatAllConfigurationsUse"] )
 												  && [gTbDefaults canChangeValueForKey: prefKey])];
 	
+	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 - (void) setupPrependDomainNameCheckbox {
@@ -199,6 +203,20 @@ extern TBUserDefaults       * gTbDefaults;
         [prependDomainNameCheckbox setState: NSOffState];
         [prependDomainNameCheckbox setEnabled: NO];
     }
+}
+
+-(void) setupCheckIPAddressAfterConnectOnAdvancedCheckbox {
+    
+    if (  ! configurationName  ) {
+        return;
+    }
+    
+    NSString * perConfigKey = [configurationName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+    [checkIPAddressAfterConnectOnAdvancedCheckbox setState: (  [gTbDefaults boolForKey: perConfigKey]
+                                                             ? NSOffState
+                                                             : NSOnState)];
+    
+    [checkIPAddressAfterConnectOnAdvancedCheckbox setEnabled: [gTbDefaults canChangeValueForKey: perConfigKey]];
 }
 
 -(void) setupFlushDNSCheckbox {
@@ -256,6 +274,31 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupCheckbox: routeAllTrafficThroughVpnCheckbox
                     key: @"-routeAllTrafficThroughVpn"
                inverted: NO];
+}
+
+- (void) setupTunOrTapButton: (NSPopUpButton *) button key: (NSString *) rawPreferenceKey {
+	
+    if (  ! connection  ) {
+        return;
+    }
+    
+	NSString * key   = [configurationName stringByAppendingString: rawPreferenceKey];
+	NSString * value = [gTbDefaults objectForKey: key];
+	
+	if (  ! value  ) {
+		[button selectItemAtIndex: 0];
+	} else if (  [value isEqualToString: @"always"]  ) {
+		[button selectItemAtIndex: 1];
+	} else if (  [value isEqualToString: @"never"]  ) {
+		[button selectItemAtIndex: 2];
+	} else {
+		NSLog(@"setupTunTapButton: Value '%@' for preference '%@' is invalid and being ignored", value, key);
+	}
+}
+
+-(void) setupTunTapButtons {
+	[self setupTunOrTapButton: loadTunPopUpButton key: @"-loadTun"];
+	[self setupTunOrTapButton: loadTapPopUpButton key: @"-loadTap"];
 }
 
 -(void) showSettingsSheet: (id) sender {
@@ -375,24 +418,61 @@ extern TBUserDefaults       * gTbDefaults;
     // For Connecting tab
 	
     [connectingAndDisconnectingTabViewItem  setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
-     
-    [scanConfigurationFileCheckbox          setTitle: NSLocalizedString(@"Scan configuration file for problems before connecting", @"Checkbox name")];
-    [useTunTapDriversCheckbox               setTitle: NSLocalizedString(@"Use Tunnelblick tun/tap drivers"                       , @"Checkbox name")];
+    
+    [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connection", @"Checkbox name")];
+    
+    [showOnTunnelBlickMenuCheckbox          setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
     [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
     [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN", @"Checkbox name")];
     
-    
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
-    
+	
     [disconnectWhenUserSwitchesOutCheckbox  setTitle: NSLocalizedString(@"Disconnect when user switches out", @"Checkbox name")];
+    [disconnectWhenUserSwitchesOutCheckbox  sizeToFit];
+	
     [reconnectWhenUserSwitchesInCheckbox    setTitle: NSLocalizedString(@"Reconnect when user switches in"  , @"Checkbox name")];
+    [reconnectWhenUserSwitchesInCheckbox    sizeToFit];
     
-    [ifConnectedWhenUserSwitchedOutTFC      setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
-    
-    
+	[ifConnectedWhenUserSwitchedOutTFC      setTitle: NSLocalizedString(@"(if connected when user switched out)", @"Window text")];
+    [ifConnectedWhenUserSwitchedOutTF       sizeToFit];
+	
+    [loadTunAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tun driver automatically", @"Button")];
+    [loadTunAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tun driver",        @"Button")];
+    [loadTunNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tun driver",         @"Button")];
+	
+    [loadTapAutomaticallyMenuItem setTitle: NSLocalizedString(@"Load Tap driver  automatically", @"Button")];
+    [loadTapAlwaysMenuItem        setTitle: NSLocalizedString(@"Always load Tap driver",        @"Button")];
+    [loadTapNeverMenuItem         setTitle: NSLocalizedString(@"Never load Tap driver",         @"Button")];
+	
+	// Set both the tun and tap buttons to the width of the wider one
+	// And move the tun and tap buttons left or right to stay flush right
+	NSRect oldTun = [loadTunPopUpButton frame];
+    [loadTunPopUpButton sizeToFit];
+    [loadTapPopUpButton sizeToFit];
+	NSRect newTun = [loadTunPopUpButton frame];
+	NSRect newTap = [loadTapPopUpButton frame];
+	
+	if (  newTun.size.width > newTap.size.width  ) {
+		newTap.size.width = newTun.size.width;
+	} else {
+		newTun.size.width = newTap.size.width;
+	}
+	
+	CGFloat widthChange = newTun.size.width - oldTun.size.width;
+	newTun.origin.x = newTun.origin.x - widthChange;
+	newTap.origin.x = newTap.origin.x - widthChange;
+	
+	[loadTunPopUpButton setFrame: newTun];
+	[loadTapPopUpButton setFrame: newTap];
+	
+	//Adjust width of the Fast User Switching box for the tun and tap buttons changes
+	NSRect boxFrame = [fastUserSwitchingBox frame];
+	boxFrame.size.width = boxFrame.size.width - widthChange;
+	[fastUserSwitchingBox setFrame: boxFrame];
+	
     // For WhileConnected tab
     
     [whileConnectedTabViewItem        setLabel: NSLocalizedString(@"While Connected", @"Window title")];
@@ -435,6 +515,10 @@ extern TBUserDefaults       * gTbDefaults;
     if (  ! connection  ) {
         return;
     }
+	
+	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+	
     NSString * programName;
     if (  [configurationName isEqualToString: NSLocalizedString(@"Tunnelblick", @"Window title")]  ) {
         programName = @"";
@@ -445,51 +529,11 @@ extern TBUserDefaults       * gTbDefaults;
     
     [self setStatus: [connection state]];
     
+	[self setupCredentialsGroupButton]; // May not need to, but set up this first, so it is set up for the rest
+	
     // For Connecting tab
     
-	[self setupCredentialsGroupButton];
-	
-    [self setupCheckbox: scanConfigurationFileCheckbox
-                    key: @"-doNotParseConfigurationFile"
-               inverted: YES];
-    
-    // useTunTapDriversCheckbox
-    NSString * key = [configurationName stringByAppendingString: @"-loadTapKext"];
-    BOOL loadTap               = [gTbDefaults boolForKey: key];
-    BOOL canChangeLoadTap      = [gTbDefaults canChangeValueForKey: key];
-    
-    key = [configurationName stringByAppendingString: @"-loadTunKext"];
-    BOOL loadTun               = [gTbDefaults boolForKey: key];
-    BOOL canChangeLoadTun      = [gTbDefaults canChangeValueForKey: key];
-    
-    key = [configurationName stringByAppendingString: @"-doNotLoadTapKext"];
-    BOOL doNotLoadTap          = [gTbDefaults boolForKey: key];
-    BOOL canChangeDoNotLoadTap = [gTbDefaults canChangeValueForKey: key];
-    
-    key = [configurationName stringByAppendingString: @"-doNotLoadTunKext"];
-    BOOL doNotLoadTun          = [gTbDefaults boolForKey: key];
-    BOOL canChangeDoNotLoadTun = [gTbDefaults canChangeValueForKey: key];
-    
-    int state = NSMixedState;
-    if (  loadTap && loadTun  ) {
-        if (  (! doNotLoadTap) && (! doNotLoadTun)  ) {
-            state = NSOnState;
-        }
-    } else if (  (! loadTap) && (! loadTun)  ) {
-        if (  doNotLoadTap  && doNotLoadTun  ) {
-            state = NSOffState;
-        } else if (  (! doNotLoadTap) && (! doNotLoadTun)  ) {
-            state = NSOnState;
-        }
-    }
-    [useTunTapDriversCheckbox setState: state];
-    
-    if (   (state != NSMixedState)
-        && canChangeLoadTap && canChangeLoadTun && canChangeDoNotLoadTap && canChangeDoNotLoadTun  ) {
-        [useTunTapDriversCheckbox setEnabled: TRUE];
-    } else {
-        [useTunTapDriversCheckbox setEnabled: FALSE];
-    }
+    [self setupCheckIPAddressAfterConnectOnAdvancedCheckbox];
     
     [self setupPrependDomainNameCheckbox];
     
@@ -509,6 +553,7 @@ extern TBUserDefaults       * gTbDefaults;
                     key: @"-doNotReconnectOnFastUserSwitch"
                inverted: YES];
     
+	[self setupTunTapButtons];
     
     // For WhileConnected tab
     if (  [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring]  ) {
@@ -612,9 +657,15 @@ extern TBUserDefaults       * gTbDefaults;
 															   NSLocalizedString(@"All configurations use %@ credentials", @"Window text"),
 															   groupAllConfigurationsUse]];
 	[allConfigurationsUseTheSameCredentialsCheckbox sizeToFit];
+	
+	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 -(void) setupMonitoringOptions {
+	
+	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+	
     if (   connection
         && ( ! [[[NSApp delegate] logScreen] forceDisableOfNetworkMonitoring] )
         && ( ! [gTbDefaults boolForKey: [configurationName stringByAppendingString: @"-notMonitoringConnection"]] )  ) {
@@ -741,6 +792,8 @@ extern TBUserDefaults       * gTbDefaults;
         [othernetBiosNamePopUpButton  setEnabled: NO];
         [otherworkgroupPopUpButton    setEnabled: NO];
     }
+	
+	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 -(NSInteger) indexForMonitoringOptionButton: (NSPopUpButton *) button
@@ -820,106 +873,110 @@ extern TBUserDefaults       * gTbDefaults;
     
     // This preference is NOT IMPLEMENTED, nor is there a checkbox in the .xib
     
-    [[NSApp delegate] changeBooleanPreference: @"-doNotReconnectOnUnexpectedDisconnect"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to reconnect when an unexpected disconnection occurs?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not reconnect when an unexpected disconnection occurs?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnUnexpectedDisconnect"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
 }
 
 
--(IBAction) scanConfigurationFileCheckboxWasClicked: (id) sender {
-    [[NSApp delegate] changeBooleanPreference: @"-doNotParseConfigurationFile"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want to scan the configuration file for problems before connecting all configurations?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want to not scan the configuration file for problems before connecting all configurations?", @"Window text"))];
+-(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (id) sender
+{
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
 }
 
 
--(IBAction) useTunTapDriversCheckboxWasClicked: (id) sender {
-    BOOL value = ([sender state] == NSOnState);
-    [[NSApp delegate] changeBooleanPreference: @"-loadTapKext"
-                                forConnection: connection
-                                           to: value
-                                     inverted: NO
-                             localizedMessage: nil];
-    [[NSApp delegate] changeBooleanPreference: @"-doNotLoadTapKext"
-                                forConnection: connection
-                                           to: value
-                                     inverted: YES
-                             localizedMessage: nil];
-    [[NSApp delegate] changeBooleanPreference: @"-loadTunKext"
-                                forConnection: connection
-                                           to: value
-                                     inverted: NO
-                             localizedMessage: nil];
-    [[NSApp delegate] changeBooleanPreference: @"-doNotLoadTunKext"
-                                forConnection: connection
-                                           to: value
-                                     inverted: YES
-                             localizedMessage: nil];
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (id) sender
+{
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotShowOnTunnelblickMenu"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
+    
+    [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
 }
-
 
 -(IBAction) flushDnsCacheCheckboxWasClicked: (id) sender {
-    [[NSApp delegate] changeBooleanPreference: @"-doNotFlushCache"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to flush the DNS cache after connecting and after disconnecting?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not flush the DNS cache after connecting and after disconnecting?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotFlushCache"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
 }
 
 
 -(IBAction) prependDomainNameCheckboxWasClicked:(id)sender {
-    [[NSApp delegate] changeBooleanPreference: @"-prependDomainNameToSearchDomains"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: NO
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to add the domain name to the start of the list of search domains?",    @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not add the domain name to the start of the list of search domains?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
+																	 to: ([sender state] == NSOnState)
+															   inverted: NO];
 }
 
 
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:(id)sender {
-    [[NSApp delegate] changeBooleanPreference: @"-doNotReconnectOnWakeFromSleep"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to reconnect when the computer wakes up from sleep if they were connected when the computer went to sleep?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not reconnect when the computer wakes up from sleep if they were connected when the computer went to sleep?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnWakeFromSleep"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
 }
 
 
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:(id)sender {
-    [[NSApp delegate] changeBooleanPreference: @"-resetPrimaryInterfaceAfterDisconnect"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: NO
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to reset the primary network interface after disconnecting?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not reset the primary network interface after disconnecting?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-resetPrimaryInterfaceAfterDisconnect"
+																	 to: ([sender state] == NSOnState)
+															   inverted: NO];
 }
 
 
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:(id)sender {
-    [[NSApp delegate] changeBooleanPreference: @"-routeAllTrafficThroughVpn"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: NO
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to route all traffic through the VPN?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not route all traffic through the VPN?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
+																	 to: ([sender state] == NSOnState)
+															   inverted: NO];
 }
 
+-(void) setTunTapKey: (NSString *) key
+			   value: (NSString *) value {
+    
+	if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
+		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+							   value,  @"NewValue",
+							   key,    @"PreferenceName",
+							   nil];
+		[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+	}
+}
+
+-(IBAction) loadTunAutomaticallyMenuItemWasClicked: (id) sender {
+    (void) sender;
+    
+    [self setTunTapKey: @"-loadTun" value: @""];
+}
+
+-(IBAction) loadTapAutomaticallyMenuItemWasClicked: (id)sender {
+    (void) sender;
+    
+    [self setTunTapKey: @"-loadTap" value: @""];
+}
+
+-(IBAction) loadTunNeverMenuItemWasClicked: (id)sender {
+    (void) sender;
+    
+    [self setTunTapKey: @"-loadTun" value: @"never"];
+}
+
+-(IBAction) loadTapNeverMenuItemWasClicked: (id)sender {
+    (void) sender;
+    
+    [self setTunTapKey: @"-loadTap" value: @"never"];
+}
+
+-(IBAction) loadTunAlwaysMenuItemWasClicked: (id)sender {
+    (void) sender;
+    
+    [self setTunTapKey: @"-loadTun" value: @"always"];
+}
+
+-(IBAction) loadTapAlwaysMenuItemWasClicked: (id)sender {
+    (void) sender;
+    
+    [self setTunTapKey: @"-loadTap" value: @"always"];
+}
 
 -(IBAction) connectingHelpButtonWasClicked: (id) sender {
 	(void) sender;
@@ -929,24 +986,16 @@ extern TBUserDefaults       * gTbDefaults;
 
 
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked: (id) sender  {
-    [[NSApp delegate] changeBooleanPreference: @"-doNotDisconnectOnFastUserSwitch"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to disconnect when switching to another user?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not disconnect when switching to another user?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnFastUserSwitch"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
 }
 
 
 -(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked: (id) sender {
-    [[NSApp delegate] changeBooleanPreference: @"-doNotReconnectOnFastUserSwitch"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to reconnect when switching back to the current user?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not reconnect when switching back to the current user?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotReconnectOnFastUserSwitch"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
 }
 
 
@@ -974,13 +1023,9 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender {
     
-    [[NSApp delegate] changeBooleanPreference: @"-notMonitoringConnection"
-                                forConnection: connection
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Do you want all configurations to monitor for changes to network settings?",     @"Window text")
-                                                : NSLocalizedString(@"Do you want all configurations to not monitor for changes to network settings?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
     
     [self setupMonitoringOptions];
     
@@ -1109,13 +1154,18 @@ extern TBUserDefaults       * gTbDefaults;
                 defaultValue = @"restore";
             }
             
-            NSString * actualKey = [configurationName stringByAppendingString: key];
-            if (  [newSetting isEqualToString: defaultValue]  ) {
-                [gTbDefaults removeObjectForKey: actualKey];
-            } else {
-                [gTbDefaults setObject: newSetting forKey: actualKey];
-            }
-        }
+			if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
+				NSString * newValue = (  [newSetting isEqualToString: defaultValue]
+									   ? @""
+									   : newSetting
+									   );
+				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+									   newValue,  @"NewValue",
+									   key,    @"PreferenceName",
+									   nil];
+				[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			}
+		}
     }
     
     *index = newValue;
@@ -1126,26 +1176,37 @@ extern TBUserDefaults       * gTbDefaults;
 }
 
 -(void) setSelectedCredentialsGroupIndex: (NSUInteger) newValue {
+	
     NSArray * contents = [credentialsGroupArrayController content];
-    NSUInteger size = [contents count];
-    if (  newValue < size  ) {
-        NSString * prefKey = [configurationName stringByAppendingString: @"-credentialsGroup"];
+    if (  newValue < [contents count]  ) {
+		NSString * groupValue = nil;
         if (  newValue == 0) {
-			[gTbDefaults removeObjectForKey: prefKey];
+			groupValue = @"";
         } else {
-            NSString * groupValue = [[contents objectAtIndex: newValue] objectForKey: @"value"];
+            NSString * groupName = [[contents objectAtIndex: newValue] objectForKey: @"value"];
 			NSArray * groups = [gTbDefaults sortedCredentialsGroups];
-            if (  [groups containsObject: groupValue]  ) {
-				[gTbDefaults setObject: groupValue forKey: prefKey];
+            if (  [groups containsObject: groupName]  ) {
+				groupValue = groupName;
 			} else {
-                NSLog(@"'%@' credentials are not available", groupValue);
+			    NSLog(@"setSelectedCredentialsGroupIndex: '%@' credentials are not available", groupName);
             }
         }
+		
+		if (  groupValue  ) {
+			if (  ! [[NSApp delegate] doingSetupOfUI]  ) {
+				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+									   groupValue, @"NewValue",
+									   @"-credentialsGroup", @"PreferenceName",
+									   nil];
+				[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			}
+		}
+		
 		selectedCredentialsGroupIndex = (int)newValue;
 		[connection initializeAuthAgent];
 		
-    } else if (  size != 0  ) {
-        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld sounds", (long) newValue, (long) size);
+    } else if (  [contents count] != 0  ) {
+        NSLog(@"setSelectedCredentialsGroupIndex: %ld but there are only %ld groups", (long) newValue, (long) ([contents count] - 1));
     }
 }
 

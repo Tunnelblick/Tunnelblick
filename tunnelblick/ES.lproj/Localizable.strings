@@ -275,8 +275,7 @@
 "Check for updates to beta versions" = "Buscar actualizaciones a las versiones beta";
 
 /* Checkbox name *//* NOTE: Return used to force second line */
-"Check if the apparent public IP address changed after connection" = "Verificar si la aparente dirección de IP pública
-cambió después de la conexión";
+"Check if the apparent public IP address changed after connection" = "Verificar si la aparente dirección de IP pública cambió después de la conexión";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Desconectar cuando el usuario sale";

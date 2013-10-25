@@ -278,8 +278,7 @@
 "Check for updates to beta versions" = "Bei Updates auch Beta Versionen berücksichtigen";
 
 /* Checkbox name *//* NOTE: Return used to force second line */
-"Check if the apparent public IP address changed after connection" = "Prüfen ob die scheinbare öffentliche IP Adresse
-sich nach Verbindungsherstellung geändert hat";
+"Check if the apparent public IP address changed after connection" = "Prüfen ob die scheinbare öffentliche IP Adresse sich nach Verbindungsherstellung geändert hat";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Verbindung trennen, wenn der Benutzer wechselt";

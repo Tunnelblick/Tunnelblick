@@ -71,10 +71,10 @@
     IBOutlet NSUInteger            selectedSetNameserverIndex;
     IBOutlet NSUInteger            selectedSoundOnConnectIndex;
     IBOutlet NSUInteger            selectedSoundOnDisconnectIndex;    
+    IBOutlet NSUInteger            selectedPerConfigOpenvpnVersionIndex;
     
     
     // For GeneralView
-    IBOutlet NSUInteger            selectedOpenvpnVersionIndex;
     IBOutlet NSUInteger            selectedKeyboardShortcutIndex;
     IBOutlet NSUInteger            selectedMaximumLogSizeIndex;
     
@@ -125,8 +125,6 @@
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender;
 
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:    (id) sender;
-
 -(void)		validateDetailsWindowControls;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;
@@ -137,8 +135,6 @@
 
 
 // Methods for GeneralView
-
--(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender;
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender;
@@ -179,8 +175,11 @@
 
 -(IBAction) utilitiesHelpButtonWasClicked:                (id) sender;
 
+-(IBAction) utilitiesOpenUninstallInstructionsButtonWasClicked: (id) sender;
 
 // Getters & Setters
+
+TBPROPERTY_READONLY(NSMutableArray *, leftNavDisplayNames)
 
 TBPROPERTY_READONLY(ConfigurationsView *, configurationsPrefsView)
 
@@ -188,12 +187,12 @@ TBPROPERTY(NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelecte
 
 TBPROPERTY_READONLY(NSUInteger, selectedWhenToConnectIndex)
 
-TBPROPERTY(NSUInteger, selectedLeftNavListIndex,       setSelectedLeftNavListIndex)
-TBPROPERTY(NSUInteger, selectedSetNameserverIndex,     setSelectedSetNameserverIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnConnectIndex,    setSelectedSoundOnConnectIndex)
-TBPROPERTY(NSUInteger, selectedSoundOnDisconnectIndex, setSelectedSoundOnDisconnectIndex)
+TBPROPERTY(NSUInteger, selectedLeftNavListIndex,             setSelectedLeftNavListIndex)
+TBPROPERTY(NSUInteger, selectedSetNameserverIndex,           setSelectedSetNameserverIndex)
+TBPROPERTY(NSUInteger, selectedPerConfigOpenvpnVersionIndex, setSelectedPerConfigOpenvpnVersionIndex)
+TBPROPERTY(NSUInteger, selectedSoundOnConnectIndex,          setSelectedSoundOnConnectIndex)
+TBPROPERTY(NSUInteger, selectedSoundOnDisconnectIndex,       setSelectedSoundOnDisconnectIndex)
 
-TBPROPERTY(NSUInteger, selectedOpenvpnVersionIndex,   setSelectedOpenvpnVersionIndex)
 TBPROPERTY(NSUInteger, selectedKeyboardShortcutIndex, setSelectedKeyboardShortcutIndex)
 TBPROPERTY(NSUInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeIndex)
 
