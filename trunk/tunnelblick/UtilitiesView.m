@@ -50,7 +50,13 @@ extern TBUserDefaults * gTbDefaults;
     [utilitiesKillAllOpenVpnButton setTitle: NSLocalizedString(@"Quit All OpenVPN Processes", @"Button")];
     [utilitiesKillAllOpenVpnButton sizeToFit];
 	[utilitiesKillAllOpenVpnButton setEnabled: ALLOW_OPENVPNSTART_KILLALL];
+	
+	[utilitiesCopyConsoleLogButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
+    [utilitiesCopyConsoleLogButton sizeToFit];	
     
+	[utilitiesOpenUninstallInstructionsButton setTitle: NSLocalizedString(@"Open Uninstall Instructions in Browser", @"Button")];
+    [utilitiesOpenUninstallInstructionsButton sizeToFit];	
+        
     NSString * easyRsaPathMessage;
     if (  [gTbDefaults objectForKey: @"easy-rsaPath"]  ) {
         easyRsaPathMessage = easyRsaPathToUse(YES);
@@ -66,9 +72,6 @@ extern TBUserDefaults * gTbDefaults;
     
     [utilitiesRunEasyRsaButton setTitle: NSLocalizedString(@"Open easy-rsa in Terminal", @"Button")];
     [utilitiesRunEasyRsaButton sizeToFit];
-	
-	[utilitiesCopyConsoleLogButton setTitle: NSLocalizedString(@"Copy Console Log to Clipboard", @"Button")];
-    [utilitiesCopyConsoleLogButton sizeToFit];	
 }
 
 //***************************************************************************************************************
@@ -76,10 +79,12 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesKillAllOpenVpnButton)
 
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesCopyConsoleLogButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesOpenUninstallInstructionsButton)
+
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesRunEasyRsaButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   utilitiesEasyRsaPathTFC)
-
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesCopyConsoleLogButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          utilitiesHelpButton)
 

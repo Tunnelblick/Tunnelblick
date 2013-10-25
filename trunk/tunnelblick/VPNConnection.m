@@ -1034,24 +1034,16 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                                         @"Tunnelblick will not check that this computer's apparent IP address changes when %@ is connected.\n\n",
                                         @"Window text"), (double) timeoutToUse, [self displayName]];
 
-    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
-                            msg,
-                            nil, nil, nil,
-                            @"skipWarningThatIPAddressDidNotChangeAfterConnection",
-                            NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
-                            nil,
-							NSAlertDefaultReturn);
+    TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window text"),
+                    msg,
+                    nil, nil, nil);
 }
 
 - (void) ipInfoErrorDialog
 {
-    TBRunAlertPanelExtended(NSLocalizedString(@"Warning", @"Window text"),
-                            @"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n",
-                            nil, nil, nil,
-                            @"skipWarningThatIPAddressDidNotChangeAfterConnection",
-                            NSLocalizedString(@"Do not check for IP address changes", @"Checkbox name"),
-                            nil,
-							NSAlertDefaultReturn);
+    TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window text"),
+                    NSLocalizedString(@"A problem occured while checking this computer's apparent public IP address.\n\nSee the Console log for details.\n\n", @"Window text"),
+                    nil, nil, nil);
 }
 
 - (void) ipInfoInternetNotReachableDialog
@@ -1098,10 +1090,19 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 							NSAlertDefaultReturn);
 }
 
+- (BOOL) okToCheckForIPAddressChange {
+    
+    NSString * perConfigKey = [displayName stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+    id obj = [gTbDefaults objectForKey: perConfigKey];
+    
+    return (  [obj respondsToSelector: @selector(boolValue)]
+            ? ! [obj boolValue]
+            : TRUE);
+}
+
 - (void) checkIPAddressBeforeConnected
 {
-    if (   [gTbDefaults boolForKey: @"skipWarningThatIPAddressDidNotChangeAfterConnection"]
-        || [gTbDefaults boolForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]  ) {
+    if (  ! [self okToCheckForIPAddressChange]  ) {
         return;
     }
     
@@ -1136,8 +1137,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void) checkIPAddressAfterConnected
 {
-    if (   [gTbDefaults boolForKey: @"skipWarningThatIPAddressDidNotChangeAfterConnection"]
-        || [gTbDefaults boolForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"]
+    if (   ( ! [self okToCheckForIPAddressChange] )
         || ( ! ipAddressBeforeConnect)
         || ( ! serverIPAddress)  ) {
         return;

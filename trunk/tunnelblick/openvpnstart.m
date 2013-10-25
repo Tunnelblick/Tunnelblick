@@ -755,6 +755,7 @@ NSString * newTemporaryDirectoryPath(void) {
     
     if (  ! dirPath  ) {
         fprintf(stderr, "Unable to create a temporary directory\n");
+        free(tempDirectoryNameCString);
         return nil;
     }
     
@@ -780,19 +781,25 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
 	
     // Send stdout and stderr to temporary files, and read the files after the task completes
     NSString * dirPath = newTemporaryDirectoryPath();
-    
+    if (  ! dirPath  ) {
+        fprintf(stderr, "runAsRoot: Failed to create temporary directory");
+        return -1;
+    }
     NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runAsRootStdOut"];
     if (  [[NSFileManager defaultManager] fileExistsAtPath: stdPath]  ) {
         fprintf(stderr, "runAsRoot: File exists at %s", [stdPath UTF8String]);
+        [dirPath release];
         return -1;
     }
     if (  ! [[NSFileManager defaultManager] createFileAtPath: stdPath contents: nil attributes: nil]  ) {
         fprintf(stderr, "runAsRoot: Unable to create %s", [stdPath UTF8String]);
+        [dirPath release];
         return -1;
     }
     NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
     if (  ! stdFileHandle  ) {
         fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s", [stdPath UTF8String]);
+        [dirPath release];
         return -1;
     }
     [task setStandardOutput: stdFileHandle];
@@ -800,17 +807,20 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     NSString * errPath = [dirPath stringByAppendingPathComponent: @"runAsRootErrOut"];
     if (  [[NSFileManager defaultManager] fileExistsAtPath: errPath]  ) {
         fprintf(stderr, "runAsRoot: File exists at %s", [errPath UTF8String]);
+        [dirPath release];
 		[stdFileHandle release];
         return -1;
     }
     if (  ! [[NSFileManager defaultManager] createFileAtPath: errPath contents: nil attributes: nil]  ) {
         fprintf(stderr, "runAsRoot: Unable to create %s", [errPath UTF8String]);
+        [dirPath release];
 		[stdFileHandle release];
         return -1;
     }
     NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
     if (  ! errFileHandle  ) {
         fprintf(stderr, "runAsRoot: Unable to get NSFileHandle for %s", [errPath UTF8String]);
+        [dirPath release];
 		[stdFileHandle release];
         return -1;
     }
@@ -837,7 +847,8 @@ int runAsRoot(NSString * thePath, NSArray * theArguments, mode_t permissions) {
     if (  ! [[NSFileManager defaultManager] tbRemoveFileAtPath: dirPath handler: nil]  ) {
         fprintf(stderr, "Unable to remove temporary folder at %s", [dirPath UTF8String]);
     }
-    
+    [dirPath release];
+
 	NSCharacterSet * trimCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
 	NSString * stdOutput = [[[NSString alloc] initWithData: stdData encoding: NSUTF8StringEncoding] autorelease];

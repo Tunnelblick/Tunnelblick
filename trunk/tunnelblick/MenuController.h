@@ -139,6 +139,8 @@ enum TerminationReason {
     
 	BOOL					  signatureIsInvalid;			// Indicates the app is digitally signed but the signature does not check out
 	
+	BOOL					  doingSetupOfUI;				// Indicates we are setting up the UI, and not making changes to preferences
+	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
     
@@ -173,12 +175,12 @@ enum TerminationReason {
 -(void)             addConnection:                          (id)                sender;
 -(void)             addNewConfig:                           (NSString *)        path
                  withDisplayName:                           (NSString *)        dispNm;
--(BOOL)             changeBooleanPreference: (NSString *) key
-                              forConnection: (VPNConnection *) connection
-                                         to: (BOOL)       newValue
-                                   inverted: (BOOL)       inverted
-                           localizedMessage: (NSString *) localizedMessage;
-
+-(void)             setPreferenceForSelectedConfigurationsWithKey: (NSString *) key
+															   to: (id)         newValue
+                                                           isBOOL: (BOOL)       isBOOL;
+-(void)             setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
+																   to: (BOOL)       newValue
+															 inverted: (BOOL)		inverted;
 -(void)             changedCheckForBetaUpdatesSettings;
 -(void)             changedDisplayConnectionSubmenusSettings;
 -(void)             changedDisplayConnectionTimersSettings;
@@ -265,6 +267,8 @@ enum TerminationReason {
 -(void)             startOrStopDurationsTimer;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
+-(BOOL)				doingSetupOfUI;
+-(void)				setDoingSetupOfUI: (BOOL) value;
 
 #ifdef INCLUDE_VPNSERVICE
 // VPNService support

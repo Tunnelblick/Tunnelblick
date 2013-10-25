@@ -48,6 +48,9 @@
 #import "VPNConnection.h"
 #import "WelcomeController.h"
 #import "easyRsa.h"
+#import "LeftNavViewController.h"
+#import "ConfigurationsView.h"
+#import "LeftNavItem.h"
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"
@@ -191,6 +194,7 @@ BOOL needToConvertNonTblks(void);
             
         }
         
+		doingSetupOfUI = FALSE;
         launchFinished = FALSE;
         hotKeyEventHandlerIsInstalled = FALSE;
         terminatingAtUserRequest = FALSE;
@@ -353,6 +357,7 @@ BOOL needToConvertNonTblks(void);
                                 @"NSWindow Frame SettingsSheetWindow",
                                 @"NSWindow Frame ConnectingWindow",
                                 @"NSWindow Frame SUStatusFrame",
+                                @"NSWindow Frame ListingWindow",
                                 @"detailsWindowFrameVersion",
                                 @"detailsWindowFrame",
                                 @"detailsWindowLeftFrame",
@@ -360,6 +365,7 @@ BOOL needToConvertNonTblks(void);
 								@"leftNavSelectedDisplayName",
                                 
                                 @"haveDealtWithSparkle1dot5b6",
+                                @"haveDealtWithOldTunTapPreferences",
                                 
                                 @"SUEnableAutomaticChecks",
                                 @"SUFeedURL",
@@ -417,6 +423,8 @@ BOOL needToConvertNonTblks(void);
                                       @"-doNotLoadTunKext",
                                       @"-loadTapKext",
                                       @"-loadTunKext",
+                                      @"-loadTap",
+                                      @"-loadTun",
                                       @"-credentialsGroup",
 									  @"-openvpnVersion",
 									  
@@ -503,8 +511,20 @@ BOOL needToConvertNonTblks(void);
                 [gTbDefaults removeObjectForKey: @"updateCheckBetas"];
             }
         }
+		
+		// Convert the old global "openvpnVersion" preference to the per-configuration "*-openvpnVersion"
+		obj = [gTbDefaults objectForKey: @"openvpnVersion"];
+		if (  obj  ) {
+			[gTbDefaults setObject: obj forKey: @"*-openvpnVersion"];
+		}
+        
+		// Convert the old global "notOKToCheckThatIPAddressDidNotChangeAfterConnection" preference to the per-configuration "*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"
+		obj = [gTbDefaults objectForKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+		if (  obj  ) {
+			[gTbDefaults setObject: obj forKey: @"*-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+		}
 
-		// Scan for unknown preferences
+        // Set up for the rest
         NSString * bundleId = [[NSBundle mainBundle] bundleIdentifier];
         NSString * prefsPath = [[[[NSHomeDirectory()
                                    stringByAppendingPathComponent:@"Library"]
@@ -512,6 +532,60 @@ BOOL needToConvertNonTblks(void);
                                  stringByAppendingPathComponent: bundleId]
                                 stringByAppendingPathExtension: @"plist"];
         dict = [NSDictionary dictionaryWithContentsOfFile: prefsPath];
+        
+        // Convert the old "-loadTunKext", "-doNotLoadTunKext", "-loadTapKext", and "-doNotLoadTapKext"  to the new '-loadTun' and 'loadTap' equivalents
+        // That is, if NOTLOAD set to NEVER
+        //          else if LOAD, set to ALWAYS
+        // (Default is automatic, indicated by no preference)
+        if (  ! [gTbDefaults objectForKey: @"haveDealtWithOldTunTapPreferences"]) {
+
+			NSMutableArray * loadTunConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+            NSMutableArray * loadTapConfigNames      = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+            NSMutableArray * doNotLoadTunConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+            NSMutableArray * doNotLoadTapConfigNames = [[[NSMutableArray alloc] initWithCapacity: 100] autorelease];
+            
+            NSString * key;
+            NSEnumerator * e = [dict keyEnumerator];
+            while (  (key = [e nextObject])  ) {
+                NSRange r = [key rangeOfString: @"-" options: NSBackwardsSearch];
+                if (  r.length != 0  ) {
+                    NSString * configName = [key substringWithRange: NSMakeRange(0, r.location)];
+                    if      (  [key hasSuffix: @"-loadTunKext"]      ) { [loadTunConfigNames      addObject: configName]; }
+                    else if (  [key hasSuffix: @"-loadTapKext"]      ) { [loadTapConfigNames      addObject: configName]; }
+                    else if (  [key hasSuffix: @"-doNotLoadTunKext"] ) { [doNotLoadTunConfigNames addObject: configName]; }
+                    else if (  [key hasSuffix: @"-doNotLoadTapKext"] ) { [doNotLoadTapConfigNames addObject: configName]; }
+                }
+            }
+            
+            NSString * configName;
+            e = [loadTunConfigNames objectEnumerator];
+            while (  (configName = [e nextObject])  ) {
+                if (  ! [doNotLoadTunConfigNames containsObject: configName]  ) {
+                    [gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTun"]];
+                }
+            }
+            
+            e = [loadTapConfigNames objectEnumerator];
+            while (  (configName = [e nextObject])  ) {
+                if (  ! [doNotLoadTapConfigNames containsObject: configName]  ) {
+                    [gTbDefaults setObject: @"always" forKey: [configName stringByAppendingString: @"-loadTap"]];
+                }
+            }
+            
+            e = [doNotLoadTunConfigNames objectEnumerator];
+            while (  (configName = [e nextObject])  ) {
+                [gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTun"]];
+            }
+            
+            e = [doNotLoadTapConfigNames objectEnumerator];
+            while (  (configName = [e nextObject])  ) {
+                [gTbDefaults setObject: @"never" forKey: [configName stringByAppendingString: @"-loadTap"]];
+            }
+            
+            [gTbDefaults setBool: TRUE forKey: @"haveDealtWithOldTunTapPreferences"];
+        }
+        
+		// Scan for unknown preferences
         [gTbDefaults scanForUnknownPreferencesInDictionary: dict displayName: @"Preferences"];
         
         // Check that we can run Tunnelblick from this volume, that it is in /Applications, and that it is secured
@@ -3430,7 +3504,7 @@ static void signal_handler(int signalNumber)
     }
 #endif
     
-    NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
+    NSString * prefVersion = [gTbDefaults objectForKey: @"*-openvpnVersion"];
     if (   prefVersion
         && ( ! [prefVersion isEqualToString: @"-"] )  ) {
         NSArray * versions = availableOpenvpnVersions();
@@ -3445,7 +3519,7 @@ static void signal_handler(int signalNumber)
                             [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
                              prefVersion, useVersion],
                             nil, nil, nil);
-            [gTbDefaults setObject: @"-" forKey: @"openvpnVersion"];
+            [gTbDefaults setObject: @"-" forKey: @"*-openvpnVersion"];
         }
     }
     
@@ -3736,75 +3810,118 @@ static void signal_handler(int signalNumber)
     }
 }
 
--(void)askToChangePreferenceForAllConfigurations: (NSDictionary * ) dict {
-	
-    NSString      * localizedMessage = [dict objectForKey: @"LocalizedMessage"];
-    NSString      * keySuffix        = [dict objectForKey: @"PreferenceName"];
-    id              newValue         = [dict objectForKey: @"NewValue"];
-    
-    if (   localizedMessage
-        && keySuffix
-        && newValue
-        && [gTbDefaults canChangeValueForKey: [@"*" stringByAppendingString: keySuffix]]) {
-        
-        int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Configurations?", @"Window title"),
-                                     localizedMessage,
-                                     NSLocalizedString(@"Change for All Configurations", @"Button"),
-                                     NSLocalizedString(@"Change Only for This Configuration", @"Button"),
-                                     nil);
-        if (  result == NSAlertDefaultReturn  ) {
+-(void) setPreferenceForSelectedConfigurationsWithKey: (NSString *) key
+                                                   to: (id)         newValue
+                                               isBOOL: (BOOL)       isBOOL {
+    if (   key
+        && newValue  ) {
+		
+		BOOL setPref = TRUE;	// If FALSE, REMOVE the preference instead of SETTING it:
+		//						//	  * if the new value is an empty string, don't set the preference, remove it
+		//						//	  * if the new value is a BOOL and is FALSE, don't set the preference, remove it
+		//						//	  * if the new 'useDNS' value is 1, don't set the preference, remove it
+		if (   [[newValue class] isSubclassOfClass: [NSString class]]
+			&& ( [newValue length] == 0 )  ) {
+			setPref = FALSE;
+		} else if (   isBOOL
+				   && ( ! [newValue boolValue])  ) {
+			setPref = FALSE;
+		} else if (   [key isEqualToString: @"useDNS"]
+				   && (   [newValue intValue] == 1  )  ) {
+			setPref = FALSE;
+		}
+		
+		if (   runningOnSnowLeopardOrNewer()
+			&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+			ConfigurationsView      * cv     = [logScreen configurationsPrefsView];
+			LeftNavViewController   * ovc    = [cv outlineViewController];
+			NSOutlineView           * ov     = [ovc outlineView];
+			NSIndexSet              * idxSet = [ov selectedRowIndexes];
+			
+			NSUInteger selectedIdx = [ov selectedRow];
+			
+			if  (  [idxSet count] != 0  ) {
+				if  (  [idxSet count] > 1  ) {
+					LeftNavItem * item = [ov itemAtRow: selectedIdx];
+					NSString * displayName = [item displayName];
+					int result = TBRunAlertPanel(NSLocalizedString(@"Change for All Configurations?", @"Window title"),
+												 [NSString stringWithFormat:
+												  NSLocalizedString(@"Do you want to make this change for all %lu of the selected configurations, or only for '%@'?", @"Window title"),
+												  (unsigned long) [idxSet count],
+												  displayName],
+												 NSLocalizedString(@"Change for the Selected Configurations", @"Button"),
+												 NSLocalizedString(@"Change Only for This Configuration", @"Button"),
+												 nil);
+					if (  result == NSAlertAlternateReturn  ) {
+						idxSet = [NSIndexSet indexSetWithIndex: selectedIdx];
+					}
+				}
+				
+				[idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+					
+					(void) stop;
+					
+					LeftNavItem * item = [ov itemAtRow: idx];
+					NSString * displayName = [item displayName];
+					if (  [displayName length] != 0  ) {	// Ignore folders; just process configurations
+						NSString * actualKey = [displayName stringByAppendingString: key];
+						if (  setPref  ) {
+							[gTbDefaults setObject: newValue forKey: actualKey];
+						} else {
+							[gTbDefaults removeObjectForKey: actualKey];
+						}
+					}
+				}];
+			} else {
+				NSLog(@"setPreferenceForSelectedConfigurationsWithKey: No configuration is selected so cannot change the '%@' preference", key);
+			}
+		} else {
+            ConfigurationsView * cv = [logScreen configurationsPrefsView];
+			NSTableView        * tv = [cv leftNavTableView];
+			NSUInteger  selectedIdx = [tv selectedRow];
             
-            // Remove the preference for all specific configurations
-            [gTbDefaults removeAllObjectsWithSuffix: keySuffix];
-            
-            // Set the preference for "all" configurations
-            [gTbDefaults setObject: newValue forKey: [@"*" stringByAppendingString: keySuffix]];
-            
-            // A hack, but easy:
-            if (  [keySuffix isEqualToString: @"-doNotShowOnTunnelblickMenu"]  ) {
-                [self changedDisplayConnectionSubmenusSettings];
+            NSMutableArray * displayNames = [logScreen leftNavDisplayNames];
+            NSString * displayName = [displayNames objectAtIndex: selectedIdx];
+            if (  [displayName length] != 0 ) {
+                NSString * actualKey = [displayName stringByAppendingString: key];
+				if (  setPref  ) {
+					[gTbDefaults setObject: newValue forKey: actualKey];
+				} else {
+					[gTbDefaults removeObjectForKey: actualKey];
+				}
+            } else {
+                NSLog(@"setPreferenceForSelectedConfigurationsWithKey: row %lu is not a configuration", (long) selectedIdx);
             }
-        }
+		}
+	} else {
+        NSLog(@"setPreferenceForSelectedConfigurationsWithKey: Key and value for the preference were not provided");
     }
 }
 
--(BOOL) changeBooleanPreference: (NSString *)      key
-                  forConnection: (VPNConnection *) connection
-                             to: (BOOL)            newValue
-                       inverted: (BOOL)            inverted
-			   localizedMessage: (NSString *)      localizedMessage {
+-(void) setBooleanPreferenceForSelectedConnectionsWithKey: (NSString *)	key
+													   to: (BOOL)		newValue
+												 inverted: (BOOL)		inverted {
     
-    BOOL state = (  inverted
-                  ? ! newValue
-                  : newValue);
+    // This is invoked directly when a checkbox is clicked, so we check we are not doing setup of UI here
+	
+    if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
+		
+		BOOL state = (  inverted
+					  ? ! newValue
+					  : newValue);
+		
+		[self setPreferenceForSelectedConfigurationsWithKey: key to: [NSNumber numberWithBool: state] isBOOL: true];
+	}
+}
+
+-(void) setPreferenceForSelectedConfigurationsWithDict: (NSDictionary * ) dict {
     
-    if (  key  ) {
-        if (  connection  ) {
-            NSString * actualKey = [[connection displayName] stringByAppendingString: key];
-            [gTbDefaults setBool: state forKey: actualKey];
-            
-            // If "Option" key was held when clicked on the checkbox, ask if user wants to change all configurations' preferences
-            NSUInteger flags = [[NSApp currentEvent] modifierFlags];
-            if (   localizedMessage
-                && (flags & NSAlternateKeyMask)  ) {   // (Option key)
-                NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [NSNumber numberWithBool: state], @"NewValue",
-                                       key, @"PreferenceName",
-                                       localizedMessage, @"LocalizedMessage",
-                                       nil];
-                [self performSelectorOnMainThread: @selector(askToChangePreferenceForAllConfigurations:) withObject: dict waitUntilDone: NO];
-            }
-        } else {
-            NSLog(@"changeBooleanPreference: No configuration is selected so cannot change the '%@' preference to %@", key, (  state
-                                                                                                                             ? @"YES"
-                                                                                                                             : @"NO"));
-        }
-    } else {
-        NSLog(@"changeBooleanPreference: No key for the boolean preference was provided, so cannot change it to %@", (  state
-                                                                                                                      ? @"YES"
-                                                                                                                      : @"NO"));
-    }
-    return state;
+	// This is invoked by performSelectorOnMainThread after checking that we are not doing setup of UI, so we don't check here
+    
+	NSString * key   = [dict objectForKey: @"PreferenceName"];
+    id         value = [dict objectForKey: @"NewValue"];
+    
+	[self setPreferenceForSelectedConfigurationsWithKey: key to: value isBOOL: NO];
 }
 
 // Sparkle delegate:
@@ -6134,6 +6251,14 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSImage *) mainImage
 {
     return [[mainImage retain] autorelease];
+}
+
+-(BOOL) doingSetupOfUI {
+	return doingSetupOfUI;
+}
+
+-(void) setDoingSetupOfUI: (BOOL) value {
+	doingSetupOfUI = value;
 }
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSStatusItem *, statusItem)

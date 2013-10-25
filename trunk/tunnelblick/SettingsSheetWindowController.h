@@ -61,8 +61,8 @@ typedef enum {
     
     // For Connecting & Disconnecting tab
     
-    IBOutlet NSButton            * scanConfigurationFileCheckbox;
-    IBOutlet NSButton            * useTunTapDriversCheckbox;
+    IBOutlet NSButton            * checkIPAddressAfterConnectOnAdvancedCheckbox;
+    IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
     IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
@@ -74,9 +74,19 @@ typedef enum {
     IBOutlet NSButton            * reconnectWhenUserSwitchesInCheckbox;
     
     IBOutlet NSTextFieldCell     * ifConnectedWhenUserSwitchedOutTFC;
+    IBOutlet NSTextField         * ifConnectedWhenUserSwitchedOutTF;
     
     IBOutlet NSBox               * fastUserSwitchingBox;
     
+	IBOutlet NSPopUpButton	     * loadTunPopUpButton;
+	IBOutlet NSMenuItem          * loadTunAutomaticallyMenuItem;
+	IBOutlet NSMenuItem          * loadTunAlwaysMenuItem;
+	IBOutlet NSMenuItem          * loadTunNeverMenuItem;
+	
+	IBOutlet NSPopUpButton       * loadTapPopUpButton;
+	IBOutlet NSMenuItem          * loadTapAutomaticallyMenuItem;
+	IBOutlet NSMenuItem          * loadTapAlwaysMenuItem;
+	IBOutlet NSMenuItem          * loadTapNeverMenuItem;
     
     // For WhileConnected tab
     
@@ -183,8 +193,8 @@ typedef enum {
 
 // Methods for Connecting tab
 
--(IBAction) scanConfigurationFileCheckboxWasClicked:          (id) sender;
--(IBAction) useTunTapDriversCheckboxWasClicked:               (id) sender;
+-(IBAction) checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked: (id) sender;
+-(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:          (id) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
 -(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
@@ -195,8 +205,15 @@ typedef enum {
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (id) sender;
 -(IBAction) reconnectWhenUserSwitchesInCheckboxWasClicked:    (id) sender;
 
+-(IBAction) loadTunAutomaticallyMenuItemWasClicked: (id) sender;
+-(IBAction) loadTapAutomaticallyMenuItemWasClicked: (id)sender;
+-(IBAction) loadTunNeverMenuItemWasClicked:         (id)sender;
+-(IBAction) loadTapNeverMenuItemWasClicked:         (id)sender;
+-(IBAction) loadTunAlwaysMenuItemWasClicked:        (id)sender;
+-(IBAction) loadTapAlwaysMenuItemWasClicked:        (id)sender;
+    
 
-// Methods for While Connecting tab
+// Methods for While Connected tab
 
 -(IBAction)  monitorNetworkForChangesCheckboxWasClicked: (id) sender;
 

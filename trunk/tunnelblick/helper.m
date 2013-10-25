@@ -406,7 +406,6 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
     // of the container for OpenVPN, we use OpenVPN's actual version information.
     
     // Uses the version specified for the specific connection (if given) if it is available;
-    // If not, uses the application-wide version if it is available;
     // If not, uses the first version of OpenVPN found.
     NSString * prefVersion = nil;
     id obj = nil;
@@ -415,11 +414,6 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
     }
     if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
         prefVersion = (NSString *) obj;
-    } else {
-        obj = [gTbDefaults objectForKey: @"openvpnVersion"];
-        if (  [[obj class] isSubclassOfClass: [NSString class]]  ) {
-            prefVersion = (NSString *) obj;
-        }
     }
     
     NSString * useVersion = nil;
@@ -441,7 +435,12 @@ NSDictionary * getOpenVPNVersionForConfigurationNamed(NSString * name)
                                 [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
                                  prefVersion, useVersion],
                                 nil, nil, nil);
-                [gTbDefaults setObject: useVersion forKey: @"openvpnVersion"];
+				if (   name
+					&& obj  ) {
+					[gTbDefaults setObject: useVersion forKey: [name stringByAppendingString: @"-openvpnVersion"]];
+				} else {
+					[gTbDefaults setObject: useVersion forKey: @"*-openvpnVersion"];
+				}
             }
         }
     } else {
@@ -1175,15 +1174,18 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
     NSString * stdPath = [dirPath stringByAppendingPathComponent: @"runOpenvpnstartStdOut"];
     if (  [gFileMgr fileExistsAtPath: stdPath]  ) {
         NSLog(@"runOpenvpnstart: File exists at %@", stdPath);
+        [dirPath release];
         return -1;
     }
     if (  ! [gFileMgr createFileAtPath: stdPath contents: nil attributes: nil]  ) {
         NSLog(@"runOpenvpnstart: Unable to create %@", stdPath);
+        [dirPath release];
         return -1;
     }
     NSFileHandle * stdFileHandle = [[NSFileHandle fileHandleForWritingAtPath: stdPath] retain];
     if (  ! stdFileHandle  ) {
         NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", stdPath);
+        [dirPath release];
         return -1;
     }
     
@@ -1191,17 +1193,20 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
     if (  [gFileMgr fileExistsAtPath: errPath]  ) {
         NSLog(@"runOpenvpnstart: File exists at %@", errPath);
 		[stdFileHandle release];
+        [dirPath release];
         return -1;
     }
     if (  ! [gFileMgr createFileAtPath: errPath contents: nil attributes: nil]  ) {
         NSLog(@"runOpenvpnstart: Unable to create %@", errPath);
 		[stdFileHandle release];
+        [dirPath release];
         return -1;
     }
     NSFileHandle * errFileHandle = [[NSFileHandle fileHandleForWritingAtPath: errPath] retain];
     if (  ! errFileHandle  ) {
         NSLog(@"runOpenvpnstart: Unable to get NSFileHandle for %@", errPath);
 		[stdFileHandle release];
+        [dirPath release];
         return -1;
     }
     
@@ -1252,6 +1257,7 @@ OSStatus runOpenvpnstart(NSArray * arguments, NSString ** stdoutString, NSString
     if (  ! [gFileMgr tbRemoveFileAtPath: dirPath handler: nil]  ) {
         NSLog(@"Unable to remove temporary folder at %@", dirPath);
     }
+    [dirPath release];
 
     if (   (status != EXIT_SUCCESS)
         && ( ! stderrString)  ) {

@@ -82,8 +82,8 @@ extern NSArray        * gConfigurationPreferences;
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect;
 
 -(void) setupSetNameserver:         (VPNConnection *) connection;
+-(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection;
 -(void) setupNetworkMonitoring:     (VPNConnection *) connection;
--(void) setupShowOnTunnelblickMenu: (VPNConnection *) connection;
 -(void) setupSoundPopUpButtons:     (VPNConnection *) connection;
 
 -(void) setupSoundButton: (NSButton *)          button
@@ -140,7 +140,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     
     currentViewName = @"Configurations";
     
-    selectedOpenvpnVersionIndex                            = UINT_MAX;
+    selectedPerConfigOpenvpnVersionIndex                   = UINT_MAX;
     selectedKeyboardShortcutIndex                          = UINT_MAX;
     selectedMaximumLogSizeIndex                            = UINT_MAX;
     selectedAppearanceIconSetIndex                         = UINT_MAX;
@@ -330,10 +330,29 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 //***************************************************************************************************************
 
+
+-(BOOL) oneConfigurationIsSelected {
+	
+	if (   runningOnSnowLeopardOrNewer()
+		&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
+		LeftNavViewController   * ovc    = [configurationsPrefsView outlineViewController];
+		NSOutlineView           * ov     = [ovc outlineView];
+		NSIndexSet              * idxSet = [ov selectedRowIndexes];
+		return [idxSet count] == 1;
+	}
+	
+	return TRUE;
+}
+
 -(void) setupConfigurationsView
 {
+	
+	BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+	[[NSApp delegate] setDoingSetupOfUI: TRUE];
+
     selectedSetNameserverIndex     = NSNotFound;   // Force a change when first set
     selectedWhenToConnectIndex     = NSNotFound;
+    selectedPerConfigOpenvpnVersionIndex = NSNotFound;
     selectedSoundOnConnectIndex    = NSNotFound;
     selectedSoundOnDisconnectIndex = NSNotFound;    
 
@@ -372,7 +391,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [self setupSetNameserver: [self selectedConnection]];
         [self setupNetworkMonitoring: [self selectedConnection]];
-        [self setupShowOnTunnelblickMenu: [self selectedConnection]];
+        [self setupPerConfigOpenvpnVersion: [self selectedConnection]];
         [self setupSoundPopUpButtons: [self selectedConnection]];
         
         // Set up a timer to update connection times
@@ -380,6 +399,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
     
     [self validateDetailsWindowControls];   // Set windows enabled/disabled
+	
+	[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
 }
 
 
@@ -442,16 +463,64 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
-
--(void) setupShowOnTunnelblickMenu: (VPNConnection *) connection
+-(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection
 {
-	(void) connection;
-	
-    [self setupCheckbox: [configurationsPrefsView showOnTunnelBlickMenuCheckbox]
-                    key: @"-doNotShowOnTunnelblickMenu"
-               inverted: YES];
+    
+    // Select the OpenVPN version
+    NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
+    NSString * prefVersion = [gTbDefaults objectForKey: key];
+    
+    NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
+    NSArray * list = [ac content];
+    NSString * lastValue = [[list objectAtIndex: [list count] - 2] objectForKey: @"value"]; // don't get "latest (xxx)" -- get last real OpenVPN version number
+    
+    BOOL warnAndUseLatestVersion = FALSE;
+    
+    unsigned openvpnVersionIx = UINT_MAX;   // Flag value as not set
+    
+    if ( ! prefVersion  ) {
+        openvpnVersionIx = 0;
+        
+    } else if ( [prefVersion isEqualToString: @"-"]  ) {
+        openvpnVersionIx = [list count] - 1;
+        
+    } else if (  ! isSanitizedOpenvpnVersion(prefVersion)  ) {
+        warnAndUseLatestVersion = TRUE;
+        
+    } else {
+        unsigned i;
+        for (  i=1; i<[list count]-1; i++  ) {                      // 1st array entry is "default (xxx)", last is "latest (xxx)", so don't try to match them
+            NSDictionary * dict = [list objectAtIndex: i];
+            NSString * thisValue = [dict objectForKey: @"value"];
+            if (  [thisValue isEqualToString: prefVersion]  ) {
+                openvpnVersionIx = i;
+                break;
+            }
+        }
+        
+        if (  openvpnVersionIx == UINT_MAX  ) {
+            warnAndUseLatestVersion = TRUE;
+        }
+    }
+    
+    if (  warnAndUseLatestVersion  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
+                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
+                         prefVersion, lastValue],
+                        nil, nil, nil);
+        [gTbDefaults setObject: @"-" forKey: key];
+        openvpnVersionIx = [list count] - 1;
+    }
+    
+    if (  openvpnVersionIx < [list count]  ) {
+        [self setSelectedPerConfigOpenvpnVersionIndex: openvpnVersionIx];
+    } else {
+        NSLog(@"setupPerConfigOpenvpnVersion: Invalid openvpnVersionIx %d; maximum is %ld", openvpnVersionIx, (long) [list count]-1);
+    }
+    
+    [[configurationsPrefsView perConfigOpenvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: key]];
+    
 }
-
 
 -(void) setupSoundPopUpButtons: (VPNConnection *) connection
 {
@@ -593,10 +662,10 @@ static BOOL firstTimeShowingWindow = TRUE;
             [[configurationsPrefsView leftNavTableView] scrollRowToVisible: leftNavIndexToSelect];
         }
     } else {
-        [self setupSetNameserver:         nil];
-        [self setupNetworkMonitoring:     nil];
-        [self setupShowOnTunnelblickMenu: nil];
-        [self setupSoundPopUpButtons:     nil];
+        [self setupSetNameserver:           nil];
+        [self setupNetworkMonitoring:       nil];
+		[self setupPerConfigOpenvpnVersion: nil];
+        [self setupSoundPopUpButtons:       nil];
         [self validateDetailsWindowControls];
         [settingsSheetWindowController setConfigurationName: nil];
         
@@ -767,7 +836,12 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Left split view
         
-        [[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"]];
+		[[configurationsPrefsView addConfigurationButton]    setEnabled: [self oneConfigurationIsSelected]];
+        [[configurationsPrefsView removeConfigurationButton] setEnabled: [self oneConfigurationIsSelected]];
+
+		
+        [[configurationsPrefsView workOnConfigurationPopUpButton] setEnabled: ([self oneConfigurationIsSelected]
+																				&& (! [gTbDefaults boolForKey: @"disableWorkOnConfigurationButton"]))];
 		[[configurationsPrefsView workOnConfigurationPopUpButton] setAutoenablesItems: YES];
         
         NSString * configurationPath = [connection configPath];
@@ -790,7 +864,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // Right split view - log tab
         
-        [[configurationsPrefsView logToClipboardButton]             setEnabled: ! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"]];
+        [[configurationsPrefsView logToClipboardButton]             setEnabled: ([self oneConfigurationIsSelected]
+																				 && (! [gTbDefaults boolForKey: @"disableCopyLogToClipboardButton"]))];
         
         
         // Right split view - settings tab
@@ -803,6 +878,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         // There is not a connection selected. Don't let the user do anything except add a connection.
 
+		[[configurationsPrefsView addConfigurationButton]           setEnabled: YES];
         [[configurationsPrefsView removeConfigurationButton]        setEnabled: NO];
         [[configurationsPrefsView workOnConfigurationPopUpButton]   setEnabled: NO];
         
@@ -820,7 +896,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         
         [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
         
-        [[configurationsPrefsView showOnTunnelBlickMenuCheckbox]    setEnabled: NO];
+        [[configurationsPrefsView perConfigOpenvpnVersionButton]    setEnabled: NO];
         
         [[configurationsPrefsView soundOnConnectButton]             setEnabled: NO];
         [[configurationsPrefsView soundOnDisconnectButton]          setEnabled: NO];
@@ -954,7 +1030,8 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) validateConnectAndDisconnectButtonsForConnection: (VPNConnection *) theConnection
 {
-    if (  ! theConnection  )  {
+    if (   ( ! theConnection)
+		|| ( ! [self oneConfigurationIsSelected])  )  {
         [[configurationsPrefsView connectButton]    setEnabled: NO];
         [[configurationsPrefsView disconnectButton] setEnabled: NO];
         return;
@@ -1876,6 +1953,33 @@ static BOOL firstTimeShowingWindow = TRUE;
     }
 }
 
+-(NSUInteger) selectedPerConfigOpenvpnVersionIndex
+{
+    return selectedPerConfigOpenvpnVersionIndex;
+}
+
+-(void) setSelectedPerConfigOpenvpnVersionIndex: (NSUInteger) newValue
+{
+    if (  newValue != selectedPerConfigOpenvpnVersionIndex  ) {
+        NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
+        NSArray * list = [ac content];
+        if (  newValue < [list count]  ) {
+            selectedPerConfigOpenvpnVersionIndex = newValue;
+            
+            // Set the preference if this isn't just the initialization
+            if (  ! [[NSApp delegate] doingSetupOfUI]  ) {
+                NSString * newPreferenceValue = [[list objectAtIndex: newValue] objectForKey: @"value"];
+				NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+									   newPreferenceValue, @"NewValue",
+									   @"-openvpnVersion", @"PreferenceName",
+									   nil];
+				[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			}
+        }
+    }
+}
+
+
 // Checkbox was changed by another window
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection
 {
@@ -1892,29 +1996,11 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender
 {
-    [[NSApp delegate] changeBooleanPreference: @"-notMonitoringConnection"
-                                forConnection: [self selectedConnection]
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Would you like all configurations to monitor for changes to network settings?",     @"Window text")
-                                                : NSLocalizedString(@"Would you like all configurations to not monitor for changes to network settings?", @"Window text"))];
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-notMonitoringConnection"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
     
     [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
-}
-
-
--(IBAction) showOnTunnelBlickMenuCheckboxWasClicked: (id) sender
-{
-    [[NSApp delegate] changeBooleanPreference: @"-doNotShowOnTunnelblickMenu"
-                                forConnection: [self selectedConnection]
-                                           to: ([sender state] == NSOnState)
-                                     inverted: YES
-                             localizedMessage: (  [sender state] == NSOnState
-                                                ? NSLocalizedString(@"Would you like all configurations to appear on the Tunnelblick menu?",     @"Window text")
-                                                : NSLocalizedString(@"Would you like all configurations to not appear on the Tunnelblick menu?", @"Window text"))];
-    
-    [[NSApp delegate] changedDisplayConnectionSubmenusSettings];
 }
 
 
@@ -2144,7 +2230,8 @@ static BOOL firstTimeShowingWindow = TRUE;
     [[configurationsPrefsView whenToConnectOnComputerStartMenuItem] setEnabled: enableWhenComputerStarts];
     
     BOOL enable = (   [gTbDefaults canChangeValueForKey: autoConnectKey]
-                   && [gTbDefaults canChangeValueForKey: ossKey]          );
+                   && [gTbDefaults canChangeValueForKey: ossKey]
+				   && [self oneConfigurationIsSelected]);
     [[configurationsPrefsView whenToConnectPopUpButton] setEnabled: enable];
 }
 
@@ -2197,10 +2284,20 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setSelectedSetNameserverIndex: (NSUInteger) newValue
 {
     if (  newValue != selectedSetNameserverIndex  ) {
-        if (  selectedSetNameserverIndex != NSNotFound  ) {
+        if (  ! [[NSApp delegate] doingSetupOfUI]  ) {
+			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+								   [NSNumber numberWithUnsignedInt: newValue], @"NewValue",
+								   @"useDNS", @"PreferenceName",
+								   nil];
+			[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+			
+			// Must set the key now (even though setPreferenceForSelectedConfigurationsWithDict: will set it later) so the rest of the code in this method runs with the new setting
             NSString * actualKey = [[[self selectedConnection] displayName] stringByAppendingString: @"useDNS"];
             [gTbDefaults setObject: [NSNumber numberWithUnsignedInt: newValue] forKey: actualKey];
         }
+		
+		// Must set the key above (even though setPreferenceForSelectedConfigurationsWithDict: will set it later) so the following code works with the new setting
+
         selectedSetNameserverIndex = newValue;
         
         // If script doesn't support monitoring, indicate it is off and disable it
@@ -2214,6 +2311,7 @@ static BOOL firstTimeShowingWindow = TRUE;
                             key: @"-notMonitoringConnection"
                        inverted: YES];
         }
+		
         [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
         [settingsSheetWindowController setupPrependDomainNameCheckbox];
 		[settingsSheetWindowController setupFlushDNSCheckbox];
@@ -2276,12 +2374,17 @@ static BOOL firstTimeShowingWindow = TRUE;
 		VPNConnection* newConnection = [self selectedConnection];
         NSString * dispNm = [newConnection displayName];
 		
-        [self setupSetNameserver:         newConnection];
-        [self setupNetworkMonitoring:     newConnection];
-        [self setupShowOnTunnelblickMenu: newConnection];
-        [self setupSoundPopUpButtons:     newConnection];
+		BOOL savedDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+		[[NSApp delegate] setDoingSetupOfUI: TRUE];
+		
+        [self setupSetNameserver:           newConnection];
+        [self setupNetworkMonitoring:       newConnection];
+		[self setupPerConfigOpenvpnVersion: newConnection];
+        [self setupSoundPopUpButtons:       newConnection];
         
         [self validateDetailsWindowControls];
+		
+		[[NSApp delegate] setDoingSetupOfUI: savedDoingSetupOfUI];
                 
         [dispNm retain];
         [previouslySelectedNameOnLeftNavList release];
@@ -2298,36 +2401,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedWhenToConnectIndex)
 TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedSetNameserverIndex)
 TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
-
 //***************************************************************************************************************
-
--(void) setupOpenvpnVersionOverrideMessage {
-    
-    NSString * overrideMessage = nil;
-	NSString * applicationWideVersion = [getOpenVPNVersionForConfigurationNamed(nil) objectForKey: @"full"];
-    if (  applicationWideVersion  ) {
-		NSArray * prefVersions = [gTbDefaults valuesForPreferencesSuffixedWith: @"-openvpnVersion"];
-        NSString * name;
-        NSEnumerator * e = [prefVersions objectEnumerator];
-        while (  (name = [e nextObject]) ) {
-            if (  ! [name isEqualToString: applicationWideVersion]  ) {
-                overrideMessage = NSLocalizedString(@"(Some configurations use other versions)", @"Window text");
-                break;
-            }
-        }
-    } else {
-        overrideMessage = NSLocalizedString(@"*** No versions of OpenVPN are available ***", @"Window text");
-    }
-    
-	if (  ! overrideMessage  ) {
-		overrideMessage = NSLocalizedString(@"(This version is used by all configurations)", @"Window text");
-		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTitle: overrideMessage];
-		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTextColor: [NSColor darkGrayColor]];
-	} else {
-		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTitle: overrideMessage];
-		[[generalPrefsView openvpnVersionOverrideMessageTFC] setTextColor: [NSColor redColor]];
-	}
-}
 
 -(void) setupGeneralView
 {
@@ -2353,62 +2427,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     // Set the last update date/time
     [self updateLastCheckedDate];
 
-    // Select the OpenVPN version
-    
-    NSString * prefVersion = [gTbDefaults objectForKey: @"openvpnVersion"];
-    
-    NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
-    NSArray * list = [ac content];
-    NSString * lastValue = [[list objectAtIndex: [list count] - 2] objectForKey: @"value"]; // don't get "latest (xxx)" -- get last real OpenVPN version number
-    
-    BOOL warnAndUseLatestVersion = FALSE;
-    
-    unsigned openvpnVersionIx = UINT_MAX;   // Flag value as not set
-    
-    if ( ! prefVersion  ) {
-        openvpnVersionIx = 0;
-        
-    } else if ( [prefVersion isEqualToString: @"-"]  ) {
-        openvpnVersionIx = [list count] - 1;
-    
-    } else if (  ! isSanitizedOpenvpnVersion(prefVersion)  ) {
-        warnAndUseLatestVersion = TRUE;
-    
-    } else {
-        unsigned i;
-        for (  i=1; i<[list count]-1; i++  ) {                      // 1st array entry is "default (xxx)", last is "latest (xxx)", so don't try to match them
-            NSDictionary * dict = [list objectAtIndex: i];
-            NSString * thisValue = [dict objectForKey: @"value"];
-            if (  [thisValue isEqualToString: prefVersion]  ) {
-                openvpnVersionIx = i;
-                break;
-            }
-        }
-        
-        if (  openvpnVersionIx == UINT_MAX  ) {
-            warnAndUseLatestVersion = TRUE;
-        }
-    }
-    
-    if (  warnAndUseLatestVersion  ) {
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick", @"Window title"),
-                        [NSString stringWithFormat: NSLocalizedString(@"OpenVPN version %@ is not available. Using the latest, version %@", @"Window text"),
-                         prefVersion, lastValue],
-                        nil, nil, nil);
-        [gTbDefaults setObject: @"-" forKey: @"openvpnVersion"];
-        openvpnVersionIx = [list count] - 1;
-    }
-    
-    if (  openvpnVersionIx < [list count]  ) {
-        [self setSelectedOpenvpnVersionIndex: openvpnVersionIx];
-    } else {
-        NSLog(@"Invalid selectedOpenvpnVersionIndex %d; maximum is %ld", openvpnVersionIx, (long) [list count]-1);
-    }
-    
-    [[generalPrefsView openvpnVersionButton] setEnabled: [gTbDefaults canChangeValueForKey: @"openvpnVersion"]];
-    
-    [self setupOpenvpnVersionOverrideMessage];
-    
     // Select the keyboard shortcut
     
     unsigned kbsCount = [[[generalPrefsView keyboardShortcutArrayController] content] count];
@@ -2426,8 +2444,8 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     unsigned prefSize = gMaximumLogSize;
     
     NSUInteger logSizeIx = UINT_MAX;
-    ac = [generalPrefsView maximumLogSizeArrayController];
-    list = [ac content];
+    NSArrayController * ac = [generalPrefsView maximumLogSizeArrayController];
+    NSArray * list = [ac content];
     unsigned i;
     for (  i=0; i<[list count]; i++  ) {
         NSDictionary * dict = [list objectAtIndex: i];
@@ -2460,12 +2478,11 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     if (  logSizeIx < [list count]  ) {
         [self setSelectedMaximumLogSizeIndex: logSizeIx];
     } else {
-        NSLog(@"Invalid selectedMaximumLogSizeIndex %d; maximum is %ld", logSizeIx, (long) [list count]-1);
+        NSLog(@"Invalid selectedMaximumLogSizeIndex %lu; maximum is %ld", (unsigned long)logSizeIx, (long) [list count]-1);
     }
     
     [[generalPrefsView maximumLogSizeButton] setEnabled: [gTbDefaults canChangeValueForKey: @"maxLogDisplaySize"]];
 }
-
 
 -(void) updateLastCheckedDate
 {
@@ -2563,40 +2580,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     return selectedKeyboardShortcutIndex;
 }
 
-
--(NSUInteger) selectedOpenvpnVersionIndex
-{
-    return selectedOpenvpnVersionIndex;
-}
-
-
--(void) setSelectedOpenvpnVersionIndex: (NSUInteger) newValue
-{
-    if (  newValue != selectedOpenvpnVersionIndex  ) {
-        NSUInteger oldValue = selectedOpenvpnVersionIndex;
-        NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
-        NSArray * list = [ac content];
-        if (  newValue < [list count]  ) {
-            selectedOpenvpnVersionIndex = newValue;
-            
-            // Select the new size
-            NSArrayController * ac = [generalPrefsView openvpnVersionArrayController];
-            [ac setSelectionIndex: newValue];
-            
-            // Set the preference if this isn't just the initialization
-            if (  oldValue != UINT_MAX  ) {
-                NSString * newPreferenceValue = [[list objectAtIndex: newValue] objectForKey: @"value"];
-                if (   newPreferenceValue && [newPreferenceValue length] > 0  ) {
-                    [gTbDefaults setObject: newPreferenceValue forKey: @"openvpnVersion"];
-                } else {
-                    [gTbDefaults removeObjectForKey: @"openvpnVersion"];
-                }
-            }
-        }
-        
-        [self setupOpenvpnVersionOverrideMessage];
-    }
-}    
 
 -(void) setSelectedKeyboardShortcutIndex: (NSUInteger) newValue
 {
@@ -2786,7 +2769,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     if (  displayCriteriaIx < [list count]  ) {
         [self setSelectedAppearanceConnectionWindowDisplayCriteriaIndex: displayCriteriaIx];
     } else {
-        NSLog(@"Invalid displayCriteriaIx %d; maximum is %ld", displayCriteriaIx, (long) [list count]-1);
+        NSLog(@"Invalid displayCriteriaIx %lu; maximum is %ld", (unsigned long)displayCriteriaIx, (long) [list count]-1);
     }
     
     [[appearancePrefsView appearanceConnectionWindowDisplayCriteriaButton] setEnabled: [gTbDefaults canChangeValueForKey: @"connectionWindowDisplayCriteria"]];
@@ -2861,7 +2844,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	
     MyGotoHelpPage(@"preferences-appearance.html", nil);
 }
-
 
 -(NSUInteger) selectedAppearanceIconSetIndex
 {
@@ -2958,6 +2940,13 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     openTerminalWithEasyRsaFolder(userPath);
 }
 
+-(IBAction) utilitiesOpenUninstallInstructionsButtonWasClicked: (id) sender
+{
+	(void) sender;
+	
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/uninstall.html"]];
+}
+
 -(IBAction) utilitiesKillAllOpenVpnButtonWasClicked: (id) sender
 {
 	(void) sender;
@@ -3049,7 +3038,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     NSUInteger size = [contents count];
     if (  newValue < size  ) {
         VPNConnection * connection = [self selectedConnection];
-        NSString * key = [[[self selectedConnection] displayName] stringByAppendingString: preference];
         NSString * newName;
         NSSound  * newSound;
 		BOOL       speakIt = FALSE;
@@ -3079,8 +3067,14 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             }
         }
         
-        [gTbDefaults setObject: newName forKey: key];
-        
+		
+		if ( ! [[NSApp delegate] doingSetupOfUI]  ) {
+			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+								   newName, @"NewValue",
+								   preference, @"PreferenceName",
+								   nil];
+			[[NSApp delegate] performSelectorOnMainThread: @selector(setPreferenceForSelectedConfigurationsWithDict:) withObject: dict waitUntilDone: NO];
+		}
         if (  [preference hasSuffix: @"tunnelUpSoundName"]  ) {
             [connection setTunnelUpSound: newSound];
 			[connection setSpeakWhenConnected: speakIt];
@@ -3100,6 +3094,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
     return [configurationsPrefsView logView];
 }
+TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, leftNavDisplayNames)
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)
 

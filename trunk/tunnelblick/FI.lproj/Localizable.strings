@@ -269,8 +269,7 @@
 "Check for updates automatically" = "Tarkista päivitykset automaattisesti";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Tarkista ilmeisen julkisen IP-osoitteen
-muutos yhteyden luomisen jälkeen";
+"Check if the apparent public IP address changed after connection" = "Tarkista ilmeisen julkisen IP-osoitteen muutos yhteyden luomisen jälkeen";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Sulje yhteys käyttäjän vaihtuessa";
