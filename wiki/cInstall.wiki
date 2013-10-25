@@ -126,6 +126,8 @@ If Tunnelblick is running when you log out, shut down, or restart your computer,
 
 ==Uninstalling Tunnelblick==
 
+_Note: *You do not need to uninstall Tunnelblick before updating or reinstalling*. You should uninstall if you no longer want to use Tunnelblick, or if you are having problems and have been told to uninstall it._
+
 If you intend to re-install Tunnelblick, be sure you have a backup of your Tunnelblick configuration files and key and certificate files -- the .ovpn, .key, .crt, and/or .tblk files, and make a note of any configuration settings and appearance and other preferences you have set up. (They will be lost.)
 
 Download the latest uninstaller disk image from the [DownloadsEntry Downloads] page and double-click it. (The uninstall program may be used to uninstall any version of Tunnelblick or any version of any rebranded version of Tunnelblick.)
