@@ -3,6 +3,23 @@
 
 *<font size="3">News</font>*
 
+2013-10-25: *Tunnelblick 3.4beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
+
+ * On OS X 10.6 ('Snow Leopard') and higher, allows the user to select multiple configurations in the VPN Details… window and then change settings for all of the selected configurations. (A confirmation dialog prevents inadvertent changes.) The only setting that cannot be changed this way is the 'Connect' setting.
+
+ * Adds per-configuration 'OpenVPN version' selection to the VPN Details… window and removes 'OpenVPN version' selection from the Preferences panel.
+
+ * Adds a per-configuration 'Check that the apparent IP address changed after connecting' checkbox to the Advanced settings window.
+
+ * Includes several other enhancements and fixes several bugs.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+
+--------------------
+
 2013-10-17: *Tunnelblick 3.4beta12 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Includes several important bug fixes.

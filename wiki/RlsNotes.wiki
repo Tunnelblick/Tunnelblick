@@ -9,7 +9,31 @@
 
 ==Version 3.4==
 
-*3.4beta12 (2013-10-07)*
+*3.4beta14 (2013-10-25)*
+
+ * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
+
+ * On OS X 10.6 ('Snow Leopard') and higher, allows the user to select multiple configurations in the VPN Details… window and then change settings for all of the selected configurations. (A confirmation dialog prevents inadvertent changes.) The only setting that cannot be changed this way is the 'Connect' setting.
+
+ * Adds per-configuration 'OpenVPN version' selection to the VPN Details… window and removes 'OpenVPN version' selection from the Preferences panel.
+
+ * Adds a per-configuration 'Check that the apparent IP address changed after connecting' checkbox to the Advanced settings window.
+
+ * Replaces the 'Use Tunnelblick tun/tap drivers' checkbox on the Advanced settings window with pop-up buttons (one for tun and one for tap) that allow the user to always use the driver, never use the driver, or have Tunnelblick decide whether to use the driver based on the configuration file.
+
+ * Adds a button on the Utilities panel that opens a web page with instructions for uninstalling Tunnelblick.
+
+ * Moves 'Show configuration on Tunnelblick menu' to the Advanced settings window.
+
+ * Fixes a problem when installing a Tunnelblick VPN Configuration that includes CR-LF sequences in the OpenVPN configuration file.
+
+ * Fixes a problem with the appearance of the bottom of the configuration list in the VPN Details… window.
+
+ * Fixes a memory leak that would occur only under very unusual conditions.
+
+--------------------
+
+*3.4beta12 (2013-10-17)*
 
  * Logs more information if a sound is not found.
 
