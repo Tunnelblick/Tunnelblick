@@ -553,8 +553,8 @@ extern NSString      * gPrivatePath;
                 while (  tokenIx < [tokens count]  ) {
                     token = [tokens objectAtIndex: tokenIx++];
                     if (  [token isLinefeed]  ) {
-                        if (  tokenIx < [tokens count]  ) {
-                            token = [tokens objectAtIndex: tokenIx++];
+                        if (  tokenIx <= [tokens count]  ) {
+                            token = [tokens objectAtIndex: tokenIx];
                             if (  [endInlineKeys containsObject: [token stringValue]] ) {
                                 foundEnd = TRUE;
                                 break;

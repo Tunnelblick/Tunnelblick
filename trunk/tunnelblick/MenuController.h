@@ -54,6 +54,15 @@ enum TerminationReason {
     terminatingBecauseOfFatalError = 6
 };
 
+// The following line is needed to avoid a crash on load on 10.4 and 10.5. The crash is caused by the use of "block" structures in the code,
+// even though the block structures are not used when running under 10.4 or 10.5.
+// The code that uses blocks is the line
+//      [idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+// which appears in the setPreferenceForSelectedConfigurationsWithKey:to:isBOOL: method.
+// This fix was found at http://lists.apple.com/archives/xcode-users/2009/Oct/msg00608.html
+void * _NSConcreteStackBlock __attribute__((weak));
+
+
 @interface MenuController : NSObject <NSAnimationDelegate,NSMenuDelegate>
 {
     IBOutlet NSMenu         * myVPNMenu;                    // Tunnelblick's menu, displayed in Status Bar
