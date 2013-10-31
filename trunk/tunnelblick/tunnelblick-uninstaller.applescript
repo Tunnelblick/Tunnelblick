@@ -214,9 +214,9 @@ on ProcessFile(fullPath, myScriptPath) -- (POSIX path, POSIX path)
 	end if
 	
 	if alertResult = {button returned: localized string of "Test"} then
-		display dialog LocalizedFormattedString("Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\", no changes will be made.\n\nThe uninstaller needs \"root\" access so it can read the %s preferences of other users.", {TBName})
+		display dialog LocalizedFormattedString("Although the next window will ask for a computer administrator username and password and say \"Tunnelblick Uninstaller wants to make changes\", no changes will be made.\n\nThe uninstaller needs administrator access so it can read the %s preferences of other users.", {TBName})
 	else
-		display dialog LocalizedFormattedString("The next window will ask for a computer administrator username and password.\n\nThe uninstaller needs \"root\" access so it can make the changes required to uninstall %s.", {TBName})
+		display dialog LocalizedFormattedString("The next window will ask for a computer administrator username and password.\n\nThe uninstaller needs administrator access so it can make the changes required to uninstall %s.", {TBName})
 	end if
 	
 	-- Start the uninstaller script, using the -i option to force a non-error status even if there are errors, and the -t or -u option as directed by the user
