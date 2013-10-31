@@ -239,7 +239,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             saveConnectionsToRestoreOnRelaunch;
 -(void)             setHotKeyIndex:                         (unsigned)          newIndex;
 -(void)             setState:                               (NSString *)        newState;
--(void)             setupSparklePreferences;
+-(void)             setOurPreferencesFromSparkles;
 -(NSArray *)        sortedSounds;
 -(void)             unloadKexts; 
 -(BOOL)             userIsAnAdmin;

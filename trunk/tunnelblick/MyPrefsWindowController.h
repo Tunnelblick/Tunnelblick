@@ -138,6 +138,7 @@
 
 -(IBAction) updatesCheckAutomaticallyCheckboxWasClicked:  (id) sender;
 -(IBAction) updatesCheckForBetaUpdatesCheckboxWasClicked: (id) sender;
+-(IBAction) updatesSendProfileInfoCheckboxWasClicked:     (id) sender;
 -(IBAction) updatesCheckNowButtonWasClicked:              (id) sender;
 
 -(IBAction) resetDisabledWarningsButtonWasClicked:        (id) sender;

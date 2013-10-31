@@ -427,6 +427,7 @@ BOOL needToConvertNonTblks(void);
                                       @"-loadTun",
                                       @"-credentialsGroup",
 									  @"-openvpnVersion",
+									  @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
@@ -993,9 +994,7 @@ BOOL needToConvertNonTblks(void);
     if (   [bar respondsToSelector: @selector(_statusItemWithLength:withPriority:)]
         && [bar respondsToSelector: @selector(_insertStatusItem:withPriority:)]
         && (  ! [gTbDefaults boolForKey:@"placeIconInStandardPositionInStatusBar"]  )
-        && (   ( ! runningOnMavericksOrNewer() )
-            || ( [[NSScreen screens] count] == 1 )
-            )
+        && (  ! runningSeparateMultipleScreensOnMavericksOrNewer()  )
         ) {
         
         // Force icon to the right in Status Bar
@@ -3065,7 +3064,7 @@ static void signal_handler(int signalNumber)
             // EXCEPT we SET "SUHasLaunchedBefore", so the user will be asked right away about checking for updates automatically and sending profile info
             [stdDefaults removeObjectForKey: @"SUEnableAutomaticChecks"];
             [stdDefaults removeObjectForKey: @"SUAutomaticallyUpdate"];
-            [stdDefaults removeObjectForKey: @"SUupdateSendProfileInfo"];
+            [stdDefaults removeObjectForKey: @"SUSendProfileInfo"];
             [stdDefaults removeObjectForKey: @"SULastCheckTime"];                       
             [stdDefaults removeObjectForKey: @"SULastProfileSubmissionDate"];
             
@@ -3084,7 +3083,7 @@ static void signal_handler(int signalNumber)
     // We aren't supposed to use Sparkle Updater's preferences directly. However, we need to be able to, in effect,
     // override three of them via forced-preferences.plist. So we have three of our own preferences which mirror Sparkle's. Our
     // preferences are "updateCheckAutomatically", "updateSendProfileInfo", and "updateAutomatically", which mirror
-    // Sparkle's "SUEnableAutomaticChecks", "SUupdateSendProfileInfo", and "SUAutomaticallyUpdate". We use our preferences to
+    // Sparkle's "SUEnableAutomaticChecks", "SUSendProfileInfo", and "SUAutomaticallyUpdate". We use our preferences to
     // set Sparkle's behavior by invoking methods of the updater instance.
     //
     // We also have two other preferences which affect Sparkle's behavior. Sparkle doesn't use preferences for them; they are set in
@@ -3103,7 +3102,7 @@ static void signal_handler(int signalNumber)
     // Note that we access Sparkle's preferences via stdDefaults, so they can't be forced (Sparkle would ignore the forcing, anyway)
     // However, when we try to set out preferences from Sparkle's, if they are forced then they won't be changed.
     
-    [self setupSparklePreferences];
+    [self setOurPreferencesFromSparkles];
     
     // Set Sparkle's behavior from our preferences using Sparkle's approved methods
     
@@ -3189,7 +3188,7 @@ static void signal_handler(int signalNumber)
 
 // If we haven't set up the updateCheckAutomatically, updateSendProfileInfo, and updateAutomatically preferences,
 // and the corresponding Sparkle preferences have been set, copy Sparkle's settings to ours
--(void) setupSparklePreferences
+-(void) setOurPreferencesFromSparkles
 {
     NSUserDefaults * stdDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -3202,8 +3201,8 @@ static void signal_handler(int signalNumber)
     }
     
     if (  [gTbDefaults objectForKey: @"updateSendProfileInfo"] == nil  ) {
-        if (  [stdDefaults objectForKey: @"SUupdateSendProfileInfo"] != nil  ) {
-            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUupdateSendProfileInfo"]
+        if (  [stdDefaults objectForKey: @"SUSendProfileInfo"] != nil  ) {
+            [gTbDefaults setBool: [stdDefaults boolForKey: @"SUSendProfileInfo"]
                           forKey: @"updateSendProfileInfo"];
             [gTbDefaults synchronize];
         }

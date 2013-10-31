@@ -110,6 +110,7 @@ BOOL           isUserAnAdmin            (void);
 
 BOOL           runningABetaVersion      (void);
 
+BOOL           runningSeparateMultipleScreensOnMavericksOrNewer(void);
 BOOL           runningOnTigerOrNewer    (void);
 BOOL           runningOnLeopardOrNewer  (void);
 BOOL           runningOnSnowLeopardOrNewer(void);
