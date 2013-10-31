@@ -280,6 +280,13 @@ static BOOL firstTimeShowingWindow = TRUE;
         [utilitiesPrefsView  setFrame: currentFrame];
         [infoPrefsView       setFrame: currentFrame];
     }
+	
+	if (  [identifier isEqualToString: @"Preferences"]) {
+		// Update our preferences from Sparkle's whenever we show the view
+		// (Would be better if Sparkle told us when they changed, but it doesn't)
+		[[NSApp delegate] setOurPreferencesFromSparkles];
+		[self setupGeneralView];
+	}
 }
 
 // Overrides superclass
@@ -2405,24 +2412,23 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 
 -(void) setupGeneralView
 {
-    // Select values for the configurations checkboxes
-    
-    [self setValueForCheckbox: [generalPrefsView checkIPAddressAfterConnectCheckbox]
-                preferenceKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"
-                     inverted: YES
-                   defaultsTo: TRUE];
+	[[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
 	
-    // Select value for the update automatically checkbox and set the last update date/time
+    // Set values for the update checkboxes
     [self setValueForCheckbox: [generalPrefsView updatesCheckAutomaticallyCheckbox]
                 preferenceKey: @"updateCheckAutomatically"
                      inverted: NO
-                   defaultsTo: TRUE];
+                   defaultsTo: FALSE];
     
     [self setValueForCheckbox: [generalPrefsView updatesCheckForBetaUpdatesCheckbox]
                 preferenceKey: @"updateCheckBetas"
                      inverted: NO
                    defaultsTo: runningABetaVersion()];
     
+    [self setValueForCheckbox: [generalPrefsView updatesSendProfileInfoCheckbox]
+                preferenceKey: @"updateSendProfileInfo"
+                     inverted: NO
+                   defaultsTo: FALSE];
     
     // Set the last update date/time
     [self updateLastCheckedDate];
@@ -2497,9 +2503,17 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 }
 
 
--(IBAction) checkIPAddressAfterConnectCheckboxWasClicked: (id) sender
+-(IBAction) updatesSendProfileInfoCheckboxWasClicked: (id) sender
 {
-	[gTbDefaults setBool: (! [sender state]) forKey:@"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+    SUUpdater * updater = [[NSApp delegate] updater];
+    if (  [updater respondsToSelector: @selector(setSendsSystemProfile:)]  ) {
+        [[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
+        BOOL newValue = [sender state] == NSOnState;
+        [gTbDefaults setBool: newValue forKey: @"updateSendProfileInfo"];
+        [updater setSendsSystemProfile: newValue];
+    } else {
+        NSLog(@"'Send anonymous profile info' change ignored because Sparkle Updater does not respond to setSendsSystemProfile:");
+    }
 }
 
 
@@ -2509,7 +2523,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 	
    SUUpdater * updater = [[NSApp delegate] updater];
     if (  [updater respondsToSelector: @selector(setAutomaticallyChecksForUpdates:)]  ) {
-        [[NSApp delegate] setupSparklePreferences]; // Sparkle may have changed it's preferences so we update ours
+        [[NSApp delegate] setOurPreferencesFromSparkles]; // Sparkle may have changed it's preferences so we update ours
         if (  ! [gTbDefaults boolForKey:@"updateCheckAutomatically"]  ) {
             // Was OFF, trying to change to ON
             [gTbDefaults setBool: TRUE forKey: @"updateCheckAutomatically"];
@@ -2728,9 +2742,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
                      inverted: YES
                    defaultsTo: FALSE];
     
-    BOOL multipleScreens = [[NSScreen screens] count] != 1;
-    if (   multipleScreens
-        && runningOnMavericksOrNewer()  ) {
+    if (   runningSeparateMultipleScreensOnMavericksOrNewer()  ) {
         NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
         [checkbox setState:   NO];
         [checkbox setEnabled: NO];

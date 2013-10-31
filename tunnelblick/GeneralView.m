@@ -83,44 +83,14 @@ extern TBUserDefaults * gTbDefaults;
     [resetDisabledWarningsButton sizeToFit];
     [resetDisabledWarningsButton setEnabled:  ! [gTbDefaults boolForKey: @"disableResetDisabledWarningsButton"]];
 
-    [checkIPAddressAfterConnectCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connection", @"Checkbox name")];
-
     [updatesUpdatesTFC                  setTitle: NSLocalizedString(@"Updates:",                                      @"Window text")];
     [updatesCheckAutomaticallyCheckbox  setTitle: NSLocalizedString(@"Check for updates automatically",               @"Checkbox name")];
     [updatesCheckForBetaUpdatesCheckbox setTitle: NSLocalizedString(@"Check for updates to beta versions",            @"Checkbox name")];
+    [updatesSendProfileInfoCheckbox     setTitle: NSLocalizedString(@"Include anonymous profile information",         @"Checkbox name")];
     [updatesCheckNowButton              setTitle: NSLocalizedString(@"Check Now",                                     @"Button")];
     [updatesCheckNowButton sizeToFit];
     [updatesCheckNowButton setEnabled:  ! [gTbDefaults boolForKey: @"disableCheckNowButton"]];
     
-    // If the "Check if he apparent public IP address... checkbox is only one line high
-    // Then move it up so it stays centered on the Warnings: label
-	// and  move the Reset Disabled Warnings button up close to the new bottom of it
-    // and  move the entire Warnings section down half that distance
-    NSRect oldRect = [checkIPAddressAfterConnectCheckbox frame];
-    [checkIPAddressAfterConnectCheckbox sizeToFit];
-    NSRect newRect = [checkIPAddressAfterConnectCheckbox frame];
-    float halfHeightChange = (newRect.size.height - oldRect.size.height) / 2.0;
-    float quarterHeightChange = halfHeightChange / 2.0;
-    
-    NSRect rect = [checkIPAddressAfterConnectCheckbox frame];
-    rect.origin.y = rect.origin.y - halfHeightChange;
-    [checkIPAddressAfterConnectCheckbox setFrame: rect];
-    
-    rect = [resetDisabledWarningsButton frame];
-    rect.origin.y = rect.origin.y - halfHeightChange;
-    [resetDisabledWarningsButton setFrame: rect];
-    
-    rect = [warningsTF frame];
-    rect.origin.y = rect.origin.y + quarterHeightChange;
-    [warningsTF setFrame: rect];
-    
-    rect = [checkIPAddressAfterConnectCheckbox frame];
-    rect.origin.y = rect.origin.y + quarterHeightChange;
-    [checkIPAddressAfterConnectCheckbox setFrame: rect];
-    
-    rect = [resetDisabledWarningsButton frame];
-    rect.origin.y = rect.origin.y + quarterHeightChange;
-    [resetDisabledWarningsButton setFrame: rect];
 }
 
 
@@ -133,12 +103,11 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          keyboardShortcutButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, maximumLogSizeArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          maximumLogSizeButton)
 
-TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          checkIPAddressAfterConnectCheckbox)
-
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesUpdatesTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesUpdatesTF)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckForBetaUpdatesCheckbox)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesSendProfileInfoCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          updatesCheckNowButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *,   updatesLastCheckedTFC)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextField *,       updatesLastCheckedTF)

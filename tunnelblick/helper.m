@@ -103,6 +103,35 @@ BOOL runningOnMavericksOrNewer(void)
     return runningOnNewerThan(10, 8);
 }
 
+BOOL runningSeparateMultipleScreensOnMavericksOrNewer(void) {
+    
+    if (   runningOnMavericksOrNewer()
+        && ([[NSScreen screens] count] != 1)  ) {
+        
+        NSString * spacesPrefsPath = [NSHomeDirectory() stringByAppendingPathComponent: @"/Library/Preferences/com.apple.spaces.plist"];
+        NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: spacesPrefsPath];
+        if (  dict  ) {
+            id obj = [dict objectForKey: @"spans-displays"];
+            if (  obj  ) {
+                if (  [obj respondsToSelector: @selector(boolValue)]  ) {
+                    return ! [obj boolValue];
+                } else {
+                    NSLog(@"The 'spans-displays' preference from %@ does not respond to boolValue", spacesPrefsPath);
+                }
+            } else {
+                NSLog(@"Unable to load 'spans-displays' preference from %@", spacesPrefsPath);
+            }
+        } else {
+            NSLog(@"Unable to load dictionary from %@", spacesPrefsPath);
+        }
+        
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+
 NSData * availableDataOrError(NSFileHandle * file) {
 	
 	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask

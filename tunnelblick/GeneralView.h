@@ -37,13 +37,13 @@
     
     IBOutlet NSTextFieldCell    * warningsTFC;
     IBOutlet NSTextField        * warningsTF;
-    IBOutlet NSButton           * checkIPAddressAfterConnectCheckbox;
     IBOutlet NSButton           * resetDisabledWarningsButton;
     
     IBOutlet NSTextFieldCell    * updatesUpdatesTFC;
     IBOutlet NSTextField        * updatesUpdatesTF;
     IBOutlet NSButton           * updatesCheckAutomaticallyCheckbox;
     IBOutlet NSButton           * updatesCheckForBetaUpdatesCheckbox;
+    IBOutlet NSButton           * updatesSendProfileInfoCheckbox;
     IBOutlet NSButton           * updatesCheckNowButton;
     IBOutlet NSTextFieldCell    * updatesLastCheckedTFC;
     IBOutlet NSTextField        * updatesLastCheckedTF;
@@ -51,12 +51,11 @@
     IBOutlet NSButton           * preferencesGeneralHelpButton;
 }
 
-TBPROPERTY_READONLY(NSButton *,          checkIPAddressAfterConnectCheckbox)
-
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesUpdatesTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesUpdatesTF)
 TBPROPERTY_READONLY(NSButton *,          updatesCheckAutomaticallyCheckbox)
 TBPROPERTY_READONLY(NSButton *,          updatesCheckForBetaUpdatesCheckbox)
+TBPROPERTY_READONLY(NSButton *,          updatesSendProfileInfoCheckbox)
 TBPROPERTY_READONLY(NSTextFieldCell *,   updatesLastCheckedTFC)
 TBPROPERTY_READONLY(NSTextField *,       updatesLastCheckedTF)
 
