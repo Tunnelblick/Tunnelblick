@@ -87,9 +87,11 @@ In a Deployed version of Tunnelblick, a Configuration's up/down scripts will ove
 If the Configuration includes pre-connect.sh, post-tun-tap-load.sh, connected.sh, reconnecting.sh, post-disconnect.sh scripts, they will be executed (as root) at the corresponding point in the connection process. This allows manipulation of kexts and/or the network configuration and user notification of events. (If the scripts load special kexts, you can use the "-doNotLoadTapKext" and "-doNotLoadTunKext" preferences to cause Tunnelblick to not try to load its own kexts.) post-tun-tap-load.sh, connected.sh, and reconnecting.sh are available in Tunnelblick 3.2beta02 and later only. See [cUsingScripts Using Scripts] for more details.
 
 ==Automatic Installation==
-When Tunnelblick itself is installed by double-clicking Tunnelblick.app on a disk image or other volume from which it cannot be used, all Configurations in the "auto-install" and ".auto-install" folders that are in the same folder that contains the Tunnelblick.app being installed are installed (subject to [cPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
+When Tunnelblick itself is installed by double-clicking a Tunnelblick.app that is not in /Applications, all Configurations in the "auto-install" and ".auto-install" folders that are in the same folder that contains the Tunnelblick.app being installed are installed (subject to [cPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
 The "auto-install" and ".auto-install" folders can also contain a file named "preferences.plist". It may contain a "set-only-if-not-present" key and/or a "always-set" key. The value for each key should be a dictionary containing preferences to be set under the specified conditions.
+
+Thus, one can construct a disk image (or a .zipped folder) which contains Tunnelblick.app and an "auto-install" folder containing configurations and preferences to be installed along with Tunnelblick. 
 
 == CFBundleIdentifier Conflicts==
 On automatic or manual installation of a Configuration, if a Configuration with an identical CFBundleIdentifier is already installed:
