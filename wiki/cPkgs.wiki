@@ -89,6 +89,8 @@ If the Configuration includes pre-connect.sh, post-tun-tap-load.sh, connected.sh
 ==Automatic Installation==
 When Tunnelblick itself is installed by double-clicking Tunnelblick.app on a disk image or other volume from which it cannot be used, all Configurations in the "auto-install" and ".auto-install" folders that are in the same folder that contains the Tunnelblick.app being installed are installed (subject to [cPkgs#CFBundleIdentifier_Conflicts CFBundleIdentifier Conflicts] and [cPkgs#Name_Conflicts_During_Installation Name Conflicts During Installation]).
 
+The "auto-install" and ".auto-install" folders can also contain a file named "preferences.plist". It may contain a "set-only-if-not-present" key and/or a "always-set" key. The value for each key should be a dictionary containing preferences to be set under the specified conditions.
+
 == CFBundleIdentifier Conflicts==
 On automatic or manual installation of a Configuration, if a Configuration with an identical CFBundleIdentifier is already installed:
   * If the new Configuration's "TBReplaceIdentical" is "no", the Configuration will not be installed.
