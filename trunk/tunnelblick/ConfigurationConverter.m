@@ -467,6 +467,15 @@ extern NSString      * gPrivatePath;
                                @"</tls-auth>",
                                nil];
     
+    // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference does not have an absolute path
+    NSArray * optionsThatRequireAnAbsolutePath = [NSArray arrayWithObjects:
+                                                  @"log",
+                                                  @"log-append",
+                                                  @"status",
+                                                  @"write-pid",
+                                                  @"replay-persist",
+                                                  nil];
+    
     // Create the .tblk/Contents/Resources folder
     if (  outputPath  ) {
 		NSString * tblkResourcesPath = [[outputPath stringByAppendingPathComponent: @"Contents"]
@@ -565,6 +574,11 @@ extern NSString      * gPrivatePath;
                 
                 if (  ! foundEnd ) {
                     [self logMessage: [NSString stringWithFormat: @"%@ was not terminated", startTokenStringValue]];
+                    return FALSE;
+                }
+            } else if (  [optionsThatRequireAnAbsolutePath containsObject: [firstToken stringValue]]  ) {
+                if (  ! [[secondToken stringValue] hasPrefix: @"/" ]  ) {
+                    [self logMessage: [NSString stringWithFormat: @"The '%@' option is not allowed in an OpenVPN configuration file that is in a Tunnelblick VPN Configuration unless the file it references is specified with an absolute path.", [firstToken stringValue]]];
                     return FALSE;
                 }
             }
