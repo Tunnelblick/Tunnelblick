@@ -467,7 +467,7 @@ extern NSString      * gPrivatePath;
                                @"</tls-auth>",
                                nil];
     
-    // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference does not have an absolute path
+    // List of OpenVPN options that cannot appear in a Tunnelblick VPN Configuration unless the file they reference has an absolute path
     NSArray * optionsThatRequireAnAbsolutePath = [NSArray arrayWithObjects:
                                                   @"log",
                                                   @"log-append",
