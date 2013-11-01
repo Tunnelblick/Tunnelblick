@@ -4499,6 +4499,56 @@ BOOL warnAboutNonTblks(void)
     return counter;
 }
 
+-(void) setPreferencesFromDictionary: (NSDictionary *) dict
+                 onlyIfNotSetAlready: (BOOL)           onlyIfNotSetAlready {
+    
+        NSString * key;
+        NSEnumerator * e = [dict keyEnumerator];
+        while (  (key = [e nextObject])  ) {
+            id obj = [dict objectForKey: key];
+            if (  obj  ) {
+                if (  onlyIfNotSetAlready  ) {
+                    if (  [gTbDefaults objectForKey: key]  ) {
+                        continue;
+                    }
+                }
+                
+                [gTbDefaults setObject: obj forKey: key];
+            }
+        }
+}
+
+-(void) setPreferencesFromDictionary: (NSDictionary *) dict
+                                 key: (NSString *)     key
+                 onlyIfNotSetAlready: (BOOL)           onlyIfNotSetAlready {
+    
+    id obj = [dict objectForKey: key];
+    if (  obj  ) {
+        if (  [[obj class] isSubclassOfClass: [NSDictionary class]]  ) {
+            [self setPreferencesFromDictionary: (NSDictionary *) obj onlyIfNotSetAlready: onlyIfNotSetAlready];
+        } else {
+            NSLog(@"'%@' object is not a dictionary", key);
+            return;
+        }
+    }
+
+}
+
+-(void) setPreferencesFromPreferencesAtPath: (NSString *) plistPath {
+    NSDictionary * dict = [NSDictionary dictionaryWithContentsOfFile: plistPath];
+    if (  dict  ) {
+        [self setPreferencesFromDictionary: dict key: @"always-set"              onlyIfNotSetAlready: NO];
+        [self setPreferencesFromDictionary: dict key: @"set-only-if-not-present" onlyIfNotSetAlready: YES];
+	}
+}
+
+-(void) setPreferencesFromAutoInstallFolders {
+    
+    NSString * enclosingFolderPath = [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent];
+    [self setPreferencesFromPreferencesAtPath: [enclosingFolderPath stringByAppendingPathComponent:  @"auto-install/preferences.plist"]];
+    [self setPreferencesFromPreferencesAtPath: [enclosingFolderPath stringByAppendingPathComponent: @".auto-install/preferences.plist"]];
+}
+
 -(void) relaunchIfNecessary
 {
 	NSString * currentPath = [[NSBundle mainBundle] bundlePath];
@@ -4633,6 +4683,8 @@ BOOL warnAboutNonTblks(void)
     
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutInvalidSignature"];
 	[gTbDefaults removeObjectForKey: @"skipWarningAboutNoSignature"];
+    
+    [self setPreferencesFromAutoInstallFolders];
     
     // Install this program and secure it
     if (  ! [self runInstaller: (  INSTALLER_COPY_APP
