@@ -57,7 +57,8 @@
     IBOutlet NSTextField     * outTotalUnitsTF;
     
     NSUInteger                 statusScreenPosition; // Position of status window (0, 1, 2...)
-                                                     // Corresponds to bit in statusScreenPositionsInUse
+    //                                               // Corresponds to an entry in the statusScreenPositionsInUse array,
+    //                                               // which is a static variable defined at the start of StatusWindowController.m
     
     NSString                 * name;            // Name we are displaying - displayName of configuration
     NSString                 * status;          // Status (e.g., "EXITING") of the configuration

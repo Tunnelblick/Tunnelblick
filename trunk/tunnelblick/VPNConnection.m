@@ -903,7 +903,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(NSArray *) currentIPInfoWithIPAddress: (BOOL) useIPAddress
                         timeoutInterval: (NSTimeInterval) timeoutInterval
 {
-    NSString * logHeader = [NSString stringWithFormat:@"DEBUG: currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
+    NSString * logHeader = [NSString stringWithFormat:@"currentIPInfo(%@)", (useIPAddress ? @"Address" : @"Name")];
 
     NSURL * url = [[NSApp delegate] getIPCheckURL];
     if (  ! url  ) {
@@ -1597,7 +1597,11 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
     
     NSString *portString;
     if (  forNow  ) {
-        [self setPort: getFreePort()];
+        int thePort = getFreePort();
+        if (  thePort == 0  ) {
+            return nil;
+        }
+        [self setPort: thePort];
         portString = [NSString stringWithFormat:@"%d", portNumber];
     } else {
         portString = @"0";

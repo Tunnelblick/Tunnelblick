@@ -262,21 +262,32 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions,
 
 unsigned int getFreePort(void)
 {
-	// Returns a free port
+	// Returns a free port or 0 if no free port is available
 	
     unsigned int resultPort = 1336; // start port
+
     int fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (  fd == -1  ) {
+        return 0;
+    }
+    
     int result = 0;
     
     do {
         struct sockaddr_in address;
         unsigned len = sizeof(struct sockaddr_in);
-        resultPort++;
-        
         if (  len > UCHAR_MAX  ) {
             fprintf(stderr, "getFreePort: sizeof(struct sockaddr_in) is %ud, which is > UCHAR_MAX -- can't fit it into address.sin_len", len);
-            
+            close(fd);
+            return 0;
         }
+        if (  resultPort == 65535  ) {
+            fprintf(stderr, "getFreePort: cannot get a free port between 1335 and 65536");
+            close(fd);
+            return 0;
+        }
+        resultPort++;
+        
         address.sin_len = (unsigned char)len;
         address.sin_family = AF_INET;
         address.sin_port = htons(resultPort);
