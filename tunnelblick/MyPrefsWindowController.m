@@ -473,12 +473,21 @@ static BOOL firstTimeShowingWindow = TRUE;
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection
 {
     
+	if (  ! connection  ) {
+        return;
+    }
+    
     // Select the OpenVPN version
     NSString * key = [[connection displayName] stringByAppendingString: @"-openvpnVersion"];
     NSString * prefVersion = [gTbDefaults objectForKey: key];
     
     NSArrayController * ac = [configurationsPrefsView perConfigOpenvpnVersionArrayController];
     NSArray * list = [ac content];
+    
+    if (  [list count] < 3  ) {
+        return; // Have not set up the list yet
+    }
+    
     NSString * lastValue = [[list objectAtIndex: [list count] - 2] objectForKey: @"value"]; // don't get "latest (xxx)" -- get last real OpenVPN version number
     
     BOOL warnAndUseLatestVersion = FALSE;

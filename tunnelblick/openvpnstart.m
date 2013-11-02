@@ -59,7 +59,7 @@ void appendLog(NSString * msg) {
     fprintf(stderr, "%s\n", [msg UTF8String]);
 }
 
-    // returnValue: have used 180-247, plus the values in define.h (249-254) -- 248 IS NOT USED
+    // returnValue: have used 180-248, plus the values in define.h (249-254)
 void exitOpenvpnstart(OSStatus returnValue) {
     [pool drain];
     exit(returnValue);
@@ -2056,6 +2056,7 @@ int startVPN(NSString * configFile,
     } else {
         exitIfOvpnNeedsRepair();
         if (  ! [gConfigPath hasPrefix: [gDeployPath stringByAppendingString: @"/"]]  ) { // Not a .tblk, so check that it is Deployed
+            fprintf(stderr, "Configuration is not Deployed and not a .tblk\n");
             exitOpenvpnstart(230);
         }
     }
@@ -2064,6 +2065,10 @@ int startVPN(NSString * configFile,
     if ( port == 0) {
         withoutGUI = TRUE;
         port = getFreePort();
+        if (  port == 0  ) {
+            fprintf(stderr, "Unable to find a free port to connect to the management interface\n");
+            exitOpenvpnstart(248);
+        }
     }
     
     // Delete old OpenVPN log files and script log files for this configuration, and create a new, empty OpenVPN log file (we create the script log later)
