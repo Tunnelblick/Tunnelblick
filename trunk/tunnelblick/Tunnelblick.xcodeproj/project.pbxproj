@@ -161,6 +161,7 @@
 		B8051F521754DA630024841C /* SK.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B8051F4C1754DA630024841C /* SK.lproj */; };
 		B81C3477161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
 		B81C3479161E6A8300C2AF6E /* ConfigurationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */; };
+		B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B82DF4D7182704D800A121DE /* TBPerformer.m */; };
 		B85B5DBD15F2430900EDCF95 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B5DBC15F2430900EDCF95 /* WelcomeController.m */; };
 		B85B5DBF15F2436200EDCF95 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = B85B5DBE15F2436200EDCF95 /* Welcome.xib */; };
 		B86422B616153F8100ABD492 /* ConfigurationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F82911612964D008E0EB1 /* ConfigurationConverter.m */; };
@@ -450,6 +451,8 @@
 		B8051F4C1754DA630024841C /* SK.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SK.lproj; sourceTree = "<group>"; };
 		B81C3475161E6A8300C2AF6E /* ConfigurationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationToken.h; sourceTree = "<group>"; };
 		B81C3476161E6A8300C2AF6E /* ConfigurationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationToken.m; sourceTree = "<group>"; };
+		B82DF4D6182704D800A121DE /* TBPerformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPerformer.h; sourceTree = "<group>"; };
+		B82DF4D7182704D800A121DE /* TBPerformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPerformer.m; sourceTree = "<group>"; };
 		B85B5DBB15F2430900EDCF95 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		B85B5DBC15F2430900EDCF95 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 		B85B5DBE15F2436200EDCF95 /* Welcome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
@@ -891,6 +894,8 @@
 				63F2AD9A12AD5F1600826724 /* NSFileManager+TB.m */,
 				63DEC28E13B890F70063CE11 /* NSString+TB.h */,
 				63DEC28F13B890F70063CE11 /* NSString+TB.m */,
+				B82DF4D6182704D800A121DE /* TBPerformer.h */,
+				B82DF4D7182704D800A121DE /* TBPerformer.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
 			);
@@ -1432,6 +1437,7 @@
 				B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */,
 				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
 				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
+				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

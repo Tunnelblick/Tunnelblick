@@ -125,6 +125,8 @@
 
 -(IBAction) monitorNetworkForChangesCheckboxWasClicked: (id) sender;
 
+-(IBAction) keepConnectedCheckboxWasClicked: (id) sender;
+
 -(void)		validateDetailsWindowControls;
 
 -(IBAction) whenToConnectManuallyMenuItemWasClicked:          (id) sender;

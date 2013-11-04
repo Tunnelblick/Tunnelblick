@@ -2093,6 +2093,32 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
+-(void) reconnectAfterUnexpectedDisconnection: (NSDictionary *) dict {
+    
+    BOOL satisfied = [[dict objectForKey: @"satisfied"] boolValue];
+    if (  satisfied  ) {
+        NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; reconnecting...");
+        [self connect: self userKnows: YES];
+    } else {
+        NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is still running; doing nothing because it has apparently not finished disconnecting");
+    }
+}
+
+-(BOOL) openvpnProcessIsGone: (NSNumber *) pidAsNumber unusedArgument: (id) unusedArgument {
+    
+    // 'unusedArgument' is included because this routine is invoked by performSelector:withObject:withObject:
+    (void) unusedArgument;
+	
+    NSArray * openvpnPids = [NSApp pIdsForOpenVPNProcesses];
+	if (  [openvpnPids containsObject: pidAsNumber]  ) {
+		NSLog(@"DEBUG: openvpnProcessIsGone: OpenVPN process #%@ still running", pidAsNumber);
+        return FALSE;
+	} else {
+		NSLog(@"DEBUG: openvpnProcessIsGone: OpenVPN process #%@ has terminated", pidAsNumber);
+        return TRUE;
+	}
+}
+
 static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // The 'pre-connect.sh' and 'post-tun-tap-load.sh' scripts are run by openvpnstart
@@ -2114,6 +2140,8 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [self setState:@"EXITING"];
     pthread_mutex_unlock( &lastStateMutex );
     
+	NSNumber * oldPidAsNumber = [NSNumber numberWithLong: (long) pid];
+	
     [self disconnectFromManagmentSocket];
     portNumber = 0;
     pid = 0;
@@ -2138,6 +2166,32 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     [self runScriptNamed: @"post-disconnect" openvpnstartCommand: @"postDisconnect"];
     
     [[NSApp delegate] updateNavigationLabels];
+	
+    if (   ( ! [requestedState isEqualToString: @"EXITING"])
+		&& ( ! gShuttingDownTunnelblick)
+		&& [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-keepConnected"]]
+		) {
+        NSTimeInterval interval = (NSTimeInterval)[gTbDefaults unsignedIntForKey: @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting"
+                                                                         default: 5
+                                                                             min: 0
+                                                                             max: 60];
+        [self addToLog: [NSString stringWithFormat: @"Unexpected disconnection. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
+                         requestedState, interval, oldPidAsNumber]];
+		NSLog(@"DEBUG: Unexpected disconnection of %@. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
+			  [self displayName], requestedState, interval, oldPidAsNumber);
+        
+        [self performSelectorOnMainThread: @selector(reconnectAfterUnexpectedDisconnection:)
+                               withObject: @""
+             whenTrueIsReturnedBySelector: @selector(openvpnProcessIsGone:unusedArgument:)
+                               withObject: oldPidAsNumber
+                               withObject: @""
+                           orAfterTimeout: interval
+                                testEvery: 0.2];
+    } else {
+        [self addToLog: @"Expected disconnection occurred."];
+		NSLog(@"DEBUG: Expected disconnection of %@ occurred. %@shutting down Tunnelblick",
+			  [self displayName], (gShuttingDownTunnelblick ? @"We are " : @"We are not "));
+	}
 }
     
 - (void) netsocketConnected: (NetSocket*) socket

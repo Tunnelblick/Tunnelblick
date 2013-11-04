@@ -269,6 +269,12 @@ BOOL needToConvertNonTblks(void);
 								@"skipWarningAboutInvalidSignature",
 								@"skipWarningAboutNoSignature",
                                 
+                                @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
+                                @"timeoutForIPAddressCheckBeforeConnection",
+                                @"timeoutForIPAddressCheckAfterConnection",
+                                @"hookupTimeout",
+                                @"openvpnTerminationTimeout",
+                                
                                 @"placeIconInStandardPositionInStatusBar",
                                 @"doNotMonitorConfigurationFolder",
 								@"doNotLaunchOnLogin",
@@ -276,16 +282,12 @@ BOOL needToConvertNonTblks(void);
                                 @"standardApplicationPath",
                                 @"doNotCreateLaunchTunnelblickLinkinConfigurations",
                                 @"useShadowConfigurationFiles",
-                                @"hookupTimeout",
                                 @"openvpnTerminationInterval",
-                                @"openvpnTerminationTimeout",
                                 @"menuIconSet",
                                 @"easy-rsaPath",
                                 @"IPAddressCheckURL",
                                 @"notOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
-                                @"timeoutForIPAddressCheckBeforeConnection",
-                                @"timeoutForIPAddressCheckAfterConnection",
                                 @"delayBeforeIPAddressCheckAfterConnection",
                                 @"tunnelblickVersionHistory",
                                 
@@ -428,6 +430,7 @@ BOOL needToConvertNonTblks(void);
                                       @"-credentialsGroup",
 									  @"-openvpnVersion",
 									  @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection",
+									  @"-keepConnected",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
@@ -2769,7 +2772,10 @@ static pthread_mutex_t connectionArrayMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  reason == terminatingBecauseOfQuit  ) {
         terminatingAtUserRequest = TRUE;
     }
-        [NSApp terminate: self];
+	
+	gShuttingDownTunnelblick = TRUE;
+	
+	[NSApp terminate: self];
 }
 
 int runUnrecoverableErrorPanel(NSString * msg)

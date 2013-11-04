@@ -111,6 +111,8 @@ extern TBUserDefaults * gTbDefaults;
     // setNameserverPopUpButton is initialized in setupSettingsFromPreferences
     
     [monitorNetworkForChangesCheckbox setTitle: NSLocalizedString(@"Monitor network settings", @"Checkbox name")];
+	
+    [keepConnectedCheckbox setTitle: NSLocalizedString(@"Keep connected", @"Checkbox name")];
     
     // OpenVPN Version popup
     
@@ -238,6 +240,8 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSPopUpButton *,       setNameserverPopUpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   setNameserverArrayController)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            monitorNetworkForChangesCheckbox)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            keepConnectedCheckbox)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,            perConfigOpenvpnVersionButton)

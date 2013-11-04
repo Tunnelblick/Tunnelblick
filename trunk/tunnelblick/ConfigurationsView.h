@@ -80,13 +80,15 @@
     IBOutlet NSPopUpButton       * setNameserverPopUpButton;
     IBOutlet NSArrayController   * setNameserverArrayController;
     
-    IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
-    
     IBOutlet NSTextFieldCell    * perConfigOpenvpnVersionTFC;
     IBOutlet NSTextField        * perConfigOpenvpnVersionTF;
     IBOutlet NSArrayController  * perConfigOpenvpnVersionArrayController;
     IBOutlet NSButton           * perConfigOpenvpnVersionButton;
    
+    IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
+    
+    IBOutlet NSButton            * keepConnectedCheckbox;
+    
     IBOutlet NSBox               * alertSoundsBox;
     
     IBOutlet NSTextFieldCell     * connectionAlertSoundTFC;
@@ -149,6 +151,8 @@ TBPROPERTY_READONLY(NSPopUpButton *,       setNameserverPopUpButton)
 TBPROPERTY_READONLY(NSArrayController *,   setNameserverArrayController)
 
 TBPROPERTY_READONLY(NSButton *,            monitorNetworkForChangesCheckbox)
+
+TBPROPERTY_READONLY(NSButton *,            keepConnectedCheckbox)
 
 TBPROPERTY_READONLY(NSArrayController *,   perConfigOpenvpnVersionArrayController)
 TBPROPERTY_READONLY(NSButton *,            perConfigOpenvpnVersionButton)

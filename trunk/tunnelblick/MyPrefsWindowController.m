@@ -81,10 +81,11 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) setupLeftNavigationToDisplayName: (NSString *) displayNameToSelect;
 
--(void) setupSetNameserver:         (VPNConnection *) connection;
+-(void) setupSetNameserver:           (VPNConnection *) connection;
+-(void) setupKeepConnected:           (VPNConnection *) connection;
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection;
--(void) setupNetworkMonitoring:     (VPNConnection *) connection;
--(void) setupSoundPopUpButtons:     (VPNConnection *) connection;
+-(void) setupNetworkMonitoring:       (VPNConnection *) connection;
+-(void) setupSoundPopUpButtons:       (VPNConnection *) connection;
 
 -(void) setupSoundButton: (NSButton *)          button
          arrayController: (NSArrayController *) ac
@@ -396,10 +397,11 @@ static BOOL firstTimeShowingWindow = TRUE;
         [self indicateNotWaitingForConnection: [self selectedConnection]];
         [self validateWhenToConnect: [self selectedConnection]];
         
-        [self setupSetNameserver: [self selectedConnection]];
-        [self setupNetworkMonitoring: [self selectedConnection]];
+        [self setupSetNameserver:           [self selectedConnection]];
+        [self setupKeepConnected:           [self selectedConnection]];
+        [self setupNetworkMonitoring:       [self selectedConnection]];
         [self setupPerConfigOpenvpnVersion: [self selectedConnection]];
-        [self setupSoundPopUpButtons: [self selectedConnection]];
+        [self setupSoundPopUpButtons:       [self selectedConnection]];
         
         // Set up a timer to update connection times
         [[NSApp delegate] startOrStopDurationsTimer];
@@ -468,6 +470,15 @@ static BOOL firstTimeShowingWindow = TRUE;
                         key: @"-notMonitoringConnection"
                    inverted: YES];
     }
+}
+
+-(void) setupKeepConnected: (VPNConnection *) connection
+{
+ 	(void) connection;
+	
+	[self setupCheckbox: [configurationsPrefsView keepConnectedCheckbox]
+					key: @"-keepConnected"
+			   inverted: NO];
 }
 
 -(void) setupPerConfigOpenvpnVersion: (VPNConnection *) connection
@@ -679,6 +690,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         }
     } else {
         [self setupSetNameserver:           nil];
+        [self setupKeepConnected:           nil];
         [self setupNetworkMonitoring:       nil];
 		[self setupPerConfigOpenvpnVersion: nil];
         [self setupSoundPopUpButtons:       nil];
@@ -911,6 +923,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         [[configurationsPrefsView setNameserverPopUpButton]         setEnabled: NO];
         
         [[configurationsPrefsView monitorNetworkForChangesCheckbox] setEnabled: NO];
+        
+        [[configurationsPrefsView keepConnectedCheckbox]            setEnabled: NO];
         
         [[configurationsPrefsView perConfigOpenvpnVersionButton]    setEnabled: NO];
         
@@ -2019,6 +2033,12 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController monitorNetworkForChangesCheckboxChangedForConnection: [self selectedConnection]];
 }
 
+-(IBAction) keepConnectedCheckboxWasClicked: (id) sender
+{
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-keepConnected"
+																	 to: ([sender state] == NSOnState)
+															   inverted: NO];
+}
 
 -(NSUInteger) selectedSoundOnConnectIndex
 {
@@ -2394,6 +2414,7 @@ static BOOL firstTimeShowingWindow = TRUE;
 		[[NSApp delegate] setDoingSetupOfUI: TRUE];
 		
         [self setupSetNameserver:           newConnection];
+        [self setupKeepConnected:           newConnection];
         [self setupNetworkMonitoring:       newConnection];
 		[self setupPerConfigOpenvpnVersion: newConnection];
         [self setupSoundPopUpButtons:       newConnection];
