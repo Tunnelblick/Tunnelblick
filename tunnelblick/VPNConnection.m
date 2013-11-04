@@ -2097,8 +2097,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     
     BOOL satisfied = [[dict objectForKey: @"satisfied"] boolValue];
     if (  satisfied  ) {
-        NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; reconnecting...");
-        [self connect: self userKnows: YES];
+        if (  gShuttingDownTunnelblick  ) {
+            NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; but shutting down Tunnelblick, so not reconnecting");
+        } else {
+            NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is gone; reconnecting...");
+            [self connect: self userKnows: YES];
+        }
     } else {
         NSLog(@"DEBUG: reconnectAfterUnexpectedDisconnection invoked indicating OpenVPN process is still running; doing nothing because it has apparently not finished disconnecting");
     }

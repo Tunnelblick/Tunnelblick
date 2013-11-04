@@ -2594,6 +2594,8 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
 {
 //    NSLog(@"DEBUG: Cleanup: Entering cleanup");
     
+    gShuttingDownTunnelblick = TRUE;
+    
     OSStatus status = pthread_mutex_trylock( &cleanupMutex );
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_trylock( &cleanupMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
@@ -5578,6 +5580,8 @@ void terminateBecauseOfBadConfiguration(void)
 
 -(void) shutDownTunnelblick
 {
+    gShuttingDownTunnelblick = TRUE;
+    
 //    NSLog(@"DEBUG: shutDownTunnelblick: started.");
     terminatingAtUserRequest = TRUE;
     
