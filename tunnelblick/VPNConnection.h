@@ -21,6 +21,7 @@
  */
 
 #import <Security/Security.h>
+#import "TBPerformer.h"
 #import "AuthAgent.h"
 #import "NetSocket.h"
 #import "LogDisplay.h"
@@ -59,7 +60,7 @@ struct Statistics {
     struct RateInfo  rb[RB_SIZE];       // Ring buffer holding info for rate statistics
 };
 
-@interface VPNConnection : NSObject <NSWindowDelegate>
+@interface VPNConnection : TBPerformer <NSWindowDelegate>
 {
     NSString      * configPath;         // Full path to the configuration file (.conf or .ovpn file or .tblk package)
     // The configuration file MUST reside (for security reasons) in
