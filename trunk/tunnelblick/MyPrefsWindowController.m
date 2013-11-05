@@ -1880,6 +1880,25 @@ static BOOL firstTimeShowingWindow = TRUE;
 	return indentedMsg;	
 }
 
+-(NSString *) getPreferences: (NSArray *) prefsArray prefix: (NSString *) prefix {
+    
+    NSMutableString * string = [[[NSMutableString alloc] initWithCapacity: 1000] autorelease];
+    
+    NSUInteger i;
+    for (  i=0; i<[prefsArray count]; i++  ) {
+        NSString * keySuffix = [prefsArray objectAtIndex: i];
+        NSString * key = [prefix stringByAppendingString: keySuffix];
+        id obj = [gTbDefaults objectForKey: key];
+        if (  obj  ) {
+            [string appendFormat: @"%@ = %@%@\n", keySuffix, obj, (  [gTbDefaults canChangeValueForKey: key]
+                                                                   ? @""
+                                                                   : @" (forced)")];
+        }
+    }
+    
+    return string;
+}
+
 -(IBAction) logToClipboardButtonWasClicked: (id) sender {
 
 	(void) sender;
@@ -1899,6 +1918,11 @@ static BOOL firstTimeShowingWindow = TRUE;
             configFileContents = @"(No configuration file found!)";
         }
 		
+        // Get relevant preferences
+        NSString * configurationPreferencesContents = [self getPreferences: gConfigurationPreferences prefix: [connection displayName]];
+        
+        NSString * programPreferencesContents       = [self getPreferences: gProgramPreferences       prefix: @""];
+        
 		// Get Tunnelblick log
         NSTextStorage * store = [[configurationsPrefsView logView] textStorage];
         NSString * logContents = [store string];
@@ -1914,8 +1938,18 @@ static BOOL firstTimeShowingWindow = TRUE;
 		NSString * separatorString = @"================================================================================\n\n";
 		
         NSString * output = [NSString stringWithFormat:
-							 @"%@\n\n\"Sanitized\" configuration file for %@:\n\n%@\n\n%@Tunnelblick Log:\n\n%@\n%@Console Log:\n\n%@",
-                             versionContents, [connection configPath], configFileContents, separatorString, logContents, separatorString, consoleContents];
+							 @"%@\n\n"
+                             @"\"Sanitized\" configuration file for %@:\n\n%@\n\n%@"
+                             @"Configuration preferences:\n\n%@\n%@"
+                             @"Program preferences:\n\n%@\n%@"
+                             @"Tunnelblick Log:\n\n%@\n%@"
+                             @"Console Log:\n\n%@",
+                             versionContents,
+                             [connection configPath], configFileContents, separatorString,
+                             configurationPreferencesContents, separatorString,
+                             programPreferencesContents, separatorString,
+                             logContents, separatorString,
+                             consoleContents];
         
         NSPasteboard * pb = [NSPasteboard generalPasteboard];
         [pb declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: self];
