@@ -2173,6 +2173,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	
     if (   ( ! [requestedState isEqualToString: @"EXITING"])
 		&& ( ! gShuttingDownTunnelblick)
+        && ( ! gComputerIsGoingToSleep)
 		&& [gTbDefaults boolForKey: [[self displayName] stringByAppendingString: @"-keepConnected"]]
 		) {
         NSTimeInterval interval = (NSTimeInterval)[gTbDefaults unsignedIntForKey: @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting"
