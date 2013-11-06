@@ -1921,6 +1921,8 @@ static BOOL firstTimeShowingWindow = TRUE;
         // Get relevant preferences
         NSString * configurationPreferencesContents = [self getPreferences: gConfigurationPreferences prefix: [connection displayName]];
         
+        NSString * wildcardPreferencesContents      = [self getPreferences: gConfigurationPreferences prefix: @"*"];
+        
         NSString * programPreferencesContents       = [self getPreferences: gProgramPreferences       prefix: @""];
         
 		// Get Tunnelblick log
@@ -1941,12 +1943,14 @@ static BOOL firstTimeShowingWindow = TRUE;
 							 @"%@\n\n"
                              @"\"Sanitized\" configuration file for %@:\n\n%@\n\n%@"
                              @"Configuration preferences:\n\n%@\n%@"
+                             @"Wildcard preferences:\n\n%@\n%@"
                              @"Program preferences:\n\n%@\n%@"
                              @"Tunnelblick Log:\n\n%@\n%@"
                              @"Console Log:\n\n%@",
                              versionContents,
                              [connection configPath], configFileContents, separatorString,
                              configurationPreferencesContents, separatorString,
+                             wildcardPreferencesContents, separatorString,
                              programPreferencesContents, separatorString,
                              logContents, separatorString,
                              consoleContents];
