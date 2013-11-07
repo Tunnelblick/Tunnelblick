@@ -2297,7 +2297,6 @@ int startVPN(NSString * configFile,
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
                                              @"--up", upscriptCommand,
                                              @"--plugin", downRootPath, downscriptCommand,
-                                             @"--up-restart",
                                              nil
                                              ]
              ];
@@ -2305,7 +2304,6 @@ int startVPN(NSString * configFile,
             [arguments addObjectsFromArray: [NSArray arrayWithObjects:
                                              @"--up", upscriptCommand,
                                              @"--down", downscriptCommand,
-                                             @"--up-restart",
                                              nil
                                              ]
              ];
