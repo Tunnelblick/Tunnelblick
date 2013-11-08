@@ -2180,7 +2180,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                                                          default: 5
                                                                              min: 0
                                                                              max: 60];
-        [self addToLog: [NSString stringWithFormat: @"Unexpected disconnection. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
+        [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: Unexpected disconnection. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
                          requestedState, interval, oldPidAsNumber]];
 		NSLog(@"DEBUG: Unexpected disconnection of %@. requestedState = %@; waiting up to %.1f seconds for OpenVPN process %@ to terminate...",
 			  [self displayName], requestedState, interval, oldPidAsNumber);
@@ -2193,7 +2193,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                            orAfterTimeout: interval
                                 testEvery: 0.2];
     } else {
-        [self addToLog: @"Expected disconnection occurred."];
+        [self addToLog: @"*Tunnelblick: Expected disconnection occurred."];
 		NSLog(@"DEBUG: Expected disconnection of %@ occurred. %@shutting down Tunnelblick",
 			  [self displayName], (gShuttingDownTunnelblick ? @"We are " : @"We are not "));
 	}
@@ -2947,9 +2947,9 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  [gFileMgr fileExistsAtPath: DOWN_SCRIPT_NEEDS_TO_BE_RUN_PATH]  ) {
                 NSString * scriptNumberString = [NSString stringWithFormat: @"%d",
                                                  (useScripts & OPENVPNSTART_USE_SCRIPTS_SCRIPT_MASK) >> OPENVPNSTART_USE_SCRIPTS_SCRIPT_SHIFT_COUNT];
-                [self addToLog: [NSString stringWithFormat: @"OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
+                [self addToLog: [NSString stringWithFormat: @"*Tunnelblick: OpenVPN appears to have crashed -- the OpenVPN process has terminated without running a 'down' script, even though it ran an 'up' script. Tunnelblick will run the 'down' script #%@ to attempt to clean up network settings.", scriptNumberString]];
                 if (  [scriptNumberString isEqualToString: @"0"]  ) {
-                    [self addToLog: @"Running the 'route-pre-down' script first."];
+                    [self addToLog: @"*Tunnelblick: Running the 'route-pre-down' script first."];
                     runOpenvpnstart([NSArray arrayWithObject: @"route-pre-down"], nil, nil);
                 }
                 runOpenvpnstart([NSArray arrayWithObjects: @"down", scriptNumberString, nil], nil, nil);
