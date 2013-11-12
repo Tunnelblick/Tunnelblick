@@ -1156,27 +1156,6 @@ NSArray * availableOpenvpnVersions (void)
     return list;
 }
 
-BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
-{
-	unsigned i;
-	for (  i=0; i<[name length]; i++  ) {
-		unichar c = [name characterAtIndex: i];
-		if (   (c < 0x0020)
-			|| (c == 0x007F)
-			|| (c == 0x00FF)  ) {
-			return YES;
-		}
-	}
-	
-	const char * nameC          = [name UTF8String];
-	
-	return (   ( [name length] == 0)
-            || ( [name hasPrefix: @"."] )
-            || ( [name rangeOfString: @".."].length != 0)
-            || ( NULL != strpbrk(nameC, badCharsC) )
-            );
-}
-
 NSString * stringForLog(NSString * outputString, NSString * header)
 {
     outputString = [outputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

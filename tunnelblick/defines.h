@@ -81,8 +81,8 @@
 //*************************************************************************************************
 // Characters in a configuration's display name that are not allowed
 // Note that \000 - \037 and \177 are also prohibited, and that "(" and ")" _ARE_ allowed.
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|*?~<>^[]{}$'\""
-#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|*?~<>^[]{}$'\"/"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING                 "#&;:~|*?'\"~<>^[]{}$%"
+#define PROHIBITED_DISPLAY_NAME_CHARACTERS_INCLUDING_SLASH_CSTRING "#&;:~|*?'\"~<>^[]{}$%/"
 
 //*************************************************************************************************
 // Extensions that (for private configurations) require 640 permissions and ownership by Admin group

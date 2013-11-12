@@ -2499,9 +2499,22 @@ BOOL anyNonTblkConfigs(void)
     }
     
     if (  anyNonTblkConfigs()  ) {
+		NSString * tooBigMsg = allFilesAreReasonableIn(gPrivatePath);
+        if (  tooBigMsg  ) {
+            TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                            [NSString stringWithFormat:
+							 NSLocalizedString(@"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\n"
+											   @"The OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n"
+											   @"However, Tunnelblick cannot convert them because there was a problem:\n\n"
+											   @"%@",
+											   "Window text"), tooBigMsg],
+                            nil,nil,nil);
+            [self terminateBecause: terminatingBecauseOfError];
+        }
+        
         int response = TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
                                        NSLocalizedString(@"You have OpenVPN configurations but you do not have any Tunnelblick VPN Configurations.\n\n"
-                                                         @"You must convert OpenVPN configurations to Tunnelblick VPN Configurations if you want to use them.\n\n", @"Window text"),
+                                                         @"The OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n", @"Window text"),
                                        NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
                                        NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
                                        NSLocalizedString(@"Quit", @"Button"));                  // Other return
@@ -4201,6 +4214,28 @@ BOOL warnAboutNonTblks(void)
 	// Returns TRUE if there were any private non-tblks and the user has agreed to convert them
 
 	if (  anyNonTblkConfigs() ) {
+		NSString * tooBigMsg = allFilesAreReasonableIn(gPrivatePath);
+        if (  tooBigMsg  ) {
+            int result = TBRunAlertPanel(NSLocalizedString(@"Warning", @"Window title"),
+                                         [NSString stringWithFormat:
+										  NSLocalizedString(@"You have OpenVPN configurations.\n\n"
+															@"The OpenVPN configurations must be converted to Tunnelblick VPN Configurations if you want to use them.\n\n"
+															@"However, Tunnelblick cannot convert them because there was a problem:\n\n"
+															@"%@\n\n"
+															@"If you choose 'Ignore' the configurations will not be available!\n\n", @"Window text"),
+										  tooBigMsg],
+                                         NSLocalizedString(@"Ignore", @"Button"),    // Default
+                                         NSLocalizedString(@"Quit", @"Button"),      // Alternate
+                                         nil);
+            if (  result == NSAlertAlternateReturn  ) {
+                [[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
+            }
+            
+            gUserWasAskedAboutConvertNonTblks = YES;
+            gOkToConvertNonTblks = NO;
+            return NO;
+        }
+
 		int response = TBRunAlertPanelExtended(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
 											   NSLocalizedString(@"You have one or more OpenVPN configurations that will not be available"
                                                                  @" when using this version of Tunnelblick. You can:\n\n"
@@ -4225,12 +4260,12 @@ BOOL warnAboutNonTblks(void)
 			return YES;
 		}
         
-        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
-                        NSLocalizedString(@"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\n"
-                                          @"CONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n", @"Window text"),
-                        NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
-                        NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
-                        NSLocalizedString(@"Quit", @"Button"));                  // Other return
+        response = TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation", @"Window title"),
+								   NSLocalizedString(@"Are you sure you do not want to convert OpenVPN configurations to Tunnelblick VPN Configurations?\n\n"
+													 @"CONFIGURATIONS WILL NOT BE AVAILABLE IF YOU DO NOT CONVERT THEM!\n\n", @"Window text"),
+								   NSLocalizedString(@"Convert Configurations", @"Button"), // Default return
+								   NSLocalizedString(@"Ignore", @"Button"),                 // Alternate return
+								   NSLocalizedString(@"Quit", @"Button"));                  // Other return
 		if (  response == NSAlertOtherReturn  ) {
 			[[NSApp delegate] terminateBecause: terminatingBecauseOfQuit];
 		}

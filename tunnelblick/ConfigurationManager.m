@@ -687,8 +687,32 @@ enum state_t {                      // These are the "states" of the guideState 
     return nil;
 }
 
+-(BOOL) fileSizeOKAtPath: (NSString *)       path
+             inTblkNamed: (NSString *)       tblkName
+                 errMsgs: (NSMutableArray *) errMsgs {
+    
+    NSString * errMsg = fileIsReasonableSize(path);
+    if (  errMsg  ) {
+        NSLog(@"%@", errMsg);
+        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"There is a problem in %@: %@", "Window text"),
+                             tblkName, errMsg]];
+        return FALSE;
+    }
+    
+    return  TRUE;
+}
+
 -(BOOL) fileReferencesInConfigAreOk: (NSString *)       cfgPath
 						  errorMsgs: (NSMutableArray *) errMsgs {
+    
+	NSString * tblkName = [[[[cfgPath stringByDeletingLastPathComponent]
+							 stringByDeletingLastPathComponent]
+							stringByDeletingLastPathComponent]
+						   lastPathComponent];
+    
+    if (  ! [self fileSizeOKAtPath: cfgPath inTblkNamed: tblkName errMsgs: errMsgs]  ) {
+        return FALSE;
+    }
     
     NSData * data = [gFileMgr contentsAtPath: cfgPath];
     NSString * cfgContents = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
@@ -710,10 +734,6 @@ enum state_t {                      // These are the "states" of the guideState 
     
     NSString * option;
     NSEnumerator * e = [optionsWithPath objectEnumerator];
-	NSString * tblkName = [[[[cfgPath stringByDeletingLastPathComponent]
-							 stringByDeletingLastPathComponent]
-							stringByDeletingLastPathComponent]
-						   lastPathComponent];
 	
     while (  (option = [e nextObject])  ) {
         NSString * argument = [self parseString: cfgContents forOption: option];
@@ -739,6 +759,9 @@ enum state_t {                      // These are the "states" of the guideState 
                 NSString * newPath = [[cfgPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: [argument lastPathComponent]];
                 if (  [gFileMgr fileExistsAtPath: newPath]  ) {
                     if (  [NONBINARY_CONTENTS_EXTENSIONS containsObject: [newPath pathExtension]]  ) {
+                        if (  ! [self fileSizeOKAtPath: newPath inTblkNamed: tblkName errMsgs: errMsgs]  ) {
+                            return FALSE;
+                        }
                         NSString * errorText = errorIfNotPlainTextFileAtPath(newPath, YES, nil); // No comments in these files
                         if (  errorText  ) {
                             NSLog(@"Error in %@ (referenced in %@): %@", newPath, tblkName, errorText);
@@ -781,6 +804,29 @@ enum state_t {                      // These are the "states" of the guideState 
              notifyDelegate: (BOOL) notifyDelegate {
     
     // The filePaths array entries are NSStrings with the path to a .tblk to install.
+    
+    // Make sure all files inside each .tblk are reasonable
+    NSString * tooBigMsg = nil;
+    NSString * path;
+    NSEnumerator * e = [filePaths objectEnumerator];
+    while (  (path = [e nextObject])  ) {
+		tooBigMsg = allFilesAreReasonableIn(path);
+        if (  tooBigMsg  ) {
+			break;
+        }
+    }
+    if (  tooBigMsg  ) {
+        TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
+                        [NSString stringWithFormat:
+						 NSLocalizedString(@"There was a problem:\n\n"
+										   @"%@", "Window text"),
+						 tooBigMsg],
+                        nil, nil, nil);
+        if (  notifyDelegate  ) {
+            [NSApp replyToOpenOrPrint: NSApplicationDelegateReplyFailure];
+        }
+        return;
+    }
     
     if (  [gTbDefaults boolForKey: @"doNotOpenDotTblkFiles"]  )  {
         TBRunAlertPanel(NSLocalizedString(@"Tunnelblick VPN Configuration Installation Error", @"Window title"),
@@ -1284,6 +1330,11 @@ enum state_t {                      // These are the "states" of the guideState 
         pkgIsOK = FALSE;            // have already informed the user of the problem
     }
     
+    // **************************************************************************************
+    // Make sure the configuration file is not too large
+    if (  ! [self fileSizeOKAtPath: pathToConfigFile inTblkNamed: tryDisplayName errMsgs: errMsgs]  ) {
+        pkgIsOK = FALSE;
+    }
     // **************************************************************************************
     // Make sure the .tblk contains all key/cert/etc. files that are in the configuration file
 
@@ -1931,6 +1982,12 @@ enum state_t {                      // These are the "states" of the guideState 
     
     if (  [sourcePath isEqualToString: targetPath]  ) {
         NSLog(@"You cannot copy or move a configuration to itself. Trying to do that with %@", sourcePath);
+        return FALSE;
+    }
+    
+    NSString * errMsg = fileIsReasonableSize( sourcePath);
+    if (  errMsg  ) {
+        NSLog(@"%@", errMsg);
         return FALSE;
     }
     
