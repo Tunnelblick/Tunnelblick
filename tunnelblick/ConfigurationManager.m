@@ -1985,11 +1985,13 @@ enum state_t {                      // These are the "states" of the guideState 
         return FALSE;
     }
     
-    NSString * errMsg = fileIsReasonableSize( sourcePath);
-    if (  errMsg  ) {
-        NSLog(@"%@", errMsg);
-        return FALSE;
-    }
+	NSString * errMsg = (  [sourcePath hasSuffix: @".tblk"]
+						 ? allFilesAreReasonableIn(sourcePath)
+						 : fileIsReasonableSize(sourcePath));
+	if (  errMsg  ) {
+		NSLog(@"%@", errMsg);
+		return FALSE;
+	}
     
     unsigned firstArg = (moveInstead
                          ? INSTALLER_MOVE_NOT_COPY
