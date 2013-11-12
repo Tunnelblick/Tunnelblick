@@ -56,9 +56,6 @@ NSMutableString * encodeSlashesAndPeriods(NSString * s);
 NSString     * stringForLog             (NSString * outputString,
                                          NSString * header);
 
-BOOL           invalidConfigurationName (NSString * name,
-                                         const char badChars[]);
-
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);

@@ -283,6 +283,12 @@ extern NSString      * gPrivatePath;
 		}
 	}
 	
+    NSString * errMsg = fileIsReasonableSize(inPath);
+    if (  errMsg  ) {
+        [self logMessage: errMsg];
+        return FALSE;
+    }
+    
 	NSString * file = [inPath lastPathComponent];
 	
     // Make sure the file has an extension that Tunnelblick can secure properly
@@ -394,7 +400,13 @@ extern NSString      * gPrivatePath;
 	tokensToReplace    = [[NSMutableArray alloc] initWithCapacity: 8];
 	replacementStrings = [[NSMutableArray alloc] initWithCapacity: 8];
 	
-    NSString * errorMsg = errorIfNotPlainTextFileAtPath(theConfigPath, YES, @"#;"); // Config files use # and ; to start comments
+    NSString * errorMsg = fileIsReasonableSize(theConfigPath);
+    if (  errorMsg  ) {
+        [self logMessage: errorMsg];
+        return FALSE;
+    }
+    
+    errorMsg = errorIfNotPlainTextFileAtPath(theConfigPath, YES, @"#;"); // Config files use # and ; to start comments
     if (  errorMsg  ) {
         [self logMessage: errorMsg];
         return FALSE;

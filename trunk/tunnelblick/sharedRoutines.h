@@ -44,6 +44,13 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath,
 										 uid_t      owner,
 										 gid_t      group);
 
+NSString * fileIsReasonableSize(NSString * path);
+
+NSString * allFilesAreReasonableIn(NSString * path);
+
+BOOL invalidConfigurationName (NSString * name,
+                               const char badChars[]);
+
 unsigned int getFreePort(void);
 
 BOOL itemIsVisible(NSString * path);

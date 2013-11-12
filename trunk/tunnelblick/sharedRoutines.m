@@ -260,6 +260,115 @@ BOOL createDirWithPermissionAndOwnership(NSString * dirPath, mode_t permissions,
     return createDirWithPermissionAndOwnershipWorker(dirPath, permissions, owner, group, 0);
 }
 
+NSString * fileIsReasonableSize(NSString * path) {
+    
+    // Returns nil if a regular file and 10MB or smaller, otherwise returns a localized string with an error messsage
+    // (Caller should log any error message)
+    
+    if (  ! path  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                @": fileIsReasonableSize: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
+    }
+    
+    NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: path traverseLink: NO];
+    if (  ! atts  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                @": fileIsReasonableSize: Cannot get attributes: ", path];
+    }
+    
+    NSString * fileType = [atts objectForKey: NSFileType];
+    if (  ! fileType  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                @": fileIsReasonableSize: Cannot get type: ", path];
+    }
+    if (  ! [fileType isEqualToString: NSFileTypeRegular]  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                @": fileIsReasonableSize: Not a regular file:  ", path];
+    }
+    
+    NSNumber * sizeAsNumber = [atts objectForKey: NSFileSize];
+    if (  ! sizeAsNumber  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                @": fileIsReasonableSize: Cannot get size: ", path];
+    }
+    
+    unsigned long long size = [sizeAsNumber unsignedLongLongValue];
+    if (  size > 10485760ull  ) {
+        return [NSString stringWithFormat: NSLocalizedString(@"File is too large: %@", @"Window text"), path];
+    }
+    
+    return nil;
+}
+
+NSString * allFilesAreReasonableIn(NSString * path) {
+	
+    // Returns nil if all files in a folder are 10MB or smaller and have safe paths, otherwise returns a localized string with an error messsage
+    
+    if (  ! path  ) {
+        NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: path is nil", @""]; // (Empty string 2nd arg so we can use commmon error message that takes two args)
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+	if (  invalidConfigurationName(path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING)  ) {
+		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
+                                                             @"Characters that are not allowed: '%s'\n\n.", @"Window text"),
+				path, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING];
+        appendLog(errMsg);
+        return errMsg;
+	}
+    
+    NSDirectoryEnumerator * dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: path];
+    if (  ! dirEnum  ) {
+		NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                             @": allFilesAreReasonableIn: Cannot get enumeratorAtPath: ", path];
+        appendLog(errMsg);
+        return errMsg;
+    }
+    
+    NSString * file;
+    
+    while (  (file = [dirEnum nextObject])  ) {
+        
+        NSString * fullPath = [path stringByAppendingPathComponent: file];
+        
+        if (  invalidConfigurationName(fullPath, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING "%")  ) {
+            NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"Path '%@' contains characters that are not allowed.\n\n"
+                                                                              @"Characters that are not allowed: '%s'\n\n.", @"Window text"),
+                                 fullPath, PROHIBITED_DISPLAY_NAME_CHARACTERS_CSTRING "%"];
+            appendLog(errMsg);
+            return errMsg;
+        }
+        
+        NSDictionary * atts = [[NSFileManager defaultManager] tbFileAttributesAtPath: fullPath traverseLink: NO];
+        if (  ! atts  ) {
+            NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                                 @": allFilesAreReasonableIn: Cannot get attributes: ", fullPath];
+            appendLog(errMsg);
+            return errMsg;
+        }
+        
+        NSString * fileType = [atts objectForKey: NSFileType];
+        if (  ! fileType  ) {
+            NSString * errMsg = [NSString stringWithFormat: NSLocalizedString(@"An internal Tunnelblick error occurred%@%@", @"Window text"),
+                                 @": allFilesAreReasonableIn: Cannot get type: ", fullPath];
+            appendLog(errMsg);
+            return errMsg;
+        }
+
+        if (  [fileType isEqualToString: NSFileTypeRegular]  ) {
+            NSString * errMsg = fileIsReasonableSize([path stringByAppendingPathComponent: file]);
+            if (  errMsg  ) {
+                appendLog(errMsg);
+                return errMsg;
+			}
+		}
+    }
+    
+    return nil;
+}
+
 unsigned int getFreePort(void)
 {
 	// Returns a free port or 0 if no free port is available
@@ -302,6 +411,27 @@ unsigned int getFreePort(void)
     close(fd);
     
     return resultPort;
+}
+
+BOOL invalidConfigurationName(NSString * name, const char badCharsC[])
+{
+	unsigned i;
+	for (  i=0; i<[name length]; i++  ) {
+		unichar c = [name characterAtIndex: i];
+		if (   (c < 0x0020)
+			|| (c == 0x007F)
+			|| (c == 0x00FF)  ) {
+			return YES;
+		}
+	}
+	
+	const char * nameC          = [name UTF8String];
+	
+	return (   ( [name length] == 0)
+            || ( [name hasPrefix: @"."] )
+            || ( [name rangeOfString: @".."].length != 0)
+            || ( NULL != strpbrk(nameC, badCharsC) )
+            );
 }
 
 BOOL itemIsVisible(NSString * path)
