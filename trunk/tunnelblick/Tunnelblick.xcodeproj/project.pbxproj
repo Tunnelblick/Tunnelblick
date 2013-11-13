@@ -174,6 +174,7 @@
 		B8C9FB47170C77A400BCA243 /* LeftNavDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB42170C77A400BCA243 /* LeftNavDataSource.m */; };
 		B8C9FB48170C77A400BCA243 /* LeftNavItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB44170C77A400BCA243 /* LeftNavItem.m */; };
 		B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */; };
+		B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D807021832EEC400A0B937 /* NSTimer+TB.m */; };
 		B8F6264C1641C8C700943C59 /* easyRsa.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F6264B1641C8C700943C59 /* easyRsa.m */; };
 		B8F888461710704700978A35 /* Preferences-pre-10.6.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F888451710704700978A35 /* Preferences-pre-10.6.xib */; };
 /* End PBXBuildFile section */
@@ -474,6 +475,8 @@
 		B8C9FB44170C77A400BCA243 /* LeftNavItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftNavItem.m; sourceTree = "<group>"; };
 		B8C9FB45170C77A400BCA243 /* LeftNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftNavViewController.h; sourceTree = "<group>"; };
 		B8C9FB46170C77A400BCA243 /* LeftNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftNavViewController.m; sourceTree = "<group>"; };
+		B8D807011832EEC400A0B937 /* NSTimer+TB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+TB.h"; sourceTree = "<group>"; };
+		B8D807021832EEC400A0B937 /* NSTimer+TB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+TB.m"; sourceTree = "<group>"; };
 		B8F6264A1641C8C700943C59 /* easyRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easyRsa.h; sourceTree = "<group>"; };
 		B8F6264B1641C8C700943C59 /* easyRsa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = easyRsa.m; sourceTree = "<group>"; };
 		B8F888451710704700978A35 /* Preferences-pre-10.6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "Preferences-pre-10.6.xib"; sourceTree = "<group>"; };
@@ -898,6 +901,8 @@
 				B82DF4D7182704D800A121DE /* TBPerformer.m */,
 				6337527B101A1EBD00775AA2 /* TBTextView.h */,
 				6337527C101A1EBD00775AA2 /* TBTextView.m */,
+				B8D807011832EEC400A0B937 /* NSTimer+TB.h */,
+				B8D807021832EEC400A0B937 /* NSTimer+TB.m */,
 			);
 			name = "Class Extensions & Subclasses";
 			sourceTree = "<group>";
@@ -1438,6 +1443,7 @@
 				B8C9FB49170C77A400BCA243 /* LeftNavViewController.m in Sources */,
 				B86D13091811859000FDFB3B /* ListingWindowController.m in Sources */,
 				B82DF4D8182704D800A121DE /* TBPerformer.m in Sources */,
+				B8D807031832EEC400A0B937 /* NSTimer+TB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

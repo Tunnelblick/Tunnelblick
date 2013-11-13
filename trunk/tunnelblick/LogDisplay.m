@@ -27,6 +27,7 @@
 #import "TBUserDefaults.h"
 #import "MyPrefsWindowController.h"
 #import "ConfigurationsView.h"
+#import "NSTimer+TB.h"
 
 #define NUMBER_OF_LINES_TO_KEEP_AT_START_OF_LOG 10
 #define NUMBER_OF_LINES_TO_KEEP_AS_TUNNELBLICK_ENTRIES_AT_START_OF_LOG 3
@@ -241,11 +242,13 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  numberOfScrollRequestsInThatSecond > 3) {
                 if (  [self scrollWatchdogTimer]  ) {
                     // Set a timer to queue a request later. (This will happen at most once per second.)
+                    [scrollWatchdogTimer invalidate];
                     [self setScrollWatchdogTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0
                                                                                    target: self
                                                                                  selector: @selector(scrollWatchdogTimedOutHandler:)
                                                                                  userInfo: nil
                                                                                   repeats: NO]];
+                    [scrollWatchdogTimer tbSetTolerance: -1.0];
                 }
                 return;
             }
@@ -924,11 +927,13 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  numberOfRequestsInThatSecond > 3) {
             if (  ! [self watchdogTimer]  ) {
                 // Set a timer to queue a request later. (This will happen at most once per second.)
+                [watchdogTimer invalidate];
                 [self setWatchdogTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0
                                                                          target: self
                                                                        selector: @selector(watchdogTimedOutHandler:)
                                                                        userInfo: fpath
                                                                         repeats: NO]];
+                [watchdogTimer tbSetTolerance: -1.0];
             }
             return;
         }

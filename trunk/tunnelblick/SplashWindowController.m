@@ -23,6 +23,7 @@
 #import "defines.h"
 #import "SplashWindowController.h"
 #import "helper.h"
+#import "NSTimer+TB.h"
 
 extern BOOL gShuttingDownWorkspace;
 
@@ -71,11 +72,12 @@ extern BOOL gShuttingDownWorkspace;
     if (   [window respondsToSelector: @selector(animator)]
         && [[window animator] respondsToSelector: @selector(setAlphaValue:)]  ) {
         [[window animator] setAlphaValue: 0.0];
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0   // Wait for the window to become transparent
-                                         target: self
-                                       selector: @selector(closeAfterFadeOutHandler:)
-                                       userInfo: nil
-                                        repeats: NO];
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 1.0   // Wait for the window to become transparent
+                                                           target: self
+                                                         selector: @selector(closeAfterFadeOutHandler:)
+                                                         userInfo: nil
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
     } else {
         [window close];
     }

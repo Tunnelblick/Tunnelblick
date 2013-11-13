@@ -22,7 +22,7 @@
 #import "TBPerformer.h"
 #import "MenuController.h"
 #import "helper.h"
-
+#import "NSTimer+TB.h"
 
 @implementation TBPerformer
 
@@ -37,8 +37,11 @@
     NSString * doSelectorName   = [dict objectForKey: @"doSelectorName"];
     SEL        doSelector       = NSSelectorFromString(doSelectorName);
     
-    if (  [self performSelector: whenSelector withObject: whenArgument1 withObject: whenArgument2]  ) {	
-        NSLog(@"DEBUG: TBPerformer: test: condition satisfied; performing");
+    if (  [self performSelector: whenSelector withObject: whenArgument1 withObject: whenArgument2]  ) {
+        
+        [timer invalidate];
+        
+//        NSLog(@"DEBUG: TBPerformer: test: condition satisfied; performing");
         [self performSelectorOnMainThread: doSelector
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                             doArgument,                     @"doArgument",
@@ -53,15 +56,15 @@
             
             // Timed out
             
-            NSLog(@"DEBUG: TBPerformer: test: condition not satisfied but have timed out; performing");
+            [timer invalidate];
+            
+//            NSLog(@"DEBUG: TBPerformer: test: condition not satisfied but have timed out; performing");
             [self performSelectorOnMainThread: doSelector
                                    withObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                                 doArgument,                    @"doArgument",
                                                 [NSNumber numberWithBool: NO], @"satisfied",
                                                 nil]
                                 waitUntilDone: NO];
-            
-            [timer invalidate];
             
         } else if (  ! timer  ) {
             
@@ -70,12 +73,13 @@
             NSNumber * intervalNumber   = [dict objectForKey: @"interval"];
             NSTimeInterval interval     = [intervalNumber doubleValue];
             
-            NSLog(@"DEBUG: TBPerformer: test: condition not satisfied and not timed out; scheduling timerTickHandler: every %.1f seconds", interval);
-            [NSTimer scheduledTimerWithTimeInterval: interval
-                                             target: self
-                                           selector: @selector(timerTickHandler:)
-                                           userInfo: dict
-                                            repeats: YES];
+//            NSLog(@"DEBUG: TBPerformer: test: condition not satisfied and not timed out; scheduling timerTickHandler: every %.1f seconds", interval);
+            NSTimer * newTimer = [NSTimer scheduledTimerWithTimeInterval: interval
+                                                               target: self
+                                                             selector: @selector(timerTickHandler:)
+                                                             userInfo: dict
+                                                              repeats: YES];
+            [newTimer tbSetTolerance: -1.0];
         }
     }
 }
@@ -93,6 +97,9 @@
                      orAfterTimeout: (NSTimeInterval) timeout
                           testEvery: (NSTimeInterval) interval {
 	
+    // Get the current time right away, even if we don't end up using it
+    uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
+    
 	if (  ! doArgument  ) {
 		NSLog(@"performSelectorOnMainThread:withObject:whenTrueIsReturnedBySelector:.. doArgument cannot be nil");
 		[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
@@ -116,7 +123,7 @@
     
     if (  [self performSelector: whenSelector withObject: whenArgument1 withObject: whenArgument2]  ) {
 		
-        NSLog(@"DEBUG: TBPerformer: condition immediately satisfied; performing");
+//        NSLog(@"DEBUG: TBPerformer: condition immediately satisfied; performing");
         [self performSelectorOnMainThread: doSelector
                                withObject: [NSDictionary dictionaryWithObjectsAndKeys:
                                             doArgument,                     @"doArgument",
@@ -132,7 +139,6 @@
     NSString * doSelectorName   = [NSString stringWithUTF8String: sel_getName(doSelector)];
     NSNumber * intervalNumber   = [NSNumber numberWithDouble: interval];
     
-    uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
     uint64_t timeoutNanoseconds = (uint64_t)(timeout * 1.0e9);
     uint64_t endTimeNanoseconds = startTimeNanoseconds + timeoutNanoseconds;
     

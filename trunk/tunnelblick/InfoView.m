@@ -23,6 +23,7 @@
 #import "InfoView.h"
 #import "helper.h"
 #import "TBUserDefaults.h"
+#import "NSTimer+TB.h"
 
 
 extern TBUserDefaults * gTbDefaults;
@@ -41,6 +42,7 @@ extern TBUserDefaults * gTbDefaults;
 -(void) dealloc
 {
     [logo release];
+    [scrollTimer invalidate];
     [scrollTimer release];
     [super dealloc];
 }
@@ -397,6 +399,7 @@ extern TBUserDefaults * gTbDefaults;
 	(void) identifier;
 	
     [scrollTimer invalidate];
+    [self setScrollTimer: nil];
 }
 
 
@@ -411,11 +414,13 @@ extern TBUserDefaults * gTbDefaults;
                                                                 // takes time to scroll to the bottom of the display before moving the text)
     [infoCreditTV scrollPoint:NSMakePoint( 0.0, 0.0 )];
     
-    scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 0.03 
-                                                   target: self 
-                                                 selector: @selector(scrollCredits:) 
-                                                 userInfo: nil 
-                                                  repeats: YES];
+    [scrollTimer invalidate];
+    [self setScrollTimer: [NSTimer scheduledTimerWithTimeInterval: 0.03
+                                                           target: self
+                                                         selector: @selector(scrollCredits:)
+                                                         userInfo: nil
+                                                          repeats: YES]];
+    [scrollTimer tbSetTolerance: -1.0];
 }
 
 
@@ -466,5 +471,6 @@ extern TBUserDefaults * gTbDefaults;
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton        *, infoHelpButton)
 TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, infoVersionTFC)
+TBSYNTHESIZE_OBJECT(retain, NSTimer *, scrollTimer, setScrollTimer)
 
 @end

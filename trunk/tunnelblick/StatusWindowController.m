@@ -26,6 +26,7 @@
 #import "MenuController.h"
 #import "TBUserDefaults.h"
 #import "helper.h"
+#import "NSTimer+TB.h"
 
 
 TBUserDefaults * gTbDefaults;         // Our preferences
@@ -477,11 +478,12 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
             pthread_mutex_unlock( &statusScreenPositionsInUseMutex );
         }
         
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
-                                         target: self
-                                       selector: @selector(closeAfterFadeOutHandler:)
-                                       userInfo: nil
-                                        repeats: NO];
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
+                                                           target: self
+                                                         selector: @selector(closeAfterFadeOutHandler:)
+                                                         userInfo: nil
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
 	}
     
     [self stopMouseTracking];
@@ -505,11 +507,12 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     if ( [[self window] alphaValue] == 0.0 ) {
         [[self window] close];
     } else {
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
-                                         target: self
-                                       selector: @selector(closeAfterFadeOutHandler:)
-                                       userInfo: nil
-                                        repeats: NO];
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.2   // Wait for the window to become transparent
+                                                           target: self
+                                                         selector: @selector(closeAfterFadeOutHandler:)
+                                                         userInfo: nil
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
     }
 
 }
