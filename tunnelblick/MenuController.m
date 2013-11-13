@@ -51,6 +51,7 @@
 #import "LeftNavViewController.h"
 #import "ConfigurationsView.h"
 #import "LeftNavItem.h"
+#import "NSTimer+TB.h"
 
 #ifdef INCLUDE_VPNSERVICE
 #import "VPNService.h"
@@ -934,6 +935,7 @@ BOOL needToConvertNonTblks(void);
 
 - (void) dealloc
 {
+    [showDurationsTimer invalidate];
     [showDurationsTimer release];
     [animImages release];
     [connectedImage release];
@@ -1856,23 +1858,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 // Starts it (or lets it continue) if it is enabled and any tunnels are connected; stops it otherwise
 -(void) startOrStopDurationsTimer
 {
-    if (  showDurationsTimer == nil  ) {
-        // Timer is inactive. Start it if enabled and any tunnels are connected
-        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
-            VPNConnection * conn;
-            NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
-            while (  (conn = [connEnum nextObject])  ) {
-                if (  [[conn state] isEqualToString: @"CONNECTED"]) {
-                    showDurationsTimer = [[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                                           target:self
-                                                                         selector:@selector(updateNavigationLabels)
-                                                                         userInfo:nil
-                                                                          repeats:YES] retain];
-                    return;
-                }
-            }
-        }
-    } else {
+    if (  showDurationsTimer  ) {
         // Timer is active. Stop it if not enabled or if no tunnels are connected.
         if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
             VPNConnection * conn;
@@ -1885,8 +1871,24 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
         }
         
         [showDurationsTimer invalidate];
-        [showDurationsTimer release];
-        showDurationsTimer = nil;
+        [self setShowDurationsTimer: nil];
+    } else {
+        // Timer is inactive. Start it if enabled and any tunnels are connected
+        if (  [gTbDefaults boolForKey:@"showConnectedDurations"]  ) {
+            VPNConnection * conn;
+            NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
+            while (  (conn = [connEnum nextObject])  ) {
+                if (  [[conn state] isEqualToString: @"CONNECTED"]) {
+                    [self setShowDurationsTimer: [NSTimer scheduledTimerWithTimeInterval: 1.0
+                                                                                  target: self
+                                                                                selector: @selector(updateNavigationLabels)
+                                                                                userInfo: nil
+                                                                                 repeats: YES]];
+                    [showDurationsTimer tbSetTolerance: -1.0];
+                    return;
+                }
+            }
+        }
     }
 }
 
@@ -2401,7 +2403,9 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
     [tempDir release];
     
-    NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+    NSString * string = (  data
+                         ? [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
+                         : @"");
     
     unsigned bitMask = 0;
     
@@ -3658,11 +3662,12 @@ static void signal_handler(int signalNumber)
         return FALSE;
     }
     
-    hookupWatchdogTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) gHookupTimeout
-                                                           target: self
-                                                         selector: @selector(hookupWatchdogHandler)
-                                                         userInfo: nil
-                                                          repeats: NO];
+    [self setHookupWatchdogTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) gHookupTimeout
+                                                                   target: self
+                                                                 selector: @selector(hookupWatchdogHandler)
+                                                                 userInfo: nil
+                                                                  repeats: NO]];
+    [hookupWatchdogTimer tbSetTolerance: -1.0];
     return TRUE;
 }
 
@@ -3728,7 +3733,7 @@ static void signal_handler(int signalNumber)
         return;
     }
     
-    hookupWatchdogTimer = nil;  // NSTimer invalidated it and takes care of releasing it
+    [self setHookupWatchdogTimer: nil];
 	[self performSelectorOnMainThread: @selector(hookupWatchdog) withObject: nil waitUntilDone: NO];
 }
 
@@ -4875,8 +4880,7 @@ BOOL warnAboutNonTblks(void)
 
 -(void) configsChangedTimerFired {
     
-    [configsChangedTimer release];
-    configsChangedTimer = nil;
+    [self setConfigsChangedTimer: nil];
     
     [self performSelectorOnMainThread: @selector(configFilesChanged) withObject: nil waitUntilDone: NO];
 }
@@ -4891,20 +4895,15 @@ BOOL warnAboutNonTblks(void)
         return;
     }
     
-    // If already have set up a timer, invalidate it
-    if (  configsChangedTimer  ) {
-        [configsChangedTimer invalidate];
-        [configsChangedTimer release];
-    }
-    
     // Set a timer to fire in 0.5 seconds
-    configsChangedTimer = [[NSTimer scheduledTimerWithTimeInterval: 0.5
-                                                            target: self
-                                                          selector: @selector(configsChangedTimerFired)
-                                                          userInfo: nil
-                                                           repeats: NO]
-                           retain];
-
+    [configsChangedTimer invalidate];
+    [self setConfigsChangedTimer: [NSTimer scheduledTimerWithTimeInterval: 0.5
+                                                                   target: self
+                                                                 selector: @selector(configsChangedTimerFired)
+                                                                 userInfo: nil
+                                                                  repeats: NO]];
+    
+    [configsChangedTimer tbSetTolerance: -1.0];
 }
 
 -(BOOL) runInstaller: (unsigned) installFlags
@@ -5996,17 +5995,17 @@ OSStatus hotKeyPressed(EventHandlerCallRef nextHandler,EventRef theEvent, void *
     }
     
     if (  showingAny  ) {
-        if (  statisticsWindowTimer == nil  ) {
-            statisticsWindowTimer = [[NSTimer scheduledTimerWithTimeInterval: 1.0
-                                                                      target: self
-                                                                    selector: @selector(updateStatisticsDisplaysHandler)
-                                                                    userInfo: nil
-                                                                     repeats: YES] retain];
+        if (  ! statisticsWindowTimer  ) {
+            [self setStatisticsWindowTimer: [NSTimer scheduledTimerWithTimeInterval: 1.0
+                                                                             target: self
+                                                                           selector: @selector(updateStatisticsDisplaysHandler)
+                                                                           userInfo: nil
+                                                                            repeats: YES]];
+            [statisticsWindowTimer tbSetTolerance: -1.0];
         }
     } else {
         [statisticsWindowTimer invalidate];
-        [statisticsWindowTimer release];
-        statisticsWindowTimer = nil;
+        [self setStatisticsWindowTimer: nil];
     }
 }
 
@@ -6294,11 +6293,6 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 //
 //*********************************************************************************************************
 
--(NSTimer *) showDurationsTimer
-{
-    return showDurationsTimer;
-}
-
 -(MyPrefsWindowController *) logScreen
 {
     return logScreen;
@@ -6366,7 +6360,10 @@ TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMai
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnectionArray)
-
+TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
+TBSYNTHESIZE_OBJECT(retain, NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
+TBSYNTHESIZE_OBJECT(retain, NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
+TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 
 // Event Handlers
 
@@ -6422,11 +6419,12 @@ TBSYNTHESIZE_OBJECT(retain, NSArray      *, connectionArray,           setConnec
         timeUntilAct = timestamp - systemStart + delay;
     }
     
-    [NSTimer scheduledTimerWithTimeInterval: timeUntilAct
-                                     target: self
-                                   selector: selector
-                                   userInfo: nil
-                                    repeats: NO];
+    NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: timeUntilAct
+                                                       target: self
+                                                     selector: selector
+                                                     userInfo: nil
+                                                      repeats: NO];
+    [timer tbSetTolerance: -1.0];
 }
 
 -(void) mouseEnteredMainIcon: (id) control event: (NSEvent *) theEvent  {

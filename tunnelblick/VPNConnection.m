@@ -36,6 +36,7 @@
 #import "NSFileManager+TB.h"
 #import "TBUserDefaults.h"
 #import "MyPrefsWindowController.h"
+#import "NSTimer+TB.h"
 
 extern NSMutableArray       * gConfigDirs;
 extern NSString             * gPrivatePath;
@@ -2021,11 +2022,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
             if (  forceKillInterval  != 0) {
                 if ( forceKillTimeout != 0  ) {
                     forceKillWaitSoFar = 0;
-                    forceKillTimer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) forceKillInterval
-                                                                      target: self
-                                                                    selector: @selector(forceKillWatchdogHandler)
-                                                                    userInfo: nil
-                                                                     repeats: YES];
+                    [self setForceKillTimer: [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) forceKillInterval
+                                                                              target: self
+                                                                            selector: @selector(forceKillWatchdogHandler)
+                                                                            userInfo: nil
+                                                                             repeats: YES]];
+                    [forceKillTimer tbSetTolerance: -1.0];
                     [self performSelectorOnMainThread: @selector(tellUserAboutDisconnectWait) withObject: nil waitUntilDone: NO];
                 }
             }
@@ -2084,12 +2086,12 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                              forceKillTimeout],
                             nil, nil, nil);
             [forceKillTimer invalidate];
-            forceKillTimer = nil;
+            [self setForceKillTimer: nil];
             [self hasDisconnected];
         }
     } else {
         [forceKillTimer invalidate];
-        forceKillTimer = nil;
+        [self setForceKillTimer: nil];
     }
 }
 
@@ -2361,26 +2363,28 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                     [self disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];      // (User requested it by cancelling)
                 }
                 
-                [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
-                                                 target: self
-                                               selector: @selector(afterFailureHandler:)
-                                               userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                          parameterString, @"parameterString",
-                                                          line, @"line", nil]
-                                                repeats: NO];
+                NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                                   target: self
+                                                                 selector: @selector(afterFailureHandler:)
+                                                                 userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                            parameterString, @"parameterString",
+                                                                            line, @"line", nil]
+                                                                  repeats: NO];
+                [timer tbSetTolerance: -1.0];
             } else {
                 // Password request from server.
                 if (  authFailed  ) {
                     if (  userWantsState == userWantsUndecided  ) {
                         // We don't know what to do yet: repeat this again later
                         credentialsAskedFor = TRUE;
-                        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for user to make decision
-                                                         target: self
-                                                       selector: @selector(credentialsHaveBeenAskedForHandler:)
-                                                       userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                                  parameterString, @"parameterString",
-                                                                  line, @"line", nil]
-                                                        repeats: NO];
+                        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for user to make decision
+                                                                           target: self
+                                                                         selector: @selector(credentialsHaveBeenAskedForHandler:)
+                                                                         userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                    parameterString, @"parameterString",
+                                                                                    line, @"line", nil]
+                                                                          repeats: NO];
+                        [timer tbSetTolerance: -1.0];
                     } else if (  userWantsState == userWantsRetry  ) {
                         // User wants to retry; send the credentials
                         [self provideCredentials: parameterString line: line];
@@ -2441,11 +2445,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
             }
         } else {
             // Wait until either credentials have been asked for or tunnel is disconnected
-            [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
-                                             target: self
-                                           selector: @selector(afterFailureHandler:)
-                                           userInfo: dict
-                                            repeats: NO];
+            NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                               target: self
+                                                             selector: @selector(afterFailureHandler:)
+                                                             userInfo: dict
+                                                              repeats: NO];
+            [timer tbSetTolerance: -1.0];
         }
     }
 }
@@ -2477,11 +2482,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 
             } else {
                 // OpenVPN asked for credentials, then disconnected, but user hasn't decided what to do -- wait for user to decide what to do
-                [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
-                                                 target: self
-                                               selector: @selector(afterFailureHandler:)
-                                               userInfo: dict
-                                                repeats: NO];
+                NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                                   target: self
+                                                                 selector: @selector(afterFailureHandler:)
+                                                                 userInfo: dict
+                                                                  repeats: NO];
+                [timer tbSetTolerance: -1.0];
             }
         } else {
             if (  userWantsState == userWantsRetry) {
@@ -2494,11 +2500,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 
             } else {
                 // OpenVPN asked for credentials, but user hasn't decided what to do -- wait for user to decide what to do
-                [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
-                                                 target: self
-                                               selector: @selector(afterFailureHandler:)
-                                               userInfo: dict
-                                                repeats: NO];
+                NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) 0.5   // Wait for time to process new credentials request or disconnect
+                                                                   target: self
+                                                                 selector: @selector(afterFailureHandler:)
+                                                                 userInfo: dict
+                                                                  repeats: NO];
+                [timer tbSetTolerance: -1.0];
             }
         }
     }
@@ -3007,11 +3014,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
         if (   [newState isEqualToString: @"CONNECTED"]
             || [newState isEqualToString: @"EXITING"]  ) {
             // Wait one second, then fade away
-            [NSTimer scheduledTimerWithTimeInterval:1.0
-                                             target: self
-                                           selector:@selector(fadeAway)
-                                           userInfo:nil
-                                            repeats:NO];
+            NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: 1.0
+                                                               target: self
+                                                             selector: @selector(fadeAway)
+                                                             userInfo: nil
+                                                              repeats: NO];
+            [timer tbSetTolerance: -1.0];
         }
     }
 
@@ -3288,6 +3296,8 @@ TBSYNTHESIZE_OBJECT_SET(NSSound *, tunnelDownSound, setTunnelDownSound)
 TBSYNTHESIZE_OBJECT(retain, NSDate *, bytecountsUpdated, setBytecountsUpdated)
 
 TBSYNTHESIZE_OBJECT(retain, NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
+
+TBSYNTHESIZE_OBJECT(retain, NSTimer *, forceKillTimer, setForceKillTimer)
 
 //*********************************************************************************************************
 //

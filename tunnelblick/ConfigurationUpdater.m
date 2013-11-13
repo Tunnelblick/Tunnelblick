@@ -25,6 +25,7 @@
 #import "MenuController.h"
 #import "NSFileManager+TB.h"
 #import "helper.h"
+#import "NSTimer+TB.h"
 
 extern NSFileManager        * gFileMgr;
 extern BOOL                   gShuttingDownWorkspace;
@@ -127,22 +128,22 @@ extern BOOL                   gShuttingDownWorkspace;
 
 -(void) startWithUI: (BOOL) withUI
 {
-    static double waitTime = 0.5;
+    static NSTimeInterval waitTime = 0.5;
     SUUpdater * appUpdater = [[NSApp delegate] updater];
     if (  [appUpdater updateInProgress]  ) {
         // The app itself is being updated, so we wait a while and try again
-        // We wait 1, 2, 4, 8, 16, 32, 60, 60, 60... seconds
+        // We wait 1, 2, 4, 8, 16, 16, 16... seconds
         waitTime = waitTime * 2;
-        if (  waitTime > 60.0  ) {
-            waitTime = 60.0;
+        if (  waitTime > 16.0  ) {
+            waitTime = 16.0;
         }
-        [NSTimer scheduledTimerWithTimeInterval: (NSTimeInterval) waitTime
-                                         target: self
-                                       selector: @selector(startFromTimerHandler:)
-                                       userInfo: [NSNumber numberWithBool: withUI]
-                                        repeats: NO];
+        NSTimer * timer = [NSTimer scheduledTimerWithTimeInterval: waitTime
+                                                           target: self
+                                                         selector: @selector(startFromTimerHandler:)
+                                                         userInfo: [NSNumber numberWithBool: withUI]
+                                                          repeats: NO];
+        [timer tbSetTolerance: -1.0];
         return;
-        waitTime = 0.5;
     }
     
     [cfgUpdater resetUpdateCycle];

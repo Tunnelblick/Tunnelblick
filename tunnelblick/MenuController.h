@@ -272,7 +272,6 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(NSImage *)        largeMainImage;
 -(MyPrefsWindowController *) logScreen;
 -(NSString *)       customRunOnConnectPath;
--(NSTimer *)        showDurationsTimer;
 -(void)             startOrStopDurationsTimer;
 -(BOOL)             terminatingAtUserRequest;
 -(SUUpdater *)      updater;
@@ -303,5 +302,9 @@ TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
 TBPROPERTY(NSArray      *, connectionArray,           setConnectionArray)
+TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
+TBPROPERTY(NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
+TBPROPERTY(NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
+TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
 
 @end

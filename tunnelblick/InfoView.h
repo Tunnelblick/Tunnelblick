@@ -52,5 +52,6 @@
 
 TBPROPERTY_READONLY(NSButton        *, infoHelpButton)
 TBPROPERTY_READONLY(NSTextFieldCell *, infoVersionTFC)
+TBPROPERTY(NSTimer *, scrollTimer, setScrollTimer)
 
 @end
