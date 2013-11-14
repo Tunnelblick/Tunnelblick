@@ -98,11 +98,6 @@ OSStatus       runOpenvpnstart          (NSArray  * arguments,
                                          NSString ** stdoutString,
                                          NSString ** stderrString);
 
-OSStatus       runAsUser(NSString * launchPath,
-						 NSArray * arguments,
-						 NSString * * stdOut,
-						 NSString * * stdErr);
-
 BOOL           isUserAnAdmin            (void);
 
 BOOL           runningABetaVersion      (void);

@@ -648,3 +648,130 @@ NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK, NSString 
     
     return nil;
 }
+
+NSData * availableDataOrError(NSFileHandle * file) {
+	
+	// This routine is a modified version of a method from http://dev.notoptimal.net/search/label/NSTask
+	// Slightly modified version of Chris Suter's category function used as a private function
+    
+	for (;;) {
+		@try {
+			return [file availableData];
+		} @catch (NSException *e) {
+			if ([[e name] isEqualToString:NSFileHandleOperationException]) {
+				if ([[e reason] isEqualToString: @"*** -[NSConcreteFileHandle availableData]: Interrupted system call"]) {
+					continue;
+				}
+				return nil;
+			}
+			@throw;
+		}
+	}
+}
+
+OSStatus runTool(NSString * launchPath,
+                 NSArray  * arguments,
+                 NSString * * stdOut,
+                 NSString * * stdErr) {
+	
+	// Runs a command or script, returning the execution status of the command, stdout, and stderr
+	
+	NSTask * task = [[NSTask alloc] init];
+    
+    [task setLaunchPath: launchPath];
+    [task setArguments:  arguments];
+    
+	NSPipe * stdOutPipe = nil;
+	NSPipe * errOutPipe = nil;
+	
+	if (  stdOut  ) {
+		stdOutPipe = [NSPipe pipe];
+		[task setStandardOutput: stdOutPipe];
+	}
+    
+    if (  stdErr  ) {
+		errOutPipe = [NSPipe pipe];
+		[task setStandardError: errOutPipe];
+	}
+	
+    [task launch];
+	
+	// The following is a heavily modified version of code from http://dev.notoptimal.net/search/label/NSTask
+    
+	NSFileHandle * outFile = [stdOutPipe fileHandleForReading];
+	NSFileHandle * errFile = [errOutPipe fileHandleForReading];
+	
+	NSString * stdOutString = @"";
+	NSString * stdErrString = @"";
+	
+	NSData * outData = availableDataOrError(outFile);
+	NSData * errData = availableDataOrError(errFile);
+	while (   ([outData length] > 0)
+		   || ([errData length] > 0)
+		   || [task isRunning]  ) {
+        
+		if (  [outData length] > 0  ) {
+			stdOutString = [stdOutString stringByAppendingString: [[[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding] autorelease]];
+		}
+		if (  [errData length] > 0  ) {
+			stdErrString = [stdErrString stringByAppendingString: [[[NSString alloc] initWithData: errData encoding:NSUTF8StringEncoding] autorelease]];
+		}
+		
+		outData = availableDataOrError(outFile);
+		errData = availableDataOrError(errFile);
+	}
+	
+	[outFile closeFile];
+	[errFile closeFile];
+	
+	// End of code from http://dev.notoptimal.net/search/label/NSTask
+    
+    [task waitUntilExit];
+    
+	OSStatus status = [task terminationStatus];
+	
+	if (  stdOut  ) {
+		*stdOut = stdOutString;
+	}
+	
+	if (  stdErr  ) {
+		*stdErr = stdErrString;
+	}
+	
+    [task release];
+    
+	return status;
+}
+
+// Returns with a bitmask of kexts that are loaded that can be unloaded
+// Launches "kextstat" to get the list of loaded kexts, and does a simple search
+unsigned getLoadedKextsMask(void) {
+    
+    NSString * stdOutString = nil;
+    
+    OSStatus status = runTool(TOOL_PATH_FOR_KEXTSTAT,
+                              [NSArray array],
+                              &stdOutString,
+                              nil);
+    if (  status != noErr  ) {
+        appendLog([NSString stringWithFormat: @"kextstat returned status %ld", (long) status]);
+        return 0;
+    }
+    
+    unsigned bitMask = 0;
+    
+    if (  [stdOutString rangeOfString: @"foo.tap"].length != 0  ) {
+        bitMask = OPENVPNSTART_FOO_TAP_KEXT;
+    }
+    if (  [stdOutString rangeOfString: @"foo.tun"].length != 0  ) {
+        bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
+    }
+    if (  [stdOutString rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
+        bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
+    }
+    if (  [stdOutString rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
+        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
+    }
+    
+    return bitMask;
+}

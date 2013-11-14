@@ -1739,12 +1739,13 @@ static BOOL firstTimeShowingWindow = TRUE;
 	NSString * consoleRawContents = @""; // stdout (ignore stderr)
 	
 	if (  isUserAnAdmin()  ) {
-		runAsUser(@"/bin/bash",
-				  [NSArray arrayWithObjects:
-				   @"-c",
-				   [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
-				   nil],
-				  &consoleRawContents, nil);
+		runTool(@"/bin/bash",
+                [NSArray arrayWithObjects:
+                 @"-c",
+                 [NSString stringWithFormat: @"cat /Library/Logs/Console/%d/console.log | grep -i -E 'tunnelblick|openvpn' | tail -n 100", getuid()],
+                 nil],
+                &consoleRawContents,
+                nil);
 	} else {
 		consoleRawContents = (@"The Console log cannot be obtained because you are not\n"
 							  @"logged in as an administrator. To view the Console log,\n"

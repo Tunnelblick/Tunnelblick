@@ -1038,74 +1038,6 @@ int checkSignature(void) {
     return returnValue; // Avoid analyzer warnings
 }
 
-unsigned getLoadedKextsMask(void) {
-	// Returns with a bitmask of kexts that are loaded that can be unloaded
-	// Launches "kextstat" to get the list of loaded kexts, and does a simple search
-	
-    NSString * tempDir = [newTemporaryDirectoryPath() autorelease];
-    if (  tempDir == nil  ) {
-        fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    
-    NSString * kextOutputPath = [tempDir stringByAppendingPathComponent: @"Tunnelblick-kextstat-output.txt"];
-    if (  ! [[NSFileManager defaultManager] createFileAtPath: kextOutputPath contents: [NSData data] attributes: nil]  ) {
-        fprintf(stderr, "Warning: Unable to create file in temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil];
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    
-    NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
-    if (  ! kextOutputHandle  ) {
-        fprintf(stderr, "Warning: Unable to obtain file handle of temporary output for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil];
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    
-    NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: TOOL_PATH_FOR_KEXTSTAT];
-    
-    NSArray  *arguments = [NSArray array];
-    [task setArguments: arguments];
-    
-    [task setStandardOutput: kextOutputHandle];
-    
-    [task launch];
-    
-    [task waitUntilExit];
-    
-    [kextOutputHandle closeFile];
-    
-    OSStatus status = [task terminationStatus];
-    if (  status != EXIT_SUCCESS  ) {
-        fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    
-    NSData * data = [[NSFileManager defaultManager] contentsAtPath: kextOutputPath];
-    
-    [[NSFileManager defaultManager] tbRemoveFileAtPath: tempDir handler: nil];
-    
-    NSString * string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-    
-    unsigned bitMask = 0;
-    
-    if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
-        bitMask = OPENVPNSTART_FOO_TAP_KEXT;
-    }
-    if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
-    }
-    if (  [string rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
-    }
-    if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
-    }
-    
-    return bitMask;
-}
-
 NSString *escaped(NSString *string) {
 	// Returns an escaped version of a string so it can be put after an --up or --down option in the OpenVPN command line
 	
@@ -1475,7 +1407,7 @@ NSString * createOpenVPNLog(NSString* configurationFile, unsigned cfgLocCode, un
     return logPath;
 }
 
-NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSString* cmdLine) {
+NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode) {
 	// Sets up a new script log file. The filename itself encodes the configuration file path.
 	// The log file is created with permissions allowing everyone read/write access
 	
@@ -1483,7 +1415,7 @@ NSString * createScriptLog(NSString* configurationFile, unsigned cfgLocCode, NSS
     NSDictionary * logAttributes = [NSDictionary dictionaryWithObject: [NSNumber numberWithUnsignedLong: 0666] forKey: NSFilePosixPermissions];
 
     NSCalendarDate * date = [NSCalendarDate date];
-    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart starting OpenVPN:\n%@\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"], cmdLine];
+    NSString * dateCmdLine = [NSString stringWithFormat:@"%@ *Tunnelblick: openvpnstart starting OpenVPN\n",[date descriptionWithCalendarFormat:@"%a %b %e %H:%M:%S %Y"]];
     NSData * dateCmdLineAsData = [NSData dataWithBytes: [dateCmdLine UTF8String] length: [dateCmdLine length]];
     
 	becomeRoot(@"create script log file");
@@ -2341,23 +2273,21 @@ int startVPN(NSString * configFile,
                                 " options are removed, then you don't need to use a custom route-pre-down script.");
                     }
                 } else {
-                    [arguments addObjectsFromArray: [NSArray arrayWithObjects:
-                                                     @"--route-pre-down", routePreDownscriptCommand,
-                                                     nil
-                                                     ]
-                     ];
+                    if (   customRoutePreDownScript
+						|| ((bitMask & OPENVPNSTART_USE_TAP) != 0)) {
+						[arguments addObjectsFromArray: [NSArray arrayWithObjects:
+														 @"--route-pre-down", routePreDownscriptCommand,
+														 nil
+														 ]
+						 ];
+					}
                 }
             }
         }
     }
     
-    // Create a new script log which includes the command line used to start openvpn
-    NSMutableString * fakeCmdLine = [NSMutableString stringWithString: openvpnPath];
-    unsigned i;
-    for (i=0; i<[arguments count]; i++) {
-        [fakeCmdLine appendFormat: @" %@", [arguments objectAtIndex: i]];
-    }
-    createScriptLog(configFile, cfgLocCode, fakeCmdLine);
+    // Create a new script log
+    createScriptLog(configFile, cfgLocCode);
 	
     if (  tblkPath  ) {
         
@@ -2435,6 +2365,7 @@ int startVPN(NSString * configFile,
     int status = runAsRoot(openvpnPath, arguments, 0755);
     
     NSMutableString * displayCmdLine = [NSMutableString stringWithFormat: @"     %@\n", openvpnPath];
+    unsigned i;
     for (i=0; i<[arguments count]; i++) {
         [displayCmdLine appendString: [NSString stringWithFormat: @"     %@\n", [arguments objectAtIndex: i]]];
     }

@@ -141,7 +141,6 @@ BOOL needToConvertNonTblks(void);
 -(void)             checkNoConfigurations;
 -(void)             deleteLogs;
 -(void)             initialChecks:							(NSString *)        ourAppName;
--(unsigned)         getLoadedKextsMask;
 -(BOOL)             hasValidSignature;
 -(void)             hookupWatchdogHandler;
 -(void)             hookupWatchdog;
@@ -2335,7 +2334,7 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
-    unsigned bitMask = [self getLoadedKextsMask] & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
+    unsigned bitMask = getLoadedKextsMask() & ( ~ (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT)  );    // Don't unload foo.tun/tap
     
     if (  bitMask != 0  ) {
         if (  tapCount != 0  ) {
@@ -2356,73 +2355,6 @@ static pthread_mutex_t unloadKextsMutex = PTHREAD_MUTEX_INITIALIZER;
     if (  status != EXIT_SUCCESS  ) {
         NSLog(@"pthread_mutex_unlock( &unloadKextsMutex ) failed; status = %ld, errno = %ld", (long) status, (long) errno);
     }    
-}
-
-// Returns with a bitmask of kexts that are loaded that can be unloaded
-// Launches "kextstat" to get the list of loaded kexts, and does a simple search
--(unsigned) getLoadedKextsMask
-{
-    NSString * tempDir = newTemporaryDirectoryPath();
-    NSString * kextOutputPath = [tempDir stringByAppendingPathComponent: @"Tunnelblick-kextstat-output.txt"];
-    if (  ! [gFileMgr createFileAtPath: kextOutputPath contents: [NSData data] attributes: nil]  ) {
-        fprintf(stderr, "Warning: Unable to create temporary directory for kextstat output file. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
-        [tempDir release];
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    NSFileHandle * kextOutputHandle = [NSFileHandle fileHandleForWritingAtPath: kextOutputPath];
-    if (  ! kextOutputHandle  ) {
-        fprintf(stderr, "Warning: Unable to create temporary output file for kextstat. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
-        [tempDir release];
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    
-    NSTask * task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath: TOOL_PATH_FOR_KEXTSTAT];
-    
-    NSArray  *arguments = [NSArray array];
-    [task setArguments: arguments];
-    
-    [task setStandardOutput: kextOutputHandle];
-    
-    [task launch];
-    
-    [task waitUntilExit];
-    
-    [kextOutputHandle closeFile];
-    
-    OSStatus status = [task terminationStatus];
-    if (  status != EXIT_SUCCESS  ) {
-        fprintf(stderr, "Warning: kextstat to list loaded kexts failed. Assuming foo.tun and foo.tap kexts are loaded.\n");
-        return (OPENVPNSTART_FOO_TAP_KEXT | OPENVPNSTART_FOO_TUN_KEXT);
-    }
-    
-    NSData * data = [gFileMgr contentsAtPath: kextOutputPath];
-    
-    [gFileMgr tbRemoveFileAtPath: tempDir handler: nil];
-    [tempDir release];
-    
-    NSString * string = (  data
-                         ? [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease]
-                         : @"");
-    
-    unsigned bitMask = 0;
-    
-    if (  [string rangeOfString: @"foo.tap"].length != 0  ) {
-        bitMask = OPENVPNSTART_FOO_TAP_KEXT;
-    }
-    if (  [string rangeOfString: @"foo.tun"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_FOO_TUN_KEXT;
-    }
-    if (  [string rangeOfString: @"net.tunnelblick.tap"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_OUR_TAP_KEXT;
-    }
-    if (  [string rangeOfString: @"net.tunnelblick.tun"].length != 0  ) {
-        bitMask = bitMask | OPENVPNSTART_OUR_TUN_KEXT;
-    }
-    
-    return bitMask;
 }
 
 -(void) resetActiveConnections {

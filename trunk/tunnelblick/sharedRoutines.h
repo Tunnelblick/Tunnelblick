@@ -58,3 +58,10 @@ BOOL itemIsVisible(NSString * path);
 BOOL secureOneFolder(NSString * path, BOOL isPrivate, uid_t theUser);
 
 NSString * errorIfNotPlainTextFileAtPath(NSString * path, BOOL crIsOK, NSString * charactersThatCommentsStartWith);
+
+OSStatus runTool(NSString * launchPath,
+                 NSArray * arguments,
+                 NSString * * stdOut,
+                 NSString * * stdErr);
+
+unsigned getLoadedKextsMask(void);
