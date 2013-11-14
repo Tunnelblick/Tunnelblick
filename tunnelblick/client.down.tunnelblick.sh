@@ -15,7 +15,13 @@
 # @param String message - The message to log
 logMessage()
 {
-echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
+	echo "${@}"
+}
+
+# @param String message - The message to log
+logDebugMessage()
+{
+	echo "${@}" > /dev/null
 }
 
 trim()
@@ -72,7 +78,10 @@ trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
-readonly LOG_MESSAGE_COMMAND=$(basename "${0}")
+readonly OUR_NAME=$(basename "${0}")
+
+logMessage "**********************************************"
+logMessage "Start of output from ${OUR_NAME}"
 
 # Remove the flag file that indicates we need to run the down script
 
@@ -83,7 +92,9 @@ fi
 # Quick check - is the configuration there?
 if ! scutil -w State:/Network/OpenVPN &>/dev/null -t 1 ; then
 	# Configuration isn't there, so we forget it
-	echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: WARNING: No existing OpenVPN DNS configuration found; not tearing down anything; exiting."
+    logMessage "WARNING: No saved Tunnelblick DNS configuration found; not doing anything."
+    logMessage "End of output from ${OUR_NAME}"
+    logMessage "**********************************************"
 	exit 0
 fi
 
@@ -127,7 +138,7 @@ if ${ARG_TAP} ; then
                 # If $dev is not defined, then use TunnelDevice, which was set from $dev by client.up.tunnelblick.sh
                 # ($def is not defined when this script is called from MenuController to clean up when exiting Tunnelblick)
                 if [ -n "${sTunnelDevice}" ]; then
-                    logMessage "DEBUG: \$dev not defined; using TunnelDevice: ${sTunnelDevice}"
+                    logMessage "\$dev not defined; using TunnelDevice: ${sTunnelDevice}"
                     set +e
                     ipconfig set "${sTunnelDevice}" NONE 2>/dev/null
                     set -e
@@ -199,18 +210,18 @@ fi
 
 if [ "${DNS_OLD_SETUP}" = "${TB_NO_SUCH_KEY}" ] ; then
 	if ${bAlsoUsingSetupKeys} ; then
-		logMessage "DEBUG: Removing 'Setup:' DNS key"
+		logDebugMessage "DEBUG: Removing 'Setup:' DNS key"
 		scutil <<-EOF
 			open
 			remove Setup:/Network/Service/${PSID}/DNS
 			quit
 EOF
 	else
-		logMessage "DEBUG: Not removing 'Setup:' DNS key"
+		logDebugMessage "DEBUG: Not removing 'Setup:' DNS key"
 	fi
 else
 	if ${bAlsoUsingSetupKeys} ; then
-		logMessage "DEBUG: Restoring 'Setup:' DNS key"
+		logDebugMessage "DEBUG: Restoring 'Setup:' DNS key"
 		scutil <<-EOF
 			open
 			get State:/Network/OpenVPN/OldDNSSetup
@@ -218,18 +229,18 @@ else
 			quit
 EOF
 	else
-		logMessage "DEBUG: Not restoring 'Setup:' DNS key"
+		logDebugMessage "DEBUG: Not restoring 'Setup:' DNS key"
 	fi
 fi
 
 if [ "${SMB_OLD}" = "${TB_NO_SUCH_KEY}" ] ; then
-	scutil <<-EOF
+	scutil > /dev/null <<-EOF
 		open
 		remove State:/Network/Service/${PSID}/SMB
 		quit
 EOF
 else
-	scutil <<-EOF
+	scutil > /dev/null <<-EOF
 		open
 		get State:/Network/OpenVPN/OldSMB
 		set State:/Network/Service/${PSID}/SMB
@@ -242,13 +253,13 @@ logMessage "Restored the DNS and SMB configurations"
 set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
 new_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
 set -e # resume abort on error
-logMessage "DEBUG:"
-logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
+logDebugMessage "DEBUG:"
+logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
 
 scutil_dns="$( scutil --dns)"
-logMessage "DEBUG:"
-logMessage "DEBUG: scutil --dns = ${scutil_dns}"
-logMessage "DEBUG:"
+logDebugMessage "DEBUG:"
+logDebugMessage "DEBUG: scutil --dns = ${scutil_dns}"
+logDebugMessage "DEBUG:"
 
 flushDNSCache
 
@@ -286,5 +297,8 @@ EOF
     fi
 
 fi
+
+logMessage "End of output from ${OUR_NAME}"
+logMessage "**********************************************"
 
 exit 0
