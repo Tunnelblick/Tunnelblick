@@ -29,6 +29,18 @@ logDebugMessage()
 }
 
 ##########################################################################################
+# log a change to a setting
+# @param String filters - empty, or one or two '#' if not performing the change
+# @param String name of setting that is being changed
+# @param String new value
+logChange()
+{
+	if [ "$1" = "" ] ; then
+		echo "Set $2 to $3"
+	fi
+}
+
+##########################################################################################
 # @param String string - Content to trim
 trim()
 {
@@ -288,12 +300,12 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 					else
 						readonly FIN_DNS_SA="${DYN_DNS_SA}"
 					fi
-					logMessage "ServerAddresses were aggregated because running on OS X 10.4 or 10.5"
+					logMessage "Aggregating ServerAddresses because running on OS X 10.4 or 10.5"
 					;;
 				* )
 					# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 					readonly FIN_DNS_SA="${DYN_DNS_SA}"
-					logMessage "ServerAddresses were not aggregated because running on OS X 10.6 or higher"
+					logMessage "Not aggregating ServerAddresses because running on OS X 10.6 or higher"
 					;;
 			esac
 		fi
@@ -323,12 +335,12 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 				else
 					readonly FIN_SMB_WA="${DYN_SMB_WA}"
 				fi
-				logMessage "WINSAddresses were aggregated because running on OS X 10.4 or 10.5"
+				logMessage "Aggregating WINSAddresses because running on OS X 10.4 or 10.5"
 				;;
 			* )
 				# Do nothing - in 10.6 and higher -- we don't aggregate our configurations, apparently
 				readonly FIN_SMB_WA="${DYN_SMB_WA}"
-				logMessage "WINSAddresses were not aggregated because running on OS X 10.6 or higher"
+				logMessage "Not aggregating WINSAddresses because running on OS X 10.6 or higher"
 				;;
 		esac
 		fi
@@ -360,33 +372,33 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		if [ "${MAN_DNS_SD}" = "" ] ; then
 			if [ "${DYN_DNS_SD}" != "" ] ; then
 				readonly TMP_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
-				logMessage "Prepended '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
 			else
 				readonly TMP_DNS_SD="${CUR_DNS_SD}"
 			fi
-			logMessage "Prepended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
+			logMessage "Prepending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually and 'Prepend domain name to search domains' was selected"
 			readonly FIN_DNS_SD="$(trim "${FIN_DNS_DN}" "${TMP_DNS_SD}")"
 		else
 			if [ "${DYN_DNS_SD}" != "" ] ; then
-				logMessage "Did not prepend '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and 'Prepend domain name to search domains' was selected"
+				logMessage "Not prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
 			fi
-			logMessage "Did not prepend '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually and 'Prepend domain name to search domains' was selected"
+			logMessage "Not prepending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because the search domains were set manually"
 			readonly FIN_DNS_SD="${CUR_DNS_SD}"
 		fi
 	else
 		if [ "${DYN_DNS_SD}" != "" ] ; then
 			if [ "${MAN_DNS_SD}" = "" ] ; then
 				readonly FIN_DNS_SD="$(trim "${DYN_DNS_SD}" "${CUR_DNS_SD}")"
-				logMessage "Prepended '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
+				logMessage "Prepending '${DYN_DNS_SD}' to search domains '${CUR_DNS_SD}' because the search domains were not set manually but were set via OpenVPN and 'Prepend domain name to search domains' was not selected"
 			fi
 		else
 			case "${OSVER}" in
 				10.4 | 10.5 )
 					if echo "${MAN_DNS_SD}" | tr ' ' '\n' | grep -q "${FIN_DNS_DN}" ; then
-						logMessage "Did not append '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
+						logMessage "Not appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' because it is already in the search domains that were set manually and 'Prepend domain name to search domains' was not selected"
 						readonly FIN_DNS_SD="${CUR_DNS_SD}"
 					else
-						logMessage "Appended '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
+						logMessage "Appending '${FIN_DNS_DN}' to search domains '${CUR_DNS_SD}' that were set manually because running under OS X 10.4 or 10.5 and 'Prepend domain name to search domains' was not selected"
 						readonly FIN_DNS_SD="$(trim "${MAN_DNS_SD}" "${FIN_DNS_DN}")"
 					fi
 					;;
@@ -395,7 +407,7 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 						logMessage "Setting search domains to '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were not set manually and 'Prepend domain name to search domains' was not selected"
 						readonly FIN_DNS_SD="${FIN_DNS_DN}"
 					else
-						logMessage "Did not replace search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because running under OS X 10.6 or higher and the search domains were set manually and 'Prepend domain name to search domains' was not selected"
+						logMessage "Not replacing search domains '${CUR_DNS_SD}' with '${FIN_DNS_DN}' because the search domains were set manually and 'Prepend domain name to search domains' was not selected"
 						readonly FIN_DNS_SD="${CUR_DNS_SD}"
 					fi
 					;;
@@ -716,8 +728,15 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	logDebugMessage "DEBUG: scutil --dns AFTER CHANGES = ${scutil_dns}"
 	logDebugMessage "DEBUG:"
 	
-	logMessage "Saved the DNS and SMB configurations for later use"
+	logMessage "Saved the DNS and SMB configurations so they can be restored"
 	
+    logChange "${SKP_DNS}${SKP_DNS_SA}" "ServerAddresses" "${FIN_DNS_SA}"
+    logChange "${SKP_DNS}${SKP_DNS_SD}" "SearchDomains  " "${FIN_DNS_SD}"
+    logChange "${SKP_DNS}${SKP_DNS_DN}" "DomainName      " "${FIN_DNS_DN}"
+    logChange "${SKP_SMB}${SKP_SMB_NN}" "NetBIOSName    " "${FIN_SMB_SA}"
+    logChange "${SKP_SMB}${SKP_SMB_WG}" "Workgroup       " "${FIN_SMB_WG}"
+    logChange "${SKP_SMB}${SKP_SMB_WA}" "WINSAddresses  " "${FIN_SMB_WA}"
+
 	flushDNSCache
 
 	if ${ARG_MONITOR_NETWORK_CONFIGURATION} ; then
