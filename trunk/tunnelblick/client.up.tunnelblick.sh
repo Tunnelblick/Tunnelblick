@@ -16,10 +16,16 @@
 
 ##########################################################################################
 # @param String message - The message to log
-readonly LOG_MESSAGE_COMMAND=$(basename "${0}")
 logMessage()
 {
-	echo "$(date '+%a %b %e %T %Y') *Tunnelblick $LOG_MESSAGE_COMMAND: "${@} >> "${SCRIPT_LOG_FILE}"
+	echo "${@}"
+}
+
+##########################################################################################
+# @param String message - The message to log
+logDebugMessage()
+{
+	echo "${@}" > /dev/null
 }
 
 ##########################################################################################
@@ -128,16 +134,16 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 	#     DYN_SMB_NN
 	# are left empty. There isn't a way for OpenVPN to set them.
 	
-	logMessage "DEBUG:"
-	logMessage "DEBUG: MAN_DNS_CONFIG = ${MAN_DNS_CONFIG}"
-	logMessage "DEBUG: MAN_SMB_CONFIG = ${MAN_SMB_CONFIG}"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: CUR_DNS_CONFIG = ${CUR_DNS_CONFIG}"
-	logMessage "DEBUG: CUR_SMB_CONFIG = ${CUR_SMB_CONFIG}"
-	logMessage "DEBUG:"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: DYN_DNS_DN = ${DYN_DNS_DN}; DYN_DNS_SA = ${DYN_DNS_SA}; DYN_DNS_SD = ${DYN_DNS_SD}"
-	logMessage "DEBUG: DYN_SMB_NN = ${DYN_SMB_NN}; DYN_SMB_WG = ${DYN_SMB_WG}; DYN_SMB_WA = ${DYN_SMB_WA}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: MAN_DNS_CONFIG = ${MAN_DNS_CONFIG}"
+	logDebugMessage "DEBUG: MAN_SMB_CONFIG = ${MAN_SMB_CONFIG}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: CUR_DNS_CONFIG = ${CUR_DNS_CONFIG}"
+	logDebugMessage "DEBUG: CUR_SMB_CONFIG = ${CUR_SMB_CONFIG}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: DYN_DNS_DN = ${DYN_DNS_DN}; DYN_DNS_SA = ${DYN_DNS_SA}; DYN_DNS_SD = ${DYN_DNS_SD}"
+	logDebugMessage "DEBUG: DYN_SMB_NN = ${DYN_SMB_NN}; DYN_SMB_WG = ${DYN_SMB_WG}; DYN_SMB_WA = ${DYN_SMB_WA}"
 	
 # Set up the MAN_... variables to contain manual network settings
 
@@ -176,9 +182,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	set -e # resume abort on error
 
-	logMessage "DEBUG:"
-	logMessage "DEBUG: MAN_DNS_DN = ${MAN_DNS_DN}; MAN_DNS_SA = ${MAN_DNS_SA}; MAN_DNS_SD = ${MAN_DNS_SD}"
-	logMessage "DEBUG: MAN_SMB_NN = ${MAN_SMB_NN}; MAN_SMB_WG = ${MAN_SMB_WG}; MAN_SMB_WA = ${MAN_SMB_WA}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: MAN_DNS_DN = ${MAN_DNS_DN}; MAN_DNS_SA = ${MAN_DNS_SA}; MAN_DNS_SD = ${MAN_DNS_SD}"
+	logDebugMessage "DEBUG: MAN_SMB_NN = ${MAN_SMB_NN}; MAN_SMB_WG = ${MAN_SMB_WG}; MAN_SMB_WA = ${MAN_SMB_WA}"
 	
 # Set up the CUR_... variables to contain the current network settings (from manual or DHCP, as arbitrated by OS X
 
@@ -217,9 +223,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	set -e # resume abort on error
 
-	logMessage "DEBUG:"
-	logMessage "DEBUG: CUR_DNS_DN = ${CUR_DNS_DN}; CUR_DNS_SA = ${CUR_DNS_SA}; CUR_DNS_SD = ${CUR_DNS_SD}"
-	logMessage "DEBUG: CUR_SMB_NN = ${CUR_SMB_NN}; CUR_SMB_WG = ${CUR_SMB_WG}; CUR_SMB_WA = ${CUR_SMB_WA}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: CUR_DNS_DN = ${CUR_DNS_DN}; CUR_DNS_SA = ${CUR_DNS_SA}; CUR_DNS_SD = ${CUR_DNS_SD}"
+	logDebugMessage "DEBUG: CUR_SMB_NN = ${CUR_SMB_NN}; CUR_SMB_WG = ${CUR_SMB_WG}; CUR_SMB_WA = ${CUR_SMB_WA}"
 
 # set up the FIN_... variables with what we want to set things to
 
@@ -397,9 +403,9 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		fi
 	fi
 		
-	logMessage "DEBUG:"
-	logMessage "DEBUG: FIN_DNS_DN = ${FIN_DNS_DN}; FIN_DNS_SA = ${FIN_DNS_SA}; FIN_DNS_SD = ${FIN_DNS_SD}"
-	logMessage "DEBUG: FIN_SMB_NN = ${FIN_SMB_NN}; FIN_SMB_WG = ${FIN_SMB_WG}; FIN_SMB_WA = ${FIN_SMB_WA}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: FIN_DNS_DN = ${FIN_DNS_DN}; FIN_DNS_SA = ${FIN_DNS_SA}; FIN_DNS_SD = ${FIN_DNS_SD}"
+	logDebugMessage "DEBUG: FIN_SMB_NN = ${FIN_SMB_NN}; FIN_SMB_WG = ${FIN_SMB_WG}; FIN_SMB_WA = ${FIN_SMB_WA}"
 
 # Set up SKP_... variables to inhibit scutil from making some changes
 	
@@ -479,58 +485,58 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 
 	case "${OSVER}" in
 		10.4 | 10.5 | 10.6 )
-			logMessage "DEBUG: OS X 10.4-10.6, so will modify settings using only State:"
+			logDebugMessage "DEBUG: OS X 10.4-10.6, so will modify settings using only State:"
 			readonly SKP_SETUP_DNS="#"
 			readonly bAlsoUsingSetupKeys="false"
 			;;
 		10.7 )
 			if [ "${MAN_DNS_SA}" = "" -a  "${MAN_DNS_SD}" = "" ] ; then
-				logMessage "DEBUG: OS X 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
+				logDebugMessage "DEBUG: OS X 10.7 and neither ServerAddresses nor SearchDomains were set manually, so will modify DNS settings using only State:"
 				readonly SKP_SETUP_DNS="#"
 				readonly bAlsoUsingSetupKeys="false"
 			else
-				logMessage "DEBUG: OS X 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
+				logDebugMessage "DEBUG: OS X 10.7 and ServerAddresses or SearchDomains were set manually, so will modify DNS settings using Setup: in addition to State:"
 				readonly SKP_SETUP_DNS=""
 				readonly bAlsoUsingSetupKeys="true"
 			fi
 			;;
 		* )
-			logMessage "DEBUG: OS X 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
+			logDebugMessage "DEBUG: OS X 10.8 or higher, so will modify DNS settings using Setup: in addition to State:"
 			readonly SKP_SETUP_DNS=""
 			readonly bAlsoUsingSetupKeys="true"
 			;;
 	esac
 	
-	logMessage "DEBUG:"
-	logMessage "DEBUG: SKP_DNS = ${SKP_DNS}; SKP_DNS_SA = ${SKP_DNS_SA}; SKP_DNS_SD = ${SKP_DNS_SD}; SKP_DNS_DN = ${SKP_DNS_DN}"
-	logMessage "DEBUG: SKP_SETUP_DNS = ${SKP_SETUP_DNS}"
-	logMessage "DEBUG: SKP_SMB = ${SKP_SMB}; SKP_SMB_NN = ${SKP_SMB_NN}; SKP_SMB_WG = ${SKP_SMB_WG}; SKP_SMB_WA = ${SKP_SMB_WA}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: SKP_DNS = ${SKP_DNS}; SKP_DNS_SA = ${SKP_DNS_SA}; SKP_DNS_SD = ${SKP_DNS_SD}; SKP_DNS_DN = ${SKP_DNS_DN}"
+	logDebugMessage "DEBUG: SKP_SETUP_DNS = ${SKP_SETUP_DNS}"
+	logDebugMessage "DEBUG: SKP_SMB = ${SKP_SMB}; SKP_SMB_NN = ${SKP_SMB_NN}; SKP_SMB_WG = ${SKP_SMB_WG}; SKP_SMB_WA = ${SKP_SMB_WA}"
 
     set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
     original_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
     set -e # resume abort on error
-    logMessage "DEBUG:"
-    logMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
-    logMessage "DEBUG:"
+    logDebugMessage "DEBUG:"
+    logDebugMessage "DEBUG: /etc/resolve = ${original_resolver_contents}"
+    logDebugMessage "DEBUG:"
 
 	scutil_dns="$( scutil --dns)"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: scutil --dns BEFORE CHANGES = ${scutil_dns}"
-	logMessage "DEBUG:"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: scutil --dns BEFORE CHANGES = ${scutil_dns}"
+	logDebugMessage "DEBUG:"
 
-	logMessage "DEBUG:"
-	logMessage "DEBUG: Configuration changes:"
-	logMessage "DEBUG: ${SKP_DNS}${SKP_DNS_SA}ADD State: ServerAddresses  ${FIN_DNS_SA}"
-	logMessage "DEBUG: ${SKP_DNS}${SKP_DNS_SD}ADD State: SearchDomains    ${FIN_DNS_SD}"
-	logMessage "DEBUG: ${SKP_DNS}${SKP_DNS_DN}ADD State: DomainName       ${FIN_DNS_DN}"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: ${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_SA}ADD Setup: ServerAddresses  ${FIN_DNS_SA}"
-	logMessage "DEBUG: ${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_SD}ADD Setup: SearchDomains    ${FIN_DNS_SD}"
-	logMessage "DEBUG: ${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_DN}ADD Setup: DomainName       ${FIN_DNS_DN}"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: ${SKP_SMB}${SKP_SMB_NN}ADD State: NetBIOSName    ${FIN_SMB_NN}"
-	logMessage "DEBUG: ${SKP_SMB}${SKP_SMB_WG}ADD State: Workgroup      ${FIN_SMB_WG}"
-	logMessage "DEBUG: ${SKP_SMB}${SKP_SMB_WA}ADD State: WINSAddresses  ${FIN_SMB_WA}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: Configuration changes:"
+	logDebugMessage "DEBUG: ${SKP_DNS}${SKP_DNS_SA}ADD State: ServerAddresses  ${FIN_DNS_SA}"
+	logDebugMessage "DEBUG: ${SKP_DNS}${SKP_DNS_SD}ADD State: SearchDomains    ${FIN_DNS_SD}"
+	logDebugMessage "DEBUG: ${SKP_DNS}${SKP_DNS_DN}ADD State: DomainName       ${FIN_DNS_DN}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: ${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_SA}ADD Setup: ServerAddresses  ${FIN_DNS_SA}"
+	logDebugMessage "DEBUG: ${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_SD}ADD Setup: SearchDomains    ${FIN_DNS_SD}"
+	logDebugMessage "DEBUG: ${SKP_SETUP_DNS}${SKP_DNS}${SKP_DNS_DN}ADD Setup: DomainName       ${FIN_DNS_DN}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: ${SKP_SMB}${SKP_SMB_NN}ADD State: NetBIOSName    ${FIN_SMB_NN}"
+	logDebugMessage "DEBUG: ${SKP_SMB}${SKP_SMB_WG}ADD State: Workgroup      ${FIN_SMB_WG}"
+	logDebugMessage "DEBUG: ${SKP_SMB}${SKP_SMB_WA}ADD State: WINSAddresses  ${FIN_SMB_WA}"
 
 	# Save the openvpn process ID and the Network Primary Service ID, leasewather.plist path, logfile path, and optional arguments from Tunnelblick,
 	# then save old and new DNS and SMB settings
@@ -604,8 +610,8 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 		quit
 EOF
 
-	logMessage "DEBUG:"
-	logMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: Pause for configuration changes to be propagated to State:/Network/Global/DNS and .../SMB"
 	sleep 1
 	
 	scutil <<-EOF > /dev/null
@@ -683,32 +689,32 @@ sed -e 's/^[[:space:]]*[[:digit:]]* : //g' | tr '\n' ' '
 )"
 
 
-	logMessage "DEBUG:"
-	logMessage "DEBUG: Configurations as read back after changes:"
-	logMessage "DEBUG: State:/.../DNS = ${NEW_DNS_STATE_CONFIG}"
-	logMessage "DEBUG: State:/.../SMB = ${NEW_SMB_STATE_CONFIG}"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: Setup:/.../DNS = ${NEW_DNS_SETUP_CONFIG}"
-	logMessage "DEBUG: Setup:/.../SMB = ${NEW_SMB_SETUP_CONFIG}"
-	logMessage "DEBUG:"
-    logMessage "DEBUG: State:/Network/Global/DNS = ${NEW_DNS_GLOBAL_CONFIG}"
-    logMessage "DEBUG: State:/Network/Global/SMB = ${NEW_SMB_GLOBAL_CONFIG}"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: Expected by process-network-changes:"
-    logMessage "DEBUG: State:/Network/OpenVPN/DNS = ${EXPECTED_NEW_DNS_GLOBAL_CONFIG}"
-    logMessage "DEBUG: State:/Network/OpenVPN/SMB = ${EXPECTED_NEW_SMB_GLOBAL_CONFIG}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: Configurations as read back after changes:"
+	logDebugMessage "DEBUG: State:/.../DNS = ${NEW_DNS_STATE_CONFIG}"
+	logDebugMessage "DEBUG: State:/.../SMB = ${NEW_SMB_STATE_CONFIG}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: Setup:/.../DNS = ${NEW_DNS_SETUP_CONFIG}"
+	logDebugMessage "DEBUG: Setup:/.../SMB = ${NEW_SMB_SETUP_CONFIG}"
+	logDebugMessage "DEBUG:"
+    logDebugMessage "DEBUG: State:/Network/Global/DNS = ${NEW_DNS_GLOBAL_CONFIG}"
+    logDebugMessage "DEBUG: State:/Network/Global/SMB = ${NEW_SMB_GLOBAL_CONFIG}"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: Expected by process-network-changes:"
+    logDebugMessage "DEBUG: State:/Network/OpenVPN/DNS = ${EXPECTED_NEW_DNS_GLOBAL_CONFIG}"
+    logDebugMessage "DEBUG: State:/Network/OpenVPN/SMB = ${EXPECTED_NEW_SMB_GLOBAL_CONFIG}"
 
     set +e # "grep" will return error status (1) if no matches are found, so don't fail if not found
     new_resolver_contents="`cat /etc/resolv.conf | grep -v '#'`"
     set -e # resume abort on error
-    logMessage "DEBUG:"
-    logMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
-    logMessage "DEBUG:"
+    logDebugMessage "DEBUG:"
+    logDebugMessage "DEBUG: /etc/resolve = ${new_resolver_contents}"
+    logDebugMessage "DEBUG:"
 
 	scutil_dns="$( scutil --dns)"
-	logMessage "DEBUG:"
-	logMessage "DEBUG: scutil --dns AFTER CHANGES = ${scutil_dns}"
-	logMessage "DEBUG:"
+	logDebugMessage "DEBUG:"
+	logDebugMessage "DEBUG: scutil --dns AFTER CHANGES = ${scutil_dns}"
+	logDebugMessage "DEBUG:"
 	
 	logMessage "Saved the DNS and SMB configurations for later use"
 	
@@ -744,9 +750,9 @@ configureDhcpDns()
 	
 	# - wait until we get a lease before extracting the DNS domain name and merging into SC
 	# - despite it's name, ipconfig waitall doesn't (but maybe one day it will :-)
-	logMessage "DEBUG_TAP: About to 'ipconfig waitall'"
+	logDebugMessage "DEBUG: About to 'ipconfig waitall'"
 	ipconfig waitall
-	logMessage "DEBUG_TAP: Completed 'ipconfig waitall'"
+	logDebugMessage "DEBUG: Completed 'ipconfig waitall'"
 	
 	unset test_domain_name
 	unset test_name_server
@@ -771,11 +777,11 @@ configureDhcpDns()
 		fi
 	done
 
-    logMessage "DEBUG_TAP: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
+    logDebugMessage "DEBUG: Finished waiting for DHCP lease: test_domain_name = '$test_domain_name', test_name_server = '$test_name_server'"
     
-    logMessage "DEBUG_TAP: About to 'ipconfig getpacket $dev'"
+    logDebugMessage "DEBUG: About to 'ipconfig getpacket $dev'"
 	sGetPacketOutput=`ipconfig getpacket $dev`
-    logMessage "DEBUG_TAP: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
+    logDebugMessage "DEBUG: Completed 'ipconfig getpacket $dev'; sGetPacketOutput = $sGetPacketOutput"
 
 	set -e # We instruct bash that it CAN again fail on individual errors
 	
@@ -789,7 +795,7 @@ configureDhcpDns()
 	
 	if [ "$sGetPacketOutput" ]; then
 		sGetPacketOutput_FirstLine=`echo "$sGetPacketOutput"|head -n 1`
-		logMessage "DEBUG_TAP: sGetPacketOutput_FirstLine = $sGetPacketOutput_FirstLine"
+		logDebugMessage "DEBUG: sGetPacketOutput_FirstLine = $sGetPacketOutput_FirstLine"
 		
 		if [ "$sGetPacketOutput_FirstLine" == "op = BOOTREPLY" ]; then
 			set +e # "grep" will return error status (1) if no matches are found, so don't fail on individual errors
@@ -838,12 +844,12 @@ configureDhcpDns()
 	
     set +e # We instruct bash NOT to exit on individual command errors, because if we need to wait longer these commands will fail
 	
-	logMessage "DEBUG_TAP: About to 'ipconfig getoption $dev domain_name'"
+	logDebugMessage "DEBUG: About to 'ipconfig getoption $dev domain_name'"
 	sDomainName=`ipconfig getoption $dev domain_name 2>/dev/null`
-	logMessage "DEBUG_TAP: Completed 'ipconfig getoption $dev domain_name'"
-	logMessage "DEBUG_TAP: About to 'ipconfig getoption $dev domain_name_server'"
+	logDebugMessage "DEBUG: Completed 'ipconfig getoption $dev domain_name'"
+	logDebugMessage "DEBUG: About to 'ipconfig getoption $dev domain_name_server'"
 	sNameServer=`ipconfig getoption $dev domain_name_server 2>/dev/null`
-	logMessage "DEBUG_TAP: Completed 'ipconfig getoption $dev domain_name_server'"
+	logDebugMessage "DEBUG: Completed 'ipconfig getoption $dev domain_name_server'"
     
 	set -e # We instruct bash that it CAN again fail on individual errors
 
@@ -1020,6 +1026,11 @@ trap "" HUP
 trap "" INT
 export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
 
+readonly OUR_NAME=$(basename "${0}")
+
+logMessage "**********************************************"
+logMessage "Start of output from ${OUR_NAME}"
+
 # Process optional arguments (if any) for the script
 # Each one begins with a "-"
 # They come from Tunnelblick, and come first, before the OpenVPN arguments
@@ -1118,16 +1129,18 @@ if ${ARG_TAP} ; then
 	fi
 	
 	if [ "$bRouteGatewayIsDhcp" == "true" ]; then
-		logMessage "DEBUG_TAP: bRouteGatewayIsDhcp is TRUE"
+		logDebugMessage "DEBUG: bRouteGatewayIsDhcp is TRUE"
 		if [ -z "$dev" ]; then
 			logMessage "Cannot configure TAP interface for DHCP without \$dev being defined. Exiting."
             # We don't create the "/tmp/tunnelblick-downscript-needs-to-be-run.txt" file, because the down script does NOT need to be run since we didn't do anything
+            logMessage "End of output from ${OUR_NAME}"
+            logMessage "**********************************************"
 			exit 1
 		fi
 		
-		logMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
+		logDebugMessage "DEBUG: About to 'ipconfig set \"$dev\" DHCP"
 		ipconfig set "$dev" DHCP
-		logMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
+		logDebugMessage "DEBUG: Did 'ipconfig set \"$dev\" DHCP"
 		
 		logMessage "Configuring tap DNS via DHCP asynchronously"
 		configureDhcpDns & # This must be run asynchronously; the DHCP lease will not complete until this script exits
@@ -1155,5 +1168,8 @@ else
 fi
 
 touch "/tmp/tunnelblick-downscript-needs-to-be-run.txt"
+
+logMessage "End of output from ${OUR_NAME}"
+logMessage "**********************************************"
 
 exit $EXIT_CODE
