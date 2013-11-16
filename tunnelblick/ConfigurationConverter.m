@@ -260,6 +260,7 @@ extern NSString      * gPrivatePath;
 	   removeBackslashes: (BOOL) removeBackslashes
         needsShExtension: (BOOL) needsShExtension {
     
+    // Get raw from the configuration file itself
 	NSString * inPathString = [configString substringWithRange: rng];
 	if (  removeBackslashes  ) {
 		NSMutableString * path = [inPathString mutableCopy];
@@ -268,6 +269,7 @@ extern NSString      * gPrivatePath;
 		[path release];
 	}
 	
+    // Process that path into an absolute path for use to use to access the file
 	NSString * inPath = [[inPathString copy] autorelease];
 	if (  ! [inPath hasPrefix: @"/"]  ) {
 		if (  [inPath hasPrefix: @"~"]  ) {
@@ -279,7 +281,7 @@ extern NSString      * gPrivatePath;
 			if (  ! prefix  ) {
 				prefix = [configPath stringByDeletingLastPathComponent];
 			}
-			inPath = [prefix stringByAppendingPathComponent: inPath];
+			inPath = [prefix stringByAppendingPathComponent: [inPath lastPathComponent]];
 		}
 	}
 	

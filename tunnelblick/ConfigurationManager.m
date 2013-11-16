@@ -1807,8 +1807,8 @@ enum state_t {                      // These are the "states" of the guideState 
     // *******************************************************************************
 	// Create an empty .tblk and copy the files to its Contents/Resources folder
 	// Except only one OpenVPN configuration file is copied (and it is copied as "config.ovpn")
-    // The OpenVPN configuration file is copied as config.ovpn, and Info.plist is copied to Contents.
-    // Everything is copied "flat" -- into the Resources folder directly, not into subfolders
+    // The Info.plist is copied to Contents.
+    // All other files are copied "flat" into the Contents/Resources folder (that is, not into subfolders)
 
     NSString * emptyTblk = [self makeEmptyTblk: thePath];
     if (  ! emptyTblk  ) {
@@ -1842,10 +1842,10 @@ enum state_t {                      // These are the "states" of the guideState 
         
         // Filter CR characters out of any script files, OpenVPN configuration files, and other non-binary files
         NSString * theExtension = [oldPath pathExtension];
-        NSArray * otherExtensinons = [NSArray arrayWithObjects: @"sh", @"ovpn", @"conf", nil];
+        NSArray * otherExtensions = [NSArray arrayWithObjects: @"sh", @"ovpn", @"conf", nil];
         NSArray * nonBinaryExtensions = NONBINARY_CONTENTS_EXTENSIONS;
         if (   [nonBinaryExtensions containsObject: theExtension]
-            || [otherExtensinons    containsObject: theExtension]  ) {
+            || [otherExtensions    containsObject: theExtension]  ) {
             NSData * data = [gFileMgr contentsAtPath: oldPath];
             if (  data  ) {
                 NSString * scriptContents = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
@@ -1861,7 +1861,13 @@ enum state_t {                      // These are the "states" of the guideState 
 										withString: @"\n"
 										   options: 0
 											 range: NSMakeRange(0, [ms length])];
-					data = [ms dataUsingEncoding: NSASCIIStringEncoding];
+					data = [ms dataUsingEncoding: NSUTF8StringEncoding];
+					if (  ! data  ) {
+                        NSLog(@"Configuration installer: Invalid encoding in %@", newPath);
+                        [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"The file contains characters that are not UTF-8 encoded: %@", @"Window text"), [newPath lastPathComponent]]];
+                        [pkgList release];
+                        return nil;
+					}
                     if (  ! [gFileMgr createFileAtPath: newPath contents: data attributes: nil]  ) {
                         NSLog(@"Configuration installer: Unable to create file at %@", newPath);
                         [errMsgs addObject: [NSString stringWithFormat: NSLocalizedString(@"Program error, please report this as a bug: Unable to create file at '%@'", @"Window text"), newPath]];
