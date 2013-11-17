@@ -234,6 +234,9 @@ TBPROPERTY_WRITEONLY(BOOL, speakWhenDisconnected, setSpeakWhenDisconnected)
 TBPROPERTY(NSDate *, bytecountsUpdated, setBytecountsUpdated)
 TBPROPERTY(NSArray *, argumentsUsedToStartOpenvpnstart, setArgumentsUsedToStartOpenvpnstart)
 TBPROPERTY(NSTimer *, forceKillTimer, setForceKillTimer)
+TBPROPERTY(NSString *, ipAddressBeforeConnect,      setIpAddressBeforeConnect)
+TBPROPERTY(NSString *, serverIPAddress,             setServerIPAddress)
+TBPROPERTY(BOOL,       ipCheckLastHostWasIPAddress, setIpCheckLastHostWasIPAddress)
 
 //*********************************************************************************************************
 //

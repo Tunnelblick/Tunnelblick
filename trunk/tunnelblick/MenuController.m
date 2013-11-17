@@ -263,6 +263,7 @@ BOOL needToConvertNonTblks(void);
                                 @"skipWarningAboutOnComputerStartAndTblkScripts",
                                 @"skipWarningAboutIgnoredConfigurations",
                                 @"skipWarningAboutConfigFileProtectedAndAlwaysExamineIt",
+                                @"skipWarningThatIPANotFetchedBeforeConnection",
                                 @"skipWarningThatIPAddressDidNotChangeAfterConnection",
                                 @"skipWarningThatDNSIsNotWorking",
                                 @"skipWarningThatInternetIsNotReachable",
