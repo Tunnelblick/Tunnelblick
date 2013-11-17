@@ -2237,8 +2237,6 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                                 testEvery: 0.2];
     } else {
         [self addToLog: @"*Tunnelblick: Expected disconnection occurred."];
-		NSLog(@"DEBUG: Expected disconnection of %@ occurred. %@shutting down Tunnelblick",
-			  [self displayName], (gShuttingDownTunnelblick ? @"We are " : @"We are not "));
 	}
 }
     
