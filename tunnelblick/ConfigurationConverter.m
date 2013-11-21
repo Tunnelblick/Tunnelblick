@@ -258,7 +258,8 @@ extern NSString      * gPrivatePath;
 
 -(BOOL) processPathRange: (NSRange) rng
 	   removeBackslashes: (BOOL) removeBackslashes
-        needsShExtension: (BOOL) needsShExtension {
+        needsShExtension: (BOOL) needsShExtension
+              okIfNoFile: (BOOL) okIfNoFile {
     
     // Get raw from the configuration file itself
 	NSString * inPathString = [configString substringWithRange: rng];
@@ -285,34 +286,48 @@ extern NSString      * gPrivatePath;
 		}
 	}
 	
-    NSString * errMsg = fileIsReasonableSize(inPath);
-    if (  errMsg  ) {
-        [self logMessage: errMsg];
-        return FALSE;
-    }
+    BOOL fileExists = [gFileMgr fileExistsAtPath: inPath];
     
-	NSString * file = [inPath lastPathComponent];
-	
-    // Make sure the file has an extension that Tunnelblick can secure properly
-    NSString * fileWithNeededExtension = [[file copy] autorelease];
-    NSString * extension = [file pathExtension];
-    if (   needsShExtension  ) {
-        if (  ! [extension isEqualToString: @"sh"]  ) {
-            fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
-			inPath = [inPath stringByAppendingPathExtension: @"sh"];
-            [self logMessage: [NSString stringWithFormat: @"Added '.sh' extension to %@ so it will be secured properly", file]];
-        }
-        
-        NSString * errorMsg = errorIfNotPlainTextFileAtPath(inPath, NO, @"#");  // Scripts use '#' to start comments
-        if (  errorMsg  ) {
-            [self logMessage: [NSString stringWithFormat: @"File %@: %@", [inPath lastPathComponent], errorMsg]];
+    if (  ! fileExists  ) {
+        if (  ! okIfNoFile  ) {
+            [self logMessage: [NSString stringWithFormat: @"File does not exist: %@", inPath]];
             return FALSE;
         }
-    } else {
-        if (   ( ! extension)
-            || ( ! [KEY_AND_CRT_EXTENSIONS containsObject: extension] )  ) {
-            fileWithNeededExtension = [file stringByAppendingPathExtension: @"key"];
-            [self logMessage: [NSString stringWithFormat: @"Added a 'key' extension to %@ so it will be secured properly", file]];
+    }
+    
+    NSString * file                    = [inPath lastPathComponent];
+    NSString * fileWithNeededExtension = [[inPathString copy] autorelease];
+    
+    if (  fileExists) {
+    
+        NSString * errMsg = fileIsReasonableSize(inPath);
+        if (  errMsg  ) {
+            [self logMessage: errMsg];
+            return FALSE;
+        }
+        
+        
+        // Make sure the file has an extension that Tunnelblick can secure properly
+        fileWithNeededExtension = [[file copy] autorelease];
+        NSString * extension = [file pathExtension];
+        if (   needsShExtension  ) {
+            if (  ! [extension isEqualToString: @"sh"]  ) {
+                fileWithNeededExtension = [file stringByAppendingPathExtension: @"sh"];
+                inPath = [inPath stringByAppendingPathExtension: @"sh"];
+                [self logMessage: [NSString stringWithFormat: @"Added '.sh' extension to %@ so it will be secured properly", file]];
+            }
+            
+            NSString * errorMsg = errorIfNotPlainTextFileAtPath(inPath, NO, @"#");  // Scripts use '#' to start comments
+            if (  errorMsg  ) {
+                [self logMessage: [NSString stringWithFormat: @"File %@: %@", [inPath lastPathComponent], errorMsg]];
+                return FALSE;
+            }
+        } else {
+            if (   ( ! extension)
+                || ( ! [KEY_AND_CRT_EXTENSIONS containsObject: extension] )  ) {
+                fileWithNeededExtension = [file stringByAppendingPathExtension: @"key"];
+                [self logMessage: [NSString stringWithFormat: @"Added a 'key' extension to %@ so it will be secured properly", file]];
+            }
         }
     }
     
@@ -530,7 +545,7 @@ extern NSString      * gPrivatePath;
                     
                     // copy the file and change the path in the configuration string if necessary
                     if (  ! [[configString substringWithRange: r2] isEqualToString: @"[inline]"]  ) {
-                        if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO]  ) {
+                        if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO]  ) {
                             return FALSE;
                         }
                     }
@@ -557,7 +572,7 @@ extern NSString      * gPrivatePath;
                     r2.length = r3.length;
                     
                     // copy the file and change the path in the configuration string if necessary
-                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES]  ) {
+                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES]  ) {
                         return FALSE;
                     }
                     
