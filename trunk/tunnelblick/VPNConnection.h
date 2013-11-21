@@ -94,6 +94,8 @@ struct Statistics {
     unsigned int    forceKillWaitSoFar; // Number of seconds since forceKillTimer was first set for this disconnection attempt
 	pid_t           pid;                // 0, or process ID of OpenVPN process created for this connection
 	unsigned int    portNumber;         // 0, or port number used to connect to management socket
+    volatile int32_t avoidHasDisconnectedDeadlock; // See note at start of 'hasDisconnected' method
+    
     VPNConnectionUserWantsState
                     userWantsState;     // Indicates what the user wants to do about authorization failures
     
