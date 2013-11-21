@@ -24,6 +24,7 @@
 #import <Foundation/NSDebug.h>
 #import <pthread.h>
 #import <signal.h>
+#import <libkern/OSAtomic.h>
 #import "defines.h"
 #import "sharedRoutines.h"
 #import "ConfigurationManager.h"
@@ -198,6 +199,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         }
         portNumber = 0;
 		pid = 0;
+        avoidHasDisconnectedDeadlock = 0;
         
         tryingToHookup = FALSE;
         initialHookupTry = TRUE;
@@ -2175,6 +2177,18 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 // Call on main thread only
 -(void) hasDisconnected
 {
+	// avoidHasDisconnectedDeadlock is used to avoid a deadlock in hasDisconnected:
+	//
+	// Under some circumstances, setState, invoked by hasConnected, can invoke hasDisconnected.
+	// To avoid a deadlock or infinite recursion, we ignore such "multiple" calls by returning
+	// immediately if that happens. (We stop doing this immediate return after setting lastState
+	// to @"EXITING"), because we can then allow multiple invokations of hasDisconnected because
+	// they will return without invoking setState.)
+	
+    if (  ! OSAtomicCompareAndSwap32Barrier(0, 1, &avoidHasDisconnectedDeadlock)  ) {
+        return;
+    }
+    
     [[NSApp delegate] cancelAllIPCheckThreadsForConnection: self];
 
     [self clearStatisticsRatesDisplay];
@@ -2182,10 +2196,13 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     pthread_mutex_lock( &lastStateMutex );
     if (  [lastState isEqualToString: @"EXITING"]  ) {
         pthread_mutex_unlock( &lastStateMutex );
+        avoidHasDisconnectedDeadlock = 0;
         return;
     }
     [self setState:@"EXITING"];
     pthread_mutex_unlock( &lastStateMutex );
+    
+    avoidHasDisconnectedDeadlock = 0;
     
 	NSNumber * oldPidAsNumber = [NSNumber numberWithLong: (long) pid];
 	
