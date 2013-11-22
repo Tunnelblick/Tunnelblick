@@ -3,6 +3,23 @@
 
 *<font size="3">News</font>*
 
+2013-11-22: *Tunnelblick 3.4beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Adds the 'Include anonymous profile information' checkbox to the Preferences panel.
+
+ * Adds the 'Keep connected' checkbox to the Settings tab of Configurations panel. This will attempt to reconnect a configuration if OpenVPN crashes.
+
+ * Allows the 'Place next to Spotlight icon' checkbox (on the Appearance panel) to be checked on OS X 10.9 ("Mavericks") with multiple displays if 'Displays have separate spaces' is unchecked in the Mission Control preferences.
+
+ * Fixes a problem with connection restarts (caused, for example, by the OpenVPN --ping-restart option) by not starting OpenVPN with the -up-restart option. Note: the OpenVPN configuration must not contain the 'persist-tun' option or restarts will still fail. (The OpenVPN documentation seems to be incorrect with respect to these two options.)
+
+ * Includes several other enhancements and fixes several other problems.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+
+--------------------
+
 2013-10-25: *Tunnelblick 3.4beta14 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Implements 'Examine OpenVPN Configuration File' for Shared and Deployed configurations.
