@@ -170,8 +170,9 @@
 #define OPENVPNSTART_FLUSH_DNS_CACHE           0x100u
 #define OPENVPNSTART_USE_REDIRECT_GATEWAY_DEF1 0x200u
 #define OPENVPNSTART_RESET_PRIMARY_INTERFACE   0x400u
+#define OPENVPNSTART_TEST_MTU                  0x800u
 
-#define OPENVPNSTART_START_BITMASK_MAX         0x7FFu
+#define OPENVPNSTART_START_BITMASK_MAX         0xFFFu
 
 
 //*************************************************************************************************
