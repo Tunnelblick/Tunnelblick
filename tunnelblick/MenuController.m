@@ -414,6 +414,7 @@ BOOL needToConvertNonTblks(void);
                                       @"-doNotReconnectOnWakeFromSleep",
                                       @"-resetPrimaryInterfaceAfterDisconnect",
                                       @"-routeAllTrafficThroughVpn",
+                                      @"-runMtuTest",
                                       @"-doNotFlushCache",
                                       @"-useDownRootPlugin",
                                       @"-keychainHasPrivateKey",

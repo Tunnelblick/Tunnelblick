@@ -91,6 +91,7 @@ typedef enum {
     // For WhileConnected tab
     
     IBOutlet NSButton            * routeAllTrafficThroughVpnCheckbox;
+    IBOutlet NSButton            * runMtuTestCheckbox;
     IBOutlet NSButton            * monitorNetworkForChangesCheckbox;
     
     IBOutlet NSBox               * DnsWinsBox;
@@ -189,6 +190,7 @@ typedef enum {
 -(void) setupReconnectOnWakeFromSleepCheckbox;
 -(void) setupResetPrimaryInterfaceAfterDisconnectCheckbox;
 -(void) setupRouteAllTrafficThroughVpnCheckbox;
+-(void) setupRunMtuTestCheckbox;
 
 
 // Methods for Connecting tab
@@ -200,6 +202,7 @@ typedef enum {
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:   (id) sender;
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:      (id) sender;
+-(IBAction) runMtuTestCheckboxWasClicked:                     (id) sender;
 -(IBAction) connectingHelpButtonWasClicked:                   (id) sender;
 
 -(IBAction) disconnectWhenUserSwitchesOutCheckboxWasClicked:  (id) sender;

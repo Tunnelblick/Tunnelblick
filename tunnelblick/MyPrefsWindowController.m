@@ -456,6 +456,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
     [settingsSheetWindowController setupResetPrimaryInterfaceAfterDisconnectCheckbox];
     [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
+    [settingsSheetWindowController setupRunMtuTestCheckbox];
 }
 
 -(void) setupNetworkMonitoring: (VPNConnection *) connection
@@ -2393,6 +2394,7 @@ static BOOL firstTimeShowingWindow = TRUE;
         [settingsSheetWindowController setupReconnectOnWakeFromSleepCheckbox];
         [settingsSheetWindowController setupResetPrimaryInterfaceAfterDisconnectCheckbox];
         [settingsSheetWindowController setupRouteAllTrafficThroughVpnCheckbox];
+        [settingsSheetWindowController setupRunMtuTestCheckbox];
     }
 }
 

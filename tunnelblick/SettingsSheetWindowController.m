@@ -276,6 +276,17 @@ extern TBUserDefaults       * gTbDefaults;
                inverted: NO];
 }
 
+- (void) setupRunMtuTestCheckbox {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
+    [self setupCheckbox: runMtuTestCheckbox
+                    key: @"-runMtuTest"
+               inverted: NO];
+}
+
 - (void) setupTunOrTapButton: (NSPopUpButton *) button key: (NSString *) rawPreferenceKey {
 	
     if (  ! connection  ) {
@@ -427,6 +438,7 @@ extern TBUserDefaults       * gTbDefaults;
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
     [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN", @"Checkbox name")];
+    [runMtuTestCheckbox                     setTitle: NSLocalizedString(@"Run MTU maximum size test after connecting", @"Checkbox name")];
     
     [fastUserSwitchingBox                   setTitle: NSLocalizedString(@"Fast User Switching"                  , @"Window text")];
 	
@@ -544,6 +556,8 @@ extern TBUserDefaults       * gTbDefaults;
     [self setupResetPrimaryInterfaceAfterDisconnectCheckbox];
     
     [self setupRouteAllTrafficThroughVpnCheckbox];
+    
+    [self setupRunMtuTestCheckbox];
     
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
                     key: @"-doNotDisconnectOnFastUserSwitch"
@@ -926,6 +940,12 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:(id)sender {
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-routeAllTrafficThroughVpn"
+																	 to: ([sender state] == NSOnState)
+															   inverted: NO];
+}
+
+-(IBAction) runMtuTestCheckboxWasClicked:(id)sender {
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-runMtuTest"
 																	 to: ([sender state] == NSOnState)
 															   inverted: NO];
 }
