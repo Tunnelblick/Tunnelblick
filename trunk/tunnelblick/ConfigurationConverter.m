@@ -259,9 +259,19 @@ extern NSString      * gPrivatePath;
 -(BOOL) processPathRange: (NSRange) rng
 	   removeBackslashes: (BOOL) removeBackslashes
         needsShExtension: (BOOL) needsShExtension
-              okIfNoFile: (BOOL) okIfNoFile {
+              okIfNoFile: (BOOL) okIfNoFile
+          ignorePathInfo: (BOOL) ignorePathInfo {
     
-    // Get raw from the configuration file itself
+	// If this is a  _CONVERSION_ of an existing configuration:
+    // Then call with ignorePathInfo FALSE
+    //      -- To use the path as it appears in the configuration file when accessing .ca, .cert, .key, etc. files
+    //
+	// If this is an _INSTALLATION_ of a .tblk
+    // Then call with ignorePathInfo FALSE
+    //      -- To use only the last path component of paths in the configuration file when accessing .ca, .cert, .key, etc. files
+    //        (Because the files have already been copied to the same folder as the configuration file.)
+    
+    // Get raw path from the configuration file itself
 	NSString * inPathString = [configString substringWithRange: rng];
 	if (  removeBackslashes  ) {
 		NSMutableString * path = [inPathString mutableCopy];
@@ -270,19 +280,17 @@ extern NSString      * gPrivatePath;
 		[path release];
 	}
 	
-    // Process that path into an absolute path for use to use to access the file
+    // Process that pathString into an absolute path to access the file right now
 	NSString * inPath = [[inPathString copy] autorelease];
 	if (  ! [inPath hasPrefix: @"/"]  ) {
 		if (  [inPath hasPrefix: @"~"]  ) {
 			inPath = [inPath stringByExpandingTildeInPath];
 		} else {
-			NSString * prefix = (  [configPath hasPrefix: @"/private/"]
-								 ? [configPath stringByDeletingLastPathComponent]
-								 : firstPartOfPath(configPath));
-			if (  ! prefix  ) {
-				prefix = [configPath stringByDeletingLastPathComponent];
-			}
-			inPath = [prefix stringByAppendingPathComponent: [inPath lastPathComponent]];
+			NSString * baseFolder = [configPath stringByDeletingLastPathComponent];
+			NSString * restOfPath = (  ignorePathInfo
+                                     ? [inPath lastPathComponent] // INSTALLATION, ignore path info in the configuration file
+                                     : inPath);                   // CONVERSION,   use the PATH as it appears in the configuration file
+			inPath = [baseFolder stringByAppendingPathComponent: restOfPath];
 		}
 	}
 	
@@ -402,7 +410,9 @@ extern NSString      * gPrivatePath;
     // Converts a configuration file for use in a .tblk by removing all path information from ca, cert, etc. options.
     //
 	// If outputPath is specified, it is created as a .tblk and the configuration file and keys and certificates are copied into it.
-    // If outputPath is nil, the configuration file's contents are replaced after removing path information.
+    // If outputPath is nil:
+    //                       (1) the configuration file's contents are replaced after removing path information; and
+    //                       (2) all path information is ingored when accessing the ca, cert, etc. options.
     //
 	// If logFile is nil, NSLog is used
 	
@@ -545,7 +555,7 @@ extern NSString      * gPrivatePath;
                     
                     // copy the file and change the path in the configuration string if necessary
                     if (  ! [[configString substringWithRange: r2] isEqualToString: @"[inline]"]  ) {
-                        if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO]  ) {
+                        if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: NO okIfNoFile: NO ignorePathInfo: (! outputPath)]  ) {
                             return FALSE;
                         }
                     }
@@ -572,7 +582,7 @@ extern NSString      * gPrivatePath;
                     r2.length = r3.length;
                     
                     // copy the file and change the path in the configuration string if necessary
-                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES]  ) {
+                    if (  ! [self processPathRange: r2 removeBackslashes: YES needsShExtension: YES okIfNoFile: YES ignorePathInfo: (! outputPath)]  ) {
                         return FALSE;
                     }
                     
