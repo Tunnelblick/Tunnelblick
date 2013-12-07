@@ -81,10 +81,15 @@ void * _NSConcreteStackBlock __attribute__((weak));
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
 
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
+	
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
     NSImage                 * connectedImage;               // Image to display when one or more connections are active
     NSImage                 * mainImage;                    // Image to display when there are no connections active
 
+    NSMutableArray          * highlightedAnimImages;        // Corresponding highlighted images (the large images are never highlighted)
+    NSImage                 * highlightedConnectedImage;
+    NSImage                 * highlightedMainImage;
+	
     NSMutableArray          * largeAnimImages;              // Images for animation of the Tunnelblick icon in the the Status Window
     NSImage                 * largeConnectedImage;          // Image to display when one or more connections are active
     NSImage                 * largeMainImage;               // Image to display when there are no connections active
@@ -149,6 +154,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
 	BOOL					  signatureIsInvalid;			// Indicates the app is digitally signed but the signature does not check out
 	
 	BOOL					  doingSetupOfUI;				// Indicates we are setting up the UI, and not making changes to preferences
+	
+	BOOL					  menuIsOpen;					// Indicates the main Tunnelblick menu is open
 	
     unsigned                  tapCount;                     // # of instances of openvpn that are using our tap kext
     unsigned                  tunCount;                     // # of instances of openvpn that are using our tun kext
@@ -306,5 +313,8 @@ TBPROPERTY(NSTimer      *, hookupWatchdogTimer,       setHookupWatchdogTimer)
 TBPROPERTY(NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
 TBPROPERTY(NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
 TBPROPERTY(NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
+TBPROPERTY(NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
+TBPROPERTY(NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBPROPERTY(NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 
 @end

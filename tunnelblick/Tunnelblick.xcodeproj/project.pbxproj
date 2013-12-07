@@ -1032,8 +1032,8 @@
 		B840788E170CE6FF0002B941 /* Status Window */ = {
 			isa = PBXGroup;
 			children = (
-				639A10FE132AC9D800754C2A /* StatusWindowController.m */,
 				639A10FF132AC9D800754C2A /* StatusWindowController.h */,
+				639A10FE132AC9D800754C2A /* StatusWindowController.m */,
 			);
 			name = "Status Window";
 			sourceTree = "<group>";
@@ -1314,7 +1314,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\n# Compile Tunnelblick Uninstaller and add its Info.plist and resources\n  rm -r -f      \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\"\n  osacompile -o \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\" -x \"tunnelblick-uninstaller.applescript\"\n  cp -f \"tunnelblick-uninstaller.Info.plist\" \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist\"\n  cp -f \"tunnelblick-uninstaller.icns\"       \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources/droplet.icns\"\n  cp -f \"tunnelblick-uninstaller.sh\"         \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources/tunnelblick-uninstaller.sh\"\n\n  for d in `ls \"tunnelblick-uninstaller-localization\"`\n  do\n    cp -f -R tunnelblick-uninstaller-localization/${d} \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources\"\n  done\n\n# Copy the tun and tap kexts\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n  cp -R \"../third_party/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n  cp -R \"../third_party/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Create copies that are to be signed, too, for Mavericks and higher\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telse\n\t\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\tfi\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn-executable\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n# Remove extra files that are not needed\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/ExternalBuildCleanScript.sh\"\n\n# Remove extended attributes\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*\ndo\n  xattr -d \"com.apple.FinderInfo\" ${f} 2> /dev/null\ndone\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools if Release\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/process-network-changes\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/standardize-scutil-output\"\n# The \"signed\" kexts must only be signed in 10.8.3 or higher or they won't load on older systems\n#  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n#  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n\n  for d in `ls \"../third_party/openvpn\"`\n  do\n    codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n    codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\n  done\n\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Frameworks/Sparkle.framework/Versions/A\"\n\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app\"\n\n  # Sign the Uninstaller, too\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\"\nfi\n\n# Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file to the staging folder and make the background folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\n\n\t# Uninstaller Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller\"\n\n\t# Folder with files for the uninstaller .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"uninstaller-dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the uninstaller into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\nfi";
+			shellScript = "# Touch the build folder to get it to the top of listings sorted by modification date\ntouch build\n\nif [ \"${CONFIGURATION}\" = \"Analyze ONLY\" ]; then\n  # Make sure we never use the binary\n  rm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app\"\n  exit 0\nfi\n\n# Compile Tunnelblick Uninstaller and add its Info.plist and resources\n  rm -r -f      \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\"\n  osacompile -o \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\" -x \"tunnelblick-uninstaller.applescript\"\n  cp -f \"tunnelblick-uninstaller.Info.plist\" \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist\"\n  cp -f \"tunnelblick-uninstaller.icns\"       \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources/droplet.icns\"\n  cp -f \"tunnelblick-uninstaller.sh\"         \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources/tunnelblick-uninstaller.sh\"\n\n  for d in `ls \"tunnelblick-uninstaller-localization\"`\n  do\n    cp -f -R tunnelblick-uninstaller-localization/${d} \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Resources\"\n  done\n\n# Copy the tun and tap kexts\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n  cp -R \"../third_party/tap-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n  cp -R \"../third_party/tun-20090913.kext/\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext\"\n\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext\"\n\n# Create copies that are to be signed, too, for Mavericks and higher\n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n  cp -R \"../third_party/tap.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n \n  rm -r -f                                  \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n  cp -R \"../third_party/tun.kext/\"          \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n\n# Set the build number in Info.plist for the app and for the kexts\n# Replaces all occurances of \"TBBUILDNUMBER\" in an Info.plist with the contents of TBBuildNumber.txt\n# If an \"Unsigned\" build, appends \" Unsigned\" to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# If an \"Debug\" build,    appends \" Debug\"    to CFBundleShortVersionString, which is detected by the \")\" after \"TBBUILDNUMBER\"\n# @param String, path to Info.plist file that should be modified\nsetBuildNumber()\n{\n\ttbbn=\"$(cat \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\")\"\n\tif [ \"${CONFIGURATION}\" = \"Unsigned Release\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Unsigned|g\" \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n\t\tsed -e \"s|TBBUILDNUMBER)|TBBUILDNUMBER) Debug|g\"    \"${@}\" | sed -e \"s|TBBUILDNUMBER|${tbbn}|g\" > \"${@}.tmp\"\n\telse\n\t\tsed -e \"s|TBBUILDNUMBER|${tbbn}|g\" \"${@}\" > \"${@}.tmp\"\n\tfi\n\trm \"${@}\"\n\tmv \"${@}.tmp\" \"${@}\"\n}\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-20090913.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext/Contents/Info.plist\"\nsetBuildNumber \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app/Contents/Info.plist\"\n\n# Create the openvpn directory structure:\n# ...Contents/Resources/openvpn contains a folder for each version of OpenVPN.\n# The folder for each vesion of OpenVPN is named \"openvpn-x.x.x\".\n# Each \"openvpn-x.x.x\"folder contains the openvpn binary and the openvpn-down-root.so binary\nmkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn\"\nfor d in `ls \"../third_party/openvpn\"`\ndo\n  mkdir -p \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}\"\n  cp \"../third_party/openvpn/${d}/openvpn-executable\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n  cp \"../third_party/openvpn/${d}/openvpn-down-root.so\" \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\ndone\n\n# Remove extra files that are not needed\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/TBBuildNumber.txt\"\n\nrm -f \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/ExternalBuildCleanScript.sh\"\n\n# Remove extended attributes\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*\ndo\n  xattr -d \"com.apple.FinderInfo\" ${f} 2> /dev/null\ndone\n\n# Remove NeedsTranslation.strings and Removed.strings from all .lproj folders\nshopt -s nullglob\nfor f in build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/*.lproj\ndo\n  if test -f \"${f}/NeedsTranslation.strings\"\n  then\n    rm \"${f}/NeedsTranslation.strings\"\n  fi\n  if test -f \"${f}/Removed.strings\"\n  then\n    rm \"${f}/Removed.strings\"\n  fi \ndone\n\n# Sign the app and its tools if Release\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  # Sign the binary tools and the Tunnelblick application itself\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/atsystemstart\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/installer\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpnstart\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/process-network-changes\"\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/standardize-scutil-output\"\n# The \"signed\" kexts must only be signed in 10.8.3 or higher or they won't load on older systems\n#  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tap-signed.kext\"\n#  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/tun-signed.kext\"\n\n  for d in `ls \"../third_party/openvpn\"`\n  do\n    codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn\"\n    codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Resources/openvpn/${d}/openvpn-down-root.so\"\n  done\n\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app/Contents/Frameworks/Sparkle.framework/Versions/A\"\n\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME}.app\"\n\n  # Sign the Uninstaller, too\n  codesign -s TunnelblickSigning \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\"\nfi\n\n# Create the Tunnelblick .dmg and the Uninstaller .dmg except if Debug\nif [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\n\t# Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME}\"\n\n\t# Folder with files for the .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the application into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME}.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Copy the background folder and its background.png file to the staging folder and make the background folder invisible in the Finder\n\tcp -p -R \"$DMG_FILES/background\" \"$TMPDMG\"\n\tsetfile -a V \"$TMPDMG/background\"\n\n\t# Copy dotDS_Store to .DS_Store and make it invisible in the Finder\n\tcp -p -R \"$DMG_FILES/dotDS_Store\" \"$TMPDMG/.DS_Store\"\n\tsetfile -a V \"$TMPDMG/.DS_Store\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME}.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\n\n\t# Uninstaller Staging folder\n\tTMPDMG=\"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller\"\n\n\t# Folder with files for the uninstaller .dmg (.DS_Store and background folder which contains background.png background image)\n\tDMG_FILES=\"uninstaller-dmgFiles\"\n\n\t# Remove the existing \"staging\" folder and copy the uninstaller into it\n\trm -r -f \"$TMPDMG\"\n\tmkdir -p \"$TMPDMG\"\n\tcp -p -R \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.app\" \"$TMPDMG\"\n\n\t# Copy link to documentation to the staging folder\n\tcp -p \"Online Documentation.webloc\" \"$TMPDMG\"\n\n\t# Remove any existing .dmg and create a new one. Specify \"-noscrub\" so that .DS_Store is copied to the image\n\trm -r -f \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg\"\n\thdiutil create -noscrub -srcfolder \"$TMPDMG\" \"build/${CONFIGURATION}/${PROJECT_NAME} Uninstaller.dmg\"\n\n\t# Leave the staging folder so customized .dmgs can be easily created\nfi";
 			showEnvVarsInLog = 0;
 		};
 		616A49200E38D17500477476 /* ShellScript */ = {
@@ -1696,6 +1696,214 @@
 				PRODUCT_NAME = ExternalBuildCleanScript;
 			};
 			name = "Unsigned Release";
+		};
+		637092C41851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = 4.2;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = "Analyze ONLY";
+		};
+		637092C51851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../third_party\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tunnelblick_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = TBAnalyzeONLY;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Tunnelblick;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Analyze ONLY";
+		};
+		637092C61851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = openvpnstart;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+				);
+				ZERO_LINK = YES;
+			};
+			name = "Analyze ONLY";
+		};
+		637092C71851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = installer;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+				);
+				ZERO_LINK = YES;
+			};
+			name = "Analyze ONLY";
+		};
+		637092C81851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = atsystemstart;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+				);
+			};
+			name = "Analyze ONLY";
+		};
+		637092C91851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					$PROJECT_DIR/Info.plist,
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "standardize-scutil-output";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+				);
+			};
+			name = "Analyze ONLY";
+		};
+		637092CA1851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = TBDebug;
+				GCC_VERSION = 4.2;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "process-network-changes";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wstrict-overflow",
+				);
+			};
+			name = "Analyze ONLY";
+		};
+		637092CB1851E8B50090D3D8 /* Analyze ONLY */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = ExternalBuildCleanScript;
+			};
+			name = "Analyze ONLY";
 		};
 		638A1FFE135CC35100FB932C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2703,6 +2911,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61BC4BC30E2F9FE900F24255 /* Debug */,
+				637092C61851E8B50090D3D8 /* Analyze ONLY */,
 				61BC4BC40E2F9FE900F24255 /* Release */,
 				6398C40313DB30F60005FEB0 /* Unsigned Release */,
 				B8F6C5BF1612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2716,6 +2925,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61BC4D6D0E2FA06900F24255 /* Debug */,
+				637092C71851E8B50090D3D8 /* Analyze ONLY */,
 				61BC4D6E0E2FA06900F24255 /* Release */,
 				6398C40413DB30F60005FEB0 /* Unsigned Release */,
 				B8F6C5C01612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2729,6 +2939,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63179440118D7E830057ACAF /* Debug */,
+				637092C81851E8B50090D3D8 /* Analyze ONLY */,
 				63179441118D7E830057ACAF /* Release */,
 				6398C40513DB30F60005FEB0 /* Unsigned Release */,
 				B8F6C5C11612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2742,6 +2953,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				635BF17F1501CCDF00D87717 /* Debug */,
+				637092CB1851E8B50090D3D8 /* Analyze ONLY */,
 				635BF1801501CCDF00D87717 /* Release */,
 				635BF1811501CCDF00D87717 /* Unsigned Release */,
 				B8F6C5C41612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2755,6 +2967,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				638A1FFE135CC35100FB932C /* Debug */,
+				637092C91851E8B50090D3D8 /* Analyze ONLY */,
 				638A1FFF135CC35100FB932C /* Release */,
 				6398C40613DB30F60005FEB0 /* Unsigned Release */,
 				B8F6C5C21612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2768,6 +2981,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63AA8E5A1492C75300C791C9 /* Debug */,
+				637092CA1851E8B50090D3D8 /* Analyze ONLY */,
 				63AA8E5B1492C75300C791C9 /* Release */,
 				63AA8E5C1492C75300C791C9 /* Unsigned Release */,
 				B8F6C5C31612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2781,6 +2995,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
+				637092C51851E8B50090D3D8 /* Analyze ONLY */,
 				C01FCF4C08A954540054247B /* Release */,
 				6398C40213DB30F60005FEB0 /* Unsigned Release */,
 				B8F6C5BE1612A09B000276E0 /* Unsigned Release -Wconversion */,
@@ -2794,6 +3009,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
+				637092C41851E8B50090D3D8 /* Analyze ONLY */,
 				C01FCF5008A954540054247B /* Release */,
 				6398C40113DB30F60005FEB0 /* Unsigned Release */,
 				B8F6C5BD1612A09B000276E0 /* Unsigned Release -Wconversion */,

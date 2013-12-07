@@ -211,6 +211,8 @@ BOOL needToConvertNonTblks(void);
         gComputerIsGoingToSleep = FALSE;
         
         noUnknownOpenVPNsRunning = NO;   // We assume there are unattached processes until we've had time to hook up to them
+		
+		menuIsOpen = FALSE;
         
         dotTblkFileList = nil;
         showDurationsTimer = nil;
@@ -941,6 +943,9 @@ BOOL needToConvertNonTblks(void);
     [animImages release];
     [connectedImage release];
     [mainImage release];
+    [highlightedAnimImages release];
+    [highlightedConnectedImage release];
+    [highlightedMainImage release];
     
     [gConfigDirs release];
     
@@ -1079,6 +1084,49 @@ BOOL needToConvertNonTblks(void);
 	[self initialiseAnim];
 }
 
+-(void) menuWillOpen: (NSMenu *) menu {
+	if (  menu == myVPNMenu  ) {
+		menuIsOpen = TRUE;
+		[self updateIconImage];    // Display the new images
+	}
+}
+
+-(void) menuDidClose: (NSMenu *) menu {
+	if (  menu == myVPNMenu  ) {
+		menuIsOpen = FALSE;
+		[self updateIconImage];    // Display the new images
+	}
+}
+
+-(BOOL) loadHighlightedIconSet: (NSString *) menuIconSet {
+    // Attempts to load a highlighted image set
+    // Assumes regular and large image sets have already loaded successfully
+    // Returns YES if loaded or not present (in which case it uses the normal images as highlighted images)
+    // Returns NO if present but has a different number of images than 'animImages'
+    
+    NSString * requestedHighlightedIconSet = [NSString stringWithFormat: @"highlighted-%@", menuIconSet];
+    if (  [self loadMenuIconSet: requestedHighlightedIconSet
+                           main: &highlightedMainImage
+                     connecting: &highlightedConnectedImage
+                           anim: &highlightedAnimImages]  ) {
+        if (  [animImages count] != [highlightedAnimImages count]  ) {
+            NSLog(@"Icon set '%@' has a different number of images and highlighted images", menuIconSet);
+            return NO;
+        } else {
+			if (  ! [menuIconSet isEqualToString: @"TunnelBlick.TBMenuIcons" ]  ) { 
+				NSLog(@"Using icon set '%@' with Retina images", menuIconSet);
+			}
+            return YES;
+        }
+    } else {
+        // Default to the non-highlighted versions if there are not any highlighted versions
+        [self setHighlightedMainImage:      mainImage];
+        [self setHighlightedConnectedImage: connectedImage];
+        [self setHighlightedAnimImages:     animImages];
+        NSLog(@"Using icon set '%@' without Retina images", menuIconSet);
+        return YES;
+    }
+}
 -(BOOL) loadMenuIconSet
 {
     // Try with the specified icon set
@@ -1090,19 +1138,21 @@ BOOL needToConvertNonTblks(void);
                          connecting: &connectedImage
                                anim: &animImages]  ) {
             if (  [self loadMenuIconSet: requestedLargeIconSet
-                                   main: &mainImage
-                             connecting: &connectedImage
-                                   anim: &animImages]  ) {
-                [self updateIconImage];    // Display the new images
-                return YES;
+                                   main: &largeMainImage
+                             connecting: &largeConnectedImage
+                                   anim: &largeAnimImages]  ) {
+				if (  [self loadHighlightedIconSet: requestedMenuIconSet]  ) {
+                    [self updateIconImage];
+                    return YES;
+                }
             } else {
                 NSLog(@"Icon set '%@' not found", requestedLargeIconSet);
             }
         } else {
             if (  [self loadMenuIconSet: requestedLargeIconSet
-                                   main: &mainImage
-                             connecting: &connectedImage
-                                   anim: &animImages]  ) {
+                                   main: &largeMainImage
+                             connecting: &largeConnectedImage
+                                   anim: &largeAnimImages]  ) {
                 NSLog(@"Icon set '%@' not found", requestedMenuIconSet);
             } else {
                 NSLog(@"Icon set '%@' not found and icon set '%@' not found", requestedMenuIconSet, requestedLargeIconSet);
@@ -1122,11 +1172,10 @@ BOOL needToConvertNonTblks(void);
                           connecting: &largeConnectedImage
                                 anim: &largeAnimImages]  )
         {
-            if (  requestedMenuIconSet  ) {
-                NSLog(@"Using icon set %@", menuIconSet);
+            if (  [self loadHighlightedIconSet: menuIconSet]  ) {
+                [self updateIconImage];
+                return YES;
             }
-            [self updateIconImage];    // Display the new images
-            return YES;
         } else {
             NSLog(@"Icon set '%@' not found", menuIconSet);
         }
@@ -1143,9 +1192,10 @@ BOOL needToConvertNonTblks(void);
                       connecting: &largeConnectedImage
                             anim: &largeAnimImages]  )
     {
-        NSLog(@"Using icon set %@", menuIconSet);
-        [self updateIconImage];    // Display the new images
-        return YES;
+        if (  [self loadHighlightedIconSet: menuIconSet]  ) {
+            [self updateIconImage];
+            return YES;
+        }
     }
     
     return NO;
@@ -1334,7 +1384,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 	myVPNMenu = [[NSMenu alloc] init];
     [myVPNMenu setDelegate:self];
 
-    [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 20.0, 23.0)] autorelease]];
+    [self setOurMainIconView: [[[MainIconView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 24.0, 22.0)] autorelease]];
     [statusItem setView: [self ourMainIconView]];
     
 	[myVPNMenu addItem:statusMenuItem];
@@ -2108,9 +2158,13 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 		}
         
         if (  [lastState isEqualToString:@"CONNECTED"]  ) {
-            [[self ourMainIconView] setImage: connectedImage];
+            [[self ourMainIconView] setImage: (  menuIsOpen
+											   ? highlightedConnectedImage
+											   : connectedImage)];
         } else {
-            [[self ourMainIconView] setImage: mainImage];
+            [[self ourMainIconView] setImage: (  menuIsOpen
+											   ? highlightedMainImage
+											   : mainImage)];
         }
 	}
 }
@@ -2140,8 +2194,12 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
         return;
     }
     
+	NSMutableArray * images = (  menuIsOpen
+							   ? highlightedAnimImages
+							   : animImages);
+    
 	if (animation == theAnim) {
-        [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:[animImages objectAtIndex: (unsigned) (lround(progress * [animImages count]) - 1)] waitUntilDone:YES];
+        [[self ourMainIconView] performSelectorOnMainThread:@selector(setImage:) withObject:[images objectAtIndex: (unsigned) (lround(progress * [images count]) - 1)] waitUntilDone:YES];
 	}
 }
 
@@ -3816,8 +3874,12 @@ static void signal_handler(int signalNumber)
 					}
 				}
 				
+// The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
+#ifdef TBAnalyzeONLY
+                #warning "NOT AN EXECUTABLE -- ANALYZE ONLY"
+				(void) idxSet;  // JKB
+#else
 				[idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-					
 					(void) stop;
 					
 					LeftNavItem * item = [ov itemAtRow: idx];
@@ -3831,6 +3893,7 @@ static void signal_handler(int signalNumber)
 						}
 					}
 				}];
+#endif
 			} else {
 				NSLog(@"setPreferenceForSelectedConfigurationsWithKey: No configuration is selected so cannot change the '%@' preference", key);
 			}
@@ -6298,6 +6361,9 @@ TBSYNTHESIZE_OBJECT(retain, NSTimer      *, hookupWatchdogTimer,       setHookup
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, showDurationsTimer,        setShowDurationsTimer)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, configsChangedTimer,       setConfigsChangedTimer)
 TBSYNTHESIZE_OBJECT(retain, NSTimer      *, statisticsWindowTimer,     setStatisticsWindowTimer)
+TBSYNTHESIZE_OBJECT(retain, NSMutableArray *, highlightedAnimImages,   setHighlightedAnimImages)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedConnectedImage, setHighlightedConnectedImage)
+TBSYNTHESIZE_OBJECT(retain, NSImage      *, highlightedMainImage,      setHighlightedMainImage)
 
 // Event Handlers
 
