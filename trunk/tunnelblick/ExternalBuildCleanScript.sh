@@ -72,6 +72,8 @@ rm -f /tmp/tunnelblick-trash.scpt
     elif [ "$1" = "Unsigned Release" ] ; then
         echo "(No action required to build '$1' configuration)"
         
+    elif [ "$1" = "Analyze ONLY" ] ; then
+        echo "(No action required to build '$1' configuration)"
     else
         echo "error: Invalid argument to buildAction. Must be a configuration name"
         exit 1
@@ -201,6 +203,9 @@ rm -f /tmp/tunnelblick-trash.scpt
             echo "(No action required because ${PROJECT_NAME} Uninstaller.app does not exist)"
         fi
 
+    elif [ "$1" = "Analyze ONLY" ] ; then
+        echo "(No action required to clean '$1' configuration)"
+		
     else
         echo "error: Invalid argument ('$1') to cleanAction. Must be a configuration name"
         exit 1

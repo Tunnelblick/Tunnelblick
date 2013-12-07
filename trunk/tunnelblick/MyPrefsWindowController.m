@@ -2955,7 +2955,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             selectedAppearanceIconSetIndex = newValue;
             
             // Start using the new setting
-            [[NSApp delegate] loadMenuIconSet];
+			if (  ! [[NSApp delegate] loadMenuIconSet]  ) {
+				NSLog(@"Unable to load the Menu icon set");
+				[[NSApp delegate] terminateBecause: terminatingBecauseOfError];
+			}
         }
     }
 }

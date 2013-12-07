@@ -49,6 +49,8 @@
 	<string>1</string>
 	<key>SUEnableSystemProfiling</key>
 	<true/>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>https://www.tunnelblick.net/appcast.rss</string>
 	<key>SUPublicDSAKeyFile</key>

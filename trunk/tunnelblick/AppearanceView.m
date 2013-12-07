@@ -61,6 +61,7 @@ extern NSString       * gDeployPath;
     
     NSString * defaultIconSetName    = @"TunnelBlick.TBMenuIcons";
     NSString * blackWhiteIconSetName = @"TunnelBlick-black-white.TBMenuIcons";
+    NSString * oldIconSetName        = @"3.3.TBMenuIcons";
     
     NSMutableArray * iconSetContent = [NSMutableArray arrayWithCapacity: [paths count]];
     unsigned i;
@@ -72,6 +73,8 @@ extern NSString       * gDeployPath;
             name = NSLocalizedString(@"Standard icon", @"Button");
         } else if (  [fileName isEqualToString: blackWhiteIconSetName]  ) {
             name = NSLocalizedString(@"Monochrome icon", @"Button");
+        } else if (  [fileName isEqualToString: oldIconSetName]  ) {
+            name = NSLocalizedString(@"Tunnelblick 3.3 icon", @"Button");
         }
         
         [iconSetContent addObject: [NSDictionary dictionaryWithObjectsAndKeys: name, @"name", fileName, @"value", nil]];
@@ -137,8 +140,10 @@ extern NSString       * gDeployPath;
             if (  [[file pathExtension] isEqualToString: @"TBMenuIcons"]  ) {
                 NSString * iconName = [file stringByDeletingPathExtension];
                 if (  ! [iconName hasPrefix: @"large-"]  ) {
-                    if (  ! [iconNames containsObject: iconName]  ) {
-                        [paths addObject: [folder stringByAppendingPathComponent: file]];
+					if (  ! [iconName hasPrefix: @"highlighted-"]  ) {
+						if (  ! [iconNames containsObject: iconName]  ) {
+							[paths addObject: [folder stringByAppendingPathComponent: file]];
+						}
                     }
                 }
             }
