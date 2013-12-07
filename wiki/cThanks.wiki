@@ -87,6 +87,11 @@ Tunnelblick is made possible by the efforts of many people:
   </tr>
 
   <tr>
+    <td>      Wyatt Kirby    </td>
+    <td>      Icon set including Retina images    </td>
+  </tr>
+
+  <tr>
     <td>      Uli Kusterer    </td>
     <td>      UKKQueue and UKLoginItemRegistry    </td>
   </tr>
