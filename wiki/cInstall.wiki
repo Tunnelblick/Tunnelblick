@@ -134,6 +134,12 @@ Download the latest uninstaller disk image from the [DownloadsEntry Downloads] p
 
 The uninstall program can do a "test", which does not uninstall anything, but displays a log of what it would have done if it were uninstalling.
 
+*If you have already partially uninstalled (manually, or with !AppCleaner or something similar):
+
+ * Quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
+ * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall). Although it does not matter what version of Tunnelblick you reinstall, it is important that you install it in the same way you originally installed it. (That is, that it is installed to the same location as the original installation.)
+ * Launch Tunnelblick, then quit it.
+
 *To uninstall Tunnelblick located in /Applications:*
  * Quit Tunnelblick<font color="red">`*`</font>
  * Double-click the "Uninstaller"
@@ -141,15 +147,6 @@ The uninstall program can do a "test", which does not uninstall anything, but di
 
 *To uninstall Tunnelblick, RaptorVPN, Urban Shield VPN, or other rebranded Tunnelblick:*
  * Quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
- * Drag and drop the "Uninstaller" to your Desktop
- * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
- * Click on "Test" or "Uninstall"
-
-*To uninstall if you have already partially uninstalled (manually, or with AppCleaner or something similar):
-
- * Quit Tunnelblick (or the rebranded program)<font color="red">`*`</font>
- * Install (again, that is, re-install) Tunnelblick or the rebranded program (whatever program you want to uninstall)
- * Launch it, then quit it
  * Drag and drop the "Uninstaller" to your Desktop
  * Drag and drop the application you want to uninstall (Tunnelblick or a rebranded program) to the "Uninstaller" on your Desktop
  * Click on "Test" or "Uninstall"
