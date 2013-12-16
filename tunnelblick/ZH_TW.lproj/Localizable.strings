@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "檢查更新至測試版本";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
+"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* NEEDS TRANSLATION *//* Checkbox name */
 "Disconnect when user switches out" = "Disconnect when user switches out";

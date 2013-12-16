@@ -305,7 +305,7 @@
 "Check for updates to beta versions" = "베타 버전 업데이트 확인";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "연결 후에 공인 IP 주소 변경 확인";
+"Check if the apparent public IP address changed after connecting" = "연결 후에 공인 IP 주소 변경 확인";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "사용자 전환 할 때 연결 해제";

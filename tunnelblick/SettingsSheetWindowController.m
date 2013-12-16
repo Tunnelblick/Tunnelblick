@@ -243,15 +243,31 @@ extern TBUserDefaults       * gTbDefaults;
     }
 }
 
+- (void) setupDisconnectOnSleepCheckbox {
+    
+    if (  ! connection  ) {
+        return;
+    }
+    
+    [self setupCheckbox: disconnectOnSleepCheckbox
+                    key: @"-doNotDisconnectOnSleep"
+               inverted: YES];
+}
+
 - (void) setupReconnectOnWakeFromSleepCheckbox {
     
     if (  ! connection  ) {
         return;
     }
     
-    [self setupCheckbox: reconnectOnWakeFromSleepCheckbox
-                    key: @"-doNotReconnectOnWakeFromSleep"
-               inverted: YES];
+    if (  [gTbDefaults boolForKey: [[connection displayName] stringByAppendingString: @"-doNotDisconnectOnSleep"]] ) {
+        [reconnectOnWakeFromSleepCheckbox setState:   NSOffState];
+        [reconnectOnWakeFromSleepCheckbox setEnabled: NO];
+    } else {
+        [self setupCheckbox: reconnectOnWakeFromSleepCheckbox
+                        key: @"-doNotReconnectOnWakeFromSleep"
+                   inverted: YES];
+    }
 }
 
 - (void) setupResetPrimaryInterfaceAfterDisconnectCheckbox {
@@ -430,11 +446,12 @@ extern TBUserDefaults       * gTbDefaults;
 	
     [connectingAndDisconnectingTabViewItem  setLabel: NSLocalizedString(@"Connecting & Disconnecting", @"Window title")];
     
-    [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connection", @"Checkbox name")];
+    [checkIPAddressAfterConnectOnAdvancedCheckbox setTitle: NSLocalizedString(@"Check if the apparent public IP address changed after connecting", @"Checkbox name")];
     
     [showOnTunnelBlickMenuCheckbox          setTitle: NSLocalizedString(@"Show configuration on Tunnelblick menu", @"Checkbox name")];
     [flushDnsCacheCheckbox                  setTitle: NSLocalizedString(@"Flush DNS cache after connecting or disconnecting"     , @"Checkbox name")];
     [prependDomainNameCheckbox              setTitle: NSLocalizedString(@"Prepend domain name to search domains"                 , @"Checkbox name")];
+    [disconnectOnSleepCheckbox              setTitle: NSLocalizedString(@"Disconnect when computer goes to sleep", @"Checkbox name")];
     [reconnectOnWakeFromSleepCheckbox       setTitle: NSLocalizedString(@"Reconnect when computer wakes from sleep (if connected when computer went to sleep)", @"Checkbox name")];
     [resetPrimaryInterfaceAfterDisconnectCheckbox setTitle: NSLocalizedString(@"Reset the primary interface after disconnecting", @"Checkbox name")];
     [routeAllTrafficThroughVpnCheckbox      setTitle: NSLocalizedString(@"Route all traffic through the VPN", @"Checkbox name")];
@@ -546,17 +563,12 @@ extern TBUserDefaults       * gTbDefaults;
     // For Connecting tab
     
     [self setupCheckIPAddressAfterConnectOnAdvancedCheckbox];
-    
     [self setupPrependDomainNameCheckbox];
-    
     [self setupFlushDNSCheckbox];
-    
+    [self setupDisconnectOnSleepCheckbox];
     [self setupReconnectOnWakeFromSleepCheckbox];
-    
     [self setupResetPrimaryInterfaceAfterDisconnectCheckbox];
-    
     [self setupRouteAllTrafficThroughVpnCheckbox];
-    
     [self setupRunMtuTestCheckbox];
     
     [self setupCheckbox: disconnectWhenUserSwitchesOutCheckbox
@@ -921,6 +933,14 @@ extern TBUserDefaults       * gTbDefaults;
     [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-prependDomainNameToSearchDomains"
 																	 to: ([sender state] == NSOnState)
 															   inverted: NO];
+}
+
+
+-(IBAction) disconnectOnSleepCheckboxWasClicked:(id)sender {
+    [[NSApp delegate] setBooleanPreferenceForSelectedConnectionsWithKey: @"-doNotDisconnectOnSleep"
+																	 to: ([sender state] == NSOnState)
+															   inverted: YES];
+    [self setupReconnectOnWakeFromSleepCheckbox];
 }
 
 

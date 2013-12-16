@@ -325,7 +325,7 @@
 "Check for updates to beta versions" = "检查 beta 版的更新";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "如果在连接后对外显示的 IP 改变了请勾选";
+"Check if the apparent public IP address changed after connecting" = "如果在连接后对外显示的 IP 改变了请勾选";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "用户转出时, 断开连接";

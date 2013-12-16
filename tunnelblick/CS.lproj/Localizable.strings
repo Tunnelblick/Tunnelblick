@@ -299,7 +299,7 @@
 "Check for updates to beta versions" = "Zkontrolovat aktualizace i pro beta verze";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Zkontrolovat jestli se vaše veřejná IP adresa změnila po připojení";
+"Check if the apparent public IP address changed after connecting" = "Zkontrolovat jestli se vaše veřejná IP adresa změnila po připojení";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Odpojit při přepnutí uživatele";

@@ -299,7 +299,7 @@
 "Check for updates to beta versions" = "Sök uppdateringar till betaversioner";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Kontrollera om den synliga IP adressen har förändrats";
+"Check if the apparent public IP address changed after connecting" = "Kontrollera om den synliga IP adressen har förändrats";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Koppla från vid användarbyte";

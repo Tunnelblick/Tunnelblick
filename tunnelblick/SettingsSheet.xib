@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="15"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -95,7 +95,7 @@
 											<object class="NSButton" id="897521679">
 												<reference key="NSNextResponder" ref="1031541742"/>
 												<int key="NSvFlags">268</int>
-												<string key="NSFrame">{{15, 247}, {764, 18}}</string>
+												<string key="NSFrame">{{15, 153}, {764, 18}}</string>
 												<reference key="NSSuperview" ref="1031541742"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="181951344">
@@ -117,7 +117,7 @@
 											<object class="NSButton" id="754729987">
 												<reference key="NSNextResponder" ref="1031541742"/>
 												<int key="NSvFlags">266</int>
-												<string key="NSFrame">{{14, 221}, {765, 18}}</string>
+												<string key="NSFrame">{{14, 233}, {765, 18}}</string>
 												<reference key="NSSuperview" ref="1031541742"/>
 												<reference key="NSNextKeyView" ref="899645523"/>
 												<bool key="NSEnabled">YES</bool>
@@ -140,7 +140,7 @@
 											<object class="NSButton" id="899645523">
 												<reference key="NSNextResponder" ref="1031541742"/>
 												<int key="NSvFlags">266</int>
-												<string key="NSFrame">{{14, 195}, {765, 18}}</string>
+												<string key="NSFrame">{{14, 213}, {765, 18}}</string>
 												<reference key="NSSuperview" ref="1031541742"/>
 												<reference key="NSNextKeyView" ref="530450811"/>
 												<bool key="NSEnabled">YES</bool>
@@ -163,7 +163,7 @@
 											<object class="NSButton" id="341666917">
 												<reference key="NSNextResponder" ref="1031541742"/>
 												<int key="NSvFlags">266</int>
-												<string key="NSFrame">{{14, 169}, {765, 18}}</string>
+												<string key="NSFrame">{{14, 173}, {765, 18}}</string>
 												<reference key="NSSuperview" ref="1031541742"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="840395079">
@@ -185,7 +185,7 @@
 											<object class="NSButton" id="893291553">
 												<reference key="NSNextResponder" ref="1031541742"/>
 												<int key="NSvFlags">266</int>
-												<string key="NSFrame">{{14, 143}, {765, 18}}</string>
+												<string key="NSFrame">{{14, 253}, {765, 18}}</string>
 												<reference key="NSSuperview" ref="1031541742"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="712087121">
@@ -492,6 +492,28 @@
 													<bool key="NSUsesItemFromMenu">YES</bool>
 													<bool key="NSAltersState">YES</bool>
 													<int key="NSArrowPosition">2</int>
+												</object>
+											</object>
+											<object class="NSButton" id="554542196">
+												<reference key="NSNextResponder" ref="1031541742"/>
+												<int key="NSvFlags">266</int>
+												<string key="NSFrame">{{14, 193}, {765, 18}}</string>
+												<reference key="NSSuperview" ref="1031541742"/>
+												<bool key="NSEnabled">YES</bool>
+												<object class="NSButtonCell" key="NSCell" id="627584141">
+													<int key="NSCellFlags">-2080244224</int>
+													<int key="NSCellFlags2">0</int>
+													<string key="NSContents">Disconnect when computer goes to sleep$</string>
+													<reference key="NSSupport" ref="704877937"/>
+													<reference key="NSControlView" ref="554542196"/>
+													<int key="NSButtonFlags">1211912703</int>
+													<int key="NSButtonFlags2">2</int>
+													<reference key="NSNormalImage" ref="251990877"/>
+													<reference key="NSAlternateImage" ref="799096363"/>
+													<string key="NSAlternateContents"/>
+													<string key="NSKeyEquivalent"/>
+													<int key="NSPeriodicDelay">200</int>
+													<int key="NSPeriodicInterval">25</int>
 												</object>
 											</object>
 										</object>
@@ -3894,6 +3916,22 @@
 					</object>
 					<int key="connectionID">778</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">disconnectOnSleepCheckbox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="554542196"/>
+					</object>
+					<int key="connectionID">782</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">disconnectOnSleepCheckboxWasClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="554542196"/>
+					</object>
+					<int key="connectionID">783</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3983,11 +4021,12 @@
 							<reference ref="754729987"/>
 							<reference ref="899645523"/>
 							<reference ref="341666917"/>
-							<reference ref="893291553"/>
 							<reference ref="50164072"/>
 							<reference ref="683632961"/>
-							<reference ref="897521679"/>
 							<reference ref="544484406"/>
+							<reference ref="554542196"/>
+							<reference ref="897521679"/>
+							<reference ref="893291553"/>
 						</object>
 						<reference key="parent" ref="514359496"/>
 					</object>
@@ -5255,6 +5294,20 @@
 						<reference key="object" ref="361438425"/>
 						<reference key="parent" ref="651968254"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">779</int>
+						<reference key="object" ref="554542196"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="627584141"/>
+						</object>
+						<reference key="parent" ref="1031541742"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">780</int>
+						<reference key="object" ref="627584141"/>
+						<reference key="parent" ref="554542196"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -5432,7 +5485,9 @@
 					<string>77.IBPluginDependency</string>
 					<string>774.IBPluginDependency</string>
 					<string>775.IBPluginDependency</string>
+					<string>779.IBPluginDependency</string>
 					<string>78.IBPluginDependency</string>
+					<string>780.IBPluginDependency</string>
 					<string>79.IBPluginDependency</string>
 					<string>80.IBPluginDependency</string>
 					<string>81.IBPluginDependency</string>
@@ -5457,9 +5512,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{224, 285}, {829, 402}}</string>
+					<string>{{66, 402}, {829, 402}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{224, 285}, {829, 402}}</string>
+					<string>{{66, 402}, {829, 402}}</string>
 					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5652,6 +5707,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -5670,7 +5727,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">778</int>
+			<int key="maxID">783</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5735,6 +5792,7 @@
 							<string>allConfigurationsUseTheSameCredentialsCheckboxWasClicked:</string>
 							<string>checkIPAddressAfterConnectOnAdvancedCheckboxWasClicked:</string>
 							<string>connectingHelpButtonWasClicked:</string>
+							<string>disconnectOnSleepCheckboxWasClicked:</string>
 							<string>disconnectWhenUserSwitchesOutCheckboxWasClicked:</string>
 							<string>endSettingsSheet:</string>
 							<string>flushDnsCacheCheckboxWasClicked:</string>
@@ -5782,6 +5840,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -5799,6 +5858,7 @@
 							<string>credentialsGroupArrayController</string>
 							<string>credentialsGroupButton</string>
 							<string>credentialsTabViewItem</string>
+							<string>disconnectOnSleepCheckbox</string>
 							<string>disconnectWhenUserSwitchesOutCheckbox</string>
 							<string>dnsServersArrayController</string>
 							<string>dnsServersPopUpButton</string>
@@ -5876,6 +5936,7 @@
 							<string>NSArrayController</string>
 							<string>NSButton</string>
 							<string>NSTabViewItem</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSArrayController</string>
 							<string>NSPopUpButton</string>
