@@ -299,7 +299,7 @@
 "Check for updates to beta versions" = "Frissítések keresése a béta verziók között";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Jelezze ha a látható publikus IP cím változott a kapcsolódás után";
+"Check if the apparent public IP address changed after connecting" = "Jelezze ha a látható publikus IP cím változott a kapcsolódás után";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Megszakítás, amikor a felhasználó kijelentkezik";

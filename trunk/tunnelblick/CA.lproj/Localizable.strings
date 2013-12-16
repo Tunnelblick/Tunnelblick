@@ -305,7 +305,7 @@
 "Check for updates to beta versions" = "Cercar actualitzacions de versions de desenvolupament (beta)";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Comprovar si l'adreça pública IP aparent ha canviatdesprés de la connexió";
+"Check if the apparent public IP address changed after connecting" = "Comprovar si l'adreça pública IP aparent ha canviatdesprés de la connexió";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Desconnectar quan es canvia d'usuari";

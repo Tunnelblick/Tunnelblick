@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "Controleer op updates voor beta versies";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
+"Check if the apparent public IP address changed after connecting" = "Controleer of het publieke IP adres gewijzigd is na verbinden";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Verbinding verbreken wanneer gebruiker uitschakelt";

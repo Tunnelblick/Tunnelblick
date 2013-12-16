@@ -305,7 +305,7 @@
 "Check for updates to beta versions" = "Verificar atualizações para versões beta";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Verificar se o endereço IP público mudou após conexão";
+"Check if the apparent public IP address changed after connecting" = "Verificar se o endereço IP público mudou após conexão";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Desconectar quando o usuário sair";

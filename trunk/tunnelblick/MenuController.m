@@ -275,6 +275,9 @@ BOOL needToConvertNonTblks(void);
                                 @"timeoutForOpenvpnToTerminateAfterDisconnectBeforeAssumingItIsReconnecting",
                                 @"timeoutForIPAddressCheckBeforeConnection",
                                 @"timeoutForIPAddressCheckAfterConnection",
+                                @"timeoutForIPAddressCheckAfterSleeping",
+                                @"delayBeforeReconnectingAfterSleep",
+                                @"delayBeforeReconnectingAfterSleepAndIpaFetchError",
                                 @"hookupTimeout",
                                 @"openvpnTerminationTimeout",
                                 
@@ -435,6 +438,7 @@ BOOL needToConvertNonTblks(void);
 									  @"-openvpnVersion",
 									  @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection",
 									  @"-keepConnected",
+                                      @"-doNotDisconnectOnSleep",
 									  
                                       @"-changeDNSServersAction",
                                       @"-changeDomainAction",
@@ -2260,7 +2264,9 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 // If possible, we try to use 'killall' to kill all processes named 'openvpn'
 // But if there are unknown open processes that the user wants running, or we have active daemon processes,
 //     then we must use 'kill' to kill each individual process that should be killed
--(void) killAllConnectionsIncludingDaemons: (BOOL) includeDaemons logMessage: (NSString *) logMessage
+-(void) killAllConnectionsIncludingDaemons: (BOOL)       includeDaemons
+                                    except: (NSArray *)  connectionsToLeaveConnected
+                                logMessage: (NSString *) logMessage
 {
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
@@ -2312,6 +2318,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 //	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
 //		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
     if (   ALLOW_OPENVPNSTART_KILLALL
+        && ([connectionsToLeaveConnected count] == 0)
 		&& noDownRootsActive
 		&& ( includeDaemons
 			|| ( noUnknownOpenVPNsRunning && noActiveDaemons )
@@ -2341,7 +2348,8 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         // Killing selected processes only -- those we know about that are not daemons
 		connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [connEnum nextObject])  ) {
-            if (  ! [connection isDisconnected]  ) {
+            if (   ( ! [connection isDisconnected])
+                && ( ! [connectionsToLeaveConnected containsObject: connection])  ) {
                 NSString* onSystemStartKey = [[connection displayName] stringByAppendingString: @"-onSystemStart"];
                 NSString* autoConnectKey = [[connection displayName] stringByAppendingString: @"autoConnect"];
                 if (   ( ! [gTbDefaults boolForKey: onSystemStartKey]  )
@@ -2625,7 +2633,9 @@ static pthread_mutex_t cleanupMutex = PTHREAD_MUTEX_INITIALIZER;
     
     if (  ! [lastState isEqualToString:@"EXITING"]) {
 //        NSLog(@"DEBUG: Cleanup: Will killAllConnectionsIncludingDaemons: NO");
-        [self killAllConnectionsIncludingDaemons: NO logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];  // Kill any of our OpenVPN processes that still exist unless they're "on computer start" configurations
+        [self killAllConnectionsIncludingDaemons: NO
+                                          except: nil
+                                      logMessage: @"*Tunnelblick: Tunnelblick is quitting. Closing connection..."];
     }
     
     if (  reasonForTermination == terminatingBecauseOfFatalError  ) {
@@ -3877,7 +3887,7 @@ static void signal_handler(int signalNumber)
 // The Xcode 3.2 analyzer cannot deal with blocks, so to analyze (the rest of) MenuController, we don't compile the one section of code that has a block
 #ifdef TBAnalyzeONLY
                 #warning "NOT AN EXECUTABLE -- ANALYZE ONLY"
-				(void) idxSet;  // JKB
+				(void) idxSet;
 #else
 				[idxSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
 					(void) stop;
@@ -5749,18 +5759,30 @@ void terminateBecauseOfBadConfiguration(void)
 //	NSLog(@"DEBUG: willGoToSleepHandler: Setting up connections to restore when computer wakes up");
     
     [connectionsToRestoreOnWakeup removeAllObjects];
+    NSMutableArray * connectionsToLeaveConnected = [NSMutableArray arrayWithCapacity: 10];
     VPNConnection * connection; 
 	NSEnumerator * connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
     while (  (connection = [connEnum nextObject])  ) {
+        NSString * name = [connection displayName];
         if (  ! [[connection requestedState] isEqualToString: @"EXITING"]  ) {
-            [connectionsToRestoreOnWakeup addObject: connection];
+            BOOL disconnectOnSleep = ! [gTbDefaults boolForKey: [name stringByAppendingString: @"-doNotDisconnectOnSleep"]];
+            if (   disconnectOnSleep  ) {
+                BOOL reconnectOnWake   = ! [gTbDefaults boolForKey: [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"]];
+                if (  reconnectOnWake  ) {
+                    [connectionsToRestoreOnWakeup addObject: connection];
+                }
+            } else {
+                [connectionsToLeaveConnected addObject: connection];
+            }
         }
     }
     
     terminatingAtUserRequest = TRUE;
     if (  [connectionsToRestoreOnWakeup count] != 0  ) {
 //        NSLog(@"DEBUG: willGoToSleepHandler: Closing all connections");
-        [self killAllConnectionsIncludingDaemons: YES logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];  // Kill any OpenVPN processes that still exist
+        [self killAllConnectionsIncludingDaemons: YES
+                                          except: connectionsToLeaveConnected
+                                      logMessage: @"*Tunnelblick: Computer is going to sleep. Closing connections..."];
         if (  ! [gTbDefaults boolForKey: @"doNotPutOffSleepUntilOpenVPNsTerminate"] ) {
             // Wait until all OpenVPN processes have terminated
             NSLog(@"Putting off sleep until all OpenVPNs have terminated");
@@ -5783,12 +5805,59 @@ void terminateBecauseOfBadConfiguration(void)
     [self performSelectorOnMainThread: @selector(wokeUpFromSleep) withObject:nil waitUntilDone:NO];
 }
 
--(void)wokeUpFromSleep
+-(void) checkIPAddressAfterSleepingConnectionThread: (NSDictionary *) dict
 {
-    [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
+    // This method runs in a separate thread detached by startCheckingIPAddressAfterSleeping
     
-    gComputerIsGoingToSleep = FALSE;
-	if(NSDebugEnabled) NSLog(@"Computer just woke up from sleep");
+    NSAutoreleasePool * threadPool = [NSAutoreleasePool new];
+    
+	NSLog(@"DEBUG: checkIPAddressAfterSleepingConnectionThread invoked");
+	
+	VPNConnection * connection = [dict objectForKey: @"connection"];
+	NSString * threadID = [dict objectForKey: @"threadID"];
+	
+    NSTimeInterval timeoutToUse = 30.0;
+    id obj = [gTbDefaults objectForKey: @"timeoutForIPAddressCheckAfterSleeping"];
+    if (  [obj respondsToSelector: @selector(doubleValue)]  ) {
+        timeoutToUse = (NSTimeInterval) [obj doubleValue];
+    }
+	
+    uint64_t startTimeNanoseconds = nowAbsoluteNanoseconds();
+    
+    NSArray * ipInfo = [connection currentIPInfoWithIPAddress: NO timeoutInterval: timeoutToUse];
+    
+    // Stop here if on cancelling list
+    if (   [self isOnCancellingListIPCheckThread: threadID]  ) {
+        [self haveFinishedIPCheckThread: threadID];
+		NSLog(@"DEBUG: checkIPAddressAfterSleepingConnectionThread: cancelled because the thread is on the cancel list");
+        [threadPool drain];
+        return;
+    }
+	
+	if (  ipInfo  ) {
+		if (  [ipInfo count] < 3  ) {
+            NSLog(@"After %.1f seconds, gave up trying to fetch IP address information after sleeping", timeoutToUse);
+		} else {
+			NSLog(@"DEBUG: checkIPAddressAfterSleepingConnectionThread: success");
+		}
+
+	} else {
+        NSLog(@"An error occured fetching IP address information after sleeping");
+        uint64_t timeToWaitNanoseconds = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleepAndIpaFetchError" default: 5 min: 0 max: 600] * 1000000000ull;
+        uint64_t timeItTookNanoseconds = nowAbsoluteNanoseconds() - startTimeNanoseconds;
+        if (  timeItTookNanoseconds < timeToWaitNanoseconds  ) {
+            uint64_t sleepNanoseconds = timeToWaitNanoseconds - timeItTookNanoseconds;
+            usleep(sleepNanoseconds/1000);
+        }
+    }
+    
+    [self performSelectorOnMainThread: @selector(finishedWakingUpFromSleep) withObject: nil waitUntilDone: NO];
+    [threadPool drain];
+}
+
+-(void)finishedWakingUpFromSleep {
+    
+	NSLog(@"DEBUG: finishedWakingUpFromSleep invoked");
 	
 	NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
 	VPNConnection *connection;
@@ -5796,17 +5865,61 @@ void terminateBecauseOfBadConfiguration(void)
         NSString * name = [connection displayName];
         NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
         if (  ! [gTbDefaults boolForKey: key]  ) {
-            if (NSDebugEnabled) NSLog(@"Restoring connection %@", name);
+			NSLog(@"DEBUG: finishedWakingUpFromSleep: Attempting to connect %@", name);
             [connection addToLog: @"*Tunnelblick: Woke up from sleep. Attempting to re-establish connection..."];
             [connection connect:self userKnows: YES];
         } else {
-            if (NSDebugEnabled) NSLog(@"Not restoring connection %@ because of preference", name);
+            NSLog(@"DEBUG: finishedWakingUpFromSleep: Not restoring connection %@ because of '-doNotReconnectOnWakeFromSleep' preference", name);
             [connection addToLog: @"*Tunnelblick: Woke up from sleep. Not attempting to re-establish connection..."];
         }
 	}
     
     [connectionsToRestoreOnWakeup removeAllObjects];
 }
+
+-(void)wokeUpFromSleep
+{
+    [self recreateStatusItemAndMenu]; // Recreate the Tunnelblick icon
+    
+    gComputerIsGoingToSleep = FALSE;
+	
+    if (  [connectionsToRestoreOnWakeup count]  == 0  ) {
+		NSLog(@"DEBUG: wokeUpFromSleep: no configurations to reconnect");
+        return;
+    }
+    
+    // See if any connections that we are waking up allow us to check the IP address after connecting
+    VPNConnection * connectionToCheckIpAddress = nil;
+    NSEnumerator *e = [connectionsToRestoreOnWakeup objectEnumerator];
+	VPNConnection *connection;
+	while (  (connection = [e nextObject])  ) {
+        NSString * name = [connection displayName];
+        NSString * key  = [name stringByAppendingString: @"-doNotReconnectOnWakeFromSleep"];
+        if (  ! [gTbDefaults boolForKey: key]  ) {
+            key = [name stringByAppendingString: @"-notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+            if (  ! [gTbDefaults boolForKey: key]  ) {
+                connectionToCheckIpAddress = [[connection retain] autorelease];
+                break;
+            }
+        }
+    }
+    
+    if (  connectionToCheckIpAddress  ) {
+        NSString * threadID = [NSString stringWithFormat: @"%lu-%llu", (long) self, (long long) nowAbsoluteNanoseconds()];
+        [self addActiveIPCheckThread: threadID];
+		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+							   connection, @"connection",
+							   threadID,   @"threadID",
+							   nil];
+		NSLog(@"DEBUG: wokeUpFromSleep: will check IP address to determine connectivity");
+        [NSThread detachNewThreadSelector: @selector(checkIPAddressAfterSleepingConnectionThread:) toTarget: self withObject: dict];
+    } else {
+        unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
+		NSLog(@"DEBUG: wokeUpFromSleep: cannot check IP address to determine connectivity so sleeping %d seconds", sleepTime);
+        sleep(sleepTime);
+    }
+}
+
 -(void)didBecomeInactiveUserHandler: (NSNotification *) n
 {
  	(void) n;

@@ -266,7 +266,7 @@
 "Check for updates to beta versions" = "Verificare la presenza di aggiornamenti di versioni beta";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Verifica se l’indirizzo IP pubblico apparente cambia dopo la connessione";
+"Check if the apparent public IP address changed after connecting" = "Verifica se l’indirizzo IP pubblico apparente cambia dopo la connessione";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Disconnetti quando l'utente esce";

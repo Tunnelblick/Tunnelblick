@@ -206,6 +206,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
         isHookedup = FALSE;
         tunOrTap = nil;
         areDisconnecting = FALSE;
+        areConnecting = FALSE;
         loadedOurTap = FALSE;
         loadedOurTun = FALSE;
         logFilesMayExist = FALSE;
@@ -280,10 +281,11 @@ extern NSString * lastPartOfPath(NSString * thePath);
     tryingToHookup   = FALSE;
     isHookedup       = FALSE;
     areDisconnecting = FALSE;
-    loadedOurTap = FALSE;
-    loadedOurTun = FALSE;
+    areConnecting    = FALSE;
+    loadedOurTap     = FALSE;
+    loadedOurTun     = FALSE;
     logFilesMayExist = FALSE;
-    serverNotClient = FALSE;
+    serverNotClient  = FALSE;
 }
 
 -(void) tryToHookupToPort: (unsigned) inPortNumber
@@ -962,10 +964,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         [req setCachePolicy: NSURLRequestReloadIgnoringCacheData];
     }
 	
-	// Make the request synchronously
-    // The request before a connection is made must be synchronous so it finishes before initiating the connection
-    // The request after a connection has been made should be asynchronous. Do that (in effect) by invoking this
-    // method from a separate thread.
+	// Make the request synchronously. Make it asynchronous (in effect) by invoking this method from a separate thread.
     //
 	// Implements the timeout and times the requests
     NSHTTPURLResponse * urlResponse;
@@ -1225,7 +1224,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         [self ipInfoErrorDialog];
     }
     
-    [threadPool release];
+    [threadPool drain];
 }
 
 -(void) checkIPAddressAfterConnectedThread: (NSString *) threadID
@@ -1340,6 +1339,9 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 //******************************************************************************************************************
+
+static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
+
 - (void) connect: (id) sender userKnows: (BOOL) userKnows
 {
 	(void) sender;
@@ -1353,6 +1355,21 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                         nil, nil, nil);
         return;
     }
+
+    if (  ! [lastState isEqualToString: @"EXITING"]  ) {
+        //		NSLog(@"DEBUG: connect: but %@ is not disconnected", [self displayName]);
+        return;
+    }
+    
+    pthread_mutex_lock( &areConnectingMutex );
+    if (  areConnecting  ) {
+        pthread_mutex_unlock( &areConnectingMutex );
+        NSLog(@"connect: while connecting");
+        return;
+    }
+    
+    areConnecting = TRUE;
+    pthread_mutex_unlock( &areConnectingMutex );
     
     NSString * oldRequestedState = requestedState;
     if (  userKnows  ) {
@@ -1391,6 +1408,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                 if (  userKnows  ) {
                     requestedState = oldRequestedState;
                 }
+                areConnecting = FALSE;
                 return;
             }
         }
@@ -1419,6 +1437,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
         if (  userKnows  ) {
             requestedState = oldRequestedState; // User cancelled
         }
+        areConnecting = FALSE;
         return;
     }
 		
@@ -1444,7 +1463,8 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                                     nil, nil, nil);
                     requestedState = oldRequestedState;
                 }
-                return;
+                areConnecting = FALSE;
+               return;
             }
         }
     }
@@ -1524,6 +1544,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                                     extraArguments: nil]  ) {
                 // the user cancelled or an error occurred
 				// if an error occurred, runInstaller has already put up an error dialog and put a message in the console log
+                areConnecting = FALSE;
 				return;
             }
             
@@ -1532,6 +1553,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
                 retryingConnectAfterSecuringConfiguration = TRUE;
                 [self connect: sender userKnows: userKnows];
                 retryingConnectAfterSecuringConfiguration = FALSE;
+                areConnecting = FALSE;
                 return;
             }
             
@@ -2025,7 +2047,9 @@ static pthread_mutex_t areDisconnectingMutex = PTHREAD_MUTEX_INITIALIZER;
                && (  [connectedList objectAtIndex: 0] == self  )
 			   && notUsingDownRootPlugin  ) {
 		[self addToLog: @"*Tunnelblick: Disconnecting using 'killall'"];
-        [[NSApp delegate] killAllConnectionsIncludingDaemons: FALSE logMessage: [NSString stringWithFormat: @"Using 'killall' to disconnect %@", [self displayName]]];
+        [[NSApp delegate] killAllConnectionsIncludingDaemons: FALSE
+													  except: nil
+												  logMessage: [NSString stringWithFormat: @"Using 'killall' to disconnect %@", [self displayName]]];
 		disconnectionComplete = [NSApp waitUntilNoProcessWithID: thePid];
     } else {
         if([managementSocket isConnected]) {
@@ -2212,11 +2236,12 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 	NSNumber * oldPidAsNumber = [NSNumber numberWithLong: (long) pid];
 	
     [self disconnectFromManagmentSocket];
-    portNumber = 0;
-    pid = 0;
+    portNumber       = 0;
+    pid              = 0;
     areDisconnecting = FALSE;
-    isHookedup = FALSE;
-    tryingToHookup = FALSE;
+    areConnecting    = FALSE;
+    isHookedup       = FALSE;
+    tryingToHookup   = FALSE;
     
     [[NSApp delegate] removeConnection:self];
     

@@ -65,6 +65,7 @@ typedef enum {
     IBOutlet NSButton            * showOnTunnelBlickMenuCheckbox;
     IBOutlet NSButton            * flushDnsCacheCheckbox;
     IBOutlet NSButton            * prependDomainNameCheckbox;
+    IBOutlet NSButton            * disconnectOnSleepCheckbox;
     IBOutlet NSButton            * reconnectOnWakeFromSleepCheckbox;
     IBOutlet NSButton            * resetPrimaryInterfaceAfterDisconnectCheckbox;
     
@@ -187,6 +188,7 @@ typedef enum {
 
 -(void) setupPrependDomainNameCheckbox;
 -(void) setupFlushDNSCheckbox;
+-(void) setupDisconnectOnSleepCheckbox;
 -(void) setupReconnectOnWakeFromSleepCheckbox;
 -(void) setupResetPrimaryInterfaceAfterDisconnectCheckbox;
 -(void) setupRouteAllTrafficThroughVpnCheckbox;
@@ -199,6 +201,7 @@ typedef enum {
 -(IBAction) showOnTunnelBlickMenuCheckboxWasClicked:          (id) sender;
 -(IBAction) flushDnsCacheCheckboxWasClicked:                  (id) sender;
 -(IBAction) prependDomainNameCheckboxWasClicked:              (id) sender;
+-(IBAction) disconnectOnSleepCheckboxWasClicked:              (id) sender;
 -(IBAction) reconnectOnWakeFromSleepCheckboxWasClicked:       (id) sender;
 -(IBAction) resetPrimaryInterfaceAfterDisconnectCheckboxWasClicked:   (id) sender;
 -(IBAction) routeAllTrafficThroughVpnCheckboxWasClicked:      (id) sender;

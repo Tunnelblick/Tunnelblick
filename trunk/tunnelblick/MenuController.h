@@ -215,6 +215,7 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(unsigned)         incrementTapCount;
 -(unsigned)         incrementTunCount;
 -(void)             killAllConnectionsIncludingDaemons:     (BOOL)              includeDaemons
+                                                except:     (NSArray *)         connectionsToLeaveConnected
                                             logMessage:     (NSString *)        logMessage;
 -(BOOL)             loadMenuIconSet;
 -(BOOL)             loadMenuIconSet:                        (NSString *)        iconSetName

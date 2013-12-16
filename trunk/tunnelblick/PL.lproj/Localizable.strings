@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "Automatycznie sprawdzaj aktualizacje do wersji beta";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Sprawdź, czy adres IP zmienia się po nawiązaniu połączenia";
+"Check if the apparent public IP address changed after connecting" = "Sprawdź, czy adres IP zmienia się po nawiązaniu połączenia";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Rozłącz po wylogowaniu użytkownika";

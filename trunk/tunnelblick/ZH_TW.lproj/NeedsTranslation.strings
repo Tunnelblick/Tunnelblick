@@ -53,7 +53,7 @@
 "Speak" = "Speak";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "Check if the apparent public IP address changed after connection";
+"Check if the apparent public IP address changed after connecting" = "Check if the apparent public IP address changed after connecting";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "Disconnect when user switches out";

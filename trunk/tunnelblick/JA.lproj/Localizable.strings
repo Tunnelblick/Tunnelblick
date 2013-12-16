@@ -302,7 +302,7 @@
 "Check for updates to beta versions" = "ベータ版の更新もチェックする";
 
 /* Checkbox name */
-"Check if the apparent public IP address changed after connection" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
+"Check if the apparent public IP address changed after connecting" = "接続後に見かけ上のグローバルIPアドレスが変わったかチェックする";
 
 /* Checkbox name */
 "Disconnect when user switches out" = "切り替え時に切断する";
