@@ -1,7 +1,7 @@
-#summary Tunnelblick, Privacy, and Security
+#summary Privacy and Security
 #sidebar cSb
 
-=Tunnelblick, Privacy, and Security=
+=Privacy and Security=
 
 <wiki:toc max_depth="2" />
 
