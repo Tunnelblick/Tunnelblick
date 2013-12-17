@@ -8,6 +8,7 @@
     [cWhatIs What is Tunnelblick?]<br>
     [cWhatElse What else you need]<br>
     [cGettingVPNService Getting VPN Service]<br>
+    [cPrivacy Privacy and Security]<br>
     [cHowHelp How you can help]<br>
     [cFAQ FAQ]<br>
 *Installation, Setup, and Usage*
