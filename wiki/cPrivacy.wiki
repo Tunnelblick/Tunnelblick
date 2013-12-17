@@ -48,7 +48,7 @@ In addition to using OpenVPN to set up, maintain, and tear down a VPN connection
 
 Tunnelblick asks for permission for each of these activities when first launched. The permissions may be modified any other time by changing the appropriate Tunnelblick setting.
 
-Note: Tunnelblick performs these activities by accessing tunnelblick.net, and the tunnelblick.net website keeps logs as described in [#tunnelblick.net_Logging tunnelblick.net Logging].\
+Note: Tunnelblick performs these activities by accessing tunnelblick.net, and the tunnelblick.net website keeps logs as described in [#tunnelblick.net_Logging tunnelblick.net Logging].
 
 If you do not want this activity logged, disable update checks and, for all of your configurations, disable checking for apparent IP address changes.
 
