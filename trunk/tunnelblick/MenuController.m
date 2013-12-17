@@ -3424,22 +3424,29 @@ static void signal_handler(int signalNumber)
             if (  url  ) {
 				NSString * host = [url host];
 				if (  host  ) {
-					int result = TBRunAlertPanel(NSLocalizedString(@"New Feature", @"Window title"),
-												 [NSString stringWithFormat:
-												  NSLocalizedString(@"Tunnelblick can check that the apparent public IP address of your computer"
-																	@" changes when you connect to a VPN, and warn you if it doesn't.\n\n"
-																	@"This may help Tunnelblick diagnose problems with your connection.\n\n"
-																	@"This process attempts to access\n"
-																	@"%@\n\n"
-																	@"Do you wish to check for this IP address change?\n", @"Window text"), host],
-												 NSLocalizedString(@"Check for a change", @"Button"),           // Default
-												 NSLocalizedString(@"Do not check for a change", @"Button"),    // Alternate
-												 nil);
-                    // Only check for change if requested (not if error)
-					[gTbDefaults setBool: (result != NSAlertDefaultReturn)
-								  forKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
-					[gTbDefaults setBool: YES
-								  forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+					int result;
+                    do {
+                        result = TBRunAlertPanel(NSLocalizedString(@"New Feature", @"Window title"),
+                                                 [NSString stringWithFormat:
+                                                  NSLocalizedString(@"Tunnelblick can check that the apparent public IP address of your computer"
+                                                                    @" changes when you connect to a VPN, and warn you if it doesn't.\n\n"
+                                                                    @"This may help Tunnelblick diagnose problems with your connection.\n\n"
+                                                                    @"This process attempts to access\n"
+                                                                    @"%@\n\n"
+                                                                    @"Do you wish to check for this IP address change?\n", @"Window text"), host],
+                                                 NSLocalizedString(@"Check for a change", @"Button"),           // Default
+                                                 NSLocalizedString(@"Privacy info...", @"Button"),              // Alternate
+												 NSLocalizedString(@"Do not check for a change", @"Button"));   // Other
+                        if (  result == NSAlertAlternateReturn  ) {
+                            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.tunnelblick.net/privacy.html"]];
+                        } else {
+                            // Only check for change if requested (not if error)
+                            [gTbDefaults setBool: (result != NSAlertDefaultReturn)
+                                          forKey: @"notOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+                            [gTbDefaults setBool: YES
+                                          forKey: @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection"];
+                        }
+                    } while (  result == NSAlertAlternateReturn);
 				} else {
 					NSLog(@"Could not extract host from URL: %@", url);
 				}
