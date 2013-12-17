@@ -8,7 +8,7 @@
 <hr>
 ==Tunnelblick and VPNs: Privacy and Security==
 
-Tunnelblick (and VPNs in general) is usually used for one or more of the following purposes:
+Tunnelblick and VPNs are often used for one or more of the following purposes:
  * To protect against eavesdropping and man-in-the-middle attacks when using an untrusted network to access the Internet (for example, from a coffee shop wireless network)
  * To protect against eavesdropping and man-in-the-middle attacks when using the Internet to access  a secured network (for example, accessing a corporate network from home)
  * To make websites think your computer is somewhere it isn't (e.g., accessing UK television programs from non-UK locations)
