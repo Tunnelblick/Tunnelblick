@@ -1855,24 +1855,25 @@ static BOOL firstTimeShowingWindow = TRUE;
     
 	NSRange tsRng = NSMakeRange(0, [tmpString length]);	// range we are looking at currently; start with entire string
     unsigned i;
+	unsigned offset = 2;
 	for (  i=0; i<201; i++  ) {
 		NSRange nlRng = [tmpString rangeOfString: @"\n"	// range of last newline at end of part we are looking at
 										 options: NSBackwardsSearch
 										   range: tsRng];
 		
-		if (  nlRng.length == 0  ) {   // newline not found;  set up to start at start of string
-			tsRng.length = -2;         // (-2 + 2 = 0, so we will start at start of string)
+		if (  nlRng.length == 0  ) {    // newline not found (fewer than 200 lines in tmpString);  set up to start at start of string
+			offset = 0;
 			break;
 		}
 		
         if (  nlRng.location == 0  ) {  // newline at start of string (shouldn't happen, but...)
-			tsRng.length = -1;			// set up to start _after_ the newline (-1 + 2 = 1)
+			offset = 1;					// set up to start _after_ the newline
             break;
         }
         
-		tsRng.length = nlRng.location - 1;				// change so looking before that newline 
+		tsRng.length = nlRng.location - 1; // change so looking before that newline 
 	}
-	NSString * tail = [tmpString substringFromIndex: tsRng.length + 2];
+	NSString * tail = [tmpString substringFromIndex: tsRng.length + offset];
 	
 	// Finally, indent continuation lines
 	NSMutableString * indentedMsg = [[tail mutableCopy] autorelease];
