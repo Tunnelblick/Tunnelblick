@@ -80,6 +80,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
     
     NSMenuItem              * quitItem;                     // "Quit Tunnelblick" item for menu
 
+    NSArray                 * screenList;                   // Array of NSDictionaries with info about each display screen
+    
     NSAnimation             * theAnim;                      // For animation of the Tunnelblick icon in the Status Bar
 	
     NSMutableArray          * animImages;                   // Images for animation of the Tunnelblick icon in the Status Bar
@@ -249,7 +251,8 @@ void * _NSConcreteStackBlock __attribute__((weak));
 -(void)             setState:                               (NSString *)        newState;
 -(void)             setOurPreferencesFromSparkles;
 -(NSArray *)        sortedSounds;
--(void)             unloadKexts; 
+-(unsigned)         statusScreenIndex;
+-(void)             unloadKexts;
 -(BOOL)             userIsAnAdmin;
 -(void)             statusWindowController:                 (id)                ctl
                         finishedWithChoice:                 (StatusWindowControllerChoice) choice
@@ -306,6 +309,7 @@ TBPROPERTY_READONLY(NSMenu *,		myVPNMenu)
 TBPROPERTY_READONLY(NSMutableArray *, activeIPCheckThreads)
 TBPROPERTY_READONLY(NSMutableArray *, cancellingIPCheckThreads)
 
+TBPROPERTY(NSArray *,      screenList,                setScreenList)
 TBPROPERTY(MainIconView *, ourMainIconView,           setOurMainIconView)
 TBPROPERTY(NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBPROPERTY(NSDictionary *, myConfigDictionary,        setMyConfigDictionary)

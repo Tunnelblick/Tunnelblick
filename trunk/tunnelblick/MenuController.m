@@ -278,6 +278,7 @@ BOOL needToConvertNonTblks(void);
                                 @"timeoutForIPAddressCheckAfterSleeping",
                                 @"delayBeforeReconnectingAfterSleep",
                                 @"delayBeforeReconnectingAfterSleepAndIpaFetchError",
+                                @"delayBeforeIPAddressCheckAfterConnection",
                                 @"hookupTimeout",
                                 @"openvpnTerminationTimeout",
                                 
@@ -294,8 +295,8 @@ BOOL needToConvertNonTblks(void);
                                 @"IPAddressCheckURL",
                                 @"notOKToCheckThatIPAddressDidNotChangeAfterConnection",
                                 @"askedUserIfOKToCheckThatIPAddressDidNotChangeAfterConnection",
-                                @"delayBeforeIPAddressCheckAfterConnection",
                                 @"tunnelblickVersionHistory",
+								@"statusDisplayNumber",
                                 
                                 @"disableAdvancedButton",
                                 @"disableCheckNowButton",
@@ -1030,6 +1031,65 @@ BOOL needToConvertNonTblks(void);
     }
 }
 
+-(void) updateScreenList {
+    
+    NSArray * screenArray = [NSScreen screens];
+    NSMutableArray * screens = [NSMutableArray arrayWithCapacity: [screenArray count]];
+    unsigned i;
+    for (  i=0; i<[screenArray count]; i++  ) {
+		NSScreen * screen = [screenArray objectAtIndex: i];
+        NSDictionary * dict = [screen deviceDescription];
+        CGDirectDisplayID displayNumber = [[dict objectForKey: @"NSScreenNumber"] unsignedIntValue];
+		NSRect displayFrame = [screen frame];
+        unsigned displayWidth  = (unsigned) displayFrame.size.width;
+        unsigned displayHeight = (unsigned) displayFrame.size.height;
+		
+        [screens addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithUnsignedInt: (unsigned) displayNumber], @"DisplayNumber",
+                             [NSNumber numberWithUnsignedInt:            displayWidth],  @"DisplayWidth",
+                             [NSNumber numberWithUnsignedInt:            displayHeight], @"DisplayHeight",
+                             nil]];
+    }
+    
+    [self setScreenList: [NSArray arrayWithArray: screens]];
+}
+
+-(unsigned) statusScreenIndex {
+    
+    // Returns an index into screenList of the display on which the status screen should be displayed
+	
+    unsigned returnValue = UINT_MAX;
+	
+    unsigned displayNumberFromPrefs = [gTbDefaults unsignedIntForKey: @"statusDisplayNumber" default: 0 min: 0 max: UINT_MAX];
+    if (  displayNumberFromPrefs == 0 ) {
+		returnValue = 0;
+	} else {
+		unsigned i;
+		for (  i=0; i<[screenList count]; i++  ) {
+			NSDictionary * dict = [screenList objectAtIndex: i];
+			unsigned displayNumber = [[dict objectForKey: @"DisplayNumber"] unsignedIntValue];
+			if (  displayNumber == displayNumberFromPrefs  ) {
+				returnValue = i;
+				break;
+			}
+		}
+	}
+	
+	if (  returnValue == UINT_MAX  ) {
+		NSLog(@"Selected status window screen is not available, using screen 0");
+		returnValue = 0;
+	}
+	
+	return returnValue;
+}
+
+-(void) screenParametersChanged {
+    
+    [self updateScreenList];
+    [self recreateStatusItemAndMenu];
+	[logScreen setupAppearanceConnectionWindowScreenButton];
+}
+
 -(void) screenParametersChangedHandler: (NSNotification *) n {
     
     (void) n;
@@ -1038,7 +1098,7 @@ BOOL needToConvertNonTblks(void);
         return;
     }
     
-	[self                   performSelectorOnMainThread: @selector(recreateStatusItemAndMenu)                           withObject: nil waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(screenParametersChanged) withObject: nil waitUntilDone: NO];
 }
 
 -(void) activeDisplayDidChangeHandler: (NSNotification *) n {
@@ -1049,7 +1109,7 @@ BOOL needToConvertNonTblks(void);
         return;
     }
     
-	[self                   performSelectorOnMainThread: @selector(recreateStatusItemAndMenu)                           withObject: nil waitUntilDone: NO];
+	[self performSelectorOnMainThread: @selector(recreateStatusItemAndMenu) withObject: nil waitUntilDone: NO];
 }
 
 - (void) menuExtrasWereAddedHandler: (NSNotification*) n
@@ -3342,7 +3402,8 @@ static void signal_handler(int signalNumber)
 	
 	[NSApp callDelegateOnNetworkChange: NO];
     [self installSignalHandler];    
-    
+	[self updateScreenList];
+
     // If checking for updates is enabled, we do a check every time Tunnelblick is launched (i.e., now)
     // We also check for updates if we haven't set our preferences yet. (We have to do that so that Sparkle
     // will ask the user whether to check or not, then we set our preferences from that.)
@@ -6473,6 +6534,7 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSMenu *,       myVPNMenu)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, activeIPCheckThreads)
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, cancellingIPCheckThreads)
 
+TBSYNTHESIZE_OBJECT(retain, NSArray *,      screenList,                setScreenList)
 TBSYNTHESIZE_OBJECT(retain, MainIconView *, ourMainIconView,           setOurMainIconView)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myVPNConnectionDictionary, setMyVPNConnectionDictionary)
 TBSYNTHESIZE_OBJECT(retain, NSDictionary *, myConfigDictionary,        setMyConfigDictionary)
