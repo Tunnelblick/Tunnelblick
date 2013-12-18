@@ -81,6 +81,7 @@
     // For AppearanceView
     IBOutlet NSUInteger            selectedAppearanceIconSetIndex;
     IBOutlet NSUInteger            selectedAppearanceConnectionWindowDisplayCriteriaIndex;
+    IBOutlet NSUInteger            selectedAppearanceConnectionWindowScreenIndex;
 }
 
 
@@ -97,6 +98,7 @@
 -(void) validateConnectAndDisconnectButtonsForConnection:     (VPNConnection *) theConnection;
 -(void) monitorNetworkForChangesCheckboxChangedForConnection: (VPNConnection *) theConnection;
 -(void) doLogScrollingForConnection:                          (VPNConnection *) theConnection;
+-(void) setupAppearanceConnectionWindowScreenButton;
 
 // Used by LogDisplay to scroll to the current point in the log
 -(NSTextView *) logView;
@@ -201,5 +203,6 @@ TBPROPERTY(NSUInteger, selectedMaximumLogSizeIndex,   setSelectedMaximumLogSizeI
 
 TBPROPERTY(NSUInteger, selectedAppearanceIconSetIndex,                         setSelectedAppearanceIconSetIndex)
 TBPROPERTY(NSUInteger, selectedAppearanceConnectionWindowDisplayCriteriaIndex, setSelectedAppearanceConnectionWindowDisplayCriteriaIndex)
+TBPROPERTY(NSUInteger, selectedAppearanceConnectionWindowScreenIndex, setSelectedAppearanceConnectionWindowScreenIndex)
 
 @end

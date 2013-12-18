@@ -140,7 +140,7 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
     
     // Adjust the width of the window to fit the complete title
     // But never make it smaller than the original window, or larger than will fit on the screen
-    NSRect screen = [[[NSScreen screens] objectAtIndex: 0] visibleFrame];
+    NSRect screen = [[[NSScreen screens] objectAtIndex: [[NSApp delegate] statusScreenIndex]] visibleFrame];   // Use the screen on which we are displaying status windows
     if (  currentWidth == 0.0  ) {
         currentWidth = [NSWindow minFrameWidthWithTitle: [panel title] styleMask: NSHUDWindowMask];
     }

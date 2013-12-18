@@ -146,6 +146,7 @@ static BOOL firstTimeShowingWindow = TRUE;
     selectedMaximumLogSizeIndex                            = UINT_MAX;
     selectedAppearanceIconSetIndex                         = UINT_MAX;
     selectedAppearanceConnectionWindowDisplayCriteriaIndex = UINT_MAX;
+    selectedAppearanceConnectionWindowScreenIndex          = UINT_MAX;
     
     [self setupConfigurationsView];
     [self setupGeneralView];
@@ -2678,7 +2679,6 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             selectedKeyboardShortcutIndex = newValue;
             
             // Select the new size
-            NSArrayController * ac = [generalPrefsView keyboardShortcutArrayController];
             [ac setSelectionIndex: newValue];
             
             // Set the preference
@@ -2719,36 +2719,10 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
 }
 
--(void) setupDisplayStatisticsWindowCheckbox {
-    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
-        [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setState: NSOffState];
-        [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setEnabled: NO];
-    } else {
-        [self setValueForCheckbox: [appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox]
-                    preferenceKey: @"doNotShowNotificationWindowOnMouseover"
-                         inverted: YES
-                       defaultsTo: FALSE];
-    }
-}    
-    
--(void) setupDisplayStatisticsWindowWhenDisconnectedCheckbox {
-    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
-        [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setState: NSOffState];
-        [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setEnabled: NO];
-    } else {
-        [self setValueForCheckbox: [appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox]
-                    preferenceKey: @"doNotShowDisconnectedNotificationWindows"
-                         inverted: YES
-                       defaultsTo: FALSE];
-    }
-}    
-
 //***************************************************************************************************************
 
--(void) setupAppearanceView
-{
-    // Select value for icon set popup
-    
+-(void) setupAppearanceIconSetButton {
+	
     NSString * defaultIconSetName    = @"TunnelBlick.TBMenuIcons";
     
     NSString * iconSetToUse = [gTbDefaults objectForKey: @"menuIconSet"];
@@ -2771,7 +2745,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             defaultIconSetIx = i;
         }
     }
-
+	
     if (  iconSetIx == UINT_MAX) {
         iconSetIx = defaultIconSetIx;
     }
@@ -2791,46 +2765,17 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
     
     if (  iconSetIx == UINT_MAX  ) {
-         [NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), @"name", @"", @"value", nil];
+		[NSDictionary dictionaryWithObjectsAndKeys: NSLocalizedString(@"(None available)", @"Button"), @"name", @"", @"value", nil];
         [self setSelectedAppearanceIconSetIndex: 0];
     } else {
         [self setSelectedAppearanceIconSetIndex: iconSetIx];
     }
     
     [[appearancePrefsView appearanceIconSetButton] setEnabled: [gTbDefaults canChangeValueForKey: @"menuIconSet"]];
+}
 
-    // Set up the checkboxes
-    
-    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
-                preferenceKey: @"doNotShowConnectionSubmenus"
-                     inverted: YES
-                   defaultsTo: FALSE];
-    
-    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionTimersCheckbox]
-                preferenceKey: @"showConnectedDurations"
-                     inverted: NO
-                   defaultsTo: FALSE];
-    
-    [self setValueForCheckbox: [appearancePrefsView appearanceDisplaySplashScreenCheckbox]
-                preferenceKey: @"doNotShowSplashScreen"
-                     inverted: YES
-                   defaultsTo: FALSE];
-    
-    if (   runningSeparateMultipleScreensOnMavericksOrNewer()  ) {
-        NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
-        [checkbox setState:   NO];
-        [checkbox setEnabled: NO];
-    } else {
-        [self setValueForCheckbox: [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox]
-                    preferenceKey: @"placeIconInStandardPositionInStatusBar"
-                         inverted: YES
-                       defaultsTo: FALSE];
-    }
-    
-    // Note: [self setupDisplayStatisticsWindowCheckbox] is invoked below, by setSelectedAppearanceConnectionWindowDisplayCriteriaIndex
-    
-    // Set up connection window display criteria
-    
+-(void) setupAppearanceConnectionWindowDisplayCriteriaButton {
+	
     NSString * displayCriteria = [gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"];
     if (  ! displayCriteria  ) {
         displayCriteria = @"showWhenConnecting";
@@ -2839,6 +2784,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     NSUInteger displayCriteriaIx = UINT_MAX;
     NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowDisplayCriteriaArrayController];
     NSArray * list = [ac content];
+	unsigned i;
     for (  i=0; i<[list count]; i++  ) {
         NSDictionary * dict = [list objectAtIndex: i];
         NSString * preferenceValue = [dict objectForKey: @"value"];
@@ -2859,6 +2805,123 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
     }
     
     [[appearancePrefsView appearanceConnectionWindowDisplayCriteriaButton] setEnabled: [gTbDefaults canChangeValueForKey: @"connectionWindowDisplayCriteria"]];
+}
+
+-(void) setupDisplayStatisticsWindowCheckbox {
+    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setState: NSOffState];
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox] setEnabled: NO];
+    } else {
+        [self setValueForCheckbox: [appearancePrefsView appearanceDisplayStatisticsWindowsCheckbox]
+                    preferenceKey: @"doNotShowNotificationWindowOnMouseover"
+                         inverted: YES
+                       defaultsTo: FALSE];
+    }
+}    
+    
+-(void) setupDisplayStatisticsWindowWhenDisconnectedCheckbox {
+    if (  [[gTbDefaults objectForKey: @"connectionWindowDisplayCriteria"] isEqualToString: @"neverShow"] ) {
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setState: NSOffState];
+        [[appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox] setEnabled: NO];
+    } else {
+        [self setValueForCheckbox: [appearancePrefsView appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox]
+                    preferenceKey: @"doNotShowDisconnectedNotificationWindows"
+                         inverted: YES
+                       defaultsTo: FALSE];
+    }
+}
+
+-(void) setupAppearanceConnectionWindowScreenButton {
+	
+    selectedAppearanceConnectionWindowScreenIndex = UINT_MAX;
+	
+    NSArray * screens = [[NSApp delegate] screenList];
+    
+    if (   ([screens count] < 2)
+		|| (selectedAppearanceConnectionWindowDisplayCriteriaIndex == 0)  ) {
+        
+		// Show the default screen, but don't change the preference
+		BOOL wereDoingSetupOfUI = [[NSApp delegate] doingSetupOfUI];
+		[[NSApp delegate] setDoingSetupOfUI: TRUE];
+        [self setSelectedAppearanceConnectionWindowScreenIndex: 0];
+		[[NSApp delegate] setDoingSetupOfUI: wereDoingSetupOfUI];
+		
+        [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: NO];
+		
+    } else {
+		
+        unsigned displayNumberFromPrefs = [gTbDefaults unsignedIntForKey: @"statusDisplayNumber" default: 0 min: 0 max: UINT_MAX];
+        unsigned screenIxToSelect;
+        if (  displayNumberFromPrefs == 0 ) {
+            screenIxToSelect = 0;   // Screen to use was not specified, use default screen
+        } else {
+            screenIxToSelect = UINT_MAX;
+            unsigned i;
+            for (  i=0; i<[screens count]; i++) {
+                NSDictionary * dict = [screens objectAtIndex: i];
+                unsigned displayNumber = [[dict objectForKey: @"DisplayNumber"] unsignedIntValue];
+                if (  displayNumber == displayNumberFromPrefs  ) {
+                    screenIxToSelect = i+1;
+                    break;
+                }
+            }
+            
+            if (  screenIxToSelect == UINT_MAX) {
+                NSLog(@"Display # is not available, using default");
+                screenIxToSelect = 0;
+            }
+        }
+        
+		NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowScreenArrayController];
+		NSArray * list = [ac content];
+        if (  screenIxToSelect >= [list count]  ) {
+            NSLog(@"Invalid screenIxToSelect %lu; maximum is %ld", (unsigned long)screenIxToSelect, (long) [list count]-1);
+            screenIxToSelect = 0;
+        }
+        
+        [self setSelectedAppearanceConnectionWindowScreenIndex: screenIxToSelect];
+        
+        [[appearancePrefsView appearanceConnectionWindowScreenButton] setEnabled: [gTbDefaults canChangeValueForKey: @"statusDisplayNumber"]];
+    }
+}
+
+-(void) setupAppearanceView
+{
+	[self setupAppearanceIconSetButton];
+
+    if (   runningSeparateMultipleScreensOnMavericksOrNewer()  ) {
+        NSButton * checkbox = [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox];
+        [checkbox setState:   NO];
+        [checkbox setEnabled: NO];
+    } else {
+        [self setValueForCheckbox: [appearancePrefsView appearancePlaceIconNearSpotlightCheckbox]
+                    preferenceKey: @"placeIconInStandardPositionInStatusBar"
+                         inverted: YES
+                       defaultsTo: FALSE];
+    }
+    
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionSubmenusCheckbox]
+                preferenceKey: @"doNotShowConnectionSubmenus"
+                     inverted: YES
+                   defaultsTo: FALSE];
+    
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplayConnectionTimersCheckbox]
+                preferenceKey: @"showConnectedDurations"
+                     inverted: NO
+                   defaultsTo: FALSE];
+    
+    [self setValueForCheckbox: [appearancePrefsView appearanceDisplaySplashScreenCheckbox]
+                preferenceKey: @"doNotShowSplashScreen"
+                     inverted: YES
+                   defaultsTo: FALSE];
+    
+	[self setupAppearanceConnectionWindowDisplayCriteriaButton];
+    
+    // Note: setupAppearanceConnectionWindowScreenButton,
+    //       setupDisplayStatisticsWindowCheckbox, and
+    //       setupAppearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
+	// are invoked by setSelectedAppearanceConnectionWindowDisplayCriteriaIndex,
+	//                which is invoked by setupAppearanceConnectionWindowDisplayCriteriaButton
 }
 
 -(IBAction) appearanceDisplayConnectionSubmenusCheckboxWasClicked: (id) sender
@@ -2991,9 +3054,38 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
             
             [self setupDisplayStatisticsWindowCheckbox];
             [self setupDisplayStatisticsWindowWhenDisconnectedCheckbox];
+			[self setupAppearanceConnectionWindowScreenButton];
         }
     }
 }
+
+
+-(NSUInteger) selectedAppearanceConnectionWindowScreenIndex
+{
+    return selectedAppearanceConnectionWindowScreenIndex;
+}
+
+-(void) setSelectedAppearanceConnectionWindowScreenIndex: (NSUInteger) newValue
+{
+    if (  newValue != selectedAppearanceConnectionWindowScreenIndex  ) {
+        NSArrayController * ac = [appearancePrefsView appearanceConnectionWindowScreenArrayController];
+        NSArray * list = [ac content];
+        if (  newValue < [list count]  ) {
+            selectedAppearanceConnectionWindowScreenIndex = newValue;
+            
+            // Select the new size
+            [ac setSelectionIndex: newValue];
+            
+            // Set the preference if this isn't just the initialization
+            if (  ! [[NSApp delegate] doingSetupOfUI]  ) {
+                // Set the preference
+                NSNumber * displayNumber = [[list objectAtIndex: newValue] objectForKey: @"value"];
+				[gTbDefaults setObject: displayNumber forKey: @"statusDisplayNumber"];
+            }
+        }
+    }
+}
+
 
 -(IBAction) infoHelpButtonWasClicked: (id) sender
 {
@@ -3183,6 +3275,7 @@ TBSYNTHESIZE_NONOBJECT_GET(NSUInteger, selectedLeftNavListIndex)
 {
     return [configurationsPrefsView logView];
 }
+
 TBSYNTHESIZE_OBJECT_GET(retain, NSMutableArray *, leftNavDisplayNames)
 
 TBSYNTHESIZE_OBJECT(retain, NSString *, previouslySelectedNameOnLeftNavList, setPreviouslySelectedNameOnLeftNavList)

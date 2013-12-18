@@ -22,6 +22,7 @@
 
 #import "AppearanceView.h"
 #import "NSFileManager+TB.h"
+#import "MenuController.h"
 
 
 extern NSFileManager  * gFileMgr;
@@ -113,6 +114,33 @@ extern NSString       * gDeployPath;
     [appearanceConnectionWindowDisplayCriteriaArrayController setContent: cwContent];
     [appearanceConnectionWindowDisplayCriteriaButton sizeToFit];
 
+    // Connection window screen assignment popup
+    NSMutableArray * cwsContent = [NSMutableArray arrayWithCapacity: [[NSScreen screens] count] + 1];
+    
+    NSArray * screens = [[NSApp delegate] screenList];
+    
+    NSDictionary * dict = [screens objectAtIndex: 0];
+    unsigned width  = [[dict objectForKey: @"DisplayWidth"]  unsignedIntValue];
+    unsigned height = [[dict objectForKey: @"DisplayHeight"] unsignedIntValue];
+	dict = [NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSString stringWithFormat: NSLocalizedString(@"Show on default screen (%u x %u)", @"Button"), width, height], @"name",
+						   [NSNumber numberWithUnsignedInt: 0], @"value", nil];
+    [cwsContent addObject: dict];
+    
+    for (  i=0; i<[screens count]; i++  ) {
+        dict = [screens objectAtIndex: i];
+        unsigned displayNumber = [[dict objectForKey: @"DisplayNumber"] unsignedIntValue];
+		width  = [[dict objectForKey: @"DisplayWidth"]  unsignedIntValue];
+		height = [[dict objectForKey: @"DisplayHeight"] unsignedIntValue];
+        [cwsContent addObject: [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSString stringWithFormat: NSLocalizedString(@"Show on screen %u (%u x %u)", @"Button"), i, width, height], @"name",
+                                [NSNumber numberWithUnsignedInt: displayNumber], @"value",
+                                nil]];
+    }
+	
+    [appearanceConnectionWindowScreenArrayController setContent: cwsContent];
+    [appearanceConnectionWindowScreenButton sizeToFit];
+    
     [appearanceDisplayStatisticsWindowsCheckbox
      setTitle: NSLocalizedString(@"Show when the pointer is over the Tunnelblick icon", @"Checkbox name")];
     [appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox
@@ -168,6 +196,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplaySplashScreen
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowDisplayCriteriaArrayController)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceConnectionWindowDisplayCriteriaButton)
+
+TBSYNTHESIZE_OBJECT_GET(retain, NSArrayController *, appearanceConnectionWindowScreenArrayController)
+TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,          appearanceConnectionWindowScreenButton)
 
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsCheckbox)
 TBSYNTHESIZE_OBJECT_GET(retain, NSButton *,        appearanceDisplayStatisticsWindowsWhenDisconnectedCheckbox)
