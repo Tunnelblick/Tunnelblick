@@ -22,7 +22,7 @@ For the rest of this document, when discussion VPNs in general, the term "VPN" w
 ===VPNs and Anonymity -- DON'T!===
 All a VPN can do to help you surf anonymously on the Internet is make your IP address appear to be something different and mix your traffic in with traffic from other users of the VPN. However, there are many ways other than the IP address that websites can use to track you and/or find out who you are. And if a government can access activity logs your VPN service provider keeps, your anonymity can be compromised that way. And powerful organizations that can "tap" the traffic to/from both you and the VPN serviced provider could, even without such logs, correlate your traffic to a VPN service provider and their outgoing traffic to the Internet.
 
-So, *<font color="red">DON'T USE ANY VPN FOR ANONYMITY.</font>* Use [https://www.torproject.org Tor] or something similar. (And be careful even then: [http://yro.slashdot.org/comments.pl?sid=4569271&cid=45724155 ...Caught Despite Tor Use].)
+So, *<font color="red">DON'T USE ANY VPN FOR ANONYMITY.</font>* Use [https://www.torproject.org Tor] or something similar. (And be careful even then: [https://www.schneier.com/blog/archives/2013/12/tor_user_identi.html Tor User Identified by FBI].)
 
 ===VPNs and Disguised IP Addresses===
 VPNS can disguise your IP address. However, as described above in "VPNs and Anonymity", that usually isn't very helpful by itself.
