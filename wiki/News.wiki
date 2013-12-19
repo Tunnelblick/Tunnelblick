@@ -3,6 +3,22 @@
 
 *<font size="3">News</font>*
 
+2013-12-18: *Tunnelblick 3.4beta18 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
+
+ * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics and which includes Retina images. (The old icon may be selected as the 'Tunnelblick 3.3 icon' on the Appearance panel of the 'VPN Details…' window.)
+
+ * Changes to Tunnelblick's handling of computer sleep:
+   * Adds a 'Disconnect when computer goes to sleep' checkbox on the 'Advanced' settings window; it is checked by default.
+   * Before reconnecting any configurations after the computer wakes up from sleep, Tunnelblick waits for an Internet connection if checking that the IP address changed is allowed; or waits for a timeout period (the default is five seconds) if it is not.
+
+ * Allows selection of the display on which notification windows will be shown if multiple displays are available.
+
+ * Includes several other enhancements and fixes a problem converting some OpenVPN configurations to Tunnelblick VPN Configurations.
+
+ See the [RlsNotes#Version_3.4 Release Notes] for details.
+
+--------------------
+
 2013-11-22: *Tunnelblick 3.4beta16 is <a href="http://code.google.com/p/tunnelblick/wiki/DownloadsEntry?tm=2">available for download</a>*.
 
  * Adds the 'Include anonymous profile information' checkbox to the Preferences panel.
@@ -16,7 +32,6 @@
  * Includes several other enhancements and fixes several other problems.
 
  See the [RlsNotes#Version_3.4 Release Notes] for details.
-
 
 --------------------
 

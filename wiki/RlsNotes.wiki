@@ -9,6 +9,26 @@
 
 ==Version 3.4==
 
+*3.4beta18 (2013-12-18)*
+
+ * Includes a new status icon (the icon in the menu bar) more in keeping with recent OS X aesthetics and which includes Retina images. (The old icon may be selected as the 'Tunnelblick 3.3 icon' on the Appearance panel of the 'VPN Details…' window.)
+
+ * Changes to Tunnelblick's handling of computer sleep:
+   * Adds a 'Disconnect when computer goes to sleep' checkbox on the 'Advanced' settings window; it is checked by default.
+   * Before reconnecting any configurations after the computer wakes up from sleep, Tunnelblick waits for an Internet connection if checking that the IP address changed is allowed; or waits for a timeout period (the default is five seconds) if it is not.
+
+ * Allows selection of the display on which notification windows will be shown if multiple displays are available.
+
+ * Adds a 'Run MTU maximum size test after connecting' checkbox to the 'While Connected' tab of the 'Advanced' window.
+
+ * Adds a button to obtain additional information when the user is asked if Tunnelblick should check for apparent public IP address changes. Clicking the button displays the new "Privacy and Security" wiki page.
+
+ * Adds a symlink named 'default' to the Contents/Resources/openvpn' folder. The link points to the default OpenVPN binary, which is the lowest version of OpenVPN included in that copy of Tunnelblick. (Useful for scripts: they needn't search the 'openvpn' folder to find an OpenVPN binary.)
+
+ * Fixes a problem converting some OpenVPN configurations to Tunnelblick VPN Configurations.
+
+--------------------
+
 *3.4beta16 (2013-11-22)*
 
  * Adds the 'Include anonymous profile information' checkbox to the Preferences panel.
