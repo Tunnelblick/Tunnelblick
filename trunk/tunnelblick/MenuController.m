@@ -5985,6 +5985,7 @@ void terminateBecauseOfBadConfiguration(void)
         unsigned sleepTime = [gTbDefaults unsignedIntForKey: @"delayBeforeReconnectingAfterSleep" default: 5 min: 0 max: 300];
 		NSLog(@"DEBUG: wokeUpFromSleep: cannot check IP address to determine connectivity so sleeping %d seconds", sleepTime);
         sleep(sleepTime);
+        [self performSelectorOnMainThread: @selector(finishedWakingUpFromSleep) withObject: nil waitUntilDone: NO];
     }
 }
 
