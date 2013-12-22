@@ -49,6 +49,61 @@ extern TBUserDefaults * gTbDefaults;
     return self;
 }
 
+- (void) dealloc
+{
+	[leftSplitView release];
+    [outlineViewController release];
+    [leftNavDataSrc release];
+    [leftNavTableScrollView release];
+    [leftNavTableView release];
+    [leftNavTableColumn release];
+    [addConfigurationButton release];
+    [removeConfigurationButton release];
+    [workOnConfigurationPopUpButton release];
+    [workOnConfigurationArrayController release];
+    [renameConfigurationMenuItem release];
+    [duplicateConfigurationMenuItem release];
+    [makePrivateOrSharedMenuItem release];
+	[revertToShadowMenuItem release];
+	[editOpenVPNConfigurationFileMenuItem release];
+    [showOpenvpnLogMenuItem release];
+    [removeCredentialsMenuItem release];
+    [configurationsHelpButton release];
+    [disconnectButton release];
+    [connectButton release];
+    [configurationsTabView release];
+    [logTabViewItem release];
+    [logView release];
+    [progressIndicator release];
+    [logToClipboardButton release];
+    [settingsTabViewItem release];
+    [whenToConnectTFC release];
+    [whenToConnectPopUpButton release];
+    [whenToConnectManuallyMenuItem release];
+    [whenToConnectTunnelBlickLaunchMenuItem release];
+    [whenToConnectOnComputerStartMenuItem release];
+    [setNameserverTF release];
+    [setNameserverTFC release];
+    [setNameserverPopUpButton release];
+    [setNameserverArrayController release];
+    [perConfigOpenvpnVersionTFC release];
+    [perConfigOpenvpnVersionTF release];
+    [perConfigOpenvpnVersionArrayController release];
+    [perConfigOpenvpnVersionButton release];
+	[monitorNetworkForChangesCheckbox release];
+    [keepConnectedCheckbox release];
+    [alertSoundsBox release];
+    [connectionAlertSoundTFC release];
+    [disconnectionAlertSoundTFC release];
+    [soundOnConnectButton release];
+    [soundOnDisconnectButton release];
+    [soundOnConnectArrayController release];
+    [soundOnDisconnectArrayController release];
+    [advancedButton release];    
+    
+	[super dealloc];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
 	

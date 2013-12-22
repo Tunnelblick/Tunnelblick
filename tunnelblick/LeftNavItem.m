@@ -38,6 +38,7 @@ static LeftNavItem * rootItem = nil;
 }
 
 - (void) dealloc {
+	
     [nameToShowInOutlineView release];
     [displayName             release];
     [parent                  release];

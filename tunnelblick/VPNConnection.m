@@ -59,7 +59,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void)             afterFailureHandler:            (NSTimer *)     timer;
 
--(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow;
+-(NSArray *)        argumentsForOpenvpnstartForNow: (BOOL)          forNow
+							   skipFindingFreePort: (BOOL)          skipFindingFreePort;
 
 -(void)             clearStatisticsRatesDisplay;
 
@@ -729,7 +730,7 @@ static pthread_mutex_t deleteLogsMutex = PTHREAD_MUTEX_INITIALIZER;
 -(BOOL) makeDictionary: (NSDictionary * *)  dict withLabel: (NSString *) daemonLabel openvpnstartArgs: (NSMutableArray * *) openvpnstartArgs
 {
 	NSString * openvpnstartPath = [[NSBundle mainBundle] pathForResource: @"openvpnstart" ofType: nil];
-    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO] mutableCopy] autorelease];
+    *openvpnstartArgs = [[[self argumentsForOpenvpnstartForNow: NO skipFindingFreePort: YES] mutableCopy] autorelease];
     if (  ! (*openvpnstartArgs)  ) {
         return NO;
     }
@@ -1430,7 +1431,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
     [self clearLog];
     
-    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES]];
+    [self setArgumentsUsedToStartOpenvpnstart: [self argumentsForOpenvpnstartForNow: YES skipFindingFreePort: NO]];
     [argumentsUsedToStartOpenvpnstart retain];
     
     if (  argumentsUsedToStartOpenvpnstart == nil  ) {
@@ -1648,6 +1649,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 }
 
 -(NSArray *) argumentsForOpenvpnstartForNow: (BOOL) forNow
+						skipFindingFreePort: (BOOL) skipFindingFreePort
 {
     NSString * cfgPath = [self configPath];
 
@@ -1662,7 +1664,8 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
     BOOL useShared     = [cfgPath hasPrefix: [L_AS_T_SHARED stringByAppendingString: @"/"]];
     
     NSString *portString;
-    if (  forNow  ) {
+	if (   forNow
+		&& ( ! skipFindingFreePort)  ) {
         int thePort = getFreePort();
         if (  thePort == 0  ) {
             return nil;
@@ -3139,7 +3142,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
 -(void) runScriptNamed: (NSString *) scriptName openvpnstartCommand: (NSString *) command
 {
     if (  [[configPath pathExtension] isEqualToString: @"tblk"]  ) {
-		NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES];
+		NSArray * startArguments = [self argumentsForOpenvpnstartForNow: YES skipFindingFreePort: YES];
 		if (  startArguments  ) {
 			NSArray * arguments = [NSArray arrayWithObjects:
 								   command,

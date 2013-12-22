@@ -145,6 +145,7 @@
 
 - (void) dealloc
 {
+	[iconIV                 release];
     [mainText               release];
     [cancelButton           release];
     [OKButton               release];

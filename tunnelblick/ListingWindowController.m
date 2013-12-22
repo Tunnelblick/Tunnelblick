@@ -35,9 +35,11 @@
 }
 
 -(void) dealloc {
-    
+	
+	[listingView release];
 	[heading release];
 	[text    release];
+	
     [super dealloc];
 }
 

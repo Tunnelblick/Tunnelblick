@@ -721,9 +721,6 @@ BOOL needToConvertNonTblks(void);
         
 		[self createMenu];
         
-        // logScreen is a MyPrefsWindowController, but the sharedPrefsWindowController is a DBPrefsWindowController
-        logScreen = (id) [MyPrefsWindowController sharedPrefsWindowController];
-        
         [self setState: @"EXITING"]; // synonym for "Disconnected"
         
         [[NSNotificationCenter defaultCenter] addObserver: self 
@@ -731,11 +728,6 @@ BOOL needToConvertNonTblks(void);
                                                      name: @"TunnelblickUIShutdownNotification" 
                                                    object: nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver: logScreen 
-                                                 selector: @selector(logNeedsScrollingHandler:) 
-                                                     name: @"LogDidChange" 
-                                                   object: nil];
-		
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(screenParametersChangedHandler:)
                                                      name: NSApplicationDidChangeScreenParametersNotification
@@ -1087,7 +1079,7 @@ BOOL needToConvertNonTblks(void);
     
     [self updateScreenList];
     [self recreateStatusItemAndMenu];
-	[logScreen setupAppearanceConnectionWindowScreenButton];
+	[[self logScreen] setupAppearanceConnectionWindowScreenButton];
 }
 
 -(void) screenParametersChangedHandler: (NSNotification *) n {
@@ -1996,7 +1988,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
                 if (  [[conn state] isEqualToString: @"CONNECTED"]) {
                     [self setShowDurationsTimer: [NSTimer scheduledTimerWithTimeInterval: 1.0
                                                                                   target: self
-                                                                                selector: @selector(updateNavigationLabels)
+                                                                                selector: @selector(updateNavigationLabelsTimerTick:)
                                                                                 userInfo: nil
                                                                                  repeats: YES]];
                     [showDurationsTimer tbSetTolerance: -1.0];
@@ -2009,7 +2001,13 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(void)updateNavigationLabels
 {
-    [logScreen updateNavigationLabels];
+    [[self logScreen] updateNavigationLabels];
+}
+
+-(void)updateNavigationLabelsTimerTick: (NSTimer *) timer {
+	
+	(void) timer;
+	[self performSelectorOnMainThread: @selector(updateNavigationLabels) withObject: nil waitUntilDone: NO];
 }
 
 // If any new config files have been added, add each to the menu and add tabs for each to the Log window.
@@ -2058,7 +2056,7 @@ static pthread_mutex_t myVPNMenuMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     
     if (  needToUpdateLogWindow  ) {
-        [logScreen update];
+        [[self logScreen] update];
     }
 }
 
@@ -2195,7 +2193,7 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
 - (void)connectionStateDidChange:(id)connection
 {
 	[self updateNavigationLabels];
-    [logScreen validateConnectAndDisconnectButtonsForConnection: connection];
+    [[self logScreen] validateConnectAndDisconnectButtonsForConnection: connection];
 }
 
 - (void) updateIconImage
@@ -2653,9 +2651,12 @@ BOOL anyNonTblkConfigs(void)
 {
 	(void) sender;
 	
-    [[MyPrefsWindowController sharedPrefsWindowController] showWindow: nil];
-    [NSApp activateIgnoringOtherApps:YES];  // Force Preferences window to front (if it already exists and is covered by another window)
-
+	if (  ! logScreen  ) {
+		logScreen = (MyPrefsWindowController *)[[MyPrefsWindowController sharedPrefsWindowController] retain];
+	}
+	
+	[logScreen showWindow: nil];
+	[NSApp activateIgnoringOtherApps:YES];
 }
 
 - (void) networkConfigurationDidChange
@@ -3474,7 +3475,7 @@ static void signal_handler(int signalNumber)
     VPNConnection * connection;
     while (  (connection = [connEnum nextObject])  ) {
         if (  ! [connection tryingToHookup]  ) {
-            [logScreen validateWhenConnectingForConnection: connection];
+           [[self logScreen] validateWhenConnectingForConnection: connection];
         }
     }
     
@@ -3928,7 +3929,7 @@ static void signal_handler(int signalNumber)
 		
 		if (   runningOnSnowLeopardOrNewer()
 			&& ( ! [gTbDefaults boolForKey: @"doNotShowOutlineViewOfConfigurations"] )  ) {
-			ConfigurationsView      * cv     = [logScreen configurationsPrefsView];
+			ConfigurationsView      * cv     = [[self logScreen] configurationsPrefsView];
 			LeftNavViewController   * ovc    = [cv outlineViewController];
 			NSOutlineView           * ov     = [ovc outlineView];
 			NSIndexSet              * idxSet = [ov selectedRowIndexes];
@@ -3976,22 +3977,24 @@ static void signal_handler(int signalNumber)
 				NSLog(@"setPreferenceForSelectedConfigurationsWithKey: No configuration is selected so cannot change the '%@' preference", key);
 			}
 		} else {
-            ConfigurationsView * cv = [logScreen configurationsPrefsView];
+            ConfigurationsView * cv = [[self logScreen] configurationsPrefsView];
 			NSTableView        * tv = [cv leftNavTableView];
-			NSUInteger  selectedIdx = [tv selectedRow];
-            
-            NSMutableArray * displayNames = [logScreen leftNavDisplayNames];
-            NSString * displayName = [displayNames objectAtIndex: selectedIdx];
-            if (  [displayName length] != 0 ) {
-                NSString * actualKey = [displayName stringByAppendingString: key];
-				if (  setPref  ) {
-					[gTbDefaults setObject: newValue forKey: actualKey];
+			if (  tv  ) {
+				NSUInteger  selectedIdx = [tv selectedRow];
+				
+				NSMutableArray * displayNames = [[self logScreen] leftNavDisplayNames];
+				NSString * displayName = [displayNames objectAtIndex: selectedIdx];
+				if (  [displayName length] != 0 ) {
+					NSString * actualKey = [displayName stringByAppendingString: key];
+					if (  setPref  ) {
+						[gTbDefaults setObject: newValue forKey: actualKey];
+					} else {
+						[gTbDefaults removeObjectForKey: actualKey];
+					}
 				} else {
-					[gTbDefaults removeObjectForKey: actualKey];
+					NSLog(@"setPreferenceForSelectedConfigurationsWithKey: row %lu is not a configuration", (long) selectedIdx);
 				}
-            } else {
-                NSLog(@"setPreferenceForSelectedConfigurationsWithKey: row %lu is not a configuration", (long) selectedIdx);
-            }
+			}
 		}
 	} else {
         NSLog(@"setPreferenceForSelectedConfigurationsWithKey: Key and value for the preference were not provided");
@@ -6474,12 +6477,12 @@ static pthread_mutex_t threadIdsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 -(MyPrefsWindowController *) logScreen
 {
-    return logScreen;
+    return [[logScreen retain] autorelease];
 }
 
 -(NSString *) customRunOnConnectPath
 {
-    return customRunOnConnectPath;
+    return [[customRunOnConnectPath retain] autorelease];
 }
 
 -(SUUpdater *) updater

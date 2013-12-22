@@ -64,6 +64,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 		
 		[self setCrossFade:YES]; 
 		[self setShiftSlowsAnimation:YES];
+		
+		windowHasLoaded = FALSE;
 	}
 	return self;
     
@@ -79,6 +81,10 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
     // If the developer attached a window to this controller
     // in Interface Builder, it gets replaced with this one.
     
+	if (  [self window]  ) {
+		return;
+	}
+	
     NSWindow *window = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 760.0, 390.0)
 												    styleMask:(NSTitledWindowMask |
 															   NSClosableWindowMask |
@@ -89,22 +95,27 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	[self setWindow:window];
     
     [self setShouldCascadeWindows: NO];
-    
-	contentSubview = [[[NSView alloc] initWithFrame:[[[self window] contentView] frame]] autorelease];
-	[contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
+	
+	contentSubview = [[NSView alloc] initWithFrame:[[[self window] contentView] frame]];
+    [contentSubview setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable | NSViewHeightSizable)];
 	[[[self window] contentView] addSubview:contentSubview];
 	[[self window] setShowsToolbarButton:NO];
     [[self window] setContentMinSize: NSMakeSize(760.0, 390.0)];
+	
+	windowHasLoaded = TRUE;
 }
 
 
 
 
 - (void) dealloc {
+	
 	[toolbarIdentifiers release];
 	[toolbarViews release];
 	[toolbarItems release];
+	[contentSubview release];
 	[viewAnimation release];
+	
 	[super dealloc];
 }
 
@@ -237,7 +248,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
 {
-	return toolbarIdentifiers;
+	return [[toolbarIdentifiers retain] autorelease];
     
 	(void)toolbar;
 }
@@ -247,7 +258,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar 
 {
-	return toolbarIdentifiers;
+	return [[toolbarIdentifiers retain] autorelease];
     
 	(void)toolbar;
 }
@@ -257,7 +268,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-	return toolbarIdentifiers;
+	return [[toolbarIdentifiers retain] autorelease];
 	(void)toolbar;
 }
 
@@ -353,7 +364,7 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 - (NSString *)windowTitle: (NSString *) currentItemLabel
 // Subclasses can override this.
 {
-    return currentItemLabel;
+    return [[currentItemLabel retain] autorelease];
 }
 
 
@@ -450,7 +461,8 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 	return windowFrame;
 }
 
-
-
+-(BOOL)windowHasLoaded {
+	return windowHasLoaded;
+}
 
 @end

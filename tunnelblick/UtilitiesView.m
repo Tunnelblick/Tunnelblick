@@ -31,6 +31,18 @@ extern TBUserDefaults * gTbDefaults;
 
 @implementation UtilitiesView
 
+-(void) dealloc {
+	
+	[utilitiesKillAllOpenVpnButton release];
+	[utilitiesCopyConsoleLogButton release];
+	[utilitiesOpenUninstallInstructionsButton release];
+	[utilitiesRunEasyRsaButton release];
+	[utilitiesEasyRsaPathTFC release];
+	[utilitiesHelpButton release];
+	
+    [super dealloc];
+}
+
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {

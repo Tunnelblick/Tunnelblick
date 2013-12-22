@@ -106,6 +106,21 @@ extern NSArray        * gConfigurationPreferences;
 
 @implementation MyPrefsWindowController
 
+-(void) dealloc {
+	
+    [currentViewName release];
+    [configurationsPrefsView release];
+    [generalPrefsView release];
+    [appearancePrefsView release];
+    [infoPrefsView release];
+    [utilitiesPrefsView release];
+	[previouslySelectedNameOnLeftNavList release];
+	[leftNavList release];
+	[leftNavDisplayNames release];
+	
+    [super dealloc];
+}
+
 + (NSString *)nibName
 // Overrides DBPrefsWindowController method
 {
@@ -160,8 +175,6 @@ static BOOL firstTimeShowingWindow = TRUE;
 {
     [super showWindow: sender];
     
-    [[self window] center];
-    
     if (  firstTimeShowingWindow  ) {
         // Set the window's position from preferences (saved when window is closed)
         // But only if the preference's version matches the TB version (since window size could be different in different versions of TB)
@@ -181,8 +194,10 @@ static BOOL firstTimeShowingWindow = TRUE;
                 }
                 [[configurationsPrefsView leftSplitView] setFrame: leftFrame];
             }
-        }
-        
+        } else {
+			[[self window] center];
+		}
+
         firstTimeShowingWindow = FALSE;
     }
 }
@@ -725,7 +740,9 @@ static BOOL firstTimeShowingWindow = TRUE;
 
 -(void) updateConnectionStatusAndTime
 {
-	[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+	if (  [super windowHasLoaded]  ) {
+		[[self window] setTitle: [self windowTitle: NSLocalizedString(@"Configurations", @"Window title")]];
+	}
     [settingsSheetWindowController updateConnectionStatusAndTime];
 }
 

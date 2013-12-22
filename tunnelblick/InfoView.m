@@ -39,12 +39,21 @@ extern TBUserDefaults * gTbDefaults;
     return self;
 }
 
--(void) dealloc
-{
-    [logo release];
-    [scrollTimer invalidate];
-    [scrollTimer release];
-    [super dealloc];
+-(void) dealloc {
+	
+	[infoLogoIV release];
+	[infoVersionTFC release];
+	[infoDescriptionTV release];
+	[infoDescriptionSV release];
+	[infoCreditTV release];
+	[infoCreditSV release];
+	[infoCopyrightTFC release];
+	[logo release];
+	[scrollTimer invalidate];
+	[scrollTimer release];
+	[infoHelpButton release];
+	
+	[super dealloc];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
