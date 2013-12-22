@@ -153,16 +153,21 @@ static pthread_mutex_t logStorageMutex = PTHREAD_MUTEX_INITIALIZER;
     return self;
 }
 
--(void) dealloc
-{
-    [monitorQueue release];
+-(void) dealloc {
+	
+	[tbLog release];
+    [savedLog release];
 	[configurationPath release];
     [openvpnLogPath release];
     [scriptLogPath release];
-	[tbLog release];
-    [savedLog release];
+	[connection release];
+	[monitorQueue release];
     [lastOpenvpnEntryTime release];
     [lastScriptEntryTime release];
+	[lastEntryTime release];
+	[watchdogTimer release];
+	[scrollWatchdogTimer release];
+	
     [super dealloc];
 }
 

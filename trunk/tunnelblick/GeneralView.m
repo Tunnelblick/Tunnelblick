@@ -38,6 +38,32 @@ extern TBUserDefaults * gTbDefaults;
     return self;
 }
 
+-(void) dealloc {
+	
+	[keyboardShortcutTFC release];
+	[keyboardShortcutTF release];
+	[keyboardShortcutArrayController release];
+	[keyboardShortcutButton release];
+	[maxLogDisplaySizeTFC release];
+	[maxLogDisplaySizeTF release];
+	[maximumLogSizeArrayController release];
+	[maximumLogSizeButton release];
+	[warningsTFC release];
+	[warningsTF release];
+	[resetDisabledWarningsButton release];
+	[updatesUpdatesTFC release];
+	[updatesUpdatesTF release];
+	[updatesCheckAutomaticallyCheckbox release];
+	[updatesCheckForBetaUpdatesCheckbox release];
+	[updatesSendProfileInfoCheckbox release];
+	[updatesCheckNowButton release];
+	[updatesLastCheckedTFC release];
+	[updatesLastCheckedTF release];
+	[preferencesGeneralHelpButton release];
+	
+    [super dealloc];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
 	

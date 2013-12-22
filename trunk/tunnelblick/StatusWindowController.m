@@ -533,26 +533,46 @@ static pthread_mutex_t statusScreenPositionsInUseMutex = PTHREAD_MUTEX_INITIALIZ
                               forDisplayName: [self name]];
 }
 
-- (void) dealloc
-{
+- (void) dealloc {
+	
     [self stopMouseTracking];
     
     [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver: self]; 
-
-    [connectButton   release];
-    [disconnectButton release];
-    
-    [statusTFC      release];
-    [animationIV    release];
-    
-    [name           release];
-    [status         release];
-    
-    [theAnim        release];    
-    [delegate       release];
-    
+	
+	[connectButton release];
+	[disconnectButton release];
+	[configurationNameTFC release];
+	[statusTFC release];
+	[animationIV release];
+	[statisticsView release];
+	[inTFC release];
+	[inRateTFC release];
+	[inRateUnitsTFC release];
+	[inTotalTFC release];
+	[inTotalUnitsTFC release];
+	[outTFC release];
+	[outRateTFC release];
+	[outRateUnitsTFC release];
+	[outTotalTFC release];
+	[outTotalUnitsTFC release];
+	[inTF release];
+	[inRateTF release];
+	[inRateUnitsTF release];
+	[inTotalTF release];
+	[inTotalUnitsTF release];
+	[outTF release];
+	[outRateTF release];
+	[outRateUnitsTF release];
+	[outTotalTF release];
+	[outTotalUnitsTF release];
+	[name release];
+	[status release]; 
+	[connectedSince release];
+	[theAnim release];
+	[delegate release];
+	
 	[super dealloc];
 }
 
@@ -663,8 +683,9 @@ TBSYNTHESIZE_OBJECT_GET(retain, NSTextFieldCell *, outTotalUnitsTFC)
 -(void) NSWindowWillCloseNotification: (NSNotification *) n {
     // Event handler; NOT on MainThread
     
-	(void) n;
-	
-    [[NSApp delegate] mouseExitedStatusWindow: self event: nil];
+	if (  [n object] == [self window]  ) {
+		[[NSApp delegate] mouseExitedStatusWindow: self event: nil];
+	}
 }
+
 @end

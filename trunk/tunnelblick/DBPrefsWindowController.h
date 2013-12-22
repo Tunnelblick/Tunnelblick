@@ -54,6 +54,8 @@
 	
 	NSView *contentSubview;
 	NSViewAnimation *viewAnimation;
+	
+	BOOL windowHasLoaded;
 }
 
 
@@ -74,5 +76,6 @@
 - (void)crossFadeView:(NSView *)oldView withView:(NSView *)newView;
 - (NSRect)frameForView:(NSView *)view;
 
+-(BOOL)windowHasLoaded;
 
 @end

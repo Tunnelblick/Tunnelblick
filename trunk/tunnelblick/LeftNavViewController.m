@@ -33,6 +33,13 @@
     return self;
 }
 
+- (void) dealloc {
+	
+    [outlineView release];
+    
+    [super dealloc];
+}
+
 TBSYNTHESIZE_OBJECT(retain, NSOutlineView *, outlineView, setOutlineView )
 
 @end
