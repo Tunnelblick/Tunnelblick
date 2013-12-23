@@ -181,6 +181,33 @@ NSString * firstPathComponent(NSString * path)
     return [path substringToIndex: slash.location];
 }
 
+
+NSString * displayNameFromPath (NSString * thePath) {
+	
+	// Returns the display name for a configuration, given a configuration file's path (either a .tblk or a .ovpn)
+	
+	NSString * last = lastPartOfPath(thePath);
+	
+	if (  [last hasSuffix: @".tblk"]  ) {							// IS a .tblk
+		return [last substringToIndex: [last length] - 5];
+	}
+	
+	if (  [last hasSuffix: @"/Contents/Resources/config.ovpn"]  ) {	// Is IN a .tblk
+		return [[[[last stringByDeletingLastPathComponent]	// Remove config.ovpn
+				  stringByDeletingLastPathComponent]		// Remove Resources
+				 stringByDeletingLastPathComponent]			// Remove Contents
+				stringByDeletingPathExtension];				// Remove .tblk
+	}
+	
+	if (   [last hasSuffix: @".ovpn"]								// Is a non-tblk configuration file
+		|| [last hasSuffix: @".conf"]  ) {
+		return [last substringToIndex: [last length] - 5];
+	}
+	
+	NSLog(@"displayNameFromPath: invalid path '%@'", thePath);
+	return nil;
+}
+
 // Returns the path of the configuration file within a .tblk, or nil if there is no such configuration file
 NSString * configPathFromTblkPath(NSString * path)
 {
