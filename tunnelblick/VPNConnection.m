@@ -292,6 +292,8 @@ extern NSString * lastPartOfPath(NSString * thePath);
 -(void) tryToHookupToPort: (unsigned) inPortNumber
      withOpenvpnstartArgs: (NSString *) inStartArgs
 {
+    NSLog(@"DB-HU: ['%@'] invoked tryToHookupToPort: %lu withOpenvpnstartArgs: '%@'", displayName, (unsigned long)inPortNumber, inStartArgs);
+
     if (  portNumber != 0  ) {
         NSLog(@"Ignoring attempt to 'tryToHookupToPort' for '%@' -- already using port number %d", [self description], portNumber);
         return;
@@ -307,6 +309,7 @@ extern NSString * lastPartOfPath(NSString * thePath);
     
     // We set preferences of any configuration that we try to hookup, because this might be a new user who hasn't run Tunnelblick,
     // and they may be hooking up to a configuration that started when the computer starts.
+    NSLog(@"DB-HU: ['%@'] tryToHookupToPort: invoking setPreferencesFromOpenvnpstartArgString:", displayName);
     [self setPreferencesFromOpenvnpstartArgString: inStartArgs];
 
     tryingToHookup = TRUE;
@@ -489,6 +492,12 @@ extern NSString * lastPartOfPath(NSString * thePath);
 
 -(void) didHookup
 {
+    id jkb1 = [[NSApp delegate] logScreen];
+    if (  jkb1  ) {
+        NSLog(@"DB-HU: ['%@'] didHookup invoked; informing VPN Details window", displayName);
+    } else {
+        NSLog(@"DB-HU: ['%@'] didHookup invoked; VPN Details window does not exist", displayName);
+    }
     [[[NSApp delegate] logScreen] hookedUpOrStartedConnection: self];
     [self addToLog: @"*Tunnelblick: Established communication with OpenVPN"];
     [[[NSApp delegate] logScreen] validateWhenConnectingForConnection: self];
@@ -1992,6 +2001,7 @@ static pthread_mutex_t areConnectingMutex = PTHREAD_MUTEX_INITIALIZER;
 
 - (void) connectToManagementSocket
 {
+    NSLog(@"DB-HU: ['%@'] connectToManagementSocket: attempting to connect to 127.0.0.1:%lu", displayName, (unsigned long)portNumber);
     [self setManagementSocket: [NetSocket netsocketConnectedToHost: @"127.0.0.1" port: (unsigned short)portNumber]];
 }
 
@@ -2295,9 +2305,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     
 - (void) netsocketConnected: (NetSocket*) socket
 {
-    
+
     NSParameterAssert(socket == managementSocket);
     
+	if (  tryingToHookup  ) NSLog(@"DB-HU: ['%@'] netsocketConnected: invoked ; sending commands to port %lu", displayName, (unsigned long)[managementSocket remotePort]);
+	
     if (NSDebugEnabled) NSLog(@"Tunnelblick connected to management interface on port %d.", [managementSocket remotePort]);
     
     NS_DURING {
@@ -2378,31 +2390,52 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     }
 }
 
-- (void) processLine: (NSString*) line
-{
+-(void) indicateWeAreHookedUp {
+	
     if (   tryingToHookup
         && ( ! isHookedup )  ) {
-        isHookedup = TRUE;
-        tryingToHookup = FALSE;
-        [self didHookup];
-        if (  [[NSApp delegate] connectionsToRestoreOnUserActive]  ) {
-            BOOL stillTrying = FALSE;
-            NSEnumerator * e = [[[NSApp delegate] myVPNConnectionDictionary] objectEnumerator];
-            VPNConnection * connection;
-            while (  (connection = [e nextObject])  ) {
-                if (  [connection tryingToHookup]  ) {
-                    stillTrying = TRUE;
-                    break;
-                }
-            }
-            
-            if (  ! stillTrying  ) {
-                [[NSApp delegate] reconnectAfterBecomeActiveUser];
-            }
-        }
+		NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: setting isHookedup to TRUE and tryingToHookup to FALSE", displayName);
+		isHookedup = TRUE;
+		tryingToHookup = FALSE;
+		[self didHookup];
+		if (  [[NSApp delegate] connectionsToRestoreOnUserActive]  ) {
+			BOOL stillTrying = FALSE;
+			NSEnumerator * e = [[[NSApp delegate] myVPNConnectionDictionary] objectEnumerator];
+			VPNConnection * connection;
+			while (  (connection = [e nextObject])  ) {
+				if (  [connection tryingToHookup]  ) {
+					stillTrying = TRUE;
+					NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: the '%@' configuration is still trying to hook up", displayName, [connection displayName]);
+					break;
+				}
+			}
+			
+			if (  stillTrying  ) {
+				NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: one or more configurations are still trying to hook up, so NOT yet invoking app delegate's reconnectAfterBecomeActiveUser", displayName);
+            } else {
+				NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: no configurations are still trying to hook up, so invoking app delegate's reconnectAfterBecomeActiveUser", displayName);
+				[[NSApp delegate] reconnectAfterBecomeActiveUser];
+			}
+		} else {
+			NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp: '[[NSApp delegate] connectionsToRestoreOnUserActive]' is nil", displayName);
+		}
+		
+		logFilesMayExist = TRUE;
+	} else if (   isHookedup
+			   && ( ! tryingToHookup )  ) {
+		NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp invoked but are already hooked up (OK to see this message a few times)", displayName);
+	} else {
+		NSLog(@"DB-HU: ['%@'] indicateWeAreHookedUp invoked BUT tryingToHookup = %@ and isHookedUp = %@", displayName, (tryingToHookup ? @"YES" : @"NO"), (isHookedup ? @"YES" : @"NO"));
+	}
+}
+
+
+- (void) processLine: (NSString*) line
+{
+    if (  tryingToHookup  ) NSLog(@"DB-HU: ['%@'] invoked processLine:; isHookedUp = %@; line = '%@'", displayName, (isHookedup ? @"YES" : @"NO"), line);
+    if (  tryingToHookup  ) {
+		[self indicateWeAreHookedUp];
     }
-    
-    logFilesMayExist = TRUE;
     
     if (  ! [line hasPrefix: @">"]  ) {
         // Output in response to command to OpenVPN
@@ -2705,6 +2738,11 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
     NSParameterAssert(socket == managementSocket);
     NSString* line;
     
+    if (  tryingToHookup  ) {
+		NSLog(@"DB-HU: ['%@'] entered netsocket:dataAvailable: %lu; queueing indicateWeAreHookedUp", displayName, (unsigned long)inAmount);
+		[self performSelectorOnMainThread: @selector(indicateWeAreHookedUp) withObject: nil waitUntilDone: NO];
+	}
+
     while ((line = [socket readLine])) {
         // Can we get blocked here?
         //NSLog(@">>> %@", line);
@@ -2789,8 +2827,7 @@ static pthread_mutex_t lastStateMutex = PTHREAD_MUTEX_INITIALIZER;
                 pthread_mutex_unlock( &bytecountMutex );
                 
             } else {
-                
-                [self performSelectorOnMainThread: @selector(processLine:) 
+                [self performSelectorOnMainThread: @selector(processLine:)
                                        withObject: line 
                                     waitUntilDone: NO];
             }

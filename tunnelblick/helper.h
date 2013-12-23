@@ -58,6 +58,7 @@ NSString     * stringForLog             (NSString * outputString,
 
 NSString     * firstPartOfPath          (NSString * thePath);
 NSString     * lastPartOfPath           (NSString * thePath);
+NSString     * displayNameFromPath      (NSString * thePath);
 NSString     * firstPathComponent       (NSString * thePath);
 
 NSString     * deconstructOpenVPNLogPath(NSString * logPath,

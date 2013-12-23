@@ -4191,7 +4191,12 @@ static void signal_handler(int signalNumber)
     BOOL tryingToHookupToOpenVPN = FALSE;
     
     [self setPIDsWeAreTryingToHookUpTo: [NSApp pIdsForOpenVPNMainProcesses]];
+    NSLog(@"DB-HU: hookupToRunningOpenVPNs: pIDsWeAreTryingToHookUpTo = '%@'", pIDsWeAreTryingToHookUpTo);
+    
+    // Search for the latest log file for each imbedded configuration displayName
     if (  [pIDsWeAreTryingToHookUpTo count] != 0  ) {
+        NSMutableDictionary * logFileInfo = [[NSMutableDictionary alloc] initWithCapacity: 100];
+        // logFileInfo key = displayName; object = NSDictionary with info about the log file for that display name
         NSString * filename;
         NSDirectoryEnumerator * dirEnum = [gFileMgr enumeratorAtPath: L_AS_T_LOGS];
         while (  (filename = [dirEnum nextObject])  ) {
@@ -4199,28 +4204,59 @@ static void signal_handler(int signalNumber)
             NSString * oldFullPath = [L_AS_T_LOGS stringByAppendingPathComponent: filename];
             if (  [[filename pathExtension] isEqualToString: @"log"]) {
                 if (  [[[filename stringByDeletingPathExtension] pathExtension] isEqualToString: @"openvpn"]) {
+                    NSDate * thisFileDate = [[gFileMgr tbFileAttributesAtPath: oldFullPath traverseLink: NO] fileCreationDate];
+                    NSLog(@"DB-HU: hookupToRunningOpenVPNs: found OpenVPN log file '%@' created %@", filename, thisFileDate);
                     unsigned port = 0;
                     NSString * startArguments = nil;
                     NSString * cfgPath = [self deconstructOpenVPNLogPath: oldFullPath
                                                                   toPort: &port
                                                              toStartArgs: &startArguments];
-                    NSArray * keysForConfig = [[self myConfigDictionary] allKeysForObject: cfgPath];
-                    unsigned long keyCount = [keysForConfig count];
-                    if (  keyCount == 0  ) {
-                        NSLog(@"No keys in myConfigDictionary for %@", cfgPath);
-                    } else {
-                        if (  keyCount != 1  ) {
-                            NSLog(@"Using first of %ld keys in myConfigDictionary for %@", keyCount, cfgPath);
-                        }
-                        NSString * displayName = [keysForConfig objectAtIndex: 0];
-                        VPNConnection * connection = [[self myVPNConnectionDictionary] objectForKey: displayName];
-                        if (  connection  ) {
-                            [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
-                            tryingToHookupToOpenVPN = TRUE;
-                        }
-                    }
-                }
-            }
+                    NSString * displayName = displayNameFromPath(cfgPath);
+					if (  displayName  ) {
+						VPNConnection * connection = [myVPNConnectionDictionary objectForKey: displayName];
+						if (  connection  ) {
+							NSDictionary * bestLogInfoSoFar = [logFileInfo objectForKey: displayName];
+							if (   (! bestLogInfoSoFar)
+								|| (  [thisFileDate isGreaterThan: [bestLogInfoSoFar objectForKey: @"fileCreationDate"]])  ) {
+								NSDictionary * newEntry = [NSDictionary dictionaryWithObjectsAndKeys:
+														   thisFileDate,                    @"fileCreationDate",
+														   startArguments,                  @"openvpnstartArgs",
+														   [NSNumber numberWithInt: port],  @"port",
+														   connection,                      @"connection",
+														   nil];
+								[logFileInfo setObject: newEntry forKey: displayName];
+								NSLog(@"DB-HU: hookupToRunningOpenVPNs: file is the best so far for '%@'", displayName);
+							} else {
+								NSLog(@"DB-HU: hookupToRunningOpenVPNs: file is not the best so far for '%@'; skipping it", displayName);
+							}
+						} else {
+							NSLog(@"DB-HU: hookupToRunningOpenVPNs: no configuration available for '%@' -- ignoring '%@'", displayName, filename);
+						}
+					} else {
+						NSLog(@"DB-HU: hookupToRunningOpenVPNs: could not extract displayName from '%@' -- ignoring '%@'", cfgPath, filename);
+					}
+				} else {
+					NSLog(@"DB-HU: hookupToRunningOpenVPNs: not an OpenVPN log file -- ignoring '%@'", filename);
+				}
+			} else {
+				NSLog(@"DB-HU: hookupToRunningOpenVPNs: not a log file -- ignoring '%@'", filename);
+			}
+		}
+        
+        NSLog(@"DB-HU: hookupToRunningOpenVPNs: logFileInfo = %@", logFileInfo);
+        
+        // Now try to hook up to the OpenVPN process for the latest log file for each displayName
+        NSString * displayName;
+        NSEnumerator * e = [logFileInfo keyEnumerator];
+        while (  (displayName = [e nextObject])  ) {
+            NSDictionary * entry = [logFileInfo objectForKey: displayName];
+            unsigned        port           = [[entry objectForKey: @"port"] intValue];
+            VPNConnection * connection     = [entry objectForKey: @"connection"];
+            NSString      * startArguments = [entry objectForKey: @"openvpnstartArgs"];
+            
+            NSLog(@"DB-HU: hookupToRunningOpenVPNs: will try to hook up '%@' using port %u", displayName, port);
+            [connection tryToHookupToPort: port withOpenvpnstartArgs: startArguments];
+            tryingToHookupToOpenVPN = TRUE;
         }
     }
     
