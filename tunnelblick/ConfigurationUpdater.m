@@ -113,12 +113,13 @@ extern BOOL                   gShuttingDownWorkspace;
     return nil;
 }
 
--(void) dealloc
-{
-    [cfgBundlePath release];
-    [cfgUpdater release];
-    [cfgBundle release];
-    [cfgFeedURL release];
+-(void) dealloc {
+    
+    [cfgBundlePath release]; cfgBundlePath = nil;
+    [cfgUpdater    release]; cfgUpdater    = nil;
+    [cfgBundle     release]; cfgBundle     = nil;
+    [cfgFeedURL    release]; cfgFeedURL    = nil;
+    
     [super dealloc];
 }
 

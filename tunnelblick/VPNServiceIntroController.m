@@ -94,16 +94,9 @@
     }
 }
 
-- (void) dealloc
-{
-    [createAccountButton release];
-    [loginButton         release];
-    [quitButton          release];
-    [introIV         release];
-	
-    [introTFC            release];
+- (void) dealloc {
     
-    [delegate            release];
+    [delegate release]; delegate = nil;
     
 	[super dealloc];
 }

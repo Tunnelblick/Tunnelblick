@@ -123,21 +123,9 @@
     }
 }
 
-- (void) dealloc
-{
-    [nextButton                         release];
-    [cancelBackButton                   release];
+- (void) dealloc {
     
-    [createAccountTFC                   release];
-	[emailAddressTFC                    release];
-	[passwordTFC                        release];
-	[passwordConfirmTFC                 release];
-    
-    [emailAddressTF                     release];
-    [passwordTF                         release];
-    [passwordConfirmTF                  release];
-    
-    [delegate                           release];
+    [delegate release]; delegate = nil;
     
 	[super dealloc];
 }

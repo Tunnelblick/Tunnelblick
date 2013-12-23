@@ -51,7 +51,7 @@
 
 -(void) dealloc
 {
-    [string release];
+    [string release]; string = nil;
     
     [super dealloc];
 }

@@ -88,84 +88,9 @@ extern TBUserDefaults       * gTbDefaults;
 
 -(void) dealloc {
 	
-	[configurationName release];
-	[connection release];
-	[settingsSheet release];
-	[tabView release];
-	[connectingAndDisconnectingTabViewItem release];
-	[whileConnectedTabViewItem release];
-	[credentialsTabViewItem release];
-	[configurationNameTFC release];
-	[configurationStatusTFC release];
-	[checkIPAddressAfterConnectOnAdvancedCheckbox release];
-	[showOnTunnelBlickMenuCheckbox release];
-	[flushDnsCacheCheckbox release];
-	[prependDomainNameCheckbox release];
-	[disconnectOnSleepCheckbox release];
-	[reconnectOnWakeFromSleepCheckbox release];
-	[resetPrimaryInterfaceAfterDisconnectCheckbox release];
-	[connectingHelpButton release];
-	[disconnectWhenUserSwitchesOutCheckbox release];
-	[reconnectWhenUserSwitchesInCheckbox release];
-	[ifConnectedWhenUserSwitchedOutTFC release];
-	[ifConnectedWhenUserSwitchedOutTF release];
-	[fastUserSwitchingBox release];
-	[loadTunPopUpButton release];
-	[loadTunAutomaticallyMenuItem release];
-	[loadTunAlwaysMenuItem release];
-	[loadTunNeverMenuItem release];
-	[loadTapPopUpButton release];
-	[loadTapAutomaticallyMenuItem release];
-	[loadTapAlwaysMenuItem release];
-	[loadTapNeverMenuItem release];
-	[routeAllTrafficThroughVpnCheckbox release];
-	[runMtuTestCheckbox release];
-	[monitorNetworkForChangesCheckbox release];
-	[DnsWinsBox release];
-	[whileConnectedHelpButton release];
-	[networkSettingTFC release];
-	[whenChangesToPreVpnValueTFC release];
-	[whenChangesToAnythingElseTFC release];
-	[networkSettingTF release];
-	[whenChangesToPreVpnValueTF release];
-	[whenChangesToAnythingElseTF release];
-	[dnsServersPopUpButton release];
-	[domainPopUpButton release];
-	[searchDomainPopUpButton release];
-	[winsServersPopUpButton release];
-	[netBiosNamePopUpButton release];
-	[workgroupPopUpButton release];
-	[otherdnsServersPopUpButton release];
-	[otherdomainPopUpButton release];
-	[othersearchDomainPopUpButton release];
-	[otherwinsServersPopUpButton release];
-	[othernetBiosNamePopUpButton release];
-	[otherworkgroupPopUpButton release];
-	[dnsServersArrayController release];
-	[domainArrayController release];
-	[searchDomainArrayController release];
-	[winsServersArrayController release];
-	[netBiosNameArrayController release];
-	[workgroupArrayController release];
-	[otherdnsServersArrayController release];
-	[otherdomainArrayController release];
-	[othersearchDomainArrayController release];
-	[otherwinsServersArrayController release];
-	[othernetBiosNameArrayController release];
-	[otherworkgroupArrayController release];
-	[dnsServersTFC release];
-	[domainTFC release];
-	[searchDomainTFC release];
-	[winsServersTFC release];
-	[netBiosNameTFC release];
-	[workgroupTFC release];
-	[allConfigurationsUseTheSameCredentialsCheckbox release];
-	[namedCredentialsBox release];
-	[credentialsGroupButton release];
-	[credentialsGroupArrayController release];
-	[addNamedCredentialsButton release];
-	[removeNamedCredentialsButton release];
-	[removeNamedCredentialsNames release];
+	[configurationName           release]; configurationName           = nil;
+	[connection                  release]; connection                  = nil;
+	[removeNamedCredentialsNames release]; removeNamedCredentialsNames = nil;
 	
 	[super dealloc];
 }
@@ -432,6 +357,7 @@ extern TBUserDefaults       * gTbDefaults;
     
     [self initializeStaticContent];
     [self setupSettingsFromPreferences];
+    [[self window] setReleasedWhenClosed: NO];
 }
 
 //**********************************************************************************************************************************

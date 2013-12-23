@@ -42,12 +42,13 @@ extern NSString      * gPrivatePath;
 }
 
 -(void) dealloc {
-    [configPath         release];
-    [outputPath         release];
-    [configString       release];
-    [tokens             release];
-    [tokensToReplace  release];
-    [replacementStrings release];
+    
+    [outputPath         release]; outputPath         = nil;
+    [configPath         release]; configPath         = nil;
+    [configString       release]; configString       = nil;
+    [tokens             release]; tokens             = nil;
+    [tokensToReplace    release]; tokensToReplace    = nil;
+    [replacementStrings release]; replacementStrings = nil;
     
     [super dealloc];
 }

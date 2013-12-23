@@ -41,17 +41,9 @@ extern TBUserDefaults * gTbDefaults;
 
 -(void) dealloc {
 	
-	[infoLogoIV release];
-	[infoVersionTFC release];
-	[infoDescriptionTV release];
-	[infoDescriptionSV release];
-	[infoCreditTV release];
-	[infoCreditSV release];
-	[infoCopyrightTFC release];
-	[logo release];
+	[logo release];           logo        = nil;
 	[scrollTimer invalidate];
-	[scrollTimer release];
-	[infoHelpButton release];
+	[scrollTimer release];    scrollTimer = nil;
 	
 	[super dealloc];
 }

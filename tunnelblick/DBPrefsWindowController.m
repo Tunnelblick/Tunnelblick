@@ -110,11 +110,12 @@ static DBPrefsWindowController *_sharedPrefsWindowController = nil;
 
 - (void) dealloc {
 	
-	[toolbarIdentifiers release];
-	[toolbarViews release];
-	[toolbarItems release];
-	[contentSubview release];
-	[viewAnimation release];
+	[toolbarIdentifiers release]; toolbarIdentifiers = nil;
+	[toolbarViews release];       toolbarViews       = nil;
+	[toolbarItems release];       toolbarItems       = nil;
+	[contentSubview release];     contentSubview     = nil;
+	[viewAnimation release];      viewAnimation      = nil;
+	
 	
 	[super dealloc];
 }

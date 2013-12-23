@@ -95,14 +95,15 @@ extern BOOL              gShuttingDownWorkspace;
     return self;
 }
 
--(void) dealloc
-{
+-(void) dealloc {
+    
     if (  mainIconTrackingRectTagIsValid  ) {
         [self removeTrackingRect: mainIconTrackingRectTag];
 		mainIconTrackingRectTagIsValid = FALSE;
     }
     
     [[NSApp delegate] mouseExitedMainIcon: self event: nil];
+    
     [super dealloc];
 }
 

@@ -108,15 +108,11 @@ extern NSArray        * gConfigurationPreferences;
 
 -(void) dealloc {
 	
-    [currentViewName release];
-    [configurationsPrefsView release];
-    [generalPrefsView release];
-    [appearancePrefsView release];
-    [infoPrefsView release];
-    [utilitiesPrefsView release];
-	[previouslySelectedNameOnLeftNavList release];
-	[leftNavList release];
-	[leftNavDisplayNames release];
+    [currentViewName                     release]; currentViewName                     = nil;
+	[previouslySelectedNameOnLeftNavList release]; previouslySelectedNameOnLeftNavList = nil;
+	[leftNavList                         release]; leftNavList = nil;
+	[leftNavDisplayNames                 release]; leftNavDisplayNames = nil;
+    [settingsSheetWindowController       release]; settingsSheetWindowController = nil;
 	
     [super dealloc];
 }
@@ -196,6 +192,7 @@ static BOOL firstTimeShowingWindow = TRUE;
             }
         } else {
 			[[self window] center];
+            [[self window] setReleasedWhenClosed: NO];
 		}
 
         firstTimeShowingWindow = FALSE;

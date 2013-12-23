@@ -51,10 +51,11 @@
 }
 
 
-- (void) dealloc
-{
-    [serviceName release];
-    [accountName release];
+- (void) dealloc {
+    
+    [accountName release]; accountName = nil;
+    [serviceName release]; serviceName = nil;
+    
     [super dealloc];
 }
 

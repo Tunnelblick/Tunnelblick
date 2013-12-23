@@ -85,14 +85,9 @@
     }
 }
 
-- (void) dealloc
-{
-    [quitButton release];
-    [backButton release];
+- (void) dealloc {
     
-    [sorryTFC   release];
-    
-    [delegate   release];
+    [delegate release]; delegate = nil;
     
     [super dealloc];
 }

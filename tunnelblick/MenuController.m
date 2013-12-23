@@ -713,7 +713,6 @@ BOOL needToConvertNonTblks(void);
             // configure connection object:
             VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: cfgPath
                                                                     withDisplayName: dispNm];
-            [myConnection setDelegate:self];
             [tempVPNConnectionDictionary setObject: myConnection forKey: dispNm];
         }
         [self setMyVPNConnectionDictionary: [[tempVPNConnectionDictionary copy] autorelease]];
@@ -2078,7 +2077,6 @@ static pthread_mutex_t configModifyMutex = PTHREAD_MUTEX_INITIALIZER;
     }
     VPNConnection* myConnection = [[VPNConnection alloc] initWithConfigPath: path
                                                             withDisplayName: dispNm];
-    [myConnection setDelegate:self];
     
     NSMenuItem *connectionItem = [[[NSMenuItem alloc] init] autorelease];
     [connectionItem setTarget:myConnection]; 
@@ -2328,7 +2326,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 {
     // DO NOT put this code inside the mutex: we want to return immediately if computer is shutting down or restarting
     if (  gShuttingDownOrRestartingComputer  ) {
-//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances");
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Computer is shutting down or restarting; OS X will kill OpenVPN instances");
         return;
     }
     
@@ -2357,7 +2355,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
     }
     
-//    NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
+    NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: has checked for active daemons");
     
     // See if any connections that are not disconnected use down-root
     BOOL noDownRootsActive = YES;
@@ -2367,14 +2365,15 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
             NSString * useDownRootPluginKey = [[connection displayName] stringByAppendingString: @"-useDownRootPlugin"];
             if (   [gTbDefaults boolForKey: useDownRootPluginKey]  ) {
                 noDownRootsActive = NO;
-//				NSLog(@"DEBUG: %@ is not disconnected and is using the down-root plugin", [connection displayName]);
+				NSLog(@"DEBUG: %@ is not disconnected and is using the down-root plugin", [connection displayName]);
                 break;
             }
         }
     }
     
-//	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
-//		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
+	NSLog(@"DEBUG: includeDaemons = %d; noUnknownOpenVPNsRunning = %d; noActiveDaemons = %d; noDownRootsActive = %d ",
+		  (int) includeDaemons, (int) noUnknownOpenVPNsRunning, (int) noActiveDaemons, (int) noDownRootsActive);
+	
     if (   ALLOW_OPENVPNSTART_KILLALL
         && ([connectionsToLeaveConnected count] == 0)
 		&& noDownRootsActive
@@ -2383,7 +2382,7 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 			)
 		) {
         
-//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will use killAll");
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will use killAll");
 
         // Killing everything, so we use 'killall' to kill all processes named 'openvpn'
         // But first append a log entry for each connection that will be restored
@@ -2393,16 +2392,16 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
         }
         // If we've added any log entries, sleep for one second so they come before OpenVPN entries associated with closing the connections
         if (  [connectionsToRestoreOnWakeup count] != 0  ) {
-//            NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: sleeping for logs to settle");
+            NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: sleeping for logs to settle");
             sleep(1);
         }
         
-//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requested killAll");
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requested killAll");
         runOpenvpnstart([NSArray arrayWithObject: @"killall"], nil, nil);
-//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killAll finished");
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killAll finished");
     } else {
         
-//        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will kill individually");
+        NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: will kill individually");
         // Killing selected processes only -- those we know about that are not daemons
 		connEnum = [[self myVPNConnectionDictionary] objectEnumerator];
         while (  (connection = [connEnum nextObject])  ) {
@@ -2417,25 +2416,25 @@ static pthread_mutex_t killAllConnectionsIncludingDaemonsMutex = PTHREAD_MUTEX_I
 						if (  procId > 0  ) {
 							[connection addToLog: logMessage];
 							NSArray * arguments = [NSArray arrayWithObjects: @"kill", [NSString stringWithFormat: @"%ld", (long) procId], nil];
-//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName]);
+							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: killing '%@'", [connection displayName]);
 							runOpenvpnstart(arguments, nil, nil);
-//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName]);
+							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have killed '%@'", [connection displayName]);
 						} else {
 							[connection addToLog: @"*Tunnelblick: Disconnecting; all configurations are being disconnected"];
-//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName]);
+							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: disconnecting '%@'", [connection displayName]);
 							[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: NO];
-//							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
+							NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: have disconnected '%@'", [connection displayName]);
 						}
 					} else {
                         (void) procId;
-//						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
-//							  [connection displayName], (long) procId);
+						NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: requesting disconnection of '%@' (pid %lu) via disconnectAndWait",
+							  [connection displayName], (long) procId);
 						[connection disconnectAndWait: [NSNumber numberWithBool: NO] userKnows: YES];
 					}
 				} else {
-//					NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
-//						  @" it is set to connect when the computer starts.",
-//						  [connection displayName], (long) [connection pid]);
+					NSLog(@"DEBUG: killAllConnectionsIncludingDaemons: Not requesting disconnection of '%@' (pid %lu) because"
+						  @" it is set to connect when the computer starts.",
+						  [connection displayName], (long) [connection pid]);
                     ;
 				}
 			}
@@ -3729,7 +3728,8 @@ static void signal_handler(int signalNumber)
                                             default: 5
                                                 min: 0
                                                 max: 300];
-    if (  gHookupTimeout == 0) {
+    if (  gHookupTimeout == 0  ) {
+		noUnknownOpenVPNsRunning = ([[NSApp pIdsForOpenVPNMainProcesses] count] == 0);
         return FALSE;
     }
     
@@ -3994,7 +3994,9 @@ static void signal_handler(int signalNumber)
 				} else {
 					NSLog(@"setPreferenceForSelectedConfigurationsWithKey: row %lu is not a configuration", (long) selectedIdx);
 				}
-			}
+			} else {
+                NSLog(@"setPreferenceForSelectedConfigurationsWithKey: but no NSTableView is available");
+            }
 		}
 	} else {
         NSLog(@"setPreferenceForSelectedConfigurationsWithKey: Key and value for the preference were not provided");

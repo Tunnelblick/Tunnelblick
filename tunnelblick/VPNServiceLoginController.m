@@ -114,19 +114,9 @@
         [theControl setFrame:oldPos];
     }
 }
-- (void) dealloc
-{
-    [loginButton     release];
-    [quitBackButton  release];
-    [introIV         release];
+- (void) dealloc {
     
-    [emailAddressTFC release];
-    [passwordTFC     release];
-    
-	[emailAddressTF  release];
-    [passwordTF      release];
-    
-    [delegate        release];
+    [delegate release]; delegate = nil;
     
 	[super dealloc];
 }
